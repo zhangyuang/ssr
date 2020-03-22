@@ -1,0 +1,87 @@
+{
+  "name": "egg-react-ssr",
+  "version": "2.0.0",
+  "description": "The Best Scheme for Server Side Rendering",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "example"
+  },
+  "scripts": {
+    "bootstrap": "npm i && lerna bootstrap && node ./test/scripts/preInstall.js",
+    "lint": "tslint -c tslint.json -p . && standard",
+    "lint:fix": "standard --fix && tslint -c tslint.json -p . --fix",
+    "test": "node ./test/scripts/preInstall.js && npm run test:unit && npm run test:e2e",
+    "test:unit": "jest --coverage && codecov",
+    "test:e2e": "NODE_ENV=production ts-node ./test/e2e/startServer.js",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs",
+    "publish": "npm run docs:build && surge ./docs/.vuepress/dist ykfe.surge.sh --domain ykfe.net"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ykfe/egg-react-ssr.git"
+  },
+  "author": "ykfe",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ykfe/egg-react-ssr/issues"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "ignore": [
+      "**/app/public",
+      "**/dist/",
+      "**/run/",
+      "**/log/",
+      "**/lib/",
+      "**/bin/",
+      "**/es/",
+      "packages/ykfe-utils/src/loadable.js",
+      "**/node_modules/**",
+      "**/output/**",
+      "jest.setup.js"
+    ],
+    "global": [
+      "__isBrowser__",
+      "location",
+      "window",
+      "jest"
+    ]
+  },
+  "homepage": "https://github.com/ykfe/egg-react-ssr#readme",
+  "devDependencies": {
+    "@types/enzyme": "^3.10.4",
+    "@types/jest": "^24.0.18",
+    "babel-eslint": "^10.0.2",
+    "chromedriver": "^79.0.0",
+    "codecov": "^3.5.0",
+    "egg": "^2.23.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.15.1",
+    "jest": "^24.9.0",
+    "lerna": "^3.8.0",
+    "nightwatch": "^1.2.1",
+    "pre-commit": "^1.2.2",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
+    "standard": "^12.0.1",
+    "ts-jest": "^24.0.2",
+    "ts-node": "^8.5.4",
+    "tslint": "^5.17.0",
+    "tslint-config-standard": "^8.0.1",
+    "typescript": "^3.7.2",
+    "vuepress": "^0.14.8"
+  },
+  "dependencies": {}
+}

@@ -1,0 +1,79 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+
+version: 2
+
+defaults: &defaults
+  working_directory: ~/project/egg-react-ssr
+  docker:
+    - image: circleci/node:8
+
+jobs:
+  install:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-4.1-ssr-{{ .Branch }}-{{ checksum "package.json" }}
+            - v2-4.1-ssr
+      - run:
+          command: |
+            npm install --registry=https://registry.npm.taobao.org/
+            node ./test/scripts/preInstall.js
+      - save_cache:
+          paths:
+            - node_modules/
+            - ./packages/yk-cli/node_modules/
+            - ./packages/ykfe-utils/node_modules/
+          key: v2-4.1-ssr-{{ .Branch }}-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - egg-react-ssr
+
+  lint:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run: npm run lint
+
+  test:unit:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run: npm run test:unit
+
+  test:e2e:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          command: |
+            # install chromedriver module
+            sudo apt-get install libnss3-dev
+            wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+            echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
+            sudo apt-get update 
+            sudo apt-get install google-chrome-stable
+            npm run test:e2e
+
+workflows:
+  version: 2
+  install-and-parallel-test:
+    jobs:
+      - install
+      - lint:
+          requires:
+            - install
+      - test:unit:
+          requires:
+            - install
+      - test:e2e:
+          requires:
+            - install

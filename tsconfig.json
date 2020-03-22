@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "target": "esnext",
+      "module": "commonjs",
+      "lib": [
+        "esnext"
+      ],
+      "jsx": "react",
+      "declaration": true,
+      "declarationDir": "./types/",
+      "sourceMap": true,
+      "strict": true,
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "experimentalDecorators": true,
+      "resolveJsonModule": true,
+      "emitDecoratorMetadata": true /* Enables experimental support for emitting type metadata for decorators. */
+    }
+}
