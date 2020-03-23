@@ -1,8 +1,7 @@
 {
-    "extends": "./tsconfig.base",
-    "compilerOptions": {
-      "module": "esnext",
-      "importHelpers": true,
-      "target": "es2015"
-    }
+  "extends": "./tsconfig.base",
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "es2015"
+  }
 }

@@ -1,0 +1,26 @@
+service: ssr
+
+provider:
+  name: ginkgo                  # 在 Ginkgo 平台上发布 http 的就是 vipserver
+  runtime: nodejs10
+
+functions:
+  index:
+    handler: index.handler
+    render:
+        component: src.home.index
+        layout: src.home.layout
+        fetch: src.home.fetch
+        mode: ssr | csr（默认ssr）
+        injectScript:
+          - runtime~Page.js
+          - vendor.chunk.js
+          - Page.chunk.js
+        injectCSS:
+          - Page.chunk.css
+        serverBundle: Page.server.js
+    events:
+      - http:              # 设置 vipserver trigger
+          path: /
+          method:
+            - GET
