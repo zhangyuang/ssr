@@ -67,9 +67,9 @@ node_modules/
 
 docs/.vuepress/dist
 
-es
+esm
 
-lib
+cjs
 
 tests_output
 
