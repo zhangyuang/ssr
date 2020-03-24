@@ -1,6 +1,6 @@
-import * as Yaml from 'js-yaml'
 import * as fs from 'fs'
 import { resolve } from 'path'
+import * as Yaml from 'js-yaml'
 import { getCwd } from './getCwd'
 
 const parse = (path: string) => {

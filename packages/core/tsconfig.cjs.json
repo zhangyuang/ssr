@@ -1,6 +1,6 @@
 {
-  "extends": "../../tsconfig.esm.json",
+  "extends": "../../tsconfig.cjs.json",
   "compilerOptions": {
-    "outDir": "./esm"
+    "outDir": "./cjs"
   }
 }

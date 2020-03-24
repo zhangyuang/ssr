@@ -1,12 +1,11 @@
 
-import Config from 'webpack-chain'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import * as Config from 'webpack-chain'
 import { Mode } from '../interface/webpack-config'
 import { appConfig } from './config'
 
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { moduleFileExtensions } = appConfig
 const config = new Config()
-const baseConfig = config
 const mode = process.env.NODE_ENV as Mode
 
 config.stats({ children: false,entrypoints: false })
@@ -45,9 +44,18 @@ config.module
                     modules: false
                   }
                 ],
-                '@babel/preset-react'
+                ['react-app', { flow: false, typescript: true }]
               ],
-              plugins: []
+              plugins: [
+                [
+                  'import',
+                  {
+                    libraryName: 'antd',
+                    libraryDirectory: 'es',
+                    style: 'css'
+                  }
+                ]
+              ]
             })
             .end()
 
@@ -67,6 +75,7 @@ config.plugin('minify-css').use(MiniCssExtractPlugin, [{
   filename: 'static/css/[name].css',
   chunkFilename: 'static/css/[name].chunk.css'
 }])
+const baseConfig = config.toConfig()
 
 export {
   baseConfig

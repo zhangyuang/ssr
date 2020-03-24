@@ -22,9 +22,41 @@ config.entry('Page')
           .filename('[name].server.js')
           .libraryTarget('commonjs2')
 
+config.module
+    .rule('compile')
+        .test(/\.(js|mjs|jsx|ts|tsx)$/)
+        .exclude
+            .add(/node_modules/)
+            .end()
+        .use('babel-loader')
+            .loader('babel-loader')
+            .options({
+              cacheDirectory: true,
+              cacheCompression: false,
+              presets: [
+                [
+                  '@babel/preset-env',
+                  {
+                    modules: false
+                  }
+                ],
+                ['react-app', { flow: false, typescript: true }]
+              ],
+              plugins: [
+                [
+                  'import',
+                  {
+                    libraryName: 'antd',
+                    libraryDirectory: 'lib',
+                    style: 'css'
+                  }
+                ]
+              ]
+            })
+            .end()
+
 config.externals(nodeExternals({
-  whitelist: /\.(css|less|sass|scss)$/,
-  modulesDir: root // 保证读取的node_modules为当然应用的根目录
+  whitelist: /\.(css|less|sass|scss)$/
 }))
 
 config.plugin('define').use(webpack.DefinePlugin, [{

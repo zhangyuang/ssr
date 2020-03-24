@@ -1,17 +1,14 @@
-// 本文件目的是以React jsx 为模版替换掉html-webpack-plugin以及传统模版引擎, 统一ssr/csr都使用React组件来作为页面的骨架和内容部分
-import fs from 'fs'
+import * as fs from 'fs'
 import { join } from 'path'
 import webpack from 'webpack'
 import WebpackDevServer from 'webpack-dev-server'
-import { mkdir } from 'shelljs'
-import { webpackWithPromise } from './util'
 import { clientConfig }from './webapck-config/client'
 import { appConfig } from './webapck-config/config'
 
-const { PORT,root,dist,publicPath } = appConfig
-const ora = require('ora')('正在构建')
+const { PORT,root,dist, publicPath } = appConfig
+// const ora = require('ora')('正在构建')
 
-const dev = () => {
+const clientServer = () => {
   const compiler = webpack(clientConfig)
   const server = new WebpackDevServer(compiler, {
     quiet: true,
@@ -28,13 +25,10 @@ const dev = () => {
       'access-control-allow-origin': '*'
     }
   })
-  server.listen(PORT, '0.0.0.0', () => {
-    console.log(`Starting server on http://localhost:${PORT}`)
-    process.send && process.send({ msg: 'start dev finish' })
-  })
+  server.listen(PORT, '0.0.0.0')
 }
 
-const build = async () => {
+const clientBuild = async () => {
   // const outputPath = clientConfig.output.path
   // ora.start()
   // const stats: any = await webpackWithPromise(clientConfig)
@@ -61,7 +55,7 @@ const build = async () => {
   // ora.succeed()
 }
 
-module.exports = {
-  dev,
-  build
+export {
+  clientServer,
+  clientBuild
 }

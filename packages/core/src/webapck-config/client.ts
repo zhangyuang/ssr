@@ -1,6 +1,6 @@
 
-import webpack from 'webpack'
-import Config from 'webpack-chain'
+import * as webpack from 'webpack'
+import * as Config from 'webpack-chain'
 import getCSSModuleLocalIdent from 'react-dev-utils/getCSSModuleLocalIdent'
 import { baseConfig } from './base'
 import { appConfig } from './config'

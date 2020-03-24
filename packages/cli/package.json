@@ -27,13 +27,12 @@
     "url": "https://github.com/ykfe/ssr/issues"
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
-  "dependencies": {
-    "js-yaml": "^3.13.1",
-    "yargs": "^13.2.4"
-  },
   "devDependencies": {
+    "js-yaml": "^3.13.1",
+    "yargs": "^13.2.4",
     "@types/js-yaml": "^3.12.2",
     "@types/yargs": "^13.0.0",
-    "concurrently": "^5.1.0"
+    "concurrently": "^5.1.0",
+    "@ssr/core": "^1.0.0"
   }
 }

@@ -1,8 +1,9 @@
 {
-  "name": "ssr-utils",
+  "name": "@ssr/utils",
   "version": "1.0.0",
   "description": "utils for serverless ssr",
-  "main": "index.js",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.base",
   "compilerOptions": {
-    "module": "esnext",
-    "target": "es2015"
+    "module": "ESNext",
+    "target": "ES6"
   }
 }

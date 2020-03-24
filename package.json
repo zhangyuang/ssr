@@ -7,10 +7,13 @@
     "example": "example"
   },
   "scripts": {
-    "build": "lerna run build --stream --parallel",
+    "link": "lerna link",
+    "bootstrap": "lerna bootstrap",
+    "clean": "lerna clean",
     "watch": "lerna run watch --stream --parallel",
-    "lint": "tslint -c tslint.json -p . && standard",
-    "lint:fix": "standard --fix && tslint -c tslint.json -p . --fix"
+    "build": "lerna run build --stream --parallel",
+    "lint": "tslint -c tslint.json -p ./tsconfig.base.json && standard",
+    "lint:fix": "tslint -c tslint.json -p ./tsconfig.base.json --fix"
   },
   "repository": {
     "type": "git",
@@ -30,17 +33,12 @@
   "standard": {
     "parser": "babel-eslint",
     "ignore": [
-      "**/app/public",
       "**/dist/",
       "**/run/",
       "**/log/",
-      "**/lib/",
-      "**/bin/",
-      "**/es/",
-      "packages/ykfe-utils/src/loadable.js",
-      "**/node_modules/**",
-      "**/output/**",
-      "jest.setup.js"
+      "**/cjs/",
+      "**/esm/",
+      "**/node_modules/**"
     ],
     "global": [
       "__isBrowser__",
@@ -55,9 +53,9 @@
   "homepage": "https://github.com/ykfe/ssr#readme",
   "devDependencies": {
     "babel-eslint": "^10.0.2",
-    "lerna": "^3.8.0",
+    "lerna": "^3.20.2",
     "pre-commit": "^1.2.2",
-    "standard": "^12.0.1",
+    "standard": "^13.0.1",
     "tslint": "^5.17.0",
     "tslint-config-standard": "^8.0.1",
     "typescript": "^3.7.2"
