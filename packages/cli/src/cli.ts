@@ -2,15 +2,16 @@
 
 import * as yargs from 'yargs'
 import { parse } from './utils/parseYml'
+import { Argv } from './interface/argv'
 
 yargs
-  .command('start', 'start clientRender', {}, async () => {
-    const yml = parse()
-    console.log(yml.functions.index.render)
+  .default('yml', () => parse('./f.yml'))
+  .command('start', 'Start Server', {}, async (argv: yargs.Arguments<Argv>) => {
+    console.log(argv.yml)
   })
-  .command('build', 'start clientBuild', {}, async () => {
+  // .command('build', 'build server and client files', {}, async () => {
 
-  })
+  // })
   .demandCommand(1, 'You need at least one command before moving on')
   .option('version', {
     alias: 'v',

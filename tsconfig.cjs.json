@@ -1,7 +1,7 @@
 {
-    "extends": "./tsconfig.base",
-    "compilerOptions": {
-      "module": "commonjs",
-      "target": "ES5"
-    }
+  "extends": "./tsconfig.base",
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "ESNext"
+  }
 }
