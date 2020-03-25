@@ -1,8 +1,8 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { getWrappedComponent, getComponent, RouteItem } from '@ssr-utils'
-import { INodeModule, IFaaSContext, IWindow } from './interface'
+import { getWrappedComponent, getComponent, RouteItem, IFaaSContext } from '@ssr/utils'
+import { INodeModule, IWindow } from './interface'
 
 const { routes } = require('../config/config.ssr')
 

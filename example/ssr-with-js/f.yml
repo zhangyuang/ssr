@@ -1,8 +1,7 @@
-service: ssr
-
+service:
+  name: serverless-ssr
 provider:
-  name: ginkgo                  # 在 Ginkgo 平台上发布 http 的就是 vipserver
-  runtime: nodejs10
+  name: aliyun
 
 functions:
   index:

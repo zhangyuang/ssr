@@ -1,20 +1,13 @@
-import { Context }from 'midway'
-import { useCdn } from './useCdn'
-import { Config }from './interface/config'
-import { Global }from './interface/global'
+import { IFaaSContext, Global, Config }from './interface'
 
 declare const global: Global
 
-const renderToStream = async (ctx: Context, config: Config) => {
+const renderToStream = async (ctx: IFaaSContext, config: Config) => {
   const baseDir = config.baseDir || process.cwd()
   const isLocal = process.env.NODE_ENV === 'development' || config.env === 'local' // 标志非正式环境
   const useCDN = config.useCDN
   global.isLocal = isLocal
   let serverJs = config.serverJs
-
-  if (useCDN) {
-    serverJs = await useCdn(serverJs as string)
-  }
 
   if (isLocal && typeof serverJs === 'string') {
     // 本地开发环境下每次刷新的时候清空require服务端文件的缓存，保证服务端与客户端渲染结果一致

@@ -13,5 +13,4 @@ export {
   preloadComponent
 }
 
-export { Config } from './interface/config'
-export { RouteItem } from './interface/route'
+export * from './interface'
