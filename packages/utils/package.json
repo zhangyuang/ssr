@@ -5,7 +5,8 @@
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json --sourceMap false\" \" tsc -p ./tsconfig.esm.json --sourceMap false\"",
+    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
   },
   "repository": {
     "type": "git",
@@ -22,5 +23,14 @@
   "bugs": {
     "url": "https://github.com/ykfe/ssr/issues"
   },
-  "homepage": "https://github.com/ykfe/ssr#readme"
+  "homepage": "https://github.com/ykfe/ssr#readme",
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "@midwayjs/faas": "^0.2.55",
+    "@types/react": "^16.9.25",
+    "@types/react-dom": "^16.9.5"
+  }
 }

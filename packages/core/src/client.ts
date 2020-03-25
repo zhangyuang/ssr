@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import { join } from 'path'
-import webpack from 'webpack'
-import WebpackDevServer from 'webpack-dev-server'
+import * as webpack from 'webpack'
+import * as webpackDevServer from 'webpack-dev-server'
 import { clientConfig }from './webapck-config/client'
 import { appConfig } from './webapck-config/config'
 
@@ -10,7 +10,7 @@ const { PORT,root,dist, publicPath } = appConfig
 
 const clientServer = () => {
   const compiler = webpack(clientConfig)
-  const server = new WebpackDevServer(compiler, {
+  const server = new webpackDevServer(compiler, {
     quiet: true,
     disableHostCheck: true,
     publicPath: publicPath,

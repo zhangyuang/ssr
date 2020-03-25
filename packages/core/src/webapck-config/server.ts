@@ -4,7 +4,7 @@ import Config from 'webpack-chain'
 import { baseConfig } from './base'
 import { appConfig } from './config'
 
-const { root,isDev } = appConfig
+const { isDev } = appConfig
 const config = new Config()
 const nodeExternals = require('webpack-node-externals')
 
@@ -18,7 +18,7 @@ config.entry('Page')
         .add('src/index')
         .end()
         .output
-          .path('dist')
+          .path('bundle/server')
           .filename('[name].server.js')
           .libraryTarget('commonjs2')
 

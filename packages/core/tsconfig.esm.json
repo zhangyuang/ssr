@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.esm.json",
   "compilerOptions": {
-    "outDir": "./esm"
+    "outDir": "./esm",
+    "types": ["webpack-env"]
   }
 }

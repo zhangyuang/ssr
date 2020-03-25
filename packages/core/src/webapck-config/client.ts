@@ -5,7 +5,7 @@ import getCSSModuleLocalIdent from 'react-dev-utils/getCSSModuleLocalIdent'
 import { baseConfig } from './base'
 import { appConfig } from './config'
 
-const { root,publicPath,isDev } = appConfig
+const { publicPath,isDev } = appConfig
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
@@ -25,7 +25,7 @@ config.entry('Page')
         .add('src/index')
         .end()
         .output
-          .path('dist')
+          .path('bundle/client')
           .filename('static/js/[name].js')
           .chunkFilename('static/js/[name].chunk.js')
           .publicPath(publicPath)
