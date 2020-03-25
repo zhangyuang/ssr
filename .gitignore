@@ -73,16 +73,6 @@ cjs
 
 tests_output
 
-**/cache/
-
 bin
 
 package-lock.json
-
-dist
-
-output
-
-**/types/
-
-.serverBundle

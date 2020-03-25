@@ -1,0 +1,37 @@
+{
+  "name": "@ssr/types",
+  "version": "1.0.0",
+  "description": "cli for serverless ssr",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "scripts": {
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json --sourceMap false\" \" tsc -p ./tsconfig.esm.json --sourceMap false\"",
+    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
+  },
+  "bin": {
+    "ssr": "./cjs/cli.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ykfe/ssr.git"
+  },
+  "keywords": [
+    "cli",
+    "serverless",
+    "ssr",
+    "react"
+  ],
+  "author": "zhangyuang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ykfe/ssr/issues"
+  },
+  "homepage": "https://github.com/ykfe/ssr#readme",
+  "devDependencies": {
+    "@midwayjs/faas": "^0.2.55",
+    "@types/react": "^16.9.25",
+    "@types/react-dom": "^16.9.5",
+    "@types/yargs": "^15.0.4",
+    "concurrently": "^5.1.0"
+  }
+}
