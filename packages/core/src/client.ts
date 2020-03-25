@@ -5,10 +5,11 @@ import * as webpackDevServer from 'webpack-dev-server'
 import { clientConfig }from './webapck-config/client'
 import { appConfig } from './webapck-config/config'
 
-const { PORT,root,dist, publicPath } = appConfig
+const { PORT, dist, publicPath } = appConfig
+
 // const ora = require('ora')('正在构建')
 
-const clientServer = () => {
+const clientServer = (argv) => {
   const compiler = webpack(clientConfig)
   const server = new webpackDevServer(compiler, {
     quiet: true,

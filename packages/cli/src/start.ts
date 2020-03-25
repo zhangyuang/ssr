@@ -1,8 +1,8 @@
 import { clientServer } from '@ssr/core'
-import { Argv } from './interface/argv'
+import { Argv } from '@ssr/utils'
 
 const start = async (argv: Argv) => {
-  await clientServer()
+  await clientServer(argv)
 }
 
 export {

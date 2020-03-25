@@ -1,12 +1,12 @@
 // 通过使用该HOC使得组件只在客户端进行渲染
-import React, { Component } from 'react'
+import * as React from 'react'
 
 interface State {
   isCsr: boolean
 }
 
 function onlyCsr (WrappedComponent: React.FC): React.ComponentClass {
-  class OnlyCsrClass extends Component<any, State> {
+  class OnlyCsrClass extends React.Component<any, State> {
     constructor (props: any) {
       super(props)
       this.state = {

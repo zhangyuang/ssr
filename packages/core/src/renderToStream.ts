@@ -1,4 +1,4 @@
-import { IFaaSContext, Global, Config }from './interface'
+import { IFaaSContext, Global, Config }from '@ssr/utils'
 
 declare const global: Global
 

@@ -1,16 +1,11 @@
-import GetinitialProps from './components/getinitialProps'
+import getWrappedComponent from './components/getWrappedComponent'
 import onlyCsr from './components/onlyCsr'
 import getComponent from './getComponent'
-import Loadable from './loadable'
-import { preloadComponent } from './preloadComponent'
 
 export {
-  GetinitialProps,
-  GetinitialProps as getWrappedComponent,
+  getWrappedComponent,
   onlyCsr,
-  Loadable,
-  getComponent,
-  preloadComponent
+  getComponent
 }
 
-export * from './interface'
+export * from '@ssr/types'

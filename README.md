@@ -8,6 +8,7 @@ ssr-spec implement.
 
 ```bash
 $ npm run bootstrap # Install and Symlink together all Lerna packages that are dependencies of each other in the current Lerna repo.
+$ npm run watch # compile all packages with watch mode
 ```
 
 ## Install

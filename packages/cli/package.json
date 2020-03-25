@@ -29,6 +29,7 @@
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
     "@ssr/core": "^1.0.0",
+    "@ssr/utils": "^1.0.0",
     "js-yaml": "^3.13.1",
     "yargs": "^13.2.4"
   },

@@ -1,6 +1,6 @@
 
 import * as Config from 'webpack-chain'
-import { Mode } from '../interface'
+import { Mode } from '@ssr/utils'
 import { appConfig } from './config'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')

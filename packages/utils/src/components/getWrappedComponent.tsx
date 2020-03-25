@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import { withRouter,RouteComponentProps } from 'react-router-dom'
-import { FC } from '../interface/fc'
+import { FC } from '@ssr/types'
 
 let _this: any = null
 const popStateFn = () => {
@@ -15,8 +15,8 @@ interface IState {
   extraProps: Object
 }
 
-function GetInitialProps (WrappedComponent: FC): React.ComponentClass {
-  class GetInitialPropsClass extends Component<RouteComponentProps<{}>, IState> {
+function getWrappedComponent (WrappedComponent: FC): React.ComponentClass {
+  class GetInitialPropsClass extends React.Component<RouteComponentProps<{}>, IState> {
     constructor (props: RouteComponentProps) {
       super(props)
       this.state = {
@@ -59,4 +59,4 @@ function GetInitialProps (WrappedComponent: FC): React.ComponentClass {
   return withRouter(GetInitialPropsClass)
 }
 
-export default GetInitialProps
+export default getWrappedComponent
