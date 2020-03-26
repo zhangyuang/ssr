@@ -9,7 +9,7 @@
   "scripts": {
     "link": "lerna link",
     "bootstrap": "lerna bootstrap",
-    "clean": "lerna clean && rimraf packages/**/package-lock.json",
+    "clean": "lerna clean && rimraf packages/**/package-lock.json packages/**/yarn.lock",
     "watch": "lerna run watch --stream --parallel",
     "build": "lerna run build --stream --parallel",
     "lint": "tslint -c tslint.json -p ./tsconfig.base.json && standard",

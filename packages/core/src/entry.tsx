@@ -3,8 +3,6 @@ import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { getWrappedComponent, getComponent, RouteItem, IFaaSContext, INodeModule, IWindow } from '@ssr/utils'
 
-const { routes } = require('../config/config.ssr')
-
 declare const window: IWindow
 declare const module: INodeModule
 declare const __isBrowser__: boolean

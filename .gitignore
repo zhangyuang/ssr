@@ -76,3 +76,5 @@ tests_output
 bin
 
 package-lock.json
+
+yarn.lock

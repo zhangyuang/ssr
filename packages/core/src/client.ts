@@ -2,30 +2,15 @@ import * as fs from 'fs'
 import { join } from 'path'
 import * as webpack from 'webpack'
 import * as webpackDevServer from 'webpack-dev-server'
-import { clientConfig }from './webapck-config/client'
-import { appConfig } from './webapck-config/config'
-
-const { root, port, dist, publicPath } = appConfig
+import { getClientWebpack }from './webapck-config/client'
+import { webpackDevServerConfig, port } from './webapck-config/config'
 
 // const ora = require('ora')('正在构建')
 
 const startClientServer = (argv) => {
+  const clientConfig = getClientWebpack(argv)
   const compiler = webpack(clientConfig)
-  const server = new webpackDevServer(compiler, {
-    quiet: true,
-    disableHostCheck: true,
-    publicPath: publicPath,
-    hotOnly: true,
-    host: '0.0.0.0',
-    sockPort: port,
-    contentBase: `${root}/${dist}`,
-    hot: true,
-    port: port,
-    clientLogLevel: 'error',
-    headers: {
-      'access-control-allow-origin': '*'
-    }
-  })
+  const server = new webpackDevServer(compiler, webpackDevServerConfig)
   server.listen(port, '0.0.0.0')
 }
 
