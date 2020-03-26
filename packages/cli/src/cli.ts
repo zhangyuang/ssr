@@ -1,9 +1,8 @@
 #!/usr/bin / env node
 
 import * as yargs from 'yargs'
-import { Argv } from '@ssr/utils'
+import { Argv, parse } from '@ssr/utils'
 import { start } from './start'
-import { parse } from './utils/parseYml'
 
 yargs
   .default('yml', () => parse('./f.yml'))

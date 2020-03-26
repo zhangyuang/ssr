@@ -1,11 +1,9 @@
-import getWrappedComponent from './components/getWrappedComponent'
-import onlyCsr from './components/onlyCsr'
-import getComponent from './getComponent'
+/* utils */
+export * from './HOC/getWrappedComponent'
+export * from './HOC/onlyCsr'
+export * from './getComponent'
+export * from './getCwd'
+export * from './parseYml'
 
-export {
-  getWrappedComponent,
-  onlyCsr,
-  getComponent
-}
-
+/* types */
 export * from '@ssr/types'

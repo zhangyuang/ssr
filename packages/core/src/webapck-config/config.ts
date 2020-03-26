@@ -1,3 +1,5 @@
+import { getCwd } from '@ssr/utils'
+
 const publicPath = '/'
 const moduleFileExtensions = [
   'web.mjs',
@@ -13,12 +15,14 @@ const moduleFileExtensions = [
   'jsx'
 ]
 const isDev = process.env.NODE_ENV === 'development'
-const PORT = 7001
+const port = 7001
 const dist = 'dist'
+const root = getCwd()
 export const appConfig = {
+  root,
   isDev,
   publicPath,
   moduleFileExtensions,
-  PORT,
+  port,
   dist
 }

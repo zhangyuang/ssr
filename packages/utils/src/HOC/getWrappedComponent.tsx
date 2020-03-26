@@ -59,4 +59,6 @@ function getWrappedComponent (WrappedComponent: FC): React.ComponentClass {
   return withRouter(GetInitialPropsClass)
 }
 
-export default getWrappedComponent
+export {
+  getWrappedComponent
+}

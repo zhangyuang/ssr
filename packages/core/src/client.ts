@@ -5,11 +5,11 @@ import * as webpackDevServer from 'webpack-dev-server'
 import { clientConfig }from './webapck-config/client'
 import { appConfig } from './webapck-config/config'
 
-const { PORT, dist, publicPath } = appConfig
+const { root, port, dist, publicPath } = appConfig
 
 // const ora = require('ora')('正在构建')
 
-const clientServer = (argv) => {
+const startClientServer = (argv) => {
   const compiler = webpack(clientConfig)
   const server = new webpackDevServer(compiler, {
     quiet: true,
@@ -17,19 +17,19 @@ const clientServer = (argv) => {
     publicPath: publicPath,
     hotOnly: true,
     host: '0.0.0.0',
-    sockPort: PORT,
+    sockPort: port,
     contentBase: `${root}/${dist}`,
     hot: true,
-    port: PORT,
+    port: port,
     clientLogLevel: 'error',
     headers: {
       'access-control-allow-origin': '*'
     }
   })
-  server.listen(PORT, '0.0.0.0')
+  server.listen(port, '0.0.0.0')
 }
 
-const clientBuild = async () => {
+const startClientBuild = async () => {
   // const outputPath = clientConfig.output.path
   // ora.start()
   // const stats: any = await webpackWithPromise(clientConfig)
@@ -57,6 +57,6 @@ const clientBuild = async () => {
 }
 
 export {
-  clientServer,
-  clientBuild
+  startClientServer,
+  startClientBuild
 }

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { matchPath } from 'react-router-dom'
-import { FC, Config, RouteItem } from '@ssr/types'
+import { FC, RouteItem } from '@ssr/types'
 
 const NotFound: FC = () => {
   return (
@@ -15,4 +15,6 @@ const getComponent = (Routes: RouteItem[], path: string) => {
   return activeComponent
 }
 
-export default getComponent
+export {
+  getComponent
+}

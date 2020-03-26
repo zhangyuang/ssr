@@ -1,7 +1,7 @@
 import * as yargs from 'yargs'
 import { FaaSContext } from '@midwayjs/faas'
 
-export type Mode = 'none' | 'development' | 'production'
+export type Mode = 'development' | 'production'
 
 export interface IWindow extends Window {
   __USE_SSR__?: string

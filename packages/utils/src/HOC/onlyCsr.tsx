@@ -32,4 +32,6 @@ function onlyCsr (WrappedComponent: React.FC): React.ComponentClass {
   return OnlyCsrClass
 }
 
-export default onlyCsr
+export {
+  onlyCsr
+}
