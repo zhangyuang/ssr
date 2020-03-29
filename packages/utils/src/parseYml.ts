@@ -13,6 +13,17 @@ const parseYml = (path: string) => {
 }
 
 const parseRoutesFromYml = (yamlContent: Yml) => {
+  const routes = []
+  for (const key in yamlContent.functions) {
+    const func = yamlContent.functions[key]
+    func.events.forEach(event => {
+      if (event.http) {
+        routes.push({
+          path: event.http.path
+        })
+      }
+    })
+  }
 
 }
 

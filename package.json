@@ -8,7 +8,7 @@
   },
   "scripts": {
     "link": "lerna link",
-    "bootstrap": "lerna bootstrap",
+    "bootstrap": "yarn && lerna bootstrap",
     "clean": "lerna clean && rimraf packages/**/package-lock.json packages/**/yarn.lock",
     "watch": "lerna run watch --stream --parallel",
     "build": "lerna run build --stream --parallel",

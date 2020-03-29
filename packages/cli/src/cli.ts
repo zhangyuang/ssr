@@ -1,4 +1,4 @@
-#!/usr/bin / env node
+#!/usr/bin/env node
 
 import * as yargs from 'yargs'
 import { Argv, parseYml, parseRoutesFromYml } from '@ssr/utils'
