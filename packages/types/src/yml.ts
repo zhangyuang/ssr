@@ -1,6 +1,6 @@
 import * as yargs from 'yargs'
 
-export type Argv = yargs.Arguments<{ yml?: Yml }>
+export type Argv = yargs.Arguments<{ yml?: Yml, routes?: Routes}>
 
 export interface Yml {
   service: string
@@ -11,25 +11,27 @@ export interface Yml {
   functions: {
     [index: string]: {
       handler: string
-      render: {
-        component: string
-        layout?: string
-        fetch?: string
-        mode: string
-        injectScript: string[]
-        injectCss: string[]
-        serverBundle: string
-      },
+      render: Render<{}>
       events: Events[]
     }
-  },
+  }
 }
 
+export type Routes = RouteItem[]
+export type RouteItem = Render<{path: string}>
+
+export type Render<T> = T & {
+  component: string
+  layout?: string
+  fetch?: string
+  mode: string
+  injectScript: string[]
+  injectCss: string[]
+  serverBundle: string
+}
 interface Events {
-  http?: Http[]
-}
-
-interface Http {
-  path: string
-  method: string[]
+  http?: {
+    path: string
+    method: string[]
+  }
 }

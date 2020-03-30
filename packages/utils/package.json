@@ -25,12 +25,12 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
-    "@ssr/types": "^1.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
+    "@ssr/types": "^1.0.0",
     "@types/react": "^16.9.25",
     "@types/react-dom": "^16.9.5",
     "@types/react-router-dom": "^5.1.3",

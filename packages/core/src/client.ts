@@ -9,9 +9,16 @@ import { webpackDevServerConfig, port } from './webapck-config/config'
 
 const startClientServer = (argv) => {
   const clientConfig = getClientWebpack(argv)
-  const compiler = webpack(clientConfig)
-  const server = new webpackDevServer(compiler, webpackDevServerConfig)
-  server.listen(port, '0.0.0.0')
+  webpack(clientConfig, (err, stats) => { // Stats Object
+    if (err || stats.hasErrors()) {
+      console.log(err)
+      // Handle errors here
+    }
+    // Done processing
+  })
+  // const compiler = webpack(clientConfig)
+  // const server = new webpackDevServer(compiler, webpackDevServerConfig)
+  // server.listen(port, '0.0.0.0')
 }
 
 const startClientBuild = async () => {

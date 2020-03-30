@@ -1,4 +1,5 @@
 
+import { join } from 'path'
 import * as Config from 'webpack-chain'
 import { Mode } from '@ssr/utils'
 import { moduleFileExtensions } from './config'
@@ -7,18 +8,24 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const config = new Config()
 const mode = process.env.NODE_ENV as Mode
 
-config.stats({ children: false,entrypoints: false })
+config.stats({ children: false, entrypoints: false })
 config.mode(mode)
 config.module.strictExportPresence(true)
-moduleFileExtensions.map(item => {
-  config.resolve.extensions.add(`.${item}`)
-})
+
+config
+  .resolve
+  .modules
+    .add('node_modules')
+    .add(join(__dirname, '../../node_modules'))
+    .end()
+  .extensions.merge(moduleFileExtensions)
+  .end()
 
 config.module
-    .rule('url')
+    .rule('image')
         .test([/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/])
         .use('url-loader')
-            .loader('url-loader')
+            .loader(require.resolve('url-loader'))
             .options({
               limit: 10000,
               name: 'static/media/[name].[hash:8].[ext]'
@@ -32,7 +39,7 @@ config.module
             .add(/node_modules/)
             .end()
         .use('babel-loader')
-            .loader('babel-loader')
+            .loader(require.resolve('babel-loader'))
             .options({
               cacheDirectory: true,
               cacheCompression: false,
@@ -74,8 +81,7 @@ config.plugin('minify-css').use(MiniCssExtractPlugin, [{
   filename: 'static/css/[name].css',
   chunkFilename: 'static/css/[name].chunk.css'
 }])
-const baseConfig = config.toConfig()
 
 export {
-  baseConfig
+  config
 }

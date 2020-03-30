@@ -1,70 +1,68 @@
 
 import * as webpack from 'webpack'
-import * as Config from 'webpack-chain'
-import { baseConfig } from './base'
-import { appConfig } from './config'
+import { config } from './base'
+import { isDev } from './config'
 
-const { isDev } = appConfig
-const config = new Config()
 const nodeExternals = require('webpack-node-externals')
 
-config.merge(baseConfig)
+const getServerWebpack = () => {
 
-config.devtool(isDev ? 'eval-source-map' : false)
+  config.devtool(isDev ? 'eval-source-map' : false)
 
-config.target('node')
+  config.target('node')
 
-config.entry('Page')
-        .add('src/index')
-        .end()
-        .output
-          .path('bundle/server')
-          .filename('[name].server.js')
-          .libraryTarget('commonjs2')
+  config.entry('Page')
+          .add('src/index')
+          .end()
+          .output
+            .path('bundle/server')
+            .filename('[name].server.js')
+            .libraryTarget('commonjs2')
 
-config.module
-    .rule('compile')
-        .test(/\.(js|mjs|jsx|ts|tsx)$/)
-        .exclude
-            .add(/node_modules/)
-            .end()
-        .use('babel-loader')
-            .loader('babel-loader')
-            .options({
-              cacheDirectory: true,
-              cacheCompression: false,
-              presets: [
-                [
-                  '@babel/preset-env',
-                  {
-                    modules: false
-                  }
+  config.module
+      .rule('compile')
+          .test(/\.(js|mjs|jsx|ts|tsx)$/)
+          .exclude
+              .add(/node_modules/)
+              .end()
+          .use('babel-loader')
+              .loader('babel-loader')
+              .options({
+                cacheDirectory: true,
+                cacheCompression: false,
+                presets: [
+                  [
+                    '@babel/preset-env',
+                    {
+                      modules: false
+                    }
+                  ],
+                  ['react-app', { flow: false, typescript: true }]
                 ],
-                ['react-app', { flow: false, typescript: true }]
-              ],
-              plugins: [
-                [
-                  'import',
-                  {
-                    libraryName: 'antd',
-                    libraryDirectory: 'lib',
-                    style: 'css'
-                  }
+                plugins: [
+                  [
+                    'import',
+                    {
+                      libraryName: 'antd',
+                      libraryDirectory: 'lib',
+                      style: 'css'
+                    }
+                  ]
                 ]
-              ]
-            })
-            .end()
+              })
+              .end()
 
-config.externals(nodeExternals({
-  whitelist: /\.(css|less|sass|scss)$/
-}))
+  config.externals(nodeExternals({
+    whitelist: /\.(css|less|sass|scss)$/
+  }))
 
-config.plugin('define').use(webpack.DefinePlugin, [{
-  '__isBrowser__': false
-}])
+  config.plugin('define').use(webpack.DefinePlugin, [{
+    '__isBrowser__': false
+  }])
 
-const serverConfig = config.toConfig()
+  return config.toConfig()
+}
 
 export {
-  serverConfig
+  getServerWebpack
 }

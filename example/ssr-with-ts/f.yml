@@ -23,24 +23,5 @@ functions:
           path: /
           method:
             - get
-  news:
-    handler: index.handler
-    render:
-        component: src.home.index
-        layout: src.home.layout
-        fetch: src.home.fetch
-        mode: ssr
-        injectScript:
-          - runtime~Page.js
-          - vendor.chunk.js
-          - Page.chunk.js
-        injectCSS:
-          - Page.chunk.css
-        serverBundle: Page.server.js
-    events:
-      - http:              # 设置 vipserver trigger
-          path: /
-          method:
-            - get
 package:
   artifact: code.zip

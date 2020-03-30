@@ -1,9 +1,9 @@
 
 import * as webpack from 'webpack'
-import * as Config from 'webpack-chain'
+import { join } from 'path'
 import { Argv } from '@ssr/utils'
-import { baseConfig } from './base'
-import { publicPath,isDev, chunkName } from './config'
+import { config } from './base'
+import { publicPath,isDev, chunkName, cwd, clientOutPut, useHash } from './config'
 
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
@@ -16,21 +16,16 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 
-const config = new Config()
-
-config.merge(baseConfig)
-
 const getClientWebpack = (argv: Argv) => {
-
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
 
   config.entry(chunkName)
           .add('../entry.tsx')
           .end()
           .output
-            .path('bundle/client')
-            .filename('static/js/[name].js')
-            .chunkFilename('static/js/[name].chunk.js')
+            .path(`${cwd}/${clientOutPut}`)
+            .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
+            .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].chunk.js')
             .publicPath(publicPath)
 
   config.optimization
@@ -50,7 +45,7 @@ const getClientWebpack = (argv: Argv) => {
       }
     })
     .when(!isDev, config => {
-      config.minimizer('js')
+      config.minimizer('terser')
         .use(TerserPlugin, [{
           terserOptions: {
             parse: {
@@ -90,10 +85,11 @@ const getClientWebpack = (argv: Argv) => {
   config.module
       .rule('less')
         .test(/\.less$/)
-        .use(MiniCssExtractPlugin.loader)
+        .use('minicss')
+        .loader(MiniCssExtractPlugin.loader)
           .end()
         .use('css-loader')
-          .loader('css-loader')
+          .loader(require.resolve('css-loader'))
           .options({
             importLoaders: 2,
             modules: true,
@@ -101,7 +97,7 @@ const getClientWebpack = (argv: Argv) => {
           })
           .end()
         .use('postcss-loader')
-          .loader('postcss-loader')
+          .loader(require.resolve('postcss-loader'))
           .options({
             ident: 'postcss',
             plugins: () => [
@@ -116,15 +112,15 @@ const getClientWebpack = (argv: Argv) => {
           })
           .end()
         .use('less-loader')
-          .loader('less-loader')
+          .loader(require.resolve('less-loader'))
           .end()
 
   config.plugin('define').use(webpack.DefinePlugin, [{
     '__isBrowser__': true,
-    'routes': argv.yml.render
+    'routes': JSON.stringify(argv.routes)
   }])
 
-  config.plugin('moduleNotFound').use(ModuleNotFoundPlugin, [root])
+  config.plugin('moduleNotFound').use(ModuleNotFoundPlugin, [cwd])
 
   config.plugin('manifest').use(ManifestPlugin, [{
     fileName: 'asset-manifest.json',
@@ -134,6 +130,7 @@ const getClientWebpack = (argv: Argv) => {
   config.when(generateAnalysis, config => {
     config.plugin('analyze').use(BundleAnalyzerPlugin)
   })
+  console.log(config.toConfig())
   return config.toConfig()
 }
 

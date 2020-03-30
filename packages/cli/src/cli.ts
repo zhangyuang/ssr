@@ -5,10 +5,11 @@ import { Argv, parseYml, parseRoutesFromYml } from '@ssr/utils'
 import { start } from './start'
 
 const yamlContent = parseYml('./f.yml')
+const routes = parseRoutesFromYml(yamlContent)
 
 yargs
-  .default('Routes', () => parseRoutesFromYml(yamlContent))
   .command('start', 'Start Server', {}, async (argv: Argv) => {
+    argv.routes = routes
     await start(argv)
   })
   .command('build', 'build server and client files', {}, async () => {

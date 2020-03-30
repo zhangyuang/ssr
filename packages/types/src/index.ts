@@ -57,5 +57,5 @@ export interface ServerJs {
 export interface RouteItem {
   path: string
   exact?: boolean
-  Component: () => FC
+  component: FC
 }

@@ -1,5 +1,6 @@
 import { getCwd } from '@ssr/utils'
 
+type ClientLogLevel = 'error'
 const publicPath = '/'
 const moduleFileExtensions = [
   'web.mjs',
@@ -14,15 +15,15 @@ const moduleFileExtensions = [
   'web.jsx',
   'jsx'
 ]
+
 const isDev = process.env.NODE_ENV === 'development'
-const port = 7001
-const dist = 'bundle/client'
-const root = getCwd()
+const port = 8000
+const cwd = getCwd()
 const chunkName = 'Page'
-
-type ClientLogLevel = 'error'
+const clientOutPut = 'build/client'
+const serverOutPut = 'build/server'
 const clientLogLevel: ClientLogLevel = 'error'
-
+const useHash = false
 const webpackDevServerConfig = {
   quiet: true,
   disableHostCheck: true,
@@ -30,7 +31,7 @@ const webpackDevServerConfig = {
   hotOnly: true,
   host: '0.0.0.0',
   sockPort: port,
-  contentBase: `${root}/${dist}`,
+  contentBase: `${cwd}/${clientOutPut}`,
   hot: true,
   port: port,
   clientLogLevel: clientLogLevel,
@@ -39,12 +40,14 @@ const webpackDevServerConfig = {
   }
 }
 export {
-  root,
+  cwd,
   isDev,
   publicPath,
+  useHash,
   moduleFileExtensions,
   port,
-  dist,
   chunkName,
+  clientOutPut,
+  serverOutPut,
   webpackDevServerConfig
 }
