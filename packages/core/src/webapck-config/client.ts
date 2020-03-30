@@ -1,9 +1,8 @@
 
 import * as webpack from 'webpack'
-import { join } from 'path'
 import { Argv } from '@ssr/utils'
 import { config } from './base'
-import { publicPath,isDev, chunkName, cwd, clientOutPut, useHash } from './config'
+import { publicPath,isDev, chunkName, cwd, clientOutPut, useHash, loadModule } from './config'
 
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
@@ -20,13 +19,13 @@ const getClientWebpack = (argv: Argv) => {
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
 
   config.entry(chunkName)
-          .add('../entry.tsx')
+          .add('/Users/zhangyuang/Desktop/github/ssr/packages/core/src/entry.tsx')
           .end()
-          .output
-            .path(`${cwd}/${clientOutPut}`)
-            .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
-            .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].chunk.js')
-            .publicPath(publicPath)
+        .output
+          .path(`${cwd}/${clientOutPut}`)
+          .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
+          .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].chunk.js')
+          .publicPath(publicPath)
 
   config.optimization
     .runtimeChunk(true)
@@ -89,7 +88,7 @@ const getClientWebpack = (argv: Argv) => {
         .loader(MiniCssExtractPlugin.loader)
           .end()
         .use('css-loader')
-          .loader(require.resolve('css-loader'))
+          .loader(loadModule('css-loader'))
           .options({
             importLoaders: 2,
             modules: true,
@@ -97,7 +96,7 @@ const getClientWebpack = (argv: Argv) => {
           })
           .end()
         .use('postcss-loader')
-          .loader(require.resolve('postcss-loader'))
+          .loader(loadModule('postcss-loader'))
           .options({
             ident: 'postcss',
             plugins: () => [
@@ -112,7 +111,7 @@ const getClientWebpack = (argv: Argv) => {
           })
           .end()
         .use('less-loader')
-          .loader(require.resolve('less-loader'))
+          .loader(loadModule('less-loader'))
           .end()
 
   config.plugin('define').use(webpack.DefinePlugin, [{
@@ -130,7 +129,7 @@ const getClientWebpack = (argv: Argv) => {
   config.when(generateAnalysis, config => {
     config.plugin('analyze').use(BundleAnalyzerPlugin)
   })
-  console.log(config.toConfig())
+
   return config.toConfig()
 }
 

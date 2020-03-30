@@ -39,6 +39,7 @@ const webpackDevServerConfig = {
     'access-control-allow-origin': '*'
   }
 }
+const loadModule = require.resolve
 export {
   cwd,
   isDev,
@@ -49,5 +50,6 @@ export {
   chunkName,
   clientOutPut,
   serverOutPut,
+  loadModule,
   webpackDevServerConfig
 }

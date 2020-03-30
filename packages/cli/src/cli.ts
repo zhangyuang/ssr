@@ -9,6 +9,7 @@ const routes = parseRoutesFromYml(yamlContent)
 
 yargs
   .command('start', 'Start Server', {}, async (argv: Argv) => {
+    process.env.NODE_ENV = 'development'
     argv.routes = routes
     await start(argv)
   })

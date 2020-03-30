@@ -10,10 +10,7 @@ import { webpackDevServerConfig, port } from './webapck-config/config'
 const startClientServer = (argv) => {
   const clientConfig = getClientWebpack(argv)
   webpack(clientConfig, (err, stats) => { // Stats Object
-    if (err || stats.hasErrors()) {
-      console.log(err)
-      // Handle errors here
-    }
+    console.log(stats.compilation.errors)
     // Done processing
   })
   // const compiler = webpack(clientConfig)

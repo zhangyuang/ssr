@@ -2,7 +2,7 @@
 import { join } from 'path'
 import * as Config from 'webpack-chain'
 import { Mode } from '@ssr/utils'
-import { moduleFileExtensions } from './config'
+import { moduleFileExtensions, loadModule } from './config'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const config = new Config()
@@ -25,7 +25,7 @@ config.module
     .rule('image')
         .test([/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/])
         .use('url-loader')
-            .loader(require.resolve('url-loader'))
+            .loader(loadModule('url-loader'))
             .options({
               limit: 10000,
               name: 'static/media/[name].[hash:8].[ext]'
@@ -39,22 +39,22 @@ config.module
             .add(/node_modules/)
             .end()
         .use('babel-loader')
-            .loader(require.resolve('babel-loader'))
+            .loader(loadModule('babel-loader'))
             .options({
               cacheDirectory: true,
               cacheCompression: false,
               presets: [
                 [
-                  '@babel/preset-env',
+                  loadModule('@babel/preset-env'),
                   {
                     modules: false
                   }
                 ],
-                ['react-app', { flow: false, typescript: true }]
+                [loadModule('babel-preset-react-app'), { flow: false, typescript: true }]
               ],
               plugins: [
                 [
-                  'import',
+                  loadModule('babel-plugin-import'),
                   {
                     libraryName: 'antd',
                     libraryDirectory: 'es',

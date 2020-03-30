@@ -15,7 +15,6 @@ const clientRender = async (): Promise<void> => {
         {
           // 使用高阶组件getWrappedComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
           routes.map((item: RouteItem) => {
-
             const Layout = item.component.Layout
             const WrappedComponent = getWrappedComponent(item.component)
             return <Route exact={item.exact} key={item.path} path={item.path} render={() => {
@@ -36,7 +35,7 @@ const serverRender = async (ctx: IFaaSContext): Promise<JSX.Element> => {
   const ActiveComponent = getComponent(routes, ctx.path)()
   const Layout = ActiveComponent.Layout
 
-  if (ctx.ssrConfig.type !== 'ssr') {
+  if (ctx.yml.type !== 'ssr') {
     return <Layout ctx></Layout>
   }
   const serverData = ActiveComponent.getInitialProps ? await ActiveComponent.getInitialProps(ctx) : {}
