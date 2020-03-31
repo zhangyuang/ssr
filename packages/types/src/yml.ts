@@ -1,6 +1,6 @@
 import * as yargs from 'yargs'
 
-export type Argv = yargs.Arguments<{ yml?: Yml, routes?: Routes}>
+export type Argv = yargs.Arguments<{ yml?: Yml, routes?: Routes[]}>
 
 export interface Yml {
   service: string

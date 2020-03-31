@@ -1,15 +1,16 @@
-import React, { Component } from 'react'
+import * as React from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-import { FC,IWindow } from '@ssr/types'
+import { FC, IWindow } from 'ssr-types'
 
 let getProps = false
 interface IState {
   extraProps: Object
 }
+
 declare const window: IWindow
 
 function wrapComponent (WrappedComponent: FC): React.ComponentClass {
-  class GetInitialPropsClass extends Component<RouteComponentProps<{}>, IState> {
+  class GetInitialPropsClass extends React.Component<RouteComponentProps<{}>, IState> {
     constructor (props: RouteComponentProps) {
       super(props)
       this.state = {

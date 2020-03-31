@@ -1,6 +1,6 @@
 {
-  "name": "@ssr/core",
-  "version": "1.0.0",
+  "name": "ssr-core",
+  "version": "0.1.1",
   "description": "core for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -25,7 +25,6 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
-    "@ssr/utils": "^1.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2"
@@ -55,6 +54,8 @@
     "postcss-preset-env": "^6.0.5",
     "postcss-safe-parser": "4.0.1",
     "react-dev-utils": "^10.2.1",
+    "ssr-client-utils": "^0.1.1",
+    "ssr-server-utils": "^0.1.1",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "1.1.1",
     "webpack": "^4.42.1",

@@ -1,4 +1,3 @@
-import * as fs from 'fs'
 import { join } from 'path'
 import * as webpack from 'webpack'
 import * as webpackDevServer from 'webpack-dev-server'
@@ -30,18 +29,6 @@ const startClientBuild = async () => {
   //   version: true,
   //   warnings: false
   // }))
-  // const stream = await renderLayout()
-  // let writeStream
-  // try {
-  //     // 如果当前没有dist目录则创建目录
-  //   fs.statSync(join(outputPath, './index.html'))
-  //   writeStream = fs.createWriteStream(join(outputPath, './index.html'))
-  //   stream.pipe(writeStream)
-  // } catch (error) {
-  //   mkdir(join(outputPath))
-  //   writeStream = fs.createWriteStream(join(outputPath, './index.html'))
-  //   stream.pipe(writeStream)
-  // }
   // ora.succeed()
 }
 

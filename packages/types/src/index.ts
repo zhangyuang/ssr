@@ -1,5 +1,5 @@
 import { FaaSContext } from '@midwayjs/faas'
-
+import { Yml } from './yml'
 export * from './yml'
 
 export type Mode = 'development' | 'production'
@@ -18,6 +18,7 @@ export interface Hot {
 
 export interface IFaaSContext extends FaaSContext {
   serverData?: any
+  yml: Yml
 }
 export interface Global extends NodeJS.Global {
   renderToNodeStream: (element: React.ReactElement) => NodeJS.ReadableStream

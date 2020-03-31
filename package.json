@@ -5,6 +5,7 @@
   ],
   "scripts": {
     "bootstrap": "yarn",
+    "clean": "rm -rf packages/**/cjs packages/**/esm && lerna clean",
     "watch": "lerna run watch --stream --parallel",
     "build": "lerna run build --stream --parallel",
     "lint": "tslint -c tslint.json -p ./tsconfig.base.json && standard",
@@ -16,9 +17,6 @@
   },
   "author": "zhangyuang",
   "license": "MIT",
-  "pre-commit": [
-    "lint"
-  ],
   "standard": {
     "parser": "babel-eslint",
     "ignore": [
@@ -44,7 +42,6 @@
     "babel-eslint": "^10.0.2",
     "lerna": "^3.20.2",
     "pre-commit": "^1.2.2",
-    "rimraf": "^3.0.2",
     "standard": "^13.0.1",
     "tslint": "^5.17.0",
     "tslint-config-standard": "^8.0.1",

@@ -3,4 +3,4 @@ export * from './client'
 
 /* types */
 
-export * from '@ssr/utils'
+export * from 'ssr-utils'

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { matchPath } from 'react-router-dom'
-import { FC, RouteItem } from '@ssr/types'
+import { FC, RouteItem } from 'ssr-types'
 
 const NotFound: FC = () => {
   return (

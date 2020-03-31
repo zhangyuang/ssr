@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
 import * as yargs from 'yargs'
-import { Argv, parseYml, parseRoutesFromYml } from '@ssr/utils'
+import { Argv } from 'ssr-types'
+import { parseYml, parseRoutesFromYml } from 'ssr-server-utils'
 import { start } from './start'
 
 const yamlContent = parseYml('./f.yml')
@@ -14,7 +15,8 @@ yargs
     await start(argv)
   })
   .command('build', 'build server and client files', {}, async () => {
-    //
+    process.env.NODE_ENV = 'production'
+
   })
   .demandCommand(1, 'You need at least one command before moving on')
   .option('version', {

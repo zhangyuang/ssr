@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { getWrappedComponent, getComponent, RouteItem, IFaaSContext, INodeModule, IWindow } from '@ssr/utils'
+import { wrapComponent, getComponent, RouteItem, IFaaSContext, INodeModule, IWindow } from 'ssr-utils'
 
 declare const window: IWindow
 declare const module: INodeModule
@@ -13,10 +13,10 @@ const clientRender = async (): Promise<void> => {
     <BrowserRouter>
       <Switch>
         {
-          // 使用高阶组件getWrappedComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
+          // 使用高阶组件wrapComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
           routes.map((item: RouteItem) => {
             const Layout = item.component.Layout
-            const WrappedComponent = getWrappedComponent(item.component)
+            const WrappedComponent = wrapComponent(item.component)
             return <Route exact={item.exact} key={item.path} path={item.path} render={() => {
               return <Layout><WrappedComponent /></Layout>
             }} />

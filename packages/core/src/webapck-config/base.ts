@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import * as Config from 'webpack-chain'
-import { Mode } from '@ssr/utils'
+import { Mode } from 'ssr-client-utils'
 import { moduleFileExtensions, loadModule } from './config'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -17,9 +17,10 @@ config
   .modules
     .add('node_modules')
     .add(join(__dirname, '../../node_modules'))
+    .add(join(__dirname, '../../../../node_modules'))
     .end()
-  .extensions.merge(moduleFileExtensions)
-  .end()
+  // .extensions.merge(moduleFileExtensions)
+  // .end()
 
 config.module
     .rule('image')

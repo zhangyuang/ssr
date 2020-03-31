@@ -1,4 +1,4 @@
-import { getCwd } from '@ssr/utils'
+import { getCwd } from 'ssr-utils-server'
 
 type ClientLogLevel = 'error'
 const publicPath = '/'
@@ -16,7 +16,7 @@ const moduleFileExtensions = [
   'jsx'
 ]
 
-const isDev = process.env.NODE_ENV === 'development'
+const isDev = process.env.NODE_ENV !== 'production'
 const port = 8000
 const cwd = getCwd()
 const chunkName = 'Page'

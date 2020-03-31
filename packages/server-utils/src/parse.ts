@@ -1,8 +1,8 @@
 import * as fs from 'fs'
 import { resolve } from 'path'
 import * as Yaml from 'js-yaml'
-import { Yml, Routes } from '@ssr/types'
-import { getCwd } from './path'
+import { Yml, Routes } from 'ssr-types'
+import { getCwd } from './cwd'
 
 const parseYml = (path: string) => {
   const cwd = getCwd()
