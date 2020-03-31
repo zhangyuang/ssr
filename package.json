@@ -1,15 +1,10 @@
 {
-  "name": "serverless-side-render",
-  "version": "1.0.0",
-  "description": "implements for serverless side render",
-  "directories": {
-    "doc": "docs",
-    "example": "example"
-  },
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "link": "lerna link",
-    "bootstrap": "yarn && lerna bootstrap",
-    "clean": "lerna clean && rimraf packages/**/package-lock.json packages/**/yarn.lock",
+    "bootstrap": "yarn",
     "watch": "lerna run watch --stream --parallel",
     "build": "lerna run build --stream --parallel",
     "lint": "tslint -c tslint.json -p ./tsconfig.base.json && standard",
@@ -24,12 +19,6 @@
   "pre-commit": [
     "lint"
   ],
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
-  "engines": {
-    "node": ">=8"
-  },
   "standard": {
     "parser": "babel-eslint",
     "ignore": [

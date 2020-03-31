@@ -19,7 +19,7 @@ const getClientWebpack = (argv: Argv) => {
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
 
   config.entry(chunkName)
-          .add('/Users/zhangyuang/Desktop/github/ssr/packages/core/src/entry.tsx')
+          .add(require.resolve('../entry'))
           .end()
         .output
           .path(`${cwd}/${clientOutPut}`)

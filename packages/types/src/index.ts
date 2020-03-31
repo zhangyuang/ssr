@@ -6,6 +6,7 @@ export type Mode = 'development' | 'production'
 
 export interface IWindow extends Window {
   __USE_SSR__?: string
+  __INITIAL_DATA__?: any
 }
 
 export interface INodeModule extends NodeModule {
