@@ -1,7 +1,19 @@
-# 代码贡献规范
+# Contributing to ssr-spec
 
-有任何疑问，欢迎提交 [issue](https://github.com/ykfe/egg-react-ssr/issues)，
-或者直接修改提交 [PR](https://github.com/ykfe/egg-react-ssr/pulls)!
+The markdown file introduce how to contribute for ssr-psec
+
+## Getting Start
+
+```bash
+$ npm run bootstrap # you can also run yarn, but npm install is not allowed 
+```
+
+Please read the [document](https://classic.yarnpkg.com/en/docs/workspaces/) about yarn workspace
+
+## 代码贡献规范
+
+有任何疑问，欢迎提交 [issue](https://github.com/ykfe/ssr/issues)，
+或者直接修改提交 [PR](https://github.com/ykfe/ssr/pulls)!
 
 ## 提交 issue
 
@@ -36,7 +48,7 @@
 
 - 必须说清楚问题的几个方面：what（是什么），why（为什么），how（怎么做），可根据问题的特性有所侧重。
 - how 部分必须包含详尽完整的操作步骤，必要时附上 **足够简单，可运行** 的范例代码，
-所有范例代码放在 [egg-react-ssr/examples](https://github.com/ykfe/egg-react-ssr) 库中。
+所有范例代码放在 [ssr/examples](https://github.com/ykfe/ssr) 库中。
 - 提供必要的链接，如申请流程，术语解释和参考文档等。
 - 同步修改中英文文档，或者在 PR 里面说明。
 
