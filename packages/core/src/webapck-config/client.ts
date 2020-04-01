@@ -1,6 +1,6 @@
 
 import * as webpack from 'webpack'
-import { Argv, Mode } from 'ssr-client-utils'
+import { Mode } from 'ssr-client-utils'
 import { getBaseConfig } from './base'
 import { publicPath, isDev, chunkName, cwd, clientOutPut, useHash, loadModule } from './config'
 
@@ -18,11 +18,7 @@ const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const getClientWebpack = () => {
   const config = getBaseConfig()
   const mode = process.env.NODE_ENV as Mode
-  config.stats({
-    modules: false,
-    children: false,
-    entrypoints: false
-  })
+
   config.mode(mode)
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
   config.entry(chunkName)
