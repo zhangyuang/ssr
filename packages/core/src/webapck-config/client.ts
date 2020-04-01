@@ -1,7 +1,7 @@
 
 import * as webpack from 'webpack'
-import { Argv } from 'ssr-utils-client'
-import { config } from './base'
+import { Argv, Mode } from 'ssr-client-utils'
+import { getBaseConfig } from './base'
 import { publicPath, isDev, chunkName, cwd, clientOutPut, useHash, loadModule } from './config'
 
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
@@ -15,9 +15,16 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 
-const getClientWebpack = (argv: Argv) => {
+const getClientWebpack = () => {
+  const config = getBaseConfig()
+  const mode = process.env.NODE_ENV as Mode
+  config.stats({
+    modules: false,
+    children: false,
+    entrypoints: false
+  })
+  config.mode(mode)
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
-
   config.entry(chunkName)
           .add(loadModule('../entry'))
           .end()
@@ -115,8 +122,7 @@ const getClientWebpack = (argv: Argv) => {
           .end()
 
   config.plugin('define').use(webpack.DefinePlugin, [{
-    '__isBrowser__': true,
-    'routes': JSON.stringify(argv.routes)
+    '__isBrowser__': true
   }])
 
   config.plugin('moduleNotFound').use(ModuleNotFoundPlugin, [cwd])
@@ -129,7 +135,6 @@ const getClientWebpack = (argv: Argv) => {
   config.when(generateAnalysis, config => {
     config.plugin('analyze').use(BundleAnalyzerPlugin)
   })
-  console.log(config.toConfig())
   return config.toConfig()
 }
 

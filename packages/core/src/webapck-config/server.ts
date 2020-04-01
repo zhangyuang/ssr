@@ -1,21 +1,25 @@
 
 import * as webpack from 'webpack'
-import { config } from './base'
-import { isDev } from './config'
+import { Mode } from 'ssr-client-utils'
+import { getBaseConfig } from './base'
+import { isDev, cwd, serverOutPut, loadModule } from './config'
 
 const nodeExternals = require('webpack-node-externals')
 
 const getServerWebpack = () => {
+  const config = getBaseConfig()
+  const mode = process.env.NODE_ENV as Mode
+  config.mode(mode)
 
   config.devtool(isDev ? 'eval-source-map' : false)
 
   config.target('node')
 
   config.entry('Page')
-          .add('src/index')
+          .add(loadModule('../entry'))
           .end()
           .output
-            .path('bundle/server')
+            .path(`${cwd}/${serverOutPut}`)
             .filename('[name].server.js')
             .libraryTarget('commonjs2')
 
@@ -55,6 +59,10 @@ const getServerWebpack = () => {
   config.externals(nodeExternals({
     whitelist: /\.(css|less|sass|scss)$/
   }))
+
+  config.when(isDev, () => {
+    config.watch(true)
+  })
 
   config.plugin('define').use(webpack.DefinePlugin, [{
     '__isBrowser__': false

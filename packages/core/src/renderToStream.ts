@@ -1,4 +1,4 @@
-import { IFaaSContext, Global, Config }from 'ssr-utils'
+import { IFaaSContext, Global, Config }from 'ssr-server-utils'
 
 declare const global: Global
 

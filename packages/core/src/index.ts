@@ -1,6 +1,6 @@
 /* client */
 export * from './client'
 
-/* types */
+/* server */
 
-export * from 'ssr-utils'
+export * from './server'

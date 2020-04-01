@@ -1,4 +1,3 @@
-import { join } from 'path'
 import * as webpack from 'webpack'
 import * as webpackDevServer from 'webpack-dev-server'
 import { getClientWebpack }from './webapck-config/client'
@@ -6,15 +5,11 @@ import { webpackDevServerConfig, port } from './webapck-config/config'
 
 // const ora = require('ora')('正在构建')
 
-const startClientServer = (argv) => {
-  const clientConfig = getClientWebpack(argv)
-  webpack(clientConfig, (err, stats) => { // Stats Object
-    console.log(stats.compilation.errors)
-    // Done processing
-  })
-  // const compiler = webpack(clientConfig)
-  // const server = new webpackDevServer(compiler, webpackDevServerConfig)
-  // server.listen(port, '0.0.0.0')
+const startClientServer = () => {
+  const clientConfig = getClientWebpack()
+  const compiler = webpack(clientConfig)
+  const server = new webpackDevServer(compiler, webpackDevServerConfig)
+  server.listen(port, '0.0.0.0')
 }
 
 const startClientBuild = async () => {
@@ -29,6 +24,7 @@ const startClientBuild = async () => {
   //   version: true,
   //   warnings: false
   // }))
+
   // ora.succeed()
 }
 

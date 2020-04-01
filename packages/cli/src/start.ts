@@ -1,8 +1,8 @@
-import { startClientServer } from 'ssr-core'
-import { Argv } from '../../client-utils/cjs'
+import { startClientServer, startServerBuild } from 'ssr-core'
 
-const start = async (argv: Argv) => {
-  await startClientServer(argv)
+const start = () => {
+  startClientServer()
+  startServerBuild()
 }
 
 export {
