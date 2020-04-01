@@ -1,19 +1,9 @@
 {
   "name": "ssr-with-js",
   "version": "2.1.14",
-  "dependencies": {
-    "@midwayjs/faas": "^0.2.55"
-  },
   "scripts": {
-    "debug": "egg-bin debug",
-    "start": "rimraf dist && concurrently \"npm run ssr\" \" npm run csr \"",
-    "ssr": "concurrently \"egg-bin dev\" \"cross-env NODE_ENV=development webpack --watch --config ./build/webpack.config.server.js\"",
-    "csr": "cross-env NODE_ENV=development ykcli dev",
-    "prod": "npm run build && eggctl start",
-    "build:server": "cross-env NODE_ENV=production webpack --config build/webpack.config.server.js",
-    "build:client": "cross-env NODE_ENV=production ykcli build",
-    "build": "rimraf dist && npm run build:client && npm run build:server",
-    "analyze": "cross-env NODE_ENV=production npm_config_report=true npm run build"
+    "build": "f package --skipZip",
+    "test": "f test"
   },
   "browserslist": [
     ">0.2%",
@@ -21,7 +11,11 @@
     "not ie <= 9",
     "not op_mini all"
   ],
+  "dependencies": {
+    "@midwayjs/faas": "*"
+  },
   "devDependencies": {
-
+    "@types/mocha": "^5.2.5",
+    "@midwayjs/serverless-invoke": "*"
   }
 }
