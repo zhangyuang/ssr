@@ -1,15 +1,11 @@
-
+import { join } from 'path'
 import * as webpack from 'webpack'
-import { Mode } from 'ssr-client-utils'
 import { getBaseConfig } from './base'
 import { isDev, cwd, serverOutPut, loadModule } from './config'
-
-const nodeExternals = require('webpack-node-externals')
+import { nodeExternals } from './plugins/external'
 
 const getServerWebpack = () => {
   const config = getBaseConfig()
-  const mode = process.env.NODE_ENV as Mode
-  config.mode(mode)
 
   config.devtool(isDev ? 'eval-source-map' : false)
 
@@ -57,7 +53,9 @@ const getServerWebpack = () => {
               .end()
 
   config.externals(nodeExternals({
-    whitelist: /\.(css|less|sass|scss)$/
+    whitelist: /\.(css|less|sass|scss)$/,
+    // externals Dir contains packages/core/node_modules ssr-with-ts/node_modules ssr/node_modules
+    modulesDir: [join(__dirname,'../../node_modules'), join(cwd, './node_modules'), join(__dirname, '../../../../node_modules') ]
   }))
 
   config.when(isDev, () => {

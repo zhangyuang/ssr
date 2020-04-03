@@ -1,0 +1,25 @@
+service:
+  name: serverless-ssr
+provider:
+  name: aliyun
+
+functions:
+  mpa1:
+    handler: mpa1.handler
+    events:
+      - http:              # 设置 vipserver trigger
+          path: /home
+          method:
+            - get
+  news:
+    handler: mpa2.handler
+    events:
+      - http:              # 设置 vipserver trigger
+          path: /news
+          method:
+            - get
+
+            
+package:
+  artifact: code.zip
+

@@ -1,7 +1,7 @@
 import { startClientServer, startServerBuild } from 'ssr-core'
 
-const start = () => {
-  startClientServer()
+const start = (argv) => {
+  startClientServer(argv)
   startServerBuild()
 }
 

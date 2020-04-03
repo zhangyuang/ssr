@@ -31,12 +31,11 @@ const webpackStatsOption = {
   cachedAssets: false,  // 显示缓存的资源（将其设置为 `false` 则仅显示输出的文件）
   children: false, // 添加 children 信息
   chunks: false, // 添加 chunk 信息（设置为 `false` 能允许较少的冗长输出）
-  colors: true,
+  colors: true, // 以不同颜色区分构建信息
   modules: false  // 添加构建模块信息
 }
 
 const webpackDevServerConfig = {
-  // quiet: true,
   stats: webpackStatsOption,
   disableHostCheck: true,
   publicPath: publicPath,
@@ -53,6 +52,7 @@ const webpackDevServerConfig = {
 }
 
 const loadModule = require.resolve
+
 export {
   cwd,
   isDev,

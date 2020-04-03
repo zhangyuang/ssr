@@ -1,4 +1,4 @@
-const errorCatch = (err, stats) => {
+const webpackError = (err, stats) => {
   if (err) {
     console.error(err.stack || err)
     if (err.details) {
@@ -21,5 +21,5 @@ const errorCatch = (err, stats) => {
 }
 
 export {
-  errorCatch
+  webpackError
 }

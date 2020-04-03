@@ -27,36 +27,6 @@ $ ssr deploy
 
 本规范主要定义 ssr 特性，组件写法、目录结构以及 `f.yml` 文件扩展的编写规范。
 
-目录结构待讨论，例如新增功能的api与删除功能的api理论上应该放在一个project当中，此时应该在src目录下建立不同的文件夹来隔离不同函数的模块
-
-```bash
-├── dist // 构建产物
-│   ├── Page.server.js // 服务端页面bundle
-│   ├── asset-manifest.json // 打包资源清单
-│   ├── index.html // 页面承载模版文件，除非想换成传统的直接扔一个html文件部署的方式
-│   └── static // 前端静态资源目录
-│       ├── css
-│       └── js
-├── config // 配置
-│   ├── webpack.js // webpack配置文件，使用chainWebpackConfig方式导出，非必选
-│   └── other // 
-├── index.js // 函数入口文件
-├── f.yml // faas函数规范文件
-├── package.json
-├── src // 存放前端页面组件
-│   ├── detail // 详情页
-│   │   ├── fetch.js // 数据预取，非必选
-│   │   ├── index.js // React组件，必选
-│   │   └── layout.js // 页面布局，非必选，没有默认使用layout/index.js
-│   ├── home // 首页
-│   │   ├── fetch.js
-│   │   ├── index.js
-│   │   └── layout.js
-│   └── layout
-│       └── index.js // 默认的布局文件，必选,脚手架默认生成
-└── README.md // 
-```
-
 命令用法
 
 ```
@@ -66,20 +36,23 @@ $ ssr deploy
 
 生成的dist目录结构如下。
 
+```
 - dist
     - funcName
-        - static
+        - client
             - clientBundle.js
             - js
             - css
             - images
-        - serverBundle.js
+        - server
+          - serverBundle.js
+```
 
 构建命令
 
-```
-$ ssr build
-$ ssr build --spa
+```bash
+$ ssr build # 默认以spa形式进行构建
+$ ssr build --mpa
 $ ssr build hello
 $ ssr build hello2
 ```
@@ -142,90 +115,221 @@ export default Page
 
 
 
-### 扩展render配置
+### 开发规范
 
-路由由f.yml的配置文件中，所以在f.yml增加render配置扩展，具体如下。
+如何开发单页面应用(SPA)和多页面应用(MPA)。
+关于SPA与MPA的区别如下(本表格转载自网络，如有侵权请提issue联系)
 
+<table>
+<thead>
+<tr>
+<th></th>
+<th>单页面应用（SinglePage Web Application，SPA）</th>
+<th>多页面应用（MultiPage Application，MPA）</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>组成</td>
+<td>一个外壳页面和多个页面片段组成</td>
+<td>多个完整页面构成</td>
+</tr>
+<tr>
+<td>资源共用(css,js)</td>
+<td>共用，只需在外壳部分加载</td>
+<td>不共用，每个页面都需要加载</td>
+</tr>
+<tr>
+<td>刷新方式</td>
+<td>页面局部刷新或更改</td>
+<td>整页刷新</td>
+</tr>
+<tr>
+<td>url 模式</td>
+<td>a.com/pageone <br> a.com/pagetwo</td>
+<td>a.com/pageone.html <br> a.com/pagetwo.html</td>
+</tr>
+<tr>
+<td>用户体验</td>
+<td>页面片段间的切换快，用户体验良好</td>
+<td>页面切换加载缓慢，流畅度不够，用户体验比较差</td>
+</tr>
+<tr>
+<td>转场动画</td>
+<td>容易实现</td>
+<td>无法实现</td>
+</tr>
+<tr>
+<td>数据传递</td>
+<td>容易</td>
+<td>依赖 url传参、或者cookie 、localStorage等</td>
+</tr>
+<tr>
+<td>搜索引擎优化(SEO)</td>
+<td>需要单独方案、实现较为困难、不利于SEO检索 可利用服务器端渲染(SSR)优化</td>
+<td>实现方法简易</td>
+</tr>
+<tr>
+<td>试用范围</td>
+<td>高要求的体验度、追求界面流畅的应用</td>
+<td>适用于追求高度支持搜索引擎的应用 </td>
+</tr>
+<tr>
+<td>开发成本</td>
+<td>较高，常需借助专业的框架</td>
+<td>较低 ，但页面重复代码多</td>
+</tr>
+<tr>
+<td>维护成本</td>
+<td>相对容易</td>
+<td>相对复杂</td>
+</tr>
+</tbody>
+</table>
+</div></a>
+
+#### SPA
+
+单页面应用一个函数对应一个页面。一个页面对应多个path(即前端路由)。
+
+##### 目录结构
+
+这里我们使用约定式路由的概念。无需手动编写路由配置文件，会根据文件夹名称及路径自动生成路由配置。
+
+```bash
+.
+├── README.md
+├── build
+│   └── spa # 函数名称
+│       ├── client # 客户端bundle文件
+│       └── server # 服务端bundle文件
+├── f.yml
+├── package.json
+├── src # faas文件夹
+│   └── index.ts  # faas函数的handler文件
+├── tsconfig.json # 用于编译faas函数的ts编译配置
+└── web # 前端文件
+    ├── home # /home 路由
+    │   ├── fetch.ts
+    │   └── render.tsx
+    ├── layout.tsx # 布局文件，SPA应用只需要一个公用的layout文件
+    └── news # /news 路由
+        ├── fetch.ts
+        └── render.tsx
 ```
+
+##### yml文件编写规范
+
+```yml
 service:
   name: serverless-ssr
 provider:
   name: aliyun
 
 functions:
-  index:
+  spa:
     handler: index.handler
     render:
-        component: src.home.index
-        layout: src.home.layout
-        fetch: src.home.fetch
-        mode: ssr
-        injectScript:
-          - runtime~Page.js
-          - vendor.chunk.js
-          - Page.chunk.js
-        injectCSS:
-          - Page.chunk.css
-        serverBundle: Page.server.js
+      mode: ssr # 指定渲染模式
     events:
-      - http:              # 设置 vipserver trigger
+      - http:             
           path: /
           method:
-            - GET
+            - get
+
+package:
+  artifact: code.zip
 ```
 
-### 多组件扩展支持
+##### 如何发布
 
-多组件支持是基于bigpipe的方式，首先写入layout布局，然后处理多个组件的组合逻辑，最终res.end即可。另外，组件上如果只有fetch方法，没有render方法也是没有问题的。写法有2种，具体如下。
+```bash
+$ ssr deploy # 此时只有一个函数需要发布，选择spa函数发布即可
+```
 
-component的值是数组，即串行方式
+##### 展示形式
 
-```js
+http://xxx.com/home -> spa 函数 -> 渲染home组件  
+http://xxx.com/news -> spa 函数 -> 渲染news组件  
+
+#### MPA
+
+多页面应用一个函数对应一个页面。一个页面对应一个path(即服务端路由)。
+
+##### 目录结构
+
+这里我们的服务端路由存在多个，需要读取yml文件具体函数的配置
+
+```bash
+.
+├── README.md
+├── build
+│   ├── mpa1
+│   │   ├── client
+│   │   └── server
+│   └── mpa2
+│       ├── client
+│       └── server
+├── f.yml
+├── package.json
+├── src
+│   ├── mpa1handler.ts
+│   └── mpa2handler.ts
+├── tsconfig.json
+└── web
+    ├── mpa1
+    │   ├── fetch.ts
+    │   ├── layout.tsx
+    │   └── render.tsx
+    └── mpa2
+        ├── fetch.ts
+        ├── layout.tsx
+        └── render.tsx
+```
+
+##### yml文件编写规范
+
+```yml
+service:
+  name: serverless-ssr
+provider:
+  name: aliyun
+
 functions:
-  news:
-    handler: index.handler
+  mpa1:
+    handler: mpa1.handler
     render:
-      - component: 
-        - src.news.index
-        - src.news.index
-        - src.news.index3
-      - layout: src.news.layout
-      - fetch: src.news.fetch
-      - mode: ssr | csr（默认ssr）
+      mode: ssr
     events:
-      - http:
-          path: /
+      - http:             
+          path: /home
           method:
-            - GET
+            - get
+  mpa2:
+    handler: mpa2.handler
+    render:
+      mode: ssr
+    events:
+      - http:             
+          path: /news
+          method:
+            - get
+
+            
+package:
+  artifact: code.zip
 ```
 
-component的值是对象，即并行方式
+##### 如何发布
 
-```js
-functions:
-  news:
-    handler: index.handler
-    render:
-      - component: 
-        a: src.news.index
-        b: src.news.index
-        c: src.news.index3
-      - layout: src.news.layout
-      - fetch: src.news.fetch
-      - mode: ssr | csr（默认ssr）
-    events:
-      - http:
-          path: /
-          method:
-            - GET
+```bash
+$ ssr deploy # 此时需要在终端选择需要发布哪个函数
 ```
 
-component支持无限嵌套，可以支持所有场景。
+##### 展示形式
 
-执行过程说明：
-
-- ssr模式时，采用bigpipe写入，最后red.end即可，前端不需要改造。
-- csr模式时，采用高阶组件封住，入口侧多个组件遍历，此处需要改造。
+http://xxx.com/home -> mpa1 函数 -> 渲染home组件  
+http://xxx.com/news -> mpa2 函数 -> 渲染news组件  
 
 ### 渲染函数
 

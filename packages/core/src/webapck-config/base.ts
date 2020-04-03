@@ -1,6 +1,7 @@
 
 import { join } from 'path'
 import * as Config from 'webpack-chain'
+import { Mode } from 'ssr-client-utils'
 import { moduleFileExtensions, loadModule } from './config'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -9,6 +10,8 @@ const getBaseConfig = () => {
 
   const config = new Config()
 
+  const mode = process.env.NODE_ENV as Mode
+  config.mode(mode)
   config.module.strictExportPresence(true)
 
   config

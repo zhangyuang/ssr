@@ -14,13 +14,11 @@ const clientRender = async (): Promise<void> => {
       <Switch>
         {
           // 使用高阶组件wrapComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
-          // routes.map((item: RouteItem) => {
-          //   const Layout = item.component.Layout
-          //   const WrappedComponent = wrapComponent(item.component)
-          //   return <Route exact={item.exact} key={item.path} path={item.path} render={() => {
-          //     return <Layout><WrappedComponent /></Layout>
-          //   }} />
-          // })
+          routes.map((item: RouteItem) => {
+            const Layout = item.component.Layout
+            const WrappedComponent = wrapComponent(item.component)
+            return <Route exact={item.exact} key={item.path} path={item.path} render={() => <Layout key={location.pathname}><WrappedComponent /></Layout>} />
+          })
         }
       </Switch>
     </BrowserRouter>
@@ -30,12 +28,11 @@ const clientRender = async (): Promise<void> => {
   }
 }
 
-const serverRender = async (ctx: IFaaSContext): Promise<JSX.Element> => {
-  // 服务端渲染 根据ctx.path获取请求的具体组件，调用getInitialProps并渲染
+const serverRender = async (ctx: IFaaSContext, config): Promise<JSX.Element> => {
   const ActiveComponent = getComponent(routes, ctx.path)()
   const Layout = ActiveComponent.Layout
 
-  if (ctx.yml.type !== 'ssr') {
+  if (config.type !== 'ssr') {
     return <Layout ctx></Layout>
   }
   const serverData = ActiveComponent.getInitialProps ? await ActiveComponent.getInitialProps(ctx) : {}
@@ -46,5 +43,4 @@ const serverRender = async (ctx: IFaaSContext): Promise<JSX.Element> => {
 
 }
 
-// export default __isBrowser__ ? clientRender() : serverRender
-export default 'foo'
+export default __isBrowser__ ? clientRender() : serverRender
