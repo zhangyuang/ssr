@@ -2,17 +2,14 @@
 
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
-import { parseYml, parseRoutesFromYml } from 'ssr-server-utils'
+import { parseFeRoutes } from 'ssr-server-utils'
 import { start } from './start'
-
-const yamlContent = parseYml('./f.yml')
-const routes = parseRoutesFromYml(yamlContent)
 
 yargs
   .command('start', 'Start Server', {}, async (argv: Argv) => {
+    argv.routes = parseFeRoutes(argv)
     process.env.NODE_ENV = 'development'
-    argv.routes = routes
-    await start(argv)
+    // await start(argv)
   })
   .command('build', 'build server and client files', {}, async () => {
     process.env.NODE_ENV = 'production'

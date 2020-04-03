@@ -4,18 +4,13 @@ provider:
   name: aliyun
 
 functions:
-  mpa1:
-    handler: mpa1.handler
+  spa:
+    handler: spa.handler
+    render:
+      mode: ssr
     events:
-      - http:              # 设置 vipserver trigger
-          path: /home
-          method:
-            - get
-  news:
-    handler: mpa2.handler
-    events:
-      - http:              # 设置 vipserver trigger
-          path: /news
+      - http:
+          path: /
           method:
             - get
 

@@ -1,8 +1,8 @@
 import { FaaSContext, func, inject, provide, FunctionHandler } from '@midwayjs/faas'
 
 @provide()
-@func('index.handler')
-export class IndexService implements FunctionHandler {
+@func('spa.handler')
+export class SpaService implements FunctionHandler {
 
   @inject()
   ctx: FaaSContext  // context
