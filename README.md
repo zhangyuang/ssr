@@ -328,8 +328,8 @@ $ ssr deploy # 此时需要在终端选择需要发布哪个函数
 
 ##### 展示形式
 
-http://xxx.com/home -> mpa1 函数 -> 渲染home组件  
-http://xxx.com/news -> mpa2 函数 -> 渲染news组件  
+http://xxx.com/home -> mpa1 函数 -> 渲染mpa1文件夹下的render组件  
+http://xxx.com/news -> mpa2 函数 -> 渲染mpa2文件夹下的render组件  
 
 ### 渲染函数
 
