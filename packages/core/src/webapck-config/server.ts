@@ -4,7 +4,7 @@ import { getBaseConfig } from './base'
 import { isDev, cwd, serverOutPut, loadModule } from './config'
 import { nodeExternals } from './plugins/external'
 
-const getServerWebpack = () => {
+const getServerWebpack = (argv) => {
   const config = getBaseConfig()
 
   config.devtool(isDev ? 'eval-source-map' : false)
@@ -61,9 +61,11 @@ const getServerWebpack = () => {
   config.when(isDev, () => {
     config.watch(true)
   })
-
+  console.log(argv.routes)
   config.plugin('define').use(webpack.DefinePlugin, [{
-    '__isBrowser__': false
+    '__isBrowser__': false,
+    'routes': JSON.stringify(argv.routes),
+    'ymlRoutes': JSON.stringify(argv.ymlRoutes)
   }])
 
   return config.toConfig()

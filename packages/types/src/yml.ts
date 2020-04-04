@@ -1,6 +1,7 @@
 import * as yargs from 'yargs'
+import { FeRouteItem } from './index'
 
-export type Argv = yargs.Arguments<{ yml?: Yml, routes?: Routes[], mpa?: boolean}>
+export type Argv = yargs.Arguments<{ yml?: Yml, ymlRoutes?: YmlRouteItem[], routes: FeRouteItem[], mpa?: boolean} >
 
 export interface Yml {
   service: string
@@ -17,8 +18,11 @@ export interface Yml {
   }
 }
 
-export type Routes = RouteItem[]
-export type RouteItem = Render<{path: string}>
+interface YmlRouteItem {
+  path: string
+  mode: boolean
+  funcName: string
+}
 
 export type Render<T> = T & {
   funcName: string

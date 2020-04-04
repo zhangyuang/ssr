@@ -209,13 +209,16 @@ export default Page
 │   └── index.ts  # faas函数的handler文件
 ├── tsconfig.json # 用于编译faas函数的ts编译配置
 └── web # 前端文件
-    ├── home # /home 路由
+    ├── home
     │   ├── fetch.ts
-    │   └── render.tsx
+    │   └── render.tsx # /home 路由
     ├── layout.tsx # 布局文件，SPA应用只需要一个公用的layout文件
-    └── news # /news 路由
+    └── news
+    │  ├── fetch.ts
+    │  └── render.tsx # /news 路由
+    └── news # 为了保证页面的独立性，这里需要新增一个news目录
         ├── fetch.ts
-        └── render.tsx
+        └── render$id.tsx # /news/:id 路由
 ```
 
 ##### yml文件编写规范

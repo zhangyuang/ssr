@@ -14,7 +14,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 
-const getClientWebpack = () => {
+const getClientWebpack = (argv) => {
   const config = getBaseConfig()
 
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
@@ -115,7 +115,8 @@ const getClientWebpack = () => {
           .end()
 
   config.plugin('define').use(webpack.DefinePlugin, [{
-    '__isBrowser__': true
+    '__isBrowser__': true,
+    'routes': JSON.stringify(argv.routes)
   }])
 
   config.plugin('moduleNotFound').use(ModuleNotFoundPlugin, [cwd])

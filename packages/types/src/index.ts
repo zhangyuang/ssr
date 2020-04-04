@@ -41,23 +41,13 @@ interface Preload {
   default: React.FC
 }
 
-export interface Config {
-  baseDir?: string
-  type?: string
-  serverJs: ServerJs | string
-  env?: string
-  useCDN?: string
-  routes: RouteItem[]
-  injectScript: string[]
-  injectCss: string[]
-}
-
 export interface ServerJs {
   (ctx: FaaSContext): React.ReactElement
 }
 
-export interface RouteItem {
+export interface FeRouteItem {
   path: string
-  exact?: boolean
-  component: FC
+  layout: string
+  fetch?: string
+  component: string
 }

@@ -1,9 +1,9 @@
 import * as fs from 'fs'
 import { resolve, join } from 'path'
 import * as Yaml from 'js-yaml'
-import { Yml, Routes, Argv } from 'ssr-types'
+import { Yml, Routes, Argv, FeRouteItem } from 'ssr-types'
+import { promisifyFsReadDir } from './promisify'
 import { getCwd, getFeDir } from './cwd'
-import { processError } from './errorCatch'
 
 const parseYml = (path: string) => {
   const cwd = getCwd()
@@ -30,28 +30,67 @@ const parseRoutesFromYml = (yamlContent: Yml): Routes[] => {
   return routes
 }
 
-const parseFeRoutes = (argv: Argv) => {
+const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
+  // 根据目录结构生成前端路由表
   const feDir = getFeDir()
+  const folders = await promisifyFsReadDir(feDir) // 读取web目录
+  const defaultLayout = join(feDir, `/layout.tsx`)
   const arr = []
-  const route = {}
   if (!argv.mpa) {
+    for (let i in folders) {
+      const folder = folders[i]
+      const abFolder = join(feDir, folder)
+      if (fs.statSync(abFolder).isDirectory()) {
+        // 读取web下子目录
+        const files = await promisifyFsReadDir(abFolder)
+        const route: FeRouteItem = {
+          layout: defaultLayout
+        }
 
-    fs.readdir(feDir, (err, folders: string[]) => {
-      processError(err)
-      folders.map(file => {
-        const absolutePath = join(feDir, `/${file}`)
-        console.log(absolutePath)
-        route.fetch = /fetch/i.test(file) && fs.existsSync(absolutePath) ? absolutePath : false
-        route.layout = /layout/i.test(file) && fs.existsSync(absolutePath) ? absolutePath : join(feDir, `/layout.tsx`
-        route.component = /render/i.test(file) && fs.existsSync(absolutePath) ? absolutePath : false
-      })
+        for (let j in files) {
+          const file = files[j]
+          const abFile = join(abFolder, file)
+
+          if (/render/.test(file)) {
+            route.path = `/${folder}`
+            route.component = abFile
+          }
+
+          if (/render\$/.test(file)) {
+            route.path = `/${folder}/:${getDynamicParam(file)}`
+            route.component = abFile
+          }
+
+          if (/fetch/i.test(file)) {
+            route.fetch = abFile
+          }
+
+          if (/layout/i.test(file)) {
+            route.layout = abFile
+          }
+        }
+
+        arr.push(route)
+      }
+    }
+    // 添加默认根路由
+    fs.existsSync(join(feDir, './render.tsx')) && arr.push({
+      path: '/',
+      layout: defaultLayout,
+      fetch: fs.existsSync(join(feDir, './fetch.ts')) && join(feDir, './fetch.ts'),
+      component: join(feDir, './render.tsx')
     })
+
   } else {
     // todo mpa
+
   }
-  arr.push(route)
 
   return arr
+}
+
+const getDynamicParam = (url: string) => {
+  return url.split('$')[1].replace(/\.[\s\S]+/,'')
 }
 
 export {
