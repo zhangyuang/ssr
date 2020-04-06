@@ -1,6 +1,6 @@
 {
-  "name": "ssr-with-js",
-  "version": "2.1.14",
+  "name": "spa-example",
+  "version": "0.1.0",
   "scripts": {
     "build": "f package --skipZip",
     "test": "f test"
@@ -12,10 +12,12 @@
     "not op_mini all"
   ],
   "dependencies": {
-    "@midwayjs/faas": "*"
+    "@midwayjs/faas": "*",
+    "react": "^16.13.1",
+    "react-router-dom": "^5.1.2",
+    "serialize-javascript": "^3.0.0"
   },
   "devDependencies": {
-    "@types/mocha": "^5.2.5",
     "@midwayjs/serverless-invoke": "*"
   }
 }

@@ -26,10 +26,13 @@
   "homepage": "https://github.com/ykfe/ssr#readme",
   "devDependencies": {
     "@types/js-yaml": "^3.12.3",
+    "@types/shelljs": "^0.8.7",
     "concurrently": "^5.1.0",
     "ssr-types": "^0.1.1"
   },
   "dependencies": {
-    "js-yaml": "^3.13.1"
+    "js-yaml": "^3.13.1",
+    "path-to-regexp": "^6.1.0",
+    "shelljs": "^0.8.3"
   }
 }

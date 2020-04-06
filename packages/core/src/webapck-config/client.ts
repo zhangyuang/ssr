@@ -1,7 +1,7 @@
 
 import * as webpack from 'webpack'
 import { getBaseConfig } from './base'
-import { publicPath, isDev, chunkName, cwd, clientOutPut, useHash, loadModule } from './config'
+import { publicPath, isDev, chunkName, getOutput, cwd, useHash, loadModule } from './config'
 
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
@@ -15,15 +15,16 @@ const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 
 const getClientWebpack = (argv) => {
+  const { funcName } = argv.faasRoutes[0]
   const config = getBaseConfig()
 
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
   config.entry(chunkName)
-          .add(loadModule('../entry'))
-          .end()
+        .add(loadModule('../entry'))
+        .end()
         .output
-          .path(`${cwd}/${clientOutPut}`)
-          .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
+        .path(getOutput(funcName).clientOutPut)
+        .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
           .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].chunk.js')
           .publicPath(publicPath)
 
@@ -85,8 +86,8 @@ const getClientWebpack = (argv) => {
       .rule('less')
         .test(/\.less$/)
         .use('minicss')
-        .loader(MiniCssExtractPlugin.loader)
-          .end()
+          .loader(MiniCssExtractPlugin.loader)
+        .end()
         .use('css-loader')
           .loader(loadModule('css-loader'))
           .options({
@@ -94,7 +95,7 @@ const getClientWebpack = (argv) => {
             modules: true,
             getLocalIdent: getCSSModuleLocalIdent
           })
-          .end()
+        .end()
         .use('postcss-loader')
           .loader(loadModule('postcss-loader'))
           .options({
@@ -109,14 +110,13 @@ const getClientWebpack = (argv) => {
               })
             ]
           })
-          .end()
+        .end()
         .use('less-loader')
           .loader(loadModule('less-loader'))
-          .end()
+        .end()
 
   config.plugin('define').use(webpack.DefinePlugin, [{
-    '__isBrowser__': true,
-    'routes': JSON.stringify(argv.routes)
+    '__isBrowser__': true
   }])
 
   config.plugin('moduleNotFound').use(ModuleNotFoundPlugin, [cwd])

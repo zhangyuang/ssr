@@ -11,8 +11,8 @@ const ymlRoutes = parseRoutesFromYml(ymlContent)
 try {
   yargs
     .command('start', 'Start Server', {}, async (argv: Argv) => {
-      argv.ymlRoutes = ymlRoutes
-      argv.routes = await parseFeRoutes(argv)
+      argv.faasRoutes = ymlRoutes
+      await parseFeRoutes(argv)
       process.env.NODE_ENV = 'development'
       await start(argv)
     })

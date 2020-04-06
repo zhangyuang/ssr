@@ -2,6 +2,7 @@
 import { join } from 'path'
 import * as Config from 'webpack-chain'
 import { Mode } from 'ssr-client-utils'
+import { getFeDir, getCwd } from 'ssr-server-utils'
 import { moduleFileExtensions, loadModule } from './config'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -17,12 +18,15 @@ const getBaseConfig = () => {
   config
     .resolve
     .modules
-      .add('node_modules')
+      .add(join(getCwd(), './node_modules'))
       .add(join(__dirname, '../../node_modules'))
       .add(join(__dirname, '../../../../node_modules'))
       .end()
-    // .extensions.merge(moduleFileExtensions)
-    // .end()
+    .extensions.merge(moduleFileExtensions)
+    .end()
+    .alias
+      .set('@', getFeDir())
+    .end()
 
   config.module
       .rule('image')

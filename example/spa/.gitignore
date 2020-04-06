@@ -56,16 +56,10 @@ typings/
 
 # dotenv environment variables file
 .env
-
-# next.js build output
-.next
-
 .DS_Store
-
 .vscode
-
-run/
-
 dist/
-
 package-lock.json
+yarn.lock
+build
+.faas_debug_tmp

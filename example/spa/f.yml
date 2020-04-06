@@ -5,7 +5,7 @@ provider:
 
 functions:
   spa:
-    handler: spa.handler
+    handler: index.handler
     render:
       mode: ssr
     events:

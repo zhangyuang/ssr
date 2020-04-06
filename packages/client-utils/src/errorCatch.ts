@@ -14,10 +14,6 @@ const webpackError = (err, stats) => {
     return
   }
 
-  if (stats.hasWarnings()) {
-    console.warn(info.warnings)
-    return
-  }
 }
 
 export {

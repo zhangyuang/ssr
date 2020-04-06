@@ -1,5 +1,5 @@
 
-import React from 'react'
+import * as React from 'react'
 import serialize from 'serialize-javascript'
 
 const Layout = (props) => {
@@ -18,14 +18,14 @@ const Layout = (props) => {
       </head>
       <body>
         <div id='app'>{ props.children }</div>
-        {
+        {/* {
           serverData && <script dangerouslySetInnerHTML={{
             __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(serverData)}`
           }} />
         }
         <div dangerouslySetInnerHTML={{
           __html: injectScript && injectScript.join('')
-        }} />
+        }} /> */}
       </body>
     </html>
   )

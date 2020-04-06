@@ -1,12 +1,13 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { wrapComponent, getComponent, FeRouteItem, IFaaSContext, INodeModule, IWindow } from 'ssr-client-utils'
+import { wrapComponent, findRoute, FeRouteItem, IFaaSContext, IWindow, FaasRouteItem, Options } from 'ssr-client-utils'
 
 declare const window: IWindow
-declare const module: INodeModule
+declare const module: any
 declare const __isBrowser__: boolean
-declare const routes: FeRouteItem[]
+
+const feRoutes: FeRouteItem[] = require('ssr-cache/route')
 
 const clientRender = async (): Promise<void> => {
   // 客户端渲染||hydrate
@@ -15,10 +16,10 @@ const clientRender = async (): Promise<void> => {
       <Switch>
         {
           // 使用高阶组件wrapComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
-          routes.map((item: FeRouteItem) => {
-            const Layout = item.component.Layout
+          feRoutes.map((item: FeRouteItem) => {
+            const Layout = item.layout
             const WrappedComponent = wrapComponent(item.component)
-            return <Route exact={item.exact} key={item.path} path={item.path} render={() => <Layout key={location.pathname}><WrappedComponent /></Layout>} />
+            return <Route exact={true} key={item.path} path={item.path} render={() => <Layout key={location.pathname}><WrappedComponent /></Layout>} />
           })
         }
       </Switch>
@@ -29,19 +30,23 @@ const clientRender = async (): Promise<void> => {
   }
 }
 
-const serverRender = async (ctx: IFaaSContext, config): Promise<React.ReactElement> => {
-  ctx = {
-    path: '/'
-  }
-  console.log('xx')
-  const Component = getComponent(routes, ctx.path)()
-  const Layout = Component.Layout
+const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.ReactElement> => {
+  const routeItem = findRoute<FeRouteItem>(feRoutes, ctx.path)
+  const faasRouteItem = findRoute<FaasRouteItem>(options.faasRoutes, ctx.path)
 
-  if (config.type !== 'ssr') {
-    return <Layout ctx></Layout>
+  if (!routeItem) {
+    throw new Error('Component is Not Found')
   }
 
-  const fetchData = Component.fetch ? await Component.fetch(ctx) : {}
+  const Layout = routeItem.layout
+  const Component = routeItem.component
+  const mode = faasRouteItem.mode
+
+  if (mode !== 'ssr') {
+    return <Layout></Layout>
+  }
+
+  const fetchData = routeItem.fetch ? await routeItem.fetch(ctx) : {}
 
   return <Layout ctx={ctx} fetchData={fetchData}>
       <Component {...fetchData} />

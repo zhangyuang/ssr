@@ -1,10 +1,11 @@
 import { join } from 'path'
 import * as webpack from 'webpack'
 import { getBaseConfig } from './base'
-import { isDev, cwd, serverOutPut, loadModule } from './config'
+import { isDev, cwd, getOutput, loadModule } from './config'
 import { nodeExternals } from './plugins/external'
 
 const getServerWebpack = (argv) => {
+  const { funcName } = argv.faasRoutes[0]
   const config = getBaseConfig()
 
   config.devtool(isDev ? 'eval-source-map' : false)
@@ -15,9 +16,9 @@ const getServerWebpack = (argv) => {
           .add(loadModule('../entry'))
           .end()
           .output
-            .path(`${cwd}/${serverOutPut}`)
+            .path(getOutput(funcName).serverOutPut)
             .filename('[name].server.js')
-            .libraryTarget('commonjs2')
+            .libraryTarget('commonjs')
 
   config.module
       .rule('compile')
@@ -53,7 +54,7 @@ const getServerWebpack = (argv) => {
               .end()
 
   config.externals(nodeExternals({
-    whitelist: /\.(css|less|sass|scss)$/,
+    whitelist: /\.(css|less|sass|scss)$|ssr\-cache/,
     // externals Dir contains packages/core/node_modules ssr-with-ts/node_modules ssr/node_modules
     modulesDir: [join(__dirname,'../../node_modules'), join(cwd, './node_modules'), join(__dirname, '../../../../node_modules') ]
   }))
@@ -61,11 +62,9 @@ const getServerWebpack = (argv) => {
   config.when(isDev, () => {
     config.watch(true)
   })
-  console.log(argv.routes)
+
   config.plugin('define').use(webpack.DefinePlugin, [{
-    '__isBrowser__': false,
-    'routes': JSON.stringify(argv.routes),
-    'ymlRoutes': JSON.stringify(argv.ymlRoutes)
+    '__isBrowser__': false
   }])
 
   return config.toConfig()
