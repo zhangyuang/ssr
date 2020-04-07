@@ -26,7 +26,6 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
-    "path-to-regexp": "^6.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },

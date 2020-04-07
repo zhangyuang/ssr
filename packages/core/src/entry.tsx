@@ -1,7 +1,8 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { wrapComponent, findRoute, FeRouteItem, IFaaSContext, IWindow, FaasRouteItem, Options } from 'ssr-client-utils'
+import { findRoute } from 'ssr-server-utils'
+import { wrapComponent, FeRouteItem, IFaaSContext, IWindow, FaasRouteItem, Options } from 'ssr-client-utils'
 
 declare const window: IWindow
 declare const module: any
@@ -31,8 +32,8 @@ const clientRender = async (): Promise<void> => {
 }
 
 const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.ReactElement> => {
-  const routeItem = findRoute<FeRouteItem>(feRoutes, ctx.path)
-  const faasRouteItem = findRoute<FaasRouteItem>(options.faasRoutes, ctx.path)
+  const routeItem = findRoute<FeRouteItem>(feRoutes, ctx.req.path)
+  const faasRouteItem = findRoute<FaasRouteItem>(options.faasRoutes, ctx.req.path)
 
   if (!routeItem) {
     throw new Error('Component is Not Found')
@@ -41,7 +42,6 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
   const Layout = routeItem.layout
   const Component = routeItem.component
   const mode = faasRouteItem.mode
-
   if (mode !== 'ssr') {
     return <Layout></Layout>
   }

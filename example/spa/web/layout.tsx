@@ -19,7 +19,7 @@ const Layout = (props) => {
         <div id='app'>{ props.children }</div>
         {/* {
           props.fetchData && <script dangerouslySetInnerHTML={{
-            __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(fetchData)}`
+            __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(props.fetchData)}`
           }} />
         }
         <div dangerouslySetInnerHTML={{

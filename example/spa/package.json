@@ -1,27 +1,22 @@
 {
-  "name": "spa-example",
-  "version": "0.1.0",
-  "scripts": {
-    "build": "f package --skipZip",
-    "test": "f test"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 9",
-    "not op_mini all"
-  ],
+  "name": "midway-faas-hello-world",
+  "version": "1.0.0",
+  "private": true,
   "dependencies": {
     "@midwayjs/faas": "*",
     "react": "^16.13.1",
-    "react-router-dom": "^5.1.2",
-    "serialize-javascript": "^3.0.0"
+    "react-dom": "^16.13.1",
+    "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
-    "@types/mocha": "^7.0.2",
-    "@midwayjs/serverless-invoke": "*"
+    "@midwayjs/serverless-invoke": "*",
+    "@types/mocha": "^5.2.5",
+    "@types/react": "^16.9.32",
+    "@types/react-dom": "^16.9.6",
+    "@types/react-router-dom": "^5.1.3"
   },
-  "midway-integration": {
-    "tsCodeRoot": "src"
+  "scripts": {
+    "build": "f package --skipZip",
+    "test": "f test"
   }
 }

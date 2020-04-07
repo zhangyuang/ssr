@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "js-yaml": "^3.13.1",
-    "path-to-regexp": "^6.1.0",
+    "path-to-regexp": "^1.7.0",
     "shelljs": "^0.8.3"
   }
 }

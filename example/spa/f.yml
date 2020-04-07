@@ -1,13 +1,15 @@
 service:
-  name: serverless-hello-world
+  name: serverless-ssr-spa
 provider:
   name: aliyun
-
 functions:
   index:
     handler: index.handler
+    render:
+        mode: ssr
     events:
       - http:
+          path: /*
           method: get
 package:
   artifact: code.zip

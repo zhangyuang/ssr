@@ -1,5 +1,5 @@
 import { FaaSContext, func, inject, provide, FunctionHandler } from '@midwayjs/faas'
-// import { render } from 'ssr-core'
+import { render } from 'ssr-core'
 
 @provide()
 @func('index.handler')
@@ -9,8 +9,7 @@ export class IndexService implements FunctionHandler {
   ctx: FaaSContext  // context
 
   async handler () {
-    console.log('xx')
-    // const str = await render(this.ctx)
-    return 'xx'
+    const htmlStr = await render(this.ctx)
+    return htmlStr
   }
 }

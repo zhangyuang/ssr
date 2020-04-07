@@ -1,13 +1,14 @@
 import { invoke } from '@midwayjs/serverless-invoke'
-// import * as assert from 'assert'
+import * as assert from 'assert'
 import { join } from 'path'
 
 describe('/test/index.test.ts', () => {
   it('invoke', async () => {
     const result: any = await invoke({
       functionName: 'index',
-      functionDir: join(__dirname, '../')
+      functionDir: join(__dirname, '../'),
+      eventPath: '/home'
     })
-    console.log(result)
+    assert.match(result.body, /当前路由/)
   })
 })
