@@ -31,10 +31,6 @@ function wrapComponent (WrappedComponent: FC): React.ComponentClass {
 
     async getInitialProps () {
       const props = this.props
-      if (WrappedComponent.preload) {
-        // react-loadable 情况
-        WrappedComponent = (await WrappedComponent.preload()).default
-      }
       const extraProps = WrappedComponent.getInitialProps ? await WrappedComponent.getInitialProps(props) : {}
       this.setState({
         extraProps

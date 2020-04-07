@@ -212,7 +212,7 @@ export default Page
     ├── home
     │   ├── fetch.ts
     │   └── render.tsx # /home 路由
-    ├── layout.tsx # 布局文件，SPA应用只需要一个公用的layout文件
+    ├── layout.tsx # 布局文件，理论上SPA应用只需要一个公用的layout文件维护即可,不建议创建多个layout
     └── news
     │  ├── fetch.ts
     │  └── render.tsx # /news 路由

@@ -4,7 +4,7 @@ export * from './cwd'
 export * from './external'
 export * from './errorCatch'
 export * from './promisify'
-export * from './render'
+export * from './findRoute'
 
 /* types */
 export * from 'ssr-types'
