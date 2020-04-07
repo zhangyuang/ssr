@@ -9,6 +9,7 @@ export class IndexService implements FunctionHandler {
   ctx: FaaSContext  // context
 
   async handler () {
+    console.log('req.path',this.ctx)
     const htmlStr = await render(this.ctx)
     return htmlStr
   }

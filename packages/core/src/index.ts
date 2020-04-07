@@ -5,3 +5,4 @@ export * from './client'
 
 export * from './server'
 export * from './render'
+export * from './faas'

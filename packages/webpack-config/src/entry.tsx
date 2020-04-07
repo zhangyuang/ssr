@@ -19,6 +19,7 @@ const clientRender = async (): Promise<void> => {
           // 使用高阶组件wrapComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
           feRoutes.map((item: FeRouteItem) => {
             const Layout = item.layout
+            item.component.fetch = item.fetch
             const WrappedComponent = wrapComponent(item.component)
             return <Route exact={true} key={item.path} path={item.path} render={() => <Layout key={location.pathname}><WrappedComponent /></Layout>} />
           })

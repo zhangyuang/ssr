@@ -1,14 +1,13 @@
 import * as webpack from 'webpack'
-import { webpackError } from 'ssr-client-utils'
-import { getServerWebpack }from './webapck-config/server'
-import { webpackStatsOption } from './webapck-config/config'
+import { getServerWebpack, webpackStatsOption }from 'ssr-webpack-config'
+import { promisify } from 'util'
 
-const startServerBuild = (argv) => {
+const webpackPromise = promisify<webpack.Configuration, webpack.Stats>(webpack)
+
+const startServerBuild = async (argv) => {
   const serverConfig = getServerWebpack(argv)
-  webpack(serverConfig, (err, stats) => {
-    webpackError(err, stats)
-    console.log(stats.toString(webpackStatsOption))
-  })
+  const stats = await webpackPromise(serverConfig)
+  console.log(stats.toString(webpackStatsOption))
 }
 
 export {

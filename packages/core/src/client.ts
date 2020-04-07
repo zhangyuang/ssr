@@ -1,7 +1,6 @@
 import * as webpack from 'webpack'
 import * as webpackDevServer from 'webpack-dev-server'
-import { getClientWebpack }from './webapck-config/client'
-import { webpackDevServerConfig, port } from './webapck-config/config'
+import { getClientWebpack, webpackDevServerConfig, port }from 'ssr-webpack-config'
 
 const startClientServer = (argv) => {
   const clientConfig = getClientWebpack(argv)

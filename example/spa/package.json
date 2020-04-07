@@ -17,6 +17,7 @@
   },
   "scripts": {
     "build": "f package --skipZip",
-    "test": "f test"
+    "test": "f test",
+    "start": "ssr start"
   }
 }

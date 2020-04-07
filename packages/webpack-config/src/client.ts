@@ -20,7 +20,7 @@ const getClientWebpack = (argv) => {
 
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
   config.entry(chunkName)
-        .add(loadModule('../entry'))
+        .add(loadModule('./entry'))
         .end()
         .output
         .path(getOutput(funcName).clientOutPut)

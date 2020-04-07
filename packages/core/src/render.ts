@@ -10,7 +10,7 @@ const render = async (ctx: IFaaSContext) => {
 
   // for this issue https://github.com/ykfe/egg-react-ssr/issues/4
   const renderToString = require(cwd + '/node_modules/react-dom/server').renderToString
-  const faasRouteItem = findRoute<FaasRouteItem>(faasRoutes, ctx.path)
+  const faasRouteItem = findRoute<FaasRouteItem>(faasRoutes, ctx.req.path)
   const { funcName } = faasRouteItem
   const abFilePath = `${cwd}/build/${funcName}/server/Page.server.js`
 

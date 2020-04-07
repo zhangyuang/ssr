@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import * as Config from 'webpack-chain'
-import { Mode } from 'ssr-client-utils'
+import { Mode } from 'ssr-types'
 import { getFeDir, getCwd } from 'ssr-server-utils'
 import { moduleFileExtensions, loadModule } from './config'
 
