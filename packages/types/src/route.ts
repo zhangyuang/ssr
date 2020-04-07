@@ -1,7 +1,7 @@
 import { IFaaSContext } from './ctx'
 
 export interface ProvisionalFeRouteItem {
-  path: string
+  path?: string
   layout: string
   fetch?: string
   component?: string

@@ -18,6 +18,10 @@
     "serialize-javascript": "^3.0.0"
   },
   "devDependencies": {
+    "@types/mocha": "^7.0.2",
     "@midwayjs/serverless-invoke": "*"
+  },
+  "midway-integration": {
+    "tsCodeRoot": "src"
   }
 }
