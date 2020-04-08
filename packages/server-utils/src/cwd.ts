@@ -25,7 +25,12 @@ const getFeDir = () => {
   return join(cwd, './web')
 }
 
+const getPagesDir = () => {
+  return join(getFeDir(), './pages')
+}
+
 export {
   getCwd,
-  getFeDir
+  getFeDir,
+  getPagesDir
 }

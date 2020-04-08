@@ -4,7 +4,7 @@ import * as Yaml from 'js-yaml'
 import * as Shell from 'shelljs'
 import { Yml, FaasRouteItem, Argv, ProvisionalFeRouteItem, FeRouteItem } from 'ssr-types'
 import { promisifyFsReadDir } from './promisify'
-import { getCwd, getFeDir } from './cwd'
+import { getCwd, getPagesDir } from './cwd'
 
 const parseYml = (path: string) => {
   const cwd = getCwd()
@@ -33,18 +33,18 @@ const parseRoutesFromYml = (yamlContent: Yml): FaasRouteItem[] => {
 
 const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
   // 根据目录结构生成前端路由表
-  const feDir = getFeDir()
+  const pageDir = getPagesDir()
   const cwd = getCwd()
   if (!fs.existsSync(join(cwd, './node_modules/ssr-cache'))) {
     Shell.mkdir(`${cwd}/node_modules/ssr-cache`)
   }
-  const folders = await promisifyFsReadDir(feDir) // 读取web目录
-  const defaultLayout = `${join(feDir, `/layout.tsx`)}`
+  const folders = await promisifyFsReadDir(pageDir) // 读取web目录
+  const defaultLayout = `${join(pageDir, `/layout.tsx`)}`
   const arr = []
   if (!argv.mpa) {
     for (let i in folders) {
       const folder = folders[i]
-      const abFolder = join(feDir, folder)
+      const abFolder = join(pageDir, folder)
       if (fs.statSync(abFolder).isDirectory()) {
         // 读取web下子目录
         const files = await promisifyFsReadDir(abFolder)
@@ -57,7 +57,7 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
           const abFile = join(abFolder, file)
           if (/render/.test(file)) {
             /* /news */
-            route.path = `/${folder}`
+            route.path = folder === 'index' ? '/' : `/${folder}`
             route.component = `require('${abFile}').default`
           }
 
@@ -86,11 +86,11 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
       }
     }
     // 添加默认根路由
-    fs.existsSync(join(feDir, './render.tsx')) && arr.push({
+    fs.existsSync(join(pageDir, './render.tsx')) && arr.push({
       path: '/',
       layout: `require('${defaultLayout}').default`,
-      fetch: fs.existsSync(join(feDir, './fetch.ts')) && `require('${join(feDir, './fetch.ts')}').default`,
-      component: `require('${join(feDir, './render.tsx')}').default`
+      fetch: fs.existsSync(join(pageDir, './fetch.ts')) && `require('${join(pageDir, './fetch.ts')}').default`,
+      component: `require('${join(pageDir, './render.tsx')}').default`
     })
 
     fs.writeFileSync(`${cwd}/node_modules/ssr-cache/route.js`,`module.exports =${JSON.stringify(arr)

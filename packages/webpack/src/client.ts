@@ -1,7 +1,7 @@
 
 import * as webpack from 'webpack'
 import { getBaseConfig } from './base'
-import { publicPath, isDev, chunkName, getOutput, cwd, useHash, loadModule } from './config'
+import { publicPath, isDev, chunkName, getOutput, cwd, useHash, loadModule, postCssPlugin } from './config'
 
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
@@ -19,14 +19,16 @@ const getClientWebpack = (argv) => {
   const config = getBaseConfig()
 
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
+
   config.entry(chunkName)
-        .add(loadModule('./entry'))
+          .add(loadModule('./entry'))
         .end()
         .output
         .path(getOutput(funcName).clientOutPut)
         .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
-          .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].chunk.js')
-          .publicPath(publicPath)
+        .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].chunk.js')
+        .publicPath(publicPath)
+        .end()
 
   config.optimization
     .runtimeChunk(true)
@@ -85,6 +87,9 @@ const getClientWebpack = (argv) => {
   config.module
       .rule('less')
         .test(/\.less$/)
+        .exclude
+          .add((/global\.less$/))
+        .end()
         .use('minicss')
           .loader(MiniCssExtractPlugin.loader)
         .end()
@@ -92,23 +97,15 @@ const getClientWebpack = (argv) => {
           .loader(loadModule('css-loader'))
           .options({
             importLoaders: 2,
-            modules: true,
-            getLocalIdent: getCSSModuleLocalIdent
+            getLocalIdent: getCSSModuleLocalIdent,
+            modules: true
           })
         .end()
         .use('postcss-loader')
           .loader(loadModule('postcss-loader'))
           .options({
             ident: 'postcss',
-            plugins: () => [
-              require('postcss-flexbugs-fixes'),
-              require('postcss-preset-env')({
-                autoprefixer: {
-                  flexbox: 'no-2009'
-                },
-                stage: 3
-              })
-            ]
+            plugins: () => postCssPlugin
           })
         .end()
         .use('less-loader')

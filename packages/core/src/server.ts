@@ -1,5 +1,5 @@
 import * as webpack from 'webpack'
-import { getServerWebpack, webpackStatsOption }from 'ssr-webpack-config'
+import { getServerWebpack, webpackStatsOption }from 'ssr-webpack'
 import { promisify } from 'util'
 
 const webpackPromise = promisify<webpack.Configuration, webpack.Stats>(webpack)

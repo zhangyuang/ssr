@@ -1,8 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { findRoute } from 'ssr-server-utils'
-import { wrapComponent, FeRouteItem, IFaaSContext, IWindow, FaasRouteItem, Options } from 'ssr-client-utils'
+import { wrapComponent, FeRouteItem, findRoute, IFaaSContext, IWindow, FaasRouteItem, Options } from 'ssr-client-utils'
 
 declare const window: IWindow
 declare const module: any

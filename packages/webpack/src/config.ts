@@ -19,6 +19,7 @@ const moduleFileExtensions = [
 
 const isDev = process.env.NODE_ENV !== 'production'
 const port = 8000
+const host = '0.0.0.0'
 const cwd = getCwd()
 const chunkName = 'Page'
 
@@ -32,7 +33,8 @@ const webpackStatsOption = {
   chunks: false, // 添加 chunk 信息（设置为 `false` 能允许较少的冗长输出）
   colors: true, // 以不同颜色区分构建信息
   modules: false,  // 添加构建模块信息
-  warnings: false
+  warnings: false,
+  entrypoints: false
 }
 
 const getOutput = (funcName: string) => ({
@@ -45,7 +47,7 @@ const webpackDevServerConfig = {
   disableHostCheck: true,
   publicPath: publicPath,
   hotOnly: true,
-  host: '0.0.0.0',
+  host,
   sockPort: port,
   hot: true,
   port: port,
@@ -54,7 +56,15 @@ const webpackDevServerConfig = {
     'access-control-allow-origin': '*'
   }
 }
-
+const postCssPlugin = [
+  require('postcss-flexbugs-fixes'),
+  require('postcss-preset-env')({
+    autoprefixer: {
+      flexbox: 'no-2009'
+    },
+    stage: 3
+  })
+]
 const loadModule = require.resolve
 
 export {
@@ -68,5 +78,6 @@ export {
   getOutput,
   loadModule,
   webpackDevServerConfig,
-  webpackStatsOption
+  webpackStatsOption,
+  postCssPlugin
 }

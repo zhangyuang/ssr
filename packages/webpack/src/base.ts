@@ -10,17 +10,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const getBaseConfig = () => {
 
   const config = new Config()
-
   const mode = process.env.NODE_ENV as Mode
   config.mode(mode)
   config.module.strictExportPresence(true)
-
   config
     .resolve
     .modules
       .add(join(getCwd(), './node_modules'))
-      .add(join(__dirname, '../../node_modules'))
-      .add(join(__dirname, '../../../../node_modules'))
+      .add(join(__dirname, '../node_modules'))
+      .add(join(__dirname, '../../../node_modules'))
       .end()
     .extensions.merge(moduleFileExtensions)
     .end()
