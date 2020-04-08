@@ -6,6 +6,12 @@ The markdown file introduce how to contribute for ssr-psec
 
 ```bash
 $ npm run bootstrap # you can also run yarn, but npm install is not allowed 
+$ npm run watch
+$ cd packages/cli
+$ yarn link
+$ cd example/spa
+$ yarn link ssr
+$ npm start
 ```
 
 Please read the [document](https://classic.yarnpkg.com/en/docs/workspaces/) about yarn workspace

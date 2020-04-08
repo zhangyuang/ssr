@@ -1,6 +1,6 @@
 import { join } from 'path'
 import { invoke } from '@midwayjs/serverless-invoke'
-import { isDev, port } from '../../webpack/cjs'
+import { isDev, port } from 'ssr-webpack'
 import { getCwd, Argv, findRoute, FaasRouteItem, logGreen } from 'ssr-server-utils'
 
 const Koa = require('koa')
@@ -18,14 +18,13 @@ const startFaasServer = (argv: Argv) => {
     await next()
     const routeItem = findRoute<FaasRouteItem>(argv.faasRoutes, ctx.path)
     const { funcName } = routeItem
-
     try {
       const result: any = await invoke({
         functionName: funcName,
         functionDir: cwd,
         data: [
           {
-            path: ctx.req.path,
+            path: ctx.path,
             method: 'GET'
           }
         ]
@@ -33,7 +32,8 @@ const startFaasServer = (argv: Argv) => {
       ctx.type = 'text/html'
       ctx.body = result.body
     } catch (error) {
-      ctx.body = JSON.stringify(error)
+      console.log('error', error)
+      ctx.body = error
     }
   })
 

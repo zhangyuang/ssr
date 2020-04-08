@@ -72,6 +72,7 @@ export {
   isDev,
   publicPath,
   useHash,
+  host,
   moduleFileExtensions,
   port,
   chunkName,

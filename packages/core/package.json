@@ -25,7 +25,6 @@
     "url": "https://github.com/ykfe/ssr/issues"
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
-
   "devDependencies": {
     "@babel/core": "^7.0.0",
     "@babel/preset-env": "^7.5.5",
@@ -63,5 +62,8 @@
     "webpack-chain": "^6.4.0",
     "webpack-dev-server": "^3.10.3",
     "webpack-manifest-plugin": "^2.2.0"
+  },
+  "dependencies": {
+    "@types/mocha": "^7.0.2"
   }
 }

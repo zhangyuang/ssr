@@ -9,7 +9,7 @@
     "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
-    "@midwayjs/serverless-invoke": "*",
+    "@midwayjs/serverless-invoke": "0.2.67",
     "@types/mocha": "^5.2.5",
     "@types/react": "^16.9.32",
     "@types/react-dom": "^16.9.6",
