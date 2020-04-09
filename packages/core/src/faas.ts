@@ -1,11 +1,11 @@
 import { join } from 'path'
 import { invoke } from '@midwayjs/serverless-invoke'
+import * as Koa from 'koa'
+import * as Router from 'koa-router'
 import { buildConfig } from 'ssr-webpack'
 import { getCwd, Argv, findRoute, FaasRouteItem, logGreen } from 'ssr-server-utils'
 
 const { port, faasPort } = buildConfig
-const Koa = require('koa')
-const Router = require('koa-router')
 const proxy = require('koa-proxy')
 const serverStatic = require('koa-static')
 const app = new Koa()
@@ -21,6 +21,7 @@ const startFaasServer = (argv: Argv) => {
   }))
   router.get('/*', async (ctx, next) => {
     await next()
+      // @ts-ignore
     const routeItem = findRoute<FaasRouteItem>(argv.faasRoutes, ctx.path)
     const { funcName } = routeItem
     try {

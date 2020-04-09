@@ -1,12 +1,14 @@
 import { join } from 'path'
 import * as webpack from 'webpack'
+import { Argv } from 'ssr-server-utils'
 import { getBaseConfig } from './base'
 import { buildConfig } from './config'
 import { nodeExternals } from './plugins/external'
 
 const { isDev, cwd, getOutput, loadModule, chainServerConfig } = buildConfig
 
-const getServerWebpack = (argv) => {
+const getServerWebpack = (argv: Argv) => {
+  // @ts-ignore
   const { funcName } = argv.faasRoutes[0]
   const config = getBaseConfig()
 

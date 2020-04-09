@@ -12,7 +12,7 @@ const getCwd = () => {
   return cwd
 }
 
-const getFeDir = () => {
+const getFeDir = (): string => {
   // fe component folder path
   const cwd = process.cwd()
   if (process.env.FE_ROOT) {

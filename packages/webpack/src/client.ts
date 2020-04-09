@@ -1,5 +1,6 @@
 
 import * as webpack from 'webpack'
+import { Argv } from 'ssr-server-utils'
 import { getBaseConfig } from './base'
 import { buildConfig } from './config'
 
@@ -13,7 +14,8 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 
-const getClientWebpack = (argv) => {
+const getClientWebpack = (argv: Argv) => {
+    // @ts-ignore
   const { funcName } = argv.faasRoutes[0]
   const config = getBaseConfig()
 

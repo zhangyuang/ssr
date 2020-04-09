@@ -83,12 +83,11 @@ const injectScript = [
 
 const userConfig = getUserConfig()
 
-const chainClientConfig = (config) => {
+const chainClientConfig = () => {
   // 覆盖默认webpack配置
 }
-const chainServerConfig = (config) => {
+const chainServerConfig = () => {
   // 覆盖默认webpack配置
-
 }
 
 const buildConfig: BuildConfig = Object.assign({},{

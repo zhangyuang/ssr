@@ -1,5 +1,6 @@
 import { Configuration, Options } from 'webpack'
 import * as Config from 'webpack-chain'
+import * as webpackDevServer from 'webpack-dev-server'
 
 export interface BuildConfig {
   cwd: string
@@ -14,6 +15,7 @@ export interface BuildConfig {
     clientOutPut: string
     serverOutPut: string
   }
+  webpackDevServerConfig: webpackDevServer.Configuration
   loadModule: RequireResolve,
   injectCss: JSX.Element[]
   injectScript: JSX.Element[]

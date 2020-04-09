@@ -1,10 +1,11 @@
 import * as webpack from 'webpack'
 import * as webpackDevServer from 'webpack-dev-server'
 import { getClientWebpack, buildConfig }from 'ssr-webpack'
+import { Argv } from 'ssr-types'
 
 const { webpackDevServerConfig, port, host } = buildConfig
 
-const startClientServer = (argv) => {
+const startClientServer = (argv: Argv) => {
   return new Promise((resolve, reject) => {
     const clientConfig = getClientWebpack(argv)
     const compiler = webpack(clientConfig)

@@ -7,11 +7,10 @@ import { wrapLayout, FeRouteItem, findRoute, IFaaSContext, FaasRouteItem, Option
 declare const __isBrowser__: boolean
 
 const feRoutes: FeRouteItem[] = require('ssr-cache/route')
-const { injectCss, injectScript } = buildConfig
 
 const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.ReactElement> => {
 
-  const routeItem = findRoute<FeRouteItem>(feRoutes, ctx.req.path)
+  const routeItem = findRoute<FeRouteItem<any>>(feRoutes, ctx.req.path)
   const faasRouteItem = findRoute<FaasRouteItem>(options.faasRoutes, ctx.req.path)
   if (!routeItem) {
     throw new Error('Component is Not Found')

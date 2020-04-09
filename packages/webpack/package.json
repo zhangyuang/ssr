@@ -61,7 +61,6 @@
     "postcss-preset-env": "^6.0.5",
     "postcss-safe-parser": "4.0.1",
     "react-dev-utils": "^10.2.1",
-    "ssr-types": "^0.1.1",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "1.1.1",
     "webpack": "^4.42.1",
