@@ -13,7 +13,9 @@
     "pretty": true,
     "declaration": true,
     "outDir": "dist",
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": ".",
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "dist",

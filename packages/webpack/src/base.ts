@@ -2,7 +2,7 @@
 import { join } from 'path'
 import * as Config from 'webpack-chain'
 import { Mode } from 'ssr-types'
-import { getFeDir, getCwd } from 'ssr-server-utils'
+import { getPagesDir, getCwd } from 'ssr-server-utils'
 import { moduleFileExtensions, loadModule } from './config'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -19,23 +19,32 @@ const getBaseConfig = () => {
       .add(join(getCwd(), './node_modules'))
       .add(join(__dirname, '../node_modules'))
       .add(join(__dirname, '../../../node_modules'))
-      .end()
+    .end()
     .extensions.merge(moduleFileExtensions)
     .end()
     .alias
-      .set('@', getFeDir())
+      .set('@', getPagesDir())
     .end()
 
   config.module
-      .rule('image')
-          .test([/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/])
-          .use('url-loader')
-              .loader(loadModule('url-loader'))
-              .options({
-                limit: 10000,
-                name: 'static/media/[name].[hash:8].[ext]'
-              })
-              .end()
+        .rule('images')
+        .test(/\.(png|jpe?g|gif|webp)(\?.*)?$/)
+        .use('url-loader')
+          .loader(loadModule('url-loader'))
+          .options({
+            limit: 10000,
+            name: 'static/[name].[hash:8].[ext]',
+            // require 图片的时候不用加 .default
+            esModule: false,
+            fallback: {
+              loader: loadModule('file-loader'),
+              options: {
+                name: 'static/[name].[hash:8].[ext]',
+                esModule: false
+              }
+            }
+          })
+          .end()
 
   config.module
       .rule('compile')
@@ -57,7 +66,9 @@ const getBaseConfig = () => {
                       useBuiltIns: 'usage'
                     }
                   ],
-                  [loadModule('babel-preset-react-app'), { flow: false, typescript: true }]
+                  // [loadModule('babel-preset-react-app'), { flow: false, typescript: true }]
+                  [loadModule('@babel/preset-react')],
+                  [loadModule('@babel/typescript')]
                 ],
                 plugins: [
                   [
@@ -73,16 +84,25 @@ const getBaseConfig = () => {
               .end()
 
   config.module
-      .rule('media')
-        .exclude
-          .add([[/\.(js|mjs|jsx|ts|tsx)$/, /\.html$/, /\.json$/]])
-          .end()
-      .use('file-loader')
-        .loader('file-loader')
-        .options({
-          name: 'static/media/[name].[hash:8].[ext]'
-        })
+        .rule('svg')
+        .test(/\.(svg)(\?.*)?$/)
+        .use('file-loader')
+          .loader(loadModule('file-loader'))
+          .options({
+            name: 'static/[name].[hash:8].[ext]',
+            esModule: false
+          })
         .end()
+
+  config.module
+        .rule('fonts')
+        .test(/\.(eot|woff|woff2|ttf)(\?.*)?$/)
+        .use('file-loader')
+          .loader(loadModule('file-loader'))
+          .options({
+            name: 'static/[name].[hash:8].[ext]',
+            esModule: false
+          })
 
   config.plugin('minify-css').use(MiniCssExtractPlugin, [{
     filename: 'static/css/[name].css',

@@ -87,18 +87,16 @@ const getClientWebpack = (argv) => {
   config.module
       .rule('less')
         .test(/\.less$/)
-        .exclude
-          .add((/global\.less$/))
-        .end()
-        .use('minicss')
+        .use('MiniCss')
           .loader(MiniCssExtractPlugin.loader)
         .end()
         .use('css-loader')
           .loader(loadModule('css-loader'))
           .options({
-            importLoaders: 2,
-            getLocalIdent: getCSSModuleLocalIdent,
-            modules: true
+            importLoaders: 1,
+            localIdentName: '[local]'
+            // getLocalIdent: getCSSModuleLocalIdent,
+            // modules: true
           })
         .end()
         .use('postcss-loader')
@@ -126,6 +124,7 @@ const getClientWebpack = (argv) => {
   config.when(generateAnalysis, config => {
     config.plugin('analyze').use(BundleAnalyzerPlugin)
   })
+  console.log('xx',config.toConfig().module.rules[4])
   return config.toConfig()
 }
 

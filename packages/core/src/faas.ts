@@ -1,6 +1,6 @@
 import { join } from 'path'
 import { invoke } from '@midwayjs/serverless-invoke'
-import { isDev, port } from 'ssr-webpack'
+import { port } from 'ssr-webpack'
 import { getCwd, Argv, findRoute, FaasRouteItem, logGreen } from 'ssr-server-utils'
 
 const Koa = require('koa')
@@ -14,6 +14,10 @@ const startFaasServer = (argv: Argv) => {
   const cwd = getCwd()
   app.use(serverStatic(join(cwd, `/build`)))
 
+  app.use(proxy({
+    host: `http://127.0.0.1:${port}`, // 本地开发的时候代理前端打包出来的资源地址
+    match: /(\/static)|(\/sockjs-node)|hot-update/
+  }))
   router.get('/*', async (ctx, next) => {
     await next()
     const routeItem = findRoute<FaasRouteItem>(argv.faasRoutes, ctx.path)
@@ -25,7 +29,8 @@ const startFaasServer = (argv: Argv) => {
         data: [
           {
             path: ctx.path,
-            method: 'GET'
+            method: 'GET',
+            queries: ctx.query
           }
         ]
       })
@@ -40,13 +45,6 @@ const startFaasServer = (argv: Argv) => {
   app
   .use(router.routes())
   .use(router.allowedMethods())
-
-  if (isDev) {
-    app.use(proxy({
-      host: `http://127.0.0.1:${port}`, // 本地开发的时候代理前端打包出来的资源地址
-      match: /(\/static)|(\/sockjs-node)|hot-update/
-    }))
-  }
 
   app.listen(3000, () => {
     logGreen('Server is listening on http://localhost:3000')

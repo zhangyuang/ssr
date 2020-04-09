@@ -47,8 +47,17 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
   }
 
   const fetchData = routeItem.fetch ? await routeItem.fetch(ctx) : {}
-
-  return <Layout ctx={ctx} fetchData={fetchData}>
+  const config = {
+    injectCss: [
+      `/static/css/Page.chunk.css`
+    ], // 客户端需要加载的静态样式表
+    injectScript: [
+      `<script src='/static/js/runtime~Page.js'></script>`,
+      `<script src='/static/js/vendor.chunk.js'></script>`,
+      `<script src='/static/js/Page.chunk.js'></script>`
+    ]
+  }
+  return <Layout ctx={ctx} fetchData={fetchData} config={config}>
       <Component {...fetchData} />
     </Layout>
 }

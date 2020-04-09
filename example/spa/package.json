@@ -6,14 +6,16 @@
     "@midwayjs/faas": "*",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "serialize-javascript": "^3.0.0"
   },
   "devDependencies": {
     "@midwayjs/serverless-invoke": "0.2.67",
     "@types/mocha": "^5.2.5",
     "@types/react": "^16.9.32",
     "@types/react-dom": "^16.9.6",
-    "@types/react-router-dom": "^5.1.3"
+    "@types/react-router-dom": "^5.1.3",
+    "@types/serialize-javascript": "^1.5.0"
   },
   "scripts": {
     "build": "f package --skipZip",
