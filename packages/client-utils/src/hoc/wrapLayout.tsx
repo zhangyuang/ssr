@@ -1,7 +1,8 @@
 import * as React from 'react'
+import { LayoutProps } from 'ssr-types'
 
 function wrapLayout (WrappedComponent: React.FC, __isBrowser__: boolean): React.ComponentClass { // tslint:disable-line
-  class WrapLayoutClass extends React.Component<any, {}> {
+  class WrapLayoutClass extends React.Component<LayoutProps, {}> {
     constructor (props: any) {
       super(props)
     }

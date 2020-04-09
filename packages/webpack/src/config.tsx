@@ -1,4 +1,5 @@
-import { getCwd } from 'ssr-server-utils'
+import * as React from 'react'
+import { getCwd, getUserConfig, BuildConfig } from 'ssr-server-utils'
 
 type ClientLogLevel = 'error'
 
@@ -19,6 +20,7 @@ const moduleFileExtensions = [
 
 const isDev = process.env.NODE_ENV !== 'production'
 const port = 8000
+const faasPort = 3000
 const host = '0.0.0.0'
 const cwd = getCwd()
 const chunkName = 'Page'
@@ -65,9 +67,33 @@ const postCssPlugin = [
     stage: 3
   })
 ]
+
 const loadModule = require.resolve
 
-export {
+const staticPrefix = '/'
+const injectCss = [
+  `${staticPrefix}static/css/Page.chunk.css`
+].map(item => <link rel='stylesheet' href={item} key={item} />)
+
+const injectScript = [
+  `${staticPrefix}static/js/runtime~Page.js`,
+  `${staticPrefix}static/js/vendor.chunk.js`,
+  `${staticPrefix}static/js/Page.chunk.js`
+].map(item => <script src={item} key={item} />)
+
+const userConfig = getUserConfig()
+
+const chainClientConfig = (config) => {
+  // 覆盖默认webpack配置
+}
+const chainServerConfig = (config) => {
+  // 覆盖默认webpack配置
+
+}
+
+const buildConfig: BuildConfig = Object.assign({},{
+  chainServerConfig,
+  chainClientConfig,
   cwd,
   isDev,
   publicPath,
@@ -75,10 +101,17 @@ export {
   host,
   moduleFileExtensions,
   port,
+  faasPort,
   chunkName,
   getOutput,
   loadModule,
   webpackDevServerConfig,
   webpackStatsOption,
-  postCssPlugin
+  postCssPlugin,
+  injectCss,
+  injectScript
+}, userConfig)
+
+export {
+  buildConfig
 }

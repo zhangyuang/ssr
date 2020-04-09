@@ -29,8 +29,13 @@ const getPagesDir = () => {
   return join(getFeDir(), './pages')
 }
 
+const getUserConfig = () => {
+  return require(join(getFeDir(), './config'))
+}
+
 export {
   getCwd,
   getFeDir,
-  getPagesDir
+  getPagesDir,
+  getUserConfig
 }

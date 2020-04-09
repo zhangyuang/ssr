@@ -1,9 +1,10 @@
 
 import React from 'react'
 import serialize from 'serialize-javascript'
+import { LayoutProps } from 'ssr'
 import styles from './index.less'
 
-const Layout = (props) => {
+const Layout = (props: LayoutProps) => {
   const { injectCss, injectScript } = props.config
   return (
     <html lang='en'>
@@ -12,9 +13,7 @@ const Layout = (props) => {
         <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
         <meta name='theme-color' content='#000000' />
         <title>Serverless Side Render</title>
-        {
-          injectCss && injectCss.map(item => <link rel='stylesheet' href={item} key={item} />)
-        }
+        { injectCss }
       </head>
       <body className={styles.body}>
         <div id='app'>{ props.children }</div>
@@ -23,9 +22,7 @@ const Layout = (props) => {
             __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(props.fetchData)}`
           }} />
         }
-        <div dangerouslySetInnerHTML={{
-          __html: injectScript && injectScript.join('')
-        }} />
+        { injectScript }
       </body>
     </html>
   )

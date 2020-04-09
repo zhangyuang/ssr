@@ -1,4 +1,5 @@
 export default async ctx => {
+  console.log('index fetch')
   return Promise.resolve({
     news: [
       {

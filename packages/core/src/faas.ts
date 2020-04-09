@@ -1,8 +1,9 @@
 import { join } from 'path'
 import { invoke } from '@midwayjs/serverless-invoke'
-import { port } from 'ssr-webpack'
+import { buildConfig } from 'ssr-webpack'
 import { getCwd, Argv, findRoute, FaasRouteItem, logGreen } from 'ssr-server-utils'
 
+const { port, faasPort } = buildConfig
 const Koa = require('koa')
 const Router = require('koa-router')
 const proxy = require('koa-proxy')
@@ -46,7 +47,7 @@ const startFaasServer = (argv: Argv) => {
   .use(router.routes())
   .use(router.allowedMethods())
 
-  app.listen(3000, () => {
+  app.listen(faasPort, () => {
     logGreen('Server is listening on http://localhost:3000')
   })
 

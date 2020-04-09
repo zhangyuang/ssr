@@ -1,3 +1,0 @@
-// const staticPrefix = 'http://'
-
-// export {}

@@ -10,7 +10,6 @@ const mockData = {
 }
 
 export default (ctx) => {
-  console.log('new fetch')
   const newsId = __isBrowser__ ? (ctx as RouteComponentProps<{id: string}>).match.params.id : (ctx as IFaaSContext).req.path.split('/')[2]
   return Promise.resolve({
     newsDetail: mockData[newsId]

@@ -1,8 +1,10 @@
 import { join } from 'path'
 import * as webpack from 'webpack'
 import { getBaseConfig } from './base'
-import { isDev, cwd, getOutput, loadModule } from './config'
+import { buildConfig } from './config'
 import { nodeExternals } from './plugins/external'
+
+const { isDev, cwd, getOutput, loadModule, chainServerConfig } = buildConfig
 
 const getServerWebpack = (argv) => {
   const { funcName } = argv.faasRoutes[0]
@@ -13,7 +15,7 @@ const getServerWebpack = (argv) => {
   config.target('node')
 
   config.entry('Page')
-          .add(loadModule('./entry'))
+          .add(loadModule('./entry/server-entry'))
           .end()
           .output
             .path(getOutput(funcName).serverOutPut)
@@ -67,6 +69,7 @@ const getServerWebpack = (argv) => {
     '__isBrowser__': false
   }])
 
+  chainServerConfig(config) // 合并用户自定义配置
   return config.toConfig()
 }
 

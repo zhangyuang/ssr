@@ -1,8 +1,9 @@
 
 import * as webpack from 'webpack'
 import { getBaseConfig } from './base'
-import { publicPath, isDev, chunkName, getOutput, cwd, useHash, loadModule } from './config'
+import { buildConfig } from './config'
 
+const { publicPath, isDev, chunkName, getOutput, cwd, useHash, loadModule, chainClientConfig } = buildConfig
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
@@ -19,7 +20,7 @@ const getClientWebpack = (argv) => {
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
 
   config.entry(chunkName)
-          .add(loadModule('./entry'))
+          .add(loadModule('./entry/client-entry'))
         .end()
         .output
           .path(getOutput(funcName).clientOutPut)
@@ -96,6 +97,8 @@ const getClientWebpack = (argv) => {
   config.when(generateAnalysis, config => {
     config.plugin('analyze').use(BundleAnalyzerPlugin)
   })
+
+  chainClientConfig(config) // 合并用户自定义配置
 
   return config.toConfig()
 }

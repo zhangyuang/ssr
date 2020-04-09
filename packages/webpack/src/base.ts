@@ -3,13 +3,13 @@ import { join } from 'path'
 import * as Config from 'webpack-chain'
 import { Mode } from 'ssr-types'
 import { getFeDir, getCwd } from 'ssr-server-utils'
-import { moduleFileExtensions, loadModule, isDev, postCssPlugin } from './config'
+import { buildConfig } from './config'
 
+const { moduleFileExtensions, loadModule, isDev, postCssPlugin } = buildConfig
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 
 const getBaseConfig = () => {
-
   const config = new Config()
   const mode = process.env.NODE_ENV as Mode
   config.mode(mode)
