@@ -1,11 +1,9 @@
 
 import * as webpack from 'webpack'
 import { getBaseConfig } from './base'
-import { publicPath, isDev, chunkName, getOutput, cwd, useHash, loadModule, postCssPlugin } from './config'
+import { publicPath, isDev, chunkName, getOutput, cwd, useHash, loadModule } from './config'
 
-const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
@@ -46,8 +44,8 @@ const getClientWebpack = (argv) => {
         }
       }
     })
-    .when(!isDev, config => {
-      config.minimizer('terser')
+  .when(!isDev, optimization => {
+    optimization.minimizer('terser')
         .use(TerserPlugin, [{
           terserOptions: {
             parse: {
@@ -82,33 +80,7 @@ const getClientWebpack = (argv) => {
               } : false
           }
         }])
-    })
-
-  config.module
-      .rule('less')
-        .test(/\.less$/)
-        .use('MiniCss')
-          .loader(MiniCssExtractPlugin.loader)
-        .end()
-        .use('css-loader')
-          .loader(loadModule('css-loader'))
-          .options({
-            importLoaders: 1,
-            localIdentName: '[local]'
-            // getLocalIdent: getCSSModuleLocalIdent,
-            // modules: true
-          })
-        .end()
-        .use('postcss-loader')
-          .loader(loadModule('postcss-loader'))
-          .options({
-            ident: 'postcss',
-            plugins: () => postCssPlugin
-          })
-        .end()
-        .use('less-loader')
-          .loader(loadModule('less-loader'))
-        .end()
+  })
 
   config.plugin('define').use(webpack.DefinePlugin, [{
     '__isBrowser__': true
@@ -124,7 +96,7 @@ const getClientWebpack = (argv) => {
   config.when(generateAnalysis, config => {
     config.plugin('analyze').use(BundleAnalyzerPlugin)
   })
-  console.log('xx',config.toConfig().module.rules[4])
+
   return config.toConfig()
 }
 

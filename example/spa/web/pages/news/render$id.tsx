@@ -1,7 +1,10 @@
-import * as React from 'react'
+import React from 'react'
+import styles from './index.less'
 
-export default props => {
+export default (props) => {
   return (
-    <div>detail: {props.detail}</div>
+    <div className={styles['news-container']} >
+      文章详情: {props.newsDetail}
+    </div>
   )
 }

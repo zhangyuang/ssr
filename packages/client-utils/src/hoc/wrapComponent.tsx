@@ -2,36 +2,51 @@ import * as React from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { FC, IWindow } from 'ssr-types'
 
-let getProps = false
+declare const window: IWindow
+
+let _this: any = null
+let routerChanged = false
+
+const popStateFn = (e: PopStateEvent) => {
+  // historyPop的时候需要调用fetch
+  routerChanged = true
+  // 使用popStateFn保存函数防止addEventListener重复注册,排除hashchange的情况
+  if (!location.hash && _this && _this.fetch) {
+    _this.fetch()
+  }
+}
+
 interface IState {
   extraProps: Object
 }
 
-declare const window: IWindow
-
 function wrapComponent (WrappedComponent: FC): React.ComponentClass {
-  class GetInitialPropsClass extends React.Component<RouteComponentProps<{}>, IState> {
+  class WrapComponentClass extends React.Component<RouteComponentProps<{}>, IState> {
     constructor (props: RouteComponentProps) {
       super(props)
       this.state = {
         extraProps: {}
       }
-      if (!getProps) {
-        // csr渲染模式下无论是首次打开页面还是路由跳转都需要客户端需要调用getInitialProps
-        // 进行过history push或者reaplace操作之后，每次进行单页跳转客户端都需要调用getInitialProps
-        getProps = !window.__USE_SSR__ || props.history && props.history.action === ('PUSH' || 'REPLACE')
+      if (!routerChanged) {
+        routerChanged = !window.__USE_SSR__ || (props.history && props.history.action === 'PUSH')
+      }
+      if (window.__USE_SSR__) {
+        _this = this // 修正_this指向，保证_this指向当前渲染的页面组件
+        window.addEventListener('popstate', popStateFn)
       }
     }
 
     async componentDidMount () {
-      if (getProps) {
-        await this.getInitialProps()
+      // history push的时候需要调用fetch
+      if (this.props.history && this.props.history.action === 'PUSH') {
+        await this.fetch()
       }
     }
 
-    async getInitialProps () {
+    async fetch () {
+      // csr首次进入页面以及csr/ssr切换路由时才调用fetch
       const props = this.props
-      const extraProps = WrappedComponent.getInitialProps ? await WrappedComponent.getInitialProps(props) : {}
+      const extraProps = WrappedComponent.fetch ? await WrappedComponent.fetch(props) : {}
       this.setState({
         extraProps
       })
@@ -39,10 +54,10 @@ function wrapComponent (WrappedComponent: FC): React.ComponentClass {
 
     render () {
       // 只有在首次进入页面需要将window.__INITIAL_DATA__作为props，路由切换时不需要
-      return <WrappedComponent {...Object.assign({}, this.props, getProps ? {} : window.__INITIAL_DATA__, this.state.extraProps)} />
+      return <WrappedComponent {...Object.assign({}, this.props, routerChanged ? {} : window.__INITIAL_DATA__, this.state.extraProps)} />
     }
   }
-  return withRouter(GetInitialPropsClass)
+  return withRouter(WrapComponentClass)
 }
 
 export {

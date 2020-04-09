@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { wrapComponent, FeRouteItem, findRoute, IFaaSContext, IWindow, FaasRouteItem, Options } from 'ssr-client-utils'
+import { BrowserRouter, Route, Switch, StaticRouter } from 'react-router-dom'
+import { wrapComponent, wrapLayout, FeRouteItem, findRoute, IFaaSContext, IWindow, FaasRouteItem, Options } from 'ssr-client-utils'
 
 declare const window: IWindow
 declare const module: any
@@ -17,10 +17,11 @@ const clientRender = async (): Promise<void> => {
         {
           // 使用高阶组件wrapComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
           feRoutes.map((item: FeRouteItem) => {
-            const Layout = item.layout
-            item.component.fetch = item.fetch
-            const WrappedComponent = wrapComponent(item.component)
-            return <Route exact={true} key={item.path} path={item.path} render={() => <Layout key={location.pathname}><WrappedComponent /></Layout>} />
+            const { fetch, layout, component, path } = item
+            const Layout = wrapLayout(layout, __isBrowser__)
+            component.fetch = fetch
+            const WrappedComponent = wrapComponent(component)
+            return <Route exact={true} key={path} path={path} render={() => <Layout key={location.pathname}><WrappedComponent /></Layout>} />
           })
         }
       </Switch>
@@ -34,12 +35,11 @@ const clientRender = async (): Promise<void> => {
 const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.ReactElement> => {
   const routeItem = findRoute<FeRouteItem>(feRoutes, ctx.req.path)
   const faasRouteItem = findRoute<FaasRouteItem>(options.faasRoutes, ctx.req.path)
-
   if (!routeItem) {
     throw new Error('Component is Not Found')
   }
 
-  const Layout = routeItem.layout
+  const Layout = wrapLayout(routeItem.layout, __isBrowser__)
   const Component = routeItem.component
   const mode = faasRouteItem.mode
   if (mode !== 'ssr') {
@@ -57,9 +57,11 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
       `<script src='/static/js/Page.chunk.js'></script>`
     ]
   }
-  return <Layout ctx={ctx} fetchData={fetchData} config={config}>
+  return <StaticRouter>
+    <Layout ctx={ctx} fetchData={fetchData} config={config}>
       <Component {...fetchData} />
     </Layout>
+  </StaticRouter>
 }
 
 export default __isBrowser__ ? clientRender() : serverRender

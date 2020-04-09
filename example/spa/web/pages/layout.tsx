@@ -1,11 +1,7 @@
 
-import * as React from 'react'
-import * as serialize from 'serialize-javascript'
-// import * as styles from './index.less'
-
-import './index.less'
-
-// console.log(styles)
+import React from 'react'
+import serialize from 'serialize-javascript'
+import styles from './index.less'
 
 const Layout = (props) => {
   const { injectCss, injectScript } = props.config
@@ -15,12 +11,12 @@ const Layout = (props) => {
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
         <meta name='theme-color' content='#000000' />
-        <title>Serverless Side Render1</title>
+        <title>Serverless Side Render</title>
         {
           injectCss && injectCss.map(item => <link rel='stylesheet' href={item} key={item} />)
         }
       </head>
-      <body>
+      <body className={styles.body}>
         <div id='app'>{ props.children }</div>
         {
           props.fetchData && <script dangerouslySetInnerHTML={{

@@ -1,5 +1,4 @@
 // @ts-nocheck
-/* fork from webpack-node-externlas provide modulesDir array */
 
 import { contains, containsPattern, readFromPackageJson, readDir } from 'ssr-server-utils'
 

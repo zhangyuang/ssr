@@ -2,10 +2,11 @@
 import { join } from 'path'
 import * as Config from 'webpack-chain'
 import { Mode } from 'ssr-types'
-import { getPagesDir, getCwd } from 'ssr-server-utils'
-import { moduleFileExtensions, loadModule } from './config'
+import { getFeDir, getCwd } from 'ssr-server-utils'
+import { moduleFileExtensions, loadModule, isDev, postCssPlugin } from './config'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 
 const getBaseConfig = () => {
 
@@ -23,7 +24,7 @@ const getBaseConfig = () => {
     .extensions.merge(moduleFileExtensions)
     .end()
     .alias
-      .set('@', getPagesDir())
+      .set('@', getFeDir())
     .end()
 
   config.module
@@ -57,20 +58,25 @@ const getBaseConfig = () => {
               .options({
                 cacheDirectory: true,
                 cacheCompression: false,
+                sourceType: 'unambiguous',
                 presets: [
                   [
                     loadModule('@babel/preset-env'),
                     {
+
                       modules: false,
                       corejs: 3,
                       useBuiltIns: 'usage'
                     }
                   ],
-                  // [loadModule('babel-preset-react-app'), { flow: false, typescript: true }]
-                  [loadModule('@babel/preset-react')],
-                  [loadModule('@babel/typescript')]
+                  [loadModule('babel-preset-react-app'), { flow: false, typescript: true }]
                 ],
                 plugins: [
+                  [loadModule('@babel/plugin-transform-runtime'), {
+                    regenerator: false,
+                    corejs: false,
+                    helpers: true
+                  }],
                   [
                     loadModule('babel-plugin-import'),
                     {
@@ -82,6 +88,36 @@ const getBaseConfig = () => {
                 ]
               })
               .end()
+
+  config.module
+        .rule('less')
+          .test(/\.less$/)
+          .when(isDev, rule => {
+            rule.use('hmr')
+              .loader(loadModule('css-hot-loader'))
+              .end()
+          })
+          .use('MiniCss')
+            .loader(MiniCssExtractPlugin.loader)
+          .end()
+          .use('css-loader')
+            .loader(loadModule('css-loader'))
+            .options({
+              importLoaders: 2,
+              modules: true,
+              getLocalIdent: getCSSModuleLocalIdent
+            })
+          .end()
+          .use('postcss-loader')
+            .loader(loadModule('postcss-loader'))
+            .options({
+              ident: 'postcss',
+              plugins: () => postCssPlugin
+            })
+          .end()
+          .use('less-loader')
+            .loader(loadModule('less-loader'))
+          .end()
 
   config.module
         .rule('svg')

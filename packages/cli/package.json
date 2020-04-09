@@ -4,6 +4,7 @@
   "description": "cli for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
+  "sideEffects": false,
   "scripts": {
     "build": "concurrently \"tsc -p ./tsconfig.cjs.json --sourceMap false\" \" tsc -p ./tsconfig.esm.json --sourceMap false\"",
     "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \"",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@types/yargs": "^13.0.0",
+    "ssr-types": "^0.1.1",
     "concurrently": "^5.1.0"
   }
 }

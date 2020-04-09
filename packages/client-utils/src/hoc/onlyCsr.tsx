@@ -2,7 +2,7 @@
 import * as React from 'react'
 
 interface State {
-  isCsr: boolean
+  isClient: boolean
 }
 
 function onlyCsr (WrappedComponent: React.FC): React.ComponentClass {
@@ -10,18 +10,18 @@ function onlyCsr (WrappedComponent: React.FC): React.ComponentClass {
     constructor (props: any) {
       super(props)
       this.state = {
-        isCsr: false
+        isClient: false
       }
     }
 
     componentDidMount () {
       this.setState({
-        isCsr: true
+        isClient: true
       })
     }
 
     render () {
-      return this.state.isCsr ? <WrappedComponent {...this.props}></WrappedComponent> : <div></div>
+      return this.state.isClient ? <WrappedComponent {...this.props}></WrappedComponent> : <div></div>
     }
   }
   for (const key in WrappedComponent) {

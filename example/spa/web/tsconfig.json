@@ -1,3 +1,4 @@
+// only used for ide prompt 
 {
   "compileOnSave": true,
   "compilerOptions": {
@@ -12,14 +13,16 @@
     "stripInternal": true,
     "pretty": true,
     "declaration": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "jsx": "react",
+    "paths": {
+      "@": ["./"]
+    }
   },
   "exclude": [
-    "dist",
-    "node_modules",
-    "test",
-    "web",
-    "build"
+   "pages"
   ]
 }
 

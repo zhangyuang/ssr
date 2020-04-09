@@ -4,6 +4,7 @@
   "description": "core for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
+  "sideEffects": false,
   "scripts": {
     "build": "concurrently \"tsc -p ./tsconfig.cjs.json --sourceMap false\" \" tsc -p ./tsconfig.esm.json --sourceMap false\"",
     "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \"",
@@ -26,17 +27,17 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "devDependencies": {
+    "@types/webpack": "^4.41.8",
+    "@types/webpack-dev-server": "^3.10.1",
+    "@types/mocha": "^7.0.2"
+  },
+  "dependencies": {
     "@midwayjs/serverless-invoke": "^0.2.67",
+    "webpack": "^4.42.1",
+    "webpack-dev-server": "^3.10.3",
     "koa": "^2.11.0",
     "koa-proxy": "^1.0.0-alpha.3",
     "koa-router": "^8.0.8",
     "koa-static": "^5.0.0"
-  },
-  "dependencies": {
-    "@types/webpack": "^4.41.8",
-    "@types/webpack-dev-server": "^3.10.1",
-    "@types/mocha": "^7.0.2",
-    "webpack": "^4.42.1",
-    "webpack-dev-server": "^3.10.3"
   }
 }

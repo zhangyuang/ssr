@@ -53,12 +53,6 @@ const getServerWebpack = (argv) => {
               })
               .end()
 
-  config.module.rule('style')
-          .test(/\.(css|sass|less|scss)$/)
-          .use('ignore')
-              .loader(loadModule('ignore-loader'))
-          .end()
-
   config.externals(nodeExternals({
     whitelist: /\.(css|less|sass|scss)$|ssr\-cache/,
     // externals Dir contains packages/webpack-config/node_modules spa/node_modules ssr/node_modules
