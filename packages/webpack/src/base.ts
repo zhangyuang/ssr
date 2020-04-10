@@ -113,7 +113,15 @@ const getBaseConfig = () => {
             .loader(loadModule('postcss-loader'))
             .options({
               ident: 'postcss',
-              plugins: () => postCssPlugin
+              plugins: () => [
+                require('postcss-flexbugs-fixes'),
+                require('postcss-preset-env')({
+                  autoprefixer: {
+                    flexbox: 'no-2009'
+                  },
+                  stage: 3
+                })
+              ]
             })
           .end()
           .use('less-loader')

@@ -58,15 +58,6 @@ const webpackDevServerConfig = {
     'access-control-allow-origin': '*'
   }
 }
-const postCssPlugin = [
-  require('postcss-flexbugs-fixes'),
-  require('postcss-preset-env')({
-    autoprefixer: {
-      flexbox: 'no-2009'
-    },
-    stage: 3
-  })
-]
 
 const loadModule = require.resolve
 
@@ -113,7 +104,6 @@ const buildConfig: BuildConfig = Object.assign({},{
   loadModule,
   webpackDevServerConfig,
   webpackStatsOption,
-  postCssPlugin,
   injectCss,
   injectScript
 }, userConfig)
