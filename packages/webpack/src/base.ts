@@ -65,9 +65,9 @@ const getBaseConfig = () => {
                     loadModule('@babel/preset-env'),
                     {
 
-                      modules: false,
-                      corejs: 3,
-                      useBuiltIns: 'usage'
+                      modules: false
+                      // corejs: 3,
+                      // useBuiltIns: 'usage'
                     }
                   ],
                   [loadModule('babel-preset-react-app'), { flow: false, typescript: true }]

@@ -18,6 +18,9 @@ const getClientWebpack = (argv: Argv) => {
   // @ts-ignore
   const { funcName } = argv.faasRoutes[0]
   const config = getBaseConfig()
+  config.resolve.alias
+                .set('react-router', loadModule('react-router'))
+                .set('react-router-dom', loadModule('react-router-dom'))
 
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
 
