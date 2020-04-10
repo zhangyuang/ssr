@@ -38,6 +38,5 @@
     "@types/yargs": "^13.0.0",
     "concurrently": "^5.1.0",
     "ssr-types": "^0.1.2"
-  },
-  "gitHead": "bff9bfd4c1c70ddcc290f814a49793350f79986e"
+  }
 }

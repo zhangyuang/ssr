@@ -73,13 +73,20 @@ const loadModule = require.resolve
 const staticPrefix = process.env.staticPrefix || '/'
 const injectCss = [
   `${staticPrefix}static/css/Page.chunk.css`
-].map(item => <link rel='stylesheet' href={item} key={item} />)
+].map(item => React.createElement('link', {
+  href: item,
+  key: item,
+  rel: 'stylesheet'
+}))
 
 const injectScript = [
   `${staticPrefix}static/js/runtime~Page.js`,
   `${staticPrefix}static/js/vendor.chunk.js`,
   `${staticPrefix}static/js/Page.chunk.js`
-].map(item => <script src={item} key={item} />)
+].map(item => React.createElement('script', {
+  src: item,
+  key: item
+}))
 
 const userConfig = getUserConfig()
 

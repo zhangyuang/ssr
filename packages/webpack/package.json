@@ -67,6 +67,5 @@
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-chain": "^6.4.0",
     "webpack-manifest-plugin": "^2.2.0"
-  },
-  "gitHead": "bff9bfd4c1c70ddcc290f814a49793350f79986e"
+  }
 }

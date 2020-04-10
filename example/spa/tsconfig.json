@@ -16,8 +16,10 @@
   },
   "exclude": [
     "dist",
+    "node_modules",
     "test",
-    "web"
+    "web",
+    "build"
   ]
 }
 

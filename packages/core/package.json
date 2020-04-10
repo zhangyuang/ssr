@@ -44,6 +44,5 @@
     "ssr-webpack": "^0.1.2",
     "webpack": "^4.42.1",
     "webpack-dev-server": "^3.10.3"
-  },
-  "gitHead": "bff9bfd4c1c70ddcc290f814a49793350f79986e"
+  }
 }

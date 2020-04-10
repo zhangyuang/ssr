@@ -36,6 +36,5 @@
     "js-yaml": "^3.13.1",
     "path-to-regexp": "^1.7.0",
     "shelljs": "^0.8.3"
-  },
-  "gitHead": "bff9bfd4c1c70ddcc290f814a49793350f79986e"
+  }
 }

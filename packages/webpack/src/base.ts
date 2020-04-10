@@ -17,6 +17,7 @@ const getBaseConfig = () => {
   config
     .resolve
     .modules
+      .add('node_modules')
       .add(join(getCwd(), './node_modules'))
       .add(join(__dirname, '../node_modules'))
       .add(join(__dirname, '../../../node_modules'))
