@@ -1,6 +1,6 @@
 {
   "name": "ssr",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "cli for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
