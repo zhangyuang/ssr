@@ -32,9 +32,7 @@
     "@types/mocha": "^7.0.2",
     "@types/webpack": "^4.41.8",
     "@types/webpack-dev-server": "^3.10.1",
-    "ssr-types": "^0.1.8"
-  },
-  "dependencies": {
+    "ssr-types": "^0.1.8",
     "@midwayjs/serverless-invoke": "^0.2.67",
     "koa": "^2.11.0",
     "koa-proxy": "^1.0.0-alpha.3",

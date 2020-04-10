@@ -5,7 +5,7 @@ import { Mode } from 'ssr-types'
 import { getFeDir, getCwd } from 'ssr-server-utils'
 import { buildConfig } from './config'
 
-const { moduleFileExtensions, loadModule, isDev, postCssPlugin } = buildConfig
+const { moduleFileExtensions, loadModule, isDev } = buildConfig
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 
