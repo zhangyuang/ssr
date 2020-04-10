@@ -12,4 +12,6 @@ functions:
           path: /*
           method: get
 package:
+  include:									
+    - build
   artifact: code.zip
