@@ -1,6 +1,6 @@
 {
   "name": "ssr-types",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "cli for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -38,5 +38,6 @@
     "@types/yargs": "^13.0.4",
     "concurrently": "^5.1.0",
     "webpack-chain": "^6.4.0"
-  }
+  },
+  "gitHead": "bff9bfd4c1c70ddcc290f814a49793350f79986e"
 }
