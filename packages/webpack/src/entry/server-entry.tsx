@@ -20,10 +20,10 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
   const Component = routeItem.component
   const mode = faasRouteItem.mode
   if (mode !== 'ssr') {
-    return <Layout></Layout>
+    return <Layout config={buildConfig}></Layout>
   }
-  const fetchData = routeItem.fetch ? await routeItem.fetch(ctx) : {}
 
+  const fetchData = routeItem.fetch ? await routeItem.fetch(ctx) : {}
   return <StaticRouter>
     <Layout ctx={ctx} fetchData={fetchData} config={buildConfig}>
       <Component {...fetchData} />

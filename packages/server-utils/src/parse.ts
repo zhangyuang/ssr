@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import { resolve, join } from 'path'
 import * as Yaml from 'js-yaml'
 import * as Shell from 'shelljs'
-import { Yml, FaasRouteItem, Argv, ProvisionalFeRouteItem, FeRouteItem } from 'ssr-types'
+import { Yml, FaasRouteItem, Argv, FeRouteItem } from 'ssr-types'
 import { promisifyFsReadDir } from './promisify'
 import { getCwd, getPagesDir } from './cwd'
 
@@ -14,8 +14,8 @@ const parseYml = (path: string) => {
   return result
 }
 
-const parseRoutesFromYml = (yamlContent: Yml): FaasRouteItem[] => {
-  const routes = []
+const parseRoutesFromYml = (yamlContent: Yml) => {
+  const routes: FaasRouteItem[] = []
   for (const funcName in yamlContent.functions) {
     const func = yamlContent.functions[funcName]
     func.events.forEach(event => {
@@ -48,7 +48,7 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
       if (fs.statSync(abFolder).isDirectory()) {
         // 读取web下子目录
         const files = await promisifyFsReadDir(abFolder)
-        const route: ProvisionalFeRouteItem = {
+        const route: any = {
           layout: `require('${defaultLayout}').default`
         }
 

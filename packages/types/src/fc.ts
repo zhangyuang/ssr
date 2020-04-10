@@ -6,7 +6,7 @@ export interface FC extends React.FC {
 
 export interface LayoutProps {
   ctx?: IFaaSContext
-  fetchData: any
-  config: BuildConfig
-  children: React.ReactElement
+  fetchData?: any
+  config?: BuildConfig
+  children?: React.ReactElement
 }

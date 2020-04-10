@@ -64,7 +64,7 @@ function matchPath (pathname, options = {}) {
 
 function findRoute<T extends {path: string}> (Routes: T[], path: string): T {
   // 根据请求的path来匹配到对应的Component
-  const route = Routes.find(route => matchPath(path, route))
+  const route = Routes.find(route => matchPath(path, route).isExact)
   return route
 }
 

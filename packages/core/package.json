@@ -40,6 +40,8 @@
     "koa-proxy": "^1.0.0-alpha.3",
     "koa-router": "^8.0.8",
     "koa-static": "^5.0.0",
+    "ora": "^4.0.3",
+    "ssr-webpack": "^0.1.1",
     "webpack": "^4.42.1",
     "webpack-dev-server": "^3.10.3"
   }

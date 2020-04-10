@@ -1,4 +1,4 @@
-const webpackError = (err, stats) => {
+const webpackError = (err: any) => {
   if (err) {
     console.error(err.stack || err)
     if (err.details) {

@@ -70,7 +70,7 @@ const postCssPlugin = [
 
 const loadModule = require.resolve
 
-const staticPrefix = '/'
+const staticPrefix = process.env.staticPrefix || '/'
 const injectCss = [
   `${staticPrefix}static/css/Page.chunk.css`
 ].map(item => <link rel='stylesheet' href={item} key={item} />)

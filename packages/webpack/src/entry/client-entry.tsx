@@ -21,8 +21,9 @@ const clientRender = async (): Promise<void> => {
             const Layout = wrapLayout(layout, __isBrowser__)
             // @ts-ignore
             component.fetch = fetch
+            // @ts-ignore
             const WrappedComponent = wrapComponent(component)
-            return <Route exact={true} key={path} path={path} render={() => <Layout key={location.pathname}><WrappedComponent /></Layout>} />
+            return <Route exact={true} key={path} path={path} render={() => <Layout key={location.pathname} ><WrappedComponent /></Layout>} />
           })
         }
       </Switch>

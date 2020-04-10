@@ -1,4 +1,5 @@
 // @ts-nocheck
+
 import * as pathToRegexp from 'path-to-regexp'
 
 const cache = {}

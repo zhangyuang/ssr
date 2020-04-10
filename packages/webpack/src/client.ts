@@ -5,17 +5,17 @@ import { getBaseConfig } from './base'
 import { buildConfig } from './config'
 
 const { publicPath, isDev, chunkName, getOutput, cwd, useHash, loadModule, chainClientConfig } = buildConfig
+const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const safePostCssParser = require('postcss-safe-parser')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 
 const getClientWebpack = (argv: Argv) => {
-    // @ts-ignore
+  // @ts-ignore
   const { funcName } = argv.faasRoutes[0]
   const config = getBaseConfig()
 

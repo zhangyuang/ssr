@@ -3,7 +3,6 @@
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
 import { parseYml, parseRoutesFromYml, parseFeRoutes, processError } from 'ssr-server-utils'
-import { start } from './start'
 
 const ymlContent = parseYml('./f.yml')
 const ymlRoutes = parseRoutesFromYml(ymlContent)
@@ -11,14 +10,18 @@ const ymlRoutes = parseRoutesFromYml(ymlContent)
 try {
   yargs
     .command('start', 'Start Server', {}, async (argv: Argv) => {
+      process.env.NODE_ENV = 'development'
+      const { start } = require('./start')
       argv.faasRoutes = ymlRoutes
       await parseFeRoutes(argv)
-      process.env.NODE_ENV = 'development'
       await start(argv)
     })
-    .command('build', 'build server and client files', {}, async () => {
+    .command('build', 'build server and client files', {}, async (argv: Argv) => {
       process.env.NODE_ENV = 'production'
-
+      const { build } = require('./build')
+      argv.faasRoutes = ymlRoutes
+      await parseFeRoutes(argv)
+      await build(argv)
     })
     .demandCommand(1, 'You need at least one command before moving on')
     .option('version', {

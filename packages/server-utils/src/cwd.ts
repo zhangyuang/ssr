@@ -12,7 +12,7 @@ const getCwd = () => {
   return cwd
 }
 
-const getFeDir = (): string => {
+const getFeDir = () => {
   // fe component folder path
   const cwd = process.cwd()
   if (process.env.FE_ROOT) {
@@ -20,7 +20,7 @@ const getFeDir = (): string => {
     if (!isAbsolute(process.env.FE_ROOT)) {
       return join(cwd, process.env.FE_ROOT)
     }
-    return process.env.APP_ROOT
+    return process.env.FE_ROOT
   }
   return join(cwd, './web')
 }
