@@ -1,6 +1,6 @@
 {
   "name": "ssr-webpack",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "webpack config for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -30,8 +30,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
-    "ssr-client-utils": "^0.1.17",
-    "ssr-server-utils": "^0.1.17"
+    "ssr-client-utils": "^0.1.18",
+    "ssr-server-utils": "^0.1.18"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
