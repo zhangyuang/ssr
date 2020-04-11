@@ -9,9 +9,6 @@
     "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \"",
     "watch:cjs": "tsc -w -p ./tsconfig.cjs.json"
   },
-  "bin": {
-    "ssr": "./cjs/cli.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ykfe/ssr.git"
