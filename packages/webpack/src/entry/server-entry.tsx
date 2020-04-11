@@ -9,7 +9,6 @@ declare const __isBrowser__: boolean
 const feRoutes: FeRouteItem[] = require('ssr/cjs/route')
 
 const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.ReactElement> => {
-
   const routeItem = findRoute<FeRouteItem<any>>(feRoutes, ctx.req.path)
   const faasRouteItem = findRoute<FaasRouteItem>(options.faasRoutes, ctx.req.path)
   if (!routeItem) {

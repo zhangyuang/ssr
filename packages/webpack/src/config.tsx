@@ -27,6 +27,7 @@ const chunkName = 'Page'
 
 const clientLogLevel: ClientLogLevel = 'error'
 const useHash = false
+const whiteList = []
 
 const webpackStatsOption = {
   assets: true,  // 添加资源信息
@@ -105,7 +106,8 @@ const buildConfig: BuildConfig = Object.assign({},{
   webpackDevServerConfig,
   webpackStatsOption,
   injectCss,
-  injectScript
+  injectScript,
+  whiteList
 }, userConfig)
 
 export {

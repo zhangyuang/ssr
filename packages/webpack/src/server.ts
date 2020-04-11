@@ -5,7 +5,7 @@ import { getBaseConfig } from './base'
 import { buildConfig } from './config'
 import { nodeExternals } from './plugins/external'
 
-const { isDev, cwd, getOutput, loadModule, chainServerConfig } = buildConfig
+const { isDev, cwd, getOutput, loadModule, chainServerConfig, whiteList } = buildConfig
 
 const getServerWebpack = (argv: Argv) => {
   // @ts-ignore
@@ -58,7 +58,7 @@ const getServerWebpack = (argv: Argv) => {
               .end()
 
   config.externals(nodeExternals({
-    whitelist: /\.(css|less|sass|scss)$|ssr\-cache/,
+    whitelist: [/\.(css|less|sass|scss)$|ssr\/cjs\/route/].concat(whiteList || []),
     // externals Dir contains packages/webpack-config/node_modules spa/node_modules ssr/node_modules
     modulesDir: [join(__dirname,'../node_modules'), join(cwd, './node_modules'), join(__dirname, '../../../node_modules') ]
   }))
