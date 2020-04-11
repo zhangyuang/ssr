@@ -1,6 +1,6 @@
 {
   "name": "ssr",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "cli for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -33,8 +33,8 @@
     "dclone": "^1.2.0",
     "inquirer": "^7.1.0",
     "shelljs": "^0.8.3",
-    "ssr-core": "^0.1.13",
-    "ssr-server-utils": "^0.1.13",
+    "ssr-core": "^0.1.14",
+    "ssr-server-utils": "^0.1.14",
     "yargs": "^13.2.4"
   },
   "devDependencies": {
@@ -42,6 +42,6 @@
     "@types/shelljs": "^0.8.7",
     "@types/yargs": "^13.0.0",
     "concurrently": "^5.1.0",
-    "ssr-types": "^0.1.13"
+    "ssr-types": "^0.1.14"
   }
 }
