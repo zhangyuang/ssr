@@ -24,7 +24,8 @@ const render = async (ctx: IFaaSContext) => {
   })
 
   const htmlStr: string = renderToString(serverRes)
-  return htmlStr
+  ctx.type = 'text/html'
+  return '<!DOCTYPE html>' + htmlStr
 }
 
 export {

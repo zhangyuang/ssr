@@ -7,8 +7,6 @@ import { buildConfig } from './config'
 const { publicPath, isDev, chunkName, getOutput, cwd, useHash, loadModule, chainClientConfig } = buildConfig
 const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
-const TerserPlugin = require('terser-webpack-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const safePostCssParser = require('postcss-safe-parser')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
@@ -53,7 +51,7 @@ const getClientWebpack = (argv: Argv) => {
     })
   .when(!isDev, optimization => {
     optimization.minimizer('terser')
-        .use(TerserPlugin, [{
+        .use(loadModule('terser-webpack-plugin'), [{
           terserOptions: {
             parse: {
               ecma: 8
@@ -77,16 +75,15 @@ const getClientWebpack = (argv: Argv) => {
           cache: true,
           sourceMap: shouldUseSourceMap
         }])
-        .use(OptimizeCSSAssetsPlugin, [{
-          cssProcessorOptions: {
-            parser: safePostCssParser,
-            map: shouldUseSourceMap
-              ? {
-                inline: false,
-                annotation: true
-              } : false
-          }
-        }])
+    optimization.minimizer('optimize-css').use(loadModule('optimize-css-assets-webpack-plugin'), [{
+      cssProcessorOptions: {
+        parser: safePostCssParser,
+        map: shouldUseSourceMap ? {
+          inline: false,
+          annotation: true
+        } : false
+      }
+    }])
   })
 
   config.plugin('define').use(webpack.DefinePlugin, [{
