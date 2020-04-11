@@ -1,6 +1,6 @@
 {
   "name": "ssr",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "description": "cli for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -34,7 +34,7 @@
     "inquirer": "^7.1.0",
     "shelljs": "^0.8.3",
     "ssr-server-utils": "^0.1.19",
-    "ssr-webpack": "^0.1.19",
+    "ssr-webpack": "^0.1.20",
     "yargs": "^13.2.4"
   },
   "devDependencies": {
