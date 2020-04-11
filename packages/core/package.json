@@ -1,6 +1,6 @@
 {
   "name": "ssr-core",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "core for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -38,8 +38,8 @@
     "koa-router": "^8.0.8",
     "koa-static": "^5.0.0",
     "ora": "^4.0.3",
-    "ssr-types": "^0.1.8",
-    "ssr-webpack": "^0.1.10",
+    "ssr-types": "^0.1.12",
+    "ssr-webpack": "^0.1.12",
     "webpack": "^4.42.1",
     "webpack-dev-server": "^3.10.3"
   }
