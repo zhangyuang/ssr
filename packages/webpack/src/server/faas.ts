@@ -2,8 +2,8 @@ import { join } from 'path'
 import { invoke } from '@midwayjs/serverless-invoke'
 import * as Koa from 'koa'
 import * as Router from 'koa-router'
-import { buildConfig } from 'ssr-webpack'
 import { getCwd, Argv, findRoute, FaasRouteItem, logGreen } from 'ssr-server-utils'
+import { buildConfig } from '../config'
 
 const { port, faasPort } = buildConfig
 const proxy = require('koa-proxy')

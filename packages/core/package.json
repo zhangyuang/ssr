@@ -26,21 +26,14 @@
     "url": "https://github.com/ykfe/ssr/issues"
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "ssr-server-utils": "^0.1.1"
+  },
   "devDependencies": {
-    "@midwayjs/serverless-invoke": "^0.2.67",
-    "@types/koa": "^2.11.3",
-    "@types/koa-router": "^7.4.0",
-    "@types/mocha": "^7.0.2",
-    "@types/webpack": "^4.41.8",
-    "@types/webpack-dev-server": "^3.10.1",
-    "koa": "^2.11.0",
-    "koa-proxy": "^1.0.0-alpha.3",
-    "koa-router": "^8.0.8",
-    "koa-static": "^5.0.0",
-    "ora": "^4.0.3",
-    "ssr-types": "^0.1.14",
-    "ssr-webpack": "^0.1.14",
-    "webpack": "^4.42.1",
-    "webpack-dev-server": "^3.10.3"
+    "@types/react": "^16.9.25",
+    "@types/react-dom": "^16.9.5",
+    "ssr-types": "^0.1.1"
   }
 }

@@ -1,8 +1,7 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
-import { buildConfig } from '../config'
-
 import { wrapLayout, FeRouteItem, findRoute, IFaaSContext, FaasRouteItem, Options } from 'ssr-server-utils'
+import { buildConfig } from '../config'
 
 declare const __isBrowser__: boolean
 

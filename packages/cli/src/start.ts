@@ -1,4 +1,4 @@
-import { startClientServer, startServerBuild, startFaasServer } from 'ssr-core'
+import { startClientServer, startServerBuild, startFaasServer } from 'ssr-webpack'
 import { Argv } from 'ssr-server-utils'
 
 const start = async (argv: Argv) => {

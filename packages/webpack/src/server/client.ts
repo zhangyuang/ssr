@@ -1,8 +1,8 @@
 import * as webpack from 'webpack'
 import * as webpackDevServer from 'webpack-dev-server'
-import { getClientWebpack, buildConfig }from 'ssr-webpack'
-import { webpackPromisify } from './utils/promisify'
 import { Argv } from 'ssr-types'
+import { getClientWebpack, buildConfig }from '../config'
+import { webpackPromisify } from '../utils/promisify'
 
 const { webpackDevServerConfig, port, host, webpackStatsOption } = buildConfig
 

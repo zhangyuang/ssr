@@ -24,5 +24,5 @@ export interface BuildConfig {
   webpackStatsOption: Options.Stats
   moduleFileExtensions: string[]
   postCssPlugin: any
-  whiteList: string[] | RegExp[]
+  whiteList: RegExp[]
 }

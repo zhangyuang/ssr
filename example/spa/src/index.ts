@@ -1,5 +1,5 @@
 import { FaaSContext, func, inject, provide, FunctionHandler } from '@midwayjs/faas'
-import { render } from 'ssr-core/cjs/render'
+import { render } from 'ssr-core'
 
 @provide()
 @func('index.handler')
