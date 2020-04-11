@@ -17,7 +17,7 @@ const getServerWebpack = (argv: Argv) => {
   config.target('node')
 
   config.entry('Page')
-          .add(loadModule('./entry/server-entry'))
+          .add(loadModule('../entry/server-entry'))
           .end()
           .output
             .path(getOutput(funcName).serverOutPut)
@@ -58,7 +58,7 @@ const getServerWebpack = (argv: Argv) => {
               .end()
 
   config.externals(nodeExternals({
-    whitelist: [/\.(css|less|sass|scss)$/,/ssr\/cjs\/route/, /^antd.*?css/].concat(whiteList || []),
+    whitelist: [/\.(css|less|sass|scss)$/, /ssr\/cjs\/route/, /^antd.*?css/].concat(whiteList || []),
     // externals Dir contains packages/webpack-config/node_modules spa/node_modules ssr/node_modules
     modulesDir: [join(__dirname,'../node_modules'), join(cwd, './node_modules'), join(__dirname, '../../../node_modules') ]
   }))

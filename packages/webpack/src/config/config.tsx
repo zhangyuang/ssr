@@ -27,7 +27,7 @@ const chunkName = 'Page'
 
 const clientLogLevel: ClientLogLevel = 'error'
 const useHash = false
-const whiteList = []
+const whiteList: RegExp[] = []
 
 const webpackStatsOption = {
   assets: true,  // 添加资源信息

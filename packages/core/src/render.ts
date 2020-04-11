@@ -9,8 +9,6 @@ const render = async (ctx: IFaaSContext) => {
   const cwd = getCwd()
   const isLocal = process.env.NODE_ENV === 'development' || ctx.env === 'local' // 标志非正式环境
 
-  // for this issue https://github.com/ykfe/egg-react-ssr/issues/4
-  // const renderToString = require(cwd + '/node_modules/react-dom/server').renderToString
   const faasRouteItem = findRoute<FaasRouteItem>(faasRoutes, ctx.req.path)
   const { funcName } = faasRouteItem
   const abFilePath = `${cwd}/build/${funcName}/server/Page.server.js`
