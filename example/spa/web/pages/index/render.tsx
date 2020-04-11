@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Header from '@/components/header'
 import styles from './index.less'
@@ -9,6 +9,9 @@ interface NewsItem {
 }
 
 export default props => {
+  useEffect(() => {
+    console.log('xx')
+  })
   return (
     <div>
       <Header />

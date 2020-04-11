@@ -6,7 +6,7 @@
   "module": "./esm/index.js",
   "sideEffects": false,
   "scripts": {
-    "build": "concurrently \"tsc -p ./tsconfig.cjs.json --sourceMap false\" \" tsc -p ./tsconfig.esm.json --sourceMap false\"",
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc -p ./tsconfig.esm.json --inlineSourceMap false\"",
     "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \"",
     "watch:cjs": "tsc -w -p ./tsconfig.cjs.json"
   },
@@ -28,13 +28,11 @@
   "homepage": "https://github.com/ykfe/ssr#readme",
   "devDependencies": {
     "@types/js-yaml": "^3.12.3",
-    "@types/shelljs": "^0.8.7",
     "concurrently": "^5.1.0",
     "ssr-types": "^0.1.8"
   },
   "dependencies": {
     "js-yaml": "^3.13.1",
-    "path-to-regexp": "^1.7.0",
-    "shelljs": "^0.8.3"
+    "path-to-regexp": "^1.7.0"
   }
 }

@@ -13,7 +13,7 @@ export class IndexService implements FunctionHandler {
       const htmlStr = await render(this.ctx)
       return htmlStr
     } catch (error) {
-      return JSON.stringify(error)
+      return error
     }
   }
 }

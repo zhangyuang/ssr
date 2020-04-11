@@ -2,11 +2,11 @@ import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { buildConfig } from '../config'
 
-import { wrapLayout, FeRouteItem, findRoute, IFaaSContext, FaasRouteItem, Options } from 'ssr-client-utils'
+import { wrapLayout, FeRouteItem, findRoute, IFaaSContext, FaasRouteItem, Options } from 'ssr-server-utils'
 
 declare const __isBrowser__: boolean
 
-const feRoutes: FeRouteItem[] = require('ssr-cache/route')
+const feRoutes: FeRouteItem[] = require('ssr/cjs/route')
 
 const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.ReactElement> => {
 

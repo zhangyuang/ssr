@@ -1,7 +1,6 @@
 import * as fs from 'fs'
 import { resolve, join } from 'path'
 import * as Yaml from 'js-yaml'
-import * as Shell from 'shelljs'
 import { Yml, FaasRouteItem, Argv, FeRouteItem } from 'ssr-types'
 import { promisifyFsReadDir } from './promisify'
 import { getCwd, getPagesDir } from './cwd'
@@ -35,9 +34,6 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
   // 根据目录结构生成前端路由表
   const pageDir = getPagesDir()
   const cwd = getCwd()
-  if (!fs.existsSync(join(cwd, './node_modules/ssr-cache'))) {
-    Shell.mkdir(`${cwd}/node_modules/ssr-cache`)
-  }
   const folders = await promisifyFsReadDir(pageDir) // 读取web目录
   const defaultLayout = `${join(pageDir, `/layout.tsx`)}`
   const arr = []
@@ -93,7 +89,7 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
       component: `require('${join(pageDir, './render.tsx')}').default`
     })
 
-    fs.writeFileSync(`${cwd}/node_modules/ssr-cache/route.js`,`module.exports =${JSON.stringify(arr)
+    fs.writeFileSync(`${cwd}/node_modules/ssr/cjs/route.js`,`module.exports =${JSON.stringify(arr)
         .replace(/\"layout\":(\"(.+?)\")/g, (global, m1, m2) => {
           return `"layout": ${m2.replace(/\^/g, '"')}`
         })
