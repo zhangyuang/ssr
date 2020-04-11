@@ -1,6 +1,6 @@
 {
   "name": "ssr-server-utils",
-  "version": "0.1.14",
+  "version": "0.1.15",
   "description": "utils for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -29,7 +29,7 @@
   "devDependencies": {
     "@types/js-yaml": "^3.12.3",
     "concurrently": "^5.1.0",
-    "ssr-types": "^0.1.14"
+    "ssr-types": "^0.1.15"
   },
   "dependencies": {
     "js-yaml": "^3.13.1",
