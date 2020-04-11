@@ -2,6 +2,6 @@
   "extends": "./tsconfig.base",
   "compilerOptions": {
     "module": "CommonJS",
-    "target": "es5"
+    "target": "ESNext"
   }
 }
