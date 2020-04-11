@@ -89,7 +89,7 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
       component: `require('${join(pageDir, './render.tsx')}').default`
     })
 
-    fs.writeFileSync(`${cwd}/node_modules/ssr/cjs/route.js`,`module.exports =${JSON.stringify(arr)
+    fs.writeFileSync(`${cwd}/node_modules/ssr-core/cjs/route.js`,`module.exports =${JSON.stringify(arr)
         .replace(/\"layout\":(\"(.+?)\")/g, (global, m1, m2) => {
           return `"layout": ${m2.replace(/\^/g, '"')}`
         })

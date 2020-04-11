@@ -5,7 +5,7 @@ import { buildConfig } from '../config'
 
 declare const __isBrowser__: boolean
 
-const feRoutes: FeRouteItem[] = require('ssr/cjs/route')
+const feRoutes: FeRouteItem[] = require('ssr-core/cjs/route')
 
 const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.ReactElement> => {
   const routeItem = findRoute<FeRouteItem<any>>(feRoutes, ctx.req.path)

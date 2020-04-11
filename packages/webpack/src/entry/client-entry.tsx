@@ -7,7 +7,7 @@ declare const window: IWindow
 declare const module: any
 declare const __isBrowser__: boolean
 
-const feRoutes: FeRouteItem[] = require('ssr/cjs/route')
+const feRoutes: FeRouteItem[] = require('ssr-core/cjs/route')
 
 const clientRender = async (): Promise<void> => {
   // 客户端渲染||hydrate
