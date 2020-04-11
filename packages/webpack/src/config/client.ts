@@ -71,6 +71,7 @@ const getClientWebpack = (argv: Argv) => {
               ascii_only: true
             }
           },
+          extractComments: false,
           parallel: true,
           cache: true,
           sourceMap: shouldUseSourceMap
