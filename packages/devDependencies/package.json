@@ -1,6 +1,6 @@
 {
   "name": "ssr-devdependencies",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "devDependencies for serverless ssr",
   "repository": {
     "type": "git",
@@ -69,10 +69,10 @@
     "react-router-dom": "^5.1.2",
     "shelljs": "^0.8.3",
     "ssr-client-utils": "^0.1.15",
-    "ssr-core": "^0.1.15",
+    "ssr-core": "^0.1.16",
     "ssr-server-utils": "^0.1.15",
     "ssr-types": "^0.1.15",
-    "ssr-webpack": "^0.1.15",
+    "ssr-webpack": "^0.1.16",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "1.1.1",
     "webpack": "^4.42.1",
