@@ -25,7 +25,12 @@ const faasPort = 3000
 const host = '0.0.0.0'
 const cwd = getCwd()
 const chunkName = 'Page'
-
+const devManifest = {
+  'Page.css': '/static/css/Page.chunk.css',
+  'Page.js': '/static/js/Page.js',
+  'runtime~Page.js': '/static/js/runtime~Page.js',
+  'vendor.js': '/static/js/vendor.js'
+}
 const clientLogLevel: ClientLogLevel = 'error'
 const useHash = !isDev // 生产环境默认生成hash
 const whiteList: RegExp[] = []
@@ -90,6 +95,7 @@ const buildConfig: BuildConfig = Object.assign({},{
   cssOrder,
   getOutput,
   loadModule,
+  devManifest,
   webpackDevServerConfig,
   webpackStatsOption,
   staticPrefix,

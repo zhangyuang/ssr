@@ -20,6 +20,7 @@ export interface BuildConfig {
   cssOrder: string[]
   jsOrder: string[]
   staticPrefix: string
+  devManifest: any
   chainServerConfig: (config: Config) => Configuration
   chainClientConfig: (config: Config) => Configuration
   webpackStatsOption: Options.Stats
