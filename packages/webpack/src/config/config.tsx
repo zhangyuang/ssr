@@ -28,7 +28,7 @@ const chunkName = 'Page'
 const devManifest = {
   'Page.css': '/static/css/Page.chunk.css',
   'Page.js': '/static/js/Page.chunk.js',
-  'runtime~Page.js': '/static/js/runtime~Page.chunk.js',
+  'runtime~Page.js': '/static/js/runtime~Page.js',
   'vendor.js': '/static/js/vendor.chunk.js'
 }
 const clientLogLevel: ClientLogLevel = 'error'
