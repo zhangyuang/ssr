@@ -27,9 +27,9 @@ const cwd = getCwd()
 const chunkName = 'Page'
 const devManifest = {
   'Page.css': '/static/css/Page.chunk.css',
-  'Page.js': '/static/js/Page.js',
-  'runtime~Page.js': '/static/js/runtime~Page.js',
-  'vendor.js': '/static/js/vendor.js'
+  'Page.js': '/static/js/Page.chunk.js',
+  'runtime~Page.js': '/static/js/runtime~Page.chunk.js',
+  'vendor.js': '/static/js/vendor.chunk.js'
 }
 const clientLogLevel: ClientLogLevel = 'error'
 const useHash = !isDev // 生产环境默认生成hash

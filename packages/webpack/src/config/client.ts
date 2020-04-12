@@ -27,7 +27,7 @@ const getClientWebpack = (argv: Argv) => {
         .output
           .path(getOutput(funcName).clientOutPut)
           .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
-          .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].chunk.js')
+          .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js')
           .publicPath(publicPath)
         .end()
 
