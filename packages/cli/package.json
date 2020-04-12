@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
+    "@midwayjs/faas-cli": "^0.2.71",
     "dclone": "^1.2.0",
     "inquirer": "^7.1.0",
     "shelljs": "^0.8.3",

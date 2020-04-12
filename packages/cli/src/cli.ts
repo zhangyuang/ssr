@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { spawn } from 'child_process'
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
 import { parseYml, parseRoutesFromYml, parseFeRoutes, processError } from 'ssr-server-utils'
@@ -8,7 +9,6 @@ import { init } from './init'
 try {
   yargs
     .command('init', 'init Project', {}, async (argv: Argv) => {
-      // process.env.CLONE_SILENT = 'true'
       await init()
     })
     .command('start', 'Start Server', {}, async (argv: Argv) => {
@@ -28,6 +28,14 @@ try {
       argv.faasRoutes = ymlRoutes
       await parseFeRoutes(argv)
       await build(argv)
+    })
+    .command('deploy', 'deploy function to aliyun cloud or tencent cloud', () => {
+      const { stdout } = spawn('node', ['node_modules/@midwayjs/faas-cli/bin/fun.js', 'deploy'])
+
+      stdout.on('data', (data) => {
+        console.log(`stdout: ${data}`)
+      })
+
     })
     .demandCommand(1, 'You need at least one command before moving on')
     .option('version', {
