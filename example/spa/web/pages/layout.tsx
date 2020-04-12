@@ -5,7 +5,7 @@ import { LayoutProps } from 'ssr'
 import styles from './index.less'
 
 const Layout = (props: LayoutProps) => {
-  const { injectCss, injectScript } = props.config
+  const { injectCss, injectScript } = props.staticList
   return (
     <html lang='en'>
       <head>

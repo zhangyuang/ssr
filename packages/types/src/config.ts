@@ -17,8 +17,9 @@ export interface BuildConfig {
   }
   webpackDevServerConfig: webpackDevServer.Configuration
   loadModule: RequireResolve,
-  injectCss: JSX.Element[]
-  injectScript: JSX.Element[]
+  cssOrder: string[]
+  jsOrder: string[]
+  staticPrefix: string
   chainServerConfig: (config: Config) => Configuration
   chainClientConfig: (config: Config) => Configuration
   webpackStatsOption: Options.Stats

@@ -7,7 +7,6 @@ import { buildConfig } from './config'
 const { publicPath, isDev, chunkName, getOutput, cwd, useHash, loadModule, chainClientConfig } = buildConfig
 const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
-const ManifestPlugin = require('webpack-manifest-plugin')
 const safePostCssParser = require('postcss-safe-parser')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
@@ -16,7 +15,6 @@ const getClientWebpack = (argv: Argv) => {
   // @ts-ignore
   const { funcName } = argv.faasRoutes[0]
   const config = getBaseConfig()
-
   config.resolve.alias
                 .set('react-router', loadModule('react-router'))
                 .set('react-router-dom', loadModule('react-router-dom'))
@@ -93,7 +91,7 @@ const getClientWebpack = (argv: Argv) => {
 
   config.plugin('moduleNotFound').use(ModuleNotFoundPlugin, [cwd])
 
-  config.plugin('manifest').use(ManifestPlugin, [{
+  config.plugin('manifest').use(loadModule('webpack-manifest-plugin'), [{
     fileName: 'asset-manifest.json',
     publicPath: publicPath
   }])

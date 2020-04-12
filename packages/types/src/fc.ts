@@ -9,4 +9,10 @@ export interface LayoutProps {
   fetchData?: any
   config?: BuildConfig
   children?: React.ReactElement
+  staticList?: StaticList
+}
+
+export interface StaticList {
+  injectCss: JSX.Element[]
+  injectScript: JSX.Element[]
 }

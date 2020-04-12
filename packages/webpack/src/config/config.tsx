@@ -1,5 +1,6 @@
-import * as React from 'react'
 import { getCwd, getUserConfig, BuildConfig } from 'ssr-server-utils'
+
+const userConfig = getUserConfig()
 
 type ClientLogLevel = 'error'
 
@@ -26,8 +27,10 @@ const cwd = getCwd()
 const chunkName = 'Page'
 
 const clientLogLevel: ClientLogLevel = 'error'
-const useHash = false
+const useHash = !isDev // 生产环境默认生成hash
 const whiteList: RegExp[] = []
+const jsOrder = ['runtime~Page.js', 'vendor.js', 'Page.js']
+const cssOrder = ['Page.css']
 
 const webpackStatsOption = {
   assets: true,  // 添加资源信息
@@ -62,25 +65,7 @@ const webpackDevServerConfig = {
 
 const loadModule = require.resolve
 
-const staticPrefix = process.env.staticPrefix || '/'
-const injectCss = [
-  `${staticPrefix}static/css/Page.chunk.css`
-].map(item => React.createElement('link', {
-  href: item,
-  key: item,
-  rel: 'stylesheet'
-}))
-
-const injectScript = [
-  `${staticPrefix}static/js/runtime~Page.js`,
-  `${staticPrefix}static/js/vendor.chunk.js`,
-  `${staticPrefix}static/js/Page.chunk.js`
-].map(item => React.createElement('script', {
-  src: item,
-  key: item
-}))
-
-const userConfig = getUserConfig()
+const staticPrefix = process.env.staticPrefix || userConfig.staticPrefix || ''
 
 const chainClientConfig = () => {
   // 覆盖默认webpack配置
@@ -101,12 +86,13 @@ const buildConfig: BuildConfig = Object.assign({},{
   port,
   faasPort,
   chunkName,
+  jsOrder,
+  cssOrder,
   getOutput,
   loadModule,
   webpackDevServerConfig,
   webpackStatsOption,
-  injectCss,
-  injectScript,
+  staticPrefix,
   whiteList
 }, userConfig)
 
