@@ -29,9 +29,11 @@
   "devDependencies": {
     "@types/js-yaml": "^3.12.3",
     "concurrently": "^5.1.0",
-    "ssr-types": "^0.1.25"
+    "ssr-types": "^0.1.25",
+    "shelljs": "^0.8.3"
   },
   "dependencies": {
+    "@types/shelljs": "^0.8.7",
     "js-yaml": "^3.13.1",
     "path-to-regexp": "^1.7.0"
   }
