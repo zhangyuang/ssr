@@ -38,7 +38,7 @@ function wrapComponent (WrappedComponent: FC): React.ComponentClass {
 
     async componentDidMount () {
       // history push的时候需要调用fetch
-      if (this.props.history && this.props.history.action === 'PUSH') {
+      if (this.props.history && this.props.history.action !== 'POP' || !window.__USE_SSR__) {
         await this.fetch()
       }
     }

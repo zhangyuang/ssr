@@ -1,15 +1,15 @@
-# ssr
+# ssr-spec implement
 
-ssr-spec implement.
+最小而美的服务端渲染应用模板，特点
 
-## CCONTRIBUTING
-
-Please read the [document](./CONTRIBUTING.md)
+- 小：实现方式简洁，生产环境构建出来的bundle为同等复杂度的next.js项目的0.7倍，生成文件数量相比于next.js减少非常多
+- 全：支持HMR，支持本地开发以及生产环境CSR/SSR两种渲染模式无缝切换，支持定制组件的渲染模式，同时支持TypeScript版本
+- 美：基于[React](https://reactjs.org/)和[Midway-faas](http://github.com/midwayjs/midway-faas/)框架，拥有强大的插件生态，配置非黑盒，方便加入当前业务的个性化逻辑
 
 ## Install
 
-```shell
-$ npm i -S ssr
+```bash
+$ yarn global add ssr
 $ ssr init
 ```
 
@@ -17,103 +17,55 @@ $ ssr init
 
 ssr scaffold
 
-```
+```bash
 $ ssr start
 $ ssr build
-$ ssr deploy
+$ ssr deploy # deploy function on aliyun cloud or tencent cloud
 ```
 
 ## Specification
 
 本规范主要定义 ssr 特性，组件写法、目录结构以及 `f.yml` 文件扩展的编写规范。
 
-命令用法
+### 命令用法
 
-```
-$ ssr build
-$ ssr deploy
-```
+本地开发
 
-生成的dist目录结构如下。
-
-```
-- dist
-    - funcName
-        - client
-            - clientBundle.js
-            - js
-            - css
-            - images
-        - server
-          - serverBundle.js
+```bash
+$ ssr start # 本地启动Server预览页面
 ```
 
-构建命令
+函数构建
+
 
 ```bash
 $ ssr build # 默认以spa形式进行构建
-$ ssr build --mpa
-$ ssr build hello
+$ ssr build --mpa # 开发中
+$ ssr build hello # 对单个函数进行构建，开发中
 $ ssr build hello2
 ```
 
-serverless集成步骤，通用方案集成
+生成的build目录结构如下。
 
-```
-$ ssr xxx
-$ serverless deploy
-```
-
-### 组件写法
-
-```js
-function Page(props) {
-  return <div> {props.name} </div>
-}
-
-Page.fetch = async (ctx) => {
-  return Promise.resolve({
-    name: 'Serverless side render'
-  })
-}
-
-Page.layout = (props) => {
-    const { serverData } = props.ctx
-    const { injectCss, injectScript } = props.ctx.app.config
-    return (
-      <html lang='en'>
-        <head>
-          <meta charSet='utf-8' />
-          <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
-          <meta name='theme-color' content='#000000' />
-          <title>React App</title>
-          {
-            injectCss && injectCss.map(item => <link rel='stylesheet' href={item} key={item} />)
-          }
-        </head>
-        <body>
-          <div id='app'>{ commonNode(props) }</div>
-          {
-            serverData && <script dangerouslySetInnerHTML={{
-              __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(serverData)}`
-            }} />
-          }
-          <div dangerouslySetInnerHTML={{
-            __html: injectScript && injectScript.join('')
-          }} />
-        </body>
-      </html>
-    )
-}
-
-export default Page
+```bash
+├── build
+│   └── index
+│       ├── client # 前端静态资源文件
+│       │   ├── asset-manifest.json
+│       │   └── static
+│       └── server
+│           └── Page.server.js # 服务端bundle
 ```
 
-- render[必选]
-- layout[可选]
-- fetch(getInitialProps) [可选]
+发布命令
 
+```bash
+$ ssr deploy # 可选发布到阿里云还是腾讯云(支持中)
+```
 
+## CCONTRIBUTING
+
+Please read the [document](./CONTRIBUTING.md)
 
 ### 开发规范
 
@@ -402,3 +354,17 @@ conf.mode = req.query.ssr || req.headers['x-mode-ssr'];
 
 此处需要考虑优先级，比如querystring第一，其次是f.yml里的render.mode。
 
+
+## CONTRIBUTING
+
+Please read the [document](./CONTRIBUTING.md)
+
+## License
+
+[MIT](LICENSE)
+
+## 答疑群
+
+虽然我们已经尽力检查了一遍应用，但仍有可能有疏漏的地方，如果你在使用过程中发现任何问题或者建议，欢迎提[issue](https://github.com/ykfe/egg-react-ssr/issues)或者[PR](https://github.com/ykfe/egg-react-ssr/pulls)
+欢迎直接扫码加入钉钉群
+<img src="https://img.alicdn.com/tfs/TB1X1CsnET1gK0jSZFrXXcNCXXa-750-990.jpg" width="300">

@@ -33,7 +33,7 @@ try {
       const { stdout } = spawn('node', ['node_modules/@midwayjs/faas-cli/bin/fun.js', 'deploy'])
 
       stdout.on('data', (data) => {
-        console.log(`stdout: ${data}`)
+        console.log(data)
       })
 
     })

@@ -28,7 +28,8 @@ const init = async () => {
   await dclone({
     dir
   })
-  Shell.mv(`${join(cwd, './example/spa/*')}`, `${join(cwd, `../${appName}`)}`)
+  Shell.mv(`${join(cwd, './example/spa')}`, `${join(cwd, `./${appName}`)}`)
+  Shell.rm('-rf', `${join(cwd, './example')}`)
 }
 
 export {
