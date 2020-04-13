@@ -8,7 +8,7 @@
 本框架为Serverless场景下的服务端渲染规范的实现，具有以下特点。
 
 - 小：实现方式简洁使用方式优雅，构建生成的bundle文件少且小
-- 全：支持SPA/MPA两种应用类型的开发，SSR/CSR两种渲染模式无缝切换，本地开发支持HMR，，支持定制组件的渲染模式
+- 全：支持SPA/MPA两种应用类型的开发，SSR/CSR两种渲染模式无缝切换，支持HMR，支持定制组件的渲染模式
 - 美：基于[Midway-faas](http://github.com/midwayjs/midway-faas/)框架，拥有强大的生态，可以发布到多个不同的Serverless平台
 
 ## 快速开始
@@ -18,16 +18,16 @@
 ### 环境准备
 
 ```bash
-$ node -v # 建议使用10之后的版本
+$ node -v # 建议版本>=v10.15.0
 v12.16.1
 $ yarn -v # 建议使用yarn代替npm
 1.21.1
+$ yarn add global ssr # 全局安装ssr脚手架
 ```
 
 ### 创建项目
 
 ```bash
-$ yarn add global ssr # 全局安装ssr脚手架
 $ ssr init # 创建example，支持SPA/MPA(开发中)两种类型的应用创建
 ```
 
@@ -35,16 +35,15 @@ $ ssr init # 创建example，支持SPA/MPA(开发中)两种类型的应用创建
 
 ```bash
 $ yarn
-$ npm start
+$ ssr start
 $ open http://localhost:3000
 ```
 
 ### 资源构建
 
 ```bash
-$ npm run build
-$ GENERATE_ANALYSIS=true npm run build # 可视化构建bundle信息
-$ npm run build --index # 对指定函数进行构建(支持中)
+$ ssr build
+$ ssr build --index # 对指定函数进行构建(支持中)
 ```
 
 ### 函数发布
@@ -52,7 +51,7 @@ $ npm run build --index # 对指定函数进行构建(支持中)
 发布命令
 
 ```bash
-$ npm run deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
+$ ssr deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 ```
 
 首次发布需要输入阿里云账户信息，并且在阿里云控制台开通函数计算服务。账户信息在函数计算[控制台](https://fc.console.aliyun.com/fc)查看。
@@ -67,9 +66,9 @@ $ npm run deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 
 ![](https://gw.alicdn.com/tfs/TB1osyhB.T1gK0jSZFhXXaAtVXa-1286-794.jpg)
 
-![](https://gw.alicdn.com/tfs/TB1DYGlB1H2gK0jSZJnXXaT1FXa-1326-954.jpg)
+![](https://gw.alicdn.com/tfs/TB1g_CwB7P2gK0jSZPxXXacQpXa-1254-698.jpg)
 
-![](https://gw.alicdn.com/tfs/TB1pDafB4z1gK0jSZSgXXavwpXa-1598-1498.jpg)
+![](https://gw.alicdn.com/tfs/TB1JZGyB1H2gK0jSZFEXXcqMpXa-1468-1012.jpg)
 
 ## 开发规范
 
@@ -180,6 +179,9 @@ $ npm run deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 ├── web
 │   ├── components # 存放公共组件
 │   │   └── header
+│   │   │   ├── index.less
+│   │   │   └── index.tsx
+│   │   └── layout # 默认的layout
 │   │       ├── index.less
 │   │       └── index.tsx
 │   ├── pages # pages目录下的文件夹会映射为前端路由
@@ -187,8 +189,6 @@ $ npm run deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 │   │   │   ├── fetch.ts
 │   │   │   ├── index.less
 │   │   │   └── render.tsx # index文件夹映射为根路由
-│   │   ├── index.less
-│   │   ├── layout.tsx # SPA应用只需要一个Layout
 │   │   └── news
 │   │       ├── fetch.ts
 │   │       ├── index.less
@@ -259,6 +259,9 @@ http://xxx.com/news -> index 函数 -> 渲染news组件
 ├── web
 │   ├── components # 存放公共组件
 │   │   └── header
+│   │   │   ├── index.less
+│   │   │   └── index.tsx
+│   │   └── layout # 默认的layout
 │   │       ├── index.less
 │   │       └── index.tsx
 │   ├── pages
@@ -267,8 +270,6 @@ http://xxx.com/news -> index 函数 -> 渲染news组件
 │   │   │   ├── index.less
 |   |   |   ├── layout.tsx # 每个页面可以有自己的layout
 │   │   │   └── render.tsx
-│   │   ├── index.less
-│   │   ├── layout.tsx # 没有设置layout时用默认的
 │   │   └── news
 │   │       ├── fetch.ts
 │   │       ├── index.less

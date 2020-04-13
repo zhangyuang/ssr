@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import { spawn } from 'child_process'
+import { execSync } from 'child_process'
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
-import { parseYml, parseRoutesFromYml, parseFeRoutes, processError } from 'ssr-server-utils'
+import { parseYml, parseRoutesFromYml, parseFeRoutes, processError, getCwd } from 'ssr-server-utils'
 import { init } from './init'
 
 const ymlContent = parseYml('./f.yml')
@@ -16,6 +16,7 @@ try {
     })
     .command('start', 'Start Server', {}, async (argv: Argv) => {
       process.env.NODE_ENV = 'development'
+      process.chdir(getCwd())
       const { start } = require('./start')
       argv.faasRoutes = ymlRoutes
       await parseFeRoutes(argv)
@@ -23,17 +24,36 @@ try {
     })
     .command('build', 'build server and client files', {}, async (argv: Argv) => {
       process.env.NODE_ENV = 'production'
+      process.chdir(getCwd())
       const { build } = require('./build')
       argv.faasRoutes = ymlRoutes
       await parseFeRoutes(argv)
       await build(argv)
     })
-    .command('deploy', 'deploy function to aliyun cloud or tencent cloud', () => {
-      const { stdout } = spawn('node', ['node_modules/.bin/f', 'deploy'])
+    .command('deploy', 'deploy function to aliyun cloud or tencent cloud', {}, async () => {
+      const cwd = getCwd()
+      // execSync(`export PATH=$PATH:${cwd}`)
+      // console.log(`export PATH=$PATH:${cwd}`)
+      const { CommandHookCore, loadSpec } = require('@midwayjs/fcli-command-core')
+      const { PackagePlugin } = require('@ali/fcli-plugin-package')
+      const { DeployPlugin } = require('@midwayjs/fcli-plugin-deploy')
+      const { AliyunFCPlugin } = require('@midwayjs/fcli-plugin-fc')
 
-      stdout.on('data', (data) => {
-        console.log(data.toString())
+      const core: any = new CommandHookCore({
+        config: {
+          servicePath: cwd
+        },
+        commands: ['package'],
+        service: loadSpec(cwd),
+        provider: 'aliyun',     // 指定 provider
+        log: console
       })
+      core.addPlugin(PackagePlugin)
+      core.addPlugin(DeployPlugin)
+      core.addPlugin(AliyunFCPlugin)
+
+      await core.ready()
+      await core.deploy()
     })
     .demandCommand(1, 'You need at least one command before moving on')
     .option('version', {

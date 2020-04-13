@@ -4,7 +4,7 @@ import * as Yaml from 'js-yaml'
 import * as Shell from 'shelljs'
 import { Yml, FaasRouteItem, Argv, FeRouteItem } from 'ssr-types'
 import { promisifyFsReadDir } from './promisify'
-import { getCwd, getPagesDir } from './cwd'
+import { getCwd, getPagesDir, getFeDir } from './cwd'
 
 const parseYml = (path: string) => {
   const cwd = getCwd()
@@ -33,13 +33,14 @@ const parseRoutesFromYml = (yamlContent: Yml) => {
 
 const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
   const pageDir = getPagesDir()
+  const feDir = getFeDir()
   // 根据目录结构生成前端路由表
   const cwd = getCwd()
   if (!fs.existsSync(join(cwd, './node_modules/ssr-cache'))) {
     Shell.mkdir(`${cwd}/node_modules/ssr-cache`)
   }
   const folders = await promisifyFsReadDir(pageDir) // 读取web目录
-  const defaultLayout = `${join(pageDir, `/layout.tsx`)}`
+  const defaultLayout = `${join(feDir, `./components/layout/index.tsx`)}`
   const arr = []
   if (!argv.mpa) {
     for (let i in folders) {
