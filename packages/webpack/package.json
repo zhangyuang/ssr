@@ -27,6 +27,9 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.5.5",
+    "@midwayjs/serverless-invoke": "^0.2.67",
     "babel-loader": "8.0.4",
     "babel-plugin-import": "^1.13.0",
     "babel-preset-react-app": "^9.0.2",
@@ -65,9 +68,6 @@
     "webpack-manifest-plugin": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/preset-env": "^7.5.5",
-    "@midwayjs/serverless-invoke": "^0.2.67",
     "@types/koa": "^2.11.3",
     "@types/koa-router": "^7.4.0",
     "@types/mocha": "^7.0.2",
