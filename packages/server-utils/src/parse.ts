@@ -36,6 +36,9 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
   const feDir = getFeDir()
   // 根据目录结构生成前端路由表
   const cwd = getCwd()
+  if (!fs.existsSync(join(cwd, './node_modules'))) {
+    Shell.mkdir(`${cwd}/node_modules/`)
+  }
   if (!fs.existsSync(join(cwd, './node_modules/ssr-cache'))) {
     Shell.mkdir(`${cwd}/node_modules/ssr-cache`)
   }
