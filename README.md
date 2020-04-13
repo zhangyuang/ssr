@@ -7,7 +7,7 @@
 
 本框架为Serverless场景下的服务端渲染规范的实现，具有以下特点。
 
-- 小：实现使用方式简洁优雅，构建的bundle数量和大小
+- 小：实现方式简洁使用方式优雅，构建生成的bundle文件少且小
 - 全：支持SPA/MPA两种应用类型的开发，SSR/CSR两种渲染模式无缝切换，本地开发支持HMR，，支持定制组件的渲染模式
 - 美：基于[Midway-faas](http://github.com/midwayjs/midway-faas/)框架，拥有强大的生态，可以发布到多个不同的Serverless平台
 
@@ -63,7 +63,7 @@ $ npm run deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 
 ![](https://gw.alicdn.com/tfs/TB1cByrB7Y2gK0jSZFgXXc5OFXa-1636-290.jpg)
 
-发布成功后得到一个http地址`https://1812856288776972.cn-shanghai.fc.aliyuncs.com/***`。由于阿里云安全限制，无法直接在浏览器查看。需要手动配置域名转发过去。`阿里云控制台域名服务` -> `域名解析设置` -> `函数计算控制台` -> `自定义域名`
+发布成功后得到一个http地址`https://1812856288776972.cn-shanghai.fc.aliyuncs.com/***`。由于阿里云安全限制，无法直接在浏览器查看。需要手动配置域名转发过去。`阿里云控制台域名服务` -> `域名解析设置` -> `函数计算控制台` -> `自定义域名`。之后打开[域名](http://ssr-fc.com)便能够访问到发布的函数。
 
 ![](https://gw.alicdn.com/tfs/TB1osyhB.T1gK0jSZFhXXaAtVXa-1286-794.jpg)
 
@@ -71,11 +71,11 @@ $ npm run deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 
 ![](https://gw.alicdn.com/tfs/TB1pDafB4z1gK0jSZSgXXavwpXa-1598-1498.jpg)
 
-### 开发规范
+## 开发规范
 
-<span style="color:red">注：本规范适用于绝大多数的业务场景，如需额外定制请先想清楚是否必要!</span>
+`注：本规范适用于绝大多数的业务场景，如需额外定制请先想清楚是否必要!`
 
-#### 前端技术选型
+### 前端技术选型
 
 - 前端框架: React
 - 开发语言: TypeScript
@@ -84,7 +84,7 @@ $ npm run deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 - 路由: 约定式路由
 - 数据管理: 待支持，暂定使用hooks
 
-#### 应用类型
+### 应用类型
 
 我们支持单页面应用(SPA)和多页面应用(MPA)两种常见的应用类型的开发。
 关于SPA与MPA的区别如下(本表格转载自网络，如有侵权请提issue联系)
