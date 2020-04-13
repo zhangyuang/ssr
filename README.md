@@ -61,9 +61,9 @@ $ npm run deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 
 将AccountId以及Key Secret在下面输入，只需要输入一次信息会储存在本地，之后deploy无需做该操作。
 
-![](https://gw.alicdn.com/tfs/TB1TC5dB7Y2gK0jSZFgXXc5OFXa-1158-254.png)
+![](https://gw.alicdn.com/tfs/TB1cByrB7Y2gK0jSZFgXXc5OFXa-1636-290.jpg)
 
-发布成功后得到一个http地址`https://1812856288776972.cn-shanghai.fc.aliyuncs.com/xxx`。由于阿里云安全限制，无法直接在浏览器查看。需要手动配置域名转发过去。`阿里云控制台域名服务` -> `域名解析设置` -> `函数计算控制台` -> `自定义域名`
+发布成功后得到一个http地址`https://1812856288776972.cn-shanghai.fc.aliyuncs.com/***`。由于阿里云安全限制，无法直接在浏览器查看。需要手动配置域名转发过去。`阿里云控制台域名服务` -> `域名解析设置` -> `函数计算控制台` -> `自定义域名`
 
 ![](https://gw.alicdn.com/tfs/TB1osyhB.T1gK0jSZFhXXaAtVXa-1286-794.jpg)
 
