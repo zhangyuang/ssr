@@ -6,6 +6,9 @@ import { Argv } from 'ssr-types'
 import { parseYml, parseRoutesFromYml, parseFeRoutes, processError } from 'ssr-server-utils'
 import { init } from './init'
 
+const ymlContent = parseYml('./f.yml')
+const ymlRoutes = parseRoutesFromYml(ymlContent)
+
 try {
   yargs
     .command('init', 'init Project', {}, async (argv: Argv) => {
@@ -14,8 +17,6 @@ try {
     .command('start', 'Start Server', {}, async (argv: Argv) => {
       process.env.NODE_ENV = 'development'
       const { start } = require('./start')
-      const ymlContent = parseYml('./f.yml')
-      const ymlRoutes = parseRoutesFromYml(ymlContent)
       argv.faasRoutes = ymlRoutes
       await parseFeRoutes(argv)
       await start(argv)
@@ -23,19 +24,16 @@ try {
     .command('build', 'build server and client files', {}, async (argv: Argv) => {
       process.env.NODE_ENV = 'production'
       const { build } = require('./build')
-      const ymlContent = parseYml('./f.yml')
-      const ymlRoutes = parseRoutesFromYml(ymlContent)
       argv.faasRoutes = ymlRoutes
       await parseFeRoutes(argv)
       await build(argv)
     })
     .command('deploy', 'deploy function to aliyun cloud or tencent cloud', () => {
-      const { stdout } = spawn('node', ['node_modules/@midwayjs/faas-cli/bin/fun.js', 'deploy'])
+      const { stdout } = spawn('node', ['node_modules/.bin/fun.js', 'deploy'])
 
       stdout.on('data', (data) => {
-        console.log(data)
+        console.log(data.toString())
       })
-
     })
     .demandCommand(1, 'You need at least one command before moving on')
     .option('version', {

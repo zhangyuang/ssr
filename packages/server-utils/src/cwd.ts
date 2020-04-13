@@ -30,7 +30,7 @@ const getPagesDir = () => {
 }
 
 const getUserConfig = () => {
-  return require(join(getFeDir(), './config'))
+  return require(join(getCwd(), './config'))
 }
 
 export {

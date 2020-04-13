@@ -14,5 +14,4 @@ functions:
 package:
   include:									
     - build
-    - web
   artifact: code.zip

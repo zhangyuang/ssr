@@ -1,26 +1,26 @@
 # ssr-spec implement
 
-最小而美的服务端渲染应用模板，特点
+<a href="https://npmcharts.com/compare/ykfe-utils"><img src="https://img.shields.io/npm/dt/ssr" alt="download"></a>
+<a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="standardjs"></a>
+<a href="https://github.com/ykfe/ssr"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
+<img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node">
 
-- 小：实现方式简洁，生产环境构建出来的bundle为同等复杂度的next.js项目的0.7倍，生成文件数量相比于next.js减少非常多
-- 全：支持HMR，支持本地开发以及生产环境CSR/SSR两种渲染模式无缝切换，支持定制组件的渲染模式，同时支持TypeScript版本
-- 美：基于[React](https://reactjs.org/)和[Midway-faas](http://github.com/midwayjs/midway-faas/)框架，拥有强大的插件生态，配置非黑盒，方便加入当前业务的个性化逻辑
+本框架为Serverless场景下的服务端渲染规范的实现
 
-## Install
+- 小：实现方式简洁优雅，构建的bundle数量和大小
+- 全：支持SPA/MPA两种应用类型的开发，CSR/SSR两种渲染模式无缝切换，本地开发支持HMR，，支持定制组件的渲染模式
+- 美：基于[Midway-faas](http://github.com/midwayjs/midway-faas/)框架，拥有强大的生态，可以发布到多个不同的Serverless平台，阿里云或者腾讯云。
 
-```bash
-$ yarn global add ssr
-$ ssr init
-```
+## Getting Start
 
-## Usage
-
-ssr scaffold
 
 ```bash
-$ ssr start
-$ ssr build
-$ ssr deploy # deploy function on aliyun cloud or tencent cloud
+$ yarn add global ssr # 全局安装ssr脚手架
+$ ssr init # 创建example
+$ yarn # 安装依赖
+$ npm start # 启动项目
+$ npm run build # 应用构建
+$ npm run deploy # 发布函数上云
 ```
 
 ## Specification
