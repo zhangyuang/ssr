@@ -18,10 +18,11 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
   const Layout = wrapLayout(routeItem.layout, __isBrowser__)
   const Component = routeItem.component
   if (mode !== 'ssr') {
-    return <Layout config={buildConfig}></Layout>
+    return <StaticRouter><Layout ctx={ctx} staticList={staticList} config={buildConfig}></Layout></StaticRouter>
   }
 
   const fetchData = routeItem.fetch ? await routeItem.fetch(ctx) : {}
+
   return <StaticRouter>
     <Layout ctx={ctx} fetchData={fetchData} config={buildConfig} staticList={staticList}>
       <Component {...fetchData} />
