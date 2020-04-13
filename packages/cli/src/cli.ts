@@ -29,7 +29,7 @@ try {
       await build(argv)
     })
     .command('deploy', 'deploy function to aliyun cloud or tencent cloud', () => {
-      const { stdout } = spawn('node', ['node_modules/.bin/f.js', 'deploy'])
+      const { stdout } = spawn('node', ['node_modules/.bin/f', 'deploy'])
 
       stdout.on('data', (data) => {
         console.log(data.toString())
