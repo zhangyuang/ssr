@@ -26,16 +26,16 @@ const host = '0.0.0.0'
 const cwd = getCwd()
 const chunkName = 'Page'
 const devManifest = {
-  'Page.css': '/static/css/Page.chunk.css',
-  'Page.js': '/static/js/Page.chunk.js',
-  'runtime~Page.js': '/static/js/runtime~Page.js',
-  'vendor.js': '/static/js/vendor.chunk.js'
+  'Page.css': `/static/css/${chunkName}.chunk.css`,
+  'Page.js': `/static/js/${chunkName}.chunk.js`,
+  'runtime~Page.js': `/static/js/runtime~${chunkName}.js`,
+  'vendor.js': `/static/js/vendor.chunk.js`
 }
 const clientLogLevel: ClientLogLevel = 'error'
 const useHash = !isDev // 生产环境默认生成hash
 const whiteList: RegExp[] = []
-const jsOrder = ['runtime~Page.js', 'vendor.js', 'Page.js']
-const cssOrder = ['Page.css']
+const jsOrder = [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`]
+const cssOrder = [`${chunkName}.css`]
 
 const webpackStatsOption = {
   assets: true,  // 添加资源信息

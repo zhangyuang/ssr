@@ -5,71 +5,88 @@
 <a href="https://github.com/ykfe/ssr"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 <img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node">
 
-本框架为Serverless场景下的服务端渲染规范的实现
+本框架为Serverless场景下的服务端渲染规范的实现，具有以下特点。
 
-- 小：实现方式简洁优雅，构建的bundle数量和大小
-- 全：支持SPA/MPA两种应用类型的开发，CSR/SSR两种渲染模式无缝切换，本地开发支持HMR，，支持定制组件的渲染模式
-- 美：基于[Midway-faas](http://github.com/midwayjs/midway-faas/)框架，拥有强大的生态，可以发布到多个不同的Serverless平台，阿里云或者腾讯云。
+- 小：实现使用方式简洁优雅，构建的bundle数量和大小
+- 全：支持SPA/MPA两种应用类型的开发，SSR/CSR两种渲染模式无缝切换，本地开发支持HMR，，支持定制组件的渲染模式
+- 美：基于[Midway-faas](http://github.com/midwayjs/midway-faas/)框架，拥有强大的生态，可以发布到多个不同的Serverless平台
 
-## Getting Start
+## 快速开始
 
+快速的创建并发布一个项目
+
+### 环境准备
+
+```bash
+$ node -v # 建议使用10之后的版本
+v12.16.1
+$ yarn -v # 建议使用yarn代替npm
+1.21.1
+```
+
+### 创建项目
 
 ```bash
 $ yarn add global ssr # 全局安装ssr脚手架
-$ ssr init # 创建example
-$ yarn # 安装依赖
-$ npm start # 启动项目
-$ npm run build # 应用构建
-$ npm run deploy # 发布函数上云
+$ ssr init # 创建example，支持SPA/MPA(开发中)两种类型的应用创建
 ```
 
-## Specification
-
-本规范主要定义 ssr 特性，组件写法、目录结构以及 `f.yml` 文件扩展的编写规范。
-
-### 命令用法
-
-本地开发
+### 本地开发
 
 ```bash
-$ ssr start # 本地启动Server预览页面
+$ yarn
+$ npm start
+$ open http://localhost:3000
 ```
 
-函数构建
-
+### 资源构建
 
 ```bash
-$ ssr build # 默认以spa形式进行构建
-$ ssr build --mpa # 开发中
-$ ssr build hello # 对单个函数进行构建，开发中
-$ ssr build hello2
+$ npm run build
+$ GENERATE_ANALYSIS=true npm run build # 可视化构建bundle信息
+$ npm run build --index # 对指定函数进行构建(支持中)
 ```
 
-生成的build目录结构如下。
-
-```bash
-├── build
-│   └── index
-│       ├── client # 前端静态资源文件
-│       │   ├── asset-manifest.json
-│       │   └── static
-│       └── server
-│           └── Page.server.js # 服务端bundle
-```
+### 函数发布
 
 发布命令
 
 ```bash
-$ ssr deploy # 可选发布到阿里云还是腾讯云(支持中)
+$ npm run deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 ```
 
-## CCONTRIBUTING
+首次发布需要输入阿里云账户信息，并且在阿里云控制台开通函数计算服务。账户信息在函数计算[控制台](https://fc.console.aliyun.com/fc)查看。
 
-Please read the [document](./CONTRIBUTING.md)
+![](https://gw.alicdn.com/tfs/TB1ZU9kB8r0gK0jSZFnXXbRRXXa-844-700.png)
+
+将AccountId以及Key Secret在下面输入，只需要输入一次信息会储存在本地，之后deploy无需做该操作。
+
+![](https://gw.alicdn.com/tfs/TB1TC5dB7Y2gK0jSZFgXXc5OFXa-1158-254.png)
+
+发布成功后得到一个http地址`https://1812856288776972.cn-shanghai.fc.aliyuncs.com/xxx`。由于阿里云安全限制，无法直接在浏览器查看。需要手动配置域名转发过去。`阿里云控制台域名服务` -> `域名解析设置` -> `函数计算控制台` -> `自定义域名`
+
+![](https://gw.alicdn.com/tfs/TB1osyhB.T1gK0jSZFhXXaAtVXa-1286-794.jpg)
+
+![](https://gw.alicdn.com/tfs/TB1DYGlB1H2gK0jSZJnXXaT1FXa-1326-954.jpg)
+
+![](https://gw.alicdn.com/tfs/TB1pDafB4z1gK0jSZSgXXavwpXa-1598-1498.jpg)
 
 ### 开发规范
 
-如何开发单页面应用(SPA)和多页面应用(MPA)。
+<span style="color:red">注：本规范适用于绝大多数的业务场景，如需额外定制请先想清楚是否必要!</span>
+
+#### 前端技术选型
+
+- 前端框架: React
+- 开发语言: TypeScript
+- 代码风格: [Standard](https://standardjs.com/)
+- CSS预处理器: Less
+- 路由: 约定式路由
+- 数据管理: 待支持，暂定使用hooks
+
+#### 应用类型
+
+我们支持单页面应用(SPA)和多页面应用(MPA)两种常见的应用类型的开发。
 关于SPA与MPA的区别如下(本表格转载自网络，如有侵权请提issue联系)
 
 <table>
@@ -146,31 +163,39 @@ Please read the [document](./CONTRIBUTING.md)
 
 ##### 目录结构
 
-这里我们使用约定式路由的概念。无需手动编写路由配置文件，会根据文件夹名称及路径自动生成路由配置。
+这里我们使用约定式路由。无需手动编写路由配置文件，会根据文件夹名称及路径自动生成路由配置。
 
 ```bash
 .
-├── README.md
-├── build
-│   └── spa # 函数名称
-│       ├── client # 客户端bundle文件
-│       └── server # 服务端bundle文件
+├── build # web目录构建产物
+│   └── index
+│       ├── client
+│       └── server
+├── config.js # 定义应用的配置
 ├── f.yml
 ├── package.json
-├── src # faas文件夹
-│   └── index.ts  # faas函数的handler文件
-├── tsconfig.json # 用于编译faas函数的ts编译配置
-└── web # 前端文件
-    ├── home
-    │   ├── fetch.ts
-    │   └── render.tsx # /home 路由
-    ├── layout.tsx # 布局文件，理论上SPA应用只需要一个公用的layout文件维护即可,不建议创建多个layout
-    └── news
-    │  ├── fetch.ts
-    │  └── render.tsx # /news 路由
-    └── news # 为了保证页面的独立性，这里需要新增一个news目录
-        ├── fetch.ts
-        └── render$id.tsx # /news/:id 路由
+├── src # 存放faas函数的handler
+│   └── index.ts
+├── tsconfig.json
+├── web
+│   ├── components # 存放公共组件
+│   │   └── header
+│   │       ├── index.less
+│   │       └── index.tsx
+│   ├── pages # pages目录下的文件夹会映射为前端路由
+│   │   ├── index
+│   │   │   ├── fetch.ts
+│   │   │   ├── index.less
+│   │   │   └── render.tsx # index文件夹映射为根路由
+│   │   ├── index.less
+│   │   ├── layout.tsx # SPA应用只需要一个Layout
+│   │   └── news
+│   │       ├── fetch.ts
+│   │       ├── index.less
+│   │       └── render$id.tsx # 映射为/news/:id
+│   │       └── render$id$.tsx # 映射为/news/:id?
+│   ├── tsconfig.json # 仅用于编辑器ts语法检测
+│   └── typings.d.ts
 ```
 
 ##### yml文件编写规范
@@ -182,13 +207,13 @@ provider:
   name: aliyun
 
 functions:
-  spa:
+  index:
     handler: index.handler
     render:
       mode: ssr # 指定渲染模式
     events:
       - http:             
-          path: /
+          path: /*
           method:
             - get
 
@@ -199,13 +224,13 @@ package:
 ##### 如何发布
 
 ```bash
-$ ssr deploy # 此时只有一个函数需要发布，选择spa函数发布即可
+$ ssr deploy # 此时只有一个函数需要发布，选择index函数发布即可
 ```
 
 ##### 展示形式
 
-http://xxx.com/home -> spa 函数 -> 渲染home组件  
-http://xxx.com/news -> spa 函数 -> 渲染news组件  
+http://xxx.com/ -> index 函数 -> 渲染home组件  
+http://xxx.com/news -> index 函数 -> 渲染news组件  
 
 #### MPA
 
@@ -231,15 +256,23 @@ http://xxx.com/news -> spa 函数 -> 渲染news组件
 │   ├── mpa1handler.ts
 │   └── mpa2handler.ts
 ├── tsconfig.json
-└── web
-    ├── mpa1
-    │   ├── fetch.ts
-    │   ├── layout.tsx
-    │   └── render.tsx
-    └── mpa2
-        ├── fetch.ts
-        ├── layout.tsx
-        └── render.tsx
+├── web
+│   ├── components # 存放公共组件
+│   │   └── header
+│   │       ├── index.less
+│   │       └── index.tsx
+│   ├── pages
+│   │   ├── index
+│   │   │   ├── fetch.ts
+│   │   │   ├── index.less
+|   |   |   ├── layout.tsx # 每个页面可以有自己的layout
+│   │   │   └── render.tsx
+│   │   ├── index.less
+│   │   ├── layout.tsx # 没有设置layout时用默认的
+│   │   └── news
+│   │       ├── fetch.ts
+│   │       ├── index.less
+│   │       └── render$id.tsx
 ```
 
 ##### yml文件编写规范
@@ -257,7 +290,7 @@ functions:
       mode: ssr
     events:
       - http:             
-          path: /home
+          path: /
           method:
             - get
   mpa2:
@@ -283,49 +316,36 @@ $ ssr deploy # 此时需要在终端选择需要发布哪个函数
 
 ##### 展示形式
 
-http://xxx.com/home -> mpa1 函数 -> 渲染mpa1文件夹下的render组件  
+http://xxx.com/ -> mpa1 函数 -> 渲染mpa1文件夹下的render组件  
 http://xxx.com/news -> mpa2 函数 -> 渲染mpa2文件夹下的render组件  
 
 ### 渲染函数
 
-1）在 FaaS 数里
+1）在 FaaS 函数里
 
-在 FaaS 数里，挂载ssr渲染方法，参数是ctx。
+在 FaaS 函数里，只需要调用ssr-core提供的render方法传入ctx即可
 
 ```js
-module.exports = function (ctx) {
-    // ctx.ssr.fassConfig.serverBundle
-    
-    ctx.body = ctx.ssr({
-        filter: function(asset){
-            // ctx.ssr.fassConfig
-        }
-    })
+import { render } from 'ssr-core'
+
+async handler () {
+  try {
+    const htmlStr = await render(this.ctx)
+    return htmlStr
+  } catch (error) {
+    return error
+  }
 }
 ```
 
-ctx.ssr根据ctx.ssr.fassConfig.mode，确定是ssr还是csr模式，伪代码示意如下。
-
-```js
-ctx.ssr = function (ctx) {
-    if (ctx.ssr.fassConfig.mode === 'ssr') {
-        ctx.ssrRender(ctx)
-    } else{
-        ctx.csrRender(ctx)
-    }
-}
-```
-
-ctx.ssr.fassConfig配置文件具体内容来自于 f.yml 文件，参见【扩展render配置】。
+根据f.yml或者query来判断当前渲染模式
 
 2）在 Node.js Web 框架里
 
-渲染函数可以支持 midway/egg/koa/express 等 Node.js Web 框架，用法如下。
+渲染函数可以支持 midway/egg/koa/express 等 Node.js Web 框架，用法与Faas函数保持一致。
 
 ```
-const conf = require('./config/config.ssr')
-const ssr = require('ssr').koa(conf);
-
+const { render } = require('ssr-core')
 const Koa = require('koa');
 const app = new Koa();
 
@@ -333,8 +353,8 @@ const app = new Koa();
 app.use(ssr)
 
 // ctx.ssrRender()
-app.use(async ctx => {
-  ctx.ssrRender(...);
+app.get('/*', async ctx => {
+  ctx.body = render(ctx)
 });
 
 app.listen(3000);
@@ -342,8 +362,8 @@ app.listen(3000);
 
 ### 模式切换
 
-```
-//检查post的信息或者url查询参数或者头信息
+```js
+// url查询参数或者头信息
 conf.mode = req.query.ssr || req.headers['x-mode-ssr'];
 ```
 
@@ -354,6 +374,27 @@ conf.mode = req.query.ssr || req.headers['x-mode-ssr'];
 
 此处需要考虑优先级，比如querystring第一，其次是f.yml里的render.mode。
 
+## 配置
+
+config.js支持以下配置
+
+```js
+{
+  cwd: string; // 设置命令执行的cwd，默认为process.cwd()，无特殊需求不需修改
+  isDev: boolean; // 当前运行环境，默认为process.env.NODE_ENV
+  publicPath: string; // webpack-dev-server的publishPath，默认为/
+  useHash: boolean; // 生成文件是否带有hash，默认本地运行关闭，生产环境构建时开启
+  port: number; // 前端静态资源本地开发时的监听端口，默认为8000。Faas Server会自动proxy，无特殊需求不需要修改
+  faasPort: number; // 本地开发启动的Faas 服务的端口，默认为3000
+  chunkName: string; // 生成的bundle的chunkName，默认为Page,无特殊需求不要修改
+  webpackDevServerConfig: webpackDevServer.Configuration; // webpack-dev-server 启动配置
+  staticPrefix: string; // 加载的静态资源前缀，需要发布到单独的cdn服务时可以使用该配置设置为cdn服务的地址
+  chainServerConfig: (config: Config) => Configuration; // 使用webpack-chain来修改服务端wbepack构建配置
+  chainClientConfig: (config: Config) => Configuration; // 使用webpack-chain来修改服务端wbepack构建配置
+  whiteList: RegExp[]; // 设置服务端构建配置externals的白名单，即需要让webpack来处理的模块
+}
+
+```
 
 ## CONTRIBUTING
 
