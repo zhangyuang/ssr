@@ -1,6 +1,6 @@
 {
   "name": "ssr-devdependencies",
-  "version": "0.1.31",
+  "version": "0.1.32",
   "description": "devDependencies for serverless ssr",
   "repository": {
     "type": "git",
@@ -72,7 +72,7 @@
     "ssr-core": "^0.1.29",
     "ssr-server-utils": "^0.1.29",
     "ssr-types": "^0.1.25",
-    "ssr-webpack": "^0.1.31",
+    "ssr-webpack": "^0.1.32",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "1.1.1",
     "webpack": "^4.42.1",
