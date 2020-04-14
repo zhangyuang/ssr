@@ -122,8 +122,15 @@ const getDynamicParam = (url: string) => {
   return url.split('$')[1].replace(/\.[\s\S]+/,'')
 }
 
+const checkDependencies = () => {
+  const cwd = getCwd()
+  if (!fs.existsSync(join(cwd, './node_modules'))) {
+    throw new Error(`node_modules is not found in ${cwd}, please run yarn or npm install`)
+  }
+}
 export {
   parseYml,
   parseRoutesFromYml,
-  parseFeRoutes
+  parseFeRoutes,
+  checkDependencies
 }
