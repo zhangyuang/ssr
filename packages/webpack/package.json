@@ -1,6 +1,6 @@
 {
   "name": "ssr-webpack",
-  "version": "0.1.52",
+  "version": "0.1.53-alpha.0",
   "description": "webpack config for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -56,8 +56,8 @@
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
-    "ssr-client-utils": "^0.1.52",
-    "ssr-server-utils": "^0.1.52",
+    "ssr-client-utils": "^0.1.53-alpha.0",
+    "ssr-server-utils": "^0.1.53-alpha.0",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "1.1.1",
     "webpack": "^4.42.1",
