@@ -17,11 +17,11 @@
 
 传统应用开发流程
 
-![](https://img.alicdn.com/tfs/TB1BPsXB8v0gK0jSZKbXXbK2FXa-1402-150.png)
+![](https://img.alicdn.com/tfs/TB1CE7FB5_1gK0jSZFqXXcpaXXa-1402-150.png)
 
 Serverless 应用开发流程
 
-![](https://img.alicdn.com/tfs/TB1S2z.B2b2gK0jSZK9XXaEgFXa-1136-174.png)
+![](https://img.alicdn.com/tfs/TB1hZgHB7T2gK0jSZPcXXcKkpXa-1136-174.png)
 
 使用本框架开发Serverless SSR 应用开发流程
 
