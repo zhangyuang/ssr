@@ -22,7 +22,11 @@ $ node -v # 建议版本>=v10.15.0
 v12.16.1
 $ yarn -v # 建议使用yarn代替npm
 1.21.1
-$ yarn add global ssr # 全局安装ssr脚手架
+```
+### 安装脚手架
+
+```bash
+$ yarn add global ssr # 全局安装ssr脚手架。等同于npm i -g ssr
 ```
 
 ### 创建项目
