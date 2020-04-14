@@ -26,7 +26,7 @@ $ yarn -v # 建议使用yarn代替npm
 ### 安装脚手架
 
 ```bash
-$ yarn add global ssr # 全局安装ssr脚手架。等同于npm i -g ssr
+$ yarn global add ssr # 全局安装ssr脚手架。等同于npm i -g ssr
 ```
 
 ### 创建项目
@@ -60,15 +60,15 @@ $ ssr deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 
 首次发布需要输入阿里云账户信息，并且在阿里云控制台开通函数计算服务。账户信息在函数计算[控制台](https://fc.console.aliyun.com/fc)查看。
 
-![](https://gw.alicdn.com/tfs/TB1ZU9kB8r0gK0jSZFnXXbRRXXa-844-700.png)
+![](https://img.alicdn.com/tfs/TB1fZzQB.z1gK0jSZLeXXb9kVXa-1446-1262.jpg)
 
 将AccountId以及Key Secret在下面输入，只需要输入一次信息会储存在本地，之后deploy无需做该操作。
 
-![](https://gw.alicdn.com/tfs/TB1cByrB7Y2gK0jSZFgXXc5OFXa-1636-290.jpg)
+![](https://img.alicdn.com/tfs/TB10vYVBYY1gK0jSZTEXXXDQVXa-2044-528.jpg)
 
 发布成功后得到一个http地址`https://1812856288776972.cn-shanghai.fc.aliyuncs.com/***`。由于阿里云安全限制，无法直接在浏览器查看。需要手动配置域名转发过去。`阿里云控制台域名服务` -> `域名解析设置` -> `函数计算控制台` -> `自定义域名`。之后打开[域名](http://ssr-fc.com)便能够访问到发布的函数。
 
-![](https://gw.alicdn.com/tfs/TB1osyhB.T1gK0jSZFhXXaAtVXa-1286-794.jpg)
+![](https://gw.alicdn.com/tfs/TB1yfjUB4D1gK0jSZFKXXcJrVXa-1212-680.jpg)
 
 ![](https://gw.alicdn.com/tfs/TB1g_CwB7P2gK0jSZPxXXacQpXa-1254-698.jpg)
 
@@ -84,7 +84,7 @@ $ ssr deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 - 开发语言: TypeScript
 - 代码风格: [Standard](https://standardjs.com/)
 - CSS预处理器: Less
-- 路由: 约定式路由
+- 前端路由: 约定式路由
 - 数据管理: 待支持，暂定使用hooks
 
 ### 应用类型
@@ -189,10 +189,10 @@ $ ssr deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 │   │       ├── index.less
 │   │       └── index.tsx
 │   ├── pages # pages目录下的文件夹会映射为前端路由
-│   │   ├── index
-│   │   │   ├── fetch.ts
+│   │   ├── index # index文件夹映射为根路由
+│   │   │   ├── fetch.ts # 定义fetch文件用来获取数据，会自动注入到组件的props中
 │   │   │   ├── index.less
-│   │   │   └── render.tsx # index文件夹映射为根路由
+│   │   │   └── render.tsx # 定义render文件用来定义页面渲染逻辑
 │   │   └── news
 │   │       ├── fetch.ts
 │   │       ├── index.less
@@ -233,8 +233,8 @@ $ ssr deploy # 此时只有一个函数需要发布，选择index函数发布即
 
 ##### 展示形式
 
-http://xxx.com/ -> index 函数 -> 渲染home组件  
-http://xxx.com/news -> index 函数 -> 渲染news组件  
+http://ssr-fc.com/ -> index 函数 -> 渲染index组件  
+http://ssr-fc.com/news -> index 函数 -> 渲染news组件  
 
 #### MPA
 
@@ -321,8 +321,8 @@ $ ssr deploy # 此时需要在终端选择需要发布哪个函数
 
 ##### 展示形式
 
-http://xxx.com/ -> mpa1 函数 -> 渲染mpa1文件夹下的render组件  
-http://xxx.com/news -> mpa2 函数 -> 渲染mpa2文件夹下的render组件  
+http://ssr-fc.com/ -> mpa1 函数 -> 渲染mpa1文件夹下的render组件  
+http://ssr-fc.com/news -> mpa2 函数 -> 渲染mpa2文件夹下的render组件  
 
 ### 渲染函数
 
