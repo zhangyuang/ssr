@@ -56,6 +56,8 @@ const getOutput = (funcName: string) => ({
 
 const webpackDevServerConfig: Configuration = {
   stats: webpackStatsOption,
+  // @ts-ignore
+  disableInfo: true, // 关闭webpack-dev-server 自带的server Info信息
   disableHostCheck: true,
   publicPath: publicPath,
   hotOnly: true,

@@ -1,6 +1,6 @@
 # ssr-spec implement
 
-<a href="https://npmcharts.com/compare/ykfe-utils"><img src="https://img.shields.io/npm/dt/ssr" alt="download"></a>
+<a href="https://npmcharts.com/compare/ssr-core"><img src="https://img.shields.io/npm/dt/ssr-core" alt="download"></a>
 <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="standardjs"></a>
 <a href="https://github.com/ykfe/ssr"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 <img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node">
@@ -10,6 +10,11 @@
 - 小：实现方式简洁使用方式优雅，构建生成的bundle文件少且小
 - 全：支持SPA/MPA两种应用类型的开发，SSR/CSR两种渲染模式无缝切换，支持HMR，支持定制组件的渲染模式
 - 美：基于[Midway-faas](http://github.com/midwayjs/midway-faas/)框架，拥有强大的生态，可以发布到多个不同的Serverless平台
+
+## Serverless for Developer
+
+> Serverless 解放了端开发者（不仅仅是 Web 开发者）的生产力，让端开发者可以更快、更好、更灵活地开发各种端上应用，不需要投入太多精力关注于后端服务的实现。”
+
 
 ## 快速开始
 

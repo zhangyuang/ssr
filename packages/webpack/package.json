@@ -63,7 +63,7 @@
     "webpack": "^4.42.1",
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-chain": "^6.4.0",
-    "webpack-dev-server": "^3.10.3",
+    "webpack-dev-server-ssr": "^3.10.3",
     "webpack-manifest-plugin": "^2.2.0"
   },
   "devDependencies": {

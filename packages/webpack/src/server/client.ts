@@ -1,9 +1,10 @@
 import * as webpack from 'webpack'
-import * as webpackDevServer from 'webpack-dev-server'
 import { Argv } from 'ssr-types'
 import { getClientWebpack, buildConfig }from '../config'
 import { webpackPromisify } from '../utils/promisify'
 
+const webpackDevServer = require('webpack-dev-server-ssr')
+console.log(webpackDevServer)
 const { webpackDevServerConfig, port, host, webpackStatsOption } = buildConfig
 
 const startClientServer = (argv: Argv) => {
