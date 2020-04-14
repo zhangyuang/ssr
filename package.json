@@ -9,7 +9,9 @@
     "watch": "lerna run watch:cjs --stream --parallel",
     "build": "lerna run build --stream --parallel",
     "lint": "tslint -c tslint.json -p ./tsconfig.base.json && standard",
-    "lint:fix": "tslint -c tslint.json -p ./tsconfig.base.json --fix"
+    "lint:fix": "tslint -c tslint.json -p ./tsconfig.base.json --fix",
+    "test:unit-watch": "jest --coverage --verbose --watch",
+    "test:unit": "jest --coverage --verbose"
   },
   "repository": {
     "type": "git",
@@ -39,12 +41,15 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "devDependencies": {
+    "@types/jest": "^24.0.18",
     "babel-eslint": "^10.0.2",
     "lerna": "^3.20.2",
     "pre-commit": "^1.2.2",
     "standard": "^13.0.1",
     "tslint": "^5.17.0",
     "tslint-config-standard": "^8.0.1",
-    "typescript": "^3.8.0"
+    "typescript": "^3.8.0",
+    "jest": "^24.9.0",
+    "ts-jest": "^24.0.2"
   }
 }
