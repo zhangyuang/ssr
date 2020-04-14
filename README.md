@@ -185,7 +185,7 @@ $ ssr deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 │   │   └── header
 │   │   │   ├── index.less
 │   │   │   └── index.tsx
-│   │   └── layout # 默认的layout
+│   │   └── layout # SPA应用只需要一个默认的layout
 │   │       ├── index.less
 │   │       └── index.tsx
 │   ├── pages # pages目录下的文件夹会映射为前端路由
@@ -272,7 +272,7 @@ http://xxx.com/news -> index 函数 -> 渲染news组件
 │   │   ├── index
 │   │   │   ├── fetch.ts
 │   │   │   ├── index.less
-|   |   |   ├── layout.tsx # 每个页面可以有自己的layout
+|   |   |   ├── layout.tsx # 每个独立的页面可以有自己的layout
 │   │   │   └── render.tsx
 │   │   └── news
 │   │       ├── fetch.ts
