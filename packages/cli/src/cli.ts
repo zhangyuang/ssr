@@ -5,10 +5,12 @@ import { Argv } from 'ssr-types'
 import { parseYml, parseRoutesFromYml, parseFeRoutes, processError, getCwd, checkDependencies } from 'ssr-server-utils'
 import { init } from './init'
 
-checkDependencies()
-const ymlContent = parseYml('./f.yml')
-const ymlRoutes = parseRoutesFromYml(ymlContent)
-
+const commandPrePare = () => {
+  checkDependencies()
+  const ymlContent = parseYml('./f.yml')
+  const ymlRoutes = parseRoutesFromYml(ymlContent)
+  return ymlRoutes
+}
 try {
   yargs
     .command('init', 'init Project', {}, async (argv: Argv) => {
@@ -16,7 +18,7 @@ try {
     })
     .command('start', 'Start Server', {}, async (argv: Argv) => {
       process.env.NODE_ENV = 'development'
-      process.chdir(getCwd())
+      const ymlRoutes = commandPrePare()
       const { start } = require('./start')
       argv.faasRoutes = ymlRoutes
       await parseFeRoutes(argv)
@@ -24,7 +26,7 @@ try {
     })
     .command('build', 'build server and client files', {}, async (argv: Argv) => {
       process.env.NODE_ENV = 'production'
-      process.chdir(getCwd())
+      const ymlRoutes = commandPrePare()
       const { build } = require('./build')
       argv.faasRoutes = ymlRoutes
       await parseFeRoutes(argv)
