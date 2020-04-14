@@ -89,6 +89,8 @@ const getClientWebpack = (argv: Argv) => {
     '__isBrowser__': true
   }])
 
+  config.when(!isDev, config => config.plugin('progress').use(loadModule('webpack/lib/ProgressPlugin')))
+
   config.plugin('moduleNotFound').use(ModuleNotFoundPlugin, [cwd])
 
   config.plugin('manifest').use(loadModule('webpack-manifest-plugin'), [{

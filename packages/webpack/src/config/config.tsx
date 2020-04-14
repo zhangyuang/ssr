@@ -1,4 +1,5 @@
 import { getCwd, getUserConfig, BuildConfig } from 'ssr-server-utils'
+import { Configuration } from 'webpack-dev-server'
 
 const userConfig = getUserConfig()
 
@@ -53,7 +54,7 @@ const getOutput = (funcName: string) => ({
   serverOutPut: `${cwd}/build/${funcName}/server`
 })
 
-const webpackDevServerConfig = {
+const webpackDevServerConfig: Configuration = {
   stats: webpackStatsOption,
   disableHostCheck: true,
   publicPath: publicPath,
@@ -63,6 +64,8 @@ const webpackDevServerConfig = {
   hot: true,
   port: port,
   clientLogLevel: clientLogLevel,
+  // @ts-ignore
+  progress: true,
   headers: {
     'access-control-allow-origin': '*'
   }

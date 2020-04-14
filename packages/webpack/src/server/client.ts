@@ -22,11 +22,8 @@ const startClientServer = (argv: Argv) => {
 
 const startClientBuild = async (argv: Argv) => {
   const clientConfig = getClientWebpack(argv)
-  const ora = require('ora')('正在构建')
-  ora.start()
   const stats = await webpackPromisify(clientConfig)
   console.log(stats.toString(webpackStatsOption))
-  ora.succeed()
 }
 
 export {

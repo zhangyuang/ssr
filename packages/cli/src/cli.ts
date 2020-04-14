@@ -2,8 +2,9 @@
 
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
-import { parseYml, parseRoutesFromYml, parseFeRoutes, processError, getCwd, checkDependencies } from 'ssr-server-utils'
+import { parseYml, parseRoutesFromYml, parseFeRoutes, processError, checkDependencies } from 'ssr-server-utils'
 import { init } from './init'
+import { deploy } from './deploy'
 
 const commandPrePare = () => {
   checkDependencies()
@@ -11,6 +12,7 @@ const commandPrePare = () => {
   const ymlRoutes = parseRoutesFromYml(ymlContent)
   return ymlRoutes
 }
+
 try {
   yargs
     .command('init', 'init Project', {}, async (argv: Argv) => {
@@ -33,26 +35,7 @@ try {
       await build(argv)
     })
     .command('deploy', 'deploy function to aliyun cloud or tencent cloud', {}, async () => {
-      const cwd = getCwd()
-      const { CommandHookCore, loadSpec } = require('@midwayjs/fcli-command-core')
-      const { PackagePlugin } = require('@midwayjs/fcli-plugin-package')
-      const { DeployPlugin } = require('@midwayjs/fcli-plugin-deploy')
-      const { AliyunFCPlugin } = require('@midwayjs/fcli-plugin-fc')
-
-      const core: any = new CommandHookCore({
-        config: {
-          servicePath: cwd
-        },
-        commands: ['deploy'],
-        service: loadSpec(cwd),
-        provider: 'aliyun',     // 指定 provider
-        log: console
-      })
-      core.addPlugin(PackagePlugin)
-      core.addPlugin(DeployPlugin)
-      core.addPlugin(AliyunFCPlugin)
-      await core.ready()
-      await core.invoke(['deploy'])
+      await deploy()
     })
     .demandCommand(1, 'You need at least one command before moving on')
     .option('version', {
