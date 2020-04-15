@@ -65,7 +65,7 @@ $ open http://localhost:3000
 
 ```bash
 $ ssr build
-$ ssr build --index # 对指定函数进行构建(支持中)
+$ ssr build index # 对指定函数进行构建(支持中)
 ```
 
 ### 函数发布
@@ -101,7 +101,7 @@ $ ssr deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 - 前端框架: React
 - 开发语言: TypeScript
 - 代码风格: [Standard](https://standardjs.com/)
-- CSS预处理器: Less
+- 样式处理: less + css modules
 - 前端路由: 约定式路由
 - 数据管理: 待支持，暂定使用hooks
 
