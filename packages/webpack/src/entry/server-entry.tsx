@@ -17,7 +17,8 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
 
   const Layout = wrapLayout(routeItem.layout, __isBrowser__)
   const Component = routeItem.component
-  if (mode !== 'ssr') {
+  if (mode !== 'ssr' || ctx.query?.csr) {
+    // 根据mode和query来决定当前渲染模式
     return <StaticRouter><Layout ctx={ctx} staticList={staticList} config={buildConfig}></Layout></StaticRouter>
   }
 

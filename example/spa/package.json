@@ -23,5 +23,8 @@
     "start": "ssr start",
     "build": "ssr build",
     "deploy": "ssr deploy"
+  },
+  "midway-integration": {
+    "tsCodeRoot": "src"
   }
 }

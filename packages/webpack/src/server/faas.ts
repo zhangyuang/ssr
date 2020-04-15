@@ -28,6 +28,8 @@ const startFaasServer = (argv: Argv) => {
       const result: any = await invoke({
         functionName: funcName,
         functionDir: cwd,
+        incremental: true,
+        clean: false,
         data: [
           {
             path: ctx.path,
