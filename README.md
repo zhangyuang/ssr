@@ -25,7 +25,7 @@ Serverless 应用开发流程
 
 使用本框架开发Serverless SSR 应用开发流程
 
-![](https://img.alicdn.com/tfs/TB1NLEeB.Y1gK0jSZFCXXcwqXXa-1882-358.jpg)
+![](https://img.alicdn.com/tfs/TB1wzqpCkP2gK0jSZPxXXacQpXa-1880-256.jpg)
 
 相比于传统服务端应用开发，我们将细节在底层统一抹平。前端开发者只需要关注业务逻辑，无需感知服务器的运行状况。成本和心智负担大大降低，只需要申请一个域名即可将应用发布到公网让所有用户可以访问。
 
