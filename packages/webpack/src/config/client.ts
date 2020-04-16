@@ -86,7 +86,8 @@ const getClientWebpack = (argv: Argv) => {
   })
 
   config.plugin('define').use(webpack.DefinePlugin, [{
-    '__isBrowser__': true
+    '__isBrowser__': true,
+    'defineStaticPrefix': process.env.staticPrefix
   }])
 
   config.when(!isDev, config => config.plugin('progress').use(loadModule('webpack/lib/ProgressPlugin')))

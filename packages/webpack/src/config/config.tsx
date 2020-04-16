@@ -75,7 +75,8 @@ const webpackDevServerConfig: Configuration = {
 
 const loadModule = require.resolve
 
-const staticPrefix = process.env.staticPrefix || userConfig.staticPrefix || ''
+declare const defineStaticPrefix: string
+const staticPrefix = defineStaticPrefix || userConfig.staticPrefix || ''
 
 const chainClientConfig = () => {
   // 覆盖默认webpack配置

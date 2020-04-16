@@ -68,7 +68,8 @@ const getServerWebpack = (argv: Argv) => {
   })
 
   config.plugin('define').use(webpack.DefinePlugin, [{
-    '__isBrowser__': false
+    '__isBrowser__': false,
+    'defineStaticPrefix': process.env.staticPrefix
   }])
 
   chainServerConfig(config) // 合并用户自定义配置
