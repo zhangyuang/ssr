@@ -365,11 +365,11 @@ async handler () {
 
 2）在 Node.js Web 框架里
 
-渲染函数可以支持 midway/egg/koa/express 等 Node.js Web 框架，用法与Faas函数保持一致。
+该渲染方式实现是服务端无关的，理论上可以支持任何Node.js框架只需引入render方法以及有一个web目录，用法与Faas函数保持一致。
 
 ```
-const { render } = require('ssr-core')
 const Koa = require('koa');
+const { render } = require('ssr-core')
 const app = new Koa();
 
 //  mount routes from config
@@ -418,6 +418,10 @@ config.js支持以下配置
 }
 
 ```
+
+## FAQ
+
+遇到问题先去该[文档](http://ykfe.net/guide/faq.html)找答案，该文档列举了开发SSR应用可能会遇到的大部分问题。如果没有预期的答案再提issue
 
 ## CONTRIBUTING
 
