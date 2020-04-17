@@ -102,6 +102,7 @@ $ ssr deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 - 开发语言: TypeScript
 - 代码风格: [Standard](https://standardjs.com/)
 - 样式处理: less + css modules
+- UI组件: 默认已对antd的使用做打包配置无需额外配置
 - 前端路由: 约定式路由
 - 数据管理: 待支持，暂定使用hooks
 
