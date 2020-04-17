@@ -9,6 +9,47 @@ const { moduleFileExtensions, loadModule, isDev, useHash } = buildConfig
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 
+const setStyle = (config: Config, reg: RegExp, type?: string) => {
+  config.module
+        .rule(type || 'css')
+          .test(reg)
+          .when(isDev, rule => {
+            rule.use('hmr')
+              .loader(loadModule('css-hot-loader'))
+              .end()
+          })
+          .use('MiniCss')
+            .loader(MiniCssExtractPlugin.loader)
+          .end()
+          .use('css-loader')
+            .loader(loadModule('css-loader'))
+            .options({
+              importLoaders: 2,
+              modules: true,
+              getLocalIdent: getCSSModuleLocalIdent
+            })
+          .end()
+          .use('postcss-loader')
+            .loader(loadModule('postcss-loader'))
+            .options({
+              ident: 'postcss',
+              plugins: () => [
+                require('postcss-flexbugs-fixes'),
+                require('postcss-preset-env')({
+                  autoprefixer: {
+                    flexbox: 'no-2009'
+                  },
+                  stage: 3
+                })
+              ]
+            })
+          .end()
+          .when(Boolean(type), rule => {
+            rule.use(type!)
+              .loader(loadModule(type!))
+            .end()
+          })
+}
 const getBaseConfig = () => {
   const config = new Config()
   const mode = process.env.NODE_ENV as Mode
@@ -90,43 +131,8 @@ const getBaseConfig = () => {
               })
               .end()
 
-  config.module
-        .rule('less')
-          .test(/\.less$/)
-          .when(isDev, rule => {
-            rule.use('hmr')
-              .loader(loadModule('css-hot-loader'))
-              .end()
-          })
-          .use('MiniCss')
-            .loader(MiniCssExtractPlugin.loader)
-          .end()
-          .use('css-loader')
-            .loader(loadModule('css-loader'))
-            .options({
-              importLoaders: 2,
-              modules: true,
-              getLocalIdent: getCSSModuleLocalIdent
-            })
-          .end()
-          .use('postcss-loader')
-            .loader(loadModule('postcss-loader'))
-            .options({
-              ident: 'postcss',
-              plugins: () => [
-                require('postcss-flexbugs-fixes'),
-                require('postcss-preset-env')({
-                  autoprefixer: {
-                    flexbox: 'no-2009'
-                  },
-                  stage: 3
-                })
-              ]
-            })
-          .end()
-          .use('less-loader')
-            .loader(loadModule('less-loader'))
-          .end()
+  setStyle(config, /\.css$/) // 设置css
+  setStyle(config, /\.less$/ , 'less-loader')
 
   config.module
         .rule('svg')
