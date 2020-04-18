@@ -20,10 +20,10 @@ try {
     })
     .command('start', 'Start Server', {}, async (argv: Argv) => {
       process.env.NODE_ENV = 'development'
+      await parseFeRoutes(argv)
       const ymlRoutes = commandPrePare()
       const { start } = require('./start')
       argv.faasRoutes = ymlRoutes
-      await parseFeRoutes(argv)
       await start(argv)
     })
     .command('build', 'build server and client files', {}, async (argv: Argv) => {
