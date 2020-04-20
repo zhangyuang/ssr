@@ -1,4 +1,13 @@
-# ssr-spec implement
+<h1 align="center">SSR</h1>
+
+<div align="center">
+  <img src="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg" width="300" />
+</div>
+<br />
+<div align="center">
+  <strong>A future-oriented ssr framework based on midway-faas that implemented serverless-side render specification for faas.</strong>
+</div>
+<br />
 
 <a href="https://npmcharts.com/compare/ssr-core"><img src="https://img.shields.io/npm/dt/ssr-core" alt="download"></a>
 <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="standardjs"></a>
