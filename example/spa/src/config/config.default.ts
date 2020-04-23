@@ -5,7 +5,7 @@ module.exports = appInfo => {
 
   exports.middleware = ['staticFile']
   exports.static = {
-    prefix: '/build/',
+    prefix: '/',
     dir: join(appInfo.baseDir, '../build')
   }
   return exports
