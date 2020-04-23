@@ -5,12 +5,8 @@ module.exports = appInfo => {
 
   exports.middleware = ['staticFile']
   exports.static = {
-    prefix: '/',
-    dir: join(appInfo.baseDir, '../build'),
-    dynamic: true,
-    preload: false,
-    buffer: true,
-    maxFiles: 1000
+    prefix: '/build/',
+    dir: join(appInfo.baseDir, '../build')
   }
   return exports
 }
