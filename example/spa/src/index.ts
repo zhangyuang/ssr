@@ -2,7 +2,7 @@ import { FaaSContext, func, inject, provide, FunctionHandler } from '@midwayjs/f
 import { render } from 'ssr-core'
 
 @provide()
-@func('index.handler')
+@func('index.handler', { middleware: [ '@midwayjs/faas-middleware-static:staticFile' ] })
 export class IndexService implements FunctionHandler {
 
   @inject()
