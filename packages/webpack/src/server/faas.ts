@@ -1,54 +1,24 @@
-import { join } from 'path'
-import { invoke } from '@midwayjs/serverless-invoke'
+import { useKoaDevPack } from '@midwayjs/faas-dev-pack'
 import * as Koa from 'koa'
-import * as Router from 'koa-router'
-import { getCwd, Argv, findRoute, FaasRouteItem, logGreen } from 'ssr-server-utils'
+import { logGreen, getCwd } from 'ssr-server-utils'
 import { buildConfig } from '../config'
 
-const { port, faasPort } = buildConfig
 const proxy = require('koa-proxy')
-const serverStatic = require('koa-static')
-const app = new Koa()
-const router = new Router()
+const { port, faasPort } = buildConfig
 
-const startFaasServer = (argv: Argv) => {
+const app = new Koa()
+
+const startFaasServer = () => {
   const cwd = getCwd()
-  app.use(serverStatic(join(cwd, `/build`)))
 
   app.use(proxy({
     host: `http://127.0.0.1:${port}`, // 本地开发的时候代理前端打包出来的资源地址
     match: /(\/static)|(\/sockjs-node)|hot-update/
   }))
-  router.get('/*', async (ctx, next) => {
-    await next()
-      // @ts-ignore
-    const routeItem = findRoute<FaasRouteItem>(argv.faasRoutes, ctx.path)
-    const { funcName } = routeItem
-    try {
-      const result: any = await invoke({
-        functionName: funcName,
-        functionDir: cwd,
-        incremental: true,
-        clean: false,
-        data: [
-          {
-            path: ctx.path,
-            method: 'GET',
-            queries: ctx.query
-          }
-        ]
-      })
-      ctx.type = 'text/html'
-      ctx.body = result.body
-    } catch (error) {
-      console.log('error', error)
-      ctx.body = error
-    }
-  })
 
-  app
-  .use(router.routes())
-  .use(router.allowedMethods())
+  app.use(useKoaDevPack({
+    functionDir: cwd
+  }))
 
   app.listen(faasPort, () => {
     logGreen('Server is listening on http://localhost:3000')
