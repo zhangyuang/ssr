@@ -8,7 +8,7 @@ const start = async (argv: Argv) => {
   } else {
     /* compile spa */
     await Promise.all([startClientServer(argv), startServerBuild(argv)])
-    startFaasServer(argv)
+    startFaasServer()
   }
 }
 
