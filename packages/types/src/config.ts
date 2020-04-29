@@ -28,3 +28,12 @@ export interface BuildConfig {
   postCssPlugin: any
   whiteList: RegExp[]
 }
+
+export interface StyleOptions {
+  rule: string
+  include?: RegExp
+  exclude?: RegExp
+  modules: boolean,
+  loader?: string
+  importLoaders: number
+}
