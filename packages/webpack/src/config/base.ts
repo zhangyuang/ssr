@@ -26,30 +26,30 @@ const setStyle = (config: Config, reg: RegExp, options: StyleOptions) => {
         .end()
     })
     .use('MiniCss')
-    .loader(MiniCssExtractPlugin.loader)
+      .loader(MiniCssExtractPlugin.loader)
     .end()
     .use('css-loader')
-    .loader(loadModule('css-loader'))
-    .options({
-      importLoaders: importLoaders,
-      modules: modules,
-      getLocalIdent: getCSSModuleLocalIdent
-    })
+      .loader(loadModule('css-loader'))
+      .options({
+        importLoaders: importLoaders,
+        modules: modules,
+        getLocalIdent: getCSSModuleLocalIdent
+      })
     .end()
     .use('postcss-loader')
-    .loader(loadModule('postcss-loader'))
-    .options({
-      ident: 'postcss',
-      plugins: () => [
-        require('postcss-flexbugs-fixes'),
-        require('postcss-preset-env')({
-          autoprefixer: {
-            flexbox: 'no-2009'
-          },
-          stage: 3
-        })
-      ]
-    })
+      .loader(loadModule('postcss-loader'))
+      .options({
+        ident: 'postcss',
+        plugins: () => [
+          require('postcss-flexbugs-fixes'),
+          require('postcss-preset-env')({
+            autoprefixer: {
+              flexbox: 'no-2009'
+            },
+            stage: 3
+          })
+        ]
+      })
     .end()
     .when(Boolean(loader), rule => {
       loader && rule.use(loader)
