@@ -62,7 +62,7 @@ const webpackDevServerConfig: Configuration = {
   publicPath: publicPath,
   hotOnly: true,
   host,
-  sockPort: port,
+  sockPort: userConfig.sockPort || port,
   hot: true,
   port: port,
   clientLogLevel: clientLogLevel,
