@@ -4,11 +4,19 @@ import { logGreen, getCwd } from 'ssr-server-utils'
 import { buildConfig } from '../config'
 
 const proxy = require('koa-proxy')
-const { port, faasPort } = buildConfig
+const { port, faasPort, cloudIDE } = buildConfig
 
 const app = new Koa()
 
 const startFaasServer = () => {
+  if (cloudIDE && process.env.HOSTNAME) {
+    // cloud ide 在云端启动服务
+    const hostName = process.env.HOSTNAME
+    if (hostName) {
+      logGreen(`Server is listening http://${hostName.split('-').slice(0,-2).join('-')}-3000.xide.aliyun.com/`)
+    }
+    return
+  }
   const cwd = getCwd()
 
   app.use(proxy({

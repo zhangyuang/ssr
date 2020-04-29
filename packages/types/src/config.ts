@@ -27,6 +27,7 @@ export interface BuildConfig {
   moduleFileExtensions: string[]
   postCssPlugin: any
   whiteList: RegExp[]
+  cloudIDE?: boolean
 }
 
 export interface StyleOptions {
