@@ -3,8 +3,6 @@
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
 import { parseYml, parseRoutesFromYml, parseFeRoutes, processError, checkDependencies } from 'ssr-server-utils'
-import { init } from './init'
-import { deploy } from './deploy'
 
 const commandPrePare = () => {
   checkDependencies()
@@ -16,6 +14,7 @@ const commandPrePare = () => {
 try {
   yargs
     .command('init', 'init Project', {}, async (argv: Argv) => {
+      const { init } = require('./init')
       await init()
     })
     .command('start', 'Start Server', {}, async (argv: Argv) => {
@@ -35,6 +34,7 @@ try {
       await build(argv)
     })
     .command('deploy', 'deploy function to aliyun cloud or tencent cloud', {}, async () => {
+      const { deploy } = require('./deploy')
       await deploy()
     })
     .demandCommand(1, 'You need at least one command before moving on')
