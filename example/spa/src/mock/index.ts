@@ -156,8 +156,7 @@ export default [
           enablePreview2: 1
         }
       }
-    ],
-    title: ''
+    ]
   },
   {
     components: [
@@ -259,10 +258,7 @@ export default [
             img: 'http://liangcang-material.alicdn.com/prod/upload/0d568483409e45578ccd716a25d92449.jpg',
             summary: '更新至2集'
           }
-        ],
-        template: {
-          tag: 'PHONE_BASE_B'
-        }
+        ]
       }
     ]
   }

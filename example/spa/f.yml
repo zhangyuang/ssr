@@ -17,14 +17,20 @@ functions:
         mode: ssr
     events:
       - http:
-          path: /detail
+          path: /detail/*
           method: get
-  # api:
-  #   handler: api.handler
-  #   events:
-  #     - http:
-  #         path: /api/index
-  #         method: get
+  api-index:
+    handler: api.handler
+    events:
+      - http:
+          path: /api/index
+          method: get
+  api-detail:
+    handler: api.handler
+    events:
+      - http:
+          path: /api/detail/*
+          method: get
 package:
   include:									
     - build

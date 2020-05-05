@@ -1,0 +1,32 @@
+import React from 'react'
+import styles from './index.less'
+
+function Rectangle (props) {
+  const data = props.data[0]
+  return (
+    <div className={styles.pbbContainer}>
+      {
+        data.itemMap.map(val => {
+          const imgUrl = val.img
+          return (
+            <div className={styles.pbbItemContainer} key={val.img}>
+              <div className={styles.pbbDescContainer}>
+                <div className={styles.defaultItemBg} style={{
+                  background: 'url(' + imgUrl + ')' + '0  0 /cover'
+                }} />
+                <div className={`${styles.pName} ${styles.pbbName}`} >
+                  { val.title }
+                </div>
+                <div className={`${styles.pDesc} ${styles.pbbName}`}>
+                  {val.subtitle}
+                </div>
+              </div>
+            </div>
+          )
+        })
+      }
+    </div >
+  )
+}
+
+export default Rectangle
