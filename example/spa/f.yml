@@ -9,8 +9,22 @@ functions:
         mode: ssr
     events:
       - http:
-          path: /*
+          path: /
           method: get
+  detail:
+    handler: index.handler
+    render:
+        mode: ssr
+    events:
+      - http:
+          path: /detail
+          method: get
+  # api:
+  #   handler: api.handler
+  #   events:
+  #     - http:
+  #         path: /api/index
+  #         method: get
 package:
   include:									
     - build
