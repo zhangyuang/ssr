@@ -26,6 +26,13 @@ functions:
       - http:
           path: /api/detail/*
           method: get
+
+aggregation: # 聚合成一个函数发布
+  ssr:
+    deployOrigin: false
+    functionsPattern:
+      - '*'
+
 package:
   include:									
     - build
