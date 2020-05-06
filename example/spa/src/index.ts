@@ -22,7 +22,7 @@ export class Index implements FunctionHandler {
       const htmlStr = await render(this.ctx)
       return htmlStr
     } catch (error) {
-      return error
+      console.log(error)
     }
   }
 }

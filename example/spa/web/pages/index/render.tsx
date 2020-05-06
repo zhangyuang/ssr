@@ -5,8 +5,8 @@ import Rectangle from '@/components/rectangle'
 export default props => {
   return (
     <div>
-      <Slider data={props[0].components} />
-      <Rectangle data={props[1].components} />
+      {props.data && <Slider data={props.data[0].components} />}
+      {props.data && <Rectangle data={props.data[1].components} />}
     </div>
   )
 }
