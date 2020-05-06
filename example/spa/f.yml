@@ -9,8 +9,30 @@ functions:
         mode: ssr
     events:
       - http:
-          path: /*
+          path: /
           method: get
+      - http:
+          path: /detail/*
+          method: get
+  api-index:
+    handler: api.handler
+    events:
+      - http:
+          path: /api/index
+          method: get
+  api-detail:
+    handler: api.detail.handler
+    events:
+      - http:
+          path: /api/detail/*
+          method: get
+
+aggregation: # 聚合成一个函数发布
+  ssr:
+    deployOrigin: false
+    functionsPattern:
+      - '*'
+
 package:
   include:									
     - build

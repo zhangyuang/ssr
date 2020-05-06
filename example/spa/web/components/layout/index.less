@@ -1,3 +1,5 @@
+@import '../../common.less';
+
 * {
   margin: 0;
   padding: 0;
@@ -12,9 +14,6 @@ ul {
   list-style: none;
 }
 
-.body {
-  background-color: #f2f3f5;
-}
 
 .title {
   position: relative;
@@ -24,4 +23,12 @@ ul {
   height: 55px;
   background-color: darkslateblue;
   color: #fff;
+}
+
+:global {
+  .loading {
+    width: 30px;
+    height: 30px;
+    .verticalLevelCenter
+  }
 }

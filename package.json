@@ -9,7 +9,7 @@
     "watch": "lerna run watch:cjs --stream --parallel",
     "build": "lerna run build --stream --parallel",
     "lint": "tslint -c tslint.json -p ./tsconfig.base.json && standard",
-    "lint:fix": "tslint -c tslint.json -p ./tsconfig.base.json --fix",
+    "lint:fix": "tslint -c tslint.json -p ./tsconfig.base.json --fix && standard --fix",
     "test:unit-watch": "jest --coverage --verbose --watch",
     "test:unit": "jest --coverage --verbose"
   },
@@ -27,7 +27,8 @@
       "**/log/",
       "**/cjs/",
       "**/esm/",
-      "**/node_modules/**"
+      "**/node_modules/**",
+      "jest.setup.js"
     ],
     "global": [
       "__isBrowser__",

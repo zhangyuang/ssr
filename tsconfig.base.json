@@ -14,7 +14,7 @@
     "jsx": "react"
   },
   "exclude": [
-    "./src",
+    "src",
     "node_modules",
     "esm",
     "cjs",

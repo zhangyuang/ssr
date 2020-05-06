@@ -1,19 +1,33 @@
 import { FaaSContext, func, inject, provide, FunctionHandler } from '@midwayjs/faas'
 import { render } from 'ssr-core'
+import { IApiService, IApiDetailService } from './interface'
+
+interface IFaaSContext extends FaaSContext {
+  apiService: IApiService
+  apiDeatilservice: IApiDetailService
+}
 
 @provide()
 @func('index.handler', { middleware: [ '@midwayjs/faas-middleware-static:staticFile' ] })
-export class IndexService implements FunctionHandler {
+export class Index implements FunctionHandler {
 
   @inject()
-  ctx: FaaSContext  // context
+  ctx: IFaaSContext
+
+  @inject('ApiService')
+  apiService: IApiService
+
+  @inject('ApiDetailService')
+  apiDeatilservice: IApiDetailService
 
   async handler () {
     try {
+      this.ctx.apiService = this.apiService
+      this.ctx.apiDeatilservice = this.apiDeatilservice
       const htmlStr = await render(this.ctx)
       return htmlStr
     } catch (error) {
-      return error
+      console.log(error)
     }
   }
 }
