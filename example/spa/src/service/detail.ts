@@ -1,11 +1,11 @@
 import { provide } from '@midwayjs/faas'
-import { IApiService } from '../interface/api'
-import mock from '../mock'
+import { IApiDetailService } from '../interface/detail'
+import mock from '../mock/detail'
 
-@provide('ApiService')
-export class ApiService implements IApiService {
+@provide('ApiDetailService')
+export class ApiService implements IApiDetailService {
 
-  index (): Promise<any> {
-    return Promise.resolve(mock)
+  index (id): Promise<any> {
+    return Promise.resolve(mock.data[id])
   }
 }

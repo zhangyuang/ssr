@@ -1,9 +1,10 @@
 import { FaaSContext, func, inject, provide, FunctionHandler } from '@midwayjs/faas'
 import { render } from 'ssr-core'
-import { IApiService } from './interface/api'
+import { IApiService, IApiDetailService } from './interface'
 
 interface IFaaSContext extends FaaSContext {
   apiService: IApiService
+  apiDeatilservice: IApiDetailService
 }
 
 @provide()
@@ -14,11 +15,15 @@ export class Index implements FunctionHandler {
   ctx: IFaaSContext
 
   @inject('ApiService')
-  service: IApiService
+  apiService: IApiService
+
+  @inject('ApiDetailService')
+  apiDeatilservice: IApiDetailService
 
   async handler () {
     try {
-      this.ctx.apiService = this.service
+      this.ctx.apiService = this.apiService
+      this.ctx.apiDeatilservice = this.apiDeatilservice
       const htmlStr = await render(this.ctx)
       return htmlStr
     } catch (error) {

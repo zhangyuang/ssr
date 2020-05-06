@@ -1,5 +1,5 @@
 import { provide } from '@midwayjs/faas'
-import { IApiService } from '../interface/api'
+import { IApiService } from '../interface'
 import mock from '../mock'
 
 @provide('ApiService')
