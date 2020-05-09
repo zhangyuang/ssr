@@ -221,11 +221,11 @@ $ ssr deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 │   │   │   ├── fetch.ts # 定义fetch文件用来获取数据，会自动注入到组件的props中
 │   │   │   ├── index.less
 │   │   │   └── render.tsx # 定义render文件用来定义页面渲染逻辑
-│   │   └── news
+│   │   └── detail
 │   │       ├── fetch.ts
 │   │       ├── index.less
-│   │       └── render$id.tsx # 映射为/news/:id
-│   │       └── render$id$.tsx # 映射为/news/:id?
+│   │       └── render$id.tsx # 映射为/detail/:id
+│   │       └── render$id$.tsx # 映射为/detail/:id?
 │   ├── tsconfig.json # 仅用于编辑器ts语法检测
 │   └── typings.d.ts
 ```
@@ -241,13 +241,27 @@ provider:
 functions:
   index:
     handler: index.handler
-    render:
-      mode: ssr # 指定渲染模式
+    render: # 定义页面渲染服务
+        mode: ssr
     events:
-      - http:             
-          path: /*
-          method:
-            - get
+      - http:
+          path: /
+          method: get
+      - http:
+          path: /detail/*
+          method: get
+  api-index: # 定义api接口服务
+    handler: api.handler
+    events:
+      - http:
+          path: /api/index
+          method: get
+  api-detail:
+    handler: api.detail.handler
+    events:
+      - http:
+          path: /api/detail/*
+          method: get
 
 package:
   artifact: code.zip
@@ -262,7 +276,7 @@ $ ssr deploy # 此时只有一个函数需要发布，选择index函数发布即
 ##### 展示形式
 
 http://ssr-fc.com/ -> index 函数 -> 渲染index组件  
-http://ssr-fc.com/news -> index 函数 -> 渲染news组件  
+http://ssr-fc.com/detail/* -> index 函数 -> 渲染detail组件  
 
 #### MPA
 
@@ -302,7 +316,7 @@ http://ssr-fc.com/news -> index 函数 -> 渲染news组件
 │   │   │   ├── index.less
 |   |   |   ├── layout.tsx # 每个独立的页面可以有自己的layout
 │   │   │   └── render.tsx
-│   │   └── news
+│   │   └── detail
 │   │       ├── fetch.ts
 │   │       ├── index.less
 │   │       └── render$id.tsx
@@ -332,7 +346,7 @@ functions:
       mode: ssr
     events:
       - http:             
-          path: /news
+          path: /detail/*
           method:
             - get
 
@@ -350,7 +364,7 @@ $ ssr deploy # 此时需要在终端选择需要发布哪个函数
 ##### 展示形式
 
 http://ssr-fc.com/ -> mpa1 函数 -> 渲染mpa1文件夹下的render组件  
-http://ssr-fc.com/news -> mpa2 函数 -> 渲染mpa2文件夹下的render组件  
+http://ssr-fc.com/detail/* -> mpa2 函数 -> 渲染mpa2文件夹下的render组件  
 
 ### 渲染函数
 
