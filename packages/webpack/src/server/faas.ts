@@ -25,14 +25,12 @@ const startFaasServer = () => {
       // cloud ide 在云端启动服务
       const hostName = process.env.HOSTNAME
       if (hostName) {
-        logGreen(`Server is listening http://${hostName.split('-').slice(0,-2).join('-')}-3000.xide.aliyun.com/`)
+        logGreen(`Server is listening on http://${hostName.split('-').slice(0, -2).join('-')}-3000.xide.aliyun.com/`)
       }
-      return
     } else {
       logGreen('Server is listening on http://localhost:3000')
     }
   })
-
 }
 
 export {
