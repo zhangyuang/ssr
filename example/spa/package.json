@@ -25,7 +25,8 @@
   "scripts": {
     "start": "ssr start",
     "build": "ssr build",
-    "deploy": "ssr deploy"
+    "deploy": "ssr deploy",
+    "lint": "tslint -c tslint.json -p ./web/tsconfig.json"
   },
   "midway-integration": {
     "tsCodeRoot": "src"

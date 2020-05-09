@@ -15,8 +15,12 @@
     "declaration": true,
     "outDir": "dist",
     "baseUrl": ".",
+    "strictNullChecks": true,
     "esModuleInterop": true,
     "jsx": "react"
-  }
+  },
+  "include": [
+    "./"
+  ]
 }
 
