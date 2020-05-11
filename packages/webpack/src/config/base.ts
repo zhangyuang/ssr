@@ -5,7 +5,7 @@ import { Mode } from 'ssr-types'
 import { getFeDir, getCwd, StyleOptions } from 'ssr-server-utils'
 import { buildConfig } from './config'
 
-const { moduleFileExtensions, loadModule, isDev, useHash } = buildConfig
+const { moduleFileExtensions, loadModule, isDev, useHash, cssModulesWhiteList } = buildConfig
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 
@@ -139,13 +139,13 @@ const getBaseConfig = () => {
               .end()
 
   setStyle(config, /\.css$/, {
-    exclude: /antd/,
+    exclude: cssModulesWhiteList,
     rule: 'css',
     modules: true,
     importLoaders: 1
   }) // 设置css
   setStyle(config, /\.css$/, {
-    include: /antd/,
+    include: cssModulesWhiteList,
     rule: 'antd',
     modules: false,
     importLoaders: 1

@@ -439,6 +439,7 @@ config.js支持以下配置
   chainServerConfig: (config: Config) => Configuration; // 使用webpack-chain来修改服务端wbepack构建配置
   chainClientConfig: (config: Config) => Configuration; // 使用webpack-chain来修改服务端wbepack构建配置
   whiteList: RegExp[]; // 设置服务端构建配置externals的白名单，即需要让webpack来处理的模块
+  cssModulesWhiteList: RegExp[]; // 设置该选项指定样式文件不用css-modules处理，防止样式和className不匹配
 }
 
 ```

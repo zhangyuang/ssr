@@ -5,12 +5,13 @@
   "dependencies": {
     "@midwayjs/faas": "*",
     "@midwayjs/faas-middleware-static": "^0.0.1",
-    "antd": "^4.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.1.2",
+    "react-id-swiper": "^3.0.0",
     "serialize-javascript": "^3.0.0",
-    "ssr-core": "^0.2.0"
+    "ssr-core": "^0.2.0",
+    "swiper": "^5.3.8"
   },
   "devDependencies": {
     "@types/react": "^16.9.32",

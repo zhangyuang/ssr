@@ -28,12 +28,13 @@ export interface BuildConfig {
   postCssPlugin: any
   whiteList: RegExp[]
   cloudIDE?: boolean
+  cssModulesWhiteList: RegExp[]
 }
 
 export interface StyleOptions {
   rule: string
-  include?: RegExp
-  exclude?: RegExp
+  include?: RegExp | RegExp[]
+  exclude?: RegExp | RegExp[]
   modules: boolean,
   loader?: string
   importLoaders: number
