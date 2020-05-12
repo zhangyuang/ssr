@@ -101,6 +101,13 @@ $ ssr deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 
 ![](https://gw.alicdn.com/tfs/TB1JZGyB1H2gK0jSZFEXXcqMpXa-1468-1012.jpg)
 
+### 线上案例
+
+```bash
+$ open http://ssr-fc.com/ 
+$ open http://ssr-fc.com?csr=true # 以csr模式运行
+```
+
 ## 开发规范
 
 `注：本规范适用于绝大多数的业务场景，如需额外定制请先想清楚是否必要!`
