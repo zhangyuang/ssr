@@ -1,6 +1,6 @@
 import * as webpack from 'webpack'
 import { Argv } from 'ssr-types'
-import { getClientWebpack, buildConfig }from '../config'
+import { getClientWebpack, buildConfig } from '../config'
 import { webpackPromisify } from '../utils/promisify'
 
 const webpackDevServer = require('webpack-dev-server-ssr')

@@ -1,7 +1,7 @@
 
-import { Argv }from 'ssr-server-utils'
+import { Argv } from 'ssr-server-utils'
 import { webpackPromisify } from '../utils/promisify'
-import { getServerWebpack, buildConfig }from '../config'
+import { getServerWebpack, buildConfig } from '../config'
 
 const { webpackStatsOption } = buildConfig
 
