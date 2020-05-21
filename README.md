@@ -108,6 +108,10 @@ $ open http://ssr-fc.com/
 $ open http://ssr-fc.com?csr=true # 以csr模式运行
 ```
 
+### 结合阿里云云工作台
+
+结合阿里云云开发平台，全程上云开发Serverless SSR应用可参考该[教程](https://zhuanlan.zhihu.com/p/139210473)。
+
 ## 开发规范
 
 `注：本规范适用于绝大多数的业务场景，如需额外定制请先想清楚是否必要!`
