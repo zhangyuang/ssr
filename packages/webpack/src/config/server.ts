@@ -17,50 +17,50 @@ const getServerWebpack = (argv: Argv) => {
   config.target('node')
 
   config.entry('Page')
-          .add(loadModule('../entry/server-entry'))
-          .end()
-          .output
-            .path(getOutput(funcName).serverOutPut)
-            .filename('[name].server.js')
-            .libraryTarget('commonjs')
+    .add(loadModule('../entry/server-entry'))
+    .end()
+    .output
+    .path(getOutput(funcName).serverOutPut)
+    .filename('[name].server.js')
+    .libraryTarget('commonjs')
 
   config.module
-      .rule('compile')
-          .test(/\.(js|mjs|jsx|ts|tsx)$/)
-          .exclude
-              .add(/node_modules/)
-              .end()
-          .use('babel-loader')
-              .loader('babel-loader')
-              .options({
-                cacheDirectory: true,
-                cacheCompression: false,
-                presets: [
-                  [
-                    '@babel/preset-env',
-                    {
-                      modules: false
-                    }
-                  ],
-                  ['react-app', { flow: false, typescript: true }]
-                ],
-                plugins: [
-                  [
-                    'import',
-                    {
-                      libraryName: 'antd',
-                      libraryDirectory: 'lib',
-                      style: 'css'
-                    }
-                  ]
-                ]
-              })
-              .end()
+    .rule('compile')
+    .test(/\.(js|mjs|jsx|ts|tsx)$/)
+    .exclude
+    .add(/node_modules/)
+    .end()
+    .use('babel-loader')
+    .loader('babel-loader')
+    .options({
+      cacheDirectory: true,
+      cacheCompression: false,
+      presets: [
+        [
+          '@babel/preset-env',
+          {
+            modules: false
+          }
+        ],
+        ['react-app', { flow: false, typescript: true }]
+      ],
+      plugins: [
+        [
+          'import',
+          {
+            libraryName: 'antd',
+            libraryDirectory: 'lib',
+            style: 'css'
+          }
+        ]
+      ]
+    })
+    .end()
 
   config.externals(nodeExternals({
     whitelist: [/\.(css|less|sass|scss)$/, /ssr\-cache/, /^antd.*?css/].concat(whiteList || []),
     // externals Dir contains packages/webpack-config/node_modules spa/node_modules ssr/node_modules
-    modulesDir: [join(__dirname,'../node_modules'), join(cwd, './node_modules'), join(__dirname, '../../../node_modules') ]
+    modulesDir: [join(__dirname, '../node_modules'), join(cwd, './node_modules'), join(__dirname, '../../../node_modules')]
   }))
 
   config.when(isDev, () => {
@@ -68,8 +68,8 @@ const getServerWebpack = (argv: Argv) => {
   })
 
   config.plugin('define').use(webpack.DefinePlugin, [{
-    '__isBrowser__': false,
-    'defineStaticPrefix': JSON.stringify(process.env.staticPrefix)
+    __isBrowser__: false,
+    defineStaticPrefix: JSON.stringify(process.env.staticPrefix)
   }])
 
   chainServerConfig(config) // 合并用户自定义配置

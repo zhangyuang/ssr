@@ -1,4 +1,5 @@
 import { join, isAbsolute } from 'path'
+import { BuildConfig } from 'ssr-types'
 
 const getCwd = () => {
   const cwd = process.cwd()
@@ -29,7 +30,7 @@ const getPagesDir = () => {
   return join(getFeDir(), './pages')
 }
 
-const getUserConfig = () => {
+const getUserConfig = (): BuildConfig => {
   return require(join(getCwd(), './config'))
 }
 

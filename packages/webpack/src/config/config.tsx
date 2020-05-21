@@ -2,10 +2,12 @@ import { getCwd, getUserConfig, BuildConfig } from 'ssr-server-utils'
 import { Configuration } from 'webpack-dev-server'
 
 const userConfig = getUserConfig()
+const cwd = getCwd()
 
 type ClientLogLevel = 'error'
 
 const publicPath = '/'
+
 const moduleFileExtensions = [
   '.web.mjs',
   '.mjs',
@@ -21,21 +23,30 @@ const moduleFileExtensions = [
 ]
 
 const isDev = process.env.NODE_ENV !== 'production'
+
 const port = 8000
+
 const faasPort = 3000
+
 const host = '0.0.0.0'
-const cwd = getCwd()
-const chunkName = 'Page'
+
+const chunkName = userConfig.chunkName || 'Page'
+
 const devManifest = {
   'Page.css': `/static/css/${chunkName}.chunk.css`,
   'Page.js': `/static/js/${chunkName}.chunk.js`,
   'runtime~Page.js': `/static/js/runtime~${chunkName}.js`,
   'vendor.js': `/static/js/vendor.chunk.js`
 }
+
 const clientLogLevel: ClientLogLevel = 'error'
+
 const useHash = !isDev // 生产环境默认生成hash
+
 const whiteList: RegExp[] = []
+
 const jsOrder = [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`]
+
 const cssOrder = [`${chunkName}.css`]
 
 const webpackStatsOption = {
@@ -54,7 +65,7 @@ const getOutput = (funcName: string) => ({
   serverOutPut: `${cwd}/build/${funcName}/server`
 })
 const cssModulesWhiteList = [/antd/, /swiper/]
-const webpackDevServerConfig: Configuration = {
+const webpackDevServerConfig: Configuration = Object.assign({
   stats: webpackStatsOption,
   // @ts-ignore
   disableInfo: true, // 关闭webpack-dev-server 自带的server Info信息
@@ -73,7 +84,7 @@ const webpackDevServerConfig: Configuration = {
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
     'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
   }
-}
+}, userConfig.webpackDevServerConfig)
 
 const loadModule = require.resolve
 
@@ -103,7 +114,6 @@ const buildConfig: BuildConfig = Object.assign({}, {
   getOutput,
   loadModule,
   devManifest,
-  webpackDevServerConfig,
   webpackStatsOption,
   staticPrefix,
   whiteList,
@@ -111,5 +121,6 @@ const buildConfig: BuildConfig = Object.assign({}, {
 }, userConfig)
 
 export {
-  buildConfig
+  buildConfig,
+  webpackDevServerConfig
 }

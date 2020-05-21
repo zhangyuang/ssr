@@ -1,17 +1,17 @@
 import * as webpack from 'webpack'
 import { Argv } from 'ssr-types'
-import { getClientWebpack, buildConfig } from '../config'
+import { getClientWebpack, buildConfig, webpackDevServerConfig } from '../config'
 import { webpackPromisify } from '../utils/promisify'
 
-const webpackDevServer = require('webpack-dev-server-ssr')
+const WebpackDevServer = require('webpack-dev-server-ssr')
 
-const { webpackDevServerConfig, port, host, webpackStatsOption } = buildConfig
+const { port, host, webpackStatsOption } = buildConfig
 
 const startClientServer = (argv: Argv) => {
   return new Promise((resolve, reject) => {
     const clientConfig = getClientWebpack(argv)
     const compiler = webpack(clientConfig)
-    const server = new webpackDevServer(compiler, webpackDevServerConfig)
+    const server = new WebpackDevServer(compiler, webpackDevServerConfig)
     compiler.hooks.done.tap('WebpackDevMiddleware', (stats) => {
       // Do the stuff in nextTick, because bundle may be invalidated
       // if a change happened while compiling

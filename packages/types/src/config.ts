@@ -9,6 +9,7 @@ export interface BuildConfig {
   useHash: boolean,
   host: string
   port: number
+  sockPort: number | string
   faasPort: number
   chunkName: string
   getOutput: (funcName: string) => {
