@@ -13,7 +13,7 @@ function Slider (props) {
     }
   }
   return (
-    <div className={styles.carouselContainer}>
+    <div className={styles.swiperContainer}>
       <Swiper {...params}>
         {
           data.itemMap.map(val => (
