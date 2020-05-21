@@ -20,7 +20,7 @@ const parseRoutesFromYml = (yamlContent: Yml) => {
 
   for (const funcName in yamlContent.functions) {
     const func = yamlContent.functions[funcName]
-    func.events.forEach(event => {
+    func.render && func.events.forEach(event => {
       const http = cloudIDE ? event.apigw : event.http
       if (http) {
         routes.push({

@@ -16,20 +16,20 @@ const getClientWebpack = (argv: Argv) => {
   const { funcName } = argv.faasRoutes[0]
   const config = getBaseConfig()
   config.resolve.alias
-                .set('react-router', loadModule('react-router'))
-                .set('react-router-dom', loadModule('react-router-dom'))
+    .set('react-router', loadModule('react-router'))
+    .set('react-router-dom', loadModule('react-router-dom'))
 
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
 
   config.entry(chunkName)
-          .add(loadModule('../entry/client-entry'))
-        .end()
-        .output
-          .path(getOutput(funcName).clientOutPut)
-          .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
-          .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js')
-          .publicPath(publicPath)
-        .end()
+    .add(loadModule('../entry/client-entry'))
+    .end()
+    .output
+    .path(getOutput(funcName).clientOutPut)
+    .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
+    .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js')
+    .publicPath(publicPath)
+    .end()
 
   config.optimization
     .runtimeChunk(true)
@@ -47,8 +47,8 @@ const getClientWebpack = (argv: Argv) => {
         }
       }
     })
-  .when(!isDev, optimization => {
-    optimization.minimizer('terser')
+    .when(!isDev, optimization => {
+      optimization.minimizer('terser')
         .use(loadModule('terser-webpack-plugin'), [{
           terserOptions: {
             parse: {
@@ -74,20 +74,20 @@ const getClientWebpack = (argv: Argv) => {
           cache: true,
           sourceMap: shouldUseSourceMap
         }])
-    optimization.minimizer('optimize-css').use(loadModule('optimize-css-assets-webpack-plugin'), [{
-      cssProcessorOptions: {
-        parser: safePostCssParser,
-        map: shouldUseSourceMap ? {
-          inline: false,
-          annotation: true
-        } : false
-      }
-    }])
-  })
+      optimization.minimizer('optimize-css').use(loadModule('optimize-css-assets-webpack-plugin'), [{
+        cssProcessorOptions: {
+          parser: safePostCssParser,
+          map: shouldUseSourceMap ? {
+            inline: false,
+            annotation: true
+          } : false
+        }
+      }])
+    })
 
   config.plugin('define').use(webpack.DefinePlugin, [{
-    '__isBrowser__': true,
-    'defineStaticPrefix': JSON.stringify(process.env.staticPrefix)
+    __isBrowser__: true,
+    defineStaticPrefix: JSON.stringify(process.env.staticPrefix)
   }])
 
   config.when(!isDev, config => config.plugin('progress').use(loadModule('webpack/lib/ProgressPlugin')))
