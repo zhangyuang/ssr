@@ -4,7 +4,7 @@ import * as Yaml from 'js-yaml'
 import * as Shell from 'shelljs'
 import { Yml, FaasRouteItem, Argv, FeRouteItem } from 'ssr-types'
 import { promisifyFsReadDir } from './promisify'
-import { getCwd, getPagesDir, getFeDir } from './cwd'
+import { getCwd, getPagesDir, getFeDir, getUserConfig } from './cwd'
 
 const parseYml = (path: string) => {
   const cwd = getCwd()
@@ -15,13 +15,16 @@ const parseYml = (path: string) => {
 }
 
 const parseRoutesFromYml = (yamlContent: Yml) => {
+  const { cloudIDE } = getUserConfig()
   const routes: FaasRouteItem[] = []
+
   for (const funcName in yamlContent.functions) {
     const func = yamlContent.functions[funcName]
     func.events.forEach(event => {
-      if (event.http) {
+      const http = cloudIDE ? event.apigw : event.http
+      if (http) {
         routes.push({
-          path: event.http.path,
+          path: http.path,
           funcName,
           ...func.render
         })
@@ -46,7 +49,7 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
   const defaultLayout = `${join(feDir, `./components/layout/index.tsx`)}`
   const arr = []
   if (!argv.mpa) {
-    for (let i in folders) {
+    for (const i in folders) {
       const folder = folders[i]
       const abFolder = join(pageDir, folder)
       if (fs.statSync(abFolder).isDirectory()) {
@@ -56,7 +59,7 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
           layout: `require('${defaultLayout}').default`
         }
 
-        for (let j in files) {
+        for (const j in files) {
           const file = files[j]
           const abFile = join(abFolder, file)
           if (/render/.test(file)) {
@@ -97,19 +100,18 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
       component: `require('${join(pageDir, './render.tsx')}').default`
     })
 
-    fs.writeFileSync(`${cwd}/node_modules/ssr-cache/route.js`,`module.exports =${JSON.stringify(arr)
-        .replace(/\"layout\":(\"(.+?)\")/g, (global, m1, m2) => {
-          return `"layout": ${m2.replace(/\^/g, '"')}`
-        })
-        .replace(/\"fetch\":(\"(.+?)\")/g, (global, m1, m2) => {
-          return `"fetch": ${m2.replace(/\^/g, '"')}`
-        })
-        .replace(/\"component\":(\"(.+?)\")/g, (global, m1, m2) => {
-          return `"component": ${m2.replace(/\^/g, '"')}`
-        })
-      }`
+    fs.writeFileSync(`${cwd}/node_modules/ssr-cache/route.js`, `module.exports =${JSON.stringify(arr)
+      .replace(/\"layout\":(\"(.+?)\")/g, (global, m1, m2) => {
+        return `"layout": ${m2.replace(/\^/g, '"')}`
+      })
+      .replace(/\"fetch\":(\"(.+?)\")/g, (global, m1, m2) => {
+        return `"fetch": ${m2.replace(/\^/g, '"')}`
+      })
+      .replace(/\"component\":(\"(.+?)\")/g, (global, m1, m2) => {
+        return `"component": ${m2.replace(/\^/g, '"')}`
+      })
+    }`
     )
-
   } else {
     // todo mpa
 
@@ -119,7 +121,7 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
 }
 
 const getDynamicParam = (url: string) => {
-  return url.split('$')[1].replace(/\.[\s\S]+/,'')
+  return url.split('$')[1].replace(/\.[\s\S]+/, '')
 }
 
 const checkDependencies = () => {

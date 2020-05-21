@@ -28,6 +28,10 @@ export type Render<T> = T & {
   injectCss?: string[]
 }
 interface Events {
+  apigw?: {
+    path: string
+    method: string[]
+  }
   http?: {
     path: string
     method: string[]
