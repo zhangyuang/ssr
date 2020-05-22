@@ -8,7 +8,7 @@ interface IFaaSContext extends FaaSContext {
 }
 
 @provide()
-@func('index.handler', { middleware: [ '@midwayjs/faas-middleware-static:staticFile' ] })
+@func('index.handler')
 export class Index implements FunctionHandler {
 
   @inject()
