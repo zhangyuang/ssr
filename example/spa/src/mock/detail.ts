@@ -17,7 +17,7 @@ export default {
             data: {
               showName: '王牌对王牌 第五季',
               heat: '热度 8701',
-              heatIcon: 'https://gw.alicdn.com/tfs/TB1.hX5CNTpK1RjSZR0XXbEwXXa-42-42.png',
+              heatIcon: '//gw.alicdn.com/tfs/TB1.hX5CNTpK1RjSZR0XXbEwXXa-42-42.png',
               updateInfo: '更新至05-03期',
               mark: {
                 type: 'SIMPLE',
@@ -63,7 +63,7 @@ export default {
             data: {
               heat: '3808',
               summary: '7.5',
-              img: 'https://m.ykimg.com/058400005E77C882A9F97D0D3275FD7D',
+              img: '//m.ykimg.com/058400005E77C882A9F97D0D3275FD7D',
               titleLine: 1,
               summaryType: 'YOUKU_SCORE',
               title: '终结者',
@@ -76,7 +76,7 @@ export default {
             data: {
               heat: '2027',
               summary: '8.1',
-              img: 'https://m.ykimg.com/058400005E764A47A9F97D0D32D80468',
+              img: '//m.ykimg.com/058400005E764A47A9F97D0D32D80468',
               titleLine: 1,
               summaryType: 'YOUKU_SCORE',
               title: '海王',
@@ -88,7 +88,7 @@ export default {
             data: {
               heat: '1759',
               summary: '7.6',
-              img: 'https://m.ykimg.com/058400005E761C08A9F97D0D32779DE4',
+              img: '//m.ykimg.com/058400005E761C08A9F97D0D32779DE4',
               titleLine: 1,
               summaryType: 'YOUKU_SCORE',
               title: '神奇女侠',
@@ -100,7 +100,7 @@ export default {
             data: {
               heat: '1453',
               summary: '8.4',
-              img: 'https://m.ykimg.com/058400005E767028A9F97D0D3207ADF3',
+              img: '//m.ykimg.com/058400005E767028A9F97D0D3207ADF3',
               titleLine: 1,
               summaryType: 'YOUKU_SCORE',
               title: '明日边缘',
@@ -124,7 +124,7 @@ export default {
             data: {
               heat: '1026',
               summary: '6.1',
-              img: 'https://m.ykimg.com/058400005E76706FA9F97D0D32B6C723',
+              img: '//m.ykimg.com/058400005E76706FA9F97D0D32B6C723',
               titleLine: 1,
               summaryType: 'YOUKU_SCORE',
               title: '黑暗塔',
@@ -136,7 +136,7 @@ export default {
             data: {
               heat: '1130',
               summary: '7.3',
-              img: 'https://m.ykimg.com/058400005E77554DA9F97D0D32CC7251',
+              img: '//m.ykimg.com/058400005E77554DA9F97D0D32CC7251',
               titleLine: 1,
               summaryType: 'YOUKU_SCORE',
               title: '黑豹',
@@ -148,7 +148,7 @@ export default {
             data: {
               heat: '1106',
               summary: '8.0',
-              img: 'https://m.ykimg.com/058400005E76AE64A9F97D0D329783A1',
+              img: '//m.ykimg.com/058400005E76AE64A9F97D0D329783A1',
               titleLine: 1,
               summaryType: 'YOUKU_SCORE',
               title: '超凡蜘蛛侠2',
@@ -160,7 +160,7 @@ export default {
             data: {
               heat: '1172',
               summary: '8.1',
-              img: 'https://m.ykimg.com/058400005E76CF19A9F97D0D32738506',
+              img: '//m.ykimg.com/058400005E76CF19A9F97D0D32738506',
               titleLine: 1,
               summaryType: 'YOUKU_SCORE',
               title: '美国狙击手',
