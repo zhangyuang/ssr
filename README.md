@@ -434,23 +434,23 @@ conf.mode = req.query.ssr || req.headers['x-mode-ssr'];
 
 ## 配置
 
-config.js支持以下配置
+config.js支持以下配置, 默认配置已适用于绝大部分应用, 无特殊需求不要修改
 
 ```js
 {
-  cwd: string; // 设置命令执行的cwd，默认为process.cwd()，无特殊需求不需修改
-  isDev: boolean; // 当前运行环境，默认为process.env.NODE_ENV
-  publicPath: string; // webpack-dev-server的publishPath，默认为/
-  useHash: boolean; // 生成文件是否带有hash，默认本地运行关闭，生产环境构建时开启
-  port: number; // 前端静态资源本地开发时的监听端口，默认为8000。Faas Server会自动proxy，无特殊需求不需要修改
-  faasPort: number; // 本地开发启动的Faas 服务的端口，默认为3000
+  cwd: string; // 设置命令执行的cwd，默认为 process.cwd()，无特殊需求不需修改
+  isDev: boolean; // 当前运行环境，默认为 process.env.NODE_ENV
+  publicPath: string; // webpack-dev-server 的publishPath，默认为 /
+  useHash: boolean; // 生成文件是否带有 hash，默认本地运行关闭，生产环境构建时开启
+  port: number; // 前端静态资源本地开发时的监听端口，默认为 8000FaaS Server 会自动 proxy,无特殊需求不需要修改
+  faasPort: number; // 本地开发启动的FaaS 服务的端口，默认为3000
   chunkName: string; // 生成的bundle的chunkName，默认为Page,无特殊需求不要修改
   webpackDevServerConfig: webpackDevServer.Configuration; // webpack-dev-server 启动配置
   staticPrefix: string; // 加载的静态资源前缀，需要发布到单独的cdn服务时可以使用该配置设置为cdn服务的地址
-  chainServerConfig: (config: Config) => Configuration; // 使用webpack-chain来修改服务端wbepack构建配置
-  chainClientConfig: (config: Config) => Configuration; // 使用webpack-chain来修改服务端wbepack构建配置
-  whiteList: RegExp[]; // 设置服务端构建配置externals的白名单，即需要让webpack来处理的模块
-  cssModulesWhiteList: RegExp[]; // 设置该选项指定样式文件不用css-modules处理，防止样式和className不匹配
+  chainServerConfig: (config: Config) => Configuration; // 使用 webpack-chain 来修改服务端 wbepack 构建配置
+  chainClientConfig: (config: Config) => Configuration; // 使用 webpack-chain 来修改服务端 wbepack 构建配置
+  whiteList: RegExp[]; // 设置服务端构建配置 externals 的白名单，即需要让 webpack 来处理的模块
+  cssModulesWhiteList: RegExp[]; // 设置该选项指定样式文件不用 css-modules 处理，防止样式和 className 不匹配
 }
 
 ```
