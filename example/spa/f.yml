@@ -3,6 +3,12 @@ service:
 provider:
   name: aliyun
 functions:
+  render: # 静态资源目录
+      handler: render.handler
+      events:
+        - http:
+            path: /*
+            method: get
   index:
     handler: index.handler
     render:
@@ -26,13 +32,6 @@ functions:
       - http:
           path: /api/detail/*
           method: get
-  render: # 静态资源目录
-    handler: render.handler
-    events:
-      - http:
-          path: /index/*
-          method: get
-
 
 aggregation: # 聚合成一个函数发布
   ssr:
