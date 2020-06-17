@@ -35,6 +35,8 @@ const parseRoutesFromYml = (yamlContent: Yml) => {
 }
 
 const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
+  const { prefix } = getUserConfig()
+
   const pageDir = getPagesDir()
   const feDir = getFeDir()
   // 根据目录结构生成前端路由表
@@ -87,14 +89,17 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
           if (/layout/i.test(file)) {
             route.layout = `require('${abFile}').default`
           }
-        }
 
+          if (prefix) {
+            route.path = prefix ? `/${prefix}${route.path}` : route.path
+          }
+        }
         arr.push(route)
       }
     }
     // 添加默认根路由
     fs.existsSync(join(pageDir, './render.tsx')) && arr.push({
-      path: '/',
+      path: prefix ? `/${prefix}/` : '/',
       layout: `require('${defaultLayout}').default`,
       fetch: fs.existsSync(join(pageDir, './fetch.ts')) && `require('${join(pageDir, './fetch.ts')}').default`,
       component: `require('${join(pageDir, './render.tsx')}').default`
