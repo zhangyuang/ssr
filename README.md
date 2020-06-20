@@ -14,11 +14,11 @@
 <a href="https://github.com/ykfe/ssr"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 <img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node">
 
-本框架为Serverless场景下的服务端渲染规范的实现，具有以下特点。
+本框架为 Serverless 场景下的服务端渲染规范的实现，具有以下特点。
 
-- 小：实现方式简洁使用方式优雅，构建生成的bundle文件少且小
-- 全：支持SPA/MPA两种应用类型的开发，SSR/CSR两种渲染模式无缝切换，支持HMR，支持定制组件的渲染模式
-- 美：基于[Midway-faas](http://github.com/midwayjs/midway-faas/)框架，拥有强大的生态，可以发布到多个不同的Serverless平台
+- 小：实现方式简洁使用方式优雅，构建生成的 bundle 文件少且小
+- 全：支持 SPA/MPA 两种应用类型的开发，SSR/CSR 两种渲染模式无缝切换，支持 HMR，支持定制组件的渲染模式
+- 美：基于[Midway-faas](http://github.com/midwayjs/midway-faas/)框架，拥有强大的生态，可以发布到多个不同的 Serverless 平台
 
 ## Serverless for Developer
 
@@ -32,7 +32,7 @@ Serverless 应用开发流程
 
 ![](https://img.alicdn.com/tfs/TB1hZgHB7T2gK0jSZPcXXcKkpXa-1136-174.png)
 
-使用本框架开发Serverless SSR 应用开发流程
+使用本框架开发 Serverless SSR 应用开发流程
 
 ![](https://img.alicdn.com/tfs/TB1wzqpCkP2gK0jSZPxXXacQpXa-1880-256.jpg)
 
@@ -40,20 +40,19 @@ Serverless 应用开发流程
 
 ## 快速开始
 
-开发者只需5分钟就可以快速的创建并发布一个SSR应用上线
+开发者只需 5 分钟就可以快速的创建并发布一个 SSR 应用上线
 
 ### 环境准备
 
 ```bash
 $ node -v # 建议版本>=v10.15.0
 v12.16.1
-$ yarn -v # 建议使用yarn代替npm
-1.21.1
 ```
+
 ### 安装脚手架
 
 ```bash
-$ yarn global add ssr # 全局安装ssr脚手架。等同于npm i -g ssr
+$ npm i -g ssr # 全局安装ssr脚手架
 ```
 
 ### 创建项目
@@ -65,7 +64,7 @@ $ ssr init # 创建example，支持SPA/MPA(开发中)两种类型的应用创建
 ### 本地开发
 
 ```bash
-$ yarn
+$ npm i
 $ ssr start
 $ open http://localhost:3000
 ```
@@ -89,11 +88,11 @@ $ ssr deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 
 ![](https://img.alicdn.com/tfs/TB1fZzQB.z1gK0jSZLeXXb9kVXa-1446-1262.jpg)
 
-将AccountId以及Key Secret在下面输入，只需要输入一次信息会储存在本地，之后deploy无需做该操作。
+将 AccountId 以及 Key Secret 在下面输入，只需要输入一次信息会储存在本地，之后 deploy 无需做该操作。
 
 ![](https://img.alicdn.com/tfs/TB10vYVBYY1gK0jSZTEXXXDQVXa-2044-528.jpg)
 
-发布成功后得到一个http地址`https://1812856288776972.cn-shanghai.fc.aliyuncs.com/***`。由于阿里云安全限制，无法直接在浏览器查看。需要手动配置域名转发过去。`阿里云控制台域名服务` -> `域名解析设置` -> `函数计算控制台` -> `自定义域名`。之后打开[域名](http://ssr-fc.com)便能够访问到发布的函数。
+发布成功后得到一个 http 地址`https://1812856288776972.cn-shanghai.fc.aliyuncs.com/***`。由于阿里云安全限制，无法直接在浏览器查看。需要手动配置域名转发过去。`阿里云控制台域名服务` -> `域名解析设置` -> `函数计算控制台` -> `自定义域名`。之后打开[域名](http://ssr-fc.com)便能够访问到发布的函数。
 
 ![](https://gw.alicdn.com/tfs/TB1yfjUB4D1gK0jSZFKXXcJrVXa-1212-680.jpg)
 
@@ -104,13 +103,13 @@ $ ssr deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 ### 线上案例
 
 ```bash
-$ open http://ssr-fc.com/ 
+$ open http://ssr-fc.com/
 $ open http://ssr-fc.com?csr=true # 以csr模式运行
 ```
 
-### 结合阿里云云工作台
+### 结合阿里云开发平台
 
-结合阿里云云开发平台，全程上云开发Serverless SSR应用可参考该[教程](https://zhuanlan.zhihu.com/p/139210473)。
+本框架可结合阿里云开发平台，使用 CloudIDE 全程上云开发 Serverless SSR 应用使用方式可参考该[教程](https://zhuanlan.zhihu.com/p/139210473)。
 
 ## 开发规范
 
@@ -122,14 +121,14 @@ $ open http://ssr-fc.com?csr=true # 以csr模式运行
 - 开发语言: TypeScript
 - 代码风格: [Standard](https://standardjs.com/)
 - 样式处理: less + css modules
-- UI组件: 默认已对antd的使用做打包配置无需额外配置
+- UI 组件: 默认已对 antd 的使用做打包配置无需额外配置
 - 前端路由: 约定式路由
-- 数据管理: 待支持，暂定使用hooks
+- 数据管理: 待支持，暂定使用 hooks
 
 ### 应用类型
 
 我们支持单页面应用(SPA)和多页面应用(MPA)两种常见的应用类型的开发。
-关于SPA与MPA的区别如下(本表格转载自网络，如有侵权请提issue联系)
+关于 SPA 与 MPA 的区别如下(本表格转载自网络，如有侵权请提 issue 联系)
 
 <table>
 <thead>
@@ -201,7 +200,7 @@ $ open http://ssr-fc.com?csr=true # 以csr模式运行
 
 #### SPA
 
-单页面应用一个函数对应一个页面。一个页面对应多个path(即前端路由)。
+单页面应用一个函数对应一个页面。一个页面对应多个 path(即前端路由)。
 
 ##### 目录结构
 
@@ -241,7 +240,7 @@ $ open http://ssr-fc.com?csr=true # 以csr模式运行
 │   └── typings.d.ts
 ```
 
-##### yml文件编写规范
+##### yml 文件编写规范
 
 ```yml
 service:
@@ -253,7 +252,7 @@ functions:
   index:
     handler: index.handler
     render: # 定义页面渲染服务
-        mode: ssr
+      mode: ssr
     events:
       - http:
           path: /
@@ -286,16 +285,16 @@ $ ssr deploy # 此时只有一个函数需要发布，选择index函数发布即
 
 ##### 展示形式
 
-http://ssr-fc.com/ -> index 函数 -> 渲染index组件  
-http://ssr-fc.com/detail/* -> index 函数 -> 渲染detail组件  
+http://ssr-fc.com/ -> index 函数 -> 渲染 index 组件  
+http://ssr-fc.com/detail/* -> index 函数 -> 渲染 detail 组件
 
 #### MPA
 
-多页面应用一个函数对应一个页面。一个页面对应一个path(即服务端路由)。
+多页面应用一个函数对应一个页面。一个页面对应一个 path(即服务端路由)。
 
 ##### 目录结构
 
-这里我们的服务端路由存在多个，需要读取yml文件具体函数的配置
+这里我们的服务端路由存在多个，需要读取 yml 文件具体函数的配置
 
 ```bash
 .
@@ -333,7 +332,7 @@ http://ssr-fc.com/detail/* -> index 函数 -> 渲染detail组件
 │   │       └── render$id.tsx
 ```
 
-##### yml文件编写规范
+##### yml 文件编写规范
 
 ```yml
 service:
@@ -347,7 +346,7 @@ functions:
     render:
       mode: ssr
     events:
-      - http:             
+      - http:
           path: /
           method:
             - get
@@ -356,12 +355,11 @@ functions:
     render:
       mode: ssr
     events:
-      - http:             
+      - http:
           path: /detail/*
           method:
             - get
 
-            
 package:
   artifact: code.zip
 ```
@@ -374,14 +372,14 @@ $ ssr deploy # 此时需要在终端选择需要发布哪个函数
 
 ##### 展示形式
 
-http://ssr-fc.com/ -> mpa1 函数 -> 渲染mpa1文件夹下的render组件  
-http://ssr-fc.com/detail/* -> mpa2 函数 -> 渲染mpa2文件夹下的render组件  
+http://ssr-fc.com/ -> mpa1 函数 -> 渲染 mpa1 文件夹下的 render 组件  
+http://ssr-fc.com/detail/* -> mpa2 函数 -> 渲染 mpa2 文件夹下的 render 组件
 
 ### 渲染函数
 
 1）在 FaaS 函数里
 
-在 FaaS 函数里，只需要调用ssr-core提供的render方法传入ctx即可
+在 FaaS 函数里，只需要调用 ssr-core 提供的 render 方法传入 ctx 即可
 
 ```js
 import { render } from 'ssr-core'
@@ -396,11 +394,11 @@ async handler () {
 }
 ```
 
-根据f.yml或者query来判断当前渲染模式
+根据 f.yml 或者 query 来判断当前渲染模式
 
 2）在 Node.js Web 框架里
 
-该渲染方式实现是服务端无关的，理论上可以支持任何Node.js框架只需引入render方法以及有一个web目录，用法与Faas函数保持一致。
+该渲染方式实现是服务端无关的，理论上可以支持任何 Node.js 框架只需引入 render 方法以及有一个 web 目录，用法与 Faas 函数保持一致。
 
 ```
 const Koa = require('koa');
@@ -422,19 +420,19 @@ app.listen(3000);
 
 ```js
 // url查询参数或者头信息
-conf.mode = req.query.ssr || req.headers['x-mode-ssr'];
+conf.mode = req.query.ssr || req.headers['x-mode-ssr']
 ```
 
 - ssr(conf)
-    - cookie
-    - querystring
-    - header
+  - cookie
+  - querystring
+  - header
 
-此处需要考虑优先级，比如querystring第一，其次是f.yml里的render.mode。
+此处需要考虑优先级，比如 querystring 第一，其次是 f.yml 里的 render.mode。
 
 ## 配置
 
-config.js支持以下配置, 默认配置已适用于绝大部分应用, 无特殊需求不要修改
+config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特殊需求不要修改
 
 ```js
 {
@@ -458,7 +456,7 @@ config.js支持以下配置, 默认配置已适用于绝大部分应用, 无特�
 
 ## FAQ
 
-遇到问题先去该[文档](http://ykfe.net/guide/faq.html)找答案，该文档列举了开发SSR应用可能会遇到的大部分问题。如果没有预期的答案再提issue
+遇到问题先去该[文档](http://ykfe.surge.sh/guide/faq.html)找答案，该文档列举了开发 SSR 应用可能会遇到的大部分问题。如果没有预期的答案再提 issue
 
 ## CONTRIBUTING
 
