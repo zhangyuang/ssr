@@ -89,10 +89,9 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
           if (/layout/i.test(file)) {
             route.layout = `require('${abFile}').default`
           }
-
-          if (prefix) {
-            route.path = prefix ? `/${prefix}${route.path}` : route.path
-          }
+        }
+        if (prefix) {
+          route.path = prefix ? `/${prefix}${route.path}` : route.path
         }
         arr.push(route)
       }
