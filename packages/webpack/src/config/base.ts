@@ -42,6 +42,7 @@ const setStyle = (config: Config, reg: RegExp, options: StyleOptions) => {
         ident: 'postcss',
         plugins: () => [
           require('postcss-flexbugs-fixes'),
+          require('postcss-discard-comments'),
           require('postcss-preset-env')({
             autoprefixer: {
               flexbox: 'no-2009'
