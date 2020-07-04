@@ -75,6 +75,7 @@ const getBaseConfig = () => {
     .end()
     .alias
       .set('@', getFeDir())
+      .set('react',join(getCwd(), './node_modules/react/index.js')) // 用cwd的路径alias，否则可能会出现多个react实例
     .end()
 
   config.module
