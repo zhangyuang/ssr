@@ -18,7 +18,7 @@
 
 - 小：实现方式简洁使用方式优雅，构建生成的 bundle 文件少且小
 - 全：支持 SPA/MPA 两种应用类型的开发，SSR/CSR 两种渲染模式无缝切换，支持 HMR，支持定制组件的渲染模式
-- 美：基于[Midway-faas](http://github.com/midwayjs/midway-faas/)框架，拥有强大的生态，可以发布到多个不同的 Serverless 平台
+- 美：基于[Midway-faas](https://github.com/midwayjs/midway)框架，拥有强大的生态，可以发布到多个不同的 Serverless 平台
 
 ## Serverless for Developer
 
@@ -37,6 +37,20 @@ Serverless 应用开发流程
 ![](https://img.alicdn.com/tfs/TB1wzqpCkP2gK0jSZPxXXacQpXa-1880-256.jpg)
 
 相比于传统服务端应用开发，我们将细节在底层统一抹平。前端开发者只需要关注业务逻辑，无需感知服务器的运行状况。成本和心智负担大大降低，只需要申请一个域名即可将应用发布到公网让所有用户可以访问。
+
+## 哪些应用在使用
+
+正在使用这个项目的公司(应用), 如果您正在使用但名单中没有列出来的话请提 issue，欢迎推广分享，我们将随时提供技术支持
+
+<table>
+<tr height="100">
+<td align="center"><a target="_blank" href="http://youku.com/"><img src="https://img.alicdn.com/tfs/TB17DTuXkH0gK0jSZPiXXavapXa-680-133.svg" width="100px;"/><br />
+ <sub><b>优酷视频
+</b></td>
+<td align="center"><a target="_blank" href="https://yulebao.alibaba.com/"><img src="https://gw.alicdn.com/tfs/TB1CmlIIFT7gK0jSZFpXXaTkpXa-190-46.png" width="100px;"/><br><sub><b>阿里影业娱乐宝
+</b></sub></a></td>
+</tr>
+</table>
 
 ## 快速开始
 

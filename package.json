@@ -40,6 +40,9 @@
   "bugs": {
     "url": "https://github.com/ykfe/ssr/issues"
   },
+  "pre-commit": [
+    "lint"
+  ],
   "homepage": "https://github.com/ykfe/ssr#readme",
   "devDependencies": {
     "@types/jest": "^24.0.18",
