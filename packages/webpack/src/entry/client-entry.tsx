@@ -10,6 +10,8 @@ declare const __isBrowser__: boolean
 const feRoutes: FeRouteItem[] = require('ssr-cache/route')
 
 const clientRender = async (): Promise<void> => {
+  const Context = React.createContext({})
+  window.storeContext = Context
   // 客户端渲染||hydrate
   ReactDOM[window.__USE_SSR__ ? 'hydrate' : 'render'](
     <BrowserRouter>
@@ -23,7 +25,11 @@ const clientRender = async (): Promise<void> => {
             component.fetch = fetch
             // @ts-ignore
             const WrappedComponent = wrapComponent(component)
-            return <Route exact={true} key={path} path={path} render={() => <Layout key={location.pathname} ><WrappedComponent /></Layout>} />
+            return <Route exact={true} key={path} path={path} render={() => <Layout key={location.pathname} >
+              <Context.Provider value={{}}>
+                <WrappedComponent />
+              </Context.Provider>
+              </Layout>} />
           })
         }
       </Switch>

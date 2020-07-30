@@ -9,4 +9,11 @@ export interface Options {
 export interface IWindow extends Window {
   __USE_SSR__?: boolean
   __INITIAL_DATA__?: any
+  storeContext: any
+}
+
+export interface IGlobal extends NodeJS.Global {
+  window: {
+    storeContext: any
+  }
 }

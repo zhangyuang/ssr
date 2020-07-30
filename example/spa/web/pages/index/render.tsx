@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { IWindow } from 'ssr-types'
 import Slider from '@/components/slider'
 import Rectangle from '@/components/rectangle'
 
 export default props => {
+  const foo = useContext((window as IWindow).storeContext)
+  console.log(foo)
   return (
     <div>
       {
