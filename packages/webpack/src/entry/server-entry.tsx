@@ -11,10 +11,9 @@ const feRoutes: FeRouteItem[] = require('ssr-cache/route')
 const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.ReactElement> => {
   const Context = React.createContext({})
   if (typeof global.window === 'undefined') {
-    global.window = {
-      storeContext: Context
-    }
+    global.window = {}
   }
+  global.window.STORE_CONTEXT = Context // 为每一个新的请求都创建一遍context并且覆盖window上的属性，使得无需通过props层层传递读取
 
   const routeItem = findRoute<FeRouteItem<any>>(feRoutes, ctx.req.path)
   const faasRouteItem = findRoute<FaasRouteItem>(options.faasRoutes, ctx.req.path)

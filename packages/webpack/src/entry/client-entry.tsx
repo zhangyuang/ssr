@@ -11,7 +11,7 @@ const feRoutes: FeRouteItem[] = require('ssr-cache/route')
 
 const clientRender = async (): Promise<void> => {
   const Context = React.createContext({})
-  window.storeContext = Context
+  window.STORE_CONTEXT = Context
   // 客户端渲染||hydrate
   ReactDOM[window.__USE_SSR__ ? 'hydrate' : 'render'](
     <BrowserRouter>
@@ -29,7 +29,7 @@ const clientRender = async (): Promise<void> => {
               <Context.Provider value={{}}>
                 <WrappedComponent />
               </Context.Provider>
-              </Layout>} />
+            </Layout>} />
           })
         }
       </Switch>
