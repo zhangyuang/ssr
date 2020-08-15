@@ -72,7 +72,7 @@ $ npm i -g ssr # 全局安装ssr脚手架
 ### 创建项目
 
 ```bash
-$ ssr init # 创建example，支持SPA/MPA(开发中)两种类型的应用创建
+$ npm init ssr-app # 创建example，支持SPA/MPA(开发中)两种类型的应用创建
 ```
 
 ### 本地开发

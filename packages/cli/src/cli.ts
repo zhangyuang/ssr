@@ -15,10 +15,6 @@ const commandPrePare = () => {
 
 try {
   yargs
-    .command('init', 'init Project', {}, async (argv: Argv) => {
-      const { init } = require('./init')
-      await init()
-    })
     .command('start', 'Start Server', {}, async (argv: Argv) => {
       spinner.start()
       process.env.NODE_ENV = 'development'
