@@ -63,31 +63,26 @@ $ node -v # 建议版本>=v10.15.0
 v12.16.1
 ```
 
-### 安装脚手架
-
-```bash
-$ npm i -g ssr # 全局安装ssr脚手架
-```
-
 ### 创建项目
 
 ```bash
-$ npm init ssr-app # 创建example，支持SPA/MPA(开发中)两种类型的应用创建
+$ npm init ssr-app <project-name>
+$ cd <project-name>
 ```
 
 ### 本地开发
 
 ```bash
 $ npm i
-$ ssr start
+$ npm start
 $ open http://localhost:3000
 ```
 
 ### 资源构建
 
 ```bash
-$ ssr build
-$ ssr build index # 对指定函数进行构建(支持中)
+$ npm run build
+$ npm run build --func=index # 对指定函数进行构建(支持中)
 ```
 
 ### 函数发布
@@ -95,7 +90,7 @@ $ ssr build index # 对指定函数进行构建(支持中)
 发布命令
 
 ```bash
-$ ssr deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
+$ npm run deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 ```
 
 首次发布需要输入阿里云账户信息，并且在阿里云控制台开通函数计算服务。账户信息在函数计算[控制台](https://fc.console.aliyun.com/fc)查看。
