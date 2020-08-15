@@ -66,7 +66,7 @@ v12.16.1
 ### 创建项目
 
 ```bash
-$ npm init ssr-app <project-name>
+$ npm init ssr-app <project-name> # 默认创建 SPA 项目, MPA 支持中
 $ cd <project-name>
 ```
 
