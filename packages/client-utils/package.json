@@ -1,6 +1,6 @@
 {
   "name": "ssr-client-utils",
-  "version": "0.2.32",
+  "version": "0.2.33",
   "description": "utils for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
