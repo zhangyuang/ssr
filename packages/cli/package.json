@@ -1,6 +1,6 @@
 {
   "name": "ssr",
-  "version": "0.2.33",
+  "version": "0.2.34",
   "description": "cli for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -32,9 +32,9 @@
   "dependencies": {
     "@midwayjs/faas-cli": "^0.2.71",
     "ora": "^4.0.4",
-    "ssr-server-utils": "^0.2.32",
+    "ssr-server-utils": "^0.2.34",
     "ssr-types": "^0.2.32",
-    "ssr-webpack": "^0.2.33",
+    "ssr-webpack": "^0.2.34",
     "yargs": "^13.2.4"
   },
   "devDependencies": {
