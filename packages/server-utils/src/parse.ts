@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import { resolve, join } from 'path'
 import * as Yaml from 'js-yaml'
 import * as Shell from 'shelljs'
-import { Yml, FaasRouteItem, Argv, FeRouteItem } from 'ssr-types'
+import { Yml, FaasRouteItem, Argv } from 'ssr-types'
 import { promisifyFsReadDir } from './promisify'
 import { getCwd, getPagesDir, getFeDir, getUserConfig } from './cwd'
 
@@ -34,15 +34,12 @@ const parseRoutesFromYml = (yamlContent: Yml) => {
   return routes
 }
 
-const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
+const parseFeRoutes = async (argv: Argv) => {
   const { prefix } = getUserConfig()
   const pageDir = getPagesDir()
   const feDir = getFeDir()
   // 根据目录结构生成前端路由表
   const cwd = getCwd()
-  if (!fs.existsSync(join(cwd, './node_modules'))) {
-    Shell.mkdir(`${cwd}/node_modules/`)
-  }
   if (!fs.existsSync(join(cwd, './node_modules/ssr-cache'))) {
     Shell.mkdir(`${cwd}/node_modules/ssr-cache`)
   }
@@ -89,6 +86,9 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
             route.layout = `require('${abFile}').default`
           }
         }
+        if (!route.path) {
+          throw new Error(`cannot find render file in ${folder}`)
+        }
         if (prefix) {
           route.path = prefix ? `/${prefix}${route.path}` : route.path
         }
@@ -119,8 +119,6 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
     // todo mpa
 
   }
-
-  return arr
 }
 
 const getDynamicParam = (url: string) => {
