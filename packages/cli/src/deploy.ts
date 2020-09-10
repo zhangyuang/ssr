@@ -17,7 +17,7 @@ const deploy = async (argv: Argv) => {
       await deployAliyun()
     }
   } catch (error) {
-    throw new Error(error)
+    console.error(error)
   }
   Shell.rm('-rf', './f.origin.yml')
 }
