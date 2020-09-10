@@ -1,9 +1,7 @@
 service:
   name: serverless-ssr-spa
 provider:
-  name: tencent
-  region: ap-hongkong
-  serviceId: service-j88cl6xu
+  name: aliyun
 functions:
   index:
     handler: index.handler
@@ -44,5 +42,4 @@ aggregation: # 聚合成一个函数发布
 package:
   include:									
     - build
-    - f.backup.yml
   artifact: code.zip

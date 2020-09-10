@@ -116,7 +116,8 @@ $ npm run deploy # 默认发布到阿里云 等价于 ssr deploy
 
 ### 发布到腾讯云
 
-只需要将 yml 文件中的 provider.name 改为 tencent 即可一键发布到腾讯云
+无需做任何配置文件的修改即可一键发布到腾讯云！
+
 发布命令
 
 ```bash
@@ -139,8 +140,10 @@ $ npm run dploy:tencent # 发布到腾讯云 等价于 ssr deploy --tencent
 ### 线上案例
 
 ```bash
-$ open http://ssr-fc.com/
+$ open http://ssr-fc.com/ # 发布到阿里云的函数
 $ open http://ssr-fc.com?csr=true # 以csr模式运行
+$ open http://tx.ssr-fc.com/ # 发布到腾讯云的函数
+$ open http://tx.ssr-fc.com?csr=true # 以csr模式运行
 ```
 
 ### 结合阿里云开发平台
