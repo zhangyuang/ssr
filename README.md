@@ -77,7 +77,7 @@ $ cd <project-name>
 
 ```bash
 $ npm i
-$ npm start
+$ npm start # 等价于 ssr start
 $ open http://localhost:3000
 ```
 
@@ -95,7 +95,7 @@ $ npm run build --func=index # 对指定函数进行构建(支持中)
 发布命令
 
 ```bash
-$ npm run deploy # 默认发布到阿里云 等价于 ssr deploy
+$ npm run deploy # 支持发布多个平台默认发布到阿里云 等价于 ssr deploy
 ```
 
 首次发布需要输入阿里云账户信息，并且在阿里云控制台开通函数计算服务。账户信息在函数计算[控制台](https://fc.console.aliyun.com/fc)查看。
@@ -124,18 +124,19 @@ $ npm run deploy # 默认发布到阿里云 等价于 ssr deploy
 $ npm run dploy:tencent # 发布到腾讯云 等价于 ssr deploy --tencent
 ```
 
-首次发布时需要使用微信扫终端展示的二维码注册/登陆腾讯云服务。
+首次发布时需要使用微信扫终端展示的二维码注册/登陆腾讯云服务。  
 如果想详细的了解腾讯云发布功能可参考[文档](https://www.yuque.com/midwayjs/faas/deploy_tencent_faq)
-发布后同样我们可以得到平台返回的一个地址
+发布后同样我们可以得到平台返回的一个地址, 需要绑定域名后才能正确的访问页面渲染服务。否则由于访问 /test 路径造成服务端路由和客户端路由不一致会导致页面内容闪现后白屏。  
 ![](https://res.wx.qq.com/op_res/mbNMsqF_px3tS0x_x1fryyR3Z5RipX3Lo8PIzvcAVxyXwoQyvQz0lQev-W2io3AP)
-默认发布到测试环境, 这里建议在第一次发布后显示在 yml 中指定要发布的serviceID, 否则每次发布将会创建一个新的 server 实例。
-在腾讯云[API](https://console.cloud.tencent.com/apigateway/service-detail?rid=1)网关平台进行域名的绑定以及函数发布到正式环境的操作
+默认发布到测试环境, 这里建议在第一次发布后显示在 yml 中指定要发布的serviceID, 否则每次发布将会创建一个新的 server 实例。  
+在腾讯云[API](https://console.cloud.tencent.com/apigateway/service-detail?rid=1)网关平台进行域名的绑定以及函数发布到正式环境的操作  
 在腾讯云[SCF](https://console.cloud.tencent.com/scf)平台可以进行函数的管理调试以及日志查看
 
 #### 绑定域名
 
-在发布到腾讯云时 midway-faas 支持通过 [provider.region](https://www.yuque.com/midwayjs/faas/serverless_yml) 来设置发布的服务器区域。如果发布的区域是国内则绑定的域名需要在腾讯云进行备案服务，如果是香港则无需备案。默认绑定域名后需要通过 [tc.ssr-fc.com/release](http://tc.ssr-fc.com/release) 来访问具体的环境。也可以通过自定义路径映射使得不需要添加 /release 也可以访问到具体的环境。
-![](https://res.wx.qq.com/op_res/kfQK0cDlTWOy2rYjZpQEwcQPC1y1QEIzDDa07fzLFYm4qaoKm2MpWt5zOL3rd2wy)
+在发布到腾讯云时 midway-faas 支持通过 [provider.region](https://www.yuque.com/midwayjs/faas/serverless_yml) 来设置发布的服务器区域。  
+如果发布的区域是国内则绑定的域名需要在腾讯云进行备案服务，如果是香港则无需备案。默认绑定域名后需要通过 [tx.ssr-fc.com/release](http://tx.ssr-fc.com) 来访问具体的环境。也可以通过自定义路径映射使得不需要添加 /release 也可以访问到具体的环境。
+![](https://res.wx.qq.com/op_res/Ln1MuNWmmfNDyTuJlooXiGdhwtCtz_4rVDi_qvmuUEoL_mo6PNsd3z4d7z9RBj17)
 
 ### 线上案例
 
