@@ -20,7 +20,7 @@ features
 
 - minimal：build bundle size is smaller than nextjs
 - full feature：write once，generate SSR/CSR bundle, tranfer ssr to csr mode seamless degradation
-- support multi‑cloud：based on [midway-faas]((https://github.com/midwayjs/midway)) framework，can be deployed to any serverless plateform
+- support multi‑cloud：based on [midway-faas](https://github.com/midwayjs/midway) framework，can be deployed to any serverless plateform
 
 
 ## Serverless for Developer
