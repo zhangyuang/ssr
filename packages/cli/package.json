@@ -30,14 +30,18 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
-    "@midwayjs/faas-cli": "^0.2.71",
+    "@midwayjs/faas-cli": "^1.0.0",
+    "@midwayjs/fcli-plugin-fc": "^1.2.12",
+    "@midwayjs/fcli-plugin-scf": "^1.2.12",
     "ora": "^4.0.4",
+    "shelljs": "^0.8.4",
     "ssr-server-utils": "^0.2.34",
     "ssr-types": "^0.2.32",
     "ssr-webpack": "^0.2.34",
     "yargs": "^13.2.4"
   },
   "devDependencies": {
+    "@types/shelljs": "^0.8.8",
     "@types/yargs": "^13.0.0",
     "concurrently": "^5.1.0"
   }

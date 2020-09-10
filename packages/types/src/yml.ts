@@ -1,7 +1,7 @@
 import * as yargs from 'yargs'
 import { FeRouteItem, FaasRouteItem } from './route'
 
-export type Argv = yargs.Arguments<{ yml?: Yml, faasRoutes?: FaasRouteItem[], feRoutes?: FeRouteItem[], mpa?: boolean} >
+export type Argv = yargs.Arguments<{ yml?: Yml, faasRoutes?: FaasRouteItem[], feRoutes?: FeRouteItem[], mpa?: boolean, tencent?: boolean} >
 
 export interface Yml {
   service: string

@@ -18,3 +18,5 @@ AUTHORS
 build
 .faas_debug_tmp
 code.zip
+.env_temp
+f.origin.yml

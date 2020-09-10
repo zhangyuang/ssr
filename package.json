@@ -5,8 +5,8 @@
   ],
   "scripts": {
     "bootstrap": "yarn",
-    "clean": "rm -rf packages/**/cjs packages/**/esm && lerna clean",
-    "watch": "lerna run watch:cjs --stream --parallel",
+    "clean": "rm -rf yarn.lock node_modules packages/**/cjs packages/**/esm && lerna clean",
+    "dev": "lerna run watch:cjs --stream --parallel",
     "build": "lerna run build --stream --parallel",
     "lint": "tslint -c tslint.json -p ./tsconfig.base.json && standard",
     "lint:fix": "tslint -c tslint.json -p ./tsconfig.base.json --fix && standard --fix",

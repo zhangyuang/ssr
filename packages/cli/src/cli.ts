@@ -35,9 +35,9 @@ try {
       spinner.stop()
       await build(argv)
     })
-    .command('deploy', 'deploy function to aliyun cloud or tencent cloud', {}, async () => {
+    .command('deploy', 'deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {
       const { deploy } = require('./deploy')
-      await deploy()
+      await deploy(argv)
     })
     .demandCommand(1, 'You need at least one command before moving on')
     .option('version', {

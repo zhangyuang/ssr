@@ -14,11 +14,14 @@
 <a href="https://github.com/ykfe/ssr"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 <img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node">
 
-本框架为 Serverless 场景下的服务端渲染规范的实现，具有以下特点。
+ssr is serverless-side render specification implementation. focus on developer experience, easy debug and no over-engineering.
 
-- 小：实现方式简洁使用方式优雅，构建生成的 bundle 文件少且小
-- 全：支持 SPA/MPA 两种应用类型的开发，SSR/CSR 两种渲染模式无缝切换，支持 HMR，支持定制组件的渲染模式
-- 美：基于[Midway-faas](https://github.com/midwayjs/midway)框架，拥有强大的生态，可以发布到多个不同的 Serverless 平台
+features
+
+- minimal：build bundle size is smaller than nextjs
+- full feature：write once，generate SSR/CSR bundle, tranfer ssr to csr mode seamless degradation
+- support multi‑cloud：based on [midway-faas]((https://github.com/midwayjs/midway)) framework，can be deployed to any serverless plateform
+
 
 ## Serverless for Developer
 
@@ -78,19 +81,21 @@ $ npm start
 $ open http://localhost:3000
 ```
 
+为了方便开发我们建议全局安装 `ssr` 模块 `npm i -g ssr` 这样可以很方便的通过在命令行使用 `ssr xxx` 等命令来开发部署应用
+
 ### 资源构建
 
 ```bash
-$ npm run build
+$ npm run build # 等价于 ssr build
 $ npm run build --func=index # 对指定函数进行构建(支持中)
 ```
 
-### 函数发布
+### 发布到阿里云
 
 发布命令
 
 ```bash
-$ npm run deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
+$ npm run deploy # 默认发布到阿里云 等价于 ssr deploy
 ```
 
 首次发布需要输入阿里云账户信息，并且在阿里云控制台开通函数计算服务。账户信息在函数计算[控制台](https://fc.console.aliyun.com/fc)查看。
@@ -108,6 +113,28 @@ $ npm run deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 ![](https://gw.alicdn.com/tfs/TB1g_CwB7P2gK0jSZPxXXacQpXa-1254-698.jpg)
 
 ![](https://gw.alicdn.com/tfs/TB1JZGyB1H2gK0jSZFEXXcqMpXa-1468-1012.jpg)
+
+### 发布到腾讯云
+
+只需要将 yml 文件中的 provider.name 改为 tencent 即可一键发布到腾讯云
+发布命令
+
+```bash
+$ npm run dploy:tencent # 发布到腾讯云 等价于 ssr deploy --tencent
+```
+
+首次发布时需要使用微信扫终端展示的二维码注册/登陆腾讯云服务。
+如果想详细的了解腾讯云发布功能可参考[文档](https://www.yuque.com/midwayjs/faas/deploy_tencent_faq)
+发布后同样我们可以得到平台返回的一个地址
+![](https://res.wx.qq.com/op_res/mbNMsqF_px3tS0x_x1fryyR3Z5RipX3Lo8PIzvcAVxyXwoQyvQz0lQev-W2io3AP)
+默认发布到测试环境, 这里建议在第一次发布后显示在 yml 中指定要发布的serviceID, 否则每次发布将会创建一个新的 server 实例。
+在腾讯云[API](https://console.cloud.tencent.com/apigateway/service-detail?rid=1)网关平台进行域名的绑定以及函数发布到正式环境的操作
+在腾讯云[SCF](https://console.cloud.tencent.com/scf)平台可以进行函数的管理调试以及日志查看
+
+#### 绑定域名
+
+在发布到腾讯云时 midway-faas 支持通过 [provider.region](https://www.yuque.com/midwayjs/faas/serverless_yml) 来设置发布的服务器区域。如果发布的区域是国内则绑定的域名需要在腾讯云进行备案服务，如果是香港则无需备案。默认绑定域名后需要通过 [tc.ssr-fc.com/release](http://tc.ssr-fc.com/release) 来访问具体的环境。也可以通过自定义路径映射使得不需要添加 /release 也可以访问到具体的环境。
+![](https://res.wx.qq.com/op_res/kfQK0cDlTWOy2rYjZpQEwcQPC1y1QEIzDDa07fzLFYm4qaoKm2MpWt5zOL3rd2wy)
 
 ### 线上案例
 
