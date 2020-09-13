@@ -10,6 +10,7 @@ const parseYml = (path: string) => {
   const cwd = getCwd()
   const yamlPath = resolve(cwd, path)
   const yamlContent = fs.readFileSync(yamlPath, 'utf-8').toString()
+  // tslint:disable-next-line
   const result = Yaml.safeLoad(yamlContent) as Yml
   return result
 }

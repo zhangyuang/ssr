@@ -1,5 +1,4 @@
 <h1 align="center">SSR</h1>
-
 <div align="center">
   <img src="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg" width="300" />
 </div>
@@ -8,11 +7,11 @@
   <strong>A future-oriented ssr framework based on midway-faas that implemented serverless-side render specification for faas.</strong>
 </div>
 <br />
-
+<a href="https://github.com/ykfe/ssr/actions"><img src="https://github.com/ykfe/ssr/workflows/CI/badge.svg" alt="githubActions"></a>
 <a href="https://npmcharts.com/compare/ssr-core"><img src="https://img.shields.io/npm/dt/ssr-core" alt="download"></a>
 <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="standardjs"></a>
 <a href="https://github.com/ykfe/ssr"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
-<img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node">
+<a href="https://github.com/ykfe/ssr"><img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node"></a>
 
 ssr is serverless-side render specification implementation. focus on developer experience, easy debug and no over-engineering.
 
