@@ -6,10 +6,8 @@ import { AliyunFCPlugin } from '@midwayjs/fcli-plugin-fc'
 import { TencentSCFPlugin } from '@midwayjs/fcli-plugin-scf'
 import { getCwd } from 'ssr-server-utils'
 import { Argv } from 'ssr-types'
-import * as Shell from 'shelljs'
 
 const deploy = async (argv: Argv) => {
-  Shell.cp('./f.yml', './f.origin.yml') // 为了防止上传到腾讯云后 yml 文件格式变化导致render解析出错，这里将原文件copy一份上传
   try {
     if (argv.tencent) {
       await deployTencent()
@@ -19,7 +17,6 @@ const deploy = async (argv: Argv) => {
   } catch (error) {
     console.error(error)
   }
-  Shell.rm('-rf', './f.origin.yml')
 }
 
 const deployTencent = async () => {

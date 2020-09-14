@@ -14,7 +14,7 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
 
   const staticList = getStaticList(isDev, devManifest, staticPrefix, funcName, cssOrder, jsOrder)
   if (!routeItem) {
-    throw new Error('Component is Not Found')
+    throw new Error(`for request url ${ctx.req.path} Component is Not Found`)
   }
 
   const Layout = wrapLayout(routeItem.layout, __isBrowser__)
