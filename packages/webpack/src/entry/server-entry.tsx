@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
-import { wrapLayout, FeRouteItem, findRoute, IFaaSContext, FaasRouteItem, Options, getStaticList } from 'ssr-server-utils'
+import { wrapLayout, FeRouteItem, findRoute, IFaaSContext, FaasRouteItem, Options, getStaticList, logGreen } from 'ssr-server-utils'
 import { buildConfig } from '../config/config'
 
 declare const __isBrowser__: boolean
@@ -13,6 +13,7 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
   const { funcName, mode } = faasRouteItem
 
   const staticList = getStaticList(isDev, devManifest, staticPrefix, funcName, cssOrder, jsOrder)
+
   if (!routeItem) {
     throw new Error(`for request url ${ctx.req.path} Component is Not Found`)
   }
@@ -21,6 +22,7 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
   const Component = routeItem.component
 
   if (mode !== 'ssr' || ctx.query?.csr) {
+    logGreen(`The path ${ctx.req.path} use csr render mode`)
     // 根据mode和query来决定当前渲染模式
     return <StaticRouter><Layout ctx={ctx} staticList={staticList} config={buildConfig}></Layout></StaticRouter>
   }
