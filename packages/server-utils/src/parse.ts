@@ -67,21 +67,21 @@ const parseFeRoutes = async (argv: Argv) => {
             /* /news */
             route.path = folder === 'index' ? '/' : `/${folder}`
             route.component = `require('${abFile}').default`
-            debug(`parse ${abFile.replace(cwd, '')} to ${route.path} \n`)
+            debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
           }
 
           if (/render\$/.test(file)) {
             /* /news/:id */
             route.path = `/${folder}/:${getDynamicParam(file)}`
             route.component = `require('${abFile}').default`
-            debug(`parse ${abFile.replace(cwd, '')} to ${route.path} \n`)
+            debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
           }
 
           if (/render\$[\s\S]+\$/.test(file)) {
             /* /news:id? */
             route.path = `/${folder}/:${getDynamicParam(file)}?`
             route.component = `require('${abFile}').default`
-            debug(`parse ${abFile.replace(cwd, '')} to ${route.path} \n`)
+            debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
           }
 
           if (/fetch/i.test(file)) {
@@ -108,7 +108,7 @@ const parseFeRoutes = async (argv: Argv) => {
       fetch: fs.existsSync(join(pageDir, './fetch.ts')) && `require('${join(pageDir, './fetch.ts')}').default`,
       component: `require('${join(pageDir, './render.tsx')}').default`
     })
-    debug('The result that parse web folder to routes: ', arr)
+    debug('The result that parse web folder to routes is: ', arr)
     fs.writeFileSync(`${cwd}/node_modules/ssr-cache/route.js`, `module.exports =${JSON.stringify(arr)
       .replace(/"layout":("(.+?)")/g, (global, m1, m2) => {
         return `"layout": ${m2.replace(/\^/g, '"')}`
