@@ -172,7 +172,7 @@ $ open http://tx.ssr-fc.com?csr=true # 以csr模式运行
 
 ### 前端技术选型
 
-- 前端框架: React
+- 前端框架: React v17, 实时跟进 React17的新特性
 - 开发语言: TypeScript
 - 代码风格: [Standard](https://standardjs.com/)
 - 样式处理: less + css modules
