@@ -87,9 +87,11 @@ v12.16.1
 
 ### 创建项目
 
+我们使用 [create-ssr-app](https://github.com/zhangyuang/create-ssr-app) 来快速的创建项目
+
 ```bash
-$ npm init ssr-app <project-name> # 默认创建 SPA 项目, MPA 支持中
-$ cd <project-name>
+$ npm init ssr-app my-ssr-project # 默认创建 Serverless SPA 项目, MPA 支持中
+$ cd my-ssr-project
 ```
 
 ### 本地开发
