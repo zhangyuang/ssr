@@ -186,7 +186,7 @@ $ open http://tx.ssr-fc.com?csr=true # 以csr模式运行
 - 前端路由: 约定式路由
 - 数据管理: 待支持，暂定使用 hooks
 
-## 本地调试
+### 本地调试
 
 借助 [debug](https://github.com/visionmedia/debug) 模块的能力，开发者可以在本地开发过程中获取一些构建渲染过程的信息。
 
@@ -195,6 +195,12 @@ $ DEBUG=ssr:* npm start # 打印所有的 ssr 模块提供的 debug 信息
 $ DEBUG=ssr:parse npm start # 打印约定式路由解析 debug 信息
 $ DEBUG=ssr:render npm start # 打印页面渲染 debug 信息
 ```
+
+### 应用原理解析
+
+点击[此处](./images/ykfe-ssr.png)查看高清大图
+![](./images/ykfe-ssr.png)
+
 ### 应用类型
 
 我们支持单页面应用(SPA)和多页面应用(MPA)两种常见的应用类型的开发。
