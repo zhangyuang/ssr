@@ -21,11 +21,12 @@ interface IState {
 }
 
 function wrapComponent (WrappedComponent: FC): React.ComponentClass {
+
   class WrapComponentClass extends React.Component<RouteComponentProps<{}>, IState> {
     constructor (props: RouteComponentProps) {
       super(props)
       this.state = {
-        extraProps: {}
+        asyncData: {}
       }
       if (!routerChanged) {
         routerChanged = !window.__USE_SSR__ || (props.history && props.history.action === 'PUSH')
@@ -46,15 +47,20 @@ function wrapComponent (WrappedComponent: FC): React.ComponentClass {
     async fetch () {
       // csr首次进入页面以及csr/ssr切换路由时才调用fetch
       const props = this.props
-      const extraProps = WrappedComponent.fetch ? await WrappedComponent.fetch(props) : {}
+      const asyncData = WrappedComponent.fetch ? await WrappedComponent.fetch(props) : {}
       this.setState({
-        extraProps
+        asyncData
       })
     }
 
     render () {
       // 只有在首次进入页面需要将window.__INITIAL_DATA__作为props，路由切换时不需要
-      return <WrappedComponent {...Object.assign({}, this.props, routerChanged ? {} : window.__INITIAL_DATA__, this.state.extraProps)} />
+      const context = { ...Object.assign({}, routerChanged ? {} : window.__INITIAL_DATA__, this.state.asyncData) }
+      const WrapContext = React.createContext(context)
+      window.STORE_CONTEXT = WrapContext
+      return <WrapContext.Provider value={context}>
+          <WrappedComponent {...this.props}/>
+        </WrapContext.Provider>
     }
   }
   return withRouter(WrapComponentClass)

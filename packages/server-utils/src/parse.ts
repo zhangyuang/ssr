@@ -2,14 +2,17 @@ import * as fs from 'fs'
 import { resolve, join } from 'path'
 import * as Yaml from 'js-yaml'
 import * as Shell from 'shelljs'
-import { Yml, FaasRouteItem, Argv, FeRouteItem } from 'ssr-types'
+import { Yml, FaasRouteItem, Argv } from 'ssr-types'
 import { promisifyFsReadDir } from './promisify'
 import { getCwd, getPagesDir, getFeDir, getUserConfig } from './cwd'
 
-const parseYml = (path: string) => {
+const debug = require('debug')('ssr:parse')
+
+const parseYml = (path: string): Yml => {
   const cwd = getCwd()
   const yamlPath = resolve(cwd, path)
   const yamlContent = fs.readFileSync(yamlPath, 'utf-8').toString()
+  // tslint:disable-next-line
   const result = Yaml.safeLoad(yamlContent) as Yml
   return result
 }
@@ -34,15 +37,12 @@ const parseRoutesFromYml = (yamlContent: Yml) => {
   return routes
 }
 
-const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
+const parseFeRoutes = async (argv: Argv) => {
   const { prefix } = getUserConfig()
   const pageDir = getPagesDir()
   const feDir = getFeDir()
   // 根据目录结构生成前端路由表
   const cwd = getCwd()
-  if (!fs.existsSync(join(cwd, './node_modules'))) {
-    Shell.mkdir(`${cwd}/node_modules/`)
-  }
   if (!fs.existsSync(join(cwd, './node_modules/ssr-cache'))) {
     Shell.mkdir(`${cwd}/node_modules/ssr-cache`)
   }
@@ -67,18 +67,21 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
             /* /news */
             route.path = folder === 'index' ? '/' : `/${folder}`
             route.component = `require('${abFile}').default`
+            debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
           }
 
           if (/render\$/.test(file)) {
             /* /news/:id */
             route.path = `/${folder}/:${getDynamicParam(file)}`
             route.component = `require('${abFile}').default`
+            debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
           }
 
           if (/render\$[\s\S]+\$/.test(file)) {
             /* /news:id? */
             route.path = `/${folder}/:${getDynamicParam(file)}?`
             route.component = `require('${abFile}').default`
+            debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
           }
 
           if (/fetch/i.test(file)) {
@@ -88,6 +91,9 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
           if (/layout/i.test(file)) {
             route.layout = `require('${abFile}').default`
           }
+        }
+        if (!route.path) {
+          throw new Error(`cannot find render file in ${folder}`)
         }
         if (prefix) {
           route.path = prefix ? `/${prefix}${route.path}` : route.path
@@ -102,7 +108,7 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
       fetch: fs.existsSync(join(pageDir, './fetch.ts')) && `require('${join(pageDir, './fetch.ts')}').default`,
       component: `require('${join(pageDir, './render.tsx')}').default`
     })
-
+    debug('The result that parse web folder to routes is: ', arr)
     fs.writeFileSync(`${cwd}/node_modules/ssr-cache/route.js`, `module.exports =${JSON.stringify(arr)
       .replace(/"layout":("(.+?)")/g, (global, m1, m2) => {
         return `"layout": ${m2.replace(/\^/g, '"')}`
@@ -119,8 +125,6 @@ const parseFeRoutes = async (argv: Argv): Promise<FeRouteItem[]> => {
     // todo mpa
 
   }
-
-  return arr
 }
 
 const getDynamicParam = (url: string) => {

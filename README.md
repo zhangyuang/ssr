@@ -1,5 +1,4 @@
 <h1 align="center">SSR</h1>
-
 <div align="center">
   <img src="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg" width="300" />
 </div>
@@ -8,17 +7,20 @@
   <strong>A future-oriented ssr framework based on midway-faas that implemented serverless-side render specification for faas.</strong>
 </div>
 <br />
-
+<a href="https://github.com/ykfe/ssr/actions"><img src="https://github.com/ykfe/ssr/workflows/CI/badge.svg" alt="githubActions"></a>
 <a href="https://npmcharts.com/compare/ssr-core"><img src="https://img.shields.io/npm/dt/ssr-core" alt="download"></a>
 <a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="standardjs"></a>
 <a href="https://github.com/ykfe/ssr"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
-<img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node">
+<a href="https://github.com/ykfe/ssr"><img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node"></a>
 
-本框架为 Serverless 场景下的服务端渲染规范的实现，具有以下特点。
+ssr is serverless-side render specification implementation. focus on developer experience, easy debug and no over-engineering.
 
-- 小：实现方式简洁使用方式优雅，构建生成的 bundle 文件少且小
-- 全：支持 SPA/MPA 两种应用类型的开发，SSR/CSR 两种渲染模式无缝切换，支持 HMR，支持定制组件的渲染模式
-- 美：基于[Midway-faas](https://github.com/midwayjs/midway)框架，拥有强大的生态，可以发布到多个不同的 Serverless 平台
+features
+
+- minimal：build bundle size is smaller than nextjs
+- full feature：write once，generate SSR/CSR bundle, tranfer ssr to csr mode seamless degradation
+- support multi‑cloud：based on [midway-faas](https://github.com/midwayjs/midway) framework，can be deployed to any serverless plateform
+
 
 ## Serverless for Developer
 
@@ -38,6 +40,22 @@ Serverless 应用开发流程
 
 相比于传统服务端应用开发，我们将细节在底层统一抹平。前端开发者只需要关注业务逻辑，无需感知服务器的运行状况。成本和心智负担大大降低，只需要申请一个域名即可将应用发布到公网让所有用户可以访问。
 
+🚀 表示已经实现的功能
+
+| 里程碑                                                                 | 状态 |
+| ---------------------------------------------------------------------- | ---- |
+| 最小而美的实现 React 服务端渲染功能                           | 🚀   |
+| 约定式前端路由                            | 🚀   |
+| 渲染模式切换：服务端渲染一键降级为客户端渲染                            | 🚀   |
+| 统一服务端客户端的数据获取方式                                 | 🚀   |
+| 支持无缝接入 [antd](https://github.com/ant-design/ant-design) 无需修改任何配置                             | 🚀   |
+| 支持使用 less 作为 css 预处理器                                                | 🚀   |
+| 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
+| ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
+| ssr deploy --tencent 一键部署到[腾讯云](https://cloud.tencent.com/)平台无需修改任何配置                                    | 🚀   |
+| 接入 React17 Suspense 特性                                     |      |
+| 接入 useContext 做数据管理                         |      |
+
 ## 哪些应用在使用
 
 正在使用这个项目的公司(应用), 如果您正在使用但名单中没有列出来的话请提 issue，欢迎推广分享，我们将随时提供技术支持
@@ -48,6 +66,10 @@ Serverless 应用开发流程
  <sub><b>优酷视频
 </b></td>
 <td align="center"><a target="_blank" href="https://yulebao.alibaba.com/"><img src="https://gw.alicdn.com/tfs/TB1CmlIIFT7gK0jSZFpXXaTkpXa-190-46.png" width="100px;"/><br><sub><b>阿里影业娱乐宝
+</b></sub></a></td>
+<td align="center"><a target="_blank" href="http://ssr-fc.com/"><img src="https://img.alicdn.com/tfs/TB13DzOjXP7gK0jSZFjXXc5aXXa-212-48.png" width="100px;"/><br><sub><b>部署于阿里云示例应用
+</b></sub></a></td>
+<td align="center"><a target="_blank" href="http://tx.ssr-fc.com/"><img src="http://s0.60logo.com/uploads/items/images/soft/180126/tengxunyun.svg" width="100px;"/><br><sub><b>部署于腾讯云示例应用
 </b></sub></a></td>
 </tr>
 </table>
@@ -63,39 +85,38 @@ $ node -v # 建议版本>=v10.15.0
 v12.16.1
 ```
 
-### 安装脚手架
-
-```bash
-$ npm i -g ssr # 全局安装ssr脚手架
-```
-
 ### 创建项目
 
+我们使用 [create-ssr-app](https://github.com/zhangyuang/create-ssr-app) 来快速的创建项目
+
 ```bash
-$ ssr init # 创建example，支持SPA/MPA(开发中)两种类型的应用创建
+$ npm init ssr-app my-ssr-project # 默认创建 Serverless SPA 项目, MPA 支持中
+$ cd my-ssr-project
 ```
 
 ### 本地开发
 
 ```bash
 $ npm i
-$ ssr start
+$ npm start # 等价于 ssr start
 $ open http://localhost:3000
 ```
+
+为了方便开发我们建议全局安装 `ssr` 模块 `npm i -g ssr` 这样可以很方便的通过在命令行使用 `ssr xxx` 等命令来开发部署应用
 
 ### 资源构建
 
 ```bash
-$ ssr build
-$ ssr build index # 对指定函数进行构建(支持中)
+$ npm run build # 等价于 ssr build
+$ npm run build --func=index # 对指定函数进行构建(支持中)
 ```
 
-### 函数发布
+### 发布到阿里云
 
 发布命令
 
 ```bash
-$ ssr deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
+$ npm run deploy # 支持发布多个平台默认发布到阿里云 等价于 ssr deploy
 ```
 
 首次发布需要输入阿里云账户信息，并且在阿里云控制台开通函数计算服务。账户信息在函数计算[控制台](https://fc.console.aliyun.com/fc)查看。
@@ -114,11 +135,37 @@ $ ssr deploy # 默认发布到阿里云函数计算服务,腾讯云支持中
 
 ![](https://gw.alicdn.com/tfs/TB1JZGyB1H2gK0jSZFEXXcqMpXa-1468-1012.jpg)
 
+### 发布到腾讯云
+
+无需做任何配置文件的修改即可一键发布到腾讯云！
+
+发布命令
+
+```bash
+$ npm run dploy:tencent # 发布到腾讯云 等价于 ssr deploy --tencent
+```
+
+首次发布时需要使用微信扫终端展示的二维码注册/登陆腾讯云服务。  
+如果想详细的了解腾讯云发布功能可参考[文档](https://www.yuque.com/midwayjs/faas/deploy_tencent_faq)
+发布后同样我们可以得到平台返回的一个地址, 需要绑定域名后才能正确的访问页面渲染服务。否则由于访问 /test 路径造成服务端路由和客户端路由不一致会导致页面内容闪现后白屏。  
+![](https://res.wx.qq.com/op_res/mbNMsqF_px3tS0x_x1fryyR3Z5RipX3Lo8PIzvcAVxyXwoQyvQz0lQev-W2io3AP)
+默认发布到测试环境, 这里建议在第一次发布后显示在 yml 中指定要发布的serviceID, 否则每次发布将会创建一个新的 server 实例。  
+在腾讯云[API](https://console.cloud.tencent.com/apigateway/service-detail?rid=1)网关平台进行域名的绑定以及函数发布到正式环境的操作  
+在腾讯云[SCF](https://console.cloud.tencent.com/scf)平台可以进行函数的管理调试以及日志查看
+
+#### 绑定域名
+
+在发布到腾讯云时 midway-faas 支持通过 [provider.region](https://www.yuque.com/midwayjs/faas/serverless_yml) 来设置发布的服务器区域。  
+如果发布的区域是国内则绑定的域名需要在腾讯云进行备案服务，如果是香港则无需备案。默认绑定域名后需要通过 [tx.ssr-fc.com/release](http://tx.ssr-fc.com) 来访问具体的环境。也可以通过自定义路径映射使得不需要添加 /release 也可以访问到具体的环境。
+![](https://res.wx.qq.com/op_res/Ln1MuNWmmfNDyTuJlooXiGdhwtCtz_4rVDi_qvmuUEoL_mo6PNsd3z4d7z9RBj17)
+
 ### 线上案例
 
 ```bash
-$ open http://ssr-fc.com/
+$ open http://ssr-fc.com/ # 发布到阿里云的函数
 $ open http://ssr-fc.com?csr=true # 以csr模式运行
+$ open http://tx.ssr-fc.com/ # 发布到腾讯云的函数
+$ open http://tx.ssr-fc.com?csr=true # 以csr模式运行
 ```
 
 ### 结合阿里云开发平台
@@ -131,13 +178,28 @@ $ open http://ssr-fc.com?csr=true # 以csr模式运行
 
 ### 前端技术选型
 
-- 前端框架: React
+- 前端框架: React v17, 实时跟进 React17的新特性
 - 开发语言: TypeScript
 - 代码风格: [Standard](https://standardjs.com/)
 - 样式处理: less + css modules
 - UI 组件: 默认已对 antd 的使用做打包配置无需额外配置
 - 前端路由: 约定式路由
 - 数据管理: 待支持，暂定使用 hooks
+
+### 本地调试
+
+借助 [debug](https://github.com/visionmedia/debug) 模块的能力，开发者可以在本地开发过程中获取一些构建渲染过程的信息。
+
+```bash
+$ DEBUG=ssr:* npm start # 打印所有的 ssr 模块提供的 debug 信息
+$ DEBUG=ssr:parse npm start # 打印约定式路由解析 debug 信息
+$ DEBUG=ssr:render npm start # 打印页面渲染 debug 信息
+```
+
+### 应用原理解析
+
+点击[此处](./images/ykfe-ssr.png)查看高清大图
+![](./images/ykfe-ssr.png)
 
 ### 应用类型
 

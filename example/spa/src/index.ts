@@ -28,6 +28,7 @@ export class Index implements FunctionHandler {
       return htmlStr
     } catch (error) {
       console.log(error)
+      return error
     }
   }
 }

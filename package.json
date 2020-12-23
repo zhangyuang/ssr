@@ -5,8 +5,8 @@
   ],
   "scripts": {
     "bootstrap": "yarn",
-    "clean": "rm -rf packages/**/cjs packages/**/esm && lerna clean",
-    "watch": "lerna run watch:cjs --stream --parallel",
+    "clean": "rm -rf yarn.lock node_modules packages/**/cjs packages/**/esm && lerna clean",
+    "dev": "lerna run watch:cjs --stream --parallel",
     "build": "lerna run build --stream --parallel",
     "lint": "tslint -c tslint.json -p ./tsconfig.base.json && standard",
     "lint:fix": "tslint -c tslint.json -p ./tsconfig.base.json --fix && standard --fix",
@@ -40,20 +40,22 @@
   "bugs": {
     "url": "https://github.com/ykfe/ssr/issues"
   },
-  "pre-commit": [
-    "lint"
-  ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
+  },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "babel-eslint": "^10.0.2",
+    "husky": "^4.3.0",
+    "jest": "^24.9.0",
     "lerna": "^3.20.2",
-    "pre-commit": "^1.2.2",
     "standard": "^13.0.1",
+    "ts-jest": "^24.0.2",
     "tslint": "^5.17.0",
     "tslint-config-standard": "^8.0.1",
-    "typescript": "^3.8.0",
-    "jest": "^24.9.0",
-    "ts-jest": "^24.0.2"
+    "typescript": "^3.8.0"
   }
 }

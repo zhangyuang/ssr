@@ -12,7 +12,7 @@ export interface FeRouteItem<T = {}> {
   path: string
   layout: React.FC<LayoutProps>
   fetch?: (ctx: IFaaSContext) => Promise<any>
-  component?: React.FC<T>
+  component: React.FC<T>
 }
 
 export interface FaasRouteItem {

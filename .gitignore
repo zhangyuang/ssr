@@ -63,8 +63,6 @@ node_modules/
 
 .DS_Store
 
-.vscode
-
 docs/.vuepress/dist
 
 esm
