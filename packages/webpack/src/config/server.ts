@@ -8,7 +8,6 @@ import { nodeExternals } from '../plugins/external'
 const { isDev, cwd, getOutput, loadModule, chainServerConfig, whiteList } = buildConfig
 
 const getServerWebpack = (argv: Argv) => {
-  // @ts-ignore
   const { funcName } = argv.faasRoutes[0]
   const config = getBaseConfig()
 

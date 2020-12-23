@@ -19,12 +19,10 @@ const clientRender = async (): Promise<void> => {
           feRoutes.map((item: FeRouteItem) => {
             const { fetch, layout, component, path } = item
             const Layout = wrapLayout(layout, __isBrowser__)
-
             component.fetch = fetch
-
             const WrappedComponent = wrapComponent(component)
             return <Route exact={true} key={path} path={path} render={() => <Layout key={location.pathname} >
-                <WrappedComponent />
+              <WrappedComponent />
             </Layout>} />
           })
         }

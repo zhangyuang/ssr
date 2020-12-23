@@ -8,7 +8,7 @@ export interface Yml {
   provider: {
     name: string
     runtime: string
-  },
+  }
   functions: {
     [index: string]: {
       handler: string

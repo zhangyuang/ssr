@@ -12,7 +12,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 
 const getClientWebpack = (argv: Argv) => {
-  // @ts-ignore
+  // @ts-expect-error
   const { funcName } = argv.faasRoutes[0]
   const config = getBaseConfig()
   config.resolve.alias

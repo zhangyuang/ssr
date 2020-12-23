@@ -2,7 +2,7 @@ import * as React from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { FC, IWindow } from 'ssr-types'
 
-declare const window: IWindow
+// declare const window: IWindow
 
 let _this: any = null
 let routerChanged = false
@@ -17,11 +17,10 @@ const popStateFn = (e: PopStateEvent) => {
 }
 
 interface IState {
-  extraProps: Object
+  asyncData: Object
 }
 
 function wrapComponent (WrappedComponent: FC): React.ComponentClass {
-
   class WrapComponentClass extends React.Component<RouteComponentProps<{}>, IState> {
     constructor (props: RouteComponentProps) {
       super(props)
@@ -39,7 +38,7 @@ function wrapComponent (WrappedComponent: FC): React.ComponentClass {
 
     async componentDidMount () {
       // history push的时候需要调用fetch
-      if (this.props.history && this.props.history.action !== 'POP' || !window.__USE_SSR__) {
+      if (this.props?.history.action !== 'POP' || !window.__USE_SSR__) {
         await this.fetch()
       }
     }
@@ -59,8 +58,8 @@ function wrapComponent (WrappedComponent: FC): React.ComponentClass {
       const WrapContext = React.createContext(context)
       window.STORE_CONTEXT = WrapContext
       return <WrapContext.Provider value={context}>
-          <WrappedComponent {...this.props}/>
-        </WrapContext.Provider>
+        <WrappedComponent {...this.props} />
+      </WrapContext.Provider>
     }
   }
   return withRouter(WrapComponentClass)
