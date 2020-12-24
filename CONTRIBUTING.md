@@ -4,15 +4,15 @@ The markdown file introduce how to contribute for ssr-psec
 
 ## 本地如何link调试模块
 
+package.json 中已经封装好本地的调试命令
+
 ```bash
-$ npm run bootstrap # you can also run yarn, but npm install is not allowed 
-$ npm run dev
-$ cd packages/cli
-$ yarn link
-$ cd example/spa
-$ yarn link ssr
-$ npm start
+$ yarn run bootstrap
+$ yarn run link
 ```
+
+执行以上命令后 example/spa 中的依赖已经成功 link 到本地的包。若在 example/spa 中执行 `yarn start` 提示 `permisson denied` 请手动通过 chmod 提升文件权限。
+`chmod 777 ./node_modules/.bin/ssr`
 
 Please read the [document](https://classic.yarnpkg.com/en/docs/workspaces/) about yarn workspace
 
@@ -87,7 +87,7 @@ $ git push origin branch-name
 
 ### 代码风格
 
-你的代码风格必须通过 eslint，你可以运行 `$ npm run lint` 本地测试。
+你的代码风格必须通过 eslint，你可以运行 `$ yarn run lint` 本地测试。
 
 ### Commit 提交规范
 
