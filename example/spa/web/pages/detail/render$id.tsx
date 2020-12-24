@@ -2,13 +2,15 @@ import React, { useContext } from 'react'
 import Player from '@/components/player'
 import Brief from '@/components/brief'
 import Recommend from '@/components/recommend'
+import Search from '@/components/search'
 
 export default (props) => {
-  const {state, dispatch} = useContext(window.STORE_CONTEXT)
+  const { state, dispatch } = useContext(window.STORE_CONTEXT)
   return (
     <div>
+      <Search></Search>
       {
-         state?.data[0].dataNode ? <div>
+        state?.data[0].dataNode ? <div>
           <Player data={state.data[0].dataNode} />
           <Brief data={state.data[1].dataNode} />
           <Recommend data={state.data[2].dataNode} />

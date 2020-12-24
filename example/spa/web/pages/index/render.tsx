@@ -1,11 +1,13 @@
 import React, { useContext } from 'react'
 import Slider from '@/components/slider'
 import Rectangle from '@/components/rectangle'
+import Search from '@/components/search'
 
 export default props => {
-  const {state, dispatch} = useContext(window.STORE_CONTEXT)
+  const { state, dispatch } = useContext(window.STORE_CONTEXT)
   return (
     <div>
+      <Search></Search>
       {
         state?.data?.[0]?.components ? <div>
           <Slider {...props} data={state.data[0].components} />
