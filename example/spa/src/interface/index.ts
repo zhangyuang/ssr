@@ -1,5 +1,5 @@
 export interface IApiService {
-  index (): Promise<any>
+  index: () => Promise<any>
 }
 
 export * from './detail'

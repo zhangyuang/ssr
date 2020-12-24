@@ -1,8 +1,6 @@
 import * as React from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-import { FC, IWindow } from 'ssr-types'
-
-// declare const window: IWindow
+import { FC } from 'ssr-types'
 
 let _this: any = null
 let routerChanged = false
@@ -15,7 +13,6 @@ const popStateFn = (e: PopStateEvent) => {
     _this.fetch()
   }
 }
-
 interface IState {
   asyncData: Object
 }

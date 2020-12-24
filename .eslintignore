@@ -1,1 +1,4 @@
 packages/webpack/src/plugins/external.ts
+**/cjs
+**/esm
+example

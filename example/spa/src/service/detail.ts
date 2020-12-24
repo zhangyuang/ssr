@@ -4,8 +4,7 @@ import mock from '../mock/detail'
 
 @provide('ApiDetailService')
 export class ApiService implements IApiDetailService {
-
-  index (id): Promise<any> {
-    return Promise.resolve(mock.data[id])
+  async index (id): Promise<any> {
+    return await Promise.resolve(mock.data[id])
   }
 }

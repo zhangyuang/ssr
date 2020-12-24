@@ -4,6 +4,6 @@ module.exports = {
     'standard-react-ts'
   ],
   parserOptions: {
-    project: './tsconfig.json'
+    project: './tsconfig.lint.json'
   }
 }

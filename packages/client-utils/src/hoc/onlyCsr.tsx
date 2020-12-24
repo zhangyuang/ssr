@@ -26,7 +26,7 @@ function onlyCsr (WrappedComponent: React.FC): React.ComponentClass {
   }
   for (const key in WrappedComponent) {
     // 静态属性传递
-    // @ts-ignore for this issue https://github.com/Microsoft/TypeScript/issues/6480
+    // @ts-expect-error
     OnlyCsrClass[key] = WrappedComponent[key]
   }
   return OnlyCsrClass
