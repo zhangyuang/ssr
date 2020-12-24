@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { contains, containsPattern, readFromPackageJson, readDir } from 'ssr-server-utils'
 
 const scopedModuleRegex = new RegExp('@[a-zA-Z0-9][\\w-.]+\/[a-zA-Z0-9][\\w-.]+([a-zA-Z0-9.\/]+)?', 'g')

@@ -6,7 +6,7 @@
   "scripts": {
     "bootstrap": "yarn && cd example/spa && yarn",
     "clean": "rm -rf yarn.lock package-lock.json node_modules packages/**/cjs packages/**/esm && lerna clean",
-    "dev": "lerna run watch:cjs --stream --parallel",
+    "dev": "lerna run watch --stream --parallel",
     "build": "lerna run build --stream --parallel",
     "lint": "eslint . --ext .js,.ts --cache",
     "lint:fix": "eslint . --ext .js,.ts --cache --fix",

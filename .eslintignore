@@ -2,4 +2,5 @@ packages/webpack/src/plugins/external.ts
 packages/server-utils/src/external-utils.ts
 **/cjs
 **/esm
-example
+**/dist
+**/build

@@ -5,7 +5,7 @@ import { LayoutProps } from 'ssr'
 import styles from './index.less'
 
 const Layout = (props: LayoutProps) => {
-  const context = useContext((window as IWindow).STORE_CONTEXT)
+  const {state, dispatch} = useContext((window as IWindow).STORE_CONTEXT)
   const { injectCss, injectScript } = props.staticList
   return (
     <html lang='en'>
@@ -20,8 +20,8 @@ const Layout = (props: LayoutProps) => {
       <body className={styles.body}>
         <div id='app'>{ props.children }</div>
         {
-          context && <script dangerouslySetInnerHTML={{
-            __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(context)}`
+          state && <script dangerouslySetInnerHTML={{
+            __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)}`
           }} />
         }
         { injectScript }
