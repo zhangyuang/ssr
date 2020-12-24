@@ -22,7 +22,7 @@ function wrapComponent (WrappedComponent: FC): any {
   return withRouter((props) => {
     const { state, dispatch } = useContext(window.STORE_CONTEXT)
     if (!routerChanged) {
-      routerChanged = !window.__USE_SSR__ || (props.history && props.history.action === 'PUSH')
+      routerChanged = !window.__USE_SSR__ || props?.history.action === 'PUSH'
     }
     window.addEventListener('popstate', popStateFn)
     useEffect(() => {
