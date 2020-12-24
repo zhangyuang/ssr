@@ -50,11 +50,10 @@ Serverless 应用开发流程
 | 统一服务端客户端的数据获取方式                                 | 🚀   |
 | 支持无缝接入 [antd](https://github.com/ant-design/ant-design) 无需修改任何配置                             | 🚀   |
 | 支持使用 less 作为 css 预处理器                                                | 🚀   |
+| 接入 useContext + useReducer 实现极简的数据管理, 摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
 | 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
 | ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
 | ssr deploy --tencent 一键部署到[腾讯云](https://cloud.tencent.com/)平台无需修改任何配置                                    | 🚀   |
-| 接入 React17 Suspense 特性                                     |      |
-| 接入 useContext 做数据管理                         |      |
 
 ## 哪些应用在使用
 
@@ -184,7 +183,7 @@ $ open http://tx.ssr-fc.com?csr=true # 以csr模式运行
 - 样式处理: less + css modules
 - UI 组件: 默认已对 antd 的使用做打包配置无需额外配置
 - 前端路由: 约定式路由
-- 数据管理: 待支持，暂定使用 hooks
+- 数据管理: 使用 React Hooks 提供的 useContext + useReducer 实现极简的数据管理方案, 摒弃传统的 redux/dva 等数据管理方案
 
 ### 本地调试
 
@@ -200,6 +199,41 @@ $ DEBUG=ssr:render npm start # 打印页面渲染 debug 信息
 
 点击[此处](./images/ykfe-ssr.png)查看高清大图
 ![](./images/ykfe-ssr.png)
+
+### 不同页面组件进行数据共享
+
+通过使用 `useContext` 来获取全局的 `context`, `useContext` 返回两个值分别为
+
+- state: 全局的状态，可在不同的组件/页面之间共享
+- dispatch: 通过 `disptach` 来触发类型为 `updateContext` 的 `action` 来更新全局的 `context`
+
+`注: hooks 只能够在函数组件内部使用`
+
+```js
+import { useContext } from 'react'
+
+const { state, dispatch } = useContext(window.STORE_CONTEXT)
+```
+
+通过 `dispatch action` 来进行全局 `context` 的更新，并通知到所有的组件。  
+`注: context 更新会导致所有组件重新 render 可根据实际情况使用 React.useMemo 来避免不必要的重新 render，且建议根据不同的模块使用不同的 namespace 防止数据覆盖`
+
+```js
+const { state, dispatch } = useContext(window.STORE_CONTEXT)
+const handleChange = e => {
+  dispatch({
+    type: 'updateContext',
+    payload: {
+      // 搜索框模块的 namespace 为 search
+      search: {
+        text: e.target.value
+      }
+    }
+  })
+}
+// 组件通过 state 来拿到 dispatch 更新后的最新 state 值
+<input type="text" className={styles.input} value={state.search?.text} onChange={handleChange} placeholder="该搜索框内容会在所有页面共享"/>
+```
 
 ### 应用类型
 

@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import styles from './index.less'
 
-function Rectangle (props) {
+function Search (props) {
   const { state, dispatch } = useContext(window.STORE_CONTEXT)
   const handleChange = e => {
     dispatch({
@@ -21,4 +21,4 @@ function Rectangle (props) {
   )
 }
 
-export default Rectangle
+export default Search
