@@ -216,23 +216,36 @@ const { state, dispatch } = useContext(window.STORE_CONTEXT)
 ```
 
 通过 `dispatch action` 来进行全局 `context` 的更新，并通知到所有的组件。  
-`注: context 更新会导致所有组件重新 render 可根据实际情况使用 React.useMemo 来避免不必要的重新 render，且建议根据不同的模块使用不同的 namespace 防止数据覆盖`
+`注: dispatch 是异步的只能够在客户端渲染的阶段使用，服务端使用无效。context 更新会导致所有组件重新 render 可根据实际情况使用 React.useMemo 来避免不必要的重新计算，且建议根据不同的模块使用不同的 namespace 防止数据覆盖`
 
 ```js
-const { state, dispatch } = useContext(window.STORE_CONTEXT)
-const handleChange = e => {
-  dispatch({
-    type: 'updateContext',
-    payload: {
-      // 搜索框模块的 namespace 为 search
-      search: {
-        text: e.target.value
+import React, { useContext } from 'react'
+import styles from './index.less'
+
+function Search (props) {
+  const { state, dispatch } = useContext(window.STORE_CONTEXT)
+  const handleChange = e => {
+    dispatch({
+      type: 'updateContext',
+      payload: {
+        search: {
+          // 搜索框模块的 namespace 为 search
+          text: e.target.value
+        }
       }
-    }
-  })
+    })
+  }
+  return (
+    <div className={styles.searchContainer}>
+        {/* 组件通过 state 来拿到 dispatch 更新后的最新 state 值 */}
+      <input type="text" className={styles.input} value={state.search?.text} onChange={handleChange} placeholder="该搜索框内容会在所有页面共享"/>
+      <img src="https://img.alicdn.com/tfs/TB15zSoX21TBuNjy0FjXXajyXXa-48-48.png" alt="" className={styles.searchImg} />
+    </div >
+  )
 }
-// 组件通过 state 来拿到 dispatch 更新后的最新 state 值
-<input type="text" className={styles.input} value={state.search?.text} onChange={handleChange} placeholder="该搜索框内容会在所有页面共享"/>
+
+export default Search
+
 ```
 
 ### 应用类型
