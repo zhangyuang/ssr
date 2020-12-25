@@ -14,13 +14,14 @@
     "stripInternal": true,
     "pretty": true,
     "declaration": true,
-    "outDir": "dist",
-    "paths": {
-      "@": ["./web"] // 此处映射是相对于"baseUrl"
-    }
+    "outDir": "dist"
   },
-  "include": [
-    "src"
+  "exclude": [
+    "dist",
+    "node_modules",
+    "test",
+    "web",
+    "build"
   ]
 }
 

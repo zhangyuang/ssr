@@ -18,11 +18,11 @@
     "esModuleInterop": true,
     "jsx": "react",
     "paths": {
-      "@": ["."] // 此处映射是相对于"baseUrl"
+      "@/*": ["./*"] // 此处映射是相对于"baseUrl"
     }
   },
-  "exclude": [
-    "src"
+  "include": [
+    "."
   ]
 }
 

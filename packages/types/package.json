@@ -30,6 +30,7 @@
     "@types/js-yaml": "^3.12.3",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.1.6",
     "@types/webpack": "^4.41.10",
     "@types/webpack-dev-server": "^3.10.1",
     "@types/yargs": "^13.0.4",

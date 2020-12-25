@@ -12,5 +12,12 @@
     "declaration": true,
     "strict": true,
     "jsx": "react"
-  }
+  },
+  "exclude": [
+    "node_modules",
+    "esm",
+    "cjs",
+    "**/*.test.ts",
+    "example"
+  ]
 }

@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { useContext, useEffect } from 'react'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { FC } from 'ssr-types'
 
 let _fetch: any = null
 let routerChanged = false
 
-const popStateFn = (e: PopStateEvent) => {
+const popStateFn = () => {
   // historyPop的时候需要调用fetch
   routerChanged = true
   // 使用popStateFn保存函数防止addEventListener重复注册,排除hashchange的情况
@@ -14,11 +14,8 @@ const popStateFn = (e: PopStateEvent) => {
     _fetch()
   }
 }
-interface IState {
-  asyncData: Object
-}
 
-function wrapComponent (WrappedComponent: FC): any {
+function wrapComponent (WrappedComponent: FC) {
   return withRouter((props) => {
     const { state, dispatch } = useContext(window.STORE_CONTEXT)
     if (!routerChanged) {
