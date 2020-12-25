@@ -596,6 +596,6 @@ Please read the [document](./CONTRIBUTING.md)
 
 ## 答疑群
 
-虽然我们已经尽力检查了一遍应用，但仍有可能有疏漏的地方，如果你在使用过程中发现任何问题或者建议，欢迎提[issue](https://github.com/ykfe/egg-react-ssr/issues)或者[PR](https://github.com/ykfe/egg-react-ssr/pulls)
+虽然我们已经尽力检查了一遍应用，但仍有可能有疏漏的地方，如果你在使用过程中发现任何问题或者建议，欢迎提[issue](https://github.com/ykfe/ssr/issues)或者[PR](https://github.com/ykfe/ssr/pulls)
 欢迎直接扫码加入钉钉群
-<img src="https://img.alicdn.com/tfs/TB1X1CsnET1gK0jSZFrXXcNCXXa-750-990.jpg" width="300">
+<img src="https://res.wx.qq.com/op_res/gQfTCN-BGtR7Luw1CjnJoJiPt7MDmyxl_G-LAyR4Wp4l8R9ISlTWj6yLuLt41zTO4nwneqdAd9g5-QnMt9qKTQ" width="300">

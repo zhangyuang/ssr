@@ -1,5 +1,8 @@
 import { IWindow } from 'ssr-types'
-declare module '*.less'
+declare module '*.less' {
+  const resource: {[key: string]: string}
+  export = resource
+}
 declare module '@*'
 
 declare global {
@@ -9,4 +12,5 @@ declare global {
     STORE_CONTEXT?: IWindow['STORE_CONTEXT']
   }
 }
+
 declare const __isBrowser__: Boolean

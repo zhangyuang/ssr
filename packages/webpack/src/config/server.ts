@@ -8,7 +8,7 @@ import { nodeExternals } from '../plugins/external'
 const { isDev, cwd, getOutput, loadModule, chainServerConfig, whiteList } = buildConfig
 
 const getServerWebpack = (argv: Argv) => {
-  const { funcName } = argv.faasRoutes[0]
+  const { funcName } = argv.faasRoutes![0]
   const config = getBaseConfig()
 
   config.devtool(isDev ? 'eval-source-map' : false)

@@ -1,17 +1,24 @@
 import React from 'react'
 import Swiper from 'react-id-swiper'
+import { SProps } from 'ssr-types'
 import 'swiper/css/swiper.css'
+import { ItemMapArr } from '@/interface'
 import styles from './index.less'
 
-function Slider (props) {
-  const data = props.data[0]
-  const params = {
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-      loop: true
-    }
+interface Props extends SProps{
+  data: ItemMapArr[]
+}
+
+const params = {
+  pagination: {
+    el: '.swiper-pagination',
+    clickable: true,
+    loop: true
   }
+}
+
+function Slider (props: Props) {
+  const data = props.data[0]
   return (
     <div className={styles.swiperContainer}>
       <Swiper {...params}>

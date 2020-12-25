@@ -1,7 +1,10 @@
 import { IFaaSContext } from './ctx'
 import { BuildConfig } from './config'
-export interface FC extends React.FC {
-  fetch?: (params: any) => Promise<any>
+
+export type Fetch = (params: any) => Promise<any>
+
+export interface FC<T={}> extends React.FC<T> {
+  fetch?: Fetch
 }
 
 export interface StaticList {

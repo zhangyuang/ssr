@@ -3,6 +3,7 @@ import { useReducer } from 'react'
 import { IProps, Action } from 'ssr-types'
 import { clientContext } from './create-context'
 
+// 客户端的 context  只需要创建一次，在页面整个生命周期内共享
 const Context = clientContext
 const initialState = window.__INITIAL_DATA__
 
@@ -13,9 +14,10 @@ function reducer (state: any, action: Action) {
     case 'updateContext':
       return { ...state, ...action.payload }
     default:
-      throw new Error('action type is undefined')
+      throw new Error('Action type is undefined Please use type updateContext ')
   }
 }
+
 export function App (props: IProps) {
   const [state, dispatch] = useReducer(reducer, initialState)
   return (

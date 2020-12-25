@@ -1,5 +1,4 @@
-import { IFaaSContext } from './ctx'
-import { LayoutProps } from './fc'
+import { LayoutProps, FC, Fetch } from './fc'
 
 export interface ProvisionalFeRouteItem {
   path?: string
@@ -11,10 +10,8 @@ export interface ProvisionalFeRouteItem {
 export interface FeRouteItem<T = {}> {
   path: string
   layout: React.FC<LayoutProps>
-  fetch?: (ctx: IFaaSContext) => Promise<any>
-  component: React.FC<T> & {
-    fetch?: (ctx: IFaaSContext) => Promise<any>
-  }
+  fetch?: Fetch
+  component: FC<T>
 }
 
 export interface FaasRouteItem {

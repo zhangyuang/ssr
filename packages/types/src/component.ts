@@ -1,9 +1,11 @@
 import { ReactChild } from 'react'
 import { RouteComponentProps } from 'react-router-dom'
 
-type IProps<T={}> = T & RouteComponentProps & {
+type IProps<T={}> = T & {
   children: ReactChild
 }
+
+type SProps<T={}> = T & RouteComponentProps
 
 interface Action {
   type: string
@@ -12,5 +14,6 @@ interface Action {
 
 export {
   IProps,
-  Action
+  Action,
+  SProps
 }

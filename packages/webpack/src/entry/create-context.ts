@@ -1,10 +1,15 @@
 import { createContext } from 'react'
+import { ClientContext } from 'ssr-types'
 
+// 服务端需要为每一个请求创建全新的 contetx 方式请求污染
 const serverContext = (context?: any) => {
   return createContext(context)
 }
 
-const clientContext = createContext(null)
+// 客户端的 context  只需要创建一次，在页面整个生命周期内共享
+const clientContext = createContext<ClientContext>({
+  state: {}
+})
 
 export {
   serverContext,

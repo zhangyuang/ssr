@@ -1,5 +1,6 @@
 import { FaaSContext } from '@midwayjs/faas'
 import { FaasRouteItem } from './route'
+import { Action } from './component'
 
 export interface IFaaSContext extends FaaSContext { }
 
@@ -14,6 +15,13 @@ export interface IWindow extends Window {
 
 export interface IGlobal extends NodeJS.Global {
   window: {
-    STORE_CONTEXT?: any
+    __USE_SSR__?: IWindow['__USE_SSR__']
+    __INITIAL_DATA__?: IWindow['__INITIAL_DATA__']
+    STORE_CONTEXT?: IWindow['STORE_CONTEXT']
   }
+}
+
+export interface ClientContext<T=any> {
+  state: T
+  dispatch?: React.Dispatch<Action>
 }
