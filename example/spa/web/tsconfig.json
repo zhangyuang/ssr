@@ -13,6 +13,7 @@
     "stripInternal": true,
     "pretty": true,
     "declaration": true,
+    "strict": true,
     "baseUrl": "./",
     "strictNullChecks": true,
     "esModuleInterop": true,
