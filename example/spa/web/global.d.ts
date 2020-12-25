@@ -9,3 +9,4 @@ declare global {
     STORE_CONTEXT?: IWindow['STORE_CONTEXT']
   }
 }
+declare const __isBrowser__: Boolean

@@ -13,12 +13,8 @@
     "strict": true,
     "jsx": "react"
   },
-  "exclude": [
-    "src",
-    "node_modules",
-    "esm",
-    "cjs",
-    "**/*.test.ts",
-    "examples"
+  "include": [
+    "packages",
+    "example"
   ]
 }

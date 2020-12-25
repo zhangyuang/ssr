@@ -4,7 +4,7 @@ module.exports = {
     'standard-react-ts'
   ],
   parserOptions: {
-    project: './tsconfig.base.json'
+    project: './tsconfig.lint.json'
   },
   rules: {
     '@typescript-eslint/no-floating-promises': 'off'

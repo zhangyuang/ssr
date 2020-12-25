@@ -1,7 +1,8 @@
-// 仅用于 eslint 配置，需要 lint 检查 web目录
+// 仅用于 eslint 检查
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "ES2018",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -13,13 +14,10 @@
     "stripInternal": true,
     "pretty": true,
     "declaration": true,
-    "outDir": "dist"
   },
-  "exclude": [
-    "dist",
-    "node_modules",
-    "test",
-    "build"
+  "include": [
+    "src",
+    "web"
   ]
 }
 

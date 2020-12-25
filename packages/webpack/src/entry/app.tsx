@@ -4,6 +4,7 @@ import { clientContext } from './create-context'
 
 const Context = clientContext
 const initialState = window.__INITIAL_DATA__
+
 window.STORE_CONTEXT = Context
 
 function reducer (state, action) {
@@ -11,7 +12,7 @@ function reducer (state, action) {
     case 'updateContext':
       return { ...state, ...action.payload }
     default:
-      throw new Error()
+      throw new Error('action type is undefined')
   }
 }
 export function App (props) {

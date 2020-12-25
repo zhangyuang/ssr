@@ -1,3 +1,4 @@
+// 用于 midway 编译 src 目录 ts 文件 -> dist 目录 js 文件
 {
   "compileOnSave": true,
   "compilerOptions": {
@@ -18,12 +19,8 @@
       "@": ["./web"] // 此处映射是相对于"baseUrl"
     }
   },
-  "exclude": [
-    "dist",
-    "node_modules",
-    "test",
-    "web",
-    "build"
+  "include": [
+    "src"
   ]
 }
 
