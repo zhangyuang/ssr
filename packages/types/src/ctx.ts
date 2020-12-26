@@ -21,7 +21,7 @@ export interface IGlobal extends NodeJS.Global {
   }
 }
 
-export interface ClientContext<T=any> {
+export interface IContext<T=any> {
   state: T
   dispatch?: React.Dispatch<Action>
 }

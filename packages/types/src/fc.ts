@@ -16,6 +16,6 @@ export interface LayoutProps {
   ctx?: IFaaSContext
   fetchData?: any
   config?: BuildConfig
-  children?: React.ReactElement
-  staticList?: StaticList
+  children: React.ReactElement
+  staticList: StaticList
 }

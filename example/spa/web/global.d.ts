@@ -3,7 +3,6 @@ declare module '*.less' {
   const resource: {[key: string]: string}
   export = resource
 }
-declare module '@*'
 
 declare global {
   interface Window {

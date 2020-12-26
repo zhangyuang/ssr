@@ -1,12 +1,12 @@
 import React, { useContext } from 'react'
-import { SProps, ClientContext } from 'ssr-types'
+import { SProps, IContext } from 'ssr-types'
 import Slider from '@/components/slider'
 import Rectangle from '@/components/rectangle'
 import Search from '@/components/search'
 import { IData } from '@/interface'
 
 export default (props: SProps) => {
-  const { state, dispatch } = useContext<ClientContext<IData>>(window.STORE_CONTEXT)
+  const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT)
   return (
     <div>
       <Search></Search>
