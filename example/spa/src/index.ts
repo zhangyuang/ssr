@@ -10,7 +10,6 @@ interface IFaaSContext extends FaaSContext {
 @provide()
 @func('index.handler')
 export class Index implements FunctionHandler {
-
   @inject()
   ctx: IFaaSContext
 
@@ -20,7 +19,7 @@ export class Index implements FunctionHandler {
   @inject('ApiDetailService')
   apiDeatilservice: IApiDetailService
 
-  async handler () {
+  async handler (): Promise<String> {
     try {
       this.ctx.apiService = this.apiService
       this.ctx.apiDeatilservice = this.apiDeatilservice
@@ -28,7 +27,7 @@ export class Index implements FunctionHandler {
       return htmlStr
     } catch (error) {
       console.log(error)
-      return error
+      return JSON.stringify(error)
     }
   }
 }

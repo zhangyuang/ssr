@@ -40,6 +40,6 @@ aggregation: # 聚合成一个函数发布
       - '*'
 
 package:
-  include:									
+  include:
     - build
   artifact: code.zip

@@ -47,11 +47,10 @@ const parseFeRoutes = async (argv: Argv) => {
     Shell.mkdir(`${cwd}/node_modules/ssr-cache`)
   }
   const folders = await promisifyFsReadDir(pageDir) // 读取web目录
-  const defaultLayout = `${join(feDir, `./components/layout/index.tsx`)}`
+  const defaultLayout = `${join(feDir, './components/layout/index.tsx')}`
   const arr = []
   if (!argv.mpa) {
-    for (const i in folders) {
-      const folder = folders[i]
+    for (const folder of folders) {
       const abFolder = join(pageDir, folder)
       if (fs.statSync(abFolder).isDirectory()) {
         // 读取web下子目录
@@ -60,17 +59,16 @@ const parseFeRoutes = async (argv: Argv) => {
           layout: `require('${defaultLayout}').default`
         }
 
-        for (const j in files) {
-          const file = files[j]
+        for (const file of files) {
           const abFile = join(abFolder, file)
-          if (/render/.test(file)) {
+          if (file.includes('render')) {
             /* /news */
             route.path = folder === 'index' ? '/' : `/${folder}`
             route.component = `require('${abFile}').default`
             debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
           }
 
-          if (/render\$/.test(file)) {
+          if (file.includes('render$')) {
             /* /news/:id */
             route.path = `/${folder}/:${getDynamicParam(file)}`
             route.component = `require('${abFile}').default`

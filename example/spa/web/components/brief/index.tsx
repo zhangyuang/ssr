@@ -1,7 +1,11 @@
 import React from 'react'
+import { BriefDataNode } from '@/interface'
 import styles from './index.less'
 
-function Brief (props) {
+interface Props {
+  data: BriefDataNode[]
+}
+function Brief (props: Props) {
   const data = props.data[0].data
   return (
     <div className={styles['brief-info']}>

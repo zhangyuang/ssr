@@ -1,7 +1,12 @@
 import React from 'react'
+import { RecommendDataNode } from '@/interface'
 import styles from './index.less'
 
-function Recommend (props) {
+interface Props {
+  data: RecommendDataNode[]
+}
+
+function Recommend (props: Props) {
   const data = props.data
   return (
     <div>

@@ -18,8 +18,8 @@ export interface BuildConfig {
   faasPort: number
   chunkName: string
   getOutput: (funcName: string) => {
-    clientOutPut: string;
-    serverOutPut: string;
+    clientOutPut: string
+    serverOutPut: string
   }
   webpackDevServerConfig: webpackDevServer.Configuration
   loadModule: RequireResolve

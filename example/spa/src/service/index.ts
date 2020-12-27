@@ -4,8 +4,7 @@ import mock from '../mock'
 
 @provide('ApiService')
 export class ApiService implements IApiService {
-
-  index (): Promise<any> {
-    return Promise.resolve(mock)
+  async index (): Promise<any> {
+    return await Promise.resolve(mock)
   }
 }

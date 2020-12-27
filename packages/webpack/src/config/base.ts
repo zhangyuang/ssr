@@ -26,31 +26,31 @@ const setStyle = (config: Config, reg: RegExp, options: StyleOptions) => {
         .end()
     })
     .use('MiniCss')
-      .loader(MiniCssExtractPlugin.loader)
+    .loader(MiniCssExtractPlugin.loader)
     .end()
     .use('css-loader')
-      .loader(loadModule('css-loader'))
-      .options({
-        importLoaders: importLoaders,
-        modules: modules,
-        getLocalIdent: getCSSModuleLocalIdent
-      })
+    .loader(loadModule('css-loader'))
+    .options({
+      importLoaders: importLoaders,
+      modules: modules,
+      getLocalIdent: getCSSModuleLocalIdent
+    })
     .end()
     .use('postcss-loader')
-      .loader(loadModule('postcss-loader'))
-      .options({
-        ident: 'postcss',
-        plugins: () => [
-          require('postcss-flexbugs-fixes'),
-          require('postcss-discard-comments'),
-          require('postcss-preset-env')({
-            autoprefixer: {
-              flexbox: 'no-2009'
-            },
-            stage: 3
-          })
-        ]
-      })
+    .loader(loadModule('postcss-loader'))
+    .options({
+      ident: 'postcss',
+      plugins: () => [
+        require('postcss-flexbugs-fixes'),
+        require('postcss-discard-comments'),
+        require('postcss-preset-env')({
+          autoprefixer: {
+            flexbox: 'no-2009'
+          },
+          stage: 3
+        })
+      ]
+    })
     .end()
     .when(Boolean(loader), rule => {
       loader && rule.use(loader)
@@ -66,79 +66,79 @@ const getBaseConfig = () => {
   config
     .resolve
     .modules
-      .add('node_modules')
-      .add(join(getCwd(), './node_modules'))
-      .add(join(__dirname, '../node_modules'))
-      .add(join(__dirname, '../../../node_modules'))
+    .add('node_modules')
+    .add(join(getCwd(), './node_modules'))
+    .add(join(__dirname, '../node_modules'))
+    .add(join(__dirname, '../../../node_modules'))
     .end()
     .extensions.merge(moduleFileExtensions)
     .end()
     .alias
-      .set('@', getFeDir())
-      .set('react',join(getCwd(), './node_modules/react/index.js')) // 用cwd的路径alias，否则可能会出现多个react实例
+    .set('@', getFeDir())
+    .set('react', join(getCwd(), './node_modules/react/index.js')) // 用cwd的路径alias，否则可能会出现多个react实例
     .end()
 
   config.module
-        .rule('images')
-        .test(/\.(png|jpe?g|gif|webp)(\?.*)?$/)
-        .use('url-loader')
-          .loader(loadModule('url-loader'))
-          .options({
-            limit: 10000,
-            name: 'static/[name].[hash:8].[ext]',
-            // require 图片的时候不用加 .default
-            esModule: false,
-            fallback: {
-              loader: loadModule('file-loader'),
-              options: {
-                name: 'static/[name].[hash:8].[ext]',
-                esModule: false
-              }
-            }
-          })
-          .end()
+    .rule('images')
+    .test(/\.(png|jpe?g|gif|webp)(\?.*)?$/)
+    .use('url-loader')
+    .loader(loadModule('url-loader'))
+    .options({
+      limit: 10000,
+      name: 'static/[name].[hash:8].[ext]',
+      // require 图片的时候不用加 .default
+      esModule: false,
+      fallback: {
+        loader: loadModule('file-loader'),
+        options: {
+          name: 'static/[name].[hash:8].[ext]',
+          esModule: false
+        }
+      }
+    })
+    .end()
 
   config.module
-      .rule('compile')
-          .test(/\.(js|mjs|jsx|ts|tsx)$/)
-          .exclude
-              .add(/node_modules/)
-              .end()
-          .use('babel-loader')
-              .loader(loadModule('babel-loader'))
-              .options({
-                cacheDirectory: true,
-                cacheCompression: false,
-                sourceType: 'unambiguous',
-                presets: [
-                  [
-                    loadModule('@babel/preset-env'),
-                    {
+    .rule('compile')
+    .test(/\.(js|mjs|jsx|ts|tsx)$/)
+    .exclude
+    .add(/node_modules/)
+    .end()
+    .use('babel-loader')
+    .loader(loadModule('babel-loader'))
+    .options({
+      cacheDirectory: true,
+      cacheCompression: false,
+      sourceType: 'unambiguous',
+      presets: [
+        [
+          loadModule('@babel/preset-env'),
+          {
 
-                      modules: false
-                      // corejs: 3,
-                      // useBuiltIns: 'usage'
-                    }
-                  ],
-                  [loadModule('babel-preset-react-app'), { flow: false, typescript: true }]
-                ],
-                plugins: [
-                  [loadModule('@babel/plugin-transform-runtime'), {
-                    regenerator: false,
-                    corejs: false,
-                    helpers: true
-                  }],
-                  [
-                    loadModule('babel-plugin-import'),
-                    {
-                      libraryName: 'antd',
-                      libraryDirectory: 'es',
-                      style: 'css'
-                    }
-                  ]
-                ]
-              })
-              .end()
+            modules: false
+            // corejs: 3,
+            // useBuiltIns: 'usage'
+          }
+        ],
+        [loadModule('babel-preset-react-app'), { flow: false, typescript: true }]
+      ],
+      plugins: [
+        [loadModule('@babel/plugin-transform-runtime'), {
+          regenerator: false,
+          corejs: false,
+          helpers: true
+        }],
+        [
+          loadModule('babel-plugin-import'),
+          {
+            libraryName: 'antd',
+            libraryDirectory: 'es',
+            style: 'css'
+          }
+        ]
+      ]
+    })
+    .end()
 
   setStyle(config, /\.css$/, {
     exclude: cssModulesWhiteList,
@@ -160,25 +160,25 @@ const getBaseConfig = () => {
   })
 
   config.module
-        .rule('svg')
-        .test(/\.(svg)(\?.*)?$/)
-        .use('file-loader')
-          .loader(loadModule('file-loader'))
-          .options({
-            name: 'static/[name].[hash:8].[ext]',
-            esModule: false
-          })
-        .end()
+    .rule('svg')
+    .test(/\.(svg)(\?.*)?$/)
+    .use('file-loader')
+    .loader(loadModule('file-loader'))
+    .options({
+      name: 'static/[name].[hash:8].[ext]',
+      esModule: false
+    })
+    .end()
 
   config.module
-        .rule('fonts')
-        .test(/\.(eot|woff|woff2|ttf)(\?.*)?$/)
-        .use('file-loader')
-          .loader(loadModule('file-loader'))
-          .options({
-            name: 'static/[name].[hash:8].[ext]',
-            esModule: false
-          })
+    .rule('fonts')
+    .test(/\.(eot|woff|woff2|ttf)(\?.*)?$/)
+    .use('file-loader')
+    .loader(loadModule('file-loader'))
+    .options({
+      name: 'static/[name].[hash:8].[ext]',
+      esModule: false
+    })
 
   config.plugin('minify-css').use(MiniCssExtractPlugin, [{
     filename: useHash ? 'static/css/[name].[contenthash:8].css' : 'static/css/[name].css',

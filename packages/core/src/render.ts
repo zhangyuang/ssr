@@ -1,3 +1,4 @@
+import { resolve } from 'path'
 import { renderToString } from 'react-dom/server'
 import { getCwd, findRoute, parseYml, parseRoutesFromYml } from 'ssr-server-utils'
 import { IFaaSContext, FaasRouteItem } from 'ssr-types'
@@ -14,7 +15,7 @@ const render = async (ctx: IFaaSContext) => {
   const faasRouteItem = findRoute<FaasRouteItem>(faasRoutes, ctx.req.path)
   const { funcName } = faasRouteItem
 
-  const abFilePath = `${cwd}/build/${funcName}/server/Page.server.js`
+  const abFilePath = resolve(cwd, `./build/${funcName}/server/Page.server.js`)
 
   debug(`render func ${funcName} for ${ctx.req.path} and use ${abFilePath}`)
   if (isLocal) {

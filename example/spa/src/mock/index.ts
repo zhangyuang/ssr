@@ -263,4 +263,5 @@ export default {
         }
       ]
     }
-  ] }
+  ]
+}

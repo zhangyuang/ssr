@@ -4,9 +4,7 @@ const webpackError = (err: any) => {
     if (err.details) {
       console.error(err.details)
     }
-    return
   }
-
 }
 
 export {

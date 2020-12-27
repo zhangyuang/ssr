@@ -4,14 +4,17 @@
     "packages/*"
   ],
   "scripts": {
-    "bootstrap": "yarn",
-    "clean": "rm -rf yarn.lock node_modules packages/**/cjs packages/**/esm && lerna clean",
-    "dev": "lerna run watch:cjs --stream --parallel",
+    "bootstrap": "sh scripts/script.sh -b 1 && yarn run link",
+    "clean": "sh scripts/script.sh -c 1",
+    "dev": "lerna run watch --stream --parallel",
     "build": "lerna run build --stream --parallel",
-    "lint": "tslint -c tslint.json -p ./tsconfig.base.json && standard",
-    "lint:fix": "tslint -c tslint.json -p ./tsconfig.base.json --fix && standard --fix",
+    "lint": "eslint . --ext .js,.ts --cache",
+    "lint:fix": "eslint . --ext .js,.ts --cache --fix",
     "test:unit-watch": "jest --coverage --verbose --watch",
-    "test:unit": "jest --coverage --verbose"
+    "test:unit": "jest --coverage --verbose",
+    "link": "sh scripts/script.sh -l 1",
+    "unlink": "sh scripts/script.sh -u 1",
+    "publish": "lerna version --conventional-commits"
   },
   "repository": {
     "type": "git",
@@ -19,24 +22,6 @@
   },
   "author": "zhangyuang",
   "license": "MIT",
-  "standard": {
-    "parser": "babel-eslint",
-    "ignore": [
-      "**/dist/",
-      "**/run/",
-      "**/log/",
-      "**/cjs/",
-      "**/esm/",
-      "**/node_modules/**",
-      "jest.setup.js"
-    ],
-    "global": [
-      "__isBrowser__",
-      "location",
-      "window",
-      "jest"
-    ]
-  },
   "bugs": {
     "url": "https://github.com/ykfe/ssr/issues"
   },
@@ -49,13 +34,12 @@
   "devDependencies": {
     "@types/jest": "^24.0.18",
     "babel-eslint": "^10.0.2",
+    "concurrently": "^5.3.0",
+    "eslint-config-standard-react-ts": "^1.0.3",
     "husky": "^4.3.0",
     "jest": "^24.9.0",
     "lerna": "^3.20.2",
-    "standard": "^13.0.1",
     "ts-jest": "^24.0.2",
-    "tslint": "^5.17.0",
-    "tslint-config-standard": "^8.0.1",
-    "typescript": "^3.8.0"
+    "typescript": "^3.9.0"
   }
 }

@@ -17,7 +17,7 @@ const readDir = function readDir (dirName: string): string[] {
   try {
     return fs.readdirSync(dirName).map(function (module) {
       if (atPrefix.test(module)) {
-                // reset regexp
+        // reset regexp
         atPrefix.lastIndex = 0
         try {
           return fs.readdirSync(path.join(dirName, module)).map(function (scopedMod) {
@@ -40,27 +40,27 @@ const readFromPackageJson = function readFromPackageJson (options) {
   if (typeof options !== 'object') {
     options = {}
   }
-    // read the file
+  // read the file
   let packageJson
   try {
-    let fileName = options.fileName || 'package.json'
-    let packageJsonString = fs.readFileSync(path.join(process.cwd(), './' + fileName), 'utf8')
+    const fileName = options.fileName || 'package.json'
+    const packageJsonString = fs.readFileSync(path.join(process.cwd(), './' + fileName), 'utf8')
     packageJson = JSON.parse(packageJsonString)
   } catch (e) {
     return []
   }
-    // sections to search in package.json
+  // sections to search in package.json
   let sections = ['dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies']
   if (options.include) {
     sections = [].concat(options.include)
   }
   if (options.exclude) {
     sections = sections.filter(function (section) {
-      return [].concat(options.exclude).indexOf(section) === -1
+      return ![].concat(options.exclude).includes(section)
     })
   }
-    // collect dependencies
-  let deps = {}
+  // collect dependencies
+  const deps = {}
   sections.forEach(function (section) {
     Object.keys(packageJson[section] || {}).forEach(function (dep) {
       deps[dep] = true

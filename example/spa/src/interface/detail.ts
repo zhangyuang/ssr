@@ -1,3 +1,3 @@
 export interface IApiDetailService {
-  index (id: string): Promise<any>
+  index: (id: string) => Promise<any>
 }

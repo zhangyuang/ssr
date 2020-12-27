@@ -8,8 +8,7 @@ import { nodeExternals } from '../plugins/external'
 const { isDev, cwd, getOutput, loadModule, chainServerConfig, whiteList } = buildConfig
 
 const getServerWebpack = (argv: Argv) => {
-  // @ts-ignore
-  const { funcName } = argv.faasRoutes[0]
+  const { funcName } = argv.faasRoutes![0]
   const config = getBaseConfig()
 
   config.devtool(isDev ? 'eval-source-map' : false)
@@ -58,7 +57,7 @@ const getServerWebpack = (argv: Argv) => {
     .end()
 
   config.externals(nodeExternals({
-    whitelist: [/\.(css|less|sass|scss)$/, /ssr\-cache/, /^antd.*?css/].concat(whiteList || []),
+    whitelist: [/\.(css|less|sass|scss)$/, /ssr-cache/, /^antd.*?css/].concat(whiteList || []),
     // externals Dir contains packages/webpack-config/node_modules spa/node_modules ssr/node_modules
     modulesDir: [join(__dirname, '../node_modules'), join(cwd, './node_modules'), join(__dirname, '../../../node_modules')]
   }))

@@ -1,10 +1,11 @@
 
-import React from 'react'
+import React, { useContext } from 'react'
 import serialize from 'serialize-javascript'
-import { LayoutProps } from 'ssr'
+import { LayoutProps } from 'ssr-types'
 import styles from './index.less'
 
 const Layout = (props: LayoutProps) => {
+  const { state, dispatch } = useContext(window.STORE_CONTEXT)
   const { injectCss, injectScript } = props.staticList
   return (
     <html lang='en'>
@@ -19,8 +20,8 @@ const Layout = (props: LayoutProps) => {
       <body className={styles.body}>
         <div id='app'>{ props.children }</div>
         {
-          props.fetchData && <script dangerouslySetInnerHTML={{
-            __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(props.fetchData)}`
+          state && <script dangerouslySetInnerHTML={{
+            __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)}`
           }} />
         }
         { injectScript }

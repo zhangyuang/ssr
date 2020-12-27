@@ -4,7 +4,6 @@ import { IApiService, IApiDetailService } from './interface'
 @provide()
 @func('api.handler')
 export class Api implements FunctionHandler {
-
   @inject()
   ctx: FaaSContext
 
@@ -24,7 +23,6 @@ export class Api implements FunctionHandler {
 @provide()
 @func('api.detail.handler')
 export class ApiDetail implements FunctionHandler {
-
   @inject()
   ctx: FaaSContext
 
