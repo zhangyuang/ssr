@@ -1,8 +1,6 @@
 import { IWindow } from 'ssr-types'
-declare module '*.less' {
-  const resource: {[key: string]: string}
-  export = resource
-}
+
+declare module '*.less'
 
 declare global {
   interface Window {
@@ -10,6 +8,5 @@ declare global {
     __INITIAL_DATA__?: IWindow['__INITIAL_DATA__']
     STORE_CONTEXT?: IWindow['STORE_CONTEXT']
   }
+  const __isBrowser__: Boolean
 }
-
-declare const __isBrowser__: Boolean

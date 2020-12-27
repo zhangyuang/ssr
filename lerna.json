@@ -10,5 +10,10 @@
     "**/*.md",
     "**/*.test.ts",
     "**/*.e2e.ts"
-  ]
+  ],
+  "command": {
+    "version": {
+      "message": "chore(release): publish"
+    }
+  }
 }

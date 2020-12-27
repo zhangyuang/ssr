@@ -1,7 +1,11 @@
 import React, { useState } from 'react'
+import { PlayerDataNode } from '@/interface'
 import styles from './index.less'
 
-function Player (props) {
+interface Props {
+  data: PlayerDataNode[]
+}
+function Player (props: Props) {
   const [play, setPlay] = useState(false)
   const data = props.data[0].data
   return (
@@ -12,7 +16,7 @@ function Player (props) {
               your browser does not support the video tag
           </video>
         </div> : <div className={styles.playerContainer} style={{
-          background: 'url(' + data.img + ')' + '0  0 /cover'
+          background: `url(${data.img}) 0  0 /cover`
         }}>
           <div className={styles.title}>{data.title}</div>
           <img className={styles.ico} src='https://gw.alicdn.com/tfs/TB1eA6FEW61gK0jSZFlXXXDKFXa-135-135.png' onClick={() => setPlay(true)} />

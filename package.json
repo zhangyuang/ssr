@@ -4,7 +4,7 @@
     "packages/*"
   ],
   "scripts": {
-    "bootstrap": "sh scripts/script.sh -b 1",
+    "bootstrap": "sh scripts/script.sh -b 1 && yarn run link",
     "clean": "sh scripts/script.sh -c 1",
     "dev": "lerna run watch --stream --parallel",
     "build": "lerna run build --stream --parallel",
@@ -13,7 +13,8 @@
     "test:unit-watch": "jest --coverage --verbose --watch",
     "test:unit": "jest --coverage --verbose",
     "link": "sh scripts/script.sh -l 1",
-    "unlink": "sh scripts/script.sh -u 1"
+    "unlink": "sh scripts/script.sh -u 1",
+    "publish": "lerna version --conventional-commits"
   },
   "repository": {
     "type": "git",
