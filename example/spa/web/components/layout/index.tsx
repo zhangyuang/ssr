@@ -1,7 +1,7 @@
 
 import React, { useContext } from 'react'
 import serialize from 'serialize-javascript'
-import { LayoutProps } from 'ssr'
+import { LayoutProps } from 'ssr-types'
 import styles from './index.less'
 
 const Layout = (props: LayoutProps) => {

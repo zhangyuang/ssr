@@ -16,17 +16,18 @@ const popStateFn = () => {
 }
 
 function wrapComponent (WrappedComponent: FC) {
-  return withRouter((props) => {
+  return withRouter(props => {
     const { state, dispatch } = useContext(window.STORE_CONTEXT)
     if (!routerChanged) {
-      routerChanged = !window.__USE_SSR__ || props?.history.action === 'PUSH'
+      // routerChanged 为 true 代表已经进行过切换路由的操作，不需要再将 window.__INITIAL_DATA__ 作为 data dispatch
+      routerChanged = !window.__USE_SSR__ || props.history.action === 'PUSH'
     }
     window.addEventListener('popstate', popStateFn)
     useEffect(() => {
       didMount()
     }, [])
     const didMount = async () => {
-      if (props?.history.action !== 'POP' || !window.__USE_SSR__) {
+      if (props.history.action !== 'POP' || !window.__USE_SSR__) {
         await fetch()
       }
     }

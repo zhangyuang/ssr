@@ -6,7 +6,7 @@ export interface IndexData {
   data: ComponentsArr[]
 }
 export interface ComponentsArr {
-  components: ItemMapArr
+  components: ItemMapArr[]
 }
 
 export interface ItemMapArr {

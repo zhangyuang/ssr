@@ -4,16 +4,16 @@
     "packages/*"
   ],
   "scripts": {
-    "bootstrap": "yarn && cd example/spa && yarn",
-    "clean": "rm -rf yarn.lock package-lock.json node_modules example/spa/node_modules packages/**/cjs packages/**/esm && lerna clean",
+    "bootstrap": "sh scripts/script.sh -b 1",
+    "clean": "sh scripts/script.sh -c 1",
     "dev": "lerna run watch --stream --parallel",
     "build": "lerna run build --stream --parallel",
     "lint": "eslint . --ext .js,.ts --cache",
     "lint:fix": "eslint . --ext .js,.ts --cache --fix",
     "test:unit-watch": "jest --coverage --verbose --watch",
     "test:unit": "jest --coverage --verbose",
-    "link": "cd packages/cli && yarn link && cd ../../example/spa && yarn link ssr",
-    "unlink": "cd packages/cli && yarn unlink"
+    "link": "sh scripts/script.sh -l 1",
+    "unlink": "sh scripts/script.sh -u 1"
   },
   "repository": {
     "type": "git",

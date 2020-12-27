@@ -31,7 +31,7 @@
     "deploy:tencent": "ssr deploy --tencent",
     "lint": "eslint . --ext .js,.ts --cache",
     "lint:fix": "eslint . --ext .js,.ts --cache --fix",
-    "type:check": "tsc -p web/tsconfig"
+    "type:check": "tsc -p web/tsconfig.json"
   },
   "midway-integration": {
     "tsCodeRoot": "src"
