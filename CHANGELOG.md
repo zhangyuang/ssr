@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.4](https://github.com/ykfe/ssr/compare/v0.4.2...v0.4.4) (2020-12-28)
+
+
+### Bug Fixes
+
+* ci upload artifacts ([36fa95a](https://github.com/ykfe/ssr/commit/36fa95a78b5b2853d77cc6904e7997365f6a9ca1))
+
+
+
+
+
 ## [0.4.3](https://github.com/ykfe/ssr/compare/v0.4.2...v0.4.3) (2020-12-28)
 
 **Note:** Version bump only for package serverless-side-render
