@@ -76,7 +76,7 @@ jobs:
             node_modules
             */*/node_modules
         key: ${{ runner.os }}-${{ hashFiles('package.json') }}
-     - run: yarn run build:only
+     - run: yarn run build:only && rm -rf packages/**/node_modules
      - name: List packages
        run: ls -R packages
      - name: Upload artifact
