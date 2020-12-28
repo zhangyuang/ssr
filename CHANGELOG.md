@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.5](https://github.com/ykfe/ssr/compare/v0.4.4...v0.4.5) (2020-12-28)
+
+
+### Bug Fixes
+
+* delete node_modules after build:only ([72a2f7a](https://github.com/ykfe/ssr/commit/72a2f7a72ecf20d7655dc7b8681f2713dd67fdf4))
+
+
+
+
+
 ## [0.4.4](https://github.com/ykfe/ssr/compare/v0.4.2...v0.4.4) (2020-12-28)
 
 
