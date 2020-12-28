@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/ykfe/ssr/compare/v1.0.0...v1.0.1) (2020-12-28)
+
+
+### Bug Fixes
+
+* csr mode use context ([724b97b](https://github.com/ykfe/ssr/commit/724b97b3a45b558732dee16606c1f1eea77e6b05))
+
+
+
+
+
 # [1.0.0](https://github.com/ykfe/ssr/compare/v0.4.5...v1.0.0) (2020-12-28)
 
 
