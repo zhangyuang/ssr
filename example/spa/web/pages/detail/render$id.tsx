@@ -12,7 +12,7 @@ export default (props: SProps) => {
     <div>
       <Search></Search>
       {
-        state.detailData?.data[0].dataNode ? <div>
+        state?.detailData?.data[0].dataNode ? <div>
           <Player data={state.detailData.data[0].dataNode as PlayerDataNode[]} />
           <Brief data={state.detailData.data[1].dataNode as BriefDataNode[]} />
           <Recommend data={state.detailData.data[2].dataNode as RecommendDataNode[]} />

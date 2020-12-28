@@ -6,7 +6,7 @@ import styles from './index.less'
 
 const Layout = (props: LayoutProps) => {
   const { state, dispatch } = useContext(window.STORE_CONTEXT)
-  const { injectCss, injectScript } = props.staticList
+  const { injectCss, injectScript } = props.staticList!
   return (
     <html lang='en'>
       <head>

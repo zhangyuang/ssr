@@ -4,7 +4,7 @@ while getopts "l:c:b:u:" opt; do
   case $opt in
     l) # link
       cd packages/cli && yarn link && cd ../types && yarn link \
-      && cd ../../example/spa && yarn link ssr ssr-types && chmod 777 ./node_modules/.bin/ssr
+      && cd ../../example/spa && yarn link ssr ssr-types
       ;;
     u) # unlink
       cd packages/cli && yarn unlink
