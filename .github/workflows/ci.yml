@@ -56,6 +56,26 @@ jobs:
             */*/node_modules
         key: ${{ runner.os }}-${{ hashFiles('package.json') }}
      - run: yarn run lint
+  build-only:
+    needs: lint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [ '12', '13' ]
+    steps:
+     - uses: actions/checkout@v2
+     - name: Setup Node.js
+       uses: actions/setup-node@v1
+       with:
+         node-version: ${{ matrix.node }}
+     - name: Load node_modules
+       uses: actions/cache@v2
+       with:
+        path: |
+            node_modules
+            */*/node_modules
+        key: ${{ runner.os }}-${{ hashFiles('package.json') }}
+     - run: yarn run build:only
 
   publish:
     name: Publish
@@ -64,6 +84,7 @@ jobs:
     needs:
       - lint
       - install
+      - build-only
 
     steps:
       - uses: actions/checkout@v2

@@ -15,7 +15,7 @@ while getopts "l:c:b:u:" opt; do
       packages/**/cjs packages/**/esm && npx lerna clean
       ;;
     b) # bootstrap
-      yarn && cd example/spa && yarn && yarn build
+      yarn && yarn build:only && cd example/spa && yarn
       ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2

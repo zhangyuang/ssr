@@ -8,6 +8,7 @@
     "clean": "sh scripts/script.sh -c 1",
     "dev": "lerna run watch --stream --parallel",
     "build": "lerna run build --stream --parallel",
+    "build:only": "lerna run build:only --stream --parallel",
     "lint": "eslint . --ext .js,.ts --cache",
     "lint:fix": "eslint . --ext .js,.ts --cache --fix",
     "test:unit-watch": "jest --coverage --verbose --watch",
@@ -40,6 +41,7 @@
     "jest": "^24.9.0",
     "lerna": "^3.20.2",
     "ts-jest": "^24.0.2",
+    "tsc-transpile-only": "^0.0.3",
     "typescript": "^3.9.0"
   }
 }
