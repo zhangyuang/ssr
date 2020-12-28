@@ -27,11 +27,10 @@
   "scripts": {
     "start": "ssr start",
     "build": "ssr build",
-    "deploy": "ssr deploy",
-    "deploy:tencent": "ssr deploy --tencent",
+    "deploy": "ssr build && ssr deploy",
+    "deploy:tencent": "ssr build && ssr deploy --tencent",
     "lint": "eslint . --ext .js,.ts --cache",
-    "lint:fix": "eslint . --ext .js,.ts --cache --fix",
-    "type:check": "tsc -p web/tsconfig.json"
+    "lint:fix": "eslint . --ext .js,.ts --cache --fix"
   },
   "midway-integration": {
     "tsCodeRoot": "src"
