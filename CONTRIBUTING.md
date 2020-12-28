@@ -8,7 +8,6 @@ package.json 中已经封装好本地的调试命令
 
 ```bash
 $ yarn run bootstrap
-$ yarn run link
 ```
 
 执行以上命令后 example/spa 中的依赖已经成功 link 到本地的包。若在 example/spa 中执行 `yarn start` 提示 `permisson denied` 请手动通过 chmod 提升文件权限。
