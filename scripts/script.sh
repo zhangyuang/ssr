@@ -12,7 +12,7 @@ while getopts "l:c:b:u:" opt; do
     c) # clean
       rm -rf yarn.lock package-lock.json node_modules \
       example/spa/node_modules example/spa/yarn.lock example/spa/package-lock.json \
-      packages/**/cjs packages/**/esm && npx lerna clean
+      packages/**/cjs packages/**/esm && rm -rf packages/**/node_modules
       ;;
     b) # bootstrap
       yarn && yarn build:only && cd example/spa && yarn
