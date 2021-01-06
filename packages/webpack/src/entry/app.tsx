@@ -1,10 +1,9 @@
 import * as React from 'react'
 import { useReducer } from 'react'
 import { IProps, Action } from 'ssr-types'
-import { clientContext } from './create-context'
+import { clientContext as Context } from './create-context'
 
 // 客户端的 context  只需要创建一次，在页面整个生命周期内共享
-const Context = clientContext
 const initialState = window.__INITIAL_DATA__
 
 window.STORE_CONTEXT = Context
