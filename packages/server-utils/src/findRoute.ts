@@ -66,7 +66,11 @@ function matchPath (pathname, options = {}) {
 function findRoute<T extends {path: string}> (Routes: T[], path: string): T {
   // 根据请求的path来匹配到对应的Component
   const route = Routes.find(route => matchPath(path, route) && matchPath(path, route).isExact)
-  debug(`find route "${path}" and result is: `, route)
+  if (route.mode) {
+    debug(`With path "${path}" find FaasRoute: `, route)
+  } else {
+    debug(`With path "${path}" find FeRoute: `, route)
+  }
   return route
 }
 

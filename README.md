@@ -46,7 +46,7 @@ Serverless 应用开发流程
 | ---------------------------------------------------------------------- | ---- |
 | 最小而美的实现 React 服务端渲染功能                           | 🚀   |
 | 约定式前端路由                            | 🚀   |
-| All in JSX，抛弃传统模版引擎，所有页面渲染有关的部分皆使用 JSX 来编写生成                            | 🚀   |
+| All in JSX，抛弃传统模版引擎，所有部分包括 layout 布局皆使用 JSX 来编写生成                            | 🚀   |
 | 渲染模式切换：服务端渲染一键降级为客户端渲染                            | 🚀   |
 | 统一服务端客户端的数据获取方式                                 | 🚀   |
 | 类型友好，全面拥抱 TS                                | 🚀   |
@@ -212,21 +212,23 @@ $ DEBUG=ssr:render npm start # 打印页面渲染 debug 信息
 
 `注: hooks 只能够在函数组件内部使用`
 
-```js
+```ts
 import { useContext } from 'react'
+import { IContext } from 'ssr-types'
 
-const { state, dispatch } = useContext(window.STORE_CONTEXT)
+const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT) // 通过 IData 指定业务自己的 data interface
 ```
 
-通过 `dispatch action` 来进行全局 `context` 的更新，并通知到所有的组件。  
+通过 `dispatch action` 来触发全局 `context` 的更新，并通知到所有的组件。  
 `注: dispatch 是异步的只能够在客户端渲染的阶段使用，服务端使用无效。context 更新会导致所有组件重新 render 可根据实际情况使用 React.useMemo 来避免不必要的重新计算，且建议根据不同的模块使用不同的 namespace 防止数据覆盖`
+
 
 ```js
 import React, { useContext } from 'react'
 import styles from './index.less'
 
 function Search (props) {
-  const { state, dispatch } = useContext(window.STORE_CONTEXT)
+  const { state, dispatch } = useContext<IContext<SearchState>>(window.STORE_CONTEXT)
   const handleChange = e => {
     dispatch({
       type: 'updateContext',
@@ -252,6 +254,9 @@ export default Search
 
 ```
 
+`注: 我们只推荐在跨组件通信时使用 dispatch，局部状态不推荐使用，会导致函数内部状态过于复杂，难以阅读。`
+
+关于更多 hooks 使用的最佳实践可以参考该[文章](https://zhuanlan.zhihu.com/p/81752821)
 ### 应用类型
 
 我们支持单页面应用(SPA)和多页面应用(MPA)两种常见的应用类型的开发。
@@ -592,7 +597,7 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
 
 ## CONTRIBUTING
 
-Please read the [document](./CONTRIBUTING.md)
+如果你想为本应用贡献代码，请阅读[贡献文档](./CONTRIBUTING.md)，我们为你准备了丰富的脚本用于 bootstrap
 
 ## License
 

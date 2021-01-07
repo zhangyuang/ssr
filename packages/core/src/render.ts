@@ -17,7 +17,7 @@ const render = async (ctx: IFaaSContext) => {
 
   const abFilePath = resolve(cwd, `./build/${funcName}/server/Page.server.js`)
 
-  debug(`render func ${funcName} for ${ctx.req.path} and use ${abFilePath}`)
+  debug(`Render func ${funcName} with ${ctx.req.path} and use ${abFilePath}`)
   if (isLocal) {
     // clear cache in development environment
     delete require.cache[abFilePath]

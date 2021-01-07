@@ -36,7 +36,7 @@ const devManifest = {
   'Page.css': `/static/css/${chunkName}.chunk.css`,
   'Page.js': `/static/js/${chunkName}.chunk.js`,
   'runtime~Page.js': `/static/js/runtime~${chunkName}.js`,
-  'vendor.js': `/static/js/vendor.chunk.js`
+  'vendor.js': '/static/js/vendor.chunk.js'
 }
 
 const clientLogLevel: ClientLogLevel = 'error'
@@ -67,7 +67,6 @@ const getOutput = (funcName: string) => ({
 const cssModulesWhiteList = [/antd/, /swiper/]
 const webpackDevServerConfig: Configuration = Object.assign({
   stats: webpackStatsOption,
-  // @ts-ignore
   disableInfo: true, // 关闭webpack-dev-server 自带的server Info信息
   disableHostCheck: true,
   publicPath: publicPath,
@@ -77,7 +76,6 @@ const webpackDevServerConfig: Configuration = Object.assign({
   hot: true,
   port: port,
   clientLogLevel: clientLogLevel,
-  // @ts-ignore
   progress: true,
   headers: {
     'Access-Control-Allow-Origin': '*',

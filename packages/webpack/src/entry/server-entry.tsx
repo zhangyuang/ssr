@@ -23,12 +23,11 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
 
   const Layout = wrapLayout(routeItem.layout, __isBrowser__)
   const Component = routeItem.component
-
   if (mode !== 'ssr' || ctx.query?.csr) {
-    logGreen(`The path ${ctx.req.path} use csr render mode`)
-    const Context = serverContext(false) // csr 不需要在服务端获取数据
-    window.STORE_CONTEXT = Context
     // 根据 mode 和 query 来决定当前渲染模式
+    logGreen(`The path ${ctx.req.path} use csr render mode`)
+    const Context = serverContext({}) // csr 不需要在服务端获取数据
+    window.STORE_CONTEXT = Context
     return <StaticRouter><Layout ctx={ctx} staticList={staticList} config={buildConfig}></Layout></StaticRouter>
   }
 
