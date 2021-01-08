@@ -15,10 +15,6 @@ const getClientWebpack = (argv: Argv) => {
   // @ts-expect-error
   const { funcName } = argv.faasRoutes[0]
   const config = getBaseConfig()
-  config.resolve.alias
-    .set('react-router', loadModule('react-router'))
-    .set('react-router-dom', loadModule('react-router-dom'))
-
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
 
   config.entry(chunkName)
@@ -40,8 +36,8 @@ const getClientWebpack = (argv: Argv) => {
         vendors: {
           test: (module: any) => {
             return module.resource &&
-            /\.js$/.test(module.resource) &&
-            module.resource.match('node_modules')
+              /\.js$/.test(module.resource) &&
+              module.resource.match('node_modules')
           },
           name: 'vendor'
         }
