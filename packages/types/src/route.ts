@@ -12,6 +12,7 @@ export interface FeRouteItem<T = {}> {
   layout: React.FC<LayoutProps>
   fetch?: Fetch
   component: FC<T>
+  preload?: () => Promise<FC>
 }
 
 export interface FaasRouteItem {

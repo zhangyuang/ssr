@@ -36,6 +36,7 @@
     "babel-plugin-import": "^1.13.0",
     "babel-preset-react-app": "^9.0.2",
     "concurrently": "^5.1.0",
+    "@loadable/component": "^5.14.1",
     "core-js": "^3.6.4",
     "css-hot-loader": "^1.4.4",
     "css-loader": "1.0.0",

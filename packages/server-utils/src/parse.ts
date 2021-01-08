@@ -117,7 +117,7 @@ const parseFeRoutes = async (argv: Argv) => {
         return `"fetch": ${m2.replace(/\^/g, '"')}`
       })
 
-    }`
+      }`
     if (disableDynamic) {
       // 如果禁用路由分割则无需引入 react-loadable
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
