@@ -74,10 +74,12 @@ const getBaseConfig = () => {
     .extensions.merge(moduleFileExtensions)
     .end()
     .alias
-    .set('@', getFeDir())
-    .set('react', join(getCwd(), './node_modules/react/index.js')) // 用cwd的路径alias，否则可能会出现多个react实例
     .end()
-
+  config.resolve.alias
+    .set('@', getFeDir())
+    .set('react', loadModule('react')) // 用cwd的路径alias，否则可能会出现多个react实例
+    .set('react-router', loadModule('react-router'))
+    .set('react-router-dom', loadModule('react-router-dom'))
   config.module
     .rule('images')
     .test(/\.(png|jpe?g|gif|webp)(\?.*)?$/)
