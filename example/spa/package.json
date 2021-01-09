@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@loadable/component": "^5.14.1",
     "@midwayjs/faas": "^1.0.0",
     "@midwayjs/faas-middleware-static-file": "^1.0.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-id-swiper": "^3.0.0",
-    "react-loadable": "^5.5.0",
     "react-router-dom": "^5.1.2",
     "serialize-javascript": "^3.0.0",
     "ssr-core": "^4.0.0",

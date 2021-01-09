@@ -8,7 +8,7 @@ import { serverContext } from './create-context'
 import { buildConfig } from '../config/config'
 
 declare const global: IGlobal
-const { staticPrefix, cssOrder, jsOrder, isDev, port, disableDynamic } = buildConfig
+const { staticPrefix, cssOrder, jsOrder, isDev, port, dynamic } = buildConfig
 const feRoutes: FeRouteItem[] = require('ssr-cache/route')
 
 const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.ReactElement> => {
@@ -17,7 +17,7 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
   const routeItem = findRoute<FeRouteItem<any>>(feRoutes, ctx.req.path)
   const faasRouteItem = findRoute<FaasRouteItem>(options.faasRoutes, ctx.req.path)
   const { funcName, mode } = faasRouteItem
-  if (disableDynamic && routeItem.webpackChunkName) {
+  if (dynamic) {
     cssOrder.push(`${routeItem.webpackChunkName}.css`)
   }
   const staticList = await getStaticList(isDev, port, staticPrefix, funcName, cssOrder, jsOrder)

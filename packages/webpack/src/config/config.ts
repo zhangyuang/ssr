@@ -53,6 +53,8 @@ const webpackStatsOption = {
   entrypoints: false
 }
 
+const dynamic = true
+
 const getOutput = (funcName: string) => ({
   clientOutPut: `${cwd}/build/${funcName}/client`,
   serverOutPut: `${cwd}/build/${funcName}/server`
@@ -107,7 +109,8 @@ const buildConfig: BuildConfig = Object.assign({}, {
   webpackStatsOption,
   staticPrefix,
   whiteList,
-  cssModulesWhiteList
+  cssModulesWhiteList,
+  dynamic
 }, userConfig)
 
 export {

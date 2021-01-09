@@ -588,7 +588,7 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
     host: string;
     match: RegExp;
   },
-  disableDynamic?: boolean // 是否启用代码分割优化代码，默认启用
+  dynamic?: boolean // 是否启用代码分割优化代码，默认为 true
 }
 
 ```

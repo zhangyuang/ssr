@@ -39,7 +39,7 @@ export interface BuildConfig {
   cssModulesWhiteList: RegExp[]
   prefix?: string
   proxy: Proxy
-  disableDynamic?: boolean
+  dynamic?: boolean
 }
 
 export interface StyleOptions {
