@@ -52,7 +52,7 @@ Serverless 应用开发流程
 | 类型友好，全面拥抱 TS                                | 🚀   |
 | 支持无缝接入 [antd](https://github.com/ant-design/ant-design) 无需修改任何配置                             | 🚀   |
 | 支持使用 less 作为 css 预处理器                                                | 🚀   |
-| 实现 SSR 场景下最完美的代码分割方案                      |    🚀  |
+| 实现 SSR 场景下最优秀的代码分割方案                      |    🚀  |
 | 接入 useContext + useReducer 实现极简的[数据管理](#不同页面组件进行数据共享)，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
 | 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
 | ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
