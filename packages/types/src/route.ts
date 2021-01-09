@@ -13,6 +13,7 @@ export interface FeRouteItem<T = {}> {
   fetch?: Fetch
   component: FC<T>
   preload?: () => Promise<FC>
+  webpackChunkName?: string
 }
 
 export interface FaasRouteItem {

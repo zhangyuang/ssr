@@ -7,7 +7,6 @@ import { promisifyFsReadDir } from './promisify'
 import { getCwd, getPagesDir, getFeDir, getUserConfig } from './cwd'
 
 const debug = require('debug')('ssr:parse')
-const disableDynamic = process.env.DISABLEDYNAMIC // 禁用 路由分割
 
 const parseYml = (path: string): Yml => {
   const cwd = getCwd()
@@ -39,7 +38,7 @@ const parseRoutesFromYml = (yamlContent: Yml) => {
 }
 
 const parseFeRoutes = async (argv: Argv) => {
-  const { prefix } = getUserConfig()
+  const { prefix, disableDynamic } = getUserConfig()
   const pageDir = getPagesDir()
   const feDir = getFeDir()
   // 根据目录结构生成前端路由表
@@ -96,7 +95,9 @@ const parseFeRoutes = async (argv: Argv) => {
         if (prefix) {
           route.path = prefix ? `/${prefix}${route.path}` : route.path
         }
-        route.webpackChunkName = folder
+        if (!disableDynamic) {
+          route.webpackChunkName = folder
+        }
         arr.push(route)
       }
     }
@@ -121,12 +122,12 @@ const parseFeRoutes = async (argv: Argv) => {
     if (disableDynamic) {
       // 如果禁用路由分割则无需引入 react-loadable
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
-        return `"component": ${m2.replace(/\^/g, '"')}`
+        return `"component": require('${m2.replace(/\^/g, '"')}').default`
       })
     } else {
       const re = /"webpackChunkName":("(.+?)")/g
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
-        const currentWebpackChunkName = re.exec(routes)[2]
+        const currentWebpackChunkName = re.exec(routes)![2]
         return `"component":  __isBrowser__ ? require('react-loadable')({
         loader: () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}'),
         loading: function Loading () {

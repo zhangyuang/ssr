@@ -1,11 +1,14 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
-import { wrapLayout, FeRouteItem, findRoute, IFaaSContext, FaasRouteItem, Options, getStaticList, logGreen, IGlobal } from 'ssr-server-utils'
+import {
+  wrapLayout, FeRouteItem, findRoute, IFaaSContext,
+  FaasRouteItem, Options, getStaticList, logGreen, IGlobal
+} from 'ssr-server-utils'
 import { serverContext } from './create-context'
 import { buildConfig } from '../config/config'
 
 declare const global: IGlobal
-const { staticPrefix, cssOrder, jsOrder, isDev, devManifest } = buildConfig
+const { staticPrefix, cssOrder, jsOrder, isDev, port, disableDynamic } = buildConfig
 const feRoutes: FeRouteItem[] = require('ssr-cache/route')
 
 const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.ReactElement> => {
@@ -14,8 +17,10 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
   const routeItem = findRoute<FeRouteItem<any>>(feRoutes, ctx.req.path)
   const faasRouteItem = findRoute<FaasRouteItem>(options.faasRoutes, ctx.req.path)
   const { funcName, mode } = faasRouteItem
-
-  const staticList = getStaticList(isDev, devManifest, staticPrefix, funcName, cssOrder, jsOrder)
+  if (disableDynamic && routeItem.webpackChunkName) {
+    cssOrder.push(`${routeItem.webpackChunkName}.css`)
+  }
+  const staticList = await getStaticList(isDev, port, staticPrefix, funcName, cssOrder, jsOrder)
 
   if (!routeItem) {
     throw new Error(`With request url ${ctx.req.path} Component is Not Found`)

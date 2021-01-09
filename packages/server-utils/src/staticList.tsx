@@ -1,12 +1,37 @@
 import { join } from 'path'
 import * as React from 'react'
 import { getCwd } from './cwd'
+import { getPromisify } from './promisify'
 
-const getStaticList = (isDev: boolean, devManifest: any, staticPrefix: string, funcName: string, cssOrder: string[], jsOrder: string[]) => {
+let manifest: any = false
+const getManiFest = async ({
+  port, isDev, funcName
+}: {
+  port: number
+  isDev: boolean
+  funcName: string
+}) => {
+  if (manifest) {
+    return
+  }
   const cwd = getCwd()
-  const manifest = isDev ? devManifest : require(join(cwd, `./build/${funcName}/client/asset-manifest.json`))
-  const injectCss = cssOrder.map(css => `${staticPrefix}${isDev ? '' : `/${funcName}/client`}${manifest[css]}`).map(item => <link rel='stylesheet' key={item} href={item} />)
-  const injectScript = jsOrder.map(js => `${staticPrefix}${isDev ? '' : `/${funcName}/client`}${manifest[js]}`).map(item => <script key={item} src={item} />)
+  if (isDev) {
+    manifest = await getPromisify(`http://localhost:${port}/asset-manifest.json`)
+  } else {
+    manifest = require(join(cwd, `./build/${funcName}/client/asset-manifest.json`))
+  }
+}
+const getStaticList = async (isDev: boolean, port: number, staticPrefix: string, funcName: string, cssOrder: string[], jsOrder: string[]) => {
+  await getManiFest({
+    port,
+    isDev,
+    funcName
+  })
+
+  const injectCss = cssOrder.map(css => `${staticPrefix}${isDev ? '' : `/${funcName}/client`}${manifest[css]}`)
+    .map(item => <link rel='stylesheet' key={item} href={item} />)
+  const injectScript = jsOrder.map(js => `${staticPrefix}${isDev ? '' : `/${funcName}/client`}${manifest[js]}`)
+    .map(item => <script key={item} src={item} />)
   return {
     injectCss,
     injectScript
