@@ -7,9 +7,9 @@ import {
 import { serverContext } from './create-context'
 import { buildConfig } from '../config/config'
 
-declare const global: IGlobal
 const { staticPrefix, cssOrder, jsOrder, isDev, port, dynamic } = buildConfig
 const feRoutes: FeRouteItem[] = require('ssr-cache/route')
+declare const global: IGlobal
 
 const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.ReactElement> => {
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
