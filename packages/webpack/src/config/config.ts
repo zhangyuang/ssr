@@ -32,13 +32,6 @@ const host = '0.0.0.0'
 
 const chunkName = userConfig.chunkName || 'Page'
 
-const devManifest = {
-  'Page.css': `/static/css/${chunkName}.chunk.css`,
-  'Page.js': `/static/js/${chunkName}.chunk.js`,
-  'runtime~Page.js': `/static/js/runtime~${chunkName}.js`,
-  'vendor.js': '/static/js/vendor.chunk.js'
-}
-
 const clientLogLevel: ClientLogLevel = 'error'
 
 const useHash = !isDev // 生产环境默认生成hash
@@ -59,6 +52,8 @@ const webpackStatsOption = {
   warnings: false,
   entrypoints: false
 }
+
+const dynamic = true
 
 const getOutput = (funcName: string) => ({
   clientOutPut: `${cwd}/build/${funcName}/client`,
@@ -111,11 +106,11 @@ const buildConfig: BuildConfig = Object.assign({}, {
   cssOrder,
   getOutput,
   loadModule,
-  devManifest,
   webpackStatsOption,
   staticPrefix,
   whiteList,
-  cssModulesWhiteList
+  cssModulesWhiteList,
+  dynamic
 }, userConfig)
 
 export {

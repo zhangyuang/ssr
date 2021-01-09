@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { wrapComponent, wrapLayout, FeRouteItem } from 'ssr-client-utils'
+import { wrapComponent, wrapLayout, FeRouteItem, preloadComponent } from 'ssr-client-utils'
 import { App } from './app'
 
 declare const module: any
@@ -10,13 +10,14 @@ const feRoutes: FeRouteItem[] = require('ssr-cache/route')
 
 const clientRender = async (): Promise<void> => {
   // 客户端渲染||hydrate
+  const routes = await preloadComponent(feRoutes)
   ReactDOM[window.__USE_SSR__ ? 'hydrate' : 'render'](
     <BrowserRouter>
       <App>
         <Switch>
           {
-          // 使用高阶组件wrapComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
-            feRoutes.map((item: FeRouteItem) => {
+            // 使用高阶组件wrapComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
+            routes.map((item: FeRouteItem) => {
               const { fetch, layout, component, path } = item
               const Layout = wrapLayout(layout, __isBrowser__)
               component.fetch = fetch

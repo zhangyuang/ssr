@@ -26,7 +26,6 @@ export interface BuildConfig {
   cssOrder: string[]
   jsOrder: string[]
   staticPrefix: string
-  devManifest: any
   chainServerConfig: (config: Config) => Configuration
   chainClientConfig: (config: Config) => Configuration
   webpackStatsOption: Options.Stats
@@ -37,6 +36,7 @@ export interface BuildConfig {
   cssModulesWhiteList: RegExp[]
   prefix?: string
   proxy: Proxy
+  dynamic?: boolean
 }
 
 export interface StyleOptions {

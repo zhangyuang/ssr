@@ -38,7 +38,7 @@ const parseRoutesFromYml = (yamlContent: Yml) => {
 }
 
 const parseFeRoutes = async (argv: Argv) => {
-  const { prefix } = getUserConfig()
+  const { prefix, dynamic } = getUserConfig()
   const pageDir = getPagesDir()
   const feDir = getFeDir()
   // 根据目录结构生成前端路由表
@@ -58,27 +58,26 @@ const parseFeRoutes = async (argv: Argv) => {
         const route: any = {
           layout: `require('${defaultLayout}').default`
         }
-
         for (const file of files) {
           const abFile = join(abFolder, file)
           if (file.includes('render')) {
             /* /news */
             route.path = folder === 'index' ? '/' : `/${folder}`
-            route.component = `require('${abFile}').default`
+            route.component = `${abFile}`
             debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
           }
 
           if (file.includes('render$')) {
             /* /news/:id */
             route.path = `/${folder}/:${getDynamicParam(file)}`
-            route.component = `require('${abFile}').default`
+            route.component = `${abFile}`
             debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
           }
 
           if (/render\$[\s\S]+\$/.test(file)) {
             /* /news:id? */
             route.path = `/${folder}/:${getDynamicParam(file)}?`
-            route.component = `require('${abFile}').default`
+            route.component = `${abFile}`
             debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
           }
 
@@ -96,6 +95,9 @@ const parseFeRoutes = async (argv: Argv) => {
         if (prefix) {
           route.path = prefix ? `/${prefix}${route.path}` : route.path
         }
+        if (dynamic !== false) {
+          route.webpackChunkName = folder
+        }
         arr.push(route)
       }
     }
@@ -106,19 +108,35 @@ const parseFeRoutes = async (argv: Argv) => {
       fetch: fs.existsSync(join(pageDir, './fetch.ts')) && `require('${join(pageDir, './fetch.ts')}').default`,
       component: `require('${join(pageDir, './render.tsx')}').default`
     })
+
     debug('The result that parse web folder to routes is: ', arr)
-    fs.writeFileSync(`${cwd}/node_modules/ssr-cache/route.js`, `module.exports =${JSON.stringify(arr)
+    let routes = `module.exports =${JSON.stringify(arr)
       .replace(/"layout":("(.+?)")/g, (global, m1, m2) => {
         return `"layout": ${m2.replace(/\^/g, '"')}`
       })
       .replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
         return `"fetch": ${m2.replace(/\^/g, '"')}`
       })
-      .replace(/"component":("(.+?)")/g, (global, m1, m2) => {
-        return `"component": ${m2.replace(/\^/g, '"')}`
-      })
+
       }`
-    )
+    if (dynamic === false) {
+      // 如果禁用路由分割则无需引入 react-loadable
+      routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
+        return `"component": require('${m2.replace(/\^/g, '"')}').default`
+      })
+    } else {
+      const re = /"webpackChunkName":("(.+?)")/g
+      routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
+        const currentWebpackChunkName = re.exec(routes)![2]
+        return `"component":  __isBrowser__ ? require('react-loadable')({
+        loader: () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}'),
+        loading: function Loading () {
+          return require('React').createElement('div')
+        }
+      }) : require('${m2.replace(/\^/g, '"')}').default`
+      })
+    }
+    fs.writeFileSync(`${cwd}/node_modules/ssr-cache/route.js`, routes)
   } else {
     // todo mpa
 

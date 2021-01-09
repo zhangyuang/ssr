@@ -11,7 +11,7 @@
     "react-router-dom": "^5.1.2",
     "serialize-javascript": "^3.0.0",
     "ssr-core": "^4.0.0",
-    "ssr-types":"^4.0.0",
+    "ssr-types": "^4.0.0",
     "swiper": "^5.3.8"
   },
   "devDependencies": {
