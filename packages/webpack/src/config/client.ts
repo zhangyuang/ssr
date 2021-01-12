@@ -14,6 +14,7 @@ const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const getClientWebpack = (argv: Argv) => {
   // @ts-expect-error
   const { funcName } = argv.faasRoutes[0]
+  const truePublicPath = isDev ? publicPath : `/${funcName}/client${publicPath}`
   const config = getBaseConfig()
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
 
@@ -24,7 +25,7 @@ const getClientWebpack = (argv: Argv) => {
     .path(getOutput(funcName).clientOutPut)
     .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
     .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js')
-    .publicPath(publicPath)
+    .publicPath(truePublicPath)
     .end()
 
   config.optimization
@@ -91,7 +92,7 @@ const getClientWebpack = (argv: Argv) => {
 
   config.plugin('manifest').use(loadModule('webpack-manifest-plugin'), [{
     fileName: 'asset-manifest.json',
-    publicPath: isDev ? publicPath : `/${funcName}/client${publicPath}`
+    publicPath: truePublicPath
   }])
 
   config.when(generateAnalysis, config => {
