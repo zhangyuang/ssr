@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.2.1](https://github.com/ykfe/ssr/compare/v4.2.0...v4.2.1) (2021-01-12)
+
+
+### Bug Fixes
+
+* update output.publicPath ([ef97d07](https://github.com/ykfe/ssr/commit/ef97d07139053768dd3f9949e2d3571c8a7eaad8))
+
+
+
+
+
 # [4.2.0](https://github.com/ykfe/ssr/compare/v4.1.0...v4.2.0) (2021-01-12)
 
 **Note:** Version bump only for package ssr-webpack
