@@ -5,7 +5,7 @@ import { ItemMapArr } from '@/interface'
 import 'swiper/css/swiper.css'
 import styles from './index.less'
 
-interface Props extends SProps{
+interface Props extends SProps {
   data: ItemMapArr[]
 }
 
@@ -28,7 +28,7 @@ function Slider (props: Props) {
               <img src={val.img} className={styles.carouselImg} />
               <div className={styles.sliderDescContainer}>
                 <span className={styles.sliderTitle}>
-                  { val.title }
+                  {val.title}
                 </span>
               </div>
             </div>

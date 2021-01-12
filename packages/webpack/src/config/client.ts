@@ -91,7 +91,7 @@ const getClientWebpack = (argv: Argv) => {
 
   config.plugin('manifest').use(loadModule('webpack-manifest-plugin'), [{
     fileName: 'asset-manifest.json',
-    publicPath: publicPath
+    publicPath: isDev ? publicPath : `/${funcName}/client${publicPath}`
   }])
 
   config.when(generateAnalysis, config => {

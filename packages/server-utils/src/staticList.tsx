@@ -28,9 +28,9 @@ const getStaticList = async (isDev: boolean, port: number, staticPrefix: string,
     funcName
   })
 
-  const injectCss = cssOrder.map(css => `${staticPrefix}${isDev ? '' : `/${funcName}/client`}${manifest[css]}`)
+  const injectCss = cssOrder.map(css => `${staticPrefix}${manifest[css]}`)
     .map(item => <link rel='stylesheet' key={item} href={item} />)
-  const injectScript = jsOrder.map(js => `${staticPrefix}${isDev ? '' : `/${funcName}/client`}${manifest[js]}`)
+  const injectScript = jsOrder.map(js => `${staticPrefix}${manifest[js]}`)
     .map(item => <script key={item} src={item} />)
   return {
     injectCss,
