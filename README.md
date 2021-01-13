@@ -155,7 +155,15 @@ $ npm run dploy:tencent # 发布到腾讯云 等价于 ssr deploy --tencent
 默认发布到测试环境, 这里建议在第一次发布后显示在 yml 中指定要发布的[serviceID](https://www.yuque.com/midwayjs/faas/deploy_tencent_faq), 否则每次发布将会创建一个新的 server 实例。  
 在腾讯云[API](https://console.cloud.tencent.com/apigateway/service-detail)网关平台进行域名的绑定以及函数发布到正式环境的操作  
 在腾讯云[SCF](https://console.cloud.tencent.com/scf)平台可以进行函数的管理调试以及日志查看
-
+如何复用 serviceId 如下
+```yml
+service:
+  name: serverless-ssr-spa
+provider:
+  name: aliyun # 无需修改 name 通过 ssr deploy --tencent 指定腾讯云即可
+  region: ap-hongkong
+  serviceId: service-xxx
+```
 #### 绑定域名
 
 在发布到腾讯云时 midway-faas 支持通过 [provider.region](https://www.yuque.com/midwayjs/faas/serverless_yml) 来设置发布的服务器区域。  

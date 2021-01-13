@@ -1,6 +1,28 @@
-# Serverless for Developer
+<h1 align="center">SSR</h1>
+<div align="center">
+  <img src="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg" width="300" />
+</div>
+<br />
+<div align="center">
+  <strong>A future-oriented ssr framework based on midway-faas that implemented serverless-side render specification for faas.</strong>
+</div>
+<br />
+<a href="https://github.com/ykfe/ssr/actions"><img src="https://github.com/ykfe/ssr/workflows/CI/badge.svg" alt="githubActions"></a>
+<a href="https://npmcharts.com/compare/ssr-core"><img src="https://img.shields.io/npm/dt/ssr-core" alt="download"></a>
+<a href="https://standardjs.com"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="standardjs"></a>
+<a href="https://github.com/ykfe/ssr"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
+<a href="https://github.com/ykfe/ssr"><img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node"></a>
 
-[官方文档](https://github.com/ykfe/ssr)
+ssr is serverless-side render specification implementation. focus on developer experience, easy debug and no over-engineering.
+
+features
+
+- minimal：build bundle size is smaller than nextjs
+- full feature：write once，generate SSR/CSR bundle, tranfer ssr to csr mode seamless degradation
+- support multi‑cloud：based on [midway-faas](https://github.com/midwayjs/midway) framework，can be deployed to any serverless plateform
+
+
+## Serverless for Developer
 
 > Serverless 解放了端开发者（不仅仅是 Web 开发者）的生产力，让端开发者可以更快、更好、更灵活地开发各种端上应用，不需要投入太多精力关注于后端服务的实现。”
 
@@ -24,12 +46,14 @@ Serverless 应用开发流程
 | ---------------------------------------------------------------------- | ---- |
 | 最小而美的实现 React 服务端渲染功能                           | 🚀   |
 | 约定式前端路由                            | 🚀   |
+| All in JSX，抛弃传统模版引擎，所有部分包括 layout 布局皆使用 JSX 来编写生成                            | 🚀   |
 | 渲染模式切换：服务端渲染一键降级为客户端渲染                            | 🚀   |
 | 统一服务端客户端的数据获取方式                                 | 🚀   |
 | 类型友好，全面拥抱 TS                                | 🚀   |
 | 支持无缝接入 [antd](https://github.com/ant-design/ant-design) 无需修改任何配置                             | 🚀   |
 | 支持使用 less 作为 css 预处理器                                                | 🚀   |
-| 接入 useContext + useReducer 实现极简的数据管理，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
+| 实现 SSR 场景下[最优秀的代码分割方案](https://zhuanlan.zhihu.com/p/343743374)                  |    🚀  |
+| 接入 useContext + useReducer 实现极简的[数据管理](#不同页面组件进行数据共享)，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
 | 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
 | ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
 | ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀   |
@@ -86,6 +110,7 @@ $ open http://localhost:3000
 
 ```bash
 $ npm run build # 等价于 ssr build
+$ GENERATE_ANALYSIS=true npm run build # 可视化生成构建产物
 $ npm run build --func=index # 对指定函数进行构建(支持中)
 ```
 
@@ -127,10 +152,18 @@ $ npm run dploy:tencent # 发布到腾讯云 等价于 ssr deploy --tencent
 如果想详细的了解腾讯云发布功能可参考[文档](https://www.yuque.com/midwayjs/faas/deploy_tencent_faq)
 发布后同样我们可以得到平台返回的一个地址, 需要绑定域名后才能正确的访问页面渲染服务。否则由于访问 /test 路径造成服务端路由和客户端路由不一致会导致页面内容闪现后白屏。  
 ![](https://res.wx.qq.com/op_res/mbNMsqF_px3tS0x_x1fryyR3Z5RipX3Lo8PIzvcAVxyXwoQyvQz0lQev-W2io3AP)
-默认发布到测试环境, 这里建议在第一次发布后显示在 yml 中指定要发布的serviceID, 否则每次发布将会创建一个新的 server 实例。  
+默认发布到测试环境, 这里建议在第一次发布后显示在 yml 中指定要发布的[serviceID](https://www.yuque.com/midwayjs/faas/deploy_tencent_faq), 否则每次发布将会创建一个新的 server 实例。  
 在腾讯云[API](https://console.cloud.tencent.com/apigateway/service-detail)网关平台进行域名的绑定以及函数发布到正式环境的操作  
 在腾讯云[SCF](https://console.cloud.tencent.com/scf)平台可以进行函数的管理调试以及日志查看
-
+如何复用 serviceId 如下
+```yml
+service:
+  name: serverless-ssr-spa
+provider:
+  name: aliyun # 无需修改 name 通过 ssr deploy --tencent 指定腾讯云即可
+  region: ap-hongkong
+  serviceId: service-xxx
+```
 #### 绑定域名
 
 在发布到腾讯云时 midway-faas 支持通过 [provider.region](https://www.yuque.com/midwayjs/faas/serverless_yml) 来设置发布的服务器区域。  
@@ -188,21 +221,23 @@ $ DEBUG=ssr:render npm start # 打印页面渲染 debug 信息
 
 `注: hooks 只能够在函数组件内部使用`
 
-```js
+```ts
 import { useContext } from 'react'
+import { IContext } from 'ssr-types'
 
-const { state, dispatch } = useContext(window.STORE_CONTEXT)
+const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT) // 通过 IData 指定业务自己的 data interface
 ```
 
-通过 `dispatch action` 来进行全局 `context` 的更新，并通知到所有的组件。  
+通过 `dispatch action` 来触发全局 `context` 的更新，并通知到所有的组件。  
 `注: dispatch 是异步的只能够在客户端渲染的阶段使用，服务端使用无效。context 更新会导致所有组件重新 render 可根据实际情况使用 React.useMemo 来避免不必要的重新计算，且建议根据不同的模块使用不同的 namespace 防止数据覆盖`
+
 
 ```js
 import React, { useContext } from 'react'
 import styles from './index.less'
 
 function Search (props) {
-  const { state, dispatch } = useContext(window.STORE_CONTEXT)
+  const { state, dispatch } = useContext<IContext<SearchState>>(window.STORE_CONTEXT)
   const handleChange = e => {
     dispatch({
       type: 'updateContext',
@@ -228,6 +263,9 @@ export default Search
 
 ```
 
+`注: 我们只推荐在跨组件通信时使用 dispatch，局部状态不推荐使用，会导致函数内部状态过于复杂，难以阅读。`
+
+关于更多 hooks 使用的最佳实践可以参考该[文章](https://zhuanlan.zhihu.com/p/81752821)
 ### 应用类型
 
 我们支持单页面应用(SPA)和多页面应用(MPA)两种常见的应用类型的开发。
@@ -557,7 +595,8 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
     // 可用于本地proxy api接口调试，使用方式查看koa-proxy文档
     host: string;
     match: RegExp;
-  }
+  },
+  dynamic?: boolean // 是否启用代码分割优化代码，默认为 true
 }
 
 ```
@@ -568,7 +607,7 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
 
 ## CONTRIBUTING
 
-Please read the [document](./CONTRIBUTING.md)
+如果你想为本应用贡献代码，请阅读[贡献文档](./CONTRIBUTING.md)，我们为你准备了丰富的脚本用于 bootstrap
 
 ## License
 

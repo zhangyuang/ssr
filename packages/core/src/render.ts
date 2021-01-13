@@ -10,7 +10,6 @@ const faasRoutes = parseRoutesFromYml(ymlContent)
 
 const render = async (ctx: IFaaSContext) => {
   const cwd = getCwd()
-  const isLocal = process.env.NODE_ENV === 'development' || ctx.env === 'local' // 标志非正式环境
 
   const faasRouteItem = findRoute<FaasRouteItem>(faasRoutes, ctx.req.path)
   const { funcName } = faasRouteItem
@@ -18,7 +17,7 @@ const render = async (ctx: IFaaSContext) => {
   const abFilePath = resolve(cwd, `./build/${funcName}/server/Page.server.js`)
 
   debug(`Render func ${funcName} with ${ctx.req.path} and use ${abFilePath}`)
-  if (isLocal) {
+  if (isDev) {
     // clear cache in development environment
     delete require.cache[abFilePath]
   }
