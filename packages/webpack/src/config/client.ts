@@ -12,8 +12,11 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 
 const getClientWebpack = (argv: Argv) => {
-  // @ts-expect-error
-  const { funcName } = argv.faasRoutes[0]
+  const route = argv.faasRoutes?.find(route => !!route.mode)
+  if (!route) {
+    throw new Error('f.yml missing mode field')
+  }
+  const { funcName } = route
   const truePublicPath = isDev ? publicPath : `/${funcName}/client${publicPath}`
   const config = getBaseConfig()
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))

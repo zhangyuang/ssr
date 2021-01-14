@@ -8,7 +8,11 @@ import { nodeExternals } from '../plugins/external'
 const { isDev, cwd, getOutput, loadModule, chainServerConfig, whiteList } = buildConfig
 
 const getServerWebpack = (argv: Argv) => {
-  const { funcName } = argv.faasRoutes![0]
+  const route = argv.faasRoutes?.find(route => !!route.mode)
+  if (!route) {
+    throw new Error('f.yml missing mode field')
+  }
+  const { funcName } = route
   const config = getBaseConfig()
 
   config.devtool(isDev ? 'eval-source-map' : false)

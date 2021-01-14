@@ -1,6 +1,5 @@
 import { Configuration, Options } from 'webpack'
 import * as Config from 'webpack-chain'
-import * as webpackDevServer from 'webpack-dev-server'
 
 export interface Proxy {
   host: string
@@ -21,7 +20,7 @@ export interface BuildConfig {
     clientOutPut: string
     serverOutPut: string
   }
-  webpackDevServerConfig: webpackDevServer.Configuration
+  webpackDevServerConfig: any
   loadModule: RequireResolve
   cssOrder: string[]
   jsOrder: string[]
