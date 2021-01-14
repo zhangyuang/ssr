@@ -3,21 +3,42 @@ import * as Koa from 'koa'
 import { logGreen, getCwd } from 'ssr-server-utils'
 import { buildConfig } from '../config'
 
-const kProxy = require('koa-proxy')
+const { createProxyMiddleware } = require('http-proxy-middleware')
+const koaConnect = require('koa2-connect')
+
 const { port, faasPort, cloudIDE, proxy } = buildConfig
 
 const app = new Koa()
+const cwd = getCwd()
+function onProxyReq (proxyReq: any, req: Koa.Request) {
+  Object.keys(req.headers).forEach(function (key) {
+    proxyReq.setHeader(key, req.headers[key])
+  })
+}
+const remoteStaticServerOptions = {
+  target: `http://127.0.0.1:${port}`,
+  changeOrigin: true,
+  secure: false,
+  onProxyReq
+}
+const proxyPathMap = {
+  '/static': remoteStaticServerOptions,
+  '/sockjs-node': remoteStaticServerOptions,
+  '/*.hot-update.js(on)?': remoteStaticServerOptions,
+  '/__webpack_dev_server__': remoteStaticServerOptions,
+  '/asset-manifest': remoteStaticServerOptions
+}
+type Path = '/static' | '/sockjs-node' | '/*.hot-update.js(on)?' | '/__webpack_dev_server__' | '/asset-manifest'
 
 const startFaasServer = () => {
-  const cwd = getCwd()
-  app.use(kProxy({
-    host: `http://127.0.0.1:${port}`, // 本地开发的时候代理前端打包出来的资源地址
-    match: /(\/static)|(\/sockjs-node)|hot-update|__webpack_dev_server__|asset-manifest/
-  }))
+  for (const path in proxyPathMap) {
+    const options = proxyPathMap[path as Path]
+    app.use(koaConnect(createProxyMiddleware(path, options)))
+  }
 
   if (proxy) {
     // custom proxy
-    app.use(kProxy(proxy))
+    app.use(koaConnect(createProxyMiddleware(proxy)))
   }
 
   app.use(useKoaDevPack({

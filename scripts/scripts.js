@@ -5,7 +5,7 @@ const options = {
   stdio: 'inherit'
 }
 if (process.argv.includes('--bootstrap')) {
-  execSync('npx concurrently "yarn && yarn build:only" "cd example/spa && yarn"', options)
+  execSync('npx concurrently "yarn build:only" "cd example/spa && yarn"', options)
 }
 if (process.argv.includes('--clean')) {
   execSync('npx concurrently "rimraf yarn.lock package-lock.json node_modules" "rimraf example/spa/node_modules example/spa/yarn.lock example/spa/package-lock.json" "rimraf packages/**/cjs packages/**/esm packages/**/node_modules"', options)

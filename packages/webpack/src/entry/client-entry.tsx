@@ -6,7 +6,7 @@ import { App } from './app'
 
 declare const module: any
 
-const feRoutes: FeRouteItem[] = require('ssr-cache/route')
+const feRoutes: FeRouteItem[] = require('ssr-temporary-routes/route')
 
 const clientRender = async (): Promise<void> => {
   // 客户端渲染||hydrate

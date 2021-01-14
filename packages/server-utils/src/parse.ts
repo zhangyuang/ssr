@@ -43,8 +43,8 @@ const parseFeRoutes = async (argv: Argv) => {
   const feDir = getFeDir()
   // 根据目录结构生成前端路由表
   const cwd = getCwd()
-  if (!fs.existsSync(join(cwd, './node_modules/ssr-cache'))) {
-    Shell.mkdir(`${cwd}/node_modules/ssr-cache`)
+  if (!fs.existsSync(join(cwd, './node_modules/ssr-temporary-routes'))) {
+    Shell.mkdir(`${cwd}/node_modules/ssr-temporary-routes`)
   }
   const folders = await promisifyFsReadDir(pageDir) // 读取web目录
   const defaultLayout = `${join(feDir, './components/layout/index.tsx')}`
@@ -136,7 +136,7 @@ const parseFeRoutes = async (argv: Argv) => {
       }) : require('${m2.replace(/\^/g, '"')}').default`
       })
     }
-    fs.writeFileSync(`${cwd}/node_modules/ssr-cache/route.js`, routes)
+    fs.writeFileSync(`${cwd}/node_modules/ssr-temporary-routes/route.js`, routes)
   } else {
     // todo mpa
 

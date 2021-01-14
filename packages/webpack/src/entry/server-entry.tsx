@@ -8,7 +8,7 @@ import { serverContext } from './create-context'
 import { buildConfig } from '../config/config'
 
 const { staticPrefix, cssOrder, jsOrder, isDev, port, dynamic } = buildConfig
-const feRoutes: FeRouteItem[] = require('ssr-cache/route')
+const feRoutes: FeRouteItem[] = require('ssr-temporary-routes/route')
 declare const global: IGlobal
 
 const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.ReactElement> => {

@@ -1,5 +1,4 @@
 import { getCwd, getUserConfig, BuildConfig } from 'ssr-server-utils'
-import { Configuration } from 'webpack-dev-server'
 
 const userConfig = getUserConfig()
 const cwd = getCwd()
@@ -60,7 +59,7 @@ const getOutput = (funcName: string) => ({
   serverOutPut: `${cwd}/build/${funcName}/server`
 })
 const cssModulesWhiteList = [/antd/, /swiper/]
-const webpackDevServerConfig: Configuration = Object.assign({
+const webpackDevServerConfig = Object.assign({
   stats: webpackStatsOption,
   disableInfo: true, // 关闭webpack-dev-server 自带的server Info信息
   disableHostCheck: true,

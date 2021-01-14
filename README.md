@@ -592,9 +592,10 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
   cssModulesWhiteList: RegExp[]; // 设置该选项指定样式文件不用 css-modules 处理，防止样式和 className 不匹配
   prefix: string; // 为前端路由添加统一的prefix, 如 /${prefix}/, /${prefix}/detail/:id
   proxy: {
-    // 可用于本地proxy api接口调试，使用方式查看koa-proxy文档
-    host: string;
-    match: RegExp;
+    // 底层使用 http-proxy-middleware 来进行代理, 具体配置查看 http-proxy-middleware 文档即可
+   '/api': {
+      target: 'xxx'
+   }
   },
   dynamic?: boolean // 是否启用代码分割优化代码，默认为 true
 }

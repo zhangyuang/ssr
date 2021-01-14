@@ -4,6 +4,7 @@
     "packages/*"
   ],
   "scripts": {
+    "postinstall": "yarn bootstrap",
     "bootstrap": "node scripts/scripts.js --bootstrap && yarn run link",
     "clean": "node scripts/scripts.js --clean",
     "dev": "lerna run watch --stream --parallel",

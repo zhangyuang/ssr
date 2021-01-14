@@ -12,7 +12,7 @@ function Rectangle (props) {
             <div className={styles.pbbItemContainer} key={val.img} onClick={() => props.history.push('/detail/cbba934b14f747049187')}>
               <div className={styles.pbbDescContainer}>
                 <div className={styles.defaultItemBg} style={{
-                  background: 'url(' + imgUrl + ')' + '0  0 /cover'
+                  background: `url('${imgUrl}') 0  0 /cover`
                 }} />
                 <div className={`${styles.pName} ${styles.pbbName}`} >
                   { val.title }
