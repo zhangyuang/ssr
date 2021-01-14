@@ -46,12 +46,14 @@ Serverless 应用开发流程
 | ---------------------------------------------------------------------- | ---- |
 | 最小而美的实现 React 服务端渲染功能                           | 🚀   |
 | 约定式前端路由                            | 🚀   |
+| All in JSX，抛弃传统模版引擎，所有部分包括 layout 布局皆使用 JSX 来编写生成                            | 🚀   |
 | 渲染模式切换：服务端渲染一键降级为客户端渲染                            | 🚀   |
 | 统一服务端客户端的数据获取方式                                 | 🚀   |
 | 类型友好，全面拥抱 TS                                | 🚀   |
 | 支持无缝接入 [antd](https://github.com/ant-design/ant-design) 无需修改任何配置                             | 🚀   |
 | 支持使用 less 作为 css 预处理器                                                | 🚀   |
-| 接入 useContext + useReducer 实现极简的数据管理，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
+| 实现 SSR 场景下[最优秀的代码分割方案](https://zhuanlan.zhihu.com/p/343743374)                  |    🚀  |
+| 接入 useContext + useReducer 实现极简的[数据管理](#不同页面组件进行数据共享)，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
 | 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
 | ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
 | ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀   |
@@ -108,6 +110,7 @@ $ open http://localhost:3000
 
 ```bash
 $ npm run build # 等价于 ssr build
+$ GENERATE_ANALYSIS=true npm run build # 可视化生成构建产物
 $ npm run build --func=index # 对指定函数进行构建(支持中)
 ```
 
@@ -149,10 +152,18 @@ $ npm run dploy:tencent # 发布到腾讯云 等价于 ssr deploy --tencent
 如果想详细的了解腾讯云发布功能可参考[文档](https://www.yuque.com/midwayjs/faas/deploy_tencent_faq)
 发布后同样我们可以得到平台返回的一个地址, 需要绑定域名后才能正确的访问页面渲染服务。否则由于访问 /test 路径造成服务端路由和客户端路由不一致会导致页面内容闪现后白屏。  
 ![](https://res.wx.qq.com/op_res/mbNMsqF_px3tS0x_x1fryyR3Z5RipX3Lo8PIzvcAVxyXwoQyvQz0lQev-W2io3AP)
-默认发布到测试环境, 这里建议在第一次发布后显示在 yml 中指定要发布的serviceID, 否则每次发布将会创建一个新的 server 实例。  
+默认发布到测试环境, 这里建议在第一次发布后显示在 yml 中指定要发布的[serviceID](https://www.yuque.com/midwayjs/faas/deploy_tencent_faq), 否则每次发布将会创建一个新的 server 实例。  
 在腾讯云[API](https://console.cloud.tencent.com/apigateway/service-detail)网关平台进行域名的绑定以及函数发布到正式环境的操作  
 在腾讯云[SCF](https://console.cloud.tencent.com/scf)平台可以进行函数的管理调试以及日志查看
-
+如何复用 serviceId 如下
+```yml
+service:
+  name: serverless-ssr-spa
+provider:
+  name: aliyun # 无需修改 name 通过 ssr deploy --tencent 指定腾讯云即可
+  region: ap-hongkong
+  serviceId: service-xxx
+```
 #### 绑定域名
 
 在发布到腾讯云时 midway-faas 支持通过 [provider.region](https://www.yuque.com/midwayjs/faas/serverless_yml) 来设置发布的服务器区域。  
@@ -210,21 +221,23 @@ $ DEBUG=ssr:render npm start # 打印页面渲染 debug 信息
 
 `注: hooks 只能够在函数组件内部使用`
 
-```js
+```ts
 import { useContext } from 'react'
+import { IContext } from 'ssr-types'
 
-const { state, dispatch } = useContext(window.STORE_CONTEXT)
+const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT) // 通过 IData 指定业务自己的 data interface
 ```
 
-通过 `dispatch action` 来进行全局 `context` 的更新，并通知到所有的组件。  
+通过 `dispatch action` 来触发全局 `context` 的更新，并通知到所有的组件。  
 `注: dispatch 是异步的只能够在客户端渲染的阶段使用，服务端使用无效。context 更新会导致所有组件重新 render 可根据实际情况使用 React.useMemo 来避免不必要的重新计算，且建议根据不同的模块使用不同的 namespace 防止数据覆盖`
+
 
 ```js
 import React, { useContext } from 'react'
 import styles from './index.less'
 
 function Search (props) {
-  const { state, dispatch } = useContext(window.STORE_CONTEXT)
+  const { state, dispatch } = useContext<IContext<SearchState>>(window.STORE_CONTEXT)
   const handleChange = e => {
     dispatch({
       type: 'updateContext',
@@ -250,91 +263,32 @@ export default Search
 
 ```
 
+`注: 我们只推荐在跨组件通信时使用 dispatch，局部状态不推荐使用，会导致函数内部状态过于复杂，难以阅读。`
+
+关于更多 hooks 使用的最佳实践可以参考该[文章](https://zhuanlan.zhihu.com/p/81752821)
 ### 应用类型
 
-我们支持单页面应用(SPA)和多页面应用(MPA)两种常见的应用类型的开发。
-关于 SPA 与 MPA 的区别如下(本表格转载自网络，如有侵权请提 issue 联系)
+由于本框架同时具备 SSR 服务端渲染能力 以及 loadable 代码分割能力。我们天生可以看作既是单页面应用也是多页面应用。表现如下
 
-<table>
-<thead>
-<tr>
-<th></th>
-<th>单页面应用（SinglePage Web Application，SPA）</th>
-<th>多页面应用（MultiPage Application，MPA）</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>组成</td>
-<td>一个外壳页面和多个页面片段组成</td>
-<td>多个完整页面构成</td>
-</tr>
-<tr>
-<td>资源共用(css,js)</td>
-<td>共用，只需在外壳部分加载</td>
-<td>不共用，每个页面都需要加载</td>
-</tr>
-<tr>
-<td>刷新方式</td>
-<td>页面局部刷新或更改</td>
-<td>整页刷新</td>
-</tr>
-<tr>
-<td>url 模式</td>
-<td>a.com/pageone <br> a.com/pagetwo</td>
-<td>a.com/pageone.html <br> a.com/pagetwo.html</td>
-</tr>
-<tr>
-<td>用户体验</td>
-<td>页面片段间的切换快，用户体验良好</td>
-<td>页面切换加载缓慢，流畅度不够，用户体验比较差</td>
-</tr>
-<tr>
-<td>转场动画</td>
-<td>容易实现</td>
-<td>无法实现</td>
-</tr>
-<tr>
-<td>数据传递</td>
-<td>容易</td>
-<td>依赖 url传参、或者cookie 、localStorage等</td>
-</tr>
-<tr>
-<td>搜索引擎优化(SEO)</td>
-<td>需要单独方案、实现较为困难、不利于SEO检索 可利用服务器端渲染(SSR)优化</td>
-<td>实现方法简易</td>
-</tr>
-<tr>
-<td>试用范围</td>
-<td>高要求的体验度、追求界面流畅的应用</td>
-<td>适用于追求高度支持搜索引擎的应用 </td>
-</tr>
-<tr>
-<td>开发成本</td>
-<td>较高，常需借助专业的框架</td>
-<td>较低 ，但页面重复代码多</td>
-</tr>
-<tr>
-<td>维护成本</td>
-<td>相对容易</td>
-<td>相对复杂</td>
-</tr>
-</tbody>
-</table>
-</div></a>
+- 用户可以通过 react-router 的形式进行页面之间的跳转。此时是纯前端的跳转不会向服务器发送请求视为单页面应用页面之间的互相跳转
+- 同时用户也可以通过 a 标签的形式来进行页面之间的跳转。此时视为在服务端渲染一个新页面。视为多页面应用之间的互相跳转，由于我们具备 SSR 能力，此时页面的源代码是新页面具备 SEO 能力以及首屏直出页面能力
+- 每个独立页面之间的代码是互相分离互不冗余的
 
-#### SPA
+#### 应用介绍
 
-单页面应用一个函数对应一个页面。一个页面对应多个 path(即前端路由)。
+注意：
+
+- 我们的策略是将所有负责页面渲染的服务端路由都对应同一个 FaaS 函数。例如 首页和详情页是打到同一个 FaaS 函数。共享函数的资源。优势是便于开发管理。且每一个服务端路由都可对应多个前端路由
+- 如果你一定要将首页和详情页分别部署到不同的函数。我们建议你分成两个 Repo 分别进行开发部署
 
 ##### 目录结构
 
-这里我们使用约定式路由。无需手动编写路由配置文件，会根据文件夹名称及路径自动生成路由配置。
+这里我们使用约定式前端路由。无需手动声明路由配置文件，会根据文件夹名称及路径自动生成路由配置。
 
 ```bash
 .
 ├── build # web目录构建产物
-│   └── index
+│   └── index # 函数名称
 │       ├── client
 │       └── server
 ├── config.js # 定义应用的配置
@@ -405,100 +359,14 @@ package:
 ##### 如何发布
 
 ```bash
-$ ssr deploy # 此时只有一个函数需要发布，选择index函数发布即可
+$ ssr deploy # 默认发布到阿里云
+$ ssr deploy --tencent # 发布到腾讯云
 ```
 
 ##### 展示形式
 
 http://ssr-fc.com/ -> index 函数 -> 渲染 index 组件  
 http://ssr-fc.com/detail/* -> index 函数 -> 渲染 detail 组件
-
-#### MPA
-
-多页面应用一个函数对应一个页面。一个页面对应一个 path(即服务端路由)。
-
-##### 目录结构
-
-这里我们的服务端路由存在多个，需要读取 yml 文件具体函数的配置
-
-```bash
-.
-├── README.md
-├── build
-│   ├── mpa1
-│   │   ├── client
-│   │   └── server
-│   └── mpa2
-│       ├── client
-│       └── server
-├── f.yml
-├── package.json
-├── src
-│   ├── mpa1handler.ts
-│   └── mpa2handler.ts
-├── tsconfig.json
-├── web
-│   ├── components # 存放公共组件
-│   │   └── header
-│   │   │   ├── index.less
-│   │   │   └── index.tsx
-│   │   └── layout # 默认的layout
-│   │       ├── index.less
-│   │       └── index.tsx
-│   ├── pages
-│   │   ├── index
-│   │   │   ├── fetch.ts
-│   │   │   ├── index.less
-|   |   |   ├── layout.tsx # 每个独立的页面可以有自己的layout
-│   │   │   └── render.tsx
-│   │   └── detail
-│   │       ├── fetch.ts
-│   │       ├── index.less
-│   │       └── render$id.tsx
-```
-
-##### yml 文件编写规范
-
-```yml
-service:
-  name: serverless-ssr
-provider:
-  name: aliyun
-
-functions:
-  mpa1:
-    handler: mpa1.handler
-    render:
-      mode: ssr
-    events:
-      - http:
-          path: /
-          method:
-            - get
-  mpa2:
-    handler: mpa2.handler
-    render:
-      mode: ssr
-    events:
-      - http:
-          path: /detail/*
-          method:
-            - get
-
-package:
-  artifact: code.zip
-```
-
-##### 如何发布
-
-```bash
-$ ssr deploy # 此时需要在终端选择需要发布哪个函数
-```
-
-##### 展示形式
-
-http://ssr-fc.com/ -> mpa1 函数 -> 渲染 mpa1 文件夹下的 render 组件  
-http://ssr-fc.com/detail/* -> mpa2 函数 -> 渲染 mpa2 文件夹下的 render 组件
 
 ### 渲染函数
 
@@ -576,10 +444,12 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
   cssModulesWhiteList: RegExp[]; // 设置该选项指定样式文件不用 css-modules 处理，防止样式和 className 不匹配
   prefix: string; // 为前端路由添加统一的prefix, 如 /${prefix}/, /${prefix}/detail/:id
   proxy: {
-    // 可用于本地proxy api接口调试，使用方式查看koa-proxy文档
-    host: string;
-    match: RegExp;
-  }
+    // 底层使用 http-proxy-middleware 来进行代理, 具体配置查看 http-proxy-middleware 文档即可
+   '/api': {
+      target: 'xxx'
+   }
+  },
+  dynamic?: boolean // 是否启用代码分割优化代码，默认为 true
 }
 
 ```
@@ -590,7 +460,7 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
 
 ## CONTRIBUTING
 
-Please read the [document](./CONTRIBUTING.md)
+如果你想为本应用贡献代码，请阅读[贡献文档](./CONTRIBUTING.md)，我们为你准备了丰富的脚本用于 bootstrap
 
 ## License
 

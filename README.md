@@ -268,89 +268,27 @@ export default Search
 关于更多 hooks 使用的最佳实践可以参考该[文章](https://zhuanlan.zhihu.com/p/81752821)
 ### 应用类型
 
-我们支持单页面应用(SPA)和多页面应用(MPA)两种常见的应用类型的开发。
-关于 SPA 与 MPA 的区别如下(本表格转载自网络，如有侵权请提 issue 联系)
+由于本框架同时具备 SSR 服务端渲染能力 以及 loadable 代码分割能力。我们天生可以看作既是单页面应用也是多页面应用。表现如下
 
-<table>
-<thead>
-<tr>
-<th></th>
-<th>单页面应用（SinglePage Web Application，SPA）</th>
-<th>多页面应用（MultiPage Application，MPA）</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>组成</td>
-<td>一个外壳页面和多个页面片段组成</td>
-<td>多个完整页面构成</td>
-</tr>
-<tr>
-<td>资源共用(css,js)</td>
-<td>共用，只需在外壳部分加载</td>
-<td>不共用，每个页面都需要加载</td>
-</tr>
-<tr>
-<td>刷新方式</td>
-<td>页面局部刷新或更改</td>
-<td>整页刷新</td>
-</tr>
-<tr>
-<td>url 模式</td>
-<td>a.com/pageone <br> a.com/pagetwo</td>
-<td>a.com/pageone.html <br> a.com/pagetwo.html</td>
-</tr>
-<tr>
-<td>用户体验</td>
-<td>页面片段间的切换快，用户体验良好</td>
-<td>页面切换加载缓慢，流畅度不够，用户体验比较差</td>
-</tr>
-<tr>
-<td>转场动画</td>
-<td>容易实现</td>
-<td>无法实现</td>
-</tr>
-<tr>
-<td>数据传递</td>
-<td>容易</td>
-<td>依赖 url传参、或者cookie 、localStorage等</td>
-</tr>
-<tr>
-<td>搜索引擎优化(SEO)</td>
-<td>需要单独方案、实现较为困难、不利于SEO检索 可利用服务器端渲染(SSR)优化</td>
-<td>实现方法简易</td>
-</tr>
-<tr>
-<td>试用范围</td>
-<td>高要求的体验度、追求界面流畅的应用</td>
-<td>适用于追求高度支持搜索引擎的应用 </td>
-</tr>
-<tr>
-<td>开发成本</td>
-<td>较高，常需借助专业的框架</td>
-<td>较低 ，但页面重复代码多</td>
-</tr>
-<tr>
-<td>维护成本</td>
-<td>相对容易</td>
-<td>相对复杂</td>
-</tr>
-</tbody>
-</table>
-</div></a>
+- 用户可以通过 react-router 的形式进行页面之间的跳转。此时是纯前端的跳转不会向服务器发送请求视为单页面应用页面之间的互相跳转
+- 同时用户也可以通过 a 标签的形式来进行页面之间的跳转。此时视为在服务端渲染一个新页面。视为多页面应用之间的互相跳转，由于我们具备 SSR 能力，此时页面的源代码是新页面具备 SEO 能力以及首屏直出页面能力
+- 每个独立页面之间的代码是互相分离互不冗余的
 
-#### SPA
+#### 应用介绍
 
-单页面应用一个函数对应一个页面。一个页面对应多个 path(即前端路由)。
+注意：
+
+- 我们的策略是将所有负责页面渲染的服务端路由都对应同一个 FaaS 函数。例如 首页和详情页是打到同一个 FaaS 函数。共享函数的资源。优势是便于开发管理。且每一个服务端路由都可对应多个前端路由
+- 如果你一定要将首页和详情页分别部署到不同的函数。我们建议你分成两个 Repo 分别进行开发部署
 
 ##### 目录结构
 
-这里我们使用约定式路由。无需手动编写路由配置文件，会根据文件夹名称及路径自动生成路由配置。
+这里我们使用约定式前端路由。无需手动声明路由配置文件，会根据文件夹名称及路径自动生成路由配置。
 
 ```bash
 .
 ├── build # web目录构建产物
-│   └── index
+│   └── index # 函数名称
 │       ├── client
 │       └── server
 ├── config.js # 定义应用的配置
@@ -421,100 +359,14 @@ package:
 ##### 如何发布
 
 ```bash
-$ ssr deploy # 此时只有一个函数需要发布，选择index函数发布即可
+$ ssr deploy # 默认发布到阿里云
+$ ssr deploy --tencent # 发布到腾讯云
 ```
 
 ##### 展示形式
 
 http://ssr-fc.com/ -> index 函数 -> 渲染 index 组件  
 http://ssr-fc.com/detail/* -> index 函数 -> 渲染 detail 组件
-
-#### MPA
-
-多页面应用一个函数对应一个页面。一个页面对应一个 path(即服务端路由)。
-
-##### 目录结构
-
-这里我们的服务端路由存在多个，需要读取 yml 文件具体函数的配置
-
-```bash
-.
-├── README.md
-├── build
-│   ├── mpa1
-│   │   ├── client
-│   │   └── server
-│   └── mpa2
-│       ├── client
-│       └── server
-├── f.yml
-├── package.json
-├── src
-│   ├── mpa1handler.ts
-│   └── mpa2handler.ts
-├── tsconfig.json
-├── web
-│   ├── components # 存放公共组件
-│   │   └── header
-│   │   │   ├── index.less
-│   │   │   └── index.tsx
-│   │   └── layout # 默认的layout
-│   │       ├── index.less
-│   │       └── index.tsx
-│   ├── pages
-│   │   ├── index
-│   │   │   ├── fetch.ts
-│   │   │   ├── index.less
-|   |   |   ├── layout.tsx # 每个独立的页面可以有自己的layout
-│   │   │   └── render.tsx
-│   │   └── detail
-│   │       ├── fetch.ts
-│   │       ├── index.less
-│   │       └── render$id.tsx
-```
-
-##### yml 文件编写规范
-
-```yml
-service:
-  name: serverless-ssr
-provider:
-  name: aliyun
-
-functions:
-  mpa1:
-    handler: mpa1.handler
-    render:
-      mode: ssr
-    events:
-      - http:
-          path: /
-          method:
-            - get
-  mpa2:
-    handler: mpa2.handler
-    render:
-      mode: ssr
-    events:
-      - http:
-          path: /detail/*
-          method:
-            - get
-
-package:
-  artifact: code.zip
-```
-
-##### 如何发布
-
-```bash
-$ ssr deploy # 此时需要在终端选择需要发布哪个函数
-```
-
-##### 展示形式
-
-http://ssr-fc.com/ -> mpa1 函数 -> 渲染 mpa1 文件夹下的 render 组件  
-http://ssr-fc.com/detail/* -> mpa2 函数 -> 渲染 mpa2 文件夹下的 render 组件
 
 ### 渲染函数
 
