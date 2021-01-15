@@ -429,13 +429,13 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
 
 ```js
 {
-  cwd: string; // 设置命令执行的cwd，默认为 process.cwd()，无特殊需求不需修改
+  cwd: string; // 设置命令执行的 cwd，默认为 process.cwd()，无特殊需求不需修改
   isDev: boolean; // 当前运行环境，默认为 process.env.NODE_ENV
   publicPath: string; // webpack-dev-server 的publishPath，默认为 /
   useHash: boolean; // 生成文件是否带有 hash，默认本地运行关闭，生产环境构建时开启
-  port: number; // 前端静态资源本地开发时的监听端口，默认为 8000FaaS Server 会自动 proxy,无特殊需求不需要修改
-  faasPort: number; // 本地开发启动的FaaS 服务的端口，默认为3000
-  chunkName: string; // 生成的bundle的chunkName，默认为Page,无特殊需求不要修改
+  faasPort: number; // 本地开发启动的 FaaS 服务的端口，默认为3000
+  port: number; // 前端静态资源本地开发时的监听端口，默认为 8000, FaaS Server 会自动 proxy,无特殊需求不需要修改
+  chunkName: string; // 生成的 bundle 的 chunkName，默认为Page,无特殊需求不要修改
   webpackDevServerConfig: webpackDevServer.Configuration; // webpack-dev-server 启动配置
   staticPrefix: string; // 加载的静态资源前缀，需要发布到单独的cdn服务时可以使用该配置设置为cdn服务的地址
   chainServerConfig: (config: Config) => Configuration; // 使用 webpack-chain 来修改服务端 wbepack 构建配置
@@ -457,6 +457,16 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
 ## FAQ
 
 遇到问题先去该[文档](http://ykfe.surge.sh/guide/faq.html)找答案，该文档列举了开发 SSR 应用可能会遇到的大部分问题。如果没有预期的答案再提 issue
+
+### 如何让某个组件只在客户端渲染
+
+只需要用 onlyCsr 高阶组件包裹一下即可
+
+```js
+import { onlyCsr } from 'ssr-client-utils'
+
+export onlyCsr(Component)
+```
 
 ## CONTRIBUTING
 

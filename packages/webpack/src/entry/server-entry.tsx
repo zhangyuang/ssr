@@ -40,13 +40,15 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
   const Context = serverContext(fetchData) // 服务端需要每个请求创建新的独立的 context
   window.STORE_CONTEXT = Context // 为每一个新的请求都创建一遍context并且覆盖window上的属性，使得无需通过props层层传递读取
 
-  return <StaticRouter>
-    <Context.Provider value={{ state: fetchData }}>
-      <Layout ctx={ctx} config={buildConfig} staticList={staticList}>
-        <Component />
-      </Layout>
-    </Context.Provider>
-  </StaticRouter>
+  return (
+    <StaticRouter>
+      <Context.Provider value={{ state: fetchData }}>
+        <Layout ctx={ctx} config={buildConfig} staticList={staticList}>
+          <Component />
+        </Layout>
+      </Context.Provider>
+    </StaticRouter>
+  )
 }
 
 export default serverRender
