@@ -6,5 +6,6 @@ process.on('message', (data) => {
     spinner.start()
   } else {
     spinner.stop()
+    process.exit()
   }
 })
