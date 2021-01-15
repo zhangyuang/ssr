@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [4.3.2](https://github.com/ykfe/ssr/compare/v4.3.1...v4.3.2) (2021-01-15)
+
+
+### Bug Fixes
+
+* child_process add exit ([b719252](https://github.com/ykfe/ssr/commit/b719252c58087c7248badede36b45e2748d2548b))
+
+
+
+
+
 ## [4.3.1](https://github.com/ykfe/ssr/compare/v4.3.0...v4.3.1) (2021-01-15)
 
 **Note:** Version bump only for package ssr
