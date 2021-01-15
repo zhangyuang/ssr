@@ -1,10 +1,9 @@
 #!/usr/bin/env node
-
+import { fork } from 'child_process'
+import { resolve } from 'path'
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
 import { parseYml, parseRoutesFromYml, parseFeRoutes, processError, checkDependencies } from 'ssr-server-utils'
-
-const spinner = require('ora')('正在构建')
 
 const commandPrePare = () => {
   checkDependencies()
@@ -12,27 +11,36 @@ const commandPrePare = () => {
   const ymlRoutes = parseRoutesFromYml(ymlContent)
   return ymlRoutes
 }
+const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
 
 try {
   yargs
     .command('start', 'Start Server', {}, async (argv: Argv) => {
-      spinner.start()
+      spinnerProcess.send({
+        message: 'start'
+      })
       process.env.NODE_ENV = 'development'
       await parseFeRoutes(argv)
       const ymlRoutes = commandPrePare()
       const { start } = require('./start')
       argv.faasRoutes = ymlRoutes
-      spinner.stop()
+      spinnerProcess.send({
+        message: 'stop'
+      })
       await start(argv)
     })
     .command('build', 'build server and client files', {}, async (argv: Argv) => {
-      spinner.start()
+      spinnerProcess.send({
+        message: 'start'
+      })
       process.env.NODE_ENV = 'production'
       const ymlRoutes = commandPrePare()
       const { build } = require('./build')
       argv.faasRoutes = ymlRoutes
       await parseFeRoutes(argv)
-      spinner.stop()
+      spinnerProcess.send({
+        message: 'stop'
+      })
       await build(argv)
     })
     .command('deploy', 'deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {

@@ -49,98 +49,93 @@ const parseFeRoutes = async (argv: Argv) => {
   const folders = await promisifyFsReadDir(pageDir) // 读取web目录
   const defaultLayout = `${join(feDir, './components/layout/index.tsx')}`
   const arr = []
-  if (!argv.mpa) {
-    for (const folder of folders) {
-      const abFolder = join(pageDir, folder)
-      if (fs.statSync(abFolder).isDirectory()) {
-        // 读取web下子目录
-        const files = await promisifyFsReadDir(abFolder)
-        const route: any = {
-          layout: `require('${defaultLayout}').default`
-        }
-        for (const file of files) {
-          const abFile = join(abFolder, file)
-          if (file.includes('render')) {
-            /* /news */
-            route.path = folder === 'index' ? '/' : `/${folder}`
-            route.component = `${abFile}`
-            debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
-          }
-
-          if (file.includes('render$')) {
-            /* /news/:id */
-            route.path = `/${folder}/:${getDynamicParam(file)}`
-            route.component = `${abFile}`
-            debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
-          }
-
-          if (/render\$[\s\S]+\$/.test(file)) {
-            /* /news:id? */
-            route.path = `/${folder}/:${getDynamicParam(file)}?`
-            route.component = `${abFile}`
-            debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
-          }
-
-          if (/fetch/i.test(file)) {
-            route.fetch = `require('${abFile}').default`
-          }
-
-          if (/layout/i.test(file)) {
-            route.layout = `require('${abFile}').default`
-          }
-        }
-        if (!route.path) {
-          throw new Error(`cannot find render file in ${folder}`)
-        }
-        if (prefix) {
-          route.path = prefix ? `/${prefix}${route.path}` : route.path
-        }
-        if (dynamic !== false) {
-          route.webpackChunkName = folder
-        }
-        arr.push(route)
+  for (const folder of folders) {
+    const abFolder = join(pageDir, folder)
+    if (fs.statSync(abFolder).isDirectory()) {
+      // 读取web下子目录
+      const files = await promisifyFsReadDir(abFolder)
+      const route: any = {
+        layout: `require('${defaultLayout}').default`
       }
-    }
-    // 添加默认根路由
-    fs.existsSync(join(pageDir, './render.tsx')) && arr.push({
-      path: prefix ? `/${prefix}/` : '/',
-      layout: `require('${defaultLayout}').default`,
-      fetch: fs.existsSync(join(pageDir, './fetch.ts')) && `require('${join(pageDir, './fetch.ts')}').default`,
-      component: `require('${join(pageDir, './render.tsx')}').default`
-    })
+      for (const file of files) {
+        const abFile = join(abFolder, file)
+        if (file.includes('render')) {
+          /* /news */
+          route.path = folder === 'index' ? '/' : `/${folder}`
+          route.component = `${abFile}`
+          debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
+        }
 
-    debug('The result that parse web folder to routes is: ', arr)
-    let routes = `module.exports =${JSON.stringify(arr)
+        if (file.includes('render$')) {
+          /* /news/:id */
+          route.path = `/${folder}/:${getDynamicParam(file)}`
+          route.component = `${abFile}`
+          debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
+        }
+
+        if (/render\$[\s\S]+\$/.test(file)) {
+          /* /news:id? */
+          route.path = `/${folder}/:${getDynamicParam(file)}?`
+          route.component = `${abFile}`
+          debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
+        }
+
+        if (/fetch/i.test(file)) {
+          route.fetch = `require('${abFile}').default`
+        }
+
+        if (/layout/i.test(file)) {
+          route.layout = `require('${abFile}').default`
+        }
+      }
+      if (!route.path) {
+        throw new Error(`cannot find render file in ${folder}`)
+      }
+      if (prefix) {
+        route.path = prefix ? `/${prefix}${route.path}` : route.path
+      }
+      if (dynamic !== false) {
+        route.webpackChunkName = folder
+      }
+      arr.push(route)
+    }
+  }
+  // 添加默认根路由
+  fs.existsSync(join(pageDir, './render.tsx')) && arr.push({
+    path: prefix ? `/${prefix}/` : '/',
+    layout: `require('${defaultLayout}').default`,
+    fetch: fs.existsSync(join(pageDir, './fetch.ts')) && `require('${join(pageDir, './fetch.ts')}').default`,
+    component: `require('${join(pageDir, './render.tsx')}').default`
+  })
+
+  debug('The result that parse web folder to routes is: ', arr)
+  let routes = `module.exports =${JSON.stringify(arr)
       .replace(/"layout":("(.+?)")/g, (global, m1, m2) => {
         return `"layout": ${m2.replace(/\^/g, '"')}`
       })
       .replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
         return `"fetch": ${m2.replace(/\^/g, '"')}`
       })
-
       }`
-    if (dynamic === false) {
-      // 如果禁用路由分割则无需引入 react-loadable
-      routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
-        return `"component": require('${m2.replace(/\^/g, '"')}').default`
-      })
-    } else {
-      const re = /"webpackChunkName":("(.+?)")/g
-      routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
-        const currentWebpackChunkName = re.exec(routes)![2]
-        return `"component":  __isBrowser__ ? require('react-loadable')({
+  if (dynamic === false) {
+    // 如果禁用路由分割则无需引入 react-loadable
+    routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
+      return `"component": require('${m2.replace(/\^/g, '"')}').default`
+    })
+  } else {
+    const re = /"webpackChunkName":("(.+?)")/g
+    routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
+      const currentWebpackChunkName = re.exec(routes)![2]
+      return `"component":  __isBrowser__ ? require('react-loadable')({
         loader: () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}'),
         loading: function Loading () {
           return require('React').createElement('div')
         }
       }) : require('${m2.replace(/\^/g, '"')}').default`
-      })
-    }
-    fs.writeFileSync(`${cwd}/node_modules/ssr-temporary-routes/route.js`, routes)
-  } else {
-    // todo mpa
-
+    })
   }
+
+  fs.writeFileSync(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
 }
 
 const getDynamicParam = (url: string) => {
