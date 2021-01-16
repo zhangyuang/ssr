@@ -7,7 +7,7 @@ The markdown file introduce how to contribute for ssr-psec
 package.json 中已经封装好本地的调试命令
 
 ```bash
-$ yarn # 执行完之后会自动触发 postinstall 钩子
+$ yarn run bootstrap # 执行完之后会自动触发 link 逻辑
 ```
 
 执行以上命令后 example/serverless-ssr-app 中的依赖已经成功 link 到本地的包。若在 example/serverless-ssr-app 中执行 `yarn start` 提示 `permisson denied` 请手动通过 chmod 提升文件权限。

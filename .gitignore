@@ -72,6 +72,8 @@ bin
 
 package-lock.json
 
-yarn.lock
-
 **/build
+
+cypress/screenshots
+
+cypress/videos

@@ -4,8 +4,8 @@
     "packages/*"
   ],
   "scripts": {
-    "postinstall": "yarn bootstrap && yarn run link",
-    "bootstrap": "node scripts/scripts.js --bootstrap",
+    "bootstrap": "node scripts/scripts.js --bootstrap && yarn run link",
+    "example": "cd example/serverless-ssr-app && npm start",
     "clean": "node scripts/scripts.js --clean",
     "dev": "lerna run watch --stream --parallel",
     "build": "lerna run build --stream --parallel",
@@ -17,7 +17,7 @@
     "link": "node scripts/scripts.js --link",
     "unlink": "node scripts/scripts.js --unlink",
     "publish": "lerna version --conventional-commits",
-    "e2e": "cypress open"
+    "e2e": "cypress run --browser chrome"
   },
   "repository": {
     "type": "git",

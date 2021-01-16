@@ -6,7 +6,7 @@ name: CI
 # events but only for the dev branch
 on:
   push:
-    branches: [dev, master]
+    branches: [dev, master, 'feat/**']
   pull_request:
     branches: [dev, master]
 
@@ -23,18 +23,20 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: restore lerna
+      - name: Cache node modules
         uses: actions/cache@v2
         with:
           path: |
+            ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('package.json') }}
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
       - name: Install dependencies
-        run: |
-          yarn
+        run: yarn && cd example/serverless-ssr-app && yarn
 
   lint:
     needs: install
@@ -52,13 +54,102 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
+            ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('package.json') }}
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
       - run: yarn run lint
 
+  e2e-chrome:
+    needs: install
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["12", "13"]
+    name: e2e-chrome
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/yarn
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+      - name: prepare
+        run: yarn run build:only && yarn run link
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+  e2e-firefox:
+    needs: install
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["12", "13"]
+    name: e2e-firefox
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/yarn
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+      - name: prepare
+        run: yarn run build:only && yarn run link
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example
+          wait-on: 'http://localhost:3000'
+          browser: firefox
+  e2e-edge:
+    needs: install
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["12", "13"]
+    name: e2e-edge
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/yarn
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+      - name: prepare
+        run: yarn run build:only && yarn run link
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example
+          wait-on: 'http://localhost:3000'
+          browser: edge
   build-only:
-    needs: lint
+    needs:  
+      - lint
+      - e2e-firefox
+      - e2e-chrome
+      - e2e-edge
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -73,9 +164,10 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
+            ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('package.json') }}
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
       - run: yarn run build:only && rm -rf packages/**/node_modules
       - name: List packages
         run: ls -R packages
@@ -83,24 +175,12 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: bindings-${{matrix.node}}
-          path: packages
-
-  cypress-run:
-    runs-on: ubuntu-16.04
-    # let's make sure our tests pass on Chrome browser
-    name: E2E on Chrome
-    steps:
-      - uses: actions/checkout@v1
-      - uses: cypress-io/github-action@v2
-        with:
-          browser: chrome
+          path: packages       
   publish:
     name: Publish
     if: "startsWith(github.event.head_commit.message, 'chore(release): publish')"
     runs-on: ubuntu-latest
     needs:
-      - lint
-      - install
       - build-only
 
     steps:
@@ -116,7 +196,7 @@ jobs:
           path: |
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('package.json') }}
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:

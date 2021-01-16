@@ -13,7 +13,7 @@
 <a href="https://github.com/ykfe/ssr"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 <a href="https://github.com/ykfe/ssr"><img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node"></a>
 
-ssr is serverless-side render specification implementation. focus on developer experience, easy debug and no over-engineering.
+ssr is serverless-side render specification implementation. focus on developer experience, easy debug and no over-engineering. grow out of [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) and is out of the box.
 
 features
 
