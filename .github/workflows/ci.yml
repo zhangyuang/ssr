@@ -6,9 +6,9 @@ name: CI
 # events but only for the dev branch
 on:
   push:
-    branches: [ dev, master ]
+    branches: [dev, master]
   pull_request:
-    branches: [ dev, master ]
+    branches: [dev, master]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -16,75 +16,84 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ '12', '13' ]
+        node: ["12", "13"]
     steps:
-     - uses: actions/checkout@v2
-     - name: Use Node.js
-       uses: actions/setup-node@v1
-       with:
-         node-version: ${{ matrix.node }}
-     - name: restore lerna
-       uses: actions/cache@v2
-       with:
-        path: |
-          node_modules
-          */*/node_modules
-        key: ${{ runner.os }}-${{ hashFiles('package.json') }}
-        restore-keys: |
-          ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
-     - name: Install dependencies
-       run: |
-        yarn
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: restore lerna
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
+      - name: Install dependencies
+        run: |
+          yarn
 
   lint:
     needs: install
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ '12', '13' ]
+        node: ["12", "13"]
     steps:
-     - uses: actions/checkout@v2
-     - name: Setup Node.js
-       uses: actions/setup-node@v1
-       with:
-         node-version: ${{ matrix.node }}
-     - name: Load node_modules
-       uses: actions/cache@v2
-       with:
-        path: |
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
             node_modules
             */*/node_modules
-        key: ${{ runner.os }}-${{ hashFiles('package.json') }}
-     - run: yarn run lint
+          key: ${{ runner.os }}-${{ hashFiles('package.json') }}
+      - run: yarn run lint
 
   build-only:
     needs: lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ '12', '13' ]
+        node: ["12", "13"]
     steps:
-     - uses: actions/checkout@v2
-     - name: Setup Node.js
-       uses: actions/setup-node@v1
-       with:
-         node-version: ${{ matrix.node }}
-     - name: Load node_modules
-       uses: actions/cache@v2
-       with:
-        path: |
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
             node_modules
             */*/node_modules
-        key: ${{ runner.os }}-${{ hashFiles('package.json') }}
-     - run: yarn run build:only && rm -rf packages/**/node_modules
-     - name: List packages
-       run: ls -R packages
-     - name: Upload artifact
-       uses: actions/upload-artifact@v2
-       with:
+          key: ${{ runner.os }}-${{ hashFiles('package.json') }}
+      - run: yarn run build:only && rm -rf packages/**/node_modules
+      - name: List packages
+        run: ls -R packages
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
           name: bindings-${{matrix.node}}
           path: packages
 
+  cypress-run:
+    runs-on: ubuntu-16.04
+    # let's make sure our tests pass on Chrome browser
+    name: E2E on Chrome
+    steps:
+      - uses: actions/checkout@v1
+      - uses: cypress-io/github-action@v2
+        with:
+          browser: chrome
   publish:
     name: Publish
     if: "startsWith(github.event.head_commit.message, 'chore(release): publish')"
@@ -105,8 +114,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-              node_modules
-              */*/node_modules
+            node_modules
+            */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('package.json') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
