@@ -6,9 +6,9 @@ name: CI
 # events but only for the dev branch
 on:
   push:
-    branches: [ dev, master ]
+    branches: [dev, master, 'feat/**']
   pull_request:
-    branches: [ dev, master ]
+    branches: [dev, master]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -16,82 +16,147 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ '12', '13' ]
+        node: ["12", "13"]
     steps:
-     - uses: actions/checkout@v2
-     - name: Use Node.js
-       uses: actions/setup-node@v1
-       with:
-         node-version: ${{ matrix.node }}
-     - name: restore lerna
-       uses: actions/cache@v2
-       with:
-        path: |
-          node_modules
-          */*/node_modules
-        key: ${{ runner.os }}-${{ hashFiles('package.json') }}
-        restore-keys: |
-          ${{ runner.os }}-${{ matrix.node-version }}-nodemodules-
-     - name: Install dependencies
-       run: |
-        yarn
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Cache node modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            /home/runner/.cache/Cypress
+            ~/.cache/yarn
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - name: Install dependencies
+        run: yarn && cd example/serverless-ssr-app && yarn
 
   lint:
     needs: install
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ '12', '13' ]
+        node: ["12", "13"]
     steps:
-     - uses: actions/checkout@v2
-     - name: Setup Node.js
-       uses: actions/setup-node@v1
-       with:
-         node-version: ${{ matrix.node }}
-     - name: Load node_modules
-       uses: actions/cache@v2
-       with:
-        path: |
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
             node_modules
             */*/node_modules
-        key: ${{ runner.os }}-${{ hashFiles('package.json') }}
-     - run: yarn run lint
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+      - run: yarn run lint
 
-  build-only:
-    needs: lint
+  e2e-chrome:
+    needs: install
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: [ '12', '13' ]
+        node: ["12", "13"]
+    name: e2e-chrome
     steps:
-     - uses: actions/checkout@v2
-     - name: Setup Node.js
-       uses: actions/setup-node@v1
-       with:
-         node-version: ${{ matrix.node }}
-     - name: Load node_modules
-       uses: actions/cache@v2
-       with:
-        path: |
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
             node_modules
             */*/node_modules
-        key: ${{ runner.os }}-${{ hashFiles('package.json') }}
-     - run: yarn run build:only && rm -rf packages/**/node_modules
-     - name: List packages
-       run: ls -R packages
-     - name: Upload artifact
-       uses: actions/upload-artifact@v2
-       with:
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+      - name: prepare
+        run: yarn run build:only && yarn run link
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+  e2e-firefox:
+    needs: install
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["12", "13"]
+    name: e2e-firefox
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+      - name: prepare
+        run: yarn run build:only && yarn run link
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example
+          wait-on: 'http://localhost:3000'
+          browser: firefox
+  build-only:
+    needs:  
+      - lint
+      - e2e-firefox
+      - e2e-chrome
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["12", "13"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            /home/runner/.cache/Cypress
+            ~/.cache/yarn
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+      - run: yarn run build:only && rm -rf packages/**/node_modules
+      - name: List packages
+        run: ls -R packages
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
           name: bindings-${{matrix.node}}
-          path: packages
-
+          path: packages       
   publish:
     name: Publish
     if: "startsWith(github.event.head_commit.message, 'chore(release): publish')"
     runs-on: ubuntu-latest
     needs:
-      - lint
-      - install
       - build-only
 
     steps:
@@ -105,9 +170,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-              node_modules
-              */*/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('package.json') }}
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:

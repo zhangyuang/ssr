@@ -129,7 +129,7 @@ const parseFeRoutes = async (argv: Argv) => {
       return `"component":  __isBrowser__ ? require('react-loadable')({
         loader: () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}'),
         loading: function Loading () {
-          return require('React').createElement('div')
+          return require('react').createElement('div')
         }
       }) : require('${m2.replace(/\^/g, '"')}').default`
     })
