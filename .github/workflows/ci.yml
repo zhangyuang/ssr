@@ -27,6 +27,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
+            /home/runner/.cache/Cypress
             ~/.cache/yarn
             node_modules
             */*/node_modules
@@ -54,6 +55,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
+            /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
@@ -77,6 +79,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
+            /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
@@ -105,6 +108,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
+            /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
@@ -116,40 +120,11 @@ jobs:
           start: yarn run example
           wait-on: 'http://localhost:3000'
           browser: firefox
-  e2e-edge:
-    needs: install
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ["12", "13"]
-    name: e2e-edge
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.cache/yarn
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
-      - name: prepare
-        run: yarn run build:only && yarn run link
-      - uses: cypress-io/github-action@v2
-        with:
-          start: yarn run example
-          wait-on: 'http://localhost:3000'
-          browser: edge
   build-only:
     needs:  
       - lint
       - e2e-firefox
       - e2e-chrome
-      - e2e-edge
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -164,6 +139,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
+            /home/runner/.cache/Cypress
             ~/.cache/yarn
             node_modules
             */*/node_modules
