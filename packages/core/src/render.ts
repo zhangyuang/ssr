@@ -1,9 +1,9 @@
 import { resolve } from 'path'
 import { renderToString } from 'react-dom/server'
-import { getUserConfig, getCwd, parseYml, parseRoutesFromYml } from 'ssr-server-utils'
+import { buildConfig, getCwd, parseYml, parseRoutesFromYml } from 'ssr-server-utils'
 import { IFaaSContext } from 'ssr-types'
 
-const { serverFramework, isDev, chunkName } = getUserConfig()
+const { serverFramework, isDev, chunkName } = buildConfig
 const cwd = getCwd()
 const debug = require('debug')('ssr:render')
 const isLocal = isDev ?? process.env.NODE_ENV !== 'production'
@@ -22,7 +22,7 @@ const judgeServerFrameWork = async (ctx: IFaaSContext) => {
   let htmlStr = '<h1>Error</h1>'
 
   try {
-    if (!serverFramework) {
+    if (serverFramework === 'midway-faas') {
       // 如果没有指定服务端框架 则默认以 midway-faaS 框架运行
       htmlStr = await renderWithFaaS(ctx)
     } else {

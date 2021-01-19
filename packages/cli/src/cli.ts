@@ -10,29 +10,29 @@ const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子�
 
 try {
   yargs
-    .command('start', 'Start Server', {}, async (argv: Argv) => {
+    .command('start', 'Start Server', {}, async () => {
       spinnerProcess.send({
         message: 'start'
       })
       process.env.NODE_ENV = 'development'
-      await parseFeRoutes(argv)
+      await parseFeRoutes()
       const { start } = require('./start')
       spinnerProcess.send({
         message: 'stop'
       })
-      await start(argv)
+      await start()
     })
-    .command('build', 'build server and client files', {}, async (argv: Argv) => {
+    .command('build', 'build server and client files', {}, async () => {
       spinnerProcess.send({
         message: 'start'
       })
       process.env.NODE_ENV = 'production'
       const { build } = require('./build')
-      await parseFeRoutes(argv)
+      await parseFeRoutes()
       spinnerProcess.send({
         message: 'stop'
       })
-      await build(argv)
+      await build()
     })
     .command('deploy', 'deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {
       const { deploy } = require('./deploy')

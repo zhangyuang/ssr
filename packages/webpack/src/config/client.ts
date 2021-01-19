@@ -1,14 +1,15 @@
 
 import * as webpack from 'webpack'
+import { buildConfig } from 'ssr-server-utils'
 import { getBaseConfig } from './base'
-import { buildConfig } from './config'
 
-const { publicPath, isDev, chunkName, getOutput, cwd, useHash, loadModule, chainClientConfig } = buildConfig
+const { publicPath, isDev, chunkName, getOutput, cwd, useHash, chainClientConfig } = buildConfig
 const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
 const safePostCssParser = require('postcss-safe-parser')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
+const loadModule = require.resolve
 
 const getClientWebpack = () => {
   const truePublicPath = isDev ? publicPath : `/client${publicPath}`

@@ -1,8 +1,11 @@
-import { getCwd, getUserConfig, BuildConfig } from 'ssr-server-utils'
+import { BuildConfig } from 'ssr-types'
+import { getCwd, getUserConfig } from './cwd'
 
 const userConfig = getUserConfig()
 const cwd = getCwd()
 const mode = 'ssr'
+const serverFramework = 'midway-faas'
+const feFramework = 'react'
 
 type ClientLogLevel = 'error'
 
@@ -59,6 +62,7 @@ const getOutput = () => ({
   clientOutPut: `${cwd}/build/client`,
   serverOutPut: `${cwd}/build/server`
 })
+
 const cssModulesWhiteList = [/antd/, /swiper/]
 const webpackDevServerConfig = Object.assign({
   stats: webpackStatsOption,
@@ -78,8 +82,6 @@ const webpackDevServerConfig = Object.assign({
     'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
   }
 }, userConfig.webpackDevServerConfig)
-
-const loadModule = require.resolve
 
 const staticPrefix = userConfig.staticPrefix || ''
 
@@ -105,13 +107,14 @@ const buildConfig: BuildConfig = Object.assign({}, {
   jsOrder,
   cssOrder,
   getOutput,
-  loadModule,
   webpackStatsOption,
   staticPrefix,
   whiteList,
   cssModulesWhiteList,
   dynamic,
-  mode
+  mode,
+  serverFramework,
+  feFramework
 }, userConfig)
 
 export {

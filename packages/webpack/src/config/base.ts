@@ -2,12 +2,12 @@
 import { join } from 'path'
 import * as Config from 'webpack-chain'
 import { Mode } from 'ssr-types'
-import { getFeDir, getCwd, StyleOptions } from 'ssr-server-utils'
-import { buildConfig } from './config'
+import { getFeDir, getCwd, StyleOptions, buildConfig } from 'ssr-server-utils'
 
-const { moduleFileExtensions, loadModule, isDev, useHash, cssModulesWhiteList } = buildConfig
+const { moduleFileExtensions, isDev, useHash, cssModulesWhiteList } = buildConfig
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
+const loadModule = require.resolve
 
 const setStyle = (config: Config, reg: RegExp, options: StyleOptions) => {
   const { include, exclude, modules, importLoaders, loader } = options

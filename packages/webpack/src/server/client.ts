@@ -1,12 +1,12 @@
 import * as webpack from 'webpack'
-import { Argv } from 'ssr-types'
-import { getClientWebpack, buildConfig, webpackDevServerConfig } from '../config'
+import { buildConfig, webpackDevServerConfig } from 'ssr-server-utils'
+import { getClientWebpack } from '../config'
 import { webpackPromisify } from '../utils/promisify'
 
 const WebpackDevServer = require('webpack-dev-server-ssr')
 
 const { port, host, webpackStatsOption } = buildConfig
-const startClientServer = async (argv: Argv) => {
+const startClientServer = async () => {
   return await new Promise((resolve, reject) => {
     const clientConfig = getClientWebpack()
     const compiler = webpack(clientConfig)
@@ -20,7 +20,7 @@ const startClientServer = async (argv: Argv) => {
   })
 }
 
-const startClientBuild = async (argv: Argv) => {
+const startClientBuild = async () => {
   const clientConfig = getClientWebpack()
   const stats = await webpackPromisify(clientConfig)
   console.log(stats.toString(webpackStatsOption))

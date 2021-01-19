@@ -2,10 +2,9 @@ import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import {
   wrapLayout, FeRouteItem, findRoute, IFaaSContext,
-  Options, getStaticList, logGreen, IGlobal
+  Options, getStaticList, logGreen, IGlobal, buildConfig
 } from 'ssr-server-utils'
 import { serverContext } from './create-context'
-import { buildConfig } from '../config/config'
 
 const { staticPrefix, cssOrder, jsOrder, isDev, port, dynamic, mode } = buildConfig
 const feRoutes: FeRouteItem[] = require('ssr-temporary-routes/route')
@@ -27,7 +26,7 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
   const Layout = wrapLayout(routeItem.layout, __isBrowser__)
   const Component = routeItem.component
 
-  if (mode !== 'ssr' || ctx.query?.csr) {
+  if (mode === 'csr' || options.mode === 'csr' || ctx.query?.csr) {
     // 根据 mode 和 query 来决定当前渲染模式
     logGreen(`The path ${ctx.req.path} use csr render mode`)
     const Context = serverContext({}) // csr 不需要在服务端获取数据

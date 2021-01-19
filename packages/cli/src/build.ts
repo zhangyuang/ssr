@@ -1,8 +1,7 @@
 import { startClientBuild, startServerBuild } from 'ssr-webpack'
-import { Argv } from 'ssr-server-utils'
 
-const build = async (argv: Argv) => {
-  await Promise.all([startClientBuild(argv), startServerBuild(argv)])
+const build = async () => {
+  await Promise.all([startClientBuild(), startServerBuild()])
 }
 
 export {

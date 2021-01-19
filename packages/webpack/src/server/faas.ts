@@ -1,7 +1,6 @@
 import { useKoaDevPack } from '@midwayjs/faas-dev-pack'
 import * as Koa from 'koa'
-import { logGreen, getCwd } from 'ssr-server-utils'
-import { buildConfig } from '../config'
+import { logGreen, getCwd, buildConfig } from 'ssr-server-utils'
 
 const { createProxyMiddleware } = require('http-proxy-middleware')
 const koaConnect = require('koa2-connect')

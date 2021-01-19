@@ -8,6 +8,7 @@ export * from './log'
 export * from './staticList'
 export * from './external-utils'
 export * from './hoc/wrapLayout'
+export * from './config'
 
 /* types */
 export * from 'ssr-types'

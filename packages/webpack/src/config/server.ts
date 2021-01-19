@@ -1,10 +1,12 @@
 import { join } from 'path'
 import * as webpack from 'webpack'
+import { buildConfig } from 'ssr-server-utils'
 import { getBaseConfig } from './base'
-import { buildConfig } from './config'
 import { nodeExternals } from '../plugins/external'
 
-const { isDev, cwd, getOutput, loadModule, chainServerConfig, whiteList } = buildConfig
+const { isDev, cwd, getOutput, chainServerConfig, whiteList } = buildConfig
+const loadModule = require.resolve
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const getServerWebpack = () => {
   const config = getBaseConfig()
@@ -63,7 +65,9 @@ const getServerWebpack = () => {
   config.when(isDev, () => {
     config.watch(true)
   })
-
+  config.when(true, config => {
+    config.plugin('analyze').use(BundleAnalyzerPlugin)
+  })
   config.plugin('define').use(webpack.DefinePlugin, [{
     __isBrowser__: false
   }])

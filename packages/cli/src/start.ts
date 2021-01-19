@@ -1,8 +1,7 @@
 import { startClientServer, startServerBuild, startFaasServer } from 'ssr-webpack'
-import { Argv } from 'ssr-server-utils'
 
-const start = async (argv: Argv) => {
-  await Promise.all([startClientServer(argv), startServerBuild(argv)])
+const start = async () => {
+  await Promise.all([startClientServer(), startServerBuild()])
   startFaasServer()
 }
 
