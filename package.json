@@ -5,7 +5,7 @@
   ],
   "scripts": {
     "bootstrap": "node scripts/scripts.js --bootstrap && yarn run link",
-    "example": "cd example/serverless-ssr-app && npm start",
+    "example": "cd example/serverless-react-ssr && npm start",
     "clean": "node scripts/scripts.js --clean",
     "dev": "lerna run watch --stream --parallel",
     "build": "lerna run build --stream --parallel",
