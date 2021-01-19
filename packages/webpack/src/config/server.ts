@@ -1,18 +1,12 @@
 import { join } from 'path'
 import * as webpack from 'webpack'
-import { Argv } from 'ssr-server-utils'
 import { getBaseConfig } from './base'
 import { buildConfig } from './config'
 import { nodeExternals } from '../plugins/external'
 
 const { isDev, cwd, getOutput, loadModule, chainServerConfig, whiteList } = buildConfig
 
-const getServerWebpack = (argv: Argv) => {
-  const route = argv.faasRoutes?.find(route => !!route.mode)
-  if (!route) {
-    throw new Error('f.yml missing mode field')
-  }
-  const { funcName } = route
+const getServerWebpack = () => {
   const config = getBaseConfig()
 
   config.devtool(isDev ? 'eval-source-map' : false)
@@ -23,7 +17,7 @@ const getServerWebpack = (argv: Argv) => {
     .add(loadModule('../entry/server-entry'))
     .end()
     .output
-    .path(getOutput(funcName).serverOutPut)
+    .path(getOutput().serverOutPut)
     .filename('[name].server.js')
     .libraryTarget('commonjs')
 

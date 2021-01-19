@@ -5,11 +5,10 @@ import { getPromisify } from './promisify'
 
 let manifest: any = false
 const getManiFest = async ({
-  port, isDev, funcName
+  port, isDev
 }: {
   port: number
   isDev: boolean
-  funcName: string
 }) => {
   if (manifest) {
     return
@@ -18,14 +17,13 @@ const getManiFest = async ({
   if (isDev) {
     manifest = await getPromisify(`http://localhost:${port}/asset-manifest.json`)
   } else {
-    manifest = require(join(cwd, `./build/${funcName}/client/asset-manifest.json`))
+    manifest = require(join(cwd, './build/client/asset-manifest.json'))
   }
 }
-const getStaticList = async (isDev: boolean, port: number, staticPrefix: string, funcName: string, cssOrder: string[], jsOrder: string[]) => {
+const getStaticList = async (isDev: boolean, port: number, staticPrefix: string, cssOrder: string[], jsOrder: string[]) => {
   await getManiFest({
     port,
-    isDev,
-    funcName
+    isDev
   })
 
   const injectCss = cssOrder.map(css => `${staticPrefix}${manifest[css]}`)
