@@ -28,7 +28,7 @@ functions:
       handler: render.handler
       events:
         - http:
-            path: /index/*
+            path: /client/*
             method: get
 
 aggregation: # 聚合成一个函数发布

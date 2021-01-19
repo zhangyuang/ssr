@@ -5,10 +5,10 @@ const options = {
   stdio: 'inherit'
 }
 if (process.argv.includes('--bootstrap')) {
-  execSync('npx concurrently "yarn && yarn build:only"  "cd example/serverless-ssr-app && yarn"', options)
+  execSync('npx concurrently "yarn && yarn build:only"  "cd example/serverless-react-ssr && yarn"', options)
 }
 if (process.argv.includes('--clean')) {
-  execSync('npx concurrently "rimraf yarn.lock package-lock.json node_modules" "rimraf example/serverless-ssr-app/node_modules example/serverless-ssr-app/yarn.lock example/serverless-ssr-app/package-lock.json" "rimraf packages/**/cjs packages/**/esm packages/**/node_modules"', options)
+  execSync('npx concurrently "rimraf yarn.lock package-lock.json node_modules" "rimraf example/serverless-react-ssr/node_modules example/serverless-react-ssr/yarn.lock example/serverless-react-ssr/package-lock.json" "rimraf packages/**/cjs packages/**/esm packages/**/node_modules"', options)
 }
 if (process.argv.includes('--link')) {
   const packages = fs.readdirSync('./packages')
@@ -21,7 +21,7 @@ if (process.argv.includes('--link')) {
     }
   })
   const linkedPackage = packages.filter(item => item !== '.DS_Store').map(item => item === 'cli' ? 'ssr' : 'ssr-' + item).join(' ')
-  shell += `&& cd example/serverless-ssr-app && yarn link ${linkedPackage} && yarn link react && yarn link react-dom && chmod 777 ./node_modules/.bin/ssr`
+  shell += `&& cd example/serverless-react-ssr && yarn link ${linkedPackage} && yarn link react && yarn link react-dom && chmod 777 ./node_modules/.bin/ssr`
   execSync(shell, options)
 }
 if (process.argv.includes('--unlink')) {

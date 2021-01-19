@@ -38,7 +38,7 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: Install dependencies
-        run: yarn && cd example/serverless-ssr-app && yarn
+        run: yarn && cd example/serverless-react-ssr && yarn
 
   lint:
     needs: install
