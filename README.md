@@ -16,14 +16,13 @@
 
 ssr framework is serverless-side render specification implementation. focus on developer experience, easy debug and no over-engineering. grow out of [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) and is out of the box.
 
-ssr 框架是为 serverless/传统 Node.js 应用 场景打造的服务端渲染框架。通过底层解耦，我们默认依赖 midway-faas，将服务端渲染应用的本地开发体验以及发布体验做到极致。让开发者可以轻易的开发并发布一个成熟的 SSR 应用到公网让用户可以访问。同时你也可以手动配置选择例如 koa, egg, midway 等传统服务端框架进行开发。 此框架脱胎于 [egg-react-ssr](https://github.com/ykfe/egg-react-ssr 项目，如果你希望获得开箱即用的体验。请选择 ssr 框架。
+ssr 框架是为 serverless/传统 Node.js 应用 场景打造的服务端渲染框架。通过底层解耦，我们默认依赖 midway-faas，将服务端渲染应用的本地开发体验以及发布体验做到极致。让开发者可以轻易的开发并发布一个成熟的 SSR 应用到公网让用户可以访问。同时你也可以手动配置选择例如 koa, egg, midway 等传统服务端框架进行开发。 此框架脱胎于 [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) 项目，如果你希望获得开箱即用的体验。请选择 ssr 框架。
 
 features
 
 - 更少的构建 bundle 文件
 - 强大的的本地开发功能支持，开箱即用 无需额外配置
-- 可以一键发布到多个云平台
-
+- 一键发布到多个云平台
 
 ## Serverless for Developer
 
