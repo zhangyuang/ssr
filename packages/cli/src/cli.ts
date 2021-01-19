@@ -3,9 +3,7 @@ import { fork } from 'child_process'
 import { resolve } from 'path'
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
-import { parseFeRoutes, processError, checkDependencies } from 'ssr-server-utils'
 
-checkDependencies()
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
 
 try {
@@ -15,6 +13,7 @@ try {
         message: 'start'
       })
       process.env.NODE_ENV = 'development'
+      const { parseFeRoutes } = require('ssr-server-utils') // 延迟 require 防止 process.env.NODE_ENV 设置未生效
       await parseFeRoutes()
       const { start } = require('./start')
       spinnerProcess.send({
@@ -28,6 +27,7 @@ try {
       })
       process.env.NODE_ENV = 'production'
       const { build } = require('./build')
+      const { parseFeRoutes } = require('ssr-server-utils')
       await parseFeRoutes()
       spinnerProcess.send({
         message: 'stop'
@@ -45,5 +45,6 @@ try {
     })
     .parse()
 } catch (error) {
-  processError(error)
+  console.log(error)
+  process.exit(1)
 }

@@ -6,7 +6,6 @@ import { nodeExternals } from '../plugins/external'
 
 const { isDev, cwd, getOutput, chainServerConfig, whiteList } = buildConfig
 const loadModule = require.resolve
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const getServerWebpack = () => {
   const config = getBaseConfig()
@@ -65,9 +64,7 @@ const getServerWebpack = () => {
   config.when(isDev, () => {
     config.watch(true)
   })
-  config.when(true, config => {
-    config.plugin('analyze').use(BundleAnalyzerPlugin)
-  })
+
   config.plugin('define').use(webpack.DefinePlugin, [{
     __isBrowser__: false
   }])
