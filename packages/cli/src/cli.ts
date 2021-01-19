@@ -3,14 +3,9 @@ import { fork } from 'child_process'
 import { resolve } from 'path'
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
-import { parseYml, parseRoutesFromYml, parseFeRoutes, processError, checkDependencies } from 'ssr-server-utils'
+import { parseFeRoutes, processError, checkDependencies } from 'ssr-server-utils'
 
-const commandPrePare = () => {
-  checkDependencies()
-  const ymlContent = parseYml('./f.yml')
-  const ymlRoutes = parseRoutesFromYml(ymlContent)
-  return ymlRoutes
-}
+checkDependencies()
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
 
 try {
@@ -21,9 +16,7 @@ try {
       })
       process.env.NODE_ENV = 'development'
       await parseFeRoutes(argv)
-      const ymlRoutes = commandPrePare()
       const { start } = require('./start')
-      argv.faasRoutes = ymlRoutes
       spinnerProcess.send({
         message: 'stop'
       })
@@ -34,9 +27,7 @@ try {
         message: 'start'
       })
       process.env.NODE_ENV = 'production'
-      const ymlRoutes = commandPrePare()
       const { build } = require('./build')
-      argv.faasRoutes = ymlRoutes
       await parseFeRoutes(argv)
       spinnerProcess.send({
         message: 'stop'

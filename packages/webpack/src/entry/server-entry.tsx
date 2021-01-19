@@ -2,12 +2,12 @@ import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import {
   wrapLayout, FeRouteItem, findRoute, IFaaSContext,
-  FaasRouteItem, Options, getStaticList, logGreen, IGlobal
+  Options, getStaticList, logGreen, IGlobal
 } from 'ssr-server-utils'
 import { serverContext } from './create-context'
 import { buildConfig } from '../config/config'
 
-const { staticPrefix, cssOrder, jsOrder, isDev, port, dynamic } = buildConfig
+const { staticPrefix, cssOrder, jsOrder, isDev, port, dynamic, mode } = buildConfig
 const feRoutes: FeRouteItem[] = require('ssr-temporary-routes/route')
 declare const global: IGlobal
 
@@ -15,12 +15,10 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   const { window } = global
   const routeItem = findRoute<FeRouteItem<any>>(feRoutes, ctx.req.path)
-  const faasRouteItem = findRoute<FaasRouteItem>(options.faasRoutes, ctx.req.path)
-  const { funcName, mode } = faasRouteItem
   if (dynamic) {
     cssOrder.push(`${routeItem.webpackChunkName}.css`)
   }
-  const staticList = await getStaticList(isDev, port, staticPrefix, funcName, cssOrder, jsOrder)
+  const staticList = await getStaticList(isDev, port, staticPrefix, cssOrder, jsOrder)
 
   if (!routeItem) {
     throw new Error(`With request url ${ctx.req.path} Component is Not Found`)
@@ -28,6 +26,7 @@ const serverRender = async (ctx: IFaaSContext, options: Options): Promise<React.
 
   const Layout = wrapLayout(routeItem.layout, __isBrowser__)
   const Component = routeItem.component
+
   if (mode !== 'ssr' || ctx.query?.csr) {
     // 根据 mode 和 query 来决定当前渲染模式
     logGreen(`The path ${ctx.req.path} use csr render mode`)

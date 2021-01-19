@@ -2,6 +2,7 @@ import { getCwd, getUserConfig, BuildConfig } from 'ssr-server-utils'
 
 const userConfig = getUserConfig()
 const cwd = getCwd()
+const mode = 'ssr'
 
 type ClientLogLevel = 'error'
 
@@ -54,9 +55,9 @@ const webpackStatsOption = {
 
 const dynamic = true
 
-const getOutput = (funcName: string) => ({
-  clientOutPut: `${cwd}/build/${funcName}/client`,
-  serverOutPut: `${cwd}/build/${funcName}/server`
+const getOutput = () => ({
+  clientOutPut: `${cwd}/build/client`,
+  serverOutPut: `${cwd}/build/server`
 })
 const cssModulesWhiteList = [/antd/, /swiper/]
 const webpackDevServerConfig = Object.assign({
@@ -109,7 +110,8 @@ const buildConfig: BuildConfig = Object.assign({}, {
   staticPrefix,
   whiteList,
   cssModulesWhiteList,
-  dynamic
+  dynamic,
+  mode
 }, userConfig)
 
 export {

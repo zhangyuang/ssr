@@ -8,7 +8,7 @@ const WebpackDevServer = require('webpack-dev-server-ssr')
 const { port, host, webpackStatsOption } = buildConfig
 const startClientServer = async (argv: Argv) => {
   return await new Promise((resolve, reject) => {
-    const clientConfig = getClientWebpack(argv)
+    const clientConfig = getClientWebpack()
     const compiler = webpack(clientConfig)
     const server = new WebpackDevServer(compiler, webpackDevServerConfig)
     compiler.hooks.done.tap('WebpackDevMiddleware', (stats) => {
@@ -21,7 +21,7 @@ const startClientServer = async (argv: Argv) => {
 }
 
 const startClientBuild = async (argv: Argv) => {
-  const clientConfig = getClientWebpack(argv)
+  const clientConfig = getClientWebpack()
   const stats = await webpackPromisify(clientConfig)
   console.log(stats.toString(webpackStatsOption))
 }

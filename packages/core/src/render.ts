@@ -1,36 +1,50 @@
 import { resolve } from 'path'
 import { renderToString } from 'react-dom/server'
-import { getCwd, findRoute, parseYml, parseRoutesFromYml } from 'ssr-server-utils'
-import { IFaaSContext, FaasRouteItem } from 'ssr-types'
+import { getUserConfig, getCwd, parseYml, parseRoutesFromYml } from 'ssr-server-utils'
+import { IFaaSContext } from 'ssr-types'
 
-const debug = require('debug')('ssr:render')
-const isDev = process.env.NODE_ENV !== 'production'
+const { serverFramework, isDev, chunkName } = getUserConfig()
 const cwd = getCwd()
-const ymlContent = isDev ? parseYml('./f.yml') : parseYml('./f.origin.yml')
-const faasRoutes = parseRoutesFromYml(ymlContent)
+const debug = require('debug')('ssr:render')
+const isLocal = isDev ?? process.env.NODE_ENV !== 'production'
+const serverFile = resolve(cwd, `./build/server/${chunkName ?? 'Page'}.server.js`)
 
-const render = async (ctx: IFaaSContext) => {
-  const start = Date.now()
-
-  const faasRouteItem = findRoute<FaasRouteItem>(faasRoutes, ctx.req.path)
-  const { funcName } = faasRouteItem
-
-  const abFilePath = resolve(cwd, `./build/${funcName}/server/Page.server.js`)
-
-  debug(`Render function name: ${funcName} with path ${ctx.req.path} by ${abFilePath}`)
+async function render (ctx: IFaaSContext) {
   if (isDev) {
     // clear cache in development environment
-    delete require.cache[abFilePath]
+    delete require.cache[serverFile]
   }
+  ctx.type = 'text/html'
+  return await judgeServerFrameWork(ctx)
+}
+const judgeServerFrameWork = async (ctx: IFaaSContext) => {
+  const start = Date.now()
+  let htmlStr = '<h1>Error</h1>'
 
-  const serverRender = require(abFilePath).default
+  try {
+    if (!serverFramework) {
+      // 如果没有指定服务端框架 则默认以 midway-faaS 框架运行
+      htmlStr = await renderWithFaaS(ctx)
+    } else {
+      // 针对传统 Node.js 应用场景
+      // htmlStr = await renderWithNode(ctx)
+    }
+  } catch (error) {
+    htmlStr = `<h1>${error}</h1>`
+  }
+  debug(`Page rendering spend ${Date.now() - start}ms`)
+  return htmlStr
+}
+
+const renderWithFaaS = async (ctx: IFaaSContext) => {
+  const ymlContent = isLocal ? parseYml('./f.yml') : parseYml('./f.origin.yml')
+  const faasRoutes = parseRoutesFromYml(ymlContent)
+  const serverRender = require(serverFile).default
   const serverRes = await serverRender(ctx, {
     faasRoutes: faasRoutes
   })
 
   const htmlStr: string = renderToString(serverRes)
-  debug(`Page rendering spend ${Date.now() - start}ms`)
-  ctx.type = 'text/html'
   return '<!DOCTYPE html>' + htmlStr
 }
 

@@ -16,7 +16,7 @@ export interface BuildConfig {
   sockPort: number | string
   faasPort: number
   chunkName: string
-  getOutput: (funcName: string) => {
+  getOutput: () => {
     clientOutPut: string
     serverOutPut: string
   }
@@ -36,6 +36,8 @@ export interface BuildConfig {
   prefix?: string
   proxy: Proxy
   dynamic?: boolean
+  framework?: string
+  mode: string
 }
 
 export interface StyleOptions {

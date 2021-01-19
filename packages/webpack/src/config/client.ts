@@ -1,6 +1,5 @@
 
 import * as webpack from 'webpack'
-import { Argv } from 'ssr-server-utils'
 import { getBaseConfig } from './base'
 import { buildConfig } from './config'
 
@@ -11,13 +10,8 @@ const safePostCssParser = require('postcss-safe-parser')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 
-const getClientWebpack = (argv: Argv) => {
-  const route = argv.faasRoutes?.find(route => !!route.mode)
-  if (!route) {
-    throw new Error('f.yml missing mode field')
-  }
-  const { funcName } = route
-  const truePublicPath = isDev ? publicPath : `/${funcName}/client${publicPath}`
+const getClientWebpack = () => {
+  const truePublicPath = isDev ? publicPath : `/client${publicPath}`
   const config = getBaseConfig()
   config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
 
@@ -25,7 +19,7 @@ const getClientWebpack = (argv: Argv) => {
     .add(loadModule('../entry/client-entry'))
     .end()
     .output
-    .path(getOutput(funcName).clientOutPut)
+    .path(getOutput().clientOutPut)
     .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
     .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js')
     .publicPath(truePublicPath)

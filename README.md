@@ -14,13 +14,15 @@
 <a href="https://github.com/ykfe/ssr" target="_blank"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 <a href="https://github.com/ykfe/ssr" target="_blank"><img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node"></a>
 
-ssr is serverless-side render specification implementation. focus on developer experience, easy debug and no over-engineering. grow out of [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) and is out of the box.
+ssr framework is serverless-side render specification implementation. focus on developer experience, easy debug and no over-engineering. grow out of [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) and is out of the box.
+
+ssr 框架是为 serverless/传统 Node.js 应用 场景打造的服务端渲染框架。通过底层解耦，我们默认依赖 midway-faas，将服务端渲染应用的本地开发体验以及发布体验做到极致。让开发者可以轻易的开发并发布一个成熟的 SSR 应用到公网让用户可以访问。同时你也可以手动配置选择例如 koa, egg, midway 等传统服务端框架进行开发。 此框架脱胎于 [egg-react-ssr](https://github.com/ykfe/egg-react-ssr 项目，如果你希望获得开箱即用的体验。请选择 ssr 框架。
 
 features
 
-- minimal：build bundle size is smaller than nextjs
-- full feature：write once，generate SSR/CSR bundle, tranfer ssr to csr mode seamless degradation
-- support multi‑cloud：based on [midway-faas](https://github.com/midwayjs/midway) framework，can be deployed to any serverless plateform
+- 更少的构建 bundle 文件
+- 强大的的本地开发功能支持，开箱即用 无需额外配置
+- 可以一键发布到多个云平台
 
 
 ## Serverless for Developer
@@ -58,6 +60,9 @@ Serverless 应用开发流程
 | 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
 | ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
 | ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀   |
+| 支持使用 [vite](https://vite-design.surge.sh/) 代替 webpack 作为构建工具，提升本地开发构建速度                                 |    |
+| 补充结合 [vue3](http://v3.vuejs.org/) 的 example 使其支持 VueSSR |    |
+| 补充结合 koa/midway 的 example 使其运行在传统的 Node.js 应用当中                                 |    |
 
 ## 哪些应用在使用
 
@@ -430,6 +435,8 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
 
 ```js
 {
+  serverFrameWork: string; // 服务端框架，未指定默认以 midway-faas 框架运行
+  mode: string; // 渲染模式，默认为 ssr
   cwd: string; // 设置命令执行的 cwd，默认为 process.cwd()，无特殊需求不需修改
   isDev: boolean; // 当前运行环境，默认为 process.env.NODE_ENV
   publicPath: string; // webpack-dev-server 的publishPath，默认为 /
