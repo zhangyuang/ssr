@@ -2,48 +2,52 @@
 import { fork } from 'child_process'
 import { resolve } from 'path'
 import * as yargs from 'yargs'
+import { parseFeRoutes, loadConfig } from 'ssr-server-utils'
 import { Argv } from 'ssr-types'
-import { parseFeRoutes, processError, checkDependencies } from 'ssr-server-utils'
 
-checkDependencies()
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
 
-try {
-  yargs
-    .command('start', 'Start Server', {}, async (argv: Argv) => {
-      spinnerProcess.send({
-        message: 'start'
-      })
-      process.env.NODE_ENV = 'development'
-      await parseFeRoutes(argv)
-      const { start } = require('./start')
-      spinnerProcess.send({
-        message: 'stop'
-      })
-      await start(argv)
+yargs
+  .command('start', 'Start Server', {}, async () => {
+    spinnerProcess.send({
+      message: 'start'
     })
-    .command('build', 'build server and client files', {}, async (argv: Argv) => {
-      spinnerProcess.send({
-        message: 'start'
-      })
-      process.env.NODE_ENV = 'production'
-      const { build } = require('./build')
-      await parseFeRoutes(argv)
-      spinnerProcess.send({
-        message: 'stop'
-      })
-      await build(argv)
+    process.env.NODE_ENV = 'development'
+    const config = loadConfig()
+    await parseFeRoutes()
+    spinnerProcess.send({
+      message: 'stop'
     })
-    .command('deploy', 'deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {
-      const { deploy } = require('./deploy')
-      await deploy(argv)
+    await config.fePlugin.start(config)
+    await config.faasPlugin.start(config)
+  })
+  .command('build', 'build server and client files', {}, async () => {
+    spinnerProcess.send({
+      message: 'start'
     })
-    .demandCommand(1, 'You need at least one command before moving on')
-    .option('version', {
-      alias: 'v',
-      default: false
+    process.env.NODE_ENV = 'production'
+    const { build } = require('./build')
+    const { parseFeRoutes } = require('ssr-server-utils')
+    await parseFeRoutes()
+    spinnerProcess.send({
+      message: 'stop'
     })
-    .parse()
-} catch (error) {
-  processError(error)
-}
+    await build()
+  })
+  .command('deploy', 'deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {
+    const { deploy } = require('./deploy')
+    await deploy(argv)
+  })
+  .demandCommand(1, 'You need at least one command before moving on')
+  .option('version', {
+    alias: 'v',
+    default: false
+  })
+  .fail((msg, err, yargs) => {
+    console.log(err)
+    spinnerProcess.send({
+      message: 'stop'
+    })
+    process.exit(1)
+  })
+  .parse()

@@ -5,10 +5,16 @@ const options = {
   stdio: 'inherit'
 }
 if (process.argv.includes('--bootstrap')) {
-  execSync('npx concurrently "yarn && yarn build:only"  "cd example/serverless-react-ssr && yarn"', options)
+  execSync('npx concurrently "yarn && yarn build:only"  "cd example/serverless-react-ssr && yarn" "cd example/midway-react-ssr && yarn"', options)
 }
 if (process.argv.includes('--clean')) {
-  execSync('npx concurrently "rimraf yarn.lock package-lock.json node_modules" "rimraf example/serverless-react-ssr/node_modules example/serverless-react-ssr/yarn.lock example/serverless-react-ssr/package-lock.json" "rimraf packages/**/cjs packages/**/esm packages/**/node_modules"', options)
+  execSync(`
+  npx concurrently "rm -rf yarn.lock package-lock.json node_modules" 
+  "rm -rf example/serverless-react-ssr/node_modules example/serverless-react-ssr/yarn.lock example/serverless-react-ssr/package-lock.json" 
+  "rm -rf example/midway-react-ssr/node_modules example/midway-react-ssr/yarn.lock example/midway-react-ssr/package-lock.json"
+  "rm -rf packages/**/cjs packages/**/esm packages/**/node_modules"
+  `
+  , options)
 }
 if (process.argv.includes('--link')) {
   const packages = fs.readdirSync('./packages')
@@ -21,8 +27,14 @@ if (process.argv.includes('--link')) {
     }
   })
   const linkedPackage = packages.filter(item => item !== '.DS_Store').map(item => item === 'cli' ? 'ssr' : 'ssr-' + item).join(' ')
-  shell += `&& cd example/serverless-react-ssr && yarn link ${linkedPackage} && yarn link react && yarn link react-dom && chmod 777 ./node_modules/.bin/ssr`
-  execSync(shell, options)
+  const examples = fs.readdirSync('./example')
+  examples.forEach(example => {
+    console.log(example)
+    if (example !== '.DS_Store') {
+      const exampleShell = shell + `&& cd example/${example} && yarn link ${linkedPackage} && yarn link react && yarn link react-dom && chmod 777 ./node_modules/.bin/ssr`
+      execSync(exampleShell, options)
+    }
+  })
 }
 if (process.argv.includes('--unlink')) {
   const packages = fs.readdirSync('./packages')

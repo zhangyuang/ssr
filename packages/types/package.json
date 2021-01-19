@@ -35,6 +35,7 @@
     "@types/webpack": "^4.41.10",
     "@types/yargs": "^13.0.4",
     "concurrently": "^5.1.0",
+    "egg": "^2.29.1",
     "webpack-chain": "^6.4.0"
   }
 }

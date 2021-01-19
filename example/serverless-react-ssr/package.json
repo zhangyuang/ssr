@@ -15,7 +15,6 @@
     "swiper": "^5.3.8"
   },
   "devDependencies": {
-    "@midwayjs/faas-dev-pack": "*",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.3",

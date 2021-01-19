@@ -1,11 +1,12 @@
 import { FaaSContext } from '@midwayjs/faas'
-import { FaasRouteItem } from './route'
+import { Context } from 'egg'
 import { Action } from './component'
 
 export type IFaaSContext<T={}> = FaaSContext & T
+export type IEggContext<T={}> = Context & T
 
 export interface Options {
-  faasRoutes: FaasRouteItem[]
+  mode?: string
 }
 export interface IWindow extends Window {
   __USE_SSR__?: boolean

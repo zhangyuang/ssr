@@ -1,14 +1,12 @@
 import * as webpack from 'webpack'
-import { Argv } from 'ssr-types'
-import { getClientWebpack, buildConfig, webpackDevServerConfig } from '../config'
 import { webpackPromisify } from '../utils/promisify'
 
 const WebpackDevServer = require('webpack-dev-server-ssr')
 
-const { port, host, webpackStatsOption } = buildConfig
-const startClientServer = async (argv: Argv) => {
-  return await new Promise((resolve, reject) => {
-    const clientConfig = getClientWebpack()
+const startClientServer = async (config) => {
+  const { port, host, webpackDevServerConfig, fePlugin } = config
+  return await new Promise((resolve) => {
+    const clientConfig = fePlugin.getClientWebpack(config)
     const compiler = webpack(clientConfig)
     const server = new WebpackDevServer(compiler, webpackDevServerConfig)
     compiler.hooks.done.tap('WebpackDevMiddleware', (stats) => {
@@ -20,8 +18,10 @@ const startClientServer = async (argv: Argv) => {
   })
 }
 
-const startClientBuild = async (argv: Argv) => {
-  const clientConfig = getClientWebpack()
+const startClientBuild = async (config) => {
+  const { webpackStatsOption, fePlugin } = config
+  const clientConfig = fePlugin.getClientWebpack(config)
+
   const stats = await webpackPromisify(clientConfig)
   console.log(stats.toString(webpackStatsOption))
 }

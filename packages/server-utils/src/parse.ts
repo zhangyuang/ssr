@@ -2,10 +2,13 @@ import * as fs from 'fs'
 import { resolve, join } from 'path'
 import * as Yaml from 'js-yaml'
 import * as Shell from 'shelljs'
-import { Yml, FaasRouteItem, Argv } from 'ssr-types'
+import { Yml, FaasRouteItem } from 'ssr-types'
+import { loadConfig } from './config'
 import { promisifyFsReadDir } from './promisify'
-import { getCwd, getPagesDir, getFeDir, getUserConfig } from './cwd'
+import { getCwd, getPagesDir, getFeDir } from './cwd'
 
+const buildConfig = loadConfig()
+const { cloudIDE, prefix, dynamic } = buildConfig
 const debug = require('debug')('ssr:parse')
 
 const parseYml = (path: string): Yml => {
@@ -18,7 +21,6 @@ const parseYml = (path: string): Yml => {
 }
 
 const parseRoutesFromYml = (yamlContent: Yml) => {
-  const { cloudIDE } = getUserConfig()
   const routes: FaasRouteItem[] = []
 
   for (const funcName in yamlContent.functions) {
@@ -37,8 +39,7 @@ const parseRoutesFromYml = (yamlContent: Yml) => {
   return routes
 }
 
-const parseFeRoutes = async (argv: Argv) => {
-  const { prefix, dynamic } = getUserConfig()
+const parseFeRoutes = async () => {
   const pageDir = getPagesDir()
   const feDir = getFeDir()
   // 根据目录结构生成前端路由表

@@ -14,9 +14,12 @@
 <a href="https://github.com/ykfe/ssr" target="_blank"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 <a href="https://github.com/ykfe/ssr" target="_blank"><img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node"></a>
 
-ssr framework is serverless-side render specification implementation. focus on developer experience, easy debug and no over-engineering. grow out of [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) and is out of the box.
 
-ssr 框架是为 serverless/传统 Node.js 应用 场景打造的服务端渲染框架。通过底层解耦，我们默认依赖 midway-faas，将服务端渲染应用的本地开发体验以及发布体验做到极致。让开发者可以轻易的开发并发布一个成熟的 SSR 应用到公网让用户可以访问。同时你也可以手动配置选择例如 koa, egg, midway 等传统服务端框架进行开发。 此框架脱胎于 [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) 项目，如果你希望获得开箱即用的体验。请选择 ssr 框架。
+ssr 框架是为 Serverless/传统 Node.js 应用 场景打造的开箱即用服务端渲染框架。  
+通过解耦底层代码，我们默认依赖 midway-faas 作为 Serverless 场景下的服务端框架。将服务端渲染应用的本地开发体验以及发布体验做到极致。让开发者可以轻易的开发并发布一个成熟的服务端渲染应用到公网让用户可以访问。  
+同时你也可以手动配置选择例如 [koa](https://koajs.com/) [midway](https://midwayjs.org/) 等传统服务端框架进行开发部署。   
+此框架脱胎于 [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) 项目，如果你希望获得开箱即用的体验。请选择 ssr 框架。
+>ssr framework is serverless-side render specification implementation. focus on developer experience, easy debug and no over-engineering. grow out of [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) and is out of the box.
 
 features
 
@@ -435,7 +438,6 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
 
 ```js
 {
-  serverFrameWork: string; // 服务端框架，未指定默认以 midway-faas 框架运行
   mode: string; // 渲染模式，默认为 ssr
   cwd: string; // 设置命令执行的 cwd，默认为 process.cwd()，无特殊需求不需修改
   isDev: boolean; // 当前运行环境，默认为 process.env.NODE_ENV

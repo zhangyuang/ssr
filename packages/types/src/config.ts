@@ -21,7 +21,6 @@ export interface BuildConfig {
     serverOutPut: string
   }
   webpackDevServerConfig: any
-  loadModule: RequireResolve
   cssOrder: string[]
   jsOrder: string[]
   staticPrefix: string
@@ -35,9 +34,10 @@ export interface BuildConfig {
   cssModulesWhiteList: RegExp[]
   prefix?: string
   proxy: Proxy
-  dynamic?: boolean
-  framework?: string
+  dynamic: boolean
+  feFramework: string
   mode: string
+  api: any
 }
 
 export interface StyleOptions {
