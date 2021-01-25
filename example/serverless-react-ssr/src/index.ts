@@ -1,5 +1,5 @@
 import { FaaSContext, func, inject, provide, FunctionHandler } from '@midwayjs/faas'
-import { render } from 'ssr-core'
+import { render } from 'ssr-core-react'
 import { IApiService, IApiDetailService } from './interface'
 
 interface IFaaSContext extends FaaSContext {

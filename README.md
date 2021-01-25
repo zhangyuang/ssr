@@ -438,7 +438,6 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
 
 ```js
 {
-  serverFrameWork: string; // 服务端框架，未指定默认以 midway-faas 框架运行
   mode: string; // 渲染模式，默认为 ssr
   cwd: string; // 设置命令执行的 cwd，默认为 process.cwd()，无特殊需求不需修改
   isDev: boolean; // 当前运行环境，默认为 process.env.NODE_ENV

@@ -1,3 +1,4 @@
+import * as fs from 'fs'
 import { join, isAbsolute } from 'path'
 import { BuildConfig } from 'ssr-types'
 
@@ -34,9 +35,12 @@ const getUserConfig = (): BuildConfig => {
   return require(join(getCwd(), './config'))
 }
 
+const isFaaS = () => fs.existsSync(join(getCwd(), './f.yml'))
+
 export {
   getCwd,
   getFeDir,
   getPagesDir,
-  getUserConfig
+  getUserConfig,
+  isFaaS
 }

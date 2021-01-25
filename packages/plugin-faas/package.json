@@ -1,7 +1,7 @@
 {
-  "name": "ssr-core",
+  "name": "ssr-plugin-faas",
   "version": "4.3.4",
-  "description": "core for serverless ssr",
+  "description": "plugin-faas for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "sideEffects": false,
@@ -28,13 +28,13 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
-    "debug": "^4.1.1",
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "ssr-server-utils": "^4.3.4"
+    "ssr-server-utils": "^4.3.4",
+    "@midwayjs/faas-dev-pack": "^1.0.0",
+    "koa": "^2.11.0",
+    "koa2-connect": "^1.0.2",
+    "http-proxy-middleware": "^1.0.6"
   },
   "devDependencies": {
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0"
+   
   }
 }

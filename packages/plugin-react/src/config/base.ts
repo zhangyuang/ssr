@@ -2,16 +2,15 @@
 import { join } from 'path'
 import * as Config from 'webpack-chain'
 import { Mode } from 'ssr-types'
-import { getFeDir, getCwd, StyleOptions, buildConfig } from 'ssr-server-utils'
+import { getFeDir, getCwd, StyleOptions } from 'ssr-server-utils'
 
-const { moduleFileExtensions, isDev, useHash, cssModulesWhiteList } = buildConfig
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const loadModule = require.resolve
 
-const setStyle = (config: Config, reg: RegExp, options: StyleOptions) => {
+const setStyle = (isDev, config: Config, reg: RegExp, options: StyleOptions) => {
   const { include, exclude, modules, importLoaders, loader } = options
-  config.module
+  api.module
     .rule(options.rule)
     .test(reg)
     .when(Boolean(include), rule => {
@@ -58,11 +57,12 @@ const setStyle = (config: Config, reg: RegExp, options: StyleOptions) => {
         .end()
     })
 }
-const getBaseConfig = () => {
-  const config = new Config()
+const getBaseConfig = (config) => {
+  const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList, api } = config
+
   const mode = process.env.NODE_ENV as Mode
-  config.mode(mode)
-  config.module.strictExportPresence(true)
+  api.mode(mode)
+  api.module.strictExportPresence(true)
   config
     .resolve
     .modules
@@ -75,12 +75,12 @@ const getBaseConfig = () => {
     .end()
     .alias
     .end()
-  config.resolve.alias
+  api.resolve.alias
     .set('@', getFeDir())
     .set('react', loadModule('react')) // 用cwd的路径alias，否则可能会出现多个react实例
     .set('react-router', loadModule('react-router'))
     .set('react-router-dom', loadModule('react-router-dom'))
-  config.module
+  api.module
     .rule('images')
     .test(/\.(png|jpe?g|gif|webp)(\?.*)?$/)
     .use('url-loader')
@@ -100,7 +100,7 @@ const getBaseConfig = () => {
     })
     .end()
 
-  config.module
+  api.module
     .rule('compile')
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
     .exclude
@@ -142,26 +142,26 @@ const getBaseConfig = () => {
     })
     .end()
 
-  setStyle(config, /\.css$/, {
+  setStyle(isDev, config, /\.css$/, {
     exclude: cssModulesWhiteList,
     rule: 'css',
     modules: true,
     importLoaders: 1
   }) // 设置css
-  setStyle(config, /\.css$/, {
+  setStyle(isDev, config, /\.css$/, {
     include: cssModulesWhiteList,
     rule: 'antd',
     modules: false,
     importLoaders: 1
   }) // antd不使用css-modules
-  setStyle(config, /\.less$/, {
+  setStyle(isDev, config, /\.less$/, {
     rule: 'less',
     loader: 'less-loader',
     modules: true,
     importLoaders: 2
   })
 
-  config.module
+  api.module
     .rule('svg')
     .test(/\.(svg)(\?.*)?$/)
     .use('file-loader')
@@ -172,7 +172,7 @@ const getBaseConfig = () => {
     })
     .end()
 
-  config.module
+  api.module
     .rule('fonts')
     .test(/\.(eot|woff|woff2|ttf)(\?.*)?$/)
     .use('file-loader')
@@ -182,7 +182,7 @@ const getBaseConfig = () => {
       esModule: false
     })
 
-  config.plugin('minify-css').use(MiniCssExtractPlugin, [{
+  api.plugin('minify-css').use(MiniCssExtractPlugin, [{
     filename: useHash ? 'static/css/[name].[contenthash:8].css' : 'static/css/[name].css',
     chunkFilename: useHash ? 'static/css/[name].[contenthash:8].chunk.css' : 'static/css/[name].chunk.css'
   }])

@@ -1,22 +1,21 @@
 
 import * as webpack from 'webpack'
-import { buildConfig } from 'ssr-server-utils'
 import { getBaseConfig } from './base'
 
-const { publicPath, isDev, chunkName, getOutput, cwd, useHash, chainClientConfig } = buildConfig
-const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
-const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
-const safePostCssParser = require('postcss-safe-parser')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
-const loadModule = require.resolve
-
-const getClientWebpack = () => {
+const getClientWebpack = (config) => {
+  const { publicPath, isDev, chunkName, getOutput, cwd, useHash, chainClientConfig } = config
+  const { api } = config
+  const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
+  const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
+  const safePostCssParser = require('postcss-safe-parser')
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+  const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
+  const loadModule = require.resolve
   const truePublicPath = isDev ? publicPath : `/client${publicPath}`
-  const config = getBaseConfig()
-  config.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
+  getBaseConfig(config)
+  api.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
 
-  config.entry(chunkName)
+  api.entry(chunkName)
     .add(loadModule('../entry/client-entry'))
     .end()
     .output
@@ -26,7 +25,7 @@ const getClientWebpack = () => {
     .publicPath(truePublicPath)
     .end()
 
-  config.optimization
+  api.optimization
     .runtimeChunk(true)
     .splitChunks({
       chunks: 'all',
@@ -80,26 +79,26 @@ const getClientWebpack = () => {
       }])
     })
 
-  config.plugin('define').use(webpack.DefinePlugin, [{
+  api.plugin('define').use(webpack.DefinePlugin, [{
     __isBrowser__: true
   }])
 
-  config.when(!isDev, config => config.plugin('progress').use(loadModule('webpack/lib/ProgressPlugin')))
+  api.when(!isDev, config => api.plugin('progress').use(loadModule('webpack/lib/ProgressPlugin')))
 
-  config.plugin('moduleNotFound').use(ModuleNotFoundPlugin, [cwd])
+  api.plugin('moduleNotFound').use(ModuleNotFoundPlugin, [cwd])
 
-  config.plugin('manifest').use(loadModule('webpack-manifest-plugin'), [{
+  api.plugin('manifest').use(loadModule('webpack-manifest-plugin'), [{
     fileName: 'asset-manifest.json',
     publicPath: truePublicPath
   }])
 
-  config.when(generateAnalysis, config => {
-    config.plugin('analyze').use(BundleAnalyzerPlugin)
+  api.when(generateAnalysis, config => {
+    api.plugin('analyze').use(BundleAnalyzerPlugin)
   })
 
   chainClientConfig(config) // 合并用户自定义配置
 
-  return config.toConfig()
+  return api.toConfig()
 }
 
 export {

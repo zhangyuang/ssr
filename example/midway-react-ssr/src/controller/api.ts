@@ -1,19 +1,30 @@
-import { Inject, Controller, Post, Provide, Query } from '@midwayjs/decorator'
+import { Inject, Controller, Provide, Get } from '@midwayjs/decorator'
 import { Context } from 'egg'
-import { UserService } from '../service/user'
+import { IApiService, IApiDetailService } from '../interface'
 
 @Provide()
 @Controller('/api')
-export class APIController {
+export class Api {
   @Inject()
   ctx: Context
 
-  @Inject()
-  userService: UserService
+  @Inject('ApiService')
+  service: IApiService
 
-  @Post('/get_user')
-  async getUser (@Query() uid) {
-    const user = await this.userService.getUser({ uid })
-    return { success: true, message: 'OK', data: user }
+  @Inject('ApiService')
+  detailService: IApiDetailService
+
+  @Get('/index')
+  async getIndexData () {
+    const data = await this.service.index()
+    return data
+  }
+
+  @Get('/detail/:id')
+  async getDetailData () {
+    const { ctx, detailService } = this
+    const id = ctx.params.id
+    const data = await detailService.index(id)
+    return data
   }
 }

@@ -31,7 +31,6 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
-    "@midwayjs/faas-cli": "^1.0.0",
     "@midwayjs/fcli-plugin-fc": "^1.2.12",
     "@midwayjs/fcli-plugin-scf": "^1.2.12",
     "ora": "^4.0.4",

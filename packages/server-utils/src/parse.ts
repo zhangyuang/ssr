@@ -3,10 +3,11 @@ import { resolve, join } from 'path'
 import * as Yaml from 'js-yaml'
 import * as Shell from 'shelljs'
 import { Yml, FaasRouteItem } from 'ssr-types'
-import { buildConfig } from './config'
+import { loadConfig } from './config'
 import { promisifyFsReadDir } from './promisify'
 import { getCwd, getPagesDir, getFeDir } from './cwd'
 
+const buildConfig = loadConfig()
 const { cloudIDE, prefix, dynamic } = buildConfig
 const debug = require('debug')('ssr:parse')
 

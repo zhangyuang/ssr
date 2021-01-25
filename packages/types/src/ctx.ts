@@ -1,7 +1,9 @@
 import { FaaSContext } from '@midwayjs/faas'
+import { Context } from 'egg'
 import { Action } from './component'
 
 export type IFaaSContext<T={}> = FaaSContext & T
+export type IEggContext<T={}> = Context & T
 
 export interface Options {
   mode?: string

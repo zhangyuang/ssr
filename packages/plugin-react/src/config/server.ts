@@ -1,20 +1,16 @@
 import { join } from 'path'
 import * as webpack from 'webpack'
-import { buildConfig } from 'ssr-server-utils'
-import { getBaseConfig } from './base'
 import { nodeExternals } from '../plugins/external'
 
-const { isDev, cwd, getOutput, chainServerConfig, whiteList } = buildConfig
 const loadModule = require.resolve
 
-const getServerWebpack = () => {
-  const config = getBaseConfig()
+const getServerWebpack = (config) => {
+  const { isDev, cwd, getOutput, chainServerConfig, whiteList, api } = config
+  api.devtool(isDev ? 'eval-source-map' : false)
 
-  config.devtool(isDev ? 'eval-source-map' : false)
+  api.target('node')
 
-  config.target('node')
-
-  config.entry('Page')
+  api.entry('Page')
     .add(loadModule('../entry/server-entry'))
     .end()
     .output
@@ -22,7 +18,7 @@ const getServerWebpack = () => {
     .filename('[name].server.js')
     .libraryTarget('commonjs')
 
-  config.module
+  api.module
     .rule('compile')
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
     .exclude
@@ -55,22 +51,22 @@ const getServerWebpack = () => {
     })
     .end()
 
-  config.externals(nodeExternals({
+  api.externals(nodeExternals({
     whitelist: [/\.(css|less|sass|scss)$/, /ssr-temporary-routes/, /^antd.*?css/].concat(whiteList || []),
     // externals Dir contains packages/webpack-config/node_modules spa/node_modules ssr/node_modules
     modulesDir: [join(__dirname, '../node_modules'), join(cwd, './node_modules'), join(__dirname, '../../../node_modules')]
   }))
 
-  config.when(isDev, () => {
-    config.watch(true)
+  api.when(isDev, () => {
+    api.watch(true)
   })
 
-  config.plugin('define').use(webpack.DefinePlugin, [{
+  api.plugin('define').use(webpack.DefinePlugin, [{
     __isBrowser__: false
   }])
 
   chainServerConfig(config) // 合并用户自定义配置
-  return config.toConfig()
+  return api.toConfig()
 }
 
 export {

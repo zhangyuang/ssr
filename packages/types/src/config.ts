@@ -35,9 +35,9 @@ export interface BuildConfig {
   prefix?: string
   proxy: Proxy
   dynamic: boolean
-  serverFramework: string
   feFramework: string
   mode: string
+  api: any
 }
 
 export interface StyleOptions {

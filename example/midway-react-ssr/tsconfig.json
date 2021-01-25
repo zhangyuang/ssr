@@ -13,7 +13,8 @@
     "stripInternal": true,
     "pretty": true,
     "declaration": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "typeRoots": [ "./typings", "./node_modules/@types"]
   },
   "exclude": [
     "dist",
