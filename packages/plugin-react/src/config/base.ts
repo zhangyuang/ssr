@@ -7,8 +7,7 @@ import { setStyle } from '../utils'
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const loadModule = require.resolve
 
-const getBaseConfig = (config) => {
-  const { chain } = config
+const getBaseConfig = (chain, config) => {
   const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList } = config.buildConfig
   const mode = process.env.NODE_ENV as Mode
   chain.mode(mode)

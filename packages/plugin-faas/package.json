@@ -28,15 +28,16 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
-    "@midwayjs/fcli-plugin-fc": "^1.2.12",
-    "@midwayjs/fcli-plugin-scf": "^1.2.12",
-    "ssr-server-utils": "^4.3.4",
     "@midwayjs/faas-dev-pack": "^1.0.0",
+    "@midwayjs/fcli-command-core": "^1.2.37",
+    "@midwayjs/fcli-plugin-deploy": "^1.2.37",
+    "@midwayjs/fcli-plugin-fc": "^1.2.12",
+    "@midwayjs/fcli-plugin-package": "^1.2.39",
+    "@midwayjs/fcli-plugin-scf": "^1.2.12",
+    "http-proxy-middleware": "^1.0.6",
     "koa": "^2.11.0",
     "koa2-connect": "^1.0.2",
-    "http-proxy-middleware": "^1.0.6"
+    "ssr-server-utils": "^4.3.4"
   },
-  "devDependencies": {
-   
-  }
+  "devDependencies": {}
 }

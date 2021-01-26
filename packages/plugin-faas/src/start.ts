@@ -5,7 +5,7 @@ const { createProxyMiddleware } = require('http-proxy-middleware')
 const koaConnect = require('koa2-connect')
 
 type Path = '/static' | '/sockjs-node' | '/*.hot-update.js(on)?' | '/__webpack_dev_server__' | '/asset-manifest'
-const startFaasServer = (config) => {
+const start = (config) => {
   const cwd = getCwd()
   const app = new Koa()
 
@@ -58,5 +58,5 @@ const startFaasServer = (config) => {
 }
 
 export {
-  startFaasServer
+  start
 }

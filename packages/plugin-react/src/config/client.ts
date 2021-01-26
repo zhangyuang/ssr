@@ -8,12 +8,11 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const loadModule = require.resolve
 
-const getClientWebpack = (config) => {
-  const { chain } = config
+const getClientWebpack = (chain, config) => {
   const { publicPath, isDev, chunkName, getOutput, cwd, useHash, chainClientConfig } = config.buildConfig
   const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
   const truePublicPath = isDev ? publicPath : `/client${publicPath}`
-  getBaseConfig(config)
+  getBaseConfig(chain, config)
   chain.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
   chain.entry(chunkName)
     .add(loadModule('../entry/client-entry'))

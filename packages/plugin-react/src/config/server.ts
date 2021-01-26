@@ -5,10 +5,9 @@ import { nodeExternals } from '../plugins/external'
 
 const loadModule = require.resolve
 
-const getServerWebpack = (config) => {
-  const { chain } = config
+const getServerWebpack = (chain, config) => {
   const { isDev, cwd, getOutput, chainServerConfig, whiteList } = config.buildConfig
-  getBaseConfig(config)
+  getBaseConfig(chain, config)
   chain.devtool(isDev ? 'eval-source-map' : false)
   chain.target('node')
   chain.entry('Page')
