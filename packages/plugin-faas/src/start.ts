@@ -1,34 +1,35 @@
 import { useKoaDevPack } from '@midwayjs/faas-dev-pack'
+import { logGreen, getCwd } from 'ssr-server-utils'
 import * as Koa from 'koa'
-import { logGreen, getCwd, buildConfig } from 'ssr-server-utils'
 const { createProxyMiddleware } = require('http-proxy-middleware')
 const koaConnect = require('koa2-connect')
 
-const { port, faasPort, cloudIDE, proxy } = buildConfig
-
-const app = new Koa()
-const cwd = getCwd()
-function onProxyReq (proxyReq: any, req: Koa.Request) {
-  Object.keys(req.headers).forEach(function (key) {
-    proxyReq.setHeader(key, req.headers[key])
-  })
-}
-const remoteStaticServerOptions = {
-  target: `http://127.0.0.1:${port}`,
-  changeOrigin: true,
-  secure: false,
-  onProxyReq
-}
-const proxyPathMap = {
-  '/static': remoteStaticServerOptions,
-  '/sockjs-node': remoteStaticServerOptions,
-  '/*.hot-update.js(on)?': remoteStaticServerOptions,
-  '/__webpack_dev_server__': remoteStaticServerOptions,
-  '/asset-manifest': remoteStaticServerOptions
-}
 type Path = '/static' | '/sockjs-node' | '/*.hot-update.js(on)?' | '/__webpack_dev_server__' | '/asset-manifest'
+const start = (config) => {
+  const cwd = getCwd()
+  const app = new Koa()
 
-const startFaasServer = () => {
+  function onProxyReq (proxyReq: any, req: Koa.Request) {
+    Object.keys(req.headers).forEach(function (key) {
+      proxyReq.setHeader(key, req.headers[key])
+    })
+  }
+
+  const { port, faasPort, cloudIDE, proxy } = config.buildConfig
+
+  const remoteStaticServerOptions = {
+    target: `http://127.0.0.1:${port}`,
+    changeOrigin: true,
+    secure: false,
+    onProxyReq
+  }
+  const proxyPathMap = {
+    '/static': remoteStaticServerOptions,
+    '/sockjs-node': remoteStaticServerOptions,
+    '/*.hot-update.js(on)?': remoteStaticServerOptions,
+    '/__webpack_dev_server__': remoteStaticServerOptions,
+    '/asset-manifest': remoteStaticServerOptions
+  }
   for (const path in proxyPathMap) {
     const options = proxyPathMap[path as Path]
     app.use(koaConnect(createProxyMiddleware(path, options)))
@@ -57,5 +58,5 @@ const startFaasServer = () => {
 }
 
 export {
-  startFaasServer
+  start
 }

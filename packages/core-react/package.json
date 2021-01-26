@@ -1,5 +1,5 @@
 {
-  "name": "ssr-core",
+  "name": "ssr-core-react",
   "version": "4.3.4",
   "description": "core for serverless ssr",
   "main": "./cjs/index.js",

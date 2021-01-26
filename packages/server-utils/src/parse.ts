@@ -3,12 +3,10 @@ import { resolve, join } from 'path'
 import * as Yaml from 'js-yaml'
 import * as Shell from 'shelljs'
 import { Yml, FaasRouteItem } from 'ssr-types'
-import { loadConfig } from './config'
 import { promisifyFsReadDir } from './promisify'
 import { getCwd, getPagesDir, getFeDir } from './cwd'
+import { loadConfig } from './loadConfig'
 
-const buildConfig = loadConfig()
-const { cloudIDE, prefix, dynamic } = buildConfig
 const debug = require('debug')('ssr:parse')
 
 const parseYml = (path: string): Yml => {
@@ -21,6 +19,8 @@ const parseYml = (path: string): Yml => {
 }
 
 const parseRoutesFromYml = (yamlContent: Yml) => {
+  const { buildConfig } = loadConfig()
+  const { cloudIDE } = buildConfig
   const routes: FaasRouteItem[] = []
 
   for (const funcName in yamlContent.functions) {
@@ -40,6 +40,8 @@ const parseRoutesFromYml = (yamlContent: Yml) => {
 }
 
 const parseFeRoutes = async () => {
+  const { buildConfig } = loadConfig()
+  const { dynamic, prefix } = buildConfig
   const pageDir = getPagesDir()
   const feDir = getFeDir()
   // 根据目录结构生成前端路由表
@@ -95,7 +97,7 @@ const parseFeRoutes = async () => {
       if (prefix) {
         route.path = prefix ? `/${prefix}${route.path}` : route.path
       }
-      if (dynamic !== false) {
+      if (dynamic) {
         route.webpackChunkName = folder
       }
       arr.push(route)
@@ -118,7 +120,7 @@ const parseFeRoutes = async () => {
         return `"fetch": ${m2.replace(/\^/g, '"')}`
       })
       }`
-  if (dynamic === false) {
+  if (!dynamic) {
     // 如果禁用路由分割则无需引入 react-loadable
     routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
       return `"component": require('${m2.replace(/\^/g, '"')}').default`

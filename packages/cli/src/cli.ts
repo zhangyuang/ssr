@@ -18,36 +18,43 @@ yargs
     spinnerProcess.send({
       message: 'stop'
     })
-    await config.fePlugin.start(config)
-    await config.faasPlugin.start(config)
+    await config.buildConfig.fePlugin.start?.(config)
+    await config.buildConfig.serverPlugin.start?.(config)
   })
   .command('build', 'build server and client files', {}, async () => {
     spinnerProcess.send({
       message: 'start'
     })
     process.env.NODE_ENV = 'production'
-    const { build } = require('./build')
-    const { parseFeRoutes } = require('ssr-server-utils')
+    const config = loadConfig()
     await parseFeRoutes()
     spinnerProcess.send({
       message: 'stop'
     })
-    await build()
+    await config.buildConfig.fePlugin.build?.(config)
+    await config.buildConfig.serverPlugin.build?.(config)
   })
   .command('deploy', 'deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {
-    const { deploy } = require('./deploy')
-    await deploy(argv)
+    const config = loadConfig()
+    if (!config.buildConfig.serverPlugin.deploy) {
+      console.log('当前插件不支持 deploy 功能，请使用 ssr-plugin-faas 插件 并创建对应 yml 文件 参考 https://www.yuque.com/midwayjs/faas/migrate_egg 或扫码进群了解')
+      return
+    }
+    process.env.NODE_ENV = 'production'
+    await config.buildConfig.serverPlugin.deploy?.(argv)
   })
   .demandCommand(1, 'You need at least one command before moving on')
   .option('version', {
     alias: 'v',
     default: false
   })
-  .fail((msg, err, yargs) => {
-    console.log(err)
-    spinnerProcess.send({
-      message: 'stop'
-    })
-    process.exit(1)
+  .fail((msg, err) => {
+    if (err) {
+      console.log(err)
+      spinnerProcess.send({
+        message: 'stop'
+      })
+      process.exit(1)
+    }
   })
   .parse()

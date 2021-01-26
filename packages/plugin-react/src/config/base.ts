@@ -1,86 +1,36 @@
 
 import { join } from 'path'
-import * as Config from 'webpack-chain'
 import { Mode } from 'ssr-types'
-import { getFeDir, getCwd, StyleOptions } from 'ssr-server-utils'
+import { getFeDir, getCwd } from 'ssr-server-utils'
+import { setStyle } from '../utils'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const loadModule = require.resolve
 
-const setStyle = (isDev, config: Config, reg: RegExp, options: StyleOptions) => {
-  const { include, exclude, modules, importLoaders, loader } = options
-  api.module
-    .rule(options.rule)
-    .test(reg)
-    .when(Boolean(include), rule => {
-      include && rule.include.add(include).end()
-    })
-    .when(Boolean(exclude), rule => {
-      exclude && rule.exclude.add(exclude).end()
-    })
-    .when(isDev, rule => {
-      rule.use('hmr')
-        .loader(loadModule('css-hot-loader'))
-        .end()
-    })
-    .use('MiniCss')
-    .loader(MiniCssExtractPlugin.loader)
-    .end()
-    .use('css-loader')
-    .loader(loadModule('css-loader'))
-    .options({
-      importLoaders: importLoaders,
-      modules: modules,
-      getLocalIdent: getCSSModuleLocalIdent
-    })
-    .end()
-    .use('postcss-loader')
-    .loader(loadModule('postcss-loader'))
-    .options({
-      ident: 'postcss',
-      plugins: () => [
-        require('postcss-flexbugs-fixes'),
-        require('postcss-discard-comments'),
-        require('postcss-preset-env')({
-          autoprefixer: {
-            flexbox: 'no-2009'
-          },
-          stage: 3
-        })
-      ]
-    })
-    .end()
-    .when(Boolean(loader), rule => {
-      loader && rule.use(loader)
-        .loader(loadModule(loader))
-        .end()
-    })
-}
-const getBaseConfig = (config) => {
-  const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList, api } = config
-
+const getBaseConfig = (chain, config) => {
+  const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList } = config.buildConfig
   const mode = process.env.NODE_ENV as Mode
-  api.mode(mode)
-  api.module.strictExportPresence(true)
-  config
+  chain.mode(mode)
+  chain.module.strictExportPresence(true)
+  chain
     .resolve
     .modules
     .add('node_modules')
     .add(join(getCwd(), './node_modules'))
-    .add(join(__dirname, '../node_modules'))
-    .add(join(__dirname, '../../../node_modules'))
+    .when(isDev, chain => {
+      chain.add(join(__dirname, '../../../../node_modules'))
+    })
     .end()
     .extensions.merge(moduleFileExtensions)
     .end()
     .alias
     .end()
-  api.resolve.alias
+  chain.resolve.alias
     .set('@', getFeDir())
     .set('react', loadModule('react')) // 用cwd的路径alias，否则可能会出现多个react实例
     .set('react-router', loadModule('react-router'))
     .set('react-router-dom', loadModule('react-router-dom'))
-  api.module
+  chain.module
     .rule('images')
     .test(/\.(png|jpe?g|gif|webp)(\?.*)?$/)
     .use('url-loader')
@@ -100,7 +50,7 @@ const getBaseConfig = (config) => {
     })
     .end()
 
-  api.module
+  chain.module
     .rule('compile')
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
     .exclude
@@ -142,26 +92,26 @@ const getBaseConfig = (config) => {
     })
     .end()
 
-  setStyle(isDev, config, /\.css$/, {
+  setStyle(isDev, chain, /\.css$/, {
     exclude: cssModulesWhiteList,
     rule: 'css',
     modules: true,
     importLoaders: 1
   }) // 设置css
-  setStyle(isDev, config, /\.css$/, {
+  setStyle(isDev, chain, /\.css$/, {
     include: cssModulesWhiteList,
     rule: 'antd',
     modules: false,
     importLoaders: 1
   }) // antd不使用css-modules
-  setStyle(isDev, config, /\.less$/, {
+  setStyle(isDev, chain, /\.less$/, {
     rule: 'less',
     loader: 'less-loader',
     modules: true,
     importLoaders: 2
   })
 
-  api.module
+  chain.module
     .rule('svg')
     .test(/\.(svg)(\?.*)?$/)
     .use('file-loader')
@@ -172,7 +122,7 @@ const getBaseConfig = (config) => {
     })
     .end()
 
-  api.module
+  chain.module
     .rule('fonts')
     .test(/\.(eot|woff|woff2|ttf)(\?.*)?$/)
     .use('file-loader')
@@ -182,7 +132,7 @@ const getBaseConfig = (config) => {
       esModule: false
     })
 
-  api.plugin('minify-css').use(MiniCssExtractPlugin, [{
+  chain.plugin('minify-css').use(MiniCssExtractPlugin, [{
     filename: useHash ? 'static/css/[name].[contenthash:8].css' : 'static/css/[name].css',
     chunkFilename: useHash ? 'static/css/[name].[contenthash:8].chunk.css' : 'static/css/[name].chunk.css'
   }])

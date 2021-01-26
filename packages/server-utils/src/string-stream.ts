@@ -1,6 +1,6 @@
 const stream = require('readable-stream')
 
-class StringStream extends stream.Readable {
+class StringToStream extends stream.Readable {
   constructor (str: string) {
     super()
     this._str = str
@@ -19,5 +19,5 @@ class StringStream extends stream.Readable {
 }
 
 export {
-  StringStream
+  StringToStream
 }
