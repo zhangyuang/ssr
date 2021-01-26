@@ -1,7 +1,7 @@
 import { startFaasServer } from './server'
 
 const start = async (config) => {
-  startFaasServer()
+  startFaasServer(config)
 }
 
 export {

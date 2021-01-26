@@ -3,26 +3,22 @@ import { webpackPromisify } from '../utils/promisify'
 
 const WebpackDevServer = require('webpack-dev-server-ssr')
 
-const startClientServer = async (config) => {
-  const { port, host, webpackDevServerConfig, fePlugin } = config
+const startClientServer = async (webpackConfig, config) => {
+  const { webpackDevServerConfig } = config
+  const { port, host } = config.buildConfig
   return await new Promise((resolve) => {
-    const clientConfig = fePlugin.getClientWebpack(config)
-    const compiler = webpack(clientConfig)
+    const compiler = webpack(webpackConfig)
     const server = new WebpackDevServer(compiler, webpackDevServerConfig)
     compiler.hooks.done.tap('WebpackDevMiddleware', (stats) => {
-      // Do the stuff in nextTick, because bundle may be invalidated
-      // if a change happened while compiling
       resolve()
     })
     server.listen(port, host)
   })
 }
 
-const startClientBuild = async (config) => {
-  const { webpackStatsOption, fePlugin } = config
-  const clientConfig = fePlugin.getClientWebpack(config)
-
-  const stats = await webpackPromisify(clientConfig)
+const startClientBuild = async (webpackConfig, config) => {
+  const { webpackStatsOption } = config.buildConfig
+  const stats = await webpackPromisify(webpackConfig)
   console.log(stats.toString(webpackStatsOption))
 }
 

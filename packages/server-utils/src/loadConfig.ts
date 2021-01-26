@@ -1,4 +1,3 @@
-import * as WebpackChain from 'webpack-chain'
 import { BuildConfig } from 'ssr-types'
 import { getCwd, getUserConfig } from './cwd'
 
@@ -7,7 +6,6 @@ const loadConfig = () => {
   const cwd = getCwd()
   const mode = 'ssr'
   const feFramework = 'react'
-  const api = new WebpackChain()
   type ClientLogLevel = 'error'
 
   const publicPath = '/'
@@ -34,7 +32,7 @@ const loadConfig = () => {
 
   const host = '0.0.0.0'
 
-  const chunkName = userConfig.chunkName || 'Page'
+  const chunkName = 'Page'
 
   const clientLogLevel: ClientLogLevel = 'error'
 
@@ -72,7 +70,7 @@ const loadConfig = () => {
     publicPath: publicPath,
     hotOnly: true,
     host,
-    sockPort: userConfig.sockPort || port,
+    sockPort: port,
     hot: true,
     port: port,
     clientLogLevel: clientLogLevel,
@@ -84,7 +82,7 @@ const loadConfig = () => {
     }
   }, userConfig.webpackDevServerConfig)
 
-  const staticPrefix = userConfig.staticPrefix || ''
+  const staticPrefix = ''
 
   const chainClientConfig = () => {
     // 覆盖默认webpack配置
@@ -115,8 +113,9 @@ const loadConfig = () => {
     dynamic,
     mode,
     feFramework,
-    api
+    webpackDevServerConfig
   }, userConfig)
+
   return {
     buildConfig,
     webpackDevServerConfig

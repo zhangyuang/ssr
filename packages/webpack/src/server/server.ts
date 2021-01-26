@@ -1,10 +1,9 @@
 
 import { webpackPromisify } from '../utils/promisify'
 
-const startServerBuild = async (config) => {
-  const { webpackStatsOption, fePlugin } = config
-  const serverConfig = fePlugin.getServerWebpack(config)
-  const stats = await webpackPromisify(serverConfig)
+const startServerBuild = async (webpackConfig, config) => {
+  const { webpackStatsOption } = config.buildConfig
+  const stats = await webpackPromisify(webpackConfig)
   console.log(stats.toString(webpackStatsOption))
 }
 

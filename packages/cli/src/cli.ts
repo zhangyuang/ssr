@@ -18,8 +18,8 @@ yargs
     spinnerProcess.send({
       message: 'stop'
     })
-    await config.fePlugin.start(config)
-    await config.faasPlugin.start(config)
+    await config.buildConfig.fePlugin.start?.(config)
+    await config.buildConfig.serverPlugin.start?.(config)
   })
   .command('build', 'build server and client files', {}, async () => {
     spinnerProcess.send({
@@ -27,7 +27,6 @@ yargs
     })
     process.env.NODE_ENV = 'production'
     const { build } = require('./build')
-    const { parseFeRoutes } = require('ssr-server-utils')
     await parseFeRoutes()
     spinnerProcess.send({
       message: 'stop'
@@ -43,11 +42,13 @@ yargs
     alias: 'v',
     default: false
   })
-  .fail((msg, err, yargs) => {
-    console.log(err)
-    spinnerProcess.send({
-      message: 'stop'
-    })
-    process.exit(1)
+  .fail((msg, err) => {
+    if (err) {
+      console.log(err)
+      spinnerProcess.send({
+        message: 'stop'
+      })
+      process.exit(1)
+    }
   })
   .parse()

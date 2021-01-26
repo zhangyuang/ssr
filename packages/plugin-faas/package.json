@@ -28,6 +28,8 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
+    "@midwayjs/fcli-plugin-fc": "^1.2.12",
+    "@midwayjs/fcli-plugin-scf": "^1.2.12",
     "ssr-server-utils": "^4.3.4",
     "@midwayjs/faas-dev-pack": "^1.0.0",
     "koa": "^2.11.0",
