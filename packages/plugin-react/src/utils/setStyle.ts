@@ -1,11 +1,12 @@
 
+import * as WebpackChain from 'webpack-chain'
 import { StyleOptions } from 'ssr-server-utils'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const loadModule = require.resolve
 
-const setStyle = (isDev: boolean, chain, reg: RegExp, options: StyleOptions) => {
+const setStyle = (isDev: boolean, chain: WebpackChain, reg: RegExp, options: StyleOptions) => {
   const { include, exclude, modules, importLoaders, loader } = options
   chain.module
     .rule(options.rule)

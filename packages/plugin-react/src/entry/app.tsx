@@ -1,9 +1,11 @@
 import * as React from 'react'
 import { useReducer } from 'react'
-import { IProps, Action } from 'ssr-types'
+import { IProps, Action, IWindow } from 'ssr-types'
 import { clientContext as Context } from './create-context'
 
 // 客户端的 context  只需要创建一次，在页面整个生命周期内共享
+declare const window: IWindow
+
 window.STORE_CONTEXT = Context
 
 function reducer (state: any, action: Action) {

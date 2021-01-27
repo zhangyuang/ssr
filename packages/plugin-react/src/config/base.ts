@@ -2,14 +2,15 @@
 import { join } from 'path'
 import { Mode } from 'ssr-types'
 import { getFeDir, getCwd, loadConfig } from 'ssr-server-utils'
+import * as WebpackChain from 'webpack-chain'
 import { setStyle } from '../utils'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const loadModule = require.resolve
 
-const getBaseConfig = (chain) => {
+const getBaseConfig = (chain: WebpackChain) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList } = config.buildConfig
+  const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList } = config
   const mode = process.env.NODE_ENV as Mode
   chain.mode(mode)
   chain.module.strictExportPresence(true)

@@ -37,5 +37,8 @@
     "concurrently": "^5.1.0",
     "egg": "^2.29.1",
     "webpack-chain": "^6.4.0"
+  },
+  "devDependencies": {
+    "@types/webpack-dev-server": "^3.11.1"
   }
 }

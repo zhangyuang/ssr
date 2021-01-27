@@ -2,9 +2,12 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { wrapComponent, wrapLayout, FeRouteItem, preloadComponent } from 'ssr-client-utils'
+import { IWindow } from 'ssr-types'
 import { App } from './app'
 
 declare const module: any
+declare const window: IWindow
+declare const __isBrowser__: boolean
 
 const feRoutes: FeRouteItem[] = require('ssr-temporary-routes/route')
 

@@ -1,11 +1,11 @@
-import { BuildConfig } from 'ssr-types'
+import { IConfig } from 'ssr-types'
 import { getCwd, getUserConfig } from './cwd'
 
-const loadConfig = () => {
+const loadConfig = (): IConfig => {
   const userConfig = getUserConfig()
   const cwd = getCwd()
   const mode = 'ssr'
-  const feFramework = 'react'
+  const stream = false
   type ClientLogLevel = 'error'
 
   const publicPath = '/'
@@ -91,7 +91,7 @@ const loadConfig = () => {
     // 覆盖默认webpack配置
   }
 
-  const buildConfig: BuildConfig = Object.assign({}, {
+  const config = Object.assign({}, {
     chainServerConfig,
     chainClientConfig,
     cwd,
@@ -112,14 +112,11 @@ const loadConfig = () => {
     cssModulesWhiteList,
     dynamic,
     mode,
-    feFramework,
-    webpackDevServerConfig
+    webpackDevServerConfig,
+    stream
   }, userConfig)
 
-  return {
-    buildConfig,
-    webpackDevServerConfig
-  }
+  return config
 }
 
 export {

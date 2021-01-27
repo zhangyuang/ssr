@@ -35,7 +35,6 @@
   "dependencies": {
     "debug": "^4.1.1",
     "js-yaml": "^3.13.1",
-    "merge-stream": "^2.0.0",
     "path-to-regexp": "^1.7.0",
     "readable-stream": "^3.6.0",
     "shelljs": "^0.8.3",

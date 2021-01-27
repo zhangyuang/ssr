@@ -24,7 +24,7 @@ if (process.argv.includes('--link')) {
   const examples = fs.readdirSync('./example')
   examples.forEach(example => {
     if (example !== '.DS_Store') {
-      const exampleShell = shell + `&& cd example/${example} && yarn link ${linkedPackage} && yarn link react && yarn link react-dom && chmod 777 ./node_modules/.bin/ssr`
+      const exampleShell = shell + `&& cd example/${example} && yarn link ${linkedPackage} && yarn link react && yarn link react-dom && chmod 777 ./node_modules/ssr/cjs/cli.js`
       execSync(exampleShell, options)
     }
   })

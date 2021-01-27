@@ -6,7 +6,6 @@ const koaConnect = require('koa2-connect')
 
 type Path = '/static' | '/sockjs-node' | '/*.hot-update.js(on)?' | '/__webpack_dev_server__' | '/asset-manifest'
 const start = () => {
-  const config = loadConfig()
   const cwd = getCwd()
   const app = new Koa()
 
@@ -16,7 +15,7 @@ const start = () => {
     })
   }
 
-  const { port, faasPort, cloudIDE, proxy } = config.buildConfig
+  const { port, faasPort, cloudIDE, proxy } = loadConfig()
 
   const remoteStaticServerOptions = {
     target: `http://127.0.0.1:${port}`,

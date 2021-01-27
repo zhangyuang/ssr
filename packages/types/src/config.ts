@@ -1,4 +1,5 @@
 import { Configuration, Options } from 'webpack'
+import * as WebpackDevServer from 'webpack-dev-server'
 import * as Config from 'webpack-chain'
 
 export interface Proxy {
@@ -6,7 +7,7 @@ export interface Proxy {
   match: RegExp
 }
 
-export interface BuildConfig {
+export interface IConfig {
   cwd: string
   isDev: boolean
   publicPath: string
@@ -20,7 +21,6 @@ export interface BuildConfig {
     clientOutPut: string
     serverOutPut: string
   }
-  webpackDevServerConfig: any
   cssOrder: string[]
   jsOrder: string[]
   staticPrefix: string
@@ -28,7 +28,6 @@ export interface BuildConfig {
   chainClientConfig: (config: Config) => Configuration
   webpackStatsOption: Options.Stats
   moduleFileExtensions: string[]
-  postCssPlugin: any
   whiteList: RegExp[]
   cloudIDE?: boolean
   cssModulesWhiteList: RegExp[]
@@ -37,7 +36,8 @@ export interface BuildConfig {
   dynamic: boolean
   feFramework: string
   mode: string
-  api: any
+  webpackDevServerConfig: WebpackDevServer.Configuration
+  stream: boolean
 }
 
 export interface StyleOptions {

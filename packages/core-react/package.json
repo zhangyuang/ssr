@@ -29,7 +29,8 @@
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
     "ssr-server-utils": "^4.3.4",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "merge-stream": "^2.0.0"
   },
   "devDependencies": {
     "@types/react-dom": "^17.0.0"

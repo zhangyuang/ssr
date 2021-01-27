@@ -8,7 +8,7 @@ import { getCwd, getPagesDir, getFeDir } from './cwd'
 import { loadConfig } from './loadConfig'
 
 const debug = require('debug')('ssr:parse')
-const { buildConfig } = loadConfig()
+const { cloudIDE, dynamic, prefix } = loadConfig()
 
 const parseYml = (path: string): Yml => {
   const cwd = getCwd()
@@ -20,7 +20,6 @@ const parseYml = (path: string): Yml => {
 }
 
 const parseRoutesFromYml = (yamlContent: Yml) => {
-  const { cloudIDE } = buildConfig
   const routes: FaasRouteItem[] = []
 
   for (const funcName in yamlContent.functions) {
@@ -40,7 +39,6 @@ const parseRoutesFromYml = (yamlContent: Yml) => {
 }
 
 const parseFeRoutes = async () => {
-  const { dynamic, prefix } = buildConfig
   const pageDir = getPagesDir()
   const feDir = getFeDir()
   // 根据目录结构生成前端路由表
