@@ -6,6 +6,9 @@ const promisifyFsReadDir = promisify(fs.readdir)
 
 const getPromisify = async (url: string) => {
   return await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      reject(new Error(`request ${url} timeout`))
+    }, 3000)
     http.get(url, res => {
       if (res.statusCode! < 200 || res.statusCode! >= 300) {
         return reject(new Error(`statusCode=${res.statusCode}`))

@@ -12,7 +12,7 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  install:
+  bootstrap:
     if: "!contains(github.event.head_commit.message, 'skip ci')"
     runs-on: ubuntu-latest
     strategy:
@@ -38,10 +38,15 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
       - name: Install dependencies
-        run: yarn && cd example/serverless-react-ssr && yarn
+        run: node scripts/scripts.js --bootstrap
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: bindings-${{matrix.node}}
+          path: packages       
 
   lint:
-    needs: install
+    needs: bootstrap
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -63,13 +68,13 @@ jobs:
           key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
       - run: yarn run lint
 
-  e2e-chrome:
-    needs: install
+  e2e-chrome-serverless-react:
+    needs: bootstrap
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
         node: ["12", "13"]
-    name: e2e-chrome
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -85,80 +90,130 @@ jobs:
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
-      - name: prepare
-        run: yarn run build:only && yarn run link
-      - uses: cypress-io/github-action@v2
-        with:
-          start: yarn run example
-          wait-on: 'http://localhost:3000'
-          browser: chrome
-  e2e-firefox:
-    needs: install
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ["12", "13"]
-    name: e2e-firefox
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
-      - name: prepare
-        run: yarn run build:only && yarn run link
-      - uses: cypress-io/github-action@v2
-        with:
-          start: yarn run example
-          wait-on: 'http://localhost:3000'
-          browser: firefox
-  build-only:
-    needs:  
-      - lint
-      - e2e-firefox
-      - e2e-chrome
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ["12", "13"]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            /home/runner/.cache/Cypress
-            ~/.cache/yarn
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn run build:only && rm -rf packages/**/node_modules
-      - name: List packages
-        run: ls -R packages
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
-          path: packages       
+          path: packages
+      - name: prepare
+        run: yarn run link
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example:serverless:react
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+  e2e-firefox-serverless-react:
+    needs: bootstrap
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: ["12", "13"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: bindings-${{matrix.node}}
+          path: packages
+      - name: prepare
+        run: yarn run link
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example:serverless:react
+          wait-on: 'http://localhost:3000'
+          browser: firefox
+  e2e-chrome-midway-react:
+    needs: bootstrap
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: ["12", "13"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: bindings-${{matrix.node}}
+          path: packages
+      - name: prepare
+        run: yarn run link
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example:midway:react
+          wait-on: 'http://localhost:3000'
+          browser: chrome
+  e2e-firefox-midway-react:
+    needs: bootstrap
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        node: ["12", "13"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: bindings-${{matrix.node}}
+          path: packages
+      - name: prepare
+        run: yarn run link
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example:midway:react
+          wait-on: 'http://localhost:3000'
+          browser: firefox
   publish:
     name: Publish
     if: "startsWith(github.event.head_commit.message, 'chore(release): publish')"
     runs-on: ubuntu-latest
-    needs:
-      - build-only
+    needs:  
+      - lint
+      - e2e-firefox-serverless-react
+      - e2e-chrome-serverless-react
+      - e2e-firefox-midway-react
+      - e2e-chrome-midway-react
 
     steps:
       - uses: actions/checkout@v2

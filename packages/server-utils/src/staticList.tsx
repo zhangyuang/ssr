@@ -5,9 +5,9 @@ import { getPromisify } from './promisify'
 
 let manifest: any = false
 const getManiFest = async ({
-  port, isDev
+  fePort, isDev
 }: {
-  port: number
+  fePort: number
   isDev: boolean
 }) => {
   if (manifest) {
@@ -15,14 +15,14 @@ const getManiFest = async ({
   }
   const cwd = getCwd()
   if (isDev) {
-    manifest = await getPromisify(`http://localhost:${port}/asset-manifest.json`)
+    manifest = await getPromisify(`http://localhost:${fePort}/asset-manifest.json`)
   } else {
     manifest = require(join(cwd, './build/client/asset-manifest.json'))
   }
 }
-const getStaticList = async (isDev: boolean, port: number, staticPrefix: string, cssOrder: string[], jsOrder: string[]) => {
+const getStaticList = async (isDev: boolean, fePort: number, staticPrefix: string, cssOrder: string[], jsOrder: string[]) => {
   await getManiFest({
-    port,
+    fePort,
     isDev
   })
 

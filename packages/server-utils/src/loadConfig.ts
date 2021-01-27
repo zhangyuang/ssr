@@ -1,11 +1,11 @@
-import { BuildConfig } from 'ssr-types'
+import { IConfig } from 'ssr-types'
 import { getCwd, getUserConfig } from './cwd'
 
-const loadConfig = () => {
+const loadConfig = (): IConfig => {
   const userConfig = getUserConfig()
   const cwd = getCwd()
   const mode = 'ssr'
-  const feFramework = 'react'
+  const stream = false
   type ClientLogLevel = 'error'
 
   const publicPath = '/'
@@ -26,9 +26,9 @@ const loadConfig = () => {
 
   const isDev = process.env.NODE_ENV !== 'production'
 
-  const port = 8000
+  const fePort = 8000
 
-  const faasPort = 3000
+  const serverPort = 3000
 
   const host = '0.0.0.0'
 
@@ -70,9 +70,9 @@ const loadConfig = () => {
     publicPath: publicPath,
     hotOnly: true,
     host,
-    sockPort: port,
+    sockPort: fePort,
     hot: true,
-    port: port,
+    port: fePort,
     clientLogLevel: clientLogLevel,
     progress: true,
     headers: {
@@ -91,7 +91,7 @@ const loadConfig = () => {
     // 覆盖默认webpack配置
   }
 
-  const buildConfig: BuildConfig = Object.assign({}, {
+  const config = Object.assign({}, {
     chainServerConfig,
     chainClientConfig,
     cwd,
@@ -100,8 +100,8 @@ const loadConfig = () => {
     useHash,
     host,
     moduleFileExtensions,
-    port,
-    faasPort,
+    fePort,
+    serverPort,
     chunkName,
     jsOrder,
     cssOrder,
@@ -112,14 +112,12 @@ const loadConfig = () => {
     cssModulesWhiteList,
     dynamic,
     mode,
-    feFramework,
-    webpackDevServerConfig
+    stream
   }, userConfig)
 
-  return {
-    buildConfig,
-    webpackDevServerConfig
-  }
+  config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了
+
+  return config
 }
 
 export {

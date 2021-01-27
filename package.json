@@ -5,7 +5,6 @@
   ],
   "scripts": {
     "bootstrap": "node scripts/scripts.js --bootstrap && yarn run link",
-    "example": "cd example/serverless-react-ssr && npm start",
     "clean": "node scripts/scripts.js --clean",
     "dev": "lerna run watch --stream --parallel",
     "build": "lerna run build --stream --parallel",
@@ -17,7 +16,9 @@
     "link": "node scripts/scripts.js --link",
     "unlink": "node scripts/scripts.js --unlink",
     "publish": "lerna version --conventional-commits",
-    "e2e": "cypress run --browser chrome"
+    "e2e": "cypress run --browser chrome",
+    "example:serverless:react": "cd example/serverless-react-ssr && npm start",
+    "example:midway:react": "cd example/midway-react-ssr && ls -R node_modules"
   },
   "repository": {
     "type": "git",

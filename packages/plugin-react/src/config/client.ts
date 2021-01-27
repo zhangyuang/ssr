@@ -1,5 +1,7 @@
 
 import * as webpack from 'webpack'
+import { loadConfig } from 'ssr-server-utils'
+import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
 
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
@@ -8,11 +10,11 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const loadModule = require.resolve
 
-const getClientWebpack = (chain, config) => {
-  const { publicPath, isDev, chunkName, getOutput, cwd, useHash, chainClientConfig } = config.buildConfig
+const getClientWebpack = (chain: WebpackChain) => {
+  const { publicPath, isDev, chunkName, getOutput, cwd, useHash, chainClientConfig } = loadConfig()
   const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
   const truePublicPath = isDev ? publicPath : `/client${publicPath}`
-  getBaseConfig(chain, config)
+  getBaseConfig(chain)
   chain.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
   chain.entry(chunkName)
     .add(loadModule('../entry/client-entry'))

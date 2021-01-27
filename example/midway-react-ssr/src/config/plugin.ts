@@ -1,4 +1,4 @@
 import { EggPlugin } from 'egg'
 export default {
-  static: false // default is true
+  static: true
 } as EggPlugin

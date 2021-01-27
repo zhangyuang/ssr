@@ -339,8 +339,6 @@ provider:
 functions:
   index:
     handler: index.handler
-    render: # 定义页面渲染服务
-      mode: ssr
     events:
       - http:
           path: /
@@ -439,12 +437,13 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
 ```js
 {
   mode: string; // 渲染模式，默认为 ssr
+  stream: boolean; // 是否将组件编译成 Node.js.Stream 默认为 false 则编译为字符串
   cwd: string; // 设置命令执行的 cwd，默认为 process.cwd()，无特殊需求不需修改
   isDev: boolean; // 当前运行环境，默认为 process.env.NODE_ENV
   publicPath: string; // webpack-dev-server 的publishPath，默认为 /
   useHash: boolean; // 生成文件是否带有 hash，默认本地运行关闭，生产环境构建时开启
-  faasPort: number; // 本地开发启动的 FaaS 服务的端口，默认为3000
-  port: number; // 前端静态资源本地开发时的监听端口，默认为 8000, FaaS Server 会自动 proxy,无特殊需求不需要修改
+  serverPort: number; // 本地开发启动的 FaaS 服务的端口，默认为3000
+  fePort: number; // 前端静态资源本地开发时的监听端口，默认为 8000, FaaS Server 会自动 proxy,无特殊需求不需要修改
   chunkName: string; // 生成的 bundle 的 chunkName，默认为Page,无特殊需求不要修改
   webpackDevServerConfig: webpackDevServer.Configuration; // webpack-dev-server 启动配置
   staticPrefix: string; // 加载的静态资源前缀，需要发布到单独的cdn服务时可以使用该配置设置为cdn服务的地址

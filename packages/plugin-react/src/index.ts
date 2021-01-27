@@ -4,17 +4,17 @@ import { getClientWebpack, getServerWebpack } from './config'
 
 export function reactPlugin () {
   return {
-    start: async (config) => {
+    start: async () => {
       const serverConfigChain = new WebpackChain()
-      await startServerBuild(getServerWebpack(serverConfigChain, config), config)
+      await startServerBuild(getServerWebpack(serverConfigChain))
       const clientConfigChain = new WebpackChain()
-      await startClientServer(getClientWebpack(clientConfigChain, config), config)
+      await startClientServer(getClientWebpack(clientConfigChain))
     },
-    build: async (config) => {
+    build: async () => {
       const serverConfigChain = new WebpackChain()
-      await startServerBuild(getServerWebpack(serverConfigChain, config), config)
+      await startServerBuild(getServerWebpack(serverConfigChain))
       const clientConfigChain = new WebpackChain()
-      await startClientBuild(getClientWebpack(clientConfigChain, config), config)
+      await startClientBuild(getClientWebpack(clientConfigChain))
     }
   }
 }

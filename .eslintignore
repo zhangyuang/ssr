@@ -1,6 +1,7 @@
-packages/webpack/src/plugins/external.ts
-packages/server-utils/src/external-utils.ts
+**/externals.ts
+**/external-utils.ts
 **/cjs
 **/esm
 **/dist
 **/build
+**/typings

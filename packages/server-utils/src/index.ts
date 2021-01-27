@@ -10,6 +10,7 @@ export * from './hoc/wrapLayout'
 export * from './string-stream'
 export * from './loadConfig'
 export * from './parse'
+export * from './middlewares'
 
 /* types */
 export * from 'ssr-types'

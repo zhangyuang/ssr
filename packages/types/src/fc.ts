@@ -1,5 +1,5 @@
 import { IFaaSContext } from './ctx'
-import { BuildConfig } from './config'
+import { IConfig } from './config'
 
 export type Fetch = (params: any) => Promise<any>
 
@@ -10,7 +10,7 @@ export interface FC<T={}> extends React.FC<T> {
 export interface LayoutProps {
   ctx?: IFaaSContext
   fetchData?: any
-  config?: BuildConfig
+  config?: IConfig
   children?: React.ReactElement
   staticList?: StaticList
 }

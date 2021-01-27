@@ -1,13 +1,16 @@
 import { join } from 'path'
 import * as webpack from 'webpack'
+import { loadConfig } from 'ssr-server-utils'
+import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
-import { nodeExternals } from '../plugins/external'
+import { nodeExternals } from '../utils/externals'
 
 const loadModule = require.resolve
 
-const getServerWebpack = (chain, config) => {
-  const { isDev, cwd, getOutput, chainServerConfig, whiteList } = config.buildConfig
-  getBaseConfig(chain, config)
+const getServerWebpack = (chain: WebpackChain) => {
+  const config = loadConfig()
+  const { isDev, cwd, getOutput, chainServerConfig, whiteList } = config
+  getBaseConfig(chain)
   chain.devtool(isDev ? 'eval-source-map' : false)
   chain.target('node')
   chain.entry('Page')
@@ -51,10 +54,14 @@ const getServerWebpack = (chain, config) => {
     })
     .end()
 
+  const modulesDir = [join(cwd, './node_modules')]
+  if (isDev) {
+    modulesDir.push(join(__dirname, '../../../../node_modules'))
+  }
   chain.externals(nodeExternals({
     whitelist: [/\.(css|less|sass|scss)$/, /ssr-temporary-routes/, /^antd.*?css/].concat(whiteList || []),
-    // externals Dir contains packages/webpack-config/node_modules spa/node_modules ssr/node_modules
-    modulesDir: [join(__dirname, '../node_modules'), join(cwd, './node_modules'), join(__dirname, '../../../node_modules')]
+    // externals Dir contains example/xxx/node_modules ssr/node_modules
+    modulesDir
   }))
 
   chain.when(isDev, () => {

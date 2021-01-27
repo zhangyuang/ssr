@@ -1,7 +1,7 @@
 {
-  "name": "ssr-plugin-faas",
+  "name": "ssr-plugin-midway",
   "version": "4.3.4",
-  "description": "plugin-faas for ssr",
+  "description": "plugin-midway for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "sideEffects": false,
@@ -28,12 +28,11 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
-    "@midwayjs/faas-dev-pack": "^1.0.0",
-    "@midwayjs/fcli-command-core": "^1.2.37",
-    "@midwayjs/fcli-plugin-deploy": "^1.2.37",
-    "@midwayjs/fcli-plugin-fc": "^1.2.12",
-    "@midwayjs/fcli-plugin-package": "^1.2.39",
-    "@midwayjs/fcli-plugin-scf": "^1.2.12",
+    "@midwayjs/decorator": "^2.3.0",
+    "@midwayjs/web": "^2.3.0",
+    "@midwayjs/cli": "^1.0.0",
+    "@types/node": "14",
+    "mwts": "^1.0.5",
     "koa": "^2.11.0",
     "ssr-server-utils": "^4.3.4"
   },

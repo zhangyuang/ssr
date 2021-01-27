@@ -1,26 +1,20 @@
 import { Configuration, Options } from 'webpack'
+import * as httpProxyMiddleware from 'http-proxy-middleware'
 import * as Config from 'webpack-chain'
 
-export interface Proxy {
-  host: string
-  match: RegExp
-}
-
-export interface BuildConfig {
+export interface IConfig {
   cwd: string
   isDev: boolean
   publicPath: string
   useHash: boolean
   host: string
-  port: number
-  sockPort: number | string
-  faasPort: number
+  fePort: number
+  serverPort: number
   chunkName: string
   getOutput: () => {
     clientOutPut: string
     serverOutPut: string
   }
-  webpackDevServerConfig: any
   cssOrder: string[]
   jsOrder: string[]
   staticPrefix: string
@@ -28,7 +22,6 @@ export interface BuildConfig {
   chainClientConfig: (config: Config) => Configuration
   webpackStatsOption: Options.Stats
   moduleFileExtensions: string[]
-  postCssPlugin: any
   whiteList: RegExp[]
   cloudIDE?: boolean
   cssModulesWhiteList: RegExp[]
@@ -37,7 +30,14 @@ export interface BuildConfig {
   dynamic: boolean
   feFramework: string
   mode: string
-  api: any
+  webpackDevServerConfig: any
+  stream: boolean
+}
+export interface Proxy {
+  [key: string]: httpProxyMiddleware.Options
+}
+export interface proxyOptions {
+  express?: boolean
 }
 
 export interface StyleOptions {
