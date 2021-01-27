@@ -34,7 +34,9 @@ const getPagesDir = () => {
 const getUserConfig = (): BuildConfig => {
   return require(join(getCwd(), './config'))
 }
-
+const loadPlugin = () => {
+  return require(join(getCwd(), './plugin'))
+}
 const isFaaS = () => fs.existsSync(join(getCwd(), './f.yml'))
 
 export {
@@ -42,5 +44,6 @@ export {
   getFeDir,
   getPagesDir,
   getUserConfig,
-  isFaaS
+  isFaaS,
+  loadPlugin
 }

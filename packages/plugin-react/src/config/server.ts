@@ -1,13 +1,15 @@
 import { join } from 'path'
 import * as webpack from 'webpack'
+import { loadConfig } from 'ssr-server-utils'
 import { getBaseConfig } from './base'
-import { nodeExternals } from '../plugins/external'
+import { nodeExternals } from '../utils/externals'
 
 const loadModule = require.resolve
 
-const getServerWebpack = (chain, config) => {
+const getServerWebpack = (chain) => {
+  const config = loadConfig()
   const { isDev, cwd, getOutput, chainServerConfig, whiteList } = config.buildConfig
-  getBaseConfig(chain, config)
+  getBaseConfig(chain)
   chain.devtool(isDev ? 'eval-source-map' : false)
   chain.target('node')
   chain.entry('Page')
