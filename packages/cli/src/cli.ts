@@ -18,8 +18,8 @@ yargs
     spinnerProcess.send({
       message: 'stop'
     })
-    await plugin.fePlugin.start?.()
-    await plugin.serverPlugin.start?.()
+    await plugin.fePlugin?.start?.()
+    await plugin.serverPlugin?.start?.()
   })
   .command('build', 'build server and client files', {}, async () => {
     spinnerProcess.send({
@@ -31,8 +31,8 @@ yargs
     spinnerProcess.send({
       message: 'stop'
     })
-    await plugin.fePlugin.build?.()
-    await plugin.serverPlugin.build?.()
+    await plugin.fePlugin?.build?.()
+    await plugin.serverPlugin?.build?.()
   })
   .command('deploy', 'deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {
     const plugin = loadPlugin()
@@ -41,7 +41,7 @@ yargs
       return
     }
     process.env.NODE_ENV = 'production'
-    await plugin.serverPlugin.deploy?.(argv)
+    await plugin.serverPlugin?.deploy?.(argv)
   })
   .demandCommand(1, 'You need at least one command before moving on')
   .option('version', {

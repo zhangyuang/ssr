@@ -1,0 +1,42 @@
+{
+  "name": "ssr-plugin-midway",
+  "version": "4.3.4",
+  "description": "plugin-midway for ssr",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc -p ./tsconfig.esm.json --inlineSourceMap false\"",
+    "build:only": "concurrently \"tsc-transpile-only -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc-transpile-only -p ./tsconfig.esm.json --inlineSourceMap false\"",
+    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \"",
+    "watch:cjs": "tsc -w -p ./tsconfig.cjs.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ykfe/ssr.git"
+  },
+  "keywords": [
+    "cli",
+    "serverless",
+    "ssr",
+    "react"
+  ],
+  "author": "zhangyuang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ykfe/ssr/issues"
+  },
+  "homepage": "https://github.com/ykfe/ssr#readme",
+  "dependencies": {
+    "@midwayjs/cli": "^1.0.0",
+    "@midwayjs/egg-ts-helper": "^1.0.1",
+    "@midwayjs/mock": "^2.3.0",
+    "@types/node": "14",
+    "mwts": "^1.0.5",
+    "http-proxy-middleware": "^1.0.6",
+    "koa": "^2.11.0",
+    "koa2-connect": "^1.0.2",
+    "ssr-server-utils": "^4.3.4"
+  },
+  "devDependencies": {}
+}

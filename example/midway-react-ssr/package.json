@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@midwayjs/decorator": "^2.3.0",
     "@midwayjs/web": "^2.3.0",
+    "@midwayjs/decorator": "^2.3.0",
     "egg": "^2.0.0",
     "egg-scripts": "^2.10.0",
     "react": "^17.0.0",
@@ -12,7 +12,6 @@
     "react-id-swiper": "^3.0.0",
     "react-router-dom": "^5.1.2",
     "serialize-javascript": "^3.0.0",
-    "ssr-core": "^4.0.0",
     "ssr-types": "^4.0.0",
     "swiper": "^5.3.8"
   },
@@ -27,13 +26,10 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "start:test": "egg-scripts start --daemon --title=midway-server-my_midway_project --framework=@midwayjs/web",
+    "prod": "egg-scripts start --daemon --title=midway-server-my_midway_project --framework=@midwayjs/web",
     "stop": "egg-scripts stop --title=midway-server-my_midway_project",
-    "start_build": "npm run build && cross-env NODE_ENV=development midway-bin dev",
-    "start": "cross-env ets && cross-env NODE_ENV=local midway-bin dev --ts",
+    "start": "ssr start",
     "build": "ssr build",
-    "deploy": "ssr build && ssr deploy",
-    "deploy:tencent": "ssr build && ssr deploy --tencent",
     "lint": "eslint . --ext .js,.tsx,.ts --cache",
     "lint:fix": "eslint . --ext .js,.tsx,.ts --cache --fix"
   },

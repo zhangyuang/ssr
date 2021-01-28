@@ -1,6 +1,6 @@
 import { Controller, Get, Provide, Inject } from '@midwayjs/decorator'
 import { Context } from 'egg'
-import { render } from 'ssr-core'
+import { render } from 'ssr-core-react'
 import { IApiService, IApiDetailService } from '../interface'
 
 interface IEggContext extends Context {
@@ -26,7 +26,8 @@ export class Index {
     try {
       this.ctx.apiService = this.apiService
       this.ctx.apiDeatilservice = this.apiDeatilservice
-      const htmlStr = await render<IEggContext>(this.ctx)
+      // @ts-expect-error
+      const htmlStr = await render(this.ctx)
       return htmlStr
     } catch (error) {
       console.log(error)
