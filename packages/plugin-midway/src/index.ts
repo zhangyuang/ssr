@@ -1,10 +1,10 @@
 
 import { start } from './start'
-import { deploy } from './build'
+import { build } from './build'
 
 export function midwayPlugin () {
   return {
     start,
-    deploy
+    build
   }
 }

@@ -33,9 +33,7 @@
     "@midwayjs/cli": "^1.0.0",
     "@types/node": "14",
     "mwts": "^1.0.5",
-    "http-proxy-middleware": "^1.0.6",
     "koa": "^2.11.0",
-    "koa2-connect": "^1.0.2",
     "ssr-server-utils": "^4.3.4"
   },
   "devDependencies": {}

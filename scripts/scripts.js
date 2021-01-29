@@ -44,8 +44,9 @@ if (process.argv.includes('--link')) {
 if (process.argv.includes('--unlink')) {
   const packages = fs.readdirSync('./packages')
   let shell = 'npx concurrently'
-  shell += ' "cd node_modules/react && yarn unlink" '
-  shell += ' "cd node_modules/react-dom && yarn unlink" '
+  linkPackage.forEach(item => {
+    shell += ` "cd node_modules/${item} && yarn unlink" ` // link react-dom 防止出现多个react实例
+  })
   packages.forEach(item => {
     if (item !== '.DS_Store') {
       shell += ` "cd packages/${item} && yarn unlink" `

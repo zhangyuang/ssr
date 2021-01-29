@@ -27,7 +27,7 @@
     "typescript": "^3.9.7"
   },
   "scripts": {
-    "prod": "egg-scripts start --daemon --title=midway-server-my_midway_project --framework=@midwayjs/web",
+    "prod": "ssr build && egg-scripts start --daemon --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
     "stop": "egg-scripts stop --title=midway-server-my_midway_project",
     "start": "ssr start",
     "build": "ssr build",

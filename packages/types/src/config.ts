@@ -1,5 +1,4 @@
 import { Configuration, Options } from 'webpack'
-import * as WebpackDevServer from 'webpack-dev-server'
 import * as Config from 'webpack-chain'
 
 export interface Proxy {
@@ -13,8 +12,7 @@ export interface IConfig {
   publicPath: string
   useHash: boolean
   host: string
-  port: number
-  sockPort: number | string
+  fePort: number
   serverPort: number
   chunkName: string
   getOutput: () => {
@@ -36,7 +34,7 @@ export interface IConfig {
   dynamic: boolean
   feFramework: string
   mode: string
-  webpackDevServerConfig: WebpackDevServer.Configuration
+  webpackDevServerConfig: any
   stream: boolean
 }
 

@@ -21,7 +21,7 @@ yargs
     await plugin.fePlugin?.start?.(argv)
     await plugin.serverPlugin?.start?.(argv)
   })
-  .command('build', 'build server and client files', {}, async () => {
+  .command('build', 'build server and client files', {}, async (argv: Argv) => {
     spinnerProcess.send({
       message: 'start'
     })

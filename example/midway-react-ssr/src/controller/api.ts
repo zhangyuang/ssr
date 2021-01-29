@@ -11,7 +11,7 @@ export class Api {
   @Inject('ApiService')
   service: IApiService
 
-  @Inject('ApiService')
+  @Inject('ApiDetailService')
   detailService: IApiDetailService
 
   @Get('/index')
