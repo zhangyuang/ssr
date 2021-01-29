@@ -8,7 +8,7 @@ import { Argv } from 'ssr-types'
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
 
 yargs
-  .command('start', 'Start Server', {}, async () => {
+  .command('start', 'Start Server', {}, async (argv: Argv) => {
     spinnerProcess.send({
       message: 'start'
     })
@@ -18,8 +18,8 @@ yargs
     spinnerProcess.send({
       message: 'stop'
     })
-    await plugin.fePlugin?.start?.()
-    await plugin.serverPlugin?.start?.()
+    await plugin.fePlugin?.start?.(argv)
+    await plugin.serverPlugin?.start?.(argv)
   })
   .command('build', 'build server and client files', {}, async () => {
     spinnerProcess.send({
@@ -31,8 +31,8 @@ yargs
     spinnerProcess.send({
       message: 'stop'
     })
-    await plugin.fePlugin?.build?.()
-    await plugin.serverPlugin?.build?.()
+    await plugin.fePlugin?.build?.(argv)
+    await plugin.serverPlugin?.build?.(argv)
   })
   .command('deploy', 'deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {
     const plugin = loadPlugin()

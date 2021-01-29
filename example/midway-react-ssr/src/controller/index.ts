@@ -22,16 +22,18 @@ export class Index {
 
   @Get('/')
   @Get('/detail/:id')
-  async handler (): Promise<String> {
+  async handler (): Promise<void> {
     try {
       this.ctx.apiService = this.apiService
       this.ctx.apiDeatilservice = this.apiDeatilservice
       // @ts-expect-error
-      const htmlStr = await render(this.ctx)
-      return htmlStr
+      const stream = await render(this.ctx, {
+        stream: true
+      })
+      this.ctx.body = stream
     } catch (error) {
       console.log(error)
-      return JSON.stringify(error)
+      this.ctx.body = error
     }
   }
 }

@@ -26,9 +26,9 @@ const loadConfig = (): IConfig => {
 
   const isDev = process.env.NODE_ENV !== 'production'
 
-  const port = 8000
+  const fePort = 8000
 
-  const faasPort = 3000
+  const serverPort = 3000
 
   const host = '0.0.0.0'
 
@@ -70,9 +70,9 @@ const loadConfig = (): IConfig => {
     publicPath: publicPath,
     hotOnly: true,
     host,
-    sockPort: port,
+    sockPort: fePort,
     hot: true,
-    port: port,
+    port: fePort,
     clientLogLevel: clientLogLevel,
     progress: true,
     headers: {
@@ -100,8 +100,8 @@ const loadConfig = (): IConfig => {
     useHash,
     host,
     moduleFileExtensions,
-    port,
-    faasPort,
+    fePort,
+    serverPort,
     chunkName,
     jsOrder,
     cssOrder,
@@ -112,9 +112,10 @@ const loadConfig = (): IConfig => {
     cssModulesWhiteList,
     dynamic,
     mode,
-    webpackDevServerConfig,
     stream
   }, userConfig)
+
+  config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了
 
   return config
 }

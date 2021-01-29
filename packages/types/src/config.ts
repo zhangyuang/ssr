@@ -15,7 +15,7 @@ export interface IConfig {
   host: string
   port: number
   sockPort: number | string
-  faasPort: number
+  serverPort: number
   chunkName: string
   getOutput: () => {
     clientOutPut: string

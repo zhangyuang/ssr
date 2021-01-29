@@ -15,7 +15,7 @@
 //     })
 //   }
 
-//   const { port, faasPort, cloudIDE, proxy } = loadConfig()
+//   const { port, serverPort, cloudIDE, proxy } = loadConfig()
 
 //   const remoteStaticServerOptions = {
 //     target: `http://127.0.0.1:${port}`,
@@ -44,7 +44,7 @@
 //     functionDir: cwd
 //   }))
 
-//   app.listen(faasPort, () => {
+//   app.listen(serverPort, () => {
 //     if (cloudIDE && process.env.HOSTNAME) {
 //       // cloud ide 在云端启动服务
 //       const hostName = process.env.HOSTNAME
@@ -60,11 +60,25 @@
 // export {
 //   start
 // }
-import { execSync } from 'child_process'
-const start = () => {
-  console.log('xxx')
-  execSync('cross-env ets && cross-env NODE_ENV=local midway-bin dev --ts', {
-    stdio: 'inherit'
+import { exec } from 'child_process'
+import { loadConfig } from 'ssr-server-utils'
+import { Argv } from 'ssr-types'
+
+const { cliFun } = require('@midwayjs/cli/bin/cli')
+
+const start = (argv: Argv) => {
+  const config = loadConfig()
+  exec('cross-env ets', async (err, stdout) => {
+    if (err) {
+      console.log(err)
+      return
+    }
+    console.log(stdout)
+    // 透传参数给 midway-bin
+    argv._[0] = 'dev'
+    argv.ts = true
+    argv.port = config.serverPort
+    await cliFun(argv)
   })
 }
 

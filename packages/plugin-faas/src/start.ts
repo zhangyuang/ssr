@@ -15,7 +15,7 @@ const start = () => {
     })
   }
 
-  const { port, faasPort, cloudIDE, proxy } = loadConfig()
+  const { port, serverPort, cloudIDE, proxy } = loadConfig()
 
   const remoteStaticServerOptions = {
     target: `http://127.0.0.1:${port}`,
@@ -44,7 +44,7 @@ const start = () => {
     functionDir: cwd
   }))
 
-  app.listen(faasPort, () => {
+  app.listen(serverPort, () => {
     if (cloudIDE && process.env.HOSTNAME) {
       // cloud ide 在云端启动服务
       const hostName = process.env.HOSTNAME
