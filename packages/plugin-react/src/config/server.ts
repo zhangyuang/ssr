@@ -54,10 +54,14 @@ const getServerWebpack = (chain: WebpackChain) => {
     })
     .end()
 
+  const modulesDir = [join(cwd, './node_modules')]
+  if (isDev) {
+    modulesDir.push(join(__dirname, '../../../../node_modules'))
+  }
   chain.externals(nodeExternals({
     whitelist: [/\.(css|less|sass|scss)$/, /ssr-temporary-routes/, /^antd.*?css/].concat(whiteList || []),
-    // externals Dir contains packages/webpack-config/node_modules spa/node_modules ssr/node_modules
-    modulesDir: [join(__dirname, '../node_modules'), join(cwd, './node_modules'), join(__dirname, '../../../node_modules')]
+    // externals Dir contains example/xxx/node_modules ssr/node_modules
+    modulesDir
   }))
 
   chain.when(isDev, () => {

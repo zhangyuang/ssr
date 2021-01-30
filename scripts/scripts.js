@@ -10,11 +10,11 @@ if (process.argv.includes('--bootstrap')) {
   execSync('npx concurrently "yarn && yarn build:only"  "cd example/serverless-react-ssr && yarn" "cd example/midway-react-ssr && yarn"', options)
 }
 if (process.argv.includes('--clean')) {
-  const shell = 'rm -rf node_modules'
+  const shell = 'rm -rf node_modules yarn.lock'
   const examples = fs.readdirSync('./example')
   examples.forEach(example => {
     if (example !== '.DS_Store') {
-      const exampleShell = shell + `&& cd example/${example} && rm -rf node_modules`
+      const exampleShell = shell + `&& cd example/${example} && rm -rf node_modules yarn.lock`
       execSync(exampleShell, options)
     }
   })

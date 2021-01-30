@@ -10,7 +10,7 @@ const defaultConfig = loadConfig()
 async function render (ctx: IFaaSContext, options = {}) {
   const config = Object.assign({}, defaultConfig, options)
   const { isDev, chunkName, stream } = config
-  const isLocal = isDev ?? process.env.NODE_ENV !== 'production'
+  const isLocal = isDev || process.env.NODE_ENV !== 'production'
   const serverFile = resolve(cwd, `./build/server/${chunkName ?? 'Page'}.server.js`)
   if (isLocal) {
     // clear cache in development environment
