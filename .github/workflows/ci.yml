@@ -31,14 +31,15 @@ jobs:
             /home/runner/.cache/Cypress
             ~/.cache/yarn
             node_modules
+            example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+            ${{ runner.os }}-v1-build-
+            ${{ runner.os }}-v1-build-
+            ${{ runner.os }}-v1-
       - name: Install dependencies
-        run: node scripts/scripts.js --bootstrap
+        run: yarn && yarn run build:only && cd example/midway-react-ssr && yarn && cd ../serverless-react-ssr && yarn
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
@@ -64,8 +65,9 @@ jobs:
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
+            example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
       - run: yarn run lint
 
   e2e-chrome-serverless-react:
@@ -88,8 +90,9 @@ jobs:
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
+            example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -122,8 +125,9 @@ jobs:
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
+            example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -156,8 +160,9 @@ jobs:
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
+            example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -190,8 +195,9 @@ jobs:
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
+            example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -227,8 +233,9 @@ jobs:
         with:
           path: |
             node_modules
+            example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:

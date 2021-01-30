@@ -1,19 +1,26 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { wrapLayout, findRoute, getStaticList, logGreen } from 'ssr-server-utils'
-import { FeRouteItem, IFaaSContext, IGlobal, IConfig } from 'ssr-types'
+import { FeRouteItem, ISSRContext, IGlobal, IConfig } from 'ssr-types'
 import { serverContext } from './create-context'
 
 const feRoutes: FeRouteItem[] = require('ssr-temporary-routes/route')
 declare const global: IGlobal
 declare const __isBrowser__: boolean
 
-const serverRender = async (ctx: IFaaSContext, config: IConfig): Promise<React.ReactElement> => {
+const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
   const { staticPrefix, cssOrder, jsOrder, isDev, fePort, dynamic, mode } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
-  const path = ctx.req.path || ctx.req.url
+  let path // path 不能够包涵 queryParams
+  if (ctx.req._parsedUrl) {
+    // 说明 服务端框架是 midway
+    path = ctx.req._parsedUrl.pathname
+  } else {
+    path = ctx.req.path
+  }
   const { window } = global
   const routeItem = findRoute<FeRouteItem<any>>(feRoutes, path)
+
   let dynamicCssOrder = cssOrder
   if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
@@ -26,7 +33,7 @@ const serverRender = async (ctx: IFaaSContext, config: IConfig): Promise<React.R
 
   const Layout = wrapLayout(routeItem.layout, __isBrowser__)
   const Component = routeItem.component
-  if (mode === 'csr' || mode === 'csr' || ctx.query?.csr) {
+  if (mode === 'csr' || ctx.query?.csr) {
     // 根据 mode 和 query 来决定当前渲染模式
     logGreen(`The path ${path} use csr render mode`)
     const Context = serverContext({}) // csr 不需要在服务端获取数据

@@ -1,13 +1,13 @@
 import { resolve } from 'path'
 import { renderToString, renderToNodeStream } from 'react-dom/server'
 import { loadConfig, getCwd, StringToStream } from 'ssr-server-utils'
-import { IFaaSContext } from 'ssr-types'
+import { ISSRContext } from 'ssr-types'
 
 const mergeStream = require('merge-stream')
 const cwd = getCwd()
 const defaultConfig = loadConfig()
 
-async function render (ctx: IFaaSContext, options = {}) {
+async function render (ctx: ISSRContext, options = {}) {
   const config = Object.assign({}, defaultConfig, options)
   const { isDev, chunkName, stream } = config
   const isLocal = isDev || process.env.NODE_ENV !== 'production'
