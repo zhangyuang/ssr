@@ -18,7 +18,7 @@
     "publish": "lerna version --conventional-commits",
     "e2e": "cypress run --browser chrome",
     "example:serverless:react": "cd example/serverless-react-ssr && npm start",
-    "example:midway:react": "cd example/midway-react-ssr && npm start"
+    "example:midway:react": "cd example/midway-react-ssr && ls -R node_modules"
   },
   "repository": {
     "type": "git",
