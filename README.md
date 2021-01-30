@@ -50,7 +50,7 @@ Serverless 应用开发流程
 | 里程碑                                                                 | 状态 |
 | ---------------------------------------------------------------------- | ---- |
 | 最小而美的实现 React 服务端渲染功能                           | 🚀   |
-| 约定式前端路由                            | 🚀   |
+| 同时支持约定式前端路由和声明式前端路由                            | 🚀   |
 | All in JSX，抛弃传统模版引擎，所有部分包括 layout 布局皆使用 JSX 来编写生成                            | 🚀   |
 | 渲染模式切换：服务端渲染一键降级为客户端渲染                            | 🚀   |
 | 统一服务端客户端的数据获取方式                                 | 🚀   |
@@ -382,7 +382,7 @@ http://ssr-fc.com/detail/* -> index 函数 -> 渲染 detail 组件
 在 FaaS 函数里，只需要调用 ssr-core 提供的 render 方法传入 ctx 即可
 
 ```js
-import { render } from 'ssr-core'
+import { render } from 'ssr-core-react'
 
 async handler () {
   try {
@@ -402,7 +402,7 @@ async handler () {
 
 ```
 const Koa = require('koa');
-const { render } = require('ssr-core')
+const { render } = require('ssr-core-react')
 const app = new Koa();
 
 //  mount routes from config
@@ -430,6 +430,45 @@ conf.mode = req.query.ssr || req.headers['x-mode-ssr']
 
 此处需要考虑优先级，比如 querystring 第一，其次是 f.yml 里的 render.mode。
 
+## 使用声明式路由
+
+我们默认使用约定式路由通过文件夹结构自动生成路由表，如果无法满足应用需求也可以手动创建路由文件
+
+```bash
+$ touch web/route.js # 检测到该文件存在则使用声明式路由
+```
+
+并需要严格按照如下格式规范写入内容, 否则应用可能会执行出错
+
+```js
+
+module.exports = [{
+  layout: require('./components/layout/index.tsx').default,
+  fetch: require('./pages/detail/fetch.ts').default,
+  path: '/detail/:id',
+  // component 使用这种规范来实现按需加载功能
+  component: __isBrowser__ ? require('react-loadable')({ // __isBrowser__ 为 webpack 自动注入的变量，按照规范编写即可
+    loader: async () => await import(/* webpackChunkName: "detail" */ './pages/detail/render$id.tsx'),
+    loading: function Loading () {
+      return require('react').createElement('div')
+    }
+  }) : require('./pages/detail/render$id.tsx').default,
+  webpackChunkName: 'detail'
+},
+{
+  layout: require('./components/layout/index.tsx').default,
+  fetch: require('./pages/index/fetch.ts').default,
+  path: '/',
+  component: __isBrowser__ ? require('react-loadable')({
+    loader: async () => await import(/* webpackChunkName: "index" */ './pages/index/render.tsx'),
+    loading: function Loading () {
+      return require('react').createElement('div')
+    }
+  }) : require('./pages/index/render.tsx').default,
+  webpackChunkName: 'index'
+}]
+
+```
 ## 配置
 
 config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特殊需求不要修改
