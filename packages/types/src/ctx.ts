@@ -1,7 +1,14 @@
 import { FaaSContext } from '@midwayjs/faas'
 import { Action } from './component'
 
-export type IFaaSContext<T={}> = FaaSContext & T
+interface EggContext {
+  req: {
+    _parsedUrl?: {
+      pathname: string
+    }
+  }
+}
+export type IFaaSContext<T={}> = FaaSContext & EggContext &T
 
 export interface Options {
   mode?: string
