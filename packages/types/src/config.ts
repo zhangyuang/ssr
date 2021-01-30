@@ -1,10 +1,6 @@
 import { Configuration, Options } from 'webpack'
+import * as httpProxyMiddleware from 'http-proxy-middleware'
 import * as Config from 'webpack-chain'
-
-export interface Proxy {
-  host: string
-  match: RegExp
-}
 
 export interface IConfig {
   cwd: string
@@ -36,6 +32,12 @@ export interface IConfig {
   mode: string
   webpackDevServerConfig: any
   stream: boolean
+}
+export interface Proxy {
+  [key: string]: httpProxyMiddleware.Options
+}
+export interface proxyOptions {
+  express?: boolean
 }
 
 export interface StyleOptions {
