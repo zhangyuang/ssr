@@ -1,6 +1,7 @@
 module.exports = {
   root: true,
   extends: [
+    'standard-vue-ts',
     'standard-react-ts'
   ],
   parserOptions: {

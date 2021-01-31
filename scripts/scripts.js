@@ -7,15 +7,30 @@ const options = {
 const linkPackage = ['react', 'react-dom', '@midwayjs/decorator', '@midwayjs/web']
 
 if (process.argv.includes('--bootstrap')) {
-  execSync('npx concurrently "yarn && yarn build:only"  "cd example/serverless-react-ssr && yarn" "cd example/midway-react-ssr && yarn"', options)
-}
-if (process.argv.includes('--clean')) {
-  const shell = 'rm -rf node_modules yarn.lock'
+  let shell = 'npx concurrently "yarn && yarn build:only"'
   const examples = fs.readdirSync('./example')
   examples.forEach(example => {
     if (example !== '.DS_Store') {
-      const exampleShell = shell + `&& cd example/${example} && rm -rf node_modules yarn.lock`
-      execSync(exampleShell, options)
+      shell += ` "cd example/${example} && yarn" `
+    }
+  })
+  execSync(shell, options)
+}
+if (process.argv.includes('--clean')) {
+  const shell = 'rm -rf node_modules yarn.lock'
+  execSync(shell, options)
+  const examples = fs.readdirSync('./example')
+  const packages = fs.readdirSync('./packages')
+  packages.forEach(item => {
+    if (item !== '.DS_Store') {
+      const shell = ` cd packages/${item} && rm -rf node_modules yarn.lock`
+      execSync(shell, options)
+    }
+  })
+  examples.forEach(example => {
+    if (example !== '.DS_Store') {
+      const shell = ` cd example/${example} && rm -rf node_modules yarn.lock`
+      execSync(shell, options)
     }
   })
 }

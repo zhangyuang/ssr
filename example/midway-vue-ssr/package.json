@@ -1,0 +1,35 @@
+{
+  "name": "midway-react-ssr",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@midwayjs/decorator": "^2.3.0",
+    "@midwayjs/web": "^2.3.0",
+    "egg": "^2.0.0",
+    "egg-scripts": "^2.10.0",
+    "vue": "^2.0.0",
+    "vue-router": "^2.0.0",
+    "serialize-javascript": "^3.0.0",
+    "ssr-types": "^4.0.0",
+    "swiper": "^5.3.8"
+  },
+  "devDependencies": {
+    "@midwayjs/egg-ts-helper": "^1.0.5",
+    "@types/serialize-javascript": "^1.5.0",
+    "cross-env": "^7.0.3",
+    "eslint-config-standard-vue-ts": "^1.0.5",
+    "ssr": "^4.0.0",
+    "typescript": "^3.9.7"
+  },
+  "scripts": {
+    "prod": "ssr build && egg-scripts start --daemon --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
+    "stop": "egg-scripts stop --title=midway-server-my_midway_project",
+    "start": "ssr start",
+    "build": "ssr build",
+    "lint": "eslint . --ext .js,.tsx,.ts --cache",
+    "lint:fix": "eslint . --ext .js,.tsx,.ts --cache --fix"
+  },
+  "midway-integration": {
+    "tsCodeRoot": "src"
+  }
+}

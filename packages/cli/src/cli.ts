@@ -14,14 +14,14 @@ yargs
     })
     process.env.NODE_ENV = 'development'
     const plugin = loadPlugin()
-    await parseFeRoutes()
+    // await parseFeRoutes()
     spinnerProcess.send({
       message: 'stop'
     })
     await plugin.fePlugin?.start?.(argv)
     await plugin.serverPlugin?.start?.(argv)
   })
-  .command('build', 'build server and client files', {}, async (argv: Argv) => {
+  .command('build', 'Build server and client files', {}, async (argv: Argv) => {
     spinnerProcess.send({
       message: 'start'
     })
@@ -34,7 +34,7 @@ yargs
     await plugin.fePlugin?.build?.(argv)
     await plugin.serverPlugin?.build?.(argv)
   })
-  .command('deploy', 'deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {
+  .command('deploy', 'Deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {
     const plugin = loadPlugin()
     if (!plugin.serverPlugin.deploy) {
       console.log('当前插件不支持 deploy 功能，请使用 ssr-plugin-faas 插件 并创建对应 yml 文件 参考 https://www.yuque.com/midwayjs/faas/migrate_egg 或扫码进群了解')
@@ -56,5 +56,6 @@ yargs
       })
       process.exit(1)
     }
+    console.log(msg)
   })
   .parse()

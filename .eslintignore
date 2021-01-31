@@ -1,7 +1,9 @@
 **/externals.ts
 **/external-utils.ts
+**/webpack-chain.ts
 **/cjs
 **/esm
 **/dist
 **/build
 **/typings
+**/*.d.ts

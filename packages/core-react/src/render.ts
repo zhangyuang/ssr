@@ -16,7 +16,11 @@ async function render (ctx: ISSRContext, options = {}) {
     // clear cache in development environment
     delete require.cache[serverFile]
   }
-  ctx.type = 'text/html'
+  if (typeof ctx.response.type === 'function') {
+    ctx.response.type('.html')
+  } else {
+    ctx.response.type = 'text/html'
+  }
   const serverRender = require(serverFile).default
   const serverRes = await serverRender(ctx, config)
   return stream ? mergeStream(new StringToStream('<!DOCTYPE html>'), renderToNodeStream(serverRes)) : '<!DOCTYPE html>' + renderToString(serverRes)

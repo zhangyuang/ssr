@@ -1,14 +1,14 @@
-import { FaaSContext } from '@midwayjs/faas'
+import * as Koa from 'koa'
+import * as Express from 'express'
+import { FaaSHTTPContext } from '@midwayjs/faas-typings'
 import { Action } from './component'
 
-interface EggContext {
-  req: {
-    _parsedUrl?: {
-      pathname: string
-    }
-  }
+interface ExpressContext {
+  request: Express.Request
+  response: Express.Response
 }
-export type ISSRContext<T={}> = FaaSContext & EggContext &T
+
+export type ISSRContext<T={}> = (Koa.Context|ExpressContext|FaaSHTTPContext) & T
 
 export interface Options {
   mode?: string

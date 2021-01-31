@@ -28,13 +28,13 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
+    "@midwayjs/cli": "^1.0.0",
     "@midwayjs/decorator": "^2.3.0",
     "@midwayjs/web": "^2.3.0",
-    "@midwayjs/cli": "^1.0.0",
     "@types/node": "14",
-    "mwts": "^1.0.5",
     "koa": "^2.11.0",
-    "ssr-server-utils": "^4.3.4"
-  },
-  "devDependencies": {}
+    "mwts": "^1.0.5",
+    "ssr-server-utils": "^4.3.4",
+    "vue-template-compiler": "^2.6.12"
+  }
 }

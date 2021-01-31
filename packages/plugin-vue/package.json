@@ -1,0 +1,63 @@
+{
+  "name": "ssr-plugin-vue",
+  "version": "4.3.4",
+  "description": "plugin-vue for ssr",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc -p ./tsconfig.esm.json --inlineSourceMap false\"",
+    "build:only": "concurrently \"tsc-transpile-only -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc-transpile-only -p ./tsconfig.esm.json --inlineSourceMap false\"",
+    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \"",
+    "watch:cjs": "tsc -w -p ./tsconfig.cjs.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ykfe/ssr.git"
+  },
+  "keywords": [
+    "cli",
+    "serverless",
+    "ssr",
+    "vue"
+  ],
+  "author": "zhangyuang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ykfe/ssr/issues"
+  },
+  "homepage": "https://github.com/ykfe/ssr#readme",
+  "dependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.9.6",
+    "@babel/preset-env": "^7.5.5",
+    "babel-loader": "8.0.4",
+    "concurrently": "^5.1.0",
+    "core-js": "^3.6.4",
+    "css-hot-loader": "^1.4.4",
+    "css-loader": "1.0.0",
+    "css-modules-require-hook": "^4.2.3",
+    "file-loader": "2.0.0",
+    "ignore-loader": "^0.1.2",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
+    "postcss-discard-comments": "^4.0.2",
+    "postcss-flexbugs-fixes": "4.1.0",
+    "postcss-loader": "3.0.0",
+    "postcss-preset-env": "^6.0.5",
+    "postcss-safe-parser": "4.0.1",
+    "ssr-server-utils": "^4.3.4",
+    "ssr-types": "^4.3.4",
+    "terser-webpack-plugin": "^2.3.5",
+    "url-loader": "1.1.1",
+    "vue": "^2.0.0",
+    "vue-loader": "^15.9.6",
+    "vue-router": "^2.0.0",
+    "vue-template-compiler": "^2.6.12",
+    "webpack-bundle-analyzer": "^3.6.1",
+    "webpack-chain": "^6.4.0",
+    "webpack-manifest-plugin": "^2.2.0"
+  }
+}

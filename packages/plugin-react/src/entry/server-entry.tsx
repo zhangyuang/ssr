@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
-import { wrapLayout, findRoute, getStaticList, logGreen } from 'ssr-server-utils'
+import { findRoute, getStaticList, logGreen } from 'ssr-server-utils'
+import { wrapLayout } from 'ssr-hoc-react'
 import { FeRouteItem, ISSRContext, IGlobal, IConfig } from 'ssr-types'
 import { serverContext } from './create-context'
 
@@ -11,13 +12,7 @@ declare const __isBrowser__: boolean
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
   const { staticPrefix, cssOrder, jsOrder, isDev, fePort, dynamic, mode } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
-  let path // path 不能够包涵 queryParams
-  if (ctx.req._parsedUrl) {
-    // 说明 服务端框架是 midway
-    path = ctx.req._parsedUrl.pathname
-  } else {
-    path = ctx.req.path
-  }
+  const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
   const { window } = global
   const routeItem = findRoute<FeRouteItem<any>>(feRoutes, path)
 
@@ -33,9 +28,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   const Layout = wrapLayout(routeItem.layout, __isBrowser__)
   const Component = routeItem.component
-  if (mode === 'csr' || ctx.query?.csr) {
+  if (mode === 'csr' || ctx.request.query?.csr) {
     // 根据 mode 和 query 来决定当前渲染模式
-    logGreen(`The path ${path} use csr render mode`)
+    logGreen(`Current path ${path} use csr render mode`)
     const Context = serverContext({}) // csr 不需要在服务端获取数据
     window.STORE_CONTEXT = Context
     return <StaticRouter><Layout ctx={ctx} staticList={staticList} config={config}></Layout></StaticRouter>

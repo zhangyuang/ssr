@@ -39,11 +39,21 @@ const loadPlugin = () => {
 }
 const isFaaS = () => fs.existsSync(join(getCwd(), './f.yml'))
 
+const getLocalNodeModules = () => join(__dirname, '../../../')
+
+const processError = (err: any) => {
+  if (err) {
+    console.log(err)
+    process.exit(1)
+  }
+}
 export {
   getCwd,
   getFeDir,
   getPagesDir,
   getUserConfig,
   isFaaS,
-  loadPlugin
+  loadPlugin,
+  getLocalNodeModules,
+  processError
 }

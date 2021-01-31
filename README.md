@@ -510,8 +510,12 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
 
 只需要用 onlyCsr 高阶组件包裹一下即可
 
+```bash
+$ yarn add ssr-hoc-react
+```
+
 ```js
-import { onlyCsr } from 'ssr-client-utils'
+import { onlyCsr } from 'ssr-hoc-react'
 
 export onlyCsr(Component)
 ```

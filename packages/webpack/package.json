@@ -28,9 +28,10 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
+    "ssr-server-utils": "^4.3.4",
+    "vue-template-compiler": "^2.6.12",
     "webpack": "^4.42.1",
-    "webpack-dev-server-ssr": "^3.10.3",
-    "ssr-server-utils": "^4.3.4"
+    "webpack-dev-server-ssr": "^3.10.3"
   },
   "devDependencies": {
     "@types/webpack": "^4.41.8",

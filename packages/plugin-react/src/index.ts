@@ -4,6 +4,7 @@ import { getClientWebpack, getServerWebpack } from './config'
 
 export function reactPlugin () {
   return {
+    name: 'plugin-react',
     start: async () => {
       const serverConfigChain = new WebpackChain()
       await startServerBuild(getServerWebpack(serverConfigChain))

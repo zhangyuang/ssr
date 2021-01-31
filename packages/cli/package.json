@@ -34,6 +34,7 @@
     "ora": "^4.0.4",
     "ssr-server-utils": "^4.3.4",
     "ssr-types": "^4.3.4",
+    "vue-template-compiler": "^2.6.12",
     "yargs": "^13.2.4"
   },
   "devDependencies": {
