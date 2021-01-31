@@ -1,14 +1,14 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { wrapLayout, findRoute, getStaticList, logGreen } from 'ssr-server-utils'
-import { FeRouteItem, IFaaSContext, IGlobal, IConfig } from 'ssr-types'
+import { FeRouteItem, ISSRContext, IGlobal, IConfig } from 'ssr-types'
 import { serverContext } from './create-context'
 
 const feRoutes: FeRouteItem[] = require('ssr-temporary-routes/route')
 declare const global: IGlobal
 declare const __isBrowser__: boolean
 
-const serverRender = async (ctx: IFaaSContext, config: IConfig): Promise<React.ReactElement> => {
+const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
   const { staticPrefix, cssOrder, jsOrder, isDev, fePort, dynamic, mode } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   let path // path 不能够包涵 queryParams

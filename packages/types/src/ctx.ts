@@ -8,7 +8,7 @@ interface EggContext {
     }
   }
 }
-export type IFaaSContext<T={}> = FaaSContext & EggContext &T
+export type ISSRContext<T={}> = FaaSContext & EggContext &T
 
 export interface Options {
   mode?: string
