@@ -12,11 +12,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   const { staticPrefix, cssOrder, jsOrder, isDev, fePort, dynamic, mode } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   let path // path 不能够包涵 queryParams
-  if (ctx.req._parsedUrl) {
+  if (ctx.request._parsedUrl) {
     // 说明 服务端框架是 midway
-    path = ctx.req._parsedUrl.pathname
+    path = ctx.request._parsedUrl.pathname
   } else {
-    path = ctx.req.path
+    path = ctx.request.path
   }
   const { window } = global
   const routeItem = findRoute<FeRouteItem<any>>(feRoutes, path)
