@@ -7,7 +7,14 @@ const options = {
 const linkPackage = ['react', 'react-dom', '@midwayjs/decorator', '@midwayjs/web']
 
 if (process.argv.includes('--bootstrap')) {
-  execSync('npx concurrently "yarn && yarn build:only"  "cd example/serverless-react-ssr && yarn" "cd example/midway-react-ssr && yarn"', options)
+  let shell = 'npx concurrently "yarn && yarn build:only"'
+  const examples = fs.readdirSync('./example')
+  examples.forEach(example => {
+    if (example !== '.DS_Store') {
+      shell += ` "cd example/${example} && yarn" `
+    }
+  })
+  execSync(shell, options)
 }
 if (process.argv.includes('--clean')) {
   const shell = 'rm -rf node_modules yarn.lock'
