@@ -1,9 +1,10 @@
 {
-  "name": "ssr-types",
+  "name": "ssr-core-vue",
   "version": "4.3.4",
-  "description": "cli for serverless ssr",
+  "description": "core for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
+  "sideEffects": false,
   "scripts": {
     "build": "concurrently \"tsc -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc -p ./tsconfig.esm.json --inlineSourceMap false\"",
     "build:only": "concurrently \"tsc-transpile-only -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc-transpile-only -p ./tsconfig.esm.json --inlineSourceMap false\"",
@@ -18,7 +19,7 @@
     "cli",
     "serverless",
     "ssr",
-    "react"
+    "vue"
   ],
   "author": "zhangyuang",
   "license": "MIT",
@@ -27,19 +28,12 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
-    "@midwayjs/faas-typings": "^2.7.0",
-    "@types/express": "^4.17.11",
-    "@types/koa": "^2.11.3",
-    "@types/tapable": "^1.0.6",
-    "@types/webpack": "^4.41.10",
-    "@types/js-yaml": "^3.12.3",
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
-    "@types/react-router-dom": "^5.1.6",
-    "@types/http-proxy-middleware": "^0.19.3",
-    "@types/yargs": "^13.0.4"
+    "ssr-server-utils": "^4.3.4",
+    "vue": "^2.6.0",
+    "vue-server-renderer": "^2.6.0",
+    "merge-stream": "^2.0.0"
   },
   "devDependencies": {
-    "concurrently": "^5.1.0"
+
   }
 }
