@@ -5,6 +5,7 @@ export type Fetch = (params: any) => Promise<any>
 
 export interface FC<T={}> extends React.FC<T> {
   fetch?: Fetch
+  preload?: () => Promise<FC>
 }
 
 export interface LayoutProps {
