@@ -25,6 +25,7 @@ async function render (ctx: ISSRContext, options = {}) {
   const serverRender = require(serverFile).default
   const serverRes = await serverRender(ctx, config)
   console.log('xx', renderToString(serverRes))
+  // eslint-disable-next-line
   return stream ? mergeStream(new StringToStream('<!DOCTYPE html>'), renderToStream(serverRes)) : `<!DOCTYPE html>${renderToString(serverRes)}`
 }
 

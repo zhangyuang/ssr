@@ -29,6 +29,7 @@
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
     "ssr-server-utils": "^4.3.4",
+    "ssr-hoc-react": "^4.0.0",
     "@babel/core": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.9.6",
     "@babel/preset-env": "^7.5.5",

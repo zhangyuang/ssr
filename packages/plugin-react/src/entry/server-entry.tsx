@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
-import { wrapLayout, findRoute, getStaticList, logGreen } from 'ssr-server-utils'
+import { findRoute, getStaticList, logGreen } from 'ssr-server-utils'
+import { wrapLayout } from 'ssr-hoc-react'
 import { FeRouteItem, ISSRContext, IGlobal, IConfig } from 'ssr-types'
 import { serverContext } from './create-context'
 

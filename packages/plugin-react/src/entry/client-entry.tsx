@@ -1,7 +1,8 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { wrapComponent, wrapLayout, FeRouteItem, preloadComponent } from 'ssr-client-utils'
+import { FeRouteItem, preloadComponent } from 'ssr-client-utils'
+import { wrapComponent, wrapLayout } from 'ssr-hoc-react'
 import { IWindow } from 'ssr-types'
 import { App } from './app'
 

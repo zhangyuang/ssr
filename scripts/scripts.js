@@ -18,11 +18,19 @@ if (process.argv.includes('--bootstrap')) {
 }
 if (process.argv.includes('--clean')) {
   const shell = 'rm -rf node_modules yarn.lock'
+  execSync(shell, options)
   const examples = fs.readdirSync('./example')
+  const packages = fs.readdirSync('./packages')
+  packages.forEach(item => {
+    if (item !== '.DS_Store') {
+      const shell = ` cd packages/${item} && rm -rf node_modules yarn.lock`
+      execSync(shell, options)
+    }
+  })
   examples.forEach(example => {
     if (example !== '.DS_Store') {
-      const exampleShell = shell + `&& cd example/${example} && rm -rf node_modules yarn.lock`
-      execSync(exampleShell, options)
+      const shell = ` cd example/${example} && rm -rf node_modules yarn.lock`
+      execSync(shell, options)
     }
   })
 }
