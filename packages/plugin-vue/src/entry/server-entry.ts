@@ -42,14 +42,24 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   const app = new Vue({
     // 根实例简单的渲染应用程序组件。
-    render: h => h(
+    render: (h: Vue.CreateElement) => h(
       layout,
       {
-        props: {
-          foo: routeItem.component
-        }
+
       },
-      routeItem.component
+      [
+        h('template', {
+          slot: 'script'
+        }, [
+          h('script', {}, [
+            "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
+          ])
+        ]),
+        h('template', {
+          slot: 'children'
+        }, [h(routeItem.component as Vue.Component)])
+      ]
+
     ),
     router: createRouter()
   })

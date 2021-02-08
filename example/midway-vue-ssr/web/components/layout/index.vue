@@ -5,11 +5,11 @@
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta name="theme-color" content="#000000">
       <title>Serverless Side Render</title>
-      <!-- <script>var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'</script> -->
+      <slot name="script" />
     </head>
     <body>
       <div id="app">
-        <!--vue-ssr-outlet-->
+        <slot name="children" />
       </div>
     </body>
   </html>
