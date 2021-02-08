@@ -35,7 +35,7 @@
     "@midwayjs/fcli-plugin-package": "^1.2.39",
     "@midwayjs/fcli-plugin-scf": "^1.2.12",
     "koa": "^2.11.0",
-    "ssr-server-utils": "^4.3.4"
-  },
-  "devDependencies": {}
+    "ssr-server-utils": "^4.3.4",
+    "vue-template-compiler": "^2.6.12"
+  }
 }

@@ -28,10 +28,11 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
-    "ssr-server-utils": "^4.3.4",
+    "merge-stream": "^2.0.0",
     "react-dom": "^17.0.0",
     "react-loadable": "^5.5.0",
-    "merge-stream": "^2.0.0"
+    "ssr-server-utils": "^4.3.4",
+    "vue-template-compiler": "^2.6.12"
   },
   "devDependencies": {
     "@types/react-dom": "^17.0.0"

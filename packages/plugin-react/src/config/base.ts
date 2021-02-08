@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getFeDir, getCwd, loadConfig } from 'ssr-server-utils'
+import { getFeDir, getCwd, loadConfig, getLocalNodeModules } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import { setStyle } from '../utils'
 
@@ -20,7 +20,7 @@ const getBaseConfig = (chain: WebpackChain) => {
     .add('node_modules')
     .add(join(getCwd(), './node_modules'))
     .when(isDev, chain => {
-      chain.add(join(__dirname, '../../../../node_modules'))
+      chain.add(getLocalNodeModules())
     })
     .end()
     .extensions.merge(moduleFileExtensions)

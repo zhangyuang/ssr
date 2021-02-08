@@ -1,6 +1,6 @@
 import { Controller, Get, Provide, Inject } from '@midwayjs/decorator'
 import { Context } from 'egg'
-import { render } from 'ssr-core-react'
+import { render } from 'ssr-core-vue'
 import { IApiService, IApiDetailService } from '../interface'
 
 interface IEggContext extends Context {

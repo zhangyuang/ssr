@@ -28,14 +28,10 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0",
-    "react-router-dom": "^5.2.0",
-    "ssr-types": "^4.3.4"
+    "ssr-types": "^4.3.4",
+    "vue-template-compiler": "^2.6.12"
   },
   "devDependencies": {
-    "@types/react": "^17.0.0",
-    "@types/react-dom": "^17.0.0",
     "concurrently": "^5.1.0"
   }
 }

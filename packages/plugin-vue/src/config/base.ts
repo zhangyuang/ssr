@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getFeDir, getCwd, loadConfig } from 'ssr-server-utils'
+import { getFeDir, getCwd, loadConfig, getLocalNodeModules } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import { setStyle } from '../utils'
 
@@ -20,15 +20,14 @@ const getBaseConfig = (chain: WebpackChain) => {
     .add('node_modules')
     .add(join(getCwd(), './node_modules'))
     .when(isDev, chain => {
-      chain.add(join(__dirname, '../../../../node_modules'))
+      chain.add(getLocalNodeModules())
     })
     .end()
     .extensions.merge(moduleFileExtensions)
     .end()
   chain.resolve.alias
     .set('@', getFeDir())
-    .set('vue$', loadModule('vue/dist/vue.runtime.esm.js')) // 用cwd的路径alias，否则可能会出现多个react实例
-    .end()
+    .set('vue$', 'vue/dist/vue.runtime.esm.js').end()
   chain.module
     .rule('images')
     .test(/\.(png|jpe?g|gif|webp)(\?.*)?$/)
@@ -48,18 +47,22 @@ const getBaseConfig = (chain: WebpackChain) => {
       }
     })
     .end()
-  chain.module.rule('vue')
+
+  chain.module
+    .rule('vue')
     .test(/\.vue$/)
-    .exclude
-    .add(/node_modules/)
-    .end()
     .use('vue-loader')
     .loader(loadModule('vue-loader'))
     .end()
 
+  chain
+    .plugin('vue-loader')
+    .use(require('vue-loader/lib/plugin'))
+    .end()
+
   chain.module
     .rule('compile')
-    .test(/\.(js|mjs|jsx|ts|tsx)$/)
+    .test(/\.(js|mjs|ts)$/)
     .exclude
     .add(/node_modules/)
     .end()
@@ -73,7 +76,6 @@ const getBaseConfig = (chain: WebpackChain) => {
         [
           loadModule('@babel/preset-env'),
           {
-
             modules: false
             // corejs: 3,
             // useBuiltIns: 'usage'
@@ -81,11 +83,7 @@ const getBaseConfig = (chain: WebpackChain) => {
         ]
       ],
       plugins: [
-        [loadModule('@babel/plugin-transform-runtime'), {
-          regenerator: false,
-          corejs: false,
-          helpers: true
-        }]
+        [loadModule('@babel/plugin-transform-runtime')]
       ]
     })
     .end()

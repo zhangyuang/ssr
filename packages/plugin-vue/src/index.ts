@@ -2,8 +2,9 @@ import * as WebpackChain from 'webpack-chain'
 import { startClientServer, startServerBuild, startClientBuild } from 'ssr-webpack'
 import { getClientWebpack, getServerWebpack } from './config'
 
-export function reactPlugin () {
+export function vuePlugin () {
   return {
+    name: 'plugin-vue',
     start: async () => {
       const serverConfigChain = new WebpackChain()
       await startServerBuild(getServerWebpack(serverConfigChain))

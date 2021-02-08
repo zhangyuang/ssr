@@ -1,6 +1,6 @@
 import { join } from 'path'
 import * as webpack from 'webpack'
-import { loadConfig } from 'ssr-server-utils'
+import { loadConfig, getLocalNodeModules } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
 import { nodeExternals } from '../utils/externals'
@@ -56,7 +56,7 @@ const getServerWebpack = (chain: WebpackChain) => {
 
   const modulesDir = [join(cwd, './node_modules')]
   if (isDev) {
-    modulesDir.push(join(__dirname, '../../../../node_modules'))
+    modulesDir.push(getLocalNodeModules())
   }
   chain.externals(nodeExternals({
     whitelist: [/\.(css|less|sass|scss)$/, /ssr-temporary-routes/, /^antd.*?css/].concat(whiteList || []),

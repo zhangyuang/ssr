@@ -28,12 +28,10 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
+    "merge-stream": "^2.0.0",
     "ssr-server-utils": "^4.3.4",
     "vue": "^2.6.0",
     "vue-server-renderer": "^2.6.0",
-    "merge-stream": "^2.0.0"
-  },
-  "devDependencies": {
-
+    "vue-template-compiler": "^2.6.12"
   }
 }

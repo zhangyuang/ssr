@@ -1,6 +1,6 @@
 import { join } from 'path'
 import * as webpack from 'webpack'
-import { loadConfig } from 'ssr-server-utils'
+import { loadConfig, getLocalNodeModules } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
 import { nodeExternals } from '../utils/externals'
@@ -20,43 +20,11 @@ const getServerWebpack = (chain: WebpackChain) => {
     .path(getOutput().serverOutPut)
     .filename('[name].server.js')
     .libraryTarget('commonjs')
-
-  chain.module
-    .rule('compile')
-    .test(/\.(js|mjs|jsx|ts|tsx)$/)
-    .exclude
-    .add(/node_modules/)
-    .end()
-    .use('babel-loader')
-    .loader('babel-loader')
-    .options({
-      cacheDirectory: true,
-      cacheCompression: false,
-      presets: [
-        [
-          '@babel/preset-env',
-          {
-            modules: false
-          }
-        ],
-        ['react-app', { flow: false, typescript: true }]
-      ],
-      plugins: [
-        [
-          'import',
-          {
-            libraryName: 'antd',
-            libraryDirectory: 'lib',
-            style: 'css'
-          }
-        ]
-      ]
-    })
     .end()
 
   const modulesDir = [join(cwd, './node_modules')]
   if (isDev) {
-    modulesDir.push(join(__dirname, '../../../../node_modules'))
+    modulesDir.push(getLocalNodeModules())
   }
   chain.externals(nodeExternals({
     whitelist: [/\.(css|less|sass|scss)$/, /ssr-temporary-routes/, /^antd.*?css/].concat(whiteList || []),

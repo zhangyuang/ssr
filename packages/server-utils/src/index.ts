@@ -1,6 +1,5 @@
 /* utils */
 export * from './cwd'
-export * from './errorCatch'
 export * from './promisify'
 export * from './findRoute'
 export * from './log'
