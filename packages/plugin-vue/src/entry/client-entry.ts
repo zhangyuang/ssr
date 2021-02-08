@@ -14,7 +14,7 @@ const clientRender = async (): Promise<void> => {
     router: createRouter()
   })
   router.onReady(() => {
-    app.$mount('#app')
+    app.$mount('#app', app.$mount('#app', true)) // 这里需要做判断 ssr/csr 来为 true/false
   })
   if (process.env.NODE_ENV === 'development' && module.hot) {
     module.hot.accept()
