@@ -5,7 +5,8 @@ import { LayoutProps } from 'ssr-types'
 import styles from './index.less'
 
 const Layout = (props: LayoutProps) => {
-  const { state, dispatch } = useContext(window.STORE_CONTEXT)
+  // 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑
+  const { state } = useContext(window.STORE_CONTEXT)
   const { injectCss, injectScript } = props.staticList!
   return (
     <html lang='en'>

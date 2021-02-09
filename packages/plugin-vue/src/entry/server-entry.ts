@@ -1,30 +1,19 @@
 import * as Vue from 'vue'
-import { wrapLayout, findRoute, getStaticList, logGreen } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IGlobal, IConfig } from 'ssr-types'
 // import { createRouter, routes } from './router'
-import * as Router from 'vue-router'
-
-Vue.use(Router)
 
 const layout = require('/Users/yuuang/Desktop/github/ssr/example/midway-vue-ssr/web/components/layout/index.vue').default
 const routes = [
   { path: '/', component: require('/Users/yuuang/Desktop/github/ssr/example/midway-vue-ssr/web/pages/index/render.vue').default },
   { path: '/detail/:id', component: require('/Users/yuuang/Desktop/github/ssr/example/midway-vue-ssr/web/pages/detail/render$id.vue').default }
 ]
-function createRouter () {
-  return new Router({
-    mode: 'history',
-    routes
-  })
-}
 
 // const feRoutes: FeRouteItem[] = require('ssr-temporary-routes/route')
 const feRoutes = routes
-declare const global: IGlobal
-declare const __isBrowser__: boolean
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
-  const { staticPrefix, cssOrder, jsOrder, isDev, fePort, dynamic, mode } = config
+  const { staticPrefix, cssOrder, jsOrder, dynamic, mode } = config
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
 
   const routeItem = findRoute<FeRouteItem<any>>(feRoutes, path)
@@ -32,36 +21,57 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
   }
-  const staticList = await getStaticList(isDev, fePort, staticPrefix, dynamicCssOrder, jsOrder)
+  const manifest = await getManifest()
 
   if (!routeItem) {
     throw new Error(`With request url ${path} Component is Not Found`)
   }
-
   const fetchData = routeItem.fetch ? await routeItem.fetch(ctx) : {}
 
   const app = new Vue({
     // 根实例简单的渲染应用程序组件。
-    render: (h: Vue.CreateElement) => h(
-      layout,
-      {
-
-      },
-      [
-        h('template', {
-          slot: 'script'
-        }, [
-          h('script', {}, [
-            "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
-          ])
-        ]),
-        h('template', {
-          slot: 'children'
-        }, [h(routeItem.component as Vue.Component)])
-      ]
-
-    ),
-    router: createRouter()
+    render: function (h: Vue.CreateElement) {
+      const injectCss = dynamicCssOrder.map(css => (
+        h('link', {
+          attrs: {
+            rel: 'stylesheet',
+            href: `${staticPrefix}${manifest[css]}`
+          }
+        })
+      ))
+      const injectScript = jsOrder.map(js => (
+        h('script', {
+          attrs: {
+            src: `${staticPrefix}${manifest[js]}`
+          }
+        })
+      ))
+      return h(
+        layout,
+        {},
+        [
+          h('template', {
+            slot: 'remInitial'
+          }, [
+            h('script', {}, [
+              "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
+            ])
+          ]),
+          h('template', {
+            slot: 'children',
+            attrs: {
+              id: 'app'
+            }
+          }, [h(routeItem.component as Vue.Component)]),
+          h('template', {
+            slot: 'cssInject'
+          }, injectCss),
+          h('template', {
+            slot: 'jsInject'
+          }, injectScript)
+        ]
+      )
+    }
   })
   return app
 }

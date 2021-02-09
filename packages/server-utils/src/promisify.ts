@@ -4,7 +4,10 @@ import { promisify } from 'util'
 
 const promisifyFsReadDir = promisify(fs.readdir)
 
-const getPromisify = async (url: string) => {
+interface DefaultVal {
+  [key: string]: string
+}
+const getPromisify = async <T = DefaultVal>(url: string): Promise<T> => {
   return await new Promise((resolve, reject) => {
     setTimeout(() => {
       reject(new Error(`request ${url} timeout`))
