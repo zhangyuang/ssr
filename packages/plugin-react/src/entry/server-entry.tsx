@@ -1,16 +1,14 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
-import { findRoute, getStaticList, logGreen } from 'ssr-server-utils'
-import { wrapLayout } from 'ssr-hoc-react'
+import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IGlobal, IConfig } from 'ssr-types'
 import { serverContext } from './create-context'
 
 const feRoutes: FeRouteItem[] = require('ssr-temporary-routes/route')
 declare const global: IGlobal
-declare const __isBrowser__: boolean
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
-  const { staticPrefix, cssOrder, jsOrder, isDev, fePort, dynamic, mode } = config
+  const { staticPrefix, cssOrder, jsOrder, dynamic, mode } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
   const { window } = global
@@ -20,13 +18,21 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
   }
-  const staticList = await getStaticList(isDev, fePort, staticPrefix, dynamicCssOrder, jsOrder)
+  const manifest = await getManifest()
+  const injectCss = dynamicCssOrder.map(css => `${staticPrefix}${manifest[css]}`)
+    .map(item => <link rel='stylesheet' key={item} href={item} />)
+  const injectScript = jsOrder.map(js => `${staticPrefix}${manifest[js]}`)
+    .map(item => <script key={item} src={item} />)
 
+  const staticList = {
+    injectCss,
+    injectScript
+  }
   if (!routeItem) {
     throw new Error(`With request url ${path} Component is Not Found`)
   }
 
-  const Layout = wrapLayout(routeItem.layout, __isBrowser__)
+  const Layout = routeItem.layout
   const Component = routeItem.component
   if (mode === 'csr' || ctx.request.query?.csr) {
     // 根据 mode 和 query 来决定当前渲染模式
