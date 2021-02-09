@@ -4,7 +4,7 @@ import * as Yaml from 'js-yaml'
 import * as Shell from 'shelljs'
 import { Yml, FaasRouteItem } from 'ssr-types'
 import { promisifyFsReadDir } from './promisify'
-import { getCwd, getPagesDir, getFeDir } from './cwd'
+import { getCwd, getPagesDir, getFeDir, loadPlugin } from './cwd'
 import { loadConfig } from './loadConfig'
 
 const debug = require('debug')('ssr:parse')
@@ -45,6 +45,9 @@ const parseFeRoutes = async () => {
   const pageDir = getPagesDir()
   const feDir = getFeDir()
   const cwd = getCwd()
+  const { fePlugin } = loadPlugin()
+  const isVue = fePlugin.name === 'plugin-vue'
+
   if (!fs.existsSync(join(cwd, './node_modules/ssr-temporary-routes'))) {
     Shell.mkdir(`${cwd}/node_modules/ssr-temporary-routes`)
   }
@@ -52,7 +55,7 @@ const parseFeRoutes = async () => {
   if (!hasDeclaretiveRoutes()) {
     // 根据目录结构生成前端路由表
     const folders = await promisifyFsReadDir(pageDir) // 读取web目录
-    const defaultLayout = `${join(feDir, './components/layout/index.tsx')}`
+    const defaultLayout = `${join(feDir, `./components/layout/index.${isVue ? 'vue' : 'tsx'}`)}`
     const arr = []
     for (const folder of folders) {
       const abFolder = join(pageDir, folder)
@@ -105,13 +108,6 @@ const parseFeRoutes = async () => {
         arr.push(route)
       }
     }
-    // 添加默认根路由
-    fs.existsSync(join(pageDir, './render.tsx')) && arr.push({
-      path: prefix ? `/${prefix}/` : '/',
-      layout: `require('${defaultLayout}').default`,
-      fetch: fs.existsSync(join(pageDir, './fetch.ts')) && `require('${join(pageDir, './fetch.ts')}').default`,
-      component: `require('${join(pageDir, './render.tsx')}').default`
-    })
 
     debug('The result that parse web folder to routes is: ', arr)
     routes = `module.exports =${JSON.stringify(arr)

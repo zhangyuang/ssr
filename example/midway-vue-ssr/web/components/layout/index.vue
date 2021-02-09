@@ -1,4 +1,5 @@
 <template>
+  <!-- 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑 -->
   <html>
     <head>
       <meta charSet="utf-8">
@@ -9,23 +10,14 @@
       <slot name="cssInject" />
     </head>
     <body>
-      <div id="app" data-server-rendered="true">
-        <slot name="children" />
+      <div id="app">
+        <router-view />
+        <!-- <slot name="children" /> -->
       </div>
       <slot name="jsInject" />
     </body>
   </html>
 </template>
-
-<script>
-export default {
-  data () {
-    return {
-      foo: 'bar'
-    }
-  }
-}
-</script>
 
 <style lang="less">
 @import './index.less';
