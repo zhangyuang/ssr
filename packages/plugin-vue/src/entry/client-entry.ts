@@ -1,18 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+Vue.use(Router)
 // import { wrapComponent, wrapLayout, FeRouteItem, preloadComponent } from 'ssr-client-utils'
 
 declare const module: any
+const feRoutes = require('ssr-temporary-routes/route')
 
-const routes = [
-  { path: '/', component: require('/Users/yuuang/Desktop/github/ssr/example/midway-vue-ssr/web/pages/index/render.vue').default },
-  { path: '/detail/:id', component: require('/Users/yuuang/Desktop/github/ssr/example/midway-vue-ssr/web/pages/detail/render$id.vue').default }
-]
 function createRouter () {
   return new Router({
     mode: 'history',
-    routes
+    routes: feRoutes
   })
 }
 // const feRoutes: FeRouteItem[] = require('ssr-temporary-routes/route')
@@ -21,7 +19,17 @@ const clientRender = async (): Promise<void> => {
   const router = createRouter()
   const app = new Vue({
     // 根实例简单的渲染应用程序组件。
-    render: h => h(require('/Users/yuuang/Desktop/github/ssr/example/midway-vue-ssr/web/pages/index/render.vue').default),
+    render: h => h(
+      'div',
+      {
+        attrs: {
+          id: 'app'
+        }
+      },
+      [
+        h('router-view')
+      ]
+    ),
     router
   })
 
