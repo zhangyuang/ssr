@@ -65,6 +65,9 @@ const parseFeRoutes = async () => {
         const route: any = {
           layout: `require('${defaultLayout}').default`
         }
+        if (isVue) {
+          route.App = `require('${join(feDir, './components/layout/App.vue')}').default`
+        }
         for (const file of files) {
           const abFile = join(abFolder, file)
           if (file.includes('render')) {
@@ -113,6 +116,9 @@ const parseFeRoutes = async () => {
     routes = `module.exports =${JSON.stringify(arr)
         .replace(/"layout":("(.+?)")/g, (global, m1, m2) => {
           return `"layout": ${m2.replace(/\^/g, '"')}`
+        })
+        .replace(/"App":("(.+?)")/g, (global, m1, m2) => {
+          return `"App": ${m2.replace(/\^/g, '"')}`
         })
         .replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
           return `"fetch": ${m2.replace(/\^/g, '"')}`

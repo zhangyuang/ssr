@@ -15,21 +15,12 @@ function createRouter () {
 }
 // const feRoutes: FeRouteItem[] = require('ssr-temporary-routes/route')
 
-const clientRender = async (): Promise<void> => {
+const App = feRoutes[0].App
+const clientRender = () => {
   const router = createRouter()
   const app = new Vue({
     // 根实例简单的渲染应用程序组件。
-    render: h => h(
-      'div',
-      {
-        attrs: {
-          id: 'app'
-        }
-      },
-      [
-        h('router-view')
-      ]
-    ),
+    render: h => h(App),
     router
   })
 

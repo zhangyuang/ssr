@@ -10,10 +10,7 @@
       <slot name="cssInject" />
     </head>
     <body>
-      <div id="app">
-        <router-view />
-        <!-- <slot name="children" /> -->
-      </div>
+      <slot name="children" />
       <slot name="jsInject" />
     </body>
   </html>
