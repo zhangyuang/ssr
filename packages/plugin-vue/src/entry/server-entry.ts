@@ -6,6 +6,7 @@ import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
 Vue.use(Router)
 
 const feRoutes = require('ssr-temporary-routes/route')
+
 function createRouter () {
   return new Router({
     mode: 'history',
@@ -29,8 +30,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     if (!routeItem) {
       throw new Error(`With request url ${path} Component is Not Found`)
     }
-    const fetchData = routeItem.fetch ? await routeItem.fetch(ctx) : {}
-    const layout = routeItem.layout
+    const { fetch, layout, App } = routeItem
+    const fetchData = fetch ? await fetch(ctx) : {}
     // 设置服务器端 router 的位置
     router.push(path)
     // 等到 router 将可能的异步组件和钩子函数解析完
@@ -63,6 +64,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
               h('script', {}, [
                 "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
               ])
+            ]),
+            h('template', {
+              slot: 'children'
+            }, [
+              h(App)
             ]),
             h('template', {
               slot: 'cssInject'
