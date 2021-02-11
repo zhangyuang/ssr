@@ -92,13 +92,13 @@ const getBaseConfig = (chain: WebpackChain) => {
   setStyle(isDev, chain, /\.css$/, {
     exclude: cssModulesWhiteList,
     rule: 'css',
-    modules: true,
+    modules: false,
     importLoaders: 1
   }) // 设置css
   setStyle(isDev, chain, /\.less$/, {
     rule: 'less',
     loader: 'less-loader',
-    modules: true,
+    modules: false,
     importLoaders: 2
   })
 
