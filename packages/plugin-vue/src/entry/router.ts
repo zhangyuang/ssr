@@ -1,17 +1,16 @@
 import * as Vue from 'vue'
 import * as Router from 'vue-router'
 
-Vue.use(Router)
+const realVue: Vue = Vue.default || Vue
+const RealRouter: Router = Router.default || Router
 
-export const routes = [
-  { path: '/', component: async () => await import('/Users/yuuang/Desktop/github/ssr/example/midway-vue-ssr/web/pages/index/render.vue') },
-  { path: '/detail/:id', component: async () => await import('/Users/yuuang/Desktop/github/ssr/example/midway-vue-ssr/web/pages/detail/render$id.vue') }
-]
+realVue.use(RealRouter)
+
+const feRoutes = require('ssr-temporary-routes/route')
+
 export function createRouter () {
-  return new Router({
+  return new RealRouter({
     mode: 'history',
-    routes
+    routes: feRoutes
   })
 }
-
-export const foo = 'foo'

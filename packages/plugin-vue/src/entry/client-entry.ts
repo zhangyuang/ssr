@@ -1,19 +1,10 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import { createRouter } from './router'
 
-Vue.use(Router)
 // import { wrapComponent, wrapLayout, FeRouteItem, preloadComponent } from 'ssr-client-utils'
 
 declare const module: any
 const feRoutes = require('ssr-temporary-routes/route')
-
-function createRouter () {
-  return new Router({
-    mode: 'history',
-    routes: feRoutes
-  })
-}
-// const feRoutes: FeRouteItem[] = require('ssr-temporary-routes/route')
 
 const App = feRoutes[0].App
 const clientRender = () => {
