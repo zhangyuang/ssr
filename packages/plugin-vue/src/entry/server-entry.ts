@@ -1,18 +1,10 @@
 import * as Vue from 'vue'
-import * as Router from 'vue-router'
 import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
-
-Vue.use(Router)
+import { createRouter } from './router'
 
 const feRoutes = require('ssr-temporary-routes/route')
 
-function createRouter () {
-  return new Router({
-    mode: 'history',
-    routes: feRoutes
-  })
-}
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
   return await new Promise(async (resolve, reject) => {
     const router = createRouter()

@@ -11,7 +11,8 @@
     "pretty": true,
     "declaration": true,
     "strict": true,
-    "jsx": "react"
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true
   },
   "exclude": [
     "node_modules",
