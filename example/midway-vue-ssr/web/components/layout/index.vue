@@ -11,6 +11,7 @@
     </head>
     <body>
       <slot name="children" />
+      <slot name="initialData" />
       <slot name="jsInject" />
     </body>
   </html>

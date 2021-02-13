@@ -7,11 +7,12 @@
     "@midwayjs/web": "^2.3.0",
     "egg": "^2.0.0",
     "egg-scripts": "^2.10.0",
-    "vue": "^2.0.0",
-    "vue-router": "^2.0.0",
     "serialize-javascript": "^3.0.0",
     "ssr-types": "^4.0.0",
-    "swiper": "^5.3.8"
+    "swiper": "^5.3.8",
+    "vue": "^2.0.0",
+    "vue-router": "^2.0.0",
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
     "@midwayjs/egg-ts-helper": "^1.0.5",

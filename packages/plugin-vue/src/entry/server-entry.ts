@@ -1,14 +1,23 @@
 import * as Vue from 'vue'
-import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
+import * as Vuex from 'vuex'
+import { findRoute, getManifest, logGreen, getVuexStore } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
+import * as serialize from 'serialize-javascript'
 import { createRouter } from './router'
+
+Vue.use(Vuex)
+
+const store = getVuexStore()
+function createStore () {
+  return new Vuex.Store(store)
+}
 
 const feRoutes = require('ssr-temporary-routes/route')
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
   return await new Promise(async (resolve, reject) => {
     const router = createRouter()
-
+    const store = createStore()
     const { staticPrefix, cssOrder, jsOrder, dynamic, mode } = config
     const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
 
@@ -23,12 +32,14 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
       throw new Error(`With request url ${path} Component is Not Found`)
     }
     const { fetch, layout, App } = routeItem
-    const fetchData = fetch ? await fetch(ctx) : {}
-    // 设置服务器端 router 的位置
+    if (fetch) {
+      await fetch(store, ctx)
+    }
+    // 设置 router-view 展示的组件
     router.push(path)
-    // 等到 router 将可能的异步组件和钩子函数解析完
     const app = new Vue({
       router,
+      store,
       // 根实例简单的渲染应用程序组件。
       render: function (h: Vue.CreateElement) {
         const injectCss = dynamicCssOrder.map(css => (
@@ -63,6 +74,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
               h(App)
             ]),
             h('template', {
+              slot: 'initialData'
+            }, [
+              h('script', {
+                domProps: {
+                  innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(store.state)}`
+                }
+              })
+            ]),
+            h('template', {
               slot: 'cssInject'
             }, injectCss),
             h('template', {
@@ -72,6 +92,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
         )
       }
     })
+    // 等到 router 将可能的异步组件和钩子函数解析完
     router.onReady(() => {
       resolve(app)
     })
