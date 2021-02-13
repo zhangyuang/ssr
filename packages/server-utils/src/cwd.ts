@@ -31,6 +31,13 @@ const getPagesDir = () => {
   return join(getFeDir(), './pages')
 }
 
+const getVuexStore = () => {
+  return require(join(getFeDir(), './store'))
+}
+const getVuexStoreFilePath = () => {
+  return join(getFeDir(), './store')
+}
+
 const getUserConfig = (): IConfig => {
   return require(join(getCwd(), './config'))
 }
@@ -55,5 +62,7 @@ export {
   isFaaS,
   loadPlugin,
   getLocalNodeModules,
-  processError
+  processError,
+  getVuexStore,
+  getVuexStoreFilePath
 }

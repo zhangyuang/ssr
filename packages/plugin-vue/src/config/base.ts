@@ -27,7 +27,8 @@ const getBaseConfig = (chain: WebpackChain) => {
     .end()
   chain.resolve.alias
     .set('@', getFeDir())
-    .set('vue$', 'vue/dist/vue.runtime.esm.js').end()
+    .set('vue$', 'vue/dist/vue.runtime.esm.js')
+    .end()
   chain.module
     .rule('images')
     .test(/\.(png|jpe?g|gif|webp)(\?.*)?$/)
@@ -122,7 +123,6 @@ const getBaseConfig = (chain: WebpackChain) => {
       name: 'static/[name].[hash:8].[ext]',
       esModule: false
     })
-
   chain.plugin('minify-css').use(MiniCssExtractPlugin, [{
     filename: useHash ? 'static/css/[name].[contenthash:8].css' : 'static/css/[name].css',
     chunkFilename: useHash ? 'static/css/[name].[contenthash:8].chunk.css' : 'static/css/[name].chunk.css'

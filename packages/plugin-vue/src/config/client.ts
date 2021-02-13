@@ -1,6 +1,6 @@
 
 import * as webpack from 'webpack'
-import { loadConfig } from 'ssr-server-utils'
+import { loadConfig, getVuexStoreFilePath } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
 
@@ -80,7 +80,8 @@ const getClientWebpack = (chain: WebpackChain) => {
     })
 
   chain.plugin('define').use(webpack.DefinePlugin, [{
-    __isBrowser__: true
+    __isBrowser__: true,
+    vuexStoreFilePath: JSON.stringify(getVuexStoreFilePath())
   }])
 
   chain.when(!isDev, chain => chain.plugin('progress').use(loadModule('webpack/lib/ProgressPlugin')))
