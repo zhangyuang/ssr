@@ -1,9 +1,9 @@
 
 <template>
   <div>
-    <!-- <Search></Search> -->
+    <Search />
     <template v-if="indexData">
-      <!-- <Slider :data="indexData.data[0].components" /> -->
+      <Slider :data="indexData[0].components" />
       <Rectangle :data="indexData[1].components" />
     </template>
     <template v-else>
@@ -14,16 +14,15 @@
 
 <script>
 import { mapState } from 'vuex'
-
-// import Slider from '@/components/slider'
+import Slider from '@/components/slider'
 import Rectangle from '@/components/rectangle'
-// import Search from '@/components/search'
+import Search from '@/components/search'
 
 export default {
   components: {
-    // Slider,
-    Rectangle
-    // Search
+    Slider,
+    Rectangle,
+    Search
   },
   computed: {
     ...mapState({

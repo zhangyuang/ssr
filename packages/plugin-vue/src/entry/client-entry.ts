@@ -27,8 +27,7 @@ const clientRender = () => {
     store,
     router
   })
-
-  app.$mount('#app', true) // 这里需要做判断 ssr/csr 来为 true/false
+  app.$mount('#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
   if (process.env.NODE_ENV === 'development' && module.hot) {
     module.hot.accept()
   }
