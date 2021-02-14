@@ -31,11 +31,16 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     if (!routeItem) {
       throw new Error(`With request url ${path} Component is Not Found`)
     }
+    const isCsr = mode === 'csr' || ctx.request.query?.csr
+    if (isCsr) {
+      logGreen(`Current path ${path} use csr render mode`)
+    }
     const { fetch, layout, App } = routeItem
-    if (fetch) {
+    if (!isCsr && fetch) {
+      // csr 下不需要服务端获取数据
       await fetch(store, ctx)
     }
-    // 设置 router-view 展示的组件
+    // 根据 path 匹配 router-view 展示的组件
     router.push(path)
     const app = new Vue({
       router,
@@ -71,9 +76,14 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
             h('template', {
               slot: 'children'
             }, [
-              h(App)
+              isCsr ? h('div', {
+                // csr 只需渲染一个空的 <div id="app"> 不需要渲染具体的组件也就是 router-view
+                attrs: {
+                  id: 'app'
+                }
+              }) : h(App)
             ]),
-            h('template', {
+            !isCsr && h('template', {
               slot: 'initialData'
             }, [
               h('script', {
