@@ -9,7 +9,7 @@ const detailStore = {
     }
   },
   actions: {
-    initialData ({ commit, payload }) {
+    initialData ({ commit }, { payload }) {
       commit('setData', payload)
     }
   }

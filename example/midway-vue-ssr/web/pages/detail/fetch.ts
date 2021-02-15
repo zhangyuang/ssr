@@ -1,8 +1,13 @@
+import { ISSRContext } from 'ssr-types'
+import { IndexData } from '@/interface'
+interface ApiDeatilservice {
+  index: () => Promise<IndexData>
+}
 
-export default async (ctx: any) => {
-  const data = __isBrowser__ ? await (await window.fetch(`/api/detail/${ctx.match.params.id}`)).json() : await ctx.apiDeatilservice.index(ctx.params.id)
-  return {
-    // 建议根据模块给数据加上 namespace防止数据覆盖
-    detailData: data
-  }
+export default async ({ store, router }, ctx?: ISSRContext<{
+  apiDeatilservice?: ApiDeatilservice
+}>) => {
+  console.log(router.params)
+  const data = __isBrowser__ ? await (await window.fetch(`/api/detail/${router.params.id}`)).json() : await ctx?.apiDeatilservice?.index(ctx.params.id)
+  await store.dispatch('detailStore/initialData', { payload: data })
 }

@@ -4,9 +4,9 @@ interface IApiService {
   index: () => Promise<IndexData>
 }
 
-export default async (store, ctx?: ISSRContext<{
+export default async ({ store, router }, ctx?: ISSRContext<{
   apiService?: IApiService
 }>) => {
   const data = __isBrowser__ ? await (await window.fetch('/api/index')).json() : await ctx?.apiService?.index()
-  store.dispatch('indexStore/initialData', { payload: data })
+  await store.dispatch('indexStore/initialData', { payload: data })
 }
