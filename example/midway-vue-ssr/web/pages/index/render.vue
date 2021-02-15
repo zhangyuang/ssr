@@ -26,14 +26,7 @@ export default {
   },
   computed: {
     ...mapState({
-      indexData: state => {
-        // vue2 template doesn't support optional chainning
-        if (state?.indexStore?.data?.[1]?.components) {
-          return state.indexStore.data
-        } else {
-          return false
-        }
-      }
+      indexData: state => state.indexStore?.data
     })
   }
 }

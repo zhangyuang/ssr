@@ -38,7 +38,7 @@ const clientRender = async () => {
       }
       for (const component in activated) {
         if (component.fetch) {
-          await component.fetch(store)
+          await component.fetch({ store, router })
         }
       }
     })
@@ -46,7 +46,7 @@ const clientRender = async () => {
   if (!window.__USE_SSR__) {
     for (const component of router.getMatchedComponents(location.pathname)) {
       const { fetch } = component
-      await fetch(store)
+      await fetch({ store, router })
     }
   }
   const app = new Vue({

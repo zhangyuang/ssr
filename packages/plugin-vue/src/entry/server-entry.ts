@@ -38,7 +38,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     const { fetch, layout, App } = routeItem
     if (!isCsr && fetch) {
       // csr 下不需要服务端获取数据
-      await fetch(store, ctx)
+      await fetch({ store, router }, ctx)
     }
     // 根据 path 匹配 router-view 展示的组件
     router.push(path)
