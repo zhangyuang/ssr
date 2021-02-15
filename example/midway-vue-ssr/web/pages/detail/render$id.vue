@@ -4,8 +4,8 @@
     <Search />
     <template v-if="detailData">
       <Player :data="detailData.data[0].dataNode" />
-      <!-- <Brief :data="detailData.data[1].dataNode" />
-      <Recommend :data="detailData.data[2].dataNode" /> -->
+      <Brief :data="detailData.data[1].dataNode" />
+      <Recommend :data="detailData.data[2].dataNode" />
     </template>
     <template v-else>
       <img src="https://gw.alicdn.com/tfs/TB1v.zIE7T2gK0jSZPcXXcKkpXa-128-128.gif" class="loading">
@@ -16,13 +16,16 @@
 <script>
 import { mapState } from 'vuex'
 import Player from '@/components/player'
-// import Rectangle from '@/components/rectangle'
 import Search from '@/components/search'
+import Brief from '@/components/brief'
+import Recommend from '@/components/recommend'
 
 export default {
   components: {
     Player,
-    Search
+    Search,
+    Brief,
+    Recommend
   },
   computed: {
     ...mapState({

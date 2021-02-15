@@ -3,6 +3,7 @@ import * as Vuex from 'vuex'
 import { findRoute, getManifest, logGreen, getVuexStore } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
 import * as serialize from 'serialize-javascript'
+import { sync } from 'vuex-router-sync'
 import { createRouter } from './router'
 
 Vue.use(Vuex)
@@ -18,6 +19,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   return await new Promise(async (resolve, reject) => {
     const router = createRouter()
     const store = createStore()
+    sync(store, router)
     const { staticPrefix, cssOrder, jsOrder, dynamic, mode } = config
     const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
 
@@ -36,12 +38,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
       logGreen(`Current path ${path} use csr render mode`)
     }
     const { fetch, layout, App } = routeItem
-    if (!isCsr && fetch) {
-      // csr 下不需要服务端获取数据
-      await fetch({ store, router }, ctx)
-    }
     // 根据 path 匹配 router-view 展示的组件
     router.push(path)
+    if (!isCsr && fetch) {
+      // csr 下不需要服务端获取数据
+      await fetch({ store, router: router.currentRoute }, ctx)
+    }
     const app = new Vue({
       router,
       store,

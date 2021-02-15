@@ -36,11 +36,12 @@ const clientRender = async () => {
       if (!activated.length) {
         return next()
       }
-      for (const component in activated) {
+      for (const component of activated) {
         if (component.fetch) {
-          await component.fetch({ store, router })
+          await component.fetch({ store, router: to })
         }
       }
+      next()
     })
   })
   if (!window.__USE_SSR__) {
