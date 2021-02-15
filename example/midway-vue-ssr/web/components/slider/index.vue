@@ -1,21 +1,17 @@
 
 <template>
   <div class="swiperContainer">
-    <swiper ref="mySwiper" :options="swiperOptions">
-      <div v-for="val in data[0].itemMap" :key="val.img">
-        <swiper-slide>
-          <div class="sliderContainer">
-            <img :src="val.img" class="carouselImg">
-            <div class="sliderDescContainer">
-              <span class="sliderTitle">
-                {{ val.title }}
-              </span>
-            </div>
-          </div>
-        </swiper-slide>
-      </div>
-      <div slot="pagination" class="swiper-pagination" />
-    </swiper>
+    <Swiper ref="mySwiper" :options="swiperOptions">
+      <swiper-slide v-for="val in data[0].itemMap" :key="val.img" class="sliderContainer">
+        <img :src="val.img" class="carouselImg">
+        <div class="sliderDescContainer">
+          <span class="sliderTitle">
+            {{ val.title }}
+          </span>
+        </div>
+      </swiper-slide>
+      <template #pagination class="swiper-pagination" />
+    </Swiper>
   </div>
 </template>
 
@@ -41,7 +37,6 @@ export default {
           clickable: true,
           loop: true
         }
-        // Some Swiper option/callback...
       }
     }
   },
@@ -51,12 +46,11 @@ export default {
     }
   },
   mounted () {
-    console.log('Current Swiper instance object', this.swiper)
     this.swiper.slideTo(3, 1000, false)
   }
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @import "./index.less";
 </style>
