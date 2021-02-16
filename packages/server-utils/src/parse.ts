@@ -131,15 +131,22 @@ const parseFeRoutes = async () => {
       })
     } else {
       const re = /"webpackChunkName":("(.+?)")/g
-      routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
-        const currentWebpackChunkName = re.exec(routes)![2]
-        return `"component":  __isBrowser__ ? require('react-loadable')({
-          loader: () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}'),
-          loading: function Loading () {
-            return require('react').createElement('div')
-          }
-        }) : require('${m2.replace(/\^/g, '"')}').default`
-      })
+      if (isVue) {
+        routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
+          const currentWebpackChunkName = re.exec(routes)![2]
+          return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+        })
+      } else {
+        routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
+          const currentWebpackChunkName = re.exec(routes)![2]
+          return `"component":  __isBrowser__ ? require('react-loadable')({
+            loader: () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}'),
+            loading: function Loading () {
+              return require('react').createElement('div')
+            }
+          }) : require('${m2.replace(/\^/g, '"')}').default`
+        })
+      }
     }
   } else {
     // 使用了声明式路由的需要把 path 替换为绝对路径

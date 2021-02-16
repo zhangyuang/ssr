@@ -4,7 +4,7 @@ const { execSync } = require('child_process')
 const options = {
   stdio: 'inherit'
 }
-const linkPackage = ['react', 'react-dom', '@midwayjs/decorator', '@midwayjs/web']
+const linkPackage = ['react', 'react-dom', '@midwayjs/decorator', '@midwayjs/web', 'vue', 'vuex', 'vue-router']
 
 if (process.argv.includes('--bootstrap')) {
   let shell = 'npx concurrently "yarn && yarn build:only"'
