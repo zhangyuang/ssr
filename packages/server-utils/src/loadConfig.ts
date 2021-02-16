@@ -91,7 +91,6 @@ const loadConfig = (): IConfig => {
   const chainServerConfig = () => {
     // 覆盖默认webpack配置
   }
-
   const config = Object.assign({}, {
     chainServerConfig,
     chainClientConfig,
