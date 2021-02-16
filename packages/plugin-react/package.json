@@ -53,6 +53,7 @@
     "react-dev-utils": "^10.2.1",
     "ssr-hoc-react": "^4.0.0",
     "ssr-server-utils": "^4.3.4",
+    "ssr-client-utils": "^4.3.4",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "1.1.1",
     "vue-template-compiler": "^2.6.12",

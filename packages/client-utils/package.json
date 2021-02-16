@@ -29,7 +29,7 @@
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
     "ssr-types": "^4.3.4",
-    "vue-template-compiler": "^2.6.12"
+    "path-to-regexp": "^1.7.0"
   },
   "devDependencies": {
     "concurrently": "^5.1.0"

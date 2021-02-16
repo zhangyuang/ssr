@@ -46,7 +46,7 @@ export default {
     }
   },
   mounted () {
-    this.swiper.slideTo(3, 1000, false)
+    this.swiper.slideTo(2, 1000, false)
   }
 }
 </script>
