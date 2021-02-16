@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { preloadComponent } from 'ssr-client-utils'
+import { findRoute } from 'ssr-client-utils'
 import { createRouter } from './router'
 
 Vue.use(Vuex)
@@ -12,14 +12,10 @@ function createStore () {
 }
 
 declare const module: any
-let feRoutes = require('ssr-temporary-routes/route')
+const feRoutes = require('ssr-temporary-routes/route')
 
 const App = feRoutes[0].App
 const clientRender = async () => {
-  feRoutes = await preloadComponent(feRoutes)
-  feRoutes.forEach(route => {
-    route.component.fetch = route.fetch
-  })
   const store = createStore()
   const router = createRouter()
 
@@ -40,26 +36,18 @@ const clientRender = async () => {
       await fetch({ store, router })
     }
   }
-  router.beforeResolve(async (to, from, next) => {
-    const matched = router.getMatchedComponents(to)
-    const prevMatched = router.getMatchedComponents(from)
+  router.onReady(() => {
+    app.$mount('#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
 
-    let diffed = false
-    const activated = matched.filter((c, i) => {
-      return diffed || (diffed = (prevMatched[i] !== c))
-    })
-
-    if (!activated.length) {
-      return next()
-    }
-    for (const component of activated) {
-      if (component.fetch) {
-        await component.fetch({ store, router: to })
+    router.beforeResolve(async (to, from, next) => {
+      // 找到要进入的组件并提前执行 fetch 函数
+      const route = findRoute(feRoutes, to.path) 
+      if (route.fetch) {
+        await route.fetch({store, router: to})
       }
-    }
-    next()
+      next()
+    })
   })
-  app.$mount('#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
 
   if (process.env.NODE_ENV === 'development' && module.hot) {
     module.hot.accept()
