@@ -31,6 +31,10 @@ export interface IConfig {
   mode: string
   webpackDevServerConfig: any
   stream: boolean
+  customeHeadScript?: Array<{
+    describe: object
+    content: string
+  }>
 }
 export interface Proxy {
   [key: string]: httpProxyMiddleware.Options

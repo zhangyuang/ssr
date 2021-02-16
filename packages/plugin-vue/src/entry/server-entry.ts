@@ -20,7 +20,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     const router = createRouter()
     const store = createStore()
     sync(store, router)
-    const { staticPrefix, cssOrder, jsOrder, dynamic, mode } = config
+    const { staticPrefix, cssOrder, jsOrder, dynamic, mode, customeHeadScript } = config
     const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
 
     const routeItem = findRoute<FeRouteItem<any>>(feRoutes, path)
@@ -44,6 +44,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
       // csr 下不需要服务端获取数据
       await fetch({ store, router: router.currentRoute }, ctx)
     }
+
     const app = new Vue({
       router,
       store,
@@ -75,6 +76,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
                 "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
               ])
             ]),
+            h('template', {
+              slot: 'customeHeadScript'
+            }, customeHeadScript?.map(item => h('script', Object.assign({}, item.describe, {
+              domProps: {
+                innerHTML: item.content
+              }
+            })))),
             h('template', {
               slot: 'children'
             }, [
