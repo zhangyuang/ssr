@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/ykfe/ssr/compare/v4.3.4...v5.0.0) (2021-02-17)
+
+
+### Features
+
+* add midway-react-ssr ([f5fe586](https://github.com/ykfe/ssr/commit/f5fe586c6ecd217f4c07fdcb5bb2f1b52a73f748))
+* add midway-react-ssr ([07e2754](https://github.com/ykfe/ssr/commit/07e2754ccddeaf4b5f54a288fb13415ff2759398))
+* types ([3402d58](https://github.com/ykfe/ssr/commit/3402d5810e1e78f6bd01d4d9abda19b221902ee8))
+* 完善插件 ([8d47078](https://github.com/ykfe/ssr/commit/8d47078ef923b837acab21d5d3b2a3471006b418))
+
+
+
+
+
 ## [4.3.4](https://github.com/ykfe/ssr/compare/v4.3.3...v4.3.4) (2021-01-19)
 
 

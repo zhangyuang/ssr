@@ -1,6 +1,6 @@
 {
   "name": "ssr-hoc-vue",
-  "version": "4.3.4",
+  "version": "5.0.0",
   "description": "hoc for vue ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -31,6 +31,6 @@
     "vue": "^2.0.0"
   },
   "devDependencies": {
-    "ssr-types": "^4.3.4"
+    "ssr-types": "^5.0.0"
   }
 }
