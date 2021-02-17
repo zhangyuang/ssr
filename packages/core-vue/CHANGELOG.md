@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/ykfe/ssr/compare/v4.3.4...v5.0.0) (2021-02-17)
+
+
+### Bug Fixes
+
+* types (skip ci) ([50598c5](https://github.com/ykfe/ssr/commit/50598c58ee12ec3536f9dd9b34a565736bf6dbf7))
+
+
+
+
+
 ## [4.3.4](https://github.com/ykfe/ssr/compare/v4.3.3...v4.3.4) (2021-01-19)
 
 

@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.0.0](https://github.com/ykfe/ssr/compare/v4.3.4...v5.0.0) (2021-02-17)
+
+
+### Bug Fixes
+
+* clear github cache ([f6ad0ba](https://github.com/ykfe/ssr/commit/f6ad0ba3bb8c239431ffecbdff59b03f84dce51e))
+* csr ([6052c56](https://github.com/ykfe/ssr/commit/6052c5610ca4dfacadcb52729064cb9602a64b0a))
+* type ([776d26f](https://github.com/ykfe/ssr/commit/776d26f98c4b806fe7012fee171ef3178bab60bb))
+* types (skip ci) ([50598c5](https://github.com/ykfe/ssr/commit/50598c58ee12ec3536f9dd9b34a565736bf6dbf7))
+
+
+### Features
+
+* add midway-react-ssr ([f5fe586](https://github.com/ykfe/ssr/commit/f5fe586c6ecd217f4c07fdcb5bb2f1b52a73f748))
+* add midway-react-ssr ([07e2754](https://github.com/ykfe/ssr/commit/07e2754ccddeaf4b5f54a288fb13415ff2759398))
+* add midway-react-ssr ([d7454aa](https://github.com/ykfe/ssr/commit/d7454aa3cd7b698d472c8b01ec815bef79db89ee))
+* types ([3402d58](https://github.com/ykfe/ssr/commit/3402d5810e1e78f6bd01d4d9abda19b221902ee8))
+* update build and deploy ([4a2b13a](https://github.com/ykfe/ssr/commit/4a2b13aaf234567f22a8cb77c04402b8743e5af0))
+* 完善插件 ([8d47078](https://github.com/ykfe/ssr/commit/8d47078ef923b837acab21d5d3b2a3471006b418))
+
+
+
+
+
 ## [4.3.4](https://github.com/ykfe/ssr/compare/v4.3.3...v4.3.4) (2021-01-19)
 
 
