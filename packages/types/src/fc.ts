@@ -1,7 +1,7 @@
 import { ISSRContext } from './ctx'
 import { IConfig } from './config'
 
-export type Fetch = (params: any) => Promise<any>
+export type Fetch = (params: any, ctx?: ISSRContext) => Promise<any>
 
 export interface FC<T={}> extends React.FC<T> {
   fetch?: Fetch
