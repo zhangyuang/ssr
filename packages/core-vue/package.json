@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
+    "@babel/runtime": "^7.12.13",
     "merge-stream": "^2.0.0",
     "serialize-javascript": "^3.0.0",
     "ssr-server-utils": "^5.0.1",
