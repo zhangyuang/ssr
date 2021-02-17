@@ -7,7 +7,6 @@
     "@midwayjs/web": "^2.3.0",
     "egg": "^2.0.0",
     "egg-scripts": "^2.10.0",
-    "serialize-javascript": "^3.0.0",
     "ssr-types": "^4.0.0",
     "swiper": "^6.4.11",
     "vue": "^2.0.0",
@@ -17,7 +16,6 @@
   },
   "devDependencies": {
     "@midwayjs/egg-ts-helper": "^1.0.5",
-    "@types/serialize-javascript": "^1.5.0",
     "cross-env": "^7.0.3",
     "eslint-config-standard-vue-ts": "^1.0.5",
     "ssr": "^4.0.0",

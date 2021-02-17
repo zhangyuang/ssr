@@ -2,11 +2,13 @@ import * as Vue from 'vue'
 import * as Vuex from 'vuex'
 import { findRoute, getManifest, logGreen, getVuexStore } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
-import * as serialize from 'serialize-javascript'
 import { sync } from 'vuex-router-sync'
 import { createRouter } from './router'
 
+// @ts-expect-error
 Vue.use(Vuex)
+
+const serialize = require('serialize-javascript')
 
 const store = getVuexStore()
 function createStore () {
@@ -23,11 +25,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     const { staticPrefix, cssOrder, jsOrder, dynamic, mode, customeHeadScript } = config
     const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
 
-    const routeItem = findRoute<FeRouteItem<any>>(feRoutes, path)
+    const routeItem = findRoute<FeRouteItem<{}, {
+      App: Vue.Component
+      layout: Vue.Component
+    }>>(feRoutes, path)
     let dynamicCssOrder = cssOrder
     if (dynamic) {
       dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
     }
+
     const manifest = await getManifest()
 
     if (!routeItem) {
@@ -44,7 +50,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
       // csr 下不需要服务端获取数据
       await fetch({ store, router: router.currentRoute }, ctx)
     }
-
+    // @ts-expect-error
     const app = new Vue({
       router,
       store,

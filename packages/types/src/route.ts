@@ -7,13 +7,13 @@ export interface ProvisionalFeRouteItem {
   component?: string
 }
 
-export interface FeRouteItem<T = {}> {
+export type FeRouteItem<T = {}, U={}> = {
   path: string
   layout: React.FC<LayoutProps>
   fetch?: Fetch
   component: FC<T>
   webpackChunkName?: string
-}
+} & U
 
 export interface FaasRouteItem {
   path: string

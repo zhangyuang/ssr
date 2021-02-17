@@ -9,7 +9,7 @@ realVue.use(RealRouter)
 
 const feRoutes = require('ssr-temporary-routes/route')
 
-export function createRouter () {
+export function createRouter (): Router {
   return new RealRouter({
     mode: 'history',
     routes: feRoutes
