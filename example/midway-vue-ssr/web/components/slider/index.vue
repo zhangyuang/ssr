@@ -3,7 +3,7 @@
   <div class="swiperContainer">
     <Swiper ref="mySwiper" :options="swiperOptions">
       <swiper-slide v-for="val in data[0].itemMap" :key="val.img" class="sliderContainer">
-        <img :src="val.img" class="carouselImg">
+        <img :src="val.img" class="carouselImg" @click="toDetail">
         <div class="sliderDescContainer">
           <span class="sliderTitle">
             {{ val.title }}
@@ -18,7 +18,7 @@
 <script>
 
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
-import 'swiper/swiper.less'
+import 'swiper/css/swiper.css'
 
 export default {
   components: {
@@ -47,6 +47,11 @@ export default {
   },
   mounted () {
     this.swiper.slideTo(2, 1000, false)
+  },
+  methods: {
+    toDetail () {
+      this.$router.push('/detail/cbba934b14f747049187')
+    }
   }
 }
 </script>
