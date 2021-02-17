@@ -15,18 +15,45 @@
 <a href="https://github.com/ykfe/ssr" target="_blank"><img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node"></a>
 
 
-ssr 框架是为 Serverless/传统 Node.js 应用 场景打造的开箱即用服务端渲染框架。  
-通过解耦底层代码，我们默认依赖 midway-faas 作为 Serverless 场景下的服务端框架。将服务端渲染应用的本地开发体验以及发布体验做到极致。让开发者可以轻易的开发并发布一个成熟的服务端渲染应用到公网让用户可以访问。  
-同时你也可以手动配置选择例如 [koa](https://koajs.com/) [midway](https://midwayjs.org/) 等传统服务端框架进行开发部署。   
-此框架脱胎于 [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) 项目，如果你希望获得开箱即用的体验。请选择 ssr 框架。
->ssr framework is serverless-side render specification implementation. focus on developer experience, easy debug and no over-engineering. grow out of [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) and is out of the box.
+ssr 框架是为前端框架在服务端渲染的场景下所打造的开箱即用的服务端渲染框架。  
+是首个同时支持 React/Vue 的服务端渲染框架还可以一键以 Serverless 的形式发布上云。  
+我们通过插件化的代码组织形式，支持任意服务端框架与任意前端框架的组合使用。开发者可以选择通过 Serverless 方式部署或是以传统 Node.js 的应用形式部署。  
+并且我们专注于提升 Serverless 场景下服务端渲染应用的开发体验，打造了一站式的开发，发布应用服务的功能。最大程度提升开发者的开发体验，将应用的开发，部署成本降到最低。  
+此框架脱胎于 [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) 项目，我们在此之上做了诸多演进。如果你希望获得开箱即用的体验且能够一键部署上云。请选择 ssr 框架。
 
-features
+## Features
 
-- 更少的构建 bundle 文件
-- 强大的的本地开发功能支持，开箱即用 无需额外配置
-- 一键发布到多个云平台
+🚀 表示已经实现的功能
 
+| 里程碑                                                                 | 状态 |
+| ---------------------------------------------------------------------- | ---- |
+| 支持任意服务端框架与任意前端框架的组合使用。(Serverless/Midway/Nest) + (React/Vue)             | 🚀   |
+| 最小而美的实现服务端渲染功能                           | 🚀   |
+| 针对Serverless 场景对代码包的大小的严格限制，将生产环境的代码包大小做到极致            | 🚀   |
+| 同时支持约定式前端路由和声明式前端路由                            | 🚀   |
+| React 场景下 All in JSX，抛弃传统模版引擎，所有部分包括 layout 布局皆使用 JSX 来编写生成                            | 🚀   |
+| 渲染模式切换：服务端渲染一键降级为客户端渲染                            | 🚀   |
+| 统一服务端客户端的数据获取方式                                 | 🚀   |
+| 类型友好，全面拥抱 TS                                | 🚀   |
+| 支持无缝接入 [antd](https://github.com/ant-design/ant-design) 无需修改任何配置                             | 🚀   |
+| 支持使用 less 作为 css 预处理器                                                | 🚀   |
+| 实现 React/Vue SSR 场景下的[优秀代码分割方案](https://zhuanlan.zhihu.com/p/343743374) 首屏性能做到极致                  |    🚀  |
+| React 场景下使用 useContext + useReducer 实现极简的[数据管理](#React跨组件通信)，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
+| 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
+| ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
+| ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                                  |    |
+| 支持 [vite](https://vite-design.surge.sh/) + [vue3](http://v3.vuejs.org/) 在 SSR 场景下的组合使用 |    |
+
+## 线上案例
+
+通过访问以下链接来预览该框架通过 Serverless 一键部署到阿里云/腾讯云服务的应用详情。通过使用 queryParams `csr=true` 来让 SSR 服务端模式一键降级为 CSR 客户端渲染模式，也可以通过 `config.js` 来进行配置。
+
+- http://ssr-fc.com/ 部署到阿里云的 React SSR 应用
+- http://ssr-fc.com?csr=true 部署到阿里云的 React SSR 应用, 以 CSR 模式访问
+- http://tx.ssr-fc.com 部署到腾讯云的 React SSR 应用
+- http://tx.ssr-fc.com?csr=true 部署到腾讯云的 React SSR 应用, 以 CSR 模式访问
+- http://vue.ssr-fc.com 部署到阿里云的 Vue SSR 应用
+- http://vue.ssr-fc.com?csr=true 部署到阿里云的 Vue SSR 应用, 以 CSR 模式访问
 ## Serverless for Developer
 
 > Serverless 解放了端开发者（不仅仅是 Web 开发者）的生产力，让端开发者可以更快、更好、更灵活地开发各种端上应用，不需要投入太多精力关注于后端服务的实现。”
@@ -44,27 +71,6 @@ Serverless 应用开发流程
 ![](https://img.alicdn.com/tfs/TB1wzqpCkP2gK0jSZPxXXacQpXa-1880-256.jpg)
 
 相比于传统服务端应用开发，我们将细节在底层统一抹平。前端开发者只需要关注业务逻辑，无需感知服务器的运行状况。成本和心智负担大大降低，只需要申请一个域名即可将应用发布到公网让所有用户可以访问。
-
-🚀 表示已经实现的功能
-
-| 里程碑                                                                 | 状态 |
-| ---------------------------------------------------------------------- | ---- |
-| 最小而美的实现 React 服务端渲染功能                           | 🚀   |
-| 同时支持约定式前端路由和声明式前端路由                            | 🚀   |
-| All in JSX，抛弃传统模版引擎，所有部分包括 layout 布局皆使用 JSX 来编写生成                            | 🚀   |
-| 渲染模式切换：服务端渲染一键降级为客户端渲染                            | 🚀   |
-| 统一服务端客户端的数据获取方式                                 | 🚀   |
-| 类型友好，全面拥抱 TS                                | 🚀   |
-| 支持无缝接入 [antd](https://github.com/ant-design/ant-design) 无需修改任何配置                             | 🚀   |
-| 支持使用 less 作为 css 预处理器                                                | 🚀   |
-| 实现 SSR 场景下[最优秀的代码分割方案](https://zhuanlan.zhihu.com/p/343743374)                  |    🚀  |
-| 接入 useContext + useReducer 实现极简的[数据管理](#不同页面组件进行数据共享)，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
-| 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
-| ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
-| ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀   |
-| 支持使用 [vite](https://vite-design.surge.sh/) 代替 webpack 作为构建工具，提升本地开发构建速度                                 |    |
-| 补充结合 [vue3](http://v3.vuejs.org/) 的 example 使其支持 VueSSR |    |
-| 补充结合 koa/midway 的 example 使其运行在传统的 Node.js 应用当中                                 |    |
 
 ## 哪些应用在使用
 
@@ -84,24 +90,25 @@ Serverless 应用开发流程
 </tr>
 </table>
 
-## 快速开始
 
-开发者只需 5 分钟就可以快速的创建并发布一个 SSR 应用上线
+## Getting Start
 
+迅速开始一个应用
 ### 环境准备
 
 ```bash
 $ node -v # 建议版本>=v10.15.0
 v12.16.1
 ```
+### create-ssr-app
 
-### 创建项目
-
-我们使用 [create-ssr-app](https://github.com/zhangyuang/create-ssr-app) 来快速的创建项目
+我们提供了 [create-ssr-app](https://github.com/zhangyuang/create-ssr-app) 服务，可迅速创建不同类型的 example。如无特殊需求，我们推荐创建 Serverless 类型的应用，可享受一站式的应用开发，部署能力。
 
 ```bash
-$ npm init ssr-app my-ssr-project
-$ cd my-ssr-project
+$ npm init ssr-app my-ssr-project --template=serverless-react-ssr # 创建 React SSR 应用，可通过 Serverless 服务一键发布应用上云
+$ npm init ssr-app my-ssr-project --template=serverless-vue-ssr # 创建 Vue SSR 应用，可通过 Serverless 服务一键发布应用上云
+$ npm init ssr-app my-ssr-project --template=midway-react-ssr # 创建 React SSR 应用，基于 Midway Node.js 框架提供的能力以传统 Node.js 应用的形式部署
+$ npm init ssr-app my-ssr-project --template=midway-vue-ssr # 创建 Vue SSR 应用，基于 Midway Node.js 框架提供的能力以传统 Node.js 应用的形式部署
 ```
 
 ### 本地开发
@@ -111,18 +118,32 @@ $ npm i
 $ npm start # 等价于 ssr start
 $ open http://localhost:3000
 ```
-
-为了方便开发我们建议全局安装 `ssr` 模块 `npm i -g ssr` 这样可以很方便的通过在命令行使用 `ssr xxx` 等命令来开发部署应用
-
 ### 资源构建
 
 ```bash
 $ npm run build # 等价于 ssr build
 $ GENERATE_ANALYSIS=true npm run build # 可视化生成构建产物
-$ npm run build --func=index # 对指定函数进行构建(支持中)
 ```
 
-### 发布到阿里云
+### 发布上云
+
+发布命令
+
+```bash
+$ npm run deploy # 支持发布多个平台默认发布到阿里云 等价于 ssr deploy
+$ npm run deploy:tencent # 发布到腾讯云 等价于 ssr deploy --tencent
+```
+
+### 本地调试
+
+借助 [debug](https://github.com/visionmedia/debug) 模块的能力，开发者可以在本地开发过程中获取一些构建渲染过程的信息。
+
+```bash
+$ DEBUG=ssr:* npm start # 打印所有的 ssr 模块提供的 debug 信息
+```
+
+阅读下文以获得本应用更加详细的使用方式。包括应用组织规范以及如何配置域名使得用户可以在公网访问。
+### 在阿里云使用
 
 发布命令
 
@@ -138,7 +159,10 @@ $ npm run deploy # 支持发布多个平台默认发布到阿里云 等价于 ss
 
 ![](https://img.alicdn.com/tfs/TB10vYVBYY1gK0jSZTEXXXDQVXa-2044-528.jpg)
 
-发布成功后得到一个 http 地址`https://1812856288776972.cn-shanghai.fc.aliyuncs.com/***`。由于阿里云安全限制，无法直接在浏览器查看。需要手动配置域名转发过去。`阿里云控制台域名服务` -> `域名解析设置` -> `函数计算控制台` -> `自定义域名`。之后打开[域名](http://ssr-fc.com)便能够访问到发布的函数。
+#### 阿里云配置域名
+
+发布成功后得到一个临时的 http 地址`https://1812856288776972.cn-shanghai.fc.aliyuncs.com/***`。可以暂时用来预览服务，之后我们需要配置自己的域名通过 CNAME 的形式转发到该服务。  
+`阿里云控制台域名服务` -> `域名解析设置` -> `函数计算控制台` -> `自定义域名`。之后打开[域名](http://ssr-fc.com)便能够访问发布的函数。
 
 ![](https://gw.alicdn.com/tfs/TB1yfjUB4D1gK0jSZFKXXcJrVXa-1212-680.jpg)
 
@@ -146,7 +170,7 @@ $ npm run deploy # 支持发布多个平台默认发布到阿里云 等价于 ss
 
 ![](https://gw.alicdn.com/tfs/TB1JZGyB1H2gK0jSZFEXXcqMpXa-1468-1012.jpg)
 
-### 发布到腾讯云
+### 在腾讯云使用
 
 无需做任何配置文件的修改即可一键发布到腾讯云！
 
@@ -173,55 +197,208 @@ provider:
   region: ap-hongkong
   serviceId: service-xxx
 ```
-#### 绑定域名
+#### 腾讯云配置域名
 
 在发布到腾讯云时 midway-faas 支持通过 [provider.region](https://www.yuque.com/midwayjs/faas/serverless_yml) 来设置发布的服务器区域。  
 如果发布的区域是国内则绑定的域名需要在腾讯云进行备案服务，如果是香港则无需备案。默认绑定域名后需要通过 [tx.ssr-fc.com/release](http://tx.ssr-fc.com) 来访问具体的环境。也可以通过自定义路径映射使得不需要添加 /release 也可以访问到具体的环境。
 ![](https://res.wx.qq.com/op_res/Ln1MuNWmmfNDyTuJlooXiGdhwtCtz_4rVDi_qvmuUEoL_mo6PNsd3z4d7z9RBj17)
 
-### 线上案例
-
-```bash
-$ open http://ssr-fc.com/ # 发布到阿里云的函数
-$ open http://ssr-fc.com?csr=true # 以csr模式运行
-$ open http://tx.ssr-fc.com/ # 发布到腾讯云的函数
-$ open http://tx.ssr-fc.com?csr=true # 以csr模式运行
-```
-
 ### 结合阿里云开发平台
 
 本框架可结合阿里云开发平台，使用 CloudIDE 全程上云开发 Serverless SSR 应用使用方式可参考该[教程](https://zhuanlan.zhihu.com/p/139210473)。
 
+### 结合 Midway.js
+
+为了 cover 到所有的场景，我们也支持以 [Midway.js](https://midwayjs.org/) 作为 Node.js 框架以传统 Node.js 的服务进行部署。使用方式与 Serverless 场景类似。
+可参考 midway 文档得到更详细的描述
+
+```bash
+$ npm init ssr-app my-ssr-project --template=midway-react-ssr # 创建 React SSR 应用，基于 Midway Node.js 框架提供的能力以传统 Node.js 应用的形式部署
+```
+
+通过上述命令创建基于 Midway 的 React SSR 应用后
+
+```bash
+$ npm i
+$ npm start # 本地开发启动服务
+$ open http://localhost:3000 # 访问应用
+$ npm run build # 本地资源构建
+$ npm run prod # 通过 egg-scripts 生产环境多进程模式运行
+```
 ## 开发规范
 
-`注：本规范适用于绝大多数的业务场景，如需额外定制请先想清楚是否必要!`
+`注：本规范适用于绝大多数的业务场景，我们已经尽力将默认的规范和配置做到最优如无特殊需求请不要额外定制`
 
+### 通过插件组合功能
+
+我们目前提供了如下插件
+
+服务端框架插件
+
+- plugin-faas 基于 midway-faas
+- plugin-midway 基于 midway@2.0
+
+前端框架插件
+
+- plugin-react 基于 React
+- plugin-vue 基于 Vue
+
+它们之间可以任意的进行组合。如何在 example 中使用插件如下。
+
+```js
+// plugin.js
+
+const { faasPlugin } = require('ssr-plugin-faas')
+const { reactPlugin } = require('ssr-plugin-react')
+
+module.exports = {
+  serverPlugin: faasPlugin(),
+  fePlugin: reactPlugin()
+}
+
+```
 ### 前端技术选型
+
+不同的前端框架在技术选型方面会有一些差别，但我们尽量规定一套规范，使得不同框架之间的差异性做到最小，默认都使用约定式路由。如无特殊必要建议使用默认选项。  
+在代码规范方面我们将一系列的 eslint-plugin 进行整合，使得只需要安装一个依赖即可同时检测 .vue|ts|tsx 文件
+#### React
+
+技术选型
 
 - 前端框架: React v17, 实时跟进 React17的新特性
 - 开发语言: TypeScript
-- 代码风格: [Standard](https://standardjs.com/)
+- 代码风格: [eslint-config-standard-react-ts](https://github.com/zhangyuang/standardjs-react)
 - 样式处理: less + css modules
 - UI 组件: 默认已对 antd 的使用做打包配置无需额外配置
-- 前端路由: 约定式路由
-- 数据管理: 使用 React Hooks 提供的 useContext + useReducer 实现极简的数据管理方案, 摒弃传统的 redux/dva 等数据管理方案
+- 前端路由: 约定式路由/声明式路由
+- 数据管理: 使用 React Hooks 提供的 useContext + useReducer 实现极简的[数据管理方案](#React跨组件通信), 摒弃传统的 redux/dva 等数据管理方案
 
-### 本地调试
+#### Vue
 
-借助 [debug](https://github.com/visionmedia/debug) 模块的能力，开发者可以在本地开发过程中获取一些构建渲染过程的信息。
+技术选型
+
+- 前端框架: Vue2.0, Vue3.0 将会在下一个版本与 Vite 一起推出
+- 开发语言: TypeScript
+- 代码风格: [eslint-config-standard-vue-ts](https://github.com/zhangyuang/standardjs-vue)
+- 样式处理: less + vue scoped
+- 前端路由: 约定式路由/声明式路由
+- 数据管理: vuex
+
+### 应用类型
+
+由于本框架同时具备 SSR 服务端渲染能力 以及 loadable 代码分割能力。我们天生可以看作既是单页面应用也是多页面应用。表现如下
+
+- 用户可以通过 react-router/vue-roueter 的形式进行页面之间的跳转。此时是纯前端的跳转不会向服务器发送请求视为单页面应用页面之间的互相跳转
+- 同时用户也可以通过 a 标签的形式来进行页面之间的跳转。此时视为在服务端渲染一个新页面。视为多页面应用之间的互相跳转，由于我们具备 SSR 能力，此时页面的源代码是新页面具备 SEO 能力以及首屏直出页面能力
+- 每个独立页面之间的代码是互相分离互不冗余的
+
+#### 应用介绍
+
+注意：
+
+- 我们的策略是将所有负责页面渲染的服务端路由都对应同一个 FaaS 函数。例如 首页和详情页是打到同一个 FaaS 函数。共享函数的资源。优势是便于开发管理。且每一个服务端路由都可对应多个前端路由
+- 如果你一定要将首页和详情页分别部署到不同的函数。我们建议你分成两个 Repo 分别进行开发部署
+
+##### 目录结构
+
+无论前端框架是 React/Vue, 我们 follow 同一套目录结构规范
+这里我们使用约定式前端路由。无需手动声明路由配置文件，会根据文件夹名称及路径自动生成路由配置。
 
 ```bash
-$ DEBUG=ssr:* npm start # 打印所有的 ssr 模块提供的 debug 信息
-$ DEBUG=ssr:parse npm start # 打印约定式路由解析 debug 信息
-$ DEBUG=ssr:render npm start # 打印页面渲染 debug 信息
+.
+├── build # web目录构建产物
+│   └── index # 函数名称
+│       ├── client
+│       └── server
+├── config.js # 定义应用的配置
+├── f.yml # 可选，Serverless 场景下需要创建
+├── package.json
+├── src # 存放服务端 Node.js 相关代码
+│   └── index.ts
+├── tsconfig.json
+├── web # 存放前端组件相关代码
+│   ├── components # 存放公共组件
+│   │   └── header # 公共头部
+│   │   │   ├── index.less
+│   │   │   └── index.tsx
+│   │   └── layout # 页面 html 布局
+│   │       ├── index.less
+│   │       └── index.tsx
+│   ├── pages # pages目录下的文件夹会映射为前端路由，存放页面级别的组件
+│   │   ├── index # index文件夹映射为根路由
+│   │   │   ├── fetch.ts # 定义fetch文件用来统一服务端/客户端获取数据的方式，通过 __isBrowser__ 变量区分环境
+│   │   │   ├── index.less
+│   │   │   └── render.tsx # 定义render文件用来定义页面渲染逻辑
+│   │   └── detail
+│   │       ├── fetch.ts
+│   │       ├── index.less
+│   │       └── render$id.tsx # 映射为/detail/:id
+│   │       └── render$id$.tsx # 映射为/detail/:id?
+│   ├── tsconfig.json # 仅用于编辑器ts语法检测
+│   └── typings.d.ts
 ```
 
+##### yml 文件编写规范
+
+```yml
+service:
+  name: serverless-ssr-spa
+provider:
+  name: aliyun
+functions: # 函数列表
+  index:
+    handler: index.handler
+    events: # 页面渲染服务
+      - http:
+          path: /
+          method: get
+      - http:
+          path: /detail/*
+          method: get
+  api-index: # api 数据接口服务
+    handler: api.handler
+    events:
+      - http:
+          path: /api/index
+          method: get
+  api-detail:
+    handler: api.detail.handler
+    events:
+      - http:
+          path: /api/detail/*
+          method: get
+  render: # 静态资源目录
+      handler: render.handler
+      events:
+        - http:
+            path: /client/*
+            method: get
+
+aggregation: # 将上述 functions 聚合成一个 ssr 函数发布
+  ssr:
+    deployOrigin: false
+    functionsPattern:
+      - '*'
+
+package:
+  include:
+    - build
+  artifact: code.zip
+
+```
+##### 展示形式
+
+http://ssr-fc.com/ -> ssr 函数 -> 渲染 index 组件  
+http://ssr-fc.com/detail/* -> ssr 函数 -> 渲染 detail 组件
 ### 应用原理解析
 
 点击[此处](./images/ykfe-ssr.png)查看高清大图
 ![](./images/ykfe-ssr.png)
 
-### 不同页面组件进行数据共享
+### FAQ
+
+以下记录应用开发过程中常见问题
+#### React跨组件通信
 
 通过使用 `useContext` 来获取全局的 `context`, `useContext` 返回两个值分别为
 
@@ -275,162 +452,8 @@ export default Search
 `注: 我们只推荐在跨组件通信时使用 dispatch，局部状态不推荐使用，会导致函数内部状态过于复杂，难以阅读。`
 
 关于更多 hooks 使用的最佳实践可以参考该[文章](https://zhuanlan.zhihu.com/p/81752821)
-### 应用类型
 
-由于本框架同时具备 SSR 服务端渲染能力 以及 loadable 代码分割能力。我们天生可以看作既是单页面应用也是多页面应用。表现如下
-
-- 用户可以通过 react-router 的形式进行页面之间的跳转。此时是纯前端的跳转不会向服务器发送请求视为单页面应用页面之间的互相跳转
-- 同时用户也可以通过 a 标签的形式来进行页面之间的跳转。此时视为在服务端渲染一个新页面。视为多页面应用之间的互相跳转，由于我们具备 SSR 能力，此时页面的源代码是新页面具备 SEO 能力以及首屏直出页面能力
-- 每个独立页面之间的代码是互相分离互不冗余的
-
-#### 应用介绍
-
-注意：
-
-- 我们的策略是将所有负责页面渲染的服务端路由都对应同一个 FaaS 函数。例如 首页和详情页是打到同一个 FaaS 函数。共享函数的资源。优势是便于开发管理。且每一个服务端路由都可对应多个前端路由
-- 如果你一定要将首页和详情页分别部署到不同的函数。我们建议你分成两个 Repo 分别进行开发部署
-
-##### 目录结构
-
-这里我们使用约定式前端路由。无需手动声明路由配置文件，会根据文件夹名称及路径自动生成路由配置。
-
-```bash
-.
-├── build # web目录构建产物
-│   └── index # 函数名称
-│       ├── client
-│       └── server
-├── config.js # 定义应用的配置
-├── f.yml
-├── package.json
-├── src # 存放faas函数的handler
-│   └── index.ts
-├── tsconfig.json
-├── web
-│   ├── components # 存放公共组件
-│   │   └── header
-│   │   │   ├── index.less
-│   │   │   └── index.tsx
-│   │   └── layout # SPA应用只需要一个默认的layout
-│   │       ├── index.less
-│   │       └── index.tsx
-│   ├── pages # pages目录下的文件夹会映射为前端路由
-│   │   ├── index # index文件夹映射为根路由
-│   │   │   ├── fetch.ts # 定义fetch文件用来获取数据，会自动注入到组件的props中
-│   │   │   ├── index.less
-│   │   │   └── render.tsx # 定义render文件用来定义页面渲染逻辑
-│   │   └── detail
-│   │       ├── fetch.ts
-│   │       ├── index.less
-│   │       └── render$id.tsx # 映射为/detail/:id
-│   │       └── render$id$.tsx # 映射为/detail/:id?
-│   ├── tsconfig.json # 仅用于编辑器ts语法检测
-│   └── typings.d.ts
-```
-
-##### yml 文件编写规范
-
-```yml
-service:
-  name: serverless-ssr
-provider:
-  name: aliyun
-
-functions:
-  index:
-    handler: index.handler
-    events:
-      - http:
-          path: /
-          method: get
-      - http:
-          path: /detail/*
-          method: get
-  api-index: # 定义api接口服务
-    handler: api.handler
-    events:
-      - http:
-          path: /api/index
-          method: get
-  api-detail:
-    handler: api.detail.handler
-    events:
-      - http:
-          path: /api/detail/*
-          method: get
-
-package:
-  artifact: code.zip
-```
-
-##### 如何发布
-
-```bash
-$ ssr deploy # 默认发布到阿里云
-$ ssr deploy --tencent # 发布到腾讯云
-```
-
-##### 展示形式
-
-http://ssr-fc.com/ -> index 函数 -> 渲染 index 组件  
-http://ssr-fc.com/detail/* -> index 函数 -> 渲染 detail 组件
-
-### 渲染函数
-
-1）在 FaaS 函数里
-
-在 FaaS 函数里，只需要调用 ssr-core 提供的 render 方法传入 ctx 即可
-
-```js
-import { render } from 'ssr-core-react'
-
-async handler () {
-  try {
-    const htmlStr = await render(this.ctx)
-    return htmlStr
-  } catch (error) {
-    return error
-  }
-}
-```
-
-根据 f.yml 或者 query 来判断当前渲染模式
-
-2）在 Node.js Web 框架里
-
-该渲染方式实现是服务端无关的，理论上可以支持任何 Node.js 框架只需引入 render 方法以及有一个 web 目录，用法与 Faas 函数保持一致。
-
-```
-const Koa = require('koa');
-const { render } = require('ssr-core-react')
-const app = new Koa();
-
-//  mount routes from config
-app.use(ssr)
-
-// ctx.ssrRender()
-app.get('/*', async ctx => {
-  ctx.body = render(ctx)
-});
-
-app.listen(3000);
-```
-
-### 模式切换
-
-```js
-// url查询参数或者头信息
-conf.mode = req.query.ssr || req.headers['x-mode-ssr']
-```
-
-- ssr(conf)
-  - cookie
-  - querystring
-  - header
-
-此处需要考虑优先级，比如 querystring 第一，其次是 f.yml 里的 render.mode。
-
-## 使用声明式路由
+#### 使用声明式路由
 
 我们默认使用约定式路由通过文件夹结构自动生成路由表，如果无法满足应用需求也可以手动创建路由文件
 
@@ -438,10 +461,10 @@ conf.mode = req.query.ssr || req.headers['x-mode-ssr']
 $ touch web/route.js # 检测到该文件存在则使用声明式路由
 ```
 
-并需要严格按照如下格式规范写入内容, 否则应用可能会执行出错
+并需要严格按照如下格式规范写入内容, 否则应用可能会执行出错, `__isBrowser__` 会在应用的执行过程当中根据环境自动注入。
 
 ```js
-
+// React 使用如下规范
 module.exports = [{
   layout: require('./components/layout/index.tsx').default,
   fetch: require('./pages/detail/fetch.ts').default,
@@ -467,9 +490,25 @@ module.exports = [{
   }) : require('./pages/index/render.tsx').default,
   webpackChunkName: 'index'
 }]
-
+// Vue 使用如下规范
+module.exports = [{
+  layout: require('./components/layout/index.vue').default,
+  App: require('./components/layout/App.vue').default,
+  fetch: require('./pages/detail/fetch.ts').default,
+  path: '/detail/:id',
+  // component 使用这种规范来实现按需加载功能
+  component: __isBrowser__ ?  async () => await import(/* webpackChunkName: "detail" */ './pages/detail/render$id.vue') : require('./pages/detail/render$id.vue').default,
+  webpackChunkName: 'detail'
+},
+{
+  layout: require('./components/layout/index.vue').default,
+  fetch: require('./pages/index/fetch.ts').default,
+  path: '/',
+  component: __isBrowser__ ? async () => await import(/* webpackChunkName: "index" */ './pages/index/render.vue') : require('./pages/index/render.vue').default,
+  webpackChunkName: 'index'
+}]
 ```
-## 配置
+#### 配置文件
 
 config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特殊需求不要修改
 
@@ -505,14 +544,10 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
 }
 
 ```
+#### 如何让某个组件只在客户端渲染
 
-## FAQ
-
-遇到问题先去该[文档](http://ykfe.surge.sh/guide/faq.html)找答案，该文档列举了开发 SSR 应用可能会遇到的大部分问题。如果没有预期的答案再提 issue
-
-### 如何让某个组件只在客户端渲染
-
-只需要用 onlyCsr 高阶组件包裹一下即可
+我们有时候会遇到某个组件强依赖了浏览器元素导致无法在服务端渲染，这时候需要针对该组件让其只在客户端进行渲染。  
+React 场景下只需要用 onlyCsr 高阶组件包裹一下即可
 
 ```bash
 $ yarn add ssr-hoc-react
@@ -522,6 +557,30 @@ $ yarn add ssr-hoc-react
 import { onlyCsr } from 'ssr-hoc-react'
 
 export onlyCsr(Component)
+```
+
+由于 Vue 对 HOC 的支持不友好，这里需要用户手动来实现该功能
+
+1、组件新增 data 选项 isClient
+2、在 mounted 生命周期设置 isClient 为 true
+3、当 isClient 为 true 时，渲染真正的组件内容，否则只需要渲染一个空的 div
+
+```js
+<template>
+  <div v-if="isClient">{xxx}</div>
+  <div v-else="!isClient"></div>
+</template>
+
+export default {
+  data () {
+    return {
+      isClient: false
+    }
+  }
+  mounted () {
+    this.isClient = true
+  }
+}
 ```
 
 ## CONTRIBUTING

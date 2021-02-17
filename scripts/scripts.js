@@ -7,7 +7,7 @@ const options = {
 const linkPackage = ['react', 'react-dom', '@midwayjs/decorator', '@midwayjs/web', 'vue', 'vuex', 'vue-router']
 
 if (process.argv.includes('--bootstrap')) {
-  let shell = 'npx concurrently "yarn && yarn build:only"'
+  let shell = 'npx concurrently "yarn"'
   const examples = fs.readdirSync('./example')
   examples.forEach(example => {
     if (example !== '.DS_Store') {
@@ -15,6 +15,7 @@ if (process.argv.includes('--bootstrap')) {
     }
   })
   execSync(shell, options)
+  execSync('yarn build:only', options)
 }
 if (process.argv.includes('--clean')) {
   const shell = 'rm -rf node_modules yarn.lock'
