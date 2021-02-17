@@ -1,6 +1,6 @@
 import * as Vue from 'vue'
 import * as Vuex from 'vuex'
-import { findRoute, getManifest, logGreen, getVuexStore } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
 import { sync } from 'vuex-router-sync'
 import { createRouter } from './router'
@@ -9,8 +9,9 @@ import { createRouter } from './router'
 Vue.use(Vuex)
 
 const serialize = require('serialize-javascript')
+// @ts-expect-error
+const store = require(vuexStoreFilePath) // define by webpack define plugin
 
-const store = getVuexStore()
 function createStore () {
   return new Vuex.Store(store)
 }
