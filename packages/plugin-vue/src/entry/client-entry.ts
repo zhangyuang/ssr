@@ -30,17 +30,19 @@ const clientRender = async () => {
     store,
     router
   })
-  if (!window.__USE_SSR__) {
-    // 如果是 csr 模式 则需要客户端获取首页需要的数据
-    for (const component of router.getMatchedComponents(location.pathname)) {
-      // @ts-expect-error
-      const { fetch } = component
-      await fetch({ store, router })
-    }
-  }
-  router.onReady(() => {
-    app.$mount('#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
 
+  router.onReady(async () => {
+    if (!window.__USE_SSR__) {
+      // 如果是 csr 模式 则需要客户端获取首页需要的数据
+      const route = findRoute<FeRouteItem<{}, {
+        App: Vue.Component
+        layout: Vue.Component
+      }>>(feRoutes, location.pathname)
+      const { fetch } = route
+      if (fetch) {
+        await fetch({ store, router: router.currentRoute })
+      }
+    }
     router.beforeResolve(async (to, from, next) => {
       // 找到要进入的组件并提前执行 fetch 函数
       const route = findRoute<FeRouteItem<{}, {
@@ -52,6 +54,7 @@ const clientRender = async () => {
       }
       next()
     })
+    app.$mount('#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
   })
 
   if (process.env.NODE_ENV === 'development' && module.hot) {
