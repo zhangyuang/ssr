@@ -45,8 +45,8 @@ const parseFeRoutes = async () => {
   const pageDir = getPagesDir()
   const feDir = getFeDir()
   const cwd = getCwd()
-  const { fePlugin } = loadPlugin()
-  const isVue = fePlugin.name === 'plugin-vue'
+  const { clientPlugin } = loadPlugin()
+  const isVue = clientPlugin.name === 'plugin-vue'
 
   if (!fs.existsSync(join(cwd, './node_modules/ssr-temporary-routes'))) {
     Shell.mkdir(`${cwd}/node_modules/ssr-temporary-routes`)

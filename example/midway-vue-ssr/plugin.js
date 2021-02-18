@@ -3,5 +3,5 @@ const { vuePlugin } = require('ssr-plugin-vue')
 
 module.exports = {
   serverPlugin: midwayPlugin(),
-  fePlugin: vuePlugin()
+  clientPlugin: vuePlugin()
 }

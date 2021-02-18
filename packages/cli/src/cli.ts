@@ -18,7 +18,7 @@ yargs
     spinnerProcess.send({
       message: 'stop'
     })
-    await plugin.fePlugin?.start?.(argv)
+    await plugin.clientPlugin?.start?.(argv)
     await plugin.serverPlugin?.start?.(argv)
   })
   .command('build', 'Build server and client files', {}, async (argv: Argv) => {
@@ -31,7 +31,7 @@ yargs
     spinnerProcess.send({
       message: 'stop'
     })
-    await plugin.fePlugin?.build?.(argv)
+    await plugin.clientPlugin?.build?.(argv)
     await plugin.serverPlugin?.build?.(argv)
   })
   .command('deploy', 'Deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {

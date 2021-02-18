@@ -3,5 +3,5 @@ const { reactPlugin } = require('ssr-plugin-react')
 
 module.exports = {
   serverPlugin: midwayPlugin(),
-  fePlugin: reactPlugin()
+  clientPlugin: reactPlugin()
 }
