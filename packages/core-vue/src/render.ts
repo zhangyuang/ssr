@@ -12,7 +12,7 @@ async function render (ctx: ISSRContext, options = {}) {
   const config = Object.assign({}, defaultConfig, options)
   const { isDev, chunkName, stream } = config
   const isLocal = isDev || process.env.NODE_ENV !== 'production'
-  const serverFile = resolve(cwd, `./build/server/${chunkName ?? 'Page'}.server.js`)
+  const serverFile = resolve(cwd, `./build/server/${chunkName}.server.js`)
   if (isLocal) {
     // clear cache in development environment
     delete require.cache[serverFile]
