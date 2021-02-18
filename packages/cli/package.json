@@ -1,6 +1,6 @@
 {
   "name": "ssr",
-  "version": "5.1.0",
+  "version": "5.1.1",
   "description": "cli for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -32,8 +32,8 @@
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
     "ora": "^4.0.4",
-    "ssr-server-utils": "^5.1.0",
-    "ssr-types": "^5.1.0",
+    "ssr-server-utils": "^5.1.1",
+    "ssr-types": "^5.1.1",
     "vue-template-compiler": "^2.6.12",
     "yargs": "^13.2.4"
   },
