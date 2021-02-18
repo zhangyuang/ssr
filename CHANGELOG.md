@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.1.0](https://github.com/ykfe/ssr/compare/v4.3.3...v5.1.0) (2021-02-18)
+
+
+### Bug Fixes
+
+* types (skip ci) ([3882dfc](https://github.com/ykfe/ssr/commit/3882dfc7ccedb8e58d9f2d51d153b58b2ab2fff3))
+
+
+### Features
+
+* 完善插件 ([88de938](https://github.com/ykfe/ssr/commit/88de9380414da99d36822c288849d255daf04b74))
+* 解耦代码 可配置 ([#15](https://github.com/ykfe/ssr/issues/15)) ([e2b2661](https://github.com/ykfe/ssr/commit/e2b266129a1be5372c2eb28e9083edad178047a9))
+
+
+
+
+
 ## [5.0.3](https://github.com/ykfe/ssr/compare/v5.0.2...v5.0.3) (2021-02-18)
 
 **Note:** Version bump only for package ssr
