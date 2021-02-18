@@ -138,7 +138,7 @@ $ GENERATE_ANALYSIS=true npm run build # 可视化生成构建产物
 
 ### 发布上云
 
-发布命令
+发布命令, 我们针对 Serverless 场景的代码包做了优化，生产环境仅依赖一个 core 模块即可运行应用，将发布速度做到极致。
 
 ```bash
 $ npm run deploy # 支持发布多个平台默认发布到阿里云 等价于 ssr deploy
@@ -172,10 +172,10 @@ $ npm run deploy # 支持发布多个平台默认发布到阿里云 等价于 ss
 
 #### 阿里云配置域名
 
-发布成功后得到一个临时的 http 地址`https://1812856288776972.cn-shanghai.fc.aliyuncs.com/***`。可以暂时用来预览服务，之后我们需要配置自己的域名通过 CNAME 的形式转发到该服务。  
-`阿里云控制台域名服务` -> `域名解析设置` -> `函数计算控制台` -> `自定义域名`。之后打开[域名](http://ssr-fc.com)便能够访问发布的函数。
+发布成功后得到一个临时的 http 地址`http://xxxx.test.functioncompute.com`。可以暂时用来预览服务，之后我们需要配置自己的域名通过 CNAME 的形式转发到该服务。  
+接着在阿里云函数计算控制台设置域名对应的函数即可在公网通过域名来访问该函数。`阿里云控制台域名服务` -> `域名解析设置` -> `函数计算控制台` -> `自定义域名`。之后打开[域名](http://ssr-fc.com)便能够访问发布的函数。
 
-![](https://gw.alicdn.com/tfs/TB1yfjUB4D1gK0jSZFKXXcJrVXa-1212-680.jpg)
+![](https://res.wx.qq.com/op_res/GDCAu3r8xuYV5Bgvw8zZO5rzihDpXqBL-SpfARK_fo4iB3tzatF1vHJak0QCiNcRZpeggLEDlnhgzywCx2FxMQ)
 
 ![](https://gw.alicdn.com/tfs/TB1g_CwB7P2gK0jSZPxXXacQpXa-1254-698.jpg)
 
@@ -242,12 +242,12 @@ $ npm run prod # 通过 egg-scripts 生产环境多进程模式运行
 
 ### 通过插件组合功能
 
-我们目前提供了如下插件
+我们目前提供了如下插件, 参考现有插件来开发一个新的插件是非常容易的事情。你可以根据自己的应用类型来自行开发对应的插件，例如 plugin-nest、plugin-egg, plugin-koa 等
 
 服务端框架插件
 
-- plugin-faas 基于 midway-faas
-- plugin-midway 基于 midway@2.0
+- plugin-faas 基于 [midway-faas](https://www.yuque.com/midwayjs/faas)
+- plugin-midway 基于 [midway@2.0](https://midwayjs.org/)
 
 前端框架插件
 
@@ -350,6 +350,8 @@ module.exports = {
 ```
 
 ##### yml 文件编写规范
+
+更加详细的字段描述可以参考 midway-faas 的[使用文档](https://www.yuque.com/midwayjs/faas)
 
 ```yml
 service:
@@ -490,7 +492,7 @@ export default Search
 
 #### 使用声明式路由
 
-我们默认使用约定式路由通过文件夹结构自动生成路由表，如果无法满足应用需求也可以手动创建路由文件
+我们默认使用约定式路由通过文件夹结构自动生成路由表，如果无法满足应用需求也可以手动创建路由文件。手动编写路由文件有些复杂，所以我们建议使用默认的约定式路由规则。
 
 ```bash
 $ touch web/route.js # 检测到该文件存在则使用声明式路由
