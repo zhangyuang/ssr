@@ -1,27 +1,55 @@
-<h1 align="center">SSR</h1>
+<h1 align="center"> SSR </h1>
 <div align="center">
   <img src="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg" width="300" />
 </div>
 <br />
 <div align="center">
-  <strong>A future-oriented ssr framework based on midway-faas that implemented serverless-side render specification for faas.</strong>
+  <strong>A most advanced ssr framework on Earth that implemented serverless-side render specification for faas and traditional web server.</strong>
 </div>
 <br />
+<div align="center">
 <a href="https://github.com/ykfe/ssr/actions" target="_blank"><img src="https://github.com/ykfe/ssr/workflows/CI/badge.svg" alt="githubActions"></a>
 <a href="https://www.cypress.io/" target="_blank"><img src="https://img.shields.io/badge/cypress-dashboard-brightgreen.svg" alt="cypress"></a>
 <a href="https://npmcharts.com/compare/ssr-core" target="_blank"><img src="https://img.shields.io/npm/dt/ssr-core" alt="download"></a>
 <a href="https://standardjs.com" target="_blank"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="standardjs"></a>
 <a href="https://github.com/ykfe/ssr" target="_blank"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 <a href="https://github.com/ykfe/ssr" target="_blank"><img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node"></a>
+</div>
+<br />
 
+`ssr` 框架是为前端框架在服务端渲染的场景下所打造的开箱即用的服务端渲染框架。
 
-ssr 框架是为前端框架在服务端渲染的场景下所打造的开箱即用的服务端渲染框架。  
-是首个同时支持 React 和 Vue 的服务端渲染框架且提供一键以 Serverless 的形式发布上云的功能。  
-我们通过插件化的代码组织形式，支持任意服务端框架与任意前端框架的组合使用。开发者可以选择通过 Serverless 方式部署或是以传统 Node.js 的应用形式部署。  
-并且我们专注于提升 Serverless 场景下服务端渲染应用的开发体验，打造了一站式的开发，发布应用服务的功能。最大程度提升开发者的开发体验，将应用的开发，部署成本降到最低。  
-此框架脱胎于 [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) 项目，我们在此之上做了诸多演进。如果你希望获得开箱即用的体验且能够一键部署上云。请选择 ssr 框架。
+此框架脱胎于 [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) 项目和`ssr` v4.3版本（midway-faas + react ssr），在之前的基础上做了诸多演进，通过插件化的代码组织形式，支持任意服务端框架与任意前端框架的组合使用。开发者可以选择通过 Serverless 方式部署或是以传统 Node.js 的应用形式部署，并且我们专注于提升 Serverless 场景下服务端渲染应用的开发体验，打造了一站式的开发，发布应用服务的功能。最大程度提升开发者的开发体验，将应用的开发，部署成本降到最低。
+
+在最新的 v5.0 版本中，同时支持 React 和 Vue 的服务端渲染框架，且提供一键以 Serverless 的形式发布上云的功能。我们可以非常有自信说它是地球上最先进的ssr框架。如果你希望获得开箱即用的体验且能够一键部署上云，请选择 `ssr` 框架。
+
+## 哪些应用在使用
+
+正在使用这个项目的公司(应用), 如果您正在使用但名单中没有列出来的话请提 issue，欢迎推广分享，我们将随时提供技术支持
+
+<table>
+<tr height="100">
+<td align="center"><a target="_blank" href="http://youku.com/"><img src="https://img.alicdn.com/tfs/TB17DTuXkH0gK0jSZPiXXavapXa-680-133.svg" width="100px;"/><br />
+ <sub><b>优酷视频
+</b></td>
+<td align="center"><a target="_blank" href="https://yulebao.alibaba.com/"><img src="https://gw.alicdn.com/tfs/TB1CmlIIFT7gK0jSZFpXXaTkpXa-190-46.png" width="100px;"/><br><sub><b>阿里影业娱乐宝
+</b></sub></a></td>
+<td align="center"><a target="_blank" href="http://ssr-fc.com/"><img src="https://img.alicdn.com/tfs/TB13DzOjXP7gK0jSZFjXXc5aXXa-212-48.png" width="100px;"/><br><sub><b>部署于阿里云示例应用
+</b></sub></a></td>
+<td align="center"><a target="_blank" href="http://tx.ssr-fc.com/"><img src="http://s0.60logo.com/uploads/items/images/soft/180126/tengxunyun.svg" width="100px;"/><br><sub><b>部署于腾讯云示例应用
+</b></sub></a></td>
+</tr>
+</table>
 
 ## Features
+
+- 🌱　极易定制：前端支持 React/Vue 等现代Web框架；
+- 🚀　开箱即用：内置 10+ 脚手架配套扩展，如Antd、TS、Hooks等；
+- 🧲　插件驱动：基于插件架构，用户更加专注于业务逻辑；
+- 💯　Serverless优先：一键发布到各种Serverless平台，也支持传统Web Server，比如Egg、Midway、Nest和Next等。
+- 🛡　高可用场景，可无缝从SSR降级到CSR，最佳容灾方案。
+
+## 已实现的功能
 
 🚀 表示已经实现的功能
 
@@ -44,18 +72,7 @@ ssr 框架是为前端框架在服务端渲染的场景下所打造的开箱即�
 | ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                                  |    |
 | 支持 [vite](https://vite-design.surge.sh/) + [vue3](http://v3.vuejs.org/) 在 SSR 场景下的组合使用 |    |
 
-## 线上案例
-
-通过访问以下链接来预览该框架通过 Serverless 一键部署到阿里云/腾讯云服务的应用详情。  
-通过使用 queryParams `csr=true` 来让 SSR 服务端模式一键降级为 CSR 客户端渲染模式，也可以通过 `config.js` 来进行配置。
-
-- http://ssr-fc.com/ 部署到阿里云的 React SSR 应用
-- http://ssr-fc.com?csr=true 部署到阿里云的 React SSR 应用, 以 CSR 模式访问
-- http://tx.ssr-fc.com 部署到腾讯云的 React SSR 应用
-- http://tx.ssr-fc.com?csr=true 部署到腾讯云的 React SSR 应用, 以 CSR 模式访问
-- http://vue.ssr-fc.com 部署到阿里云的 Vue SSR 应用
-- http://vue.ssr-fc.com?csr=true 部署到阿里云的 Vue SSR 应用, 以 CSR 模式访问
-## Serverless for Developer
+## Serverless for Frontend
 
 > Serverless 解放了端开发者（不仅仅是 Web 开发者）的生产力，让端开发者可以更快、更好、更灵活地开发各种端上应用，不需要投入太多精力关注于后端服务的实现。”
 
@@ -73,24 +90,17 @@ Serverless 应用开发流程
 
 相比于传统服务端应用开发，我们将细节在底层统一抹平。前端开发者只需要关注业务逻辑，无需感知服务器的运行状况。成本和心智负担大大降低，只需要申请一个域名即可将应用发布到公网让所有用户可以访问。
 
-## 哪些应用在使用
+## 线上案例
 
-正在使用这个项目的公司(应用), 如果您正在使用但名单中没有列出来的话请提 issue，欢迎推广分享，我们将随时提供技术支持
+通过访问以下链接来预览该框架通过 Serverless 一键部署到阿里云/腾讯云服务的应用详情。  
+通过使用 queryParams `csr=true` 来让 SSR 服务端渲染模式一键降级为 CSR 客户端渲染模式，也可以通过 `config.js` 来进行配置。
 
-<table>
-<tr height="100">
-<td align="center"><a target="_blank" href="http://youku.com/"><img src="https://img.alicdn.com/tfs/TB17DTuXkH0gK0jSZPiXXavapXa-680-133.svg" width="100px;"/><br />
- <sub><b>优酷视频
-</b></td>
-<td align="center"><a target="_blank" href="https://yulebao.alibaba.com/"><img src="https://gw.alicdn.com/tfs/TB1CmlIIFT7gK0jSZFpXXaTkpXa-190-46.png" width="100px;"/><br><sub><b>阿里影业娱乐宝
-</b></sub></a></td>
-<td align="center"><a target="_blank" href="http://ssr-fc.com/"><img src="https://img.alicdn.com/tfs/TB13DzOjXP7gK0jSZFjXXc5aXXa-212-48.png" width="100px;"/><br><sub><b>部署于阿里云示例应用
-</b></sub></a></td>
-<td align="center"><a target="_blank" href="http://tx.ssr-fc.com/"><img src="http://s0.60logo.com/uploads/items/images/soft/180126/tengxunyun.svg" width="100px;"/><br><sub><b>部署于腾讯云示例应用
-</b></sub></a></td>
-</tr>
-</table>
-
+- http://ssr-fc.com/ 部署到阿里云的 React SSR 应用
+- http://ssr-fc.com?csr=true 部署到阿里云的 React SSR 应用, 以 CSR 模式访问
+- http://tx.ssr-fc.com 部署到腾讯云的 React SSR 应用
+- http://tx.ssr-fc.com?csr=true 部署到腾讯云的 React SSR 应用, 以 CSR 模式访问
+- http://vue.ssr-fc.com 部署到阿里云的 Vue SSR 应用
+- http://vue.ssr-fc.com?csr=true 部署到阿里云的 Vue SSR 应用, 以 CSR 模式访问
 
 ## Getting Start
 
