@@ -16,8 +16,9 @@
 
 
 ssr 框架是为前端框架在服务端渲染的场景下所打造的开箱即用的服务端渲染框架。  
-是首个同时支持 React/Vue 的服务端渲染框架还可以一键以 Serverless 的形式发布上云。
-我们通过插件化的代码组织形式，支持任意服务端框架与任意前端框架的组合使用。开发者可以选择通过 Serverless 方式部署或是以传统 Node.js 的应用形式部署。并且我们专注于提升 Serverless 场景下服务端渲染应用的开发体验，打造了一站式的开发，发布应用服务的功能。最大程度提升开发者的开发体验，将应用的开发，部署成本降到最低。
+是首个同时支持 React/Vue 的服务端渲染框架还可以一键以 Serverless 的形式发布上云。  
+我们通过插件化的代码组织形式，支持任意服务端框架与任意前端框架的组合使用。开发者可以选择通过 Serverless 方式部署或是以传统 Node.js 的应用形式部署。  
+并且我们专注于提升 Serverless 场景下服务端渲染应用的开发体验，打造了一站式的开发，发布应用服务的功能。最大程度提升开发者的开发体验，将应用的开发，部署成本降到最低。  
 此框架脱胎于 [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) 项目，我们在此之上做了诸多演进。如果你希望获得开箱即用的体验且能够一键部署上云。请选择 ssr 框架。
 
 ## Features
@@ -45,7 +46,7 @@ ssr 框架是为前端框架在服务端渲染的场景下所打造的开箱即�
 
 ## 线上案例
 
-可以通过访问以下链接来预览该框架通过 Serverless 一键部署到阿里云/腾讯云服务的应用详情。通过使用 queryParams `csr=true` 来让 SSR 服务端模式一键降级为 CSR 客户端渲染模式，也可以通过 `config.js` 来进行配置。
+通过访问以下链接来预览该框架通过 Serverless 一键部署到阿里云/腾讯云服务的应用详情。通过使用 queryParams `csr=true` 来让 SSR 服务端模式一键降级为 CSR 客户端渲染模式，也可以通过 `config.js` 来进行配置。
 
 - http://ssr-fc.com/ 部署到阿里云的 React SSR 应用
 - http://ssr-fc.com?csr=true 部署到阿里云的 React SSR 应用, 以 CSR 模式访问
@@ -202,15 +203,6 @@ provider:
 如果发布的区域是国内则绑定的域名需要在腾讯云进行备案服务，如果是香港则无需备案。默认绑定域名后需要通过 [tx.ssr-fc.com/release](http://tx.ssr-fc.com) 来访问具体的环境。也可以通过自定义路径映射使得不需要添加 /release 也可以访问到具体的环境。
 ![](https://res.wx.qq.com/op_res/Ln1MuNWmmfNDyTuJlooXiGdhwtCtz_4rVDi_qvmuUEoL_mo6PNsd3z4d7z9RBj17)
 
-### 线上案例
-
-```bash
-$ open http://ssr-fc.com/ # 发布到阿里云的函数
-$ open http://ssr-fc.com?csr=true # 以csr模式运行
-$ open http://tx.ssr-fc.com/ # 发布到腾讯云的函数
-$ open http://tx.ssr-fc.com?csr=true # 以csr模式运行
-```
-
 ### 结合阿里云开发平台
 
 本框架可结合阿里云开发平台，使用 CloudIDE 全程上云开发 Serverless SSR 应用使用方式可参考该[教程](https://zhuanlan.zhihu.com/p/139210473)。
@@ -235,7 +227,7 @@ $ npm run prod # 通过 egg-scripts 生产环境多进程模式运行
 ```
 ## 开发规范
 
-`注：本规范适用于绝大多数的业务场景，如需额外定制请先想清楚是否必要!`
+`注：本规范适用于绝大多数的业务场景，我们已经尽力将默认的规范和配置做到最优如无特殊需求请不要额外定制`
 
 ### 通过插件组合功能
 
@@ -267,15 +259,15 @@ module.exports = {
 ```
 ### 前端技术选型
 
-不同的前端框架在技术选型方面会有一些差别，但我们尽量规定一套规范，使得不同框架之间的差异性做到最小，默认都使用约定式路由。如无特殊必要建议使用默认选项。
-
+不同的前端框架在技术选型方面会有一些差别，但我们尽量规定一套规范，使得不同框架之间的差异性做到最小，默认都使用约定式路由。如无特殊必要建议使用默认选项。  
+在代码规范方面我们将一系列的 eslint-plugin 进行整合，使得只需要安装一个依赖即可同时检测 .vue|ts|tsx 文件
 #### React
 
 技术选型
 
 - 前端框架: React v17, 实时跟进 React17的新特性
 - 开发语言: TypeScript
-- 代码风格: [Standard](https://standardjs.com/)
+- 代码风格: [eslint-config-standard-react-ts](https://github.com/zhangyuang/standardjs-react)
 - 样式处理: less + css modules
 - UI 组件: 默认已对 antd 的使用做打包配置无需额外配置
 - 前端路由: 约定式路由/声明式路由
@@ -287,7 +279,7 @@ module.exports = {
 
 - 前端框架: Vue2.0, Vue3.0 将会在下一个版本与 Vite 一起推出
 - 开发语言: TypeScript
-- 代码风格: [Standard](https://standardjs.com/)
+- 代码风格: [eslint-config-standard-vue-ts](https://github.com/zhangyuang/standardjs-vue)
 - 样式处理: less + vue scoped
 - 前端路由: 约定式路由/声明式路由
 - 数据管理: vuex
