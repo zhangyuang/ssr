@@ -398,6 +398,30 @@ http://ssr-fc.com/detail/* -> ssr 函数 -> 渲染 detail 组件
 ### FAQ
 
 以下记录应用开发过程中常见问题
+
+#### 从老版本升级
+
+针对于使用老版本用户，可以轻松升级到新版的架构
+
+```bash
+$ npm i ssr-core-react # 或者是 ssr-core-vue 根据实际需要选择
+$ npm i ssr-plugin-faas ssr-plugin-react --save-dev # 根据实际技术栈安装对应依赖
+```
+
+```js
+// 创建 plugin.js 根据实际技术栈写入以下内容
+
+const { faasPlugin } = require('ssr-plugin-faas')
+const { reactPlugin } = require('ssr-plugin-react')
+module.exports = {
+  serverPlugin: faasPlugin(),
+  fePlugin: reactPlugin()
+}
+
+```
+
+替换 Node.js 代码中的 `ssr-core` 模块为新的 `ssr-core-react` 即可
+
 #### React跨组件通信
 
 通过使用 `useContext` 来获取全局的 `context`, `useContext` 返回两个值分别为
