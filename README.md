@@ -46,7 +46,7 @@
 - 🌱　极易定制：前端支持 React/Vue 等现代Web框架；
 - 🚀　开箱即用：内置 10+ 脚手架配套扩展，如Antd、TS、Hooks等；
 - 🧲　插件驱动：基于插件架构，用户更加专注于业务逻辑；
-- 💯　Serverless优先：一键发布到各种Serverless平台，也支持传统Web Server，比如Egg、Midway、Nest和Next等。
+- 💯　Serverless优先：一键发布到各种Serverless平台，也支持传统Web Server，比如Egg、Midway、Nest等。
 - 🛡　高可用场景，可无缝从SSR降级到CSR，最佳容灾方案。
 
 ## 已实现的功能
