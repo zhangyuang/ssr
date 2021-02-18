@@ -50,6 +50,7 @@
     "postcss-preset-env": "^6.0.5",
     "postcss-safe-parser": "4.0.1",
     "ssr-client-utils": "^5.1.1",
+    "ssr-webpack": "^5.1.1",
     "ssr-server-utils": "^5.1.1",
     "ssr-types": "^5.1.1",
     "terser-webpack-plugin": "^2.3.5",

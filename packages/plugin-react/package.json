@@ -52,6 +52,7 @@
     "postcss-safe-parser": "4.0.1",
     "react-dev-utils": "^10.2.1",
     "ssr-client-utils": "^5.1.1",
+    "ssr-webpack": "^5.1.1",
     "ssr-hoc-react": "^5.1.1",
     "ssr-server-utils": "^5.1.1",
     "terser-webpack-plugin": "^2.3.5",
