@@ -59,7 +59,7 @@
 | 最小而美的实现服务端渲染功能                           | 🚀   |
 | 针对Serverless 场景对代码包的大小的严格限制，将生产环境的代码包大小做到极致            | 🚀   |
 | 同时支持约定式前端路由和声明式前端路由                            | 🚀   |
-| React 场景下 All in JSX，抛弃传统模版引擎，所有部分包括 layout 布局皆使用 JSX 来编写生成                            | 🚀   |
+| React 场景下 All in JSX，Vue 场景 All in template，没有传统模版引擎，所有部分包括 html layout 布局皆使用 JSX/Vue 来编写生成            | 🚀   |
 | 渲染模式切换：服务端渲染一键降级为客户端渲染                            | 🚀   |
 | 统一服务端客户端的数据获取方式                                 | 🚀   |
 | 类型友好，全面拥抱 TS                                | 🚀   |
@@ -72,6 +72,21 @@
 | ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                                  |    |
 | 支持 [vite](https://vite-design.surge.sh/) + [vue3](http://v3.vuejs.org/) 在 SSR 场景下的组合使用 |    |
 
+## 与 next/nuxt 等框架的对比
+
+详细的技术细节对比可以查看本人在2020年 [Node.js party 上所做的分享](https://github.com/zhangyuang/2020-NodeParty-PPT)，从 9 个技术细节方面与 next/nuxt/easy-team 等等框架的做法进行对比。
+
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fe7c4c64e75f41d88334614cff32b693~tplv-k3u1fbpfcp-watermark.image)
+
+以下简单介绍一下比较显著的优点
+
+- 轻量，核心源代码 2400 行 vs next.js 18w 行 vs nuxt.js 2w行
+- 接地气，在 SSR 场景使用 UI 框架是一件不简单的事情，我们内置对世界上最流行的 UI 框架 ant-design 的支持。无需用户做额外配置
+- 没有传统模版引擎，多数开发者是都十分厌恶使用传统模版引擎且需要引入额外的库和学习成本。我们没有模版引擎，根据场景 All in JSX 或者 Vue template 来编写 html 布局
+- 风格统一，无论是 React/Vue 运行的本质始终都是 js，我们在两种框架的 SSR 实现思路一模一样，实现代码的高度复用，使用本框架无论是从 React 切换成 Vue 或者反过来都十分轻易
+- 功能丰富，UI 框架、代码分割、HMR、TS、Serverless、SSR 降级 CSR 开发所需要的功能应有尽有
+- 示例丰富，默认示例 cover 大多数真实线上应用场景，包含 服务端框架选择、前端调用 Node.js 接口的方式、前端页面路由跳转的数据获取，应用部署等所有功能用例在 example 中都有体现。
+- 优先考虑 Serverless，我们为应用在 Serverless 场景使用做了诸多优化包括内置发布命令一键发布到多个平台，以及对 Serverless 场景下的代码包大小优化
 ## Serverless for Frontend
 
 > Serverless 解放了端开发者（不仅仅是 Web 开发者）的生产力，让端开发者可以更快、更好、更灵活地开发各种端上应用，不需要投入太多精力关注于后端服务的实现。”
