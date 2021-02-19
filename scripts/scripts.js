@@ -18,22 +18,8 @@ if (process.argv.includes('--bootstrap')) {
   execSync('yarn build:only', options)
 }
 if (process.argv.includes('--clean')) {
-  const shell = 'rm -rf node_modules yarn.lock'
+  const shell = 'rm -rf node_modules yarn.lock **/**/cjs **/**/esm **/**/node_modules **/**/yarn.lock **/**/package-lock.json'
   execSync(shell, options)
-  const examples = fs.readdirSync('./example')
-  const packages = fs.readdirSync('./packages')
-  packages.forEach(item => {
-    if (item !== '.DS_Store') {
-      const shell = ` cd packages/${item} && rm -rf node_modules yarn.lock`
-      execSync(shell, options)
-    }
-  })
-  examples.forEach(example => {
-    if (example !== '.DS_Store') {
-      const shell = ` cd example/${example} && rm -rf node_modules yarn.lock`
-      execSync(shell, options)
-    }
-  })
 }
 if (process.argv.includes('--link')) {
   const packages = fs.readdirSync('./packages')

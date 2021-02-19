@@ -18,7 +18,7 @@ function createStore () {
 
 const feRoutes = require('ssr-temporary-routes/route')
 
-const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
+const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
   // eslint-disable-next-line
   return await new Promise(async (resolve, reject) => {
     const router = createRouter()

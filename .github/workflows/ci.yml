@@ -35,9 +35,9 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-v2.0-build-
-            ${{ runner.os }}-v2.0-build-
-            ${{ runner.os }}-v2.0-
+            ${{ runner.os }}-v2.1-build-
+            ${{ runner.os }}-v2.1-build-
+            ${{ runner.os }}-v2.1-
       - name: Install dependencies
         run: yarn && yarn build:only && cd example/midway-react-ssr && yarn && cd ../midway-vue-ssr && yarn && cd ../serverless-react-ssr && yarn && cd ../serverless-vue-ssr && yarn
       - name: Upload artifact
