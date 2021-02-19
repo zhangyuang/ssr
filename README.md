@@ -234,7 +234,8 @@ $ npm i
 $ npm start # 本地开发启动服务
 $ open http://localhost:3000 # 访问应用
 $ npm run build # 本地资源构建
-$ npm run prod # 通过 egg-scripts 生产环境多进程模式运行
+$ npm run prod # 通过 egg-scripts 生产环境多进程模式运行, 默认以 daemon 模式在后台运行
+$ npm run stop # 生产环境停止服务
 ```
 ## 开发规范
 
