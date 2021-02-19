@@ -1,6 +1,6 @@
 {
   "name": "ssr-server-utils",
-  "version": "5.1.1",
+  "version": "5.1.6",
   "description": "utils for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -40,7 +40,7 @@
     "path-to-regexp": "^1.7.0",
     "readable-stream": "^3.6.0",
     "shelljs": "^0.8.3",
-    "ssr-types": "^5.1.1",
+    "ssr-types": "^5.1.6",
     "vue-template-compiler": "^2.6.12"
   }
 }
