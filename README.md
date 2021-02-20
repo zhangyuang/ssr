@@ -80,13 +80,15 @@
 
 以下简单介绍一下比较显著的优点
 
-- 轻量，核心源代码 2400 行 vs next.js 18w 行 vs nuxt.js 2w行
+- 优先考虑 Serverless，我们为应用在 Serverless 场景使用做了诸多优化包括内置发布命令一键发布到多个平台，以及对 Serverless 场景下的代码包大小优化
+- 轻量，核心源代码 2400 行 vs next.js 18w 行 vs nuxt.js 2w行，简洁的核心代码意味着更少的黑盒以及更少的性能损耗
 - 接地气，在 SSR 场景使用 UI 框架是一件不简单的事情，我们内置对世界上最流行的 UI 框架 ant-design 的支持。无需用户做额外配置
 - 没有传统模版引擎，多数开发者是都十分厌恶使用传统模版引擎且需要引入额外的库和学习成本。我们没有模版引擎，根据场景 All in JSX 或者 Vue template 来编写 html 布局
 - 风格统一，无论是 React/Vue 运行的本质始终都是 js，我们在两种框架的 SSR 实现思路一模一样，实现代码的高度复用，使用本框架无论是从 React 切换成 Vue 或者反过来都十分轻易
 - 功能丰富，UI 框架、代码分割、HMR、TS、Serverless、SSR 降级 CSR 开发所需要的功能应有尽有
 - 示例丰富，默认示例 cover 大多数真实线上应用场景，包含 服务端框架选择、前端调用 Node.js 接口的方式、前端页面路由跳转的数据获取，应用部署等所有功能用例在 example 中都有体现。
-- 优先考虑 Serverless，我们为应用在 Serverless 场景使用做了诸多优化包括内置发布命令一键发布到多个平台，以及对 Serverless 场景下的代码包大小优化
+- 没有 runInNewContext，我们不像其他框架的做法一样使用 vm 模块创建上下文来解析服务端 bundle，所以我们的性能是极高的，可以简单理解为与 Vue 的 renderer 提供的 runInNewContext: false 功能类似(选项为 false 本质是调用 runInThisContext)。虽然无需每次都创建一次新的上下文但 Vue 官方文档的做法仍然需要使用 vm 模块来解析代码在性能上会有一定损耗。由于代码执行的当前上下文就是服务端的 global 对象所以要注意我们的前端组件代码中应该避免去修改 global 对象。且记住 vm 模块也并不是安全沙箱机制。ref: https://ssr.vuejs.org/zh/api/#runinnewcontext  
+http://nodejs.cn/api/vm.html
 ## Serverless for Frontend
 
 > Serverless 解放了端开发者（不仅仅是 Web 开发者）的生产力，让端开发者可以更快、更好、更灵活地开发各种端上应用，不需要投入太多精力关注于后端服务的实现。”
