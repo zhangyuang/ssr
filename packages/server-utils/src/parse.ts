@@ -2,13 +2,16 @@ import * as fs from 'fs'
 import { resolve, join } from 'path'
 import * as Yaml from 'js-yaml'
 import * as Shell from 'shelljs'
-import { Yml, FaasRouteItem } from 'ssr-types'
+import { Yml, FaasRouteItem, ParseFeRouteItem } from 'ssr-types'
 import { promisifyFsReadDir } from './promisify'
 import { getCwd, getPagesDir, getFeDir, loadPlugin } from './cwd'
 import { loadConfig } from './loadConfig'
 
 const debug = require('debug')('ssr:parse')
 const { cloudIDE, dynamic, prefix } = loadConfig()
+const pageDir = getPagesDir()
+const feDir = getFeDir()
+const cwd = getCwd()
 
 const parseYml = (path: string): Yml => {
   const cwd = getCwd()
@@ -42,11 +45,10 @@ const hasDeclaretiveRoutes = () => {
   return fs.existsSync(join(getFeDir(), './route.js'))
 }
 const parseFeRoutes = async () => {
-  const pageDir = getPagesDir()
-  const feDir = getFeDir()
-  const cwd = getCwd()
   const { clientPlugin } = loadPlugin()
   const isVue = clientPlugin.name === 'plugin-vue'
+  const defaultLayout = join(feDir, `./components/layout/index.${isVue ? 'vue' : 'tsx'}`)
+  const defaultApp = join(feDir, './components/layout/App.vue')
 
   if (!fs.existsSync(join(cwd, './node_modules/ssr-temporary-routes'))) {
     Shell.mkdir(`${cwd}/node_modules/ssr-temporary-routes`)
@@ -54,64 +56,14 @@ const parseFeRoutes = async () => {
   let routes = ''
   if (!hasDeclaretiveRoutes()) {
     // 根据目录结构生成前端路由表
-    const folders = await promisifyFsReadDir(pageDir) // 读取web目录
-    const defaultLayout = `${join(feDir, `./components/layout/index.${isVue ? 'vue' : 'tsx'}`)}`
-    const arr = []
-    for (const folder of folders) {
-      const abFolder = join(pageDir, folder)
-      if (fs.statSync(abFolder).isDirectory()) {
-        // 读取web下子目录
-        const files = await promisifyFsReadDir(abFolder)
-        const route: any = {
-          layout: `require('${defaultLayout}').default`
-        }
-        if (isVue) {
-          route.App = `require('${join(feDir, './components/layout/App.vue')}').default`
-        }
-        for (const file of files) {
-          const abFile = join(abFolder, file)
-          if (file.includes('render')) {
-            /* /news */
-            route.path = folder === 'index' ? '/' : `/${folder}`
-            route.component = `${abFile}`
-            debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
-          }
-
-          if (file.includes('render$')) {
-            /* /news/:id */
-            route.path = `/${folder}/:${getDynamicParam(file)}`
-            route.component = `${abFile}`
-            debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
-          }
-
-          if (/render\$[\s\S]+\$/.test(file)) {
-            /* /news:id? */
-            route.path = `/${folder}/:${getDynamicParam(file)}?`
-            route.component = `${abFile}`
-            debug(`parse "${abFile.replace(cwd, '')}" to "${route.path}" \n`)
-          }
-
-          if (/fetch/i.test(file)) {
-            route.fetch = `require('${abFile}').default`
-          }
-
-          if (/layout/i.test(file)) {
-            route.layout = `require('${abFile}').default`
-          }
-        }
-        if (!route.path) {
-          throw new Error(`cannot find render file in ${folder}`)
-        }
-        if (prefix) {
-          route.path = prefix ? `/${prefix}${route.path}` : route.path
-        }
-        if (dynamic) {
-          route.webpackChunkName = folder
-        }
-        arr.push(route)
-      }
+    const pathRecord = [''] // 路径记录
+    const route: ParseFeRouteItem = {
+      layout: `require('${defaultLayout}').default`
     }
-
+    if (isVue) {
+      route.App = `require('${defaultApp}').default`
+    }
+    const arr = await renderRoutes(pageDir, isVue, pathRecord, route)
     debug('The result that parse web folder to routes is: ', arr)
     routes = `module.exports =${JSON.stringify(arr)
         .replace(/"layout":("(.+?)")/g, (global, m1, m2) => {
@@ -149,32 +101,72 @@ const parseFeRoutes = async () => {
       }
     }
   } else {
-    // 使用了声明式路由的需要把 path 替换为绝对路径
+    // 使用了声明式路由
     routes = fs.readFileSync(join(getFeDir(), './route.js')).toString()
-    routes = relativeToAbsolute(routes)
-    routes = relativeToAbsolute(routes) // 需要 执行两次 否则会有遗漏，这里后续可以考虑下怎么写正则表达式优化一下使得一次就可以替换完成
   }
 
   fs.writeFileSync(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
 }
 
-const relativeToAbsolute = (routes: string) => {
-  const requireRe = /require\((.*)?\)\.default/g
-  let res = requireRe.exec(routes)
-  const arr = []
-  while (res) {
-    arr.push(res[1])
-    res = requireRe.exec(routes)
-  }
-  arr.forEach(str => {
-    str = str.replace(/'/, '')
-    if (str.startsWith('/')) {
-      return
+const renderRoutes = async (pageDir: string, isVue: boolean, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {
+  let arr: ParseFeRouteItem[] = []
+  const pagesFolders = await promisifyFsReadDir(pageDir)
+  const prefixPath = pathRecord.join('/')
+  const aliasPath = `@/pages${prefixPath}`
+  for (const pageFiles of pagesFolders) {
+    const abFolder = join(pageDir, pageFiles)
+    if (fs.statSync(abFolder).isDirectory()) {
+      // 如果是文件夹则递归下去, 记录路径
+      pathRecord.push(pageFiles)
+      const childArr = await renderRoutes(abFolder, isVue, pathRecord, Object.assign({}, route))
+      pathRecord.pop() // 回溯
+      arr = arr.concat(childArr)
+    } else {
+      // 拿到具体的文件
+      if (pageFiles.includes('render')) {
+        /* /news */
+        route.path = `${prefixPath}`
+        route.component = `${aliasPath}/${pageFiles}`
+      }
+
+      if (pageFiles.includes('render$')) {
+        /* /news/:id */
+        route.path = `${prefixPath}/:${getDynamicParam(pageFiles)}`
+        route.component = `${aliasPath}/${pageFiles}`
+      }
+
+      if (/render\$[\s\S]+\$/.test(pageFiles)) {
+        /* /news:id? */
+        route.path = `${prefixPath}/:${getDynamicParam(pageFiles)}?`
+        route.component = `${aliasPath}/${pageFiles}`
+      }
+      if (pageFiles.includes('fetch')) {
+        route.fetch = `require('${aliasPath}/${pageFiles}').default`
+      }
+      debug(`parse "${aliasPath.replace(cwd, '')}" to "${route.path}" \n`)
+      if (dynamic) {
+        let webpackChunkName = pathRecord.join('-')
+        if (webpackChunkName.startsWith('-')) {
+          webpackChunkName = webpackChunkName.replace('-', '')
+        }
+        route.webpackChunkName = webpackChunkName
+      }
     }
-    routes = routes.replace(str, `${resolve(getFeDir(), str)}`)
-  })
-  return routes
+  }
+
+  if (route.path?.includes('index')) {
+    // /index 映射为 /
+    route.path = route.path.replace('index', '')
+  }
+
+  if (route.path && prefix) {
+    // 统一添加公共前缀
+    route.path = prefix ? `/${prefix}${route.path}` : route.path
+  }
+  route.path && arr.push(route)
+  return arr
 }
+
 const getDynamicParam = (url: string) => {
   return url.split('$')[1].replace(/\.[\s\S]+/, '')
 }

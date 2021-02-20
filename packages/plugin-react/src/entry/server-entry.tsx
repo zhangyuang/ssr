@@ -15,6 +15,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   const routeItem = findRoute<FeRouteItem<any>>(feRoutes, path)
 
   let dynamicCssOrder = cssOrder
+
   if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
   }

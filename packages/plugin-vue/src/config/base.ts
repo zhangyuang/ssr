@@ -10,7 +10,7 @@ const loadModule = require.resolve
 
 const getBaseConfig = (chain: WebpackChain) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList } = config
+  const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList, chainBaseConfig } = config
   const mode = process.env.NODE_ENV as Mode
   chain.mode(mode)
   chain.module.strictExportPresence(true)
@@ -127,6 +127,7 @@ const getBaseConfig = (chain: WebpackChain) => {
     filename: useHash ? 'static/css/[name].[contenthash:8].css' : 'static/css/[name].css',
     chunkFilename: useHash ? 'static/css/[name].[contenthash:8].chunk.css' : 'static/css/[name].chunk.css'
   }])
+  chainBaseConfig(chain)
   return config
 }
 

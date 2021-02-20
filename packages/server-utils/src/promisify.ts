@@ -23,10 +23,10 @@ const getPromisify = async <T = DefaultVal>(url: string): Promise<T> => {
       res.on('end', function () {
         try {
           body = JSON.parse(Buffer.concat(body).toString())
+          resolve(body as any)
         } catch (e) {
           reject(e)
         }
-        resolve(body)
       })
     })
   })

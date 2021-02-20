@@ -76,7 +76,7 @@
 
 详细的技术细节对比可以查看本人在2020年 [Node.js party 上所做的分享](https://github.com/zhangyuang/2020-NodeParty-PPT)，从 9 个技术细节方面与 next/nuxt/easy-team 等等框架的做法进行对比。
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fe7c4c64e75f41d88334614cff32b693~tplv-k3u1fbpfcp-watermark.image)
+<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fe7c4c64e75f41d88334614cff32b693~tplv-k3u1fbpfcp-watermark.image" style="width:350px"/>
 
 以下简单介绍一下比较显著的优点
 
@@ -331,6 +331,8 @@ module.exports = {
 无论前端框架是 React/Vue, 我们 follow 同一套目录结构规范
 这里我们使用约定式前端路由。无需手动声明路由配置文件，会根据文件夹名称及路径自动生成路由配置。
 
+`注: 我们目前不支持嵌套路由，也就是子路由`
+
 ```bash
 .
 ├── build # web目录构建产物
@@ -516,48 +518,50 @@ $ touch web/route.js # 检测到该文件存在则使用声明式路由
 
 并需要严格按照如下格式规范写入内容, 否则应用可能会执行出错, `__isBrowser__` 会在应用的执行过程当中根据环境自动注入。
 
+`@` 通过 alias 指定为 web 文件夹，可直接使用该符号
+
 ```js
 // React 使用如下规范
 module.exports = [{
-  layout: require('./components/layout/index.tsx').default,
-  fetch: require('./pages/detail/fetch.ts').default,
+  layout: require('@/components/layout/index.tsx').default,
+  fetch: require('@/pages/detail/fetch.ts').default,
   path: '/detail/:id',
   // component 使用这种规范来实现按需加载功能
   component: __isBrowser__ ? require('react-loadable')({ // __isBrowser__ 为 webpack 自动注入的变量，按照规范编写即可
-    loader: async () => await import(/* webpackChunkName: "detail" */ './pages/detail/render$id.tsx'),
+    loader: async () => await import(/* webpackChunkName: "detail" */ '@/pages/detail/render$id.tsx'),
     loading: function Loading () {
       return require('react').createElement('div')
     }
-  }) : require('./pages/detail/render$id.tsx').default,
+  }) : require('@/pages/detail/render$id.tsx').default,
   webpackChunkName: 'detail'
 },
 {
-  layout: require('./components/layout/index.tsx').default,
-  fetch: require('./pages/index/fetch.ts').default,
+  layout: require('@/components/layout/index.tsx').default,
+  fetch: require('@/pages/index/fetch.ts').default,
   path: '/',
   component: __isBrowser__ ? require('react-loadable')({
-    loader: async () => await import(/* webpackChunkName: "index" */ './pages/index/render.tsx'),
+    loader: async () => await import(/* webpackChunkName: "index" */ '@/pages/index/render.tsx'),
     loading: function Loading () {
       return require('react').createElement('div')
     }
-  }) : require('./pages/index/render.tsx').default,
+  }) : require('@/pages/index/render.tsx').default,
   webpackChunkName: 'index'
 }]
 // Vue 使用如下规范
 module.exports = [{
-  layout: require('./components/layout/index.vue').default,
-  App: require('./components/layout/App.vue').default,
-  fetch: require('./pages/detail/fetch.ts').default,
+  layout: require('@/components/layout/index.vue').default,
+  App: require('@/components/layout/App.vue').default,
+  fetch: require('@/pages/detail/fetch.ts').default,
   path: '/detail/:id',
   // component 使用这种规范来实现按需加载功能
-  component: __isBrowser__ ?  async () => await import(/* webpackChunkName: "detail" */ './pages/detail/render$id.vue') : require('./pages/detail/render$id.vue').default,
+  component: __isBrowser__ ?  async () => await import(/* webpackChunkName: "detail" */ '@/pages/detail/render$id.vue') : require('@/pages/detail/render$id.vue').default,
   webpackChunkName: 'detail'
 },
 {
-  layout: require('./components/layout/index.vue').default,
-  fetch: require('./pages/index/fetch.ts').default,
+  layout: require('@/components/layout/index.vue').default,
+  fetch: require('@/pages/index/fetch.ts').default,
   path: '/',
-  component: __isBrowser__ ? async () => await import(/* webpackChunkName: "index" */ './pages/index/render.vue') : require('./pages/index/render.vue').default,
+  component: __isBrowser__ ? async () => await import(/* webpackChunkName: "index" */ '@/pages/index/render.vue') : require('@/pages/index/render.vue').default,
   webpackChunkName: 'index'
 }]
 ```
@@ -578,8 +582,9 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
   chunkName: string; // 生成的 bundle 的 chunkName，默认为Page,无特殊需求不要修改
   webpackDevServerConfig: webpackDevServer.Configuration; // webpack-dev-server 启动配置
   staticPrefix: string; // 加载的静态资源前缀，需要发布到单独的cdn服务时可以使用该配置设置为cdn服务的地址
+  chainBaseConfig: (config: Config) => Configuration // 使用 webpack-chain 来修改服务端/客户端公共的 wbepack 构建配置
   chainServerConfig: (config: Config) => Configuration; // 使用 webpack-chain 来修改服务端 wbepack 构建配置
-  chainClientConfig: (config: Config) => Configuration; // 使用 webpack-chain 来修改服务端 wbepack 构建配置
+  chainClientConfig: (config: Config) => Configuration; // 使用 webpack-chain 来修改客户端 wbepack 构建配置
   whiteList: RegExp[]; // 设置服务端构建配置 externals 的白名单，即需要让 webpack 来处理的模块
   cssModulesWhiteList: RegExp[]; // 设置该选项指定样式文件不用 css-modules 处理，防止样式和 className 不匹配
   prefix: string; // 为前端路由添加统一的prefix, 如 /${prefix}/, /${prefix}/detail/:id

@@ -15,6 +15,13 @@ export type FeRouteItem<T = {}, U={}> = {
   webpackChunkName?: string
 } & U
 
+export interface ParseFeRouteItem {
+  path?: string
+  layout?: string
+  fetch?: string
+  component?: string
+  webpackChunkName?: string
+}
 export interface FaasRouteItem {
   path: string
   mode: string

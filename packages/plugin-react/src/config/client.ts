@@ -25,11 +25,10 @@ const getClientWebpack = (chain: WebpackChain) => {
     .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js')
     .publicPath(truePublicPath)
     .end()
-
   chain.optimization
     .runtimeChunk(true)
     .splitChunks({
-      chunks: 'all',
+      chunks: 'initial',
       name: false,
       cacheGroups: {
         vendors: {

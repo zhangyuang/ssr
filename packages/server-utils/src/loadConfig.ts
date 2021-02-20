@@ -84,14 +84,17 @@ const loadConfig = (): IConfig => {
   }, userConfig.webpackDevServerConfig)
 
   const staticPrefix = ''
-
-  const chainClientConfig = () => {
+  const chainBaseConfig = () => {
     // 覆盖默认webpack配置
+  }
+  const chainClientConfig = () => {
+    // 覆盖默认 client webpack配置
   }
   const chainServerConfig = () => {
-    // 覆盖默认webpack配置
+    // 覆盖默认 server webpack配置
   }
   const config = Object.assign({}, {
+    chainBaseConfig,
     chainServerConfig,
     chainClientConfig,
     cwd,
