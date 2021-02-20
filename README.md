@@ -361,8 +361,11 @@ module.exports = {
 │   │   └── detail
 │   │       ├── fetch.ts
 │   │       ├── index.less
-│   │       └── render$id.tsx # 映射为/detail/:id
-│   │       └── render$id$.tsx # 映射为/detail/:id?
+│   │       └── render$id.tsx # 映射为 /detail/:id
+│   │       └── render$id$.tsx # 映射为 /detail/:id?
+│   │       └── user
+│   │           ├── fetch.ts
+│   │           └── render$id.tsx # 多级路由按照规则映射为 /detail/user/:id
 │   ├── tsconfig.json # 仅用于编辑器ts语法检测
 │   └── typings.d.ts
 ```

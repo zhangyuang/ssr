@@ -104,7 +104,9 @@ jobs:
         with:
           start: yarn run example:serverless:react
           wait-on: 'http://localhost:3000'
-          spec: cypress/integration/examples/react-ssr.spec.js
+          spec: | 
+            cypress/integration/examples/common-ssr.spec.js  
+            cypress/integration/examples/react-ssr.spec.js
           browser: chrome
   e2e-firefox-serverless-react:
     needs: bootstrap
@@ -140,7 +142,9 @@ jobs:
         with:
           start: yarn run example:serverless:react
           wait-on: 'http://localhost:3000'
-          spec: cypress/integration/examples/react-ssr.spec.js
+          spec: | 
+            cypress/integration/examples/common-ssr.spec.js  
+            cypress/integration/examples/react-ssr.spec.js
           browser: firefox
   e2e-chrome-midway-react:
     needs: bootstrap
@@ -176,7 +180,9 @@ jobs:
         with:
           start: yarn run example:midway:react
           wait-on: 'http://localhost:3000'
-          spec: cypress/integration/examples/react-ssr.spec.js
+          spec: | 
+            cypress/integration/examples/common-ssr.spec.js  
+            cypress/integration/examples/react-ssr.spec.js
           browser: chrome
   e2e-firefox-midway-react:
     needs: bootstrap
@@ -212,7 +218,9 @@ jobs:
         with:
           start: yarn run example:midway:react
           wait-on: 'http://localhost:3000'
-          spec: cypress/integration/examples/react-ssr.spec.js
+          spec: | 
+            cypress/integration/examples/common-ssr.spec.js  
+            cypress/integration/examples/react-ssr.spec.js
           browser: firefox
   e2e-chrome-serverless-vue:
     needs: bootstrap
@@ -248,7 +256,9 @@ jobs:
         with:
           start: yarn run example:serverless:vue
           wait-on: 'http://localhost:3000'
-          spec: cypress/integration/examples/vue-ssr.spec.js
+          spec: |
+            cypress/integration/examples/common-ssr.spec.js  
+            cypress/integration/examples/vue-ssr.spec.js
           browser: chrome
   e2e-chrome-midway-vue:
     needs: bootstrap
@@ -284,7 +294,9 @@ jobs:
         with:
           start: yarn run example:midway:vue
           wait-on: 'http://localhost:3000'
-          spec: cypress/integration/examples/vue-ssr.spec.js
+          spec: |
+            cypress/integration/examples/common-ssr.spec.js  
+            cypress/integration/examples/vue-ssr.spec.js
           browser: chrome
   publish:
     name: Publish
