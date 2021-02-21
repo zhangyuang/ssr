@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.8](https://github.com/ykfe/ssr/compare/v5.1.7...v5.1.8) (2021-02-21)
+
+
+### Bug Fixes
+
+* ssr deploy success exit child_process ([ba61e64](https://github.com/ykfe/ssr/commit/ba61e64cf242ff5bebcc4ca5772ae386a29fc619))
+
+
+
+
+
 ## [5.1.7](https://github.com/ykfe/ssr/compare/v5.1.6...v5.1.7) (2021-02-20)
 
 **Note:** Version bump only for package ssr
