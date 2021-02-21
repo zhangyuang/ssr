@@ -76,15 +76,15 @@
 
 详细的技术细节对比可以查看本人在2020年 [Node.js party 上所做的分享](https://github.com/zhangyuang/2020-NodeParty-PPT)，从以下 9 个技术细节方面与 Next/Nuxt/easy-team 等等框架的做法进行对比。
 
-1、Node.js 环境如何加载前端组件
-2、组件数据如何获取
-3、HMR 热替换功能怎么实现
-4、CSS 如何处理
-5、如何拼接成完成的 html 结构返回
-6、双端渲染结果不一致怎么办
-7、如何进行代码分割
-8、如何降级为客户端渲染
-9、生产环境如何发布应用
+1、Node.js 环境如何加载前端组件  
+2、组件数据如何获取  
+3、HMR 热替换功能怎么实现  
+4、CSS 如何处理  
+5、如何拼接成完成的 html 结构返回  
+6、双端渲染结果不一致怎么办  
+7、如何进行代码分割  
+8、如何降级为客户端渲染  
+9、生产环境如何发布应用  
 
 以下简单介绍一下比较显著的优点
 
@@ -94,7 +94,7 @@
 - 没有传统模版引擎，多数开发者是都十分厌恶使用传统模版引擎且需要引入额外的库和学习成本。我们没有模版引擎，根据场景 All in JSX 或者 Vue template 来编写 html 布局
 - 风格统一，无论是 React/Vue 运行的本质始终都是 js，我们在两种框架的 SSR 实现思路一模一样，实现代码的高度复用，使用本框架无论是从 React 切换成 Vue 或者反过来都十分轻易
 - 功能丰富，UI 框架、代码分割、HMR、TS、Serverless、SSR 降级 CSR 开发所需要的功能应有尽有
-- 示例丰富，默认示例 cover 大多数真实线上应用场景，包含 服务端框架选择、前端调用 Node.js 接口的方式、前端页面路由跳转的数据获取，应用部署等所有功能用例在 example 中都有体现。
+- 示例丰富，默认示例 cover 大多数真实线上应用场景，包含 服务端框架选择、前端调用 Node.js 接口的方式、前端页面路由跳转的数据获取，应用部署等所有功能用例在 example 中都有体现。我们拥有丰富的线上大规模 SSR 应用开发经验，用户使用过程中遇到的任何问题都有策略解决。
 - 没有 runInNewContext，我们不像其他框架的做法一样使用 vm 模块创建上下文来解析服务端 bundle，所以我们的性能是极高的，可以简单理解为与 Vue 的 renderer 提供的 runInNewContext: false 功能类似(选项为 false 本质是调用 runInThisContext)。虽然无需每次都创建一次新的上下文但 Vue 官方文档的做法仍然需要使用 vm 模块来解析代码在性能上会有一定损耗。由于代码执行的当前上下文就是服务端的 global 对象所以要注意我们的前端组件代码中应该避免去修改 global 对象。且记住 vm 模块也并不是安全沙箱机制。ref: https://ssr.vuejs.org/zh/api/#runinnewcontext  
 http://nodejs.cn/api/vm.html
 ## Serverless for Frontend
@@ -632,14 +632,14 @@ export onlyCsr(Component)
 
 由于 Vue 对 HOC 的支持不友好，这里需要用户手动来实现该功能
 
-1、组件新增 data 选项 isClient
-2、在 mounted 生命周期设置 isClient 为 true
-3、当 isClient 为 true 时，渲染真正的组件内容，否则只需要渲染一个空的 div
+1、组件新增 data 选项 isClient  
+2、在 mounted 生命周期设置 isClient 为 true  
+3、当 isClient 为 true 时，渲染真正的组件内容，否则只需要渲染一个空的 div  
 
 ```js
 <template>
   <div v-if="isClient">{xxx}</div>
-  <div v-else="!isClient"></div>
+  <div v-else></div>
 </template>
 
 export default {
