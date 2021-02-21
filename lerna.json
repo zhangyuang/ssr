@@ -13,7 +13,7 @@
   ],
   "command": {
     "version": {
-      "message": "chore(release): publish"
+      "message": "chore(release): publish %s"
     }
   }
 }

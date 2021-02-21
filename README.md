@@ -72,11 +72,19 @@
 | ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                                  |    |
 | 支持 [vite](https://vite-design.surge.sh/) + [vue3](http://v3.vuejs.org/) 在 SSR 场景下的组合使用 |    |
 
-## 与 next/nuxt 等框架的对比
+## 与 Next.js/Nuxt.js 等框架的对比
 
-详细的技术细节对比可以查看本人在2020年 [Node.js party 上所做的分享](https://github.com/zhangyuang/2020-NodeParty-PPT)，从 9 个技术细节方面与 next/nuxt/easy-team 等等框架的做法进行对比。
+详细的技术细节对比可以查看本人在2020年 [Node.js party 上所做的分享](https://github.com/zhangyuang/2020-NodeParty-PPT)，从以下 9 个技术细节方面与 Next/Nuxt/easy-team 等等框架的做法进行对比。
 
-<img src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fe7c4c64e75f41d88334614cff32b693~tplv-k3u1fbpfcp-watermark.image" style="width:350px"/>
+1、Node.js 环境如何加载前端组件
+2、组件数据如何获取
+3、HMR 热替换功能怎么实现
+4、CSS 如何处理
+5、如何拼接成完成的 html 结构返回
+6、双端渲染结果不一致怎么办
+7、如何进行代码分割
+8、如何降级为客户端渲染
+9、生产环境如何发布应用
 
 以下简单介绍一下比较显著的优点
 

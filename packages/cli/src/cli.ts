@@ -42,6 +42,9 @@ yargs
     }
     process.env.NODE_ENV = 'production'
     await plugin.serverPlugin?.deploy?.(argv)
+    spinnerProcess.send({
+      message: 'stop'
+    })
   })
   .demandCommand(1, 'You need at least one command before moving on')
   .option('version', {
