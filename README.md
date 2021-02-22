@@ -473,7 +473,7 @@ module.exports = {
 
 ##### 通过 config.js
 
-通过 config.js 设置 `mode: 'csr'` 指定渲染模式
+发布的时候支持2种模式，默认是`mode: 'ssr'`模式，你也可以通过 config.js 中的 `mode: 'csr'` 将csr设置默认渲染模式。
 
 ##### 通过 core 模块提供的 render 方法降级
 
@@ -494,12 +494,18 @@ try {
 }
 ```
 
-##### 通过类似于 metaq 的消息中间件或者实时的接口请求来读取配置
+当server出现问题的时候，这样的容灾做法是比较好的。更好的做法是网关层面，配置容灾，将请求打到cdn上。
+
+##### 通过类似于 ActiveMQ、RabbitMQ、RocketMQ、Kafka 等消息中间件或者实时的接口请求来读取配置
+
+代码修改很简单。
 
 ```js
 const config = await http.get('xxx') // 通过接口|消息中间件拿到实时的config，可以做到应用不发版更新渲染模式
 const htmlStr = await render(this.ctx, config)
 ```
+
+此种场景多用于应急预案处理。
 
 #### React跨组件通信
 
@@ -519,7 +525,6 @@ const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT) //
 
 通过 `dispatch action` 来触发全局 `context` 的更新，并通知到所有的组件。  
 `注: dispatch 是异步的只能够在客户端渲染的阶段使用，服务端使用无效。context 更新会导致所有组件重新 render 可根据实际情况使用 React.useMemo 来避免不必要的重新计算，且建议根据不同的模块使用不同的 namespace 防止数据覆盖`
-
 
 ```js
 import React, { useContext } from 'react'
@@ -613,6 +618,7 @@ module.exports = [{
   webpackChunkName: 'index'
 }]
 ```
+
 #### 配置文件
 
 config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特殊需求不要修改
