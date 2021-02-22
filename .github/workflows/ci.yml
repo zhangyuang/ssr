@@ -41,6 +41,7 @@ jobs:
       - name: Install dependencies
         run: | 
           yarn && yarn build:only
+          rm -rf packages/**/node_modules
           node scripts/scripts.js --publishDoc
           cd example/midway-react-ssr && yarn
           cd ../midway-vue-ssr && yarn 
