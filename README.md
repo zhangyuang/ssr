@@ -466,6 +466,41 @@ module.exports = {
 
 替换 Node.js 代码中的 `ssr-core` 模块为新的 `ssr-core-react` 即可
 
+#### 降级为客户端渲染
+
+我们可以通过在请求 url 的 query 后面添加 `?csr=true` 来以客户端渲染模式进行渲染。但覆盖度不够。  
+在正式的线上应用执行阶段。我们一般使用以下方式来进行降级
+
+##### 通过 config.js
+
+通过 config.js 设置 `mode: 'csr'` 指定渲染模式
+
+##### 通过 core 模块提供的 render 方法降级
+
+`ssr-core-react` 和 `ssr-core-vue` 模块均支持该方式  
+在应用执行出错 catch 到 error 的时候降级为客户端渲染。也可根据具体的业务逻辑，在适当的时候通过该方式降级 `csr` 模式
+
+```js
+import { render } from 'ssr-core-react'
+
+try {
+  const htmlStr = await render(this.ctx)
+  return htmlStr
+} catch (error) {
+  const htmlStr = await render(this.ctx, {
+    mode: 'csr'
+  })
+  return htmlStr
+}
+```
+
+##### 通过类似于 metaq 的消息中间件或者实时的接口请求来读取配置
+
+```js
+const config = await http.get('xxx') // 通过接口|消息中间件拿到实时的config，可以做到应用不发版更新渲染模式
+const htmlStr = await render(this.ctx, config)
+```
+
 #### React跨组件通信
 
 通过使用 `useContext` 来获取全局的 `context`, `useContext` 返回两个值分别为
@@ -666,4 +701,4 @@ export default {
 
 虽然我们已经尽力检查了一遍应用，但仍有可能有疏漏的地方，如果你在使用过程中发现任何问题或者建议，欢迎提[issue](https://github.com/ykfe/ssr/issues)或者[PR](https://github.com/ykfe/ssr/pulls)
 欢迎直接扫码加入钉钉群
-<img src="https://res.wx.qq.com/op_res/gQfTCN-BGtR7Luw1CjnJoJiPt7MDmyxl_G-LAyR4Wp4l8R9ISlTWj6yLuLt41zTO4nwneqdAd9g5-QnMt9qKTQ" width="300">
+<img src="./images/dingding.jpeg" width="300">
