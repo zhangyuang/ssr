@@ -1,14 +1,15 @@
 import { resolve } from 'path'
+import { Readable } from 'stream'
 import { renderToString, renderToNodeStream } from 'react-dom/server'
 import { loadConfig, getCwd, StringToStream } from 'ssr-server-utils'
-import { ISSRContext } from 'ssr-types'
+import { ISSRContext, IConfig } from 'ssr-types'
 
 const mergeStream = require('merge-stream')
 const cwd = getCwd()
 const defaultConfig = loadConfig()
 
-async function render (ctx: ISSRContext, options = {}) {
-  const config = Object.assign({}, defaultConfig, options)
+async function render (ctx: ISSRContext, options: IConfig): Promise<string|Readable> {
+  const config = Object.assign({}, defaultConfig, options ?? {})
   const { isDev, chunkName, stream } = config
   const isLocal = isDev || process.env.NODE_ENV !== 'production'
   const serverFile = resolve(cwd, `./build/server/${chunkName ?? 'Page'}.server.js`)
