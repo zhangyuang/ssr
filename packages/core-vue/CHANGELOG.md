@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.1.10](https://github.com/ykfe/ssr/compare/v5.1.9...v5.1.10) (2021-02-22)
+
+
+### Bug Fixes
+
+* update core.render types ([a3c38e8](https://github.com/ykfe/ssr/commit/a3c38e8e00a93276c1bf74aadb94df6b0f3d4fc7))
+
+
+
+
+
 ## [5.1.9](https://github.com/ykfe/ssr/compare/v5.1.8...v5.1.9) (2021-02-22)
 
 **Note:** Version bump only for package ssr-core-vue
