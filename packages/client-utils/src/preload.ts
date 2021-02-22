@@ -11,6 +11,7 @@ const preloadComponent = async (Routes: FeRouteItem[]) => {
     let activeComponent = component
     if (activeComponent.preload && pathToRegexp(path).test(pathName)) {
       // 针对 react-loadble 包裹的组件
+      // @ts-expect-error
       activeComponent = (await activeComponent.preload()).default
     }
     route.component = activeComponent

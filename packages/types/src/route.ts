@@ -18,6 +18,7 @@ export type FeRouteItem<T = {}, U={}> = {
 export interface ParseFeRouteItem {
   path?: string
   layout?: string
+  App?: string
   fetch?: string
   component?: string
   webpackChunkName?: string

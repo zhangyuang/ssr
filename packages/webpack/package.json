@@ -19,7 +19,8 @@
     "webpack",
     "serverless",
     "ssr",
-    "react"
+    "react",
+    "vue"
   ],
   "author": "zhangyuang",
   "license": "MIT",

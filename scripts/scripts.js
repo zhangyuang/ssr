@@ -56,3 +56,11 @@ if (process.argv.includes('--unlink')) {
   })
   execSync(shell, options)
 }
+if (process.argv.includes('--publishDoc')) {
+  const packages = fs.readdirSync('./packages')
+  packages.forEach(item => {
+    if (item !== '.DS_Store') {
+      execSync(`cp README.md packages/${item}`, options)
+    }
+  })
+}

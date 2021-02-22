@@ -19,7 +19,8 @@
     "cli",
     "serverless",
     "ssr",
-    "react"
+    "react",
+    "vue"
   ],
   "author": "zhangyuang",
   "license": "MIT",
