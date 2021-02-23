@@ -10,7 +10,7 @@
 <div align="center">
 <a href="https://github.com/ykfe/ssr/actions" target="_blank"><img src="https://github.com/ykfe/ssr/workflows/CI/badge.svg" alt="githubActions"></a>
 <a href="https://www.cypress.io/" target="_blank"><img src="https://img.shields.io/badge/cypress-dashboard-brightgreen.svg" alt="cypress"></a>
-<a href="https://npmcharts.com/compare/ssr-core" target="_blank"><img src="https://img.shields.io/npm/dt/ssr-core" alt="download"></a>
+<a href="https://npmcharts.com/compare/ssr-server-utils" target="_blank"><img src="https://img.shields.io/npm/dt/ssr-server-utils" alt="download"></a>
 <a href="https://standardjs.com" target="_blank"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="standardjs"></a>
 <a href="https://github.com/ykfe/ssr" target="_blank"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 <a href="https://github.com/ykfe/ssr" target="_blank"><img src="https://img.shields.io/badge/node-%3E=10-green.svg" alt="Node"></a>
@@ -89,7 +89,7 @@
 以下简单介绍一下比较显著的优点
 
 - 优先考虑 Serverless，我们为应用在 Serverless 场景使用做了诸多优化包括内置发布命令一键发布到多个平台，以及对 Serverless 场景下的代码包大小优化
-- 轻量，核心源代码 2400 行 vs next.js 18w 行 vs nuxt.js 2w行，简洁的核心代码意味着更少的黑盒以及更少的性能损耗
+- 轻量，核心源代码 2400 行 vs next.js 18w 行 vs nuxt.js 2w行，简洁的核心代码意味着更少的黑盒以及更少的性能损耗，事实上我们的性能等于直接调用框架提供的原生 API 无任何中间层
 - 接地气，在 SSR 场景使用 UI 框架是一件不简单的事情，我们内置对世界上最流行的 UI 框架 ant-design 的支持。无需用户做额外配置
 - 没有传统模版引擎，多数开发者是都十分厌恶使用传统模版引擎且需要引入额外的库和学习成本。我们没有模版引擎，根据场景 All in JSX 或者 Vue template 来编写 html 布局
 - 风格统一，无论是 React/Vue 运行的本质始终都是 js，我们在两种框架的 SSR 实现思路一模一样，实现代码的高度复用，使用本框架无论是从 React 切换成 Vue 或者反过来都十分轻易
