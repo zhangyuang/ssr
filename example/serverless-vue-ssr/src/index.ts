@@ -19,7 +19,7 @@ export class Index implements FunctionHandler {
   @inject('ApiDetailService')
   apiDeatilservice: IApiDetailService
 
-  async handler (): Promise<String> {
+  async handler (): Promise<string> {
     try {
       this.ctx.apiService = this.apiService
       this.ctx.apiDeatilservice = this.apiDeatilservice
