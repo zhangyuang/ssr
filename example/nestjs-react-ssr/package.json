@@ -29,7 +29,8 @@
     "ssr": "^5.0.0",
     "ssr-plugin-react": "^5.0.0",
     "ssr-plugin-nestjs": "^5.0.0",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "webpack": "^4.0.0"
   },
   "scripts": {
     "prod": "ssr build && pm2 start pm2.config.js",
