@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.2.1](https://github.com/ykfe/ssr/compare/v5.1.11...v5.2.1) (2021-02-24)
+
+
+### Bug Fixes
+
+* plugin-nestjs ([2db8da0](https://github.com/ykfe/ssr/commit/2db8da0aa16c1909e4dfa4244e544c67070837db))
+
+
+
+
+
 # [5.2.0](https://github.com/ykfe/ssr/compare/v5.1.11...v5.2.0) (2021-02-24)
 
 
