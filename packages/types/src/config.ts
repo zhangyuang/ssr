@@ -37,6 +37,9 @@ export interface IConfig {
     content: string
   }>
 }
+type Optional <T>= { [key in keyof T]?: T[key] }
+
+export type UserConfig = Optional<IConfig>
 export interface Proxy {
   [key: string]: httpProxyMiddleware.Options
 }

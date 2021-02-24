@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://github.com/ykfe/ssr/compare/v5.1.11...v5.2.0) (2021-02-24)
+
+
+### Features
+
+* add plugin-nestjs nestjs example ([4b03ebb](https://github.com/ykfe/ssr/commit/4b03ebb304e440ef0a9be283c4237480e7ee668a))
+
+
+
+
+
 ## [5.1.9](https://github.com/ykfe/ssr/compare/v5.1.8...v5.1.9) (2021-02-22)
 
 **Note:** Version bump only for package ssr-plugin-vue

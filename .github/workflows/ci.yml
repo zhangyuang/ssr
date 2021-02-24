@@ -33,11 +33,11 @@ jobs:
             node_modules
             example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.2-build-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-v2.1-build-
-            ${{ runner.os }}-v2.1-build-
-            ${{ runner.os }}-v2.1-
+            ${{ runner.os }}-v2.2-build-
+            ${{ runner.os }}-v2.2-build-
+            ${{ runner.os }}-v2.2-
       - name: Install dependencies
         run: | 
           yarn && yarn build:only
@@ -47,6 +47,8 @@ jobs:
           cd ../midway-vue-ssr && yarn 
           cd ../serverless-react-ssr && yarn 
           cd ../serverless-vue-ssr && yarn
+          cd ../nestjs-react-ssr && yarn
+          cd ../nestjs-vue-ssr && yarn
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
@@ -74,7 +76,7 @@ jobs:
             node_modules
             example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.2-build-${{ hashFiles('**/yarn.lock') }}
       - run: yarn run lint
 
   e2e-chrome-serverless-react:
@@ -99,7 +101,7 @@ jobs:
             node_modules
             example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.2-build-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -137,7 +139,7 @@ jobs:
             node_modules
             example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.2-build-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -175,7 +177,7 @@ jobs:
             node_modules
             example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.2-build-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -213,7 +215,7 @@ jobs:
             node_modules
             example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.2-build-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -251,7 +253,7 @@ jobs:
             node_modules
             example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.2-build-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -289,7 +291,7 @@ jobs:
             node_modules
             example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.2-build-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -305,6 +307,82 @@ jobs:
             cypress/integration/examples/common-ssr.spec.js  
             cypress/integration/examples/vue-ssr.spec.js
           browser: chrome
+  e2e-chrome-nestjs-vue:
+    needs: bootstrap
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+        node: ["13"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
+            node_modules
+            example/**/node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-v2.2-build-${{ hashFiles('**/yarn.lock') }}
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: bindings-${{matrix.node}}
+          path: packages
+      - name: prepare
+        run: yarn run link
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example:nestjs:vue
+          wait-on: 'http://localhost:3000'
+          spec: |
+            cypress/integration/examples/common-ssr.spec.js  
+            cypress/integration/examples/vue-ssr.spec.js
+          browser: chrome
+  e2e-firefox-nestjs-react:
+    needs: bootstrap
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+        node: ["13"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
+            node_modules
+            example/**/node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-v2.2-build-${{ hashFiles('**/yarn.lock') }}
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: bindings-${{matrix.node}}
+          path: packages
+      - name: prepare
+        run: yarn run link
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example:nestjs:react
+          wait-on: 'http://localhost:3000'
+          spec: | 
+            cypress/integration/examples/common-ssr.spec.js  
+            cypress/integration/examples/react-ssr.spec.js
+          browser: firefox
   publish:
     name: Publish
     if: "startsWith(github.event.head_commit.message, 'chore(release): publish')"
@@ -317,6 +395,8 @@ jobs:
       - e2e-chrome-midway-react
       - e2e-chrome-serverless-vue
       - e2e-chrome-midway-vue
+      - e2e-firefox-nestjs-react
+      - e2e-chrome-nestjs-vue
 
     steps:
       - uses: actions/checkout@v2
@@ -332,7 +412,7 @@ jobs:
             node_modules
             example/**/node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.2-build-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:

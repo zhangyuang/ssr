@@ -1,0 +1,41 @@
+{
+  "name": "ssr-plugin-nestjs",
+  "version": "5.2.0",
+  "description": "plugin-nestjs for ssr",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc -p ./tsconfig.esm.json --inlineSourceMap false\"",
+    "build:only": "concurrently \"tsc-transpile-only -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc-transpile-only -p ./tsconfig.esm.json --inlineSourceMap false\"",
+    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \"",
+    "watch:cjs": "tsc -w -p ./tsconfig.cjs.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ykfe/ssr.git"
+  },
+  "keywords": [
+    "cli",
+    "serverless",
+    "ssr",
+    "react"
+  ],
+  "author": "zhangyuang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ykfe/ssr/issues"
+  },
+  "homepage": "https://github.com/ykfe/ssr#readme",
+  "dependencies": {
+    "@nestjs/common": "^7.5.1",
+    "@nestjs/core": "^7.5.1",
+    "@nestjs/platform-express": "^7.5.1",
+    "@types/node": "14",
+    "ora": "^4.0.4",
+    "reflect-metadata": "^0.1.13",
+    "rimraf": "^3.0.2",
+    "rxjs": "^6.6.3",
+    "ssr-server-utils": "^4.3.4"
+  }
+}
