@@ -36,6 +36,6 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.3",
-    "ssr-server-utils": "^4.3.4"
+    "ssr-server-utils": "^5.0.0"
   }
 }
