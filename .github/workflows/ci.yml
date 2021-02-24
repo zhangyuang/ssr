@@ -47,6 +47,8 @@ jobs:
           cd ../midway-vue-ssr && yarn 
           cd ../serverless-react-ssr && yarn 
           cd ../serverless-vue-ssr && yarn
+          cd ../nestjs-react-ssr && yarn
+          cd ../nestjs-vue-ssr && yarn
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
