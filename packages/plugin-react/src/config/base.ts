@@ -34,7 +34,7 @@ const getBaseConfig = (chain: WebpackChain) => {
     .set('react-router-dom', loadModule('react-router-dom'))
   chain.module
     .rule('images')
-    .test(/\.(png|jpe?g|gif|webp)(\?.*)?$/)
+    .test(/\.(jpe?g|png|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/)
     .use('url-loader')
     .loader(loadModule('url-loader'))
     .options({

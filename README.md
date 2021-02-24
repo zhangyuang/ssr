@@ -55,7 +55,7 @@
 
 | 里程碑                                                                 | 状态 |
 | ---------------------------------------------------------------------- | ---- |
-| 支持任意服务端框架与任意前端框架的组合使用。(Serverless/Midway/Nest) + (React/Vue)             | 🚀   |
+| 支持任意服务端框架与任意前端框架的组合使用。(Serverless/Midway/Nestjs) + (React/Vue)             | 🚀   |
 | 最小而美的实现服务端渲染功能                           | 🚀   |
 | 针对Serverless 场景对代码包的大小的严格限制，将生产环境的代码包大小做到极致            | 🚀   |
 | 同时支持约定式前端路由和声明式前端路由                            | 🚀   |
@@ -145,6 +145,8 @@ $ npm init ssr-app my-ssr-project --template=serverless-react-ssr # 创建 React
 $ npm init ssr-app my-ssr-project --template=serverless-vue-ssr # 创建 Vue SSR 应用，可通过 Serverless 服务一键发布应用上云
 $ npm init ssr-app my-ssr-project --template=midway-react-ssr # 创建 React SSR 应用，基于 Midway Node.js 框架提供的能力以传统 Node.js 应用的形式部署
 $ npm init ssr-app my-ssr-project --template=midway-vue-ssr # 创建 Vue SSR 应用，基于 Midway Node.js 框架提供的能力以传统 Node.js 应用的形式部署
+$ npm init ssr-app my-ssr-project --template=nestjs-react-ssr # 创建 React SSR 应用，基于 Nestjs Node.js 框架提供的能力以传统 Node.js 应用的形式部署
+$ npm init ssr-app my-ssr-project --template=nestjs-vue-ssr # 创建 Vue SSR 应用，基于 Nestjs Node.js 框架提供的能力以传统 Node.js 应用的形式部署
 ```
 
 ### 本地开发
@@ -274,6 +276,7 @@ $ npm run stop # 生产环境停止服务
 
 - plugin-faas 基于 [midway-faas](https://www.yuque.com/midwayjs/faas)
 - plugin-midway 基于 [midway@2.0](https://midwayjs.org/)
+- plugin-nestjs 基于 [Nestjs](https://docs.nestjs.com/)
 
 前端框架插件
 

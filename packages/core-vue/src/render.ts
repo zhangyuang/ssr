@@ -1,14 +1,14 @@
 import { resolve } from 'path'
 import { loadConfig, getCwd, StringToStream } from 'ssr-server-utils'
 import { createRenderer } from 'vue-server-renderer'
-import { ISSRContext, IConfig } from 'ssr-types'
+import { ISSRContext, UserConfig } from 'ssr-types'
 
 const mergeStream = require('merge-stream')
 const cwd = getCwd()
 const defaultConfig = loadConfig()
 const { renderToStream, renderToString } = createRenderer()
 
-async function render<T=string> (ctx: ISSRContext, options?: IConfig): Promise<T> {
+async function render<T=string> (ctx: ISSRContext, options?: UserConfig): Promise<T> {
   const config = Object.assign({}, defaultConfig, options ?? {})
   const { isDev, chunkName, stream } = config
   const isLocal = isDev || process.env.NODE_ENV !== 'production'
