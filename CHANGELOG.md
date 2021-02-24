@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.2.3](https://github.com/ykfe/ssr/compare/v5.2.2...v5.2.3) (2021-02-24)
+
+
+### Bug Fixes
+
+* nestjs example ([0ed7ad6](https://github.com/ykfe/ssr/commit/0ed7ad64e665e17e982085b2d712df88b5df3b7e))
+* nestjs example ([0e736c3](https://github.com/ykfe/ssr/commit/0e736c3bf57f29f1ff7a0fef2eab608bc40ac598))
+
+
+
+
+
 ## [5.2.2](https://github.com/ykfe/ssr/compare/v5.2.1...v5.2.2) (2021-02-24)
 
 **Note:** Version bump only for package ssr
