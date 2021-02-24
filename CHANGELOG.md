@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.2.0](https://github.com/ykfe/ssr/compare/v5.1.11...v5.2.0) (2021-02-24)
+
+
+### Features
+
+* add plugin-nestjs nestjs example ([e2803cd](https://github.com/ykfe/ssr/commit/e2803cd0e52c8522044baad9be9e4caf2481bf36))
+* add plugin-nestjs nestjs example ([cdd7091](https://github.com/ykfe/ssr/commit/cdd709115176eb8858d0d27480a5583682ff0d97))
+* add plugin-nestjs nestjs example ([4b03ebb](https://github.com/ykfe/ssr/commit/4b03ebb304e440ef0a9be283c4237480e7ee668a))
+
+
+
+
+
 ## [5.1.11](https://github.com/ykfe/ssr/compare/v5.1.10...v5.1.11) (2021-02-23)
 
 **Note:** Version bump only for package ssr

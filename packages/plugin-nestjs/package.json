@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-nestjs",
-  "version": "1.0.0",
+  "version": "5.2.0",
   "description": "plugin-nestjs for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -28,15 +28,14 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
-    "ora": "^4.0.4",
-    "@types/node": "14",
-    "ssr-server-utils": "^4.3.4",
     "@nestjs/common": "^7.5.1",
     "@nestjs/core": "^7.5.1",
     "@nestjs/platform-express": "^7.5.1",
+    "@types/node": "14",
+    "ora": "^4.0.4",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^6.6.3"
-  },
-  "devDependencies": {}
+    "rxjs": "^6.6.3",
+    "ssr-server-utils": "^4.3.4"
+  }
 }
