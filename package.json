@@ -4,7 +4,7 @@
     "packages/*"
   ],
   "scripts": {
-    "bootstrap": "node scripts/scripts.js --bootstrap && yarn run link",
+    "bootstrap": "yarn && yarn run build:only && yarn run link",
     "clean": "node scripts/scripts.js --clean",
     "dev": "lerna run watch --stream --parallel",
     "build": "lerna run build --stream --parallel",
