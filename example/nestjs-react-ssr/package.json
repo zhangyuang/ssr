@@ -28,7 +28,7 @@
     "eslint-config-standard-react-ts": "^1.0.5",
     "ssr": "^5.0.0",
     "ssr-plugin-react": "^5.0.0",
-    "ssr-plugin-nest": "^5.0.0",
+    "ssr-plugin-nestjs": "^5.0.0",
     "typescript": "^3.9.7"
   },
   "scripts": {
