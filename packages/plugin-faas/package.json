@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-faas",
-  "version": "5.2.1",
+  "version": "5.2.2",
   "description": "plugin-faas for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -36,7 +36,7 @@
     "@midwayjs/fcli-plugin-package": "^1.2.39",
     "@midwayjs/fcli-plugin-scf": "^1.2.12",
     "koa": "^2.11.0",
-    "ssr-server-utils": "^5.2.1",
+    "ssr-server-utils": "^5.2.2",
     "vue-template-compiler": "^2.6.12"
   }
 }
