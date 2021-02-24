@@ -35,9 +35,9 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-v1-build-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-v2.1-build-
-            ${{ runner.os }}-v2.1-build-
-            ${{ runner.os }}-v2.1-
+            ${{ runner.os }}-v2.2-build-
+            ${{ runner.os }}-v2.2-build-
+            ${{ runner.os }}-v2.2-
       - name: Install dependencies
         run: | 
           yarn && yarn build:only
