@@ -75,7 +75,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
         ))
         return h(
           layout,
-          {},
+          {
+            props: {
+              ctx,
+              config
+            }
+          },
           [
             h('template', {
               slot: 'remInitial'
