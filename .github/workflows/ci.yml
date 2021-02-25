@@ -30,9 +30,7 @@ jobs:
           path: |
             /home/runner/.cache/Cypress
             ~/.cache/yarn
-            node_modules
-            example/**/node_modules
-            */*/node_modules
+            **/node_modules
           key: ${{ runner.os }}-v2.2-build-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-v2.2-build-

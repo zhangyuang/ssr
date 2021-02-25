@@ -25,15 +25,41 @@
 
 ## 哪些应用在使用
 
-正在使用这个项目的公司(应用), 如果您正在使用但名单中没有列出来的话请提 issue，欢迎推广分享，我们将随时提供技术支持
+正在使用这个项目的公司(应用), 如果您正在使用但名单中没有列出来的话请提 [issue](https://github.com/ykfe/ssr/issues)，欢迎推广分享，我们将随时提供技术支持
 
 <table>
-<tr height="100">
+<tr>
 <td align="center"><a target="_blank" href="http://youku.com/"><img src="https://img.alicdn.com/tfs/TB17DTuXkH0gK0jSZPiXXavapXa-680-133.svg" width="100px;"/><br />
  <sub><b>优酷视频
 </b></td>
 <td align="center"><a target="_blank" href="https://yulebao.alibaba.com/"><img src="https://gw.alicdn.com/tfs/TB1CmlIIFT7gK0jSZFpXXaTkpXa-190-46.png" width="100px;"/><br><sub><b>阿里影业娱乐宝
 </b></sub></a></td>
+<td align="center"><a target="_blank" href="https://campaign.vmate.com/vrbollywood"><img src="https://img.alicdn.com/tfs/TB17p6Vhbj1gK0jSZFOXXc7GpXa-512-512.png" width="100px;" alt="vmate 积分商城"/><br />
+  <a target="_blank" href="https://job.alibaba.com/zhaopin/position_detail.htm?trace=qrcode_share&positionCode=GP524819"><sub><b>Vmate短视频
+</b></a></td>
+<td align="center"><a target="_blank" href="https://enjoysales.paat.com/"><img src="https://img.alicdn.com/tfs/TB1Ma0BiEY1gK0jSZFMXXaWcVXa-836-836.png" width="100px;" alt="火炽星原CRM"/><br />
+<a target="_blank" href="https://enjoysales.paat.com/"><sub><b>火炽星原CRM
+</b></a></td>
+<td align="center"><a href="https://www.niuniuda.com/mall" target="_blank"><img src="https://img.alicdn.com/tfs/TB1df_8pBr0gK0jSZFnXXbRRXXa-160-60.png" width="100px;" alt="牛牛搭"/><br />
+<a href="https://www.niuniuda.com/mall" target="_blank"><sub><b>牛牛搭
+</b></a></td>
+<td align="center"><a href="https://help.seewo.com/" target="_blank"><img src="https://img.alicdn.com/tfs/TB11Xo3q4v1gK0jSZFFXXb0sXXa-350-55.png" width="100px;" alt="cvte"/><br /><a href="https://help.seewo.com/" target="_blank"><sub><b>希沃帮助中心
+</b></a></td>
+<td align="center"><a href="https://wecard.qq.com/index/" target="_blank"><img src="https://img.alicdn.com/tfs/TB1pTZGrFT7gK0jSZFpXXaTkpXa-164-164.jpg" width="100px;" alt="腾讯微卡"/><br />
+<a href="https://wecard.qq.com/index/" target="_blank"><sub><b>腾讯微卡
+</b></a></td>
+<td align="center"><a href="https://www.myweimai.com/#sectionOne" target="_blank"><img src="https://img.alicdn.com/tfs/TB16i3VrQT2gK0jSZPcXXcKkpXa-400-400.jpg" width="100px;" alt="微脉"/><br />
+<a href="https://www.myweimai.com/#sectionOne" target="_bvlank"><sub><b>微脉
+</b></a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://syzs.qq.com/" target="_blank"><img src="images/syzs.png" width="100px;" alt="腾讯手游助手"/><br />
+<a href="https://syzs.qq.com/" target="_bvlank"><sub><b>腾讯手游助手
+</b></a></td>
+<td align="center"><a href="https://kcmall.b2bwings.com/home" target="_blank"><img src="https://res.wx.qq.com/op_res/RM2YwzcAHcqxuj5HUPJK_XIYrYmlGPaSUuFGjG_qkIKonlxkVEyn4Sy_nkUWwgpkQzOXtuImQZW50yfHbFXbDQ
+" width="100px;" alt="国家现代农业科技创新中心"/><br />
+<a href="https://kcmall.b2bwings.com/home" target="_bvlank"><sub><b>国家现代农业科技创新中心
+</b></a></td>
 <td align="center"><a target="_blank" href="http://ssr-fc.com/"><img src="https://img.alicdn.com/tfs/TB13DzOjXP7gK0jSZFjXXc5aXXa-212-48.png" width="100px;"/><br><sub><b>部署于阿里云示例应用
 </b></sub></a></td>
 <td align="center"><a target="_blank" href="http://tx.ssr-fc.com/"><img src="http://s0.60logo.com/uploads/items/images/soft/180126/tengxunyun.svg" width="100px;"/><br><sub><b>部署于腾讯云示例应用
@@ -180,8 +206,56 @@ $ npm run deploy:tencent # 发布到腾讯云 等价于 ssr deploy --tencent
 $ DEBUG=ssr:* npm start # 打印所有的 ssr 模块提供的 debug 信息
 ```
 
+## 生态系统
+
+| Project | Status | Description |
+|---------|--------|-------------|
+| [ssr]          | [![ssr-status]][ssr] | cli for ssr framework |
+| [ssr-core-vue]          | [![ssr-core-vue-status]][ssr-core-vue] | core render for vue |
+| [ssr-core-react]          | [![ssr-core-react-status]][ssr-core-react] | core render for react |
+| [ssr-plugin-faas]          | [![ssr-plugin-faas-status]][ssr-plugin-faas] | provide start deploy feature by [midway-faas](https://www.yuque.com/midwayjs/faas)|
+| [ssr-plugin-midway]          | [![ssr-plugin-midway-status]][ssr-plugin-midway] | provide start and build fetature by [midway@2.0](https://midwayjs.org/) |
+| [ssr-plugin-nestjs]          | [![ssr-plugin-nestjs-status]][ssr-plugin-nestjs] | provide start and build feature by [Nestjs](https://docs.nestjs.com/) |
+| [ssr-plugin-react]          | [![ssr-plugin-react-status]][ssr-plugin-react] | develop react application only be used in development |
+| [ssr-plugin-vue]          | [![ssr-plugin-vue-status]][ssr-plugin-vue] | develop vue application only be used in development |
+| [ssr-server-utils]          | [![ssr-server-utils-status]][ssr-server-utils] | server utils in Node.js environment |
+| [ssr-client-utils]          | [![ssr-client-utils-status]][ssr-client-utils] | client utils in browser environment |
+| [ssr-hoc-react]          | [![ssr-hoc-react-status]][ssr-hoc-react] | provide hoc component for react |
+| [ssr-types]          | [![ssr-types-status]][ssr-types] | provide common types |
+| [ssr-webpack]          | [![ssr-webpack-status]][ssr-webpack] | start local server and build production bundle by webpack |
+
+
+[ssr-status]: https://img.shields.io/npm/v/ssr.svg
+[ssr-client-utils-status]: https://img.shields.io/npm/v/ssr-client-utils.svg
+[ssr-core-react-status]: https://img.shields.io/npm/v/ssr-core-react.svg
+[ssr-core-vue-status]: https://img.shields.io/npm/v/ssr-core-vue.svg
+[ssr-hoc-react-status]: https://img.shields.io/npm/v/ssr-hoc-react.svg
+[ssr-plugin-faas-status]: https://img.shields.io/npm/v/ssr-plugin-faas.svg
+[ssr-plugin-midway-status]: https://img.shields.io/npm/v/ssr-plugin-midway.svg
+[ssr-plugin-nestjs-status]: https://img.shields.io/npm/v/ssr-plugin-nestjs.svg
+[ssr-plugin-react-status]: https://img.shields.io/npm/v/ssr-plugin-react.svg
+[ssr-plugin-vue-status]: https://img.shields.io/npm/v/ssr-plugin-vue.svg
+[ssr-server-utils-status]: https://img.shields.io/npm/v/ssr-server-utils.svg
+[ssr-types-status]: https://img.shields.io/npm/v/ssr-types.svg
+[ssr-webpack-status]: https://img.shields.io/npm/v/ssr-webpack.svg
+
+[ssr]: https://github.com/ykfe/ssr/tree/dev/packages/cli
+[ssr-client-utils]: https://github.com/ykfe/ssr/tree/dev/packages/client-utils
+[ssr-core-react]: https://github.com/ykfe/ssr/tree/dev/packages/core-react
+[ssr-core-vue]: https://github.com/ykfe/ssr/tree/dev/packages/core-vue
+[ssr-hoc-react]: https://github.com/ykfe/ssr/tree/dev/packages/hoc-react
+[ssr-plugin-faas]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-faas
+[ssr-plugin-midway]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-midway
+[ssr-plugin-nestjs]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-nestjs
+[ssr-plugin-react]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-react
+[ssr-plugin-vue]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-vue
+[ssr-server-utils]: https://github.com/ykfe/ssr/tree/dev/packages/server-utils
+[ssr-types]: https://github.com/ykfe/ssr/tree/dev/packages/types
+[ssr-webpack]: https://github.com/ykfe/ssr/tree/dev/packages/webpack
+
+
 阅读下文以获得本应用更加详细的使用方式。包括应用组织规范以及如何配置域名使得用户可以在公网访问。
-### 在阿里云使用
+## 在阿里云使用
 
 发布命令
 
@@ -208,7 +282,7 @@ $ npm run deploy # 支持发布多个平台默认发布到阿里云 等价于 ss
 
 ![](https://gw.alicdn.com/tfs/TB1JZGyB1H2gK0jSZFEXXcqMpXa-1468-1012.jpg)
 
-### 在腾讯云使用
+## 在腾讯云使用
 
 无需做任何配置文件的修改即可一键发布到腾讯云！
 
@@ -509,6 +583,88 @@ const htmlStr = await render(this.ctx, config)
 ```
 
 此种场景多用于应急预案处理。
+
+#### 如何自定义页面标题, meta 等信息
+
+由于我们 All in jsx/template, 这块的实现也是非常简单的。layout 在服务端被渲染时可以拿到请求的 ctx，根据 ctx 上的信息来 render 不同的信息
+
+Vue 使用方式如下
+
+```vue
+<template>
+  <!-- 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑 -->
+  <!-- 页面初始化数据注入内容已经过 serialize-javascript 转义 防止 xss -->
+  <html>
+    <head>
+      <meta charSet="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="theme-color" content="#000000">
+      <title v-if="ctx.request.path === '/'">
+        首页
+      </title>
+      <title v-if="ctx.request.path.match('/detail')">
+        详情页
+      </title>
+      <!-- 初始化移动端 rem 设置，如不需要可自行删除 -->
+      <slot name="remInitial" />
+      <!-- 用于通过配置插入自定义的 script 为了避免影响期望功能这块内容不做 escape，为了避免 xss 需要保证插入脚本代码的安全性  -->
+      <slot name="customeHeadScript" />
+      <slot name="cssInject" />
+    </head>
+    <body>
+      <slot name="children" />
+      <slot name="initialData" />
+      <slot name="jsInject" />
+    </body>
+  </html>
+</template>
+
+<script>
+export default {
+  props: ['ctx', 'config'],
+  created () {
+    console.log(this.ctx.request.path)
+  }
+}
+</script>
+
+<style lang="less">
+@import './index.less';
+</style>
+
+```
+
+React 使用则更简单 
+
+```js
+const Layout = (props: LayoutProps) => {
+  // 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑
+  const { state } = useContext(window.STORE_CONTEXT)
+  const { injectCss, injectScript } = props.staticList!
+  return (
+    <html lang='en'>
+      <head>
+        <meta charSet='utf-8' />
+        <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
+        <meta name='theme-color' content='#000000' />
+        <title>{props.ctx.request.path === '/' ? '首页' : '其他页面'}</title>
+        <script dangerouslySetInnerHTML={{ __html: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }} />
+        { injectCss }
+      </head>
+      <body className={styles.body}>
+        <div id='app'>{ props.children }</div>
+        {
+          state && <script dangerouslySetInnerHTML={{
+            __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)}`
+          }} />
+        }
+        { injectScript }
+      </body>
+    </html>
+  )
+}
+
+```
 
 #### React跨组件通信
 
