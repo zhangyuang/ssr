@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.3.0](https://github.com/ykfe/ssr/compare/v5.2.3...v5.3.0) (2021-02-25)
+
+
+### Features
+
+* vue layout template add ctx config props ([202104c](https://github.com/ykfe/ssr/commit/202104cb5c3e222d73150886ae6e7bbcea3f07e4))
+
+
+
+
+
 ## [5.2.3](https://github.com/ykfe/ssr/compare/v5.2.2...v5.2.3) (2021-02-24)
 
 **Note:** Version bump only for package ssr-plugin-vue
