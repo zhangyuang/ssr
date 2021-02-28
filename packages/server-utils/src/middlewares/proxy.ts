@@ -17,7 +17,8 @@ const getDevProxyMiddlewaresArr = (options?: proxyOptions) => {
     target: `http://127.0.0.1:${fePort}`,
     changeOrigin: true,
     secure: false,
-    onProxyReq
+    onProxyReq,
+    logLevel: 'warn'
   }
   function registerProxy (proxy: Proxy) {
     for (const path in proxy) {
