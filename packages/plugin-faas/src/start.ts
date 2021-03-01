@@ -7,7 +7,7 @@ const start = () => {
   const app = new Koa()
   const { serverPort, cloudIDE } = loadConfig()
   initialSSRDevProxy(app)
-
+  // eslint-disable-next-line
   app.use(useKoaDevPack({
     functionDir: cwd
   }))
