@@ -33,24 +33,20 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     throw new Error(`With request url ${path} Component is Not Found`)
   }
 
+  const isCsr = mode === 'csr' || ctx.request.query?.csr
   const Layout = routeItem.layout
   const Component = routeItem.component
-  if (mode === 'csr' || ctx.request.query?.csr) {
-    // 根据 mode 和 query 来决定当前渲染模式
+  if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
-    const Context = serverContext({}) // csr 不需要在服务端获取数据
-    window.STORE_CONTEXT = Context
-    return <StaticRouter><Layout ctx={ctx} staticList={staticList} config={config}></Layout></StaticRouter>
   }
-  const fetchData = routeItem.fetch ? await routeItem.fetch(ctx) : {}
+  const fetchData = (!isCsr && routeItem.fetch) ? await routeItem.fetch(ctx) : false
   const Context = serverContext(fetchData) // 服务端需要每个请求创建新的独立的 context
-  window.STORE_CONTEXT = Context // 为每一个新的请求都创建一遍context并且覆盖window上的属性，使得无需通过props层层传递读取
-
+  window.STORE_CONTEXT = Context // 为每一个新的请求都创建一遍 context 并且覆盖 window 上的属性，使得无需通过props层层传递读取
   return (
     <StaticRouter>
       <Context.Provider value={{ state: fetchData }}>
         <Layout ctx={ctx} config={config} staticList={staticList}>
-          <Component />
+          {isCsr ? <></> : <Component />}
         </Layout>
       </Context.Provider>
     </StaticRouter>
