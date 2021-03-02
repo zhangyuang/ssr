@@ -424,15 +424,14 @@ module.exports = {
 ```bash
 .
 ├── build # web目录构建产物
-│   └── index # 函数名称
-│       ├── client
-│       └── server
+│   ├── client
+│   └── server
 ├── config.js # 定义应用的配置
 ├── f.yml # 可选，Serverless 场景下需要创建
 ├── package.json
 ├── src # 存放服务端 Node.js 相关代码
 │   └── index.ts
-├── tsconfig.json
+├── tsconfig.json # 服务端 Node.js 编译配置文件
 ├── web # 存放前端组件相关代码
 │   ├── components # 存放公共组件
 │   │   └── header # 公共头部
