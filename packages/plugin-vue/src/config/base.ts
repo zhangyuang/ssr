@@ -85,7 +85,13 @@ const getBaseConfig = (chain: WebpackChain) => {
         ]
       ],
       plugins: [
-        [loadModule('@babel/plugin-transform-runtime')]
+        [loadModule('@babel/plugin-transform-runtime')],
+        [loadModule('babel-plugin-import'),
+          {
+            libraryName: 'vant',
+            libraryDirectory: 'lib',
+            style: true
+          }, 'vant']
       ]
     })
     .end()

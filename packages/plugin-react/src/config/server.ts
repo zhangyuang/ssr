@@ -21,45 +21,12 @@ const getServerWebpack = (chain: WebpackChain) => {
     .filename('[name].server.js')
     .libraryTarget('commonjs')
 
-  chain.module
-    .rule('compile')
-    .test(/\.(js|mjs|jsx|ts|tsx)$/)
-    .exclude
-    .add(/node_modules/)
-    .end()
-    .use('babel-loader')
-    .loader('babel-loader')
-    .options({
-      cacheDirectory: true,
-      cacheCompression: false,
-      presets: [
-        [
-          '@babel/preset-env',
-          {
-            modules: false
-          }
-        ],
-        ['react-app', { flow: false, typescript: true }]
-      ],
-      plugins: [
-        [
-          'import',
-          {
-            libraryName: 'antd',
-            libraryDirectory: 'lib',
-            style: 'css'
-          }
-        ]
-      ]
-    })
-    .end()
-
   const modulesDir = [join(cwd, './node_modules')]
   if (isDev) {
     modulesDir.push(getLocalNodeModules())
   }
   chain.externals(nodeExternals({
-    whitelist: [/\.(css|less|sass|scss)$/, /ssr-temporary-routes/, /^antd.*?css/].concat(whiteList || []),
+    whitelist: [/\.(css|less|sass|scss)$/, /ssr-temporary-routes/, /^antd.*?css/, /vant.*?style/].concat(whiteList || []),
     // externals Dir contains example/xxx/node_modules ssr/node_modules
     modulesDir
   }))

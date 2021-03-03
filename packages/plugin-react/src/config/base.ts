@@ -86,7 +86,7 @@ const getBaseConfig = (chain: WebpackChain) => {
           loadModule('babel-plugin-import'),
           {
             libraryName: 'antd',
-            libraryDirectory: 'es',
+            libraryDirectory: 'lib',
             style: 'css'
           }
         ]
