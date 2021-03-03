@@ -543,6 +543,27 @@ module.exports = {
 
 替换 Node.js 代码中的 `ssr-core` 模块为新的 `ssr-core-react` 即可
 
+#### Vue 全局注册组件
+
+之前写在 `main.js` 中的全局注册组件方法可以无缝搬迁到 `layout/App.vue` 当中
+
+```vue
+// layout/App.vue
+
+<template>
+  <div id="app">
+    <router-view />
+  </div>
+</template>
+
+<script>
+// 在这里可以进行一些全局组件的注册逻辑
+export default {
+
+}
+</script>
+
+```
 #### 降级为客户端渲染
 
 我们可以通过在请求 url 的 query 后面添加 `?csr=true` 来以客户端渲染模式进行渲染。但覆盖度不够。  
