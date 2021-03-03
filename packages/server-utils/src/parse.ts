@@ -47,8 +47,8 @@ const hasDeclaretiveRoutes = () => {
 const parseFeRoutes = async () => {
   const { clientPlugin } = loadPlugin()
   const isVue = clientPlugin.name === 'plugin-vue'
-  const defaultLayout = join(feDir, `./components/layout/index.${isVue ? 'vue' : 'tsx'}`)
-  const defaultApp = join(feDir, './components/layout/App.vue')
+  const defaultLayout = `@/components/layout/index.${isVue ? 'vue' : 'tsx'}`
+  const defaultApp = '@/components/layout/App.vue'
 
   if (!fs.existsSync(join(cwd, './node_modules/ssr-temporary-routes'))) {
     Shell.mkdir(`${cwd}/node_modules/ssr-temporary-routes`)
