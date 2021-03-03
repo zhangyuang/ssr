@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.6](https://github.com/ykfe/ssr/compare/v5.3.5...v5.3.6) (2021-03-03)
+
+
+### Bug Fixes
+
+* plugin-vue externals vant ([5a9421c](https://github.com/ykfe/ssr/commit/5a9421cc8469a49824b06900c2087d6919f1e3e2))
+
+
+
+
+
 ## [5.3.4](https://github.com/ykfe/ssr/compare/v5.3.3...v5.3.4) (2021-03-03)
 
 **Note:** Version bump only for package ssr-plugin-react
