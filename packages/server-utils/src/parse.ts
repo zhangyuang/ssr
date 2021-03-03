@@ -10,7 +10,6 @@ import { loadConfig } from './loadConfig'
 const debug = require('debug')('ssr:parse')
 const { cloudIDE, dynamic, prefix } = loadConfig()
 const pageDir = getPagesDir()
-const feDir = getFeDir()
 const cwd = getCwd()
 
 const parseYml = (path: string): Yml => {
