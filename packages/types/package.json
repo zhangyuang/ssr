@@ -38,8 +38,7 @@
     "@types/react-router-dom": "^5.1.6",
     "@types/tapable": "^1.0.6",
     "@types/webpack": "^4.41.10",
-    "@types/yargs": "^13.0.4",
-    "vue-template-compiler": "^2.6.12"
+    "@types/yargs": "^13.0.4"
   },
   "devDependencies": {
     "concurrently": "^5.1.0"

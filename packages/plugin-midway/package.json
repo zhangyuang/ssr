@@ -35,7 +35,6 @@
     "@types/node": "14",
     "koa": "^2.11.0",
     "mwts": "^1.0.5",
-    "ssr-server-utils": "^5.3.2",
-    "vue-template-compiler": "^2.6.12"
+    "ssr-server-utils": "^5.3.2"
   }
 }
