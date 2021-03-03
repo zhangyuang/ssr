@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.3](https://github.com/ykfe/ssr/compare/v5.3.2...v5.3.3) (2021-03-03)
+
+
+### Bug Fixes
+
+* remove dependencies vue-template-compiler ([495c56c](https://github.com/ykfe/ssr/commit/495c56cf241c25423977307cde5dfccbc636eb4f))
+
+
+
+
+
 ## [5.2.3](https://github.com/ykfe/ssr/compare/v5.2.2...v5.2.3) (2021-02-24)
 
 **Note:** Version bump only for package ssr

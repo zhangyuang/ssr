@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.3](https://github.com/ykfe/ssr/compare/v5.3.2...v5.3.3) (2021-03-03)
+
+
+### Bug Fixes
+
+* remove dependencies vue-template-compiler ([495c56c](https://github.com/ykfe/ssr/commit/495c56cf241c25423977307cde5dfccbc636eb4f))
+* update serverless example types ([7bb43f7](https://github.com/ykfe/ssr/commit/7bb43f77aabcfc6cfe1c18532840eea7ce53e02f))
+
+
+
+
+
 # [5.3.0](https://github.com/ykfe/ssr/compare/v5.2.3...v5.3.0) (2021-02-25)
 
 
