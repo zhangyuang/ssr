@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.3.5](https://github.com/ykfe/ssr/compare/v5.3.4...v5.3.5) (2021-03-03)
+
+
+### Bug Fixes
+
+* plugin-vue add babel-plugin-import ([76e4bf1](https://github.com/ykfe/ssr/commit/76e4bf11267426e8552cfa093c8b03e48a067e6a))
+
+
+
+
+
 ## [5.3.4](https://github.com/ykfe/ssr/compare/v5.3.3...v5.3.4) (2021-03-03)
 
 
