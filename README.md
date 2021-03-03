@@ -565,6 +565,54 @@ export default {
 </script>
 
 ```
+
+#### 使用 UI 框架
+
+React 场景下我们已经对 antd 进行兼容，若你要使用其他 UI 框架不做额外配置是一定会报错的。这里以 [vant](https://vant-contrib.gitee.io/vant/#/) 举例子，讲述如何引入
+
+```js
+import Button from 'vant/lib/button';
+import 'vant/lib/button/index.less'; // 手动导入的情况这里建议使用这种方式来导入样式文件而不是 import 'vant/lib/button/style' 这样导入的是一个 js 文件
+```
+
+使用手动按需引入的情况几乎不会出任何问题。但要注意
+
+1、必须使用 lib 目录下的文件，不要用 es，es 模块在服务端无法解析  
+2、如果是 import `css|less` 文件则不会有问题，但很多 UI 框架例如 antd, vant 这些都会导出一个 js 文件去 require 要用到的 css 文件，这种情况不做额外配置是一定会出错的  
+
+这里需要额外在 config.js 配置白名单，使得服务端打包的时候让 Webpack 去处理这种类型的 js 文件
+
+```js
+// config.js
+
+module.exports = {
+  cssModulesWhiteList: [],
+  whiteList: [/vant.*?style/]
+}
+
+```
+
+以 vant 为例，它导出的是 `lib/Button/style/index.js` 文件  
+以 antd 为例，它导出的是 `lib/Button/style/css.js` 文件  
+
+所以 antd 场景下我们需要这么写 `/antd.*?css/` (我们默认配置已包含)
+
+使用 babel-plugin-import 除了上面提到的 whiteList 配置之外还需要创建 babel.config.js
+
+```js
+// babel.config.js
+
+module.exports = {
+  plugins: [
+    ['import', {
+      libraryName: 'vant',
+      libraryDirectory: 'lib', // 这里一定要用 lib
+      style: true // vant 场景写 true 代表 style/index.js antd 场景写 css 代表 style/css.js
+    }, 'vant']
+  ]
+};
+```
+
 #### 降级为客户端渲染
 
 我们可以通过在请求 url 的 query 后面添加 `?csr=true` 来以客户端渲染模式进行渲染。但覆盖度不够。  
