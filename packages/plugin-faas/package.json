@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-faas",
-  "version": "5.3.4",
+  "version": "5.3.7",
   "description": "plugin-faas for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -36,6 +36,6 @@
     "@midwayjs/fcli-plugin-package": "^1.2.39",
     "@midwayjs/fcli-plugin-scf": "^1.2.12",
     "koa": "^2.11.0",
-    "ssr-server-utils": "^5.3.4"
+    "ssr-server-utils": "^5.3.7"
   }
 }
