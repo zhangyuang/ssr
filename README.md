@@ -927,13 +927,14 @@ module.exports = {
 
 由于我们的应用需要服务端渲染所以我们的 Webpack 配置比起纯 SPA 应用要复杂一些。我们的 Webpack 分为三个配置文件分别是
 
-- chainBaseConfig 用来定义服务端客户端公用的 Webpack 配置，例如一些 babel 配置，`js|ts|vue|css|less` 这些文件的 loader 处理应该在 baseConfig 定义无需做具体的端侧区分
-- chainClientConfig 客户端 bundle 打包时需要额外处理的部分，例如生产环境打包的 terser 压缩、chunks 分块、manifest，hash生成等逻辑
-- chainServerConfig 服务端 bundle 打包时需要额外处理的部分，例如 externals 配置哪些类型的文件需要 Webpack 处理，我们额外提供了 whiteList 选项来设置
+- `chainBaseConfig` 用来定义服务端客户端公用的 Webpack 配置，例如一些 babel 配置，`js|ts|vue|css|less` 这些文件的 loader 处理应该在 baseConfig 定义无需做具体的端侧区分
+- `chainClientConfig` 客户端 bundle 打包时需要额外处理的部分，例如生产环境打包的 terser 压缩、chunks 分块、manifest，hash生成等逻辑
+- `chainServerConfig` 服务端 bundle 打包时需要额外处理的部分，例如 externals 配置哪些类型的文件需要 Webpack 处理，我们额外提供了 whiteList 选项来设置
 
 开发者可根据实际需求决定修改哪块配置。  
 注意绝大部分情况下你不需要去修改默认的配置。我们默认的配置是基于 `create-react-app` 生成的配置上做了一些优化。已经极力做到最优。  
-如果确定需要修改默认配置，应该先看看配置有无提供额外选项直接设置，而不是通过 WebpackChain 工具去重新设置规则。这样极易导致错误。我们后续可能会兼容一些 [vue-cli](https://cli.vuejs.org/zh/config/#css-loaderoptions) 支持的配置，但不是全部。我们并不打算做成大而全的工具这样只会变成大黑盒。配置越多只会增加错误出现的可能性。参考 vue-cli 工具 400多个文件，3w 行源码 580个待解决 issue。  
+如果确定需要修改默认配置，应该先看看配置有无提供额外选项直接设置，而不是通过 WebpackChain 工具去重新设置规则。这样极易导致错误。  
+我们后续可能会兼容一些 [vue-cli](https://cli.vuejs.org/zh/config/#css-loaderoptions) 支持的配置，但不是全部。我们并不打算做成大而全的工具这样只会变成大黑盒。配置越多只会增加错误出现的可能性。参考 vue-cli 工具 400多个文件，3w 行源码 580个待解决 issue。  
 想要更加直观了解我们支持哪些配置可以直接看我们的[类型定义文件](https://github.com/ykfe/ssr/blob/dev/packages/types/src/config.ts)
 
 #### 如何解决服务端访问不可访问的对象的问题
@@ -941,9 +942,9 @@ module.exports = {
 SSR是近几年才火热的话题，如果是新的项目且开发人员对SSR有较深的认知，那么在设计应用的过程中就会有意识的去避免在服务端访问客户端对象的情况。但在老项目或者老的第三方库/框架，或者是开发人员对SSR理解不深刻的情况下，会出现很多类似 `window is not defined` 的错误。  
 先说前言，个人是不推荐用 `jsdom` 来在服务端模拟客户端环境，这样最多只能模拟最外层的对象例如 `window document` 但如果要访问更深层次的对象例如 `document.getElementById` 则还是会报错。且这种方式新增了一堆很dirty的代码且不利于debug容易造成未知的问题。  
 自己的代码我们可以控制，那么如果有第三方模块犯了这种问题应该如何解决呢。在有能力给第三方模块提PR的时候还是建议以PR的形式进行修复。  
-例如 `axios` 就会根据你当前的环境来决定到底是用xhr对象还是用http模块来发起请求。如果没办法改动第三方模块，我们可以在代码中延迟加载这些模块，让它在客户端执行的时候被调用。  
+例如 `axios` 就会根据你当前的环境来决定到底是用 xhr 对象还是用 http 模块来发起请求。如果没办法改动第三方模块，我们可以在代码中延迟加载这些模块，让它在客户端执行的时候被调用。  
 
-1. 使用本应用提供的 `__isBrowser__` 常量来判断，例如引入jquery可以使用以下引入方式
+1. 使用本应用提供的 `__isBrowser__` 常量来判断，一些模块直接在顶层就使用浏览器元素直接 import 就会出错，例如引入jquery可以使用以下引入方式  
    
 ```js
 import $ from 'jquery' // error
@@ -965,7 +966,9 @@ class Page {
 }
 ```
 
-3. 如果某个组件调用的库一定要使用浏览器对象才能得到结果，那么只能将该组件放到客户端进行render了，参考[onlyCsr](#如何让某个组件只在客户端渲染)
+3. 如果某个组件调用的方法一定要使用浏览器对象才能得到结果，那么只能将该组件放到客户端进行render了，参考[onlyCsr](#如何让某个组件只在客户端渲染)
+
+`__isBrowser__` 结合 `onlyCsr` 可以解决所有遇到的问题  
 
 `注: 不要想着在服务端去访问客户端对象，这意味着你 or 开发第三方模块的人对React SSR的理解不够, 虽然这一开始会导致一定的错误，但对于你去理解SSR的执行机制以及分清楚Server/Client两端的区别帮助很大`
 
