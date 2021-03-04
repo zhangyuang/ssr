@@ -17,6 +17,13 @@ export interface IConfig {
   cssOrder: string[]
   jsOrder: string[]
   staticPrefix: string
+  css?: () => {
+    loaderOptions: {
+      postcss: {
+        plugins: any[]
+      }
+    }
+  }
   chainBaseConfig: (config: Config) => Configuration
   chainServerConfig: (config: Config) => Configuration
   chainClientConfig: (config: Config) => Configuration

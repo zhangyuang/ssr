@@ -346,6 +346,8 @@ $ npm run stop # 生产环境停止服务
 
 ### 通过插件组合功能
 
+本框架的插件机制不像 Webpack 插件粒度那么细。一般的 Webpack 项目我们可能需要组合十几个插件或者更多来实现功能。其插件的原理是通过钩子来修改构建过程中的代码内容。  
+本框架的插件机制更像是 Vite 的插件，其包含了一个场景下的代码解决方案。优势是你只需要两个插件即可实现不同场景的代码方案的组合。但是功能点并不会拆分的那么细。  
 我们目前提供了如下插件, 参考现有插件来开发一个新的插件是非常容易的事情。你可以根据自己的应用类型来自行开发对应的插件，例如 plugin-nest、plugin-egg, plugin-koa 等
 
 服务端框架插件
@@ -884,9 +886,55 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
     describe: object // 参考 vue createElement https://cn.vuejs.org/v2/guide/render-function.html#createElement-%E5%8F%82%E6%95%B0
     content: string // 需要插入的 script 脚本内容
   }>
+  css?: () => {
+    // 额外的 postcss 插件配置，需要用函数 return 的形式
+    loaderOptions: {
+      postcss: {
+        plugins: any[]
+      }
+    }
+  }
 }
 
 ```
+
+##### 不要在顶部 require 模块
+
+由于 config.js 文件在 Node.js 环境也会被加载，如果直接在顶部 require 模块可能会导致模块体积过大，降低应用启动速度，我们建议在必要的函数当中在 require 需要用到的模块。  
+以添加 postcss 插件为例
+
+```js
+module.exports = {
+  css: () => {
+    // css 在 vue-cli 中是直接配置对象，但在本框架需要使用函数来 return 具体对象，这样我们只有在本地打包阶段才会去 require 要用到的依赖。在生产环境服务启动的时候不会 require
+    const pxtoviewport = require('postcss-px-to-viewport')
+    return {
+      loaderOptions: {
+        postcss: {
+          plugins: [
+            pxtoviewport({
+              viewportWidth: 375
+            })
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+##### 如何修改默认的 Webpack 配置
+
+由于我们的应用需要服务端渲染所以我们的 Webpack 配置比起纯 SPA 应用要复杂一些。我们的 Webpack 分为三个配置文件分别是
+
+- chainBaseConfig 用来定义服务端客户端公用的 Webpack 配置，例如一些 babel 配置，`js|ts|vue|css|less` 这些文件的 loader 处理应该在 baseConfig 定义无需做具体的端侧区分
+- chainClientConfig 客户端 bundle 打包时需要额外处理的部分，例如生产环境打包的 terser 压缩、chunks 分块、manifest，hash生成等逻辑
+- chainServerConfig 服务端 bundle 打包时需要额外处理的部分，例如 externals 配置哪些类型的文件需要 Webpack 处理，我们额外提供了 whiteList 选项来设置
+
+开发者可根据实际需求决定修改哪块配置。  
+注意绝大部分情况下你不需要去修改默认的配置。我们默认的配置是基于 `create-react-app` 生成的配置上做了一些优化。已经极力做到最优。  
+如果确定需要修改默认配置，应该先看看配置有无提供额外选项直接设置，而不是通过 WebpackChain 工具去重新设置规则。这样极易导致错误。我们后续可能会兼容一些 [vue-cli](https://cli.vuejs.org/zh/config/#css-loaderoptions) 支持的配置，但不是全部。我们并不打算做成大而全的工具这样只会变成大黑盒。配置越多只会增加错误出现的可能性。参考 vue-cli 工具 400多个文件，3w 行源码 580个待解决 issue。  
+想要更加直观了解我们支持哪些配置可以直接看我们的[类型定义文件](https://github.com/ykfe/ssr/blob/dev/packages/types/src/config.ts)
 
 #### 如何解决服务端访问不可访问的对象的问题
 
