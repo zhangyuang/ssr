@@ -885,6 +885,7 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
   customeHeadScript?: Array<{ // 用于通过配置插入自定义的 script 为了避免影响期望功能这块内容不做 escape，为了避免 xss 需要保证插入脚本代码的安全性 
     describe: object // 参考 vue createElement https://cn.vuejs.org/v2/guide/render-function.html#createElement-%E5%8F%82%E6%95%B0
     content: string // 需要插入的 script 脚本内容
+    // 我们不单独提供底部的 script，因为所需要实现的功能都能够在 App.vue 中实现
   }>
   css?: () => {
     // 额外的 postcss 插件配置，需要用函数 return 的形式
