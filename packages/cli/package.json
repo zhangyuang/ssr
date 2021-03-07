@@ -37,6 +37,9 @@
     "ssr-types": "^5.3.7",
     "yargs": "^13.2.4"
   },
+  "engines": {
+    "node": ">=12 <15"
+  },
   "devDependencies": {
     "@types/yargs": "^13.0.0",
     "concurrently": "^5.1.0"
