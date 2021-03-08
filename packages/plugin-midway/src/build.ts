@@ -11,7 +11,6 @@ const build = (argv: Argv) => {
     }
     console.log(stdout)
     // 透传参数给 midway-bin
-    argv._[0] = 'build'
     argv.c = true
     await cliFun(argv)
   })
