@@ -29,14 +29,12 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "devDependencies": {
-    "@types/js-yaml": "^3.12.3",
     "@types/shelljs": "^0.8.7",
     "concurrently": "^5.1.0"
   },
   "dependencies": {
     "debug": "^4.1.1",
     "http-proxy-middleware": "^1.0.6",
-    "js-yaml": "^3.13.1",
     "koa2-connect": "^1.0.2",
     "path-to-regexp": "^1.7.0",
     "readable-stream": "^3.6.0",

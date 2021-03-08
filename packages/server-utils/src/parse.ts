@@ -1,44 +1,15 @@
 import * as fs from 'fs'
 import { resolve, join } from 'path'
-import * as Yaml from 'js-yaml'
 import * as Shell from 'shelljs'
-import { Yml, FaasRouteItem, ParseFeRouteItem } from 'ssr-types'
+import { ParseFeRouteItem } from 'ssr-types'
 import { promisifyFsReadDir } from './promisify'
 import { getCwd, getPagesDir, getFeDir, loadPlugin } from './cwd'
 import { loadConfig } from './loadConfig'
 
 const debug = require('debug')('ssr:parse')
-const { cloudIDE, dynamic, prefix } = loadConfig()
+const { dynamic, prefix } = loadConfig()
 const pageDir = getPagesDir()
 const cwd = getCwd()
-
-const parseYml = (path: string): Yml => {
-  const cwd = getCwd()
-  const yamlPath = resolve(cwd, path)
-  const yamlContent = fs.readFileSync(yamlPath, 'utf-8').toString()
-  // tslint:disable-next-line
-  const result = Yaml.safeLoad(yamlContent) as Yml
-  return result
-}
-
-const parseRoutesFromYml = (yamlContent: Yml) => {
-  const routes: FaasRouteItem[] = []
-
-  for (const funcName in yamlContent.functions) {
-    const func = yamlContent.functions[funcName]
-    func.render && func.events.forEach(event => {
-      const http = cloudIDE ? event.apigw : event.http
-      if (http) {
-        routes.push({
-          path: http.path,
-          ...func.render,
-          funcName
-        })
-      }
-    })
-  }
-  return routes
-}
 
 const hasDeclaretiveRoutes = () => {
   return fs.existsSync(join(getFeDir(), './route.js'))
@@ -177,8 +148,6 @@ const checkDependencies = () => {
   }
 }
 export {
-  parseYml,
-  parseRoutesFromYml,
   parseFeRoutes,
   checkDependencies
 }
