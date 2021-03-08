@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.4.0](https://github.com/ykfe/ssr/compare/v5.3.8...v5.4.0) (2021-03-08)
+
+
+### Features
+
+* 集成serverless 2.0 ([#24](https://github.com/ykfe/ssr/issues/24)) ([2c77e9c](https://github.com/ykfe/ssr/commit/2c77e9c716544277830bf1fa69763af77a1240d7))
+
+
+
+
+
 ## [5.3.8](https://github.com/ykfe/ssr/compare/v5.3.7...v5.3.8) (2021-03-05)
 
 **Note:** Version bump only for package ssr-plugin-midway
