@@ -1,0 +1,17 @@
+service:
+  name: serverless-ssr
+provider:
+  name: aliyun
+
+aggregation: # 聚合成一个函数发布
+  ssr:
+    deployOrigin: false
+    functionsPattern:
+      - '*'
+
+package:
+  include:
+    - build
+  exclude:
+    - package-lock.json
+  artifact: code.zip
