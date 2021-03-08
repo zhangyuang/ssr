@@ -763,7 +763,7 @@ import { IContext } from 'ssr-types'
 const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT)
 ```
 
-通过 `dispatch action` 来触发全局 `context` 的更新，并通知到所有的组件。  
+通过 `dispatch action` 来触发全局 `context` 的更新，并通知到所有的组件。在本地开发环境下我们会在控制台中输出每个修改 context 的 action 的详细信息。  
 `注: dispatch 是异步的只能够在客户端渲染的阶段使用，服务端使用无效。context 更新会导致所有组件重新 render，我们需要使用 React.useMemo 来避免不必要的重新计算，且建议根据不同的模块使用不同的 namespace 防止数据覆盖`
 
 ```js
@@ -801,14 +801,14 @@ export default Search
 
 关于更多 hooks 使用的最佳实践可以参考该[文章](https://zhuanlan.zhihu.com/p/81752821)
 
-综上本方案的优点以及不足如下  
+我们只有一个最顶层的 store，以及一个 reducer 来修改这个 store。综上本方案的优点以及不足如下  
 
 优势:
-- 无需再编写繁琐的 store
+- 无需再编写繁琐的 store，也不需要拆分多个 provider
 - 共享全局状态以及修改全局状态非常简单自然
 
 不足
-- 在大型应用状态复杂的情况下，比较难以追踪数据流向 (状态复杂的情况下就算使用 Redux 之类的数据管理方案仍然很难追踪数据)
+- 在大型应用状态复杂的情况下，比较难以管理
 - 需要配合 useMemo 一起使用，否则容易导致性能问题 (只要是使用了 useContext 都会遇到该问题)
 
 #### 使用声明式路由
