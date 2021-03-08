@@ -92,7 +92,7 @@
 | 支持无缝接入 [antd](https://github.com/ant-design/ant-design) [vant](https://vant-contrib.gitee.io/vant/#/) 无需修改任何配置                             | 🚀   |
 | 支持使用 less 作为 css 预处理器                                                | 🚀   |
 | 实现 React/Vue SSR 场景下的[优秀代码分割方案](https://zhuanlan.zhihu.com/p/343743374) 首屏性能做到极致                  |    🚀  |
-| React 场景下使用 useContext + useReducer 实现极简的[跨组件通信](#React跨组件通信)方案，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
+| React 场景下使用 useContext + useReducer 实现极简的[数据管理](#React跨组件通信)方案，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
 | 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
 | ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
 | ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                                  |    |
@@ -740,12 +740,11 @@ const Layout = (props: LayoutProps) => {
 
 ```
 
-#### React 跨组件通信
+#### React跨组件通信
 
-随着 hooks 的流行以及 [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext) 这个 API 的推出,越来越多的开发者希望用它来代替 Redux, Mobx 这些方案来实现数据管理，因为之前的数据管理方案写起来实在是太累了。  
-先说结论：useContext + useReducer 不能完全代替 Redux 的功能。严格来说，它只实现了跨组件通信，而不是完整的数据管理功能。但是我认为绝大部分的应用是不需要功能如此 “丰富” 的数据管理功能的，它们需要的仅仅是跨组件通信功能。本框架没有使用任何基于 hooks 新造的第三方轮子来做数据通信，仅使用 React 提供的最原始的 API 来实现跨组件通信。  
-此功能在中小型应用的开发过程中完全够用，如果你仍然需要使用类似 Mobx, Redux-toolkit 之类的方案来进行数据管理，请扫码进群与我们联系，我们在之后的开发过程中会根据实际需求或许会提供此类解决方案。
-
+随着 hooks 的流行以及 [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext) 这个 API 的推出, 越来越多的开发者希望用它来代替 Dva, Redux-Toolkit 这些方案来实现数据管理，因为之前的数据管理方案写起来实在是太累了。  
+先说结论：useContext + useReducer 不能完全代替 Dva 的功能。严格来说，它只实现了组件共享 store，以及触发 action 修改 store 的能力，对于异步操作的顺序性则需要开发者自行控制。本框架没有使用任何基于 hooks 新造的第三方轮子来做数据通信，仅使用 React 提供的最原始的 API 来实现跨组件通信。如果你只是想进行跨组件通信，以及数据的自动订阅能力，你完全不需要 Redux。    
+此功能在中小型应用的开发过程中完全够用，大型应用可能需要考虑拆分成多个 Context.Provider 的组织形式。后续我们会继续跟进最佳实践  
 
 通过使用 `useContext` 来获取全局的 `context`, `useContext` 返回两个值分别为
 
