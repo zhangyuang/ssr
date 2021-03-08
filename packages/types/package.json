@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
+    "egg": "^2.0.0",
     "@midwayjs/faas-typings": "^2.7.0",
     "@types/express": "^4.17.11",
     "@types/http-proxy-middleware": "^0.19.3",

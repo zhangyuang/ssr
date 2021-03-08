@@ -1,6 +1,7 @@
 import * as Koa from 'koa'
 import * as Express from 'express'
 import { FaaSHTTPContext } from '@midwayjs/faas-typings'
+import { Context } from 'egg'
 import { Action } from './component'
 
 interface ExpressContext {
@@ -8,7 +9,7 @@ interface ExpressContext {
   response: Express.Response
 }
 
-export type ISSRContext<T={}> = (Koa.Context|ExpressContext|FaaSHTTPContext) & T
+export type ISSRContext<T={}> = (Koa.Context|ExpressContext|FaaSHTTPContext|Context) & T
 
 export interface Options {
   mode?: string

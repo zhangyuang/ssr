@@ -168,9 +168,8 @@ v12.16.1
 
 我们提供了 [create-ssr-app](https://github.com/zhangyuang/create-ssr-app) 脚手架，可迅速创建不同类型的 example。如无特殊需求，我们推荐创建 Serverless 类型的应用，可享受一站式的应用开发，部署能力。
 
-注: 在最新的版本中，我们集成了 midway-serverless 2.0 的强大特性，使得开发者可以任意在传统 Node.js 应用与 Serverless 应用中切换。  
-开发者可以调用 `npm run prod` 以传统 Node.js 应用的形式部署，也可以调用 `ssr deploy` 一键发布到云平台。
-为了兼容老的创建应用的 template，我们在创建命令中仍然将 serverless 与 midway 分为不同的命令，但实际上它们创建的是同一个 example。该 example 同时具有以传统 Node.js 应用部署的能力以及以 Serverless 应用部署的能力。
+在最新的版本中，我们集成了 midway-serverless 2.0 的强大特性，使得开发者可以任意在传统 Node.js 应用与 Serverless 应用中切换。详情见该 [PR](https://github.com/ykfe/ssr/pull/24)   
+开发者可以调用 `npm run prod` 以传统 Node.js 应用的形式部署，也可以调用 `ssr deploy` 一键发布到云平台。 
 
 ```bash
 $ npm init ssr-app my-ssr-project --template=midway-react-ssr # 创建 React SSR 应用，同时支持 Serverless 形式一键发布或以传统 Node.js 应用的形式部署
@@ -195,11 +194,21 @@ $ GENERATE_ANALYSIS=true npm run build # 可视化生成构建产物
 
 ### 发布上云
 
+如果你使用的框架是 midway, 那么你可以瞬间将应用发布到各种云平台。  
 发布命令, 我们针对 Serverless 场景的代码包做了优化，生产环境仅依赖一个 core 模块即可运行应用，将发布速度做到极致。
 
 ```bash
 $ npm run deploy # 支持发布多个平台默认发布到阿里云 等价于 ssr deploy
 $ npm run deploy:tencent # 发布到腾讯云 等价于 ssr deploy --tencent
+```
+
+### 以传统 Node.js 应用形式发布
+
+如果你不想使用 Serverless 的能力，需要在自建服务环境上部署。我们同样提供了脚本可以让你以传统 Node.js 应用形式部署。
+
+```bash
+$ npm run prod # 生产环境多进程模式运行
+$ npm run stop # 生产环境停止服务
 ```
 
 ### 本地调试
@@ -320,25 +329,6 @@ provider:
 
 本框架可结合阿里云开发平台，使用 CloudIDE 全程上云开发 Serverless SSR 应用使用方式可参考该[教程](https://zhuanlan.zhihu.com/p/139210473)。
 
-### 结合 Midway.js
-
-为了 cover 到所有的场景，我们也支持以 [Midway.js](https://midwayjs.org/) 作为 Node.js 框架以传统 Node.js 的服务进行部署。使用方式与 Serverless 场景类似。
-可参考 midway 文档得到更详细的描述
-
-```bash
-$ npm init ssr-app my-ssr-project --template=midway-react-ssr # 创建 React SSR 应用，基于 Midway Node.js 框架提供的能力以传统 Node.js 应用的形式部署
-```
-
-通过上述命令创建基于 Midway 的 React SSR 应用后
-
-```bash
-$ npm i
-$ npm start # 本地开发启动服务
-$ open http://localhost:3000 # 访问应用
-$ npm run build # 本地资源构建
-$ npm run prod # 通过 egg-scripts 生产环境多进程模式运行, 默认以 daemon 模式在后台运行
-$ npm run stop # 生产环境停止服务
-```
 ## 开发规范
 
 `注：本规范适用于绝大多数的业务场景，我们已经尽力将默认的规范和配置做到最优如无特殊需求请不要额外定制`
@@ -347,11 +337,11 @@ $ npm run stop # 生产环境停止服务
 
 本框架的插件机制不像 Webpack 插件粒度那么细。一般的 Webpack 项目我们可能需要组合十几个插件或者更多来实现功能。其插件的原理是通过钩子来修改构建过程中的代码内容。  
 本框架的插件机制更像是 Vite 的插件，其包含了一个场景下的代码解决方案。优势是你只需要两个插件即可实现不同场景的代码方案的组合。但是功能点并不会拆分的那么细。  
-我们目前提供了如下插件, 参考现有插件来开发一个新的插件是非常容易的事情。你可以根据自己的应用类型来自行开发对应的插件，例如 plugin-nest、plugin-egg, plugin-koa 等
+我们目前提供了如下插件, 参考现有插件来开发一个新的插件是非常容易的事情。你可以根据自己的应用类型来自行开发对应的插件，例如 plugin-daruk, plugin-egg, plugin-koa 等
 
 服务端框架插件
 
-- plugin-midway 基于 [midway-serverless@2.0](https://midwayjs.org/)
+- plugin-midway 基于 [MidwayServerless@2.0](https://midwayjs.org/)
 - plugin-nestjs 基于 [Nestjs](https://docs.nestjs.com/)
 
 前端框架插件
@@ -489,10 +479,6 @@ deployType: egg   # 发布类型
 
 http://ssr-fc.com/ -> ssr 函数 -> 渲染 index 组件  
 http://ssr-fc.com/detail/* -> ssr 函数 -> 渲染 detail 组件
-### 应用原理解析
-
-点击[此处](./images/ykfe-ssr.png)查看高清大图
-![](./images/ykfe-ssr.png)
 
 ### FAQ
 
