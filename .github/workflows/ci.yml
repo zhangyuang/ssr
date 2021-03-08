@@ -44,8 +44,6 @@ jobs:
           node scripts/scripts.js --publishDoc
           cd example/midway-react-ssr && yarn
           cd ../midway-vue-ssr && yarn 
-          cd ../serverless-react-ssr && yarn 
-          cd ../serverless-vue-ssr && yarn
           cd ../nestjs-react-ssr && yarn
           cd ../nestjs-vue-ssr && yarn
       - name: Upload artifact
@@ -77,80 +75,6 @@ jobs:
           key: ${{ runner.os }}-v2.3-build-${{ hashFiles('**/yarn.lock') }}
       - run: yarn run lint
 
-  e2e-chrome-serverless-react:
-    needs: bootstrap
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest]
-        node: ["13"]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-v2.3-build-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link
-      - uses: cypress-io/github-action@v2
-        with:
-          start: yarn run example:serverless:react
-          wait-on: 'http://localhost:3000'
-          spec: | 
-            cypress/integration/examples/common-ssr.spec.js  
-            cypress/integration/examples/react-ssr.spec.js
-          browser: chrome
-  e2e-firefox-serverless-react:
-    needs: bootstrap
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest]
-        node: ["13"]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-v2.3-build-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link
-      - uses: cypress-io/github-action@v2
-        with:
-          start: yarn run example:serverless:react
-          wait-on: 'http://localhost:3000'
-          spec: | 
-            cypress/integration/examples/common-ssr.spec.js  
-            cypress/integration/examples/react-ssr.spec.js
-          browser: firefox
   e2e-chrome-midway-react:
     needs: bootstrap
     runs-on: ubuntu-latest
@@ -225,43 +149,7 @@ jobs:
             cypress/integration/examples/common-ssr.spec.js  
             cypress/integration/examples/react-ssr.spec.js
           browser: firefox
-  e2e-chrome-serverless-vue:
-    needs: bootstrap
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest]
-        node: ["13"]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-v2.3-build-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link
-      - uses: cypress-io/github-action@v2
-        with:
-          start: yarn run example:serverless:vue
-          wait-on: 'http://localhost:3000'
-          spec: |
-            cypress/integration/examples/common-ssr.spec.js  
-            cypress/integration/examples/vue-ssr.spec.js
-          browser: chrome
+
   e2e-chrome-midway-vue:
     needs: bootstrap
     runs-on: ubuntu-latest
@@ -379,11 +267,8 @@ jobs:
     runs-on: ubuntu-latest
     needs:  
       - lint
-      - e2e-firefox-serverless-react
-      - e2e-chrome-serverless-react
       - e2e-firefox-midway-react
       - e2e-chrome-midway-react
-      - e2e-chrome-serverless-vue
       - e2e-chrome-midway-vue
       - e2e-firefox-nestjs-react
       - e2e-chrome-nestjs-vue
