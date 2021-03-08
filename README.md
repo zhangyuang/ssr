@@ -389,7 +389,7 @@ module.exports = {
 - 样式处理: less + css modules
 - UI 组件: 默认已对 antd 的使用做打包配置无需额外配置
 - 前端路由: 约定式路由/声明式路由
-- 数据管理: 使用 React Hooks 提供的 useContext + useReducer 实现极简的[数据管理方案](#React跨组件通信), 摒弃传统的 redux/dva 等数据管理方案
+- 数据管理: 使用 React Hooks 提供的 useContext + useReducer 实现极简的[跨组件通信方案](#React跨组件通信), 摒弃传统的 redux/dva 等数据管理方案
 
 #### Vue
 
@@ -740,12 +740,17 @@ const Layout = (props: LayoutProps) => {
 
 ```
 
-#### React跨组件通信
+#### React 跨组件通信
+
+随着 hooks 的流行以及 [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext) 这个 API 的推出,越来越多的开发者希望用它来代替 Redux, Mobx 这些方案来实现数据管理，因为之前的数据管理方案写起来实在是太累了。  
+先说结论：useContext + useReducer 不能完全代替 Redux 的功能。严格来说，它只实现了跨组件通信，而不是完整的数据管理功能。但是我认为绝大部分的应用是不需要功能如此 “丰富” 的数据管理功能的，它们需要的仅仅是跨组件通信功能。本框架没有使用任何基于 hooks 新造的第三方轮子来做数据通信，仅使用 React 提供的最原始的 API 来实现跨组件通信。  
+此功能在中小型应用的开发过程中完全够用，如果你仍然需要使用类似 Mobx, Redux-toolkit 之类的方案来进行数据管理，请扫码进群与我们联系，我们在之后的开发过程中会根据实际需求或许会提供此类解决方案。
+
 
 通过使用 `useContext` 来获取全局的 `context`, `useContext` 返回两个值分别为
 
 - state: 全局的状态，可在不同的组件/页面之间共享
-- dispatch: 通过 `disptach` 来触发类型为 `updateContext` 的 `action` 来更新全局的 `context`
+- dispatch: 通过 `disptach` 来触发类型为 `updateContext` 的 `action` 来更新最顶层的 `context`
 
 `注: hooks 只能够在函数组件内部使用`
 
@@ -753,11 +758,13 @@ const Layout = (props: LayoutProps) => {
 import { useContext } from 'react'
 import { IContext } from 'ssr-types'
 
-const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT) // 通过 IData 指定业务自己的 data interface
+// 通过 IData 指定模块自己的 data interface
+
+const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT)
 ```
 
 通过 `dispatch action` 来触发全局 `context` 的更新，并通知到所有的组件。  
-`注: dispatch 是异步的只能够在客户端渲染的阶段使用，服务端使用无效。context 更新会导致所有组件重新 render 可根据实际情况使用 React.useMemo 来避免不必要的重新计算，且建议根据不同的模块使用不同的 namespace 防止数据覆盖`
+`注: dispatch 是异步的只能够在客户端渲染的阶段使用，服务端使用无效。context 更新会导致所有组件重新 render，我们需要使用 React.useMemo 来避免不必要的重新计算，且建议根据不同的模块使用不同的 namespace 防止数据覆盖`
 
 ```js
 import React, { useContext } from 'react'
@@ -790,9 +797,19 @@ export default Search
 
 ```
 
-`注: 我们只推荐在跨组件通信时使用 dispatch，局部状态不推荐使用，会导致函数内部状态过于复杂，难以阅读。`
+`注: 以上只为示例，实际开发中我们只推荐在跨组件通信时使用 dispatch，局部状态应该使用 useState 来实现，否则会导致函数内部状态过于复杂，难以追踪。`
 
 关于更多 hooks 使用的最佳实践可以参考该[文章](https://zhuanlan.zhihu.com/p/81752821)
+
+综上本方案的优点以及不足如下  
+
+优势:
+- 无需再编写繁琐的 store
+- 共享全局状态以及修改全局状态非常简单自然
+
+不足
+- 在大型应用状态复杂的情况下，比较难以追踪数据流向 (状态复杂的情况下就算使用 Redux 之类的数据管理方案仍然很难追踪数据)
+- 需要配合 useMemo 一起使用，否则容易导致性能问题 (只要是使用了 useContext 都会遇到该问题)
 
 #### 使用声明式路由
 
