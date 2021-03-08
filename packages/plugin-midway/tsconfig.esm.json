@@ -4,6 +4,7 @@
     "outDir": "./esm"
   },
   "include": [
-    "src/*.ts"
+    "src",
+    "src/f.yml"
   ]
 }

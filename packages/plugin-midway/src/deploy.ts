@@ -1,17 +1,20 @@
-
+import { promises as fs } from 'fs'
+import { join } from 'path'
 import { CommandHookCore, loadSpec } from '@midwayjs/fcli-command-core'
 import { PackagePlugin } from '@midwayjs/fcli-plugin-package'
 import { DeployPlugin } from '@midwayjs/fcli-plugin-deploy'
 import { AliyunFCPlugin } from '@midwayjs/fcli-plugin-fc'
 import { TencentSCFPlugin } from '@midwayjs/fcli-plugin-scf'
-import { getCwd, isFaaS, logRed } from 'ssr-server-utils'
+import { getCwd, isFaaS } from 'ssr-server-utils'
 import { Argv } from 'ssr-types'
+
+const cwd = getCwd()
 
 const deploy = async (argv: Argv) => {
   if (!isFaaS()) {
-    logRed('缺少 f.yml 文件 deploy 功能只支持 FaaS 场景下发布')
-    logRed('我们提供传统 Node.js 框架，如 express koa egg midway 快速迁移至 Serverless 发布能力。详细做法请参考 https://www.yuque.com/midwayjs/faas/migrate_egg 或扫码进群了解')
-    return
+    console.log('检测到当前为首次发布，根目录下缺少 f.yml 文件，自动创建默认 yml 文件模版')
+    const ymlContent = await fs.readFile(join(cwd, './node_modules/ssr-plugin-midway/src/f.yml'))
+    await fs.writeFile(join(cwd, './f.yml'), ymlContent)
   }
   try {
     if (argv.tencent) {
@@ -25,7 +28,6 @@ const deploy = async (argv: Argv) => {
 }
 
 const deployTencent = async () => {
-  const cwd = getCwd()
   const core: any = new CommandHookCore({
     config: {
       servicePath: cwd
@@ -43,7 +45,6 @@ const deployTencent = async () => {
 }
 
 const deployAliyun = async () => {
-  const cwd = getCwd()
   const core: any = new CommandHookCore({
     config: {
       servicePath: cwd

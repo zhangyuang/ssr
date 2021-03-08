@@ -168,11 +168,13 @@ v12.16.1
 
 我们提供了 [create-ssr-app](https://github.com/zhangyuang/create-ssr-app) 脚手架，可迅速创建不同类型的 example。如无特殊需求，我们推荐创建 Serverless 类型的应用，可享受一站式的应用开发，部署能力。
 
+注: 在最新的版本中，我们集成了 midway-serverless 2.0 的强大特性，使得开发者可以任意在传统 Node.js 应用与 Serverless 应用中切换。  
+开发者可以调用 `npm run prod` 以传统 Node.js 应用的形式部署，也可以调用 `ssr deploy` 一键发布到云平台。
+为了兼容老的创建应用的 template，我们在创建命令中仍然将 serverless 与 midway 分为不同的命令，但实际上它们创建的是同一个 example。该 example 同时具有以传统 Node.js 应用部署的能力以及以 Serverless 应用部署的能力。
+
 ```bash
-$ npm init ssr-app my-ssr-project --template=serverless-react-ssr # 创建 React SSR 应用，可通过 Serverless 服务一键发布应用上云
-$ npm init ssr-app my-ssr-project --template=serverless-vue-ssr # 创建 Vue SSR 应用，可通过 Serverless 服务一键发布应用上云
-$ npm init ssr-app my-ssr-project --template=midway-react-ssr # 创建 React SSR 应用，基于 Midway Node.js 框架提供的能力以传统 Node.js 应用的形式部署
-$ npm init ssr-app my-ssr-project --template=midway-vue-ssr # 创建 Vue SSR 应用，基于 Midway Node.js 框架提供的能力以传统 Node.js 应用的形式部署
+$ npm init ssr-app my-ssr-project --template=midway-react-ssr # 创建 React SSR 应用，同时支持 Serverless 形式一键发布或以传统 Node.js 应用的形式部署
+$ npm init ssr-app my-ssr-project --template=midway-vue-ssr # 创建 Vue SSR 应用，同时支持 Serverless 形式一键发布或以传统 Node.js 应用的形式部署
 $ npm init ssr-app my-ssr-project --template=nestjs-react-ssr # 创建 React SSR 应用，基于 Nestjs Node.js 框架提供的能力以传统 Node.js 应用的形式部署
 $ npm init ssr-app my-ssr-project --template=nestjs-vue-ssr # 创建 Vue SSR 应用，基于 Nestjs Node.js 框架提供的能力以传统 Node.js 应用的形式部署
 ```
@@ -215,7 +217,6 @@ $ DEBUG=ssr:* npm start # 打印所有的 ssr 模块提供的 debug 信息
 | [ssr]          | [![ssr-status]][ssr] | cli for ssr framework |
 | [ssr-core-vue]          | [![ssr-core-vue-status]][ssr-core-vue] | core render for vue |
 | [ssr-core-react]          | [![ssr-core-react-status]][ssr-core-react] | core render for react |
-| [ssr-plugin-faas]          | [![ssr-plugin-faas-status]][ssr-plugin-faas] | provide start deploy feature by [midway-faas](https://www.yuque.com/midwayjs/faas)|
 | [ssr-plugin-midway]          | [![ssr-plugin-midway-status]][ssr-plugin-midway] | provide start and build fetature by [midway@2.0](https://midwayjs.org/) |
 | [ssr-plugin-nestjs]          | [![ssr-plugin-nestjs-status]][ssr-plugin-nestjs] | provide start and build feature by [Nestjs](https://docs.nestjs.com/) |
 | [ssr-plugin-react]          | [![ssr-plugin-react-status]][ssr-plugin-react] | develop react application only be used in development |
@@ -232,7 +233,6 @@ $ DEBUG=ssr:* npm start # 打印所有的 ssr 模块提供的 debug 信息
 [ssr-core-react-status]: https://img.shields.io/npm/v/ssr-core-react.svg
 [ssr-core-vue-status]: https://img.shields.io/npm/v/ssr-core-vue.svg
 [ssr-hoc-react-status]: https://img.shields.io/npm/v/ssr-hoc-react.svg
-[ssr-plugin-faas-status]: https://img.shields.io/npm/v/ssr-plugin-faas.svg
 [ssr-plugin-midway-status]: https://img.shields.io/npm/v/ssr-plugin-midway.svg
 [ssr-plugin-nestjs-status]: https://img.shields.io/npm/v/ssr-plugin-nestjs.svg
 [ssr-plugin-react-status]: https://img.shields.io/npm/v/ssr-plugin-react.svg
@@ -246,7 +246,6 @@ $ DEBUG=ssr:* npm start # 打印所有的 ssr 模块提供的 debug 信息
 [ssr-core-react]: https://github.com/ykfe/ssr/tree/dev/packages/core-react
 [ssr-core-vue]: https://github.com/ykfe/ssr/tree/dev/packages/core-vue
 [ssr-hoc-react]: https://github.com/ykfe/ssr/tree/dev/packages/hoc-react
-[ssr-plugin-faas]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-faas
 [ssr-plugin-midway]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-midway
 [ssr-plugin-nestjs]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-nestjs
 [ssr-plugin-react]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-react
@@ -352,8 +351,7 @@ $ npm run stop # 生产环境停止服务
 
 服务端框架插件
 
-- plugin-faas 基于 [midway-faas](https://www.yuque.com/midwayjs/faas)
-- plugin-midway 基于 [midway@2.0](https://midwayjs.org/)
+- plugin-midway 基于 [midway-serverless@2.0](https://midwayjs.org/)
 - plugin-nestjs 基于 [Nestjs](https://docs.nestjs.com/)
 
 前端框架插件
@@ -366,12 +364,12 @@ $ npm run stop # 生产环境停止服务
 ```js
 // plugin.js
 
-const { faasPlugin } = require('ssr-plugin-faas')
-const { reactPlugin } = require('ssr-plugin-react')
+const { midwayPlugin } = require('ssr-plugin-midway')
+const { vuePlugin } = require('ssr-plugin-vue')
 
 module.exports = {
-  serverPlugin: faasPlugin(),
-  clientPlugin: reactPlugin()
+  serverPlugin: midwayPlugin(),
+  clientPlugin: vuePlugin()
 }
 
 ```
@@ -431,7 +429,7 @@ module.exports = {
 │   ├── client
 │   └── server
 ├── config.js # 定义应用的配置
-├── f.yml # 可选，Serverless 场景下需要创建
+├── f.yml # 可选，若调用 ssr deploy 检测到无此文件会自动创建
 ├── package.json
 ├── src # 存放服务端 Node.js 相关代码
 │   └── index.ts
@@ -466,49 +464,25 @@ module.exports = {
 更加详细的字段描述可以参考 midway-faas 的[使用文档](https://www.yuque.com/midwayjs/faas)
 
 ```yml
-service:
-  name: serverless-ssr-spa
+service: serverless-ssr
+
 provider:
   name: aliyun
-functions: # 函数列表
-  index:
-    handler: index.handler
-    events: # 页面渲染服务
-      - http:
-          path: /
-          method: get
-      - http:
-          path: /detail/*
-          method: get
-  api-index: # api 数据接口服务
-    handler: api.handler
-    events:
-      - http:
-          path: /api/index
-          method: get
-  api-detail:
-    handler: api.detail.handler
-    events:
-      - http:
-          path: /api/detail/*
-          method: get
-  render: # 静态资源目录
-      handler: render.handler
-      events:
-        - http:
-            path: /client/*
-            method: get
 
-aggregation: # 将上述 functions 聚合成一个 ssr 函数发布
+package:
+  include:
+    - build
+  exclude:
+    - package-lock.json
+  artifact: code.zip
+
+aggregation: # 聚合成一个函数发布
   ssr:
     deployOrigin: false
     functionsPattern:
       - '*'
 
-package:
-  include:
-    - build
-  artifact: code.zip
+deployType: egg   # 发布类型   
 
 ```
 ##### 展示形式
@@ -530,17 +504,18 @@ http://ssr-fc.com/detail/* -> ssr 函数 -> 渲染 detail 组件
 
 ```bash
 $ npm i ssr-core-react # 或者是 ssr-core-vue 根据实际需要选择
-$ npm i ssr-plugin-faas ssr-plugin-react --save-dev # 根据实际技术栈安装对应依赖
+$ npm i ssr-plugin-react --save-dev # 根据实际技术栈安装对应依赖
 ```
 
 ```js
 // 创建 plugin.js 根据实际技术栈写入以下内容
 
-const { faasPlugin } = require('ssr-plugin-faas')
-const { reactPlugin } = require('ssr-plugin-react')
+const { midwayPlugin } = require('ssr-plugin-midway')
+const { vuePlugin } = require('ssr-plugin-vue')
+
 module.exports = {
-  serverPlugin: faasPlugin(),
-  clientPlugin: reactPlugin()
+  serverPlugin: midwayPlugin(),
+  clientPlugin: vuePlugin()
 }
 
 ```
@@ -880,7 +855,6 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
   isDev: boolean; // 当前运行环境，默认为 process.env.NODE_ENV
   publicPath: string; // webpack-dev-server 的publishPath，默认为 /
   useHash: boolean; // 生成文件是否带有 hash，默认本地运行关闭，生产环境构建时开启
-  serverPort: number; // 本地开发启动的 FaaS 服务的端口，默认为3000
   fePort: number; // 前端静态资源本地开发时的监听端口，默认为 8000, FaaS Server 会自动 proxy,无特殊需求不需要修改
   chunkName: string; // 生成的 bundle 的 chunkName，默认为Page,无特殊需求不要修改
   webpackDevServerConfig: webpackDevServer.Configuration; // webpack-dev-server 启动配置
