@@ -1,0 +1,42 @@
+{
+  "name": "ssr-core-vue",
+  "version": "5.3.2",
+  "description": "core for serverless ssr",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc -p ./tsconfig.esm.json --inlineSourceMap false\"",
+    "build:only": "concurrently \"tsc-transpile-only --skipLibCheck -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc-transpile-only --skipLibCheck -p ./tsconfig.esm.json --inlineSourceMap false\"",
+    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \"",
+    "watch:cjs": "tsc -w -p ./tsconfig.cjs.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ykfe/ssr.git"
+  },
+  "keywords": [
+    "cli",
+    "serverless",
+    "ssr",
+    "vue",
+    "react"
+  ],
+  "author": "zhangyuang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ykfe/ssr/issues"
+  },
+  "homepage": "https://github.com/ykfe/ssr#readme",
+  "dependencies": {
+    "@babel/runtime": "^7.12.13",
+    "merge-stream": "^2.0.0",
+    "serialize-javascript": "^3.0.0",
+    "ssr-server-utils": "^5.3.2",
+    "vue": "^3.0.7",
+    "vue-router": "^4.0.0",
+    "@vue/server-renderer": "^3.0.7",
+    "vuex": "^4.0.0",
+    "vuex-router-sync": "^5.0.0"
+  }
+}
