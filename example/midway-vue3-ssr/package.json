@@ -30,10 +30,20 @@
     "stop": "egg-scripts stop --title=midway-server-my_midway_project",
     "start": "ssr start",
     "build": "ssr build",
+    "deploy": "ssr build && ssr deploy",
+    "deploy:tencent": "ssr build && ssr deploy --tencent",
     "lint": "eslint . --ext .js,.tsx,.ts --cache",
     "lint:fix": "eslint . --ext .js,.tsx,.ts --cache --fix"
   },
   "midway-integration": {
     "tsCodeRoot": "src"
+  },
+  "midway-luckyeye": {
+    "packages": [
+      "midway_v2"
+    ]
+  },
+  "egg": {
+    "framework": "@midwayjs/web"
   }
 }

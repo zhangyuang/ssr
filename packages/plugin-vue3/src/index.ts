@@ -4,7 +4,7 @@ import { getClientWebpack, getServerWebpack } from './config'
 
 export function vuePlugin () {
   return {
-    name: 'plugin-vue',
+    name: 'plugin-vue3',
     start: async () => {
       const serverConfigChain = new WebpackChain()
       await startServerBuild(getServerWebpack(serverConfigChain))

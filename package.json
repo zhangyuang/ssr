@@ -1,7 +1,12 @@
 {
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/cli",
+    "packages/client-utils",
+    "packages/core-vue3",
+    "packages/plugin-vue3",
+    "packages/server-utils",
+    "packages/types"
   ],
   "scripts": {
     "bootstrap": "yarn && yarn run build:only && yarn run link",
