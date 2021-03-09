@@ -28,7 +28,7 @@
     "url": "https://github.com/ykfe/ssr/issues"
   },
   "engines": {
-    "node": ">=12 <15"
+    "node": ">=12"
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {

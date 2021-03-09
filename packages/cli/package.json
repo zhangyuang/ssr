@@ -38,7 +38,7 @@
     "yargs": "^13.2.4"
   },
   "engines": {
-    "node": ">=12 <15"
+    "node": ">=12"
   },
   "devDependencies": {
     "@types/yargs": "^13.0.0",

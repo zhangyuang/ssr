@@ -177,6 +177,8 @@ $ npm init ssr-app my-ssr-project --template=nestjs-react-ssr # 创建 React SSR
 $ npm init ssr-app my-ssr-project --template=nestjs-vue-ssr # 创建 Vue SSR 应用，基于 Nestjs Node.js 框架提供的能力以传统 Node.js 应用的形式部署
 ```
 
+注：当 Node.js version >=15 时，应使用 `npm init ssr-app my-ssr-project -- --template=midway-react-ssr ` 来传递参数
+
 ### 本地开发
 
 ```bash
