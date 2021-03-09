@@ -125,10 +125,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
         )
       }
     })
-    // 等到 router 将可能的异步组件和钩子函数解析完
-    router.onReady(() => {
-      resolve(app)
-    })
+    resolve(app)
   })
 }
 
