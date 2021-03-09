@@ -56,7 +56,7 @@
 <td align="center"><a href="https://syzs.qq.com/" target="_blank"><img src="images/syzs.png" width="100px;" alt="腾讯手游助手"/><br />
 <a href="https://syzs.qq.com/" target="_bvlank"><sub><b>腾讯手游助手
 </b></a></td>
-<td align="center"><a href="https://kcmall.b2bwings.com/home" target="_blank"><img src="https://res.wx.qq.com/op_res/RM2YwzcAHcqxuj5HUPJK_XIYrYmlGPaSUuFGjG_qkIKonlxkVEyn4Sy_nkUWwgpkQzOXtuImQZW50yfHbFXbDQ
+<td align="center"><a href="https://kcmall.b2bwings.com/home" target="_blank"><img src="images/nonglin.png
 " width="100px;" alt="国家现代农业科技创新中心"/><br />
 <a href="https://kcmall.b2bwings.com/home" target="_bvlank"><sub><b>国家现代农业科技创新中心
 </b></a></td>

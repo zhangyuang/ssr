@@ -1,8 +1,4 @@
-import * as fs from 'fs'
 import * as http from 'http'
-import { promisify } from 'util'
-
-const promisifyFsReadDir = promisify(fs.readdir)
 
 interface DefaultVal {
   [key: string]: string
@@ -32,6 +28,5 @@ const getPromisify = async <T = DefaultVal>(url: string): Promise<T> => {
   })
 }
 export {
-  promisifyFsReadDir,
   getPromisify
 }

@@ -1,8 +1,7 @@
-import * as fs from 'fs'
+import { promises as fs } from 'fs'
 import { resolve, join } from 'path'
 import * as Shell from 'shelljs'
 import { ParseFeRouteItem } from 'ssr-types'
-import { promisifyFsReadDir } from './promisify'
 import { getCwd, getPagesDir, getFeDir, loadPlugin } from './cwd'
 import { loadConfig } from './loadConfig'
 
@@ -11,8 +10,13 @@ const { dynamic, prefix } = loadConfig()
 const pageDir = getPagesDir()
 const cwd = getCwd()
 
-const hasDeclaretiveRoutes = () => {
-  return fs.existsSync(join(getFeDir(), './route.js'))
+const hasDeclaretiveRoutes = async () => {
+  try {
+    await fs.access(join(getFeDir(), './route.js'))
+    return true
+  } catch (error) {
+    return false
+  }
 }
 const parseFeRoutes = async () => {
   const { clientPlugin } = loadPlugin()
@@ -20,11 +24,14 @@ const parseFeRoutes = async () => {
   const defaultLayout = `@/components/layout/index.${isVue ? 'vue' : 'tsx'}`
   const defaultApp = '@/components/layout/App.vue'
 
-  if (!fs.existsSync(join(cwd, './node_modules/ssr-temporary-routes'))) {
-    Shell.mkdir(`${cwd}/node_modules/ssr-temporary-routes`)
+  try {
+    await fs.access(join(cwd, './node_modules/ssr-temporary-routes'))
+  } catch (error) {
+    Shell.mkdir(join(cwd, './node_modules/ssr-temporary-routes'))
   }
   let routes = ''
-  if (!hasDeclaretiveRoutes()) {
+
+  if (!await hasDeclaretiveRoutes()) {
     // 根据目录结构生成前端路由表
     const pathRecord = [''] // 路径记录
     const route: ParseFeRouteItem = {
@@ -72,20 +79,21 @@ const parseFeRoutes = async () => {
     }
   } else {
     // 使用了声明式路由
-    routes = fs.readFileSync(join(getFeDir(), './route.js')).toString()
+    routes = (await fs.readFile(join(getFeDir(), './route.js'))).toString()
   }
 
-  fs.writeFileSync(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
+  await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
 }
 
 const renderRoutes = async (pageDir: string, isVue: boolean, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {
   let arr: ParseFeRouteItem[] = []
-  const pagesFolders = await promisifyFsReadDir(pageDir)
+  const pagesFolders = await fs.readdir(pageDir)
   const prefixPath = pathRecord.join('/')
   const aliasPath = `@/pages${prefixPath}`
   for (const pageFiles of pagesFolders) {
     const abFolder = join(pageDir, pageFiles)
-    if (fs.statSync(abFolder).isDirectory()) {
+    const isDirectory = (await fs.stat(abFolder)).isDirectory()
+    if (isDirectory) {
       // 如果是文件夹则递归下去, 记录路径
       pathRecord.push(pageFiles)
       const childArr = await renderRoutes(abFolder, isVue, pathRecord, Object.assign({}, route))
@@ -141,13 +149,6 @@ const getDynamicParam = (url: string) => {
   return url.split('$')[1].replace(/\.[\s\S]+/, '')
 }
 
-const checkDependencies = () => {
-  const cwd = getCwd()
-  if (!fs.existsSync(join(cwd, './node_modules'))) {
-    throw new Error(`node_modules is not found in ${cwd}, please run yarn or npm install`)
-  }
-}
 export {
-  parseFeRoutes,
-  checkDependencies
+  parseFeRoutes
 }

@@ -36,7 +36,7 @@ const getDevProxyMiddlewaresArr = (options?: proxyOptions) => {
     '/asset-manifest': remoteStaticServerOptions
   }
   const proxyMiddlewaresArr: any[] = []
-
+  // @ts-expect-error
   registerProxy(proxyPathMap)
   proxy && registerProxy(proxy)
 
