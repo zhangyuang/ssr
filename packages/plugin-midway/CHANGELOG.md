@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.3](https://github.com/ykfe/ssr/compare/v5.4.2...v5.4.3) (2021-03-09)
+
+
+### Bug Fixes
+
+* f.yml add deployType ([ac2a0f4](https://github.com/ykfe/ssr/commit/ac2a0f4c5b38a231929b54964532052333868a40))
+
+
+
+
+
 ## [5.4.2](https://github.com/ykfe/ssr/compare/v5.4.1...v5.4.2) (2021-03-08)
 
 
