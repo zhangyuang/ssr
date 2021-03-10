@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.4](https://github.com/ykfe/ssr/compare/v5.4.3...v5.4.4) (2021-03-10)
+
+
+### Bug Fixes
+
+* dynamic css inject ([070b97c](https://github.com/ykfe/ssr/commit/070b97cf851f1edd5a53009de37de2dfed1c1001))
+
+
+
+
+
 ## [5.4.1](https://github.com/ykfe/ssr/compare/v5.4.0...v5.4.1) (2021-03-08)
 
 **Note:** Version bump only for package ssr-plugin-vue
