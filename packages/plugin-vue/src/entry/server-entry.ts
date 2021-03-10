@@ -59,14 +59,18 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
     router,
     store,
     render: function (h: Vue.CreateElement) {
-      const injectCss = dynamicCssOrder.map(css => (
-        h('link', {
-          attrs: {
-            rel: 'stylesheet',
-            href: `${staticPrefix}${manifest[css]}`
-          }
-        })
-      ))
+      const injectCss: Vue.VNode[] = []
+      dynamicCssOrder.forEach(css => {
+        if (manifest[css]) {
+          injectCss.push(h('link', {
+            attrs: {
+              rel: 'stylesheet',
+              href: `${staticPrefix}${manifest[css]}`
+            }
+          }))
+        }
+      })
+
       const injectScript = jsOrder.map(js => (
         h('script', {
           attrs: {
