@@ -20,8 +20,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
   }
   const manifest = await getManifest()
-  const injectCss = dynamicCssOrder.map(css => `${staticPrefix}${manifest[css]}`)
-    .map(item => <link rel='stylesheet' key={item} href={item} />)
+  const injectCss = []
+  dynamicCssOrder.forEach(css => {
+    const item = `${staticPrefix}${manifest[css]}`
+    item && injectCss.push(<link rel='stylesheet' key={item} href={item} />)
+  })
   const injectScript = jsOrder.map(js => `${staticPrefix}${manifest[js]}`)
     .map(item => <script key={item} src={item} />)
 
