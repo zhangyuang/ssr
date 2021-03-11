@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.5](https://github.com/ykfe/ssr/compare/v5.4.4...v5.4.5) (2021-03-11)
+
+
+### Bug Fixes
+
+* 优化 hoc-react wrapComponent 实现 ([fcfbe82](https://github.com/ykfe/ssr/commit/fcfbe82de30d7a28b0e2135b73ac9241467bc9dd))
+
+
+
+
+
 ## [5.4.1](https://github.com/ykfe/ssr/compare/v5.4.0...v5.4.1) (2021-03-08)
 
 **Note:** Version bump only for package ssr-hoc-react

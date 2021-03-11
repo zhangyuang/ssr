@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.5](https://github.com/ykfe/ssr/compare/v5.4.4...v5.4.5) (2021-03-11)
+
+
+### Bug Fixes
+
+* dependencies not found in pnpm ([3349844](https://github.com/ykfe/ssr/commit/3349844533a338ddc4874c880390d02b43c587b5))
+* 优化 hoc-react wrapComponent 实现 ([fcfbe82](https://github.com/ykfe/ssr/commit/fcfbe82de30d7a28b0e2135b73ac9241467bc9dd))
+
+
+### Features
+
+* 支持pnpm ([#28](https://github.com/ykfe/ssr/issues/28)) ([0e647a8](https://github.com/ykfe/ssr/commit/0e647a84d0a8edced312fc7f05384ea1cb5320cb))
+
+
+
+
+
 ## [5.4.4](https://github.com/ykfe/ssr/compare/v5.4.3...v5.4.4) (2021-03-10)
 
 
