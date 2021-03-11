@@ -1,11 +1,11 @@
 import * as React from 'react'
 import { useContext, useEffect } from 'react'
-import { withRouter } from 'react-router-dom'
-import { FC } from 'ssr-types'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { FC, Action } from 'ssr-types'
 
 let routerChanged = false
 
-const fetch = async (WrappedComponent: FC, dispatch: any, props: any) => {
+const fetch = async (WrappedComponent: FC, dispatch: React.Dispatch<Action>, props: RouteComponentProps) => {
   const asyncData = WrappedComponent.fetch ? await WrappedComponent.fetch(props) : {}
   await dispatch({
     type: 'updateContext',
