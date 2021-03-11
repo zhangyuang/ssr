@@ -3,44 +3,36 @@ import { useContext, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { FC } from 'ssr-types'
 
-let _fetch: any = null
 let routerChanged = false
 
-const popStateFn = () => {
-  // historyPop的时候需要调用fetch
-  routerChanged = true
-  // 使用popStateFn保存函数防止addEventListener重复注册,排除hashchange的情况
-  if (!location.hash && _fetch) {
-    _fetch()
-  }
+const fetch = async (WrappedComponent: FC, dispatch: any, props: any) => {
+  const asyncData = WrappedComponent.fetch ? await WrappedComponent.fetch(props) : {}
+  await dispatch({
+    type: 'updateContext',
+    payload: asyncData
+  })
 }
 
 function wrapComponent (WrappedComponent: FC) {
   return withRouter(props => {
-    const { state, dispatch } = useContext(window.STORE_CONTEXT)
-    if (!routerChanged) {
-      // routerChanged 为 true 代表已经进行过切换路由的操作，不需要再将 window.__INITIAL_DATA__ 作为 data dispatch
-      routerChanged = !window.__USE_SSR__ || props.history.action === 'PUSH'
-    }
-    window.addEventListener('popstate', popStateFn)
+    const { dispatch } = useContext(window.STORE_CONTEXT)
+
     useEffect(() => {
       didMount()
     }, [])
+
     const didMount = async () => {
-      if (props.history.action !== 'POP' || !window.__USE_SSR__) {
-        await fetch()
+      if (routerChanged || !window.__USE_SSR__) {
+        // ssr 情况下只有路由切换的时候才需要调用 fetch
+        // csr 情况首次访问页面也需要调用 fetch
+        await fetch(WrappedComponent, dispatch, props)
+      }
+      if (!routerChanged) {
+        // routerChanged 为 true 代表已经进行过切换路由的操作
+        routerChanged = true
       }
     }
-    const fetch = async () => {
-      // csr首次进入页面以及csr/ssr切换路由时才调用fetch
-      const asyncData = WrappedComponent.fetch ? await WrappedComponent.fetch(props) : {}
-      const data = Object.assign({}, routerChanged ? {} : state, asyncData)
-      await dispatch({
-        type: 'updateContext',
-        payload: data
-      })
-    }
-    _fetch = fetch
+
     return <WrappedComponent {...props}></WrappedComponent>
   })
 }
