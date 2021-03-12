@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js
@@ -59,7 +59,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -83,7 +83,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -120,7 +120,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -158,7 +158,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -195,7 +195,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -232,7 +232,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -269,7 +269,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
