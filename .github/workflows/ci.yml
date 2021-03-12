@@ -77,7 +77,7 @@ jobs:
             node_modules
             */*/node_modules
           key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
-      - run: ls -R node_modules && yarn run lint
+      - run: yarn run lint
 
   e2e-chrome-midway-react:
     needs: bootstrap
