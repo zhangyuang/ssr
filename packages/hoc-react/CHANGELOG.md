@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.6](https://github.com/ykfe/ssr/compare/v5.4.5...v5.4.6) (2021-03-12)
+
+
+### Bug Fixes
+
+* wrapComponent types ([2a41ee3](https://github.com/ykfe/ssr/commit/2a41ee3d8874f583440f4bef6a4632b984c2fad2))
+
+
+
+
+
 ## [5.4.5](https://github.com/ykfe/ssr/compare/v5.4.4...v5.4.5) (2021-03-11)
 
 
