@@ -14,6 +14,7 @@ const getClientWebpack = (chain: WebpackChain) => {
   const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
   const truePublicPath = isDev ? publicPath : `/client${publicPath}`
   getBaseConfig(chain)
+
   chain.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
   chain.entry(chunkName)
     .add(loadModule('../entry/client-entry'))

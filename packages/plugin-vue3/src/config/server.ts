@@ -10,6 +10,7 @@ const loadModule = require.resolve
 const getServerWebpack = (chain: WebpackChain) => {
   const config = loadConfig()
   const { isDev, cwd, getOutput, chainServerConfig, whiteList, chunkName } = config
+
   getBaseConfig(chain)
   chain.devtool(isDev ? 'eval-source-map' : false)
   chain.target('node')

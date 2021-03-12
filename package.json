@@ -1,13 +1,18 @@
 {
   "private": true,
-  "workspaces": [
-    "packages/cli",
-    "packages/client-utils",
-    "packages/core-vue3",
-    "packages/plugin-vue3",
-    "packages/server-utils",
-    "packages/types"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/vue",
+      "**/vuex",
+      "**/vue-router",
+      "**/vue-loader",
+      "**/vue-server-renderer",
+      "**/@vue/server-renderer"
+    ]
+  },
   "scripts": {
     "bootstrap": "yarn && yarn run build:only && yarn run link",
     "clean": "node scripts/scripts.js --clean",

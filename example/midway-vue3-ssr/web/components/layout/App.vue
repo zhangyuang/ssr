@@ -1,3 +1,12 @@
 <template>
-  <router-view />
+  <div id="app">
+    <router-view />
+  </div>
 </template>
+
+<script>
+// 在这里可以进行一些全局组件的注册逻辑
+export default {
+
+}
+</script>

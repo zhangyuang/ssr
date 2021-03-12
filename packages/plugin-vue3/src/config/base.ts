@@ -11,13 +11,13 @@ const loadModule = require.resolve
 const getBaseConfig = (chain: WebpackChain) => {
   const config = loadConfig()
   const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList, chainBaseConfig } = config
-  const mode = process.env.NODE_ENV as Mode  
+  const mode = process.env.NODE_ENV as Mode
   chain.resolve
-  .extensions
+    .extensions
     .merge(['.mjs', '.js', '.jsx', '.vue', '.json', '.wasm'])
     .end()
   chain.module
-      .noParse(/^(vue|vue-router|vuex|vuex-router-sync)$/)
+    .noParse(/^(vue|vue-router|vuex|vuex-router-sync)$/)
   chain.mode(mode)
   chain.module.strictExportPresence(true)
   chain
@@ -54,7 +54,7 @@ const getBaseConfig = (chain: WebpackChain) => {
       }
     })
     .end()
-   
+
   chain.module
     .rule('vue')
     .test(/\.vue$/)
@@ -69,43 +69,42 @@ const getBaseConfig = (chain: WebpackChain) => {
     .use(require('vue-loader').VueLoaderPlugin)
     .end()
   chain.resolve
-        .alias
-          .set(
-            'vue$',
-            isDev
-              ? 'vue/dist/vue.esm-bundler.js'
-              : 'vue/dist/vue.runtime.esm-bundler.js'
-          )
+    .alias
+    .set(
+      'vue$',
+      isDev
+        ? 'vue/dist/vue.esm-bundler.js'
+        : 'vue/dist/vue.runtime.esm-bundler.js'
+    )
 
-  
-          chain.module
-          .rule('compile')
-          .test(/\.(js|mjs|ts)$/)
-          .exclude
-          .add(/node_modules/)
-          .end()
-          .use('babel-loader')
-          .loader(loadModule('babel-loader'))
-          .options({
-            cacheDirectory: true,
-            cacheCompression: false,
-            sourceType: 'unambiguous',
-            presets: [
-              loadModule('@babel/preset-typescript'),
-              [
-                loadModule('@babel/preset-env'),
-                {
-                  modules: false
-                  // corejs: 3,
-                  // useBuiltIns: 'usage'
-                }
-              ]
-            ],
-            plugins: [
-              [loadModule('@babel/plugin-transform-runtime')]
-            ]
-          })
-          .end()
+  chain.module
+    .rule('compile')
+    .test(/\.(js|mjs|ts)$/)
+    .exclude
+    .add(/node_modules/)
+    .end()
+    .use('babel-loader')
+    .loader(loadModule('babel-loader'))
+    .options({
+      cacheDirectory: true,
+      cacheCompression: false,
+      sourceType: 'unambiguous',
+      presets: [
+        loadModule('@babel/preset-typescript'),
+        [
+          loadModule('@babel/preset-env'),
+          {
+            modules: false
+            // corejs: 3,
+            // useBuiltIns: 'usage'
+          }
+        ]
+      ],
+      plugins: [
+        [loadModule('@babel/plugin-transform-runtime')]
+      ]
+    })
+    .end()
   setStyle(isDev, chain, /\.css$/, {
     exclude: cssModulesWhiteList,
     rule: 'css',

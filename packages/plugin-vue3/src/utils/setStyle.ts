@@ -1,9 +1,11 @@
 
 import * as WebpackChain from 'webpack-chain'
-import { StyleOptions } from 'ssr-types'
+import { StyleOptions, loadConfig } from 'ssr-server-utils'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const loadModule = require.resolve
+const { css } = loadConfig()
+const postCssPlugins = css?.().loaderOptions?.postcss?.plugins ?? []
 
 const setStyle = (isDev: boolean, chain: WebpackChain, reg: RegExp, options: StyleOptions) => {
   const { include, exclude, modules, importLoaders, loader } = options
@@ -44,7 +46,7 @@ const setStyle = (isDev: boolean, chain: WebpackChain, reg: RegExp, options: Sty
           },
           stage: 3
         })
-      ]
+      ].concat(postCssPlugins)
     })
     .end()
     .when(Boolean(loader), rule => {

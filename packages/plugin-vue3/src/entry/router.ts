@@ -1,17 +1,11 @@
 
-import {
-  createRouter as create,
-  createWebHistory,
-  createMemoryHistory
-} from 'vue-router'
-
-// realVue.use(RealRouter)
+import { createRouter as create, createWebHistory, createMemoryHistory } from 'vue-router'
 
 const feRoutes = require('ssr-temporary-routes/route')
 
-export function createRouter (): any {
+export function createRouter () {
   return create({
-    history: typeof window === 'undefined' ? createMemoryHistory() : createWebHistory(),
+    history: typeof document === 'undefined' ? createMemoryHistory() : createWebHistory(),
     routes: feRoutes
   })
 }
