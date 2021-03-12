@@ -25,9 +25,7 @@ async function render<T = string> (ctx: ISSRContext, options?: UserConfig): Prom
 
   const serverRes = await serverRender(ctx, config)
 
-  return stream
-    ? mergeStream(new StringToStream('<!DOCTYPE html>'), renderToStream(serverRes))
-    : `<!DOCTYPE html>${await renderToString(serverRes)}`
+  return stream ? mergeStream(new StringToStream('<!DOCTYPE html>'), renderToStream(serverRes)) : `<!DOCTYPE html>${await renderToString(serverRes)}`
 }
 
 export { render }

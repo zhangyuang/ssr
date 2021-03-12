@@ -19,7 +19,7 @@
     "cross-env": "^7.0.3",
     "eslint-config-standard-vue-ts": "^1.0.5",
     "ssr": "^5.0.0",
-    "ssr-plugin-vue": "^5.0.0",
+    "ssr-plugin-vue3": "^5.0.0",
     "ssr-plugin-midway": "^5.0.0",
     "typescript": "^3.9.7"
   },

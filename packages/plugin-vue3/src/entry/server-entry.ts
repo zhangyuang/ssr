@@ -3,7 +3,6 @@ import { h, createSSRApp } from 'vue'
 import * as Vuex from 'vuex'
 import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
-import { sync } from 'vuex-router-sync'
 import { createRouter } from './router'
 
 const serialize = require('serialize-javascript')
@@ -20,13 +19,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const router = createRouter()
   const store = createStore()
 
-  // sync(store, router)
-
   const { staticPrefix, cssOrder, jsOrder, dynamic, mode, customeHeadScript } = config
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
 
-  const routeItem = findRoute<
-  FeRouteItem< {}, {
+  const routeItem = findRoute<FeRouteItem<{}, {
     App: Vue.Component
     layout: Vue.Component
   }>>(feRoutes, path)
@@ -41,7 +37,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   if (!routeItem) {
     throw new Error(`With request url ${path} Component is Not Found`)
   }
-  const isCsr = mode === 'csr' || ctx.request.query?.csr
+  const isCsr = !!((mode === 'csr' || ctx.request.query?.csr))
 
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
@@ -54,48 +50,46 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     // csr 下不需要服务端获取数据
     await fetch({ store, router: router.currentRoute }, ctx)
   }
-
   const app = createSSRApp({
     render: function () {
-      const injectCss = dynamicCssOrder.map(css =>
-        h('link', {
-          rel: 'stylesheet',
-          href: `${staticPrefix}${manifest[css]}`
-        })
-      )
+      const injectCss: Vue.VNode[] = []
+      dynamicCssOrder.forEach(css => {
+        if (manifest[css]) {
+          injectCss.push(h('link', {
+            rel: 'stylesheet',
+            href: `${staticPrefix}${manifest[css]}`
+          }))
+        }
+      })
+
       const injectScript = jsOrder.map(js =>
         h('script', {
           src: `${staticPrefix}${manifest[js]}`
         })
       )
 
-      return h(layout, {
-        ctx,
-        config
-      },
-      {
+      return h(layout, { ctx, config }, {
         remInitial: () => h('script', {
           innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
         }),
-        customeHeadScript: () =>
-          customeHeadScript?.map((item) =>
-            h(
-              'script',
-              Object.assign({}, item.describe, {
-                innerHTML: item.content
-              })
-            )
-          ),
+
+        customeHeadScript: () => customeHeadScript?.map((item) =>
+          h(
+            'script',
+            Object.assign({}, item.describe, {
+              innerHTML: item.content
+            })
+          )
+        ),
+
         children: isCsr ? () => h('div', {
-          // csr 只需渲染一个空的 <div id="app"> 不需要渲染具体的组件也就是 router-view
           id: 'app'
         }) : () => h(App),
 
         initialData: !isCsr ? () => h('script', {
-          innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(
-                      store.state
-                    )}`
+          innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(store.state)}`
         }) : null,
+
         cssInject: () => injectCss,
         jsInject: () => injectScript
       }

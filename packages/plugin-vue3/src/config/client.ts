@@ -83,6 +83,7 @@ const getClientWebpack = (chain: WebpackChain) => {
   chain.plugin('define').use(webpack.DefinePlugin, [{
     __isBrowser__: true,
     vuexStoreFilePath: JSON.stringify(getVuexStoreFilePath())
+    // __VUE_OPTIONS_API__: false // 配置后与 vuex 集成有bug，暂时不打开
   }])
 
   chain.when(!isDev, chain => chain.plugin('progress').use(loadModule('webpack/lib/ProgressPlugin')))

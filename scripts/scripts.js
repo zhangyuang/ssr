@@ -63,11 +63,20 @@ if (argv.link) {
   })
 }
 if (argv.unlink) {
+  if (argv.react) {
+    linkPackage.push('react')
+    linkPackage.push('react-dom')
+  }
+
   const packages = fs.readdirSync('./packages')
   let shell = 'npx concurrently'
   linkPackage.forEach(item => {
     shell += ` "cd node_modules/${item} && yarn unlink" ` // link react-dom 防止出现多个react实例
   })
+  if (argv.vue2 || argv.vue3) {
+    const shell = `cd packages/${argv.vue2 ? 'core-vue' : 'core-vue3'}/node_modules/vue && yarn unlink `
+    execSync(shell, options)
+  }
   packages.forEach(item => {
     if (item !== '.DS_Store') {
       shell += ` "cd packages/${item} && yarn unlink" `

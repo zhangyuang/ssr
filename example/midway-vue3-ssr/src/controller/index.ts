@@ -1,19 +1,19 @@
 import { Readable } from 'stream'
 import { Controller, Get, Provide, Inject } from '@midwayjs/decorator'
-// import { Context } from 'egg'
+import { Context } from 'egg'
 import { render } from 'ssr-core-vue3'
 import { IApiService, IApiDetailService } from '../interface'
 
-// interface IEggContext extends Context {
-//   apiService: IApiService
-//   apiDeatilservice: IApiDetailService
-// }
+interface IEggContext extends Context {
+  apiService: IApiService
+  apiDeatilservice: IApiDetailService
+}
 
 @Provide()
 @Controller('/')
 export class Index {
   @Inject()
-  ctx: any
+  ctx: IEggContext
 
   @Inject('ApiService')
   apiService: IApiService

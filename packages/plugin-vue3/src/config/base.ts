@@ -18,7 +18,9 @@ const getBaseConfig = (chain: WebpackChain) => {
     .end()
   chain.module
     .noParse(/^(vue|vue-router|vuex|vuex-router-sync)$/)
+
   chain.mode(mode)
+
   chain.module.strictExportPresence(true)
   chain
     .resolve
@@ -33,7 +35,7 @@ const getBaseConfig = (chain: WebpackChain) => {
     .end()
   chain.resolve.alias
     .set('@', getFeDir())
-    .set('vue$', 'vue/dist/vue.runtime.esm.js')
+    .set('vue$', 'vue/dist/vue.runtime.esm-bundler.js')
     .end()
   chain.module
     .rule('images')
@@ -68,14 +70,6 @@ const getBaseConfig = (chain: WebpackChain) => {
     .plugin('vue-loader')
     .use(require('vue-loader').VueLoaderPlugin)
     .end()
-  chain.resolve
-    .alias
-    .set(
-      'vue$',
-      isDev
-        ? 'vue/dist/vue.esm-bundler.js'
-        : 'vue/dist/vue.runtime.esm-bundler.js'
-    )
 
   chain.module
     .rule('compile')
@@ -105,6 +99,7 @@ const getBaseConfig = (chain: WebpackChain) => {
       ]
     })
     .end()
+
   setStyle(isDev, chain, /\.css$/, {
     exclude: cssModulesWhiteList,
     rule: 'css',
@@ -138,6 +133,7 @@ const getBaseConfig = (chain: WebpackChain) => {
       name: 'static/[name].[hash:8].[ext]',
       esModule: false
     })
+
   chain.plugin('minify-css').use(MiniCssExtractPlugin, [{
     filename: useHash ? 'static/css/[name].[contenthash:8].css' : 'static/css/[name].css',
     chunkFilename: useHash ? 'static/css/[name].[contenthash:8].chunk.css' : 'static/css/[name].chunk.css'

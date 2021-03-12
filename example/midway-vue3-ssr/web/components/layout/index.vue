@@ -14,7 +14,9 @@
       <slot name="cssInject" />
     </head>
     <body>
-      <slot name="children" />
+      <div id="app">
+        <slot name="children" />
+      </div>
       <slot name="initialData" />
       <slot name="jsInject" />
     </body>
