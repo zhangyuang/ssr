@@ -29,6 +29,7 @@
     "e2e": "cypress run --browser chrome",
     "example:midway:vue": "cd example/midway-vue-ssr && npm start",
     "example:midway:react": "cd example/midway-react-ssr && npm start",
+    "example:midway:vue3": "cd example/midway-vue3-ssr && npm start",
     "example:nestjs:react": "cd example/nestjs-vue-ssr && npm start",
     "example:nestjs:vue": "cd example/nestjs-vue-ssr && npm start"
   },

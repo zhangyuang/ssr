@@ -80,7 +80,7 @@
 
 | 里程碑                                                                 | 状态 |
 | ---------------------------------------------------------------------- | ---- |
-| 支持任意服务端框架与任意前端框架的组合使用。(Serverless/Midway/Nestjs) + (React/Vue)             | 🚀   |
+| 支持任意服务端框架与任意前端框架的组合使用。(Serverless/Midway/Nestjs) + (React/Vue2/Vue3)             | 🚀   |
 | 最小而美的实现服务端渲染功能                           | 🚀   |
 | 针对Serverless 场景对代码包的大小的严格限制，将生产环境的代码包大小做到极致            | 🚀   |
 | 同时支持约定式前端路由和声明式前端路由                            | 🚀   |
@@ -95,7 +95,7 @@
 | 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
 | ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
 | ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                                  |    |
-| 支持 [vite](https://vite-design.surge.sh/) + [vue3](http://v3.vuejs.org/) 在 SSR 场景下的组合使用 |    |
+| 支持 [vite](https://vite-design.surge.sh/) 作为构建工具在 SSR 场景下的组合使用 |    |
 
 ## 方案对比
 
@@ -173,6 +173,7 @@ v12.16.1
 ```bash
 $ npm init ssr-app my-ssr-project --template=midway-react-ssr # 创建 React SSR 应用，同时支持 Serverless 形式一键发布或以传统 Node.js 应用的形式部署
 $ npm init ssr-app my-ssr-project --template=midway-vue-ssr # 创建 Vue SSR 应用，同时支持 Serverless 形式一键发布或以传统 Node.js 应用的形式部署
+$ npm init ssr-app my-ssr-project --template=midway-vue3-ssr # 创建 Vue3 SSR 应用，同时支持 Serverless 形式一键发布或以传统 Node.js 应用的形式部署
 $ npm init ssr-app my-ssr-project --template=nestjs-react-ssr # 创建 React SSR 应用，基于 Nestjs Node.js 框架提供的能力以传统 Node.js 应用的形式部署
 $ npm init ssr-app my-ssr-project --template=nestjs-vue-ssr # 创建 Vue SSR 应用，基于 Nestjs Node.js 框架提供的能力以传统 Node.js 应用的形式部署
 ```
