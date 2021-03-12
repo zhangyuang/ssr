@@ -26,16 +26,17 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Cache node modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
-            node_modules
-            /home/runner/.cache/Cypress
+            /home/runner/.cache/Cypress  
             ~/.cache/yarn
+            node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5.1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-v2.5.1-build-
-            ${{ runner.os }}-v2.5.1-build-
+            ${{ runner.os }}-v2.5.1-
+            ${{ runner.os }}-v2.5.1-
             ${{ runner.os }}-v2.5.1-
       - name: Install dependencies
         run: | 
@@ -68,13 +69,14 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5.1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - run: ls -R node_modules && yarn run lint
 
   e2e-chrome-midway-react:
@@ -92,13 +94,14 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5.1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -129,13 +132,14 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5.1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -167,13 +171,14 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5.1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -204,13 +209,14 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5.1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -241,13 +247,14 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5.1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -278,13 +285,14 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5.1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -322,11 +330,12 @@ jobs:
           node-version: 13
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5.1-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
