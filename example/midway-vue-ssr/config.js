@@ -1,3 +1,4 @@
 module.exports = {
-  cssModulesWhiteList: []
+  cssModulesWhiteList: [],
+  mode: 'csr'
 }

@@ -1,7 +1,11 @@
-
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getFeDir, getCwd, loadConfig, getLocalNodeModules } from 'ssr-server-utils'
+import {
+  getFeDir,
+  getCwd,
+  loadConfig,
+  getLocalNodeModules
+} from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import { setStyle } from '../utils'
 
@@ -10,22 +14,25 @@ const loadModule = require.resolve
 
 const getBaseConfig = (chain: WebpackChain) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList, chainBaseConfig } = config
-  const mode = process.env.NODE_ENV as Mode  
-  chain.resolve
-  .extensions
+  const {
+    moduleFileExtensions,
+    useHash,
+    isDev,
+    cssModulesWhiteList,
+    chainBaseConfig
+  } = config
+  const webpack = require('webpack')
+  const mode = process.env.NODE_ENV as Mode
+  chain.resolve.extensions
     .merge(['.mjs', '.js', '.jsx', '.vue', '.json', '.wasm'])
     .end()
-  chain.module
-      .noParse(/^(vue|vue-router|vuex|vuex-router-sync)$/)
+  chain.module.noParse(/^(vue|vue-router|vuex|vuex-router-sync)$/)
   chain.mode(mode)
   chain.module.strictExportPresence(true)
-  chain
-    .resolve
-    .modules
+  chain.resolve.modules
     .add('node_modules')
     .add(join(getCwd(), './node_modules'))
-    .when(isDev, chain => {
+    .when(isDev, (chain) => {
       chain.add(getLocalNodeModules())
     })
     .end()
@@ -33,7 +40,8 @@ const getBaseConfig = (chain: WebpackChain) => {
     .end()
   chain.resolve.alias
     .set('@', getFeDir())
-    .set('vue$', 'vue/dist/vue.runtime.esm.js')
+    .set('vue$', 'vue/dist/vue.esm-bundler.js')
+    .set('vue-router$', 'vue-router/dist/vue-router.esm-bundler.js')
     .end()
   chain.module
     .rule('images')
@@ -54,58 +62,47 @@ const getBaseConfig = (chain: WebpackChain) => {
       }
     })
     .end()
-   
   chain.module
     .rule('vue')
     .test(/\.vue$/)
     .use('vue-loader')
-    .loader(loadModule('vue-loader')).options({
-      babelParserPlugins: ['jsx', 'classProperties', 'decorators-legacy']
+    .loader(loadModule('vue-loader'))
+    .end()
+
+  chain.plugin('vue-loader').use(require('vue-loader').VueLoaderPlugin).end()
+
+  chain.plugin('feature-flags').use(webpack.DefinePlugin, [
+    {
+      __VUE_OPTIONS_API__: 'true',
+      __VUE_PROD_DEVTOOLS__: 'false'
+    }
+  ])
+
+  chain.module
+    .rule('compile')
+    .test(/\.(js|mjs|ts)$/)
+    .exclude.add(/node_modules/)
+    .end()
+    .use('babel-loader')
+    .loader(loadModule('babel-loader'))
+    .options({
+      cacheDirectory: true,
+      cacheCompression: false,
+      sourceType: 'unambiguous',
+      presets: [
+        loadModule('@babel/preset-typescript'),
+        [
+          loadModule('@babel/preset-env'),
+          {
+            modules: false
+            // corejs: 3,
+            // useBuiltIns: 'usage'
+          }
+        ]
+      ],
+      plugins: [[loadModule('@babel/plugin-transform-runtime')]]
     })
     .end()
-
-  chain
-    .plugin('vue-loader')
-    .use(require('vue-loader').VueLoaderPlugin)
-    .end()
-  chain.resolve
-        .alias
-          .set(
-            'vue$',
-            isDev
-              ? 'vue/dist/vue.esm-bundler.js'
-              : 'vue/dist/vue.runtime.esm-bundler.js'
-          )
-
-  
-          chain.module
-          .rule('compile')
-          .test(/\.(js|mjs|ts)$/)
-          .exclude
-          .add(/node_modules/)
-          .end()
-          .use('babel-loader')
-          .loader(loadModule('babel-loader'))
-          .options({
-            cacheDirectory: true,
-            cacheCompression: false,
-            sourceType: 'unambiguous',
-            presets: [
-              loadModule('@babel/preset-typescript'),
-              [
-                loadModule('@babel/preset-env'),
-                {
-                  modules: false
-                  // corejs: 3,
-                  // useBuiltIns: 'usage'
-                }
-              ]
-            ],
-            plugins: [
-              [loadModule('@babel/plugin-transform-runtime')]
-            ]
-          })
-          .end()
   setStyle(isDev, chain, /\.css$/, {
     exclude: cssModulesWhiteList,
     rule: 'css',
@@ -139,14 +136,18 @@ const getBaseConfig = (chain: WebpackChain) => {
       name: 'static/[name].[hash:8].[ext]',
       esModule: false
     })
-  chain.plugin('minify-css').use(MiniCssExtractPlugin, [{
-    filename: useHash ? 'static/css/[name].[contenthash:8].css' : 'static/css/[name].css',
-    chunkFilename: useHash ? 'static/css/[name].[contenthash:8].chunk.css' : 'static/css/[name].chunk.css'
-  }])
+  chain.plugin('minify-css').use(MiniCssExtractPlugin, [
+    {
+      filename: useHash
+        ? 'static/css/[name].[contenthash:8].css'
+        : 'static/css/[name].css',
+      chunkFilename: useHash
+        ? 'static/css/[name].[contenthash:8].chunk.css'
+        : 'static/css/[name].chunk.css'
+    }
+  ])
   chainBaseConfig(chain)
   return config
 }
 
-export {
-  getBaseConfig
-}
+export { getBaseConfig }

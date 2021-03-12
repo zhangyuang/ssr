@@ -1,4 +1,5 @@
 module.exports = {
-  cssModulesWhiteList: [],
+  cssModulesWhiteList: []
   // mode: "csr",
-};
+  // dynamic: false,
+}

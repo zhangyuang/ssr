@@ -17,11 +17,10 @@
     </Swiper> -->
     <swiper
       @swiper="onSwiper"
-      :slidesPerView="3"
-      :spaceBetween="50"
-      navigation
-      :scrollbar="{ draggable: true }"
-      :pagination="{ clickable: true }"
+      :slidesPerView="1"
+      ref="mySwiper"
+      :autoplay="true"
+      @autoplay="autoplay"
     >
       <swiper-slide
         v-for="val in data[0].itemMap"
@@ -52,17 +51,7 @@ export default {
     Swiper,
     SwiperSlide,
   },
-  // directives: {
-  //   swiper: directive,
-  // },
-  setup() {
-    const onSwiper = (swiper) => {
-      this.swiper = swiper;
-    };
-    return {
-      onSwiper,
-    };
-  },
+
   props: ["data"],
   data() {
     return {
@@ -75,18 +64,29 @@ export default {
       },
     };
   },
-  // computed: {
-  //   swiper() {
-  //     return this.$refs.mySwiper.$swiper;
-  //   },
-  // },
+  computed: {
+    swiper() {
+      return this.$refs.mySwiper.$swiper;
+    },
+  },
   mounted() {
     // this.swiper.slideTo(2, 1000, false);
+    // console.log(this.swiper);
+    this.onSwiper();
   },
   methods: {
     toDetail() {
       console.log("teste");
       this.$router.push("/detail/cbba934b14f747049187");
+    },
+    autoplay(e) {
+      console.log(e);
+    },
+    onSwiper(swiper) {
+      console.log(swiper, "12e");
+    },
+    onSlideChange() {
+      console.log("slide change");
     },
   },
 };

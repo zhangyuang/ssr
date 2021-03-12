@@ -1,26 +1,20 @@
 // @ts-nocheck
-import * as Vue from "vue";
-// import * as Router from 'vue-router'
-
-// const realVue: Vue = Vue.default || Vue
+// import * as Vue from 'vue'
 import {
   createRouter as create,
   createWebHistory,
   Router,
-  createMemoryHistory,
-} from "vue-router";
+  createMemoryHistory
+} from 'vue-router'
 
-// realVue.use(RealRouter)
+const feRoutes = require('ssr-temporary-routes/route')
 
-const feRoutes = require("ssr-temporary-routes/route");
-const Home = { template: "<div>Home</div>" };
-export function createRouter(): any {
-  // console.log(isCsr);
+export function createRouter (): Router {
   return create({
     history:
-      "undefined" == typeof window ? createMemoryHistory() : createWebHistory(),
-    routes: feRoutes,
-    // history: createWebHistory(),
-    // routes: [{ path: "/", component: Home, name: "home" }],
-  });
+      typeof window === 'undefined'
+        ? createMemoryHistory()
+        : createWebHistory(),
+    routes: feRoutes
+  })
 }

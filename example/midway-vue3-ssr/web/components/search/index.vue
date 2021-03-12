@@ -20,6 +20,7 @@
 import { mapState } from "vuex";
 
 export default {
+  name: "Search",
   computed: {
     ...mapState({
       searchText: (state) => state.searchStore.searchText,

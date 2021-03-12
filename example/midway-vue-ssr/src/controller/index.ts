@@ -27,6 +27,7 @@ export class Index {
     try {
       this.ctx.apiService = this.apiService
       this.ctx.apiDeatilservice = this.apiDeatilservice
+      // @ts-expect-error
       const stream = await render<Readable>(this.ctx, {
         stream: true
       })

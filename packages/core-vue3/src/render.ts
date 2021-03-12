@@ -6,7 +6,10 @@ const mergeStream = require('merge-stream')
 const cwd = getCwd()
 const defaultConfig = loadConfig()
 
-async function render<T = string>(ctx: ISSRContext, options?: UserConfig): Promise<T> {
+async function render<T = string> (
+  ctx: ISSRContext,
+  options?: UserConfig
+): Promise<T> {
   const config = Object.assign({}, defaultConfig, options ?? {})
   const { isDev, chunkName, stream } = config
   const isLocal = isDev || process.env.NODE_ENV !== 'production'
@@ -23,9 +26,13 @@ async function render<T = string>(ctx: ISSRContext, options?: UserConfig): Promi
   const serverRender = require(serverFile).default
 
   const serverRes = await serverRender(ctx, config)
+  console.log(serverRes)
 
   return stream
-    ? mergeStream(new StringToStream('<!DOCTYPE html>'), renderToStream(serverRes))
+    ? mergeStream(
+      new StringToStream('<!DOCTYPE html>'),
+      renderToStream(serverRes)
+    )
     : `<!DOCTYPE html>${await renderToString(serverRes)}`
 }
 
