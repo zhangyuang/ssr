@@ -68,7 +68,7 @@
 
 ## Features
 
-- 🌱　极易定制：前端支持 React/Vue 等现代Web框架；
+- 🌱　极易定制：前端支持 React/Vue2/Vue3 等现代Web框架；
 - 🚀　开箱即用：内置 10+ 脚手架配套扩展，如Antd、Vant、TS、Hooks等；
 - 🧲　插件驱动：基于插件架构，用户更加专注于业务逻辑；
 - 💯　Serverless优先：一键发布到各种Serverless平台，也支持传统Web Server，比如Egg、Midway、Nest等。
@@ -152,7 +152,9 @@ Serverless 应用开发流程
 - http://tx.ssr-fc.com 部署到腾讯云的 React SSR 应用
 - http://tx.ssr-fc.com?csr=true 部署到腾讯云的 React SSR 应用, 以 CSR 模式访问
 - http://vue.ssr-fc.com 部署到阿里云的 Vue SSR 应用
+- http://vue3.ssr-fc.com 部署到阿里云的 Vue3 SSR 应用
 - http://vue.ssr-fc.com?csr=true 部署到阿里云的 Vue SSR 应用, 以 CSR 模式访问
+- http://vue3.ssr-fc.com?csr=true 部署到阿里云的 Vue3 SSR 应用, 以 CSR 模式访问
 
 ## Getting Start
 

@@ -6,7 +6,7 @@ name: CI
 # events but only for the dev branch
 on:
   push:
-    branches: [dev, master, 'feat/**']
+    branches: [dev, master, 'feat/**', ci/test]
   pull_request:
     branches: [dev, master]
 
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js
@@ -26,38 +26,41 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Cache node modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
-            /home/runner/.cache/Cypress
+            /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-v2.5-build-
-            ${{ runner.os }}-v2.5-build-
-            ${{ runner.os }}-v2.5-
+            ${{ runner.os }}-v2.5.1-
+            ${{ runner.os }}-v2.5.1-
+            ${{ runner.os }}-v2.5.1-
       - name: Install dependencies
         run: | 
           yarn && yarn build:only
-          rm -rf packages/**/node_modules
           node scripts/scripts.js --publishDoc
           cd example/midway-react-ssr && yarn
           cd ../midway-vue-ssr && yarn 
+          cd ../midway-vue3-ssr && yarn 
           cd ../nestjs-react-ssr && yarn
           cd ../nestjs-vue-ssr && yarn
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: bindings-${{matrix.node}}
-          path: packages       
+          path: |
+           packages
+           !packages/**/node_modules    
 
   lint:
     needs: bootstrap
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -66,13 +69,14 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - run: yarn run lint
 
   e2e-chrome-midway-react:
@@ -81,7 +85,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -90,20 +94,21 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
       - name: prepare
-        run: yarn run link
+        run: yarn run link --react
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:midway:react
@@ -118,7 +123,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -127,20 +132,21 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
       - name: prepare
-        run: yarn run link
+        run: yarn run link --react
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:midway:react
@@ -156,7 +162,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -165,13 +171,14 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -193,7 +200,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -202,13 +209,14 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -230,7 +238,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -239,13 +247,14 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -267,7 +276,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["13"]
+        node: ["12"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -276,20 +285,21 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             /home/runner/.cache/Cypress  
             ~/.cache/yarn
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
       - name: prepare
-        run: yarn run link
+        run: yarn run link --react
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:nestjs:react
@@ -320,11 +330,12 @@ jobs:
           node-version: 13
       - name: Load node_modules
         uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
             node_modules
             */*/node_modules
-          key: ${{ runner.os }}-v2.5-build-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.1-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:

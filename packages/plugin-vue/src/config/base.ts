@@ -1,9 +1,8 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getFeDir, getCwd, loadConfig, getLocalNodeModules } from 'ssr-server-utils'
+import { getFeDir, getCwd, loadConfig, getLocalNodeModules, setStyle } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
-import { setStyle } from '../utils'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const loadModule = require.resolve
