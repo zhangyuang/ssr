@@ -40,7 +40,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     throw new Error(`With request url ${path} Component is Not Found`)
   }
 
-  const isCsr = mode === 'csr' || ctx.request.query?.csr
+  const isCsr = !!((mode === 'csr' || ctx.request.query?.csr))
   const Layout = routeItem.layout
   const Component = routeItem.component
   if (isCsr) {

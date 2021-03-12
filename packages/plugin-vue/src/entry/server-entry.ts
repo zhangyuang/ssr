@@ -42,7 +42,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
     throw new Error(`With request url ${path} Component is Not Found`)
   }
 
-  const isCsr = mode === 'csr' || ctx.request.query?.csr
+  const isCsr = !!((mode === 'csr' || ctx.request.query?.csr))
+
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
   }

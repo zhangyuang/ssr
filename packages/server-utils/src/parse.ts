@@ -20,7 +20,8 @@ const hasDeclaretiveRoutes = async () => {
 }
 const parseFeRoutes = async () => {
   const { clientPlugin } = loadPlugin()
-  const isVue = clientPlugin.name === 'plugin-vue'
+  const isVue = clientPlugin.name.match('vue')
+
   const defaultLayout = `@/components/layout/index.${isVue ? 'vue' : 'tsx'}`
   const defaultApp = '@/components/layout/App.vue'
 

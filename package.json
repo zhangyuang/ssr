@@ -1,8 +1,18 @@
 {
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/vue",
+      "**/vuex",
+      "**/vue-router",
+      "**/vue-loader",
+      "**/vue-server-renderer",
+      "**/@vue/server-renderer"
+    ]
+  },
   "scripts": {
     "bootstrap": "yarn && yarn run build:only && yarn run link",
     "clean": "node scripts/scripts.js --clean",
