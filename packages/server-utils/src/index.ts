@@ -9,6 +9,7 @@ export * from './string-stream'
 export * from './loadConfig'
 export * from './parse'
 export * from './middlewares'
+export * from './webpack'
 
 /* types */
 export * from 'ssr-types'

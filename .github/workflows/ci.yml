@@ -28,9 +28,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
+            node_modules
             /home/runner/.cache/Cypress
             ~/.cache/yarn
-            node_modules
             */*/node_modules
           key: ${{ runner.os }}-v2.5.1-build-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
@@ -40,10 +40,10 @@ jobs:
       - name: Install dependencies
         run: | 
           yarn && yarn build:only
-          rm -rf packages/**/node_modules
           node scripts/scripts.js --publishDoc
           cd example/midway-react-ssr && yarn
           cd ../midway-vue-ssr && yarn 
+          cd ../midway-vue3-ssr && yarn 
           cd ../nestjs-react-ssr && yarn
           cd ../nestjs-vue-ssr && yarn
       - name: Upload artifact
@@ -51,6 +51,7 @@ jobs:
         with:
           name: bindings-${{matrix.node}}
           path: |
+           packages
            !packages/**/node_modules    
 
   lint:
