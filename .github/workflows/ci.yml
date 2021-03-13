@@ -339,7 +339,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
-          name: bindings-13
+          name: bindings-12
           path: packages
       - name: List packages
         run: ls -R packages
