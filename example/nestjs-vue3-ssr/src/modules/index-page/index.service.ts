@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import mock from '../mock'
+import mock from './index.mock'
 
 @Injectable()
 export class ApiService {

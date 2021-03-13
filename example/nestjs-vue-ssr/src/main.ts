@@ -3,7 +3,7 @@ import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
 import { initialSSRDevProxy } from 'ssr-server-utils'
 
-import { AppModule } from './module/app'
+import { AppModule } from './app.module'
 
 async function bootstrap (): Promise<void> {
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
@@ -14,5 +14,8 @@ async function bootstrap (): Promise<void> {
 
   await app.listen(3000)
 }
-// eslint-disable-next-line
-bootstrap()
+
+bootstrap().catch(err => {
+  console.log(err)
+  process.exit(1)
+})

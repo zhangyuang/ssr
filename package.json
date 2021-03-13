@@ -29,7 +29,8 @@
     "example:midway:react": "cd example/midway-react-ssr && npm start",
     "example:midway:vue3": "cd example/midway-vue3-ssr && npm start",
     "example:nestjs:react": "cd example/nestjs-vue-ssr && npm start",
-    "example:nestjs:vue": "cd example/nestjs-vue-ssr && npm start"
+    "example:nestjs:vue": "cd example/nestjs-vue-ssr && npm start",
+    "example:nestjs:vue3": "cd example/nestjs-vue3-ssr && npm start"
   },
   "repository": {
     "type": "git",
