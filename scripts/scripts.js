@@ -8,6 +8,9 @@ const options = {
 
 const linkPackage = ['@midwayjs/decorator', '@midwayjs/web']
 
+linkPackage.push('react')
+linkPackage.push('react-dom')
+
 if (argv.bootstrap) {
   let shell = 'npx concurrently "yarn"'
   const examples = fs.readdirSync('./example')
@@ -29,11 +32,6 @@ if (argv.clean) {
 }
 
 if (argv.link) {
-  if (argv.react) {
-    linkPackage.push('react')
-    linkPackage.push('react-dom')
-  }
-
   const packages = fs.readdirSync('./packages')
   let shell = 'npx concurrently'
   linkPackage.forEach(item => {

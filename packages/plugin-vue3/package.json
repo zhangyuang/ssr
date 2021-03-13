@@ -33,6 +33,7 @@
     "@babel/plugin-transform-runtime": "^7.9.6",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.12.13",
+    "@vue/babel-plugin-jsx": "^1.0.3",
     "@vue/compiler-sfc": "^3.0.7",
     "babel-loader": "8.0.4",
     "concurrently": "^5.1.0",

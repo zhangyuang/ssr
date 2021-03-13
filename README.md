@@ -21,7 +21,7 @@
 
 此框架脱胎于 [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) 项目和`ssr` v4.3版本（midway-faas + react ssr），在之前的基础上做了诸多演进，通过插件化的代码组织形式，支持任意服务端框架与任意前端框架的组合使用。开发者可以选择通过 Serverless 方式部署或是以传统 Node.js 的应用形式部署，并且我们专注于提升 Serverless 场景下服务端渲染应用的开发体验，打造了一站式的开发，发布应用服务的功能。最大程度提升开发者的开发体验，将应用的开发，部署成本降到最低。
 
-在最新的 v5.0 版本中，同时支持 React 和 Vue 的服务端渲染框架，且提供一键以 Serverless 的形式发布上云的功能。我们可以非常有自信说它是地球上最先进的ssr框架。如果你希望获得开箱即用的体验且能够一键部署上云，请选择 `ssr` 框架。
+在最新的 v5.0 版本中，同时支持 React 和 Vue2/Vue3 的服务端渲染框架，且提供一键以 Serverless 的形式发布上云的功能。我们可以非常有自信说它是地球上最先进的ssr框架。如果你希望获得开箱即用的体验且能够一键部署上云，请选择 `ssr` 框架。
 
 ## 哪些应用在使用
 
@@ -174,10 +174,11 @@ v12.16.1
 
 ```bash
 $ npm init ssr-app my-ssr-project --template=midway-react-ssr # 创建 React SSR 应用，同时支持 Serverless 形式一键发布或以传统 Node.js 应用的形式部署
-$ npm init ssr-app my-ssr-project --template=midway-vue-ssr # 创建 Vue SSR 应用，同时支持 Serverless 形式一键发布或以传统 Node.js 应用的形式部署
+$ npm init ssr-app my-ssr-project --template=midway-vue-ssr # 创建 Vue2 SSR 应用，同时支持 Serverless 形式一键发布或以传统 Node.js 应用的形式部署
 $ npm init ssr-app my-ssr-project --template=midway-vue3-ssr # 创建 Vue3 SSR 应用，同时支持 Serverless 形式一键发布或以传统 Node.js 应用的形式部署
 $ npm init ssr-app my-ssr-project --template=nestjs-react-ssr # 创建 React SSR 应用，基于 Nestjs Node.js 框架提供的能力以传统 Node.js 应用的形式部署
-$ npm init ssr-app my-ssr-project --template=nestjs-vue-ssr # 创建 Vue SSR 应用，基于 Nestjs Node.js 框架提供的能力以传统 Node.js 应用的形式部署
+$ npm init ssr-app my-ssr-project --template=nestjs-vue-ssr # 创建 Vue2 SSR 应用，基于 Nestjs Node.js 框架提供的能力以传统 Node.js 应用的形式部署
+$ npm init ssr-app my-ssr-project --template=nestjs-vue3-ssr # 创建 Vue3 SSR 应用，基于 Nestjs Node.js 框架提供的能力以传统 Node.js 应用的形式部署
 ```
 
 注：当 Node.js version >=15 时，应使用 `npm init ssr-app my-ssr-project -- --template=midway-react-ssr ` 来传递参数
@@ -387,7 +388,7 @@ module.exports = {
 
 技术选型
 
-- 前端框架: Vue2.0, Vue3.0 将会在下一个版本与 Vite 一起推出
+- 前端框架: Vue2.0, Vue3.0
 - 开发语言: TypeScript
 - 代码风格: [eslint-config-standard-vue-ts](https://github.com/zhangyuang/standardjs-vue)
 - 样式处理: less + vue scoped
@@ -395,6 +396,82 @@ module.exports = {
 - 前端路由: 约定式路由/声明式路由
 - 数据管理: vuex
 
+##### JSX(可选)
+
+在 Vue3 场景下我们默认在底层已加载 [@vue/babel-plugin-jsx](https://github.com/vuejs/jsx-next#installation) 插件，开发者可根据个人喜好决定使用 template 的方式抑或是 jsx 的方式进行开发。例如想使用 JSX 的话，只需要将 .vue 文件改为 .tsx 文件即可，如下 vue 组件
+
+```vue
+<template>
+  <div>
+    <Search />
+    <template v-if="indexData">
+      <Slider :data="indexData[0].components" />
+      <Rectangle :data="indexData[1].components" />
+    </template>
+    <template v-else>
+      <img src="https://gw.alicdn.com/tfs/TB1v.zIE7T2gK0jSZPcXXcKkpXa-128-128.gif" class="loading">
+    </template>
+  </div>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+import Slider from '@/components/slider'
+import Rectangle from '@/components/rectangle'
+import Search from '@/components/search'
+
+export default {
+  components: {
+    Slider,
+    Rectangle,
+    Search
+  },
+  computed: {
+    ...mapState({
+      indexData: state => state.indexStore?.data
+    })
+  }
+}
+</script>
+
+<style>
+
+</style>
+
+```
+
+对应的 jsx 写法为 
+
+```jsx
+// render.tsx
+import { mapState } from 'vuex'
+import Slider from '@/components/slider'
+import Rectangle from '@/components/rectangle'
+import Search from '@/components/search'
+
+export default {
+  computed: {
+    ...mapState({
+      indexData: state => state.indexStore?.data
+    })
+  },
+
+  render () {
+    const { indexData } = this
+    return <div>
+      <Search />
+      {
+        indexData ? <div>
+          <Slider data={indexData[0].components} />
+          <Rectangle data={indexData[1].components} />
+        </div> : <img src="https://gw.alicdn.com/tfs/TB1v.zIE7T2gK0jSZPcXXcKkpXa-128-128.gif" className="loading"/>
+      }
+    </div>
+  }
+
+}
+
+```
 ### 应用类型
 
 由于本框架同时具备 SSR 服务端渲染能力 以及 loadable 代码分割能力。我们天生可以看作既是单页面应用也是多页面应用。表现如下

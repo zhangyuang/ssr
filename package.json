@@ -8,9 +8,7 @@
       "**/vue",
       "**/vuex",
       "**/vue-router",
-      "**/vue-loader",
-      "**/vue-server-renderer",
-      "**/@vue/server-renderer"
+      "**/vue-loader"
     ]
   },
   "scripts": {

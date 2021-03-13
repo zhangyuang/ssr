@@ -1,7 +1,7 @@
-// 此文件仅用于本地开发配置IDE在检查 web 文件夹下ts语法时的规则，不用于实际构建
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "ES2018",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -12,19 +12,17 @@
     "noUnusedLocals": true,
     "stripInternal": true,
     "pretty": true,
-    "declaration": false,
-    "strict": true,
-    "noEmit": true,
-    "baseUrl": "./",
-    "strictNullChecks": true,
-    "esModuleInterop": true,
+    "declaration": true,
+    "outDir": "dist",
     "jsx": "preserve",
-    "paths": {
-      "@/*": ["./*"] // 此处映射是相对于"baseUrl"
-    }
+    "typeRoots": [ "./typings", "./node_modules/@types"]
   },
-  "include": [
-    "."
+  "exclude": [
+    "dist",
+    "node_modules",
+    "test",
+    "web",
+    "build"
   ]
 }
 

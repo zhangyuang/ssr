@@ -72,7 +72,7 @@ const getBaseConfig = (chain: WebpackChain) => {
 
   chain.module
     .rule('compile')
-    .test(/\.(js|mjs|ts)$/)
+    .test(/\.(js|mjs|ts|tsx)$/)
     .exclude
     .add(/node_modules/)
     .end()
@@ -94,7 +94,8 @@ const getBaseConfig = (chain: WebpackChain) => {
         ]
       ],
       plugins: [
-        [loadModule('@babel/plugin-transform-runtime')]
+        loadModule('@babel/plugin-transform-runtime'),
+        loadModule('@vue/babel-plugin-jsx')
       ]
     })
     .end()
