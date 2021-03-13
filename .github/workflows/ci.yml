@@ -327,7 +327,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 13
+          node-version: 12
       - name: Load node_modules
         uses: actions/cache@v2
         id: yarn-cache
