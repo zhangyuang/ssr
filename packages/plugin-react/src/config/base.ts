@@ -98,19 +98,19 @@ const getBaseConfig = (chain: WebpackChain) => {
     rule: 'css',
     modules: true,
     importLoaders: 1
-  }) // 设置css
+  }, true) // 设置css
   setStyle(isDev, chain, /\.css$/, {
     include: cssModulesWhiteList,
     rule: 'antd',
     modules: false,
     importLoaders: 1
-  }) // antd不使用css-modules
+  }, true) // antd不使用css-modules
   setStyle(isDev, chain, /\.less$/, {
     rule: 'less',
     loader: 'less-loader',
     modules: true,
     importLoaders: 2
-  })
+  }, true)
 
   chain.module
     .rule('svg')

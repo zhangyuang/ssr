@@ -1,11 +1,8 @@
-
-import * as fs from 'fs'
-import { join } from 'path'
 import * as WebpackChain from 'webpack-chain'
 import { StyleOptions } from 'ssr-types'
 import { loadConfig } from '../loadConfig'
 
-const setStyle = (isDev: boolean, chain: WebpackChain, reg: RegExp, options: StyleOptions) => {
+const setStyle = (isDev: boolean, chain: WebpackChain, reg: RegExp, options: StyleOptions, isReact?: boolean) => {
   const MiniCssExtractPlugin = require('mini-css-extract-plugin')
   const loadModule = require.resolve
   const { css } = loadConfig()
@@ -15,7 +12,6 @@ const setStyle = (isDev: boolean, chain: WebpackChain, reg: RegExp, options: Sty
     importLoaders: importLoaders,
     modules: modules
   }
-  const isReact = fs.existsSync(join(process.cwd(), './node_modules/react-dev-utils'))
   if (isReact) {
     // @ts-expect-error
     cssloaderOptions.getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
