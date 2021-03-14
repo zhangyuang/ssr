@@ -45,6 +45,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   const { fetch, layout, App } = routeItem
   router.push(path)
+  await router.isReady()
 
   if (!isCsr && fetch) {
     // csr 下不需要服务端获取数据
@@ -98,7 +99,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   })
   app.use(router)
   app.use(store)
-
   return app
 }
 
