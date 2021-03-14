@@ -14,7 +14,7 @@ yargs
     })
     process.env.NODE_ENV = 'development'
     const plugin = loadPlugin()
-    await parseFeRoutes()
+    // await parseFeRoutes()
     spinnerProcess.send({
       message: 'stop'
     })

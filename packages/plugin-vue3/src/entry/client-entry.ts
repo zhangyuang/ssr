@@ -5,15 +5,16 @@ import { findRoute } from 'ssr-client-utils'
 import { FeRouteItem } from 'ssr-types'
 import { createRouter } from './router'
 
+import feRoutes from '/Users/yuuang/Desktop/github/ssr/example/midway-vue3-ssr/node_modules/ssr-temporary-routes/route'
 // @ts-expect-error
-const store = require(vuexStoreFilePath) // define by webpack define plugin
+// const store = require(vuexStoreFilePath) // define by webpack define plugin
+import * as store from '/Users/yuuang/Desktop/github/ssr/example/midway-vue3-ssr/web/store/index.ts'
 
 function createStore () {
   return Vuex.createStore(store)
 }
 
 declare const module: any
-const feRoutes = require('ssr-temporary-routes/route')
 
 const App = feRoutes[0].App
 const clientRender = async () => {
@@ -61,9 +62,9 @@ const clientRender = async () => {
 
   app.mount('#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
 
-  if (process.env.NODE_ENV === 'development' && module.hot) {
-    module.hot.accept()
-  }
+  // if (process.env.NODE_ENV === 'development' && module.hot) {
+  //   module.hot.accept()
+  // }
 }
 
 export default clientRender()

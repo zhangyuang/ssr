@@ -13,7 +13,7 @@ function createStore () {
   return Vuex.createStore(store)
 }
 
-const feRoutes = require('ssr-temporary-routes/route')
+const feRoutes = require('ssr-temporary-routes/route').default
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const router = createRouter()
@@ -62,17 +62,25 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         }
       })
 
+      // const injectScript = jsOrder.map(js =>
+      //   h('script', {
+      //     src: `${staticPrefix}${manifest[js]}`
+      //   })
+      // )
       const injectScript = jsOrder.map(js =>
         h('script', {
-          src: `${staticPrefix}${manifest[js]}`
+          type: 'module',
+          src: '/@fs/Users/yuuang/Desktop/github/ssr/packages/plugin-vue3/esm/entry/client-entry.js'
         })
       )
-
       return h(layout, { ctx, config }, {
         remInitial: () => h('script', {
           innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
         }),
-
+        viteClient: () => h('script', {
+          type: 'module',
+          src: '/@vite/client'
+        }),
         customeHeadScript: () => customeHeadScript?.map((item) =>
           h(
             'script',
@@ -90,7 +98,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
           innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(store.state)}`
         }) : null,
 
-        cssInject: () => injectCss,
+        // cssInject: () => injectCss,
         jsInject: () => injectScript
       }
       )

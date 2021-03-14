@@ -84,6 +84,11 @@ const parseFeRoutes = async () => {
   }
 
   await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
+  const packageJsonStr = `{
+    "name": "ssr-temporary-routes",
+    "module": "route.js"
+  }`
+  await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/package.json'), packageJsonStr)
 }
 
 const renderRoutes = async (pageDir: string, isVue: boolean, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {

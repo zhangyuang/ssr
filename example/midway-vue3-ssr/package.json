@@ -16,12 +16,15 @@
   },
   "devDependencies": {
     "@midwayjs/egg-ts-helper": "^1.0.5",
+    "@vitejs/plugin-vue": "^1.1.5",
     "cross-env": "^7.0.3",
     "eslint-config-standard-vue-ts": "^1.0.5",
+    "koa-connect": "^2.1.0",
     "ssr": "^5.0.0",
-    "ssr-plugin-vue3": "^5.0.0",
     "ssr-plugin-midway": "^5.0.0",
-    "typescript": "^3.9.7"
+    "ssr-plugin-vue3": "^5.0.0",
+    "typescript": "^3.9.7",
+    "vite": "^2.0.5"
   },
   "scripts": {
     "prod": "ssr build && egg-scripts start --daemon --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
