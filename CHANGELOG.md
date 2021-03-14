@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.9](https://github.com/ykfe/ssr/compare/v5.4.8...v5.4.9) (2021-03-14)
+
+
+### Bug Fixes
+
+* vue3 router.ready ([8343ea8](https://github.com/ykfe/ssr/commit/8343ea80fe378aa1afb19a0d016406a6ce328e06))
+
+
+
+
+
 ## [5.4.8](https://github.com/ykfe/ssr/compare/v5.4.7...v5.4.8) (2021-03-13)
 
 
