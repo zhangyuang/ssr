@@ -11,15 +11,10 @@ function onProxyReq (proxyReq: any, req: any) {
 }
 
 const getDevProxyMiddlewaresArr = (options?: proxyOptions) => {
-  const { fePort, proxy } = loadConfig()
+  const { fePort, proxy, isDev } = loadConfig()
   const express = options ? options.express : false
-  const remoteStaticServerOptions = {
-    target: `http://127.0.0.1:${fePort}`,
-    changeOrigin: true,
-    secure: false,
-    onProxyReq,
-    logLevel: 'warn'
-  }
+  const proxyMiddlewaresArr: any[] = []
+
   function registerProxy (proxy: Proxy) {
     for (const path in proxy) {
       const options = proxy[path]
@@ -28,17 +23,29 @@ const getDevProxyMiddlewaresArr = (options?: proxyOptions) => {
       proxyMiddlewaresArr.push(middleware)
     }
   }
-  const proxyPathMap = {
-    '/static': remoteStaticServerOptions,
-    '/sockjs-node': remoteStaticServerOptions,
-    '/*.hot-update.js(on)?': remoteStaticServerOptions,
-    '/__webpack_dev_server__': remoteStaticServerOptions,
-    '/asset-manifest': remoteStaticServerOptions
-  }
-  const proxyMiddlewaresArr: any[] = []
-  // @ts-expect-error
-  registerProxy(proxyPathMap)
+
   proxy && registerProxy(proxy)
+  if (isDev) {
+    // 在本地开发阶段代理 serverPort 的资源到 fePort
+    // 例如 http://localhost:3000/static/js/page.chunk.js -> http://localhost:8000/static/js/page.chunk.js
+    const remoteStaticServerOptions = {
+      target: `http://127.0.0.1:${fePort}`,
+      changeOrigin: true,
+      secure: false,
+      onProxyReq,
+      logLevel: 'warn'
+    }
+
+    const proxyPathMap = {
+      '/static': remoteStaticServerOptions,
+      '/sockjs-node': remoteStaticServerOptions,
+      '/*.hot-update.js(on)?': remoteStaticServerOptions,
+      '/__webpack_dev_server__': remoteStaticServerOptions,
+      '/asset-manifest': remoteStaticServerOptions
+    }
+    // @ts-expect-error
+    registerProxy(proxyPathMap)
+  }
 
   return proxyMiddlewaresArr
 }
