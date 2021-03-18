@@ -35,14 +35,16 @@ const getBaseConfig = (chain: WebpackChain) => {
     .loader(loadModule('url-loader'))
     .options({
       limit: 10000,
-      name: 'static/[name].[hash:8].[ext]',
+      name: '[name].[hash:8].[ext]',
       // require 图片的时候不用加 .default
       esModule: false,
       fallback: {
         loader: loadModule('file-loader'),
         options: {
-          name: 'static/[name].[hash:8].[ext]',
-          esModule: false
+          publicPath: '/client/images',
+          name: '[name].[hash:8].[ext]',
+          esModule: false,
+          outputPath: 'images'
         }
       }
     })

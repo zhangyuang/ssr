@@ -496,7 +496,7 @@ export default {
 
 ```bash
 .
-├── build # web目录构建产物
+├── build # 默认作为服务端静态资源目录，负责存放web目录构建产物或者图片资源等静态文件
 │   ├── client
 │   └── server
 ├── config.js # 定义应用的配置
@@ -658,6 +658,10 @@ module.exports = {
   ]
 };
 ```
+
+#### 前端组件加载图片
+
+不建议图片资源放在 `web` 文件夹，对图片资源若非有小文件 base64 内联或者 hash 缓存的需求是不建议用 Webpack 去处理的，这样会使得 Webpack 的构建速度变慢。建议放在默认的静态资源文件夹即 `build` 文件夹，通过 `<img src="/foo.jpg">` 即可引入。由于 [egg-static](https://github.com/eggjs/egg-static) 支持数组的形式，也可以自行在根目录下创建 `public` 文件夹用于存放图片等静态资源
 
 #### 降级为客户端渲染
 
