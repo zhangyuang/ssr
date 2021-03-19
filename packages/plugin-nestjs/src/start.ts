@@ -10,7 +10,8 @@ const start = () => {
     console.log(data)
     if (data.match('Nest application successfully started')) {
       spinner.stop()
-      logGreen('Server is listening on http://localhost:3000')
+      const https = process.env.HTTPS
+      logGreen(`Server is listening on ${https ? 'https' : 'http'}://localhost:3000`)
     }
   })
   stderr?.on('data', function (data) {
