@@ -39,7 +39,7 @@ const getVuexStoreFilePath = () => {
 const getUserConfig = (): IConfig => {
   // 生产环境如果有 config.prod 则读取
   const isProd = process.env.NODE_ENV === 'production'
-  const hasProdConfig = fs.existsSync(join(getCwd(), './config.prod'))
+  const hasProdConfig = fs.existsSync(join(getCwd(), './config.prod.js'))
   return require(join(getCwd(), isProd && hasProdConfig ? './config.prod' : './config'))
 }
 
