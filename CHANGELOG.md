@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.14](https://github.com/ykfe/ssr/compare/v5.4.13...v5.4.14) (2021-03-19)
+
+
+### Bug Fixes
+
+* prod config ([aa2dd18](https://github.com/ykfe/ssr/commit/aa2dd1894931ef829c3ec5b133ed7f585024a50b))
+
+
+
+
+
 ## [5.4.13](https://github.com/ykfe/ssr/compare/v5.4.12...v5.4.13) (2021-03-19)
 
 **Note:** Version bump only for package ssr
