@@ -11,13 +11,12 @@ const pageDir = getPagesDir()
 const cwd = getCwd()
 
 const hasDeclaretiveRoutes = async () => {
-  try {
-    await fs.access(join(getFeDir(), './route.js'))
-    return true
-  } catch (error) {
-    return false
-  }
+  const result = await fs.access(join(getFeDir(), './route.js'))
+    .then(() => true)
+    .catch(() => false)
+  return result
 }
+
 const parseFeRoutes = async () => {
   const { clientPlugin } = loadPlugin()
   const isVue = clientPlugin.name.match('vue')
@@ -30,6 +29,7 @@ const parseFeRoutes = async () => {
   } catch (error) {
     Shell.mkdir(join(cwd, './node_modules/ssr-temporary-routes'))
   }
+
   let routes = ''
 
   if (!await hasDeclaretiveRoutes()) {

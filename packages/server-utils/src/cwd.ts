@@ -1,4 +1,5 @@
 import * as fs from 'fs'
+import { promises } from 'fs'
 import { join, isAbsolute } from 'path'
 import { IConfig } from 'ssr-types'
 
@@ -36,12 +37,21 @@ const getVuexStoreFilePath = () => {
 }
 
 const getUserConfig = (): IConfig => {
-  return require(join(getCwd(), './config'))
+  // 生产环境如果有 config.prod 则读取
+  const isProd = process.env.NODE_ENV === 'production'
+  const hasProdConfig = fs.existsSync(join(getCwd(), './config.prod'))
+  return require(join(getCwd(), isProd && hasProdConfig ? './config.prod' : './config'))
 }
+
 const loadPlugin = () => {
   return require(join(getCwd(), './plugin'))
 }
-const isFaaS = () => fs.existsSync(join(getCwd(), './f.yml'))
+const isFaaS = async () => {
+  const result = await promises.access(join(getCwd(), './f.yml'))
+    .then(() => true)
+    .catch(() => false)
+  return result
+}
 
 const getLocalNodeModules = () => join(__dirname, '../../../')
 

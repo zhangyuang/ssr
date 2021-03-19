@@ -500,6 +500,7 @@ export default {
 │   ├── client
 │   └── server
 ├── config.js # 定义应用的配置
+├── config.prod.js # 若存在则视为生产环境的应用配置
 ├── f.yml # 可选，若调用 ssr deploy 检测到无此文件会自动创建
 ├── package.json
 ├── src # 存放服务端 Node.js 相关代码
@@ -916,7 +917,7 @@ module.exports = [{
 
 #### 配置文件
 
-config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特殊需求不要修改
+`config.js` 支持以下配置, 默认配置已适用于绝大部分应用, 无特殊需求不要修改。若需要区分本地环境与生产环境，可另外在根目录创建 `config.prod.js` 文件作为生产环境的构建配置
 
 ```js
 {
