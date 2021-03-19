@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.13](https://github.com/ykfe/ssr/compare/v5.4.12...v5.4.13) (2021-03-19)
+
+**Note:** Version bump only for package ssr-core-vue
+
+
+
+
+
 ## [5.4.10](https://github.com/ykfe/ssr/compare/v5.4.9...v5.4.10) (2021-03-15)
 
 **Note:** Version bump only for package ssr-core-vue
