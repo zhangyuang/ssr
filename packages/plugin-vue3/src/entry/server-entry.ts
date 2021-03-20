@@ -19,7 +19,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const router = createRouter()
   const store = createStore()
 
-  const { staticPrefix, cssOrder, jsOrder, dynamic, mode, customeHeadScript } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript } = config
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
 
   const routeItem = findRoute<FeRouteItem<{}, {
@@ -58,14 +58,14 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         if (manifest[css]) {
           injectCss.push(h('link', {
             rel: 'stylesheet',
-            href: `${staticPrefix}${manifest[css]}`
+            href: manifest[css]
           }))
         }
       })
 
       const injectScript = jsOrder.map(js =>
         h('script', {
-          src: `${staticPrefix}${manifest[js]}`
+          src: manifest[js]
         })
       )
 
