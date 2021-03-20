@@ -29,7 +29,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   let dynamicCssOrder = cssOrder
   if (dynamic) {
-    dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
+    dynamicCssOrder = cssOrder.concat([`${staticPrefix}${routeItem.webpackChunkName}.css`])
   }
 
   const manifest = await getManifest()

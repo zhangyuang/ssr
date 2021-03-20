@@ -923,7 +923,6 @@ module.exports = [{
 {
   mode: string; // 渲染模式，默认为 ssr
   stream: boolean; // 是否将组件编译成 Node.js.Stream 默认为 false 则编译为字符串
-  cwd: string; // 设置命令执行的 cwd，默认为 process.cwd()，无特殊需求不需修改
   isDev: boolean; // 当前运行环境，默认为 process.env.NODE_ENV
   publicPath: string; // webpack-dev-server 的publishPath，默认为 /
   useHash: boolean; // 生成文件是否带有 hash，默认本地运行关闭，生产环境构建时开启

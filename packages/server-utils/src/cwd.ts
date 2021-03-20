@@ -17,7 +17,7 @@ const getCwd = () => {
 
 const getFeDir = () => {
   // fe component folder path
-  const cwd = process.cwd()
+  const cwd = getCwd()
   if (process.env.FE_ROOT) {
     // avoid repeat cwd path
     if (!isAbsolute(process.env.FE_ROOT)) {
