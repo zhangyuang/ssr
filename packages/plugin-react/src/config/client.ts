@@ -11,9 +11,9 @@ const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const loadModule = require.resolve
 
 const getClientWebpack = (chain: WebpackChain) => {
-  const { publicPath, isDev, chunkName, getOutput, cwd, useHash, chainClientConfig } = loadConfig()
+  const { publicPath, isDev, chunkName, getOutput, cwd, useHash, chainClientConfig, staticPrefix } = loadConfig()
   const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
-  const truePublicPath = isDev ? publicPath : `/client${publicPath}`
+  const truePublicPath = isDev ? publicPath : `${staticPrefix}/client${publicPath}`
   getBaseConfig(chain)
   chain.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
   chain.entry(chunkName)

@@ -12,7 +12,7 @@ const serialize = require('serialize-javascript')
 // @ts-expect-error
 const store = require(vuexStoreFilePath) // define by webpack define plugin
 
-function createStore() {
+function createStore () {
   return new Vuex.Store(store)
 }
 
