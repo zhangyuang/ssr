@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.16](https://github.com/ykfe/ssr/compare/v5.4.15...v5.4.16) (2021-03-20)
+
+
+### Bug Fixes
+
+* dynamic css chunk ([bc3fb86](https://github.com/ykfe/ssr/commit/bc3fb86ab11ec27a9919e8d0d9a953f26ab4d851))
+
+
+
+
+
 ## [5.4.15](https://github.com/ykfe/ssr/compare/v5.4.14...v5.4.15) (2021-03-20)
 
 **Note:** Version bump only for package ssr-plugin-react
