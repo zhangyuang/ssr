@@ -1,5 +1,4 @@
 import { Configuration, Options } from 'webpack'
-import * as httpProxyMiddleware from 'http-proxy-middleware'
 import { Config } from './third-party/webpack-chain'
 export interface IConfig {
   cwd: string
@@ -14,6 +13,7 @@ export interface IConfig {
     clientOutPut: string
     serverOutPut: string
   }
+  proxy: any
   cssOrder: string[]
   jsOrder: string[]
   staticPrefix: string
@@ -33,7 +33,6 @@ export interface IConfig {
   cloudIDE?: boolean
   cssModulesWhiteList: RegExp[]
   prefix?: string
-  proxy: Proxy
   dynamic: boolean
   feFramework: string
   mode: string
@@ -47,12 +46,6 @@ export interface IConfig {
 type Optional <T>= { [key in keyof T]?: T[key] }
 
 export type UserConfig = Optional<IConfig>
-export interface Proxy {
-  [key: string]: httpProxyMiddleware.Options
-}
-export interface proxyOptions {
-  express?: boolean
-}
 
 export interface StyleOptions {
   rule: string

@@ -1,7 +1,9 @@
 import { createProxyMiddleware } from 'http-proxy-middleware'
-import { Proxy, proxyOptions } from 'ssr-types'
 import { loadConfig } from '../loadConfig'
 
+interface proxyOptions {
+  express?: boolean
+}
 const koaConnect = require('koa2-connect')
 
 function onProxyReq (proxyReq: any, req: any) {
@@ -15,7 +17,7 @@ const getDevProxyMiddlewaresArr = (options?: proxyOptions) => {
   const express = options ? options.express : false
   const proxyMiddlewaresArr: any[] = []
 
-  function registerProxy (proxy: Proxy) {
+  function registerProxy (proxy: any) {
     for (const path in proxy) {
       const options = proxy[path]
       // 如果底层服务端框架是基于 express的。则不需要用 koaConnect 转换为 koa 中间件
@@ -25,6 +27,7 @@ const getDevProxyMiddlewaresArr = (options?: proxyOptions) => {
   }
 
   proxy && registerProxy(proxy)
+
   if (isDev) {
     // 在本地开发阶段代理 serverPort 的资源到 fePort
     // 例如 http://localhost:3000/static/js/page.chunk.js -> http://localhost:8000/static/js/page.chunk.js

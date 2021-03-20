@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import { promises } from 'fs'
 import { join, isAbsolute } from 'path'
-import { IConfig } from 'ssr-types'
+import { UserConfig } from 'ssr-types'
 
 const getCwd = () => {
   const cwd = process.cwd()
@@ -36,7 +36,7 @@ const getVuexStoreFilePath = () => {
   return join(getFeDir(), './store')
 }
 
-const getUserConfig = (): IConfig => {
+const getUserConfig = (): UserConfig => {
   // 生产环境如果有 config.prod 则读取
   const isProd = process.env.NODE_ENV === 'production'
   const hasProdConfig = fs.existsSync(join(getCwd(), './config.prod.js'))
