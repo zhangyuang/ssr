@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.15](https://github.com/ykfe/ssr/compare/v5.4.14...v5.4.15) (2021-03-20)
+
+
+### Bug Fixes
+
+* http-proxy-middleware types ([4bdf615](https://github.com/ykfe/ssr/commit/4bdf615f689f0c44ead5c2a9727b8e758e3b5f3b))
+
+
+
+
+
 ## [5.4.14](https://github.com/ykfe/ssr/compare/v5.4.13...v5.4.14) (2021-03-19)
 
 
