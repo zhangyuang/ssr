@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.4.18](https://github.com/ykfe/ssr/compare/v5.4.17...v5.4.18) (2021-03-20)
+
+**Note:** Version bump only for package ssr-plugin-vue3
+
+
+
+
+
 ## [5.4.17](https://github.com/ykfe/ssr/compare/v5.4.16...v5.4.17) (2021-03-20)
 
 **Note:** Version bump only for package ssr-plugin-vue3
