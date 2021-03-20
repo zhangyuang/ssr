@@ -924,12 +924,11 @@ module.exports = [{
   mode: string; // 渲染模式，默认为 ssr
   stream: boolean; // 是否将组件编译成 Node.js.Stream 默认为 false 则编译为字符串
   isDev: boolean; // 当前运行环境，默认为 process.env.NODE_ENV
-  publicPath: string; // webpack-dev-server 的publishPath，默认为 /
+  publicPath: string; // webpack-dev-server 的publishPath，默认为 /, 可替换为其他 CDN 地址 如 https://g.alicdn.com/path/xxx
   useHash: boolean; // 生成文件是否带有 hash，默认本地运行关闭，生产环境构建时开启
   fePort: number; // 前端静态资源本地开发时的监听端口，默认为 8000, FaaS Server 会自动 proxy,无特殊需求不需要修改
   chunkName: string; // 生成的 bundle 的 chunkName，默认为Page,无特殊需求不要修改
   webpackDevServerConfig: webpackDevServer.Configuration; // webpack-dev-server 启动配置
-  staticPrefix: string; // 加载的静态资源前缀，需要发布到单独的cdn服务时可以使用该配置设置为cdn服务的地址
   chainBaseConfig: (config: Config) => Configuration // 使用 webpack-chain 来修改服务端/客户端公共的 wbepack 构建配置
   chainServerConfig: (config: Config) => Configuration; // 使用 webpack-chain 来修改服务端 wbepack 构建配置
   chainClientConfig: (config: Config) => Configuration; // 使用 webpack-chain 来修改客户端 wbepack 构建配置
