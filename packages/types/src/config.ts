@@ -16,7 +16,6 @@ export interface IConfig {
   proxy: any
   cssOrder: string[]
   jsOrder: string[]
-  staticPrefix: string
   css?: () => {
     loaderOptions: {
       postcss: {

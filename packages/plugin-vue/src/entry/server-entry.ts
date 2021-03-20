@@ -23,7 +23,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   const store = createStore()
   sync(store, router)
 
-  const { staticPrefix, cssOrder, jsOrder, dynamic, mode, customeHeadScript } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript } = config
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
 
   const routeItem = findRoute<FeRouteItem<{}, {
@@ -66,7 +66,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           injectCss.push(h('link', {
             attrs: {
               rel: 'stylesheet',
-              href: `${staticPrefix}${manifest[css]}`
+              href: manifest[css]
             }
           }))
         }
@@ -75,7 +75,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
       const injectScript = jsOrder.map(js => (
         h('script', {
           attrs: {
-            src: `${staticPrefix}${manifest[js]}`
+            src: manifest[js]
           }
         })
       ))
