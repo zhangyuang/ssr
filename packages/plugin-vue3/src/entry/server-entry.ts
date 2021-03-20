@@ -9,7 +9,7 @@ const serialize = require('serialize-javascript')
 // @ts-expect-error
 const store = require(vuexStoreFilePath) // define by webpack define plugin
 
-function createStore () {
+function createStore() {
   return Vuex.createStore(store)
 }
 
@@ -29,7 +29,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   let dynamicCssOrder = cssOrder
   if (dynamic) {
-    dynamicCssOrder = cssOrder.concat([`${staticPrefix}${routeItem.webpackChunkName}.css`])
+    dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
   }
 
   const manifest = await getManifest()
