@@ -1,5 +1,5 @@
 
-import { join } from 'path'
+import { join, resolve } from 'path'
 import { Mode } from 'ssr-types'
 import { getFeDir, getCwd, loadConfig, getLocalNodeModules, setStyle } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
@@ -71,7 +71,22 @@ const getBaseConfig = (chain: WebpackChain) => {
     .plugin('vue-loader')
     .use(require('vue-loader').VueLoaderPlugin)
     .end()
-
+  chain.module
+    .rule('i18n-resource')
+    .test(/\.(json5?|ya?ml)$/)
+    .include.add(resolve(__dirname, './web/locales')).end()
+    .type('javascript/auto')
+    .use('i18n-resource')
+    .loader('@intlify/vue-i18n-loader')
+    .end()
+  // block support
+  chain.module
+    .rule('i18n')
+    .resourceQuery(/blockType=i18n/)
+    .type('javascript/auto')
+    .use('i18n')
+    .loader(loadModule('@intlify/vue-i18n-loader'))
+    .end()
   chain.module
     .rule('compile')
     .test(/\.(js|mjs|ts|tsx)$/)
