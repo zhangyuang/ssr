@@ -63,6 +63,10 @@
 </b></sub></a></td>
 <td align="center"><a target="_blank" href="http://tx.ssr-fc.com/"><img src="http://s0.60logo.com/uploads/items/images/soft/180126/tengxunyun.svg" width="100px;"/><br><sub><b>部署于腾讯云示例应用
 </b></sub></a></td>
+<td align="center"><a href="https://www.gszq.com/" target="_blank"><img src="https://www.gszq.com/static/media/icon-slogan.4d1c7974.png
+" width="100px;" alt="国盛证券"/><br />
+<a href="https://www.gszq.com/" target="_bvlank"><sub><b>国盛证券
+</b></a></td>
 </tr>
 </table>
 
