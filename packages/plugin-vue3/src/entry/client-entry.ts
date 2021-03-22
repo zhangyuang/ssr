@@ -1,6 +1,7 @@
 import * as Vue from 'vue'
 import * as Vuex from 'vuex'
 import { h, createApp } from 'vue'
+import { createI18n } from 'vue-i18n'
 import { findRoute } from 'ssr-client-utils'
 import { FeRouteItem } from 'ssr-types'
 import { createRouter } from './router'
@@ -30,6 +31,21 @@ const clientRender = async () => {
 
   app.use(store)
   app.use(router)
+  // @ts-expect-error
+  if (vueI18N?.enable) {
+    const i18n = createI18n({
+      // 默认配置
+      locale: 'en',
+      messages: {},
+      globalInjection: true,
+      // 用户配置
+      // @ts-expect-error
+      ...vueI18N.config,
+      // 模式锁定，传统模式SSR有bug
+      legacy: false
+    })
+    app.use(i18n)
+  }
 
   await router.isReady()
 

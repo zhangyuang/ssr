@@ -10,7 +10,7 @@ const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const loadModule = require.resolve
 
 const getClientWebpack = (chain: WebpackChain) => {
-  const { publicPath, isDev, chunkName, getOutput, useHash, chainClientConfig } = loadConfig()
+  const { publicPath, isDev, chunkName, getOutput, useHash, chainClientConfig, locale } = loadConfig()
   const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
   const truePublicPath = isDev ? publicPath : `${publicPath}client/`
   getBaseConfig(chain)
@@ -82,7 +82,8 @@ const getClientWebpack = (chain: WebpackChain) => {
 
   chain.plugin('define').use(webpack.DefinePlugin, [{
     __isBrowser__: true,
-    vuexStoreFilePath: JSON.stringify(getVuexStoreFilePath())
+    vuexStoreFilePath: JSON.stringify(getVuexStoreFilePath()),
+    vueI18N: JSON.stringify(locale)
     // __VUE_OPTIONS_API__: false // 配置后与 vuex 集成有bug，暂时不打开
   }])
 
