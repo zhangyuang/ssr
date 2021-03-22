@@ -98,7 +98,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       )
     }
   })
-  if (locale.enable) {
+  if (locale?.enable) {
     const i18n = createI18n({
       // 默认配置
       locale: 'en',

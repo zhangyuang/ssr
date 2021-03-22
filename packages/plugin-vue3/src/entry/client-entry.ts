@@ -32,7 +32,7 @@ const clientRender = async () => {
   app.use(store)
   app.use(router)
   // @ts-expect-error
-  if (vueI18N.enable) {
+  if (vueI18N?.enable) {
     const i18n = createI18n({
       // 默认配置
       locale: 'en',
@@ -40,7 +40,7 @@ const clientRender = async () => {
       globalInjection: true,
       // 用户配置
       // @ts-expect-error
-      ...vueI118N.config,
+      ...vueI18N.config,
       // 模式锁定，传统模式SSR有bug
       legacy: false
     })
