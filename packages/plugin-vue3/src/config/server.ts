@@ -8,7 +8,7 @@ const loadModule = require.resolve
 
 const getServerWebpack = (chain: WebpackChain) => {
   const config = loadConfig()
-  const { isDev, cwd, getOutput, chainServerConfig, whiteList, chunkName } = config
+  const { isDev, cwd, getOutput, chainServerConfig, whiteList, chunkName, locale } = config
 
   getBaseConfig(chain)
   chain.devtool(isDev ? 'eval-source-map' : false)
@@ -38,7 +38,8 @@ const getServerWebpack = (chain: WebpackChain) => {
 
   chain.plugin('define').use(webpack.DefinePlugin, [{
     __isBrowser__: false,
-    vuexStoreFilePath: JSON.stringify(getVuexStoreFilePath())
+    vuexStoreFilePath: JSON.stringify(getVuexStoreFilePath()),
+    vueI18N: JSON.stringify(locale)
   }])
 
   chainServerConfig(chain) // 合并用户自定义配置

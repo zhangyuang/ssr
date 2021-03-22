@@ -1,5 +1,5 @@
 
-import { join, resolve } from 'path'
+import { join } from 'path'
 import { Mode } from 'ssr-types'
 import { getFeDir, getCwd, loadConfig, getLocalNodeModules, setStyle } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
@@ -9,7 +9,8 @@ const loadModule = require.resolve
 
 const getBaseConfig = (chain: WebpackChain) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList, chainBaseConfig } = config
+  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, locale } = config
+
   const mode = process.env.NODE_ENV as Mode
   chain.resolve
     .extensions
@@ -66,27 +67,29 @@ const getBaseConfig = (chain: WebpackChain) => {
       babelParserPlugins: ['jsx', 'classProperties', 'decorators-legacy']
     })
     .end()
-
   chain
     .plugin('vue-loader')
     .use(require('vue-loader').VueLoaderPlugin)
     .end()
-  chain.module
+
+  locale?.enable && chain.module
     .rule('i18n-resource')
     .test(/\.(json5?|ya?ml)$/)
-    .include.add(resolve(__dirname, './web/locales')).end()
+    .include.add(join(getCwd(), './web/locales')).end()
     .type('javascript/auto')
     .use('i18n-resource')
     .loader('@intlify/vue-i18n-loader')
     .end()
+
   // block support
-  chain.module
+  locale?.enable && chain.module
     .rule('i18n')
     .resourceQuery(/blockType=i18n/)
     .type('javascript/auto')
     .use('i18n')
-    .loader(loadModule('@intlify/vue-i18n-loader'))
+    .loader('@intlify/vue-i18n-loader')
     .end()
+
   chain.module
     .rule('compile')
     .test(/\.(js|mjs|ts|tsx)$/)
@@ -118,7 +121,6 @@ const getBaseConfig = (chain: WebpackChain) => {
     .end()
 
   setStyle(isDev, chain, /\.css$/, {
-    exclude: cssModulesWhiteList,
     rule: 'css',
     modules: false,
     importLoaders: 1

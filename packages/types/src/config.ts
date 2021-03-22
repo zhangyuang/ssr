@@ -13,7 +13,7 @@ export interface IConfig {
     clientOutPut: string
     serverOutPut: string
   }
-  proxy: any
+  proxy?: any
   cssOrder: string[]
   jsOrder: string[]
   css?: () => {
@@ -33,7 +33,6 @@ export interface IConfig {
   cssModulesWhiteList: RegExp[]
   prefix?: string
   dynamic: boolean
-  feFramework: string
   mode: string
   webpackDevServerConfig: any
   stream: boolean
@@ -41,6 +40,10 @@ export interface IConfig {
     describe: object
     content: string
   }>
+  locale?: {
+    enable: false
+    config: any
+  }
 }
 type Optional <T>= { [key in keyof T]?: T[key] }
 

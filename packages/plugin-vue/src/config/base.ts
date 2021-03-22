@@ -9,7 +9,7 @@ const loadModule = require.resolve
 
 const getBaseConfig = (chain: WebpackChain) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList, chainBaseConfig } = config
+  const { moduleFileExtensions, useHash, isDev, chainBaseConfig } = config
   const mode = process.env.NODE_ENV as Mode
   chain.mode(mode)
   chain.module.strictExportPresence(true)
@@ -98,7 +98,6 @@ const getBaseConfig = (chain: WebpackChain) => {
     .end()
 
   setStyle(isDev, chain, /\.css$/, {
-    exclude: cssModulesWhiteList,
     rule: 'css',
     modules: false,
     importLoaders: 1

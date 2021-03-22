@@ -1,18 +1,11 @@
 import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
-import * as Vuex from 'vuex'
-import { createI18n } from 'vue-i18n'
 import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
 import { createRouter } from './router'
+import { createStore } from './store'
 
 const serialize = require('serialize-javascript')
-// @ts-expect-error
-const store = require(vuexStoreFilePath) // define by webpack define plugin
-
-function createStore () {
-  return Vuex.createStore(store)
-}
 
 const feRoutes = require('ssr-temporary-routes/route')
 
@@ -99,16 +92,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     }
   })
   if (locale?.enable) {
-    const i18n = createI18n({
-      // 默认配置
-      locale: 'en',
-      messages: {},
-      globalInjection: true,
-      // 用户配置
-      ...locale.config,
-      // 模式锁定，传统模式SSR有bug
-      legacy: false
-    })
+    const { i18n } = require('./i18n')
     app.use(i18n)
   }
   app.use(router)
