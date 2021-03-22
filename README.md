@@ -611,6 +611,68 @@ export default {
 </script>
 
 ```
+#### 使用Vue3国际化插件
+国际化插件使用最新的Composition API，推荐使用Composition API进行国际化配置，详细见官方文档：https://vue-i18n.intlify.dev/guide/advanced/composition.html
+```vue
+
+<template>
+  <div>
+    <select v-model="$i18n.locale">
+      <option value="en">
+        en
+      </option>
+      <option value="ja">
+        ja
+      </option>
+    </select>
+    <p>{{ t('named', { msg }) }}</p>
+    <p>{{ t('list', [msg]) }}</p>
+    <p>{{ t('literal') }}</p>
+    <p>{{ t('linked') }}</p>
+  </div>
+</template>
+
+<script>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+export default {
+  setup () {
+    const { t } = useI18n({
+      messages: {
+        useScope: 'local',
+        en: {
+          msg: 'hello',
+          named: '{msg} world!',
+          list: '{0} world!',
+          literal: "{'hello'} world!",
+          the_world: 'the world',
+          dio: 'DIO:',
+          linked: '@:dio @:the_world !!!!'
+        },
+        ja: {
+          msg: 'こんにちは',
+          named: '{msg} 世界！',
+          list: '{0} 世界！',
+          literal: "{'こんにちは'} 世界！",
+          the_world: 'ザ・ワールド！',
+          dio: 'ディオ:',
+          linked: '@:dio @:the_world ！！！！'
+        }
+      }
+    })
+
+    const msg = computed(() => t('msg'))
+
+    return { t, msg }
+  }
+}
+</script>
+
+<style>
+
+</style>
+
+```
 
 #### 使用 UI 框架
 
@@ -954,6 +1016,10 @@ module.exports = [{
         plugins: any[]
       }
     }
+  },
+  locale:{
+    enable:true,// 是否启用vue-i18n国际化插件
+    config:{} // vue-i18n国际化插件初始化配置，详见：https://vue-i18n.intlify.dev/api/general.html
   }
 }
 
