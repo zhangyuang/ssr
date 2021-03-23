@@ -1007,14 +1007,14 @@ module.exports = [{
 
 #### 配置文件
 
-`config.js` 支持以下配置, 默认配置已适用于绝大部分应用, 无特殊需求不要修改。若需要区分本地环境与生产环境，可另外在根目录创建 `config.prod.js` 文件作为生产环境的构建配置
+`config.js` 支持以下配置, 默认配置已适用于绝大部分应用, 无特殊需求不要修改。若需要区分本地环境与生产环境，可另外在根目录创建 `config.prod.js` 文件作为生产环境的构建配置或在 `config.js` 使用 `process.env.NODE_ENV` 来区分配置
 
 ```js
 {
   mode: string; // 渲染模式，默认为 ssr
   stream: boolean; // 是否将组件编译成 Node.js.Stream 默认为 false 则编译为字符串
   isDev: boolean; // 当前运行环境，默认为 process.env.NODE_ENV
-  publicPath: string; // webpack-dev-server 的publishPath，默认为 /, 可替换为其他 CDN 地址 如 https://g.alicdn.com/path/xxx
+  publicPath: string; // 静态资源的publishPath，本地开发默认为 /, 生产环境可替换为其他 CDN 地址 如 https://g.alicdn.com/path/xxx
   useHash: boolean; // 生成文件是否带有 hash，默认本地运行关闭，生产环境构建时开启
   fePort: number; // 前端静态资源本地开发时的监听端口，默认为 8000, FaaS Server 会自动 proxy,无特殊需求不需要修改
   chunkName: string; // 生成的 bundle 的 chunkName，默认为Page,无特殊需求不要修改
