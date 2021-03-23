@@ -1,9 +1,7 @@
 import { createProxyMiddleware } from 'http-proxy-middleware'
+import { proxyOptions } from 'ssr-types'
 import { loadConfig } from '../loadConfig'
 
-interface proxyOptions {
-  express?: boolean
-}
 const koaConnect = require('koa2-connect')
 
 function onProxyReq (proxyReq: any, req: any) {
@@ -46,7 +44,6 @@ const getDevProxyMiddlewaresArr = (options?: proxyOptions) => {
       '/__webpack_dev_server__': remoteStaticServerOptions,
       '/asset-manifest': remoteStaticServerOptions
     }
-    // @ts-expect-error
     registerProxy(proxyPathMap)
   }
 
