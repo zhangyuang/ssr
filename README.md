@@ -238,7 +238,8 @@ $ DEBUG=ssr:* npm start # 打印所有的 ssr 模块提供的 debug 信息
 | [ssr-plugin-midway]          | [![ssr-plugin-midway-status]][ssr-plugin-midway] | provide start and build fetature by [midway@2.0](https://midwayjs.org/) |
 | [ssr-plugin-nestjs]          | [![ssr-plugin-nestjs-status]][ssr-plugin-nestjs] | provide start and build feature by [Nestjs](https://docs.nestjs.com/) |
 | [ssr-plugin-react]          | [![ssr-plugin-react-status]][ssr-plugin-react] | develop react application only be used in development |
-| [ssr-plugin-vue]          | [![ssr-plugin-vue-status]][ssr-plugin-vue] | develop vue application only be used in development |
+| [ssr-plugin-vue]          | [![ssr-plugin-vue-status]][ssr-plugin-vue] | develop vue2 application only be used in development |
+| [ssr-plugin-vue3]          | [![ssr-plugin-vue3-status]][ssr-plugin-vue3] | develop vue3 application only be used in development |
 | [ssr-server-utils]          | [![ssr-server-utils-status]][ssr-server-utils] | server utils in Node.js environment |
 | [ssr-client-utils]          | [![ssr-client-utils-status]][ssr-client-utils] | client utils in browser environment |
 | [ssr-hoc-react]          | [![ssr-hoc-react-status]][ssr-hoc-react] | provide hoc component for react |
@@ -255,6 +256,7 @@ $ DEBUG=ssr:* npm start # 打印所有的 ssr 模块提供的 debug 信息
 [ssr-plugin-nestjs-status]: https://img.shields.io/npm/v/ssr-plugin-nestjs.svg
 [ssr-plugin-react-status]: https://img.shields.io/npm/v/ssr-plugin-react.svg
 [ssr-plugin-vue-status]: https://img.shields.io/npm/v/ssr-plugin-vue.svg
+[ssr-plugin-vue3-status]: https://img.shields.io/npm/v/ssr-plugin-vue3.svg
 [ssr-server-utils-status]: https://img.shields.io/npm/v/ssr-server-utils.svg
 [ssr-types-status]: https://img.shields.io/npm/v/ssr-types.svg
 [ssr-webpack-status]: https://img.shields.io/npm/v/ssr-webpack.svg
@@ -268,6 +270,7 @@ $ DEBUG=ssr:* npm start # 打印所有的 ssr 模块提供的 debug 信息
 [ssr-plugin-nestjs]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-nestjs
 [ssr-plugin-react]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-react
 [ssr-plugin-vue]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-vue
+[ssr-plugin-vue3]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-vue3
 [ssr-server-utils]: https://github.com/ykfe/ssr/tree/dev/packages/server-utils
 [ssr-types]: https://github.com/ykfe/ssr/tree/dev/packages/types
 [ssr-webpack]: https://github.com/ykfe/ssr/tree/dev/packages/webpack
@@ -1016,7 +1019,7 @@ module.exports = [{
   isDev: boolean; // 当前运行环境，默认为 process.env.NODE_ENV
   publicPath: string; // 静态资源的publishPath，本地开发默认为 /, 生产环境可替换为其他 CDN 地址 如 https://g.alicdn.com/path/xxx
   useHash: boolean; // 生成文件是否带有 hash，默认本地运行关闭，生产环境构建时开启
-  fePort: number; // 前端静态资源本地开发时的监听端口，默认为 8000, FaaS Server 会自动 proxy,无特殊需求不需要修改
+  fePort: number; // 前端静态资源本地开发时的监听端口，默认为 8000, 本地开啊服务端 Server 会自动 proxy 静态资源,无特殊需求不需要修改
   chunkName: string; // 生成的 bundle 的 chunkName，默认为Page,无特殊需求不要修改
   webpackDevServerConfig: webpackDevServer.Configuration; // webpack-dev-server 启动配置
   chainBaseConfig: (config: Config) => Configuration // 使用 webpack-chain 来修改服务端/客户端公共的 wbepack 构建配置
