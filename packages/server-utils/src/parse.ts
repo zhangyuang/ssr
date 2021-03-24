@@ -41,7 +41,7 @@ const parseFeRoutes = async () => {
     if (isVue) {
       route.App = `require('${defaultApp}').default`
     }
-    const arr = await renderRoutes(pageDir, isVue, pathRecord, route)
+    const arr = await renderRoutes(pageDir, pathRecord, route)
     debug('The result that parse web folder to routes is: ', arr)
     routes = `module.exports =${JSON.stringify(arr)
         .replace(/"layout":("(.+?)")/g, (global, m1, m2) => {
@@ -86,7 +86,7 @@ const parseFeRoutes = async () => {
   await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
 }
 
-const renderRoutes = async (pageDir: string, isVue: boolean, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {
+const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {
   let arr: ParseFeRouteItem[] = []
   const pagesFolders = await fs.readdir(pageDir)
   const prefixPath = pathRecord.join('/')
@@ -97,7 +97,7 @@ const renderRoutes = async (pageDir: string, isVue: boolean, pathRecord: string[
     if (isDirectory) {
       // 如果是文件夹则递归下去, 记录路径
       pathRecord.push(pageFiles)
-      const childArr = await renderRoutes(abFolder, isVue, pathRecord, Object.assign({}, route))
+      const childArr = await renderRoutes(abFolder, pathRecord, Object.assign({}, route))
       pathRecord.pop() // 回溯
       arr = arr.concat(childArr)
     } else {
@@ -140,7 +140,7 @@ const renderRoutes = async (pageDir: string, isVue: boolean, pathRecord: string[
 
   if (route.path && prefix) {
     // 统一添加公共前缀
-    route.path = prefix ? `/${prefix}${route.path}` : route.path
+    route.path = `/${prefix}${route.path}`
   }
   route.path && arr.push(route)
   return arr
