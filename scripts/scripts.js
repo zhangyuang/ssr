@@ -8,9 +8,6 @@ const options = {
 
 const linkPackage = []
 
-linkPackage.push('react')
-linkPackage.push('react-dom')
-
 if (argv.bootstrap) {
   let shell = 'npx concurrently "yarn"'
   const examples = fs.readdirSync('./example')
@@ -23,6 +20,11 @@ if (argv.bootstrap) {
   execSync('yarn build:only', options)
 }
 
+const excludePackage = ['.DS_Store', 'plugin-midway', 'plugin-nestjs']
+const packages = fs.readdirSync('./packages').filter(name => {
+  return !excludePackage.includes(name)
+})
+
 if (argv.clean) {
   let shell = 'rm -rf node_modules yarn.lock **/**/cjs **/**/esm **/**/yarn.lock **/**/package-lock.json packages/**/node_modules'
   if (argv.deep) {
@@ -32,7 +34,10 @@ if (argv.clean) {
 }
 
 if (argv.link) {
-  const packages = fs.readdirSync('./packages')
+  if (argv.react) {
+    linkPackage.push('react')
+    linkPackage.push('react-dom')
+  }
   let shell = 'npx concurrently'
   linkPackage.forEach(item => {
     shell += ` "cd node_modules/${item} && yarn link" ` // link react-dom 防止出现多个react实例
@@ -66,7 +71,6 @@ if (argv.unlink) {
     linkPackage.push('react-dom')
   }
 
-  const packages = fs.readdirSync('./packages')
   let shell = 'npx concurrently'
   linkPackage.forEach(item => {
     shell += ` "cd node_modules/${item} && yarn unlink" ` // link react-dom 防止出现多个react实例
@@ -76,17 +80,12 @@ if (argv.unlink) {
     execSync(shell, options)
   }
   packages.forEach(item => {
-    if (item !== '.DS_Store') {
-      shell += ` "cd packages/${item} && yarn unlink" `
-    }
+    shell += ` "cd packages/${item} && yarn unlink" `
   })
   execSync(shell, options)
 }
 if (argv.publishDoc) {
-  const packages = fs.readdirSync('./packages')
   packages.forEach(item => {
-    if (item !== '.DS_Store') {
-      execSync(`cp README.md packages/${item}`, options)
-    }
+    execSync(`cp README.md packages/${item}`, options)
   })
 }
