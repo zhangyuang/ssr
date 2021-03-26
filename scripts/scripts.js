@@ -50,11 +50,9 @@ if (argv.link) {
   }
 
   packages.forEach(item => {
-    if (item !== '.DS_Store') {
-      shell += ` "cd packages/${item} && yarn link" ` // link packages 下面所有的包
-    }
+    shell += ` "cd packages/${item} && yarn link" ` // link packages 下面所有的包
   })
-  const linkedPackage = packages.filter(item => item !== '.DS_Store').map(item => item === 'cli' ? 'ssr' : 'ssr-' + item)
+  const linkedPackage = packages.map(item => item === 'cli' ? 'ssr' : 'ssr-' + item)
     .concat(linkPackage).join(' ')
 
   const examples = fs.readdirSync('./example')
@@ -88,4 +86,10 @@ if (argv.publishDoc) {
   packages.forEach(item => {
     execSync(`cp README.md packages/${item}`, options)
   })
+}
+
+if (argv.sync) {
+  const shell = 'cnpm sync '
+  const linkedPackage = fs.readdirSync('./packages').map(item => item !== '.DS_Store' && item === 'cli' ? 'ssr' : 'ssr-' + item).join(' ')
+  execSync(shell + linkedPackage, options)
 }
