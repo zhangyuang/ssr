@@ -1087,9 +1087,11 @@ module.exports = [{
     // 我们不单独提供底部的 script，因为所需要实现的功能都能够在 App.vue 中实现
   }>
   css?: () => {
-    // 额外的 postcss 插件配置，需要用函数 return 的形式
+    // 用于添加用户自定义配置 css-loader 以及 postcss-loader，需要用函数 return 的形式
     loaderOptions: {
+      cssOptions: any
       postcss: {
+        options: any
         plugins: any[]
       }
     }
