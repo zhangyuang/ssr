@@ -403,9 +403,9 @@ module.exports = {
 - 前端路由: 约定式路由/声明式路由
 - 数据管理: vuex
 
-##### JSX(可选)
+##### JSX|TSX(可选)
 
-在 Vue3 场景下我们默认在底层已加载 [@vue/babel-plugin-jsx](https://github.com/vuejs/jsx-next#installation) 插件，开发者可根据个人喜好决定使用 template 的方式抑或是 jsx 的方式进行开发。例如想使用 JSX 的话，只需要将 .vue 文件改为 .tsx 文件即可，如下 vue 组件
+在 Vue3 场景下我们默认在底层已加载 [@vue/babel-plugin-jsx](https://github.com/vuejs/jsx-next#installation) 插件，开发者可根据个人喜好决定使用 template 的方式抑或是 (j|t)sx 的方式进行开发。例如想使用 (J|T)SX 的话，只需要将 .vue 文件改为 .(j|t)sx 文件即可。如果你打算大量使用 TypeScript 来开发应用，我们更加推荐使用 tsx 文件的形式而不是传统 Vue 文件。如下 vue 组件
 
 ```vue
 <template>
@@ -447,7 +447,7 @@ export default {
 
 ```
 
-对应的 jsx 写法为 
+对应的 tsx 写法为 
 
 ```jsx
 // render.tsx
