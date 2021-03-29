@@ -2,7 +2,7 @@ import { promises as fs } from 'fs'
 import { resolve, join } from 'path'
 import * as Shell from 'shelljs'
 import { ParseFeRouteItem } from 'ssr-types'
-import { getCwd, getPagesDir, getFeDir, loadPlugin } from './cwd'
+import { getCwd, getPagesDir, getFeDir, accessFile } from './cwd'
 import { loadConfig } from './loadConfig'
 
 const debug = require('debug')('ssr:parse')
@@ -10,19 +10,13 @@ const { dynamic, prefix } = loadConfig()
 const pageDir = getPagesDir()
 const cwd = getCwd()
 
-const hasDeclaretiveRoutes = async () => {
-  const result = await fs.access(join(getFeDir(), './route.js'))
-    .then(() => true)
-    .catch(() => false)
-  return result
-}
-
 const parseFeRoutes = async () => {
-  const { clientPlugin } = loadPlugin()
-  const isVue = clientPlugin.name.match('vue')
+  // vue 场景也可能使用 tsx 文件，所以这里需要做判断
+  const vueLayout = await accessFile(join(getFeDir(), './components/layout/index.vue'))
+  const vueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
+  const isVue = require(join(cwd, './package.json')).dependencies.vue
 
-  const defaultLayout = `@/components/layout/index.${isVue ? 'vue' : 'tsx'}`
-  const defaultApp = '@/components/layout/App.vue'
+  const defaultLayout = `@/components/layout/index.${vueLayout ? 'vue' : 'tsx'}`
 
   try {
     await fs.access(join(cwd, './node_modules/ssr-temporary-routes'))
@@ -31,14 +25,16 @@ const parseFeRoutes = async () => {
   }
 
   let routes = ''
+  const declaretiveRoutes = (await accessFile(join(getFeDir(), './route.js')) || await accessFile(join(getFeDir(), './route.ts'))) // 是否存在自定义路由
 
-  if (!await hasDeclaretiveRoutes()) {
+  if (!declaretiveRoutes) {
     // 根据目录结构生成前端路由表
     const pathRecord = [''] // 路径记录
     const route: ParseFeRouteItem = {
       layout: `require('${defaultLayout}').default`
     }
     if (isVue) {
+      const defaultApp = `@/components/layout/App.${vueApp ? 'vue' : 'tsx'}`
       route.App = `require('${defaultApp}').default`
     }
     const arr = await renderRoutes(pageDir, pathRecord, route)

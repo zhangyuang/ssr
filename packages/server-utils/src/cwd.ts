@@ -57,6 +57,12 @@ const processError = (err: any) => {
     process.exit(1)
   }
 }
+const accessFile = async (file: string) => {
+  const result = await promises.access(file)
+    .then(() => true)
+    .catch(() => false)
+  return result
+}
 export {
   getCwd,
   getFeDir,
@@ -65,5 +71,6 @@ export {
   isFaaS,
   loadPlugin,
   getLocalNodeModules,
-  processError
+  processError,
+  accessFile
 }

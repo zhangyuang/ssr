@@ -5,6 +5,8 @@ import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
 
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
+const debug = require('debug')('ssr:cli')
+const start = Date.now()
 
 yargs
   .command('start', 'Start Server', {}, async (argv: Argv) => {
@@ -13,13 +15,18 @@ yargs
     })
     process.env.NODE_ENV = 'development'
     const { parseFeRoutes, loadPlugin } = require('ssr-server-utils')
+    debug(`require ssr-server-utils time: ${Date.now() - start} ms`)
     const plugin = loadPlugin()
+    debug(`loadPlugin time: ${Date.now() - start} ms`)
     await parseFeRoutes()
     spinnerProcess.send({
       message: 'stop'
     })
+    debug(`parseFeRoutes ending time: ${Date.now() - start} ms`)
     await plugin.clientPlugin?.start?.(argv)
+    debug(`clientPlugin ending time: ${Date.now() - start} ms`)
     await plugin.serverPlugin?.start?.(argv)
+    debug(`serverPlugin ending time: ${Date.now() - start} ms`)
   })
   .command('build', 'Build server and client files', {}, async (argv: Argv) => {
     spinnerProcess.send({
