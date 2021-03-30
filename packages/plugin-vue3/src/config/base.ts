@@ -39,7 +39,7 @@ const getBaseConfig = (chain: WebpackChain) => {
     .end()
   chain.module
     .rule('images')
-    .test(/\.(jpe?g|png|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/)
+    .test(/\.(jpe?g|png|woff|woff2|eot|ttf|svg|gif)(\?[a-z0-9=.]+)?$/)
     .use('url-loader')
     .loader(loadModule('url-loader'))
     .options({
