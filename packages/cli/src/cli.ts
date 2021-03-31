@@ -46,7 +46,7 @@ yargs
     const { loadPlugin } = require('ssr-server-utils')
     const plugin = loadPlugin()
     if (!plugin.serverPlugin.deploy) {
-      console.log('当前插件不支持 deploy 功能，请使用 ssr-plugin-faas 插件 并创建对应 yml 文件 参考 https://www.yuque.com/midwayjs/faas/migrate_egg 或扫码进群了解')
+      console.log('当前插件不支持 deploy 功能，请使用 ssr-plugin-midway 插件 参考 https://www.yuque.com/midwayjs/faas/migrate_egg 或扫码进群了解')
       return
     }
     process.env.NODE_ENV = 'production'
