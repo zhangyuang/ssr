@@ -14,7 +14,7 @@ yargs
       message: 'start'
     })
     process.env.NODE_ENV = 'development'
-    const { parseFeRoutes, loadPlugin } = require('ssr-server-utils')
+    const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
     debug(`require ssr-server-utils time: ${Date.now() - start} ms`)
     const plugin = loadPlugin()
     debug(`loadPlugin time: ${Date.now() - start} ms`)
@@ -33,7 +33,7 @@ yargs
       message: 'start'
     })
     process.env.NODE_ENV = 'production'
-    const { parseFeRoutes, loadPlugin } = require('ssr-server-utils')
+    const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
     const plugin = loadPlugin()
     await parseFeRoutes()
     spinnerProcess.send({
