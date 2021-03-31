@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import { promises } from 'fs'
 import { join, isAbsolute } from 'path'
-import { UserConfig } from 'ssr-types'
+import { UserConfig, IPlugin } from 'ssr-types'
 
 const getCwd = () => {
   const cwd = process.cwd()
@@ -39,9 +39,10 @@ const getUserConfig = (): UserConfig => {
   return require(join(getCwd(), isProd && hasProdConfig ? './config.prod' : './config'))
 }
 
-const loadPlugin = () => {
+const loadPlugin = (): IPlugin => {
   return require(join(getCwd(), './plugin'))
 }
+
 const isFaaS = async () => {
   const result = await promises.access(join(getCwd(), './f.yml'))
     .then(() => true)

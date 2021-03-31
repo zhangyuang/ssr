@@ -1,4 +1,5 @@
 import { Configuration, Options } from 'webpack'
+import { Argv } from './yargs'
 import { Config } from './third-party/webpack-chain'
 export interface IConfig {
   cwd: string
@@ -60,4 +61,17 @@ export interface StyleOptions {
   modules: boolean
   loader?: string
   importLoaders: number
+}
+
+export interface IPlugin {
+  clientPlugin?: {
+    start?: (argv?: Argv) => void
+    build?: (argv?: Argv) => void
+    deploy?: (argv?: Argv) => void
+  }
+  serverPlugin?: {
+    start?: (argv?: Argv) => void
+    build?: (argv?: Argv) => void
+    deploy?: (argv?: Argv) => void
+  }
 }
