@@ -87,6 +87,8 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
   const pagesFolders = await fs.readdir(pageDir)
   const prefixPath = pathRecord.join('/')
   const aliasPath = `@/pages${prefixPath}`
+  const routeArr: ParseFeRouteItem[] = []
+  const fetchExactMatch = pagesFolders.filter(p => p.includes('fetch'))
   for (const pageFiles of pagesFolders) {
     const abFolder = join(pageDir, pageFiles)
     const isDirectory = (await fs.stat(abFolder)).isDirectory()
@@ -108,6 +110,13 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         /* /news/:id */
         route.path = `${prefixPath}/:${getDynamicParam(pageFiles)}`
         route.component = `${aliasPath}/${pageFiles}`
+        // fetch文件数量>=2 启用完全匹配策略
+        if (fetchExactMatch.length >= 2) {
+          const fetchPageFiles = `fetch${pageFiles.replace('render', '').replace('.vue', '.ts')}`
+          if (fetchExactMatch.includes(fetchPageFiles)) {
+            route.fetch = `require('${aliasPath}/${fetchPageFiles}').default`
+          }
+        }
       }
 
       if (pageFiles.includes('fetch')) {
@@ -121,24 +130,28 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         }
         route.webpackChunkName = webpackChunkName
       }
+      routeArr.push({ ...route })
     }
   }
 
-  if (route.path?.includes('index')) {
-    // /index 映射为 /
-    route.path = route.path.replace('index', '')
-  }
+  routeArr.forEach((r) => {
+    if (r.path?.includes('index')) {
+      // /index 映射为 /
+      r.path = r.path.replace('index', '')
+    }
 
-  if (route.path && prefix) {
-    // 统一添加公共前缀
-    route.path = `/${prefix}${route.path}`
-  }
-  route.path && arr.push(route)
+    if (r.path && prefix) {
+      // 统一添加公共前缀
+      r.path = `/${prefix}${r.path}`
+    }
+    r.path && arr.push(r)
+  })
+
   return arr
 }
 
 const getDynamicParam = (url: string) => {
-  return url.split('$').filter(r => r !== 'render').map(r => r.replace(/\.[\s\S]+/, '')).join('/:')
+  return url.split('$').filter(r => r !== 'render' && r !== '').map(r => r.replace(/\.[\s\S]+/, '')).join('/:')
 }
 
 export {
