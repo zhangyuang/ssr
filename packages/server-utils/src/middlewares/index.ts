@@ -1,5 +1,4 @@
 import { proxyOptions } from 'ssr-types'
-import { loadConfig } from '../loadConfig'
 import { getDevProxyMiddlewaresArr } from './proxy'
 const initialSSRDevProxy = (app: any, options?: proxyOptions) => {
   // 在本地开发阶段代理 serverPort 的资源到 fePort

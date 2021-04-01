@@ -63,6 +63,10 @@
 </b></sub></a></td>
 <td align="center"><a target="_blank" href="http://tx.ssr-fc.com/"><img src="http://s0.60logo.com/uploads/items/images/soft/180126/tengxunyun.svg" width="100px;"/><br><sub><b>部署于腾讯云示例应用
 </b></sub></a></td>
+<td align="center"><a href="https://www.gszq.com/" target="_blank"><img src="https://www.gszq.com/static/media/icon-slogan.4d1c7974.png
+" width="100px;" alt="国盛证券"/><br />
+<a href="https://www.gszq.com/" target="_bvlank"><sub><b>国盛证券
+</b></a></td>
 </tr>
 </table>
 
@@ -234,7 +238,8 @@ $ DEBUG=ssr:* npm start # 打印所有的 ssr 模块提供的 debug 信息
 | [ssr-plugin-midway]          | [![ssr-plugin-midway-status]][ssr-plugin-midway] | provide start and build fetature by [midway@2.0](https://midwayjs.org/) |
 | [ssr-plugin-nestjs]          | [![ssr-plugin-nestjs-status]][ssr-plugin-nestjs] | provide start and build feature by [Nestjs](https://docs.nestjs.com/) |
 | [ssr-plugin-react]          | [![ssr-plugin-react-status]][ssr-plugin-react] | develop react application only be used in development |
-| [ssr-plugin-vue]          | [![ssr-plugin-vue-status]][ssr-plugin-vue] | develop vue application only be used in development |
+| [ssr-plugin-vue]          | [![ssr-plugin-vue-status]][ssr-plugin-vue] | develop vue2 application only be used in development |
+| [ssr-plugin-vue3]          | [![ssr-plugin-vue3-status]][ssr-plugin-vue3] | develop vue3 application only be used in development |
 | [ssr-server-utils]          | [![ssr-server-utils-status]][ssr-server-utils] | server utils in Node.js environment |
 | [ssr-client-utils]          | [![ssr-client-utils-status]][ssr-client-utils] | client utils in browser environment |
 | [ssr-hoc-react]          | [![ssr-hoc-react-status]][ssr-hoc-react] | provide hoc component for react |
@@ -251,6 +256,7 @@ $ DEBUG=ssr:* npm start # 打印所有的 ssr 模块提供的 debug 信息
 [ssr-plugin-nestjs-status]: https://img.shields.io/npm/v/ssr-plugin-nestjs.svg
 [ssr-plugin-react-status]: https://img.shields.io/npm/v/ssr-plugin-react.svg
 [ssr-plugin-vue-status]: https://img.shields.io/npm/v/ssr-plugin-vue.svg
+[ssr-plugin-vue3-status]: https://img.shields.io/npm/v/ssr-plugin-vue3.svg
 [ssr-server-utils-status]: https://img.shields.io/npm/v/ssr-server-utils.svg
 [ssr-types-status]: https://img.shields.io/npm/v/ssr-types.svg
 [ssr-webpack-status]: https://img.shields.io/npm/v/ssr-webpack.svg
@@ -264,6 +270,7 @@ $ DEBUG=ssr:* npm start # 打印所有的 ssr 模块提供的 debug 信息
 [ssr-plugin-nestjs]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-nestjs
 [ssr-plugin-react]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-react
 [ssr-plugin-vue]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-vue
+[ssr-plugin-vue3]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-vue3
 [ssr-server-utils]: https://github.com/ykfe/ssr/tree/dev/packages/server-utils
 [ssr-types]: https://github.com/ykfe/ssr/tree/dev/packages/types
 [ssr-webpack]: https://github.com/ykfe/ssr/tree/dev/packages/webpack
@@ -396,9 +403,9 @@ module.exports = {
 - 前端路由: 约定式路由/声明式路由
 - 数据管理: vuex
 
-##### JSX(可选)
+##### Vue3 + TSX(可选)
 
-在 Vue3 场景下我们默认在底层已加载 [@vue/babel-plugin-jsx](https://github.com/vuejs/jsx-next#installation) 插件，开发者可根据个人喜好决定使用 template 的方式抑或是 jsx 的方式进行开发。例如想使用 JSX 的话，只需要将 .vue 文件改为 .tsx 文件即可，如下 vue 组件
+在 Vue3 场景下我们默认在底层已加载 [@vue/babel-plugin-jsx](https://github.com/vuejs/jsx-next#installation) 插件，开发者可根据个人喜好决定使用 template 的方式抑或是 tsx 的方式进行开发。例如想使用 tsx 的话，只需要将 .vue 文件改为 .tsx 文件即可。如果你打算大量使用 TypeScript 来开发应用，我们更加推荐使用 tsx 文件的形式而不是传统 Vue 文件。如下 vue 组件
 
 ```vue
 <template>
@@ -440,7 +447,7 @@ export default {
 
 ```
 
-对应的 jsx 写法为 
+对应的 tsx 写法为 
 
 ```jsx
 // render.tsx
@@ -496,10 +503,11 @@ export default {
 
 ```bash
 .
-├── build # web目录构建产物
+├── build # 默认作为服务端静态资源目录，负责存放web目录构建产物或者图片资源等静态文件
 │   ├── client
 │   └── server
 ├── config.js # 定义应用的配置
+├── config.prod.js # 若存在则视为生产环境的应用配置
 ├── f.yml # 可选，若调用 ssr deploy 检测到无此文件会自动创建
 ├── package.json
 ├── src # 存放服务端 Node.js 相关代码
@@ -513,19 +521,22 @@ export default {
 │   │   └── layout # 页面 html 布局
 │   │       ├── index.less
 │   │       └── index.tsx
-│   ├── pages # pages目录下的文件夹会映射为前端路由，存放页面级别的组件
+│   ├── pages # pages目录下的文件夹会映射为前端路由，存放页面级别的组件, 目前一个文件夹下只允许存在一个 render 类型的文件
 │   │   ├── index # index文件夹映射为根路由
 │   │   │   ├── fetch.ts # 定义fetch文件用来统一服务端/客户端获取数据的方式，通过 __isBrowser__ 变量区分环境
 │   │   │   ├── index.less
 │   │   │   └── render.tsx # 定义render文件用来定义页面渲染逻辑
 │   │   └── detail
-│   │       ├── fetch.ts
-│   │       ├── index.less
-│   │       └── render$id.tsx # 映射为 /detail/:id
-│   │       └── render$id$.tsx # 映射为 /detail/:id?
-│   │       └── user
-│   │           ├── fetch.ts
-│   │           └── render$id.tsx # 多级路由按照规则映射为 /detail/user/:id
+│   │   │   ├── fetch.ts
+│   │   │   ├── index.less
+│   │   │   └── render$id.tsx # 映射为 /detail/:id
+│   │   │   └── user
+│   │   │        ├── fetch.ts
+│   │   │        └── render$id.tsx # 多级路由按照规则映射为 /detail/user/:id
+│   │   ├── foo 
+│   │   │   ├── fetch.ts
+│   │   │   ├── index.less
+│   │   │   └── render$user$id.tsx # 多参数路由映射为 /foo/:user/:id
 │   ├── tsconfig.json # 仅用于编辑器ts语法检测
 │   └── typings.d.ts
 ```
@@ -611,6 +622,135 @@ export default {
 
 ```
 
+#### Vue3 全局注册指令
+
+由于 Vue3 创建 app 实例以及安装插件和注册自定义全局指令的方式与 Vue2 差别较大。为了方便用户开发，我们会将框架底层创建的 VueApp 实例挂在 `window.__VUE_APP__` 上方，在服务端/客户端都能够访问改属性。但由于服务端和客户端环境有差异。我们不建议过度依赖该属性。例如自定义指令会在服务端被忽略。在注册的时候我们需要根据当前环境做判断。
+
+```js
+// 在 layout/App.vue 中做一些全局的任务
+export default {
+  created () {
+    if (__isBrowser__) {
+      const app = window.__VUE_APP__
+      app.directive('focus', {
+        // 当被绑定的元素挂载到 DOM 中时……
+        mounted (el) {
+          // 聚焦元素
+          el.focus()
+        }
+      })
+    }
+  }
+}
+```
+#### 使用Vue3国际化插件
+
+在 plugin-vue3 中，我们已在底层对国际化进行支持。国际化插件使用最新的 Composition API，推荐使用Composition API进行国际化配置，详细见官方文档：https://vue-i18n.intlify.dev/guide/advanced/composition.html
+
+安装最新版本的 vue-i18n
+
+```bash
+$ npm i vue-i18n@^9.0.0 --save
+$ npm i @intlify/vue-i18n-loader@^2.0.3 --save-dev
+```
+
+配置中启用
+
+```js
+// config.js
+// 启用后构建时会使用相应 loader 进行构建
+module.exports = {
+  locale: {
+    enable: true
+  }
+}
+```
+
+在 `layout/App.vue` 做配置初始化
+
+```js
+import { createI18n } from 'vue-i18n'
+
+const i18n = createI18n({
+  // 默认配置
+  locale: 'en',
+  messages: {},
+  globalInjection: true,
+  // 模式锁定，传统模式SSR有bug
+  legacy: false
+})
+
+export default {
+  created () {
+    const app = window.__VUE_APP__
+    app.use(i18n)
+  }
+}
+```
+
+组件中使用
+
+```vue
+
+<template>
+  <div>
+    <select v-model="$i18n.locale">
+      <option value="en">
+        en
+      </option>
+      <option value="ja">
+        ja
+      </option>
+    </select>
+    <p>{{ t('named', { msg }) }}</p>
+    <p>{{ t('list', [msg]) }}</p>
+    <p>{{ t('literal') }}</p>
+    <p>{{ t('linked') }}</p>
+  </div>
+</template>
+
+<script>
+import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+export default {
+  setup () {
+    const { t } = useI18n({
+      messages: {
+        useScope: 'local',
+        en: {
+          msg: 'hello',
+          named: '{msg} world!',
+          list: '{0} world!',
+          literal: "{'hello'} world!",
+          the_world: 'the world',
+          dio: 'DIO:',
+          linked: '@:dio @:the_world !!!!'
+        },
+        ja: {
+          msg: 'こんにちは',
+          named: '{msg} 世界！',
+          list: '{0} 世界！',
+          literal: "{'こんにちは'} 世界！",
+          the_world: 'ザ・ワールド！',
+          dio: 'ディオ:',
+          linked: '@:dio @:the_world ！！！！'
+        }
+      }
+    })
+
+    const msg = computed(() => t('msg'))
+
+    return { t, msg }
+  }
+}
+</script>
+
+<style>
+
+</style>
+
+```
+
 #### 使用 UI 框架
 
 React 场景下我们已经对 antd 进行兼容，Vue 场景已经对 vant 进行兼容，若你要使用其他 UI 框架不做额外配置是一定会报错的。这里以 [vant](https://vant-contrib.gitee.io/vant/#/) 举例子，讲述如何引入。
@@ -658,6 +798,10 @@ module.exports = {
   ]
 };
 ```
+
+#### 前端组件加载图片
+
+不建议图片资源放在 `web` 文件夹，对图片资源若非有小文件 base64 内联或者 hash 缓存的需求是不建议用 Webpack 去处理的，这样会使得 Webpack 的构建速度变慢。建议放在默认的静态资源文件夹即 `build` 文件夹，通过 `<img src="/foo.jpg">` 即可引入。由于 [egg-static](https://github.com/eggjs/egg-static) 支持数组的形式，也可以自行在根目录下创建 `public` 文件夹用于存放图片等静态资源
 
 #### 降级为客户端渲染
 
@@ -912,20 +1056,18 @@ module.exports = [{
 
 #### 配置文件
 
-config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特殊需求不要修改
+`config.js` 支持以下配置, 默认配置已适用于绝大部分应用, 无特殊需求不要修改。若需要区分本地环境与生产环境，可另外在根目录创建 `config.prod.js` 文件作为生产环境的构建配置或在 `config.js` 使用 `process.env.NODE_ENV` 来区分配置
 
 ```js
 {
   mode: string; // 渲染模式，默认为 ssr
   stream: boolean; // 是否将组件编译成 Node.js.Stream 默认为 false 则编译为字符串
-  cwd: string; // 设置命令执行的 cwd，默认为 process.cwd()，无特殊需求不需修改
   isDev: boolean; // 当前运行环境，默认为 process.env.NODE_ENV
-  publicPath: string; // webpack-dev-server 的publishPath，默认为 /
+  publicPath: string; // 静态资源的publishPath，本地开发默认为 /, 生产环境可替换为其他 CDN 地址 如 https://g.alicdn.com/path/xxx
   useHash: boolean; // 生成文件是否带有 hash，默认本地运行关闭，生产环境构建时开启
-  fePort: number; // 前端静态资源本地开发时的监听端口，默认为 8000, FaaS Server 会自动 proxy,无特殊需求不需要修改
+  fePort: number; // 前端静态资源本地开发时的监听端口，默认为 8000, 本地开啊服务端 Server 会自动 proxy 静态资源,无特殊需求不需要修改
   chunkName: string; // 生成的 bundle 的 chunkName，默认为Page,无特殊需求不要修改
   webpackDevServerConfig: webpackDevServer.Configuration; // webpack-dev-server 启动配置
-  staticPrefix: string; // 加载的静态资源前缀，需要发布到单独的cdn服务时可以使用该配置设置为cdn服务的地址
   chainBaseConfig: (config: Config) => Configuration // 使用 webpack-chain 来修改服务端/客户端公共的 wbepack 构建配置
   chainServerConfig: (config: Config) => Configuration; // 使用 webpack-chain 来修改服务端 wbepack 构建配置
   chainClientConfig: (config: Config) => Configuration; // 使用 webpack-chain 来修改客户端 wbepack 构建配置
@@ -945,12 +1087,17 @@ config.js 支持以下配置, 默认配置已适用于绝大部分应用, 无特
     // 我们不单独提供底部的 script，因为所需要实现的功能都能够在 App.vue 中实现
   }>
   css?: () => {
-    // 额外的 postcss 插件配置，需要用函数 return 的形式
+    // 用于添加用户自定义配置 css-loader 以及 postcss-loader，需要用函数 return 的形式
     loaderOptions: {
+      cssOptions: any
       postcss: {
+        options: any
         plugins: any[]
       }
     }
+  },
+  locale:{
+    enable: false // 是否启用vue-i18n国际化插件
   }
 }
 

@@ -8,7 +8,7 @@ const feRoutes: FeRouteItem[] = require('ssr-temporary-routes/route')
 declare const global: IGlobal
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
-  const { staticPrefix, cssOrder, jsOrder, dynamic, mode } = config
+  const { cssOrder, jsOrder, dynamic, mode } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
   const { window } = global
@@ -24,12 +24,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   const injectCss: JSX.Element[] = []
   dynamicCssOrder.forEach(css => {
     if (manifest[css]) {
-      const item = `${staticPrefix}${manifest[css]}`
+      const item = manifest[css]
       injectCss.push(<link rel='stylesheet' key={item} href={item} />)
     }
   })
 
-  const injectScript = jsOrder.map(js => `${staticPrefix}${manifest[js]}`)
+  const injectScript = jsOrder.map(js => manifest[js])
     .map(item => <script key={item} src={item} />)
 
   const staticList = {

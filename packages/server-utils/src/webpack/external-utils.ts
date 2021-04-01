@@ -2,6 +2,7 @@
 
 import * as fs from 'fs'
 import * as path from 'path'
+import { getCwd } from '../cwd'
 
 const contains = function contains (arr, val) {
   return arr && arr.indexOf(val) !== -1
@@ -44,7 +45,7 @@ const readFromPackageJson = function readFromPackageJson (options) {
   let packageJson
   try {
     const fileName = options.fileName || 'package.json'
-    const packageJsonString = fs.readFileSync(path.join(process.cwd(), './' + fileName), 'utf8')
+    const packageJsonString = fs.readFileSync(path.join(getCwd(), './' + fileName), 'utf8')
     packageJson = JSON.parse(packageJsonString)
   } catch (e) {
     return []

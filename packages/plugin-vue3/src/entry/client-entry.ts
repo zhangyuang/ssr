@@ -1,22 +1,9 @@
 import * as Vue from 'vue'
-import * as Vuex from 'vuex'
 import { h, createApp } from 'vue'
 import { findRoute } from 'ssr-client-utils'
 import { FeRouteItem } from 'ssr-types'
 import { createRouter } from './router'
-
-// @ts-expect-error
-// const store = require(vuexStoreFilePath) // define by webpack define plugin
-import * as store from '@/store/index.ts'
-
-import feRoutes from './route'
-// import feRoutes from 'ssr-temporary-routes/index'
-// import feRoutes from 'ssr-temporary-routes/route'
-
-// const feRoutes = require('ssr-temporary-routes')
-function createStore () {
-  return Vuex.createStore(store)
-}
+import { createStore } from './store'
 
 declare const module: any
 
@@ -34,7 +21,7 @@ const clientRender = async () => {
 
   app.use(store)
   app.use(router)
-
+  window.__VUE_APP__ = app
   await router.isReady()
 
   if (!window.__USE_SSR__) {

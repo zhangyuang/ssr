@@ -9,7 +9,7 @@ const loadModule = require.resolve
 
 const getBaseConfig = (chain: WebpackChain) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList, chainBaseConfig } = config
+  const { moduleFileExtensions, useHash, isDev, chainBaseConfig } = config
   const mode = process.env.NODE_ENV as Mode
   chain.mode(mode)
   chain.module.strictExportPresence(true)
@@ -30,19 +30,21 @@ const getBaseConfig = (chain: WebpackChain) => {
     .end()
   chain.module
     .rule('images')
-    .test(/\.(jpe?g|png|woff|woff2|eot|ttf|svg)(\?[a-z0-9=.]+)?$/)
+    .test(/\.(jpe?g|png|woff|woff2|eot|ttf|svg|gif)(\?[a-z0-9=.]+)?$/)
     .use('url-loader')
     .loader(loadModule('url-loader'))
     .options({
       limit: 10000,
-      name: 'static/[name].[hash:8].[ext]',
+      name: '[name].[hash:8].[ext]',
       // require 图片的时候不用加 .default
       esModule: false,
       fallback: {
         loader: loadModule('file-loader'),
         options: {
-          name: 'static/[name].[hash:8].[ext]',
-          esModule: false
+          publicPath: '/client/images',
+          name: '[name].[hash:8].[ext]',
+          esModule: false,
+          outputPath: 'images'
         }
       }
     })
@@ -96,7 +98,6 @@ const getBaseConfig = (chain: WebpackChain) => {
     .end()
 
   setStyle(isDev, chain, /\.css$/, {
-    exclude: cssModulesWhiteList,
     rule: 'css',
     modules: false,
     importLoaders: 1

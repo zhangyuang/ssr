@@ -2,7 +2,7 @@ import { promises as fs } from 'fs'
 import { resolve, join } from 'path'
 import * as Shell from 'shelljs'
 import { ParseFeRouteItem } from 'ssr-types'
-import { getCwd, getPagesDir, getFeDir, loadPlugin } from './cwd'
+import { getCwd, getPagesDir, getFeDir, accessFile } from './cwd'
 import { loadConfig } from './loadConfig'
 
 const debug = require('debug')('ssr:parse')
@@ -10,39 +10,34 @@ const { dynamic, prefix } = loadConfig()
 const pageDir = getPagesDir()
 const cwd = getCwd()
 
-const hasDeclaretiveRoutes = async () => {
-  try {
-    await fs.access(join(getFeDir(), './route.js'))
-    return true
-  } catch (error) {
-    return false
-  }
-}
 const parseFeRoutes = async () => {
-  const { clientPlugin } = loadPlugin()
-  const isVue = clientPlugin.name.match('vue')
+  // vue 场景也可能使用 tsx 文件，所以这里需要做判断
+  const vueLayout = await accessFile(join(getFeDir(), './components/layout/index.vue'))
+  const vueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
+  const isVue = require(join(cwd, './package.json')).dependencies.vue
 
-  const defaultLayout = `@/components/layout/index.${isVue ? 'vue' : 'tsx'}`
-  const defaultApp = '@/components/layout/App.vue'
+  const defaultLayout = `@/components/layout/index.${vueLayout ? 'vue' : 'tsx'}`
 
   try {
     await fs.access(join(cwd, './node_modules/ssr-temporary-routes'))
   } catch (error) {
     Shell.mkdir(join(cwd, './node_modules/ssr-temporary-routes'))
   }
-  let routes = ''
 
-  if (!await hasDeclaretiveRoutes()) {
+  let routes = ''
+  const declaretiveRoutes = (await accessFile(join(getFeDir(), './route.js')) || await accessFile(join(getFeDir(), './route.ts'))) // 是否存在自定义路由
+
+  if (!declaretiveRoutes) {
     // 根据目录结构生成前端路由表
     const pathRecord = [''] // 路径记录
     const route: ParseFeRouteItem = {
       layout: `require('${defaultLayout}').default`
     }
     if (isVue) {
+      const defaultApp = `@/components/layout/App.${vueApp ? 'vue' : 'tsx'}`
       route.App = `require('${defaultApp}').default`
     }
-    const arr = await renderRoutes(pageDir, isVue, pathRecord, route)
-
+    const arr = await renderRoutes(pageDir, pathRecord, route)
     debug('The result that parse web folder to routes is: ', arr)
     routes = `export default ${JSON.stringify(arr)
         .replace(/"layout":("(.+?)")/g, (global, m1, m2) => {
@@ -93,7 +88,7 @@ const parseFeRoutes = async () => {
   await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/package.json'), packageJsonStr)
 }
 
-const renderRoutes = async (pageDir: string, isVue: boolean, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {
+const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {
   let arr: ParseFeRouteItem[] = []
   const pagesFolders = await fs.readdir(pageDir)
   const prefixPath = pathRecord.join('/')
@@ -104,7 +99,7 @@ const renderRoutes = async (pageDir: string, isVue: boolean, pathRecord: string[
     if (isDirectory) {
       // 如果是文件夹则递归下去, 记录路径
       pathRecord.push(pageFiles)
-      const childArr = await renderRoutes(abFolder, isVue, pathRecord, Object.assign({}, route))
+      const childArr = await renderRoutes(abFolder, pathRecord, Object.assign({}, route))
       pathRecord.pop() // 回溯
       arr = arr.concat(childArr)
     } else {
@@ -121,11 +116,6 @@ const renderRoutes = async (pageDir: string, isVue: boolean, pathRecord: string[
         route.component = `${aliasPath}/${pageFiles}`
       }
 
-      if (/render\$[\s\S]+\$/.test(pageFiles)) {
-        /* /news:id? */
-        route.path = `${prefixPath}/:${getDynamicParam(pageFiles)}?`
-        route.component = `${aliasPath}/${pageFiles}`
-      }
       if (pageFiles.includes('fetch')) {
         route.fetch = `require('${aliasPath}/${pageFiles}').default`
       }
@@ -147,7 +137,7 @@ const renderRoutes = async (pageDir: string, isVue: boolean, pathRecord: string[
 
   if (route.path && prefix) {
     // 统一添加公共前缀
-    route.path = prefix ? `/${prefix}${route.path}` : route.path
+    route.path = `/${prefix}${route.path}`
   }
   arr.map((item) => {
     console.log(String(item))
@@ -157,7 +147,7 @@ const renderRoutes = async (pageDir: string, isVue: boolean, pathRecord: string[
 }
 
 const getDynamicParam = (url: string) => {
-  return url.split('$')[1].replace(/\.[\s\S]+/, '')
+  return url.split('$').filter(r => r !== 'render').map(r => r.replace(/\.[\s\S]+/, '')).join('/:')
 }
 
 export {

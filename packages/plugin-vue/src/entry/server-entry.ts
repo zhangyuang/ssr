@@ -1,20 +1,12 @@
 import * as Vue from 'vue'
-import * as Vuex from 'vuex'
 import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
 import { sync } from 'vuex-router-sync'
+// @ts-expect-error
+import * as serialize from 'serialize-javascript'
+
 import { createRouter } from './router'
-
-// @ts-expect-error
-Vue.use(Vuex)
-
-const serialize = require('serialize-javascript')
-// @ts-expect-error
-const store = require(vuexStoreFilePath) // define by webpack define plugin
-
-function createStore () {
-  return new Vuex.Store(store)
-}
+import { createStore } from './store'
 
 const feRoutes = require('ssr-temporary-routes/route')
 
@@ -23,7 +15,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   const store = createStore()
   sync(store, router)
 
-  const { staticPrefix, cssOrder, jsOrder, dynamic, mode, customeHeadScript } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript } = config
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
 
   const routeItem = findRoute<FeRouteItem<{}, {
@@ -66,7 +58,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           injectCss.push(h('link', {
             attrs: {
               rel: 'stylesheet',
-              href: `${staticPrefix}${manifest[css]}`
+              href: manifest[css]
             }
           }))
         }
@@ -75,7 +67,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
       const injectScript = jsOrder.map(js => (
         h('script', {
           attrs: {
-            src: `${staticPrefix}${manifest[js]}`
+            src: manifest[js]
           }
         })
       ))

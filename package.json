@@ -23,6 +23,7 @@
     "test:unit": "jest --coverage --verbose",
     "link": "node scripts/scripts.js --link",
     "unlink": "node scripts/scripts.js --unlink",
+    "sync": "node scripts/scripts.js --sync",
     "publish": "lerna version --conventional-commits",
     "e2e": "cypress run --browser chrome",
     "example:midway:vue": "cd example/midway-vue-ssr && npm start",

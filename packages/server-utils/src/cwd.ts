@@ -1,6 +1,7 @@
 import * as fs from 'fs'
+import { promises } from 'fs'
 import { join, isAbsolute } from 'path'
-import { IConfig } from 'ssr-types'
+import { UserConfig, IPlugin } from 'ssr-types'
 
 const getCwd = () => {
   const cwd = process.cwd()
@@ -16,7 +17,7 @@ const getCwd = () => {
 
 const getFeDir = () => {
   // fe component folder path
-  const cwd = process.cwd()
+  const cwd = getCwd()
   if (process.env.FE_ROOT) {
     // avoid repeat cwd path
     if (!isAbsolute(process.env.FE_ROOT)) {
@@ -31,17 +32,23 @@ const getPagesDir = () => {
   return join(getFeDir(), './pages')
 }
 
-const getVuexStoreFilePath = () => {
-  return join(getFeDir(), './store')
+const getUserConfig = (): UserConfig => {
+  // 生产环境如果有 config.prod 则读取
+  const isProd = process.env.NODE_ENV === 'production'
+  const hasProdConfig = fs.existsSync(join(getCwd(), './config.prod.js'))
+  return require(join(getCwd(), isProd && hasProdConfig ? './config.prod' : './config'))
 }
 
-const getUserConfig = (): IConfig => {
-  return require(join(getCwd(), './config'))
-}
-const loadPlugin = () => {
+const loadPlugin = (): IPlugin => {
   return require(join(getCwd(), './plugin'))
 }
-const isFaaS = () => fs.existsSync(join(getCwd(), './f.yml'))
+
+const isFaaS = async () => {
+  const result = await promises.access(join(getCwd(), './f.yml'))
+    .then(() => true)
+    .catch(() => false)
+  return result
+}
 
 const getLocalNodeModules = () => join(__dirname, '../../../')
 
@@ -50,6 +57,12 @@ const processError = (err: any) => {
     console.log(err)
     process.exit(1)
   }
+}
+const accessFile = async (file: string) => {
+  const result = await promises.access(file)
+    .then(() => true)
+    .catch(() => false)
+  return result
 }
 export {
   getCwd,
@@ -60,5 +73,5 @@ export {
   loadPlugin,
   getLocalNodeModules,
   processError,
-  getVuexStoreFilePath
+  accessFile
 }

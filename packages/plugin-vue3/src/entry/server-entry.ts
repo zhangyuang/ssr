@@ -1,24 +1,20 @@
 import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
-import * as Vuex from 'vuex'
 import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
-import { createRouter } from './router'
-// import feRoutes from './route'
+import feRoutes from './route'
 
 // const feRoutes = route
-import feRoutes from 'ssr-temporary-routes/route'
+// import feRoutes from 'ssr-temporary-routes/route'
 // const feRoutes = require('ssr-temporary-routes')
 
-const serialize = require('serialize-javascript')
 // @ts-expect-error
-const store = require(vuexStoreFilePath) // define by webpack define plugin
-
-function createStore () {
-  return Vuex.createStore(store)
-}
+import * as serialize from 'serialize-javascript'
+import { createRouter } from './router'
+import { createStore } from './store'
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
+  global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   const router = createRouter()
   const store = createStore()
 
@@ -56,6 +52,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   const { fetch, layout, App } = routeItem
   router.push(path)
+  await router.isReady()
 
   if (!isCsr && fetch) {
     // csr 下不需要服务端获取数据
@@ -134,10 +131,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       )
     }
   })
+
   app.use(router)
   app.use(store)
   await router.isReady()
 
+  window.__VUE_APP__ = app
   return app
 }
 
