@@ -4,8 +4,9 @@ import { findRoute } from 'ssr-client-utils'
 import { FeRouteItem } from 'ssr-types'
 import { createRouter } from './router'
 import { createStore } from './store'
+import feRoutes from './route'
 
-declare const module: any
+// declare const module: any
 
 const clientRender = async () => {
   const store = createStore()
