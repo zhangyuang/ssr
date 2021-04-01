@@ -11,7 +11,7 @@ import { Argv } from 'ssr-types'
 const cwd = getCwd()
 
 const deploy = async (argv: Argv) => {
-  if (!isFaaS()) {
+  if (!await isFaaS()) {
     console.log('检测到当前为首次发布，根目录下缺少 f.yml 文件，自动创建默认 yml 文件模版')
     const ymlContent = await fs.readFile(join(cwd, './node_modules/ssr-plugin-midway/src/f.yml'))
     await fs.writeFile(join(cwd, './f.yml'), ymlContent)

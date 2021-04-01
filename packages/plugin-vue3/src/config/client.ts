@@ -1,6 +1,6 @@
 
 import * as webpack from 'webpack'
-import { loadConfig, getVuexStoreFilePath } from 'ssr-server-utils'
+import { loadConfig } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
 
@@ -12,7 +12,7 @@ const loadModule = require.resolve
 const getClientWebpack = (chain: WebpackChain) => {
   const { publicPath, isDev, chunkName, getOutput, useHash, chainClientConfig } = loadConfig()
   const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
-  const truePublicPath = isDev ? publicPath : `/client${publicPath}`
+  const truePublicPath = isDev ? publicPath : `${publicPath}client/`
   getBaseConfig(chain)
 
   chain.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
@@ -81,8 +81,7 @@ const getClientWebpack = (chain: WebpackChain) => {
     })
 
   chain.plugin('define').use(webpack.DefinePlugin, [{
-    __isBrowser__: true,
-    vuexStoreFilePath: JSON.stringify(getVuexStoreFilePath())
+    __isBrowser__: true
     // __VUE_OPTIONS_API__: false // 配置后与 vuex 集成有bug，暂时不打开
   }])
 

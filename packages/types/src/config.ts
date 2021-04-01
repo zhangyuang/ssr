@@ -1,5 +1,5 @@
 import { Configuration, Options } from 'webpack'
-import * as httpProxyMiddleware from 'http-proxy-middleware'
+import { Argv } from './yargs'
 import { Config } from './third-party/webpack-chain'
 export interface IConfig {
   cwd: string
@@ -14,12 +14,14 @@ export interface IConfig {
     clientOutPut: string
     serverOutPut: string
   }
+  proxy?: any
   cssOrder: string[]
   jsOrder: string[]
-  staticPrefix: string
   css?: () => {
     loaderOptions: {
+      cssOptions: any
       postcss: {
+        options: any
         plugins: any[]
       }
     }
@@ -33,9 +35,7 @@ export interface IConfig {
   cloudIDE?: boolean
   cssModulesWhiteList: RegExp[]
   prefix?: string
-  proxy: Proxy
   dynamic: boolean
-  feFramework: string
   mode: string
   webpackDevServerConfig: any
   stream: boolean
@@ -43,16 +43,16 @@ export interface IConfig {
     describe: object
     content: string
   }>
+  locale?: {
+    enable: false
+  }
 }
 type Optional <T>= { [key in keyof T]?: T[key] }
 
-export type UserConfig = Optional<IConfig>
-export interface Proxy {
-  [key: string]: httpProxyMiddleware.Options
-}
 export interface proxyOptions {
   express?: boolean
 }
+export type UserConfig = Optional<IConfig>
 
 export interface StyleOptions {
   rule: string
@@ -61,4 +61,17 @@ export interface StyleOptions {
   modules: boolean
   loader?: string
   importLoaders: number
+}
+
+export interface IPlugin {
+  clientPlugin?: {
+    start?: (argv?: Argv) => void
+    build?: (argv?: Argv) => void
+    deploy?: (argv?: Argv) => void
+  }
+  serverPlugin?: {
+    start?: (argv?: Argv) => void
+    build?: (argv?: Argv) => void
+    deploy?: (argv?: Argv) => void
+  }
 }

@@ -83,7 +83,6 @@ const loadConfig = (): IConfig => {
     }
   }, userConfig.webpackDevServerConfig)
 
-  const staticPrefix = ''
   const chainBaseConfig = () => {
     // 覆盖默认webpack配置
   }
@@ -110,7 +109,6 @@ const loadConfig = (): IConfig => {
     cssOrder,
     getOutput,
     webpackStatsOption,
-    staticPrefix,
     whiteList,
     cssModulesWhiteList,
     dynamic,
