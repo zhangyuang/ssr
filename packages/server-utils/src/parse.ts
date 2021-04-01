@@ -42,8 +42,9 @@ const parseFeRoutes = async () => {
       route.App = `require('${defaultApp}').default`
     }
     const arr = await renderRoutes(pageDir, isVue, pathRecord, route)
+
     debug('The result that parse web folder to routes is: ', arr)
-    routes = `module.exports =${JSON.stringify(arr)
+    routes = `export default ${JSON.stringify(arr)
         .replace(/"layout":("(.+?)")/g, (global, m1, m2) => {
           return `"layout": ${m2.replace(/\^/g, '"')}`
         })
@@ -82,6 +83,7 @@ const parseFeRoutes = async () => {
     // 使用了声明式路由
     routes = (await fs.readFile(join(getFeDir(), './route.js'))).toString()
   }
+  console.log(routes)
 
   await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
   const packageJsonStr = `{
@@ -147,6 +149,9 @@ const renderRoutes = async (pageDir: string, isVue: boolean, pathRecord: string[
     // 统一添加公共前缀
     route.path = prefix ? `/${prefix}${route.path}` : route.path
   }
+  arr.map((item) => {
+    console.log(String(item))
+  })
   route.path && arr.push(route)
   return arr
 }

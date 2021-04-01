@@ -5,18 +5,21 @@ import { findRoute } from 'ssr-client-utils'
 import { FeRouteItem } from 'ssr-types'
 import { createRouter } from './router'
 
-import feRoutes from '/Users/yuuang/Desktop/github/ssr/example/midway-vue3-ssr/node_modules/ssr-temporary-routes/route'
 // @ts-expect-error
 // const store = require(vuexStoreFilePath) // define by webpack define plugin
-import * as store from '/Users/yuuang/Desktop/github/ssr/example/midway-vue3-ssr/web/store/index.ts'
+import * as store from '@/store/index.ts'
 
+import feRoutes from './route'
+// import feRoutes from 'ssr-temporary-routes/index'
+// import feRoutes from 'ssr-temporary-routes/route'
+
+// const feRoutes = require('ssr-temporary-routes')
 function createStore () {
   return Vuex.createStore(store)
 }
 
 declare const module: any
 
-const App = feRoutes[0].App
 const clientRender = async () => {
   const store = createStore()
   const router = createRouter()
@@ -24,9 +27,9 @@ const clientRender = async () => {
   if (window.__INITIAL_DATA__) {
     store.replaceState(window.__INITIAL_DATA__)
   }
-
+  const App = await feRoutes[0].App()
   const app = createApp({
-    render: () => h(App)
+    render: () => h(App.default)
   })
 
   app.use(store)
