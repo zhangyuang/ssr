@@ -2,10 +2,10 @@ import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
 import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
-import feRoutes from './route'
+// import feRoutes from './route'
 
 // const feRoutes = route
-// import feRoutes from 'ssr-temporary-routes/route'
+import feRoutes from '~/ssr-temporary-routes/route'
 // const feRoutes = require('ssr-temporary-routes')
 
 // @ts-expect-error
@@ -24,15 +24,14 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     dynamic,
     mode,
     customeHeadScript,
-    isDev,
-    viteDevMode
+    isDev
   } = config
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
   const routeItem = findRoute<FeRouteItem<{}, {
     App: Vue.Component
     layout: Vue.Component
   }>>(feRoutes, path)
-  const ViteMode = isDev && viteDevMode
+  const ViteMode = isDev && process.env.VITE_MODEL === 'vite'
 
   let dynamicCssOrder = cssOrder
   if (dynamic) {

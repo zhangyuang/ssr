@@ -4,7 +4,8 @@ import { findRoute } from 'ssr-client-utils'
 import { FeRouteItem } from 'ssr-types'
 import { createRouter } from './router'
 import { createStore } from './store'
-import feRoutes from './route'
+// import feRoutes from './route'
+import feRoutes from '~/ssr-temporary-routes/route'
 
 // declare const module: any
 
@@ -35,18 +36,20 @@ const clientRender = async () => {
     const { fetch } = route
 
     if (fetch) {
-      await fetch({ store, router: router.currentRoute })
+      const fetchFn = await fetch()
+      await fetchFn.default({ store, router: router.currentRoute })
     }
   }
+
   router.beforeResolve(async (to, from, next) => {
     // 找到要进入的组件并提前执行 fetch 函数
     const route = findRoute<FeRouteItem<{}, {
       App: Vue.Component
       layout: Vue.Component
     }>>(feRoutes, to.path)
-
     if (route.fetch) {
-      await route.fetch({ store, router: to })
+      const fetchFn = await route.fetch()
+      await fetchFn.default({ store, router: to })
     }
     next()
   })

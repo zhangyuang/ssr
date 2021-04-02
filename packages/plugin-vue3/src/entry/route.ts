@@ -8,14 +8,14 @@ import FetchB from '@/pages/index/fetch.ts'
 export default [{
   layout: __isBrowser__ ? async () => await import(/* webpackChunkName: "index" */ '@/components/layout/index.vue') : require('@/components/layout/index.vue').default,
   App: __isBrowser__ ? async () => await import(/* webpackChunkName: "index" */ '@/components/layout/App.vue') : require('@/components/layout/App.vue').default,
-  fetch: FetchA,
+  fetch: __isBrowser__ ? async () => await import('@/pages/detail/fetch.ts') : require('@/pages/detail/fetch.ts').default,
   path: '/detail/:id',
   component: __isBrowser__ ? async () => await import(/* webpackChunkName: "index" */ '@/pages/detail/render$id.vue') : require('@/pages/detail/render$id.vue').default
 },
 {
   layout: __isBrowser__ ? async () => await import(/* webpackChunkName: "index" */ '@/components/layout/index.vue') : require('@/components/layout/index.vue').default,
   App: __isBrowser__ ? async () => await import(/* webpackChunkName: "index" */ '@/components/layout/App.vue') : require('@/components/layout/App.vue').default,
-  fetch: FetchB,
+  fetch: __isBrowser__ ? async () => await import('@/pages/index/fetch.ts') : require('@/pages/index/fetch.ts').default,
   path: '/',
   component: __isBrowser__ ? async () => await import(/* webpackChunkName: "index" */ '@/pages/index/render.vue') : require('@/pages/index/render.vue').default
 }]
