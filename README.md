@@ -1233,3 +1233,7 @@ export default {
 虽然我们已经尽力检查了一遍应用，但仍有可能有疏漏的地方，如果你在使用过程中发现任何问题或者建议，欢迎提[issue](https://github.com/ykfe/ssr/issues)或者[PR](https://github.com/ykfe/ssr/pulls)
 欢迎直接扫码加入钉钉群
 <img src="./images/dingding.jpeg" width="300">
+
+## 项目 Star 数增长趋势
+
+[![Stargazers over time](https://starchart.cc/ykfe/ssr.svg)](https://starchart.cc/ykfe/ssr)
