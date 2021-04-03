@@ -1,56 +1,39 @@
 import * as fs from 'fs'
 import { promises } from 'fs'
-import { join, isAbsolute } from 'path'
+import { resolve } from 'path'
 import { UserConfig, IPlugin } from 'ssr-types'
 
 const getCwd = () => {
-  const cwd = process.cwd()
-  if (process.env.APP_ROOT) {
-    // avoid repeat cwd path
-    if (!isAbsolute(process.env.APP_ROOT)) {
-      return join(cwd, process.env.APP_ROOT)
-    }
-    return process.env.APP_ROOT
-  }
-  return cwd
+  return resolve(process.cwd(), process.env.APP_ROOT ?? '')
 }
 
 const getFeDir = () => {
-  // fe component folder path
-  const cwd = getCwd()
-  if (process.env.FE_ROOT) {
-    // avoid repeat cwd path
-    if (!isAbsolute(process.env.FE_ROOT)) {
-      return join(cwd, process.env.FE_ROOT)
-    }
-    return process.env.FE_ROOT
-  }
-  return join(cwd, './web')
+  return resolve(getCwd(), process.env.FE_ROOT ?? 'web')
 }
 
 const getPagesDir = () => {
-  return join(getFeDir(), './pages')
+  return resolve(getFeDir(), 'pages')
 }
 
 const getUserConfig = (): UserConfig => {
   // 生产环境如果有 config.prod 则读取
   const isProd = process.env.NODE_ENV === 'production'
-  const hasProdConfig = fs.existsSync(join(getCwd(), './config.prod.js'))
-  return require(join(getCwd(), isProd && hasProdConfig ? './config.prod' : './config'))
+  const hasProdConfig = fs.existsSync(resolve(getCwd(), 'config.prod.js'))
+  return require(resolve(getCwd(), isProd && hasProdConfig ? 'config.prod' : 'config'))
 }
 
 const loadPlugin = (): IPlugin => {
-  return require(join(getCwd(), './plugin'))
+  return require(resolve(getCwd(), 'plugin'))
 }
 
 const isFaaS = async () => {
-  const result = await promises.access(join(getCwd(), './f.yml'))
+  const result = await promises.access(resolve(getCwd(), 'f.yml'))
     .then(() => true)
     .catch(() => false)
   return result
 }
 
-const getLocalNodeModules = () => join(__dirname, '../../../')
+const getLocalNodeModules = () => resolve(__dirname, '../../../')
 
 const processError = (err: any) => {
   if (err) {
