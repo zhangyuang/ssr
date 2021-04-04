@@ -15,6 +15,12 @@ const parseFeRoutes = async () => {
   const vueLayout = await accessFile(join(getFeDir(), './components/layout/index.vue'))
   const vueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
   const isVue = require(join(cwd, './package.json')).dependencies.vue
+  const isVue3 = /^.?3/.test(isVue)
+  if (!isVue3 && process.env.BUILD_TOOL === 'vite') {
+    console.log('vite模式目前暂时只支持vue3,当前--vite指令无效, vue2和react将会在下一个版本支持，敬请期待')
+    process.env.BUILD_TOOL = 'webpack'
+  }
+  // const isVite = process.env.BUILD_TOOL === 'vite'
 
   const defaultLayout = `@/components/layout/index.${vueLayout ? 'vue' : 'tsx'}`
 
@@ -39,7 +45,7 @@ const parseFeRoutes = async () => {
     }
     const arr = await renderRoutes(pageDir, pathRecord, route)
     debug('The result that parse web folder to routes is: ', arr)
-    routes = `module.exports =${JSON.stringify(arr)
+    routes = `${isVue3 ? 'export default' : 'module.exports='} ${JSON.stringify(arr)
         .replace(/"layout":("(.+?)")/g, (global, m1, m2) => {
           return `"layout": ${m2.replace(/\^/g, '"')}`
         })
@@ -50,6 +56,8 @@ const parseFeRoutes = async () => {
           return `"fetch": ${m2.replace(/\^/g, '"')}`
         })
         }`
+
+    const sourceRoutes = routes
     if (!dynamic) {
       // 如果禁用路由分割则无需引入 react-loadable
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
@@ -57,11 +65,31 @@ const parseFeRoutes = async () => {
       })
     } else {
       const re = /"webpackChunkName":("(.+?)")/g
+
       if (isVue) {
         routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
           const currentWebpackChunkName = re.exec(routes)![2]
           return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
         })
+
+        // vite模式特殊处理为ESM
+        if (isVue3) {
+          re.lastIndex = 0
+          routes = routes.replace(/"layout": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
+            const currentWebpackChunkName = re.exec(sourceRoutes)![2]
+            return `"layout":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+          })
+          re.lastIndex = 0
+          routes = routes.replace(/"App": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
+            const currentWebpackChunkName = re.exec(sourceRoutes)![2]
+            return `"App":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+          })
+          re.lastIndex = 0
+          routes = routes.replace(/"fetch": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
+            const currentWebpackChunkName = re.exec(sourceRoutes)![2]
+            return `"fetch": __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+          })
+        }
       } else {
         routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
           const currentWebpackChunkName = re.exec(routes)![2]
@@ -80,6 +108,11 @@ const parseFeRoutes = async () => {
   }
 
   await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
+  const packageJsonStr = `{
+    "name": "ssr-temporary-routes",
+    "module": "route.js"
+  }`
+  await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/package.json'), packageJsonStr)
 }
 
 const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {
@@ -87,6 +120,8 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
   const pagesFolders = await fs.readdir(pageDir)
   const prefixPath = pathRecord.join('/')
   const aliasPath = `@/pages${prefixPath}`
+  const routeArr: ParseFeRouteItem[] = []
+  const fetchExactMatch = pagesFolders.filter(p => p.includes('fetch'))
   for (const pageFiles of pagesFolders) {
     const abFolder = join(pageDir, pageFiles)
     const isDirectory = (await fs.stat(abFolder)).isDirectory()
@@ -108,6 +143,13 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         /* /news/:id */
         route.path = `${prefixPath}/:${getDynamicParam(pageFiles)}`
         route.component = `${aliasPath}/${pageFiles}`
+        // fetch文件数量>=2 启用完全匹配策略
+        if (fetchExactMatch.length >= 2) {
+          const fetchPageFiles = `fetch${pageFiles.replace('render', '').replace('.vue', '.ts')}`
+          if (fetchExactMatch.includes(fetchPageFiles)) {
+            route.fetch = `require('${aliasPath}/${fetchPageFiles}').default`
+          }
+        }
       }
 
       if (pageFiles.includes('fetch')) {
@@ -121,24 +163,28 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         }
         route.webpackChunkName = webpackChunkName
       }
+      routeArr.push({ ...route })
     }
   }
 
-  if (route.path?.includes('index')) {
-    // /index 映射为 /
-    route.path = route.path.replace('index', '')
-  }
+  routeArr.forEach((r) => {
+    if (r.path?.includes('index')) {
+      // /index 映射为 /
+      r.path = r.path.replace('index', '')
+    }
 
-  if (route.path && prefix) {
-    // 统一添加公共前缀
-    route.path = `/${prefix}${route.path}`
-  }
-  route.path && arr.push(route)
+    if (r.path && prefix) {
+      // 统一添加公共前缀
+      r.path = `/${prefix}${r.path}`
+    }
+    r.path && arr.push(r)
+  })
+
   return arr
 }
 
 const getDynamicParam = (url: string) => {
-  return url.split('$').filter(r => r !== 'render').map(r => r.replace(/\.[\s\S]+/, '')).join('/:')
+  return url.split('$').filter(r => r !== 'render' && r !== '').map(r => r.replace(/\.[\s\S]+/, '')).join('/:')
 }
 
 export {

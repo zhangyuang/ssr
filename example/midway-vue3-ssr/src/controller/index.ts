@@ -28,8 +28,9 @@ export class Index {
       this.ctx.apiService = this.apiService
       this.ctx.apiDeatilservice = this.apiDeatilservice
       const stream = await render<Readable>(this.ctx, {
-        stream: true
+        stream: false
       })
+      // console.log('xx', stream)
       this.ctx.body = stream
     } catch (error) {
       console.log(error)

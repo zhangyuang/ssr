@@ -1,6 +1,5 @@
 import { FeRouteItem } from 'ssr-types'
-
-const pathToRegexp = require('path-to-regexp')
+import pathToRegexp from 'path-to-regexp'
 
 const preloadComponent = async (Routes: FeRouteItem[]) => {
   // 预加载当前页面对应的组件
