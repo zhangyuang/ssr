@@ -16,11 +16,11 @@ const parseFeRoutes = async () => {
   const vueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
   const isVue = require(join(cwd, './package.json')).dependencies.vue
   const isVue3 = /^.?3/.test(isVue)
+
   if (!isVue3 && process.env.BUILD_TOOL === 'vite') {
-    console.log('vite模式目前暂时只支持vue3,当前--vite指令无效, vue2和react将会在下一个版本支持，敬请期待')
-    process.env.BUILD_TOOL = 'webpack'
+    console.log('vite模式目前暂时只支持vue3,当前 --vite 指令无效请直接使用 ssr start, vue2 和 react 将会在下一个版本支持，敬请期待')
+    return
   }
-  // const isVite = process.env.BUILD_TOOL === 'vite'
 
   const defaultLayout = `@/components/layout/index.${vueLayout ? 'vue' : 'tsx'}`
 
@@ -57,7 +57,6 @@ const parseFeRoutes = async () => {
         })
         }`
 
-    const sourceRoutes = routes
     if (!dynamic) {
       // 如果禁用路由分割则无需引入 react-loadable
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
@@ -72,22 +71,16 @@ const parseFeRoutes = async () => {
           return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
         })
 
-        // vite模式特殊处理为ESM
+        // vite模式特殊处理为 ESM， 暂时只在 Vue3 场景开放
         if (isVue3) {
-          re.lastIndex = 0
           routes = routes.replace(/"layout": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
-            const currentWebpackChunkName = re.exec(sourceRoutes)![2]
-            return `"layout":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+            return `"layout":  __isBrowser__ ? () => import('${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
           })
-          re.lastIndex = 0
           routes = routes.replace(/"App": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
-            const currentWebpackChunkName = re.exec(sourceRoutes)![2]
-            return `"App":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+            return `"App":  __isBrowser__ ? () => import('${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
           })
-          re.lastIndex = 0
           routes = routes.replace(/"fetch": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
-            const currentWebpackChunkName = re.exec(sourceRoutes)![2]
-            return `"fetch": __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+            return `"fetch": __isBrowser__ ? () => import('${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
           })
         }
       } else {
@@ -104,7 +97,7 @@ const parseFeRoutes = async () => {
     }
   } else {
     // 使用了声明式路由
-    routes = (await fs.readFile(join(getFeDir(), './route.js'))).toString()
+    routes = (await fs.readFile(join(getFeDir(), './route'))).toString()
   }
 
   await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)

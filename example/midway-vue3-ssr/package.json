@@ -19,7 +19,6 @@
     "@vitejs/plugin-vue": "^1.1.5",
     "cross-env": "^7.0.3",
     "eslint-config-standard-vue-ts": "^1.0.5",
-    "koa-connect": "^2.1.0",
     "ssr": "^5.0.0",
     "ssr-plugin-midway": "^5.0.0",
     "ssr-plugin-vue3": "^5.0.0",

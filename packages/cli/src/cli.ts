@@ -1,10 +1,10 @@
 #!/usr/bin/env node
+import { resolve } from 'path'
 import { fork } from 'child_process'
-import { resolve, join } from 'path'
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
-import { promises as fs } from 'fs'
-import { getCwd } from 'ssr-server-utils'
+import { copyViteConfig } from 'ssr-server-utils'
+
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
 const debug = require('debug')('ssr:cli')
 const start = Date.now()
@@ -15,16 +15,10 @@ yargs
       message: 'start'
     })
     process.env.NODE_ENV = 'development'
+    // 只有本地开发环境才会使用 Vite
     process.env.BUILD_TOOL = argv.vite ? 'vite' : 'webpack'
-    // 拷贝vite初始化配置
     if (process.env.BUILD_TOOL === 'vite') {
-      try {
-        await fs.access(join(getCwd(), './vite.config.js'))
-      } catch (error) {
-        await fs.copyFile(join(getCwd(), './node_modules/ssr-plugin-vue3/src/config/vite.config'), join(getCwd(), './vite.config.js'))
-        // const viteConfigContent = await fs.readFile()
-        // await fs.writeFile(join(getCwd(), './vite.config.js'), viteConfigContent)
-      }
+      await copyViteConfig()
     }
 
     const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')

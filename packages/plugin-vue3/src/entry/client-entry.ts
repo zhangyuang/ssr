@@ -4,10 +4,10 @@ import { findRoute } from 'ssr-client-utils'
 import { FeRouteItem } from 'ssr-types'
 import { createRouter } from './router'
 import { createStore } from './store'
-// import feRoutes from './route'
+
 import feRoutes from '~/ssr-temporary-routes/route'
 
-// declare const module: any
+declare const module: any
 
 const clientRender = async () => {
   const store = createStore()
@@ -23,7 +23,9 @@ const clientRender = async () => {
 
   app.use(store)
   app.use(router)
+
   window.__VUE_APP__ = app
+
   await router.isReady()
 
   if (!window.__USE_SSR__) {
@@ -56,9 +58,7 @@ const clientRender = async () => {
 
   app.mount('#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
 
-  // if (process.env.NODE_ENV === 'development' && module.hot) {
-  //   module.hot.accept()
-  // }
+  module?.hot?.accept?.() // webpack 场景下的 hmr
 }
 
 export default clientRender()

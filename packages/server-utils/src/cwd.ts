@@ -47,6 +47,15 @@ const accessFile = async (file: string) => {
     .catch(() => false)
   return result
 }
+
+const copyViteConfig = async () => {
+  // 如果当前项目没有 vite.config 则复制默认的文件
+  const result = await accessFile(resolve(getCwd(), './vite.config.js'))
+  if (!result) {
+    await promises.copyFile(resolve(getCwd(), './node_modules/ssr-plugin-vue3/src/config/vite.config'), resolve(getCwd(), './vite.config.js'))
+  }
+}
+
 export {
   getCwd,
   getFeDir,
@@ -56,5 +65,6 @@ export {
   loadPlugin,
   getLocalNodeModules,
   processError,
-  accessFile
+  accessFile,
+  copyViteConfig
 }

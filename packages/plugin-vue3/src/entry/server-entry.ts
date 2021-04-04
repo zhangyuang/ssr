@@ -1,14 +1,11 @@
+import { resolve } from 'path'
 import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
 import { findRoute, getManifest, logGreen, getCwd } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
-// import feRoutes from './route'
-
-// const feRoutes = route
-import feRoutes from '~/ssr-temporary-routes/route'
-// const feRoutes = require('ssr-temporary-routes')
 // @ts-expect-error
 import * as serialize from 'serialize-javascript'
+import feRoutes from '~/ssr-temporary-routes/route'
 import { createRouter } from './router'
 import { createStore } from './store'
 
@@ -17,27 +14,20 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const router = createRouter()
   const store = createStore()
 
-  const {
-    cssOrder,
-    jsOrder,
-    dynamic,
-    mode,
-    customeHeadScript,
-    isDev
-  } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript } = config
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
   const routeItem = findRoute<FeRouteItem<{}, {
     App: Vue.Component
     layout: Vue.Component
   }>>(feRoutes, path)
-  const ViteMode = isDev && process.env.BUILD_TOOL === 'vite'
+  const ViteMode = process.env.BUILD_TOOL === 'vite'
 
   let dynamicCssOrder = cssOrder
   if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
   }
 
-  const manifest = await getManifest()
+  const manifest = ViteMode ? {} : await getManifest()
 
   if (!routeItem) {
     throw new Error(`With request url ${path} Component is Not Found`)
@@ -60,7 +50,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     render: function () {
       const injectCss: Vue.VNode[] = []
       dynamicCssOrder.forEach(css => {
-        if (manifest[css]) {
+        if (manifest[css] || ViteMode) {
           injectCss.push(
             h('link', {
               rel: 'stylesheet',
@@ -70,16 +60,14 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         }
       })
 
-      const injectScript = ViteMode
-        ? h('script', {
-          type: 'module',
-          src: `/@fs${getCwd()}/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js`
+      const injectScript = ViteMode ? h('script', {
+        type: 'module',
+        src: resolve(getCwd(), '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
+      }) : jsOrder.map((js) =>
+        h('script', {
+          src: manifest[js]
         })
-        : jsOrder.map((js) =>
-          h('script', {
-            src: manifest[js]
-          })
-        )
+      )
       return h(
         layout,
         { ctx, config },

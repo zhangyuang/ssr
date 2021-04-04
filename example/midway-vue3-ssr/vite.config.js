@@ -1,5 +1,5 @@
-const vuePlugin = require('@vitejs/plugin-vue')
 const { join } = require('path')
+const vuePlugin = require('@vitejs/plugin-vue')
 
 /**
  * @type {import('vite').UserConfig}
