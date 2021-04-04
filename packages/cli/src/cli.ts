@@ -3,8 +3,8 @@ import { fork } from 'child_process'
 import { resolve, join } from 'path'
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
-import { promises as fsAsync } from 'fs'
-import * as fs from 'fs'
+import { promises as fs } from 'fs'
+import { getCwd } from 'ssr-server-utils'
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
 const debug = require('debug')('ssr:cli')
 const start = Date.now()
@@ -15,18 +15,18 @@ yargs
       message: 'start'
     })
     process.env.NODE_ENV = 'development'
-    process.env.VITE_MODEL = argv.vite ? 'vite' : 'webpack'
-    console.log(process.env.VITE_MODEL)
+    process.env.BUILD_TOOL = argv.vite ? 'vite' : 'webpack'
     // 拷贝vite初始化配置
-    if (process.env.VITE_MODEL === 'vite') {
-      const exist = fs.existsSync(join(process.cwd(), './vite.config.js'))
-      if (!exist) {
-        const viteConfigContent = await fsAsync.readFile(join(process.cwd(), './node_modules/ssr-plugin-vue3/src/config/vite.config'))
-        await fsAsync.writeFile(join(process.cwd(), './vite.config.js'), viteConfigContent)
+    if (process.env.BUILD_TOOL === 'vite') {
+      try {
+        await fs.access(join(getCwd(), './vite.config.js'))
+      } catch (error) {
+        await fs.copyFile(join(getCwd(), './node_modules/ssr-plugin-vue3/src/config/vite.config'), join(getCwd(), './vite.config.js'))
+        // const viteConfigContent = await fs.readFile()
+        // await fs.writeFile(join(getCwd(), './vite.config.js'), viteConfigContent)
       }
     }
 
-    // console.log(process.env)
     const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
     debug(`require ssr-server-utils time: ${Date.now() - start} ms`)
     const plugin = loadPlugin()

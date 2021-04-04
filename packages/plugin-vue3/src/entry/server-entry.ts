@@ -1,13 +1,12 @@
 import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
-import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, getCwd } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
 // import feRoutes from './route'
 
 // const feRoutes = route
 import feRoutes from '~/ssr-temporary-routes/route'
 // const feRoutes = require('ssr-temporary-routes')
-
 // @ts-expect-error
 import * as serialize from 'serialize-javascript'
 import { createRouter } from './router'
@@ -31,7 +30,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     App: Vue.Component
     layout: Vue.Component
   }>>(feRoutes, path)
-  const ViteMode = isDev && process.env.VITE_MODEL === 'vite'
+  const ViteMode = isDev && process.env.BUILD_TOOL === 'vite'
 
   let dynamicCssOrder = cssOrder
   if (dynamic) {
@@ -74,8 +73,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       const injectScript = ViteMode
         ? h('script', {
           type: 'module',
-          src:
-              '/@fs/Users/jerry/github-project/prod/ssr/packages/plugin-vue3/esm/entry/client-entry.js'
+          src: `/@fs${getCwd()}/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js`
         })
         : jsOrder.map((js) =>
           h('script', {

@@ -6,7 +6,7 @@ import { getCwd, getPagesDir, getFeDir, accessFile } from './cwd'
 import { loadConfig } from './loadConfig'
 
 const debug = require('debug')('ssr:parse')
-const { dynamic, prefix, isDev } = loadConfig()
+const { dynamic, prefix } = loadConfig()
 const pageDir = getPagesDir()
 const cwd = getCwd()
 
@@ -16,11 +16,11 @@ const parseFeRoutes = async () => {
   const vueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
   const isVue = require(join(cwd, './package.json')).dependencies.vue
   const isVue3 = /^.?3/.test(isVue)
-  if (!isVue3 && process.env.VITE_MODEL === 'vite') {
+  if (!isVue3 && process.env.BUILD_TOOL === 'vite') {
     console.log('vite模式目前暂时只支持vue3,当前--vite指令无效, vue2和react将会在下一个版本支持，敬请期待')
-    process.env.VITE_MODEL = 'webpack'
+    process.env.BUILD_TOOL = 'webpack'
   }
-  // const isVite = process.env.VITE_MODEL === 'vite'
+  // const isVite = process.env.BUILD_TOOL === 'vite'
 
   const defaultLayout = `@/components/layout/index.${vueLayout ? 'vue' : 'tsx'}`
 
@@ -45,7 +45,6 @@ const parseFeRoutes = async () => {
     }
     const arr = await renderRoutes(pageDir, pathRecord, route)
     debug('The result that parse web folder to routes is: ', arr)
-    console.log(arr)
     routes = `${isVue3 ? 'export default' : 'module.exports='} ${JSON.stringify(arr)
         .replace(/"layout":("(.+?)")/g, (global, m1, m2) => {
           return `"layout": ${m2.replace(/\^/g, '"')}`
@@ -68,8 +67,6 @@ const parseFeRoutes = async () => {
       const re = /"webpackChunkName":("(.+?)")/g
 
       if (isVue) {
-        // console.log(routes)
-        // console.log(re.exec(routes), 'test')
         routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
           const currentWebpackChunkName = re.exec(routes)![2]
           return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
@@ -109,7 +106,6 @@ const parseFeRoutes = async () => {
     // 使用了声明式路由
     routes = (await fs.readFile(join(getFeDir(), './route.js'))).toString()
   }
-  console.log(routes, 'end')
 
   await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
   const packageJsonStr = `{
