@@ -72,16 +72,14 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         layout,
         { ctx, config },
         {
-          remInitial: () =>
-            h('script', {
-              innerHTML:
-                "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
-            }),
+          remInitial: () => h('script', { innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }),
+
           viteClient: ViteMode ? () =>
             h('script', {
               type: 'module',
               src: '/@vite/client'
             }) : null,
+
           customeHeadScript: () => customeHeadScript?.map((item) =>
             h(
               'script',
@@ -97,7 +95,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
           initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(store.state)};window.__USE_VITE__=${ViteMode}` })
             : () => h('script', { innerHTML: `window.__USE_VITE__=${ViteMode}` }),
+
           cssInject: () => injectCss,
+
           jsInject: () => injectScript
         }
       )

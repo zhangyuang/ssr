@@ -8,7 +8,6 @@ class AppBootHook {
   }
 
   async didReady () {
-    // use vite's connect instance as middleware
     initialSSRDevProxy(this.app)
   }
 }
