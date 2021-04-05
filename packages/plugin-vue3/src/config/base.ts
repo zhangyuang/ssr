@@ -35,7 +35,6 @@ const getBaseConfig = (chain: WebpackChain) => {
     .end()
   chain.resolve.alias
     .set('@', getFeDir())
-    .set('~', join(getCwd(), './node_modules'))
     .set('vue$', 'vue/dist/vue.runtime.esm-bundler.js')
     .end()
   chain.module

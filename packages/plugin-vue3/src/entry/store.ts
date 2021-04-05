@@ -1,4 +1,4 @@
-import { createStore as createVuexStore } from 'vuex' // define by webpack define plugin
+import { createStore as createVuexStore } from 'vuex'
 
 // @ts-expect-error
 import * as store from '@/store/index.ts'

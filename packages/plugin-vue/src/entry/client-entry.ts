@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import { findRoute } from 'ssr-client-utils'
 import { FeRouteItem } from 'ssr-types'
+// @ts-expect-error
+import feRoutes from 'ssr-temporary-routes'
 import { createRouter } from './router'
 import { createStore } from './store'
 
 declare const module: any
-const feRoutes = require('ssr-temporary-routes/route')
 
 const App = feRoutes[0].App
 const clientRender = async () => {

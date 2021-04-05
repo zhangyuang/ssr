@@ -15,8 +15,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      '@': join(process.cwd(), './web'),
-      '~': join(process.cwd(), './node_modules')
+      '@': join(process.cwd(), './web')
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
   }

@@ -43,7 +43,7 @@ const loadConfig = (): IConfig => {
 
   const jsOrder = [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`]
 
-  const cssOrder = [`${chunkName}.css`]
+  const cssOrder = ['common-layout.css', 'common-app.css', `${chunkName}.css`]
 
   const webpackStatsOption = {
     assets: true, // 添加资源信息

@@ -1,7 +1,8 @@
 
 import { createRouter as create, createWebHistory, createMemoryHistory } from 'vue-router'
 
-import feRoutes from '~/ssr-temporary-routes/route'
+// @ts-expect-error
+import feRoutes from 'ssr-temporary-routes'
 
 export function createRouter () {
   return create({
