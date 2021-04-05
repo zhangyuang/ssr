@@ -8,7 +8,7 @@ class AppBootHook {
   }
 
   async didReady () {
-    initialSSRDevProxy(this.app)
+    await initialSSRDevProxy(this.app)
   }
 }
 

@@ -7,7 +7,7 @@ import { AppModule } from './app.module'
 
 async function bootstrap (): Promise<void> {
   const app = await NestFactory.create<NestExpressApplication>(AppModule)
-  initialSSRDevProxy(app, {
+  await initialSSRDevProxy(app, {
     express: true
   })
   app.useStaticAssets(join(process.cwd(), './build'))
