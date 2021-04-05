@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.5.0](https://github.com/ykfe/ssr/compare/v5.4.26...v5.5.0) (2021-04-05)
+
+
+### Features
+
+* vite ([#39](https://github.com/ykfe/ssr/issues/39)) ([#42](https://github.com/ykfe/ssr/issues/42)) ([32217f5](https://github.com/ykfe/ssr/commit/32217f5729e5fc080dd6344d1033503cf330e2f9))
+
+
+
+
+
 ## [5.4.26](https://github.com/ykfe/ssr/compare/v5.4.25...v5.4.26) (2021-04-01)
 
 **Note:** Version bump only for package ssr-plugin-react
