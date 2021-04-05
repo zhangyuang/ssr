@@ -1,13 +1,14 @@
-// This file is created by egg-ts-helper@1.25.8
+// This file is created by egg-ts-helper
 // Do not modify this file!!!!!!!!!
-
-import '@midwayjs/web';
 import 'egg';
+import '@midwayjs/web';
 import 'egg-onerror';
 import 'egg-session';
 import 'egg-i18n';
+import 'egg-watcher';
 import 'egg-multipart';
 import 'egg-security';
+import 'egg-development';
 import 'egg-logrotator';
 import 'egg-schedule';
 import 'egg-static';

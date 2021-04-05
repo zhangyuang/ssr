@@ -2,9 +2,10 @@ import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IGlobal, IConfig } from 'ssr-types'
+// @ts-expect-error
+import feRoutes from 'ssr-temporary-routes'
 import { serverContext } from './create-context'
 
-const feRoutes: FeRouteItem[] = require('ssr-temporary-routes/route')
 declare const global: IGlobal
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {

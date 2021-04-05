@@ -4,12 +4,12 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { FeRouteItem, preloadComponent } from 'ssr-client-utils'
 import { wrapComponent } from 'ssr-hoc-react'
 import { IWindow } from 'ssr-types'
+// @ts-expect-error
+import feRoutes from 'ssr-temporary-routes'
 import { App } from './app'
 
 declare const module: any
 declare const window: IWindow
-
-const feRoutes: FeRouteItem[] = require('ssr-temporary-routes/route')
 
 const clientRender = async (): Promise<void> => {
   // 客户端渲染||hydrate

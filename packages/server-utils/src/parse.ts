@@ -42,7 +42,7 @@ const parseFeRoutes = async () => {
     }
     const arr = await renderRoutes(pageDir, pathRecord, route)
     debug('The result that parse web folder to routes is: ', arr)
-    routes = `${isVue3 ? 'export default' : 'module.exports='} ${JSON.stringify(arr)
+    routes = `export default ${JSON.stringify(arr)
         .replace(/"layout":("(.+?)")/g, (global, m1, m2) => {
           return `"layout": ${m2.replace(/\^/g, '"')}`
         })

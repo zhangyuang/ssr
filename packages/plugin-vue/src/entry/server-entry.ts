@@ -2,7 +2,6 @@ import * as Vue from 'vue'
 import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
 import { sync } from 'vuex-router-sync'
-// @ts-expect-error
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
 import feRoutes from 'ssr-temporary-routes'
