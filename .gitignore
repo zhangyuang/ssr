@@ -79,3 +79,5 @@ cypress/screenshots
 cypress/videos
 
 packages/**/README.md
+
+example/**/typings
