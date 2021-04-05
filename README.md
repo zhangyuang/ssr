@@ -485,6 +485,7 @@ export default {
 在 Vue3 Plugin 中我们将 Vite 作为一个可选配置，底层已做兼容，但默认不会安装 Vite 相关依赖。具体使用方式如下
 
 ```bash
+$ npm init ssr-app my-ssr-project --template=midway-vue3-ssr # 创建 Vue23SSR 应用，同时支持 Serverless 形式一键发布或以传统 Node.js 应用的形式部署
 $ npm i vite @vitejs/plugin-vue --save-dev # 根据实际技术栈安装需要的插件
 $ npx ssr start --vite # 建议在 package.json 中添加 "start:vite": "ssr start --vite"
 ```

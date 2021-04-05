@@ -67,7 +67,6 @@ const parseFeRoutes = async () => {
           const currentWebpackChunkName = re.exec(routes)![2]
           return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
         })
-
         // vite模式特殊处理为 ESM, 暂时只在 Vue3 场景开启
         if (isVue3) {
           routes = routes.replace(/"layout": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
