@@ -487,7 +487,7 @@ export default {
 
 ```bash
 $ npm init ssr-app my-ssr-project --template=midway-vue3-ssr # 创建 Vue3 SSR 应用，同时支持 Serverless 形式一键发布或以传统 Node.js 应用的形式部署
-$ cd  my-ssr-project && npm i && npm i vite @vitejs/plugin-vue --save-dev # 根据实际技术栈安装需要的插件
+$ cd my-ssr-project && npm i && npm i vite @vitejs/plugin-vue --save-dev # 根据实际技术栈安装需要的插件
 $ npx ssr start --vite # 建议在 package.json 中添加 "start:vite": "ssr start --vite"
 ```
 

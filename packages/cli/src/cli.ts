@@ -24,7 +24,7 @@ yargs
     if (process.env.BUILD_TOOL === 'vite') {
       const result = await checkVite()
       if (!result) {
-        return
+        process.exit(0)
       }
       await copyViteConfig()
     }
