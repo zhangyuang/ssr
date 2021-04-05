@@ -15,12 +15,15 @@ const parseFeRoutes = async () => {
   const vueLayout = await accessFile(join(getFeDir(), './components/layout/index.vue'))
   const vueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
   const isVue = require(join(cwd, './package.json')).dependencies.vue
+  const isVue3 = /^.?3/.test(isVue)
+
+  if (!isVue3 && process.env.BUILD_TOOL === 'vite') {
+    console.log('vite模式目前暂时只支持vue3,当前 --vite 指令无效请直接使用 ssr start, vue2 和 react 将会在下一个版本支持，敬请期待')
+    return
+  }
 
   const defaultLayout = `@/components/layout/index.${vueLayout ? 'vue' : 'tsx'}`
-
-  try {
-    await fs.access(join(cwd, './node_modules/ssr-temporary-routes'))
-  } catch (error) {
+  if (!await accessFile(join(cwd, './node_modules/ssr-temporary-routes'))) {
     Shell.mkdir(join(cwd, './node_modules/ssr-temporary-routes'))
   }
 
@@ -39,7 +42,7 @@ const parseFeRoutes = async () => {
     }
     const arr = await renderRoutes(pageDir, pathRecord, route)
     debug('The result that parse web folder to routes is: ', arr)
-    routes = `module.exports =${JSON.stringify(arr)
+    routes = `export default ${JSON.stringify(arr)
         .replace(/"layout":("(.+?)")/g, (global, m1, m2) => {
           return `"layout": ${m2.replace(/\^/g, '"')}`
         })
@@ -50,6 +53,8 @@ const parseFeRoutes = async () => {
           return `"fetch": ${m2.replace(/\^/g, '"')}`
         })
         }`
+    const sourceRoutes = routes
+
     if (!dynamic) {
       // 如果禁用路由分割则无需引入 react-loadable
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
@@ -62,6 +67,20 @@ const parseFeRoutes = async () => {
           const currentWebpackChunkName = re.exec(routes)![2]
           return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
         })
+        // vite模式特殊处理为 ESM, 暂时只在 Vue3 场景开启
+        if (isVue3) {
+          routes = routes.replace(/"layout": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
+            return `"layout":  __isBrowser__ ? () => import(/* webpackChunkName: "common-layout" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+          })
+          routes = routes.replace(/"App": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
+            return `"App":  __isBrowser__ ? () => import(/* webpackChunkName: "common-app" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+          })
+          re.lastIndex = 0
+          routes = routes.replace(/"fetch": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
+            const currentWebpackChunkName = re.exec(sourceRoutes)![2]
+            return `"fetch": __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+          })
+        }
       } else {
         routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
           const currentWebpackChunkName = re.exec(routes)![2]
@@ -76,10 +95,15 @@ const parseFeRoutes = async () => {
     }
   } else {
     // 使用了声明式路由
-    routes = (await fs.readFile(join(getFeDir(), './route.js'))).toString()
+    routes = (await fs.readFile(join(getFeDir(), './route'))).toString()
   }
 
   await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
+  await fs.copyFile(resolve(__dirname, '../src/packagejson.tpl'), resolve(cwd, './node_modules/ssr-temporary-routes/package.json'))
+  if (process.env.TEST && process.env.BUILD_TOOL === 'vite') {
+    // 开发同学本地开发时 vite 场景将路由表写一份到 repo 下面而不是 example 下面，否则 client-entry 会找不到该文件
+    Shell.cp('-r', resolve(cwd, './node_modules/ssr-temporary-routes/'), resolve(__dirname, '../../../node_modules/ssr-temporary-routes/'))
+  }
 }
 
 const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {

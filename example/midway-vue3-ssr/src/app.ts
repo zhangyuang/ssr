@@ -7,7 +7,7 @@ class AppBootHook {
     this.app = app
   }
 
-  didReady () {
+  async didReady () {
     initialSSRDevProxy(this.app)
   }
 }

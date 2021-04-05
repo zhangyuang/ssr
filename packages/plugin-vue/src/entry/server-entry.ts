@@ -2,13 +2,12 @@ import * as Vue from 'vue'
 import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
 import { sync } from 'vuex-router-sync'
-// @ts-expect-error
 import * as serialize from 'serialize-javascript'
+// @ts-expect-error
+import feRoutes from 'ssr-temporary-routes'
 
 import { createRouter } from './router'
 import { createStore } from './store'
-
-const feRoutes = require('ssr-temporary-routes/route')
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
   const router = createRouter()

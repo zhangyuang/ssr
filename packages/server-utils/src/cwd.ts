@@ -47,6 +47,26 @@ const accessFile = async (file: string) => {
     .catch(() => false)
   return result
 }
+
+const checkVite = async () => {
+  const result = await accessFile(resolve(getCwd(), './node_modules/vite/package.json'))
+  if (!result) {
+    console.log('当前项目缺少 vite 依赖，请根据实际技术栈安装 vite @vitejs/plugin-vue 或 其他对应插件')
+    return false
+  }
+  return true
+}
+
+const copyViteConfig = async () => {
+  // 如果当前项目没有 vite.config 则复制默认的文件
+  const result = await accessFile(resolve(getCwd(), './vite.config.js'))
+  if (!result) {
+    console.log('检测到当前目录缺少 vite.config.js 文件，自动创建默认模版')
+
+    await promises.copyFile(resolve(getCwd(), './node_modules/ssr-plugin-vue3/src/config/vite.config.tpl'), resolve(getCwd(), './vite.config.js'))
+  }
+}
+
 export {
   getCwd,
   getFeDir,
@@ -56,5 +76,7 @@ export {
   loadPlugin,
   getLocalNodeModules,
   processError,
-  accessFile
+  accessFile,
+  copyViteConfig,
+  checkVite
 }

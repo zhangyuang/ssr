@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-import { fork } from 'child_process'
 import { resolve } from 'path'
+import { fork } from 'child_process'
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
+import { copyViteConfig, checkVite } from 'ssr-server-utils'
 
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
 const debug = require('debug')('ssr:cli')
@@ -14,6 +15,20 @@ yargs
       message: 'start'
     })
     process.env.NODE_ENV = 'development'
+    // 只有本地开发环境才会使用 Vite
+    process.env.BUILD_TOOL = argv.vite ? 'vite' : 'webpack'
+    if (argv.test) {
+      // 开发同学本地 link 测试用
+      process.env.TEST = '1'
+    }
+    if (process.env.BUILD_TOOL === 'vite') {
+      const result = await checkVite()
+      if (!result) {
+        return
+      }
+      await copyViteConfig()
+    }
+
     const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
     debug(`require ssr-server-utils time: ${Date.now() - start} ms`)
     const plugin = loadPlugin()

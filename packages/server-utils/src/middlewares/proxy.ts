@@ -1,5 +1,6 @@
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import { proxyOptions } from 'ssr-types'
+import { getFeDir } from '../cwd'
 import { loadConfig } from '../loadConfig'
 
 const koaConnect = require('koa2-connect')
@@ -10,7 +11,7 @@ function onProxyReq (proxyReq: any, req: any) {
   })
 }
 
-const getDevProxyMiddlewaresArr = (options?: proxyOptions) => {
+const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
   const { fePort, proxy, isDev } = loadConfig()
   const express = options ? options.express : false
   const proxyMiddlewaresArr: any[] = []
@@ -25,26 +26,38 @@ const getDevProxyMiddlewaresArr = (options?: proxyOptions) => {
   }
 
   proxy && registerProxy(proxy)
-
   if (isDev) {
-    // 在本地开发阶段代理 serverPort 的资源到 fePort
-    // 例如 http://localhost:3000/static/js/page.chunk.js -> http://localhost:8000/static/js/page.chunk.js
-    const remoteStaticServerOptions = {
-      target: `http://127.0.0.1:${fePort}`,
-      changeOrigin: true,
-      secure: false,
-      onProxyReq,
-      logLevel: 'warn'
-    }
+    if (process.env.BUILD_TOOL === 'vite') {
+      // 本地开发请求走 vite 接管 前端文件夹请求
+      const { createServer } = require('vite')
+      const vite = await createServer({
+        cwd: getFeDir(),
+        logLevel: 'info',
+        server: {
+          middlewareMode: true
+        }
+      })
+      proxyMiddlewaresArr.push(express ? vite.middlewares : koaConnect(vite.middlewares))
+    } else {
+      // Webpack 场景 在本地开发阶段代理 serverPort 的资源到 fePort
+      // 例如 http://localhost:3000/static/js/page.chunk.js -> http://localhost:8000/static/js/page.chunk.js
+      const remoteStaticServerOptions = {
+        target: `http://127.0.0.1:${fePort}`,
+        changeOrigin: true,
+        secure: false,
+        onProxyReq,
+        logLevel: 'warn'
+      }
 
-    const proxyPathMap = {
-      '/static': remoteStaticServerOptions,
-      '/sockjs-node': remoteStaticServerOptions,
-      '/*.hot-update.js(on)?': remoteStaticServerOptions,
-      '/__webpack_dev_server__': remoteStaticServerOptions,
-      '/asset-manifest': remoteStaticServerOptions
+      const proxyPathMap = {
+        '/static': remoteStaticServerOptions,
+        '/sockjs-node': remoteStaticServerOptions,
+        '/*.hot-update.js(on)?': remoteStaticServerOptions,
+        '/__webpack_dev_server__': remoteStaticServerOptions,
+        '/asset-manifest': remoteStaticServerOptions
+      }
+      registerProxy(proxyPathMap)
     }
-    registerProxy(proxyPathMap)
   }
 
   return proxyMiddlewaresArr

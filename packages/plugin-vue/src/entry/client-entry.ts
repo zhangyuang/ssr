@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import { findRoute } from 'ssr-client-utils'
 import { FeRouteItem } from 'ssr-types'
+// @ts-expect-error
+import feRoutes from 'ssr-temporary-routes'
 import { createRouter } from './router'
 import { createStore } from './store'
 
 declare const module: any
-const feRoutes = require('ssr-temporary-routes/route')
 
 const App = feRoutes[0].App
 const clientRender = async () => {
@@ -26,10 +27,7 @@ const clientRender = async () => {
   router.onReady(async () => {
     if (!window.__USE_SSR__) {
       // 如果是 csr 模式 则需要客户端获取首页需要的数据
-      const route = findRoute<FeRouteItem<{}, {
-        App: Vue.Component
-        layout: Vue.Component
-      }>>(feRoutes, location.pathname)
+      const route = findRoute<FeRouteItem>(feRoutes, location.pathname)
       const { fetch } = route
       if (fetch) {
         await fetch({ store, router: router.currentRoute })
@@ -37,10 +35,7 @@ const clientRender = async () => {
     }
     router.beforeResolve(async (to, from, next) => {
       // 找到要进入的组件并提前执行 fetch 函数
-      const route = findRoute<FeRouteItem<{}, {
-        App: Vue.Component
-        layout: Vue.Component
-      }>>(feRoutes, to.path)
+      const route = findRoute<FeRouteItem>(feRoutes, to.path)
       if (route.fetch) {
         await route.fetch({ store, router: to })
       }
