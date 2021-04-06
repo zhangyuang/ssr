@@ -28,7 +28,7 @@ const parseFeRoutes = async () => {
   }
 
   let routes = ''
-  const declaretiveRoutes = (await accessFile(join(getFeDir(), './route.js')) || await accessFile(join(getFeDir(), './route.ts'))) // 是否存在自定义路由
+  const declaretiveRoutes = await accessFile(join(getFeDir(), './route.ts')) // 是否存在自定义路由
 
   if (!declaretiveRoutes) {
     // 根据目录结构生成前端路由表
@@ -95,7 +95,7 @@ const parseFeRoutes = async () => {
     }
   } else {
     // 使用了声明式路由
-    routes = (await fs.readFile(join(getFeDir(), './route'))).toString()
+    routes = (await fs.readFile(join(getFeDir(), './route.ts'))).toString()
   }
 
   await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
