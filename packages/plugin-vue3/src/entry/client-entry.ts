@@ -25,7 +25,7 @@ const clientRender = async () => {
   app.use(router)
 
   window.__VUE_APP__ = app
-
+  window.__VUE_ROUTER__ = router
   await router.isReady()
 
   if (!window.__USE_SSR__) {

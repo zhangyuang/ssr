@@ -668,6 +668,9 @@ export default {
   }
 }
 ```
+
+同理 Router 对象我们将挂在 `window.__VUE_ROUTER__` 用于注册全局路由钩子
+
 #### 使用Vue3国际化插件
 
 在 plugin-vue3 中，我们已在底层对国际化进行支持。国际化插件使用最新的 Composition API，推荐使用Composition API进行国际化配置，详细见官方文档：https://vue-i18n.intlify.dev/guide/advanced/composition.html
