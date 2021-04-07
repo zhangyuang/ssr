@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-react",
-  "version": "5.5.4",
+  "version": "5.5.5",
   "description": "plugin-react for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -54,8 +54,8 @@
     "react-dev-utils": "^11.0.4",
     "ssr-client-utils": "^5.5.1",
     "ssr-hoc-react": "^5.5.0",
-    "ssr-server-utils": "^5.5.4",
-    "ssr-webpack": "^5.5.4",
+    "ssr-server-utils": "^5.5.5",
+    "ssr-webpack": "^5.5.5",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "1.1.1",
     "webpack-bundle-analyzer": "^3.6.1",
