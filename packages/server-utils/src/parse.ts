@@ -15,13 +15,10 @@ const parseFeRoutes = async () => {
   const vueLayout = await accessFile(join(getFeDir(), './components/layout/index.vue'))
   const vueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
   const isVue = require(join(cwd, './package.json')).dependencies.vue
-  const isVue3 = /^.?3/.test(isVue)
-
-  if (!isVue3 && process.env.BUILD_TOOL === 'vite') {
-    console.log('vite模式目前暂时只支持vue3,当前 --vite 指令无效请直接使用 ssr start, vue2 和 react 将会在下一个版本支持，敬请期待')
+  if (!isVue && process.env.BUILD_TOOL === 'vite') {
+    console.log('vite模式目前暂时只支持 vue,当前 --vite 指令无效请直接使用 ssr start, react 将会在下一个版本支持，敬请期待')
     return
   }
-
   const defaultLayout = `@/components/layout/index.${vueLayout ? 'vue' : 'tsx'}`
   if (!await accessFile(join(cwd, './node_modules/ssr-temporary-routes'))) {
     Shell.mkdir(join(cwd, './node_modules/ssr-temporary-routes'))
@@ -29,7 +26,6 @@ const parseFeRoutes = async () => {
 
   let routes = ''
   const declaretiveRoutes = await accessFile(join(getFeDir(), './route.ts')) // 是否存在自定义路由
-
   if (!declaretiveRoutes) {
     // 根据目录结构生成前端路由表
     const pathRecord = [''] // 路径记录
@@ -67,8 +63,8 @@ const parseFeRoutes = async () => {
           const currentWebpackChunkName = re.exec(routes)![2]
           return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
         })
-        // vite模式特殊处理为 ESM, 暂时只在 Vue3 场景开启
-        if (isVue3) {
+        // vite模式特殊处理为 ESM, 暂时只在 Vue 场景开启
+        if (isVue) {
           routes = routes.replace(/"layout": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
             return `"layout":  __isBrowser__ ? () => import(/* webpackChunkName: "common-layout" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
           })

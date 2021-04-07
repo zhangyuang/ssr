@@ -1,5 +1,6 @@
+import { resolve } from 'path'
 import * as Vue from 'vue'
-import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, getCwd } from 'ssr-server-utils'
 import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
 import { sync } from 'vuex-router-sync'
 import * as serialize from 'serialize-javascript'
@@ -12,9 +13,10 @@ import { createStore } from './store'
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
   const router = createRouter()
   const store = createStore()
+  const ViteMode = process.env.BUILD_TOOL === 'vite'
   sync(store, router)
 
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, chunkName } = config
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
 
   const routeItem = findRoute<FeRouteItem<{}, {
@@ -27,7 +29,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
   }
 
-  const manifest = await getManifest()
+  const manifest = ViteMode ? {} : await getManifest()
 
   if (!routeItem) {
     throw new Error(`With request url ${path} Component is Not Found`)
@@ -53,23 +55,32 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
     render: function (h: Vue.CreateElement) {
       const injectCss: Vue.VNode[] = []
       dynamicCssOrder.forEach(css => {
-        if (manifest[css]) {
+        if (manifest[css] || ViteMode) {
           injectCss.push(h('link', {
             attrs: {
               rel: 'stylesheet',
-              href: manifest[css]
+              href: ViteMode ? `/server/static/css/${chunkName}.css` : manifest[css]
             }
           }))
         }
       })
 
-      const injectScript = jsOrder.map(js => (
-        h('script', {
-          attrs: {
-            src: manifest[js]
-          }
-        })
-      ))
+      const injectScript: Vue.VNode[] = ViteMode ? [h('script', {
+        attrs: {
+          type: 'module',
+          src: resolve(getCwd(), '/node_modules/ssr-plugin-vue/esm/entry/client-entry.js')
+        }
+      })] : jsOrder.map(js => h('script', {
+        attrs: {
+          src: manifest[js]
+        }
+      }))
+      const viteClient = h('script', {
+        attrs: {
+          type: 'module',
+          src: '/@vite/client'
+        }
+      })
       return h(
         layout,
         {
@@ -86,6 +97,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
             ])
           ]),
+          ViteMode && h('template', {
+            slot: 'viteClient'
+          }, [viteClient]),
+
           h('template', {
             slot: 'customeHeadScript'
           }, customeHeadScript?.map(item => h('script', Object.assign({}, item.describe, {
@@ -93,6 +108,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               innerHTML: item.content
             }
           })))),
+
           h('template', {
             slot: 'children'
           }, [
@@ -103,18 +119,25 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               }
             }) : h(App)
           ]),
-          !isCsr && h('template', {
+
+          h('template', {
             slot: 'initialData'
           }, [
-            h('script', {
+            isCsr ? h('script', {
               domProps: {
-                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(store.state)}`
+                innerHTML: `window.__USE_VITE__=${ViteMode}`
+              }
+            }) : h('script', {
+              domProps: {
+                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(store.state)};window.__USE_VITE__=${ViteMode}`
               }
             })
           ]),
+
           h('template', {
             slot: 'cssInject'
           }, injectCss),
+
           h('template', {
             slot: 'jsInject'
           }, injectScript)
