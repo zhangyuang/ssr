@@ -17,7 +17,12 @@
   "devDependencies": {
     "@midwayjs/egg-ts-helper": "^1.0.5",
     "cross-env": "^7.0.3",
+    "darkmode-js": "^1.5.7",
     "eslint-config-standard-vue-ts": "^1.0.5",
+    "markdown-it": "^12.0.4",
+    "markdown-it-anchor": "^7.1.0",
+    "markdown-it-toc-done-right": "^4.2.0",
+    "raw-loader": "^4.0.2",
     "ssr": "^5.0.0",
     "ssr-plugin-midway": "^5.0.0",
     "ssr-plugin-vue3": "^5.0.0",

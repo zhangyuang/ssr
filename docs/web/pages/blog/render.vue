@@ -1,20 +1,19 @@
 <template>
-  <BaseLayout>
-    Home
-  </BaseLayout>
+  <div>
+    123
+  </div>
 </template>
 
 <script>
 import {mapState} from 'vuex'
-import BaseLayout from '@/layout/baseLayout'
 
+// markdownRender
 export default {
   data() {
     return {
     }
   },
   components: {
-    BaseLayout
   },
   computed: {
     ...mapState({
