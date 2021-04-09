@@ -40,14 +40,19 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
   }
-  const { fetch, layout, App } = routeItem
+  const { fetch, layout, App, layoutFetch } = routeItem
   // 根据 path 匹配 router-view 展示的组件
   router.push(path)
 
+  if (!isCsr && layoutFetch) {
+    // csr 下不需要服务端获取数据
+    await layoutFetch({ store, router: router.currentRoute }, ctx)
+  }
   if (!isCsr && fetch) {
     // csr 下不需要服务端获取数据
     await fetch({ store, router: router.currentRoute }, ctx)
   }
+
   // @ts-expect-error
   const app = new Vue({
     router,

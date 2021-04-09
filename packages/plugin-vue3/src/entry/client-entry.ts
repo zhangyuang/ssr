@@ -31,8 +31,12 @@ const clientRender = async () => {
   if (!window.__USE_SSR__) {
     // 如果是 csr 模式 则需要客户端获取首页需要的数据
     const route = findRoute<ESMFeRouteItem>(feRoutes, location.pathname)
-    const { fetch } = route
+    const { fetch, layoutFetch } = route
 
+    if (layoutFetch) {
+      const fetchFn = await layoutFetch()
+      await fetchFn.default({ store, router: router.currentRoute })
+    }
     if (fetch) {
       const fetchFn = await fetch()
       await fetchFn.default({ store, router: router.currentRoute })
@@ -42,6 +46,10 @@ const clientRender = async () => {
   router.beforeResolve(async (to, from, next) => {
     // 找到要进入的组件并提前执行 fetch 函数
     const route = findRoute<ESMFeRouteItem>(feRoutes, to.path)
+    if (route.layoutFetch) {
+      const fetchFn = await route.layoutFetch()
+      await fetchFn.default({ store, router: to })
+    }
     if (route.fetch) {
       const fetchFn = await route.fetch()
       await fetchFn.default({ store, router: to })

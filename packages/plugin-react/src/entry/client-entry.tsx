@@ -21,8 +21,9 @@ const clientRender = async (): Promise<void> => {
           {
             // 使用高阶组件wrapComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
             routes.map((item: FeRouteItem) => {
-              const { fetch, component, path } = item
+              const { fetch, component, path, layoutFetch } = item
               component.fetch = fetch
+              component.layoutFetch = layoutFetch
               const WrappedComponent = wrapComponent(component)
               return (
                 <Route exact={true} key={path} path={path} render={() => <WrappedComponent key={location.pathname}/>}/>

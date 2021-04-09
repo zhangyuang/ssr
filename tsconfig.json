@@ -12,7 +12,9 @@
     "declaration": true,
     "strict": true,
     "jsx": "react",
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "lib": ["ES2020"],
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules",

@@ -47,13 +47,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
   }
-  const fetchData = (!isCsr && routeItem.fetch) ? await routeItem.fetch(ctx) : false
-  const Context = serverContext(fetchData) // 服务端需要每个请求创建新的独立的 context
+  const layoutFetchData = (!isCsr && routeItem.layoutFetch) ? await routeItem.layoutFetch(ctx) : null
+  const fetchData = (!isCsr && routeItem.fetch) ? await routeItem.fetch(ctx) : null
+  const combineData = isCsr ? null : Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
+  const Context = serverContext(combineData) // 服务端需要每个请求创建新的独立的 context
   window.STORE_CONTEXT = Context // 为每一个新的请求都创建一遍 context 并且覆盖 window 上的属性，使得无需通过props层层传递读取
 
   return (
     <StaticRouter>
-      <Context.Provider value={{ state: fetchData }}>
+      <Context.Provider value={{ state: combineData }}>
         <Layout ctx={ctx} config={config} staticList={staticList}>
           {isCsr ? <></> : <Component />}
         </Layout>
