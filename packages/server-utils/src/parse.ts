@@ -72,22 +72,20 @@ const parseFeRoutes = async () => {
           return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
         })
         // vite模式特殊处理为 ESM, 暂时只在 Vue 场景开启
-        if (isVue) {
-          routes = routes.replace(/"layout": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
-            return `"layout":  __isBrowser__ ? () => import(/* webpackChunkName: "common-layout" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
-          })
-          routes = routes.replace(/"App": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
-            return `"App":  __isBrowser__ ? () => import(/* webpackChunkName: "common-app" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
-          })
-          re.lastIndex = 0
-          routes = routes.replace(/"fetch": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
-            const currentWebpackChunkName = re.exec(sourceRoutes)![2]
-            return `"fetch": __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
-          })
-          routes = routes.replace(/"layoutFetch": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
-            return `"layoutFetch": __isBrowser__ ? () => import(/* webpackChunkName: "common-layoutfetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
-          })
-        }
+        routes = routes.replace(/"layout": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
+          return `"layout":  __isBrowser__ ? () => import(/* webpackChunkName: "common-layout" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+        })
+        routes = routes.replace(/"App": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
+          return `"App":  __isBrowser__ ? () => import(/* webpackChunkName: "common-app" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+        })
+        re.lastIndex = 0
+        routes = routes.replace(/"fetch": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
+          const currentWebpackChunkName = re.exec(sourceRoutes)![2]
+          return `"fetch": __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+        })
+        routes = routes.replace(/"layoutFetch": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
+          return `"layoutFetch": __isBrowser__ ? () => import(/* webpackChunkName: "common-layoutfetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+        })
       } else {
         routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
           const currentWebpackChunkName = re.exec(routes)![2]
