@@ -6,10 +6,13 @@ import { FC, Action } from 'ssr-types'
 let routerChanged = false
 
 const fetch = async (WrappedComponent: FC, dispatch: React.Dispatch<Action>, props: RouteComponentProps) => {
+  const asyncLayoutData = WrappedComponent.layoutFetch ? await WrappedComponent.layoutFetch(props) : {}
   const asyncData = WrappedComponent.fetch ? await WrappedComponent.fetch(props) : {}
+  const combineData = Object.assign({}, asyncLayoutData ?? {}, asyncData ?? {})
+
   await dispatch({
     type: 'updateContext',
-    payload: asyncData
+    payload: combineData
   })
 }
 

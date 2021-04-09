@@ -5,6 +5,7 @@ export type Fetch = (params: any, ctx?: ISSRContext) => Promise<any>
 
 export interface FC<T={}> extends React.FC<T> {
   fetch?: Fetch
+  layoutFetch?: Fetch
   preload?: () => Promise<FC>
 }
 

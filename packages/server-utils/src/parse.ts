@@ -14,6 +14,7 @@ const parseFeRoutes = async () => {
   // vue 场景也可能使用 tsx 文件，所以这里需要做判断
   const vueLayout = await accessFile(join(getFeDir(), './components/layout/index.vue'))
   const vueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
+  const layoutFetch = await accessFile(join(getFeDir(), './components/layout/fetch.ts'))
   const isVue = require(join(cwd, './package.json')).dependencies.vue
   if (!isVue && process.env.BUILD_TOOL === 'vite') {
     console.log('vite模式目前暂时只支持 vue,当前 --vite 指令无效请直接使用 ssr start, react 将会在下一个版本支持，敬请期待')
@@ -36,6 +37,10 @@ const parseFeRoutes = async () => {
       const defaultApp = `@/components/layout/App.${vueApp ? 'vue' : 'tsx'}`
       route.App = `require('${defaultApp}').default`
     }
+    if (layoutFetch) {
+      const layoutFetch = '@/components/layout/fetch.ts'
+      route.layoutFetch = `require('${layoutFetch}').default`
+    }
     const arr = await renderRoutes(pageDir, pathRecord, route)
     debug('The result that parse web folder to routes is: ', arr)
     routes = `export default ${JSON.stringify(arr)
@@ -47,6 +52,9 @@ const parseFeRoutes = async () => {
         })
         .replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
           return `"fetch": ${m2.replace(/\^/g, '"')}`
+        })
+        .replace(/"layoutFetch":("(.+?)")/g, (global, m1, m2) => {
+          return `"layoutFetch": ${m2.replace(/\^/g, '"')}`
         })
         }`
     const sourceRoutes = routes
@@ -75,6 +83,9 @@ const parseFeRoutes = async () => {
           routes = routes.replace(/"fetch": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
             const currentWebpackChunkName = re.exec(sourceRoutes)![2]
             return `"fetch": __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+          })
+          routes = routes.replace(/"layoutFetch": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
+            return `"layoutFetch": __isBrowser__ ? () => import(/* webpackChunkName: "common-layoutfetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
           })
         }
       } else {
