@@ -4,9 +4,9 @@ module.exports = {
     'standard-vue-ts',
     'standard-react-ts'
   ],
-  // parserOptions: {
-  //   project: './tsconfig.lint.json'
-  // },
+  parserOptions: {
+    project: './tsconfig.lint.json'
+  },
   globals: {
     context: true,
     beforeEach: true,
