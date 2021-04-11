@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.7](https://github.com/ykfe/ssr/compare/v5.5.6...v5.5.7) (2021-04-11)
+
+
+### Bug Fixes
+
+* vue file support ts ([d6a3e71](https://github.com/ykfe/ssr/commit/d6a3e71910f440ffe0040b7b8729c1a8962427e2))
+
+
+
+
+
 ## [5.5.6](https://github.com/ykfe/ssr/compare/v5.5.5...v5.5.6) (2021-04-09)
 
 **Note:** Version bump only for package ssr-plugin-vue3
