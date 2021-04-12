@@ -52,7 +52,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     fetchData = await fetch({ store, router: router.currentRoute }, ctx)
   }
 
-  const asyncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
+  const asyncData = {
+    value: Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
+  }
 
   const injectCss: Vue.VNode[] = []
   dynamicCssOrder.forEach(css => {
@@ -74,7 +76,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       src: manifest[js]
     })
   )
-  const state = Object.assign({}, store.state ?? {}, asyncData)
+  const state = Object.assign({}, store.state ?? {}, asyncData.value)
 
   const app = createSSRApp({
     render: function () {
