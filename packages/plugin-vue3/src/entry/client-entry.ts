@@ -32,6 +32,8 @@ const clientRender = async () => {
   app.use(store)
   app.use(router)
 
+  await router.isReady()
+
   router.beforeResolve(async (to, from, next) => {
     // 找到要进入的组件并提前执行 fetch 函数
     const route = findRoute<ESMFeRouteItem>(feRoutes, to.path)
@@ -49,8 +51,6 @@ const clientRender = async () => {
 
     next()
   })
-
-  await router.isReady()
 
   if (!window.__USE_SSR__) {
     // 如果是 csr 模式 则需要客户端获取首页需要的数据
