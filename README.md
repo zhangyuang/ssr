@@ -11,7 +11,7 @@
 <div align="center">
 <a href="https://github.com/ykfe/ssr/actions" target="_blank"><img src="https://github.com/ykfe/ssr/workflows/CI/badge.svg" alt="githubActions"></a>
 <a href="https://www.cypress.io/" target="_blank"><img src="https://img.shields.io/badge/cypress-dashboard-brightgreen.svg" alt="cypress"></a>
-<a href="https://npmcharts.com/compare/ssr-server-utils" target="_blank"><img src="https://img.shields.io/npm/dt/ssr-server-utils" alt="download"></a>
+<a href="https://npmcharts.com/compare/ssr" target="_blank"><img src="https://img.shields.io/npm/dt/ssr" alt="download"></a>
 <a href="https://standardjs.com" target="_blank"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="standardjs"></a>
 <a href="https://github.com/ykfe/ssr" target="_blank"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 <a href="https://github.com/ykfe/ssr" target="_blank"><img src="https://img.shields.io/badge/node-%3E=12-green.svg" alt="Node"></a>
@@ -493,71 +493,6 @@ $ cd my-ssr-project && npm i && npm i vite @vitejs/plugin-vue --save-dev # 根�
 $ npx ssr start --vite # 建议在 package.json 中添加 "start:vite": "ssr start --vite"
 ```
 即可使用 Vite 作为构建工具接管客户端文件，提升启动速度和 HMR 速度。目前当前版本只在 Vue2/Vue3 场景开启该功能，React 的支持将会在下一个版本实现
-
-#### Provide/Inject代替Vuex
-
-在 `Vue3` 中我们提供了另一种更加轻量级的跨组件数据共享的方式，也就是 [Provide/Inject](https://v3.cn.vuejs.org/guide/component-provide-inject.html#provide-inject)。若你完全不考虑使用 `Vuex` 来做数据管理的话，那么你可以不使用默认的示例 `Vuex` 全部有关代码，但暂时不要删除 `store` 的入口文件，后续会底层兼容不存在 `store` 文件的情况。  
-
-在渲染的过程中，我们会将 `layout fetch` 与 `page fetch` 的 `返回数据` 组合后以 `props` 的形式注入到 `layout/App.vue` 当中，开发者可以在该文件当中 `provide` 如下所示。便可以在任意组件中通过 `inject` 拿到该数据并且可以修改数据自动触发更新，为了防止应用数据混乱，我们建议为不同的组件返回数据添加不同的 `namespace` 命名空间。同样当路由切换时我们也会自动的将 `fetch.ts` 返回的数据合并进 `asyncData`。  
-
-为了防止对象失去响应性，这里我们 follow `ref 对象`的规则。将真正的数据对象存放在 `asyncData.value` 字段中。并且将整个 `asyncData` 转换为响应式。这样我们后续可以直接通过修改 `asyncData.value = obj ` 或者 `asyncData.value.key = obj` 的方式来修改数据仍然可以让对象保持响应式。使用这种方式需要注意的是如果在 `template` 中使用的话仍然需要添加 `.value` 取值不会自动展开。  
-
-`注: 该方式兼容服务端渲染/降级为客户端渲染两种情况`
-
-```js
-// fetch.ts
-export default () => {
-  return {
-    indexData: {}
-  }
-}
-```
-
-```vue
-
-// layout/App.vue
-<script>
-import { reactive, provide } from 'vue'
-export default {
-  props: ['asyncData'],
-  setup (props) {
-    const reactiveAsyncData = reactive(props.asyncData) // asyncData.value 是 fetch.ts 的返回值，将 provide 的数据变为响应式
-    const changeAsyncData = (data) => {
-      reactiveAsyncData.value = data
-    }
-    provide('asyncData', reactiveAsyncData)
-    provide('changeAsyncData', changeAsyncData)
-  }
-
-}
-</script>
-
-
-// 任意组件
-<template>
-  {{ asyncData.value }}
-</template>
-
-<script>
-export default {
- setup () {
-    const asyncData = inject('asyncData')
-    const changeAsyncData = inject('changeAsyncData')
-    return {
-      asyncData,
-      changeAsyncData
-    }
-  },
-  mounted () {
-    // 通过 changeAsyncData 修改响应式数据
-    this.changeAsyncData({
-      namespace: 'foo'
-    })
-  }
-}
-</script>
-```
-
 #### 老应用迁移
 
 之前创建的模板应用只需以下三步便可接入 Vite
@@ -1091,6 +1026,69 @@ export default Search
 - 在大型应用状态复杂的情况下，比较难以管理
 - 需要配合 useMemo 一起使用，否则容易导致性能问题 (只要是使用了 useContext 都会遇到该问题)
 
+#### Provide/Inject代替Vuex
+
+在 `Vue3` 中我们提供了另一种更加轻量级的跨组件数据共享的方式，也就是 [Provide/Inject](https://v3.cn.vuejs.org/guide/component-provide-inject.html#provide-inject)。若你完全不考虑使用 `Vuex` 来做数据管理的话，那么你可以不使用默认的示例 `Vuex` 全部有关代码，但暂时不要删除 `store` 的入口文件，后续会底层兼容不存在 `store` 文件的情况。  
+
+在渲染的过程中，我们会将 `layout fetch` 与 `page fetch` 的 `返回数据` 组合后以 `props` 的形式注入到 `layout/App.vue` 当中，开发者可以在该文件当中 `provide` 如下所示。便可以在任意组件中通过 `inject` 拿到该数据并且可以修改数据自动触发更新，为了防止应用数据混乱，我们建议为不同的组件返回数据添加不同的 `namespace` 命名空间。同样当路由切换时我们也会自动的将 `fetch.ts` 返回的数据合并进 `asyncData`。  
+
+为了防止对象失去响应性，这里我们 follow `ref 对象`的规则。将真正的数据对象存放在 `asyncData.value` 字段中。并且将整个 `asyncData` 转换为响应式。这样我们后续可以直接通过修改 `asyncData.value = obj ` 或者 `asyncData.value.key = obj` 的方式来修改数据仍然可以让对象保持响应式。使用这种方式需要注意的是如果在 `template` 中使用的话仍然需要添加 `.value` 取值不会自动展开。  
+
+`注: 该方式兼容服务端渲染/降级为客户端渲染两种情况`
+
+```js
+// fetch.ts
+export default () => {
+  return {
+    indexData: {}
+  }
+}
+```
+
+```vue
+
+// layout/App.vue
+<script>
+import { reactive, provide } from 'vue'
+export default {
+  props: ['asyncData'],
+  setup (props) {
+    const reactiveAsyncData = reactive(props.asyncData) // asyncData.value 是 fetch.ts 的返回值，将 provide 的数据变为响应式
+    const changeAsyncData = (data) => {
+      reactiveAsyncData.value = data
+    }
+    provide('asyncData', reactiveAsyncData)
+    provide('changeAsyncData', changeAsyncData)
+  }
+
+}
+</script>
+
+
+// 任意组件
+<template>
+  {{ asyncData.value }}
+</template>
+
+<script>
+export default {
+ setup () {
+    const asyncData = inject('asyncData')
+    const changeAsyncData = inject('changeAsyncData')
+    return {
+      asyncData,
+      changeAsyncData
+    }
+  },
+  mounted () {
+    // 通过 changeAsyncData 修改响应式数据
+    this.changeAsyncData({
+      namespace: 'foo'
+    })
+  }
+}
+</script>
+```
 #### 使用声明式路由
 
 我们默认使用约定式路由通过文件夹结构自动生成路由表，如果无法满足应用需求也可以手动创建路由文件。手动编写路由文件有些复杂，所以我们建议使用默认的约定式路由规则。
