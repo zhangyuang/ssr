@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.9](https://github.com/ykfe/ssr/compare/v5.5.8...v5.5.9) (2021-04-12)
+
+
+### Bug Fixes
+
+* router ready before router.beforeResolve ([e331a97](https://github.com/ykfe/ssr/commit/e331a97f6efe05c0b564102004e39db2fbccb65c))
+
+
+
+
+
 ## [5.5.8](https://github.com/ykfe/ssr/compare/v5.5.7...v5.5.8) (2021-04-12)
 
 
