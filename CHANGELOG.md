@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.10](https://github.com/ykfe/ssr/compare/v5.5.9...v5.5.10) (2021-04-12)
+
+
+### Bug Fixes
+
+* server-entry async.value ([6eea413](https://github.com/ykfe/ssr/commit/6eea4130d3b47fdc6d9d7626a5022c334820596e))
+
+
+
+
+
 ## [5.5.9](https://github.com/ykfe/ssr/compare/v5.5.8...v5.5.9) (2021-04-12)
 
 
