@@ -497,9 +497,12 @@ $ npx ssr start --vite # 建议在 package.json 中添加 "start:vite": "ssr sta
 #### Provide/Inject代替Vuex
 
 在 `Vue3` 中我们提供了另一种更加轻量级的跨组件数据共享的方式，也就是 [Provide/Inject](https://v3.cn.vuejs.org/guide/component-provide-inject.html#provide-inject)。若你完全不考虑使用 `Vuex` 来做数据管理的话，那么你可以不使用默认的示例 `Vuex` 全部有关代码，但暂时不要删除 `store` 的入口文件，后续会底层兼容不存在 `store` 文件的情况。  
-在渲染的过程中，我们会将 `layout fetch` 与 `page fetch` 的 `返回数据` 组合后以 `props` 的形式注入到 `layout/App.vue` 当中，开发者可以在该文件当中 `provide props.asyncData` 如下所示。便可以在任意组件中通过 `inject` 拿到该数据并且可以修改数据自动触发更新，为了防止应用数据混乱，我们建议为不同的组件返回数据添加不同的 `namespace` 命名空间。同样当路由切换时我们也会自动的将 `fetch.ts` 返回的数据合并进 `asyncData`。  
-为了防止重复创建 `reactive` 对象，这里我们 follow ref 对象的规则。将真正的数据对象存放在 `asyncData.value` 字段中。并且将整个 `asyncData` 转换为响应式。这样我们后续可以直接通过修改 `asyncData.value = obj ` 或者 `asyncData.value.key = obj` 的方式来修改数据仍然可以让对象保持响应式。使用这种方式需要注意的是如果在 `template` 中使用的话仍然需要添加 `.value` 取值不会自动展开。  
-该方式兼容服务端渲染/降级为客户端渲染两种情况
+
+在渲染的过程中，我们会将 `layout fetch` 与 `page fetch` 的 `返回数据` 组合后以 `props` 的形式注入到 `layout/App.vue` 当中，开发者可以在该文件当中 `provide` 如下所示。便可以在任意组件中通过 `inject` 拿到该数据并且可以修改数据自动触发更新，为了防止应用数据混乱，我们建议为不同的组件返回数据添加不同的 `namespace` 命名空间。同样当路由切换时我们也会自动的将 `fetch.ts` 返回的数据合并进 `asyncData`。  
+
+为了防止对象失去响应性，这里我们 follow `ref 对象`的规则。将真正的数据对象存放在 `asyncData.value` 字段中。并且将整个 `asyncData` 转换为响应式。这样我们后续可以直接通过修改 `asyncData.value = obj ` 或者 `asyncData.value.key = obj` 的方式来修改数据仍然可以让对象保持响应式。使用这种方式需要注意的是如果在 `template` 中使用的话仍然需要添加 `.value` 取值不会自动展开。  
+
+`注: 该方式兼容服务端渲染/降级为客户端渲染两种情况`
 
 ```js
 // fetch.ts
@@ -518,7 +521,7 @@ import { reactive, provide } from 'vue'
 export default {
   props: ['asyncData'],
   setup (props) {
-    const reactiveAsyncData = reactive(props.asyncData) // 将 provide 的数据变为响应式
+    const reactiveAsyncData = reactive(props.asyncData) // asyncData 是 fetch.ts 的返回值，将 provide 的数据变为响应式
     const changeAsyncData = (data) => {
       reactiveAsyncData.value = data
     }
