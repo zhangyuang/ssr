@@ -3,6 +3,7 @@
   <img src="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg" width="300" />
 </div>
 <br />
+
 <div align="center">
   <strong>A most advanced ssr framework on Earth that implemented serverless-side render specification for faas and traditional web server.</strong>
 </div>
@@ -100,7 +101,7 @@
 | React 场景下使用 useContext + useReducer 实现极简的[数据管理](#React跨组件通信)方案，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
 | 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
 | ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
-| ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                                |    
+| ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                                |
 
 ## 方案对比
 
@@ -186,7 +187,7 @@ $ npm init ssr-app my-ssr-project --template=nestjs-vue-ssr # 创建 Vue2 SSR �
 $ npm init ssr-app my-ssr-project --template=nestjs-vue3-ssr # 创建 Vue3 SSR 应用，基于 Nestjs Node.js 框架提供的能力以传统 Node.js 应用的形式部署
 ```
 
-注：当 Node.js version >=15 时，应使用 `npm init ssr-app my-ssr-project -- --template=midway-react-ssr ` 来传递参数
+注：当 Node.js version >=15 / npm version >= 7 时，应使用 `npm init ssr-app my-ssr-project -- --template=midway-react-ssr ` 来传递参数
 
 ### 本地开发
 
