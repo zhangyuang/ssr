@@ -1,20 +1,22 @@
 <template>
-  <BaseLayout>
-    Home
-  </BaseLayout>
+  <DocsLayout :config="config">
+  </DocsLayout>
 </template>
 
 <script>
 import {mapState} from 'vuex'
-import BaseLayout from '@/layout/baseLayout'
+import DocsLayout from '@/layout/docsLayout'
+import config from './config'
 
+// markdownRender
 export default {
   data() {
     return {
+      config
     }
   },
   components: {
-    BaseLayout
+    DocsLayout
   },
   computed: {
     ...mapState({

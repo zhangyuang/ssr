@@ -22,7 +22,8 @@ export class Index {
   apiDeatilservice: IApiDetailService
 
   @Get('/')
-  @Get('/detail/:id')
+  @Get('/docs')
+  @Get('/blog')
   async handler (): Promise<void> {
     try {
       this.ctx.apiService = this.apiService
