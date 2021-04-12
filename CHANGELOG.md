@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.8](https://github.com/ykfe/ssr/compare/v5.5.7...v5.5.8) (2021-04-12)
+
+
+### Features
+
+* vue3 support provide/inject ([af24969](https://github.com/ykfe/ssr/commit/af249691090d94a5f7871926d999a5706dfe647a))
+
+
+
+
+
 ## [5.5.7](https://github.com/ykfe/ssr/compare/v5.5.6...v5.5.7) (2021-04-11)
 
 
