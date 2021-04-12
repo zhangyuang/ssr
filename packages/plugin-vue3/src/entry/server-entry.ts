@@ -17,7 +17,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, chunkName } = config
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
   const routeItem = findRoute<FeRouteItem<{}, {
-    App: Vue.Component
+    App: Vue.VNode
     layout: Vue.Component
   }>>(feRoutes, path)
   const ViteMode = process.env.BUILD_TOOL === 'vite'
@@ -41,37 +41,43 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { fetch, layout, App, layoutFetch } = routeItem
   router.push(path)
   await router.isReady()
-
+  let layoutFetchData = {}
+  let fetchData = {}
   if (!isCsr && layoutFetch) {
     // csr 下不需要服务端获取数据
-    await layoutFetch({ store, router: router.currentRoute }, ctx)
+    layoutFetchData = await layoutFetch({ store, router: router.currentRoute }, ctx)
   }
   if (!isCsr && fetch) {
     // csr 下不需要服务端获取数据
-    await fetch({ store, router: router.currentRoute }, ctx)
+    fetchData = await fetch({ store, router: router.currentRoute }, ctx)
   }
-  const app = createSSRApp({
-    render: function () {
-      const injectCss: Vue.VNode[] = []
-      dynamicCssOrder.forEach(css => {
-        if (manifest[css] || ViteMode) {
-          injectCss.push(
-            h('link', {
-              rel: 'stylesheet',
-              href: ViteMode ? `/server/static/css/${chunkName}.css` : manifest[css]
-            })
-          )
-        }
-      })
 
-      const injectScript = ViteMode ? h('script', {
-        type: 'module',
-        src: resolve(getCwd(), '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
-      }) : jsOrder.map(js =>
-        h('script', {
-          src: manifest[js]
+  const asyncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
+
+  const injectCss: Vue.VNode[] = []
+  dynamicCssOrder.forEach(css => {
+    if (manifest[css] || ViteMode) {
+      injectCss.push(
+        h('link', {
+          rel: 'stylesheet',
+          href: ViteMode ? `/server/static/css/${chunkName}.css` : manifest[css]
         })
       )
+    }
+  })
+
+  const injectScript = ViteMode ? h('script', {
+    type: 'module',
+    src: resolve(getCwd(), '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
+  }) : jsOrder.map(js =>
+    h('script', {
+      src: manifest[js]
+    })
+  )
+  const state = Object.assign({}, store.state ?? {}, asyncData)
+
+  const app = createSSRApp({
+    render: function () {
       return h(
         layout,
         { ctx, config },
@@ -95,9 +101,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
           children: isCsr ? () => h('div', {
             id: 'app'
-          }) : () => h(App),
+          }) : () => h(App, { asyncData }),
 
-          initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(store.state)};window.__USE_VITE__=${ViteMode}` })
+          initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${ViteMode}` })
             : () => h('script', { innerHTML: `window.__USE_VITE__=${ViteMode}` }),
 
           cssInject: () => injectCss,

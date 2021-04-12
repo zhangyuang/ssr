@@ -99,6 +99,7 @@
 | 支持使用 less 作为 css 预处理器                                                | 🚀   |
 | 实现 React/Vue SSR 场景下的[优秀代码分割方案](https://zhuanlan.zhihu.com/p/343743374) 首屏性能做到极致                  |    🚀  |
 | React 场景下使用 useContext + useReducer 实现极简的[数据管理](#React跨组件通信)方案，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
+| Vue3 场景提供 [Provide/Inject](#provideinject代替vuex) 代替 Vuex 进行跨组件通信                     |    🚀  |
 | 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
 | ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
 | ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                                |
@@ -403,7 +404,7 @@ module.exports = {
 - 样式处理: less + vue scoped
 - UI 组件: 默认已对 vant 的使用做打包配置无需额外配置
 - 前端路由: 约定式路由/声明式路由
-- 数据管理: vuex
+- 数据管理: Vuex/[Provide/Inject](#provideinject代替vuex)
 
 ##### Vue3 + TSX(可选)
 
@@ -492,6 +493,67 @@ $ cd my-ssr-project && npm i && npm i vite @vitejs/plugin-vue --save-dev # 根�
 $ npx ssr start --vite # 建议在 package.json 中添加 "start:vite": "ssr start --vite"
 ```
 即可使用 Vite 作为构建工具接管客户端文件，提升启动速度和 HMR 速度。目前当前版本只在 Vue2/Vue3 场景开启该功能，React 的支持将会在下一个版本实现
+
+#### Provide/Inject代替Vuex
+
+在 `Vue3` 中我们提供了另一种更加轻量级的跨组件数据共享的方式，也就是 [Provide/Inject](https://v3.cn.vuejs.org/guide/component-provide-inject.html#provide-inject)。若你完全不考虑使用 `Vuex` 来做数据管理的话，那么你可以不使用默认的示例 `Vuex` 全部有关代码，但暂时不要删除 `store` 的入口文件，后续会底层兼容不存在 `store` 文件的情况。  
+在渲染的过程中，我们会将 `layout fetch` 与 `page fetch` 的 `返回数据` 组合后以 `props` 的形式注入到 `layout/App.vue` 当中，开发者可以在该文件当中 `provide props.asyncData` 如下所示。便可以在任意组件中通过 `inject` 拿到该数据并且可以修改数据自动触发更新，为了防止应用数据混乱，我们建议为不同的组件返回数据添加不同的 `namespace` 命名空间。同样当路由切换时我们也会自动的将 `fetch.ts` 返回的数据合并进 `asyncData`。  
+为了防止重复创建 `reactive` 对象，这里我们 follow ref 对象的规则。将真正的数据对象存放在 `asyncData.value` 字段中。并且将整个 `asyncData` 转换为响应式。这样我们后续可以直接通过修改 `asyncData.value = obj ` 或者 `asyncData.value.key = obj` 的方式来修改数据仍然可以让对象保持响应式。使用这种方式需要注意的是如果在 `template` 中使用的话仍然需要添加 `.value` 取值不会自动展开。  
+该方式兼容服务端渲染/降级为客户端渲染两种情况
+
+```js
+// fetch.ts
+export default () => {
+  return {
+    indexData: {}
+  }
+}
+```
+
+```vue
+
+// layout/App.vue
+<script>
+import { reactive, provide } from 'vue'
+export default {
+  props: ['asyncData'],
+  setup (props) {
+    const reactiveAsyncData = reactive(props.asyncData) // 将 provide 的数据变为响应式
+    const changeAsyncData = (data) => {
+      reactiveAsyncData.value = data
+    }
+    provide('asyncData', reactiveAsyncData)
+    provide('changeAsyncData', changeAsyncData)
+  }
+
+}
+</script>
+
+
+// 任意组件
+<template>
+  {{ asyncData.value }}
+</template>
+
+<script>
+export default {
+ setup () {
+    const asyncData = inject('asyncData')
+    const changeAsyncData = inject('changeAsyncData')
+    return {
+      asyncData,
+      changeAsyncData
+    }
+  },
+  mounted () {
+    // 通过 changeAsyncData 修改响应式数据
+    this.changeAsyncData({
+      namespace: 'foo'
+    })
+  }
+}
+</script>
+```
 
 #### 老应用迁移
 

@@ -17,15 +17,39 @@ const clientRender = async () => {
     store.replaceState(window.__INITIAL_DATA__)
   }
   const App = await feRoutes[0].App()
+
+  let layoutFetchData = {}
+  let fetchData = {}
+  const asyncData = {
+    value: window.__INITIAL_DATA__ ?? {}
+  }
   const app = createApp({
-    render: () => h(App.default)
+    render: () => h(App.default, {
+      asyncData
+    })
   })
 
   app.use(store)
   app.use(router)
 
-  window.__VUE_APP__ = app
-  window.__VUE_ROUTER__ = router
+  router.beforeResolve(async (to, from, next) => {
+    // 找到要进入的组件并提前执行 fetch 函数
+    const route = findRoute<ESMFeRouteItem>(feRoutes, to.path)
+    let layoutFetchData = {}
+    let fetchData = {}
+    if (route.layoutFetch) {
+      const fetchFn = await route.layoutFetch()
+      layoutFetchData = await fetchFn.default({ store, router: to })
+    }
+    if (route.fetch) {
+      const fetchFn = await route.fetch()
+      fetchData = await fetchFn.default({ store, router: to })
+    }
+    asyncData.value = Object.assign(asyncData.value, layoutFetchData ?? {}, fetchData ?? {})
+
+    next()
+  })
+
   await router.isReady()
 
   if (!window.__USE_SSR__) {
@@ -35,27 +59,18 @@ const clientRender = async () => {
 
     if (layoutFetch) {
       const fetchFn = await layoutFetch()
-      await fetchFn.default({ store, router: router.currentRoute })
+      layoutFetchData = await fetchFn.default({ store, router: router.currentRoute.value })
     }
     if (fetch) {
       const fetchFn = await fetch()
-      await fetchFn.default({ store, router: router.currentRoute })
+      fetchData = await fetchFn.default({ store, router: router.currentRoute.value })
     }
+    asyncData.value = Object.assign(asyncData.value, layoutFetchData ?? {}, fetchData ?? {})
   }
 
-  router.beforeResolve(async (to, from, next) => {
-    // 找到要进入的组件并提前执行 fetch 函数
-    const route = findRoute<ESMFeRouteItem>(feRoutes, to.path)
-    if (route.layoutFetch) {
-      const fetchFn = await route.layoutFetch()
-      await fetchFn.default({ store, router: to })
-    }
-    if (route.fetch) {
-      const fetchFn = await route.fetch()
-      await fetchFn.default({ store, router: to })
-    }
-    next()
-  })
+  window.__VUE_APP__ = app
+  window.__VUE_ROUTER__ = router
+
   app.mount('#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
   if (!window.__USE_VITE__) {
     module?.hot?.accept?.() // webpack 场景下的 hmr
