@@ -1,24 +1,23 @@
 <template>
   <div class="docs-layout">
-    <Header></Header>
+    <Header />
     <div class="docs-layout_content">
       <div class="docs-layout_content_left">
-        <Menu :list="config" @changeContent="handleChange"></Menu>
+        <Menu :list="config" @changeContent="handleChange" />
       </div>
       <div class="docs-layout_content_right">
-        <MarkdownRender :content="mdContent"></MarkdownRender>
+        <MarkdownRender ref="MarkdownRender" :content="mdContent" />
       </div>
     </div>
-    <Footer></Footer>
+    <Footer />
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import Menu from '@/components/menu'
 import MarkdownRender from '@/components/markdownRender'
-
 
 export default {
   components: {
@@ -30,18 +29,20 @@ export default {
   props: {
     config: {
       type: Array,
-      required: true,
+      required: true
     }
   },
-  data() {
+  data () {
     return {
       mdContent: ''
     }
   },
   methods: {
-    async handleChange(data) {
+    async handleChange (data) {
       try {
-        this.mdContent = (await import(`@/docs/${data.path}`)).default
+        this.mdContent = (await import(`../../docs/${data.path}.md`)).default
+        console.log('this.mdContent', this.mdContent)
+        this.$refs.MarkdownRender.renderHtml(this.mdContent)
       } catch (e) {
         console.log('err', e)
       }

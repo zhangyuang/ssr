@@ -1,22 +1,20 @@
 <template>
-  <DocsLayout :config="config">
-  </DocsLayout>
+  <DocsLayout :config="config" />
 </template>
 
-<script>
-import {mapState} from 'vuex'
-import DocsLayout from '@/layout/docsLayout'
+<script lang="ts">
+import { mapState } from 'vuex'
+import DocsLayout from '@/layout/docsLayout/index'
 import config from './config'
 
-// markdownRender
 export default {
-  data() {
+  components: {
+    DocsLayout
+  },
+  data () {
     return {
       config
     }
-  },
-  components: {
-    DocsLayout
   },
   computed: {
     ...mapState({

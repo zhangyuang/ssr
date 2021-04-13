@@ -9,52 +9,52 @@
         ]"
         :style="{'padding-left': `${item.relativeLevel * 10}px`}"
       >
-        <a class="slider_item_text" :href="getHref(item)">{{item.n}}</a>
+        <a class="slider_item_text" :href="getHref(item)">{{ item.n }}</a>
       </div>
     </div>
   </nav>
 </template>
 
-<script>
-import {flatArray} from '../../../../utils/flatArray';
+<script lang="ts">
+import { flatArray } from '../../../../utils/flatArray'
 
 export default {
   props: {
     list: {
       type: Array,
-      required: true,
+      required: true
     }
   },
-  data() {
+  data () {
     return {
       dataList: []
     }
   },
   watch: {
-    list(newValue) {
+    list (newValue) {
       this.creatList(newValue)
     }
   },
-  created() {
-    const {list} = this.$props;
+  created () {
+    const { list } = this.$props
     this.creatList(list)
   },
   methods: {
-    creatList(list) {
+    creatList (list) {
       const newList = flatArray(list, 'c')
-      let maxLevel = 5;
+      let maxLevel = 5
       newList.forEach((item) => {
         if (item.l < maxLevel) {
-          maxLevel = item.l;
+          maxLevel = item.l
         }
       })
       newList.forEach((item) => {
         item.relativeLevel = item.l - maxLevel
-        item.n = item.n.replace(/(^\s*)|(\s*$)/g, "")
+        item.n = item.n.replace(/(^\s*)|(\s*$)/g, '')
       })
       this.dataList = newList
     },
-    getHref(data) {
+    getHref (data) {
       const location = window.location || ''
       const href = (location?.href?.replace(location.origin, '').split('#')[0] || '/') + '#' + data.n
       return href

@@ -1,19 +1,19 @@
 <template>
   <div>
-    123
+    blog
   </div>
 </template>
 
-<script>
-import {mapState} from 'vuex'
+<script lang="ts">
+import { mapState } from 'vuex'
 
 // markdownRender
 export default {
-  data() {
+  components: {
+  },
+  data () {
     return {
     }
-  },
-  components: {
   },
   computed: {
     ...mapState({

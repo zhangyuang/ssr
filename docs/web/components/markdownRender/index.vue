@@ -1,20 +1,19 @@
 <template>
   <div class="md-render">
-    <div class="md-render_content" v-html="html">
-    </div>
+    <div class="md-render_content" v-html="html" />
     <div class="md-render_side">
-      <SideMenu :list="sideMenuList"></SideMenu>
+      <SideMenu :list="sideMenuList" />
     </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import prism from './themes/prism.js'
 import markdownIt from 'markdown-it'
 // import Darkmode from 'darkmode-js';
 import markdownItAnchor from 'markdown-it-anchor'
 import markdownItTocDoneRight from 'markdown-it-toc-done-right'
-import SideMenu from './components/sideMenu'
+import SideMenu from './components/sideMenu/index.vue'
 
 export default {
   components: {
@@ -23,26 +22,27 @@ export default {
   props: {
     content: {
       type: String,
-      required: true,
+      required: true
     }
   },
-  data() {
+  data () {
     return {
       html: '',
-      sideMenuList: [],
+      sideMenuList: []
     }
   },
-  watch: {
-    content(newValue) {
-      this.renderHtml(newValue)
-    }
+  mounted () {
+    setTimeout(() => {
+      prism.highlightAll()
+    }, 10)
   },
-  mounted() {
-    const {content} = this.$props
+  created () {
+    const { content } = this.$props
+    console.log('content', content)
     this.renderHtml(content)
   },
   methods: {
-    renderHtml(content) {
+    renderHtml (content) {
       const md = markdownIt({
         html: true,
         linkify: true,
@@ -51,16 +51,13 @@ export default {
         permalink: true,
         permalinkBefore: true,
         permalinkSymbol: '§',
-        slugify: (s) => s,
+        slugify: (s) => s
       }).use(markdownItTocDoneRight, {
         callback: (_, ast) => {
-          this.sideMenuList = ast.c;
+          this.sideMenuList = ast.c
         }
-      }).render(content);
+      }).render(content)
       this.html = md
-      setTimeout(()=>{
-        prism.highlightAll()
-      },10)
     }
   }
 }
@@ -70,4 +67,3 @@ export default {
 @import './themes/prism.css';
 @import "./index.less";
 </style>
-

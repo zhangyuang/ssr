@@ -9,23 +9,23 @@
     >
       <div class="menu_flex menu_title">
         <div class="menu_item_left">
-          <img src="/images/arrow.svg" class="menu_arrow" alt="error" v-if="!item.path && (item.routes || []).length">
+          <img v-if="!item.path && (item.routes || []).length" src="/images/arrow.svg" class="menu_arrow" alt="error">
         </div>
         <div>
-          <a class="menu_item_text" @click="handleClick(item)">{{item.title}}</a>
+          <a class="menu_item_text" @click="handleClick(item)">{{ item.title }}</a>
         </div>
       </div>
       <div
         v-for="(item2,index) in item.routes"
         :key="index"
         :class="[
-         'menu_item'
+          'menu_item'
         ]"
       >
         <div class="menu_flex">
-          <div class="menu_item_left"/>
+          <div class="menu_item_left" />
           <div>
-            <a class="menu_item_text" @click="handleClick(item2)">{{item2.title}}</a>
+            <a class="menu_item_text" @click="handleClick(item2)">{{ item2.title }}</a>
           </div>
         </div>
       </div>
@@ -33,38 +33,38 @@
   </nav>
 </template>
 
-<script>
-import {flatArray} from '../../utils/flatArray';
+<script lang="ts">
+import { flatArray } from '../../utils/flatArray'
 
 export default {
   props: {
     list: {
       type: Array,
-      required: true,
+      required: true
     }
   },
-  data() {
+  data () {
     return {}
   },
-  created() {
-    const {list} = this.$props;
-    this.initMdContent(list)
+  async created () {
+    const { list } = this.$props
+    await this.initMdContent(list)
   },
   methods: {
-    initMdContent(list) {
+    async initMdContent (list) {
       const flatList = flatArray(list, 'routes').filter((r) => r.hasOwnProperty('path') && r.path !== '')
       if (flatList.length > 0) {
-        this.handleChange(flatList[0])
+        await this.handleChange(flatList[0])
       }
     },
-    handleClick(data) {
+    async handleClick (data) {
       if (data.path) {
-        this.handleChange(data)
+        await this.handleChange(data)
       }
     },
-    handleChange(data) {
-      this.$emit('changeContent', data);
-    },
+    async handleChange (data) {
+      await this.$emit('changeContent', data)
+    }
     // getHref(data) {
     //   const location = window.location || ''
     //   const href = (location?.href?.replace(location.origin, '').split('#')[0] || '/') + '#' + data.n

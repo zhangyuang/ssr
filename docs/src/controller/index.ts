@@ -24,6 +24,7 @@ export class Index {
   @Get('/')
   @Get('/docs')
   @Get('/blog')
+  @Get('/blog:router')
   async handler (): Promise<void> {
     try {
       this.ctx.apiService = this.apiService

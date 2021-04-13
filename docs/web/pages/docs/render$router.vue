@@ -1,19 +1,19 @@
 <template>
-  <BaseLayout>
-    Home
-  </BaseLayout>
+  <DocsLayout :config="config" />
 </template>
 
 <script lang="ts">
 import { mapState } from 'vuex'
-import BaseLayout from '@/layout/baseLayout'
+import DocsLayout from '@/layout/docsLayout/index.vue'
+import config from './config'
 
 export default {
   components: {
-    BaseLayout
+    DocsLayout
   },
   data () {
     return {
+      config
     }
   },
   computed: {

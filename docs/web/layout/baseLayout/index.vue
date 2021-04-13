@@ -1,20 +1,20 @@
 <template>
   <div class="base-layout">
-    <Header></Header>
+    <Header />
     <div class="base-layout_content">
-      <slot></slot>
+      <slot />
     </div>
-    <Footer></Footer>
+    <Footer />
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import Header from '@/components/header'
 import Footer from '@/components/footer'
 import Menu from '@/components/menu'
 
 export default {
-  components:{
+  components: {
     Header,
     Footer,
     Menu

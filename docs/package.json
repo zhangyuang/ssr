@@ -7,6 +7,9 @@
     "@midwayjs/web": "^2.3.0",
     "egg": "^2.0.0",
     "egg-scripts": "^2.10.0",
+    "markdown-it": "^12.0.4",
+    "markdown-it-anchor": "^7.1.0",
+    "markdown-it-toc-done-right": "^4.2.0",
     "ssr-core-vue3": "^5.0.0",
     "ssr-types": "^5.0.0",
     "swiper": "^6.0.0",
@@ -16,17 +19,17 @@
   },
   "devDependencies": {
     "@midwayjs/egg-ts-helper": "^1.0.5",
+    "@types/markdown-it": "^12.0.1",
+    "@vitejs/plugin-vue": "^1.2.1",
     "cross-env": "^7.0.3",
     "darkmode-js": "^1.5.7",
     "eslint-config-standard-vue-ts": "^1.0.5",
-    "markdown-it": "^12.0.4",
-    "markdown-it-anchor": "^7.1.0",
-    "markdown-it-toc-done-right": "^4.2.0",
     "raw-loader": "^4.0.2",
     "ssr": "^5.0.0",
     "ssr-plugin-midway": "^5.0.0",
     "ssr-plugin-vue3": "^5.0.0",
-    "typescript": "^3.9.7"
+    "typescript": "^3.9.7",
+    "vite": "^2.1.5"
   },
   "scripts": {
     "prod": "ssr build && egg-scripts start --daemon --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
