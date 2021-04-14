@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.12](https://github.com/ykfe/ssr/compare/v5.5.11...v5.5.12) (2021-04-14)
+
+
+### Bug Fixes
+
+* client-entry asyncData reactive ([14e96d4](https://github.com/ykfe/ssr/commit/14e96d4b75e8cc8172f9147b3665f8a04daf5ef8))
+
+
+
+
+
 ## [5.5.11](https://github.com/ykfe/ssr/compare/v5.5.10...v5.5.11) (2021-04-14)
 
 
