@@ -1,20 +1,14 @@
 import { ISSRContext } from 'ssr-types'
-import { IndexData } from '@/interface'
-interface IApiService {
-  index: () => Promise<IndexData>
-}
 
-export default async ({ store, router }, ctx?: ISSRContext<{
-  apiService?: IApiService
-}>) => {
+export default async ({ store, router }, ctx?: ISSRContext) => {
   let data
   if (__isBrowser__) {
-    // const path = router.path.replace('/docs', '')
-    data = (await import('@/docs/basic-features/data-fetching.md')).default
+    const path = router.path.replace(/\$/g, '/').replace('/docs/', '')
+    data = (await import(`@/markdown/${path}.md`)).default
   } else {
-    const page = ctx?.params.page
+    const path = ctx?.params.page.replace(/\$/g, '/')
     // eslint-disable-next-line
-    data = require(`@/docs/${page}.md`).default
+    data = require(`@/markdown/${path}.md`).default
   }
   return {
     docsContent: data

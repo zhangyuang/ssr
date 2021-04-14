@@ -33,8 +33,9 @@ export default {
   },
   methods: {
     handleClick (data) {
-      const path = data.path.replace('/', '-')
-      this.$router.push(`/docs/${path}`)
+      this.$router.push({
+        path: `/docs/${data.path}`
+      })
     }
   }
 }

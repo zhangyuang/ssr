@@ -8,49 +8,40 @@
 </template>
 
 <script lang="ts">
-import { inject } from 'vue'
-import prism from './themes/prism.js'
 import markdownIt from 'markdown-it'
 // import Darkmode from 'darkmode-js';
 import markdownItAnchor from 'markdown-it-anchor'
 import markdownItTocDoneRight from 'markdown-it-toc-done-right'
 import SideMenu from './components/sideMenu/index.vue'
+import prism from './themes/prism.js'
 
 export default {
   components: {
     SideMenu
   },
-  setup () {
-    const docsContent = inject('asyncData').value.docsContent
-    return {
-      docsContent
-    }
-  },
+  inject: ['asyncData'],
   data () {
     return {
-      markdownStr: '',
       html: '',
       sideMenuList: []
     }
   },
   watch: {
-    markdownStr () {
-      console.log('watch')
-      this.renderHtml()
+    asyncData: {
+      handler (val) {
+        this.renderHtml(val.value.docsContent)
+      },
+      deep: true
     }
-
   },
   created () {
-    this.markdownStr = this.docsContent
+    this.renderHtml(this.asyncData.value.docsContent)
   },
-
   mounted () {
-    setTimeout(() => {
-      prism.highlightAll()
-    }, 10)
+    prism.highlightAll()
   },
   methods: {
-    renderHtml () {
+    renderHtml (content) {
       const md = markdownIt({
         html: true,
         linkify: true,
@@ -64,7 +55,7 @@ export default {
         callback: (_, ast) => {
           this.sideMenuList = ast.c
         }
-      }).render(this.docsContent)
+      }).render(content)
       this.html = md
     }
   }

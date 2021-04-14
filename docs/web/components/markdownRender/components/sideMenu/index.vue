@@ -1,14 +1,7 @@
 <template>
   <nav class="slider">
     <div>
-      <div
-        v-for="(item,index) in dataList"
-        :key="index"
-        :class="[
-          item.relativeLevel === 0 ? 'slider_top' : 'slider_item'
-        ]"
-        :style="{'padding-left': `${item.relativeLevel * 10}px`}"
-      >
+      <div v-for="(item,index) in dataList" :key="index" :class="[ item.relativeLevel === 0 ? 'slider_top' : 'slider_item' ]" :style="{'padding-left': `${item.relativeLevel * 10}px`}">
         <a class="slider_item_text" :href="getHref(item)">{{ item.n }}</a>
       </div>
     </div>
@@ -16,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { flatArray } from '../../../../utils/flatArray'
+import { flatArray } from '@/utils/flatArray'
 
 export default {
   props: {
