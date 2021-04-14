@@ -1,5 +1,5 @@
 {
-  "name": "nestjs-react-ssr",
+  "name": "nestjs-vue-ssr",
   "version": "1.0.0",
   "private": true,
   "dependencies": {

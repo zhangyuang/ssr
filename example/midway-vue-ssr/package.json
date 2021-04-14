@@ -1,5 +1,5 @@
 {
-  "name": "midway-react-ssr",
+  "name": "midway-vue-ssr",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
