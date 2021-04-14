@@ -83,3 +83,5 @@ packages/**/README.md
 example/**/typings
 
 example/**/vite.config.js
+
+example/**/f.yml

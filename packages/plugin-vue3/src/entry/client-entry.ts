@@ -1,4 +1,4 @@
-import { h, createApp } from 'vue'
+import { h, createApp, reactive } from 'vue'
 import { findRoute } from 'ssr-client-utils'
 import { ESMFeRouteItem } from 'ssr-types'
 import { createRouter } from './router'
@@ -20,9 +20,9 @@ const clientRender = async () => {
 
   let layoutFetchData = {}
   let fetchData = {}
-  const asyncData = {
+  const asyncData = reactive({
     value: window.__INITIAL_DATA__ ?? {}
-  }
+  })
   const app = createApp({
     render: () => h(App.default, {
       asyncData
