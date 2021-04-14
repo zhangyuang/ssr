@@ -22,7 +22,7 @@ export class Index {
   apiDeatilservice: IApiDetailService
 
   @Get('/')
-  @Get('/docs')
+  @Get('/docs/:page')
   @Get('/blog')
   @Get('/blog:router')
   async handler (): Promise<void> {

@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import Header from '@/components/header'
+import Header from '@/components/header/index.vue'
 import Footer from '@/components/footer'
 import Menu from '@/components/menu'
 

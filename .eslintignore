@@ -8,3 +8,5 @@
 **/typings
 **/*.d.ts
 **/minimist.js
+**/node_modules
+**/prism.js

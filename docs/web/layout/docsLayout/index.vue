@@ -3,10 +3,10 @@
     <Header />
     <div class="docs-layout_content">
       <div class="docs-layout_content_left">
-        <Menu :list="config" @changeContent="handleChange" />
+        <Menu :list="config" />
       </div>
       <div class="docs-layout_content_right">
-        <MarkdownRender ref="MarkdownRender" :content="mdContent" />
+        <MarkdownRender ref="MarkdownRender" />
       </div>
     </div>
     <Footer />
@@ -14,11 +14,10 @@
 </template>
 
 <script lang="ts">
-import Header from '@/components/header'
+import Header from '@/components/header/index.vue'
 import Footer from '@/components/footer'
 import Menu from '@/components/menu'
 import MarkdownRender from '@/components/markdownRender'
-
 export default {
   components: {
     Header,
@@ -30,22 +29,6 @@ export default {
     config: {
       type: Array,
       required: true
-    }
-  },
-  data () {
-    return {
-      mdContent: ''
-    }
-  },
-  methods: {
-    async handleChange (data) {
-      try {
-        this.mdContent = (await import(`../../docs/${data.path}.md`)).default
-        console.log('this.mdContent', this.mdContent)
-        this.$refs.MarkdownRender.renderHtml(this.mdContent)
-      } catch (e) {
-        console.log('err', e)
-      }
     }
   }
 }

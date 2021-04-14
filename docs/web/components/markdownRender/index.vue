@@ -8,6 +8,7 @@
 </template>
 
 <script lang="ts">
+import { inject } from 'vue'
 import prism from './themes/prism.js'
 import markdownIt from 'markdown-it'
 // import Darkmode from 'darkmode-js';
@@ -19,10 +20,12 @@ export default {
   components: {
     SideMenu
   },
-  props: {
-    content: {
-      type: String,
-      required: true
+  setup () {
+    const asyncData = inject('asyncData')
+    const changeAsyncData = inject('changeAsyncData')
+    return {
+      mdContent: asyncData.value.docsContent,
+      changeAsyncData
     }
   },
   data () {
@@ -31,15 +34,13 @@ export default {
       sideMenuList: []
     }
   },
+  created () {
+    this.renderHtml(this.mdContent)
+  },
   mounted () {
     setTimeout(() => {
       prism.highlightAll()
     }, 10)
-  },
-  created () {
-    const { content } = this.$props
-    console.log('content', content)
-    this.renderHtml(content)
   },
   methods: {
     renderHtml (content) {

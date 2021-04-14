@@ -20,7 +20,7 @@ export class Api {
     return data
   }
 
-  @Get('/docs')
+  @Get('/docs/')
   async getDetailData () {
     const { ctx, detailService } = this
     const id = ctx.params.id

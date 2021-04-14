@@ -34,42 +34,22 @@
 </template>
 
 <script lang="ts">
-import { flatArray } from '../../utils/flatArray'
 
 export default {
-  props: {
-    list: {
-      type: Array,
-      required: true
-    }
-  },
+  props: ['list', 'changeContent'],
+  emits: ['changeContent'],
   data () {
     return {}
   },
-  async created () {
-    const { list } = this.$props
-    await this.initMdContent(list)
+created () {
   },
   methods: {
-    async initMdContent (list) {
-      const flatList = flatArray(list, 'routes').filter((r) => r.hasOwnProperty('path') && r.path !== '')
-      if (flatList.length > 0) {
-        await this.handleChange(flatList[0])
-      }
-    },
-    async handleClick (data) {
-      if (data.path) {
-        await this.handleChange(data)
-      }
-    },
-    async handleChange (data) {
-      await this.$emit('changeContent', data)
+
+    handleClick (data) {
+      const path = data.path.replace('/', '-')
+      this.$router.push(`/docs/${path}`)
     }
-    // getHref(data) {
-    //   const location = window.location || ''
-    //   const href = (location?.href?.replace(location.origin, '').split('#')[0] || '/') + '#' + data.n
-    //   return ''
-    // },
+
   }
 }
 </script>
