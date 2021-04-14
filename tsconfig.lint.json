@@ -15,6 +15,7 @@
   },
   "include": [
     "packages",
-    "example"
+    "example",
+    "docs"
   ]
 }

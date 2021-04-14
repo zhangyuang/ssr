@@ -9,10 +9,8 @@ export default async ({ store, router }, ctx?: ISSRContext<{
 }>) => {
   let data
   if (__isBrowser__) {
-    console.log(router)
-    const path = router.path.replace('/docs', '')
-    data = (await import(`../../docs/${path}.md`)).default
-    // console.log()
+    // const path = router.path.replace('/docs', '')
+    data = (await import('@/docs/basic-features/data-fetching.md')).default
   } else {
     const page = ctx?.params.page
     // eslint-disable-next-line

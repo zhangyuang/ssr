@@ -1,12 +1,6 @@
 <template>
   <nav class="menu">
-    <div
-      v-for="(item,index) in list"
-      :key="index"
-      :class="[
-        'menu_top'
-      ]"
-    >
+    <div v-for="(item,index) in list" :key="index" :class="[ 'menu_top' ]">
       <div class="menu_flex menu_title">
         <div class="menu_item_left">
           <img v-if="!item.path && (item.routes || []).length" src="/images/arrow.svg" class="menu_arrow" alt="error">
@@ -15,13 +9,7 @@
           <a class="menu_item_text" @click="handleClick(item)">{{ item.title }}</a>
         </div>
       </div>
-      <div
-        v-for="(item2,index) in item.routes"
-        :key="index"
-        :class="[
-          'menu_item'
-        ]"
-      >
+      <div v-for="(item2,index) in item.routes" :key="index" :class="[ 'menu_item' ]">
         <div class="menu_flex">
           <div class="menu_item_left" />
           <div>
@@ -41,15 +29,13 @@ export default {
   data () {
     return {}
   },
-created () {
+  created () {
   },
   methods: {
-
     handleClick (data) {
       const path = data.path.replace('/', '-')
       this.$router.push(`/docs/${path}`)
     }
-
   }
 }
 </script>

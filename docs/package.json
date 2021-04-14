@@ -23,7 +23,6 @@
     "@vitejs/plugin-vue": "^1.2.1",
     "cross-env": "^7.0.3",
     "darkmode-js": "^1.5.7",
-    "eslint-config-standard-vue-ts": "^1.0.5",
     "raw-loader": "^4.0.2",
     "ssr": "^5.0.0",
     "ssr-plugin-midway": "^5.0.0",
@@ -38,9 +37,7 @@
     "start:vite": "ssr start --vite",
     "build": "ssr build",
     "deploy": "ssr build && ssr deploy",
-    "deploy:tencent": "ssr build && ssr deploy --tencent",
-    "lint": "eslint . --ext .js,.tsx,.ts --cache",
-    "lint:fix": "eslint . --ext .js,.tsx,.ts --cache --fix"
+    "deploy:tencent": "ssr build && ssr deploy --tencent"
   },
   "midway-integration": {
     "tsCodeRoot": "src"

@@ -1,9 +1,10 @@
 <template>
   <div class="md-render">
-    <div class="md-render_content" v-html="html" />
+    {{ docsContent }}
+    <!-- <div class="md-render_content" v-html="html" />
     <div class="md-render_side">
       <SideMenu :list="sideMenuList" />
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -21,11 +22,9 @@ export default {
     SideMenu
   },
   setup () {
-    const asyncData = inject('asyncData')
-    const changeAsyncData = inject('changeAsyncData')
+    const docsContent = inject('asyncData').value.docsContent
     return {
-      mdContent: asyncData.value.docsContent,
-      changeAsyncData
+      docsContent
     }
   },
   data () {
@@ -34,9 +33,16 @@ export default {
       sideMenuList: []
     }
   },
-  created () {
-    this.renderHtml(this.mdContent)
+  watch: {
+    docsContent () {
+      console.log('xxx', this.docsContent)
+    }
+
   },
+  created () {
+    // this.renderHtml(this.docsContent)
+  },
+
   mounted () {
     setTimeout(() => {
       prism.highlightAll()
