@@ -1394,19 +1394,19 @@
     "@midwayjs/mwcc" "^0.6.x"
     fs-extra "^8.1.0"
 
-"@midwayjs/cli-plugin-clean@^1.2.56":
-  version "1.2.60"
-  resolved "https://registry.npmjs.org/@midwayjs/cli-plugin-clean/-/cli-plugin-clean-1.2.60.tgz#86ed9ba77c953492dad954b59a65987d00176969"
-  integrity sha512-AQ6jX5WtWYqISyixBwYwQSStRW69lNr7uRlnYVcbyvlCnJRudWiBAIBIOA7c/RWDpj8v7eyTNGDfCuFi3xQ3zA==
+"@midwayjs/cli-plugin-clean@^1.2.62":
+  version "1.2.62"
+  resolved "https://registry.npmjs.org/@midwayjs/cli-plugin-clean/-/cli-plugin-clean-1.2.62.tgz#ff3fd93f8a46e55d8848ee0fe6a482d4637d7224"
+  integrity sha512-MI2ErFQQiFtRycr91Arb5MqpK+lLkB9pShGn5mrvWgBpHW76jlxYQxNlWMfsMF7Z41A0sougyMeMow4Aa8vsOg==
   dependencies:
     "@midwayjs/command-core" "^1.2.54"
-    "@midwayjs/serverless-spec-builder" "^1.2.60"
+    "@midwayjs/serverless-spec-builder" "^1.2.62"
     fs-extra "^8.1.0"
 
-"@midwayjs/cli-plugin-dev@^1.2.61":
-  version "1.2.61"
-  resolved "https://registry.npmjs.org/@midwayjs/cli-plugin-dev/-/cli-plugin-dev-1.2.61.tgz#39a8e65760d26d3439d599e3987092c2363d027e"
-  integrity sha512-CJ+rQm2wdeJjoFOW4Y3BiUHepM31CFB00b27m6JewisPrBE+NuoJ64LTfz7YA2xfmaIpjgEXGI1i2eqaadYFLA==
+"@midwayjs/cli-plugin-dev@^1.2.62":
+  version "1.2.62"
+  resolved "https://registry.npmjs.org/@midwayjs/cli-plugin-dev/-/cli-plugin-dev-1.2.62.tgz#fe7556880c61f5e9effee59c28ddb41d76872c85"
+  integrity sha512-1+fATGOnVB/Xt/HhC74Sw5Q599w9MzkfGH2NjMz8G5ggm4HaJhLej8PtYZMo8ThM65GYVu+A09/ictopOMS7cA==
   dependencies:
     "@koa/router" "^10.0.0"
     "@midwayjs/command-core" "^1.2.54"
@@ -1420,20 +1420,20 @@
     light-spinner "^1.0.1"
 
 "@midwayjs/cli-plugin-faas@^1.2.49":
-  version "1.2.61"
-  resolved "https://registry.npmjs.org/@midwayjs/cli-plugin-faas/-/cli-plugin-faas-1.2.61.tgz#ede87ef6b614bbf4280f0243c3271a3a38b12449"
-  integrity sha512-0XgjqtkWno7zqSBQ0jGJ0utmBXoeZdLCmGxaBJhTjazvikSShiK6p1YQY4CmFzlRFr/kpWYVE56kNwgqaWenBw==
+  version "1.2.62"
+  resolved "https://registry.npmjs.org/@midwayjs/cli-plugin-faas/-/cli-plugin-faas-1.2.62.tgz#10ae7f242dec5f5ec1ecc4777aababa0d2c6b842"
+  integrity sha512-RWI0ix0pjFXq6uAORIULGdGKyy5tOjcOLa2T/a1rHe20B0oQOCiL/dTAyLnLk9u7T8m4xX0RgCO/zVhUI+tj0Q==
   dependencies:
     "@midwayjs/command-core" "^1.2.54"
     "@midwayjs/fcli-plugin-deploy" "^1.2.54"
-    "@midwayjs/fcli-plugin-package" "^1.2.61"
+    "@midwayjs/fcli-plugin-package" "^1.2.62"
     "@midwayjs/serverless-app" "^2.8.9"
-    "@midwayjs/serverless-spec-builder" "^1.2.60"
+    "@midwayjs/serverless-spec-builder" "^1.2.62"
 
-"@midwayjs/cli-plugin-test@^1.2.56":
-  version "1.2.60"
-  resolved "https://registry.npmjs.org/@midwayjs/cli-plugin-test/-/cli-plugin-test-1.2.60.tgz#4829476b12c6fd28fd00a892d71bd74189ba1333"
-  integrity sha512-ppDu0lG8eofTkBM0VQhS+IIQQr1c+NgREGjDVQuvX0N5fpb06H+ce64mpcX5riOLTbOdEZN6i3Vqz7O4lpikuw==
+"@midwayjs/cli-plugin-test@^1.2.62":
+  version "1.2.62"
+  resolved "https://registry.npmjs.org/@midwayjs/cli-plugin-test/-/cli-plugin-test-1.2.62.tgz#85c9e473b97944428e305c7294e12b602d67a124"
+  integrity sha512-P77eQgjNZMRi/PAhYsl8a8vTwcoaJBQrLHuZDCxiQoOL4spQ2OZdHEKultBhTUkM/Tom7KmzH8tg9tegiaDtJw==
   dependencies:
     "@midwayjs/command-core" "^1.2.54"
     globby "^10.0.1"
@@ -1442,15 +1442,15 @@
     ts-node "^9.0.0"
 
 "@midwayjs/cli@^1.0.0":
-  version "1.2.61"
-  resolved "https://registry.npmjs.org/@midwayjs/cli/-/cli-1.2.61.tgz#81014529da6d8c25a79310981f7f80711469182f"
-  integrity sha512-dYkw4bKmBBcg6nl/J5KPlqd3qK9Ku9t8l4m54x9rdrcOo+fFbAtWyt8jcTX4EkOKDIwS6klZWlfVQB9kJkxkSg==
+  version "1.2.62"
+  resolved "https://registry.npmjs.org/@midwayjs/cli/-/cli-1.2.62.tgz#f71da189c75e9982b20212d1b583ee82f830d074"
+  integrity sha512-R45tNTT2If5FEOTATOaFs/+b85c2GtU7EX39pbDRgMwsH7hD0qUAvqaUibEnnBF20PVdrVta2JUTVUdVO9Wscw==
   dependencies:
     "@midwayjs/cli-plugin-add" "^1.2.60"
     "@midwayjs/cli-plugin-build" "^1.2.61"
-    "@midwayjs/cli-plugin-clean" "^1.2.56"
-    "@midwayjs/cli-plugin-dev" "^1.2.61"
-    "@midwayjs/cli-plugin-test" "^1.2.56"
+    "@midwayjs/cli-plugin-clean" "^1.2.62"
+    "@midwayjs/cli-plugin-dev" "^1.2.62"
+    "@midwayjs/cli-plugin-test" "^1.2.62"
     "@midwayjs/command-core" "^1.2.54"
     "@midwayjs/debugger" "^1.0.x"
     enquirer "^2.3.4"
@@ -1545,49 +1545,49 @@
     "@midwayjs/command-core" "^1.2.54"
 
 "@midwayjs/fcli-plugin-fc@^1.2.12":
-  version "1.2.61"
-  resolved "https://registry.npmjs.org/@midwayjs/fcli-plugin-fc/-/fcli-plugin-fc-1.2.61.tgz#3c8b90c64f2aadf857009454383d691029efc037"
-  integrity sha512-QuW4BNycYtrm/H0BAem3noZg4F5qoeBduxMX4crGid5lwYYO+Fjg8ls2j4kPqpB0VEwnaNd6C2tRZJ24/LbZ7g==
+  version "1.2.62"
+  resolved "https://registry.npmjs.org/@midwayjs/fcli-plugin-fc/-/fcli-plugin-fc-1.2.62.tgz#aeccf267f9efb4b4ccab83c22e252cc93bb3131b"
+  integrity sha512-gZq6R6HQedJBfobCLg/JC+AK5VA+EeRuXCiyRldKsVCB3rMoiyJ0B0Pl8xBbH3Ijm0287wOB4MrMTkX7IPDs8g==
   dependencies:
     "@alicloud/fun" "^3.1.3"
     "@midwayjs/command-core" "^1.2.54"
     "@midwayjs/serverless-fc-starter" "^2.8.7"
     "@midwayjs/serverless-fc-trigger" "^2.8.7"
-    "@midwayjs/serverless-spec-builder" "^1.2.60"
-    "@serverless-devs/core" "^0.0.40"
+    "@midwayjs/serverless-spec-builder" "^1.2.62"
+    "@serverless-devs/core" "^0.0.55"
     request "^2.88.2"
 
-"@midwayjs/fcli-plugin-package@^1.2.39", "@midwayjs/fcli-plugin-package@^1.2.61":
-  version "1.2.61"
-  resolved "https://registry.npmjs.org/@midwayjs/fcli-plugin-package/-/fcli-plugin-package-1.2.61.tgz#3e47d9c8d1f5c8f4353926ceb443480c6fd8d90a"
-  integrity sha512-aR26scYOi56l2HQC2LIecV2+iA6BJMaqzBkRgtcdCerB1rOcdp3ye1QPLFbaPK8vacL25mFUUKJOJ17g5gjmug==
+"@midwayjs/fcli-plugin-package@^1.2.39", "@midwayjs/fcli-plugin-package@^1.2.62":
+  version "1.2.62"
+  resolved "https://registry.npmjs.org/@midwayjs/fcli-plugin-package/-/fcli-plugin-package-1.2.62.tgz#17cbe150f98268a7332e39fc05367a039915b451"
+  integrity sha512-dx9fZfkRJiQplqCbhb9P8nVz3Yn+qpB5kZK/rCk/jAtQQUOOI6RXb03FxI0mJv9YDF+bm5VEHYKnawrjAeBp7g==
   dependencies:
     "@midwayjs/command-core" "^1.2.54"
     "@midwayjs/faas-code-analysis" "^1.2.61"
     "@midwayjs/locate" "^1.0.3"
     "@midwayjs/mwcc" "^0.6.x"
-    "@midwayjs/serverless-spec-builder" "^1.2.60"
+    "@midwayjs/serverless-spec-builder" "^1.2.62"
     fs-extra "^8.1.0"
     globby "^10.0.1"
     jszip "^3.2.2"
     micromatch "^4.0.2"
 
 "@midwayjs/fcli-plugin-scf@^1.2.12":
-  version "1.2.61"
-  resolved "https://registry.npmjs.org/@midwayjs/fcli-plugin-scf/-/fcli-plugin-scf-1.2.61.tgz#c439646c57ad8c06a6ca5cb7c975944636b7033a"
-  integrity sha512-f+V7rrZCyhJGxmGyIBFOvlrwR3O3ZSY0Ff+yudAOVqjpkQDy0iUOEUAnc3wUOn8wZV7MDeaz/4ZN4Z+FY3hSVg==
+  version "1.2.62"
+  resolved "https://registry.npmjs.org/@midwayjs/fcli-plugin-scf/-/fcli-plugin-scf-1.2.62.tgz#0030633e0fcab35659612b54be38639113ca16db"
+  integrity sha512-DYTcl0xeQNe3n+4TM7RTGxvSJSRhUf0jVJjXFT1NTkRV6e6wDrbNs+V/hgsLKMaYLasVJzs8C2icag6Bim9KAw==
   dependencies:
     "@midwayjs/command-core" "^1.2.54"
     "@midwayjs/serverless-scf-starter" "^2.7.0"
-    "@midwayjs/serverless-spec-builder" "^1.2.60"
+    "@midwayjs/serverless-spec-builder" "^1.2.62"
     serverless-tencent-scf "^0.1.36"
 
 "@midwayjs/gateway-common-http@^1.2.41":
-  version "1.2.60"
-  resolved "https://registry.npmjs.org/@midwayjs/gateway-common-http/-/gateway-common-http-1.2.60.tgz#4f334bfa4304a029154b571f6caeb5f71af30d63"
-  integrity sha512-fnbhaGU76WCVhECnlr/bzK1nPrxjfWHgMMjeLTz+DNB2qVdu1vT6PSSgZ4pWuMEnyNWEw/5HaJ+HKy7JzzU2pA==
+  version "1.2.62"
+  resolved "https://registry.npmjs.org/@midwayjs/gateway-common-http/-/gateway-common-http-1.2.62.tgz#27b622b568805380d3c0c5f5eb4d8c548830b9ce"
+  integrity sha512-ah2Vy/Mu8Zsx0Hz4e3ZbibTZUuEgdjQKWdZJvtRdz62KH/KUwi3qO+5GzZ760ilYHjZ6OzpT2K16jDNi7lCF8Q==
   dependencies:
-    "@midwayjs/serverless-spec-builder" "^1.2.60"
+    "@midwayjs/serverless-spec-builder" "^1.2.62"
     "@types/express" "^4.17.0"
     path-to-regexp "^6.2.0"
     raw-body "^2.4.1"
@@ -1733,10 +1733,10 @@
     "@midwayjs/runtime-engine" "^2.10.0"
     "@midwayjs/serverless-http-parser" "^2.10.0"
 
-"@midwayjs/serverless-spec-builder@^1.2.41", "@midwayjs/serverless-spec-builder@^1.2.60":
-  version "1.2.60"
-  resolved "https://registry.npmjs.org/@midwayjs/serverless-spec-builder/-/serverless-spec-builder-1.2.60.tgz#b2516582941dfc10c1b9753d98af9045ccd4aaa0"
-  integrity sha512-tbLS4KE3wY7GSTd2JfiBWqq0hMa6QqEKQVwljJrXdCXvGFuGMmLKRivooPh+I6/g6pHW0DLaaDcORoEnZv6fvA==
+"@midwayjs/serverless-spec-builder@^1.2.41", "@midwayjs/serverless-spec-builder@^1.2.62":
+  version "1.2.62"
+  resolved "https://registry.npmjs.org/@midwayjs/serverless-spec-builder/-/serverless-spec-builder-1.2.62.tgz#b285703d3e0e2895c068ecd24e90c9d3b4410b98"
+  integrity sha512-xt6RIcvOzkbh3mF985eq7AMa7u94fuIKUweY2SnVnlpqHq7JIpR7mA2SnSDg/e0LLxEzFelUh2S453G1kc8nMw==
   dependencies:
     ejs "^3.1.3"
     js-yaml "^3.13.0"
@@ -1850,18 +1850,20 @@
   resolved "https://registry.npmjs.org/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha1-p3c2C1s5oaLlEG+OhY8v0tBgxXA=
 
-"@serverless-devs/core@^0.0.40":
-  version "0.0.40"
-  resolved "https://registry.npmjs.org/@serverless-devs/core/-/core-0.0.40.tgz#fe3c916b7e0e05b310252b4dc8e76383a131107f"
-  integrity sha512-zOMgL/zGlH5KlMgKtDbEEIajVE7lSQ7Ar1sWTteYV0gK3vUgkGryk0HWzvNcdUKf0M5okbR7UsGn56VMkORSoQ==
+"@serverless-devs/core@^0.0.55":
+  version "0.0.55"
+  resolved "https://registry.npmjs.org/@serverless-devs/core/-/core-0.0.55.tgz#6fc193585f834bd2f319964774ef6d05373a9429"
+  integrity sha512-prTaqNC1zEPnK9BelKR9qJp5jPYwCKYiygY0ygNb7ewstae4GqB+Lm35lzTffnE85n4DDxukkc4A0bh6iLC7nA==
   dependencies:
     uid "^2.0.0"
     "@b-mamba/s-progress-bar" "^0.0.3"
     "@serverless-devs/s-progress-bar" "0.0.2"
     "@tsed/logger" "^5.5.5"
+    "@types/download" "^6.2.4"
     archiver "^5.2.0"
     chalk "^4.1.0"
     command-line-usage "^6.1.1"
+    crypto-js "^4.0.0"
     decompress "^4.2.1"
     download "^8.0.0"
     fs-extra "9.0.1"
@@ -1870,6 +1872,7 @@
     ignore "^5.1.8"
     inquirer "^7.3.3"
     js-yaml "^3.14.0"
+    lodash.get "^4.4.2"
     lodash.merge "^4.6.2"
     minimist "^1.2.5"
     ora "^5.3.0"
@@ -2029,11 +2032,27 @@
   resolved "https://registry.npmjs.org/@types/dargs/-/dargs-5.1.0.tgz#06e2c943dadb9167967005ffd467a581a009d347"
   integrity sha512-2cXlO8pz13kVYMp6Zgr8Z5DACbaGfoBp7svqZqPGcO+qG3LQLWdB5BzPPASj+UI447XxGmFHi6KjLgUB0fzucQ==
 
+"@types/decompress@*":
+  version "4.2.3"
+  resolved "https://registry.npmjs.org/@types/decompress/-/decompress-4.2.3.tgz#98eed48af80001038aa05690b2094915f296fe65"
+  integrity sha512-W24e3Ycz1UZPgr1ZEDHlK4XnvOr+CpJH3qNsFeqXwwlW/9END9gxn3oJSsp7gYdiQxrXUHwUUd3xuzVz37MrZQ==
+  dependencies:
+    "@types/node" "*"
+
 "@types/depd@^1.1.32":
   version "1.1.32"
   resolved "https://registry.npmjs.org/@types/depd/-/depd-1.1.32.tgz#7937f66870d0cd7a9881152e4eb02c8c43298f11"
   integrity sha512-kB2cpXs3A0TGWl4a4h74yIwvclYZUTW6Irpee/3Dc1s4Cr5rGPHtpGPpBBpEV1MaKH5z/oul+57oDkEkeRXRnw==
   dependencies:
+    "@types/node" "*"
+
+"@types/download@^6.2.4":
+  version "6.2.4"
+  resolved "https://registry.npmjs.org/@types/download/-/download-6.2.4.tgz#d9fb74defe20d75f59a38a9b5b0eb5037d37161a"
+  integrity sha512-Lo5dy3ai6LNnbL663sgdzqL1eib11u1yKH6w3v3IXEOO4kRfQpMn1qWUTaumcHLACjFp1RcBx9tUXEvJoR3vcA==
+  dependencies:
+    "@types/decompress" "*"
+    "@types/got" "^8"
     "@types/node" "*"
 
 "@types/empower-core@*":
@@ -2074,6 +2093,13 @@
   integrity sha512-SEYeGAIQIQX8NN6LDKprLjbrd5dARM5EXsd8GI/A5l0apYI1fGMWgPHSe4ZKL4eozlAyI+doUE9XbYS4xCkQ1w==
   dependencies:
     "@types/minimatch" "*"
+    "@types/node" "*"
+
+"@types/got@^8":
+  version "8.3.5"
+  resolved "https://registry.npmjs.org/@types/got/-/got-8.3.5.tgz#d8a0e8fa7598681b332a4d27779b022b2e55fb7f"
+  integrity sha512-AaXSrIF99SjjtPVNmCmYb388HML+PKEJb/xmj4SbL2ZO0hHuETZZzyDIKfOqaEoAHZEuX4sC+FRFrHYJoIby6A==
+  dependencies:
     "@types/node" "*"
 
 "@types/graceful-fs@^4.1.2":
@@ -5103,6 +5129,11 @@ crypto-browserify@^3.11.0:
     public-encrypt "^4.0.0"
     randombytes "^2.0.0"
     randomfill "^1.0.3"
+
+crypto-js@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.npmjs.org/crypto-js/-/crypto-js-4.0.0.tgz#2904ab2677a9d042856a2ea2ef80de92e4a36dcc"
+  integrity sha512-bzHZN8Pn+gS7DQA6n+iUmBfl0hO5DJq++QP3U6uTucDtk/0iGpXd/Gg7CGR0p8tJhofJyaKoWBuJI4eAO00BBg==
 
 crypto-random-string@^1.0.0:
   version "1.0.0"
@@ -14597,21 +14628,21 @@ ssr-client-utils@^5.5.6:
     ssr-types "^5.5.6"
 
 ssr-core-vue3@^5.0.0:
-  version "5.5.6"
-  resolved "https://registry.npmjs.org/ssr-core-vue3/-/ssr-core-vue3-5.5.6.tgz#e9ea7357a26d51c126a1208a8b0e23e94fddb7ef"
-  integrity sha512-MPI6igWNx1TwD2Zihw3xnp3M22zIq9+3hh7yJKbQevWt8nCk+nXmqCaQLTiC+qUvgPQUQMkUq2aZ7j5gIrCMVA==
+  version "5.5.11"
+  resolved "https://registry.npmjs.org/ssr-core-vue3/-/ssr-core-vue3-5.5.11.tgz#eeebf792a2db6b4f3a368cc8adeb71e8c6d20ec3"
+  integrity sha512-uXcQ1S+PVCduOlj/kGeyMwvpXvujMEoqdCJpiZxNrfvjUs8HbtNGnFOg/daOxcsYRkkYFjANvEbJ/YTXiBJd5A==
   dependencies:
     "@babel/runtime" "^7.12.13"
     "@vue/server-renderer" "^3.0.7"
     merge-stream "^2.0.0"
     serialize-javascript "^3.0.0"
-    ssr-server-utils "^5.5.6"
+    ssr-server-utils "^5.5.11"
     vue "^3.0.0"
 
 ssr-plugin-midway@^5.0.0:
-  version "5.5.6"
-  resolved "https://registry.npmjs.org/ssr-plugin-midway/-/ssr-plugin-midway-5.5.6.tgz#9bf76f53e70389affef807952f9d0b680f114c8a"
-  integrity sha512-WqRNUc5ldstevLVcprL0x33MtcTrHS6Y70/C7LSpNp8AjGI8SHT3XRl41I0Wt4tX4mBjpCDEu5GVnKq4mLUN+Q==
+  version "5.5.11"
+  resolved "https://registry.npmjs.org/ssr-plugin-midway/-/ssr-plugin-midway-5.5.11.tgz#28957a6a16cb9cada4b4f3aafb7e99df849080b9"
+  integrity sha512-UkHKMHKlAPIIFQgIZrEvst2TF918wED7N97pbehqD5tFQvsD+hMyX8ZkeJaStlpJPsbhXM4TuamTXkHnMVCMRg==
   dependencies:
     "@midwayjs/cli" "^1.0.0"
     "@midwayjs/cli-plugin-faas" "^1.2.49"
@@ -14625,12 +14656,12 @@ ssr-plugin-midway@^5.0.0:
     "@midwayjs/web" "^2.3.0"
     "@types/node" "14"
     mwts "^1.0.5"
-    ssr-server-utils "^5.5.6"
+    ssr-server-utils "^5.5.11"
 
 ssr-plugin-vue3@^5.0.0:
-  version "5.5.10"
-  resolved "https://registry.npmjs.org/ssr-plugin-vue3/-/ssr-plugin-vue3-5.5.10.tgz#b508327b50dd36ac448792b542ddb9256d343f2b"
-  integrity sha512-brqfGcFGUlNhqRjW9uEgDtiIr+99wrA1n0q1ghbTMpqiHsleACHnH4NYKpoLhTNqOEtc319JEE1j87v5xkbKCA==
+  version "5.5.11"
+  resolved "https://registry.npmjs.org/ssr-plugin-vue3/-/ssr-plugin-vue3-5.5.11.tgz#c54da9b0727d1de8d9a7a1c3fd209adb543443df"
+  integrity sha512-4W0BByKU4STmaXF7AYYZFM6X2A+dWCNWcGryA74ymn9cEY+hT1+IGi4larqjKkfdFV3mcO8bN7d7Bgawp8+cSA==
   dependencies:
     "@babel/core" "^7.0.0"
     "@babel/plugin-transform-runtime" "^7.9.6"
@@ -14656,9 +14687,9 @@ ssr-plugin-vue3@^5.0.0:
     postcss-preset-env "^6.0.5"
     postcss-safe-parser "4.0.1"
     ssr-client-utils "^5.5.6"
-    ssr-server-utils "^5.5.6"
+    ssr-server-utils "^5.5.11"
     ssr-types "^5.5.6"
-    ssr-webpack "^5.5.6"
+    ssr-webpack "^5.5.11"
     terser-webpack-plugin "^2.3.5"
     url-loader "1.1.1"
     vue "^3.0.0"
@@ -14669,10 +14700,10 @@ ssr-plugin-vue3@^5.0.0:
     webpack-chain "^6.4.0"
     webpack-manifest-plugin "^2.2.0"
 
-ssr-server-utils@^5.5.6:
-  version "5.5.6"
-  resolved "https://registry.npmjs.org/ssr-server-utils/-/ssr-server-utils-5.5.6.tgz#2fef766a9055453666f2ddb69c242f44d8d7ddfe"
-  integrity sha512-ewIFyuj6XHDCE2vnAWrnTeej8R2s/Pm7blBFYWNPJupKjp4uukmKdSXC0KikUJp8T73k2o7/w5hxRmLDW0JzBg==
+ssr-server-utils@^5.5.11:
+  version "5.5.11"
+  resolved "https://registry.npmjs.org/ssr-server-utils/-/ssr-server-utils-5.5.11.tgz#7cd60587c58c7fcafb68b4f3d35be96e8a0f8784"
+  integrity sha512-KVXn9ZdAFNOqGYNMKh3q1xx40mYfGilqTE+6OsPQeSlj2lWaoRUcX+Hjdxn/BHuIHrQQkIJbgyH/w4bVmcFdeg==
   dependencies:
     debug "^4.1.1"
     http-proxy-middleware "^1.0.6"
@@ -14698,12 +14729,12 @@ ssr-types@^5.0.0, ssr-types@^5.5.6:
     "@types/yargs" "^13.0.4"
     egg "^2.0.0"
 
-ssr-webpack@^5.5.6:
-  version "5.5.6"
-  resolved "https://registry.npmjs.org/ssr-webpack/-/ssr-webpack-5.5.6.tgz#48964f73226de3171ce08743253c34098dca1faf"
-  integrity sha512-0pqz29IGQvwk/lcHPxy6SZ3xb81S2SC+rrdUr8du6AWAHOkN98dZQLp1n4Pf3hIj+ObYa1qxIAPf7kuXqNZ2sA==
+ssr-webpack@^5.5.11:
+  version "5.5.11"
+  resolved "https://registry.npmjs.org/ssr-webpack/-/ssr-webpack-5.5.11.tgz#13997c438c97f952e433100a63d3fea7b80dcd2c"
+  integrity sha512-9A1Qoh0pejxWkRCwK3d8Bd8unG4bRDE0gdn1WCySLPN439UEzJrpY8gE9y9MYeFjXrwvNrow7AqyrCZ46J3DDQ==
   dependencies:
-    ssr-server-utils "^5.5.6"
+    ssr-server-utils "^5.5.11"
     webpack "^4.42.1"
     webpack-dev-server-ssr "^3.10.3"
 
@@ -14713,12 +14744,12 @@ ssr-window@^3.0.0, ssr-window@^3.0.0-alpha.1:
   integrity sha512-q+8UfWDg9Itrg0yWK7oe5p/XRCJpJF9OBtXfOPgSJl+u3Xd5KI328RUEvUqSMVM9CiQUEf1QdBzJMkYGErj9QA==
 
 ssr@^5.0.0:
-  version "5.5.6"
-  resolved "https://registry.npmjs.org/ssr/-/ssr-5.5.6.tgz#84b254b089618137b32a9ef9b95cc4f384b33fa7"
-  integrity sha512-gzGWycKFQnCGz1j1+fUcterEbk9Neb/H0Of4pfCv9SAPQYU6CcUep8WsZ4k7hiRSx9IPjuhIfGtiAcHAJdx4cg==
+  version "5.5.11"
+  resolved "https://registry.npmjs.org/ssr/-/ssr-5.5.11.tgz#939b6e8c5c71c44e69f26e3ca18ca7e370ec1602"
+  integrity sha512-xAVODNy6pPoDHTuXKsGtLTckaP12A1SakjgnqP35xpI23aoxoPUsMM+0hy1Kczh7uwAYPno7yUh165sx2Kar5w==
   dependencies:
     ora "^4.0.4"
-    ssr-server-utils "^5.5.6"
+    ssr-server-utils "^5.5.11"
     ssr-types "^5.5.6"
     yargs "^13.2.4"
 

@@ -1,10 +1,9 @@
 <template>
   <div class="md-render">
-    {{ docsContent }}
-    <!-- <div class="md-render_content" v-html="html" />
+    <div class="md-render_content" v-html="html" />
     <div class="md-render_side">
       <SideMenu :list="sideMenuList" />
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -29,18 +28,20 @@ export default {
   },
   data () {
     return {
+      markdownStr: '',
       html: '',
       sideMenuList: []
     }
   },
   watch: {
-    docsContent () {
-      console.log('xxx', this.docsContent)
+    markdownStr () {
+      console.log('watch')
+      this.renderHtml()
     }
 
   },
   created () {
-    // this.renderHtml(this.docsContent)
+    this.markdownStr = this.docsContent
   },
 
   mounted () {
@@ -49,7 +50,7 @@ export default {
     }, 10)
   },
   methods: {
-    renderHtml (content) {
+    renderHtml () {
       const md = markdownIt({
         html: true,
         linkify: true,
@@ -63,7 +64,7 @@ export default {
         callback: (_, ast) => {
           this.sideMenuList = ast.c
         }
-      }).render(content)
+      }).render(this.docsContent)
       this.html = md
     }
   }
