@@ -13,13 +13,16 @@ const cwd = getCwd()
 const parseFeRoutes = async () => {
   // vue 场景也可能使用 tsx 文件，所以这里需要做判断
   const vueLayout = await accessFile(join(getFeDir(), './components/layout/index.vue'))
-  const vueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
+  const accessVueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
+  const accessReactApp = await accessFile(join(getFeDir(), './components/layout/App.tsx'))
   const layoutFetch = await accessFile(join(getFeDir(), './components/layout/fetch.ts'))
   const isVue = require(join(cwd, './package.json')).dependencies.vue
+
   if (!isVue && process.env.BUILD_TOOL === 'vite') {
     console.log('vite模式目前暂时只支持 vue,当前 --vite 指令无效请直接使用 ssr start, react 将会在下一个版本支持，敬请期待')
     return
   }
+
   const defaultLayout = `@/components/layout/index.${vueLayout ? 'vue' : 'tsx'}`
   if (!await accessFile(join(cwd, './node_modules/ssr-temporary-routes'))) {
     Shell.mkdir(join(cwd, './node_modules/ssr-temporary-routes'))
@@ -33,16 +36,23 @@ const parseFeRoutes = async () => {
     const route: ParseFeRouteItem = {
       layout: `require('${defaultLayout}').default`
     }
-    if (isVue) {
-      const defaultApp = `@/components/layout/App.${vueApp ? 'vue' : 'tsx'}`
+
+    if (isVue || accessReactApp) {
+      // Vue 场景所有版本都存在 App.vue 或者 App.tsx
+      // React 场景需要兼容之前版本可能不存在 App.tsx 的情况
+      // 优先判断有没有 App.vue
+      const defaultApp = `@/components/layout/App.${accessVueApp ? 'vue' : 'tsx'}`
       route.App = `require('${defaultApp}').default`
     }
+
     if (layoutFetch) {
       const layoutFetch = '@/components/layout/fetch.ts'
       route.layoutFetch = `require('${layoutFetch}').default`
     }
     const arr = await renderRoutes(pageDir, pathRecord, route)
-    debug('The result that parse web folder to routes is: ', arr)
+
+    debug('Before the result that parse web folder to routes is: ', arr)
+
     routes = `export default ${JSON.stringify(arr)
         .replace(/"layout":("(.+?)")/g, (global, m1, m2) => {
           return `"layout": ${m2.replace(/\^/g, '"')}`
@@ -103,6 +113,8 @@ const parseFeRoutes = async () => {
     routes = (await fs.readFile(join(getFeDir(), './route.ts'))).toString()
   }
 
+  debug('After the result that parse web folder to routes is: ', routes)
+
   await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
   await fs.copyFile(resolve(__dirname, '../src/packagejson.tpl'), resolve(cwd, './node_modules/ssr-temporary-routes/package.json'))
   if (process.env.TEST && process.env.BUILD_TOOL === 'vite') {
@@ -151,7 +163,6 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
       if (pageFiles.includes('fetch')) {
         route.fetch = `require('${aliasPath}/${pageFiles}').default`
       }
-      debug(`parse "${aliasPath.replace(cwd, '')}" to "${route.path}" \n`)
       if (dynamic) {
         let webpackChunkName = pathRecord.join('-')
         if (webpackChunkName.startsWith('-')) {

@@ -2,6 +2,7 @@
 import React, { useContext } from 'react'
 import serialize from 'serialize-javascript'
 import { LayoutProps } from 'ssr-types'
+import App from './App'
 import styles from './index.less'
 
 const Layout = (props: LayoutProps) => {
@@ -19,7 +20,7 @@ const Layout = (props: LayoutProps) => {
         { injectCss }
       </head>
       <body className={styles.body}>
-        <div id='app'>{ props.children }</div>
+        <div id="app"><App children={props.children} /></div>
         {
           state && <script dangerouslySetInnerHTML={{
             __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)}`

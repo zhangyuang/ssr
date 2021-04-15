@@ -16,6 +16,16 @@ export type FeRouteItem<T = {}, U={}> = {
   webpackChunkName?: string
 } & U
 
+export type ReactFeRouteItem<T = {}, U={}> = {
+  path: string
+  layout: React.FC<LayoutProps>
+  App?: React.FC<LayoutProps>
+  fetch?: Fetch
+  layoutFetch?: Fetch
+  component: FC<T>
+  webpackChunkName?: string
+} & U
+
 export type ESMFeRouteItem<T = {}, U={}> = {
   path: string
   layout: () => Promise<React.FC<LayoutProps>>

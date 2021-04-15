@@ -13,7 +13,7 @@ export interface LayoutProps {
   ctx?: ISSRContext
   fetchData?: any
   config?: IConfig
-  children?: React.ReactElement
+  children?: JSX.Element
   staticList?: StaticList
 }
 export interface StaticList {
