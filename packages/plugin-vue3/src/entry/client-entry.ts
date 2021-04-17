@@ -1,13 +1,29 @@
 import { h, createApp, reactive } from 'vue'
+import { Store } from 'vuex'
+import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { findRoute } from 'ssr-client-utils'
-import { ESMFeRouteItem } from 'ssr-types'
 import { createRouter } from './router'
 import { createStore } from './store'
+import { ESMFetch, IClientFeRouteItem, RoutesType } from './fetch-type'
 
 // @ts-expect-error
-import feRoutes from 'ssr-temporary-routes'
+import * as Routes from 'ssr-temporary-routes'
 
+const { FeRoutes, App, layoutFetch } = Routes as RoutesType
 declare const module: any
+
+async function getAsyncCombineData (fetch: ESMFetch, store: Store<any>, router: RouteLocationNormalizedLoaded) {
+  let layoutFetchData = {}
+  let fetchData = {}
+  if (layoutFetch) {
+    layoutFetchData = await layoutFetch({ store, router })
+  }
+  if (fetch) {
+    const fetchFn = await fetch()
+    fetchData = await fetchFn.default({ store, router })
+  }
+  return Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
+}
 
 const clientRender = async () => {
   const store = createStore()
@@ -16,15 +32,12 @@ const clientRender = async () => {
   if (window.__INITIAL_DATA__) {
     store.replaceState(window.__INITIAL_DATA__)
   }
-  const App = await feRoutes[0].App()
 
-  let layoutFetchData = {}
-  let fetchData = {}
   const asyncData = reactive({
     value: window.__INITIAL_DATA__ ?? {}
   })
   const app = createApp({
-    render: () => h(App.default, {
+    render: () => h(App, {
       asyncData
     })
   })
@@ -33,39 +46,19 @@ const clientRender = async () => {
   app.use(router)
 
   await router.isReady()
-
   router.beforeResolve(async (to, from, next) => {
     // 找到要进入的组件并提前执行 fetch 函数
-    const route = findRoute<ESMFeRouteItem>(feRoutes, to.path)
-    let layoutFetchData = {}
-    let fetchData = {}
-    if (route.layoutFetch) {
-      const fetchFn = await route.layoutFetch()
-      layoutFetchData = await fetchFn.default({ store, router: to })
-    }
-    if (route.fetch) {
-      const fetchFn = await route.fetch()
-      fetchData = await fetchFn.default({ store, router: to })
-    }
-    asyncData.value = Object.assign(asyncData.value, layoutFetchData ?? {}, fetchData ?? {})
-
+    const { fetch } = findRoute<IClientFeRouteItem>(FeRoutes, to.path)
+    const combineAysncData = await getAsyncCombineData(fetch, store, to)
+    asyncData.value = Object.assign(asyncData.value, combineAysncData)
     next()
   })
 
   if (!window.__USE_SSR__) {
     // 如果是 csr 模式 则需要客户端获取首页需要的数据
-    const route = findRoute<ESMFeRouteItem>(feRoutes, location.pathname)
-    const { fetch, layoutFetch } = route
-
-    if (layoutFetch) {
-      const fetchFn = await layoutFetch()
-      layoutFetchData = await fetchFn.default({ store, router: router.currentRoute.value })
-    }
-    if (fetch) {
-      const fetchFn = await fetch()
-      fetchData = await fetchFn.default({ store, router: router.currentRoute.value })
-    }
-    asyncData.value = Object.assign(asyncData.value, layoutFetchData ?? {}, fetchData ?? {})
+    const { fetch } = findRoute<IClientFeRouteItem>(FeRoutes, location.pathname)
+    const combineAysncData = await getAsyncCombineData(fetch, store, router.currentRoute.value)
+    asyncData.value = Object.assign(asyncData.value, combineAysncData)
   }
 
   window.__VUE_APP__ = app
