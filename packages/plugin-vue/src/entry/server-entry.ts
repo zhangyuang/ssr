@@ -1,14 +1,16 @@
 import { resolve } from 'path'
 import * as Vue from 'vue'
 import { findRoute, getManifest, logGreen, getCwd } from 'ssr-server-utils'
-import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
+import { ISSRContext, IConfig } from 'ssr-types'
 import { sync } from 'vuex-router-sync'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
-import feRoutes from 'ssr-temporary-routes'
-
+import * as Routes from 'ssr-temporary-routes'
+import { IServerFeRouteItem, RoutesType } from './fetch-type'
 import { createRouter } from './router'
 import { createStore } from './store'
+
+const { FeRoutes, App, layoutFetch, Layout } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
   const router = createRouter()
@@ -19,10 +21,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, chunkName } = config
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
 
-  const routeItem = findRoute<FeRouteItem<{}, {
-    App: Vue.Component
-    layout: Vue.Component
-  }>>(feRoutes, path)
+  const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
 
   let dynamicCssOrder = cssOrder
   if (dynamic) {
@@ -40,7 +39,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
   }
-  const { fetch, layout, App, layoutFetch } = routeItem
+  const { fetch } = routeItem
   // 根据 path 匹配 router-view 展示的组件
   router.push(path)
 
@@ -87,7 +86,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
         }
       })
       return h(
-        layout,
+        Layout,
         {
           props: {
             ctx,

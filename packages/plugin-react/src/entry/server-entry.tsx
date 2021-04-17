@@ -1,10 +1,12 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
-import { FeRouteItem, ISSRContext, IGlobal, IConfig } from 'ssr-types'
+import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactServerESMFeRouteItem } from 'ssr-types'
 // @ts-expect-error
-import feRoutes from 'ssr-temporary-routes'
+import * as Routes from 'ssr-temporary-routes'
 import { serverContext } from './create-context'
+
+const { FeRoutes, layoutFetch, Layout } = Routes as ReactRoutesType
 
 declare const global: IGlobal
 
@@ -13,7 +15,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
   const { window } = global
-  const routeItem = findRoute<FeRouteItem<any>>(feRoutes, path)
+  const routeItem = findRoute<ReactServerESMFeRouteItem>(FeRoutes, path)
 
   let dynamicCssOrder = cssOrder
 
@@ -42,12 +44,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   }
 
   const isCsr = !!((mode === 'csr' || ctx.request.query?.csr))
-  const Layout = routeItem.layout
   const Component = routeItem.component
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
   }
-  const layoutFetchData = (!isCsr && routeItem.layoutFetch) ? await routeItem.layoutFetch(ctx) : null
+  const layoutFetchData = (!isCsr && layoutFetch) ? await layoutFetch(ctx) : null
   const fetchData = (!isCsr && routeItem.fetch) ? await routeItem.fetch(ctx) : null
   const combineData = isCsr ? null : Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
   const Context = serverContext(combineData) // 服务端需要每个请求创建新的独立的 context

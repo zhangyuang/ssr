@@ -37,7 +37,7 @@ export interface IConfig {
   prefix?: string
   dynamic: boolean
   mode: string
-  webpackDevServerConfig: any
+  webpackDevServerConfig?: any
   stream: boolean
   customeHeadScript?: Array<{
     describe: object

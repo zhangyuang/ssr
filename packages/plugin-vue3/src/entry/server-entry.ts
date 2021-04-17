@@ -2,12 +2,15 @@ import { resolve } from 'path'
 import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
 import { findRoute, getManifest, logGreen, getCwd } from 'ssr-server-utils'
-import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
+import { ISSRContext, IConfig } from 'ssr-types'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
-import feRoutes from 'ssr-temporary-routes'
+import * as Routes from 'ssr-temporary-routes'
+import { IServerFeRouteItem, RoutesType } from './fetch-type'
 import { createRouter } from './router'
 import { createStore } from './store'
+
+const { FeRoutes, App, layoutFetch, Layout } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
@@ -16,10 +19,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, chunkName } = config
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
-  const routeItem = findRoute<FeRouteItem<{}, {
-    App: Vue.VNode
-    layout: Vue.Component
-  }>>(feRoutes, path)
+  const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
   const ViteMode = process.env.BUILD_TOOL === 'vite'
 
   let dynamicCssOrder = cssOrder
@@ -38,18 +38,20 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     logGreen(`Current path ${path} use csr render mode`)
   }
 
-  const { fetch, layout, App, layoutFetch } = routeItem
+  const { fetch } = routeItem
   router.push(path)
   await router.isReady()
+
   let layoutFetchData = {}
   let fetchData = {}
+
   if (!isCsr && layoutFetch) {
     // csr 下不需要服务端获取数据
-    layoutFetchData = await layoutFetch({ store, router: router.currentRoute }, ctx)
+    layoutFetchData = await layoutFetch({ store, router: router.currentRoute.value }, ctx)
   }
   if (!isCsr && fetch) {
     // csr 下不需要服务端获取数据
-    fetchData = await fetch({ store, router: router.currentRoute }, ctx)
+    fetchData = await fetch({ store, router: router.currentRoute.value }, ctx)
   }
 
   const asyncData = {
@@ -81,7 +83,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const app = createSSRApp({
     render: function () {
       return h(
-        layout,
+        Layout,
         { ctx, config },
         {
           remInitial: () => h('script', { innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }),
