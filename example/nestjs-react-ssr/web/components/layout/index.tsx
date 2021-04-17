@@ -16,6 +16,7 @@ const Layout = (props: LayoutProps) => {
         <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
         <meta name='theme-color' content='#000000' />
         <title>Serverless Side Render</title>
+        {props.viteReactScript}
         <script dangerouslySetInnerHTML={{ __html: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }} />
         { injectCss }
       </head>
@@ -23,7 +24,7 @@ const Layout = (props: LayoutProps) => {
         <div id="app"><App children={props.children} /></div>
         {
           state && <script dangerouslySetInnerHTML={{
-            __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)}`
+            __html: `${props.viteReactScript ? 'window.__USE_VITE__=true;' : ''} window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)}`
           }} />
         }
         { injectScript }

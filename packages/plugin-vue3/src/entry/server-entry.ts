@@ -6,7 +6,7 @@ import { ISSRContext, IConfig } from 'ssr-types'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from 'ssr-temporary-routes'
-import { IServerFeRouteItem, RoutesType } from './fetch-type'
+import { IServerFeRouteItem, RoutesType } from './interface'
 import { createRouter } from './router'
 import { createStore } from './store'
 
@@ -45,13 +45,14 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   let layoutFetchData = {}
   let fetchData = {}
 
-  if (!isCsr && layoutFetch) {
+  if (!isCsr) {
     // csr 下不需要服务端获取数据
-    layoutFetchData = await layoutFetch({ store, router: router.currentRoute.value }, ctx)
-  }
-  if (!isCsr && fetch) {
-    // csr 下不需要服务端获取数据
-    fetchData = await fetch({ store, router: router.currentRoute.value }, ctx)
+    if (layoutFetch) {
+      layoutFetchData = await layoutFetch({ store, router: router.currentRoute.value }, ctx)
+    }
+    if (fetch) {
+      fetchData = await fetch({ store, router: router.currentRoute.value }, ctx)
+    }
   }
 
   const asyncData = {
@@ -59,16 +60,25 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   const injectCss: Vue.VNode[] = []
-  dynamicCssOrder.forEach(css => {
-    if (manifest[css] || ViteMode) {
-      injectCss.push(
-        h('link', {
-          rel: 'stylesheet',
-          href: ViteMode ? `/server/static/css/${chunkName}.css` : manifest[css]
-        })
-      )
-    }
-  })
+  if (ViteMode) {
+    injectCss.push(
+      h('link', {
+        rel: 'stylesheet',
+        href: `/server/static/css/${chunkName}.css`
+      })
+    )
+  } else {
+    dynamicCssOrder.forEach(css => {
+      if (manifest[css]) {
+        injectCss.push(
+          h('link', {
+            rel: 'stylesheet',
+            href: manifest[css]
+          })
+        )
+      }
+    })
+  }
 
   const injectScript = ViteMode ? h('script', {
     type: 'module',

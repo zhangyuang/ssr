@@ -1,39 +1,61 @@
+import { resolve } from 'path'
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
-import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, getCwd } from 'ssr-server-utils'
 import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactServerESMFeRouteItem } from 'ssr-types'
 // @ts-expect-error
 import * as Routes from 'ssr-temporary-routes'
 import { serverContext } from './create-context'
+// @ts-expect-error
+import Layout from '@/components/layout/index.tsx'
 
-const { FeRoutes, layoutFetch, Layout } = Routes as ReactRoutesType
+const { FeRoutes, layoutFetch } = Routes as ReactRoutesType
 
 declare const global: IGlobal
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
-  const { cssOrder, jsOrder, dynamic, mode } = config
+  const { cssOrder, jsOrder, dynamic, mode, chunkName } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
   const { window } = global
   const routeItem = findRoute<ReactServerESMFeRouteItem>(FeRoutes, path)
+  const ViteMode = process.env.BUILD_TOOL === 'vite'
 
   let dynamicCssOrder = cssOrder
 
   if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
   }
-  const manifest = await getManifest()
+  const manifest = ViteMode ? {} : await getManifest()
 
   const injectCss: JSX.Element[] = []
-  dynamicCssOrder.forEach(css => {
-    if (manifest[css]) {
-      const item = manifest[css]
-      injectCss.push(<link rel='stylesheet' key={item} href={item} />)
-    }
-  })
 
-  const injectScript = jsOrder.map(js => manifest[js])
-    .map(item => <script key={item} src={item} />)
+  if (ViteMode) {
+    injectCss.push(<link rel='stylesheet' href={`/server/static/css/${chunkName}.css`} />)
+  } else {
+    dynamicCssOrder.forEach(css => {
+      if (manifest[css]) {
+        const item = manifest[css]
+        injectCss.push(<link rel='stylesheet' key={item} href={item} />)
+      }
+    })
+  }
+
+  let viteReactScript: boolean|JSX.Element[] = false
+  if (ViteMode) {
+    viteReactScript = []
+    viteReactScript.push(<script src="/@vite/client" type="module" key={'vite-client'}/>)
+    viteReactScript.push(<script key={'vite-react-refresh'} type="module" dangerouslySetInnerHTML={{
+      __html: ` import RefreshRuntime from "/@react-refresh"
+      RefreshRuntime.injectIntoGlobalHook(window)
+      window.$RefreshReg$ = () => {}
+      window.$RefreshSig$ = () => (type) => type
+      window.__vite_plugin_react_preamble_installed__ = true`
+    }} />)
+  }
+
+  const injectScript = ViteMode ? [<script type="module" src={resolve(getCwd(), '/node_modules/ssr-plugin-react/esm/entry/client-entry.js')} />]
+    : jsOrder.map(js => manifest[js]).map(item => <script key={item} src={item} />)
 
   const staticList = {
     injectCss,
@@ -57,7 +79,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   return (
     <StaticRouter>
       <Context.Provider value={{ state: combineData }}>
-        <Layout ctx={ctx} config={config} staticList={staticList}>
+        <Layout ctx={ctx} config={config} staticList={staticList} viteReactScript={viteReactScript}>
           {isCsr ? <></> : <Component />}
         </Layout>
       </Context.Provider>

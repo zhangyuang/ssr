@@ -3,18 +3,18 @@ import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { preloadComponent } from 'ssr-client-utils'
 import { wrapComponent } from 'ssr-hoc-react'
-import { IWindow, LayoutProps, ReactClientESMFeRouteItem, ReactRoutesType } from 'ssr-types'
+import { IWindow, LayoutProps, ReactClientESMFeRouteItem, ReactClientRoutesType } from 'ssr-types'
 // @ts-expect-error
 import * as Routes from 'ssr-temporary-routes'
 import { AppContext } from './context'
 
-const { FeRoutes, layoutFetch, App } = Routes as ReactRoutesType
+const { FeRoutes, layoutFetch, App } = Routes as ReactClientRoutesType
 
 declare const module: any
 declare const window: IWindow
 
 const clientRender = async (): Promise<void> => {
-  const IApp = App || function (props: LayoutProps) {
+  const IApp = App ?? function (props: LayoutProps) {
     return props.children!
   }
   // 客户端渲染||hydrate
@@ -41,8 +41,9 @@ const clientRender = async (): Promise<void> => {
       </AppContext>
     </BrowserRouter>
     , document.getElementById('app'))
-  if (process.env.NODE_ENV === 'development' && module.hot) {
-    module.hot.accept()
+
+  if (!window.__USE_VITE__) {
+    module?.hot?.accept?.() // webpack 场景下的 hmr
   }
 }
 

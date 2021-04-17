@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { PlayerDataNode } from '@/interface'
-import styles from './index.less'
+import styles from './index.module.less'
 
 interface Props {
   data: PlayerDataNode[]

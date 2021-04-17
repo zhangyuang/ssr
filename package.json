@@ -31,6 +31,7 @@
     "example:midway:react": "cd example/midway-react-ssr && npm start",
     "example:midway:vue3": "cd example/midway-vue3-ssr && npm start",
     "example:midway:vue3:vite": "cd example/midway-vue3-ssr && npx ssr start --vite --test",
+    "example:midway:react:vite": "cd example/midway-react-ssr && npx ssr start --vite --test",
     "example:nestjs:react": "cd example/nestjs-vue-ssr && npm start",
     "example:nestjs:vue": "cd example/nestjs-vue-ssr && npm start",
     "example:nestjs:vue3": "cd example/nestjs-vue3-ssr && npm start"

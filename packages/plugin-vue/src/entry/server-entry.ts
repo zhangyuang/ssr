@@ -6,7 +6,7 @@ import { sync } from 'vuex-router-sync'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from 'ssr-temporary-routes'
-import { IServerFeRouteItem, RoutesType } from './fetch-type'
+import { IServerFeRouteItem, RoutesType } from './interface'
 import { createRouter } from './router'
 import { createStore } from './store'
 
@@ -43,13 +43,14 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   // 根据 path 匹配 router-view 展示的组件
   router.push(path)
 
-  if (!isCsr && layoutFetch) {
+  if (!isCsr) {
     // csr 下不需要服务端获取数据
-    await layoutFetch({ store, router: router.currentRoute }, ctx)
-  }
-  if (!isCsr && fetch) {
-    // csr 下不需要服务端获取数据
-    await fetch({ store, router: router.currentRoute }, ctx)
+    if (layoutFetch) {
+      await layoutFetch({ store, router: router.currentRoute }, ctx)
+    }
+    if (fetch) {
+      await fetch({ store, router: router.currentRoute }, ctx)
+    }
   }
 
   // @ts-expect-error
@@ -58,16 +59,29 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
     store,
     render: function (h: Vue.CreateElement) {
       const injectCss: Vue.VNode[] = []
-      dynamicCssOrder.forEach(css => {
-        if (manifest[css] || ViteMode) {
-          injectCss.push(h('link', {
+      if (ViteMode) {
+        injectCss.push(
+          h('link', {
             attrs: {
               rel: 'stylesheet',
-              href: ViteMode ? `/server/static/css/${chunkName}.css` : manifest[css]
+              href: `/server/static/css/${chunkName}.css`
             }
-          }))
-        }
-      })
+          })
+        )
+      } else {
+        dynamicCssOrder.forEach(css => {
+          if (manifest[css]) {
+            injectCss.push(
+              h('link', {
+                attrs: {
+                  rel: 'stylesheet',
+                  href: manifest[css]
+                }
+              })
+            )
+          }
+        })
+      }
 
       const injectScript: Vue.VNode[] = ViteMode ? [h('script', {
         attrs: {

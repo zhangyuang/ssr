@@ -3,7 +3,7 @@ import Swiper from 'react-id-swiper'
 import { SProps } from 'ssr-types'
 import { ItemMapArr } from '@/interface'
 import 'swiper/css/swiper.css'
-import styles from './index.less'
+import styles from './index.module.less'
 
 interface Props extends SProps {
   data: ItemMapArr[]

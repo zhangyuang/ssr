@@ -12,8 +12,9 @@ const cwd = getCwd()
 
 const parseFeRoutes = async () => {
   const isVue = require(join(cwd, './package.json')).dependencies.vue
-  if (!isVue && process.env.BUILD_TOOL === 'vite') {
-    console.log('vite模式目前暂时只支持 vue,当前 --vite 指令无效请直接使用 ssr start, react 将会在下一个版本支持，敬请期待')
+  const viteMode = process.env.BUILD_TOOL === 'vite'
+  if (viteMode && !dynamic) {
+    console.log('vite模式禁止关闭 dynamic ')
     return
   }
 
@@ -58,26 +59,30 @@ const parseFeRoutes = async () => {
       })
     } else {
       // React 场景
-      const layoutPath = '@/components/layout/index.tsx'
       const accessReactApp = await accessFile(join(getFeDir(), './components/layout/App.tsx'))
       const layoutFetch = await accessFile(join(getFeDir(), './components/layout/fetch.ts'))
       const re = /"webpackChunkName":("(.+?)")/g
       routes = `
-        ${dynamic ? 'import loadable from "react-loadable"' : ''}
+        ${dynamic && !viteMode ? `
+        import React from "react"
+        import loadable from 'react-loadable' ` : ''}
         export const FeRoutes = ${JSON.stringify(arr)} 
-        export { default as Layout } from "${layoutPath}"
         ${accessReactApp ? 'export { default as App } from "@/components/layout/App.tsx"' : ''}
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
         `
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
         if (dynamic) {
-          return `"component":  __isBrowser__ ? loadable({
-            loader: () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}'),
-            loading: function Loading () {
-              return require('react').createElement('div')
-            }
-          }) : require('${m2.replace(/\^/g, '"')}').default`
+          if (viteMode) {
+            return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+          } else {
+            return `"component":  __isBrowser__ ? loadable({
+                  loader: () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}'),
+                  loading: function Loading () {
+                    return React.createElement('div')
+                  }
+                }) : require('${m2.replace(/\^/g, '"')}').default`
+          }
         } else {
           return `"component":  require('${m2.replace(/\^/g, '"')}').default`
         }
@@ -97,7 +102,7 @@ const parseFeRoutes = async () => {
 
   await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
   await fs.copyFile(resolve(__dirname, '../src/packagejson.tpl'), resolve(cwd, './node_modules/ssr-temporary-routes/package.json'))
-  if (process.env.TEST && process.env.BUILD_TOOL === 'vite') {
+  if (process.env.TEST && viteMode) {
     // 开发同学本地开发时 vite 场景将路由表写一份到 repo 下面而不是 example 下面，否则 client-entry 会找不到该文件
     Shell.rm('-rf', resolve(__dirname, '../../../node_modules/ssr-temporary-routes/'))
     Shell.cp('-r', resolve(cwd, './node_modules/ssr-temporary-routes/'), resolve(__dirname, '../../../node_modules/ssr-temporary-routes/'))

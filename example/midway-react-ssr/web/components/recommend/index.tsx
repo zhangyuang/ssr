@@ -1,6 +1,6 @@
 import React from 'react'
 import { RecommendDataNode } from '@/interface'
-import styles from './index.less'
+import styles from './index.module.less'
 
 interface Props {
   data: RecommendDataNode[]

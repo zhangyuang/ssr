@@ -7,6 +7,7 @@ export interface LayoutProps {
   config?: IConfig
   children?: JSX.Element
   staticList?: StaticList
+  viteReactScript?: JSX.Element[]
 }
 export interface StaticList {
   injectCss: JSX.Element[]
@@ -53,6 +54,12 @@ export interface ReactRoutesType {
   App?: React.FC
   layoutFetch: ReactFetch
   FeRoutes: ReactServerESMFeRouteItem[]
+}
+export interface ReactClientRoutesType {
+  Layout: React.FC<LayoutProps>
+  App?: React.FC
+  layoutFetch: ReactFetch
+  FeRoutes: ReactClientESMFeRouteItem[]
 }
 
 export type ESMFeRouteItem<T={}> = {
