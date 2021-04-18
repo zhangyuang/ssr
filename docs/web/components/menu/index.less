@@ -3,21 +3,19 @@
   font-size: 1rem;
   position: sticky;
   top: 96px;
+
+  a:hover,
+  a:focus,
+  a:active {
+      text-decoration: inherit;
+  }
 }
 
 .menu_flex{
   display: flex;
 }
 
-.menu_item_left{
-  width: 25px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.menu_top {
+.menu_content {
   padding-bottom: 8px;
 }
 
@@ -25,16 +23,26 @@
   padding-bottom: 8px;
 }
 
+
 .menu_arrow {
   width: 16px;
   height: 16px;
+  color: red;
 }
 
 .menu_item {
   padding-bottom: 8px;
 }
 
-.menu_item_text {
+.menu_text_left{
+  width: 25px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu_text_text {
   color: rgb(113, 128, 150);
   cursor: pointer;
 }

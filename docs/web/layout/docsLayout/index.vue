@@ -6,7 +6,7 @@
         <Menu :list="config" />
       </div>
       <div class="docs-layout_content_right">
-        <MarkdownRender ref="MarkdownRender" />
+        <MarkdownRender />
       </div>
     </div>
     <Footer />
