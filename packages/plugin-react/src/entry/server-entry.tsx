@@ -31,7 +31,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   const injectCss: JSX.Element[] = []
 
   if (ViteMode) {
-    injectCss.push(<link rel='stylesheet' href={`/server/static/css/${chunkName}.css`} />)
+    injectCss.push(<link rel='stylesheet' href={`/server/static/css/${chunkName}.css`} key="vite-head-css"/>)
   } else {
     dynamicCssOrder.forEach(css => {
       if (manifest[css]) {
@@ -44,8 +44,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   let viteReactScript: boolean|JSX.Element[] = false
   if (ViteMode) {
     viteReactScript = []
-    viteReactScript.push(<script src="/@vite/client" type="module" key={'vite-client'}/>)
-    viteReactScript.push(<script key={'vite-react-refresh'} type="module" dangerouslySetInnerHTML={{
+    viteReactScript.push(<script src="/@vite/client" type="module" key="vite-client"/>)
+    viteReactScript.push(<script key="vite-react-refresh" type="module" dangerouslySetInnerHTML={{
       __html: ` import RefreshRuntime from "/@react-refresh"
       RefreshRuntime.injectIntoGlobalHook(window)
       window.$RefreshReg$ = () => {}
@@ -54,7 +54,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     }} />)
   }
 
-  const injectScript = ViteMode ? [<script type="module" src={resolve(getCwd(), '/node_modules/ssr-plugin-react/esm/entry/client-entry.js')} />]
+  const injectScript = ViteMode ? [<script type="module" src={resolve(getCwd(), '/node_modules/ssr-plugin-react/esm/entry/client-entry.js')} key="vite-react-entry" />]
     : jsOrder.map(js => manifest[js]).map(item => <script key={item} src={item} />)
 
   const staticList = {
