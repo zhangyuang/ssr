@@ -78,5 +78,21 @@ export default defineComponent({
 <style lang="less">
 .hljs {
   border-radius: 5px;
+
+  code {
+    background-color: initial;
+  }
+}
+
+pre {
+  margin-bottom: 1.3rem;
+}
+
+code {
+  background-color: var(--drake-code-single-bg);
+  color: var(--drake-code-single);
+  padding: .25rem;
+  font-style: normal;
+  border-radius: .25rem;
 }
 </style>

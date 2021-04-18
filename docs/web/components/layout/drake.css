@@ -1,10 +1,10 @@
 :root {
-    --side-bar-bg-color: #fff;
-    --control-text-color: #777;
-    --active-file-border-color: var(--drake-accent);
-    --drake-accent: #e95f59;
-    --drake-highlight: #d63200;
-    --drake-text-color: #000000;
+    --drake-text-color: #2f495e;
+    --drake-text-highlight: rgb(0, 197, 142);
+    --drake-border-default: rgb(99, 179, 237);
+    --drake-border-bg-default: rgb(235,248,255);
+    --drake-code-single: rgba(245,101,101);
+    --drake-code-single-bg: #f7fafc;
 }
 
 @media print {
@@ -33,12 +33,6 @@
     a[href^="#"]:after,
     a[href^="javascript:"]:after {
         content: "";
-    }
-
-    pre,
-    blockquote {
-        border: 1px solid #999;
-        page-break-inside: avoid;
     }
 
     thead {
@@ -87,58 +81,46 @@ body {
     line-height: 1.85;
 }
 
-p,
-.splendor-p {
+p {
     font-size: 1rem;
     margin-bottom: 1.3rem;
 }
 
 h1,
-.splendor-h1,
 h2,
-.splendor-h2,
 h3,
-.splendor-h3,
-h4,
-.splendor-h4 {
+h4 {
     margin: 1.414rem 0 .5rem;
     font-weight: inherit;
     line-height: 1.42;
 }
 
-h1,
-.splendor-h1 {
+h1 {
     margin-top: 0;
     font-size: 2.4rem;
 }
 
-h2,
-.splendor-h2 {
+h2 {
     font-size: 2.1rem;
 }
 
-h3,
-.splendor-h3 {
+h3 {
     font-size: 1.7rem;
 }
 
-h4,
-.splendor-h4 {
+h4 {
     font-size: 1.4rem;
 }
 
-h5,
-.splendor-h5 {
+h5 {
     font-size: 1.1rem;
 }
 
-h6,
-.splendor-h6 {
+h6 {
     font-size: .88rem;
 }
 
-small,
-.splendor-small {
+small {
     font-size: .707em;
 }
 
@@ -161,7 +143,7 @@ html {
 }
 
 body {
-    color: #444;
+    color: var(--drake-text-color);
     /*font-family: Quicksand,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";*/
     margin: 0;
     max-width: 100%;
@@ -178,8 +160,8 @@ div img {
 blockquote {
     color: var(--drake-text-color);
     border-radius: 2px;
-    padding: 10px 16px;
-    background-color: #fdefee;
+    padding: 1rem;
+    background-color: var(--drake-border-bg-default);
     position: relative;
     border-left: none;
     margin-bottom: 10px;
@@ -194,9 +176,10 @@ blockquote:before {
     left: 0;
     top: 0;
     height: 100%;
-    background-color:var(--drake-accent);
+    background-color:var(--drake-border-default);
     border-radius: 2px;
 }
+
 blockquote > p {
     margin-bottom: 0;
 }
@@ -211,33 +194,21 @@ h1 {
     padding: 1rem 0 !important;
 }
 
-/*  === End gross hack */
-
 p {
-    color: #555;
+    color: var(--drake-text-color);
     height: auto;
     line-height: 1.45;
 }
 
-/*pre,*/
-/*code {*/
-/*    font-family: Menlo, Monaco, "Courier New", monospace;*/
-/*}*/
-
-/*pre {*/
-/*    background-color: #fafafa;*/
-/*    font-size: .8rem;*/
-/*    overflow-x: scroll;*/
-/*    padding: 1.125em;*/
-/*}*/
-
 a,
 a:visited {
-    color: #3498db;
+    color: var(--drake-text-highlight);
+    text-decoration: inherit;
 }
 
 a:hover,
 a:focus,
 a:active {
-    color: #2980b9;
+    color: var(--drake-text-highlight);
+    text-decoration: underline;
 }

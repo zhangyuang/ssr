@@ -2,7 +2,7 @@
   <nav class="slider">
     <div>
       <div v-for="(item,index) in dataList" :key="index" :class="[ item.relativeLevel === 0 ? 'slider_top' : 'slider_item' ]" :style="{'padding-left': `${item.relativeLevel * 10}px`}">
-        <a class="slider_item_text" :href="getHref(item)">{{ item.n }}</a>
+        <a class="slider_item_text" :href="`#${item.n}`">{{ item.n }}</a>
       </div>
     </div>
   </nav>
@@ -37,21 +37,18 @@ export default defineComponent({
     creatList (list) {
       const newList = flatArray(list, 'c')
       let maxLevel = 5
+      // 找到最深层级
       newList.forEach((item) => {
         if (item.l < maxLevel) {
           maxLevel = item.l
         }
       })
+      // 用最深层级计算出每个节点的相对层级
       newList.forEach((item) => {
         item.relativeLevel = item.l - maxLevel
         item.n = item.n.replace(/(^\s*)|(\s*$)/g, '')
       })
       this.dataList = newList
-    },
-    getHref (data) {
-      const location = window.location || ''
-      const href = (location?.href?.replace(location.origin, '').split('#')[0] || '/') + '#' + data.n
-      return href
     }
   }
 })
