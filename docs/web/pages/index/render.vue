@@ -5,10 +5,11 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
 import BaseLayout from '@/layout/baseLayout'
 
-export default {
+export default defineComponent({
   components: {
     BaseLayout
   },
@@ -21,7 +22,7 @@ export default {
       indexData: state => state.indexStore?.data
     })
   }
-}
+})
 </script>
 
 <style>

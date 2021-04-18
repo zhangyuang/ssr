@@ -22,10 +22,15 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 
-export default {
-  props: ['list', 'changeContent'],
-  emits: ['changeContent'],
+export default defineComponent({
+  props: {
+    list: {
+      type: Array,
+      required: true
+    }
+  },
   data () {
     return {}
   },
@@ -38,7 +43,7 @@ export default {
       })
     }
   }
-}
+})
 </script>
 
 <style lang="less" scoped>

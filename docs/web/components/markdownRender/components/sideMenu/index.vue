@@ -9,9 +9,10 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 import { flatArray } from '@/utils/flatArray'
 
-export default {
+export default defineComponent({
   props: {
     list: {
       type: Array,
@@ -53,7 +54,7 @@ export default {
       return href
     }
   }
-}
+})
 </script>
 
 <style lang="less" scoped>

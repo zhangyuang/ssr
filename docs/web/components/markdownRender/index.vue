@@ -8,21 +8,23 @@
 </template>
 
 <script lang="ts">
+import { defineComponent } from 'vue'
 import markdownIt from 'markdown-it'
 // import Darkmode from 'darkmode-js';
 import markdownItAnchor from 'markdown-it-anchor'
 import markdownItTocDoneRight from 'markdown-it-toc-done-right'
 import SideMenu from './components/sideMenu/index.vue'
-import prism from './themes/prism.js'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/atom-one-dark.css'
 
-export default {
+export default defineComponent({
   components: {
     SideMenu
   },
   inject: ['asyncData'],
   data () {
     return {
-      html: '',
+      html: '' as string,
       sideMenuList: []
     }
   },
@@ -37,32 +39,44 @@ export default {
   created () {
     this.renderHtml(this.asyncData.value.docsContent)
   },
-  mounted () {
-    prism.highlightAll()
-  },
   methods: {
     renderHtml (content) {
       const md = markdownIt({
         html: true,
         linkify: true,
-        typographer: true
-      }).use(markdownItAnchor, {
-        permalink: true,
-        permalinkBefore: true,
-        permalinkSymbol: '§',
+        typographer: true,
+        highlight: function (str, lang) {
+          if (lang && hljs.getLanguage(lang)) {
+            try {
+              return `<pre class="hljs"><code>${hljs.highlight(lang, str, true).value}</code></pre>`
+            } catch (__) {}
+          }
+          return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>'
+        }
+      })
+      md.use(markdownItAnchor, {
+        // permalink: true,
+        // permalinkBefore: true,
+        // permalinkSymbol: '§',
         slugify: (s) => s
-      }).use(markdownItTocDoneRight, {
+      })
+      md.use(markdownItTocDoneRight, {
         callback: (_, ast) => {
           this.sideMenuList = ast.c
         }
-      }).render(content)
-      this.html = md
+      })
+      this.html = md.render(content)
     }
   }
-}
+})
 </script>
 
 <style lang="less" scoped>
-@import './themes/prism.css';
 @import "./index.less";
+</style>
+
+<style lang="less">
+.hljs {
+  border-radius: 5px;
+}
 </style>

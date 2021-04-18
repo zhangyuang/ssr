@@ -5,8 +5,8 @@
 </template>
 
 <script lang="ts">
-
-export default {
+import { defineComponent } from 'vue'
+export default defineComponent({
   props: {},
   data () {
     return {
@@ -14,7 +14,7 @@ export default {
   },
   methods: {
   }
-}
+})
 </script>
 
 <style lang="less" scoped>
