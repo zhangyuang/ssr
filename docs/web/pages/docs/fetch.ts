@@ -1,7 +1,6 @@
 import { ISSRContext } from 'ssr-types'
 
 export default async ({ store, router }, ctx?: ISSRContext) => {
-  console.log('fetch')
   let data = ''
   let path
   if (__isBrowser__) {
