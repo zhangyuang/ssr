@@ -15,9 +15,8 @@ const setStyle = (isDev: boolean, chain: WebpackChain, reg: RegExp, options: Sty
   }
   if (isReact) {
     // @ts-expect-error
-    cssloaderOptions.getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
+    cssloaderOptions.localIdentName = '[name]__[local]___[hash:base64:5]'
   }
-
   Object.assign(cssloaderOptions, userCssloaderOptions)
 
   const postCssPlugins = css?.().loaderOptions?.postcss?.plugins ?? [] // 用户自定义 postcss 插件

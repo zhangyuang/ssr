@@ -4,7 +4,7 @@ import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { findRoute } from 'ssr-client-utils'
 import { createRouter } from './router'
 import { createStore } from './store'
-import { ESMFetch, IClientFeRouteItem, RoutesType } from './fetch-type'
+import { ESMFetch, IClientFeRouteItem, RoutesType } from './interface'
 
 // @ts-expect-error
 import * as Routes from 'ssr-temporary-routes'
@@ -12,7 +12,7 @@ import * as Routes from 'ssr-temporary-routes'
 const { FeRoutes, App, layoutFetch } = Routes as RoutesType
 declare const module: any
 
-async function getAsyncCombineData (fetch: ESMFetch, store: Store<any>, router: RouteLocationNormalizedLoaded) {
+async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<any>, router: RouteLocationNormalizedLoaded) {
   let layoutFetchData = {}
   let fetchData = {}
   if (layoutFetch) {

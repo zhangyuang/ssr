@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { IContext } from 'ssr-types'
 import { IData } from '@/interface'
-import styles from './index.less'
+import styles from './index.module.less'
 
 interface SearchState extends IData {
   search?: {

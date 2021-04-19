@@ -18,6 +18,7 @@ export interface IWindow extends Window {
   __USE_SSR__?: boolean
   __INITIAL_DATA__?: any
   STORE_CONTEXT?: any
+  __USE_VITE__?: boolean
 }
 
 export interface IGlobal extends NodeJS.Global {

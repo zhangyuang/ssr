@@ -485,14 +485,14 @@ export default {
 
 ### 使用Vite作为构建工具
 
-在 [ssr-plugin-vue3](https://github.com/ykfe/ssr/tree/dev/packages/plugin-vue3) [ssr-plugin-vue](https://github.com/ykfe/ssr/tree/dev/packages/plugin-vue) 中我们将 Vite 作为一个可选配置，底层已做兼容，但默认不会安装 Vite 相关依赖。我们建议你阅读该[文章](https://zhuanlan.zhihu.com/p/362500516)以获得更加详细的了解避免出错, 具体使用方式如下
+在 React/Vue2/Vue3 中我们都已接入 `Vite` 并且 将 `Vite` 作为一个可选配置，底层已做兼容，但默认不会安装 Vite 相关依赖。我们建议你阅读该[文章](https://zhuanlan.zhihu.com/p/362500516)以获得更加详细的了解避免出错, 具体使用方式如下
 
 ```bash
 $ npm init ssr-app my-ssr-project --template=midway-vue3-ssr # 创建 Vue3 SSR 应用，同时支持 Serverless 形式一键发布或以传统 Node.js 应用的形式部署
 $ cd my-ssr-project && npm i && npm i vite @vitejs/plugin-vue --save-dev # 根据实际技术栈安装需要的插件 例如 vue2 场景安装 vite-plugin-vue2
 $ npx ssr start --vite # 建议在 package.json 中添加 "start:vite": "ssr start --vite"
 ```
-即可使用 Vite 作为构建工具接管客户端文件，提升启动速度和 HMR 速度。目前当前版本只在 Vue2/Vue3 场景开启该功能，React 的支持将会在下一个版本实现
+即可使用 Vite 作为构建工具接管客户端文件，提升启动速度和 HMR 速度。
 #### 老应用迁移
 
 之前创建的模板应用只需以下三步便可接入 Vite

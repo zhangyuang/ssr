@@ -9,16 +9,16 @@ export type ESMFetch = () => Promise<{
 }>
 
 export type IClientFeRouteItem = ESMFeRouteItem<{
-  fetch: ESMFetch
+  fetch?: ESMFetch
 }>
 
 export type IServerFeRouteItem = ESMFeRouteItem<{
-  fetch: Fetch
+  fetch?: Fetch
 }>
 
 export interface RoutesType {
   Layout: Component
   App: Component
-  layoutFetch: (params: {store: Store<any>, router: Route}, ctx?: ISSRContext) => Promise<any>
+  layoutFetch?: (params: {store: Store<any>, router: Route}, ctx?: ISSRContext) => Promise<any>
   FeRoutes: IClientFeRouteItem[]
 }
