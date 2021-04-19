@@ -7,6 +7,13 @@
     --drake-code-single-bg: #f7fafc;
 }
 
+@font-face {
+    font-family: Inter;
+    src: url('/fonts/Inter-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
 @media print {
     *,
     *:before,
@@ -78,7 +85,7 @@ html {
 }
 
 body {
-    line-height: 1.85;
+    line-height: 1.7;
 }
 
 p {
@@ -92,7 +99,7 @@ h3,
 h4 {
     margin: 1.414rem 0 .5rem;
     font-weight: inherit;
-    line-height: 1.42;
+    line-height: 1.7;
 }
 
 h1 {
@@ -144,7 +151,9 @@ html {
 
 body {
     color: var(--drake-text-color);
-    /*font-family: Quicksand,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";*/
+    font-family: Inter;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.3;
     margin: 0;
     max-width: 100%;
 }
@@ -152,7 +161,6 @@ body {
 /* === A bit of a gross hack so we can have bleeding divs/blockquotes. */
 
 p,
-
 div img {
     width: 100%;
 }
@@ -194,10 +202,10 @@ h1 {
     padding: 1rem 0 !important;
 }
 
-p {
+ol p ul {
     color: var(--drake-text-color);
     height: auto;
-    line-height: 1.45;
+    line-height: 1.7;
 }
 
 a,
