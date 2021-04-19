@@ -14,6 +14,13 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: Inter;
+    src: url('/fonts/Inter-Bold.ttf');
+    font-weight: 500;
+    font-style: normal;
+}
+
 @media print {
     *,
     *:before,
@@ -219,4 +226,19 @@ a:focus,
 a:active {
     color: var(--drake-text-highlight);
     text-decoration: underline;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+thead {
+    background-color: rgb(246, 248, 250);
+}
+
+td, th {
+    padding: 0;
+    border: 1px solid #dfe2e5;
+    padding: 10px;
 }
