@@ -7,6 +7,7 @@
     "@midwayjs/web": "^2.3.0",
     "egg": "^2.0.0",
     "egg-scripts": "^2.10.0",
+    "highlight.js": "^10.7.2",
     "markdown-it": "^12.0.4",
     "markdown-it-anchor": "^7.1.0",
     "markdown-it-toc-done-right": "^4.2.0",
@@ -24,7 +25,6 @@
     "cross-env": "^7.0.3",
     "darkmode-js": "^1.5.7",
     "eslint-config-standard-vue-ts": "^1.0.12",
-    "highlight.js": "^10.7.2",
     "raw-loader": "^4.0.2",
     "ssr": "^5.0.0",
     "ssr-plugin-midway": "^5.0.0",
@@ -36,7 +36,6 @@
     "prod": "ssr build && egg-scripts start --daemon --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
     "stop": "egg-scripts stop --title=midway-server-my_midway_project",
     "start": "ssr start",
-    "start:vite": "ssr start --vite",
     "build": "ssr build",
     "deploy": "ssr build && ssr deploy",
     "deploy:tencent": "ssr build && ssr deploy --tencent"
