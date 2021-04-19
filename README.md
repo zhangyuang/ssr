@@ -495,11 +495,25 @@ $ npx ssr start --vite # 建议在 package.json 中添加 "start:vite": "ssr sta
 即可使用 Vite 作为构建工具接管客户端文件，提升启动速度和 HMR 速度。
 #### 老应用迁移
 
+分为 React 应用和 Vue 应用有不同的迁移步骤
+##### Vue 应用迁移
+
 之前创建的模板应用只需以下三步便可接入 Vite
 
-- 安装最新版本的依赖 version >= 5.5.1
+- 安装最新版本的插件依赖 version >= 5.5.1
 - layout/index.vue 中添加 `<slot name="viteClient" />` 参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-vue3-ssr/web/components/layout/index.vue)
 - 服务端应用启动时中间件初始化改为 `async await` 形式, 参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-vue3-ssr/src/app.ts#L11)
+
+##### React 应用迁移
+
+之前创建的模板应用只需以下四步便可接入 Vite
+
+- 安装最新版本的插件依赖 version >= 5.5.16
+- layout/index.tsx 中添加 `{props.viteReactScript}` 相关代码,参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-react-ssr/web/components/layout/index.tsx#L27)
+- 服务端应用启动时中间件初始化改为 `async await` 形式, 参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-react-ssr/src/app.ts#L11)
+- 修改 CSS 文件名后缀，由于本框架默认为所有类型的样式文件都使用 `css modules`，而 `Vite` 只会对 `.module.css` 结尾的文件使用 `css modules`， 为了保证样式正确展示，我们需要将原模版的 less 文件后缀名都改为 `.module.less` 引入。参考最新的[模版文件](https://github.com/ykfe/ssr/tree/dev/example/midway-react-ssr/web)代码。
+
+`注: 切记，我们只会在本地开发阶段使用 Vite，生产环境仍然用 Webpack 进行构建。所以请不要依赖只能够在 Vite 场景生效的 vite.config.js 配置。建议只使用默认生成的 config 文件具备的功能来保持本地开发与生产环境行为一致`
 
 ### 应用类型
 
