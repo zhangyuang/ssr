@@ -87,3 +87,5 @@ packages/**/README.md
 **/vite.config.js
 
 example/**/f.yml
+
+**/run
