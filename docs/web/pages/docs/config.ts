@@ -1,7 +1,7 @@
 export default [
   {
-    title: 'Getting Started',
-    path: 'getting-started'
+    title: '为什么要选择 SSR',
+    path: 'why'
   },
   {
     title: 'Basic Features',

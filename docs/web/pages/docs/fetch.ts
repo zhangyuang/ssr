@@ -1,11 +1,12 @@
 import { ISSRContext } from 'ssr-types'
 
 export default async ({ store, router }, ctx?: ISSRContext) => {
-  let data
+  console.log('fetch')
+  let data = ''
   let path
   if (__isBrowser__) {
     path = router.path.replace(/\$/g, '/').replace('/docs/', '')
-    data = (await import(`@/markdown/${path}.md`)).default
+    data = (await import(`../../markdown/${path}.md`)).default
   } else {
     path = ctx?.params.page.replace(/\$/g, '/')
     // eslint-disable-next-line

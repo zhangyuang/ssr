@@ -56,6 +56,10 @@ export default defineComponent({
           return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>'
         }
       })
+      md.enable(['link'])
+        .enable('image')
+        .enable('table')
+
       md.use(markdownItAnchor, {
         // permalink: true,
         // permalinkBefore: true,
