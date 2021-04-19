@@ -24,5 +24,5 @@
 
 <style lang="less">
 @import './index.less';
-@import './drake.css';
+@import './drake.less';
 </style>
