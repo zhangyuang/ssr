@@ -1,4 +1,18 @@
-import { LayoutProps, FC, Fetch } from './fc'
+import { RouteComponentProps } from 'react-router-dom'
+import { ISSRContext } from './ctx'
+import { IConfig } from './config'
+
+export interface LayoutProps {
+  ctx?: ISSRContext
+  config?: IConfig
+  children?: JSX.Element
+  staticList?: StaticList
+  viteReactScript?: JSX.Element[]
+}
+export interface StaticList {
+  injectCss: JSX.Element[]
+  injectScript: JSX.Element[]
+}
 
 export interface ProvisionalFeRouteItem {
   path?: string
@@ -7,34 +21,55 @@ export interface ProvisionalFeRouteItem {
   component?: string
 }
 
-export type FeRouteItem<T = {}, U={}> = {
+export type ReactFetch = (params: ISSRContext | RouteComponentProps) => Promise<any>
+
+export type ReactESMFetch = () => Promise<{
+  default: ReactFetch
+}>
+
+export type ESMLayout = () => Promise<React.FC<LayoutProps>>
+
+export interface FC<T={}> extends React.FC<T> {
+  fetch?: ReactESMFetch
+  layoutFetch?: ReactFetch
+  preload?: () => Promise<FC>
+}
+
+export type ReactServerESMFeRouteItem<T = {}, U={}> = {
   path: string
-  layout: React.FC<LayoutProps>
-  fetch?: Fetch
+  fetch?: ReactFetch
   component: FC<T>
-  webpackChunkName?: string
+  webpackChunkName: string
 } & U
 
-export type ESMFeRouteItem<T = {}, U={}> = {
+export type ReactClientESMFeRouteItem<T = {}, U={}> = {
   path: string
-  layout: () => Promise<React.FC<LayoutProps>>
-  fetch?: () => Promise<{
-    default: Fetch
-  }>
+  fetch?: ReactESMFetch
   component: FC<T>
-  webpackChunkName?: string
+  webpackChunkName: string
 } & U
+
+export interface ReactRoutesType {
+  Layout: React.FC<LayoutProps>
+  App?: React.FC
+  layoutFetch: ReactFetch
+  FeRoutes: ReactServerESMFeRouteItem[]
+}
+export interface ReactClientRoutesType {
+  Layout: React.FC<LayoutProps>
+  App?: React.FC
+  layoutFetch: ReactFetch
+  FeRoutes: ReactClientESMFeRouteItem[]
+}
+
+export type ESMFeRouteItem<T={}> = {
+  path: string
+  webpackChunkName: string
+} & T
 
 export interface ParseFeRouteItem {
   path?: string
-  layout?: string
-  App?: string
   fetch?: string
   component?: string
   webpackChunkName?: string
-}
-export interface FaasRouteItem {
-  path: string
-  mode: string
-  funcName: string
 }

@@ -1,5 +1,5 @@
 {
-  "name": "nestjs-react-ssr",
+  "name": "nestjs-vue3-ssr",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -33,7 +33,7 @@
     "start": "ssr start",
     "start:vite": "ssr start --vite",
     "build": "ssr build",
-    "lint": "eslint . --ext .js,.tsx,.ts --cache",
-    "lint:fix": "eslint . --ext .js,.tsx,.ts --cache --fix"
+    "lint": "eslint . --ext .js,.tsx,.ts,.vue --cache",
+    "lint:fix": "eslint . --ext .js,.tsx,.ts,.vue --cache --fix"
   }
 }

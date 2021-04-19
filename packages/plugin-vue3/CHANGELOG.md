@@ -3,6 +3,123 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.15](https://github.com/ykfe/ssr/compare/v5.5.14...v5.5.15) (2021-04-19)
+
+
+### Features
+
+* react vite ([#52](https://github.com/ykfe/ssr/issues/52)) ([d8290a0](https://github.com/ykfe/ssr/commit/d8290a0677081d0677774dec981deae39ab75d58))
+
+
+
+
+
+## [5.5.14](https://github.com/ykfe/ssr/compare/v5.5.13...v5.5.14) (2021-04-17)
+
+
+### Features
+
+* update parseFeRoutes ([#51](https://github.com/ykfe/ssr/issues/51)) ([915e4cc](https://github.com/ykfe/ssr/commit/915e4cca22d0450b551fa6874c2b466648638374))
+
+
+
+
+
+## [5.5.13](https://github.com/ykfe/ssr/compare/v5.5.12...v5.5.13) (2021-04-15)
+
+**Note:** Version bump only for package ssr-plugin-vue3
+
+
+
+
+
+## [5.5.12](https://github.com/ykfe/ssr/compare/v5.5.11...v5.5.12) (2021-04-14)
+
+
+### Bug Fixes
+
+* client-entry asyncData reactive ([14e96d4](https://github.com/ykfe/ssr/commit/14e96d4b75e8cc8172f9147b3665f8a04daf5ef8))
+
+
+
+
+
+## [5.5.11](https://github.com/ykfe/ssr/compare/v5.5.10...v5.5.11) (2021-04-14)
+
+**Note:** Version bump only for package ssr-plugin-vue3
+
+
+
+
+
+## [5.5.10](https://github.com/ykfe/ssr/compare/v5.5.9...v5.5.10) (2021-04-12)
+
+
+### Bug Fixes
+
+* server-entry async.value ([6eea413](https://github.com/ykfe/ssr/commit/6eea4130d3b47fdc6d9d7626a5022c334820596e))
+
+
+
+
+
+## [5.5.9](https://github.com/ykfe/ssr/compare/v5.5.8...v5.5.9) (2021-04-12)
+
+
+### Bug Fixes
+
+* router ready before router.beforeResolve ([e331a97](https://github.com/ykfe/ssr/commit/e331a97f6efe05c0b564102004e39db2fbccb65c))
+
+
+
+
+
+## [5.5.8](https://github.com/ykfe/ssr/compare/v5.5.7...v5.5.8) (2021-04-12)
+
+
+### Features
+
+* vue3 support provide/inject ([af24969](https://github.com/ykfe/ssr/commit/af249691090d94a5f7871926d999a5706dfe647a))
+
+
+
+
+
+## [5.5.7](https://github.com/ykfe/ssr/compare/v5.5.6...v5.5.7) (2021-04-11)
+
+
+### Bug Fixes
+
+* vue file support ts ([d6a3e71](https://github.com/ykfe/ssr/commit/d6a3e71910f440ffe0040b7b8729c1a8962427e2))
+
+
+
+
+
+## [5.5.6](https://github.com/ykfe/ssr/compare/v5.5.5...v5.5.6) (2021-04-09)
+
+**Note:** Version bump only for package ssr-plugin-vue3
+
+
+
+
+
+## [5.5.4](https://github.com/ykfe/ssr/compare/v5.5.2...v5.5.4) (2021-04-06)
+
+**Note:** Version bump only for package ssr-plugin-vue3
+
+
+
+
+
+## [5.5.3](https://github.com/ykfe/ssr/compare/v5.5.2...v5.5.3) (2021-04-06)
+
+**Note:** Version bump only for package ssr-plugin-vue3
+
+
+
+
+
 ## [5.5.2](https://github.com/ykfe/ssr/compare/v5.5.1...v5.5.2) (2021-04-05)
 
 **Note:** Version bump only for package ssr-plugin-vue3

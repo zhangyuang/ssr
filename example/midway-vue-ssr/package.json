@@ -1,5 +1,5 @@
 {
-  "name": "midway-react-ssr",
+  "name": "midway-vue-ssr",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -28,11 +28,12 @@
     "prod": "ssr build && egg-scripts start --daemon --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
     "stop": "egg-scripts stop --title=midway-server-my_midway_project",
     "start": "ssr start",
+    "start:vite": "ssr start --vite",
     "build": "ssr build",
     "deploy": "ssr build && ssr deploy",
     "deploy:tencent": "ssr build && ssr deploy --tencent",
-    "lint": "eslint . --ext .js,.tsx,.ts --cache",
-    "lint:fix": "eslint . --ext .js,.tsx,.ts --cache --fix"
+    "lint": "eslint . --ext .js,.tsx,.ts,.vue --cache",
+    "lint:fix": "eslint . --ext .js,.tsx,.ts,.vue --cache --fix"
   },
   "midway-integration": {
     "tsCodeRoot": "src"

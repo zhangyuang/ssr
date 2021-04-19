@@ -1,33 +1,34 @@
+import { resolve } from 'path'
 import * as Vue from 'vue'
-import { findRoute, getManifest, logGreen } from 'ssr-server-utils'
-import { FeRouteItem, ISSRContext, IConfig } from 'ssr-types'
+import { findRoute, getManifest, logGreen, getCwd } from 'ssr-server-utils'
+import { ISSRContext, IConfig } from 'ssr-types'
 import { sync } from 'vuex-router-sync'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
-import feRoutes from 'ssr-temporary-routes'
-
+import * as Routes from 'ssr-temporary-routes'
+import { IServerFeRouteItem, RoutesType } from './interface'
 import { createRouter } from './router'
 import { createStore } from './store'
+
+const { FeRoutes, App, layoutFetch, Layout } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
   const router = createRouter()
   const store = createStore()
+  const ViteMode = process.env.BUILD_TOOL === 'vite'
   sync(store, router)
 
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, chunkName } = config
   const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
 
-  const routeItem = findRoute<FeRouteItem<{}, {
-    App: Vue.Component
-    layout: Vue.Component
-  }>>(feRoutes, path)
+  const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
 
   let dynamicCssOrder = cssOrder
   if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
   }
 
-  const manifest = await getManifest()
+  const manifest = ViteMode ? {} : await getManifest()
 
   if (!routeItem) {
     throw new Error(`With request url ${path} Component is Not Found`)
@@ -38,40 +39,68 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
   }
-  const { fetch, layout, App } = routeItem
+  const { fetch } = routeItem
   // 根据 path 匹配 router-view 展示的组件
   router.push(path)
 
-  if (!isCsr && fetch) {
+  if (!isCsr) {
     // csr 下不需要服务端获取数据
-    await fetch({ store, router: router.currentRoute }, ctx)
+    if (layoutFetch) {
+      await layoutFetch({ store, router: router.currentRoute }, ctx)
+    }
+    if (fetch) {
+      await fetch({ store, router: router.currentRoute }, ctx)
+    }
   }
+
   // @ts-expect-error
   const app = new Vue({
     router,
     store,
     render: function (h: Vue.CreateElement) {
       const injectCss: Vue.VNode[] = []
-      dynamicCssOrder.forEach(css => {
-        if (manifest[css]) {
-          injectCss.push(h('link', {
+      if (ViteMode) {
+        injectCss.push(
+          h('link', {
             attrs: {
               rel: 'stylesheet',
-              href: manifest[css]
+              href: `/server/static/css/${chunkName}.css`
             }
-          }))
-        }
-      })
-
-      const injectScript = jsOrder.map(js => (
-        h('script', {
-          attrs: {
-            src: manifest[js]
+          })
+        )
+      } else {
+        dynamicCssOrder.forEach(css => {
+          if (manifest[css]) {
+            injectCss.push(
+              h('link', {
+                attrs: {
+                  rel: 'stylesheet',
+                  href: manifest[css]
+                }
+              })
+            )
           }
         })
-      ))
+      }
+
+      const injectScript: Vue.VNode[] = ViteMode ? [h('script', {
+        attrs: {
+          type: 'module',
+          src: resolve(getCwd(), '/node_modules/ssr-plugin-vue/esm/entry/client-entry.js')
+        }
+      })] : jsOrder.map(js => h('script', {
+        attrs: {
+          src: manifest[js]
+        }
+      }))
+      const viteClient = h('script', {
+        attrs: {
+          type: 'module',
+          src: '/@vite/client'
+        }
+      })
       return h(
-        layout,
+        Layout,
         {
           props: {
             ctx,
@@ -86,6 +115,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
             ])
           ]),
+          ViteMode && h('template', {
+            slot: 'viteClient'
+          }, [viteClient]),
+
           h('template', {
             slot: 'customeHeadScript'
           }, customeHeadScript?.map(item => h('script', Object.assign({}, item.describe, {
@@ -93,6 +126,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               innerHTML: item.content
             }
           })))),
+
           h('template', {
             slot: 'children'
           }, [
@@ -103,18 +137,25 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               }
             }) : h(App)
           ]),
-          !isCsr && h('template', {
+
+          h('template', {
             slot: 'initialData'
           }, [
-            h('script', {
+            isCsr ? h('script', {
               domProps: {
-                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(store.state)}`
+                innerHTML: `window.__USE_VITE__=${ViteMode}`
+              }
+            }) : h('script', {
+              domProps: {
+                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(store.state)};window.__USE_VITE__=${ViteMode}`
               }
             })
           ]),
+
           h('template', {
             slot: 'cssInject'
           }, injectCss),
+
           h('template', {
             slot: 'jsInject'
           }, injectScript)

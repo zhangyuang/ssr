@@ -27,9 +27,11 @@
     "publish": "lerna version --conventional-commits",
     "e2e": "cypress run --browser chrome",
     "example:midway:vue": "cd example/midway-vue-ssr && npm start",
+    "example:midway:vue:vite": "cd example/midway-vue-ssr && npx ssr start --vite --test",
     "example:midway:react": "cd example/midway-react-ssr && npm start",
     "example:midway:vue3": "cd example/midway-vue3-ssr && npm start",
     "example:midway:vue3:vite": "cd example/midway-vue3-ssr && npx ssr start --vite --test",
+    "example:midway:react:vite": "cd example/midway-react-ssr && npx ssr start --vite --test",
     "example:nestjs:react": "cd example/nestjs-vue-ssr && npm start",
     "example:nestjs:vue": "cd example/nestjs-vue-ssr && npm start",
     "example:nestjs:vue3": "cd example/nestjs-vue3-ssr && npm start"
@@ -64,6 +66,7 @@
     "ts-jest": "^24.0.2",
     "tsc-transpile-only": "^0.0.3",
     "typescript": "^3.9.0",
-    "vite": "^2.1.5"
+    "vite": "^2.1.5",
+    "vite-plugin-vue2": "^1.4.3"
   }
 }

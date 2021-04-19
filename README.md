@@ -3,6 +3,7 @@
   <img src="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg" width="300" />
 </div>
 <br />
+
 <div align="center">
   <strong>A most advanced ssr framework on Earth that implemented serverless-side render specification for faas and traditional web server.</strong>
 </div>
@@ -10,7 +11,7 @@
 <div align="center">
 <a href="https://github.com/ykfe/ssr/actions" target="_blank"><img src="https://github.com/ykfe/ssr/workflows/CI/badge.svg" alt="githubActions"></a>
 <a href="https://www.cypress.io/" target="_blank"><img src="https://img.shields.io/badge/cypress-dashboard-brightgreen.svg" alt="cypress"></a>
-<a href="https://npmcharts.com/compare/ssr-server-utils" target="_blank"><img src="https://img.shields.io/npm/dt/ssr-server-utils" alt="download"></a>
+<a href="https://npmcharts.com/compare/ssr" target="_blank"><img src="https://img.shields.io/npm/dt/ssr" alt="download"></a>
 <a href="https://standardjs.com" target="_blank"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="standardjs"></a>
 <a href="https://github.com/ykfe/ssr" target="_blank"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 <a href="https://github.com/ykfe/ssr" target="_blank"><img src="https://img.shields.io/badge/node-%3E=12-green.svg" alt="Node"></a>
@@ -98,9 +99,10 @@
 | 支持使用 less 作为 css 预处理器                                                | 🚀   |
 | 实现 React/Vue SSR 场景下的[优秀代码分割方案](https://zhuanlan.zhihu.com/p/343743374) 首屏性能做到极致                  |    🚀  |
 | React 场景下使用 useContext + useReducer 实现极简的[数据管理](#React跨组件通信)方案，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
+| Vue3 场景提供 [Provide/Inject](#provideinject代替vuex) 代替 Vuex 进行跨组件通信                     |    🚀  |
 | 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
 | ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
-| ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                                |    
+| ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                                |
 
 ## 方案对比
 
@@ -186,7 +188,7 @@ $ npm init ssr-app my-ssr-project --template=nestjs-vue-ssr # 创建 Vue2 SSR �
 $ npm init ssr-app my-ssr-project --template=nestjs-vue3-ssr # 创建 Vue3 SSR 应用，基于 Nestjs Node.js 框架提供的能力以传统 Node.js 应用的形式部署
 ```
 
-注：当 Node.js version >=15 时，应使用 `npm init ssr-app my-ssr-project -- --template=midway-react-ssr ` 来传递参数
+注：当 Node.js version >=15 / npm version >= 7 时，应使用 `npm init ssr-app my-ssr-project -- --template=midway-react-ssr ` 来传递参数
 
 ### 本地开发
 
@@ -402,7 +404,7 @@ module.exports = {
 - 样式处理: less + vue scoped
 - UI 组件: 默认已对 vant 的使用做打包配置无需额外配置
 - 前端路由: 约定式路由/声明式路由
-- 数据管理: vuex
+- 数据管理: Vuex/[Provide/Inject](#provideinject代替vuex)
 
 ##### Vue3 + TSX(可选)
 
@@ -483,28 +485,41 @@ export default {
 
 ### 使用Vite作为构建工具
 
-在 [ssr-plugin-vue3](https://github.com/ykfe/ssr/tree/dev/packages/plugin-vue3) 中我们将 Vite 作为一个可选配置，底层已做兼容，但默认不会安装 Vite 相关依赖。我们建议你阅读该[文章](https://zhuanlan.zhihu.com/p/362500516)以获得更加详细的了解避免出错, 具体使用方式如下
+在 React/Vue2/Vue3 中我们都已接入 `Vite` 并且 将 `Vite` 作为一个可选配置，底层已做兼容，但默认不会安装 Vite 相关依赖。我们建议你阅读该[文章](https://zhuanlan.zhihu.com/p/362500516)以获得更加详细的了解避免出错, 具体使用方式如下
 
 ```bash
 $ npm init ssr-app my-ssr-project --template=midway-vue3-ssr # 创建 Vue3 SSR 应用，同时支持 Serverless 形式一键发布或以传统 Node.js 应用的形式部署
-$ cd my-ssr-project && npm i && npm i vite @vitejs/plugin-vue --save-dev # 根据实际技术栈安装需要的插件
+$ cd my-ssr-project && npm i && npm i vite @vitejs/plugin-vue --save-dev # 根据实际技术栈安装需要的插件 例如 vue2 场景安装 vite-plugin-vue2
 $ npx ssr start --vite # 建议在 package.json 中添加 "start:vite": "ssr start --vite"
 ```
-即可使用 Vite 作为构建工具接管客户端文件，提升启动速度和 HMR 速度。目前当前版本只在 Vue3 场景开启该功能，Vue2/React 的支持将会在下一个版本实现
-
+即可使用 Vite 作为构建工具接管客户端文件，提升启动速度和 HMR 速度。
 #### 老应用迁移
+
+分为 React 应用和 Vue 应用有不同的迁移步骤
+##### Vue 应用迁移
 
 之前创建的模板应用只需以下三步便可接入 Vite
 
-- 安装最新版本的依赖 version >= 5.5.1
+- 安装最新版本的插件依赖 version >= 5.5.1
 - layout/index.vue 中添加 `<slot name="viteClient" />` 参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-vue3-ssr/web/components/layout/index.vue)
 - 服务端应用启动时中间件初始化改为 `async await` 形式, 参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-vue3-ssr/src/app.ts#L11)
+
+##### React 应用迁移
+
+之前创建的模板应用只需以下四步便可接入 Vite
+
+- 安装最新版本的插件依赖 version >= 5.5.16
+- layout/index.tsx 中添加 `{props.viteReactScript}` 相关代码,参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-react-ssr/web/components/layout/index.tsx#L27)
+- 服务端应用启动时中间件初始化改为 `async await` 形式, 参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-react-ssr/src/app.ts#L11)
+- 修改 CSS 文件名后缀，由于本框架默认为所有类型的样式文件都使用 `css modules`，而 `Vite` 只会对 `.module.css` 结尾的文件使用 `css modules`， 为了保证样式正确展示，我们需要将原模版的 less 文件后缀名都改为 `.module.less` 引入。参考最新的[模版文件](https://github.com/ykfe/ssr/tree/dev/example/midway-react-ssr/web)代码。
+
+`注: 切记，我们只会在本地开发阶段使用 Vite，生产环境仍然用 Webpack 进行构建。所以请不要依赖只能够在 Vite 场景生效的 vite.config.js 配置。建议只使用默认生成的 config 文件具备的功能来保持本地开发与生产环境行为一致`
 
 ### 应用类型
 
 由于本框架同时具备 SSR 服务端渲染能力 以及 loadable 代码分割能力。我们天生可以看作既是单页面应用也是多页面应用。表现如下
 
-- 用户可以通过 react-router/vue-roueter 的形式进行页面之间的跳转。此时是纯前端的跳转不会向服务器发送请求视为单页面应用页面之间的互相跳转
+- 用户可以通过 react-router/vue-router 的形式进行页面之间的跳转。此时是纯前端的跳转不会向服务器发送请求视为单页面应用页面之间的互相跳转
 - 同时用户也可以通过 a 标签的形式来进行页面之间的跳转。此时视为在服务端渲染一个新页面。视为多页面应用之间的互相跳转，由于我们具备 SSR 能力，此时页面的源代码是新页面具备 SEO 能力以及首屏直出页面能力
 - 每个独立页面之间的代码是互相分离互不冗余的
 
@@ -542,9 +557,10 @@ $ npx ssr start --vite # 建议在 package.json 中添加 "start:vite": "ssr sta
 │   │   └── layout # 页面 html 布局
 │   │       ├── index.less
 │   │       └── index.tsx
+│   │       └── fetch.ts # layout 级别的 fetch，用于获取所有页面的公共数据，将会在每一个页面级别的fetch 调用之前调用
 │   ├── pages # pages目录下的文件夹会映射为前端路由表，存放页面级别的组件
 │   │   ├── index # index文件夹映射为根路由
-│   │   │   ├── fetch.ts # 定义fetch文件用来统一服务端/客户端获取数据的方式，通过 __isBrowser__ 变量区分环境
+│   │   │   ├── fetch.ts # 定义fetch文件用来统一服务端/客户端获取数据的方式，通过 __isBrowser__ 变量区分环境，会在首页服务端渲染以及前端路由切换时被调用
 │   │   │   ├── index.less
 │   │   │   └── render.tsx # 定义render文件用来定义页面渲染逻辑
 │   │   └── detail
@@ -668,6 +684,9 @@ export default {
   }
 }
 ```
+
+同理 Router 对象我们将挂在 `window.__VUE_ROUTER__` 用于注册全局路由钩子
+
 #### 使用Vue3国际化插件
 
 在 plugin-vue3 中，我们已在底层对国际化进行支持。国际化插件使用最新的 Composition API，推荐使用Composition API进行国际化配置，详细见官方文档：https://vue-i18n.intlify.dev/guide/advanced/composition.html
@@ -1021,12 +1040,75 @@ export default Search
 - 在大型应用状态复杂的情况下，比较难以管理
 - 需要配合 useMemo 一起使用，否则容易导致性能问题 (只要是使用了 useContext 都会遇到该问题)
 
+#### Provide/Inject代替Vuex
+
+在 `Vue3` 中我们提供了另一种更加轻量级的跨组件数据共享的方式，也就是 [Provide/Inject](https://v3.cn.vuejs.org/guide/component-provide-inject.html#provide-inject)。若你完全不考虑使用 `Vuex` 来做数据管理的话，那么你可以不使用默认的示例 `Vuex` 全部有关代码，但暂时不要删除 `store` 的入口文件，后续会底层兼容不存在 `store` 文件的情况。  
+
+在渲染的过程中，我们会将 `layout fetch` 与 `page fetch` 的 `返回数据` 组合后以 `props` 的形式注入到 `layout/App.vue` 当中，开发者可以在该文件当中 `provide` 如下所示。便可以在任意组件中通过 `inject` 拿到该数据并且可以修改数据自动触发更新，为了防止应用数据混乱，我们建议为不同的组件返回数据添加不同的 `namespace` 命名空间。同样当路由切换时我们也会自动的将 `fetch.ts` 返回的数据合并进 `asyncData`。  
+
+为了防止对象失去响应性，这里我们 follow `ref 对象`的规则。将真正的数据对象存放在 `asyncData.value` 字段中。并且将整个 `asyncData` 转换为响应式。这样我们后续可以直接通过修改 `asyncData.value = obj ` 或者 `asyncData.value.key = obj` 的方式来修改数据仍然可以让对象保持响应式。使用这种方式需要注意的是如果在 `template` 中使用的话仍然需要添加 `.value` 取值不会自动展开。  
+
+`注: 该方式兼容服务端渲染/降级为客户端渲染两种情况`
+
+```js
+// fetch.ts
+export default () => {
+  return {
+    indexData: {}
+  }
+}
+```
+
+```vue
+
+// layout/App.vue
+<script>
+import { reactive, provide } from 'vue'
+export default {
+  props: ['asyncData'],
+  setup (props) {
+    const reactiveAsyncData = reactive(props.asyncData) // asyncData.value 是 fetch.ts 的返回值，将 provide 的数据变为响应式
+    const changeAsyncData = (data) => {
+      reactiveAsyncData.value = data
+    }
+    provide('asyncData', reactiveAsyncData)
+    provide('changeAsyncData', changeAsyncData)
+  }
+
+}
+</script>
+
+
+// 任意组件
+<template>
+  {{ asyncData.value }}
+</template>
+
+<script>
+export default {
+ setup () {
+    const asyncData = inject('asyncData')
+    const changeAsyncData = inject('changeAsyncData')
+    return {
+      asyncData,
+      changeAsyncData
+    }
+  },
+  mounted () {
+    // 通过 changeAsyncData 修改响应式数据
+    this.changeAsyncData({
+      namespace: 'foo'
+    })
+  }
+}
+</script>
+```
 #### 使用声明式路由
 
 我们默认使用约定式路由通过文件夹结构自动生成路由表，如果无法满足应用需求也可以手动创建路由文件。手动编写路由文件有些复杂，所以我们建议使用默认的约定式路由规则。
 
 ```bash
-$ touch web/route.js # 检测到该文件存在则使用声明式路由
+$ touch web/route.ts # 检测到该文件存在则使用声明式路由
 ```
 
 并需要严格按照如下格式规范写入内容, 否则应用可能会执行出错, `__isBrowser__` 会在应用的执行过程当中根据环境自动注入。
@@ -1035,48 +1117,47 @@ $ touch web/route.js # 检测到该文件存在则使用声明式路由
 
 ```js
 // React 使用如下规范
-module.exports = [{
-  layout: require('@/components/layout/index.tsx').default,
-  fetch: require('@/pages/detail/fetch.ts').default,
-  path: '/detail/:id',
-  // component 使用这种规范来实现按需加载功能
-  component: __isBrowser__ ? require('react-loadable')({ // __isBrowser__ 为 webpack 自动注入的变量，按照规范编写即可
-    loader: async () => await import(/* webpackChunkName: "detail" */ '@/pages/detail/render$id.tsx'),
-    loading: function Loading () {
-      return require('react').createElement('div')
-    }
-  }) : require('@/pages/detail/render$id.tsx').default,
-  webpackChunkName: 'detail'
-},
-{
-  layout: require('@/components/layout/index.tsx').default,
-  fetch: require('@/pages/index/fetch.ts').default,
-  path: '/',
+export default [{
+  layout: require('@/components/layout/index.tsx').default, 
+  fetch: require('@/pages/detail/fetch.ts').default, 
+  webpackChunkName: "detail",
+  path: "/detail/:id",
   component: __isBrowser__ ? require('react-loadable')({
-    loader: async () => await import(/* webpackChunkName: "index" */ '@/pages/index/render.tsx'),
-    loading: function Loading () {
+    loader: () => import(/* webpackChunkName: "detail" */ '@/pages/detail/render$id.tsx'),
+    loading: function Loading() {
       return require('react').createElement('div')
     }
-  }) : require('@/pages/index/render.tsx').default,
-  webpackChunkName: 'index'
+  }) : require('@/pages/detail/render$id.tsx').default
+}, {
+  layout: require('@/components/layout/index.tsx').default, 
+  fetch: require('@/pages/index/fetch.ts').default, 
+  webpackChunkName: "index",
+
+  path: "/",
+  component: __isBrowser__ ? require('react-loadable')({
+    loader: () => import(/* webpackChunkName: "index" */ '@/pages/index/render.tsx'),
+    loading: function Loading() {
+      return require('react').createElement('div')
+    }
+  }) : require('@/pages/index/render.tsx').default
 }]
 // Vue 使用如下规范
-module.exports = [{
-  layout: require('@/components/layout/index.vue').default,
-  App: require('@/components/layout/App.vue').default,
-  fetch: require('@/pages/detail/fetch.ts').default,
+export default [{
+  layout: __isBrowser__ ? () => import(/* webpackChunkName: "common-layout" */ '@/components/layout/index.vue') : require('@/components/layout/index.vue').default,
+  App: __isBrowser__ ? () => import(/* webpackChunkName: "common-app" */ '@/components/layout/App.vue') : require('@/components/layout/App.vue').default,
+  fetch: __isBrowser__ ? () => import(/* webpackChunkName: "detail-fetch" */ '@/pages/detail/fetch.ts') : require('@/pages/detail/fetch.ts').default,
+  webpackChunkName: 'detail',
   path: '/detail/:id',
-  // component 使用这种规范来实现按需加载功能
-  component: __isBrowser__ ?  async () => await import(/* webpackChunkName: "detail" */ '@/pages/detail/render$id.vue') : require('@/pages/detail/render$id.vue').default,
-  webpackChunkName: 'detail'
-},
-{
-  layout: require('@/components/layout/index.vue').default,
-  fetch: require('@/pages/index/fetch.ts').default,
+  component: __isBrowser__ ? () => import(/* webpackChunkName: "detail" */ '@/pages/detail/render$id.vue') : require('@/pages/detail/render$id.vue').default
+}, {
+  layout: __isBrowser__ ? () => import(/* webpackChunkName: "common-layout" */ '@/components/layout/index.vue') : require('@/components/layout/index.vue').default,
+  App: __isBrowser__ ? () => import(/* webpackChunkName: "common-app" */ '@/components/layout/App.vue') : require('@/components/layout/App.vue').default,
+  fetch: __isBrowser__ ? () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts') : require('@/pages/index/fetch.ts').default,
+  webpackChunkName: 'index',
   path: '/',
-  component: __isBrowser__ ? async () => await import(/* webpackChunkName: "index" */ '@/pages/index/render.vue') : require('@/pages/index/render.vue').default,
-  webpackChunkName: 'index'
+  component: __isBrowser__ ? () => import(/* webpackChunkName: "index" */ '@/pages/index/render.vue') : require('@/pages/index/render.vue').default
 }]
+
 ```
 
 #### 配置文件
@@ -1179,6 +1260,7 @@ SSR是近几年才火热的话题，如果是新的项目且开发人员对SSR�
 ```js
 import $ from 'jquery' // error
 const $ = __isBrowser__ ? require('jquery') : {} // true
+const $ = __isBrowser__ ? import('jquery') : {} // used in vite return a promise object which is recommended
 ```
 
 2. 在 `didMount` 生命周期加载模块
@@ -1253,7 +1335,7 @@ export default {
 
 虽然我们已经尽力检查了一遍应用，但仍有可能有疏漏的地方，如果你在使用过程中发现任何问题或者建议，欢迎提[issue](https://github.com/ykfe/ssr/issues)或者[PR](https://github.com/ykfe/ssr/pulls)
 欢迎直接扫码加入钉钉群
-<img src="./images/dingding.jpeg" width="300">
+<img src="https://res.wx.qq.com/op_res/rrhdxU0o2yUdgTjwgkAgO-CSFV-lArvMYzWzxl2SuvnKkcWECv7SXswEYjk2pPcDcL43r0kz_MIp_fsxPPqQ2Q" width="300">
 
 ## 项目 Star 数增长趋势
 

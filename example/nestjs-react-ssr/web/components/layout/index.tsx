@@ -2,6 +2,7 @@
 import React, { useContext } from 'react'
 import serialize from 'serialize-javascript'
 import { LayoutProps } from 'ssr-types'
+import App from './App'
 import styles from './index.less'
 
 const Layout = (props: LayoutProps) => {
@@ -15,14 +16,15 @@ const Layout = (props: LayoutProps) => {
         <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
         <meta name='theme-color' content='#000000' />
         <title>Serverless Side Render</title>
+        {props.viteReactScript}
         <script dangerouslySetInnerHTML={{ __html: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }} />
         { injectCss }
       </head>
       <body className={styles.body}>
-        <div id='app'>{ props.children }</div>
+        <div id="app"><App children={props.children} /></div>
         {
           state && <script dangerouslySetInnerHTML={{
-            __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)}`
+            __html: `${props.viteReactScript ? 'window.__USE_VITE__=true;' : ''} window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)}`
           }} />
         }
         { injectScript }

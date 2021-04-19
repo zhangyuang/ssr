@@ -5,4 +5,4 @@ import { indexModule } from './modules/index-page/index.module'
 @Module({
   imports: [DetailModule, indexModule]
 })
-export class AppModule {}
+export class AppModule { }

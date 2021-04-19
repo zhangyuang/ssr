@@ -1,6 +1,6 @@
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import { proxyOptions } from 'ssr-types'
-import { getFeDir } from '../cwd'
+import { getCwd } from '../cwd'
 import { loadConfig } from '../loadConfig'
 
 const koaConnect = require('koa2-connect')
@@ -31,7 +31,7 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
       // 本地开发请求走 vite 接管 前端文件夹请求
       const { createServer } = require('vite')
       const vite = await createServer({
-        cwd: getFeDir(),
+        root: getCwd(),
         logLevel: 'info',
         server: {
           middlewareMode: true

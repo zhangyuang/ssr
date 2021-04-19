@@ -23,7 +23,7 @@ function reducer (state: any, action: Action) {
   }
 }
 
-export function App (props: IProps) {
+export function AppContext (props: IProps) {
   const [state, dispatch] = useReducer(reducer, window.__INITIAL_DATA__)
   return (
     <Context.Provider value={{ state, dispatch }}>

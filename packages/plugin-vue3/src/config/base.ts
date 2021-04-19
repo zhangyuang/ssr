@@ -103,7 +103,13 @@ const getBaseConfig = (chain: WebpackChain) => {
       cacheCompression: false,
       sourceType: 'unambiguous',
       presets: [
-        loadModule('@babel/preset-typescript'),
+        [
+          loadModule('@babel/preset-typescript'),
+          {
+            isTSX: true,
+            allExtensions: true
+          }
+        ],
         [
           loadModule('@babel/preset-env'),
           {

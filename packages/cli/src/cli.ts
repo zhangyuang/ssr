@@ -28,7 +28,6 @@ yargs
       }
       await copyViteConfig()
     }
-
     const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
     debug(`require ssr-server-utils time: ${Date.now() - start} ms`)
     const plugin = loadPlugin()

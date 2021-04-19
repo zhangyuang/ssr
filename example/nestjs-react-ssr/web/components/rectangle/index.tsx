@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './index.less'
+import styles from './index.module.less'
 
 function Rectangle (props) {
   const data = props.data[0]

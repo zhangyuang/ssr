@@ -11,97 +11,100 @@ const pageDir = getPagesDir()
 const cwd = getCwd()
 
 const parseFeRoutes = async () => {
-  // vue 场景也可能使用 tsx 文件，所以这里需要做判断
-  const vueLayout = await accessFile(join(getFeDir(), './components/layout/index.vue'))
-  const vueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
   const isVue = require(join(cwd, './package.json')).dependencies.vue
-  const isVue3 = /^.?3/.test(isVue)
-
-  if (!isVue3 && process.env.BUILD_TOOL === 'vite') {
-    console.log('vite模式目前暂时只支持vue3,当前 --vite 指令无效请直接使用 ssr start, vue2 和 react 将会在下一个版本支持，敬请期待')
+  const viteMode = process.env.BUILD_TOOL === 'vite'
+  if (viteMode && !dynamic) {
+    console.log('vite模式禁止关闭 dynamic ')
     return
   }
 
-  const defaultLayout = `@/components/layout/index.${vueLayout ? 'vue' : 'tsx'}`
   if (!await accessFile(join(cwd, './node_modules/ssr-temporary-routes'))) {
     Shell.mkdir(join(cwd, './node_modules/ssr-temporary-routes'))
   }
 
   let routes = ''
-  const declaretiveRoutes = (await accessFile(join(getFeDir(), './route.js')) || await accessFile(join(getFeDir(), './route.ts'))) // 是否存在自定义路由
-
+  const declaretiveRoutes = await accessFile(join(getFeDir(), './route.ts')) // 是否存在自定义路由
   if (!declaretiveRoutes) {
     // 根据目录结构生成前端路由表
     const pathRecord = [''] // 路径记录
-    const route: ParseFeRouteItem = {
-      layout: `require('${defaultLayout}').default`
-    }
-    if (isVue) {
-      const defaultApp = `@/components/layout/App.${vueApp ? 'vue' : 'tsx'}`
-      route.App = `require('${defaultApp}').default`
-    }
+    const route: ParseFeRouteItem = {}
     const arr = await renderRoutes(pageDir, pathRecord, route)
-    debug('The result that parse web folder to routes is: ', arr)
-    routes = `export default ${JSON.stringify(arr)
-        .replace(/"layout":("(.+?)")/g, (global, m1, m2) => {
-          return `"layout": ${m2.replace(/\^/g, '"')}`
-        })
-        .replace(/"App":("(.+?)")/g, (global, m1, m2) => {
-          return `"App": ${m2.replace(/\^/g, '"')}`
-        })
-        .replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
-          return `"fetch": ${m2.replace(/\^/g, '"')}`
-        })
-        }`
-    const sourceRoutes = routes
 
-    if (!dynamic) {
-      // 如果禁用路由分割则无需引入 react-loadable
+    debug('Before the result that parse web folder to routes is: ', arr)
+
+    if (isVue) {
+      const layoutPath = '@/components/layout/index.vue'
+      const accessVueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
+      const layoutFetch = await accessFile(join(getFeDir(), './components/layout/fetch.ts'))
+      const AppPath = `@/components/layout/App.${accessVueApp ? 'vue' : 'tsx'}`
+      const re = /"webpackChunkName":("(.+?)")/g
+      routes = `
+        export const FeRoutes = ${JSON.stringify(arr)} 
+        export { default as Layout } from "${layoutPath}"
+        export { default as App } from "${AppPath}"
+        ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
+        `
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
-        return `"component": require('${m2.replace(/\^/g, '"')}').default`
+        const currentWebpackChunkName = re.exec(routes)![2]
+        if (dynamic) {
+          return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+        } else {
+          return `"component":  require('${m2.replace(/\^/g, '"')}').default`
+        }
+      })
+      re.lastIndex = 0
+      routes = routes.replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
+        const currentWebpackChunkName = re.exec(routes)![2]
+        return `"fetch": __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
       })
     } else {
+      // React 场景
+      const accessReactApp = await accessFile(join(getFeDir(), './components/layout/App.tsx'))
+      const layoutFetch = await accessFile(join(getFeDir(), './components/layout/fetch.ts'))
       const re = /"webpackChunkName":("(.+?)")/g
-      if (isVue) {
-        routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
-          const currentWebpackChunkName = re.exec(routes)![2]
-          return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
-        })
-        // vite模式特殊处理为 ESM, 暂时只在 Vue3 场景开启
-        if (isVue3) {
-          routes = routes.replace(/"layout": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
-            return `"layout":  __isBrowser__ ? () => import(/* webpackChunkName: "common-layout" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
-          })
-          routes = routes.replace(/"App": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
-            return `"App":  __isBrowser__ ? () => import(/* webpackChunkName: "common-app" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
-          })
-          re.lastIndex = 0
-          routes = routes.replace(/"fetch": (require\('(.+?)'\).default)/g, (global, m1, m2) => {
-            const currentWebpackChunkName = re.exec(sourceRoutes)![2]
-            return `"fetch": __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
-          })
+      routes = `
+        ${dynamic && !viteMode ? `
+        import React from "react"
+        import loadable from 'react-loadable' ` : ''}
+        export const FeRoutes = ${JSON.stringify(arr)} 
+        ${accessReactApp ? 'export { default as App } from "@/components/layout/App.tsx"' : ''}
+        ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
+        `
+      routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
+        const currentWebpackChunkName = re.exec(routes)![2]
+        if (dynamic) {
+          if (viteMode) {
+            return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+          } else {
+            return `"component":  __isBrowser__ ? loadable({
+                  loader: () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}'),
+                  loading: function Loading () {
+                    return React.createElement('div')
+                  }
+                }) : require('${m2.replace(/\^/g, '"')}').default`
+          }
+        } else {
+          return `"component":  require('${m2.replace(/\^/g, '"')}').default`
         }
-      } else {
-        routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
-          const currentWebpackChunkName = re.exec(routes)![2]
-          return `"component":  __isBrowser__ ? require('react-loadable')({
-            loader: () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}'),
-            loading: function Loading () {
-              return require('react').createElement('div')
-            }
-          }) : require('${m2.replace(/\^/g, '"')}').default`
-        })
-      }
+      })
+      re.lastIndex = 0
+      routes = routes.replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
+        const currentWebpackChunkName = re.exec(routes)![2]
+        return `"fetch": __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+      })
     }
   } else {
     // 使用了声明式路由
-    routes = (await fs.readFile(join(getFeDir(), './route'))).toString()
+    routes = (await fs.readFile(join(getFeDir(), './route.ts'))).toString()
   }
+
+  debug('After the result that parse web folder to routes is: ', routes)
 
   await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
   await fs.copyFile(resolve(__dirname, '../src/packagejson.tpl'), resolve(cwd, './node_modules/ssr-temporary-routes/package.json'))
-  if (process.env.TEST && process.env.BUILD_TOOL === 'vite') {
+  if (process.env.TEST && viteMode) {
     // 开发同学本地开发时 vite 场景将路由表写一份到 repo 下面而不是 example 下面，否则 client-entry 会找不到该文件
+    Shell.rm('-rf', resolve(__dirname, '../../../node_modules/ssr-temporary-routes/'))
     Shell.cp('-r', resolve(cwd, './node_modules/ssr-temporary-routes/'), resolve(__dirname, '../../../node_modules/ssr-temporary-routes/'))
   }
 }
@@ -128,6 +131,13 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         /* /news */
         route.path = `${prefixPath}`
         route.component = `${aliasPath}/${pageFiles}`
+        if (dynamic) {
+          let webpackChunkName = pathRecord.join('-')
+          if (webpackChunkName.startsWith('-')) {
+            webpackChunkName = webpackChunkName.replace('-', '')
+          }
+          route.webpackChunkName = webpackChunkName
+        }
       }
 
       if (pageFiles.includes('render$')) {
@@ -138,22 +148,22 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         if (fetchExactMatch.length >= 2) {
           const fetchPageFiles = `fetch${pageFiles.replace('render', '').replace('.vue', '.ts')}`
           if (fetchExactMatch.includes(fetchPageFiles)) {
-            route.fetch = `require('${aliasPath}/${fetchPageFiles}').default`
+            route.fetch = `${aliasPath}/${fetchPageFiles}`
           }
+        }
+        if (dynamic) {
+          let webpackChunkName = pathRecord.join('-')
+          if (webpackChunkName.startsWith('-')) {
+            webpackChunkName = webpackChunkName.replace('-', '')
+          }
+          route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles)}`
         }
       }
 
       if (pageFiles.includes('fetch')) {
-        route.fetch = `require('${aliasPath}/${pageFiles}').default`
+        route.fetch = `${aliasPath}/${pageFiles}`
       }
-      debug(`parse "${aliasPath.replace(cwd, '')}" to "${route.path}" \n`)
-      if (dynamic) {
-        let webpackChunkName = pathRecord.join('-')
-        if (webpackChunkName.startsWith('-')) {
-          webpackChunkName = webpackChunkName.replace('-', '')
-        }
-        route.webpackChunkName = webpackChunkName
-      }
+
       routeArr.push({ ...route })
     }
   }
@@ -161,7 +171,11 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
   routeArr.forEach((r) => {
     if (r.path?.includes('index')) {
       // /index 映射为 /
-      r.path = r.path.replace('index', '')
+      if (r.path.split('/').length >= 3) {
+        r.path = r.path.replace('/index', '')
+      } else {
+        r.path = r.path.replace('index', '')
+      }
     }
 
     if (r.path && prefix) {
