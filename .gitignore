@@ -84,7 +84,8 @@ packages/**/README.md
 
 **/run
 
-**/vite.config.js
+example/**/vite.config.js
 
-**/f.yml
+example/**/f.yml
 
+**/.serverless
