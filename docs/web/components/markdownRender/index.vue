@@ -1,6 +1,10 @@
 <template>
   <div class="md-render">
-    <div class="md-render_content" v-html="html" />
+    <div class="md-render_content">
+      <!-- eslint-disable-next-line vue/no-v-html -->
+      <div v-html="html" />
+      <bottomNav :config="config" />
+    </div>
     <div class="md-render_side">
       <SideMenu :list="sideMenuList" />
     </div>
@@ -14,14 +18,22 @@ import markdownIt from 'markdown-it'
 import markdownItAnchor from 'markdown-it-anchor'
 import markdownItTocDoneRight from 'markdown-it-toc-done-right'
 import SideMenu from './components/sideMenu/index.vue'
+import bottomNav from './components/bottomNav/index.vue'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/atom-one-dark.css'
 
 export default defineComponent({
   components: {
-    SideMenu
+    SideMenu,
+    bottomNav
   },
   inject: ['asyncData'],
+  props: {
+    config: {
+      type: Array,
+      required: true
+    }
+  },
   data () {
     return {
       html: '' as string,

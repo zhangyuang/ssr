@@ -1,5 +1,5 @@
 :root {
-    --drake-text-color: #2f495e;
+    --drake-text-color: rgb(47, 73, 94);
     --drake-text-highlight: rgb(0, 197, 142);
     --drake-border-default: rgb(99, 179, 237);
     --drake-border-bg-default: rgb(235,248,255);
@@ -9,7 +9,7 @@
 
 @font-face {
     font-family: Inter;
-    src: url('/fonts/Inter-Regular.ttf');
+    src: url('/fonts/Inter-Medium.ttf');
     font-weight: normal;
     font-style: normal;
 }
@@ -17,62 +17,8 @@
 @font-face {
     font-family: Inter;
     src: url('/fonts/Inter-Bold.ttf');
-    font-weight: 500;
+    font-weight: bold;
     font-style: normal;
-}
-
-@media print {
-    *,
-    *:before,
-    *:after {
-        background: transparent !important;
-        color: #000 !important;
-        box-shadow: none !important;
-        text-shadow: none !important;
-    }
-
-    a,
-    a:visited {
-        text-decoration: underline;
-    }
-
-    a[href]:after {
-        content: " (" attr(href) ")";
-    }
-
-    abbr[title]:after {
-        content: " (" attr(title) ")";
-    }
-
-    a[href^="#"]:after,
-    a[href^="javascript:"]:after {
-        content: "";
-    }
-
-    thead {
-        display: table-header-group;
-    }
-
-    tr,
-    img {
-        page-break-inside: avoid;
-    }
-
-    img {
-        max-width: 100% !important;
-    }
-
-    p,
-    h2,
-    h3 {
-        orphans: 3;
-        widows: 3;
-    }
-
-    h2,
-    h3 {
-        page-break-after: avoid;
-    }
 }
 
 html {
