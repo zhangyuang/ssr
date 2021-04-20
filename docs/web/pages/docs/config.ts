@@ -6,7 +6,6 @@ export default [
   {
     title: '指引',
     routes: [
-
       { title: '快速开始', path: 'features$started' },
       { title: '插件机制 ', path: 'features$plugin' },
       { title: '约定式路由', path: 'features$feRoutes' },
