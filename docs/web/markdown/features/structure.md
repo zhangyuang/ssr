@@ -89,9 +89,9 @@ export * from './bar'
 │   ├── tsconfig.json # web 目录下的 tsconfig 仅用于编辑器ts语法检测
 ```
 
-关于` 前端路由映射` 更加详细的了解可以阅读[约定式路由](./features/feRoutes)章节
+关于` 前端路由映射` 更加详细的了解可以阅读[约定式路由](./features$feRoutes)章节
 
-关于 `fetch.ts` 文件更加详细的了解可以阅读[数据获取](./features/fetch)章节
+关于 `fetch.ts` 文件更加详细的了解可以阅读[数据获取](./features$fetch)章节
 
-关于 `config.js` 文件更加详细的了解可以阅读[应用配置](./api/config)章节
+关于 `config.js` 文件更加详细的了解可以阅读[应用配置](./api$config)章节
 
