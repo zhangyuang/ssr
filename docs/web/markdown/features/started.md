@@ -26,7 +26,7 @@
 
 通过 `npm init` 命令我们可以创建上述的任意模版
 
-```bash
+```shell
 $ npm init ssr-app my-ssr-project --template=midway-vue3-ssr # 这里可以选择上述任意模版
 $ cd my-ssr-project && npm i
 $ npm start # 启动服务，等价于 npx ssr start
@@ -47,7 +47,7 @@ $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 
 以 Serverless 形式迅速发布应用
 
-```bash
+```shell
 $ npm run deploy # 应用发布, 等价于 npx ssr deploy
 $ npm run deploy:tencent # 发布到腾讯云 等价于 npx ssr deploy --tencent
 ```
@@ -58,6 +58,6 @@ $ npm run deploy:tencent # 发布到腾讯云 等价于 npx ssr deploy --tencent
 
 在 `Nest.js` 场景下我们使用 [pm2](https://pm2.keymetrics.io/) 进行部署
 
-```bash
+```shell
 $ npm run prod 
 ```

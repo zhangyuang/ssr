@@ -15,9 +15,9 @@
 
 <script lang="ts">
 import Header from '@/components/header/index.vue'
-import Footer from '@/components/footer'
-import Menu from '@/components/menu'
-import MarkdownRender from '@/components/markdownRender'
+import Footer from '@/components/footer/index.vue'
+import Menu from '@/components/menu/index.vue'
+import MarkdownRender from '@/components/markdownRender/index.vue'
 export default {
   components: {
     Header,
