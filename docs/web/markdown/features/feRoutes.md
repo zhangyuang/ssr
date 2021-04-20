@@ -10,10 +10,6 @@
 
 ```shell
 $ tree ./ -I node_modules -L 3
-./
-├── @types
-│   └── global.d.ts
-├── common.less
 ├── pages
 │   ├── detail
 │   │   ├── fetch.ts
@@ -21,18 +17,13 @@ $ tree ./ -I node_modules -L 3
 │   └── index
 │       ├── fetch.ts
 │       └── render.vue
-├── store
-│   ├── index.ts
-│   └── modules
-│       ├── detail.ts
-│       ├── index.ts
-│       └── search.ts
-└── tsconfig.json
 ```
 
 ### 页面组件
 
-`pages` 文件夹下的每个文件夹，我们都会认为它是一个页面。上述结构包含 `index`, `detail` 两个页面。同样我们定义 `render` 文件代表一个页面的渲染组件。`render` 文件支持多种格式来应对不同类型的前端路由
+`pages` 文件夹下的每个文件夹，我们都会认为它是一个页面。上述结构包含 `index`, `detail` 两个页面。
+
+同样我们定义 `render` 文件代表一个页面的渲染组件。`render` 文件支持多种格式来应对不同类型的前端路由
 
 ### 普通路由
 
@@ -51,7 +42,7 @@ $ tree ./ -I node_modules -L 3
 
 ### 多级路由
 
-尽管在大多数情况下我们用不到多级路由，但这里我们仍然提供了对应的解析策略。如果你的应用所有路由 `path` 前面都需要加上一个统一的前缀，那么你应该通过 `config.prefix` 来实现，而不是多级路由。参考[应用配置](./api/config)
+尽管在大多数情况下我们用不到多级路由，但这里我们仍然提供了对应的解析策略。如果你的应用所有路由 `path` 前面都需要加上一个统一的前缀，那么你应该通过 `config.prefix` 来实现，而不是多级路由。参考[应用配置](./api$config)
 
 - `/user/detail/render$id` 映射为 `/user/detail/:id`
 - `/user/detail/render$foo$bar` 映射为 `/user/detail/:foo/:bar`
@@ -64,7 +55,7 @@ $ tree ./ -I node_modules -L 3
 
 尽管我们不建议开发者来手动编写路由结构，但如果你一定要这么做的话，我们提供以下示例。
 
-关于为什么要使用 `__isBrowser__` 常量做环境区分，一方面是为了客户端兼容 `vite` 场景需要 `All in ESM`, 一方面是为了实现最简单的[代码分割](./features/dynamic)功能。
+关于为什么要使用 `__isBrowser__` 常量做环境区分，一方面是为了客户端兼容 `vite` 场景需要 `All in ESM`, 一方面是为了实现最简单的[代码分割](./features$dynamic)功能。
 
 ### Vue 场景
 
@@ -92,3 +83,29 @@ export { default as App } from "@/components/layout/App.vue"
 ### React 场景
 
 在 React 场景我们按照如下规范编写前端路由结构
+
+```js
+import React from "react"
+import loadable from 'react-loadable'
+export const FeRoutes = [{
+  "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts') : require('@/pages/detail/fetch.ts').default,
+  "path": "/detail/:id",
+  "component": __isBrowser__ ? loadable({
+    loader: () => import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id.tsx'),
+    loading: function Loading() {
+      return React.createElement('div')
+    }
+  }) : require('@/pages/detail/render$id.tsx').default, "webpackChunkName": "detail-id"
+}, 
+{
+  "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts') : require('@/pages/index/fetch.ts').default,
+  "path": "/",
+  "component": __isBrowser__ ? loadable({
+    loader: () => import(/* webpackChunkName: "index" */ '@/pages/index/render.tsx'),
+    loading: function Loading() {
+      return React.createElement('div')
+    }
+  }) : require('@/pages/index/render.tsx').default, "webpackChunkName": "index"
+}]
+export { default as App } from "@/components/layout/App.tsx"
+```

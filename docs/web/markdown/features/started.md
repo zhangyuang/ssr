@@ -30,6 +30,7 @@
 $ npm init ssr-app my-ssr-project --template=midway-vue3-ssr # 这里可以选择上述任意模版
 $ cd my-ssr-project && npm i
 $ npm start # 启动服务，等价于 npx ssr start
+$ open http://localhost:3000 # 访问应用
 $ npm build # 资源构建，等价于 npx ssr build
 $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 ```
