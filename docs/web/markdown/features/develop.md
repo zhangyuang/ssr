@@ -13,6 +13,10 @@ $ open http://localhost:3000
 
 执行 `ssr start` 命令后我们将会启动默认监听的 `3000` 端口来提供对外的服务
 
+## ssr start
+
+由于我们的设计是基于插件架构的，在执行 `ssr start` 命令时，其实我们本质是依次调用了服务端插件和客户端插件暴露的 `start` 方法，来分别启动本地 Node.js Server 服务，这里的服务提供者可以是 `Midway.js`, `Nest.js` 或者开发者另外开发的其他服务端插件。以及客户端插件提供的前端静态资源文件的构建托管以及 `HMR` 能力。关于这部分内容更加详细的了解可以阅读[插件机制](./features$plugin)章节。
+
 ## 请求链路
 
 我们的每一个 `http` 请求都会先经过一个 `server` 层，再根据具体的逻辑来决定这个请求到底是返回 `json` 数据，还是 `html` 页面，还是前端静态资源。在我们这个场景，`server` 层就是 Node.js 框架提供的服务。一个服务端渲染页面的请求链路如下。
@@ -62,7 +66,7 @@ async handler (): Promise<void> {
 
 至此我们从一个 `http` 请求的发送，到服务端支出完整 `html` 结构的过程就了解了
 
-## DOM 激活
+## 客户端激活
 
 通过服务端返回出来的完整 `html` 结构交由浏览器渲染后只是一个“死”的页面，并不包含 DOM 事件的绑定。所以我们还需要加载客户端的静态资源文件来调用各框架提供的 [hydrate](https://zh-hans.reactjs.org/docs/react-dom.html#hydrate) 操作来激活 DOM。
 
