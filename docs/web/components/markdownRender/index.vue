@@ -48,12 +48,12 @@ export default defineComponent({
         highlight: function (str, lang) {
           if (lang && hljs.getLanguage(lang)) {
             try {
-              return `<pre class="hljs"><code>${hljs.highlight(str, {
+              return `<pre><code class="hljs">${hljs.highlight(str, {
                 language: lang
               }).value}</code></pre>`
             } catch (__) {}
           }
-          return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>'
+          return '<pre><code class="hljs">' + md.utils.escapeHtml(str) + '</code></pre>'
         }
       })
       md.enable(['link'])
@@ -86,6 +86,7 @@ export default defineComponent({
   border-radius: 5px;
 
   code {
+    color: initial;
     background-color: initial;
   }
 }
