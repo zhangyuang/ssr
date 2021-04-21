@@ -9,7 +9,7 @@ import DocsLayout from '@/layout/docsLayout/index.vue'
 export default defineComponent({
   components: {
     DocsLayout
-  }
+  },
 })
 </script>
 
