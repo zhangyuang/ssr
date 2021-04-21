@@ -506,10 +506,9 @@ $ npx ssr start --vite # 建议在 package.json 中添加 "start:vite": "ssr sta
 
 ##### React 应用迁移
 
-之前创建的模板应用只需以下四步便可接入 Vite
+之前创建的模板应用只需以下三步便可接入 Vite
 
 - 安装最新版本的插件依赖 version >= 5.5.16
-- layout/index.tsx 中添加 `{props.viteReactScript}` 相关代码,参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-react-ssr/web/components/layout/index.tsx#L27)
 - 服务端应用启动时中间件初始化改为 `async await` 形式, 参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-react-ssr/src/app.ts#L11)
 - 修改 CSS 文件名后缀，由于本框架默认为所有类型的样式文件都使用 `css modules`，而 `Vite` 只会对 `.module.css` 结尾的文件使用 `css modules`， 为了保证样式正确展示，我们需要将原模版的 less 文件后缀名都改为 `.module.less` 引入。参考最新的[模版文件](https://github.com/ykfe/ssr/tree/dev/example/midway-react-ssr/web)代码。
 
