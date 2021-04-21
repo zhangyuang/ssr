@@ -3,7 +3,7 @@
     <div class="md-render_content">
       <!-- eslint-disable-next-line vue/no-v-html -->
       <div v-html="html" />
-      <bottomNav :config="config" />
+      <bottomNav />
     </div>
     <div class="md-render_side">
       <SideMenu :list="sideMenuList" />
@@ -28,12 +28,6 @@ export default defineComponent({
     bottomNav
   },
   inject: ['asyncData'],
-  props: {
-    config: {
-      type: Array,
-      required: true
-    }
-  },
   data () {
     return {
       html: '' as string,

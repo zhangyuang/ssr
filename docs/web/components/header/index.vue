@@ -6,7 +6,7 @@
       </div>
     </div>
     <div class="header__right weui-flex weui-flex__item align-items">
-      <div :class="{'weui-flex__item': true, 'active': item.path == activePath }"  @click="handleClick(item.path)" v-for="item in headerItems" :key="item.path">
+      <div v-for="item in headerItems" :key="item.path" :class="{'weui-flex__item': true, 'active': item.path == activePath }" @click="handleClick(item.path)">
         <div>
           <a :href="item.path">{{ item.label }}</a>
         </div>
@@ -16,32 +16,29 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { webSiteConfig } from "../../config/index";
+import { defineComponent } from 'vue'
+import { webSiteConfig } from '../../config/index'
 export default defineComponent({
-  props: {},
-  data() {
+  data () {
     return {
       headerItems: webSiteConfig.header.items,
       activePath: '/'
-    };
-  },
-  mounted() {
-    const route = this.$route
-    const { href  = ''} = route
-    const targetPath = href.split('/') && href.split('/')[1]
-     this.activePath = '/docs/why'//targetPath
-    console.log('mounted',this.activePath);
-
-  },
-  methods: {
-    handleClick(path) {
-      this.activePath = path
-      console.log('path', path);
-      
     }
   },
-});
+  mounted () {
+    const route = this.$route
+    const { href = '' } = route
+    const targetPath = href.split('/') && href.split('/')[1]
+    this.activePath = '/docs/why'// targetPath
+    console.log('mounted', this.activePath)
+  },
+  methods: {
+    handleClick (path) {
+      this.activePath = path
+      console.log('path', path)
+    }
+  }
+})
 </script>
 
 <style lang="less" scoped>

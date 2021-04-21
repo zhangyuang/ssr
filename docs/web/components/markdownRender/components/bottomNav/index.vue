@@ -21,12 +21,6 @@ import { flatArray } from '@/utils/flatArray'
 
 export default defineComponent({
   inject: ['asyncData'],
-  props: {
-    config: {
-      type: Array,
-      required: true
-    }
-  },
   data () {
     return {
       left: {},
@@ -34,23 +28,19 @@ export default defineComponent({
     }
   },
   watch: {
-    config (newValue) {
-      this.createNav(newValue, this.asyncData.value.pagePath)
-    },
     asyncData: {
       handler (val) {
-        const { config } = this.$props
-        this.createNav(config, this.asyncData.value.pagePath)
+        this.createNav(val.value)
       },
       deep: true
     }
   },
   created () {
-    const { config } = this.$props
-    this.createNav(config, this.asyncData.value.pagePath)
+    this.createNav(this.asyncData.value)
   },
   methods: {
-    createNav (config, pagePath) {
+    createNav (value) {
+      const { pagePath, config } = value
       const equalPath = (path) => {
         if (!path) return false
         return path.replace(/\$/g, '/') === pagePath

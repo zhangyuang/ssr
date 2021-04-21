@@ -30,12 +30,6 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   inject: ['asyncData'],
-  props: {
-    config: {
-      type: Array,
-      required: true
-    }
-  },
   data () {
     return {
       menuList: [] as Array<Record<string, any>>
@@ -44,15 +38,13 @@ export default defineComponent({
   watch: {
     asyncData: {
       handler (val) {
-        const { config } = this.$props
-        this.createMenu(config, val.value.pagePath)
+        this.createMenu(val.value)
       },
       deep: true
     }
   },
   created () {
-    const { config } = this.$props
-    this.createMenu(config, this.asyncData.value.pagePath)
+    this.createMenu(this.asyncData.value)
   },
   methods: {
     handleOpen (data) {
@@ -70,7 +62,8 @@ export default defineComponent({
         })
       }
     },
-    createMenu (config, pagePath) {
+    createMenu (value) {
+      const { config, pagePath } = value
       const pathname:string = pagePath || ''
       this.menuList = config.map((menu) => {
         let open = false;
