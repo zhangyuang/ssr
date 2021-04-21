@@ -1,5 +1,8 @@
 <template>
   <div class="md-render">
+    <div class="md-render_top">
+      <SideMenu :list="sideMenuList" />
+    </div>
     <div class="md-render_content">
       <!-- eslint-disable-next-line vue/no-v-html -->
       <div v-html="html" />
@@ -85,12 +88,20 @@ export default defineComponent({
 </style>
 
 <style lang="less">
+
 .hljs {
-  border-radius: 5px;
+  border-radius: .25rem;
 
   code {
     color: initial;
     background-color: initial;
+  }
+}
+
+@media screen and (max-width: 48rem) {
+  .hljs {
+    margin: 0 -1.5rem;
+    border-radius: 0rem;
   }
 }
 
@@ -103,6 +114,5 @@ code {
   color: var(--drake-code-single);
   padding: .25rem;
   font-style: normal;
-  border-radius: .25rem;
 }
 </style>

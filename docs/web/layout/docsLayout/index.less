@@ -1,6 +1,4 @@
 .docs-layout {
-  // max-width: 1280px;
-  // margin: 0 auto;
 }
 
 .docs-layout_content {
@@ -15,4 +13,19 @@
 
 .docs-layout_content_right {
   width: 75%;
+}
+
+@media screen and (max-width: 48rem) {
+  .docs-layout {
+    padding: 2rem 1.5rem;
+  }
+
+  .docs-layout_content_left {
+    width: 0;
+    display: none;
+  }
+
+  .docs-layout_content_right {
+    width: 100%;
+  }
 }
