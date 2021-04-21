@@ -8,7 +8,10 @@ aggregation: # 聚合成一个函数发布
     deployOrigin: false
     functionsPattern:
       - '*'
-
+custom:
+  customDomain:
+    domainName: auto
+    
 package:
   include:
     - build

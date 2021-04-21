@@ -3,20 +3,20 @@
     <!-- 第一层 -->
     <div v-for="(item,index) in menuList" :key="index" class="menu_content">
       <div class="menu_flex menu_title">
-        <div class="menu_text_left">
+        <div class="menu_left">
           <img v-if="!item.path && (item.routes || []).length" :src="item.open ? '/images/arrow.svg' : '/images/arrow_right.svg'" class="menu_arrow" alt="error">
         </div>
         <div>
-          <a class="menu_text_text" @click="handleOpen(item)">{{ item.title }}</a>
+          <a class="menu_text menu_bold" @click="handleOpen(item)">{{ item.title }}</a>
         </div>
       </div>
       <!-- 第二层 -->
       <template v-if="item.open">
         <div v-for="(item2,index) in item.routes" :key="index">
           <div class="menu_flex menu_item">
-            <div class="menu_text_left" />
+            <div class="menu_left" />
             <div>
-              <a class="menu_text_text" @click="handleClick(item2)">{{ item2.title }}</a>
+              <a class="menu_text " @click="handleClick(item2)">{{ item2.title }}</a>
             </div>
           </div>
         </div>
@@ -31,7 +31,7 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   inject: ['asyncData'],
   props: {
-    list: {
+    config: {
       type: Array,
       required: true
     }
@@ -44,15 +44,15 @@ export default defineComponent({
   watch: {
     asyncData: {
       handler (val) {
-        const { list } = this.$props
-        this.createMenu(list, val.value.pagePath)
+        const { config } = this.$props
+        this.createMenu(config, val.value.pagePath)
       },
       deep: true
     }
   },
   created () {
-    const { list } = this.$props
-    this.createMenu(list, this.asyncData.value.pagePath)
+    const { config } = this.$props
+    this.createMenu(config, this.asyncData.value.pagePath)
   },
   methods: {
     handleOpen (data) {
@@ -70,9 +70,9 @@ export default defineComponent({
         })
       }
     },
-    createMenu (list, pagePath) {
+    createMenu (config, pagePath) {
       const pathname:string = pagePath || ''
-      this.menuList = list.map((menu) => {
+      this.menuList = config.map((menu) => {
         let open = false;
         (menu.routes || []).forEach((item) => {
           if (item.path && pathname?.indexOf(item.path.replace(/\$/g, '/')) !== -1) {
