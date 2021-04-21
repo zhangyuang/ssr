@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.16](https://github.com/ykfe/ssr/compare/v5.5.15...v5.5.16) (2021-04-21)
+
+
+### Features
+
+* update react vite ssr ([0f0f4c4](https://github.com/ykfe/ssr/commit/0f0f4c40902fe4c44bcf950e068e125c6c17064e))
+
+
+
+
+
 ## [5.5.15](https://github.com/ykfe/ssr/compare/v5.5.14...v5.5.15) (2021-04-19)
 
 
