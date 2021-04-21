@@ -1116,46 +1116,46 @@ $ touch web/route.ts # 检测到该文件存在则使用声明式路由
 
 ```js
 // React 使用如下规范
-export default [{
-  layout: require('@/components/layout/index.tsx').default, 
-  fetch: require('@/pages/detail/fetch.ts').default, 
-  webpackChunkName: "detail",
-  path: "/detail/:id",
-  component: __isBrowser__ ? require('react-loadable')({
-    loader: () => import(/* webpackChunkName: "detail" */ '@/pages/detail/render$id.tsx'),
+import React from "react"
+import loadable from 'react-loadable'
+export const FeRoutes = [{
+  "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts') : require('@/pages/detail/fetch.ts').default,
+  "path": "/detail/:id",
+  "component": __isBrowser__ ? loadable({
+    loader: () => import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id.tsx'),
     loading: function Loading() {
-      return require('react').createElement('div')
+      return React.createElement('div')
     }
-  }) : require('@/pages/detail/render$id.tsx').default
-}, {
-  layout: require('@/components/layout/index.tsx').default, 
-  fetch: require('@/pages/index/fetch.ts').default, 
-  webpackChunkName: "index",
-
-  path: "/",
-  component: __isBrowser__ ? require('react-loadable')({
+  }) : require('@/pages/detail/render$id.tsx').default, "webpackChunkName": "detail-id"
+}, 
+{
+  "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts') : require('@/pages/index/fetch.ts').default,
+  "path": "/",
+  "component": __isBrowser__ ? loadable({
     loader: () => import(/* webpackChunkName: "index" */ '@/pages/index/render.tsx'),
     loading: function Loading() {
-      return require('react').createElement('div')
+      return React.createElement('div')
     }
-  }) : require('@/pages/index/render.tsx').default
+  }) : require('@/pages/index/render.tsx').default, "webpackChunkName": "index"
 }]
+export { default as App } from "@/components/layout/App.tsx"
 // Vue 使用如下规范
-export default [{
-  layout: __isBrowser__ ? () => import(/* webpackChunkName: "common-layout" */ '@/components/layout/index.vue') : require('@/components/layout/index.vue').default,
-  App: __isBrowser__ ? () => import(/* webpackChunkName: "common-app" */ '@/components/layout/App.vue') : require('@/components/layout/App.vue').default,
-  fetch: __isBrowser__ ? () => import(/* webpackChunkName: "detail-fetch" */ '@/pages/detail/fetch.ts') : require('@/pages/detail/fetch.ts').default,
-  webpackChunkName: 'detail',
-  path: '/detail/:id',
-  component: __isBrowser__ ? () => import(/* webpackChunkName: "detail" */ '@/pages/detail/render$id.vue') : require('@/pages/detail/render$id.vue').default
-}, {
-  layout: __isBrowser__ ? () => import(/* webpackChunkName: "common-layout" */ '@/components/layout/index.vue') : require('@/components/layout/index.vue').default,
-  App: __isBrowser__ ? () => import(/* webpackChunkName: "common-app" */ '@/components/layout/App.vue') : require('@/components/layout/App.vue').default,
-  fetch: __isBrowser__ ? () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts') : require('@/pages/index/fetch.ts').default,
-  webpackChunkName: 'index',
-  path: '/',
-  component: __isBrowser__ ? () => import(/* webpackChunkName: "index" */ '@/pages/index/render.vue') : require('@/pages/index/render.vue').default
-}]
+export const FeRoutes = [
+    {   
+        "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts') : require('@/pages/detail/fetch.ts').default,
+        "path": "/detail/:id",
+        "component": __isBrowser__ ? () => import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id.vue') : require('@/pages/detail/render$id.vue').default,
+        "webpackChunkName": "detail-id"
+    },
+    {
+        "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts') : require('@/pages/index/fetch.ts').default,
+        "path": "/",
+        "component": __isBrowser__ ? () => import(/* webpackChunkName: "index" */ '@/pages/index/render.vue') : require('@/pages/index/render.vue').default,
+        "webpackChunkName": "index"
+    }
+]
+export { default as Layout } from "@/components/layout/index.vue"
+export { default as App } from "@/components/layout/App.vue"
 
 ```
 
