@@ -2,7 +2,7 @@
   <router-view />
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent, reactive, provide } from 'vue'
 export default defineComponent({
   props: ['asyncData'],

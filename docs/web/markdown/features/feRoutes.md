@@ -47,6 +47,13 @@ $ tree ./ -I node_modules -L 3
 - `/user/detail/render$id` 映射为 `/user/detail/:id`
 - `/user/detail/render$foo$bar` 映射为 `/user/detail/:foo/:bar`
 
+### 输出 parse 结构
+
+在本地开发时可以通过框架内置的 `DEBUG` 模块的能力打印出 `parse` 后的前端路由结构
+
+```shell
+$ DEBUG=ssr:* npm start
+```
 ### 实现代码
 
 具体的实现代码可以查看该[文件](https://github.com/ykfe/ssr/blob/dev/packages/server-utils/src/parse.ts#L13)
@@ -87,7 +94,8 @@ export { default as App } from "@/components/layout/App.vue"
 ```js
 import React from "react"
 import loadable from 'react-loadable'
-export const FeRoutes = [{
+export const FeRoutes = [
+{
   "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts') : require('@/pages/detail/fetch.ts').default,
   "path": "/detail/:id",
   "component": __isBrowser__ ? loadable({
