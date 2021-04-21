@@ -65,7 +65,7 @@ export default defineComponent({
     createMenu (value) {
       const { config, pagePath } = value
       const pathname:string = pagePath || ''
-      this.menuList = config.map((menu) => {
+      this.menuList = JSON.parse(JSON.stringify(config)).map((menu) => {
         let open = false;
         (menu.routes || []).forEach((item) => {
           if (item.path && pathname?.indexOf(item.path.replace(/\$/g, '/')) !== -1) {

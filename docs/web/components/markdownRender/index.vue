@@ -67,9 +67,6 @@ export default defineComponent({
         .enable('table')
 
       md.use(markdownItAnchor, {
-        // permalink: true,
-        // permalinkBefore: true,
-        // permalinkSymbol: '§',
         slugify: (s) => s
       })
       md.use(markdownItTocDoneRight, {
