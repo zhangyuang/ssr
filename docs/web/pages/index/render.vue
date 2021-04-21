@@ -195,6 +195,7 @@ export default defineComponent({
     }
     .content {
       display: flex;
+      flex-direction: row;
       justify-content: center;
       width: 100%;
       min-height: 418px;
@@ -278,13 +279,9 @@ export default defineComponent({
     width: 750px;
   }
 
-  .second-floor .content{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-    flex-wrap: wrap;
+  .page-container .second-floor .content{
     flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
   }
 }
 
@@ -292,6 +289,10 @@ export default defineComponent({
   .first-floor,
   .second-floor {
     width: 970px;
+  }
+  .page-container  .second-floor .content{
+    flex-direction: row;
+    flex-wrap: nowrap;
   }
 }
 

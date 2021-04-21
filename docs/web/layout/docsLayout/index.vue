@@ -4,7 +4,7 @@
     <div class="docs-layout">
       <div class="docs-layout_content">
         <div class="docs-layout_content_left">
-          <Menu :list="config" />
+          <Menu :config="config" />
         </div>
         <div class="docs-layout_content_right">
           <MarkdownRender />
