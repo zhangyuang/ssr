@@ -29,5 +29,11 @@ export default [
     routes: [
       { title: '应用配置', path: 'api$config' }
     ]
+  },
+  {
+    title: '插件列表',
+    routes: [
+      { title: '官方插件', path: 'plugin$index' }
+    ]
   }
 ]

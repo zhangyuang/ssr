@@ -15,7 +15,7 @@ export const webSiteConfig = {
         path: '/docs/plugin$index'
       },
       {
-        label: 'github',
+        label: 'Github',
         path: 'https://github.com/ykfe/ssr'
       }
     ]
