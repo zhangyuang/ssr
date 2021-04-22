@@ -19,6 +19,28 @@
 import { defineComponent } from 'vue'
 import { flatArray } from '@/utils/flatArray'
 
+// 获取上一个或下一个有效文档
+const getBetweenData:(
+  isNext: boolean,
+  index: number,
+  list: Array<Record<string, any>>
+)=>Record<string, any> = (isNext, index, list) => {
+  if (isNext) {
+    for (let i = index + 1; list.length > i; i++) {
+      if (list[i]?.path) {
+        return list[i]
+      }
+    }
+    return {}
+  }
+  for (let i = index - 1; i >= 0; i--) {
+    if (list[i]?.path) {
+      return list[i]
+    }
+  }
+  return {}
+}
+
 export default defineComponent({
   inject: ['asyncData'],
   data () {
@@ -45,19 +67,10 @@ export default defineComponent({
         if (!path) return false
         return path.replace(/\$/g, '/') === pagePath
       }
-      config.forEach((item) => {
-        item.topLevel = true
-      })
       const flatConfig = flatArray(config, 'routes')
       const index = flatConfig.findIndex((item) => equalPath(item.path))
-      if (index - 1 >= 0) {
-        const leftData = flatConfig[index - 1] || {}
-        this.left = leftData.topLevel ? {} : leftData
-      }
-      if (index + 1 <= flatConfig.length) {
-        const rightData = flatConfig[index + 1] || {}
-        this.right = rightData.topLevel ? {} : rightData
-      }
+      this.left = getBetweenData(false, index, flatConfig)
+      this.right = getBetweenData(true, index, flatConfig)
     },
     handleClick (data) {
       if (data.path) {
