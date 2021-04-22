@@ -41,6 +41,15 @@ const getBetweenData:(
   return {}
 }
 
+// 判断路由是否相同
+const equalPath:(
+  path:string,
+  pagePath:string
+)=>boolean = (path, pagePath) => {
+  if (!path) return false
+  return path.replace(/\$/g, '/') === pagePath
+}
+
 export default defineComponent({
   inject: ['asyncData'],
   data () {
@@ -63,12 +72,8 @@ export default defineComponent({
   methods: {
     createNav (value) {
       const { pagePath, config } = value
-      const equalPath = (path) => {
-        if (!path) return false
-        return path.replace(/\$/g, '/') === pagePath
-      }
       const flatConfig = flatArray(config, 'routes')
-      const index = flatConfig.findIndex((item) => equalPath(item.path))
+      const index = flatConfig.findIndex((item) => equalPath(item.path, pagePath))
       this.left = getBetweenData(false, index, flatConfig)
       this.right = getBetweenData(true, index, flatConfig)
     },
