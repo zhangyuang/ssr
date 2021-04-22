@@ -15,7 +15,7 @@ export default [
       { title: '本地开发 ', path: 'features$develop' },
       { title: '数据获取 ', path: 'features$fetch' },
       { title: '组件通信 ', path: 'features$communication' },
-      { title: '代码分割 ', path: 'features$dynamic' },
+      // { title: '代码分割 ', path: 'features$dynamic' },
       { title: '使用Vite ', path: 'features$vite' },
       { title: '插件机制 ', path: 'features$plugin' },
       { title: '应用部署 ', path: 'features$deploy' },

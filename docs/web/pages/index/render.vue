@@ -26,9 +26,6 @@
               :key="item.title"
             >
               <div class="content__top weui-flex justify-align">
-                <div class="icon weui-flex__item">
-                  <img :src="item.icon" alt="" />
-                </div>
                 <div class="content-wrapper weui-flex__item">
                   <h3 class="title">{{ item.title }}</h3>
                   <p class="desc">{{ item.desc }}</p>
@@ -225,8 +222,6 @@ export default defineComponent({
           }
         }
         .content-wrapper {
-          margin-left: 24px;
-          text-align: left;
           .title {
             font-weight: 700;
             line-height: 1;
