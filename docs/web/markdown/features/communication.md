@@ -6,7 +6,6 @@
 ## Vue 场景
 在 Vue 中，Vue 提供了各种各样的组件通信方式
 - 父子组件通信的`props/$emit`
-- 兄弟组件通信的`EventBus`
 - 全局数据管理的`Vuex`。
 - vue3新提供的`provide/inject`
 ### Vuex
