@@ -122,6 +122,52 @@
 - http://vue.ssr-fc.com?csr=true 部署到阿里云的 Vue SSR 应用, 以 CSR 模式访问
 - http://vue3.ssr-fc.com?csr=true 部署到阿里云的 Vue3 SSR 应用, 以 CSR 模式访问
 
+## 生态系统
+
+| Project | Status | Description |
+|---------|--------|-------------|
+| [ssr]          | [![ssr-status]][ssr] | cli for ssr framework |
+| [ssr-core-vue]          | [![ssr-core-vue-status]][ssr-core-vue] | core render for vue |
+| [ssr-core-react]          | [![ssr-core-react-status]][ssr-core-react] | core render for react |
+| [ssr-plugin-midway]          | [![ssr-plugin-midway-status]][ssr-plugin-midway] | provide start and build fetature by [midway@2.0](https://midwayjs.org/) |
+| [ssr-plugin-nestjs]          | [![ssr-plugin-nestjs-status]][ssr-plugin-nestjs] | provide start and build feature by [Nestjs](https://docs.nestjs.com/) |
+| [ssr-plugin-react]          | [![ssr-plugin-react-status]][ssr-plugin-react] | develop react application only be used in development |
+| [ssr-plugin-vue]          | [![ssr-plugin-vue-status]][ssr-plugin-vue] | develop vue2 application only be used in development |
+| [ssr-plugin-vue3]          | [![ssr-plugin-vue3-status]][ssr-plugin-vue3] | develop vue3 application only be used in development |
+| [ssr-server-utils]          | [![ssr-server-utils-status]][ssr-server-utils] | server utils in Node.js environment |
+| [ssr-client-utils]          | [![ssr-client-utils-status]][ssr-client-utils] | client utils in browser environment |
+| [ssr-hoc-react]          | [![ssr-hoc-react-status]][ssr-hoc-react] | provide hoc component for react |
+| [ssr-types]          | [![ssr-types-status]][ssr-types] | provide common types |
+| [ssr-webpack]          | [![ssr-webpack-status]][ssr-webpack] | start local server and build production bundle by webpack |
+
+
+[ssr-status]: https://img.shields.io/npm/v/ssr.svg
+[ssr-client-utils-status]: https://img.shields.io/npm/v/ssr-client-utils.svg
+[ssr-core-react-status]: https://img.shields.io/npm/v/ssr-core-react.svg
+[ssr-core-vue-status]: https://img.shields.io/npm/v/ssr-core-vue.svg
+[ssr-hoc-react-status]: https://img.shields.io/npm/v/ssr-hoc-react.svg
+[ssr-plugin-midway-status]: https://img.shields.io/npm/v/ssr-plugin-midway.svg
+[ssr-plugin-nestjs-status]: https://img.shields.io/npm/v/ssr-plugin-nestjs.svg
+[ssr-plugin-react-status]: https://img.shields.io/npm/v/ssr-plugin-react.svg
+[ssr-plugin-vue-status]: https://img.shields.io/npm/v/ssr-plugin-vue.svg
+[ssr-plugin-vue3-status]: https://img.shields.io/npm/v/ssr-plugin-vue3.svg
+[ssr-server-utils-status]: https://img.shields.io/npm/v/ssr-server-utils.svg
+[ssr-types-status]: https://img.shields.io/npm/v/ssr-types.svg
+[ssr-webpack-status]: https://img.shields.io/npm/v/ssr-webpack.svg
+
+[ssr]: https://github.com/ykfe/ssr/tree/dev/packages/cli
+[ssr-client-utils]: https://github.com/ykfe/ssr/tree/dev/packages/client-utils
+[ssr-core-react]: https://github.com/ykfe/ssr/tree/dev/packages/core-react
+[ssr-core-vue]: https://github.com/ykfe/ssr/tree/dev/packages/core-vue
+[ssr-hoc-react]: https://github.com/ykfe/ssr/tree/dev/packages/hoc-react
+[ssr-plugin-midway]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-midway
+[ssr-plugin-nestjs]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-nestjs
+[ssr-plugin-react]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-react
+[ssr-plugin-vue]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-vue
+[ssr-plugin-vue3]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-vue3
+[ssr-server-utils]: https://github.com/ykfe/ssr/tree/dev/packages/server-utils
+[ssr-types]: https://github.com/ykfe/ssr/tree/dev/packages/types
+[ssr-webpack]: https://github.com/ykfe/ssr/tree/dev/packages/webpack
 ## CONTRIBUTING
 
 如果你想为本应用贡献代码，请阅读[贡献文档](./CONTRIBUTING.md)，我们为你准备了丰富的脚本用于 bootstrap
