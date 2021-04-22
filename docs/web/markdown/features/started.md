@@ -13,14 +13,14 @@
 
 虽然技术栈不同但开发思想是一致的，在任何技术栈的组合中我们的开发命令, 构建命令以及渲染原理都是完全一致的
 
-注意: 如果你想使用 `Serverless` 的能力来迅速发布你的应用，那么你应该选择基于 `Midway.js` 的模版应用。关于 `Serverless` 开发更加详细的介绍可以阅读[Serverless](./features$serverless) 章节。
+注意: 如果你想使用 `Serverless` 的能力来迅速发布你的应用，那么你应该选择基于 `Midway.js` 的模版应用。关于 `Serverless` 开发更加详细的介绍可以阅读[Serverless](./features$serverless) 章节。如无特殊需求，我们建议创建 `Serverless` 类型的应用来享受一站式的开发部署能力
 
-- [midway-react-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-react-ssr)
-- [midway-vue-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-vue-ssr)
-- [midway-vue3-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-vue3-ssr) 
-- [nestjs-react-ssr](https://github.com/ykfe/ssr/tree/dev/example/nestjs-react-ssr)
-- [nestjs-vue-ssr](https://github.com/ykfe/ssr/tree/dev/example/nestjs-vue-ssr)
-- [nestjs-vue3-ssr](https://github.com/ykfe/ssr/tree/dev/example/nestjs-vue3-ssr)  
+- [midway-react-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-react-ssr) 同时支持 Serverless 形式部署以及传统 Node.js 应用类型部署
+- [midway-vue-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-vue-ssr) 同时支持 Serverless 形式部署以及传统 Node.js 应用类型部署
+- [midway-vue3-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-vue3-ssr) 同时支持 Serverless 形式部署以及传统 Node.js 应用类型部署
+- [nestjs-react-ssr](https://github.com/ykfe/ssr/tree/dev/example/nestjs-react-ssr) 支持 传统 Node.js 应用类型部署
+- [nestjs-vue-ssr](https://github.com/ykfe/ssr/tree/dev/example/nestjs-vue-ssr) 支持 传统 Node.js 应用类型部署
+- [nestjs-vue3-ssr](https://github.com/ykfe/ssr/tree/dev/example/nestjs-vue3-ssr) 支持 传统 Node.js 应用类型部署
 
 ### 命令行创建项目 
 
@@ -42,8 +42,6 @@ $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 我们提供了传统 Node.js 应用部署以及 Serverless 形式部署两种方式。
 
 当你选择了基于 `Midway.js` 的模版后，我们额外提供了 `ssr deploy` 命令来将你的应用迅速发布到阿里云或者腾讯云。需要了解详细的发布流程可以阅读[应用部署](./features$deploy)章节
-
-
 ### Serverless 部署
 
 以 Serverless 形式迅速发布应用

@@ -97,3 +97,84 @@ export {
   start
 }
 ```
+
+## 客户端插件
+
+相比于服务端插件，我们的主要逻辑还是在客户端插件当中。编写一个客户端插件略复杂，好在常见的前端框架官方已经帮大家都提供了对应的插件实现服务端渲染功能。无需自己重新实现
+
+下面让我们来看看一个客户端插件的目录结构
+
+```shell
+$ tree ./ -I node_modules -L 2
+./
+├── CHANGELOG.md
+├── package.json
+├── src
+│   ├── config # Webpack 构建配置
+│   │   ├── base.ts # 通用 Webpack 构建配置
+│   │   ├── client.ts # 客户端文件 Webpack 构建配置
+│   │   ├── index.ts
+│   │   ├── server.ts # 服务端文件 Webpack 构建配置
+│   │   └── vite.config.tpl
+│   ├── entry
+│   │   ├── client-entry.ts # 客户端文件打包入口
+│   │   ├── interface.ts
+│   │   ├── router.ts
+│   │   ├── server-entry.ts # 服务端文件打包入口
+│   │   └── store.ts
+│   ├── global.d.ts
+│   └── index.ts
+├── tsconfig.cjs.json
+└── tsconfig.esm.json
+```
+
+同样在 `index.ts` 中，我们也是暴露 `start` `build` 方法让上层调用
+
+```js
+import * as WebpackChain from 'webpack-chain'
+
+export function vuePlugin () {
+  return {
+    name: 'plugin-vue3',
+    start: async () => {
+      // 本地开发的时候要做细致的依赖分离， Vite 场景不需要去加载 Webpack 构建客户端应用所需的模块
+      const { startServerBuild } = await import('ssr-webpack/cjs/server/server')
+      const { getServerWebpack } = await import('./config/server')
+      const serverConfigChain = new WebpackChain()
+      await startServerBuild(getServerWebpack(serverConfigChain))
+      if (process.env.BUILD_TOOL === 'vite') {
+        return
+      }
+      const { startClientServer } = await import('ssr-webpack')
+      const { getClientWebpack } = await import('./config')
+      const clientConfigChain = new WebpackChain()
+      await startClientServer(getClientWebpack(clientConfigChain))
+    },
+    build: async () => {
+      const { startServerBuild, startClientBuild } = await import('ssr-webpack')
+      const { getClientWebpack, getServerWebpack } = await import('./config')
+      const serverConfigChain = new WebpackChain()
+      await startServerBuild(getServerWebpack(serverConfigChain))
+      const clientConfigChain = new WebpackChain()
+      await startClientBuild(getClientWebpack(clientConfigChain))
+    }
+  }
+}
+
+```
+
+上面的代码可能无法直观的看出具体的作用，下面让我们来慢慢分析客户端插件干了什么
+
+首先我们需要在客户端插件定义 `server-entry` `client-entry` 分别代表服务端 `bundle` 的打包入口以及客户端 `bundle` 的打包入口
+
+同样 `start` 命令的逻辑其实很简单，只干了两件事情
+
+- 启动 `Webpack` 以 `config/server` 为配置文件(通常开启 externals 选项)以 `watch` 模式构建服务端 `bundle`
+- 启动 `Webpack-dev-server` 以 `config/client` 为配置文件构建客户端 `bundle` 提供 `HMR` 功能
+
+`build` 命令的逻辑则更简单，直接以 `Webpack` 来生产环境模式构建双端文件
+
+## 注意事项
+
+- 在本地开发的 `start` 命令我们需要对 `Vite` 场景进行区分判断，使得本地开发启动的时候我们需要加载的模块体积最小，提升启动速度。详情见 [使用 Vite](./features$vite) 章节
+- 构建服务端文件时，我们会开启 [externals](https://webpack.docschina.org/configuration/externals/) 选项，来将 `node_modules` 中的依赖外置，使得服务端文件体积尽可能小，提升启动速度。

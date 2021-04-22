@@ -9,6 +9,7 @@ export default [
       { title: '快速开始', path: 'features$started' },
       { title: '在线案例', path: 'features$demo' },
       { title: 'Serverless', path: 'features$serverless' },
+      { title: '技术选型', path: 'features$technology' },
       { title: '目录结构', path: 'features$structure' },
       { title: '约定式路由', path: 'features$feRoutes' },
       { title: '本地开发 ', path: 'features$develop' },
@@ -20,7 +21,7 @@ export default [
       { title: '应用部署 ', path: 'features$deploy' },
       { title: '渲染降级', path: 'features$csr' },
       { title: 'FAQ', path: 'features$faq' },
-      { title: '问题反馈', path: 'features$issue' }
+      { title: '开发交流', path: 'features$issue' }
     ]
   },
   {
