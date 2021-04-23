@@ -5,9 +5,18 @@
         <h1 class="title">{{ firstFloor.title }}</h1>
         <h2 class="desc">{{ firstFloor.desc }}</h2>
         <div class="media-wrapper weui-flex justify-align">
-          <a class="link" :href="firstFloor.link.path">
-            {{ firstFloor.link.label }}
-          </a>
+          <div class="button-wrapper weui-flex justify-align">
+            <a class="link start-button" :href="firstFloor.startButton.path">
+              {{ firstFloor.startButton.label }}
+            </a>
+            <a class="link docs-button" :href="firstFloor.docsButton.path">
+              {{ firstFloor.docsButton.label }}
+            </a>
+            <div class="license">
+              License: MIT
+              <a href="https://github.com/ykfe/ssr" target="_blank">Github</a>
+            </div>
+          </div>
           <div class="img">
             <img :src="firstFloor.imgUrl" alt="" />
           </div>
@@ -94,42 +103,81 @@ export default defineComponent({
     flex-wrap: wrap;
     height: 983px;
     .title {
-      font-size: 4.6rem;
-      line-height: 7rem;
-      font-weight: 600;
+      font-size: 100px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+    }
+    .desc {
+      font-size: 20px;
+      letter-spacing: -0.02em;
     }
     .media-wrapper {
+      // flex-direction: column;
       margin: 45px -15px -45px;
       text-align: center;
       z-index: 200;
       position: relative;
-      .link {
-        display: flex;
-        height: 56px;
-        border-radius: 28px;
-        padding: 0px 20px;
-        font-size: 1.7rem;
-        background-color: rgb(4, 195, 142);
-        color: rgb(255, 255, 255);
-        text-decoration: none;
-        align-self: center;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        line-height: 3rem;
-        border: 1px solid transparent;
-        transition: background-color 0.3s cubic-bezier(0.6, 0.41, 0.47, 1.18) 0s,
-          border-color 0.3s cubic-bezier(0.6, 0.41, 0.47, 1.18) 0s,
-          color 0.3s cubic-bezier(0.6, 0.41, 0.47, 1.18) 0s;
-        max-width: 100%;
-        outline: none !important;
-        box-sizing: border-box;
-        &:hover {
-          background-color: rgb(6, 136, 93);
+      .button-wrapper {
+        position: relative;
+        padding-bottom: 60px;
+        .link {
+          display: flex;
+          height: 56px;
+          border-radius: 8px;
+          padding: 0px 56px;
+          font-size: 1.7rem;
+          background-color: #010101;
           color: rgb(255, 255, 255);
           text-decoration: none;
+          align-self: center;
+          align-items: center;
+          justify-content: center;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 56px;
+          transition: background-color 0.3s cubic-bezier(0.6, 0.41, 0.47, 1.18)
+              0s,
+            border-color 0.3s cubic-bezier(0.6, 0.41, 0.47, 1.18) 0s,
+            color 0.3s cubic-bezier(0.6, 0.41, 0.47, 1.18) 0s;
+          max-width: 100%;
+          outline: none !important;
+          box-sizing: border-box;
+          &:hover {
+            background-color: rgba(1, 1, 1, 0.9);
+            color: rgb(255, 255, 255);
+            box-shadow: 0 6px 20px rgba(93, 93, 93, 0.23);
+            text-decoration: none;
+          }
+        }
+        .docs-button {
+          margin-left: 28px;
+          background: #fff;
+          color: #696969;
+          box-shadow: 0 6px 20px rgba(255, 255, 255, 0.23);
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #696969;
+            box-shadow: 0 6px 20px rgba(93, 93, 93, 0.23);
+          }
+        }
+        .license {
+          position: absolute;
+          bottom: 0px;
+          font-size: 16px;
+          a {
+            color: rgb(144, 195, 234);
+            text-decoration-color: rgb(144, 195, 234);
+            text-decoration-line: none;
+            text-decoration-style: solid;
+            border-bottom-width: 1px;
+            border-bottom-color: rgb(144, 195, 234);
+            border-bottom-style: dashed;
+          }
         }
       }
+
       .img {
         margin-top: 45px;
         width: 100%;
@@ -147,7 +195,7 @@ export default defineComponent({
       height: 100%;
       top: 0;
       left: 0;
-      background-color: rgb(22, 35, 50);
+      background-color: #1b293c;
       z-index: -100;
       background-image: url(https://www.cypress.io/static/bca66aa…/dcf1d/cypress-header-bg.webp);
       opacity: 1;
@@ -244,29 +292,42 @@ export default defineComponent({
   }
 }
 
-
 /* 宽度小于等于414px */
-@media screen and (max-width:414px ){
- .page-container  {
- .first-floor {
-   padding: 20px 5px;
-    .title {
-      line-height: 1;
-      font-size: 56px;
+@media screen and (max-width: 414px) {
+  .page-container {
+    .first-floor {
+      padding: 20px;
+      height: auto;
+      .title {
+        line-height: 1;
+        font-size: 48px;
+      }
+      .desc {
+        font-size: 16px;
+        font-weight: 400;
+      }
+      .media-wrapper {
+        margin: 45px -15px -100px;
+        .button-wrapper {
+          .docs-button {
+            margin-left: 0;
+            margin-top: 16px;
+          }
+        }
+        .img {
+          width: 80%;
+        }
+      }
     }
-    .media-wrapper {
-      .img {
-         width: 80%;
+    .second-floor {
+      padding: 100px 5px 120px !important;
+      .content {
+        flex-direction: column;
+        flex-wrap: wrap;
       }
     }
   }
-  .second-floor {
-    padding: 200px 5px 120px !important;
-  }
- }
-
-} 
-
+}
 
 @media screen and (min-width: 768px) {
   .first-floor,
@@ -274,7 +335,7 @@ export default defineComponent({
     width: 750px;
   }
 
-  .page-container .second-floor .content{
+  .page-container .second-floor .content {
     flex-direction: column;
     flex-wrap: wrap;
   }
@@ -285,7 +346,7 @@ export default defineComponent({
   .second-floor {
     width: 970px;
   }
-  .page-container  .second-floor .content{
+  .page-container .second-floor .content {
     flex-direction: row;
     flex-wrap: nowrap;
   }
@@ -297,9 +358,4 @@ export default defineComponent({
     width: 1100px;
   }
 }
-
-
-
-
-
 </style>

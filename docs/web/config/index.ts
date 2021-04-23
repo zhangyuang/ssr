@@ -24,8 +24,12 @@ export const webSiteConfig = {
     firstFloor: {
       title: '地球上最优秀的 SSR 框架',
       desc: 'SSR 框架是为前端框架在服务端渲染的场景下所打造的开箱即用的服务端渲染框架',
-      link: {
-        label: 'https://github.com/ykfe/ssr',
+      startButton: {
+        label: 'Start Learning',
+        path: 'https://github.com/ykfe/ssr/'
+      },
+      docsButton: {
+        label: 'Documentation',
         path: 'https://github.com/ykfe/ssr/'
       },
       imgUrl: 'https://camo.githubusercontent.com/84219530f779a9be5213a92a852af381b5d8bac12ca193b30157831436fe682b/68747470733a2f2f67772e616c6963646e2e636f6d2f7466732f544231636b415443474c37674b306a535a46425858585a5a7058612d3534302d3534302e6a7067'
