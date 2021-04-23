@@ -1,5 +1,4 @@
 export const webSiteConfig = {
-  // logo: '../../images/logo.jpeg',
   header: {
     items: [
       {
@@ -13,10 +12,6 @@ export const webSiteConfig = {
       {
         label: '插件列表',
         path: '/docs/plugin$index'
-      },
-      {
-        label: 'Github',
-        path: 'https://github.com/ykfe/ssr'
       }
     ]
   },
@@ -26,14 +21,13 @@ export const webSiteConfig = {
       desc: 'SSR 框架是为前端框架在服务端渲染的场景下所打造的开箱即用的服务端渲染框架',
       startButton: {
         label: 'Start Learning',
-        path: 'https://github.com/ykfe/ssr/'
+        path: '/docs/features$started'
       },
       docsButton: {
         label: 'Documentation',
-        path: 'https://github.com/ykfe/ssr/'
+        path: '/docs/why'
       },
-      imgUrl: 'https://camo.githubusercontent.com/84219530f779a9be5213a92a852af381b5d8bac12ca193b30157831436fe682b/68747470733a2f2f67772e616c6963646e2e636f6d2f7466732f544231636b415443474c37674b306a535a46425858585a5a7058612d3534302d3534302e6a7067'
-
+      imgUrl: '/images/logo.jpeg'
     },
     secondFloor: {
       title: '为什么要选择 SSR',
