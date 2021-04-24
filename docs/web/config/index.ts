@@ -27,7 +27,7 @@ export const webSiteConfig = {
         label: '查看文档',
         path: '/docs/why'
       },
-      imgUrl: '/images/logo.jpeg'
+      imgUrl: '/images/homepage.png'
     },
     secondFloor: {
       title: '为什么要选择 SSR',
