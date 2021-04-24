@@ -91,3 +91,5 @@ example/**/f.yml
 **/.serverless
 
 docs/dist
+
+example/yarn.lock
