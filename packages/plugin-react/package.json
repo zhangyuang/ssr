@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-react",
-  "version": "5.5.16",
+  "version": "5.5.17",
   "description": "plugin-react for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
