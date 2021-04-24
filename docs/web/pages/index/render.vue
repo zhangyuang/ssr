@@ -10,10 +10,16 @@
         </h2>
         <div class="media-wrapper weui-flex justify-align">
           <div class="button-wrapper weui-flex justify-align">
-            <router-link class="link start-button weui-flex__item" :to="firstFloor.startButton.path">
+            <router-link
+              class="link start-button weui-flex__item"
+              :to="firstFloor.startButton.path"
+            >
               {{ firstFloor.startButton.label }}
             </router-link>
-            <router-link class="link docs-button weui-flex__item" :to="firstFloor.docsButton.path">
+            <router-link
+              class="link docs-button weui-flex__item"
+              :to="firstFloor.docsButton.path"
+            >
               {{ firstFloor.docsButton.label }}
             </router-link>
             <div class="license">
@@ -130,6 +136,7 @@ export default defineComponent({
       z-index: 200;
       position: relative;
       .button-wrapper {
+        flex-direction: row;
         position: relative;
         padding-bottom: 60px;
         .link {
@@ -208,7 +215,7 @@ export default defineComponent({
       left: 0;
       background-color: #1b293c;
       z-index: -100;
-      background-image: url('/images/header-bg.png');
+      background-image: url("/images/header-bg.png");
       opacity: 1;
     }
   }
@@ -294,7 +301,7 @@ export default defineComponent({
       &__bottom {
         padding: 20px 25px;
         font-size: 14px;
-        min-height: 160px;
+        min-height: 180px;
         .weui-flex__item {
           text-align: left;
           margin-top: 18px;
@@ -344,9 +351,19 @@ export default defineComponent({
         flex-direction: column;
         flex-wrap: wrap;
         &__bottom {
-           min-height: auto;
+          min-height: auto;
         }
       }
+    }
+  }
+}
+
+@media screen and (min-width: 414px) {
+  .page-container .second-floor .content {
+    flex-direction: column;
+    flex-wrap: wrap;
+     &__bottom {
+       min-height: 180px;
     }
   }
 }
@@ -360,6 +377,9 @@ export default defineComponent({
   .page-container .second-floor .content {
     flex-direction: column;
     flex-wrap: wrap;
+     &__bottom {
+       min-height: 180px;
+    }
   }
 }
 
@@ -371,13 +391,18 @@ export default defineComponent({
   .page-container .second-floor .content {
     flex-direction: row;
     flex-wrap: nowrap;
+    &__top {
+      min-height: 170px;
+    }
   }
 }
 
 @media screen and (min-width: 1200px) {
-  .first-floor,
-  .second-floor {
-    width: 1100px;
+  .page-container {
+    .first-floor,
+    .second-floor {
+      width: 1100px;
+    }
   }
 }
 </style>
