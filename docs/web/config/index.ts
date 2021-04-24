@@ -17,7 +17,7 @@ export const webSiteConfig = {
   },
   home: {
     firstFloor: {
-      title: '地球上最优秀的 SSR 框架',
+      title: '地球上没对手的 SSR 框架',
       desc: 'SSR 框架是为前端框架在服务端渲染的场景下所打造的开箱即用的服务端渲染框架',
       startButton: {
         label: '开始学习',
@@ -36,7 +36,6 @@ export const webSiteConfig = {
         {
           title: '极易定制',
           desc: '框架使用插件化架构支持任意前端框架和服务端框架的组合',
-          icon: 'https://camo.githubusercontent.com/84219530f779a9be5213a92a852af381b5d8bac12ca193b30157831436fe682b/68747470733a2f2f67772e616c6963646e2e636f6d2f7466732f544231636b415443474c37674b306a535a46425858585a5a7058612d3534302d3534302e6a7067',
           children: [
             '前端框架支持 React Vue2 Vue3',
             '服务端框架官方支持 Midway.js Nest.js',
@@ -46,7 +45,6 @@ export const webSiteConfig = {
         {
           title: '开箱即用',
           desc: '内置 10+ 脚手架配套扩展，如Antd、Vant、TS、Hooks等',
-          icon: 'https://camo.githubusercontent.com/84219530f779a9be5213a92a852af381b5d8bac12ca193b30157831436fe682b/68747470733a2f2f67772e616c6963646e2e636f6d2f7466732f544231636b415443474c37674b306a535a46425858585a5a7058612d3534302d3534302e6a7067',
           children: [
             '默认对 ant-design vant 等流行 UI 框架做底层支持可直接引入',
             '构建工具支持 Webpack/Vite',
@@ -56,7 +54,6 @@ export const webSiteConfig = {
         {
           title: '完美支持 Serverless',
           desc: '一键发布到各种Serverless平台，也支持传统Web Server，比如Egg、Midway、Nest等。',
-          icon: 'https://camo.githubusercontent.com/84219530f779a9be5213a92a852af381b5d8bac12ca193b30157831436fe682b/68747470733a2f2f67772e616c6963646e2e636f6d2f7466732f544231636b415443474c37674b306a535a46425858585a5a7058612d3534302d3534302e6a7067',
           children: [
             'ssr deploy 一键部署到阿里云',
             'ssr deploy --tencent 一键部署到腾讯云',
