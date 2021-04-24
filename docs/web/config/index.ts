@@ -20,11 +20,11 @@ export const webSiteConfig = {
       title: '地球上最优秀的 SSR 框架',
       desc: 'SSR 框架是为前端框架在服务端渲染的场景下所打造的开箱即用的服务端渲染框架',
       startButton: {
-        label: 'Start Learning',
+        label: '开始学习',
         path: '/docs/features$started'
       },
       docsButton: {
-        label: 'Documentation',
+        label: '查看文档',
         path: '/docs/why'
       },
       imgUrl: '/images/logo.jpeg'
