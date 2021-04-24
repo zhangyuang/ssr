@@ -48,7 +48,11 @@ export default {
 }
 ```
 
-同理 Router 对象我们将挂在 `window.__VUE_ROUTER__` 用于注册全局路由钩子
+## Vue3 修改 Router 行为
+
+在 `Vue3` 中我们同样将 `vue-router` 实例挂在了 `window.__VUE_ROUTER__` 上方，你也可以直接通过 [useRouter](https://next.router.vuejs.org/guide/advanced/composition-api.html#accessing-the-router-and-current-route-inside-setup) 来直接拿到 `Router` 实例。
+
+通过 `Router.options.scrollBehavior` 来修改 `Router` 行为
 
 ## 使用Vue3国际化插件
 
