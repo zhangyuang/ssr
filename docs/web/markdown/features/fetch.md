@@ -63,7 +63,7 @@ class Foo extends React.component {
 页面级别的 `fetch` (可选)，定义在 `web/pages/xxx/fetch.ts` 路径
 
 意义: 页面级别的 `fetch` 将会在当前访问该前端页面组件对应的 `path` 时被调用
-### 调用时机
+### fetch 调用时机
 
 这里我们将其分为`服务端渲染模式`和`客户端渲染模式`两种情况
 
@@ -79,13 +79,43 @@ class Foo extends React.component {
 
 ![](/images/csr-fetch.png)
 
-#### 注意
+### 方法入参
+
+在 `Vue`, `React` 场景以及 `服务端`，`客户端` 环境我们的 `fetch.ts` 的入参会有稍许不同
+
+#### Vue 场景
+
+在 `Vue` 场景中，我们将会把 `vuex`, `vue-router` 返回的示例作为参数传入。开发者可以在任何时候使用它们。在 `服务端` 环境，我们会额外把当前请求的上下文 `ctx` 传入。开发者可以通过 `ctx` 拿到上面挂载的 `自定义 Service` 或者 `ctx.request` 等对象信息。这取决于服务端代码调用 `core` 模块时的具体入参实现。
+
+```js
+import { ISSRContext } from 'ssr-types'
+
+export default async ({ store, router }, ctx?: ISSRContext) => {
+  const data = __isBrowser__ ? await (await window.fetch('/api/index')).json() : await ctx?.apiService?.index()
+  await store.dispatch('indexStore/initialData', { payload: data })
+}
+```
+
+#### React 场景
+
+在 `React` 场景，我们在 `服务端` 会将当前请求的上下文 `ctx` 作为参数传入。开发者可以通过 `ctx` 拿到上面挂载的 `自定义 Service` 或者 `ctx.request` 等对象信息。这取决于服务端代码调用 `core` 模块时的具体入参实现。在前端路由切换时，也就是客户端 `fetch` 数据场景。我们会将 `react-router` 提供的[路由元信息](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/d90beb2f67881d54384c0f9b42a03233aaba1ca1/types/react-router/index.d.ts#L69)作为参数传入
+
+```js
+export default async params => {
+  const data = __isBrowser__ ? await (await window.fetch(`/api/detail/${(ctx as RouteComponentProps<{id: string}>).match.params.id}`)).json() : await ctx.apiDeatilservice.index(ctx.params.id)
+  return {
+    // 建议根据模块给数据加上 namespace防止数据覆盖
+    detailData: data
+  }
+}
+```
+### 注意
 
 上述图片指的是用 `前端路由` 进行跳转的情况。此时的跳转并不会真正的向服务端发起请求。所以数据的获取是在客户端完成的。
 
 如果开发者使用 `a` 标签进行跳转。则此时可视为完全打开一个新页面。此时的数据获取操作仍然是在服务端完成
 
-#### 框架差异
+### 不同场景实现差异
 
 在 `React` 场景以及 `Vue` 场景我们的切换路由 `fetch` 数据的时机略有不同。之所以会有差异这里是为了选择不同框架实现起来最简单好用的方式。
 

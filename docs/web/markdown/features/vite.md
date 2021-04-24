@@ -150,7 +150,7 @@ const render = (await vite.ssrLoadModule('/src/entry-server.js')).render
 之前创建的模板应用只需以下三步便可接入 Vite
 
 - 安装最新版本的插件依赖 `version >= 5.5.1`
-- layout/index.vue 中添加 `<slot name="viteClient" />` 参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-vue3-ssr/web/components/layout/index.vue)
+- `layout/index.vue` 中添加 `<slot name="viteClient" />` 参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-vue3-ssr/web/components/layout/index.vue)
 - 服务端应用启动时中间件初始化改为 `async await` 形式, 参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-vue3-ssr/src/app.ts#L11)
 
 ### React 应用迁移
