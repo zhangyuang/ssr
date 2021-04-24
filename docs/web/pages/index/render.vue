@@ -10,10 +10,10 @@
         </h2>
         <div class="media-wrapper weui-flex justify-align">
           <div class="button-wrapper weui-flex justify-align">
-            <router-link class="link start-button" :to="firstFloor.startButton.path">
+            <router-link class="link start-button weui-flex__item" :to="firstFloor.startButton.path">
               {{ firstFloor.startButton.label }}
             </router-link>
-            <router-link class="link docs-button" :to="firstFloor.docsButton.path">
+            <router-link class="link docs-button weui-flex__item" :to="firstFloor.docsButton.path">
               {{ firstFloor.docsButton.label }}
             </router-link>
             <div class="license">
@@ -22,7 +22,7 @@
             </div>
           </div>
           <div class="img">
-            <img :src="firstFloor.imgUrl" alt="" />
+            <img :src="firstFloor.imgUrl" alt="">
           </div>
         </div>
       </section>
@@ -34,7 +34,7 @@
           <div class="tip">
             <p>{{ secondFloor.content }}</p>
           </div>
-          <div class="content weui-flex">
+          <div class="content weui-flex justify-align">
             <div
               v-for="item in secondFloor.items"
               :key="item.title"
@@ -112,6 +112,7 @@ export default defineComponent({
     flex-direction: row;
     flex-wrap: wrap;
     height: 983px;
+    box-sizing: border-box;
     .title {
       font-size: 100px;
       line-height: 1;
@@ -293,6 +294,7 @@ export default defineComponent({
       &__bottom {
         padding: 20px 25px;
         font-size: 14px;
+        min-height: 160px;
         .weui-flex__item {
           text-align: left;
           margin-top: 18px;
@@ -304,9 +306,15 @@ export default defineComponent({
 
 /* 宽度小于等于414px */
 @media screen and (max-width: 414px) {
+  .header {
+    .header__left {
+      max-width: 25%;
+    }
+  }
   .page-container {
     .first-floor {
       padding: 20px;
+      padding-top: 100px;
       height: auto;
       .title {
         line-height: 1;
@@ -319,6 +327,7 @@ export default defineComponent({
       .media-wrapper {
         margin: 45px -15px -100px;
         .button-wrapper {
+          flex-direction: column;
           .docs-button {
             margin-left: 0;
             margin-top: 16px;
@@ -334,6 +343,9 @@ export default defineComponent({
       .content {
         flex-direction: column;
         flex-wrap: wrap;
+        &__bottom {
+           min-height: auto;
+        }
       }
     }
   }
