@@ -89,3 +89,5 @@ example/**/vite.config.js
 example/**/f.yml
 
 **/.serverless
+
+docs/dist
