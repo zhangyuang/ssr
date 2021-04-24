@@ -18,6 +18,10 @@ package:
     - public
   exclude:
     - package-lock.json
+    - src
+    - vite.config.js
+    - vetur.config.js
+    
   artifact: code.zip
 
 deployType: egg       ## 部署的应用类型
