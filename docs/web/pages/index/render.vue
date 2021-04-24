@@ -2,16 +2,20 @@
   <BaseLayout>
     <div class="page-container">
       <section class="first-floor container weui-flex justify-align">
-        <h1 class="title">{{ firstFloor.title }}</h1>
-        <h2 class="desc">{{ firstFloor.desc }}</h2>
+        <h1 class="title">
+          {{ firstFloor.title }}
+        </h1>
+        <h2 class="desc">
+          {{ firstFloor.desc }}
+        </h2>
         <div class="media-wrapper weui-flex justify-align">
           <div class="button-wrapper weui-flex justify-align">
-            <a class="link start-button" :href="firstFloor.startButton.path">
+            <router-link class="link start-button" :to="firstFloor.startButton.path">
               {{ firstFloor.startButton.label }}
-            </a>
-            <a class="link docs-button" :href="firstFloor.docsButton.path">
+            </router-link>
+            <router-link class="link docs-button" :to="firstFloor.docsButton.path">
               {{ firstFloor.docsButton.label }}
-            </a>
+            </router-link>
             <div class="license">
               License: MIT
               <a href="https://github.com/ykfe/ssr" target="_blank">Github</a>
@@ -24,27 +28,33 @@
       </section>
       <div class="floor-container">
         <section class="second-floor container weui-felx justify-align">
-          <h1 class="title">{{ secondFloor.title }}</h1>
+          <h1 class="title">
+            {{ secondFloor.title }}
+          </h1>
           <div class="tip">
             <p>{{ secondFloor.content }}</p>
           </div>
           <div class="content weui-flex">
             <div
-              class="weui-flex__item content-item"
               v-for="item in secondFloor.items"
               :key="item.title"
+              class="weui-flex__item content-item"
             >
               <div class="content__top weui-flex justify-align">
                 <div class="content-wrapper weui-flex__item">
-                  <h3 class="title">{{ item.title }}</h3>
-                  <p class="desc">{{ item.desc }}</p>
+                  <h3 class="title">
+                    {{ item.title }}
+                  </h3>
+                  <p class="desc">
+                    {{ item.desc }}
+                  </p>
                 </div>
               </div>
               <div class="content__bottom">
                 <div
-                  class="weui-flex__item"
                   v-for="(childContent, index) in item.children"
                   :key="`${childContent + index}`"
+                  class="weui-flex__item"
                 >
                   {{ childContent }}
                 </div>
@@ -58,28 +68,28 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { mapState } from "vuex";
-import BaseLayout from "@/layout/baseLayout";
-import { webSiteConfig } from "../../config/index";
+import { defineComponent } from 'vue'
+import { mapState } from 'vuex'
+import BaseLayout from '@/layout/baseLayout'
+import { webSiteConfig } from '../../config/index'
 // import bgImg from "./bg.webp";
 
 export default defineComponent({
   components: {
-    BaseLayout,
+    BaseLayout
   },
-  data() {
+  data () {
     return {
       firstFloor: webSiteConfig.home.firstFloor,
-      secondFloor: webSiteConfig.home.secondFloor,
-    };
+      secondFloor: webSiteConfig.home.secondFloor
+    }
   },
   computed: {
     ...mapState({
-      indexData: (state) => state.indexStore?.data,
-    }),
-  },
-});
+      indexData: (state) => state.indexStore?.data
+    })
+  }
+})
 </script>
 
 <style scope lang="less">
@@ -197,7 +207,7 @@ export default defineComponent({
       left: 0;
       background-color: #1b293c;
       z-index: -100;
-      background-image: url(https://www.cypress.io/static/bca66aa…/dcf1d/cypress-header-bg.webp);
+      background-image: url('/images/header-bg.png');
       opacity: 1;
     }
   }

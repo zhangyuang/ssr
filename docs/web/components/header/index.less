@@ -1,25 +1,24 @@
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   display: flex;
   justify-content: space-between;
   height: 70px;
   padding: 0px 20px;
   background: white;
-  // position: sticky;
-  // top: 0;
-  // z-index: 3;
+  z-index: 999;
   .weui-flex__item {
     height: 100%;
   }
 
   &__left {
     .logo {
-      // background-image: url("./logo.jpeg");
-      // background-size: 100%;
       overflow: hidden;
       height: 40px;
       width: 40px;
       border-radius: 50%;
-
       img {
         width: 100%;
         height: 100%;
@@ -32,6 +31,11 @@
     flex-wrap: nowrap;
     justify-content: flex-end;
 
+    .router-link-active {
+      color: rgb(4, 195, 142);
+      border-bottom-color: rgb(4, 195, 142) !important;
+    }
+
     .weui-flex__item {
       display: flex;
       align-items: center;
@@ -43,23 +47,21 @@
       word-break: break-all;
       border-bottom: 5px solid transparent;
       box-sizing: border-box;
+
+      &:hover {
+        color: rgb(4, 195, 142);
+      }
+      
       a {
         font-size: 14px;
         font-weight: 700;
         color: #000;
         text-decoration: none;
         font-family: sans-serif;
-
       }
-    }
-
-    .active {
-      color: rgb(40, 43, 52);
-      border-bottom-color: rgb(4, 195, 142);
     }
   }
 }
-
 
 .weui-flex {
   display: flex;
