@@ -92,7 +92,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 ## chainBaseConfig
 
 - 类型: `(config: WebpackChain) => void`
-- 默认: `见文章上方具体配置文件`
+- 默认: [React](https://github.com/ykfe/ssr/blob/dev/packages/plugin-react/src/config/base.ts) [Vue](https://github.com/ykfe/ssr/blob/dev/packages/plugin-vue/src/config/base.ts) [Vue3](https://github.com/ykfe/ssr/blob/dev/packages/plugin-vue3/src/config/base.ts)
 
 使用 [webpack-chain](https://github.com/neutrinojs/webpack-chain) 来修改 `服务端/客户端` 公共的 `Webpack` 构建配置。
 
@@ -116,21 +116,21 @@ module.exports = {
 ## chainServerConfig
 
 - 类型: `(config: WebpackChain) => void`
-- 默认: `见文章上方具体配置文件`
+- 默认: [React](https://github.com/ykfe/ssr/blob/dev/packages/plugin-react/src/config/server.ts) [Vue](https://github.com/ykfe/ssr/blob/dev/packages/plugin-vue/src/config/server.ts) [Vue3](https://github.com/ykfe/ssr/blob/dev/packages/plugin-vue3/src/config/server.ts)
 
 使用 [webpack-chain](https://github.com/neutrinojs/webpack-chain) 来修改 `服务端` 公共的 `Webpack` 构建配置
 
 ## chainClientConfig
 
 - 类型: `(config: WebpackChain) => void`
-- 默认: `见文章上方具体配置文件`
+- 默认: [React](https://github.com/ykfe/ssr/blob/dev/packages/plugin-react/src/config/client.ts) [Vue](https://github.com/ykfe/ssr/blob/dev/packages/plugin-vue/src/config/client.ts) [Vue3](https://github.com/ykfe/ssr/blob/dev/packages/plugin-vue3/src/config/client.ts)
 
 使用 [webpack-chain](https://github.com/neutrinojs/webpack-chain) 来修改 `客户端` 公共的 `Webpack` 构建配置
 
 ## whiteList
 
 - 类型: `regExp[]`
-- 默认: `[]`
+- 默认: `[/\.(css|less|sass|scss)$/]`
 
 设置服务端构建配置 `externals` 的白名单，即需要让 `Webpack` 来处理的模块
 
