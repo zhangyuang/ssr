@@ -8,7 +8,7 @@ const reactRefresh = require('@vitejs/plugin-react-refresh')
  */
 module.exports = {
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-loadable']
+    include: ['react', 'react-dom', 'react-router-dom', 'react-loadable']
   },
   plugins: [
     reactRefresh()

@@ -7,7 +7,6 @@ export interface LayoutProps {
   config?: IConfig
   children?: JSX.Element
   staticList?: StaticList
-  viteReactScript?: JSX.Element[]
 }
 export interface StaticList {
   injectCss: JSX.Element[]
