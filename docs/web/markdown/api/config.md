@@ -66,12 +66,6 @@ const stream = await render<Readable>(this.ctx, userConfig)
 - 默认: `见文章上方具体配置文件`
 
 `webpack-dev-server` 启动配置
-## webpackDevServerConfig
-
-- 类型: `webpackDevServer.Configuration`
-- 默认: `见文章上方具体配置文件`
-
-`webpack-dev-server` 启动配置
 
 ## chainBaseConfig
 
