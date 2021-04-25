@@ -60,28 +60,12 @@ const stream = await render<Readable>(this.ctx, userConfig)
 - 默认: `Page`
 
 静态资源构建时默认的 `entry` 名, 默认为 `Page`。无特殊需求不需要修改
-
-## chunkName
-
-- 类型: `string`
-- 默认: `Page`
-
-静态资源构建时默认的 `entry` 名, 默认为 `Page`。无特殊需求不需要修改
-
-## chunkName
-
-- 类型: `string`
-- 默认: `Page`
-
-静态资源构建时默认的 `entry` 名, 默认为 `Page`。无特殊需求不需要修改
 ## webpackDevServerConfig
 
 - 类型: `webpackDevServer.Configuration`
 - 默认: `见文章上方具体配置文件`
 
 `webpack-dev-server` 启动配置
-
-
 ## webpackDevServerConfig
 
 - 类型: `webpackDevServer.Configuration`

@@ -85,7 +85,7 @@ class Foo extends React.component {
 
 #### Vue 场景
 
-在 `Vue` 场景中，我们将会把 `vuex`, `vue-router` 返回的示例作为参数传入。开发者可以在任何时候使用它们。在 `服务端` 环境，我们会额外把当前请求的上下文 `ctx` 传入。开发者可以通过 `ctx` 拿到上面挂载的 `自定义 Service` 或者 `ctx.request` 等对象信息。这取决于服务端代码调用 `core` 模块时的具体入参实现。
+在 `Vue` 场景中，我们将会把 `vuex`, `vue-router` 返回的实例作为参数传入。开发者可以在任何时候使用它们。在 `服务端` 环境，我们会额外把当前请求的上下文 `ctx` 传入。开发者可以通过 `ctx` 拿到上面挂载的 `自定义 Service` 或者 `ctx.request` 等对象信息。这取决于服务端代码调用 `core` 模块时的具体入参实现。
 
 ```js
 import { ISSRContext } from 'ssr-types'
