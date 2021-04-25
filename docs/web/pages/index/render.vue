@@ -313,11 +313,6 @@ export default defineComponent({
 
 /* 宽度小于等于414px */
 @media screen and (max-width: 414px) {
-  .header {
-    .header__left {
-      max-width: 25%;
-    }
-  }
   .page-container {
     .first-floor {
       padding: 20px;

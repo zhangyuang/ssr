@@ -9,7 +9,7 @@
   padding: 0px 20px;
   background: white;
   z-index: 999;
-  
+
   a {
     font-size: 14px;
     font-weight: 700;
@@ -28,6 +28,7 @@
       height: 40px;
       width: 40px;
       border-radius: 50%;
+
       img {
         width: 100%;
         height: 100%;
@@ -60,7 +61,7 @@
       &:hover {
         color: rgb(4, 195, 142);
       }
-      
+
       a {
         font-size: 14px;
         font-weight: 700;
@@ -82,4 +83,16 @@
 
 .weui-flex__item {
   flex: 1;
+}
+
+@media screen and (max-width: 414px) {
+  #app {
+    overflow-x: hidden;
+  }
+
+  .header {
+    .header__left {
+      max-width: 25%;
+    }
+  }
 }
