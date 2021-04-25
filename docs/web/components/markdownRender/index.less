@@ -1,0 +1,37 @@
+.md-render {
+  width: 100%;
+  display: flex;
+}
+
+.md-render_top {
+  display: none;
+}
+
+.md-render_content {
+  width: 75%;
+}
+
+.md-render_side {
+  width: 25%;
+  box-sizing: border-box;
+  padding-left: 32px;
+}
+
+@media screen and (max-width: 48rem) {
+  .md-render {
+    display: block;
+  }
+  
+  .md-render_top {
+    display: block;
+  }
+  
+  .md-render_content {
+    width: 100%;
+  }
+  
+  .md-render_side {
+    width: 0;
+    display: none;
+  }
+}

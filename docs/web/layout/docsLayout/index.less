@@ -1,0 +1,35 @@
+.docs-layout {
+  margin-bottom: 50px;
+  margin-top: 70px;
+}
+
+.docs-layout_content {
+  width: 100%;
+  display: flex;
+  min-height: 100vh;
+}
+
+.docs-layout_content_left {
+  width: 25%;
+  padding-left: 20px;
+}
+
+.docs-layout_content_right {
+  width: 75%;
+  padding-right: 20px;
+}
+
+@media screen and (max-width: 48rem) {
+  .docs-layout {
+    padding: 2rem 1.5rem;
+  }
+
+  .docs-layout_content_left {
+    width: 0;
+    display: none;
+  }
+
+  .docs-layout_content_right {
+    width: 100%;
+  }
+}

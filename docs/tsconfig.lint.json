@@ -10,12 +10,10 @@
     "stripInternal": true,
     "pretty": true,
     "declaration": true,
-    "strict": true,
-    "jsx": "react"
+    "strict": true
+ 
   },
   "include": [
-    "packages",
-    "example",
-    "docs"
+    "./"
   ]
 }

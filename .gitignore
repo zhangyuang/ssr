@@ -80,8 +80,16 @@ cypress/videos
 
 packages/**/README.md
 
-example/**/typings
+**/typings
+
+**/run
 
 example/**/vite.config.js
 
 example/**/f.yml
+
+**/.serverless
+
+docs/dist
+
+example/yarn.lock

@@ -1,0 +1,56 @@
+.footer {
+  padding-top: 100px;
+  padding: 100px 30% 0;
+  height: 240px;
+  background: #000;
+  &__link {
+    .item-wrapper {
+      min-width: 200px;
+      h5 {
+        color: #fff;
+        margin-bottom: 5px;
+      }
+      .child-item {
+        font-style: 13px;
+        font-weight: 400;
+      }
+    }
+    .weui-flex__item {
+      flex-direction: column;
+       a {
+         color: #fff;
+         height: 27px;
+       }
+    }
+  }
+
+  &__desc {
+    color: #fff;
+    font-size: 14px;
+    margin-top: 40px;
+  }
+}
+/* 宽度小于等于414px */
+@media only screen and (max-width:414px ){
+ .footer {
+   padding: 0;
+   height: auto;
+   padding: 20px 15px;
+   .item-wrapper {
+     margin-top: 8px;
+     display: flex;
+     align-items: flex-start;
+   }
+  }
+} 
+
+
+@media screen and (min-width: 768px) {
+  .footer {
+    padding: 20px 15px;
+     height: auto;
+  }
+}
+
+
+

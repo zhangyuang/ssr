@@ -1,0 +1,27 @@
+service:
+  name: ssr-doc
+provider:
+  name: aliyun
+
+aggregation: # 聚合成一个函数发布
+  ssr: # 聚合函数的名称
+    deployOrigin: false
+    functionsPattern:
+      - '*'
+custom:
+  customDomain:
+    domainName: auto
+    
+package:
+  include:
+    - build
+    - public
+  exclude:
+    - package-lock.json
+    - src
+    - vite.config.js
+    - vetur.config.js
+    
+  artifact: code.zip
+
+deployType: egg       ## 部署的应用类型

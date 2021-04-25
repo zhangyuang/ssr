@@ -1,0 +1,193 @@
+:root {
+    --drake-text-color: rgb(47, 73, 94);
+    --drake-text-highlight: rgb(0, 197, 142);
+    --drake-border-default: rgb(99, 179, 237);
+    --drake-border-bg-default: rgb(235,248,255);
+    --drake-code-single: rgba(245,101,101);
+    --drake-code-single-bg: #f7fafc;
+}
+
+@font-face {
+    font-family: Inter;
+    src: url('/fonts/Inter-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Inter-Bold;
+    src: url('/fonts/Inter-Bold.ttf');
+    font-weight: bold;
+    font-style: normal;
+}
+
+html {
+    font-size: 12px;
+}
+
+@media screen and (min-width: 32rem) and (max-width: 48rem) {
+    html {
+        font-size: 15px;
+    }
+}
+
+@media screen and (min-width: 32rem) {
+    html {
+        font-size: 16px;
+    }
+}
+
+body {
+    line-height: 1.7;
+}
+
+p,ul,ol {
+    font-size: 1rem;
+    margin-bottom: 1.3rem;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    margin: 1.414rem 0 .5rem;
+    font-weight: inherit;
+    line-height: 1.7;
+}
+
+h1 {
+    margin-top: 0;
+    font-size: 2.4rem;
+}
+
+h2 {
+    font-size: 2.1rem;
+}
+
+h3 {
+    font-size: 1.7rem;
+}
+
+h4 {
+    font-size: 1.4rem;
+}
+
+h5 {
+    font-size: 1.1rem;
+}
+
+h6 {
+    font-size: .88rem;
+}
+
+small {
+    font-size: .707em;
+}
+
+/* https://github.com/mrmrs/fluidity */
+
+img,
+canvas,
+iframe,
+video,
+svg,
+select,
+textarea {
+    max-width: 100%;
+}
+
+
+html {
+    font-size: 16px;
+    max-width: 100%;
+}
+
+body {
+    color: var(--drake-text-color);
+    font-family: Inter;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 0.3;
+    margin: 0;
+    max-width: 100%;
+}
+
+/* === A bit of a gross hack so we can have bleeding divs/blockquotes. */
+
+p,
+div img {
+    width: 100%;
+}
+
+blockquote {
+    color: var(--drake-text-color);
+    border-radius: 2px;
+    padding: 1rem;
+    background-color: var(--drake-border-bg-default);
+    position: relative;
+    border-left: none;
+    margin-bottom: 10px;
+}
+
+/*quote block*/
+blockquote:before {
+    display: block;
+    position: absolute;
+    content: '';
+    width: 4px;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color:var(--drake-border-default);
+    border-radius: 2px;
+}
+
+blockquote > p {
+    margin-bottom: 0;
+}
+
+li {
+    margin-left: 2rem;
+}
+
+/* Counteract the specificity of the gross *:not() chain. */
+
+h1 {
+    padding: 1rem 0 !important;
+}
+
+ol p ul {
+    color: var(--drake-text-color);
+    height: auto;
+    line-height: 1.7;
+}
+
+a,
+a:visited {
+    color: var(--drake-text-highlight);
+    text-decoration: inherit;
+}
+
+a:hover,
+a:focus,
+a:active {
+    color: var(--drake-text-highlight);
+    text-decoration: underline;
+}
+
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    img {
+        width: 100px;
+    }
+}
+
+thead {
+    background-color: rgb(246, 248, 250);
+}
+
+td, th {
+    padding: 0;
+    border: 1px solid #dfe2e5;
+    padding: 15px;
+}

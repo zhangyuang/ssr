@@ -1,6 +1,9 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ES2018",
+    "module": "commonjs",
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
@@ -10,12 +13,15 @@
     "stripInternal": true,
     "pretty": true,
     "declaration": true,
-    "strict": true,
-    "jsx": "react"
+    "outDir": "dist",
+    "typeRoots": [ "./typings", "./node_modules/@types"]
   },
-  "include": [
-    "packages",
-    "example",
-    "docs"
+  "exclude": [
+    "dist",
+    "node_modules",
+    "test",
+    "web",
+    "build"
   ]
 }
+

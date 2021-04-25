@@ -1,0 +1,38 @@
+.bottomNav {
+  display: flex;
+  justify-content: space-between;
+  height: 27px;
+  line-height: 27px;
+  padding: 8px 0;
+  margin-top: 16px;
+  font-weight: 700;
+
+  img {
+    width: 16px;
+    height: 16px;
+  }
+
+  a:hover,
+  a:focus,
+  a:active {
+      text-decoration: inherit;
+  }
+
+  &_left {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    img{
+      margin-right: 6px;
+    }
+  }
+
+  &_right {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    img{
+      margin-left: 6px;
+    }
+  }
+}
