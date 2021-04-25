@@ -17,8 +17,8 @@ export const webSiteConfig = {
   },
   home: {
     firstFloor: {
-      title: '地球上没对手的 SSR 框架',
-      desc: 'SSR 框架是为前端框架在服务端渲染的场景下所打造的开箱即用的服务端渲染框架',
+      title: '开箱即用的 SSR 框架',
+      desc: '面向 Serverless，同时支持 React，Vue2，Vue3，地球上没有对手的 SSR 框架',
       startButton: {
         label: '开始学习',
         path: '/docs/features$started'
