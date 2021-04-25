@@ -24,7 +24,7 @@
 
 在最新的 v5.0 版本中，同时支持 `React` 和 `Vue2/Vue3` 作为服务端渲染框架且构建工具我们同样支持了最流行的 Vite 来提升应用的启动速度和 HMR 速度，且提供一键以 Serverless 的形式发布上云的功能。我们可以非常有自信说它是地球上最先进的ssr框架。如果你希望获得开箱即用的体验且能够一键部署上云，请选择 `ssr` 框架。
 
-阅读我们的 [官方文档](http://doc.ssr-fc.com/) 获得更加详细的了解
+阅读我们的 [官方文档](http://doc.ssr-fc.com/) 获得更加详细的了解。事实上文档本身便是用 `ssr` 框架开发并通过 `Serverless` 部署到阿里云服务
 
 ![](https://res.wx.qq.com/op_res/IPTwJ0ZUuJ_0XicnAcpUXIjFGjmggiw-LgZZfvHsxlRpdfgeWQ3yqZ0CqEA4Zs1WMcINsLSDT9zBXv1gYElYkg)
 
