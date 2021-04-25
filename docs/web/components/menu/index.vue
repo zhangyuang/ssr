@@ -36,11 +36,12 @@ export default defineComponent({
     }
   },
   watch: {
-    asyncData: {
-      handler (val) {
-        this.createMenu(val.value)
-      },
-      deep: true
+    $route (val) {
+      const path = val.path.replace('/docs/', '').replace('$', '/')
+      this.createMenu({
+        config: this.asyncData.value.config,
+        pagePath: path
+      })
     }
   },
   created () {
@@ -65,10 +66,10 @@ export default defineComponent({
     createMenu (value) {
       const { config, pagePath } = value
       const pathname:string = pagePath || ''
-      this.menuList = JSON.parse(JSON.stringify(config)).map((menu) => {
+      this.menuList = config.map((menu) => {
         let open = false;
         (menu.routes || []).forEach((item) => {
-          if (item.path && pathname?.indexOf(item.path.replace(/\$/g, '/')) !== -1) {
+          if (item.path && pathname === item.path.replace(/\$/g, '/')) {
             open = true
           }
         })
