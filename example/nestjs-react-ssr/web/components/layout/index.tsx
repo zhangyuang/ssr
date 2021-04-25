@@ -3,7 +3,6 @@ import React, { useContext } from 'react'
 import serialize from 'serialize-javascript'
 import { LayoutProps } from 'ssr-types'
 import App from './App'
-import styles from './index.less'
 
 const Layout = (props: LayoutProps) => {
   // 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑
@@ -19,7 +18,7 @@ const Layout = (props: LayoutProps) => {
         <script dangerouslySetInnerHTML={{ __html: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }} />
         { injectCss }
       </head>
-      <body className={styles.body}>
+      <body>
         <div id="app"><App children={props.children} /></div>
         {
           state && <script dangerouslySetInnerHTML={{
