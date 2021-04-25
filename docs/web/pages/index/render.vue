@@ -225,7 +225,7 @@ export default defineComponent({
   .second-floor {
     position: relative;
     flex-direction: column;
-    padding: 500px 36px 100px !important;
+    padding: 200px 36px 100px !important;
     margin: 0 auto;
     min-height: 780px;
     background-color: rgb(245, 246, 247);
