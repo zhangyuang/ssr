@@ -79,6 +79,10 @@ class Foo extends React.component {
 
 ![](/images/csr-fetch.png)
 
+#### 判断当前环境
+
+在默认的示例中，我们会通过 `__isBrowser__` 变量来标志当前环境。该变量构建过程中会自动注入无需开发者关注。真实应用中，除了大公司会在 `Node.js` 层通过 `RPC` 的方式去调用其他语言的接口之外，大部分公司还是使用 `http` 的形式来请求服务。这种情况不需要通过 `__isBrowser__` 判断环境。可直接用 [axios](https://github.com/axios/axios) 发起 `http` 请求
+
 ### 方法入参
 
 在 `Vue`, `React` 场景以及 `服务端`，`客户端` 环境我们的 `fetch.ts` 的入参会有稍许不同
