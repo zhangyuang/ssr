@@ -64,7 +64,6 @@ export * from './bar'
 │   │   │   ├── index.less
 │   │   │   └── index.tsx
 │   │   └── layout # 页面 html 布局
-│   │       ├── index.less
 │   │       └── index.tsx # 页面 html 布局，仅在服务端被渲染
 │   │       └── App.tsx # 页面具体的组件内容，用于初始化公共配置
 │   │       └── fetch.ts # layout 级别的 fetch，用于获取所有页面的公共数据，将会在每一个页面级别的fetch 调用之前调用
