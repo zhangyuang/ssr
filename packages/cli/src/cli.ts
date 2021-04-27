@@ -3,7 +3,6 @@ import { resolve } from 'path'
 import { fork } from 'child_process'
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
-import { copyViteConfig, checkVite } from 'ssr-server-utils'
 
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
 const debug = require('debug')('ssr:cli')
@@ -15,6 +14,8 @@ yargs
       message: 'start'
     })
     process.env.NODE_ENV = 'development'
+    const { copyViteConfig, checkVite } = await import('ssr-server-utils')
+
     // 只有本地开发环境才会使用 Vite
     process.env.BUILD_TOOL = argv.vite ? 'vite' : 'webpack'
     if (argv.test) {
