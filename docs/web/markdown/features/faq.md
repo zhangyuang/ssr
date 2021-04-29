@@ -423,3 +423,33 @@ export default {
 }
 ```
 
+## Proxy 转发 POST 请求失败
+
+某些用户反馈使用 `config.proxy` 转发 `POST` 请求时会失败，可能是因为 `Midway.js` 底层使用的 `egg` 自带的 `bodyParser` 导致的。如果你遇到了该问题可以尝试以下解决方案。
+
+1. 关闭 `bodyParser`
+
+```js
+// config.default.ts
+
+config.bodyParser = {
+  enable: false
+}
+```
+
+2. 发起请求时指定正确的 `content-type`。以 `axios` 为例子
+
+```js
+axios({
+  url: 'xxx',
+  method: 'POST',
+  headers: { 'content-type': 'text/json' },
+  data: {
+    foo: 'bar'
+  }
+}).then(res => {
+  console.log(res)
+}).catch(err => {
+  console.log(err)
+})
+```

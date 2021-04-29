@@ -7,5 +7,4 @@ module.exports = {
       .loader(require.resolve('raw-loader'))
       .end()
   }
-
 }
