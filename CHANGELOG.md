@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.19](https://github.com/ykfe/ssr/compare/v5.5.18...v5.5.19) (2021-04-30)
+
+
+### Bug Fixes
+
+* quit spinnerProcess when no vite ([fe0a3f9](https://github.com/ykfe/ssr/commit/fe0a3f920b5bb33051b53a887f19f20a65409d0d))
+
+
+
+
+
 ## [5.5.18](https://github.com/ykfe/ssr/compare/v5.5.17...v5.5.18) (2021-04-27)
 
 
