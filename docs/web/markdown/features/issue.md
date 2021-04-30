@@ -6,6 +6,11 @@
 
 如果你想为本项目做贡献，请先阅读 [CONTRIBUTING.md](https://github.com/ykfe/ssr/blob/dev/CONTRIBUTING.md) 学习如何本地调试源码。并保证在你想要提交一个 `feature` 或者 `bugfix` 类型的 `PR` 时，一定要提前在 `issue` 或者`交流群`与官方开发者沟通交流后才能够提交。否则你`擅自`提交的 `PR` 将很有可能不会得到合并
 
-## 钉钉交流群
+## 交流群
 
-<img src="https://res.wx.qq.com/op_res/rrhdxU0o2yUdgTjwgkAgO-CSFV-lArvMYzWzxl2SuvnKkcWECv7SXswEYjk2pPcDcL43r0kz_MIp_fsxPPqQ2Q" width="300">
+可扫码加入微信交流群或钉钉交流群
+
+<div style="display:flex">
+  <img src="https://res.wx.qq.com/op_res/rrhdxU0o2yUdgTjwgkAgO-CSFV-lArvMYzWzxl2SuvnKkcWECv7SXswEYjk2pPcDcL43r0kz_MIp_fsxPPqQ2Q" style="width:300px">
+  <img src="https://res.wx.qq.com/op_res/EIaN-0tJ8viSyr_xLrYu82RlVB903fPesnIIkKy0TgYhtdQi2s7Tv_sC99oLM98yjsLovDwHFL3V8MoXQogtZg" style="width:300px">
+</div>

@@ -89,7 +89,7 @@ export const webSiteConfig = {
         path: '/blog',
         children: [
           {
-            label: '钉钉交流群',
+            label: '交流群',
             path: '/docs/features$issue'
           },
           {
