@@ -25,7 +25,10 @@ yargs
     if (process.env.BUILD_TOOL === 'vite') {
       const result = await checkVite()
       if (!result) {
-        process.exit(0)
+        spinnerProcess.send({
+          message: 'stop'
+        })
+        process.exit(1)
       }
       await copyViteConfig()
     }
