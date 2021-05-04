@@ -176,6 +176,23 @@ module.exports = {
 
 是否启用 `vue-i18n` 国际化插件
 
+## corejs
+
+- 类型: `boolean`
+
+- 默认: `false`
+
+开启后我们将会在 [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env#corejs) 中追加如下配置。会自动根据当前代码的使用情况注入对应的 `polyfill` 具体表现请查看 `@babel/preset-env` 中相关说明。此选项用于兼容低端浏览器
+
+```js
+{
+  corejs: {
+    version: 3,
+    proposals: true
+  },
+  useBuiltIns: 'usage'
+}
+```
 ## 注意事项
 
 1. 由于 `config.js` 文件在 Node.js 环境也会被加载，如果直接在顶部 `require` 模块可能会导致模块`体积过大`，降低应用启动速度，我们建议在必要的函数当中再 `require` 需要用到的模块。
