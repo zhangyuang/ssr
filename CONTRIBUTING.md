@@ -7,12 +7,12 @@ The markdown file introduce how to contribute for ssr-psec
 package.json 中已经封装好本地的调试命令
 
 ```bash
-$ yarn run bootstrap # 执行完之后会自动触发 link 逻辑
-$ yarn run link --vue3|vue2|react # 由于同时存在 vue2,vue3 不同版本的 vue 实例，这里需要根据具体的情况 link
+$ yarn run bootstrap # 项目初始化
+$ yarn run link --vue3|vue2|react # 由于同时存在 vue2,vue3 不同版本的 vue 实例，这里需要根据具体需要调试的 example 的种类 link
 $ yarn run dev # 开启监听模式
 ```
 
-执行以上命令后 example/serverless-react-ssr 中的依赖已经成功 link 到本地的包。若在 example/serverless-react-ssr 中执行 `yarn start` 提示 `permisson denied` 请手动通过 chmod 提升文件权限。
+执行以上命令后 `example/midway-react-ssr` 中的依赖已经成功 link 到本地的包。若在 `example/midway-react-ssr` 中执行 `yarn start` 提示 `permisson denied` 请手动通过 chmod 提升文件权限。
 `chmod 777 ./node_modules/.bin/ssr`
 
 执行完上述操作后去到需要调试的 example 例如 `midway-vue3-ssr`
