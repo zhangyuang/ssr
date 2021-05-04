@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.20](https://github.com/ykfe/ssr/compare/v5.5.19...v5.5.20) (2021-05-04)
+
+
+### Features
+
+* add corejs config ([8ccc266](https://github.com/ykfe/ssr/commit/8ccc266371e181830ac07f9881443815c67c0bd6))
+
+
+
+
+
 ## [5.5.18](https://github.com/ykfe/ssr/compare/v5.5.17...v5.5.18) (2021-04-27)
 
 **Note:** Version bump only for package ssr-plugin-vue3

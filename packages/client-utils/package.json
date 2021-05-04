@@ -1,6 +1,6 @@
 {
   "name": "ssr-client-utils",
-  "version": "5.5.16",
+  "version": "5.5.20",
   "description": "utils for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -29,9 +29,9 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
+    "core-js": "^3.6.4",
     "path-to-regexp": "^6.2.0",
-    "ssr-types": "^5.5.16",
-    "core-js": "^3.6.4"
+    "ssr-types": "^5.5.20"
   },
   "devDependencies": {
     "concurrently": "^5.1.0"
