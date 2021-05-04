@@ -9,8 +9,21 @@ const loadModule = require.resolve
 
 const getBaseConfig = (chain: WebpackChain) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList, chainBaseConfig } = config
+  const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList, chainBaseConfig, corejs } = config
   const mode = process.env.NODE_ENV as Mode
+  const envOptions = {
+    modules: false
+  }
+
+  if (corejs) {
+    Object.assign(envOptions, {
+      corejs: {
+        version: 3,
+        proposals: true
+      },
+      useBuiltIns: 'usage'
+    })
+  }
   chain.mode(mode)
   chain.module.strictExportPresence(true)
   chain
@@ -68,12 +81,7 @@ const getBaseConfig = (chain: WebpackChain) => {
       presets: [
         [
           loadModule('@babel/preset-env'),
-          {
-
-            modules: false
-            // corejs: 3,
-            // useBuiltIns: 'usage'
-          }
+          envOptions
         ],
         [loadModule('babel-preset-react-app'), { flow: false, typescript: true }]
       ],
@@ -90,7 +98,8 @@ const getBaseConfig = (chain: WebpackChain) => {
             libraryDirectory: 'lib',
             style: 'css'
           }
-        ]
+        ],
+        [loadModule('@babel/plugin-proposal-private-methods'), { loose: true }]
       ]
     })
     .end()

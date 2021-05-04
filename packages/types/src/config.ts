@@ -46,6 +46,7 @@ export interface IConfig {
   locale?: {
     enable: false
   }
+  corejs: boolean
 }
 type Optional <T>= { [key in keyof T]?: T[key] }
 

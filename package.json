@@ -8,7 +8,8 @@
       "**/vue",
       "**/vuex",
       "**/vue-router",
-      "**/vue-loader"
+      "**/vue-loader",
+      "**/core-js"
     ]
   },
   "scripts": {
@@ -56,6 +57,7 @@
     "@vitejs/plugin-vue": "^1.2.1",
     "babel-eslint": "^10.0.2",
     "concurrently": "^5.3.0",
+    "core-js": "^3.6.4",
     "cypress": "^6.2.1",
     "eslint-config-standard-react-ts": "^1.0.3",
     "eslint-config-standard-vue-ts": "^1.0.0",

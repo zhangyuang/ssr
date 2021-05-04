@@ -58,6 +58,7 @@ const loadConfig = (): IConfig => {
 
   const dynamic = true
 
+  const corejs = false
   const getOutput = () => ({
     clientOutPut: `${cwd}/build/client`,
     serverOutPut: `${cwd}/build/server`
@@ -113,7 +114,8 @@ const loadConfig = (): IConfig => {
     cssModulesWhiteList,
     dynamic,
     mode,
-    stream
+    stream,
+    corejs
   }, userConfig)
 
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了

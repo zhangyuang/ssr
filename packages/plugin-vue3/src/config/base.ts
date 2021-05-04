@@ -9,9 +9,24 @@ const loadModule = require.resolve
 
 const getBaseConfig = (chain: WebpackChain) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, locale } = config
+  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, locale, corejs } = config
 
   const mode = process.env.NODE_ENV as Mode
+
+  const envOptions = {
+    modules: false
+  }
+
+  if (corejs) {
+    Object.assign(envOptions, {
+      corejs: {
+        version: 3,
+        proposals: true
+      },
+      useBuiltIns: 'usage'
+    })
+  }
+
   chain.resolve
     .extensions
     .merge(['.mjs', '.js', '.jsx', '.vue', '.json', '.wasm'])
@@ -112,15 +127,16 @@ const getBaseConfig = (chain: WebpackChain) => {
         ],
         [
           loadModule('@babel/preset-env'),
-          {
-            modules: false
-            // corejs: 3,
-            // useBuiltIns: 'usage'
-          }
+          envOptions
         ]
       ],
       plugins: [
-        loadModule('@babel/plugin-transform-runtime'),
+        [
+          loadModule('@babel/plugin-transform-runtime'),
+          {
+            corejs: false
+          }
+        ],
         loadModule('@vue/babel-plugin-jsx')
       ]
     })
