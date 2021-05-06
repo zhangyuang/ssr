@@ -171,14 +171,15 @@ module.exports = {
 
 ### antd 定制主题
 
-默认使用 `less@^7.0.0` 采用如下配置, 需要 `ssr` 框架 `version >=5.5.21`
+参考 `antd` 官方[文档](https://ant.design/docs/react/customize-theme-cn#%E5%AE%9A%E5%88%B6%E6%96%B9%E5%BC%8F), 在 `ssr` 框架中默认使用 `less-loader@^7.0.0` 采用如下配置, 需要 `ssr` 框架 `version >=5.5.21`
 
 ```js
 css: () => {
   return {
     loaderOptions: {
       less: {
-        lessOptions: { // 如果使用less-loader@5，请移除 lessOptions 这一级直接配置选项。
+        // 透传参数给 less-loader
+        lessOptions: {
           modifyVars: {
             'primary-color': '#fff',
             'link-color': '#1DA57A',
