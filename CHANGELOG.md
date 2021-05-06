@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.22](https://github.com/ykfe/ssr/compare/v5.5.21...v5.5.22) (2021-05-06)
+
+
+### Bug Fixes
+
+* add default lessOptions ([d172581](https://github.com/ykfe/ssr/commit/d172581580fe09be4fa95278d5031e9f15401674))
+
+
+
+
+
 ## [5.5.21](https://github.com/ykfe/ssr/compare/v5.5.20...v5.5.21) (2021-05-06)
 
 
