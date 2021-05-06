@@ -1,6 +1,6 @@
 {
   "name": "ssr-client-utils",
-  "version": "5.5.20",
+  "version": "5.5.21",
   "description": "utils for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -31,7 +31,7 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "path-to-regexp": "^6.2.0",
-    "ssr-types": "^5.5.20"
+    "ssr-types": "^5.5.21"
   },
   "devDependencies": {
     "concurrently": "^5.1.0"

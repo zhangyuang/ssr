@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.21](https://github.com/ykfe/ssr/compare/v5.5.20...v5.5.21) (2021-05-06)
+
+
+### Features
+
+* upgrade less-loader to ^7.0.0 support options.less update antd plugin-import config ([a19b2c4](https://github.com/ykfe/ssr/commit/a19b2c4be4e1b5ea5aa36e39a615933d931e7042))
+
+
+
+
+
 ## [5.5.20](https://github.com/ykfe/ssr/compare/v5.5.19...v5.5.20) (2021-05-04)
 
 
