@@ -137,6 +137,14 @@ const getBaseConfig = (chain: WebpackChain) => {
             corejs: false
           }
         ],
+        [
+          loadModule('babel-plugin-import'),
+          {
+            libraryName: 'vant',
+            libraryDirectory: 'lib',
+            style: true
+          }, 'vant'
+        ],
         loadModule('@vue/babel-plugin-jsx')
       ]
     })

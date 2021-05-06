@@ -158,6 +158,7 @@ module.exports = {
 
 - 类型: `() => { loaderOptions: {
       cssOptions: any
+      less?: any
       postcss: {
         options: any
         plugins: any[]
@@ -166,8 +167,30 @@ module.exports = {
 
 - 默认: `() => {}`
 
-用于添加用户自定义配置 `css-loader` 以及 `postcss-loader` 的配置，需要用 `函数 return` 的形式
+用于添加用户自定义配置 `css-loader` `less-loader` 以及 `postcss-loader` 的配置，需要用 `函数 return` 的形式
 
+### antd 定制主题
+
+默认使用 `less@^7.0.0` 采用如下配置, 需要 `ssr` 框架 `version >=5.5.21`
+
+```js
+css: () => {
+  return {
+    loaderOptions: {
+      less: {
+        lessOptions: { // 如果使用less-loader@5，请移除 lessOptions 这一级直接配置选项。
+          modifyVars: {
+            'primary-color': '#fff',
+            'link-color': '#1DA57A',
+            'border-radius-base': '20px'
+          },
+          javascriptEnabled: true
+        }
+      }
+    }
+  }
+}
+```
 ## locale
 
 - 类型: `{ enable: boolean }`

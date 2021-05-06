@@ -18,9 +18,10 @@ export interface IConfig {
   cssOrder: string[]
   jsOrder: string[]
   css?: () => {
-    loaderOptions: {
-      cssOptions: any
-      postcss: {
+    loaderOptions?: {
+      cssOptions?: any
+      less?: any
+      postcss?: {
         options: any
         plugins: any[]
       }

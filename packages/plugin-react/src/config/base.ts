@@ -96,7 +96,7 @@ const getBaseConfig = (chain: WebpackChain) => {
           {
             libraryName: 'antd',
             libraryDirectory: 'lib',
-            style: 'css'
+            style: true
           }
         ],
         [loadModule('@babel/plugin-proposal-private-methods'), { loose: true }]
@@ -110,18 +110,22 @@ const getBaseConfig = (chain: WebpackChain) => {
     modules: true,
     importLoaders: 1
   }, true) // 设置css
-  setStyle(isDev, chain, /\.css$/, {
-    include: cssModulesWhiteList,
-    rule: 'antd',
-    modules: false,
-    importLoaders: 1
-  }, true) // antd不使用css-modules
+
   setStyle(isDev, chain, /\.less$/, {
+    exclude: cssModulesWhiteList,
     rule: 'less',
     loader: 'less-loader',
     modules: true,
     importLoaders: 2
   }, true)
+
+  setStyle(isDev, chain, /\.(css|less)$/, {
+    include: cssModulesWhiteList,
+    rule: 'cssModulesWhiteList',
+    modules: false,
+    loader: 'less-loader',
+    importLoaders: 1
+  }, true) // 默认 antd swiper 不使用 css-modules，建议第三方 ui 库都不使用
 
   chain.module
     .rule('svg')
