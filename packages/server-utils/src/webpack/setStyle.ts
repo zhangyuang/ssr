@@ -63,7 +63,11 @@ const setStyle = (isDev: boolean, chain: WebpackChain, reg: RegExp, options: Sty
       loader && rule.use(loader)
         .loader(loadModule(loader))
         .when(loader === 'less-loader', rule => {
-          rule.options(css?.().loaderOptions?.less ?? {})
+          rule.options(css?.().loaderOptions?.less ?? {
+            lessOptions: {
+              javascriptEnabled: true
+            }
+          })
         })
         .end()
     })
