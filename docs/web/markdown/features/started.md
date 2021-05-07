@@ -60,3 +60,8 @@ $ npm run deploy:tencent # 发布到腾讯云 等价于 npx ssr deploy --tencent
 ```shell
 $ npm run prod 
 ```
+
+## 使用其他框架部署
+
+若开发者不想使用 `Midway.js`, 希望选择其他的框架例如 `Nest.js` 进行开发，并且希望获得 `Serverless` 的部署能力，那么可能需要手动调用不同平台提供的工具来进行部署。例如阿里云提供的 [fun](https://github.com/alibaba/funcraft?spm=a2c4g.11186623.2.8.16e15124xBSLBb) 工具来进行部署，但成本可能略高。且需要将返回的内容格式从默认的 `stream` 改成 `string`。因为云平台不支持 `stream` 格式
+
