@@ -28,14 +28,18 @@ export default {
 
 由于 `Vue3` 创建 `app` 实例以及安装插件和注册自定义全局指令的方式与 `Vue2` 差别较大。
 
-为了方便用户开发，我们会将框架底层创建的 `VueApp` 实例挂在 `window.__VUE_APP__` 上方，在服务端/客户端都能够访问该属性。但由于服务端和客户端环境有差异。我们不建议过度依赖该属性。例如自定义指令会在服务端被忽略。在注册的时候我们需要根据当前环境做判断。
+为了方便用户开发，我们会将框架底层创建的 `VueApp` 实例挂在 `window.__VUE_APP__` 上方，在服务端/客户端都能够访问该属性。但由于服务端和客户端环境有差异。我们不建议过度依赖该属性。例如`自定义指令`会在服务端被忽略。在注册的时候我们需要根据当前环境做判断。
 
 ```js
 // 在 layout/App.vue 中做一些全局的任务
+const foo = window // error, 不要在这里去访问 window 此时 window 在服务端尚未创建
+
 export default {
+  // 在服务端渲染过程中我们只能够在 export 出的对象实际执行时才能够拿到服务端创建的  window 对象
   created () {
+    const app = window.__VUE_APP__
     if (__isBrowser__) {
-      const app = window.__VUE_APP__
+      // __isBrowser__ 根据具体情况判断是否添加，若只是单纯新增全局组件则无需添加。
       app.directive('focus', {
         // 当被绑定的元素挂载到 DOM 中时……
         mounted (el) {
@@ -44,6 +48,7 @@ export default {
         }
       })
     }
+    app.component('my-component', Component)
   }
 }
 ```
