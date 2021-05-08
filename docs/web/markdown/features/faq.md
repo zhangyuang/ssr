@@ -24,7 +24,7 @@ export default {
 
 ```
 
-## Vue3 全局注册指令
+## Vue3 全局注册组件
 
 由于 `Vue3` 创建 `app` 实例以及安装插件和注册自定义全局指令的方式与 `Vue2` 差别较大。
 
@@ -38,8 +38,11 @@ export default {
   // 在服务端渲染过程中我们只能够在 export 出的对象实际执行时才能够拿到服务端创建的  window 对象
   created () {
     const app = window.__VUE_APP__
+    app.component('my-component', Component)
+    app.use('xxxPlugin', Plugin)
     if (__isBrowser__) {
       // __isBrowser__ 根据具体情况判断是否添加，若只是单纯新增全局组件则无需添加。
+      // 自定义指令在服务端无效，所以这里在 __isBrowser__ 中添加使其只在客户端生效
       app.directive('focus', {
         // 当被绑定的元素挂载到 DOM 中时……
         mounted (el) {
@@ -48,7 +51,6 @@ export default {
         }
       })
     }
-    app.component('my-component', Component)
   }
 }
 ```
