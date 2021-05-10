@@ -192,6 +192,25 @@ css: () => {
   }
 }
 ```
+## ssrVueLoaderOptions
+
+- 类型: `Object`
+
+- 默认: `{}`
+
+- version: `>=5.5.23`
+
+构建服务端 `bundle` 时的 [vue-loader](https://vue-loader.vuejs.org/options.html) 选项
+## csrVueLoaderOptions
+
+- 类型: `Object`
+
+- 默认: `{}`
+
+- version: `>=5.5.23`
+
+构建客户端 `bundle` 时的 [vue-loader](https://vue-loader.vuejs.org/options.html) 选项
+
 ## locale
 
 - 类型: `{ enable: boolean }`

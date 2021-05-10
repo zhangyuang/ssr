@@ -7,9 +7,25 @@ import * as WebpackChain from 'webpack-chain'
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const loadModule = require.resolve
 
-const getBaseConfig = (chain: WebpackChain) => {
+const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, corejs } = config
+  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, corejs, ssrVueLoaderOptions, csrVueLoaderOptions } = config
+
+  let vueLoaderOptions = {
+    babelParserPlugins: ['jsx', 'classProperties', 'decorators-legacy']
+  }
+  if (isServer && ssrVueLoaderOptions) {
+    vueLoaderOptions = {
+      vueLoaderOptions,
+      ...ssrVueLoaderOptions
+    }
+  }
+  if (!isServer && csrVueLoaderOptions) {
+    vueLoaderOptions = {
+      vueLoaderOptions,
+      ...csrVueLoaderOptions
+    }
+  }
   const mode = process.env.NODE_ENV as Mode
   const envOptions = {
     modules: false
@@ -69,6 +85,7 @@ const getBaseConfig = (chain: WebpackChain) => {
     .test(/\.vue$/)
     .use('vue-loader')
     .loader(loadModule('vue-loader'))
+    .options(vueLoaderOptions)
     .end()
 
   chain

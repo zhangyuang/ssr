@@ -47,6 +47,8 @@ export interface IConfig {
   locale?: {
     enable: false
   }
+  ssrVueLoaderOptions?: any
+  csrVueLoaderOptions?: any
   corejs: boolean
 }
 type Optional <T>= { [key in keyof T]?: T[key] }

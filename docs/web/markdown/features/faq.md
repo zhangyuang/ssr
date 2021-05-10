@@ -28,7 +28,7 @@ export default {
 
 由于 `Vue3` 创建 `app` 实例以及安装插件和注册自定义全局指令的方式与 `Vue2` 差别较大。
 
-为了方便用户开发，我们会将框架底层创建的 `VueApp` 实例挂在 `window.__VUE_APP__` 上方，在服务端/客户端都能够访问该属性。但由于服务端和客户端环境有差异。我们不建议过度依赖该属性。例如`自定义指令`会在服务端被忽略。在注册的时候我们需要根据当前环境做判断。
+为了方便用户开发，我们会将框架底层创建的 `VueApp` 实例挂在 `window.__VUE_APP__` 上方，在服务端/客户端都能够访问该属性。但由于服务端和客户端环境有差异。我们不建议过度依赖该属性。
 
 ```js
 // 在 layout/App.vue 中做一些全局的任务
@@ -40,20 +40,50 @@ export default {
     const app = window.__VUE_APP__
     app.component('my-component', Component)
     app.use('xxxPlugin', Plugin)
-    if (__isBrowser__) {
-      // __isBrowser__ 根据具体情况判断是否添加，若只是单纯新增全局组件则无需添加。
-      // 自定义指令在服务端无效，所以这里在 __isBrowser__ 中添加使其只在客户端生效
-      app.directive('focus', {
-        // 当被绑定的元素挂载到 DOM 中时……
-        mounted (el) {
-          // 聚焦元素
-          el.focus()
-        }
-      })
+  }
+}
+```
+
+## Vue 注册自定义指令
+
+自定义指令的处理比较特殊，我们需要在服务端定义自定义指令的转换规则，使得可以正常渲染。否则在生产环境构建时会提示错误并且不会生成最终的 `bundle` 文件。
+
+参考讨论 [issue](https://github.com/vuejs/vitepress/issues/92) 以及 [issue](https://github.com/vuejs/vue-next/issues/3298)
+
+我们了解到，需要在服务端 `render` 时定义自定义指令的转换规则。但其实我们大部分的自定义指令我们实际只希望它在客户端渲染过程中生效即可。
+
+所以我们有两种解决方案分别是
+
+- 通过 [ssrVueLoaderOptions](./api$config#ssrVueLoaderOptions) 选项自定义服务端自定义指令的转换规则
+- 将使用到自定义指令的元素延迟渲染，使得其只在客户端渲染过程中进行
+
+### 方案一
+
+`config.js` 中修改 `ssrVueLoaderOptions`
+
+```js
+// config.js
+const ssrTransformCustomDir = (dir, node, context) => {
+  return {
+    // do nothing
+    props: []
+  }
+}
+
+module.exports = {
+  ssrVueLoaderOptions: {
+    compilerOptions: {
+      directiveTransforms: {
+        focus: ssrTransformCustomDir
+      }
     }
   }
 }
 ```
+
+### 方案二
+
+参考 [如何让某个组件只在客户端渲染](./features$faq#如何让某个组件只在客户端渲染)
 
 ## Vue3 修改 Router 行为
 
@@ -403,7 +433,7 @@ import { onlyCsr } from 'ssr-hoc-react'
 export default onlyCsr(myComponent)
 ```
 
-由于 `Vue` 对 `HOC` 的支持不友好写起来比较麻烦，这里建议有需要用户手动来实现该功能
+由于 `Vue2` 对 `HOC` 的支持不友好写起来比较麻烦，这里建议有需要用户手动来实现该功能
 
 1. 组件新增 `data` 选项 `isClient`  
 2. 在 `mounted` 生命周期设置 `isClient` 为 `true`  
@@ -425,6 +455,46 @@ export default {
     this.isClient = true
   }
 }
+```
+
+### Vue3 只在客户端渲染
+
+在 `Vue3` 中我们可以通过 `setup` 来方便的编写一个 `onlyCsr` 
+
+```js
+import { onlyCsr } from 'ssr-hoc-vue3'
+
+<template>
+  <onlyCsr>
+    <myComponent>
+  </onlyCsr>
+</template>
+
+<script>
+// 在这里可以进行一些全局组件的注册逻辑
+export default {
+  components: {
+    onlyCsr
+  }
+}
+</script>
+```
+
+`onlyCsr` 的实现原理同样很简单如下
+
+```js
+import { ref, onMounted, defineComponent } from 'vue'
+
+export const onlyCsr = defineComponent({
+  setup (_, { slots }) {
+    const show = ref(false)
+    onMounted(() => {
+      show.value = true
+    })
+    return () => (show.value && slots.default ? slots.default() : null)
+  }
+})
+
 ```
 
 ## Proxy 转发 POST 请求失败

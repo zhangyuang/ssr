@@ -137,6 +137,7 @@
 | [ssr-server-utils]          | [![ssr-server-utils-status]][ssr-server-utils] | server utils in Node.js environment |
 | [ssr-client-utils]          | [![ssr-client-utils-status]][ssr-client-utils] | client utils in browser environment |
 | [ssr-hoc-react]          | [![ssr-hoc-react-status]][ssr-hoc-react] | provide hoc component for react |
+| [ssr-hoc-vue3]          | [![ssr-hoc-vue3-status]][ssr-hoc-vue3] | provide hoc component for vue3 |
 | [ssr-types]          | [![ssr-types-status]][ssr-types] | provide common types |
 | [ssr-webpack]          | [![ssr-webpack-status]][ssr-webpack] | start local server and build production bundle by webpack |
 
@@ -146,6 +147,7 @@
 [ssr-core-react-status]: https://img.shields.io/npm/v/ssr-core-react.svg
 [ssr-core-vue-status]: https://img.shields.io/npm/v/ssr-core-vue.svg
 [ssr-hoc-react-status]: https://img.shields.io/npm/v/ssr-hoc-react.svg
+[ssr-hoc-vue3-status]: https://img.shields.io/npm/v/ssr-hoc-vue3.svg
 [ssr-plugin-midway-status]: https://img.shields.io/npm/v/ssr-plugin-midway.svg
 [ssr-plugin-nestjs-status]: https://img.shields.io/npm/v/ssr-plugin-nestjs.svg
 [ssr-plugin-react-status]: https://img.shields.io/npm/v/ssr-plugin-react.svg
@@ -160,6 +162,7 @@
 [ssr-core-react]: https://github.com/ykfe/ssr/tree/dev/packages/core-react
 [ssr-core-vue]: https://github.com/ykfe/ssr/tree/dev/packages/core-vue
 [ssr-hoc-react]: https://github.com/ykfe/ssr/tree/dev/packages/hoc-react
+[ssr-hoc-vue3]: https://github.com/ykfe/ssr/tree/dev/packages/hoc-vue3
 [ssr-plugin-midway]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-midway
 [ssr-plugin-nestjs]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-nestjs
 [ssr-plugin-react]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-react

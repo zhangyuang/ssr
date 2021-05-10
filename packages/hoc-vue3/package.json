@@ -1,0 +1,33 @@
+{
+  "name": "ssr-hoc-vue3",
+  "version": "5.5.21",
+  "description": "hoc for vue ssr",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc -p ./tsconfig.esm.json --inlineSourceMap false\"",
+    "build:only": "concurrently \"tsc-transpile-only --skipLibCheck -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc-transpile-only --skipLibCheck -p ./tsconfig.esm.json --inlineSourceMap false\"",
+    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \"",
+    "watch:cjs": "tsc -w -p ./tsconfig.cjs.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ykfe/ssr.git"
+  },
+  "keywords": [
+    "cli",
+    "serverless",
+    "ssr",
+    "vue"
+  ],
+  "author": "zhangyuang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ykfe/ssr/issues"
+  },
+  "homepage": "https://github.com/ykfe/ssr#readme",
+  "dependencies": {
+    "vue": "^3.0.0"
+  }
+}
