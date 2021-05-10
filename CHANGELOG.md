@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.23](https://github.com/ykfe/ssr/compare/v5.5.22...v5.5.23) (2021-05-10)
+
+
+### Bug Fixes
+
+* update nestjs react example ([1dcf5c3](https://github.com/ykfe/ssr/commit/1dcf5c391eb57699bc6ccf1ed4e481e2c4b483b0))
+
+
+### Features
+
+* add ssrVueLoaderOptions csrVueloaderOptions ssr-hoc-vue3 ([09c4dc5](https://github.com/ykfe/ssr/commit/09c4dc5a820e4c57ece73427a78968b75abea2f3))
+
+
+
+
+
 ## [5.5.22](https://github.com/ykfe/ssr/compare/v5.5.21...v5.5.22) (2021-05-06)
 
 
