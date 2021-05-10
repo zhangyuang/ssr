@@ -47,6 +47,13 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 构建产物是否带有 `hash`，默认生产环境开启，不建议关闭
 
+## serverPort
+
+- 类型: `number`
+- 默认: `3000`
+
+本地开发时 `Node.js` 服务启动监听的端口
+
 ## fePort
 
 - 类型: `number`
