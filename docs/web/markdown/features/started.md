@@ -13,7 +13,11 @@
 
 虽然技术栈不同但开发思想是一致的，在任何技术栈的组合中我们的开发命令, 构建命令以及渲染原理都是完全一致的
 
-注意: 如果你想使用 `Serverless` 的能力来迅速发布你的应用，那么你应该选择基于 `Midway.js` 的模版应用。关于 `Serverless` 开发更加详细的介绍可以阅读[Serverless](./features$serverless) 章节。如无特殊需求，我们建议创建 `Serverless` 类型的应用来享受一站式的开发部署能力
+注意: 
+
+- 如果你想使用 `Serverless` 的能力来迅速发布你的应用，那么你应该选择基于 `Midway.js` 的模版应用。关于 `Serverless` 开发更加详细的介绍可以阅读[Serverless](./features$serverless) 章节。如无特殊需求，我们建议创建 `Serverless` 类型的应用来享受一站式的开发部署能力
+
+- 若开发者不想使用 `Midway.js`, 希望选择其他的框架例如 `Nest.js` 进行开发，并且希望获得 `Serverless` 的部署能力，我们正在支持中，下个版本将会支持
 
 - [midway-react-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-react-ssr) 同时支持 Serverless 形式部署以及传统 Node.js 应用类型部署
 - [midway-vue-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-vue-ssr) 同时支持 Serverless 形式部署以及传统 Node.js 应用类型部署
@@ -60,8 +64,3 @@ $ npm run deploy:tencent # 发布到腾讯云 等价于 npx ssr deploy --tencent
 ```shell
 $ npm run prod 
 ```
-
-## 使用其他框架部署
-
-若开发者不想使用 `Midway.js`, 希望选择其他的框架例如 `Nest.js` 进行开发，并且希望获得 `Serverless` 的部署能力，那么可能需要手动调用不同平台提供的工具来进行部署。例如阿里云提供的 [fun](https://github.com/alibaba/funcraft?spm=a2c4g.11186623.2.8.16e15124xBSLBb) 工具来进行部署，但成本可能略高。且需要将返回的内容格式从默认的 `stream` 改成 `string`。因为云平台不支持 `stream` 格式
-
