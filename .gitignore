@@ -88,6 +88,10 @@ example/**/vite.config.js
 
 example/**/f.yml
 
+example/**/template.yml
+
+example/**/bootstrap
+
 **/.serverless
 
 docs/dist

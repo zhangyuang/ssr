@@ -29,7 +29,7 @@ const loadConfig = (): IConfig => {
 
   const fePort = 8000
 
-  const serverPort = 3000
+  const serverPort = process.env.SERVER_PORT ?? 3000
 
   const host = '0.0.0.0'
 

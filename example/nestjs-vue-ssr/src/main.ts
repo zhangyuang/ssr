@@ -1,7 +1,7 @@
 import { join } from 'path'
 import { NestFactory } from '@nestjs/core'
 import { NestExpressApplication } from '@nestjs/platform-express'
-import { initialSSRDevProxy } from 'ssr-server-utils'
+import { initialSSRDevProxy, loadConfig } from 'ssr-server-utils'
 
 import { AppModule } from './app.module'
 
@@ -11,8 +11,8 @@ async function bootstrap (): Promise<void> {
     express: true
   })
   app.useStaticAssets(join(process.cwd(), './build'))
-
-  await app.listen(3000)
+  const { serverPort } = loadConfig()
+  await app.listen(serverPort)
 }
 
 bootstrap().catch(err => {

@@ -52,7 +52,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 - 类型: `number`
 - 默认: `3000`
 
-本地开发时 `Node.js` 服务启动监听的端口
+本地开发时 `Node.js` 服务启动监听的端口, 也可以通过环境变量指定 `SERVER_PORT=9000 ssr start`
 
 ## fePort
 

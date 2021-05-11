@@ -2,7 +2,7 @@
 
 本篇章将会介绍在 `ssr` 框架的场景下，如何以传统 `Node.js Server` 的方式以及 `Serverless` 的形式进行部署
 
-## Serverless 形式部署
+## Midway Serverless 形式部署
 
 如果你选择了 `Midway.js` 作为服务端框架，那么你的应用便具备了一站式的发布能力。这里我们在 `deploy` 方法的底层封装了 [Midway.js@2.0](https://www.yuque.com/midwayjs/midway_v2/introduction) 的发布能力。
 
@@ -78,6 +78,10 @@ provider:
 也可以通过自定义路径映射使得不需要添加 `/release` 也可以访问到具体的环境。
 
 ![](https://res.wx.qq.com/op_res/Ln1MuNWmmfNDyTuJlooXiGdhwtCtz_4rVDi_qvmuUEoL_mo6PNsd3z4d7z9RBj17)
+
+## Nest.js Serverless 形式部署
+
+与 `Midway.js` 不同， `Nest.js` 场景下调用 `deploy` 命令我们会直接使用底层的阿里云提供的 [fun](https://github.com/alibaba/funcraft) 工具进行部署。在 `template.yml` 的可读性上比起 `Midway.js` 的 `f.yml` 文件有一定差异。部署成功后的域名配置方式与 `Midway.js` 一致
 
 ## 传统 Node.js 形式部署
 

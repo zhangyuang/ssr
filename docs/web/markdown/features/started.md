@@ -15,16 +15,16 @@
 
 注意: 
 
-- 如果你想使用 `Serverless` 的能力来迅速发布你的应用，那么你应该选择基于 `Midway.js` 的模版应用。关于 `Serverless` 开发更加详细的介绍可以阅读[Serverless](./features$serverless) 章节。如无特殊需求，我们建议创建 `Serverless` 类型的应用来享受一站式的开发部署能力
+- 在 `Midway.js` `Nest.js` 场景下我们都已实现了一键部署到 `Serverless` 平台的能力。但底层实现略有差异。更加详细的介绍可以阅读[Serverless](./features$serverless) 章节。如需要大量使用 `Serverless` 平台提供的能力，我们建议创建 `Midway.js` 类型的应用
 
-- 若开发者不想使用 `Midway.js`, 希望选择其他的框架例如 `Nest.js` 进行开发，并且希望获得 `Serverless` 的部署能力，我们正在支持中，下个版本将会支持
+- [midway-react-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-react-ssr)
+- [midway-vue-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-vue-ssr)
+- [midway-vue3-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-vue3-ssr)
+- [nestjs-react-ssr](https://github.com/ykfe/ssr/tree/dev/example/nestjs-react-ssr)
+- [nestjs-vue-ssr](https://github.com/ykfe/ssr/tree/dev/example/nestjs-vue-ssr)
+- [nestjs-vue3-ssr](https://github.com/ykfe/ssr/tree/dev/example/nestjs-vue3-ssr)
 
-- [midway-react-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-react-ssr) 同时支持 Serverless 形式部署以及传统 Node.js 应用类型部署
-- [midway-vue-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-vue-ssr) 同时支持 Serverless 形式部署以及传统 Node.js 应用类型部署
-- [midway-vue3-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-vue3-ssr) 同时支持 Serverless 形式部署以及传统 Node.js 应用类型部署
-- [nestjs-react-ssr](https://github.com/ykfe/ssr/tree/dev/example/nestjs-react-ssr) 支持 传统 Node.js 应用类型部署
-- [nestjs-vue-ssr](https://github.com/ykfe/ssr/tree/dev/example/nestjs-vue-ssr) 支持 传统 Node.js 应用类型部署
-- [nestjs-vue3-ssr](https://github.com/ykfe/ssr/tree/dev/example/nestjs-vue3-ssr) 支持 传统 Node.js 应用类型部署
+开发者可根据实际技术栈需要创建不同类型的应用快速开始
 
 ### 命令行创建项目 
 

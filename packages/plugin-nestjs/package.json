@@ -36,6 +36,7 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.3",
-    "ssr-server-utils": "^5.5.23"
+    "ssr-server-utils": "^5.5.23",
+    "@alicloud/fun": "^3.6.22"
   }
 }

@@ -12,8 +12,8 @@ async function bootstrap (): Promise<void> {
   })
   app.useStaticAssets(join(process.cwd(), './build'))
 
-  const config = loadConfig()
-  await app.listen(config.serverPort)
+  const { serverPort } = loadConfig()
+  await app.listen(serverPort)
 }
 
 bootstrap().catch(err => {

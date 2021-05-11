@@ -1,6 +1,8 @@
 import * as fs from 'fs'
 import { promises } from 'fs'
 import { resolve } from 'path'
+import { exec } from 'child_process'
+import { promisify } from 'util'
 import { UserConfig, IPlugin } from 'ssr-types'
 
 const getCwd = () => {
@@ -26,8 +28,8 @@ const loadPlugin = (): IPlugin => {
   return require(resolve(getCwd(), 'plugin'))
 }
 
-const isFaaS = async () => {
-  const result = await promises.access(resolve(getCwd(), 'f.yml'))
+const isFaaS = async (fun?: boolean) => {
+  const result = await promises.access(resolve(getCwd(), fun ? 'template.yml' : 'f.yml'))
     .then(() => true)
     .catch(() => false)
   return result
@@ -80,6 +82,8 @@ const copyViteConfig = async () => {
   }
 }
 
+const execPromisify = promisify(exec)
+
 export {
   getCwd,
   getFeDir,
@@ -91,5 +95,6 @@ export {
   processError,
   accessFile,
   copyViteConfig,
-  checkVite
+  checkVite,
+  execPromisify
 }
