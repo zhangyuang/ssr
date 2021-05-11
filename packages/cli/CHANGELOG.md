@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.24](https://github.com/ykfe/ssr/compare/v5.5.23...v5.5.24) (2021-05-11)
+
+
+### Features
+
+* nestjs support serverless deploy ([76787b1](https://github.com/ykfe/ssr/commit/76787b16640e255e13d158be6248505d156e9bc6))
+
+
+
+
+
 ## [5.5.23](https://github.com/ykfe/ssr/compare/v5.5.22...v5.5.23) (2021-05-10)
 
 
