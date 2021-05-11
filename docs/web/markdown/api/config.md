@@ -140,6 +140,17 @@ module.exports = {
 
 底层使用 [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware) 来进行代理，框架只是单纯透传参数， 具体配置查看 `http-proxy-middleware` 文档即可
 
+```js
+module.exports = {
+  proxy: {
+    '/api': {
+      target: 'http://www.example.org', 
+      changeOrigin: true
+    }
+  }
+}
+```
+
 ## dynamic
 
 - 类型: `boolean`
