@@ -22,7 +22,8 @@ const loadConfig = (): IConfig => {
     '.json',
     '.web.jsx',
     '.jsx',
-    '.vue'
+    '.vue',
+    '.css'
   ]
 
   const isDev = process.env.NODE_ENV !== 'production'
