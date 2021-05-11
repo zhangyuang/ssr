@@ -5,7 +5,6 @@ import { isFaaS, getCwd, execPromisify } from 'ssr-server-utils'
 import { Argv } from 'ssr-types'
 
 const cwd = getCwd()
-const deployFC = require('@alicloud/fun/lib/commands/deploy')
 
 const deploy = async (argv: Argv) => {
   if (!await isFaaS(true)) {
@@ -31,8 +30,9 @@ const deployTencent = () => {
 }
 
 const deployAliyun = async (argv: Argv) => {
-  const { stdout } = await execPromisify('npx fun build')
   console.log('正在构建中...')
+  const deployFC = require('@alicloud/fun/lib/commands/deploy')
+  const { stdout } = await execPromisify('npx fun build')
   console.log(stdout)
 
   deployFC({
