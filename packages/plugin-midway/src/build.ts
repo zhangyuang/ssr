@@ -4,7 +4,7 @@ import { Argv } from 'ssr-types'
 const { cliFun } = require('@midwayjs/cli/bin/cli')
 
 const build = (argv: Argv) => {
-  exec('cross-env ets', async (err, stdout) => {
+  exec('npx cross-env ets', async (err, stdout) => {
     if (err) {
       console.log(err)
       return
