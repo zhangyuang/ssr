@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
-import { findRoute, getManifest, logGreen, getCwd } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, getCwd, normalizePath } from 'ssr-server-utils'
 import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactServerESMFeRouteItem } from 'ssr-types'
 // @ts-expect-error
 import * as Routes from 'ssr-temporary-routes'
@@ -18,13 +18,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   let path = ctx.request.path // 这里取 pathname 不能够包含 queyString
   if (BASE_NAME) {
-    path = path.replace(BASE_NAME, '')
-    if (path.startsWith('//')) {
-      path = path.replace('//', '/')
-    }
-    if (!path.startsWith('/')) {
-      path = `/${path}`
-    }
+    path = normalizePath(path)
   }
   const { window } = global
   const routeItem = findRoute<ReactServerESMFeRouteItem>(FeRoutes, path)

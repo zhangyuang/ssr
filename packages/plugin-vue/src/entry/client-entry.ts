@@ -9,7 +9,7 @@ import { createRouter } from './router'
 import { createStore } from './store'
 
 declare const module: any
-const { FeRoutes, App, layoutFetch } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch, BASE_NAME } = Routes as RoutesType
 
 async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<any>, router: Route) {
   let layoutFetchData = {}
@@ -26,7 +26,9 @@ async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<an
 
 const clientRender = async () => {
   const store = createStore()
-  const router = createRouter()
+  const router = createRouter({
+    base: BASE_NAME
+  })
 
   if (window.__INITIAL_DATA__) {
     store.replaceState(window.__INITIAL_DATA__)

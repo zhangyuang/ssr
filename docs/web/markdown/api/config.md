@@ -131,7 +131,8 @@ module.exports = {
 - 类型: `string|undefined`
 - 默认: `undefined`
 
-为前端路由添加统一的 `prefix`, 如 `/${prefix}/`, `/${prefix}/detail/:id`
+为前端路由添加统一的 `prefix`, 如 `/${prefix}/`, `/${prefix}/detail/:id`。在功能上等价于 `React-Router` 提供的 `basename` 以及 `Vue-Router` 提供的 `base` 选项。  
+同样在设置完该参数后，前端路由的跳转操作都会添加该前缀
 
 ## proxy
 

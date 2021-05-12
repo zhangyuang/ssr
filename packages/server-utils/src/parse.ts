@@ -16,6 +16,16 @@ if (prefix) {
     prefix = `/${prefix}`
   }
 }
+export const normalizePath = (path: string) => {
+  path = path.replace(prefix!, '')
+  if (path.startsWith('//')) {
+    path = path.replace('//', '/')
+  }
+  if (!path.startsWith('/')) {
+    path = `/${path}`
+  }
+  return path
+}
 
 const parseFeRoutes = async () => {
   const isVue = require(join(cwd, './package.json')).dependencies.vue
@@ -50,6 +60,7 @@ const parseFeRoutes = async () => {
         export { default as Layout } from "${layoutPath}"
         export { default as App } from "${AppPath}"
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
+        ${prefix ? `export const BASE_NAME='${prefix}'` : ''}
         `
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]

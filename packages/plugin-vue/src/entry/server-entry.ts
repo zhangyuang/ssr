@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import * as Vue from 'vue'
-import { findRoute, getManifest, logGreen, getCwd } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, getCwd, normalizePath } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { sync } from 'vuex-router-sync'
 import * as serialize from 'serialize-javascript'
@@ -10,7 +10,7 @@ import { IServerFeRouteItem, RoutesType } from './interface'
 import { createRouter } from './router'
 import { createStore } from './store'
 
-const { FeRoutes, App, layoutFetch, Layout } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch, Layout, BASE_NAME } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
   const router = createRouter()
@@ -19,8 +19,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   sync(store, router)
 
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, chunkName } = config
-  const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
-
+  let path = ctx.request.path // 这里取 pathname 不能够包含 queyString
+  if (BASE_NAME) {
+    path = normalizePath(path)
+  }
   const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
 
   let dynamicCssOrder = cssOrder

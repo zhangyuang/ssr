@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
-import { findRoute, getManifest, logGreen, getCwd } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, getCwd, normalizePath } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
@@ -10,15 +10,18 @@ import { IServerFeRouteItem, RoutesType } from './interface'
 import { createRouter } from './router'
 import { createStore } from './store'
 
-const { FeRoutes, App, layoutFetch, Layout } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch, Layout, BASE_NAME } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
-  const router = createRouter()
-  const store = createStore()
 
+  const router = createRouter()
+  let path = ctx.request.path // 这里取 pathname 不能够包含 queyString
+  if (BASE_NAME) {
+    path = normalizePath(path)
+  }
+  const store = createStore()
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, chunkName } = config
-  const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
   const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
   const ViteMode = process.env.BUILD_TOOL === 'vite'
 

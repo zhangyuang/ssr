@@ -9,7 +9,7 @@ import { ESMFetch, IClientFeRouteItem, RoutesType } from './interface'
 // @ts-expect-error
 import * as Routes from 'ssr-temporary-routes'
 
-const { FeRoutes, App, layoutFetch } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch, BASE_NAME } = Routes as RoutesType
 declare const module: any
 
 async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<any>, router: RouteLocationNormalizedLoaded) {
@@ -27,7 +27,9 @@ async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<an
 
 const clientRender = async () => {
   const store = createStore()
-  const router = createRouter()
+  const router = createRouter({
+    base: BASE_NAME
+  })
 
   if (window.__INITIAL_DATA__) {
     store.replaceState(window.__INITIAL_DATA__)
