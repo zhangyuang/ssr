@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.26](https://github.com/ykfe/ssr/compare/v5.5.25...v5.5.26) (2021-05-12)
+
+
+### Features
+
+* vue2/3 支持 router.base ([2e03c4c](https://github.com/ykfe/ssr/commit/2e03c4c36d395bc3eb0398a8a4151635e5b54df4))
+
+
+
+
+
 ## [5.5.25](https://github.com/ykfe/ssr/compare/v5.5.24...v5.5.25) (2021-05-12)
 
 **Note:** Version bump only for package ssr-plugin-vue
