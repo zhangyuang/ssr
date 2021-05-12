@@ -180,7 +180,7 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
 
     if (r.path && prefix) {
       // 统一添加公共前缀
-      r.path = `/${prefix}${r.path}`
+      r.path = r.path === '/' ? `/${prefix}` : `/${prefix}${r.path}`
     }
     r.path && arr.push(r)
   })
