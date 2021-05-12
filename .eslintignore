@@ -10,3 +10,5 @@
 **/minimist.js
 **/node_modules
 **/prism.js
+**/.serverless
+docs
