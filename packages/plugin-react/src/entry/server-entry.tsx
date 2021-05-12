@@ -9,14 +9,23 @@ import { serverContext } from './create-context'
 // @ts-expect-error
 import Layout from '@/components/layout/index.tsx'
 
-const { FeRoutes, layoutFetch } = Routes as ReactRoutesType
+const { FeRoutes, layoutFetch, BASE_NAME } = Routes as ReactRoutesType
 
 declare const global: IGlobal
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
   const { cssOrder, jsOrder, dynamic, mode, chunkName } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
-  const path = ctx.request.path // 这里取 pathname 不能够包含 queyString
+  let path = ctx.request.path // 这里取 pathname 不能够包含 queyString
+  if (BASE_NAME) {
+    path = path.replace(BASE_NAME, '')
+    if (path.startsWith('//')) {
+      path = path.replace('//', '/')
+    }
+    if (!path.startsWith('/')) {
+      path = `/${path}`
+    }
+  }
   const { window } = global
   const routeItem = findRoute<ReactServerESMFeRouteItem>(FeRoutes, path)
   const ViteMode = process.env.BUILD_TOOL === 'vite'

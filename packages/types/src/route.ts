@@ -53,12 +53,14 @@ export interface ReactRoutesType {
   App?: React.FC
   layoutFetch: ReactFetch
   FeRoutes: ReactServerESMFeRouteItem[]
+  BASE_NAME?: string
 }
 export interface ReactClientRoutesType {
   Layout: React.FC<LayoutProps>
   App?: React.FC
   layoutFetch: ReactFetch
   FeRoutes: ReactClientESMFeRouteItem[]
+  BASE_NAME?: string
 }
 
 export type ESMFeRouteItem<T={}> = {

@@ -6,9 +6,16 @@ import { getCwd, getPagesDir, getFeDir, accessFile } from './cwd'
 import { loadConfig } from './loadConfig'
 
 const debug = require('debug')('ssr:parse')
-const { dynamic, prefix } = loadConfig()
+const { dynamic } = loadConfig()
 const pageDir = getPagesDir()
 const cwd = getCwd()
+let { prefix } = loadConfig()
+
+if (prefix) {
+  if (!prefix.startsWith('/')) {
+    prefix = `/${prefix}`
+  }
+}
 
 const parseFeRoutes = async () => {
   const isVue = require(join(cwd, './package.json')).dependencies.vue
@@ -69,6 +76,8 @@ const parseFeRoutes = async () => {
         export const FeRoutes = ${JSON.stringify(arr)} 
         ${accessReactApp ? 'export { default as App } from "@/components/layout/App.tsx"' : ''}
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
+        ${prefix ? `export const BASE_NAME='${prefix}'` : ''}
+
         `
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
@@ -178,10 +187,6 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
       }
     }
 
-    if (r.path && prefix) {
-      // 统一添加公共前缀
-      r.path = r.path === '/' ? `/${prefix}` : `/${prefix}${r.path}`
-    }
     r.path && arr.push(r)
   })
 
