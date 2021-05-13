@@ -203,6 +203,67 @@ export default {
 
 `React` 场景下我们已经对 [antd](https://ant.design/) 进行兼容，`Vue` 场景已经对 [vant](https://vant-contrib.gitee.io/vant/#/) 进行兼容，可以直接在组件中引用无需做任何额外配置。
 
+### 使用方式
+
+安装对应 `ui` 库相关依赖后可直接按需导入的方式使用
+
+#### antd
+
+```shell
+$ npm install antd
+```
+
+```js
+
+import { Button } from 'antd'
+
+<Button><Button>
+```
+
+#### vant
+
+```shell
+$ npm install vant@next # vant in vue3
+```
+
+```html
+// 单个文件中使用
+<template>
+  <Button>button</Button>
+</template>
+<script>
+import { Button } from 'vant'
+
+export default {
+  components: {
+    Button
+  }
+}
+</script>
+```
+
+```html
+// 全局使用
+// layout/App.vue
+<template>
+  <van-button type="primary">主要按钮</van-button>
+</template>
+<script>
+import { Button } from 'vant'
+
+export default {
+  components: {
+    Button
+  },
+  created() {
+    const app = window.__VUE_APP__
+    app.use(Button)
+  }
+}
+</script>
+```
+### 原理
+
 若开发者需要使用其他 UI 框架不做额外配置是一定会报错的。这里以 [vant](https://vant-contrib.gitee.io/vant/#/) 举例子，讲述如何引入。
 
 `注: 本框架底层已经支持直接使用 antd, vant UI 框架，下列代表只是讲述原理，无需重复配置`
