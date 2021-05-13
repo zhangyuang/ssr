@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@alicloud/cloudapi@^1.0.0":
+"@alicloud/cloudapi@^1.0.0": 
   version "1.1.0"
   resolved "https://registry.npmjs.org/@alicloud/cloudapi/-/cloudapi-1.1.0.tgz#66d4af2c9f5f43a445a6185958484c2f6149aa1d"
   integrity sha512-qnlF4fX4NPqkCLYEQm5no6+wgzdXlbtilkltSsVhMMjl4WldsUul4ai8cj3lncSm10S6a+iYaObR0DrmFqyJlw==

@@ -298,6 +298,8 @@ const htmlStr = await render(this.ctx, config)
 
 ## 如何自定义页面标题, meta 等信息
 
+本框架不需要也不会提供类似 `next/head`, `react-helment` 之类的解决方案，这是完全没有必要的。 
+
 由于我们 `All in jsx/Vue SFC`, 这块的实现也是非常简单的。`layout` 在服务端被渲染时可以拿到请求的 `ctx`，根据 `ctx` 上的信息来 `render` 不同的生成结果
 
 `Vue` 使用方式如下
@@ -377,6 +379,8 @@ const Layout = (props: LayoutProps) => {
 }
 
 ```
+
+上述的 `html` 基础信息设置。是发生在请求到达服务器时的逻辑。当前端页面通过前端路由跳转时此时并不会向服务器发起请求。如果你需要在这种场景修改 `title` 那么你应该需要使用 `document.title`，我们推荐你在 `layout fetch` 中进行该操作。该文件将会在每个页面渲染时都被调用。根据 `pathname` 判断当前页面并且设置 `title`
 
 ## 如何解决服务端访问不可访问的对象的问题
 
