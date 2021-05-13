@@ -3,7 +3,7 @@
 describe('SSR', () => {
   it('SSR mode shoube be render successful', () => {
     cy.visit('http://localhost:3000')
-    cy.wait(5000)
+    cy.wait(10000)
     cy.window()
       .its('__USE_SSR__')
       .should('equal', true)
