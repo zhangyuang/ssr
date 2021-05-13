@@ -119,13 +119,20 @@ const getBaseConfig = (chain: WebpackChain) => {
     importLoaders: 2
   }, true)
 
-  setStyle(isDev, chain, /\.(css|less)$/, {
+  setStyle(isDev, chain, /\.less$/, {
     include: cssModulesWhiteList,
-    rule: 'cssModulesWhiteList',
+    rule: 'cssModulesWhiteListLess',
     modules: false,
     loader: 'less-loader',
-    importLoaders: 1
+    importLoaders: 2
   }, true) // 默认 antd swiper 不使用 css-modules，建议第三方 ui 库都不使用
+
+  setStyle(isDev, chain, /\.css$/, {
+    include: cssModulesWhiteList,
+    rule: 'cssModulesWhiteListCss',
+    modules: false,
+    importLoaders: 1
+  }, true)
 
   chain.module
     .rule('svg')
