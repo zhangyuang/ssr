@@ -54,7 +54,7 @@ async handler (): Promise<void> {
 
 但是要弄清楚，前端路由只是假的路由！在实际的服务器资源上，并没有对应的真实资源存在。这也就是经典的问题，为什么前端 SPA 应用部署后，刷新访问会 404。因为每一个请求会首先经过服务端 `Server` 的逻辑分发再来决定这个请求的具体行为。在本地开发时之所以不会 404，是因为这些框架本地提供的小型 Node.js Server 添加了重定向到 `index.html` 的[逻辑](https://router.vuejs.org/zh/guide/essentials/history-mode.html#%E5%90%8E%E7%AB%AF%E9%85%8D%E7%BD%AE%E4%BE%8B%E5%AD%90)。
 
-如果在本框架中你出现了刷新 404 的问题，很明显你只写了前端路由没有服务端路由对应。解决方式: controller 中添加对应的服务端路由解析规则
+如果在本框架中你出现了刷新 404 的问题，很明显你只写了前端路由没有服务端路由对应。解决方式: `controller` 中添加对应的服务端路由解析规则
 
 ```js
 // controller/xxx.ts

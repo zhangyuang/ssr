@@ -380,6 +380,10 @@ const htmlStr = await render(this.ctx, config)
       <title v-if="ctx.request.path.match('/detail')">
         详情页
       </title>
+      <!-- 这里可以用 map 来简化代码 -->
+       <title>
+        {{ pathToTitle(ctx.request.path) }}
+      </title>
       <!-- 初始化移动端 rem 设置，如不需要可自行删除 -->
       <slot name="remInitial" />
       <!-- 用于通过配置插入自定义的 script 为了避免影响期望功能这块内容不做 escape，为了避免 xss 需要保证插入脚本代码的安全性  -->
@@ -387,7 +391,9 @@ const htmlStr = await render(this.ctx, config)
       <slot name="cssInject" />
     </head>
     <body>
-      <slot name="children" />
+      <div id="app">
+        <slot name="children" />
+      </div>
       <slot name="initialData" />
       <slot name="jsInject" />
     </body>
@@ -397,8 +403,22 @@ const htmlStr = await render(this.ctx, config)
 <script>
 export default {
   props: ['ctx', 'config'],
+  data() {
+    return {
+      pathMap: {
+        '/': "首页",
+        '/detail': "详情页",
+      }
+    }
+  },
   created () {
     console.log(this.ctx.request.path)
+  },
+  methods: {
+    pathToTitle(path) {
+      // 需要模糊匹配的话可以采用 path-to-regexp 之类的方式
+      return this.pathMap[path]
+    }
   }
 }
 </script>
@@ -591,6 +611,31 @@ axios({
 }).catch(err => {
   console.log(err)
 })
+```
+
+## 页面刷新 404
+
+如果你仔细阅读了 [本地开发](./features$develop) 那么你应该知道该问题为什么会出现。
+
+很明显你只注册了前端路由而没有对应的服务端路由。解决方式，`controller` 注册对应的服务端路由
+
+```js
+// controller/xxx.ts
+@Get('/')
+@Get('/detail/:id')
+async handler (): Promise<void> {
+  try {
+    this.ctx.apiService = this.apiService
+    this.ctx.apiDeatilservice = this.apiDeatilservice
+    const stream = await render<Readable>(this.ctx, {
+      stream: true
+    })
+    this.ctx.body = stream
+  } catch (error) {
+    console.log(error)
+    this.ctx.body = error
+  }
+}
 ```
 
 ## 兼容低端浏览器
