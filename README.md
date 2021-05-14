@@ -108,6 +108,42 @@
 | ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
 | ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                                |
 
+
+## 快速开始
+
+我们提供了 [create-ssr-app](https://github.com/zhangyuang/create-ssr-app) 脚手架来让用户可以迅速的创建不同类型的应用。
+
+目前官方提供了以下类型的模版给开发者直接使用。用户可根据自己的实际技术栈选择不同的模版进行开发。
+
+虽然技术栈不同但开发思想是一致的，在任何技术栈的组合中我们的开发命令, 构建命令以及渲染原理都是完全一致的
+
+注意: 
+
+- 在 `Midway.js` `Nest.js` 场景下我们都已实现了一键部署到 `Serverless` 平台的能力。但底层实现略有差异。更加详细的介绍可以阅读[Serverless](./features$serverless) 章节。如需要大量使用 `Serverless` 平台提供的能力，我们建议创建 `Midway.js` 类型的应用
+
+- [midway-react-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-react-ssr)
+- [midway-vue-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-vue-ssr)
+- [midway-vue3-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-vue3-ssr)
+- [nestjs-react-ssr](https://github.com/ykfe/ssr/tree/dev/example/nestjs-react-ssr)
+- [nestjs-vue-ssr](https://github.com/ykfe/ssr/tree/dev/example/nestjs-vue-ssr)
+- [nestjs-vue3-ssr](https://github.com/ykfe/ssr/tree/dev/example/nestjs-vue3-ssr)
+
+开发者可根据实际技术栈需要创建不同类型的应用快速开始
+
+### 创建项目 
+
+通过 `npm init` 命令我们可以创建上述的任意模版
+
+```shell
+$ npm init ssr-app my-ssr-project --template=midway-vue3-ssr # 这里可以选择上述任意模版
+$ cd my-ssr-project && npm i
+$ npm start # 启动服务，等价于 npx ssr start
+$ open http://localhost:3000 # 访问应用
+$ npm build # 资源构建，等价于 npx ssr build
+$ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
+```
+
+注意: 当 `Node.js version >=15` 或者 `npm version >= 7` 时，应使用 `npm init ssr-app my-ssr-project -- --template=midway-react-ssr` 来正确的传递参数
 ## 线上案例
 
 通过访问以下链接来预览该框架通过 Serverless 一键部署到阿里云/腾讯云服务的应用详情。  
