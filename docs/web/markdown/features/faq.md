@@ -85,11 +85,11 @@ module.exports = {
 
 参考 [如何让某个组件只在客户端渲染](./features$faq#如何让某个组件只在客户端渲染)
 
-## Vue3 修改 Router 行为
+## Vue 修改路由钩子
 
-在 `Vue3` 中我们同样将 `vue-router` 实例挂在了 `window.__VUE_ROUTER__` 上方，你也可以直接通过 [useRouter](https://next.router.vuejs.org/guide/advanced/composition-api.html#accessing-the-router-and-current-route-inside-setup) 来直接拿到 `Router` 实例。
+在 `Vue2`, `Vue3` 中我们同样将 `vue-router` 创建出来的实例挂在了 `window.__VUE_ROUTER__` 上方，在 `Vue3` 中你也可以直接通过 [useRouter](https://next.router.vuejs.org/guide/advanced/composition-api.html#accessing-the-router-and-current-route-inside-setup) 来直接拿到 `Router` 实例。
 
-通过 `Router.options.scrollBehavior` 来修改 `Router` 行为
+通过 `window.__VUE_ROUTER__.beforeEach` 等 `API` 来修改 `Router` 行为，我们建议该操作放在 `layout/App.vue` 中组件的 `mounted` 生命周期注册。
 
 ## 使用Vue3国际化插件
 
