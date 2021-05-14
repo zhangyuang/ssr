@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.29](https://github.com/ykfe/ssr/compare/v5.5.28...v5.5.29) (2021-05-14)
+
+
+### Features
+
+* vue2 add window.__VUE_ROUTER__ ([034d12c](https://github.com/ykfe/ssr/commit/034d12c0eb7801deff3daff89d0fb760fdc3113a))
+
+
+
+
+
 ## [5.5.28](https://github.com/ykfe/ssr/compare/v5.5.27...v5.5.28) (2021-05-13)
 
 **Note:** Version bump only for package ssr
