@@ -117,9 +117,7 @@
 
 虽然技术栈不同但开发思想是一致的，在任何技术栈的组合中我们的开发命令, 构建命令以及渲染原理都是完全一致的
 
-注意: 
-
-- 在 `Midway.js` `Nest.js` 场景下我们都已实现了一键部署到 `Serverless` 平台的能力。但底层实现略有差异。更加详细的介绍可以阅读[Serverless](./features$serverless) 章节。如需要大量使用 `Serverless` 平台提供的能力，我们建议创建 `Midway.js` 类型的应用
+注意: 在 `Midway.js` `Nest.js` 场景下我们都已实现了一键部署到 `Serverless` 平台的能力。但底层实现略有差异。更加详细的介绍可以阅读 [Serverless] (http://doc.ssr-fc.com/docs/features$serverless) 章节。如需要大量使用 `Serverless` 平台提供的能力，我们建议创建 `Midway.js` 类型的应用。我们强烈建议阅读我们的 [官方文档](http://doc.ssr-fc.com/) 来获得更加详细的了解
 
 - [midway-react-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-react-ssr)
 - [midway-vue-ssr](https://github.com/ykfe/ssr/tree/dev/example/midway-vue-ssr)
