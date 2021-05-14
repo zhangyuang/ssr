@@ -1,3 +1,4 @@
+import * as Router from 'vue-router'
 import { IWindow } from 'ssr-types'
 
 declare module '*.less'
@@ -8,6 +9,7 @@ declare global {
     __INITIAL_DATA__?: IWindow['__INITIAL_DATA__']
     STORE_CONTEXT?: IWindow['STORE_CONTEXT']
     __USE_VITE__?: boolean
+    __VUE_ROUTER__?: Router
   }
   const __isBrowser__: Boolean
 }

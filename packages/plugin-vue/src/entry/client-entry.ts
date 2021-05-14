@@ -56,6 +56,7 @@ const clientRender = async () => {
 
       next()
     })
+    window.__VUE_ROUTER__ = router
     app.$mount('#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
   })
 
