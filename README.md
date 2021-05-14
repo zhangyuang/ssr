@@ -26,7 +26,7 @@
 
 阅读我们的 [官方文档](http://doc.ssr-fc.com/) 获得更加详细的了解。事实上文档本身便是用 `ssr` 框架开发并通过 `Serverless` 部署到阿里云服务
 
-![](https://res.wx.qq.com/op_res/IPTwJ0ZUuJ_0XicnAcpUXIjFGjmggiw-LgZZfvHsxlRpdfgeWQ3yqZ0CqEA4Zs1WMcINsLSDT9zBXv1gYElYkg)
+![](https://res.wx.qq.com/op_res/B9tJE-lFR3gCif92sM4BeeqAcoJSZbJK-auM7MACgomrWm58C1moA3BfatZ5gS-tgZHYyk57e0JQRtgdcgho-g)
 
 ## 哪些应用在使用
 
