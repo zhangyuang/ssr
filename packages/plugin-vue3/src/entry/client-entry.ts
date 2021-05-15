@@ -2,8 +2,7 @@ import { h, createApp, reactive } from 'vue'
 import { Store } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { findRoute } from 'ssr-client-utils'
-import { createRouter } from './router'
-import { createStore } from './store'
+import { createRouter, createStore } from './create'
 import { ESMFetch, IClientFeRouteItem, RoutesType } from './interface'
 
 // @ts-expect-error

@@ -10,7 +10,7 @@ declare global {
     __INITIAL_DATA__?: IWindow['__INITIAL_DATA__']
     STORE_CONTEXT?: IWindow['STORE_CONTEXT']
     __VUE_APP__: App
-    __VUE_ROUTER__: Router
+    __VUE_ROUTER__?: Router
     __USE_VITE__?: boolean
   }
   const __isBrowser__: Boolean

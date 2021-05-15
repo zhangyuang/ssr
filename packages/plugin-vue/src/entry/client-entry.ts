@@ -5,8 +5,7 @@ import { findRoute } from 'ssr-client-utils'
 // @ts-expect-error
 import * as Routes from 'ssr-temporary-routes'
 import { ESMFetch, RoutesType, IClientFeRouteItem } from './interface'
-import { createRouter } from './router'
-import { createStore } from './store'
+import { createRouter, createStore } from './create'
 
 declare const module: any
 const { FeRoutes, App, layoutFetch, BASE_NAME } = Routes as RoutesType

@@ -7,8 +7,7 @@ import * as serialize from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from 'ssr-temporary-routes'
 import { IServerFeRouteItem, RoutesType } from './interface'
-import { createRouter } from './router'
-import { createStore } from './store'
+import { createRouter, createStore } from './create'
 
 const { FeRoutes, App, layoutFetch, Layout, BASE_NAME } = Routes as RoutesType
 

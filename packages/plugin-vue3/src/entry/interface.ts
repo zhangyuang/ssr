@@ -1,5 +1,5 @@
 import { VNode } from 'vue'
-import { Store } from 'vuex'
+import { Store, StoreOptions } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { ESMFeRouteItem, ISSRContext } from 'ssr-types'
 
@@ -22,6 +22,7 @@ export interface RoutesType {
   layoutFetch?: (params: {store: Store<any>, router: RouteLocationNormalizedLoaded}, ctx?: ISSRContext) => Promise<any>
   FeRoutes: IClientFeRouteItem[]
   BASE_NAME?: string
+  store?: StoreOptions<any>
 }
 
 export interface VueRouterOptions {

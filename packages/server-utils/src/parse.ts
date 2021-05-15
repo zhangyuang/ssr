@@ -53,13 +53,17 @@ const parseFeRoutes = async () => {
       const layoutPath = '@/components/layout/index.vue'
       const accessVueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
       const layoutFetch = await accessFile(join(getFeDir(), './components/layout/fetch.ts'))
+      const store = await accessFile(join(getFeDir(), './store/index.ts'))
       const AppPath = `@/components/layout/App.${accessVueApp ? 'vue' : 'tsx'}`
+
       const re = /"webpackChunkName":("(.+?)")/g
       routes = `
+        ${store ? 'import * as store from "@/store/index.ts"' : ''}
         export const FeRoutes = ${JSON.stringify(arr)} 
         export { default as Layout } from "${layoutPath}"
         export { default as App } from "${AppPath}"
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
+        ${store ? 'export { store }' : ''}
         ${prefix ? `export const BASE_NAME='${prefix}'` : ''}
         `
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {

@@ -23,3 +23,7 @@ export interface RoutesType {
   FeRoutes: IClientFeRouteItem[]
   BASE_NAME?: string
 }
+
+export interface VueRouterOptions {
+  base?: string
+}
