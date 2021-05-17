@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { ReactClientESMFeRouteItem, IWindow } from 'ssr-types'
 import { pathToRegexp } from 'path-to-regexp'
+import { normalizePath } from './utils'
 
 declare const window: IWindow
 
@@ -14,13 +15,7 @@ const preloadComponent = async (Routes: ReactClientESMFeRouteItem[], BASE_NAME?:
     } else {
       let pathname = location.pathname
       if (BASE_NAME) {
-        pathname = path.replace(BASE_NAME, '')
-        if (path.startsWith('//')) {
-          pathname = path.replace('//', '/')
-        }
-        if (!path.startsWith('/')) {
-          pathname = `/${pathname}`
-        }
+        pathname = normalizePath(pathname, BASE_NAME)
       }
       if (activeComponent.preload && pathToRegexp(path).test(pathname)) {
         // 针对 react-loadble 包裹的组件
