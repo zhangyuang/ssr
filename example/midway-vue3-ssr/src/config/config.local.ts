@@ -7,9 +7,5 @@ export default (appInfo: EggAppInfo) => {
 
   // ...
 
-  config.middleware = [
-
-  ]
-
   return config
 }

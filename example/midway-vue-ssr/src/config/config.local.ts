@@ -6,10 +6,5 @@ export default (appInfo: EggAppInfo) => {
   const config: DefaultConfig = {}
 
   // ...
-
-  config.middleware = [
-
-  ]
-
   return config
 }

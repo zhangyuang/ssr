@@ -2,7 +2,76 @@
 
 本章节记录开发者可能会遇到的常见问题。如果你的问题在这里没有描述，你可以直接去仓库地址提 [issue](https://github.com/ykfe/ssr/issues)
 
-## Vue 全局注册组件
+## 异常处理
+
+本章节讲述如何特殊自定义处理 `404`, `500` 等异常情况。
+
+以 `404` 为例，我们在中间件中处理异常情况，以下代码以服务端使用 [Midway.js](https://www.yuque.com/midwayjs/midway_v2/web_middleware#ML31g) 为例讲述如何使用
+
+```js
+import { Provide } from '@midwayjs/decorator'
+import { IWebMiddleware, IMidwayWebNext } from '@midwayjs/web'
+import { Context } from 'egg'
+
+@Provide()
+export class NotFoundMiddleware implements IWebMiddleware {
+  resolve () {
+    return async (ctx: Context, next: IMidwayWebNext) => {
+      await next()
+      if (ctx.status === 404) {
+        ctx.redirect('/404')
+      }
+    }
+  }
+}
+
+config.middleware = [
+  'notFoundMiddleware'
+];
+
+```
+
+在检测到 `status` 异常后，我们有两种处理方案。
+
+- 通过 `ctx.body` 渲染一些简单的提示
+
+```js
+if (ctx.status === 404) {
+  ctx.body = "404 Not Found"
+}
+```
+
+也可以服务端使用模版引擎来渲染一些内容丰富的错误界面。此方案在传统场景使用较多。但在 `ssr` 场景我们可以有更加优秀的处理方案
+
+- 重定向到错误路由，且创建路由对应的前端页面
+
+```js
+if (ctx.status === 404) {
+  ctx.redirect('/404')
+}
+
+// controller
+@Get('/404')
+async handler (): Promise<void> {
+  try {
+    this.ctx.apiService = this.apiService
+    this.ctx.apiDeatilservice = this.apiDeatilservice
+    const stream = await render<Readable>(this.ctx, {
+      stream: true
+    })
+    this.ctx.body = stream
+  } catch (error) {
+    console.log(error)
+    this.ctx.body = error
+  }
+}
+
+```
+
+在检测到错误发生后，我们重定向到 `/404` 路由, 且 `controller` 中定义对该 `path` 的处理逻辑，进行服务端渲染的页面逻辑处理。此时我们可以创建 `web/pages/404` 文件夹。这样我们便可以使用前端组件来开发我们的错误提示页面。可以进行非常丰富的页面内容提示
+
+`500` 错误及其他状态码错误处理方式同上
+## Vue2 全局注册组件
 
 之前传统 SPA 客户端应用写在 `main.js` 中的全局注册组件方法可以无缝搬迁到 `layout/App.vue` 当中
 
