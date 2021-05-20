@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.33](https://github.com/ykfe/ssr/compare/v5.5.32...v5.5.33) (2021-05-20)
+
+
+### Bug Fixes
+
+* add env NODE_TLS_REJECT_UNAUTHORIZED when https ([cdc3211](https://github.com/ykfe/ssr/commit/cdc3211d1c3aa83f2221aa2c35665be3c8bd5d5d))
+
+
+
+
+
 ## [5.5.32](https://github.com/ykfe/ssr/compare/v5.5.31...v5.5.32) (2021-05-20)
 
 **Note:** Version bump only for package ssr
