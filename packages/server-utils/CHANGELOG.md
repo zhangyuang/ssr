@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.30](https://github.com/ykfe/ssr/compare/v5.5.29...v5.5.30) (2021-05-20)
+
+
+### Features
+
+* 支持 https ([e91808c](https://github.com/ykfe/ssr/commit/e91808c91cb2b8860f0771518b48de4dd592fcda))
+
+
+
+
+
 ## [5.5.28](https://github.com/ykfe/ssr/compare/v5.5.27...v5.5.28) (2021-05-13)
 
 **Note:** Version bump only for package ssr-server-utils
