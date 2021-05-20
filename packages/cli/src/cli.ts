@@ -7,27 +7,37 @@ import { Argv } from 'ssr-types'
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
 const debug = require('debug')('ssr:cli')
 const start = Date.now()
+const spinner = {
+  start: () => spinnerProcess.send({
+    message: 'start'
+  }),
+  stop: () => spinnerProcess.send({
+    message: 'stop'
+  })
+}
 
 yargs
   .command('start', 'Start Server', {}, async (argv: Argv) => {
-    spinnerProcess.send({
-      message: 'start'
-    })
-    process.env.NODE_ENV = 'development'
-    const { copyViteConfig, checkVite } = await import('ssr-server-utils')
+    spinner.start()
 
-    // 只有本地开发环境才会使用 Vite
-    process.env.BUILD_TOOL = argv.vite ? 'vite' : 'webpack'
+    const { copyViteConfig, checkVite, loadConfig } = await import('ssr-server-utils')
+    const { https } = loadConfig()
+
+    if (https) {
+      process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+    }
     if (argv.test) {
       // 开发同学本地 link 测试用
       process.env.TEST = '1'
     }
+    // 只有本地开发环境才会使用 Vite
+    process.env.BUILD_TOOL = argv.vite ? 'vite' : 'webpack'
+    process.env.NODE_ENV = 'development'
+
     if (process.env.BUILD_TOOL === 'vite') {
       const result = await checkVite()
       if (!result) {
-        spinnerProcess.send({
-          message: 'stop'
-        })
+        spinner.stop()
         process.exit(1)
       }
       await copyViteConfig()
@@ -37,9 +47,7 @@ yargs
     const plugin = loadPlugin()
     debug(`loadPlugin time: ${Date.now() - start} ms`)
     await parseFeRoutes()
-    spinnerProcess.send({
-      message: 'stop'
-    })
+    spinner.stop()
     debug(`parseFeRoutes ending time: ${Date.now() - start} ms`)
     await plugin.clientPlugin?.start?.(argv)
     debug(`clientPlugin ending time: ${Date.now() - start} ms`)
@@ -47,16 +55,15 @@ yargs
     debug(`serverPlugin ending time: ${Date.now() - start} ms`)
   })
   .command('build', 'Build server and client files', {}, async (argv: Argv) => {
-    spinnerProcess.send({
-      message: 'start'
-    })
+    spinner.start()
+
     process.env.NODE_ENV = 'production'
     const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
     const plugin = loadPlugin()
     await parseFeRoutes()
-    spinnerProcess.send({
-      message: 'stop'
-    })
+
+    spinner.stop()
+
     await plugin.clientPlugin?.build?.(argv)
     await plugin.serverPlugin?.build?.(argv)
   })
@@ -70,9 +77,7 @@ yargs
     }
     process.env.NODE_ENV = 'production'
     await plugin.serverPlugin?.deploy?.(argv)
-    spinnerProcess.send({
-      message: 'stop'
-    })
+    spinner.stop()
   })
   .demandCommand(1, 'You need at least one command before moving on')
   .option('version', {
@@ -82,9 +87,7 @@ yargs
   .fail((msg, err) => {
     if (err) {
       console.log(err)
-      spinnerProcess.send({
-        message: 'stop'
-      })
+      spinner.stop()
       process.exit(1)
     }
     console.log(msg)
