@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.32](https://github.com/ykfe/ssr/compare/v5.5.31...v5.5.32) (2021-05-20)
+
+**Note:** Version bump only for package ssr-hoc-vue3
+
+
+
+
+
 ## [5.5.28](https://github.com/ykfe/ssr/compare/v5.5.27...v5.5.28) (2021-05-13)
 
 **Note:** Version bump only for package ssr-hoc-vue3
