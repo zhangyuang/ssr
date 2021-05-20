@@ -50,6 +50,7 @@ export interface IConfig {
   ssrVueLoaderOptions?: any
   csrVueLoaderOptions?: any
   corejs: boolean
+  https: boolean
 }
 type Optional <T>= { [key in keyof T]?: T[key] }
 

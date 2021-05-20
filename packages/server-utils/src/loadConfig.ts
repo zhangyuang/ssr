@@ -30,6 +30,8 @@ const loadConfig = (): IConfig => {
 
   const fePort = 8000
 
+  const https = process.env.HTTPS ?? userConfig.https ?? false
+
   const serverPort = process.env.SERVER_PORT ?? 3000
 
   const host = '0.0.0.0'
@@ -76,6 +78,7 @@ const loadConfig = (): IConfig => {
     sockPort: fePort,
     hot: true,
     port: fePort,
+    https,
     clientLogLevel: clientLogLevel,
     progress: true,
     headers: {
@@ -116,7 +119,8 @@ const loadConfig = (): IConfig => {
     dynamic,
     mode,
     stream,
-    corejs
+    corejs,
+    https
   }, userConfig)
 
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了

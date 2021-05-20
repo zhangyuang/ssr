@@ -12,7 +12,7 @@ function onProxyReq (proxyReq: any, req: any) {
 }
 
 const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
-  const { fePort, proxy, isDev } = loadConfig()
+  const { fePort, proxy, isDev, https } = loadConfig()
   const express = options ? options.express : false
   const proxyMiddlewaresArr: any[] = []
 
@@ -42,7 +42,7 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
       // Webpack 场景 在本地开发阶段代理 serverPort 的资源到 fePort
       // 例如 http://localhost:3000/static/js/page.chunk.js -> http://localhost:8000/static/js/page.chunk.js
       const remoteStaticServerOptions = {
-        target: `http://127.0.0.1:${fePort}`,
+        target: `${https ? 'https' : 'http'}://127.0.0.1:${fePort}`,
         changeOrigin: true,
         secure: false,
         onProxyReq,

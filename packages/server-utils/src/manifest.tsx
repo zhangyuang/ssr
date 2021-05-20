@@ -8,14 +8,14 @@ let manifest: {
 } = {}
 
 const getManiFest = async () => {
-  const { isDev, fePort } = loadConfig()
+  const { isDev, fePort, https } = loadConfig()
 
   if (Object.keys(manifest).length !== 0) {
     return
   }
   const cwd = getCwd()
   if (isDev) {
-    manifest = await getPromisify(`http://localhost:${fePort}/asset-manifest.json`)
+    manifest = await getPromisify(`${https ? 'https' : 'http'}://localhost:${fePort}/asset-manifest.json`)
   } else {
     manifest = require(join(cwd, './build/client/asset-manifest.json'))
   }
