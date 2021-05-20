@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.31](https://github.com/ykfe/ssr/compare/v5.5.30...v5.5.31) (2021-05-20)
+
+
+### Bug Fixes
+
+* use axios replace http module ([f6b42bc](https://github.com/ykfe/ssr/commit/f6b42bc33a356ac3d90784659c1a7dd7462969f5))
+
+
+
+
+
 ## [5.5.30](https://github.com/ykfe/ssr/compare/v5.5.29...v5.5.30) (2021-05-20)
 
 
