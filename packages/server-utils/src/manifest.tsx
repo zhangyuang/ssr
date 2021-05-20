@@ -1,6 +1,6 @@
 import { join } from 'path'
+import axios from 'axios'
 import { getCwd } from './cwd'
-import { getPromisify } from './promisify'
 import { loadConfig } from './loadConfig'
 
 let manifest: {
@@ -15,7 +15,8 @@ const getManiFest = async () => {
   }
   const cwd = getCwd()
   if (isDev) {
-    manifest = await getPromisify(`${https ? 'https' : 'http'}://localhost:${fePort}/asset-manifest.json`)
+    const res = await axios.get(`${https ? 'https' : 'http'}://localhost:${fePort}/asset-manifest.json`)
+    manifest = res.data
   } else {
     manifest = require(join(cwd, './build/client/asset-manifest.json'))
   }
