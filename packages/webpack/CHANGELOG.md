@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.34](https://github.com/ykfe/ssr/compare/v5.5.33...v5.5.34) (2021-05-21)
+
+
+### Features
+
+* use webpack bar replace progress ([5fef2de](https://github.com/ykfe/ssr/commit/5fef2de0472d1646aa9ed3ae84b2adab56066f94))
+
+
+
+
+
 ## [5.5.33](https://github.com/ykfe/ssr/compare/v5.5.32...v5.5.33) (2021-05-20)
 
 **Note:** Version bump only for package ssr-webpack
