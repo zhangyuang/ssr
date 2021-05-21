@@ -5,6 +5,8 @@ import { getFeDir, getCwd, loadConfig, getLocalNodeModules, setStyle } from 'ssr
 import * as WebpackChain from 'webpack-chain'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const WebpackBar = require('webpackbar')
+
 const loadModule = require.resolve
 
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
@@ -201,6 +203,12 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     filename: useHash ? 'static/css/[name].[contenthash:8].css' : 'static/css/[name].css',
     chunkFilename: useHash ? 'static/css/[name].[contenthash:8].chunk.css' : 'static/css/[name].chunk.css'
   }])
+
+  chain.plugin('webpackBar').use(new WebpackBar({
+    name: isServer ? 'server' : 'client',
+    color: isServer ? '#f173ac' : '#45b97c'
+  }))
+
   chainBaseConfig(chain)
   return config
 }

@@ -14,7 +14,7 @@ const getClientWebpack = (chain: WebpackChain) => {
   const { publicPath, isDev, chunkName, getOutput, cwd, useHash, chainClientConfig } = loadConfig()
   const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
   const truePublicPath = isDev ? publicPath : `${publicPath}client/`
-  getBaseConfig(chain)
+  getBaseConfig(chain, false)
   chain.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
   chain.entry(chunkName)
     .add(loadModule('../entry/client-entry'))
@@ -83,7 +83,6 @@ const getClientWebpack = (chain: WebpackChain) => {
     __isBrowser__: true
   }])
 
-  chain.when(!isDev, chain => chain.plugin('progress').use(loadModule('webpack/lib/ProgressPlugin')))
   chain.plugin('moduleNotFound').use(ModuleNotFoundPlugin, [cwd])
 
   chain.plugin('manifest').use(loadModule('webpack-manifest-plugin'), [{

@@ -9,10 +9,12 @@ const startClientServer = async (webpackConfig: webpack.Configuration) => {
   const { webpackDevServerConfig, fePort, host } = config
   return await new Promise((resolve) => {
     const compiler = webpack(webpackConfig)
+
     const server = new WebpackDevServer(compiler, webpackDevServerConfig)
-    compiler.hooks.done.tap('WebpackDevMiddleware', (stats) => {
+    compiler.hooks.done.tap('DonePlugin', () => {
       resolve()
     })
+
     server.listen(fePort, host)
   })
 }

@@ -61,7 +61,8 @@
     "url-loader": "1.1.1",
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-chain": "^6.4.0",
-    "webpack-manifest-plugin": "^2.2.0"
+    "webpack-manifest-plugin": "^2.2.0",
+    "webpackbar": "^5.0.0-3"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",

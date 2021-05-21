@@ -1,3 +1,4 @@
+import { join } from 'path'
 import { IConfig } from 'ssr-types'
 import { getCwd, getUserConfig } from './cwd'
 
@@ -63,8 +64,8 @@ const loadConfig = (): IConfig => {
 
   const corejs = false
   const getOutput = () => ({
-    clientOutPut: `${cwd}/build/client`,
-    serverOutPut: `${cwd}/build/server`
+    clientOutPut: join(cwd, './build/client'),
+    serverOutPut: join(cwd, './build/server')
   })
 
   const cssModulesWhiteList = [/antd/, /swiper/]
@@ -80,7 +81,6 @@ const loadConfig = (): IConfig => {
     port: fePort,
     https,
     clientLogLevel: clientLogLevel,
-    progress: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',

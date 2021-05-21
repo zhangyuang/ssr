@@ -8,22 +8,21 @@ export function reactPlugin () {
       const { startServerBuild } = await import('ssr-webpack/cjs/server/server')
       const { getServerWebpack } = await import('./config/server')
       const serverConfigChain = new WebpackChain()
-      await startServerBuild(getServerWebpack(serverConfigChain))
       if (process.env.BUILD_TOOL === 'vite') {
-        return
+        await startServerBuild(getServerWebpack(serverConfigChain))
+      } else {
+        const { startClientServer } = await import('ssr-webpack')
+        const { getClientWebpack } = await import('./config')
+        const clientConfigChain = new WebpackChain()
+        await Promise.all([startServerBuild(getServerWebpack(serverConfigChain)), startClientServer(getClientWebpack(clientConfigChain))])
       }
-      const { startClientServer } = await import('ssr-webpack')
-      const { getClientWebpack } = await import('./config')
-      const clientConfigChain = new WebpackChain()
-      await startClientServer(getClientWebpack(clientConfigChain))
     },
     build: async () => {
       const { startServerBuild, startClientBuild } = await import('ssr-webpack')
       const { getClientWebpack, getServerWebpack } = await import('./config')
       const serverConfigChain = new WebpackChain()
-      await startServerBuild(getServerWebpack(serverConfigChain))
       const clientConfigChain = new WebpackChain()
-      await startClientBuild(getClientWebpack(clientConfigChain))
+      await Promise.all([startServerBuild(getServerWebpack(serverConfigChain)), startClientBuild(getClientWebpack(clientConfigChain))])
     }
   }
 }

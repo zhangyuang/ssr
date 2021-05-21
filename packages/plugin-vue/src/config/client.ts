@@ -83,8 +83,6 @@ const getClientWebpack = (chain: WebpackChain) => {
     __isBrowser__: true
   }])
 
-  chain.when(!isDev, chain => chain.plugin('progress').use(loadModule('webpack/lib/ProgressPlugin')))
-
   chain.plugin('manifest').use(loadModule('webpack-manifest-plugin'), [{
     fileName: 'asset-manifest.json',
     publicPath: truePublicPath
