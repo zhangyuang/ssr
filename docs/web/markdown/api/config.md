@@ -155,9 +155,21 @@ module.exports = {
 ## https
 
 - 类型: `boolean`
-- 默认: `process.env.HTTPS || false`
+- 默认: `userConfig.https ? userConfig.https : !!process.env.HTTPS`
 
-是否开启底层 `webpack-dev-server` 的 `https` 模式，需配合 `3000` 端口的 `Node.js` 的 `https` 服务同步使用
+是否开启底层 `webpack-dev-server` 的 `https` 模式，需配合 `3000` 端口的 `Node.js` 的 `https` 服务同步使用。设置为 `true` 将使用默认的自签名证书。当此证书无法被信任时，也可以自行传递与 `Node.js` 服务端一致的证书配置。
+
+```js
+const fs = require('fs')
+const isProd = process.env.NODE_ENV === 'production'
+
+module.exports = {
+  https: isProd ? {} : {
+    key: fs.readFileSync('./scripts/https/https.key'),
+    cert: fs.readFileSync('./scripts/https/https.crt')
+  }
+}
+```
 ## dynamic
 
 - 类型: `boolean`
