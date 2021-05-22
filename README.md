@@ -209,6 +209,10 @@ $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 
 如果你想为本应用贡献代码，请阅读[贡献文档](./CONTRIBUTING.md)，我们为你准备了丰富的脚本用于 bootstrap
 
+## 贡献者趋势
+
+[![Contributor over time](https://contributor-graph-api.apiseven.com/contributors-svg?chart=contributorOverTime&repo=ykfe/ssr)](https://www.apiseven.com/en/contributor-graph?chart=contributorOverTime&repo=ykfe/ssr)
+
 ## License
 
 [MIT](LICENSE)
