@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.35](https://github.com/ykfe/ssr/compare/v5.5.34...v5.5.35) (2021-05-25)
+
+
+### Bug Fixes
+
+* vite client entry file path ([f2d5d82](https://github.com/ykfe/ssr/commit/f2d5d8292f3d3996addcbacab4a78a1085512a45))
+
+
+
+
+
 ## [5.5.34](https://github.com/ykfe/ssr/compare/v5.5.33...v5.5.34) (2021-05-21)
 
 
