@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.36](https://github.com/ykfe/ssr/compare/v5.5.35...v5.5.36) (2021-05-25)
+
+
+### Bug Fixes
+
+* vue3 add vue_devtool ([35ab732](https://github.com/ykfe/ssr/commit/35ab7328b978e7f4d33cea03f04d7e18a4e66c15))
+
+
+
+
+
 ## [5.5.35](https://github.com/ykfe/ssr/compare/v5.5.34...v5.5.35) (2021-05-25)
 
 
