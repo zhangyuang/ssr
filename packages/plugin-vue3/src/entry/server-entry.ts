@@ -1,7 +1,6 @@
-import { resolve } from 'path'
 import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
-import { findRoute, getManifest, logGreen, getCwd, normalizePath } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
@@ -84,7 +83,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   const injectScript = ViteMode ? h('script', {
     type: 'module',
-    src: resolve(getCwd(), '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
+    src: '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'
   }) : jsOrder.map(js =>
     h('script', {
       src: manifest[js]

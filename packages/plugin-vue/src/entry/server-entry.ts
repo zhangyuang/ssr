@@ -1,6 +1,5 @@
-import { resolve } from 'path'
 import * as Vue from 'vue'
-import { findRoute, getManifest, logGreen, getCwd, normalizePath } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { sync } from 'vuex-router-sync'
 import * as serialize from 'serialize-javascript'
@@ -87,7 +86,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
       const injectScript: Vue.VNode[] = ViteMode ? [h('script', {
         attrs: {
           type: 'module',
-          src: resolve(getCwd(), '/node_modules/ssr-plugin-vue/esm/entry/client-entry.js')
+          src: '/node_modules/ssr-plugin-vue/esm/entry/client-entry.js'
         }
       })] : jsOrder.map(js => h('script', {
         attrs: {

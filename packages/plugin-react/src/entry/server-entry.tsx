@@ -1,7 +1,6 @@
-import { resolve } from 'path'
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
-import { findRoute, getManifest, logGreen, getCwd, normalizePath } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath } from 'ssr-server-utils'
 import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactServerESMFeRouteItem } from 'ssr-types'
 // @ts-expect-error
 import * as Routes from 'ssr-temporary-routes'
@@ -54,7 +53,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   const injectScript = ViteMode ? [<script key="viteWindowInit" dangerouslySetInnerHTML={{
     __html: 'window.__USE_VITE__=true'
-  }} />, <script type="module" src={resolve(getCwd(), '/node_modules/ssr-plugin-react/esm/entry/client-entry.js')} key="vite-react-entry" />]
+  }} />, <script type="module" src='/node_modules/ssr-plugin-react/esm/entry/client-entry.js' key="vite-react-entry" />]
     : jsOrder.map(js => manifest[js]).map(item => <script key={item} src={item} />)
 
   const staticList = {
