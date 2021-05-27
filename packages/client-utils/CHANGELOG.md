@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.39](https://github.com/ykfe/ssr/compare/v5.5.38...v5.5.39) (2021-05-27)
+
+
+### Bug Fixes
+
+* csr normalize pathname ([8b83521](https://github.com/ykfe/ssr/commit/8b835210e02978c77e1190afe5901191b095c8c0))
+
+
+
+
+
 ## [5.5.32](https://github.com/ykfe/ssr/compare/v5.5.31...v5.5.32) (2021-05-20)
 
 **Note:** Version bump only for package ssr-client-utils
