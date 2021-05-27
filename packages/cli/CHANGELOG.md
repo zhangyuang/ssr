@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.38](https://github.com/ykfe/ssr/compare/v5.5.37...v5.5.38) (2021-05-27)
+
+
+### Bug Fixes
+
+* process.env define ([7f86393](https://github.com/ykfe/ssr/commit/7f8639319763321b0aabd146716c93befa3b8b03))
+
+
+
+
+
 ## [5.5.37](https://github.com/ykfe/ssr/compare/v5.5.36...v5.5.37) (2021-05-27)
 
 **Note:** Version bump only for package ssr
