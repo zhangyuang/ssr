@@ -29,7 +29,7 @@
 - 样式处理: less + vue scoped
 - UI 组件: 默认已对 `vant` 的使用做打包配置无需额外配置
 - 前端路由: 约定式路由/声明式路由
-- 数据管理: [Vuex](https://vuex.vuejs.org/)/[Provide/Inject](#provideinject代替vuex)
+- 数据管理: [Vuex](https://vuex.vuejs.org/)/[Provide/Inject](./features$communication#Provide/Inject)
 - 构建工具: [Webpack](https://webpack.docschina.org/)/[Vite](http://vitejs.dev/)
 
 #### Vue3 + TSX(可选)

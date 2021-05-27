@@ -26,9 +26,10 @@ yargs
     const { copyViteConfig, checkVite, loadConfig } = await import('ssr-server-utils')
     const { https } = loadConfig()
 
-    if (https) {
+    if ((typeof https === 'boolean' && https) || (typeof https === 'object' && Object.keys(https).length !== 0)) {
       process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
     }
+
     if (argv.test) {
       // 开发同学本地 link 测试用
       process.env.TEST = '1'
