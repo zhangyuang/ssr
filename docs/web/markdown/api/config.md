@@ -57,7 +57,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 ## fePort
 
 - 类型: `number`
-- 默认: `8000`
+- 默认: `8888`
 
 本地开发时 `webpack-dev-server` 托管前端静态资源的端口，`Node.js Server` 会自动 `proxy` 静态资源, 无特殊需求不需要修改
 

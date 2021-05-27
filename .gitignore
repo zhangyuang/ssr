@@ -96,4 +96,6 @@ example/**/bootstrap
 
 docs/dist
 
+docs/*.lock
+
 example/yarn.lock

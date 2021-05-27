@@ -24,7 +24,6 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
       proxyMiddlewaresArr.push(middleware)
     }
   }
-
   proxy && registerProxy(proxy)
   if (isDev) {
     if (process.env.BUILD_TOOL === 'vite') {
@@ -40,7 +39,7 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
       proxyMiddlewaresArr.push(express ? vite.middlewares : koaConnect(vite.middlewares))
     } else {
       // Webpack 场景 在本地开发阶段代理 serverPort 的资源到 fePort
-      // 例如 http://localhost:3000/static/js/page.chunk.js -> http://localhost:8000/static/js/page.chunk.js
+      // 例如 http://localhost:3000/static/js/page.chunk.js -> http://localhost:8888/static/js/page.chunk.js
       const remoteStaticServerOptions = {
         target: `${https ? 'https' : 'http'}://127.0.0.1:${fePort}`,
         changeOrigin: true,
@@ -52,7 +51,7 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
       const proxyPathMap = {
         '/static': remoteStaticServerOptions,
         '/sockjs-node': remoteStaticServerOptions,
-        '/*.hot-update.js(on)?': remoteStaticServerOptions,
+        '/*.hot-update**': remoteStaticServerOptions,
         '/__webpack_dev_server__': remoteStaticServerOptions,
         '/asset-manifest': remoteStaticServerOptions
       }
