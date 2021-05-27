@@ -26,7 +26,7 @@ yargs
     const { copyViteConfig, checkVite, loadConfig } = await import('ssr-server-utils')
     const { https } = loadConfig()
 
-    if ((typeof https === 'boolean' && https) || (typeof https === 'object' && Object.keys(https).length !== 0)) {
+    if (https) {
       process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
     }
 

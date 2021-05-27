@@ -31,7 +31,11 @@ const loadConfig = (): IConfig => {
 
   const fePort = userConfig.fePort ?? 8888
 
-  const https = userConfig.https ? userConfig.https : !!process.env.HTTPS
+  let https = userConfig.https ? userConfig.https : !!process.env.HTTPS
+
+  if (!((typeof https === 'boolean' && https) || (typeof https === 'object' && Object.keys(https).length !== 0))) {
+    https = false
+  }
 
   const serverPort = process.env.SERVER_PORT ?? 3000
 
