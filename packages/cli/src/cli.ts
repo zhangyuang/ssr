@@ -19,6 +19,9 @@ const spinner = {
 yargs
   .command('start', 'Start Server', {}, async (argv: Argv) => {
     spinner.start()
+    // 只有本地开发环境才会使用 Vite
+    process.env.BUILD_TOOL = argv.vite ? 'vite' : 'webpack'
+    process.env.NODE_ENV = 'development'
 
     const { copyViteConfig, checkVite, loadConfig } = await import('ssr-server-utils')
     const { https } = loadConfig()
@@ -30,9 +33,6 @@ yargs
       // 开发同学本地 link 测试用
       process.env.TEST = '1'
     }
-    // 只有本地开发环境才会使用 Vite
-    process.env.BUILD_TOOL = argv.vite ? 'vite' : 'webpack'
-    process.env.NODE_ENV = 'development'
 
     if (process.env.BUILD_TOOL === 'vite') {
       const result = await checkVite()
@@ -56,8 +56,8 @@ yargs
   })
   .command('build', 'Build server and client files', {}, async (argv: Argv) => {
     spinner.start()
-
     process.env.NODE_ENV = 'production'
+
     const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
     const plugin = loadPlugin()
     await parseFeRoutes()
@@ -68,6 +68,7 @@ yargs
     await plugin.serverPlugin?.build?.(argv)
   })
   .command('deploy', 'Deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {
+    process.env.NODE_ENV = 'production'
     const { loadPlugin } = await import('ssr-server-utils')
     const plugin = loadPlugin()
 
