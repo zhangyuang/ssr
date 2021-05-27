@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import { Store } from 'vuex'
 import { Route } from 'vue-router'
-import { findRoute } from 'ssr-client-utils'
+import { findRoute, normalizePath } from 'ssr-client-utils'
 // @ts-expect-error
 import * as Routes from 'ssr-temporary-routes'
 import { ESMFetch, RoutesType, IClientFeRouteItem } from './interface'
@@ -43,7 +43,11 @@ const clientRender = async () => {
   router.onReady(async () => {
     if (!window.__USE_SSR__) {
       // 如果是 csr 模式 则需要客户端获取首页需要的数据
-      const route = findRoute<IClientFeRouteItem>(FeRoutes, location.pathname)
+      let pathname = location.pathname
+      if (BASE_NAME) {
+        pathname = normalizePath(pathname, BASE_NAME)
+      }
+      const route = findRoute<IClientFeRouteItem>(FeRoutes, pathname)
       const { fetch } = route
       await getAsyncCombineData(fetch, store, router.currentRoute)
     }
