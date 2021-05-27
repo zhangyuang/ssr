@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.41](https://github.com/ykfe/ssr/compare/v5.5.40...v5.5.41) (2021-05-27)
+
+
+### Bug Fixes
+
+* cli https judge ([e472d03](https://github.com/ykfe/ssr/commit/e472d03aedfec46cf6b452b08949c30b88535cbf))
+
+
+
+
+
 ## [5.5.40](https://github.com/ykfe/ssr/compare/v5.5.39...v5.5.40) (2021-05-27)
 
 
