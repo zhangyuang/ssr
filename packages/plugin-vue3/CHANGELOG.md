@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.37](https://github.com/ykfe/ssr/compare/v5.5.36...v5.5.37) (2021-05-27)
+
+
+### Bug Fixes
+
+* global.d.ts ([2cc481e](https://github.com/ykfe/ssr/commit/2cc481ea21f2071727439b1e8eb6cfc5a8d02a2f))
+
+
+
+
+
 ## [5.5.36](https://github.com/ykfe/ssr/compare/v5.5.35...v5.5.36) (2021-05-25)
 
 
