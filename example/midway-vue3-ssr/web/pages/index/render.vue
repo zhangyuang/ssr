@@ -12,13 +12,14 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
-import Slider from '@/components/slider'
-import Rectangle from '@/components/rectangle'
-import Search from '@/components/search'
+import Slider from '@/components/slider/index.vue'
+import Rectangle from '@/components/rectangle/index.vue'
+import Search from '@/components/search/index.vue'
 
-export default {
+export default defineComponent({
   components: {
     Slider,
     Rectangle,
@@ -29,7 +30,7 @@ export default {
       indexData: state => state.indexStore?.data
     })
   }
-}
+})
 </script>
 
 <style>
