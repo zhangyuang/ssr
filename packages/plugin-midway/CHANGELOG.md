@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.42](https://github.com/ykfe/ssr/compare/v5.5.41...v5.5.42) (2021-05-28)
+
+**Note:** Version bump only for package ssr-plugin-midway
+
+
+
+
+
 ## [5.5.41](https://github.com/ykfe/ssr/compare/v5.5.40...v5.5.41) (2021-05-27)
 
 **Note:** Version bump only for package ssr-plugin-midway

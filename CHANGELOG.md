@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.42](https://github.com/ykfe/ssr/compare/v5.5.41...v5.5.42) (2021-05-28)
+
+
+### Bug Fixes
+
+* **script:** chmod cause error on win32 platform ([#63](https://github.com/ykfe/ssr/issues/63)) ([3a43be9](https://github.com/ykfe/ssr/commit/3a43be9a5a2e3af9ef69ca8f1d205bdf1892c1f5))
+
+
+
+
+
 ## [5.5.41](https://github.com/ykfe/ssr/compare/v5.5.40...v5.5.41) (2021-05-27)
 
 
