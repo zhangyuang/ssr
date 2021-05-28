@@ -17,7 +17,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import markdownIt from 'markdown-it'
-// import Darkmode from 'darkmode-js';
 import markdownItAnchor from 'markdown-it-anchor'
 import markdownItTocDoneRight from 'markdown-it-toc-done-right'
 import SideMenu from './components/sideMenu/index.vue'
