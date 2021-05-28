@@ -1,6 +1,11 @@
 const fs = require('fs')
+const os = require('os')
 const { execSync } = require('child_process')
 const argv = require('./minimist')(process.argv.slice(2))
+
+function isWin () {
+  return os.platform() === 'win32'
+}
 
 const options = {
   stdio: 'inherit'
@@ -58,7 +63,9 @@ if (argv.link) {
   const examples = fs.readdirSync('./example')
   examples.forEach(example => {
     if (example !== '.DS_Store') {
-      const exampleShell = shell + `&& cd example/${example} && yarn link ${linkedPackage} && chmod 777 ./node_modules/ssr/cjs/cli.js`
+      const commonShell = `${shell} && cd example/${example} && yarn link ${linkedPackage}`
+      const grantExecutePermission = 'chmod 777 ./node_modules/ssr/cjs/cli.js'
+      const exampleShell = isWin() ? commonShell : `${commonShell} && ${grantExecutePermission}`
       execSync(exampleShell, options)
     }
   })
