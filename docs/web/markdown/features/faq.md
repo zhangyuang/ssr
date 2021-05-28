@@ -2,7 +2,7 @@
 
 本章节记录开发者可能会遇到的常见问题。如果你的问题在这里没有描述，你可以直接去仓库地址提 [issue](https://github.com/ykfe/ssr/issues)
 
-## 异常处理
+## 404 500 异常处理
 
 本章节讲述如何特殊自定义处理 `404`, `500` 等异常情况。
 
@@ -93,6 +93,20 @@ export default {
 
 ```
 
+## Serverless 发布失败
+
+`Serverless` 场景下发布失败有两种情况
+
+- 发布超时
+- 包大小压缩后超过 50MB
+
+### 发布超时
+
+参考[文档](https://www.yuque.com/midwayjs/midway_v2/deploy_aliyun_faq),在 `Mac` 环境通过修改家目录下的阿里云配置文件修改超时时间 `~/.fcli/config.yaml` ，`~` 代表家目录即 `/Users/${userName}`, `Windows` 环境同理，在对应目录找到该文件
+
+### 包大小超出
+
+由于 `ssr` 场景我们需要开启 `external` 选项，我们需要将 `node_modules` 上传到云服务上。但我们在发布时只会安装 `dependencies` 依赖。绝大部分情况下包大小不会超过 50MB，如果确实是因为 `dependencies` 依赖大小超出，可以配置 [whiteList](./api$config#whiteList) 来将该依赖与服务端 `bundle` 打在一起。若能正常运行，则可以将该依赖移除 `dependencies` 加入 `devDependencies`，在发布时则不会安装该依赖
 ## Vue3 全局注册组件
 
 由于 `Vue3` 创建 `app` 实例以及安装插件和注册自定义全局指令的方式与 `Vue2` 差别较大。
