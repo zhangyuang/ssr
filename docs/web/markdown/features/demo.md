@@ -48,6 +48,9 @@
 <td align="center"><a href="https://m.isle.org.cn" target="_blank"><img src="https://res.wx.qq.com/op_res/qzBjcpT1AZDopDDkEJfj5gKFADotYHTgD33lz9xvZUIj7VJaIR_8HE4lfOxwaiYBgi4V2xXm0xLmAcdQxF4IrQ" width="100px;" alt="三易科技"/><br />
 <a href="https://m.isle.org.cn" target="_bvlank"><sub><b>三易科技
 </b></a></td>
+<td align="center"><a href="https://www.66tools.com/" target="_blank"><img src="https://cdn.66tools.com/extension/chrome_qrcode_avatar.png" width="100px;" alt="极速二维码"/><br />
+<a href="https://www.66tools.com/" target="_bvlank"><sub><b>极速二维码
+</b></a></td>
 </tr>
 </table>
 

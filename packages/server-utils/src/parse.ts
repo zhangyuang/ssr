@@ -11,11 +11,10 @@ const pageDir = getPagesDir()
 const cwd = getCwd()
 let { prefix } = loadConfig()
 
-if (prefix) {
-  if (!prefix.startsWith('/')) {
-    prefix = `/${prefix}`
-  }
+if (prefix && !prefix.startsWith('/')) {
+  prefix = `/${prefix}`
 }
+
 export const normalizePath = (path: string) => {
   path = path.replace(prefix!, '')
   if (path.startsWith('//')) {
