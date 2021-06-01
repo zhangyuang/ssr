@@ -78,6 +78,9 @@
 <td align="center"><a href="https://www.66tools.com/" target="_blank"><img src="https://cdn.66tools.com/extension/chrome_qrcode_avatar.png" width="100px;" alt="极速二维码"/><br />
 <a href="https://www.66tools.com/" target="_bvlank"><sub><b>极速二维码
 </b></a></td>
+<td align="center"><a href="https://www.100.com/" target="_blank"><img src="https://oss.bs2dl.100.com/hippo/config/f13ee98cfca7ce13888752c1261081b44bd356fd.png" width="100px;" alt="100教育"/><br />
+<a href="https://www.100.com/" target="_bvlank"><sub><b>100教育
+</b></a></td>
 </tr>
 </table>
 
