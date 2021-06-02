@@ -265,7 +265,7 @@ css: () => {
 开启后我们将会在 [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env#corejs) 中追加如下配置。会自动根据当前代码的使用情况注入对应的 `polyfill` 具体表现请查看 `@babel/preset-env` 中相关说明。此选项用于兼容低端浏览器
 
 ```js
-{
+module.exports = {
   corejs: {
     version: 3,
     proposals: true
@@ -273,6 +273,21 @@ css: () => {
   useBuiltIns: 'usage'
 }
 ```
+
+## babelExtraModule
+
+- 类型: `webpack.RuleSetCondition`
+
+- 默认: `undefined`
+
+框架默认不使用 `babel` 来编译 `node_modules` 中的代码，这会拖慢构建速度，且十分没有必要。一个质量合格的模块应当在发布前对自身进行构建。针对模块质量不合格的特殊情况，我们提供了配置来让开发者指定具体的模块参与 `babel` 编译
+
+```js
+module.exports = {
+  babelExtraModule: [/module-name/]
+}
+```
+
 ## 注意事项
 
 1. 由于 `config.js` 文件在 Node.js 环境也会被加载，如果直接在顶部 `require` 模块可能会导致模块`体积过大`，降低应用启动速度，我们建议在必要的函数当中再 `require` 需要用到的模块。

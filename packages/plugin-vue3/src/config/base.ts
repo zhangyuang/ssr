@@ -9,9 +9,50 @@ const WebpackBar = require('webpackbar')
 
 const loadModule = require.resolve
 
+const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOptions: any) => {
+  chain.use('babel-loader')
+    .loader(loadModule('babel-loader'))
+    .options({
+      cacheDirectory: true,
+      cacheCompression: false,
+      sourceType: 'unambiguous',
+      presets: [
+        [
+          loadModule('@babel/preset-typescript'),
+          {
+            isTSX: true,
+            allExtensions: true
+          }
+        ],
+        [
+          loadModule('@babel/preset-env'),
+          envOptions
+        ]
+      ],
+      plugins: [
+        [
+          loadModule('@babel/plugin-transform-runtime'),
+          {
+            corejs: false
+          }
+        ],
+        [
+          loadModule('babel-plugin-import'),
+          {
+            libraryName: 'vant',
+            libraryDirectory: 'lib',
+            style: true
+          }, 'vant'
+        ],
+        loadModule('@vue/babel-plugin-jsx')
+      ]
+    })
+    .end()
+}
+
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, locale, corejs, ssrVueLoaderOptions, csrVueLoaderOptions } = config
+  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, locale, corejs, ssrVueLoaderOptions, csrVueLoaderOptions, babelExtraModule } = config
 
   let vueLoaderOptions = {
     babelParserPlugins: ['jsx', 'classProperties', 'decorators-legacy']
@@ -121,50 +162,28 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .loader('@intlify/vue-i18n-loader')
     .end()
 
-  chain.module
+  const babelModule = chain.module
     .rule('compile')
     .test(/\.(js|mjs|ts|tsx)$/)
     .exclude
     .add(/node_modules/)
     .end()
-    .use('babel-loader')
-    .loader(loadModule('babel-loader'))
-    .options({
-      cacheDirectory: true,
-      cacheCompression: false,
-      sourceType: 'unambiguous',
-      presets: [
-        [
-          loadModule('@babel/preset-typescript'),
-          {
-            isTSX: true,
-            allExtensions: true
-          }
-        ],
-        [
-          loadModule('@babel/preset-env'),
-          envOptions
-        ]
-      ],
-      plugins: [
-        [
-          loadModule('@babel/plugin-transform-runtime'),
-          {
-            corejs: false
-          }
-        ],
-        [
-          loadModule('babel-plugin-import'),
-          {
-            libraryName: 'vant',
-            libraryDirectory: 'lib',
-            style: true
-          }, 'vant'
-        ],
-        loadModule('@vue/babel-plugin-jsx')
-      ]
-    })
-    .end()
+
+  const module = chain.module
+    .rule('compileBabelForExtraModule')
+    .test(/\.(js|mjs|jsx|ts|tsx)$/)
+    .include
+    .add(/ssr-plugin-react/)
+
+  let babelForExtraModule
+  if (babelExtraModule) {
+    babelForExtraModule = module.add(babelExtraModule).end()
+  } else {
+    babelForExtraModule = module.end()
+  }
+
+  addBabelLoader(babelModule, envOptions)
+  addBabelLoader(babelForExtraModule, envOptions)
 
   setStyle(isDev, chain, /\.css$/, {
     rule: 'css',

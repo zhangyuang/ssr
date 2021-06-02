@@ -1,4 +1,4 @@
-import { Configuration, Options } from 'webpack'
+import { Configuration, Options, RuleSetCondition } from 'webpack'
 import { Argv } from './yargs'
 import { Config } from './third-party/webpack-chain'
 export interface IConfig {
@@ -51,6 +51,7 @@ export interface IConfig {
   csrVueLoaderOptions?: any
   corejs: boolean
   https: boolean
+  babelExtraModule?: RuleSetCondition
 }
 type Optional <T>= { [key in keyof T]?: T[key] }
 
