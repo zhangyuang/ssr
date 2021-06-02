@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-nestjs",
-  "version": "5.5.44",
+  "version": "5.5.45",
   "description": "plugin-nestjs for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -37,6 +37,6 @@
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^6.6.3",
-    "ssr-server-utils": "^5.5.44"
+    "ssr-server-utils": "^5.5.45"
   }
 }

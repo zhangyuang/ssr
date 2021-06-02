@@ -1,6 +1,6 @@
 {
   "name": "ssr-hoc-vue3",
-  "version": "5.5.44",
+  "version": "5.5.45",
   "description": "hoc for vue ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
