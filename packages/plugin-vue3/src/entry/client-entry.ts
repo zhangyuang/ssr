@@ -37,9 +37,11 @@ const clientRender = async () => {
   const asyncData = reactive({
     value: window.__INITIAL_DATA__ ?? {}
   })
+  let fetchData = {}
   const app = createApp({
     render: () => h(App, {
-      asyncData
+      asyncData,
+      fetchData
     })
   })
 
@@ -51,6 +53,11 @@ const clientRender = async () => {
     // 找到要进入的组件并提前执行 fetch 函数
     const { fetch } = findRoute<IClientFeRouteItem>(FeRoutes, to.path)
     const combineAysncData = await getAsyncCombineData(fetch, store, to)
+    to.matched?.forEach(item => {
+      item.props.default = Object.assign({}, item.props.default ?? {}, {
+        fetchData: combineAysncData
+      })
+    })
     asyncData.value = Object.assign(asyncData.value, combineAysncData)
     next()
   })
@@ -63,6 +70,7 @@ const clientRender = async () => {
     }
     const { fetch } = findRoute<IClientFeRouteItem>(FeRoutes, pathname)
     const combineAysncData = await getAsyncCombineData(fetch, store, router.currentRoute.value)
+    fetchData = combineAysncData
     asyncData.value = Object.assign(asyncData.value, combineAysncData)
   }
 

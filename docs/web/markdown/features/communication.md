@@ -20,7 +20,7 @@
 
 ## Vue 场景解决方案
 
-在 `Vue` 场景中，我们提供了大家熟知的 [Vuex](https://vuex.vuejs.org/) 作为解决方案。另外，在 `Vue3` 场景中，我们额外提供了 [Provide/Inject](https://v3.cn.vuejs.org/guide/composition-api-provide-inject.html#%E4%BF%AE%E6%94%B9%E5%93%8D%E5%BA%94%E5%BC%8F-property) 方案来帮助各位简化这一功能。
+在 `Vue` 场景中，我们提供了多种数据管理方案，包括大家熟知的 [Vuex](https://vuex.vuejs.org/) 。另外，在 `Vue3` 场景中，我们额外提供了 [Provide/Inject](https://v3.cn.vuejs.org/guide/composition-api-provide-inject.html#%E4%BF%AE%E6%94%B9%E5%93%8D%E5%BA%94%E5%BC%8F-property) 方案来帮助各位简化这一功能。如果你仍然觉得前面两种方案过于复杂，我们还提供了最简单的 `props` 直出数据方案。
 
 ### Vuex
 
@@ -80,6 +80,68 @@ export default {
   }
 }
 </script>
+```
+
+### props 直出数据
+
+在 `provide/inject` 的方案中，我们为了不丢失响应性需要使用 `.value` 的形式来取值具体的数据，并且我们需要为不同页面的 `fetch` 返回数据添加不同的 `namespace` 来防止属性冲突。这些都是非常有必要的事情。如果开发者认为当前应用不需要任何数据管理方案，我们提供了最简单的 `props 直出数据` 的方案来使得组件能够拿到 `fetch` 返回的数据。此方案仍需对 `layout/App.vue` 做一些改造。此方案兼容 `Vue2/Vue3`
+
+```html
+// layout/App.vue
+<template>
+  <router-view :fetchData="fetchData"/>
+</template>
+
+<script>
+export default {
+  // 在服务端渲染阶段框架会将 fetch 组合后的数据直接传递给 App.vue 的 props。这里需要手动将 props 传递给具体的组件
+  // key 名固定为 fetchData 不可修改
+  props: ['fetchData']
+}
+</script>
+```
+
+具体组件中接收数据, 通过 `props.fetchData` 在具体组件中接收对应的 `fetch` 返回的数据。同样在前端路由切换时我们也会自动将将要跳转到的路由页面对应的 `fetch` 数据注入到对应的组件 `props` 中。
+
+```html
+<template>
+  <div>
+    <Search />
+    <template v-if="indexData">
+      <Slider :data="indexData[0].components" />
+      <Rectangle :data="indexData[1].components" />
+    </template>
+    <template v-else>
+      <img src="https://gw.alicdn.com/tfs/TB1v.zIE7T2gK0jSZPcXXcKkpXa-128-128.gif" class="loading">
+    </template>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { mapState } from 'vuex'
+import Slider from '@/components/slider/index.vue'
+import Rectangle from '@/components/rectangle/index.vue'
+import Search from '@/components/search/index.vue'
+
+export default defineComponent({
+  props: ['fetchData'] // key 名固定为 fetchData 不可修改，前端路由跳转时将自动注入，服务端渲染时通过 App.vue 注入
+  components: {
+    Slider,
+    Rectangle,
+    Search
+  },
+  computed: {
+    ...mapState({
+      indexData: state => state.indexStore?.data
+    })
+  }
+})
+</script>
+
+<style>
+</style>
+
 ```
 
 ## React 场景

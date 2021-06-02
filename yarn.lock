@@ -1535,18 +1535,6 @@
     unique-filename "^1.1.1"
     which "^1.3.1"
 
-"@hapi/hoek@^9.0.0":
-  version "9.2.0"
-  resolved "https://registry.npmjs.org/@hapi/hoek/-/hoek-9.2.0.tgz#f3933a44e365864f4dad5db94158106d511e8131"
-  integrity sha512-sqKVVVOe5ivCaXDWivIJYVSaEgdQK9ul7a4Kity5Iw7u9+wBAPbX1RMSnLLmp7O4Vzj0WOWwMAJsTL00xwaNug==
-
-"@hapi/topo@^5.0.0":
-  version "5.0.0"
-  resolved "https://registry.npmjs.org/@hapi/topo/-/topo-5.0.0.tgz#c19af8577fa393a06e9c77b60995af959be721e7"
-  integrity sha512-tFJlT47db0kMqVm3H4nQYgn6Pwg10GTZHb1pwmSiv1K4ks6drQOtfEF5ZnPjkvC+y4/bUPHK+bc87QvLcL+WMw==
-  dependencies:
-    "@hapi/hoek" "^9.0.0"
-
 "@istanbuljs/load-nyc-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.npmjs.org/@istanbuljs/load-nyc-config/-/load-nyc-config-1.1.0.tgz#fd3db1d59ecf7cf121e80650bb86712f9b55eced"
@@ -2715,18 +2703,6 @@
     ts-node "^9.0.0"
     ws "^7.2.3"
 
-"@midwayjs/decorator@^2.3.0":
-  version "2.10.14"
-  resolved "https://registry.npmjs.org/@midwayjs/decorator/-/decorator-2.10.14.tgz#25b7303690257707474e3704e183897fc27fcf98"
-  integrity sha512-msplLaSc0r/Mwv5a8WbWzlCv8oZkBoWaiYc7sCyvmtkPszwyhJiN/IwG34lzsAbAJbPN5gScfIyTyGOWXs9zrA==
-  dependencies:
-    "@types/express" "^4.17.8"
-    "@types/koa" "^2.11.4"
-    camelcase "^6.2.0"
-    class-transformer "^0.3.1"
-    joi "^17.2.1"
-    reflect-metadata "^0.1.13"
-
 "@midwayjs/faas-code-analysis@^1.2.68":
   version "1.2.68"
   resolved "https://registry.npmjs.org/@midwayjs/faas-code-analysis/-/faas-code-analysis-1.2.68.tgz#af5988d2c6e34d69ce92180df54ac4a767f1d017"
@@ -2810,16 +2786,6 @@
   integrity sha512-2s4wdvDpMGKSC/1ZuHLprYcQlcGvGTYy4IPiv8UXD21PYbuEV0rBQaqNMKFnm2EYndc5KBPWGX2x8S7ZnULCwQ==
   dependencies:
     picomatch "^2.2.2"
-
-"@midwayjs/koa@^2.10.14":
-  version "2.10.14"
-  resolved "https://registry.npmjs.org/@midwayjs/koa/-/koa-2.10.14.tgz#3b6f7645adf3872b7db6aa3c0989271730b41b71"
-  integrity sha512-Y1dESyLiWlfnltEAkqLEQUDhPhiRx+ATE8b/BRWVuDm17DSHKk8A9A/YRhJdJ74tXiqNLnZLgVF03DmKZan+oA==
-  dependencies:
-    "@koa/router" "^10.0.0"
-    "@midwayjs/core" "^2.10.14"
-    "@midwayjs/logger" "^2.10.14"
-    koa "^2.13.0"
 
 "@midwayjs/locate@^1.0.3":
   version "1.6.0"
@@ -2954,25 +2920,6 @@
     js-yaml "^3.13.0"
     json-cycle "^1.3.0"
     mkdirp "^0.5.1"
-
-"@midwayjs/web@^2.3.0":
-  version "2.10.14"
-  resolved "https://registry.npmjs.org/@midwayjs/web/-/web-2.10.14.tgz#0417bbe092c931ef61b67c67284bbc98babac2b5"
-  integrity sha512-Q0rdYXChzPNQmT+d6EYxZGV8bNtDYTYkXS289AA0tjY/h803//CkM+8NjJeysNl4chzbJRooOHYGSP9Hhk8LaA==
-  dependencies:
-    "@eggjs/router" "^2.0.0"
-    "@midwayjs/bootstrap" "^2.10.14"
-    "@midwayjs/core" "^2.10.14"
-    "@midwayjs/koa" "^2.10.14"
-    "@midwayjs/logger" "^2.10.14"
-    debug "^4.1.1"
-    egg "^2.28.0"
-    egg-logger "^2.4.2"
-    egg-path-matching "^1.0.1"
-    extend2 "^1.0.0"
-    find-up "^5.0.0"
-    midway-schedule "^2.10.14"
-    mkdirp "^1.0.4"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -3265,23 +3212,6 @@
   dependencies:
     progress "^2.0.3"
 
-"@sideway/address@^4.1.0":
-  version "4.1.2"
-  resolved "https://registry.npmjs.org/@sideway/address/-/address-4.1.2.tgz#811b84333a335739d3969cfc434736268170cad1"
-  integrity sha512-idTz8ibqWFrPU8kMirL0CoPH/A29XOzzAzpyN3zQ4kAWnzmNfFmRaoMNN6VI8ske5M73HZyhIaW4OuSFIdM4oA==
-  dependencies:
-    "@hapi/hoek" "^9.0.0"
-
-"@sideway/formula@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/@sideway/formula/-/formula-3.0.0.tgz#fe158aee32e6bd5de85044be615bc08478a0a13c"
-  integrity sha512-vHe7wZ4NOXVfkoRb8T5otiENVlT7a3IAiw7H5M2+GO+9CDgcVUUsX1zalAztCmwyOr2RUTGJdgB+ZvSVqmdHmg==
-
-"@sideway/pinpoint@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/@sideway/pinpoint/-/pinpoint-2.0.0.tgz#cff8ffadc372ad29fd3f78277aeb29e632cc70df"
-  integrity sha512-RNiOoTPkptFtSVzQevY/yWtZwf/RxyVnPy/OcA9HBM3MlGDnBEYL5B41H0MTn0Uec8Hi+2qUtTfG2WWZBmMejQ==
-
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
   resolved "https://registry.npmjs.org/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
@@ -3441,7 +3371,7 @@
     "@types/qs" "*"
     "@types/range-parser" "*"
 
-"@types/express@*", "@types/express@^4.17.0", "@types/express@^4.17.11", "@types/express@^4.17.8":
+"@types/express@*", "@types/express@^4.17.0", "@types/express@^4.17.11":
   version "4.17.11"
   resolved "https://registry.npmjs.org/@types/express/-/express-4.17.11.tgz#debe3caa6f8e5fcda96b47bd54e2f40c4ee59545"
   integrity sha512-no+R6rW60JEc59977wIxreQVsIEOAYwgCqldrA/vkpCnbD7MqTefO97lmoBe4WE0F156bC4uLSP1XHDOySnChg==
@@ -3551,7 +3481,7 @@
   dependencies:
     "@types/koa" "*"
 
-"@types/koa@*", "@types/koa@^2.0.48", "@types/koa@^2.11.3", "@types/koa@^2.11.4":
+"@types/koa@*", "@types/koa@^2.0.48", "@types/koa@^2.11.3":
   version "2.13.1"
   resolved "https://registry.npmjs.org/@types/koa/-/koa-2.13.1.tgz#e29877a6b5ad3744ab1024f6ec75b8cbf6ec45db"
   integrity sha512-Qbno7FWom9nNqu0yHZ6A0+RWt4mrYBhw3wpBAQ3+IuzGcLlfeYkzZrnMq5wsxulN2np8M4KKeUpTodsOsSad5Q==
@@ -8883,7 +8813,7 @@ egg-watcher@^3.1.0:
     sdk-base "^3.5.0"
     wt "^1.2.0"
 
-egg@^2.0.0, egg@^2.28.0:
+egg@^2.0.0:
   version "2.29.4"
   resolved "https://registry.npmjs.org/egg/-/egg-2.29.4.tgz#320375cb8963f4f15ebd8d2d92b8986c16f1a509"
   integrity sha512-sdRWzp8kdDFGC4aRoDkcV3hp7FajUwf/kHrz8tKfyLBq4TM/zt3Bob49uXZCt0HUCBIZxzvTvYfSsfBZDEXf4Q==
@@ -13127,17 +13057,6 @@ jest@^26.4.2:
     import-local "^3.0.2"
     jest-cli "^26.6.3"
 
-joi@^17.2.1:
-  version "17.4.0"
-  resolved "https://registry.npmjs.org/joi/-/joi-17.4.0.tgz#b5c2277c8519e016316e49ababd41a1908d9ef20"
-  integrity sha512-F4WiW2xaV6wc1jxete70Rw4V/VuMd6IN+a5ilZsxG4uYtUXWu2kq9W5P2dz30e7Gmw8RCbY/u/uk+dMPma9tAg==
-  dependencies:
-    "@hapi/hoek" "^9.0.0"
-    "@hapi/topo" "^5.0.0"
-    "@sideway/address" "^4.1.0"
-    "@sideway/formula" "^3.0.0"
-    "@sideway/pinpoint" "^2.0.0"
-
 js-base64@^2.5.2:
   version "2.6.4"
   resolved "https://registry.npmjs.org/js-base64/-/js-base64-2.6.4.tgz#f4e686c5de1ea1f867dbcad3d46d969428df98c4"
@@ -13577,7 +13496,7 @@ koa2-connect@^1.0.2:
   resolved "https://registry.npmjs.org/koa2-connect/-/koa2-connect-1.0.2.tgz#cf196d70a4e6a055f717522768d26cdfc5396f7b"
   integrity sha1-zxltcKTmoFX3F1InaNJs38U5b3s=
 
-koa@^2.11.0, koa@^2.13.0, koa@^2.7.0:
+koa@^2.11.0, koa@^2.7.0:
   version "2.13.1"
   resolved "https://registry.npmjs.org/koa/-/koa-2.13.1.tgz#6275172875b27bcfe1d454356a5b6b9f5a9b1051"
   integrity sha512-Lb2Dloc72auj5vK4X4qqL7B5jyDPQaZucc9sR/71byg7ryoD1NCaCm63CShk9ID9quQvDEi1bGR/iGjCG7As3w==
@@ -14503,13 +14422,6 @@ micromatch@^4.0.2:
   dependencies:
     braces "^3.0.1"
     picomatch "^2.2.3"
-
-midway-schedule@^2.10.14:
-  version "2.10.14"
-  resolved "https://registry.npmjs.org/midway-schedule/-/midway-schedule-2.10.14.tgz#e5c4cdaa70d916ee9a96ee0390d7cde739546f9e"
-  integrity sha512-Bap6JZyo0wq07khRhHiECZJ+HT3HTXjFA3++Bssde4A4DiZWO386dr8PU81MlbWA3Lo2y4maZw6KadixsmplkA==
-  dependencies:
-    is-type-of "^1.2.1"
 
 miller-rabin@^4.0.0:
   version "4.0.1"
