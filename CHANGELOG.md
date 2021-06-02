@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.43](https://github.com/ykfe/ssr/compare/v5.5.42...v5.5.43) (2021-06-02)
+
+
+### Bug Fixes
+
+* clear ci cache ([d1096f2](https://github.com/ykfe/ssr/commit/d1096f296195e3cf3486bb2186ec0e5a630418e2))
+
+
+### Features
+
+* vue2 支持 props 直出数据 ([2542149](https://github.com/ykfe/ssr/commit/254214926059eaf67ecbd8de2e25acf6930e6a1e))
+* vue3 支持 props 直出数据 ([9f1edc6](https://github.com/ykfe/ssr/commit/9f1edc6e63b4972105e82248537d30542823b5f5))
+
+
+
+
+
 ## [5.5.42](https://github.com/ykfe/ssr/compare/v5.5.41...v5.5.42) (2021-05-28)
 
 

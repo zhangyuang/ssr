@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.43](https://github.com/ykfe/ssr/compare/v5.5.42...v5.5.43) (2021-06-02)
+
+
+### Features
+
+* vue2 支持 props 直出数据 ([2542149](https://github.com/ykfe/ssr/commit/254214926059eaf67ecbd8de2e25acf6930e6a1e))
+
+
+
+
+
 ## [5.5.41](https://github.com/ykfe/ssr/compare/v5.5.40...v5.5.41) (2021-05-27)
 
 **Note:** Version bump only for package ssr-plugin-vue
