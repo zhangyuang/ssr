@@ -43,15 +43,20 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   // 根据 path 匹配 router-view 展示的组件
   router.push(path)
 
+  let layoutFetchData = {}
+  let fetchData = {}
+
   if (!isCsr) {
     // csr 下不需要服务端获取数据
     if (layoutFetch) {
-      await layoutFetch({ store, router: router.currentRoute }, ctx)
+      layoutFetchData = await layoutFetch({ store, router: router.currentRoute }, ctx)
     }
     if (fetch) {
-      await fetch({ store, router: router.currentRoute }, ctx)
+      fetchData = await fetch({ store, router: router.currentRoute }, ctx)
     }
   }
+  const combineAysncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
+  const state = Object.assign({}, store.state ?? {}, combineAysncData)
 
   // @ts-expect-error
   const app = new Vue({
@@ -135,7 +140,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               attrs: {
                 id: 'app'
               }
-            }) : h(App)
+            }) : h(App, {
+              props: {
+                fetchData: combineAysncData
+              }
+            })
           ]),
 
           h('template', {
@@ -147,7 +156,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               }
             }) : h('script', {
               domProps: {
-                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(store.state)};window.__USE_VITE__=${ViteMode}`
+                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${ViteMode}`
               }
             })
           ]),

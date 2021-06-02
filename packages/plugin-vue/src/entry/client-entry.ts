@@ -32,10 +32,15 @@ const clientRender = async () => {
   if (window.__INITIAL_DATA__) {
     store.replaceState(window.__INITIAL_DATA__)
   }
+  let fetchData = window.__INITIAL_DATA__ ?? {}
 
   const app = new Vue({
     // 根实例简单的渲染应用程序组件。
-    render: h => h(App),
+    render: h => h(App, {
+      props: {
+        fetchData
+      }
+    }),
     store,
     router
   })
@@ -49,14 +54,18 @@ const clientRender = async () => {
       }
       const route = findRoute<IClientFeRouteItem>(FeRoutes, pathname)
       const { fetch } = route
-      await getAsyncCombineData(fetch, store, router.currentRoute)
+      fetchData = await getAsyncCombineData(fetch, store, router.currentRoute)
     }
     router.beforeResolve(async (to, from, next) => {
       // 找到要进入的组件并提前执行 fetch 函数
       const route = findRoute<IClientFeRouteItem>(FeRoutes, to.path)
       const { fetch } = route
-      await getAsyncCombineData(fetch, store, to)
-
+      const combineAysncData = await getAsyncCombineData(fetch, store, to)
+      to.matched?.forEach(item => {
+        item.props = Object.assign({}, item.props ?? {}, {
+          fetchData: combineAysncData
+        })
+      })
       next()
     })
     window.__VUE_ROUTER__ = router

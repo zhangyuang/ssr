@@ -37,7 +37,7 @@ const clientRender = async () => {
   const asyncData = reactive({
     value: window.__INITIAL_DATA__ ?? {}
   })
-  let fetchData = {}
+  let fetchData = window.__INITIAL_DATA__ ?? {}
   const app = createApp({
     render: () => h(App, {
       asyncData,
