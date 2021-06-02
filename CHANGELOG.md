@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.47](https://github.com/ykfe/ssr/compare/v5.5.46...v5.5.47) (2021-06-02)
+
+
+### Features
+
+* update default babelExtraModule ([e0d322e](https://github.com/ykfe/ssr/commit/e0d322eb667d7817f1bd39f2e64fcc63fce6bd32))
+
+
+
+
+
 ## [5.5.46](https://github.com/ykfe/ssr/compare/v5.5.45...v5.5.46) (2021-06-02)
 
 **Note:** Version bump only for package ssr
