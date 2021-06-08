@@ -7,12 +7,12 @@ import { FeRoutes, store } from 'ssr-temporary-routes'
 import { VueRouterOptions } from './interface'
 
 // without tsconfig esModuleInterop options must use the compatible syntax
-const realVue: Vue = Vue.default || Vue
+const RealVue: Vue = Vue.default || Vue
 const RealRouter: Router = Router.default || Router
 const RealVuex: Vuex = Vuex.default || Vuex
 
-realVue.use(RealRouter)
-realVue.use(RealVuex)
+RealVue.use(RealRouter)
+RealVue.use(RealVuex)
 
 function createRouter (options: VueRouterOptions = {}): Router {
   return new RealRouter({
