@@ -191,6 +191,42 @@ module.exports = {
 
 `content` 为 `script` 的内容
 
+
+```js
+module.exports = {
+  customeHeadScript: [
+    // Vue3 直接写 attr 属性即可
+    {
+      describe: {
+        type: 'text/javascript',
+        src: 'https://res.wx.qq.com/open/js/jweixin-1.2.0.js'
+      },
+      content: ''
+    },
+    // Vue2 需要包裹在 attrs 属性中，具体详情查看对应版本的 Vue 文档即可
+    {
+      describe: {
+        attrs: {
+          type: 'text/javascript',
+          src: 'https://res.wx.qq.com/open/js/jweixin-1.2.0.js'
+        }
+      },
+      content: ''
+    },
+    // 直接插入 script 内容
+    {
+      content: `var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?xxxx";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();`
+    }
+  ],
+}
+```
+
 ## css
 
 - 类型: `() => { loaderOptions: {
