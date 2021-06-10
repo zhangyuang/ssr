@@ -401,6 +401,12 @@ module.exports = {
 
 框架默认使用 `less`，同样框架并不建议使用 `Sass`，若需要使用可直接添加以下配置开启，使用框架提供的 `setStyle` 方法来快速的添加样式处理规则
 
+需 `version >= 5.5.48`
+
+```shell
+$ yarn add sass sass-loader@10 # 必须安装 ^10.0.0 版本的 sass-loader
+```
+
 ```js
 module.exports = {
   chainBaseConfig: (chain) => {
