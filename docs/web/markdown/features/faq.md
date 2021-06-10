@@ -391,6 +391,13 @@ module.exports = {
 };
 ```
 
+上述配置通过后，可通过按需引入的方式来引入组件
+
+```js
+import { Button } from 'antd'
+import { Button } from 'vant'
+```
+
 ## 前端组件加载图片
 
 不建议图片资源放在 `web` 文件夹，对图片资源若非有小文件 `base64` 内联或者 `hash` 缓存的需求是不建议用 `Webpack` 去处理的，这样会使得 `Webpack` 的构建速度变慢。
