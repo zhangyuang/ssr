@@ -325,7 +325,6 @@ module.exports = {
   babelExtraModule: [/module-name/]
 }
 ```
-
 ## 注意事项
 
 1. 由于 `config.js` 文件在 Node.js 环境也会被加载，如果直接在顶部 `require` 模块可能会导致模块`体积过大`，降低应用启动速度，我们建议在必要的函数当中再 `require` 需要用到的模块。

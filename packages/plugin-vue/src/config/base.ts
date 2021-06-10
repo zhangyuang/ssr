@@ -152,12 +152,12 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   addBabelLoader(babelModule, envOptions)
   addBabelLoader(babelForExtraModule, envOptions)
 
-  setStyle(isDev, chain, /\.css$/, {
+  setStyle(chain, /\.css$/, {
     rule: 'css',
     modules: false,
     importLoaders: 1
   }) // 设置css
-  setStyle(isDev, chain, /\.less$/, {
+  setStyle(chain, /\.less$/, {
     rule: 'less',
     loader: 'less-loader',
     modules: false,

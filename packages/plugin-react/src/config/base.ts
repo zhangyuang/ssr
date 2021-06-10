@@ -123,14 +123,14 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   addBabelLoader(babelModule, envOptions)
   addBabelLoader(babelForExtraModule, envOptions)
 
-  setStyle(isDev, chain, /\.css$/, {
+  setStyle(chain, /\.css$/, {
     exclude: cssModulesWhiteList,
     rule: 'css',
     modules: true,
     importLoaders: 1
   }, true) // 设置css
 
-  setStyle(isDev, chain, /\.less$/, {
+  setStyle(chain, /\.less$/, {
     exclude: cssModulesWhiteList,
     rule: 'less',
     loader: 'less-loader',
@@ -138,7 +138,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     importLoaders: 2
   }, true)
 
-  setStyle(isDev, chain, /\.less$/, {
+  setStyle(chain, /\.less$/, {
     include: cssModulesWhiteList,
     rule: 'cssModulesWhiteListLess',
     modules: false,
@@ -146,7 +146,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     importLoaders: 2
   }, true) // 默认 antd swiper 不使用 css-modules，建议第三方 ui 库都不使用
 
-  setStyle(isDev, chain, /\.css$/, {
+  setStyle(chain, /\.css$/, {
     include: cssModulesWhiteList,
     rule: 'cssModulesWhiteListCss',
     modules: false,

@@ -2,9 +2,9 @@ import * as WebpackChain from 'webpack-chain'
 import { StyleOptions } from 'ssr-types'
 import { loadConfig } from '../loadConfig'
 
-const setStyle = (isDev: boolean, chain: WebpackChain, reg: RegExp, options: StyleOptions, isReact?: boolean) => {
+const setStyle = (chain: WebpackChain, reg: RegExp, options: StyleOptions, isReact?: boolean) => {
+  const { css, isDev } = loadConfig()
   const { include, exclude, modules, importLoaders, loader } = options
-  const { css } = loadConfig()
   const MiniCssExtractPlugin = require('mini-css-extract-plugin')
   const loadModule = require.resolve
 
