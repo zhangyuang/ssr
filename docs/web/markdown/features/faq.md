@@ -415,11 +415,12 @@ $ yarn add sass sass-loader@10 # 必须安装 ^10.0.0 版本的 sass-loader
 ```
 
 ```js
+const { setStyle } = require('ssr-server-utils')
+
 module.exports = {
   chainBaseConfig: (chain) => {
     // 这里一定要写在 chainBaseConfig 函数里面去加载
     // setStyle 的详细入参类型可查看  https://github.com/ykfe/ssr/blob/dev/packages/server-utils/src/webpack/setStyle.ts
-    const { setStyle } = require('ssr-server-utils')
     setStyle(chain, /\.s[ac]ss$/i, {
       rule: 'sass',
       loader: 'sass-loader',
