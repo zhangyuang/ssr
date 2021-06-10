@@ -49,6 +49,9 @@ const deployAliyun = async () => {
     config: {
       servicePath: cwd
     },
+    options: {
+      yes: true
+    },
     commands: ['deploy'],
     service: loadSpec(cwd),
     provider: 'aliyun',
