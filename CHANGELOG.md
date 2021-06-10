@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.48](https://github.com/ykfe/ssr/compare/v5.5.47...v5.5.48) (2021-06-10)
+
+
+### Bug Fixes
+
+* update eslint mac_old_space_size ([9f87a1e](https://github.com/ykfe/ssr/commit/9f87a1ec4c0e862812dffab5b314c661fe8fba7d))
+
+
+### Features
+
+* setStyle 优化 文档添加如何支持 Sass ([7dbfc5f](https://github.com/ykfe/ssr/commit/7dbfc5ff2913c3c0a9150720c40230f1956e62bb))
+
+
+
+
+
 ## [5.5.47](https://github.com/ykfe/ssr/compare/v5.5.46...v5.5.47) (2021-06-02)
 
 
