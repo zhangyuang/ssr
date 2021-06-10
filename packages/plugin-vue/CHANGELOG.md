@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.49](https://github.com/ykfe/ssr/compare/v5.5.48...v5.5.49) (2021-06-10)
+
+
+### Features
+
+* default whiteList add ant-design-vue ([b5bdc90](https://github.com/ykfe/ssr/commit/b5bdc90e4eca9173e3f68b7ee81946c1c585379c))
+
+
+
+
+
 ## [5.5.48](https://github.com/ykfe/ssr/compare/v5.5.47...v5.5.48) (2021-06-10)
 
 

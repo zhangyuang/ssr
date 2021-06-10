@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.49](https://github.com/ykfe/ssr/compare/v5.5.48...v5.5.49) (2021-06-10)
+
+**Note:** Version bump only for package ssr-types
+
+
+
+
+
 ## [5.5.46](https://github.com/ykfe/ssr/compare/v5.5.45...v5.5.46) (2021-06-02)
 
 **Note:** Version bump only for package ssr-types
