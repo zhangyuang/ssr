@@ -1,6 +1,6 @@
 import * as webpack from 'webpack'
 import { loadConfig } from 'ssr-server-utils'
-import { webpackPromisify } from '../utils/promisify'
+import { webpackPromisify } from './utils/promisify'
 
 const startServerBuild = async (webpackConfig: webpack.Configuration) => {
   const { webpackStatsOption } = loadConfig()
