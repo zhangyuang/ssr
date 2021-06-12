@@ -141,16 +141,18 @@
 
 通过 `npm init` 命令我们可以创建上述的任意模版
 
-```shell
-$ npm init ssr-app my-ssr-project --template=midway-vue3-ssr # 这里可以选择上述任意模版
-$ cd my-ssr-project && npm i
-$ npm start # 启动服务，等价于 npx ssr start
+```bash
+$ npm init ssr-app my-ssr-project
+$ cd my-ssr-project
+$ npm install
+$ npm start
 $ open http://localhost:3000 # 访问应用
-$ npm build # 资源构建，等价于 npx ssr build
+$ npm run build # 资源构建，等价于 npx ssr build
 $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 ```
 
-注意: 当 `Node.js version >=15` 或者 `npm version >= 7` 时，应使用 `npm init ssr-app my-ssr-project -- --template=midway-react-ssr` 来正确的传递参数
+![](https://res.wx.qq.com/op_res/EwhvVPNOBCxrgWbWeqeeKbpdFC8KA7riyvB8UJ4eTYt25oBm_D4yX3OtJkV2g-9E1rr1iFCQgikOaDyM1YXr1g)
+
 ## 线上案例
 
 通过访问以下链接来预览该框架通过 Serverless 一键部署到阿里云/腾讯云服务的应用详情。  
