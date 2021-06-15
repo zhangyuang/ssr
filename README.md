@@ -231,7 +231,7 @@ $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 
 <div style="display:flex">
 <img src="https://res.wx.qq.com/op_res/rrhdxU0o2yUdgTjwgkAgO-CSFV-lArvMYzWzxl2SuvnKkcWECv7SXswEYjk2pPcDcL43r0kz_MIp_fsxPPqQ2Q" width="300">
-<img src="https://res.wx.qq.com/op_res/payScQLplzplLgObjwLLBb3SacFSSeBEvmfijYK3LU41JUhPej8zaxWkM6mR_9YoySoaGjJ9dn1SnU8VBd-nMg" width="300">
+<img src="https://res.wx.qq.com/op_res/HoE46nyluxRmnuShyOHY-qb62H29FUnwEEfThhkfkjKLHC45WQ8keUiFAia2vkmRj63gkc4rtiMr8k5pb3h3gQ" width="300">
 </div>
 
 ## 项目 Star 数增长趋势

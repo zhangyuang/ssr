@@ -28,7 +28,7 @@
 
 通过 `npm init` 命令我们可以创建上述的任意模版
 
-```bash
+```shell
 $ npm init ssr-app my-ssr-project
 $ cd my-ssr-project
 $ npm install
