@@ -27,25 +27,13 @@
               <a href="https://github.com/ykfe/ssr" target="_blank">Github</a>
             </div>
           </div>
-          <!-- <div class="img">
-            <img :src="firstFloor.imgUrl" alt="">
-          </div> -->
-          <!-- Slider main container -->
         </div>
         <div class="swiper-container mySwiper">
           <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              <embed src="/images/homecode1.svg" type="image/svg+xml">
-            </div>
-            <div class="swiper-slide">
-              <embed src="/images/homecode2.svg" type="image/svg+xml">
-            </div>
-            <div class="swiper-slide">
-              <embed src="/images/homecode3.svg" type="image/svg+xml">
-            </div>
-            <div class="swiper-slide">
-              <embed src="/images/homecode4.svg" type="image/svg+xml">
-            </div>
+            <img class="swiper-slide" src="/images/material-2x.png" type="image/svg+xml">
+            <img class="swiper-slide" src="/images/homecode2.svg" type="image/svg+xml">
+            <img class="swiper-slide" src="/images/homecode3.svg" type="image/svg+xml">
+            <img class="swiper-slide" src="/images/homecode4.svg" type="image/svg+xml">
           </div>
           <div class="swiper-button-next" />
           <div class="swiper-button-prev" />
@@ -125,10 +113,10 @@ export default defineComponent({
       navigation: {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev'
-      },
-      autoplay: {
-        delay: 2500
       }
+      // autoplay: {
+      //   delay: 2500
+      // }
     })
   }
 })
