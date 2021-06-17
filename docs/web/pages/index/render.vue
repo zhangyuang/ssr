@@ -32,8 +32,8 @@
           </div> -->
           <!-- Slider main container -->
         </div>
-        <div v-if="isSafari !== null" class="swiper-container mySwiper">
-          <div v-if="isSafari" class="swiper-wrapper">
+        <div class="swiper-container mySwiper">
+          <div class="swiper-wrapper">
             <div class="swiper-slide">
               <embed src="/images/homecode1.svg" type="image/svg+xml">
             </div>
@@ -45,20 +45,6 @@
             </div>
             <div class="swiper-slide">
               <embed src="/images/homecode4.svg" type="image/svg+xml">
-            </div>
-          </div>
-          <div v-else class="swiper-wrapper">
-            <div class="swiper-slide">
-              <img src="/images/homecode1.svg" alt="">
-            </div>
-            <div class="swiper-slide">
-              <img src="/images/homecode2.svg" alt="">
-            </div>
-            <div class="swiper-slide">
-              <img src="/images/homecode3.svg" alt="">
-            </div>
-            <div class="swiper-slide">
-              <img src="/images/homecode4.svg" alt="">
             </div>
           </div>
           <div class="swiper-button-next" />
@@ -125,8 +111,7 @@ export default defineComponent({
   data () {
     return {
       firstFloor: webSiteConfig.home.firstFloor,
-      secondFloor: webSiteConfig.home.secondFloor,
-      isSafari: null
+      secondFloor: webSiteConfig.home.secondFloor
     }
   },
   computed: {
@@ -136,17 +121,14 @@ export default defineComponent({
   },
 
   mounted () {
-    this.isSafari = /Safari/i.test(navigator.userAgent) && !/Chrome/i.test(navigator.userAgent)
-    process.nextTick(() => {
-      const swiper = new Swiper('.mySwiper', {
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
-        },
-        autoplay: {
-          delay: 2500
-        }
-      })
+    const swiper = new Swiper('.mySwiper', {
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev'
+      },
+      autoplay: {
+        delay: 2500
+      }
     })
   }
 })
