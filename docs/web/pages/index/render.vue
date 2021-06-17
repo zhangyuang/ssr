@@ -27,9 +27,42 @@
               <a href="https://github.com/ykfe/ssr" target="_blank">Github</a>
             </div>
           </div>
-          <div class="img">
+          <!-- <div class="img">
             <img :src="firstFloor.imgUrl" alt="">
+          </div> -->
+          <!-- Slider main container -->
+        </div>
+        <div v-if="isSafari !== null" class="swiper-container mySwiper">
+          <div v-if="isSafari" class="swiper-wrapper">
+            <div class="swiper-slide">
+              <embed src="/images/homecode1.svg" type="image/svg+xml">
+            </div>
+            <div class="swiper-slide">
+              <embed src="/images/homecode2.svg" type="image/svg+xml">
+            </div>
+            <div class="swiper-slide">
+              <embed src="/images/homecode3.svg" type="image/svg+xml">
+            </div>
+            <div class="swiper-slide">
+              <embed src="/images/homecode4.svg" type="image/svg+xml">
+            </div>
           </div>
+          <div v-else class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img src="/images/homecode1.svg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="/images/homecode2.svg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="/images/homecode3.svg" alt="">
+            </div>
+            <div class="swiper-slide">
+              <img src="/images/homecode4.svg" alt="">
+            </div>
+          </div>
+          <div class="swiper-button-next" />
+          <div class="swiper-button-prev" />
         </div>
       </section>
       <div class="floor-container">
@@ -76,9 +109,14 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
-import BaseLayout from '@/layout/baseLayout'
-import { webSiteConfig } from '../../config/index'
-// import bgImg from "./bg.webp";
+import Swiper from 'swiper'
+import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper/core'
+import 'swiper/swiper-bundle.min.css'
+import BaseLayout from '@/layout/baseLayout/index.vue'
+import { webSiteConfig } from '@/config/index'
+
+// configure Swiper to use modules
+SwiperCore.use([Navigation, Pagination, Autoplay])
 
 export default defineComponent({
   components: {
@@ -87,25 +125,40 @@ export default defineComponent({
   data () {
     return {
       firstFloor: webSiteConfig.home.firstFloor,
-      secondFloor: webSiteConfig.home.secondFloor
+      secondFloor: webSiteConfig.home.secondFloor,
+      isSafari: null
     }
   },
   computed: {
     ...mapState({
       indexData: (state) => state.indexStore?.data
     })
+  },
+
+  mounted () {
+    this.isSafari = /Safari/i.test(navigator.userAgent) && !/Chrome/i.test(navigator.userAgent)
+    process.nextTick(() => {
+      const swiper = new Swiper('.mySwiper', {
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
+        autoplay: {
+          delay: 2500
+        }
+      })
+    })
   }
 })
 </script>
 
 <style scope lang="less">
-@import "../../common.less";
+@import "@/common.less";
+@import "./index.less";
 
 .page-container {
   position: relative;
   width: 100%;
-  height: auto;
-  margin: 0 auto;
   font-family: sans-serif;
   color: #fff;
   text-align: center;
@@ -114,10 +167,10 @@ export default defineComponent({
     max-width: 1080px; */
   .first-floor {
     margin: 0 auto;
-    padding: 100px 68px;
-    flex-direction: row;
-    flex-wrap: wrap;
-    height: 983px;
+    padding: 100px 68px 0 68px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
     box-sizing: border-box;
     .title {
       font-size: 100px;
@@ -131,7 +184,7 @@ export default defineComponent({
     }
     .media-wrapper {
       // flex-direction: column;
-      margin: 45px -15px -45px;
+      margin-top: 45px;
       text-align: center;
       z-index: 200;
       position: relative;
@@ -196,15 +249,15 @@ export default defineComponent({
         }
       }
 
-      .img {
-        margin-top: 45px;
-        width: 100%;
-        // height: 100%;
-        background-color: rgb(124, 134, 142);
-        border-radius: 4px;
-        box-shadow: rgb(0 0 0) 0px 2px 40px;
-        overflow: hidden;
-      }
+      // .img {
+      //   margin-top: 45px;
+      //   width: 100%;
+      //   // height: 100%;
+      //   background-color: rgb(124, 134, 142);
+      //   border-radius: 4px;
+      //   box-shadow: rgb(0 0 0) 0px 2px 40px;
+      //   overflow: hidden;
+      // }
     }
     &::before {
       content: "";
@@ -272,8 +325,6 @@ export default defineComponent({
       }
       &__top {
         display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
         justify-content: space-between;
         padding: 20px 30px;
         border-bottom: 2px solid rgb(124, 134, 142);
@@ -327,7 +378,6 @@ export default defineComponent({
         font-weight: 400;
       }
       .media-wrapper {
-        margin: 45px -15px -100px;
         .button-wrapper {
           flex-direction: column;
           .docs-button {
