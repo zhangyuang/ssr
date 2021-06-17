@@ -71,7 +71,7 @@ const copyViteConfig = async () => {
   const result = await accessFile(resolve(getCwd(), './vite.config.js'))
   if (!result) {
     const version = require(resolve(getCwd(), './package.json')).dependencies.vue
-    console.log('检测到当前目录缺少 vite.config.js 文件，自动创建默认模版')
+    console.log('vite.config.js is not found, will be created automatically')
     let folder = ''
     if (version) {
       folder = /^.?3/.test(version) ? 'ssr-plugin-vue3' : 'ssr-plugin-vue'
