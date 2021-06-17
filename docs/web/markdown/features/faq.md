@@ -404,9 +404,9 @@ import { Button } from 'vant'
 
 建议放在默认的静态资源文件夹即 `build` 文件夹，即可通过 `<img src="/foo.jpg">` 即可引入。由于 [egg-static](https://github.com/eggjs/egg-static) 支持数组的形式，也可以自行在根目录下创建 `public` 文件夹用于存放图片等静态资源。但记住这里需要额外将 `public` 文件夹设置为[静态资源文件夹](https://github.com/ykfe/ssr/blob/dev/example/midway-vue3-ssr/src/config/config.default.ts#L15)
 
-## 如何支持 Sass
+## 如何支持 Sass|Scss
 
-框架默认使用 `less`，同样框架并不建议使用 `Sass`，若需要使用可直接添加以下配置开启，使用框架提供的 `setStyle` 方法来快速的添加样式处理规则
+框架默认使用 `less`，同样框架并不建议使用 `Sass|Scss`，若需要使用可直接添加以下配置开启，使用框架提供的 `setStyle` 方法来快速的添加样式处理规则
 
 需 `version >= 5.5.48`
 
@@ -424,8 +424,8 @@ module.exports = {
     setStyle(chain, /\.s[ac]ss$/i, {
       rule: 'sass',
       loader: 'sass-loader',
-      modules: false, // 是否开启 css-modules
-      importLoaders: 1
+      modules: false, // 是否开启 css-modules, Vue 场景不建议开启，直接用 scoped 功能代替即可
+      importLoaders: 2 // 参考 https://www.npmjs.com/package/css-loader#importloaders
     }, true) // React 场景为 true, Vue 场景为 false
   }
 }

@@ -229,14 +229,24 @@ module.exports = {
 
 ## css
 
-- 类型: `() => { loaderOptions: {
-      cssOptions: any
-      less?: any
-      postcss: {
-        options: any
-        plugins: any[]
-      }
-    }}`
+- 示例: 
+
+```js
+module.exports = {
+  css: () => { 
+    return {
+      loaderOptions: {
+        cssOptions: any // css-loader options
+        less?: any // less-loader options
+        sass?: any // css-loader options
+        postcss: {
+          options: any
+          plugins: any[]
+        }
+      }}
+    }
+}
+```
 
 - 默认: `() => {}`
 

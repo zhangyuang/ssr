@@ -21,6 +21,7 @@ export interface IConfig {
     loaderOptions?: {
       cssOptions?: any
       less?: any
+      sass?: any
       postcss?: {
         options: any
         plugins: any[]

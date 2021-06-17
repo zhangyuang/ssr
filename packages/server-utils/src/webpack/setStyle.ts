@@ -69,6 +69,9 @@ const setStyle = (chain: WebpackChain, reg: RegExp, options: StyleOptions, isRea
             }
           })
         })
+        .when(loader === 'sass-loader', rule => {
+          rule.options(css?.().loaderOptions?.sass ?? {})
+        })
         .end()
     })
 }
