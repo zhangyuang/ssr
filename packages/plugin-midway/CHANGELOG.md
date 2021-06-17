@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.51](https://github.com/ykfe/ssr/compare/v5.5.50...v5.5.51) (2021-06-17)
+
+
+### Features
+
+* deploy aliyun add default options yes ([28dba4b](https://github.com/ykfe/ssr/commit/28dba4b76a3d64086851bc52be88014a3908caa3))
+
+
+
+
+
 ## [5.5.50](https://github.com/ykfe/ssr/compare/v5.5.49...v5.5.50) (2021-06-10)
 
 **Note:** Version bump only for package ssr-plugin-midway

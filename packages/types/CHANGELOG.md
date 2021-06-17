@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.51](https://github.com/ykfe/ssr/compare/v5.5.50...v5.5.51) (2021-06-17)
+
+
+### Features
+
+* add sass-loader options ([76fbfba](https://github.com/ykfe/ssr/commit/76fbfbaada67fda444954686ce10f416e46766db))
+
+
+
+
+
 ## [5.5.49](https://github.com/ykfe/ssr/compare/v5.5.48...v5.5.49) (2021-06-10)
 
 **Note:** Version bump only for package ssr-types
