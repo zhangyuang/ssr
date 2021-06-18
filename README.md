@@ -151,7 +151,7 @@ $ npm run build # 资源构建，等价于 npx ssr build
 $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 ```
 
-![](http://doc.ssr-fc.com/images/resume2.svg)
+![](http://doc.ssr-fc.com/images/resume3.svg)
 
 ## 线上案例
 
