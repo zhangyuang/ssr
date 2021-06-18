@@ -39,8 +39,8 @@
     "start": "ssr start",
     "start:vite": "ssr start --vite",
     "build": "ssr build",
-    "deploy": "ssr build && ssr deploy",
-    "deploy:tencent": "ssr build && ssr deploy --tencent"
+    "deploy": "rm -rf build && ssr build && ssr deploy",
+    "deploy:tencent": "rm -rf build && ssr build && ssr deploy --tencent"
   },
   "midway-integration": {
     "tsCodeRoot": "src"

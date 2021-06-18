@@ -42,7 +42,7 @@ $ tree ./ -I node_modules -L 3
 
 ### 多级路由
 
-尽管在大多数情况下我们用不到多级路由，但这里我们仍然提供了对应的解析策略。如果你的应用所有路由 `path` 前面都需要加上一个统一的前缀，那么你应该通过 `config.prefix` 来实现，而不是多级路由。参考[应用配置](./api$config)
+尽管在大多数情况下我们用不到多级路由，但这里我们仍然提供了对应的解析策略。如果你的应用所有路由 `path` 前面都需要加上一个统一的前缀，那么你应该通过 `config.prefix` 来实现，而不是多级路由。参考[应用配置](./api$config#prefix)
 
 - `/user/detail/render$id` 映射为 `/user/detail/:id`
 - `/user/detail/render$foo$bar` 映射为 `/user/detail/:foo/:bar`

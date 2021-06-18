@@ -49,7 +49,7 @@
 
 ### config.js 配置
 
-服务发布的时候支持两种模式，默认是 `mode: 'ssr'` 模式，你也可以通过 [应用配置](./api$config) 中的 `mode: 'csr'` 将 `csr` 设置默认渲染模式。
+服务发布的时候支持两种模式，默认是 `mode: 'ssr'` 模式，你也可以通过 [应用配置](./api$config#mode) 中的 `mode: 'csr'` 将 `csr` 设置默认渲染模式。
 
 ### 通过 core 模块提供的 render 方法降级
 
