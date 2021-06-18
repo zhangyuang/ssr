@@ -33,7 +33,7 @@
             <img class="swiper-slide" src="/images/material-2x.png" type="image/svg+xml">
             <img class="swiper-slide" src="/images/homecode2.svg" type="image/svg+xml">
             <img class="swiper-slide" src="/images/homecode3.svg" type="image/svg+xml">
-            <img class="swiper-slide" src="/images/homecode4.svg" type="image/svg+xml">
+            <img class="swiper-slide" src="/images/homecode4-1.svg" type="image/svg+xml">
           </div>
           <div class="swiper-button-next" />
           <div class="swiper-button-prev" />
