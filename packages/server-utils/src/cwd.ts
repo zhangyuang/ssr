@@ -35,7 +35,7 @@ const isFaaS = async (fun?: boolean) => {
   return result
 }
 
-const getLocalNodeModules = () => resolve(__dirname, '../../../')
+const getLocalNodeModules = () => resolve(__dirname, '../../../node_modules')
 
 const processError = (err: any) => {
   if (err) {

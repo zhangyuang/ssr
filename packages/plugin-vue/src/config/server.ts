@@ -22,9 +22,8 @@ const getServerWebpack = (chain: WebpackChain) => {
     .end()
 
   const modulesDir = [join(cwd, './node_modules')]
-  if (isDev) {
-    modulesDir.push(getLocalNodeModules())
-  }
+  modulesDir.push(getLocalNodeModules())
+
   chain.externals(nodeExternals({
     whitelist: [/\.(css|less|sass|scss)/, /ssr-temporary-routes/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/].concat(whiteList || [], /store$/),
     // externals Dir contains example/xxx/node_modules ssr/node_modules
