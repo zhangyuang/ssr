@@ -29,7 +29,7 @@ const loadConfig = (): IConfig => {
 
   const isDev = process.env.NODE_ENV !== 'production'
 
-  const fePort = userConfig.fePort ?? 8888
+  const fePort = userConfig.FE_Port ?? 8888
 
   let https = userConfig.https ? userConfig.https : !!process.env.HTTPS
 
