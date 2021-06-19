@@ -23,6 +23,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   const routeItem = findRoute<ReactServerESMFeRouteItem>(FeRoutes, path)
   const ViteMode = process.env.BUILD_TOOL === 'vite'
 
+  if (!routeItem) {
+    throw new Error(`
+    查找组件失败，请确认当前 path: ${path} 对应前端组件是否存在
+    若创建了新的页面文件夹，请重新执行 npm start 重启服务
+    `)
+  }
+
   let dynamicCssOrder = cssOrder
 
   if (dynamic) {
@@ -59,9 +66,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   const staticList = {
     injectCss,
     injectScript
-  }
-  if (!routeItem) {
-    throw new Error(`With request url ${path} Component is Not Found`)
   }
 
   const isCsr = !!((mode === 'csr' || ctx.request.query?.csr))
