@@ -433,6 +433,23 @@ module.exports = {
 
 如何配置 `sass-loader` 请参考[文档](./api$config#css) 
 
+## Sass 场景使用 Vite 构建报错
+
+若遇到 `Sass` + `Vite` 报 `Uri.base` is not supported 的错误，参考该 [issue](https://github.com/vitejs/vite/issues/2240)
+
+`layout/index.vue` 中加入该代码即可
+
+```js
+export default {
+  props: ['ctx'],
+  created () {
+    global.location = {
+      href: this.ctx.request.url
+    }
+  }
+}
+```
+
 ## 如何降级为客户端渲染
 
 在本地开发测试时我们可以通过在请求 `url` 的 `query` 后面添加 `?csr=true` 来以客户端渲染模式进行渲染。
