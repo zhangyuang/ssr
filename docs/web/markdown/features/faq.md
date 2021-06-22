@@ -614,7 +614,23 @@ const Layout = (props: LayoutProps) => {
 ```js
 import $ from 'jquery' // error
 const $ = __isBrowser__ ? require('jquery') : {} // true
-const $ = __isBrowser__ ? import('jquery') : {} // used in vite return a promise object
+
+// vue + vite
+async created () {
+  // import syntax used in vite scene will return a promise object
+  const $ = __isBrowser__ ? await import('jquery') : {}
+  this.$ = $
+}
+// react + vite
+let $ = {}
+export default  (props: SProps) => {
+  useEffect(() => {
+    initJquery()
+  }, [])
+  const initJquery = async () =>{
+    $ = await import('jquery')
+  }
+}
 ```
 
 2. 在 `didMount` 生命周期加载模块
