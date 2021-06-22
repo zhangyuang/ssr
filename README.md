@@ -1,3 +1,7 @@
+<div>
+简体中文 ｜ <a href="./README_EN.md">English</a>
+</div>
+
 <h1 align="center"> SSR </h1>
 <div align="center">
   <img src="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg" width="300" />
@@ -8,9 +12,6 @@
   <strong>A most advanced ssr framework on Earth that implemented serverless-side render specification for faas and traditional web server.</strong>
 </div>
 <br />
-<div align="center">
-简体中文 ｜ <a href="./README_EN.md">English</a>
-</div>
 <div align="center">
 <a href="https://github.com/ykfe/ssr/actions" target="_blank"><img src="https://github.com/ykfe/ssr/workflows/CI/badge.svg" alt="githubActions"></a>
 <a href="https://www.cypress.io/" target="_blank"><img src="https://img.shields.io/badge/cypress-dashboard-brightgreen.svg" alt="cypress"></a>

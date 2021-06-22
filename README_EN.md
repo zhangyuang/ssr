@@ -1,11 +1,11 @@
+<div>
+<a href="./README.md">简体中文</a> ｜ English
+</div>
 <h1 align="center"> SSR </h1>
 <div align="center">
   <img src="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg" width="300" />
 </div>
 <br />
-<div align="center">
-<a href="./README.md">简体中文</a> ｜ English
-</div>
 <div align="center">
   <strong>A most advanced ssr framework on Earth that implemented serverless-side render specification for faas and traditional web server.</strong>
 </div>
