@@ -9,7 +9,7 @@
 </div>
 <br />
 <div align="center">
-<a href="./README.md">简体中文</a> ｜ English
+简体中文 ｜ <a href="./README_EN.md">English</a>
 </div>
 <div align="center">
 <a href="https://github.com/ykfe/ssr/actions" target="_blank"><img src="https://github.com/ykfe/ssr/workflows/CI/badge.svg" alt="githubActions"></a>
