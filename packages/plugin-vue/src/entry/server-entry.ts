@@ -37,7 +37,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
 
   const manifest = ViteMode ? {} : await getManifest()
 
-  const isCsr = !!((mode === 'csr' || ctx.request.query?.csr))
+  const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)

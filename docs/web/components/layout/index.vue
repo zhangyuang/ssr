@@ -6,11 +6,11 @@
       <meta charSet="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta name="theme-color" content="#000000">
-      <meta name="description" content="最小而美的服务端渲染应用骨架, Vue SSR, React SSR, 服务端渲染">
+      <meta name="description" content="server side render, 最小而美的服务端渲染应用骨架, Vue SSR, React SSR, 服务端渲染">
       <link rel="icon" href="https://avatars1.githubusercontent.com/u/50347314?s=200&amp;v=4">
-      <meta name="keywords" itemprop="keywords" content="服务端渲染, React, Egg, Midway, Nestjs, Vue, VueSSR, SSR, ReactSSR">
-      <meta property="og:title" content="Vue, React, SSR 服务端渲染">
-      <meta property="og:description" content="Vue, React, SSR 服务端渲染">
+      <meta name="keywords" itemprop="keywords" content="server side render, 服务端渲染, React, Egg, Midway, Nestjs, Vue, VueSSR, SSR, ReactSSR">
+      <meta property="og:title" content="server side render, Vue, React, SSR 服务端渲染">
+      <meta property="og:description" content="server side render, Vue, React, SSR 服务端渲染">
       <title>ssr 框架官方文档</title>
       <slot name="viteClient" />
       <!-- 用于通过配置插入自定义的 script 为了避免影响期望功能这块内容不做 escape，为了避免 xss 需要保证插入脚本代码的安全性  -->

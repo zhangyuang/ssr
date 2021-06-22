@@ -58,9 +58,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     })
   }
 
-  const injectScript = ViteMode ? [<script key="viteWindowInit" dangerouslySetInnerHTML={{
-    __html: 'window.__USE_VITE__=true'
-  }} />, <script type="module" src='/node_modules/ssr-plugin-react/esm/entry/client-entry.js' key="vite-react-entry" />]
+  const injectScript = ViteMode ? [
+    <script key="viteWindowInit" dangerouslySetInnerHTML={{
+      __html: 'window.__USE_VITE__=true'
+    }} />,
+    <script type="module" src='/node_modules/ssr-plugin-react/esm/entry/client-entry.js' key="vite-react-entry" />
+  ]
     : jsOrder.map(js => manifest[js]).map(item => <script key={item} src={item} />)
 
   const staticList = {
@@ -68,7 +71,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     injectScript
   }
 
-  const isCsr = !!((mode === 'csr' || ctx.request.query?.csr))
+  const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
   const Component = routeItem.component
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
