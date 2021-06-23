@@ -1,6 +1,6 @@
 {
   "name": "ssr-types-react",
-  "version": "5.5.57",
+  "version": "5.5.59",
   "description": "types for react ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -28,10 +28,10 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
-    "ssr-types": "^5.5.57",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "@types/react-router-dom": "^5.1.6"
+    "@types/react-router-dom": "^5.1.6",
+    "ssr-types": "^5.5.59"
   },
   "devDependencies": {
     "concurrently": "^5.1.0"
