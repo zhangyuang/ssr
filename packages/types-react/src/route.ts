@@ -63,13 +63,6 @@ export interface ReactClientRoutesType {
   BASE_NAME?: string
 }
 
-export interface ParseFeRouteItem {
-  path?: string
-  fetch?: string
-  component?: string
-  webpackChunkName?: string
-}
-
 export interface IContext<T=any> {
   state?: T
   dispatch?: React.Dispatch<Action>

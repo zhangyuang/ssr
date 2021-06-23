@@ -1,7 +1,7 @@
 
 import React, { useContext } from 'react'
 import serialize from 'serialize-javascript'
-import { LayoutProps } from 'ssr-types'
+import { LayoutProps } from 'ssr-types-react'
 import App from './App'
 
 const Layout = (props: LayoutProps) => {

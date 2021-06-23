@@ -1,4 +1,4 @@
-import { IWindow } from 'ssr-types'
+import { IWindow } from 'ssr-types-react'
 
 declare global {
   interface Window {
