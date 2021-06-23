@@ -85,6 +85,10 @@ export const webSiteConfig = {
           {
             label: '插件列表',
             path: '/docs/plugin$index'
+          },
+          {
+            label: '前端开发手册',
+            path: 'http://fe.ssr-fc.com/'
           }
         ]
       },

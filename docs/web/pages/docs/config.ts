@@ -36,4 +36,5 @@ export default [
       { title: '官方插件', path: 'plugin$index' }
     ]
   }
+
 ]

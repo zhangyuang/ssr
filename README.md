@@ -188,6 +188,7 @@ $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 | [ssr-hoc-react]          | [![ssr-hoc-react-status]][ssr-hoc-react] | provide hoc component for react |
 | [ssr-hoc-vue3]          | [![ssr-hoc-vue3-status]][ssr-hoc-vue3] | provide hoc component for vue3 |
 | [ssr-types]          | [![ssr-types-status]][ssr-types] | provide common types |
+| [ssr-types-react]          | [![ssr-types-react-status]][ssr-types-react] | provide react scene types |
 | [ssr-webpack]          | [![ssr-webpack-status]][ssr-webpack] | start local server and build production bundle by webpack |
 
 
@@ -204,6 +205,7 @@ $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 [ssr-plugin-vue3-status]: https://img.shields.io/npm/v/ssr-plugin-vue3.svg
 [ssr-server-utils-status]: https://img.shields.io/npm/v/ssr-server-utils.svg
 [ssr-types-status]: https://img.shields.io/npm/v/ssr-types.svg
+[ssr-types-react-status]: https://img.shields.io/npm/v/ssr-types-react.svg
 [ssr-webpack-status]: https://img.shields.io/npm/v/ssr-webpack.svg
 
 [ssr]: https://github.com/ykfe/ssr/tree/dev/packages/cli
@@ -219,6 +221,7 @@ $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 [ssr-plugin-vue3]: https://github.com/ykfe/ssr/tree/dev/packages/plugin-vue3
 [ssr-server-utils]: https://github.com/ykfe/ssr/tree/dev/packages/server-utils
 [ssr-types]: https://github.com/ykfe/ssr/tree/dev/packages/types
+[ssr-types-react]: https://github.com/ykfe/ssr/tree/dev/packages/types-react
 [ssr-webpack]: https://github.com/ykfe/ssr/tree/dev/packages/webpack
 ## CONTRIBUTING
 
@@ -237,6 +240,10 @@ $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 <img src="https://res.wx.qq.com/op_res/rrhdxU0o2yUdgTjwgkAgO-CSFV-lArvMYzWzxl2SuvnKkcWECv7SXswEYjk2pPcDcL43r0kz_MIp_fsxPPqQ2Q" width="300">
 <img src="https://res.wx.qq.com/op_res/kWmJUok0vZk00qUGxVc9hceBtBTw8ohXkzmm54alPw_uqFEoZt0bWxHPAqHKFSJMrfPkKJZCVJauuZm4--hnrQ" width="300">
 </div>
+
+## 前端开发手册
+
+[如何打造舒适高效的前端开发环境](http://fe.ssr-fc.com/)
 
 ## 项目 Star 数增长趋势
 

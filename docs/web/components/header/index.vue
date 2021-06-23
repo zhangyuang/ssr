@@ -12,6 +12,9 @@
       <a class="weui-flex__item" target="__black" href="https://github.com/ykfe/ssr">
         Github
       </a>
+      <a class="weui-flex__item" target="__black" href="http://fe.ssr-fc.com/">
+        前端开发手册
+      </a>
     </div>
   </div>
 </template>
