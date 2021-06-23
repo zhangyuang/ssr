@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.56](https://github.com/ykfe/ssr/compare/v5.5.55...v5.5.56) (2021-06-23)
+
+
+### Bug Fixes
+
+* 锁死 optimize-css-assets-webpack-plugin 版本 ([1418bcb](https://github.com/ykfe/ssr/commit/1418bcb6121f850a10d7af85a3b1a84c5e3d0310))
+
+
+
+
+
 ## [5.5.55](https://github.com/ykfe/ssr/compare/v5.5.54...v5.5.55) (2021-06-22)
 
 **Note:** Version bump only for package ssr-plugin-react
