@@ -12,10 +12,6 @@ export const webSiteConfig = {
       {
         label: 'FAQ',
         path: '/docs/features$faq'
-      },
-      {
-        label: '插件列表',
-        path: '/docs/plugin$index'
       }
     ]
   },
