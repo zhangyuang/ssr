@@ -1,6 +1,6 @@
 {
   "name": "ssr-server-utils",
-  "version": "5.5.55",
+  "version": "5.5.57",
   "description": "utils for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -40,6 +40,6 @@
     "path-to-regexp": "^6.2.0",
     "readable-stream": "^3.6.0",
     "shelljs": "^0.8.3",
-    "ssr-types": "^5.5.55"
+    "ssr-types": "^5.5.57"
   }
 }
