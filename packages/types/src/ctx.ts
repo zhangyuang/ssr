@@ -2,7 +2,6 @@ import * as Koa from 'koa'
 import * as Express from 'express'
 import { FaaSHTTPContext } from '@midwayjs/faas-typings'
 import { Context } from 'egg'
-import { Action } from './component'
 
 interface ExpressContext {
   request: Express.Request
@@ -27,9 +26,4 @@ export interface IGlobal extends NodeJS.Global {
     __INITIAL_DATA__?: IWindow['__INITIAL_DATA__']
     STORE_CONTEXT?: IWindow['STORE_CONTEXT']
   }
-}
-
-export interface IContext<T=any> {
-  state?: T
-  dispatch?: React.Dispatch<Action>
 }

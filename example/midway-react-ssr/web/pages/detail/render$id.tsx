@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { IContext, SProps } from 'ssr-types'
+import { IContext, SProps } from 'ssr-types-react'
 import Player from '@/components/player'
 import Brief from '@/components/brief'
 import Recommend from '@/components/recommend'

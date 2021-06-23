@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { IContext } from 'ssr-types'
+import { IContext } from 'ssr-types-react'
 import { IData } from '@/interface'
 import styles from './index.module.less'
 

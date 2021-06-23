@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { preloadComponent } from 'ssr-client-utils'
 import { wrapComponent } from 'ssr-hoc-react'
-import { IWindow, LayoutProps, ReactClientESMFeRouteItem, ReactClientRoutesType } from 'ssr-types'
+import { IWindow, LayoutProps, ReactClientESMFeRouteItem, ReactClientRoutesType } from 'ssr-types-react'
 // @ts-expect-error
 import * as Routes from 'ssr-temporary-routes'
 import { AppContext } from './context'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { SProps } from 'ssr-types'
+import { SProps } from 'ssr-types-react'
 import { ItemMapArr } from '@/interface'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/swiper.min.css'

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useContext, useEffect } from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-import { FC, Action } from 'ssr-types'
+import { FC, Action } from 'ssr-types-react'
 
 let routerChanged = false
 

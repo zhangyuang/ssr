@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { findRoute, getManifest, logGreen, normalizePath } from 'ssr-server-utils'
-import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactServerESMFeRouteItem } from 'ssr-types'
+import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactServerESMFeRouteItem } from 'ssr-types-react'
 // @ts-expect-error
 import * as Routes from 'ssr-temporary-routes'
 import { serverContext } from './create-context'

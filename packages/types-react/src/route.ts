@@ -1,6 +1,6 @@
 import { RouteComponentProps } from 'react-router-dom'
-import { ISSRContext } from './ctx'
-import { IConfig } from './config'
+import { ISSRContext, IConfig } from 'ssr-types'
+import { Action } from './component'
 
 export interface LayoutProps {
   ctx?: ISSRContext
@@ -63,14 +63,7 @@ export interface ReactClientRoutesType {
   BASE_NAME?: string
 }
 
-export type ESMFeRouteItem<T={}> = {
-  path: string
-  webpackChunkName: string
-} & T
-
-export interface ParseFeRouteItem {
-  path?: string
-  fetch?: string
-  component?: string
-  webpackChunkName?: string
+export interface IContext<T=any> {
+  state?: T
+  dispatch?: React.Dispatch<Action>
 }
