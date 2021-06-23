@@ -1,6 +1,6 @@
 {
   "name": "ssr-types-react",
-  "version": "5.5.60",
+  "version": "5.5.61",
   "description": "types for react ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -31,7 +31,7 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.6",
-    "ssr-types": "^5.5.60"
+    "ssr-types": "^5.5.61"
   },
   "devDependencies": {
     "concurrently": "^5.1.0"

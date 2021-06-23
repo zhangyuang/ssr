@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.61](https://github.com/ykfe/ssr/compare/v5.5.60...v5.5.61) (2021-06-23)
+
+**Note:** Version bump only for package ssr-hoc-react
+
+
+
+
+
 ## [5.5.60](https://github.com/ykfe/ssr/compare/v5.5.59...v5.5.60) (2021-06-23)
 
 **Note:** Version bump only for package ssr-hoc-react
