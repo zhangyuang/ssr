@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useReducer } from 'react'
-import { IProps, Action, IWindow } from 'ssr-types'
+import { IProps, Action, IWindow } from 'ssr-types-react'
 import { clientContext as Context } from './create-context'
 
 const isDev = process.env.NODE_ENV !== 'production'
