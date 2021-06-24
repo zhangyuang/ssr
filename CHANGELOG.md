@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.62](https://github.com/ykfe/ssr/compare/v5.5.61...v5.5.62) (2021-06-24)
+
+
+### Features
+
+* inject asyncData and fetchData in layout/index.vue ([61bcb2b](https://github.com/ykfe/ssr/commit/61bcb2bf4d052d36d714ae1c304abb44c2cd1f26))
+
+
+
+
+
 ## [5.5.61](https://github.com/ykfe/ssr/compare/v5.5.60...v5.5.61) (2021-06-23)
 
 **Note:** Version bump only for package ssr
