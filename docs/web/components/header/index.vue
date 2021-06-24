@@ -1,18 +1,18 @@
 <template>
-  <div class="header weui-flex align-items">
-    <div class="header__left weui-flex weui-flex__item align-items">
+  <div class="header">
+    <div class="header__left">
       <router-link class="logo" to="/">
         <img src="/images/logo.jpeg" alt="">
       </router-link>
     </div>
-    <div class="header__right weui-flex weui-flex__item align-items">
-      <router-link v-for="item in headerItems" :key="item.path" class="weui-flex__item" :to="item.path">
+    <div class="nav">
+      <router-link v-for="item in headerItems" :key="item.path" :to="item.path">
         {{ item.label }}
       </router-link>
-      <a class="weui-flex__item" target="__black" href="https://github.com/ykfe/ssr">
+      <a target="__black" href="https://github.com/ykfe/ssr">
         Github
       </a>
-      <a class="weui-flex__item" target="__black" href="http://fe.ssr-fc.com/">
+      <a target="__black" href="http://fe.ssr-fc.com/">
         前端开发手册
       </a>
     </div>
@@ -40,4 +40,19 @@ export default defineComponent({
 <style lang="less">
 @import "../../common.less";
 @import "./index.less";
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .header__left {
+    display: flex;
+    width: 15%;
+  }
+}
+.nav {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  justify-content: space-between;
+}
 </style>
