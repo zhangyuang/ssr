@@ -112,7 +112,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
         {
           props: {
             ctx,
-            config
+            config,
+            asyncData: combineAysncData,
+            fetchData: layoutFetchData
           }
         },
         [

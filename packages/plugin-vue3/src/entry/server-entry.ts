@@ -99,7 +99,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     render: function () {
       return h(
         Layout,
-        { ctx, config },
+        { ctx, config, asyncData, fetchData: layoutFetchData },
         {
           remInitial: () => h('script', { innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }),
 

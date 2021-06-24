@@ -31,7 +31,7 @@
 
 在中小型应用中，若你完全不考虑使用 `Vuex` 来做数据管理的话，那么你可以删除默认的示例 `Vuex` 全部有关代码以及 `store` 的定义文件夹。
 
-在渲染的过程中，我们会将 `layout fetch` 与 `page fetch` 的 `返回数据` 组合后以 `props` 的形式注入到 `layout/App.vue` 当中，开发者可以在该文件当中 `provide` 如下所示。
+在渲染的过程中，我们会将 `layout fetch` 与 `page fetch` 的 `返回数据` 组合后以 `props` 的形式注入到 `layout/index.vue` 以及 `layout/App.vue` 当中，开发者可以在该文件当中 `provide` 如下所示。
 
 ```html
 // layout/App.vue
@@ -86,7 +86,7 @@ export default {
 
 此功能需要依赖版本 `>5.5.43`
 
-在 `provide/inject` 的方案中，我们为了不丢失响应性需要使用 `.value` 的形式来取值具体的数据，并且我们需要为不同页面的 `fetch` 返回数据添加不同的 `namespace` 来防止属性冲突。这些都是非常有必要的事情。如果开发者认为当前应用不需要任何数据管理方案，我们提供了最简单的 `props 直出数据` 的方案来使得组件能够拿到 `fetch` 返回的数据。此方案仍需对 `layout/App.vue` 做一些改造。此方案兼容 `Vue2/Vue3`
+在 `provide/inject` 的方案中，我们为了不丢失响应性需要使用 `.value` 的形式来取值具体的数据，并且我们需要为不同页面的 `fetch` 返回数据添加不同的 `namespace` 来防止属性冲突。这些都是非常有必要的事情。如果开发者认为当前应用不需要任何数据管理方案，我们提供了最简单的 `props 直出数据` 的方案来使得组件能够拿到 `fetch` 返回的数据。此方案兼容 `Vue2/Vue3`。同样支持在 `layout/index.vue`, `layout/App.vue` 中获取 `fetchData`
 
 ```html
 // layout/App.vue
