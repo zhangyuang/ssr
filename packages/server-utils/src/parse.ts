@@ -125,11 +125,7 @@ const parseFeRoutes = async () => {
 
   await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
   await fs.copyFile(resolve(__dirname, '../src/packagejson.tpl'), resolve(cwd, './node_modules/ssr-temporary-routes/package.json'))
-  if (process.env.TEST && viteMode) {
-    // 开发同学本地开发时 vite 场景将路由表写一份到 repo 下面而不是 example 下面，否则 client-entry 会找不到该文件
-    Shell.rm('-rf', resolve(__dirname, '../../../node_modules/ssr-temporary-routes/'))
-    Shell.cp('-r', resolve(cwd, './node_modules/ssr-temporary-routes/'), resolve(__dirname, '../../../node_modules/ssr-temporary-routes/'))
-  }
+  await renderTmpFile(viteMode)
 }
 
 const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {
@@ -154,13 +150,11 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         /* /news */
         route.path = `${prefixPath}`
         route.component = `${aliasPath}/${pageFiles}`
-        if (dynamic) {
-          let webpackChunkName = pathRecord.join('-')
-          if (webpackChunkName.startsWith('-')) {
-            webpackChunkName = webpackChunkName.replace('-', '')
-          }
-          route.webpackChunkName = webpackChunkName
+        let webpackChunkName = pathRecord.join('-')
+        if (webpackChunkName.startsWith('-')) {
+          webpackChunkName = webpackChunkName.replace('-', '')
         }
+        route.webpackChunkName = webpackChunkName
       }
 
       if (pageFiles.includes('render$')) {
@@ -174,13 +168,11 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
             route.fetch = `${aliasPath}/${fetchPageFiles}`
           }
         }
-        if (dynamic) {
-          let webpackChunkName = pathRecord.join('-')
-          if (webpackChunkName.startsWith('-')) {
-            webpackChunkName = webpackChunkName.replace('-', '')
-          }
-          route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles)}`
+        let webpackChunkName = pathRecord.join('-')
+        if (webpackChunkName.startsWith('-')) {
+          webpackChunkName = webpackChunkName.replace('-', '')
         }
+        route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles)}`
       }
 
       if (pageFiles.includes('fetch')) {
@@ -209,6 +201,14 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
 
 const getDynamicParam = (url: string) => {
   return url.split('$').filter(r => r !== 'render' && r !== '').map(r => r.replace(/\.[\s\S]+/, '')).join('/:')
+}
+
+const renderTmpFile = async (viteMode: boolean) => {
+  if (process.env.TEST && viteMode) {
+    // 开发同学本地开发时 vite 场景将路由表写一份到 repo 下面而不是 example 下面，否则 client-entry 会找不到该文件
+    Shell.rm('-rf', resolve(__dirname, '../../../node_modules/ssr-temporary-routes/'))
+    Shell.cp('-r', resolve(cwd, './node_modules/ssr-temporary-routes/'), resolve(__dirname, '../../../node_modules/ssr-temporary-routes/'))
+  }
 }
 
 export {

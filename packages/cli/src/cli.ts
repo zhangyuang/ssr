@@ -3,6 +3,8 @@ import { resolve } from 'path'
 import { fork } from 'child_process'
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
+import { handleEnv } from './env'
+import { generateHtml } from './html'
 
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
 const debug = require('debug')('ssr:cli')
@@ -19,30 +21,9 @@ const spinner = {
 yargs
   .command('start', 'Start Server', {}, async (argv: Argv) => {
     spinner.start()
-    // 只有本地开发环境才会使用 Vite
-    process.env.BUILD_TOOL = argv.vite ? 'vite' : 'webpack'
-    process.env.NODE_ENV = 'development'
 
-    const { copyViteConfig, checkVite, loadConfig } = await import('ssr-server-utils')
-    const { https } = loadConfig()
+    await handleEnv(argv)
 
-    if (https) {
-      process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-    }
-
-    if (argv.test) {
-      // 开发同学本地 link 测试用
-      process.env.TEST = '1'
-    }
-
-    if (process.env.BUILD_TOOL === 'vite') {
-      const result = await checkVite()
-      if (!result) {
-        spinner.stop()
-        process.exit(1)
-      }
-      await copyViteConfig()
-    }
     const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
     debug(`require ssr-server-utils time: ${Date.now() - start} ms`)
     const plugin = loadPlugin()
@@ -62,11 +43,10 @@ yargs
     const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
     const plugin = loadPlugin()
     await parseFeRoutes()
-
     spinner.stop()
-
     await plugin.clientPlugin?.build?.(argv)
     await plugin.serverPlugin?.build?.(argv)
+    await generateHtml(argv)
   })
   .command('deploy', 'Deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {
     process.env.NODE_ENV = 'production'

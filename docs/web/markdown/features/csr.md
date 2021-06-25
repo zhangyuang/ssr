@@ -99,3 +99,22 @@ return (
 通过前端框架来渲染 `html` 标签并不是这些框架所推荐的。我们可以看到代码中使用了诸如 `dangerouslySetInnerHTML` 这样的写法，来提醒我们不要这么做。因为这样很容易被恶意脚本注入导致 [xss](https://developer.mozilla.org/zh-CN/docs/Glossary/Cross-site_scripting)。所以我们必须严格把控这一部分的渲染内容，绝不能出现用户可以控制的部分。
 
 在注入页面数据时，我们会使用 [serialize-javascript](https://www.npmjs.com/package/serialize-javascript) 来将 `window.__INITIAL_DATA__` 序列化。但是在 `html` 头部的其他部分内容注入，特别是 `script` 标签相关内容需要开发者密切注意。
+
+## 独立 html 文件部署
+
+此功能几乎不会用到。除非开发者的部署环境不存在 Node.js 服务或者需要对核心应用做容灾 CDN 降级时才可能需要用到。
+
+此功能我们将会生成一个 `html` 文件用于直接部署。效果跟传统 `SPA` 应用一样。若开发者一开始就打算使用 `html` 的形式部署。不建议使用本框架，请使用 `vue-cli`, `create-react-app` 等脚手架。
+
+### 使用方式
+
+需要依赖版本 `>=5.5.62`
+
+```shell
+$ SPA=true npm run build
+```
+
+构建后我们将会生成 `build/index.html` 文件可直接用于部署。但选择此方案便意味着
+
+- 无法使用服务端渲染功能
+- 无法直接使用当前应用的 Node.js 编写的接口服务
