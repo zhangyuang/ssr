@@ -6,6 +6,7 @@ export default [
   {
     title: '指引',
     routes: [
+      { title: '什么是服务端渲染', path: 'features$ssr' },
       { title: '快速开始', path: 'features$started' },
       { title: '在线案例', path: 'features$demo' },
       { title: 'Serverless', path: 'features$serverless' },
