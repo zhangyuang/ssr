@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.64](https://github.com/ykfe/ssr/compare/v5.5.63...v5.5.64) (2021-06-25)
+
+
+### Bug Fixes
+
+* spa html static file path ([d8743d5](https://github.com/ykfe/ssr/commit/d8743d5914dc203ec0c895714cdc2693a70f488f))
+
+
+
+
+
 ## [5.5.63](https://github.com/ykfe/ssr/compare/v5.5.62...v5.5.63) (2021-06-25)
 
 
