@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.63](https://github.com/ykfe/ssr/compare/v5.5.62...v5.5.63) (2021-06-25)
+
+
+### Features
+
+* add spa mode to generate html file ([b46721a](https://github.com/ykfe/ssr/commit/b46721a81ba9e22f722b44b64ed174e44c626c98))
+
+
+
+
+
 ## [5.5.61](https://github.com/ykfe/ssr/compare/v5.5.60...v5.5.61) (2021-06-23)
 
 **Note:** Version bump only for package ssr-server-utils
