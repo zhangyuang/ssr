@@ -29,11 +29,11 @@ export const generateHtml = async (argv: Argv) => {
     const manifest = require(join(cwd, './build/client/asset-manifest.json'))
     let jsManifest = ''
     jsOrder.forEach(item => {
-      jsManifest += `<script src=.${manifest[item]}></script>`
+      jsManifest += `<script src=${manifest[item]}></script>`
     })
     let cssManifest = ''
     cssOrder.forEach(item => {
-      cssManifest += `<link rel='stylesheet' href=.${manifest[item]} />`
+      cssManifest += `<link rel='stylesheet' href=${manifest[item]} />`
     })
     const generateHtmlStr = htmlStr.replace('cssInject', cssManifest).replace('jsManifest', jsManifest)
     await promises.writeFile(join(cwd, './build/index.html'), generateHtmlStr)
