@@ -21,8 +21,7 @@ const spinner = {
 yargs
   .command('start', 'Start Server', {}, async (argv: Argv) => {
     spinner.start()
-
-    await handleEnv(argv)
+    await handleEnv(argv, spinner)
 
     const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
     debug(`require ssr-server-utils time: ${Date.now() - start} ms`)

@@ -1,6 +1,6 @@
 import { Argv } from 'ssr-types'
 
-export const handleEnv = async (argv: Argv) => {
+export const handleEnv = async (argv: Argv, spinner: any) => {
   // 初始化环境变量设置
   // 只有本地开发环境才会使用 Vite
   process.env.BUILD_TOOL = argv.vite ? 'vite' : 'webpack'
