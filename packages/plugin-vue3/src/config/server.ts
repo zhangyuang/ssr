@@ -11,7 +11,7 @@ const getServerWebpack = (chain: WebpackChain) => {
   const { isDev, cwd, getOutput, chainServerConfig, whiteList, chunkName } = config
 
   getBaseConfig(chain, true)
-  chain.devtool(isDev ? 'eval-source-map' : false)
+  chain.devtool(isDev ? 'cheap-module-source-map' : false)
   chain.target('node')
   chain.entry(chunkName)
     .add(loadModule('../entry/server-entry'))
