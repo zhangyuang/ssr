@@ -27,7 +27,12 @@ interface IFileConfig {
     rawFile?: string;
 }
 
-class matchQuery {
+interface IMatchQuery {
+    fileConfig: Array<IFileConfig>;
+    match: (query:string, config:any) => Promise<Array<any>>
+}
+
+class matchQuery implements IMatchQuery {
 
     public fileConfig: Array<IFileConfig> = []
 
@@ -64,7 +69,12 @@ class matchQuery {
             let dataList: Array<any> = []
             if(item.rawFile){
                 const matchData = this.matchFile(query, item)
-                dataList = [...dataList, ...matchData]
+                if(matchData.length){
+                    dataList = [...dataList, {
+                        title: item.title,
+                        list: matchData
+                    }]
+                }
             }
             if(item.routes){
                 let dataTwoList: Array<any> = []
@@ -95,31 +105,31 @@ class matchQuery {
     public matchFile = (query: string, file: IFile) => {
         const contentList: Array<IContentItem> = this.handleMarkdown(file.rawFile)
         const resultTitleList = this.matchFileTitle(query, file, contentList)
-        const resultContentList = this.matchFileText(query, contentList)
+        const resultContentList = this.matchFileText(query, file, contentList)
         return [...resultTitleList,...resultContentList]
     }
 
     // 搜一个文件的标题
     public matchFileTitle = (query: string, file: IFile, contentList: Array<IContentItem>) => {
         const resultList: Array<ISearchItem> = []
-        const matchTitleData = this.matchText(query, file.title, 3, 5);
+        const matchTitleData = this.matchText(query, file.title, 5, 3);
         if(matchTitleData.result){
             resultList.push({
                 title: file.title,
-                text: matchTitleData.text,
+                text: file.title,
                 textHtml: matchTitleData.textHtml,
-                path: '',
+                path: file.path,
                 isTitle: true,
             })
         }
         contentList.forEach((item) => {
-            const matchData = this.matchText(query, item.title, 3, 5);
+            const matchData = this.matchText(query, item.title, 5, 3);
             if(matchData.result){
                 resultList.push({
                     title: item.title,
-                    text: matchData.text,
+                    text: item.title,
                     textHtml: matchData.textHtml,
-                    path: '',
+                    path: file.path,
                     isTitle: true,
                 })
             }
@@ -128,16 +138,16 @@ class matchQuery {
     }
     
     // 搜一个文件的内容
-    public matchFileText = (query: string, contentList: Array<IContentItem>) => {
+    public matchFileText = (query: string, file: IFile, contentList: Array<IContentItem>) => {
         const resultList: Array<ISearchItem> = []
         contentList.forEach((item) => {
-            const matchData = this.matchText(query, item.text, 3, 5);
+            const matchData = this.matchText(query, item.text, 5, 3);
             if(matchData.result){
                 resultList.push({
                     title: item.title,
                     text: matchData.text,
                     textHtml: matchData.textHtml,
-                    path: '',
+                    path: file.path,
                     isTitle: false,
                 })
             }
