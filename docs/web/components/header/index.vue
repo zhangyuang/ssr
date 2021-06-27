@@ -43,28 +43,7 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less">
+<style scoped lang="less">
 @import "../../common.less";
 @import "./index.less";
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  .header__left {
-    display: flex;
-    width: 15%;
-  }
-}
-.nav {
-  display: flex;
-  flex-wrap: nowrap;
-  width: 100%;
-  // justify-content: space-between;
-  a {
-    padding: 0 15px;
-  }
-}
-.nav_left {
-  flex: 1;
-}
 </style>

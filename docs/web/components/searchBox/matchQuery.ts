@@ -66,27 +66,25 @@ class matchQuery implements IMatchQuery {
         await this.readFileConfigList(config)
         let beginTime = Date.now()
         let resultList: Array<any> = []
+        const getDataList = (data: IFileConfig, dataList: Array<any>) => {
+            const matchData = this.matchFile(query, data)
+            if(matchData.length){
+                return [...dataList, {
+                    title: data.title,
+                    list: matchData
+                }]
+            }
+            return dataList
+        }
         for (let item of this.fileConfig){
             let dataList: Array<any> = []
             if(item.rawFile){
-                const matchData = this.matchFile(query, item)
-                if(matchData.length){
-                    dataList = [...dataList, {
-                        title: item.title,
-                        list: matchData
-                    }]
-                }
+                dataList = getDataList(item, dataList)
             }
             if(item.routes){
                 let dataTwoList: Array<any> = []
                 for (let itemTwo of item.routes){
-                    const matchDataTwo = this.matchFile(query, itemTwo)
-                    if(matchDataTwo.length){
-                        dataTwoList = [...dataTwoList, {
-                            title: itemTwo.title,
-                            list: matchDataTwo
-                        }]
-                    }
+                    dataTwoList = getDataList(itemTwo, dataTwoList)
                 }
                 dataList = [...dataList, ...dataTwoList]
             }
@@ -199,7 +197,7 @@ class matchQuery implements IMatchQuery {
             rawFile = left
             contentList.push({
                 title: item.n,
-                text: (right || '').replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5\：\.\，\、\。]/g,'')
+                text: (right || '').replace(/[^\a-\z\A-\Z0-9\u4E00-\u9FA5\：\.\，\、\。\；]/g,'')
             })
         })
         return contentList.reverse()

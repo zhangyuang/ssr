@@ -70,12 +70,6 @@ export default defineComponent({
 
       md.use(markdownItAnchor, {
         slugify: (s) => s,
-        permalink: markdownItAnchor.permalink.headerLink({
-          symbol: '#',
-          renderHref: (slug) => {
-            return `#${slug}`
-          },
-        })
       })
       md.use(markdownItTocDoneRight, {
         callback: (_, ast) => {
