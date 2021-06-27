@@ -10,6 +10,14 @@
   background: white;
   z-index: 999;
 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .header__left {
+    display: flex;
+    width: 15%;
+  }
+
   a {
     font-size: 14px;
     font-weight: 700;
@@ -85,6 +93,19 @@
   flex: 1;
 }
 
+.nav {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  // justify-content: space-between;
+  a {
+    padding: 3px 15px;
+  }
+}
+.nav_left {
+  flex: 1;
+}
+
 @media screen and (max-width: 414px) {
   #app {
     overflow-x: hidden;
@@ -93,6 +114,12 @@
   .header {
     .header__left {
       max-width: 25%;
+    }
+  }
+
+  .nav {
+    a {
+      padding: 0 5px;
     }
   }
 }

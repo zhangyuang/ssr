@@ -69,7 +69,7 @@ export default defineComponent({
         .enable('table')
 
       md.use(markdownItAnchor, {
-        slugify: (s) => s
+        slugify: (s) => s,
       })
       md.use(markdownItTocDoneRight, {
         callback: (_, ast) => {
