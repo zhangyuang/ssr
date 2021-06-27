@@ -1,9 +1,9 @@
 <template>
   <div class="search">
-    <div class="search_input" ref="searchBoxRef">
-      <input class='search-query' type="text" v-model="inputVal" @keyup.enter="searchQuery" @input="handleChange" @focus="handleFoucs(true)" @blur="handleFoucs(false)">
+    <div ref="searchBoxRef" class="search_input">
+      <input v-model="inputVal" class="search-query" type="text" @keyup.enter="searchQuery" @input="handleChange" @focus="handleFoucs(true)" @blur="handleFoucs(false)">
     </div>
-    <div class="search_content" v-if="resultList.length && inputVal.length && show">
+    <div v-if="resultList.length && inputVal.length && show" class="search_content">
       <searchShow :list="resultList" />
     </div>
   </div>
@@ -16,39 +16,39 @@ import searchShow from './components/searchShow/index.vue'
 import config from '@/pages/docs/config'
 
 export default defineComponent({
+  components: {
+    searchShow
+  },
+  inject: ['asyncData'],
   data () {
     return {
       isFocus: false,
       resultList: [] as Array<any>,
       inputVal: '',
-      show: false,
+      show: false
     }
   },
-  inject: ['asyncData'],
-  components: {
-    searchShow,
-  },
-  mounted() {
+  mounted () {
     window.addEventListener('click', this.listenerClick)
   },
-  unmounted() {
+  unmounted () {
     window.removeEventListener('click', this.listenerClick)
   },
   methods: {
-    handleFoucs(bool: boolean) {
+    handleFoucs (bool: boolean) {
       this.isFocus = bool
       if (bool) {
         this.show = true
       }
     },
-    handleChange() {
+    handleChange () {
       this.searchQuery()
     },
-    async searchQuery() {
-      if(!this.inputVal.length) return;
+    async searchQuery () {
+      if (!this.inputVal.length) return
       this.resultList = await matchQuery.match(this.inputVal, config)
     },
-    listenerClick(e){
+    listenerClick (e) {
       let target = e.target || e.srcElement // 源对象
       let isSafeNode = false
       while (target) {

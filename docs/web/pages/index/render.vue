@@ -83,14 +83,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { mapState } from 'vuex'
-import Swiper from 'swiper'
-import SwiperCore, { Navigation, Pagination, Autoplay } from 'swiper/core'
+import Swiper, { Navigation, Pagination, Autoplay } from 'swiper'
 import 'swiper/swiper-bundle.min.css'
 import BaseLayout from '@/layout/baseLayout/index.vue'
 import { webSiteConfig } from '@/config/index'
 
 // configure Swiper to use modules
-SwiperCore.use([Navigation, Pagination, Autoplay])
+Swiper.use([Navigation, Pagination, Autoplay])
 
 export default defineComponent({
   components: {
@@ -109,6 +108,7 @@ export default defineComponent({
   },
 
   mounted () {
+    // eslint-disable-next-line
     const swiper = new Swiper('.mySwiper', {
       navigation: {
         nextEl: '.swiper-button-next',

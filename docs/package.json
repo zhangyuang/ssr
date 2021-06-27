@@ -40,7 +40,9 @@
     "start:vite": "ssr start --vite",
     "build": "ssr build",
     "deploy": "rm -rf build && ssr build && ssr deploy",
-    "deploy:tencent": "rm -rf build && ssr build && ssr deploy --tencent"
+    "deploy:tencent": "rm -rf build && ssr build && ssr deploy --tencent",
+    "lint": "cross-env NODE_OPTIONS=--max_old_space_size=4096 eslint . --ext .js,.ts,.vue --cache",
+    "lint:fix": "cross-env NODE_OPTIONS=--max_old_space_size=4096 eslint . --ext .js,.ts,.vue --cache --fix"
   },
   "midway-integration": {
     "tsCodeRoot": "src"

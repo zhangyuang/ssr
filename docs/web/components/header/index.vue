@@ -6,7 +6,7 @@
       </router-link>
     </div>
     <div class="nav">
-      <div class="nav_left"/>
+      <div class="nav_left" />
       <searchBox />
       <router-link v-for="item in headerItems" :key="item.path" :to="item.path">
         {{ item.label }}
@@ -27,14 +27,14 @@ import { webSiteConfig } from '../../config/index'
 import searchBox from '../searchBox/index.vue'
 
 export default defineComponent({
+  components: {
+    searchBox
+  },
   data () {
     return {
       headerItems: webSiteConfig.header.items,
       activePath: '/'
     }
-  },
-  components: {
-    searchBox
   },
   mounted () {
   },
