@@ -64,6 +64,7 @@ class matchQuery implements IMatchQuery {
     // 全局搜索
     public match = async (query:string, config:any) => {
         await this.readFileConfigList(config)
+        let beginTime = Date.now()
         let resultList: Array<any> = []
         for (let item of this.fileConfig){
             let dataList: Array<any> = []
@@ -98,6 +99,7 @@ class matchQuery implements IMatchQuery {
         }
         console.log('关键词', query);
         console.log('搜索结果', resultList);
+        console.log(`搜索耗时: ${Date.now() - beginTime}ms`);
         return resultList
     }
 
