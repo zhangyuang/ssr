@@ -56,7 +56,9 @@ export default defineComponent({
 <style  lang="less">
 .matchTextHighlight{
   font-weight: bold;
-  color: var(--drake-code-single)
+  color: var(--drake-code-single);
+  background-color: var(--drake-code-single-bg);
+  padding: 0.25rem;
 }
 </style>
 
