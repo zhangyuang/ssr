@@ -6,6 +6,8 @@
       </router-link>
     </div>
     <div class="nav">
+      <div class="nav_left"/>
+      <searchBox />
       <router-link v-for="item in headerItems" :key="item.path" :to="item.path">
         {{ item.label }}
       </router-link>
@@ -22,6 +24,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { webSiteConfig } from '../../config/index'
+import searchBox from '../searchBox/index.vue'
 
 export default defineComponent({
   data () {
@@ -29,6 +32,9 @@ export default defineComponent({
       headerItems: webSiteConfig.header.items,
       activePath: '/'
     }
+  },
+  components: {
+    searchBox
   },
   mounted () {
   },
@@ -53,6 +59,12 @@ export default defineComponent({
   display: flex;
   flex-wrap: nowrap;
   width: 100%;
-  justify-content: space-between;
+  // justify-content: space-between;
+  a {
+    padding: 0 15px;
+  }
+}
+.nav_left {
+  flex: 1;
 }
 </style>

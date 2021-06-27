@@ -8,7 +8,7 @@
     "egg": "^2.0.0",
     "highlight.js": "^10.7.2",
     "markdown-it": "^12.0.4",
-    "markdown-it-anchor": "^7.1.0",
+    "markdown-it-anchor": "^8.0.0",
     "markdown-it-toc-done-right": "^4.2.0",
     "ssr-core-vue3": "^5.0.0",
     "ssr-types": "^5.0.0",

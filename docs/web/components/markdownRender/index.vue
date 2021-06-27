@@ -69,7 +69,13 @@ export default defineComponent({
         .enable('table')
 
       md.use(markdownItAnchor, {
-        slugify: (s) => s
+        slugify: (s) => s,
+        permalink: markdownItAnchor.permalink.headerLink({
+          symbol: '#',
+          renderHref: (slug) => {
+            return `#${slug}`
+          },
+        })
       })
       md.use(markdownItTocDoneRight, {
         callback: (_, ast) => {
