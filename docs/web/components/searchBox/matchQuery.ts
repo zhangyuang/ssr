@@ -164,7 +164,7 @@ class MatchQuery implements IMatchQuery {
 
   // 搜索一段文本
   public matchText = (query: string, totalText: string, frontSize: number, backSize: number) => {
-    var index = totalText.search(query)
+    const index = totalText.toLowerCase().search(query.toLowerCase())
     if (index === -1) {
       return {
         result: false,
@@ -175,10 +175,11 @@ class MatchQuery implements IMatchQuery {
     const begin: number = Math.max(0, index - frontSize)
     const end: number = Math.min(query.length + index + backSize, totalText.length)
     const text = totalText.slice(begin, end)
+    const validQuery = totalText.substr(index, query.length)
     return {
       result: true,
       text,
-      textHtml: text.replace(query, `<span class="matchTextHighlight">${query}</span>`)
+      textHtml: text.replace(validQuery, `<span class="matchTextHighlight">${validQuery}</span>`)
     }
   }
 
