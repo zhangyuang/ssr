@@ -1,10 +1,21 @@
 <template>
-  <router-view />
+  <div>
+    <Header />
+    <router-view />
+    <Footer />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, provide } from 'vue'
+import Header from '@/components/header/index.vue'
+import Footer from '@/components/footer/index.vue'
+
 export default defineComponent({
+  components: {
+    Header,
+    Footer
+  },
   props: ['asyncData'],
   setup (props) {
     const reactiveAsyncData = reactive(props.asyncData) // asyncData.value 是 fetch.ts 的返回值，将 provide 的数据变为响应式

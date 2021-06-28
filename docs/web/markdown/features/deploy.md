@@ -43,7 +43,7 @@ $ npm run deploy # 支持发布多个平台默认发布到阿里云 等价于 ss
 发布命令
 
 ```bash
-$ npm run dploy:tencent # 发布到腾讯云 等价于 ssr deploy --tencent
+$ npm run deploy:tencent # 发布到腾讯云 等价于 ssr deploy --tencent
 ```
 
 首次发布时需要使用微信扫终端展示的二维码注册/登陆腾讯云服务。如果想详细的了解腾讯云发布功能可参考[文档](https://www.yuque.com/midwayjs/faas/deploy_tencent_faq)

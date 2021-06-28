@@ -7,6 +7,22 @@ module.exports = {
       .loader(require.resolve('raw-loader'))
       .end()
   },
+  chainClientConfig: chain => {
+    chain.optimization
+      .splitChunks({
+        chunks: 'async',
+        cacheGroups: {
+          vendors: {
+            test: (module) => {
+              return module.resource &&
+            /\.md$/.test(module.resource)
+            },
+            name: 'md-vendor'
+          }
+        }
+      })
+      .end()
+  },
   customeHeadScript: [
     {
       content: `var _hmt = _hmt || [];

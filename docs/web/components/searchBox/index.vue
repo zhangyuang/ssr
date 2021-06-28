@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <div ref="searchBoxRef" class="search_input">
-      <input v-model="inputVal" class="search-query" type="text" @keyup.enter="searchQuery" @input="handleChange" @focus="handleFoucs(true)" @blur="handleFoucs(false)">
+      <input v-model="inputVal" class="search-query" type="text" @keyup.enter="searchQuery" @input="handleChange" @click.stop="showRes">
     </div>
     <div v-if="resultList.length && inputVal.length && show" class="search_content">
       <searchShow :list="resultList" />
@@ -11,15 +11,15 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import matchQuery from './matchQuery'
+import { MatchQuery } from './matchQuery'
 import searchShow from './components/searchShow/index.vue'
-import config from '@/pages/docs/config'
+
+const matchQuery = new MatchQuery()
 
 export default defineComponent({
   components: {
     searchShow
   },
-  inject: ['asyncData'],
   data () {
     return {
       isFocus: false,
@@ -29,40 +29,24 @@ export default defineComponent({
     }
   },
   mounted () {
-    window.addEventListener('click', this.listenerClick)
+    window.addEventListener('click', this.listenerClick, false)
   },
   unmounted () {
-    window.removeEventListener('click', this.listenerClick)
+    window.removeEventListener('click', this.listenerClick, false)
   },
   methods: {
-    handleFoucs (bool: boolean) {
-      this.isFocus = bool
-      if (bool) {
-        this.show = true
-      }
+    showRes () {
+      this.show = true
     },
     handleChange () {
       this.searchQuery()
     },
     async searchQuery () {
       if (!this.inputVal.length) return
-      this.resultList = await matchQuery.match(this.inputVal, config)
+      this.resultList = await matchQuery.match(this.inputVal)
     },
-    listenerClick (e) {
-      let target = e.target || e.srcElement // 源对象
-      let isSafeNode = false
-      while (target) {
-        if (target === this.$refs.searchBoxRef) {
-          // 循环判断至根节点，防止点击的是searchBoxRef和它的子元素
-          isSafeNode = true
-          break
-        }
-        target = target.parentNode
-      }
-      if (!isSafeNode) {
-        // 点击的不是searchBoxRef和它的子元素，隐藏下拉
-        this.show = false
-      }
+    listenerClick () {
+      this.show = false
     }
   }
 })

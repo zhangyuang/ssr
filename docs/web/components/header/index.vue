@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { webSiteConfig } from '../../config/index'
+import { webSiteConfig } from '@/config/index'
 import searchBox from '../searchBox/index.vue'
 
 export default defineComponent({
@@ -35,10 +35,6 @@ export default defineComponent({
       headerItems: webSiteConfig.header.items,
       activePath: '/'
     }
-  },
-  mounted () {
-  },
-  methods: {
   }
 })
 </script>

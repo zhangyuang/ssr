@@ -1,6 +1,7 @@
 import markdownIt from 'markdown-it'
 import markdownItTocDoneRight from 'markdown-it-toc-done-right'
 import { flatArray } from '@/utils/flatArray'
+import { config } from '@/pages/docs/config'
 
 interface ISearchItem {
   title: string
@@ -18,6 +19,7 @@ interface IContentItem {
 interface IFile {
   path: string
   title: string
+  rawFile: string
 }
 
 interface IFileConfig {
@@ -28,41 +30,47 @@ interface IFileConfig {
 }
 
 interface IMatchQuery {
-  fileConfig: IFileConfig[]
   match: (query: string, config: any) => Promise<any[]>
 }
 
-class matchQuery implements IMatchQuery {
-  public fileConfig: IFileConfig[] = []
+class MatchQuery implements IMatchQuery {
+  public config: any[] = []
+  public standardConfig: IFileConfig[]
+  constructor () {
+    this.config = config
+    this.standardConfig = []
+  }
+
+  async readFile (path: string) {
+    return (await import(`../../markdown/${path}.md`)).default
+  }
 
   // 读取文件内容
-  public async readFileConfigList (config: any) {
-    if (this.fileConfig.length > 0) return
-    const fileConfig = JSON.parse(JSON.stringify(config))
-    const readFile = async (path: string) => {
-      try {
-        return (await import(`../../markdown/${path}.md`)).default
-      } catch (e) {
-        console.error('readFile', e)
-        return ''
-      }
+  public async getStandardConfig () {
+    if (this.standardConfig.length !== 0) {
+      return this.standardConfig
     }
-    for (const item of fileConfig) {
-      if (item.path) {
-        item.rawFile = await readFile(item.path.replace(/\$/g, '/'))
+    const { config } = this
+    for (const item of config) {
+      const newItem = {
+        ...item
       }
-      if (item.routes) {
-        for (const itemTwo of item.routes) {
-          itemTwo.rawFile = await readFile(itemTwo.path.replace(/\$/g, '/'))
+      if (newItem.path) {
+        newItem.rawFile = await this.readFile(newItem.path.replace(/\$/g, '/'))
+      }
+      if (newItem.routes) {
+        for (const routeItem of newItem.routes) {
+          routeItem.rawFile = await this.readFile(routeItem.path.replace(/\$/g, '/'))
         }
       }
+      this.standardConfig.push(newItem)
     }
-    this.fileConfig = fileConfig
+    return this.standardConfig
   }
 
   // 全局搜索
-  public match = async (query: string, config: any) => {
-    await this.readFileConfigList(config)
+  public match = async (query: string) => {
+    const standardConfig = await this.getStandardConfig()
     const beginTime = Date.now()
     const resultList: any[] = []
     const getDataList = (data: IFileConfig, dataList: any[]) => {
@@ -75,7 +83,7 @@ class matchQuery implements IMatchQuery {
       }
       return dataList
     }
-    for (const item of this.fileConfig) {
+    for (const item of standardConfig) {
       let dataList: any[] = []
       if (item.rawFile) {
         dataList = getDataList(item, dataList)
@@ -179,7 +187,7 @@ class matchQuery implements IMatchQuery {
     let sideMenuList: any[] = []
     const md = markdownIt({
       highlight: function (str, lang) {
-        return ``
+        return ''
       }
     })
     md.use(markdownItTocDoneRight, {
@@ -203,4 +211,4 @@ class matchQuery implements IMatchQuery {
   }
 }
 
-export default new matchQuery()
+export { MatchQuery }

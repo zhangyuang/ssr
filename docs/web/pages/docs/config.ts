@@ -1,4 +1,4 @@
-export default [
+const config = [
   {
     title: '为什么要选择 SSR',
     path: 'why'
@@ -37,5 +37,8 @@ export default [
       { title: '官方插件', path: 'plugin$index' }
     ]
   }
-
 ]
+
+export {
+  config
+}
