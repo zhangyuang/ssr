@@ -7,6 +7,7 @@
     "@midwayjs/web": "^2.3.0",
     "egg": "^2.0.0",
     "highlight.js": "^10.7.2",
+    "lodash.debounce": "^4.0.8",
     "markdown-it": "^12.0.4",
     "markdown-it-anchor": "^8.0.0",
     "markdown-it-toc-done-right": "^4.2.0",

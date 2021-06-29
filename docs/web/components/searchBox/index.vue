@@ -11,6 +11,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import debounce from 'lodash.debounce'
 import { MatchQuery } from './matchQuery'
 import searchShow from './components/searchShow/index.vue'
 
@@ -41,10 +42,10 @@ export default defineComponent({
     handleChange () {
       this.searchQuery()
     },
-    async searchQuery () {
+    searchQuery: debounce(async function () {
       if (!this.inputVal.length) return
       this.resultList = await matchQuery.match(this.inputVal)
-    },
+    }, 300),
     listenerClick () {
       this.show = false
     }
