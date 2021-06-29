@@ -170,9 +170,20 @@ module.exports = {
 
 ## Vue 修改路由钩子
 
-在 `Vue2`, `Vue3` 中我们同样将 `vue-router` 创建出来的实例挂在了 `window.__VUE_ROUTER__` 上方，在 `Vue3` 中你也可以直接通过 [useRouter](https://next.router.vuejs.org/guide/advanced/composition-api.html#accessing-the-router-and-current-route-inside-setup) 来直接拿到 `Router` 实例。
+在 `Vue2`, `Vue3` 中我们同样将 `vue-router` 创建出来的实例挂在了 `window.__VUE_ROUTER__` 上方，开发者也可以直接在组件中通过 `this.$router` 来获取。额外的在 `Vue3` 中你也可以直接通过 [useRouter](https://next.router.vuejs.org/guide/advanced/composition-api.html#accessing-the-router-and-current-route-inside-setup) 来直接拿到 `Router` 实例。
 
 通过 `window.__VUE_ROUTER__.beforeEach` 等 `API` 来修改 `Router` 行为，我们建议该操作放在 `layout/App.vue` 中组件的 `mounted` 生命周期注册。
+
+## Vue 添加路由行为
+
+无需在创建路由时传入配置，可后续通过路由实例来修改路由行为。例如注册滚动行为，推荐在 `layout/App.vue` 中设置
+
+```js
+this.$router.options.scrollBehavior = (to, from, savedPosition) {
+  // always scroll to top
+  return { top: 0 }
+}
+```
 
 ## 使用Vue3国际化插件
 
