@@ -9,6 +9,7 @@
 以 `404` 为例，我们在中间件中处理异常情况，以下代码以服务端使用 [Midway.js](https://www.yuque.com/midwayjs/midway_v2/web_middleware#ML31g) 为例讲述如何使用
 
 ```js
+// /src/middleware/NotFound.ts
 import { Provide } from '@midwayjs/decorator'
 import { IWebMiddleware, IMidwayWebNext } from '@midwayjs/web'
 import { Context } from 'egg'
@@ -19,12 +20,14 @@ export class NotFoundMiddleware implements IWebMiddleware {
     return async (ctx: Context, next: IMidwayWebNext) => {
       await next()
       if (ctx.status === 404) {
+        // 手动建立 /web/pages/404 相关文件 
         ctx.redirect('/404')
       }
     }
   }
 }
 
+// /src/config/config.default.ts
 config.middleware = [
   'notFoundMiddleware'
 ];
