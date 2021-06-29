@@ -425,7 +425,7 @@ import { Button } from 'vant'
 需 `version >= 5.5.48`
 
 ```shell
-$ yarn add sass sass-loader@10 # 必须安装 ^10.0.0 版本的 sass-loader
+$ yarn add sass sass-loader@^10.0.0 -D # 必须安装 ^10.0.0 版本的 sass-loader
 ```
 
 ```js
