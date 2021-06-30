@@ -5,6 +5,7 @@ import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
 import { handleEnv } from './env'
 import { generateHtml } from './html'
+import { cleanOutDir } from './clean'
 
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
 const debug = require('debug')('ssr:cli')
@@ -32,6 +33,7 @@ yargs
     debug(`parseFeRoutes ending time: ${Date.now() - start} ms`)
     await plugin.clientPlugin?.start?.(argv)
     debug(`clientPlugin ending time: ${Date.now() - start} ms`)
+    await cleanOutDir()
     await plugin.serverPlugin?.start?.(argv)
     debug(`serverPlugin ending time: ${Date.now() - start} ms`)
   })
@@ -44,6 +46,7 @@ yargs
     await parseFeRoutes()
     spinner.stop()
     await plugin.clientPlugin?.build?.(argv)
+    await cleanOutDir()
     await plugin.serverPlugin?.build?.(argv)
     await generateHtml(argv)
   })
