@@ -85,6 +85,10 @@ export const webSiteConfig = {
           {
             label: '前端开发手册',
             path: 'http://fe.ssr-fc.com/'
+          },
+          {
+            label: 'Vite 源码解析',
+            path: 'http://vite.ssr-fc.com/'
           }
         ]
       },
