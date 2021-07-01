@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.65](https://github.com/ykfe/ssr/compare/v5.5.64...v5.5.65) (2021-07-01)
+
+
+### Bug Fixes
+
+* docs code optimize ([851244f](https://github.com/ykfe/ssr/commit/851244fd8819dbaf0bf5f365a8945d74f75bf8b1))
+* parseRoute multiply fetch fix ([fa6ccf6](https://github.com/ykfe/ssr/commit/fa6ccf6456d5e02098bf486b4b5dd44aac5a2694))
+* search ignore uppercase ([85e9272](https://github.com/ykfe/ssr/commit/85e92724df0dd60a9cc48fe587f59f0268383885))
+* use inline sourcemap ([f1a2db5](https://github.com/ykfe/ssr/commit/f1a2db553429daa53be9f746df145bbee90d329f))
+
+
+### Features
+
+* clean tsconfig outDir before start and build ([ea38403](https://github.com/ykfe/ssr/commit/ea38403c10f4506bd34eb853acbc70392d55dd96))
+* use cheap-module-source-map replace eval sourcemap in server bundle ([8d59f44](https://github.com/ykfe/ssr/commit/8d59f44eea78409092d963cba04a89d3eaf55cbf))
+
+
+
+
+
 ## [5.5.64](https://github.com/ykfe/ssr/compare/v5.5.63...v5.5.64) (2021-06-25)
 
 

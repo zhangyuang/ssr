@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.65](https://github.com/ykfe/ssr/compare/v5.5.64...v5.5.65) (2021-07-01)
+
+
+### Features
+
+* clean tsconfig outDir before start and build ([ea38403](https://github.com/ykfe/ssr/commit/ea38403c10f4506bd34eb853acbc70392d55dd96))
+
+
+
+
+
 ## [5.5.64](https://github.com/ykfe/ssr/compare/v5.5.63...v5.5.64) (2021-06-25)
 
 

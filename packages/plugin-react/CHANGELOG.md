@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.65](https://github.com/ykfe/ssr/compare/v5.5.64...v5.5.65) (2021-07-01)
+
+
+### Bug Fixes
+
+* use inline sourcemap ([f1a2db5](https://github.com/ykfe/ssr/commit/f1a2db553429daa53be9f746df145bbee90d329f))
+
+
+### Features
+
+* use cheap-module-source-map replace eval sourcemap in server bundle ([8d59f44](https://github.com/ykfe/ssr/commit/8d59f44eea78409092d963cba04a89d3eaf55cbf))
+
+
+
+
+
 ## [5.5.63](https://github.com/ykfe/ssr/compare/v5.5.62...v5.5.63) (2021-06-25)
 
 **Note:** Version bump only for package ssr-plugin-react

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.65](https://github.com/ykfe/ssr/compare/v5.5.64...v5.5.65) (2021-07-01)
+
+**Note:** Version bump only for package ssr-webpack
+
+
+
+
+
 ## [5.5.63](https://github.com/ykfe/ssr/compare/v5.5.62...v5.5.63) (2021-06-25)
 
 **Note:** Version bump only for package ssr-webpack
