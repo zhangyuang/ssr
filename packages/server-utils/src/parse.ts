@@ -161,24 +161,22 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         /* /news/:id */
         route.path = `${prefixPath}/:${getDynamicParam(pageFiles)}`
         route.component = `${aliasPath}/${pageFiles}`
-        // fetch文件数量>=2 启用完全匹配策略
-        if (fetchExactMatch.length >= 2) {
-          const fetchPageFiles = `fetch${pageFiles.replace('render', '').replace('.vue', '.ts')}`
-          if (fetchExactMatch.includes(fetchPageFiles)) {
-            route.fetch = `${aliasPath}/${fetchPageFiles}`
-          }
-        }
         let webpackChunkName = pathRecord.join('-')
         if (webpackChunkName.startsWith('-')) {
           webpackChunkName = webpackChunkName.replace('-', '')
         }
-        route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles)}`
+        route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles).replace(/\/:\??/, '-')}`
       }
-
-      if (pageFiles.includes('fetch')) {
+      if (fetchExactMatch.length >= 2) {
+        // fetch文件数量 >=2 启用完全匹配策略 render$id => fetch$id, render => fetch
+        const fetchPageFiles = `fetch${pageFiles.replace('render', '').replace('.vue', '.ts')}`
+        if (fetchExactMatch.includes(fetchPageFiles)) {
+          route.fetch = `${aliasPath}/${fetchPageFiles}`
+        }
+      } else if (pageFiles.includes('fetch')) {
+        // 单 fetch 文件的情况 所有类型的 render 都对应该 fetch
         route.fetch = `${aliasPath}/${pageFiles}`
       }
-
       routeArr.push({ ...route })
     }
   }

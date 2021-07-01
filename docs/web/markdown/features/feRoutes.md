@@ -40,6 +40,12 @@ $ tree ./ -I node_modules -L 3
 - `/user/render$id.vue` 映射为 `/user/:id`
 - `/user/render$foo$bar.vue` 多参数的情况下映射为 `/user/:foo/:bar`
 
+### 可选参数路由
+
+只在 `Vue` 场景支持
+
+- `/render$id?.vue` 映射为 `/:id?`
+
 ### 多级路由
 
 尽管在大多数情况下我们用不到多级路由，但这里我们仍然提供了对应的解析策略。如果你的应用所有路由 `path` 前面都需要加上一个统一的前缀，那么你应该通过 `config.prefix` 来实现，而不是多级路由。参考[应用配置](./api$config#prefix)

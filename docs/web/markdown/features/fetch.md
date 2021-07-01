@@ -46,23 +46,31 @@ class Foo extends React.component {
 
 ## fetch.ts 规范
 
-我们定义 `fetch.ts` 文件来作为获取数据的入口文件。因为对一些大团队来说，我们在服务端通常可以采用 `rpc` 类型的调用，或是直接调用 `Node Service` 的代码来获取数据，无需通过 `http` 请求，所以在 `fetch.ts` 中，我们可能会编写服务端相关代码，故独立出一个文件来进行维护。
+我们在静态方法的基础上抽象出 `fetch.ts` 文件规范来作为获取数据的入口文件。因为对一些大团队来说，我们在服务端通常可以采用 `rpc` 类型的调用，或是直接调用 `Node Service` 的代码来获取数据，无需通过 `http` 请求，所以在 `fetch.ts` 中，我们可能会编写服务端相关代码，故独立出一个文件来进行维护。
 
 `fetch.ts` 的定义是页面级别的组件进行数据获取的入口文件，不包括子组件。由于在服务端一个组件被真正的 `render` 之前，我们并不知道它依赖哪些子组件。所以我们没有办法调用子组件的 `fetch`, 当然也有其他方式可以解决这个问题。见本文最后的补充内容。
 
 `fetch.ts` 的文件类型分为两种
 
-### Layout Fetch
+### Layout fetch
 
 `Layout` 级别的 `fetch` (可选)，定义在 `web/components/layout/fetch.ts` 路径
 
-意义: `Layout` 级别的 `fetch` 用于初始化一些所有页面都会用到的一些公共数据，若该文件存在则调用。将会把返回的数据与页面级别的 `fetch` 合并返回给开发者
+意义: `Layout` 级别的 `fetch` 用于初始化一些所有页面都会用到的一些公共数据，若该文件存在则调用。将会把返回的数据与页面级别的 `fetch` 合并返回给开发者。`Layout` 场景只允许存在一个 `fetch` 文件
 
-### 页面级 Fetch
+### 页面级 fetch
 
-页面级别的 `fetch` (可选)，定义在 `web/pages/xxx/fetch.ts` 路径
+页面级别的 `fetch` (可选, 可以存在多个)，定义在 `web/pages/xxx/fetch.ts` 路径
 
 意义: 页面级别的 `fetch` 将会在当前访问该前端页面组件对应的 `path` 时被调用
+
+#### fetch 与 render 对应关系
+
+`fetch` 文件与 `render` 对应关系如下
+
+- 当只有一个 `fetch` 文件时，当前文件夹所有的 `render` 文件都对应这个 `fetch` 文件
+- `fetch` 文件存在多个时，`render` 文件与 `fetch` 文件名一一对应，例如 `render.vue` => `fetch.ts`, `render$id.vue` => `fetch$id.ts`
+
 ### fetch 调用时机
 
 这里我们将其分为`服务端渲染模式`和`客户端渲染模式`两种情况
