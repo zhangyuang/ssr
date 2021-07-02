@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.67](https://github.com/ykfe/ssr/compare/v5.5.66...v5.5.67) (2021-07-02)
+
+
+### Bug Fixes
+
+* update tsconfig.json check ([d0615a9](https://github.com/ykfe/ssr/commit/d0615a9c146b0ecc4b129f2d0a831c908f927a98))
+
+
+
+
+
 ## [5.5.66](https://github.com/ykfe/ssr/compare/v5.5.65...v5.5.66) (2021-07-02)
 
 
