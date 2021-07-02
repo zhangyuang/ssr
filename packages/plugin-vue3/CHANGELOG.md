@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.66](https://github.com/ykfe/ssr/compare/v5.5.65...v5.5.66) (2021-07-02)
+
+
+### Bug Fixes
+
+* use babel compile vue3 package ([fb26e70](https://github.com/ykfe/ssr/commit/fb26e70188cfcf3acde89183c9d915bc0fbb9d70))
+
+
+
+
+
 ## [5.5.65](https://github.com/ykfe/ssr/compare/v5.5.64...v5.5.65) (2021-07-01)
 
 
