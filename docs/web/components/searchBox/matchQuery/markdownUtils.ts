@@ -58,7 +58,6 @@ const headerAst = (tokens: IToken[]) => {
                 children: [],
                 startTokenIndex: i,
             }
-            
             if (node.level > stack[0].level) {
                 stack[0].children.push(node)
                 stack.unshift(node)
@@ -70,7 +69,6 @@ const headerAst = (tokens: IToken[]) => {
                 stack[0].children.push(node)
                 stack.unshift(node)
             }
-
             lastNode.text = getContent(lastNode.startTokenIndex, i)
             lastNode = node
         }

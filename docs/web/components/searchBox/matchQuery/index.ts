@@ -28,8 +28,8 @@ const standardConfig: IFileConfig[] = []
 const readFile = async (path: string) => {
   try {
     return (await import(`../../../markdown/${path}.md`)).default
-  } catch (e){
-    console.log('readFile error:', e, '.path:', path);
+  } catch (e) {
+    console.log('readFile error:', e, '.path:', path)
     return ''
   }
 }
@@ -37,7 +37,7 @@ const readFile = async (path: string) => {
 // 初始化config
 const initConfig = async () => {
   if (standardConfig.length !== 0) {
-    return standardConfig
+    return
   }
   for (const item of config) {
     const newItem: any = {
@@ -55,7 +55,6 @@ const initConfig = async () => {
     }
     standardConfig.push(newItem)
   }
-  return standardConfig
 }
 
 // 全局搜索
