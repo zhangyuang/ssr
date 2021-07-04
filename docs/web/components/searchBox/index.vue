@@ -12,10 +12,9 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import debounce from 'lodash.debounce'
-import { MatchQuery } from './matchQuery'
+import { match, initConfig } from './matchQuery/index'
 import searchShow from './components/searchShow/index.vue'
 
-const matchQuery = new MatchQuery()
 
 export default defineComponent({
   components: {
@@ -30,6 +29,7 @@ export default defineComponent({
     }
   },
   mounted () {
+    initConfig()
     window.addEventListener('click', this.listenerClick, false)
   },
   unmounted () {
@@ -44,7 +44,7 @@ export default defineComponent({
     },
     searchQuery: debounce(async function () {
       if (!this.inputVal.length) return
-      this.resultList = await matchQuery.match(this.inputVal)
+      this.resultList = await match(this.inputVal)
     }, 300),
     listenerClick () {
       this.show = false
