@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.69](https://github.com/ykfe/ssr/compare/v5.5.68...v5.5.69) (2021-07-05)
+
+
+### Bug Fixes
+
+* ssr-types lock @types/node version ([d9196d4](https://github.com/ykfe/ssr/commit/d9196d4e8ba4f1406e11d925c657a1fe65a884fd))
+
+
+
+
+
 ## [5.5.68](https://github.com/ykfe/ssr/compare/v5.5.67...v5.5.68) (2021-07-05)
 
 
