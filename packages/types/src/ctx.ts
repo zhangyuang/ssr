@@ -20,7 +20,7 @@ export interface IWindow extends Window {
   __USE_VITE__?: boolean
 }
 
-export interface IGlobal extends NodeJS.Global {
+export interface IGlobal {
   window: {
     __USE_SSR__?: IWindow['__USE_SSR__']
     __INITIAL_DATA__?: IWindow['__INITIAL_DATA__']
