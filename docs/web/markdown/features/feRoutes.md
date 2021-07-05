@@ -44,7 +44,7 @@ $ tree ./ -I node_modules -L 3
 
 在 `React|Vue` 场景下均可使用。由于 `?` 符号无法作为文件名使用，所以这里我们需要用 `#` 号代替
 
-- `/render$id#.vue` 映射为 `/:id?`
+- `/index/render$id#.vue` 映射为 `/:id?`
 
 ### 多级路由
 
