@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.68](https://github.com/ykfe/ssr/compare/v5.5.67...v5.5.68) (2021-07-05)
+
+
+### Features
+
+* 约定式路由支持可选参数 ([935759d](https://github.com/ykfe/ssr/commit/935759d4d42be48c44dc2800417ac76fa9f66ad8))
+
+
+
+
+
 ## [5.5.65](https://github.com/ykfe/ssr/compare/v5.5.64...v5.5.65) (2021-07-01)
 
 
