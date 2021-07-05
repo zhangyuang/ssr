@@ -165,7 +165,7 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         if (webpackChunkName.startsWith('-')) {
           webpackChunkName = webpackChunkName.replace('-', '')
         }
-        route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles).replace(/\/:\??/, '-')}`
+        route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles).replace(/\/:\??/, '-').replace('?', '-optional')}`
       }
       if (fetchExactMatch.length >= 2) {
         // fetch文件数量 >=2 启用完全匹配策略 render$id => fetch$id, render => fetch
@@ -198,7 +198,7 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
 }
 
 const getDynamicParam = (url: string) => {
-  return url.split('$').filter(r => r !== 'render' && r !== '').map(r => r.replace(/\.[\s\S]+/, '')).join('/:')
+  return url.split('$').filter(r => r !== 'render' && r !== '').map(r => r.replace(/\.[\s\S]+/, '').replace('#', '?')).join('/:')
 }
 
 const renderTmpFile = async (viteMode: boolean) => {
