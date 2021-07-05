@@ -61,6 +61,9 @@ const checkVite = async () => {
       plugin = '@vitejs/plugin-react-refresh'
     }
     console.log(`当前项目缺少 vite 依赖，请根据实际技术栈安装 vite ${plugin} 或 其他对应插件`)
+    if (version && !/^.?3/.test(version)) {
+      console.log('vue2 场景下使用 Vite 必须安装固定版本 vite-plugin-vue2@1.4.4')
+    }
     return false
   }
   return true
