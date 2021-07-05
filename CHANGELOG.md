@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.70](https://github.com/ykfe/ssr/compare/v5.5.69...v5.5.70) (2021-07-05)
+
+
+### Bug Fixes
+
+* remove NodeJS.Global ([ee545d5](https://github.com/ykfe/ssr/commit/ee545d5e2c7e522f0f6aec64b6d95b395c4d1091))
+
+
+
+
+
 ## [5.5.69](https://github.com/ykfe/ssr/compare/v5.5.68...v5.5.69) (2021-07-05)
 
 
