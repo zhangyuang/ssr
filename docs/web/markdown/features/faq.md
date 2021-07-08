@@ -433,7 +433,6 @@ const { setStyle } = require('ssr-server-utils')
 
 module.exports = {
   chainBaseConfig: (chain) => {
-    // 这里一定要写在 chainBaseConfig 函数里面去加载
     // setStyle 的详细入参类型可查看  https://github.com/ykfe/ssr/blob/dev/packages/server-utils/src/webpack/setStyle.ts
     setStyle(chain, /\.s[ac]ss$/i, {
       rule: 'sass',
