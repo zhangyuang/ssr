@@ -35,6 +35,9 @@ build
 ## 客户端产物类型分析详解
 
 对于 `client` 文件夹构建出来的东西有经验的开发者会很熟悉。客户端构建产物通过 [client-entry](https://github.com/ykfe/ssr/blob/dev/packages/plugin-vue3/src/entry/client-entry.ts)生成， 唯一的区别就是在服务端渲染场景下我们调用的框架 API 为 `hydrate` 水合模式而不是 `render` 普通渲染模式
+
+开发者可以通过 `GENERATE_ANALYSIS=true npm run build` 来可视化生成客户端构建产物，来判断 `tree shaking` 有没有生效有没有引入没有使用的文件
+
 ## 服务产物端类型分析详解
 
 这里我们着重提一下服务端构建产物中的 `Page.server.js` 
