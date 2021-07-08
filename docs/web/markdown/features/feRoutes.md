@@ -79,6 +79,8 @@ $ DEBUG=ssr:* npm start
 在 Vue 场景我们按照如下规范编写前端路由结构
 
 ```js
+import * as store from '@/store/index.ts' // 使用了 Vuex 则需要引入 store
+
 export const FeRoutes = [
     {   
         "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts') : require('@/pages/detail/fetch.ts').default,
@@ -95,6 +97,7 @@ export const FeRoutes = [
 ]
 export { default as Layout } from "@/components/layout/index.vue"
 export { default as App } from "@/components/layout/App.vue"
+export { store }
 ```
 
 ### React 场景
