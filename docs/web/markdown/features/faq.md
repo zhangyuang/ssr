@@ -882,6 +882,9 @@ module.exports = {
             },
             name: 'vendor'
           },
+          // 使用该配置 在 Vue 场景需要在 script 标签中 import 样式文件而不是在 style 标签中引入
+          // 否则打包时无法检测到 style 标签中 @import 形式导入的样式
+          // 若开发者有更优秀的配置选项可以提 issue 进行讨论
           styles: {
             name: 'styles',
             test: /\.(css|less)$/,
@@ -901,7 +904,7 @@ module.exports = {
 <link rel="stylesheet" href="/static/css/styles.chunk.css" />
 ```
 
-#### 使用 initial chunkschunks (不建议使用)
+#### 使用 chunks: initial (不建议使用)
 
 此配置将会使用 `chunks: initial`，作为构建配置每一个页面 `chunk` 包含的都是当前页面依赖的所有代码。适用于对代码包大小不敏感的应用。如果开发者不熟悉 `splitChunks` 的优化。直接使用以下配置，但可能会导致模块的重复打包，造成代码冗余
 
