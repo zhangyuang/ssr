@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.71](https://github.com/ykfe/ssr/compare/v5.5.70...v5.5.71) (2021-07-12)
+
+
+### Bug Fixes
+
+* splitChunks 优化 ([16d820c](https://github.com/ykfe/ssr/commit/16d820c209bc04e25f78e56c63cae31a54c38d3e))
+* use chunks async in production environment ([61987e0](https://github.com/ykfe/ssr/commit/61987e0458d973b7a21c45e095f33680fa1af5da))
+
+
+
+
+
 ## [5.5.70](https://github.com/ykfe/ssr/compare/v5.5.69...v5.5.70) (2021-07-05)
 
 **Note:** Version bump only for package ssr-plugin-vue
