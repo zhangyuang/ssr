@@ -29,7 +29,7 @@ const getClientWebpack = (chain: WebpackChain) => {
   chain.optimization
     .runtimeChunk(true)
     .splitChunks({
-      chunks: isDev ? 'initial' : 'async',
+     chunks: 'all',
       name: false,
       cacheGroups: {
         vendors: {
