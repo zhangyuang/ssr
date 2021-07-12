@@ -845,7 +845,7 @@ async handler (): Promise<void> {
 
 ## 代码分割常见问题
 
-框架使用 `splitChunks` 的 `chunks: 'all'` 选项来进行代码分割配置参考 []。该配置能够保证最佳的代码尺寸，但可能会带来一定的体验问题需要手动解决。使用该配置 `webpack` 将会对不同页面的重复引入模块进行代码单独分块。这其中包含了 `css chunks` 和 `js chunks`，`js chunks` 不会对体验造成影响。`webpack runtime` 将会自行判断当前页面应该去加载哪些 `chunk`。但 `css chunks` 的分块可能会造成 `css` 闪烁。这是因为我们的 `css chunks` 是动态加载的而不是一开始就全部注入到页面头部的。也就是当我们的 `runtime~js` 文件执行的时候我们才能够知道当前页面需要去加载哪些 `css chunks`
+框架使用 `splitChunks` 的 `chunks: 'all'` 选项来进行代码分割配置参考该[文件](https://github.com/ykfe/ssr/blob/dev/packages/plugin-react/src/config/client.ts#L31)。该配置能够保证最佳的代码尺寸，但可能会带来一定的体验问题需要手动解决。使用该配置 `webpack` 将会对不同页面的重复引入模块进行代码单独分块。这其中包含了 `css chunks` 和 `js chunks`，`js chunks` 不会对体验造成影响。`webpack runtime` 将会自行判断当前页面应该去加载哪些 `chunk`。但 `css chunks` 的分块可能会造成 `css` 闪烁。这是因为我们的 `css chunks` 是动态加载的而不是一开始就全部注入到页面头部的。也就是当我们的 `runtime~js` 文件执行的时候我们才能够知道当前页面需要去加载哪些 `css chunks`
 
 ### 样式闪烁
 
@@ -871,7 +871,17 @@ module.exports = {
   chainClientConfig: chain => {
     chain.optimization
       .splitChunks({
+        chunks: 'all',
+        name: false,
         cacheGroups: {
+          vendors: {
+            test: (module) => {
+              return module.resource &&
+                /\.js$/.test(module.resource) &&
+                module.resource.match('node_modules')
+            },
+            name: 'vendor'
+          },
           styles: {
             name: 'styles',
             test: /\.(css|less)$/,
@@ -882,6 +892,7 @@ module.exports = {
       })
   }
 }
+
 ```
 
 然后在 `layout/index.tsx|vue` 中在页面头部插入该文件
