@@ -12,7 +12,7 @@
 
 我们默认发布到阿里云，同样也可以支持发布到腾讯云
 
-```bash
+```shell
 $ npm run deploy # 支持发布多个平台默认发布到阿里云 等价于 ssr deploy
 ```
 
@@ -42,7 +42,7 @@ $ npm run deploy # 支持发布多个平台默认发布到阿里云 等价于 ss
 
 发布命令
 
-```bash
+```shell
 $ npm run deploy:tencent # 发布到腾讯云 等价于 ssr deploy --tencent
 ```
 
