@@ -512,6 +512,8 @@ const htmlStr = await render(this.ctx, config)
 
 ## 如何自定义页面标题, meta 等信息
 
+开发者需要想清楚修改 `meta` 等 `head` 信息的目的是什么。如果只是单纯的前端页面展示，那么只需要在客户端通过 `document.title = xxx` 形式来修改即可。如果是为了满足 `SEO` 爬虫需求，则需要在服务端支出时渲染正确的信息。
+
 本框架不需要也不会提供类似 `next/head`, `react-helment` 之类的解决方案，这是完全没有必要的。 
 
 由于我们 `All in jsx/Vue SFC`, 这块的实现也是非常简单的。`layout` 在服务端被渲染时可以拿到请求的 `ctx`，根据 `ctx` 上的信息来 `render` 不同的生成结果
@@ -757,6 +759,107 @@ export const onlyCsr = defineComponent({
 
 这种问题相比于代码调用了浏览器对象导致的错误好解决很多。在 `Node.js` 环境中我们无法直接的运行 `ESM` 格式的代码, 开发者可以通过 [whiteList](./api$config#whiteList) 配置，来将这部分第三方模块的代码进行 `Webpack` 处理后再给到服务端去调用。但这会导致服务端构建后的文件体积增大，会稍稍拖慢构建运行速度。
 
+## 代码分割常见问题
+
+框架使用 `splitChunks` 的 `chunks: 'all'` 选项来进行代码分割配置参考该[文件](https://github.com/ykfe/ssr/blob/dev/packages/plugin-react/src/config/client.ts#L31)。该配置能够保证最佳的代码尺寸。
+
+但可能会带来一定的体验问题需要手动解决。使用该配置 `webpack` 将会对不同页面的重复引入模块进行代码单独分块。这其中包含了 `css chunks` 和 `js chunks`，`js chunks` 不会对体验造成影响。`webpack runtime` 将会自行判断当前页面应该去加载哪些 `chunk`。但 `css chunks` 的分块可能会造成 `css` 闪烁。这是因为我们的 `css chunks` 是动态加载的而不是一开始就全部注入到页面头部的。也就是当我们的 `runtime~js` 文件执行的时候我们才能够知道当前页面需要去加载哪些 `css chunks`。
+
+### 延迟加载部分代码
+
+当我们只有某个页面使用到了某个模块时，我们可以将该模块进行切割，使得只在跳转到该页面时进行加载，例如我们只有详情页会用到 `ant-design-vue`。这时候我们就可以对 `ant-design-vue` 进行独立的提取操作
+
+```js
+module.exports = {
+  chainClientConfig: chain => {
+    console.log(chain.optimization.get('splitChunks'))
+    const splitChunksOptions = chain.optimization.get('splitChunks')
+    splitChunksOptions.cacheGroups.vendorsAntd = {
+      test: /node_modules\/(.*)?ant-design-vue/,
+      priority: 10,
+      name: 'chunks-antd'
+    }
+  }
+}
+
+```
+
+### 点击事件失效
+
+若代码切割后发现点击事件等事件失效。那么很有可能原因是切割后首页页面没有加载完全首页所需要的 `[name.chunk.js]`。例如我们进行代码切割后很可能会将首页与其他页面重复的模块进行切割生成 `0.chunk.js` 等形式的文件。此时首页页面需要加载该文件才能够正确的激活对应的组件 `DOM`。`Vue` 场景可通过 [customeHeadScript](./api$config#customeHeadScript) 配置加载具体的 `chunk`， React 场景直接写在 `layout/index.tsx` 即可。
+
+总的来说这种情况一旦发生就比较麻烦也没有什么必要去切割这种情况，因为即使切割成了独立 `chunk` 首页仍需要加载完该 `chunk` 后才是一个可用状态，也可以通过 `splitChunksOptions.minSize` 来配置超出多少体积时才进行切割，来减少这种情况的处理。`splitChunksOptions.minChunks` 指定拆分前必须共享模块的最小 chunks 数。具体配置参考 [Webpack SplitChunks](https://webpack.docschina.org/plugins/split-chunks-plugin/#splitchunksminchunks)
+
+### 样式闪烁
+
+最常遇到的问题就是样式闪烁。一旦首页和其他页面存在了重复模块并且被切割成独立 `chunk` 后这部分模块的 `css` 就存在闪烁的可能。
+
+举个例子：当我们的首页和详情页面都用到了 `搜索框组件` 和 `antd` 中的组件。此时 `搜索框组件` 和 `antd` 中的组件的代码便会单独分块进行构建加载。会导致的现象就是 `搜索框组件` 和 `antd` 中的组件的样式会闪烁。
+
+针对这种问题我们有两种解决方案
+
+#### 提前加载样式文件
+
+针对这种情况我们的样式文件不能够再放到具体的组件中去加载，只能够提前一步在更上层进行加载。
+
+例如我们可以将 `搜索框组件` 的样式放在 `common.less` 当中在 `App.vue|tsx` 层面进行加载。
+
+针对 `antd` 等第三方组件库的样式我们可以在 `App.vue|tsx` 提前加载具体组件的样式例如 `import 'antd/lib/button/style/index'` 或者是直接加载整个 `antd` 的样式 `import "antd/dist/antd.css";`
+
+#### 将 css 提取为一个大文件
+
+我们可以通过 `chainClientConfig` 中配置 `splitChunks` 来自由的控制代码的切割，例如我们可以将应用所有的 `css` 文件都打包成一个文件来加载不进行分块。但注意若同时生成了 `styles.chunk.js` 文件则需要手动引入该文件，否则 `ui 组件` 点击事件会失效。
+
+```js
+// 所有的样式文件都打包成一个 styles.chunk.css 文件
+module.exports = {
+  chainClientConfig: chain => {
+    const splitChunksOptions = chain.optimization.get('splitChunks')
+    // 使用该配置 在 Vue 场景需要在 script 标签中 import 样式文件而不是在 style 标签中引入
+    // 否则打包时无法检测到 style 标签中 @import 形式导入的样式
+    // 若开发者有更优秀的配置选项可以提 issue 进行讨论
+    // 若同时生成了 styles.chunk.js 则需要手动引入，否则点击事件会失效
+    splitChunksOptions.cacheGroups.styles = {
+        name: 'styles',
+        test: /\.(css|less)$/,
+        chunks: 'all',
+        priority: 10,
+        enforce: true
+    }
+    // 若使用以下配置可提取为一个 styles.chunk.css 文件，但会额外生成 styles.chunk.js 文件
+    // 必须通过 customeHeadScript 配置加载该 chunk 后页面功能才能够正常使用
+    // splitChunksOptions.cacheGroups.styles = {
+    //   name: 'styles',
+    //   test: (m, c, entry = 'app') => m.constructor.name === 'CssModule',
+    //   chunks: 'all',
+    //   priority: 10,
+    //   enforce: true
+    // }
+  }
+}
+
+
+```
+
+然后在 `layout/index.tsx|vue` 中在页面头部插入该文件
+
+```js
+<link rel="stylesheet" href="/static/css/styles.chunk.css" />
+```
+
+#### 使用 chunks: initial (不推荐)
+
+此配置将会使用 `chunks: initial`，作为构建配置每一个页面 `chunk` 包含的都是当前页面依赖的所有代码。适用于对代码包大小不敏感的应用。如果开发者不熟悉 `splitChunks` 的优化。直接使用以下配置，但可能会导致模块的重复打包，造成代码冗余
+
+```js
+module.exports = {
+  chainClientConfig: chain => {
+    const splitChunksOptions = chain.optimization.get('splitChunks')
+    splitChunksOptions.chunks = 'initial'
+  }
+}
+```
+
 ## Proxy 转发 POST 请求失败
 
 某些用户反馈使用 `config.proxy` 转发 `POST` 请求时会失败，可能是因为 `Midway.js` 底层使用的 `egg` 自带的 `bodyParser` 导致的。如果你遇到了该问题可以尝试以下解决方案。
@@ -842,103 +945,6 @@ async handler (): Promise<void> {
 ### 样式迁移
 
 框架默认支持 `less` 作为样式预处理器，若需要使用 `sass` 参考[文档](./features$faq#如何支持%20Sass|Scss)。`React` 场景只支持 `css modules` 的形式，若需要使用全局样式，则需要使用 `:global` 的语法
+### 封装双端通用的请求
 
-## 代码分割常见问题
-
-框架使用 `splitChunks` 的 `chunks: 'all'` 选项来进行代码分割配置参考该[文件](https://github.com/ykfe/ssr/blob/dev/packages/plugin-react/src/config/client.ts#L31)。该配置能够保证最佳的代码尺寸。
-
-但可能会带来一定的体验问题需要手动解决。使用该配置 `webpack` 将会对不同页面的重复引入模块进行代码单独分块。这其中包含了 `css chunks` 和 `js chunks`，`js chunks` 不会对体验造成影响。`webpack runtime` 将会自行判断当前页面应该去加载哪些 `chunk`。但 `css chunks` 的分块可能会造成 `css` 闪烁。这是因为我们的 `css chunks` 是动态加载的而不是一开始就全部注入到页面头部的。也就是当我们的 `runtime~js` 文件执行的时候我们才能够知道当前页面需要去加载哪些 `css chunks`。
-
-### 延迟加载部分代码
-
-当我们只有某个页面使用到了某个模块时，我们可以将该模块进行切割，使得只在跳转到该页面时进行加载，例如我们只有详情页会用到 `ant-design-vue`。这时候我们就可以对 `ant-design-vue` 进行独立的提取操作
-
-```js
-module.exports = {
-  chainClientConfig: chain => {
-    console.log(chain.optimization.get('splitChunks'))
-    const splitChunksOptions = chain.optimization.get('splitChunks')
-    splitChunksOptions.cacheGroups.vendorsAntd = {
-      test: /node_modules\/(.*)?ant-design-vue/,
-      priority: 10,
-      name: 'chunks-antd'
-    }
-  }
-}
-
-```
-
-### 点击事件失效
-
-若代码切割后发现点击事件等事件失效。那么很有可能原因是切割后首页页面没有加载完全首页所需要的 `[name.chunk.js]`。例如我们进行代码切割后很可能会将首页与其他页面重复的模块进行切割生成 `0.chunk.js` 等形式的文件。此时首页页面需要加载该文件才能够正确的激活对应的组件 `DOM`。可通过 [customeHeadScript](./api$config#customeHeadScript) 配置加载具体的 `chunk`。这些文件放在头部可能会阻塞页面展示的时间，但切割出来的文件尺寸一般很小。
-
-总的来说这种情况一旦发生就比较麻烦也没有什么必要去切割这种情况，因为即使切割成了独立 `chunk` 首页仍需要加载完该 `chunk` 后才是一个可用状态，也可以通过 `splitChunksOptions.minSize` 来配置超出多少体积时才进行切割，来减少这种情况的处理。`splitChunksOptions.minChunks` 指定拆分前必须共享模块的最小 chunks 数。具体配置参考 [Webpack SplitChunks](https://webpack.docschina.org/plugins/split-chunks-plugin/#splitchunksminchunks)
-
-### 样式闪烁
-
-最常遇到的问题就是样式闪烁。一旦首页和其他页面存在了重复模块并且被切割成独立 `chunk` 后这部分模块的 `css` 就存在闪烁的可能。
-
-举个例子：当我们的首页和详情页面都用到了 `搜索框组件` 和 `antd` 中的组件。此时 `搜索框组件` 和 `antd` 中的组件的代码便会单独分块进行构建加载。会导致的现象就是 `搜索框组件` 和 `antd` 中的组件的样式会闪烁。
-
-针对这种问题我们有两种解决方案
-
-#### 提前加载样式文件
-
-针对这种情况我们的样式文件不能够再放到具体的组件中去加载，只能够提前一步在更上层进行加载。
-
-例如我们可以将 `搜索框组件` 的样式放在 `common.less` 当中在 `App.vue|tsx` 层面进行加载。
-
-针对 `antd` 等第三方组件库的样式我们可以在 `App.vue|tsx` 提前加载具体组件的样式例如 `import 'antd/lib/button/style/index'` 或者是直接加载整个 `antd` 的样式 `import "antd/dist/antd.css";`
-
-#### 将 css 提取为一个大文件
-
-我们可以通过 `chainClientConfig` 中配置 `splitChunks` 来自由的控制代码的切割，例如我们可以将应用所有的 `css` 文件都打包成一个文件来加载不进行分块
-
-```js
-// 所有的样式文件都打包成一个 styles.chunk.css 文件
-module.exports = {
-  chainClientConfig: chain => {
-    const splitChunksOptions = chain.optimization.get('splitChunks')
-    // 使用该配置 在 Vue 场景需要在 script 标签中 import 样式文件而不是在 style 标签中引入
-    // 否则打包时无法检测到 style 标签中 @import 形式导入的样式
-    // 若开发者有更优秀的配置选项可以提 issue 进行讨论
-    splitChunksOptions.cacheGroups.styles = {
-        name: 'styles',
-        test: /\.(css|less)$/,
-        chunks: 'all',
-        priority: 10,
-        enforce: true
-    }
-    // 若使用以下配置可提取为一个 styles.chunk.css 文件，但会额外生成 styles.chunk.js 文件
-    // 必须通过 customeHeadScript 配置加载该 chunk 后页面功能才能够正常使用
-    // splitChunksOptions.cacheGroups.styles = {
-    //   name: 'styles',
-    //   test: (m, c, entry = 'app') => m.constructor.name === 'CssModule',
-    //   chunks: 'all',
-    //   priority: 10,
-    //   enforce: true
-    // }
-  }
-}
-
-
-```
-
-然后在 `layout/index.tsx|vue` 中在页面头部插入该文件
-
-```js
-<link rel="stylesheet" href="/static/css/styles.chunk.css" />
-```
-
-#### 使用 chunks: initial (不推荐)
-
-此配置将会使用 `chunks: initial`，作为构建配置每一个页面 `chunk` 包含的都是当前页面依赖的所有代码。适用于对代码包大小不敏感的应用。如果开发者不熟悉 `splitChunks` 的优化。直接使用以下配置，但可能会导致模块的重复打包，造成代码冗余
-
-```js
-module.exports = {
-  chainClientConfig: chain => {
-    const splitChunksOptions = chain.optimization.get('splitChunks')
-    splitChunksOptions.chunks = 'initial'
-  }
-}
-```
+推荐用 [axios](https://www.npmjs.com/package/axios) 来发起 `http` 请求会自动根据当前环境判断应该使用 `xhr` 还是 `http` 模块发起。针对 `cookie` 的携带，客户端请求时同源请求会自动带上 `cookie` 当跨域请求时需要通过 `withCredentials` 配置来带上 `cookie`。服务端请求时可以通过 `ctx.req.cookies` 具体查看对应服务端框架文档拿到当前请求 `cookie`

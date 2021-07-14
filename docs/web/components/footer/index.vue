@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <div class="footer__link weui-flex justify-align">
+    <div class="footer__link">
       <div
         v-for="item in footerItems"
         :key="item.path"
