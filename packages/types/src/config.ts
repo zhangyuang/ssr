@@ -17,6 +17,8 @@ export interface IConfig {
   proxy?: any
   cssOrder: string[]
   jsOrder: string[]
+  extraJsOrder?: string[]
+  extraCssOrder?: string[]
   css?: () => {
     loaderOptions?: {
       cssOptions?: any

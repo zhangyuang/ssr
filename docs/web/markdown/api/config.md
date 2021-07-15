@@ -67,6 +67,34 @@ const stream = await render<Readable>(this.ctx, userConfig)
 - 默认: `Page`
 
 静态资源构建时默认的 `entry` 名, 默认为 `Page`。无特殊需求不需要修改
+
+## extraJsOrder
+
+- 类型: `string[]`
+- 默认: `[]`
+
+需要额外初始化加载的 `js chunk name`，通常配合 `splitChunks` 配置一起使用, 若生成其他 `name` 的 `chunk` 开发者可通过 `http://localhost:3000/asset-manifest.json` 文件查看具体的 `chunkName`
+
+```js
+module.exports = {
+  extraJsOrder: ['styles.js'],
+  extraCssOrder: ['styles.css']
+}
+```
+
+## extraCssOrder
+
+- 类型: `string[]`
+- 默认: `[]`
+
+需要额外初始化加载的 `css chunk name`，通常配合 `splitChunks` 配置一起使用
+
+```js
+module.exports = {
+  extraJsOrder: ['styles.js'],
+  extraCssOrder: ['styles.css']
+}
+```
 ## webpackDevServerConfig
 
 - 类型: `webpackDevServer.Configuration`

@@ -808,17 +808,21 @@ module.exports = {
 
 #### 将 css 提取为一个大文件
 
-我们可以通过 `chainClientConfig` 中配置 `splitChunks` 来自由的控制代码的切割，例如我们可以将应用所有的 `css` 文件都打包成一个文件来加载不进行分块。但注意若同时生成了 `styles.chunk.js` 文件则需要手动引入该文件，否则 `ui 组件` 点击事件会失效。
+我们可以通过 `chainClientConfig` 中配置 `splitChunks` 来自由的控制代码的切割，例如我们可以将应用所有的 `css` 文件都打包成一个文件来加载不进行分块。但注意若同时生成了 `styles.chunk.js` 文件则需要手动引入，否则 `ui 组件` 点击事件会失效。如何引入参考[extraJsOrder](./api$config#extraJsOrder)
 
 ```js
-// 所有的样式文件都打包成一个 styles.chunk.css 文件
+// 将所有的样式文件都打包成一个 styles.chunk.css 文件
 module.exports = {
+  // 通常需要配合 extraOrder 配置一起使用
+  // version >= 5.5.72
+  extraJsOrder: ['styles.js'], // 在页面底部额外加载 styles.chunk.js 文件，生产环境自动获取正确的 hash 文件
+  extraCssOrder: ['styles.css'], // 在页面头部额外加载 styles.chunk.css 文件，生产环境自动获取正确的 hash 文件
   chainClientConfig: chain => {
     const splitChunksOptions = chain.optimization.get('splitChunks')
     // 使用该配置 在 Vue 场景需要在 script 标签中 import 样式文件而不是在 style 标签中引入
     // 否则打包时无法检测到 style 标签中 @import 形式导入的样式
     // 若开发者有更优秀的配置选项可以提 issue 进行讨论
-    // 若同时生成了 styles.chunk.js 则需要手动引入，否则点击事件会失效
+    // 若同时生成了 styles.chunk.js 则需要配置引入，否则点击事件会失效
     splitChunksOptions.cacheGroups.styles = {
         name: 'styles',
         test: /\.(css|less)$/,
@@ -827,7 +831,6 @@ module.exports = {
         enforce: true
     }
     // 若使用以下配置可提取为一个 styles.chunk.css 文件，但会额外生成 styles.chunk.js 文件
-    // 必须通过 customeHeadScript 配置加载该 chunk 后页面功能才能够正常使用
     // splitChunksOptions.cacheGroups.styles = {
     //   name: 'styles',
     //   test: (m, c, entry = 'app') => m.constructor.name === 'CssModule',
@@ -838,15 +841,7 @@ module.exports = {
   }
 }
 
-
 ```
-
-然后在 `layout/index.tsx|vue` 中在页面头部插入该文件
-
-```js
-<link rel="stylesheet" href="/static/css/styles.chunk.css" />
-```
-
 #### 使用 chunks: initial (不推荐)
 
 此配置将会使用 `chunks: initial`，作为构建配置每一个页面 `chunk` 包含的都是当前页面依赖的所有代码。适用于对代码包大小不敏感的应用。如果开发者不熟悉 `splitChunks` 的优化。直接使用以下配置，但可能会导致模块的重复打包，造成代码冗余
