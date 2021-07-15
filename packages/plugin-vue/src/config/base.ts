@@ -29,15 +29,27 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
         ]
       ],
       plugins: [
-        [loadModule('@babel/plugin-transform-runtime'), {
-          corejs: false
-        }],
-        [loadModule('babel-plugin-import'),
+        [
+          loadModule('@babel/plugin-transform-runtime'), {
+            corejs: false
+          }
+        ],
+        [
+          loadModule('babel-plugin-import'),
           {
             libraryName: 'vant',
             libraryDirectory: 'lib',
             style: true
-          }, 'vant']
+          }, 'vant'
+        ],
+        [
+          loadModule('babel-plugin-import'),
+          {
+            libraryName: 'ant-design-vue',
+            libraryDirectory: 'lib',
+            style: true
+          }, 'ant-design-vue'
+        ]
       ]
     })
     .end()

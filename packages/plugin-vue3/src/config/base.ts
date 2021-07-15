@@ -44,6 +44,14 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
             style: true
           }, 'vant'
         ],
+        [
+          loadModule('babel-plugin-import'),
+          {
+            libraryName: 'ant-design-vue',
+            libraryDirectory: 'lib',
+            style: true
+          }, 'ant-design-vue'
+        ],
         loadModule('@vue/babel-plugin-jsx')
       ]
     })
