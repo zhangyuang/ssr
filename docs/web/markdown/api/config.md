@@ -77,8 +77,8 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 ```js
 module.exports = {
-  extraJsOrder: ['styles.js'],
-  extraCssOrder: ['styles.css']
+  extraJsOrder: ['styles.js'], // 在页面底部额外加载 styles.chunk.js 文件，生产环境自动获取正确的 hash 文件
+  extraCssOrder: ['styles.css'] // 在页面头部额外加载 styles.chunk.css 文件，生产环境自动获取正确的 hash 文件
 }
 ```
 
