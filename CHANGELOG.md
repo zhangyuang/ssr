@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.72](https://github.com/ykfe/ssr/compare/v5.5.71...v5.5.72) (2021-07-15)
+
+
+### Features
+
+* add extraJsOrder extraCssOrder ([7d9f806](https://github.com/ykfe/ssr/commit/7d9f8066ec983183aaef951f321d02b499d68e9c))
+
+
+
+
+
 ## [5.5.71](https://github.com/ykfe/ssr/compare/v5.5.70...v5.5.71) (2021-07-12)
 
 
