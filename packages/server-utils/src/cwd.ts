@@ -65,7 +65,7 @@ const cryptoAsyncChunkName = (chunks: any, asyncChunkMap: Record<string, string>
   const allChunksNamesArr = allChunksNames.split('~')
 
   const cryptoAllChunksNames = String(cyrb53(allChunksNames))
-  if (allChunksNamesArr.length >= 2 && !asyncChunkMap[allChunksNames]) {
+  if (allChunksNamesArr.length >= 2 && !asyncChunkMap[cryptoAllChunksNames]) {
     asyncChunkMap[cryptoAllChunksNames] = allChunksNamesArr
   }
   return cryptoAllChunksNames
