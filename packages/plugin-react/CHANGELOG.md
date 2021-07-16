@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.73](https://github.com/ykfe/ssr/compare/v5.5.73-alpha.3...v5.5.73) (2021-07-16)
+
+
+### Features
+
+* vue3 vue2 react scene add asyncChunks logic ([d872fe3](https://github.com/ykfe/ssr/commit/d872fe3d3da27531d0ae16e595beeb91fa24a71d))
+
+
+
+
+
 ## [5.5.72](https://github.com/ykfe/ssr/compare/v5.5.71...v5.5.72) (2021-07-15)
 
 **Note:** Version bump only for package ssr-plugin-react
