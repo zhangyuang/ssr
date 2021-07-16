@@ -14,7 +14,7 @@ const { FeRoutes, App, layoutFetch, Layout, BASE_NAME } = Routes as RoutesType
 const cwd = getCwd()
 
 const readAsyncChunk = async () => {
-  const str = await (await promises.readFile(resolve(cwd, './build/asyncChunkMap.js'))).toString()
+  const str = await (await promises.readFile(resolve(cwd, './build/asyncChunkMap.json'))).toString()
   return JSON.parse(str)
 }
 
@@ -41,7 +41,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   let dynamicCssOrder = cssOrder
   if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
-    const { asyncChunkMap } = await readAsyncChunk()
+    const asyncChunkMap = await readAsyncChunk()
     for (const key in asyncChunkMap) {
       if (asyncChunkMap[key].indexOf(routeItem.webpackChunkName) !== -1) {
         dynamicCssOrder = dynamicCssOrder.concat(`${key}.css`)

@@ -110,12 +110,7 @@ const getClientWebpack = (chain: WebpackChain) => {
         compiler.hooks.done.tapAsync(
           'WriteAsyncCssManifest',
           async (params: any, callback: any) => {
-            await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.js'), `
-            const asyncChunkMap = ${JSON.stringify(asyncChunkMap)}
-            export {
-              asyncChunkMap
-            }
-            `)
+            await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap))
             // 将cssManifest定入文件
             callback()
           }
