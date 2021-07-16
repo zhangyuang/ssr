@@ -110,7 +110,7 @@ const getClientWebpack = (chain: WebpackChain) => {
         compiler.hooks.done.tapAsync(
           'WriteAsyncCssManifest',
           async (params: any, callback: any) => {
-            await promises.writeFile(resolve(getCwd(), './node_modules/ssr-temporary-routes/asyncChunkMap.js'), `
+            await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.js'), `
             const asyncChunkMap = ${JSON.stringify(asyncChunkMap)}
             export {
               asyncChunkMap
