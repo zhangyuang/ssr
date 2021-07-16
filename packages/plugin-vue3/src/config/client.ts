@@ -2,7 +2,7 @@
 import { promises } from 'fs'
 import { resolve } from 'path'
 import * as webpack from 'webpack'
-import { loadConfig, getCwd } from 'ssr-server-utils'
+import { loadConfig, getCwd, cryptoAsyncChunkName } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
 
@@ -34,12 +34,7 @@ const getClientWebpack = (chain: WebpackChain) => {
     .splitChunks({
       chunks: 'all',
       name (module: any, chunks: any, cacheGroupKey: string) {
-        const allChunksNames = chunks.map((item: any) => item.name).join('~')
-        const allChunksNamesArr = allChunksNames.split('~')
-        if (allChunksNamesArr.length >= 2 && !asyncChunkMap[allChunksNames]) {
-          asyncChunkMap[allChunksNames] = allChunksNamesArr
-        }
-        return allChunksNames
+        return cryptoAsyncChunkName(chunks, asyncChunkMap)
       },
       cacheGroups: {
         vendors: {
