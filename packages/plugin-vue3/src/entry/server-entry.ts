@@ -39,7 +39,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   let dynamicCssOrder = cssOrder
-  if (dynamic) {
+  if (dynamic && !ViteMode) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
     const asyncChunkMap = await readAsyncChunk()
     for (const key in asyncChunkMap) {
