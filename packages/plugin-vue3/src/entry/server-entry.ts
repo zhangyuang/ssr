@@ -33,6 +33,18 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   let dynamicCssOrder = cssOrder
   if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
+    try {
+      // 构建时不存在该文件，这里要 catch 一下
+      // 运行时该文件存在
+      const { asyncChunkMap } = require('ssr-temporary-routes/asyncChunkMap')
+      for (const key in asyncChunkMap) {
+        if (asyncChunkMap[key].indexOf(routeItem.webpackChunkName) !== -1) {
+          dynamicCssOrder = dynamicCssOrder.concat(`${key}.css`)
+        }
+      }
+    } catch (error) {
+
+    }
   }
 
   const manifest = ViteMode ? {} : await getManifest()
