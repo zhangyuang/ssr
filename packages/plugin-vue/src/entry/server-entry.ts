@@ -1,5 +1,5 @@
 import * as Vue from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { sync } from 'vuex-router-sync'
 import * as serialize from 'serialize-javascript'
@@ -33,6 +33,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   let dynamicCssOrder = cssOrder
   if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
+    dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
   }
 
   const manifest = ViteMode ? {} : await getManifest()

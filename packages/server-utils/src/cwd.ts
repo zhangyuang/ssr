@@ -28,6 +28,26 @@ const loadPlugin = (): IPlugin => {
   return require(resolve(getCwd(), 'plugin'))
 }
 
+const readAsyncChunk = async (): Promise<Record<string, string>> => {
+  const cwd = getCwd()
+  try {
+    const str = (await promises.readFile(resolve(cwd, './build/asyncChunkMap.json'))).toString()
+    return JSON.parse(str)
+  } catch (error) {
+    return {}
+  }
+}
+
+const addAsyncChunk = async (dynamicCssOrder: string[], webpackChunkName: string) => {
+  const asyncChunkMap = await readAsyncChunk()
+  for (const key in asyncChunkMap) {
+    if (asyncChunkMap[key].includes(webpackChunkName)) {
+      dynamicCssOrder = dynamicCssOrder.concat(`${key}.css`)
+    }
+  }
+  return dynamicCssOrder
+}
+
 const isFaaS = async (fun?: boolean) => {
   const result = await promises.access(resolve(getCwd(), fun ? 'template.yml' : 'f.yml'))
     .then(() => true)
@@ -99,5 +119,7 @@ export {
   accessFile,
   copyViteConfig,
   checkVite,
-  execPromisify
+  execPromisify,
+  readAsyncChunk,
+  addAsyncChunk
 }

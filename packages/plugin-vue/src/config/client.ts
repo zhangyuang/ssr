@@ -1,6 +1,8 @@
 
+import { promises } from 'fs'
+import { resolve } from 'path'
 import * as webpack from 'webpack'
-import { loadConfig } from 'ssr-server-utils'
+import { loadConfig, getCwd } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
 
@@ -8,6 +10,7 @@ const safePostCssParser = require('postcss-safe-parser')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const loadModule = require.resolve
+let asyncChunkMap: Record<string, string> = {}
 
 const getClientWebpack = (chain: WebpackChain) => {
   const { publicPath, isDev, chunkName, getOutput, useHash, chainClientConfig } = loadConfig()
@@ -29,7 +32,14 @@ const getClientWebpack = (chain: WebpackChain) => {
     .runtimeChunk(true)
     .splitChunks({
       chunks: 'all',
-      name: false,
+      name (module: any, chunks: any, cacheGroupKey: string) {
+        const allChunksNames = chunks.map((item: any) => item.name).join('~')
+        const allChunksNamesArr = allChunksNames.split('~')
+        if (allChunksNamesArr.length >= 2 && !asyncChunkMap[allChunksNames]) {
+          asyncChunkMap[allChunksNames] = allChunksNamesArr
+        }
+        return allChunksNames
+      },
       cacheGroups: {
         vendors: {
           test: (module: any) => {
@@ -91,7 +101,23 @@ const getClientWebpack = (chain: WebpackChain) => {
   chain.when(generateAnalysis, chain => {
     chain.plugin('analyze').use(BundleAnalyzerPlugin)
   })
-
+  chain.plugin('WriteAsyncManifest').use(
+    class WriteAsyncCssManifest {
+      apply (compiler: any) {
+        compiler.hooks.watchRun.tap('beforeRun', async () => {
+          // 每次构建前清空上一次的 chunk 信息
+          asyncChunkMap = {}
+        })
+        compiler.hooks.done.tapAsync(
+          'WriteAsyncCssManifest',
+          async (params: any, callback: any) => {
+            await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap))
+            callback()
+          }
+        )
+      }
+    }
+  )
   chainClientConfig(chain) // 合并用户自定义配置
 
   return chain.toConfig()

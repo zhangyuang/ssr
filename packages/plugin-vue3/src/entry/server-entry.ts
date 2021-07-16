@@ -1,8 +1,6 @@
-import { promises } from 'fs'
-import { resolve } from 'path'
 import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath, getCwd } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
@@ -11,12 +9,6 @@ import { IServerFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 
 const { FeRoutes, App, layoutFetch, Layout, BASE_NAME } = Routes as RoutesType
-const cwd = getCwd()
-
-const readAsyncChunk = async () => {
-  const str = await (await promises.readFile(resolve(cwd, './build/asyncChunkMap.json'))).toString()
-  return JSON.parse(str)
-}
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
@@ -41,12 +33,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   let dynamicCssOrder = cssOrder
   if (dynamic && !ViteMode) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
-    const asyncChunkMap = await readAsyncChunk()
-    for (const key in asyncChunkMap) {
-      if (asyncChunkMap[key].indexOf(routeItem.webpackChunkName) !== -1) {
-        dynamicCssOrder = dynamicCssOrder.concat(`${key}.css`)
-      }
-    }
+    dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
   }
 
   const manifest = ViteMode ? {} : await getManifest()

@@ -9,16 +9,9 @@ const instance = axios.create({
   proxy: false
 })
 
-let manifest: {
-  [key: string]: string
-} = {}
-
-const getManiFest = async () => {
+const getManiFest = async (): Promise<Record<string, string>> => {
   const { isDev, fePort, https } = loadConfig()
-
-  if (Object.keys(manifest).length !== 0) {
-    return
-  }
+  let manifest = {}
   const cwd = getCwd()
   if (isDev) {
     const res = await instance.get(`${https ? 'https' : 'http'}://localhost:${fePort}/asset-manifest.json`)
@@ -26,10 +19,10 @@ const getManiFest = async () => {
   } else {
     manifest = require(join(cwd, './build/client/asset-manifest.json'))
   }
+  return manifest
 }
 const getManifest = async () => {
-  await getManiFest()
-  return manifest
+  return await getManiFest()
 }
 
 export {

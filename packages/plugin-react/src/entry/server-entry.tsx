@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
-import { findRoute, getManifest, logGreen, normalizePath } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
 import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactServerESMFeRouteItem } from 'ssr-types-react'
 // @ts-expect-error
 import * as Routes from 'ssr-temporary-routes'
@@ -34,6 +34,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
+    dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
   }
   const manifest = ViteMode ? {} : await getManifest()
 
