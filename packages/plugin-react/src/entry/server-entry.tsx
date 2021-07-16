@@ -32,7 +32,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   let dynamicCssOrder = cssOrder
 
-  if (dynamic) {
+  if (dynamic && !ViteMode) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
     dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
   }
