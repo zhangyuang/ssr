@@ -761,6 +761,8 @@ export const onlyCsr = defineComponent({
 
 ## 代码分割常见问题
 
+`注意：在 >=5.5.73 版本中框架已经支持绝大部分情况下开发者可能会遇到的异步文件加载的问题会自动切割出最优的文件以及自动预加载所需样式文件，所以理论上不需要开发者修改任何默认的 splitChunks 配置`
+
 框架使用 `splitChunks` 的 `chunks: 'all'` 选项来进行代码分割配置参考该[文件](https://github.com/ykfe/ssr/blob/dev/packages/plugin-react/src/config/client.ts#L31)。该配置能够保证最佳的代码尺寸。
 
 但可能会带来一定的体验问题需要手动解决。使用该配置 `webpack` 将会对不同页面的重复引入模块进行代码单独分块。这其中包含了 `css chunks` 和 `js chunks`，`js chunks` 不会对体验造成影响。`webpack runtime` 将会自行判断当前页面应该去加载哪些 `chunk`。但 `css chunks` 的分块可能会造成 `css` 闪烁。这是因为我们的 `css chunks` 是动态加载的而不是一开始就全部注入到页面头部的。也就是当我们的 `runtime~js` 文件执行的时候我们才能够知道当前页面需要去加载哪些 `css chunks`。
@@ -786,11 +788,15 @@ module.exports = {
 
 ### 点击事件失效
 
-若代码切割后发现点击事件等事件失效。那么很有可能原因是切割后首页页面没有加载完全首页所需要的 `[name.chunk.js]`。例如我们进行代码切割后很可能会将首页与其他页面重复的模块进行切割生成 `0.chunk.js` 等形式的文件。此时首页页面需要加载该文件才能够正确的激活对应的组件 `DOM`。`Vue` 场景可通过 [customeHeadScript](./api$config#customeHeadScript) 配置加载具体的 `chunk`， React 场景直接写在 `layout/index.tsx` 即可。
+`注意：如果发生了这种情况请不要自己指定 splitChunksOptions.cacheGroups 的 name 属性，否则可能需要开发者手动加载该 chunk，继承框架默认的 name 配置，应用将会根据页面自动加载当前页面可能会用到的 chunk js`
+
+若代码切割后发现点击事件等事件失效。那么很有可能原因是切割后首页页面没有加载完全首页所需要的 `[name.chunk.js]`。例如我们进行代码切割后很可能会将首页与其他页面重复的模块进行切割生成 `0.chunk.js` 等形式的文件。此时首页页面需要加载该文件才能够正确的激活对应的组件 `DOM`。可以通过[extraJsOrder](./api$config#extraJsOrder)引入额外生成的 `chunk`
 
 总的来说这种情况一旦发生就比较麻烦也没有什么必要去切割这种情况，因为即使切割成了独立 `chunk` 首页仍需要加载完该 `chunk` 后才是一个可用状态，也可以通过 `splitChunksOptions.minSize` 来配置超出多少体积时才进行切割，来减少这种情况的处理。`splitChunksOptions.minChunks` 指定拆分前必须共享模块的最小 chunks 数。具体配置参考 [Webpack SplitChunks](https://webpack.docschina.org/plugins/split-chunks-plugin/#splitchunksminchunks)
 
 ### 样式闪烁
+
+`注意：在 >=5.5.73 版本中框架已经添加了自动预加载异步 css chunks 的逻辑，理论上不会出现样式闪烁的问题，若开发者仍然出现，请联系官方开发者排查问题`
 
 最常遇到的问题就是样式闪烁。一旦首页和其他页面存在了重复模块并且被切割成独立 `chunk` 后这部分模块的 `css` 就存在闪烁的可能。
 
@@ -813,24 +819,15 @@ module.exports = {
 ```js
 // 将所有的样式文件都打包成一个 styles.chunk.css 文件
 module.exports = {
-  // 通常需要配合 extraOrder 配置一起使用
-  // version >= 5.5.72
-  extraJsOrder: ['styles.js'], // 在页面底部额外加载 styles.chunk.js 文件，生产环境自动获取正确的 hash 文件
-  extraCssOrder: ['styles.css'], // 在页面头部额外加载 styles.chunk.css 文件，生产环境自动获取正确的 hash 文件
   chainClientConfig: chain => {
     const splitChunksOptions = chain.optimization.get('splitChunks')
-    // 使用该配置 在 Vue 场景需要在 script 标签中 import 样式文件而不是在 style 标签中引入
-    // 否则打包时无法检测到 style 标签中 @import 形式导入的样式
-    // 若开发者有更优秀的配置选项可以提 issue 进行讨论
-    // 若同时生成了 styles.chunk.js 则需要配置引入，否则点击事件会失效
     splitChunksOptions.cacheGroups.styles = {
-        name: 'styles',
         test: /\.(css|less)$/,
         chunks: 'all',
         priority: 10,
         enforce: true
     }
-    // 若使用以下配置可提取为一个 styles.chunk.css 文件，但会额外生成 styles.chunk.js 文件
+    // 若使用以下配置可提取为一个 styles.chunk.css 文件，但会额外生成 styles.chunk.js 文件都需要在页面加载才能够正常使用
     // splitChunksOptions.cacheGroups.styles = {
     //   name: 'styles',
     //   test: (m, c, entry = 'app') => m.constructor.name === 'CssModule',
