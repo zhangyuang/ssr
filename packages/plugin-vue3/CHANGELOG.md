@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.74](https://github.com/ykfe/ssr/compare/v5.5.73...v5.5.74) (2021-07-16)
+
+
+### Features
+
+* use crypto algorithm to crypto asyncChunkName to prevent too long ([675d6b8](https://github.com/ykfe/ssr/commit/675d6b8a9d233c732b361590032273354845b13b))
+
+
+
+
+
 ## [5.5.73](https://github.com/ykfe/ssr/compare/v5.5.73-alpha.3...v5.5.73) (2021-07-16)
 
 
