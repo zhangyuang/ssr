@@ -100,14 +100,14 @@ const getClientWebpack = (chain: WebpackChain) => {
   })
 
   chain.plugin('WriteAsyncManifest').use(
-    class WriteAsyncCssManifest {
+    class WriteAsyncChunkManifest {
       apply (compiler: any) {
-        compiler.hooks.watchRun.tap('beforeRun', async () => {
+        compiler.hooks.watchRun.tap('thisCompilation', async () => {
           // 每次构建前清空上一次的 chunk 信息
           asyncChunkMap = {}
         })
         compiler.hooks.done.tapAsync(
-          'WriteAsyncCssManifest',
+          'WriteAsyncChunkManifest',
           async (params: any, callback: any) => {
             await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap))
             callback()
