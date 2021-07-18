@@ -954,7 +954,7 @@ async handler (): Promise<void> {
 
 ```js
 module.exports = {
-  chainBaseConfig: chain => {
+  chainClientConfig: chain => {
     const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin') // npm i fork-ts-checker-webpack-plugin -D
     chain.plugin('typecheck').use(new ForkTsCheckerWebpackPlugin({
       typescript: {
