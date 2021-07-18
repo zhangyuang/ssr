@@ -940,3 +940,27 @@ async handler (): Promise<void> {
 ### 封装双端通用的请求
 
 推荐用 [axios](https://www.npmjs.com/package/axios) 来发起 `http` 请求会自动根据当前环境判断应该使用 `xhr` 还是 `http` 模块发起。针对 `cookie` 的携带，客户端请求时同源请求会自动带上 `cookie` 当跨域请求时需要通过 `withCredentials` 配置来带上 `cookie`。服务端请求时可以通过 `ctx.req.cookies` 具体查看对应服务端框架文档拿到当前请求 `cookie`
+
+## 前端文件类型检查
+
+默认 `Webpack` 构建前端文件时不会进行类型检查，原因如下
+
+- `type check` 很慢，`esbuild`, `swc` 都不带 `type check`
+- 开发时可借助 `VSCode` 的 `type check` 功能
+- 服务端代码会强制检查类型 `Nest.js/Midway.js`，前端代码多变需要大量使用 `nocheck/ignore`
+- 有需要可以单独跑一遍 `tsc` 或者 `fork-ts-checker-plugin`
+
+若需要进行检查参考如下代码
+
+```js
+module.exports = {
+  chainBaseConfig: chain => {
+    const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin') // npm i fork-ts-checker-webpack-plugin -D
+    chain.plugin('typecheck').use(new ForkTsCheckerWebpackPlugin({
+      typescript: {
+        configFile: './web/tsconfig.json' // 指定 tsconfig 文件
+      }
+    }))
+  }
+}
+```

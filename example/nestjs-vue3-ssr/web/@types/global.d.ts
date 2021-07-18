@@ -2,8 +2,6 @@ import { IWindow } from 'ssr-types'
 import { App } from 'vue'
 import { Router } from 'vue-router'
 
-declare module '*.less'
-
 declare global {
   interface Window {
     __USE_SSR__?: IWindow['__USE_SSR__']
