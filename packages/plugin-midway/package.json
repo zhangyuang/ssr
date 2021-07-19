@@ -37,7 +37,6 @@
     "@midwayjs/fcli-plugin-package": "^1.2.39",
     "@midwayjs/fcli-plugin-scf": "^1.2.12",
     "@midwayjs/luckyeye": "^1.0.0",
-    "@types/node": "14",
     "mwts": "^1.0.5",
     "ssr-server-utils": "^5.5.74"
   },
