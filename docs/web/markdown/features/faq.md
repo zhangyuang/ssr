@@ -964,3 +964,34 @@ module.exports = {
   }
 }
 ```
+
+## 使用 svg-sprite-loader
+
+参考下方代码
+
+```js
+
+const { resolve } = require('path')
+module.exports = {
+  chainBaseConfig: chain => {
+    chain.module
+      .rule('images')
+      .exclude
+      .add(resolve(process.cwd(), './web/assets/icon'))
+      .end()
+
+    chain.module.rules.delete('svg')
+
+    chain.module
+      .rule('svg')
+      .test(/\.(svg)(\?.*)?$/)
+      .include
+      .add(resolve(process.cwd(), './web/assets/icon'))
+      .end()
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
+      .options({ symbolId: '[name]' })
+  }
+}
+
+```
