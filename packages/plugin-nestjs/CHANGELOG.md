@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.75](https://github.com/ykfe/ssr/compare/v5.5.74...v5.5.75) (2021-07-19)
+
+
+### Bug Fixes
+
+* @types/node use peerdependencies ([93d3cbd](https://github.com/ykfe/ssr/commit/93d3cbd6fe0851062c09965b9572dedb0f1ce0a5))
+
+
+
+
+
 ## [5.5.74](https://github.com/ykfe/ssr/compare/v5.5.73...v5.5.74) (2021-07-16)
 
 **Note:** Version bump only for package ssr-plugin-nestjs
