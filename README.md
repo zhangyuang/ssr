@@ -156,7 +156,7 @@
 ```bash
 $ npm init ssr-app my-ssr-project
 $ cd my-ssr-project
-$ npm install
+$ npm install # 可以使用yarn 不要使用 cnpm
 $ npm start
 $ open http://localhost:3000 # 访问应用
 $ npm run build # 资源构建，等价于 npx ssr build

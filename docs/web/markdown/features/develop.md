@@ -6,7 +6,7 @@
 
 ```shell
 $ npm init ssr-app my-ssr-project --template=midway-vue3-ssr # 这里可以选择上述任意模版
-$ cd my-ssr-project && npm i
+$ cd my-ssr-project && npm i # 可以使用 yarn 不要使用 cnpm
 $ npm start # 启动服务，等价于 npx ssr start
 $ open http://localhost:3000
 ```

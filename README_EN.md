@@ -148,7 +148,7 @@ We can create any of the above templates using `npm init`
 ```bash
 $ npm init ssr-app my-ssr-project
 $ cd my-ssr-project
-$ npm install
+$ npm install # don't use cnpm
 $ npm start
 $ open http://localhost:3000 # Access the app
 $ npm run build # Resource construction, equivalent to npx ssr build
