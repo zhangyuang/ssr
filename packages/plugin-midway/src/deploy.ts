@@ -16,6 +16,7 @@ const deploy = async (argv: Argv) => {
     const ymlContent = await fs.readFile(join(cwd, './node_modules/ssr-plugin-midway/src/f.yml'))
     await fs.writeFile(join(cwd, './f.yml'), ymlContent)
   }
+  console.log('发布过程中遇到发布失败超时/包体积过大等问题请查看文档 http://doc.ssr-fc.com/docs/features$faq#Serverless%20%E5%8F%91%E5%B8%83%E5%A4%B1%E8%B4%A5')
   try {
     if (argv.tencent) {
       await deployTencent()
