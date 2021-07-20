@@ -473,6 +473,20 @@ export default {
 
 在正式的线上应用执行阶段。我们一般使用以下方式来进行降级
 
+## 指定页面 ssr
+
+开发者或许需要针对某些页面进行服务端渲染，某些页面不需要。得益于 `ssr` 的强大设计，此功能完全不需要框架底层支持，直接在业务代码实现即可。
+
+```js
+import { render } from 'ssr-core-vue3'
+// 开发者可以在 controller 中根据不同的 path 使用不同的运行配置来决定当前的渲染模式
+
+@Controller('/')
+const stream = await render<Readable>(this.ctx, {
+  mode: 'csr'
+})
+```
+
 ### 通过 config.js
 
 发布的时候支持2种模式，默认是`mode: 'ssr'`模式，你也可以通过 config.js 中的 `mode: 'csr'` 将csr设置默认渲染模式。
