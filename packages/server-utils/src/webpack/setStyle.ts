@@ -50,6 +50,10 @@ const setStyle = (chain: WebpackChain, reg: RegExp, options: StyleOptions, isRea
     })
     .use('MiniCss')
     .loader(MiniCssExtractPlugin.loader)
+    .options({
+      // vite 场景下服务端 bundle 输出 css 文件，否则 服务端不输出
+      emit: process.env.BUILD_TOOL === 'vite' ? true : !options.isServer
+    })
     .end()
     .use('css-loader')
     .loader(loadModule('css-loader'))

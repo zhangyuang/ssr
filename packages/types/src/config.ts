@@ -70,6 +70,7 @@ export interface StyleOptions {
   modules: boolean
   loader?: string
   importLoaders: number
+  isServer: boolean
 }
 
 export interface IPlugin {
