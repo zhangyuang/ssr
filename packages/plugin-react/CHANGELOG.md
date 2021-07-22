@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.77](https://github.com/ykfe/ssr/compare/v5.5.76...v5.5.77) (2021-07-22)
+
+
+### Bug Fixes
+
+* normalizePublicPath ([b5b4d21](https://github.com/ykfe/ssr/commit/b5b4d21dc62db870f1418a3a625888b69fd2e032))
+
+
+
+
+
 ## [5.5.76](https://github.com/ykfe/ssr/compare/v5.5.75...v5.5.76) (2021-07-21)
 
 
