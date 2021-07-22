@@ -14,7 +14,7 @@
     "serialize-javascript": "^3.0.0",
     "ssr-core-react": "^5.0.0",
     "ssr-types-react": "^5.0.0",
-    "swiper": "^6.0.0"
+    "swiper": "6.7.5"
   },
   "devDependencies": {
     "@midwayjs/egg-ts-helper": "^1.0.5",
