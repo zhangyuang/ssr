@@ -1,12 +1,10 @@
 import * as WebpackChain from 'webpack-chain'
-import { loadConfig } from '../loadConfig'
+import { getImageOutputPath } from '../parse'
 
 const loadModule = require.resolve
 
 const addImageChain = (chain: WebpackChain, isServer: boolean) => {
-  const { publicPath, isDev } = loadConfig()
-  const imagePath = 'static/images'
-  const truePublicPath = isDev ? `/${imagePath}${publicPath}` : `/client/${imagePath}${publicPath}`
+  const { publicPath, imagePath } = getImageOutputPath()
   chain.module
     .rule('images')
     .test(/\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/)
@@ -21,7 +19,7 @@ const addImageChain = (chain: WebpackChain, isServer: boolean) => {
         loader: loadModule('file-loader'),
         options: {
           emitFile: !isServer,
-          publicPath: truePublicPath,
+          publicPath,
           name: '[name].[hash:8].[ext]',
           esModule: false,
           outputPath: imagePath

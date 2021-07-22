@@ -2,7 +2,7 @@
 import { promises } from 'fs'
 import { resolve } from 'path'
 import * as webpack from 'webpack'
-import { loadConfig, getCwd, cryptoAsyncChunkName } from 'ssr-server-utils'
+import { loadConfig, getCwd, cryptoAsyncChunkName, getOutputPublicPath } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
 
@@ -13,9 +13,10 @@ const loadModule = require.resolve
 let asyncChunkMap: Record<string, string> = {}
 
 const getClientWebpack = (chain: WebpackChain) => {
-  const { publicPath, isDev, chunkName, getOutput, useHash, chainClientConfig } = loadConfig()
+  const { isDev, chunkName, getOutput, useHash, chainClientConfig } = loadConfig()
   const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
-  const truePublicPath = isDev ? publicPath : `${publicPath}client/`
+  const publicPath = getOutputPublicPath()
+
   getBaseConfig(chain, false)
 
   chain.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
@@ -26,7 +27,7 @@ const getClientWebpack = (chain: WebpackChain) => {
     .path(getOutput().clientOutPut)
     .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
     .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js')
-    .publicPath(truePublicPath)
+    .publicPath(publicPath)
     .end()
 
   chain.optimization
@@ -92,7 +93,7 @@ const getClientWebpack = (chain: WebpackChain) => {
 
   chain.plugin('manifest').use(loadModule('webpack-manifest-plugin'), [{
     fileName: 'asset-manifest.json',
-    publicPath: truePublicPath
+    publicPath: publicPath
   }])
 
   chain.when(generateAnalysis, chain => {

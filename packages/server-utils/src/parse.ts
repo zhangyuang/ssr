@@ -6,7 +6,7 @@ import { getCwd, getPagesDir, getFeDir, accessFile } from './cwd'
 import { loadConfig } from './loadConfig'
 
 const debug = require('debug')('ssr:parse')
-const { dynamic } = loadConfig()
+const { dynamic, publicPath, isDev } = loadConfig()
 const pageDir = getPagesDir()
 const cwd = getCwd()
 let { prefix } = loadConfig()
@@ -24,6 +24,28 @@ export const normalizePath = (path: string) => {
     path = `/${path}`
   }
   return path
+}
+
+export const normalizePublicPath = (path: string) => {
+  // 兼容 /pre /pre/ 两种情况
+  if (!path.endsWith('/')) {
+    path = `${path}/`
+  }
+  return path
+}
+
+export const getOutputPublicPath = () => {
+  const path = normalizePublicPath(publicPath)
+  return isDev ? path : `${path}client/`
+}
+
+export const getImageOutputPath = () => {
+  const imagePath = 'static/images'
+  const normalizePath = normalizePublicPath(publicPath)
+  return {
+    publicPath: isDev ? `${normalizePath}${imagePath}` : `${normalizePath}client/${imagePath}`,
+    imagePath
+  }
 }
 
 const parseFeRoutes = async () => {
