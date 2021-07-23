@@ -2,6 +2,7 @@ import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
 import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactServerESMFeRouteItem } from 'ssr-types-react'
+import * as serialize from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from 'ssr-temporary-routes'
 import { serverContext } from './create-context'
@@ -80,13 +81,18 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   const layoutFetchData = (!isCsr && layoutFetch) ? await layoutFetch(ctx) : null
   const fetchData = (!isCsr && routeItem.fetch) ? await routeItem.fetch(ctx) : null
   const combineData = isCsr ? null : Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
+
+  const injectState = isCsr ? null : <script dangerouslySetInnerHTML={{
+    __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}`
+  }} />
+
   const Context = serverContext(combineData) // 服务端需要每个请求创建新的独立的 context
   window.STORE_CONTEXT = Context // 为每一个新的请求都创建一遍 context 并且覆盖 window 上的属性，使得无需通过props层层传递读取
 
   return (
     <StaticRouter>
       <Context.Provider value={{ state: combineData }}>
-        <Layout ctx={ctx} config={config} staticList={staticList}>
+        <Layout ctx={ctx} config={config} staticList={staticList} injectState={injectState}>
           {isCsr ? <></> : <Component />}
         </Layout>
       </Context.Provider>

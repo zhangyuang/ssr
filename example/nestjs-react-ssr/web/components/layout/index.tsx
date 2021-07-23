@@ -1,13 +1,13 @@
 
-import React, { useContext } from 'react'
-import serialize from 'serialize-javascript'
+import React from 'react'
 import { LayoutProps } from 'ssr-types-react'
 import App from './App'
 
 const Layout = (props: LayoutProps) => {
   // 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑
-  const { state } = useContext(window.STORE_CONTEXT)
+  const { injectState } = props
   const { injectCss, injectScript } = props.staticList!
+
   return (
     <html lang='en'>
       <head>
@@ -20,11 +20,7 @@ const Layout = (props: LayoutProps) => {
       </head>
       <body>
         <div id="app"><App children={props.children} /></div>
-        {
-          state && <script dangerouslySetInnerHTML={{
-            __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)}`
-          }} />
-        }
+        { injectState }
         { injectScript }
       </body>
     </html>
