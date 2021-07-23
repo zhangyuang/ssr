@@ -77,8 +77,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
   }
-  const layoutFetchData = (!isCsr && layoutFetch) ? await layoutFetch(ctx) : null
-  const fetchData = (!isCsr && routeItem.fetch) ? await routeItem.fetch(ctx) : null
+  let layoutFetchData = {}
+  let fetchData = {}
+  if (!isCsr) {
+    // csr 下不需要服务端获取数据
+    [layoutFetchData, fetchData] = await Promise.all([
+      (layoutFetch ? layoutFetch(ctx) : Promise.resolve({})),
+      (routeItem.fetch ? routeItem.fetch(ctx) : Promise.resolve({})),
+    ])
+  }
   const combineData = isCsr ? null : Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
   const Context = serverContext(combineData) // 服务端需要每个请求创建新的独立的 context
   window.STORE_CONTEXT = Context // 为每一个新的请求都创建一遍 context 并且覆盖 window 上的属性，使得无需通过props层层传递读取
