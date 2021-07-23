@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.78](https://github.com/ykfe/ssr/compare/v5.5.77...v5.5.78) (2021-07-23)
+
+
+### Features
+
+* update react injectState ([0acd219](https://github.com/ykfe/ssr/commit/0acd2196644a17a6aa826cb8cd32ff10fe64ab66))
+
+
+### Reverts
+
+* Revert "chore: modify to concurrent fetch. (#81)" (#82) ([31380a8](https://github.com/ykfe/ssr/commit/31380a82ab7d0fd3e341ede18f218c00950ec484)), closes [#81](https://github.com/ykfe/ssr/issues/81) [#82](https://github.com/ykfe/ssr/issues/82)
+
+
+
+
+
 ## [5.5.77](https://github.com/ykfe/ssr/compare/v5.5.76...v5.5.77) (2021-07-22)
 
 

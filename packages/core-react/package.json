@@ -1,6 +1,6 @@
 {
   "name": "ssr-core-react",
-  "version": "5.5.77",
+  "version": "5.5.78",
   "description": "core for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -32,10 +32,10 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
-    "serialize-javascript": "^3.0.0",
     "merge-stream": "^2.0.0",
     "react-dom": "^17.0.0",
     "react-loadable": "^5.0.0",
+    "serialize-javascript": "^3.0.0",
     "ssr-server-utils": "^5.5.77"
   },
   "devDependencies": {

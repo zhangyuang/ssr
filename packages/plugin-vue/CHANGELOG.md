@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.78](https://github.com/ykfe/ssr/compare/v5.5.77...v5.5.78) (2021-07-23)
+
+
+### Features
+
+* update react injectState ([0acd219](https://github.com/ykfe/ssr/commit/0acd2196644a17a6aa826cb8cd32ff10fe64ab66))
+
+
+
+
+
 ## [5.5.77](https://github.com/ykfe/ssr/compare/v5.5.76...v5.5.77) (2021-07-22)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-react",
-  "version": "5.5.77",
+  "version": "5.5.78",
   "description": "plugin-react for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -53,11 +53,11 @@
     "postcss-preset-env": "^6.0.5",
     "postcss-safe-parser": "4.0.1",
     "react-dev-utils": "^11.0.4",
+    "serialize-javascript": "^3.0.0",
     "ssr-client-utils": "^5.5.76",
-    "ssr-hoc-react": "^5.5.76",
+    "ssr-hoc-react": "^5.5.78",
     "ssr-server-utils": "^5.5.77",
     "ssr-webpack": "^5.5.77",
-    "serialize-javascript": "^3.0.0",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "1.1.1",
     "webpack-bundle-analyzer": "^3.6.1",
@@ -69,8 +69,8 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.3",
-    "@types/webpack": "^4.41.10",
     "@types/serialize-javascript": "^1.5.0",
-    "ssr-types-react": "^5.5.76"
+    "@types/webpack": "^4.41.10",
+    "ssr-types-react": "^5.5.78"
   }
 }
