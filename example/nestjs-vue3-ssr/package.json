@@ -8,7 +8,7 @@
     "@nestjs/platform-express": "^7.5.1",
     "pm2": "^4.5.4",
     "ssr-core-vue3": "^5.0.0",
-    "swiper": "^6.0.0",
+    "swiper": "6.7.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0",
     "vuex": "^4.0.0",
