@@ -191,7 +191,7 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
       }
       if (fetchExactMatch.length >= 2) {
         // fetch文件数量 >=2 启用完全匹配策略 render$id => fetch$id, render => fetch
-        const fetchPageFiles = `fetch${pageFiles.replace('render', '').replace('.vue', '.ts')}`
+        const fetchPageFiles = `fetch${pageFiles.replace('render', '').replace('.vue', '.ts').replace('.tsx', '.ts')}`
         if (fetchExactMatch.includes(fetchPageFiles)) {
           route.fetch = `${aliasPath}/${fetchPageFiles}`
         }
