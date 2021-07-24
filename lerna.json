@@ -2,7 +2,7 @@
   "packages": [
     "packages/*"
   ],
-  "version": "5.5.78",
+  "version": "5.5.79",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "ignoreChanges": [

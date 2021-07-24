@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.79](https://github.com/ykfe/ssr/compare/v5.5.78...v5.5.79) (2021-07-24)
+
+
+### Bug Fixes
+
+* parseRoutes bug in multiply fetch files ([00f9be3](https://github.com/ykfe/ssr/commit/00f9be311c6e9f036424193d154e5dee31647ff1))
+
+
+
+
+
 ## [5.5.77](https://github.com/ykfe/ssr/compare/v5.5.76...v5.5.77) (2021-07-22)
 
 
