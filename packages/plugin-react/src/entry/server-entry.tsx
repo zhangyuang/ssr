@@ -9,7 +9,7 @@ import { serverContext } from './create-context'
 // @ts-expect-error
 import Layout from '@/components/layout/index.tsx'
 
-const { FeRoutes, layoutFetch, BASE_NAME } = Routes as ReactRoutesType
+const { FeRoutes, layoutFetch, BASE_NAME, state } = Routes as ReactRoutesType
 
 declare const global: IGlobal
 
@@ -80,7 +80,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   }
   const layoutFetchData = (!isCsr && layoutFetch) ? await layoutFetch(ctx) : null
   const fetchData = (!isCsr && routeItem.fetch) ? await routeItem.fetch(ctx) : null
-  const combineData = isCsr ? null : Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
+  const combineData = isCsr ? null : Object.assign(state ?? {}, layoutFetchData ?? {}, fetchData ?? {})
 
   const injectState = isCsr ? null : <script dangerouslySetInnerHTML={{
     __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}`

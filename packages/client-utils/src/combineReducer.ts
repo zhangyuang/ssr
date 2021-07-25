@@ -14,7 +14,7 @@ export const combineReducers = (reducers: Reducers) => {
   })
   return [
     (state: any, action: any) => {
-      let newState = {}
+      let newState = state
       for (let i = 0; i < reducerKeys.length; i++) {
         for (const item of reducerValues) {
           const reducer = item[0]

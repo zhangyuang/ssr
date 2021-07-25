@@ -256,7 +256,20 @@ export {
   }
   return (
     <div className={styles.searchContainer}>
-      <input type="text" className={styles.input} value={state?.searchData?.text ?? ''} onChange={handleChange} />
+    <button onClick={() => {
+        dispatch({
+          type: 'updateCountValue',
+          payload: {
+            countState: {
+              value: state.countState.value+1
+            }
+          }
+        })
+      }}>+1</button>
+      <div>
+        {state.countState.value}
+      </div>
+      <input type="text" className={styles.input} value={state.searchData.text ?? ''} onChange={handleChange} />
     </div >
   )
 ```
@@ -266,20 +279,55 @@ export {
 同样开发者可以组合多个自定义的 `store`
 
 ```js
-import { userState, userReducer } from './userState'
-import { pageState, pageReducer } from './pageState'
+// search.ts
+const state = {
+  searchState: {
+    text: ''
+  }
+}
+function reducer (state: any, action: any) {
+  switch (action.type) {
+    case 'updateSearchValue':
+      return { ...state, ...action.payload }
+  }
+}
+export {
+  state,
+  reducer
+}
+// count.ts
+const state = {
+  countState: {
+    value: 0
+  }
+}
+function reducer (state: any, action: any) {
+  switch (action.type) {
+    case 'updateCountValue':
+      return { ...state, ...action.payload }
+  }
+}
+export {
+  state,
+  reducer
+}
+
+// index.ts
+
+import { state as countState, reducer as countReducer } from './count'
+import { state as searchState, reducer as searchReducer } from './search'
 
 
 const state = {
- ...userState,
- ...pageState
+ ...countState,
+ ...searchState
 }
 
-function reducer (state: any, action: Action) {
+function reducer (state: any, action: any) {
   // 调用多个 reducer
   // 如果你有更好的写法，欢迎与我们讨论
-  userReducer(state, action)
-  pageReducer(state, action)
+  return countReducer(state, action) || searchReducer(state, action)
+  
 }
 
 export {
