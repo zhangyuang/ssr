@@ -603,7 +603,7 @@ export default {
 ```js
 const Layout = (props: LayoutProps) => {
   // 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑
-  const { state } = useContext(window.STORE_CONTEXT)
+  const { injectState } = props
   const { injectCss, injectScript } = props.staticList!
   return (
     <html lang='en'>
@@ -617,11 +617,7 @@ const Layout = (props: LayoutProps) => {
       </head>
       <body className={styles.body}>
         <div id='app'>{ props.children }</div>
-        {
-          state && <script dangerouslySetInnerHTML={{
-            __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)}`
-          }} />
-        }
+        { injectState }
         { injectScript }
       </body>
     </html>

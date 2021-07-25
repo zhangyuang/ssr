@@ -240,10 +240,10 @@ export {
 
 框架监测到这一文件后，便会将用户自定义的 `store` 与默认的 `store` 进行组合。
 
-在组件中使用
+#### 在组件中使用
 
 ```js
- const { state, dispatch } = useContext<IContext<SearchState>>(window.STORE_CONTEXT)
+  const { state, dispatch } = useContext<IContext<SearchState>>(window.STORE_CONTEXT)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch?.({
       type: 'updateSearchValue',
@@ -256,12 +256,12 @@ export {
   }
   return (
     <div className={styles.searchContainer}>
-      <input type="text" className={styles.input} value={state?.searchData?.text ?? ''} onChange={handleChange} placeholder="该搜索框内容会在所有页面共享" />
+      <input type="text" className={styles.input} value={state?.searchData?.text ?? ''} onChange={handleChange} />
     </div >
   )
 ```
 
-### 组合多个 store
+#### 组合多个 store
 
 同样开发者可以组合多个自定义的 `store`
 
