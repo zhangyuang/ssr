@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-react",
-  "version": "5.5.80",
+  "version": "5.5.81",
   "description": "plugin-react for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -54,7 +54,7 @@
     "postcss-safe-parser": "4.0.1",
     "react-dev-utils": "^11.0.4",
     "serialize-javascript": "^3.0.0",
-    "ssr-client-utils": "^5.5.80",
+    "ssr-client-utils": "^5.5.81",
     "ssr-hoc-react": "^5.5.80",
     "ssr-server-utils": "^5.5.80",
     "ssr-webpack": "^5.5.80",

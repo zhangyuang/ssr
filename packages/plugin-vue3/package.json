@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-vue3",
-  "version": "5.5.80",
+  "version": "5.5.81",
   "description": "plugin-vue3 for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -53,7 +53,7 @@
     "postcss-loader": "3.0.0",
     "postcss-preset-env": "^6.0.5",
     "postcss-safe-parser": "4.0.1",
-    "ssr-client-utils": "^5.5.80",
+    "ssr-client-utils": "^5.5.81",
     "ssr-server-utils": "^5.5.80",
     "ssr-types": "^5.5.76",
     "ssr-webpack": "^5.5.80",
