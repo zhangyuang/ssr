@@ -150,7 +150,7 @@ export default defineComponent({
 
 在 `React` 场景中，我们没有使用上述的任何一种数据管理方案，我们采用了思想上与 `Provide/Inject` 类似的，同样也是 [react-hooks](https://reactjs.org/docs/hooks-intro.html) 出现后出现在大家视野的 [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext)
 
-### Hooks
+### 使用 userContext + useReducer
 
 随着 `hooks` 的流行以及 `useContext` 这个 API 的推出, 越来越多的开发者希望用它来代替 `Dva`, `Redux` 这些方案来实现数据管理，因为之前的数据管理方案写起来实在是太累了。  
 
@@ -207,16 +207,89 @@ export default Search
 
 > 注: 以上只为示例，实际开发中我们只推荐在跨组件通信时使用 dispatch，局部状态应该使用 useState 来实现，否则会导致函数内部状态过于复杂，难以追踪。
 
+### 扩展自定义 Reducer
+
+`注：需要 version >= 5.5.80`
+
+此功能还在不断探索中，如果你有更优秀的写法或者发现问题时可第一时间提 `issue` 进行反馈。
+
+当应用庞大后，开发者可能需要将应用拆分为多个 `state` 和 `reducer` 的组合进行开发。
+
+框架同样支持这种能力，我们支持用户去创建自定义的 `store` 来管理 `state` 和 `reducer`，使用方式如下
+
+```js
+// web/store/index.ts
+
+const state = {
+  searchData: {
+    text: '
+  }
+}
+function reducer (state: any, action: Action) {
+  switch (action.type) {
+    case 'updateSearchValue':
+      return { ...state, ...action.payload }
+  }
+}
+
+export {
+  state,
+  reducer
+}
+```
+
+框架监测到这一文件后，便会将用户自定义的 `store` 与默认的 `store` 进行组合。
+
+在组件中使用
+
+```js
+ const { state, dispatch } = useContext<IContext<SearchState>>(window.STORE_CONTEXT)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch?.({
+      type: 'updateSearchValue',
+      payload: {
+        searchData: {
+          text: e.target.value
+        }
+      }
+    })
+  }
+  return (
+    <div className={styles.searchContainer}>
+      <input type="text" className={styles.input} value={state?.searchData?.text ?? ''} onChange={handleChange} placeholder="该搜索框内容会在所有页面共享" />
+    </div >
+  )
+```
+
+### 组合多个 store
+
+同样开发者可以组合多个自定义的 `store`
+
+```js
+import { userState, userReducer } from './userState'
+import { pageState, pageReducer } from './pageState'
+
+
+const state = {
+ ...userState,
+ ...pageState
+}
+
+function reducer (state: any, action: Action) {
+  // 调用多个 reducer
+  // 如果你有更好的写法，欢迎与我们讨论
+  userReducer(state, action)
+  pageReducer(state, action)
+}
+
+export {
+  state,
+  reducer
+}
+```
+
+### 注意事项
+
+想要很好的使用上述功能，在平时开发中需要养成良好的习惯。开发者必须保证不同模块的 `namespace` 以及 `action type` 不能够重复，否则将会出现预期外的 `bug`。
+
 关于更多 `hooks` 使用的最佳实践可以参考该[文章](https://zhuanlan.zhihu.com/p/81752821)
-
-我们只有一个最顶层的 `store`，以及一个 `reducer` 来修改这个 `store`。综上本方案的优点以及不足如下  
-
-优势:
-- 无需再编写繁琐的单向数据流相关代码
-- 共享全局状态以及修改全局状态非常简单自然
-
-不足
-- 在大型应用状态复杂的情况下，比较难以管理
-- 需要配合 `useMemo` 一起使用，否则容易导致性能问题 (只要是使用了 `useContext` 都会遇到该问题)
-
-在大型应用可能需要考虑拆分成多个 `Context.Provider` 的组织形式来避免意外的重新 `render`。后续我们会继续跟进最佳实践  
