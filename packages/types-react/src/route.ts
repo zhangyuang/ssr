@@ -62,6 +62,8 @@ export interface ReactClientRoutesType {
   layoutFetch: ReactFetch
   FeRoutes: ReactClientESMFeRouteItem[]
   BASE_NAME?: string
+  state?: any
+  reducer?: any
 }
 
 export interface IContext<T=any> {

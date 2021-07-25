@@ -104,6 +104,7 @@ const parseFeRoutes = async () => {
       // React 场景
       const accessReactApp = await accessFile(join(getFeDir(), './components/layout/App.tsx'))
       const layoutFetch = await accessFile(join(getFeDir(), './components/layout/fetch.ts'))
+      const accessStore = await accessFile(join(getFeDir(), './store/index.ts'))
       const re = /"webpackChunkName":("(.+?)")/g
       routes = `
         ${dynamic && !viteMode ? `
@@ -112,6 +113,7 @@ const parseFeRoutes = async () => {
         export const FeRoutes = ${JSON.stringify(arr)} 
         ${accessReactApp ? 'export { default as App } from "@/components/layout/App.tsx"' : ''}
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
+        ${accessStore ? 'export * from "@/store/index.ts"' : ''}
         ${prefix ? `export const BASE_NAME='${prefix}'` : ''}
 
         `
