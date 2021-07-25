@@ -221,7 +221,7 @@ export default Search
 // web/store/index.ts
 
 const state = {
-  searchData: {
+  searchState: {
     text: '
   }
 }
@@ -239,44 +239,9 @@ export {
 ```
 
 框架监测到这一文件后，便会将用户自定义的 `store` 与默认的 `store` 进行组合。
+#### 创建多个 store
 
-#### 在组件中使用
-
-```js
-  const { state, dispatch } = useContext<IContext<SearchState>>(window.STORE_CONTEXT)
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch?.({
-      type: 'updateSearchValue',
-      payload: {
-        searchData: {
-          text: e.target.value
-        }
-      }
-    })
-  }
-  return (
-    <div className={styles.searchContainer}>
-    <button onClick={() => {
-        dispatch({
-          type: 'updateCountValue',
-          payload: {
-            countState: {
-              value: state.countState.value+1
-            }
-          }
-        })
-      }}>+1</button>
-      <div>
-        {state.countState.value}
-      </div>
-      <input type="text" className={styles.input} value={state.searchData.text ?? ''} onChange={handleChange} />
-    </div >
-  )
-```
-
-#### 组合多个 store
-
-同样开发者可以组合多个自定义的 `store`
+开发者可以组合多个自定义的 `store`
 
 ```js
 // search.ts
@@ -324,7 +289,7 @@ const state = {
 }
 
 function reducer (state: any, action: any) {
-  // 调用多个 reducer
+  // 调用多个 reducer 并将新的 state 返回
   // 如果你有更好的写法，欢迎与我们讨论
   return countReducer(state, action) || searchReducer(state, action)
   
