@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.85](https://github.com/ykfe/ssr/compare/v5.5.84...v5.5.85) (2021-07-26)
+
+
+### Features
+
+* vue scene add props.ctx in App.vue in server render stage ([8f50d9a](https://github.com/ykfe/ssr/commit/8f50d9ab095059a526888833b722507af1564b45))
+
+
+
+
+
 ## [5.5.84](https://github.com/ykfe/ssr/compare/v5.5.83...v5.5.84) (2021-07-26)
 
 **Note:** Version bump only for package ssr-plugin-vue3
