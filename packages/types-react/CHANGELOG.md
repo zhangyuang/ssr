@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.82](https://github.com/ykfe/ssr/compare/v5.5.81...v5.5.82) (2021-07-26)
+
+
+### Features
+
+* optimize combineReducer ([8033d40](https://github.com/ykfe/ssr/commit/8033d4070fe4a8d92af5e31c1aad6ddfa4e0922e))
+
+
+
+
+
 ## [5.5.80](https://github.com/ykfe/ssr/compare/v5.5.79...v5.5.80) (2021-07-25)
 
 
