@@ -121,7 +121,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
           children: isCsr ? () => h('div', {
             id: 'app'
-          }) : () => h(App, { asyncData, fetchData: combineAysncData }),
+          }) : () => h(App, { ctx, config, asyncData, fetchData: combineAysncData }),
 
           initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${ViteMode}` })
             : () => h('script', { innerHTML: `window.__USE_VITE__=${ViteMode}` }),
