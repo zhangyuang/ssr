@@ -301,6 +301,43 @@ export {
 }
 ```
 
+### 在组件中调用
+
+```js
+function Search () {
+  const { state, dispatch } = useContext<IContext<SearchState>>(window.STORE_CONTEXT)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch?.({
+      type: 'updateSearchValue',
+      payload: {
+        searchState: {
+          text: e.target.value
+        }
+      }
+    })
+  }
+  return (
+    <div className={styles.searchContainer}>
+      <button onClick={() => {
+        dispatch({
+          type: 'updateCountValue',
+          payload: {
+            countState: {
+              value: state.countState.value+1
+            }
+          }
+        })
+      }}>+1</button>
+      <div>
+        {state.countState.value}
+      </div>
+      <input type="text" className={styles.input} value={state.searchState.text ?? ''} onChange={handleChange} placeholder="该搜索框内容会在所有页面共享" />
+      <img src="https://img.alicdn.com/tfs/TB15zSoX21TBuNjy0FjXXajyXXa-48-48.png" alt="" className={styles.searchImg} onClick={toSearch} />
+    </div >
+  )
+}
+```
+
 ### 注意事项
 
 想要很好的使用上述功能，在平时开发中需要养成良好的习惯。开发者必须保证不同模块的 `namespace` 以及 `action type` 不能够重复，否则将会出现预期外的 `bug`。
