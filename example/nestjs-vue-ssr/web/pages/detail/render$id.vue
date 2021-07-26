@@ -13,7 +13,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapState } from 'vuex'
 import Player from '@/components/player'
 import Search from '@/components/search'

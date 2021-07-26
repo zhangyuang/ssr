@@ -14,7 +14,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import 'swiper/swiper-bundle.css'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import SwiperCore, { Autoplay, Pagination } from 'swiper'
