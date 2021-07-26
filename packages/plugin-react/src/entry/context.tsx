@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { useReducer } from 'react'
 import { IProps, Action, IWindow, ReactClientRoutesType } from 'ssr-types-react'
-import { combineReducers } from 'ssr-client-utils'
 
 import { clientContext as Context } from './create-context'
 
@@ -30,13 +29,14 @@ function defaultReducer (state: any, action: Action) {
       return { ...state, ...action.payload }
   }
 }
-const [reducerCombined, initialStateCombined] = combineReducers({
-  defaultReducer: [defaultReducer, window.__INITIAL_DATA__],
-  userReducer: [userReducer, userState]
-})
 
+const initialState = Object.assign({}, userState ?? {}, window.__INITIAL_DATA__)
+
+function combineReducer (state: any, action: any) {
+  return defaultReducer(state, action) || userReducer(state, action)
+}
 export function AppContext (props: IProps) {
-  const [state, dispatch] = useReducer(reducerCombined, initialStateCombined)
+  const [state, dispatch] = useReducer(combineReducer, initialState)
   return (
     <Context.Provider value={{ state, dispatch }}>
       {props.children}

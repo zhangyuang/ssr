@@ -55,6 +55,8 @@ export interface ReactRoutesType {
   layoutFetch: ReactFetch
   FeRoutes: ReactServerESMFeRouteItem[]
   BASE_NAME?: string
+  state?: any
+  reducer?: any
 }
 export interface ReactClientRoutesType {
   Layout: React.FC<LayoutProps>
