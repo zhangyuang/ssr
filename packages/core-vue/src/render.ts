@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { loadConfig, getCwd, StringToStream, mergeStream } from 'ssr-server-utils'
+import { loadConfig, getCwd, StringToStream, mergeStream2 } from 'ssr-server-utils'
 import { createRenderer } from 'vue-server-renderer'
 import { ISSRContext, UserConfig } from 'ssr-types'
 
@@ -24,7 +24,7 @@ async function render<T=string> (ctx: ISSRContext, options?: UserConfig): Promis
   const serverRender = require(serverFile).default
   const serverRes = await serverRender(ctx, config)
   // @ts-expect-error
-  return stream ? mergeStream(new StringToStream('<!DOCTYPE html>'), renderToStream(serverRes)) : `<!DOCTYPE html>${await renderToString(serverRes)}`
+  return stream ? mergeStream2(new StringToStream('<!DOCTYPE html>'), renderToStream(serverRes)) : `<!DOCTYPE html>${await renderToString(serverRes)}`
 }
 
 export {

@@ -21,7 +21,7 @@ class StringToStream extends Stream.Readable {
   }
 }
 
-function mergeStream () {
+function mergeStream2 () {
   const streamsQueue = []
   const args = slice.call(arguments)
   let merging = false
@@ -153,5 +153,5 @@ function pauseStreams (streams, options) {
 }
 export {
   StringToStream,
-  mergeStream
+  mergeStream2
 }

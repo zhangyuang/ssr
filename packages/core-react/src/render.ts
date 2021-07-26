@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { renderToString, renderToNodeStream } from 'react-dom/server'
-import { loadConfig, getCwd, StringToStream, mergeStream } from 'ssr-server-utils'
+import { loadConfig, getCwd, StringToStream, mergeStream2 } from 'ssr-server-utils'
 import { ISSRContext, UserConfig } from 'ssr-types'
 
 const cwd = getCwd()
@@ -23,7 +23,7 @@ async function render<T=string> (ctx: ISSRContext, options?: UserConfig): Promis
   const serverRender = require(serverFile).default
   const serverRes = await serverRender(ctx, config)
   // @ts-expect-error
-  return stream ? mergeStream(new StringToStream('<!DOCTYPE html>'), renderToNodeStream(serverRes)) : '<!DOCTYPE html>' + renderToString(serverRes)
+  return stream ? mergeStream2(new StringToStream('<!DOCTYPE html>'), renderToNodeStream(serverRes)) : '<!DOCTYPE html>' + renderToString(serverRes)
 }
 
 export {
