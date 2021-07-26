@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.83](https://github.com/ykfe/ssr/compare/v5.5.82...v5.5.83) (2021-07-26)
+
+
+### Features
+
+* update mergeStream function ([bba7484](https://github.com/ykfe/ssr/commit/bba7484e93fc9c3ff1ca51620a30141cd1e4a1c0))
+
+
+
+
+
 ## [5.5.80](https://github.com/ykfe/ssr/compare/v5.5.79...v5.5.80) (2021-07-25)
 
 **Note:** Version bump only for package ssr-core-vue3
