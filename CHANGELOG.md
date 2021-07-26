@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.84](https://github.com/ykfe/ssr/compare/v5.5.83...v5.5.84) (2021-07-26)
+
+
+### Bug Fixes
+
+* rename mergeStream to mergeStream2 ([a51e097](https://github.com/ykfe/ssr/commit/a51e097bf9d87a75b236620d3e9812a0f4d09406))
+
+
+
+
+
 ## [5.5.83](https://github.com/ykfe/ssr/compare/v5.5.82...v5.5.83) (2021-07-26)
 
 
