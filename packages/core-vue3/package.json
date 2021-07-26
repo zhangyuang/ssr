@@ -31,7 +31,6 @@
   "dependencies": {
     "@babel/runtime": "^7.12.13",
     "@vue/server-renderer": "^3.0.7",
-    "merge-stream": "^2.0.0",
     "serialize-javascript": "^3.0.0",
     "ssr-server-utils": "^5.5.80",
     "vue": "^3.0.0"

@@ -38,7 +38,6 @@
     "http-proxy-middleware": "^1.0.6",
     "koa2-connect": "^1.0.2",
     "path-to-regexp": "^6.2.0",
-    "readable-stream": "^3.6.0",
     "shelljs": "^0.8.3",
     "ssr-types": "^5.5.76"
   }
