@@ -196,7 +196,8 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .loader(loadModule('file-loader'))
     .options({
       name: 'static/[name].[hash:8].[ext]',
-      esModule: false
+      esModule: false,
+      emitFile: !isServer
     })
     .end()
 
@@ -207,7 +208,8 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .loader(loadModule('file-loader'))
     .options({
       name: 'static/[name].[hash:8].[ext]',
-      esModule: false
+      esModule: false,
+      emitFile: !isServer
     })
 
   chain.plugin('minify-css').use(MiniCssExtractPlugin, [{
