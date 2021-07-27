@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.86](https://github.com/ykfe/ssr/compare/v5.5.85...v5.5.86) (2021-07-27)
+
+
+### Features
+
+* not emit svg file in server side ([e8aaefc](https://github.com/ykfe/ssr/commit/e8aaefc5aef0627fb62e87ac5e37444c921c1c67))
+
+
+
+
+
 ## [5.5.85](https://github.com/ykfe/ssr/compare/v5.5.84...v5.5.85) (2021-07-26)
 
 
