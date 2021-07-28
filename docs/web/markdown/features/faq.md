@@ -298,7 +298,7 @@ export default {
 
 ## 使用 UI 框架
 
-`React` 场景下我们已经对 [antd](https://ant.design/) 进行兼容，`Vue` 场景已经对 [vant](https://vant-contrib.gitee.io/vant/#/) 进行兼容，可以直接在组件中引用无需做任何额外配置。
+`React` 场景下我们已经对 [antd](https://ant.design/) 进行兼容，`Vue` 场景已经对 [vant](https://vant-contrib.gitee.io/vant/#/) [ant-design-vue](https://antdv.com/docs/vue/introduce-cn/) 进行兼容，可以直接在组件中引用无需做任何额外配置。
 
 ### 使用方式
 
