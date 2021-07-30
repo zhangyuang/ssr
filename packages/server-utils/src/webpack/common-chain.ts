@@ -11,7 +11,7 @@ const addImageChain = (chain: WebpackChain, isServer: boolean) => {
     .use('url-loader')
     .loader(loadModule('url-loader'))
     .options({
-      limit: 10000,
+      limit: false, // 关闭 base64
       name: '[name].[hash:8].[ext]',
       // require 图片的时候不用加 .default
       esModule: false,
