@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.88](https://github.com/ykfe/ssr/compare/v5.5.87...v5.5.88) (2021-07-30)
+
+
+### Bug Fixes
+
+* url-loader limit ([3baad15](https://github.com/ykfe/ssr/commit/3baad157585aa441b4f3ecda332fc0c327730248))
+
+
+
+
+
 ## [5.5.87](https://github.com/ykfe/ssr/compare/v5.5.86...v5.5.87) (2021-07-30)
 
 
