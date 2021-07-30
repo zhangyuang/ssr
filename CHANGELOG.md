@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.87](https://github.com/ykfe/ssr/compare/v5.5.86...v5.5.87) (2021-07-30)
+
+
+### Bug Fixes
+
+* close limit base64 ([02f6e04](https://github.com/ykfe/ssr/commit/02f6e04eb24cbf83481608477417b57cd3ada685))
+
+
+
+
+
 ## [5.5.86](https://github.com/ykfe/ssr/compare/v5.5.85...v5.5.86) (2021-07-27)
 
 

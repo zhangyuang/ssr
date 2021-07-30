@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.87](https://github.com/ykfe/ssr/compare/v5.5.86...v5.5.87) (2021-07-30)
+
+**Note:** Version bump only for package ssr-plugin-nestjs
+
+
+
+
+
 ## [5.5.84](https://github.com/ykfe/ssr/compare/v5.5.83...v5.5.84) (2021-07-26)
 
 **Note:** Version bump only for package ssr-plugin-nestjs
