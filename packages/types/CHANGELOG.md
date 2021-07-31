@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.89](https://github.com/ykfe/ssr/compare/v5.5.88...v5.5.89) (2021-07-31)
+
+
+### Features
+
+* support routerPriority ([385c07e](https://github.com/ykfe/ssr/commit/385c07efd19897ce67ddbc436dca4a3bb438b62a))
+
+
+
+
+
 ## [5.5.76](https://github.com/ykfe/ssr/compare/v5.5.75...v5.5.76) (2021-07-21)
 
 
