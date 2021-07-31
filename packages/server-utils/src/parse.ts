@@ -69,7 +69,8 @@ const parseFeRoutes = async () => {
     const arr = await renderRoutes(pageDir, pathRecord, route)
     if (routerPriority) {
       arr.sort((a, b) => {
-        return routerPriority![b.path] - routerPriority![a.path]
+        // 没有显示指定的路由优先级统一为 0
+        return (routerPriority![b.path] || 0) - (routerPriority![a.path] || 0)
       })
     }
 
