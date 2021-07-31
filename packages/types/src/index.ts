@@ -10,8 +10,8 @@ export type ESMFeRouteItem<T={}> = {
 } & T
 
 export interface ParseFeRouteItem {
-  path?: string
+  path: string
   fetch?: string
   component?: string
-  webpackChunkName?: string
+  webpackChunkName: string
 }

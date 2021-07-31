@@ -9,7 +9,7 @@ const debug = require('debug')('ssr:parse')
 const { dynamic, publicPath, isDev } = loadConfig()
 const pageDir = getPagesDir()
 const cwd = getCwd()
-let { prefix } = loadConfig()
+let { prefix, routerPriority } = loadConfig()
 
 if (prefix && !prefix.startsWith('/')) {
   prefix = `/${prefix}`
@@ -67,6 +67,11 @@ const parseFeRoutes = async () => {
     const pathRecord = [''] // 路径记录
     const route: ParseFeRouteItem = {}
     const arr = await renderRoutes(pageDir, pathRecord, route)
+    if (routerPriority) {
+      arr.sort((a, b) => {
+        return routerPriority![b.path] - routerPriority![a.path]
+      })
+    }
 
     debug('Before the result that parse web folder to routes is: ', arr)
 

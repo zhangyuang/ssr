@@ -55,7 +55,9 @@ export interface IConfig {
   corejs: boolean
   https: boolean
   babelExtraModule?: RuleSetCondition
+  routerPriority?: Record<string, number>
 }
+
 type Optional <T>= { [key in keyof T]?: T[key] }
 
 export interface proxyOptions {
