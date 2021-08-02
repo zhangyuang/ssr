@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.90](https://github.com/ykfe/ssr/compare/v5.5.89...v5.5.90) (2021-08-02)
+
+
+### Features
+
+* config add customeFooterScript ([0a41ad9](https://github.com/ykfe/ssr/commit/0a41ad9920d4d1b1bd9966ed6db99bb12a8b422f))
+
+
+
+
+
 ## [5.5.89](https://github.com/ykfe/ssr/compare/v5.5.88...v5.5.89) (2021-07-31)
 
 **Note:** Version bump only for package ssr-plugin-vue
