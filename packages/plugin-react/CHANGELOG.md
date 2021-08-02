@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.91](https://github.com/ykfe/ssr/compare/v5.5.90...v5.5.91) (2021-08-02)
+
+
+### Features
+
+* support parallel fetch ([0268c4c](https://github.com/ykfe/ssr/commit/0268c4c9ae25062feba75c40f10e6a3d3df64381))
+
+
+
+
+
 ## [5.5.90](https://github.com/ykfe/ssr/compare/v5.5.89...v5.5.90) (2021-08-02)
 
 **Note:** Version bump only for package ssr-plugin-react
