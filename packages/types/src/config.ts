@@ -60,6 +60,7 @@ export interface IConfig {
   https: boolean
   babelExtraModule?: RuleSetCondition
   routerPriority?: Record<string, number>
+  parallelFetch?: boolean
 }
 
 type Optional <T>= { [key in keyof T]?: T[key] }

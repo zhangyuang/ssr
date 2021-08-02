@@ -16,7 +16,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   const ViteMode = process.env.BUILD_TOOL === 'vite'
   sync(store, router)
 
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch } = config
   let path = ctx.request.path // 这里取 pathname 不能够包含 queyString
   if (BASE_NAME) {
     path = normalizePath(path)
@@ -52,11 +52,19 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
 
   if (!isCsr) {
     // csr 下不需要服务端获取数据
-    if (layoutFetch) {
-      layoutFetchData = await layoutFetch({ store, router: router.currentRoute }, ctx)
-    }
-    if (fetch) {
-      fetchData = await fetch({ store, router: router.currentRoute }, ctx)
+    if (parallelFetch) {
+      // 是否
+      [layoutFetchData, fetchData] = await Promise.all([
+        layoutFetch ? layoutFetch({ store, router: router.currentRoute }, ctx) : Promise.resolve({}),
+        fetch ? fetch({ store, router: router.currentRoute }, ctx) : Promise.resolve({})
+      ])
+    } else {
+      if (layoutFetch) {
+        layoutFetchData = await layoutFetch({ store, router: router.currentRoute }, ctx)
+      }
+      if (fetch) {
+        fetchData = await fetch({ store, router: router.currentRoute }, ctx)
+      }
     }
   }
   const combineAysncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})

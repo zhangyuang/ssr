@@ -14,7 +14,7 @@ const { FeRoutes, layoutFetch, BASE_NAME, state } = Routes as ReactRoutesType
 declare const global: IGlobal
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
-  const { cssOrder, jsOrder, dynamic, mode, chunkName } = config
+  const { cssOrder, jsOrder, dynamic, mode, chunkName, parallelFetch } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   let path = ctx.request.path // 这里取 pathname 不能够包含 queyString
   if (BASE_NAME) {
@@ -74,12 +74,31 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   }
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
-  const Component = routeItem.component
+  const { component, fetch } = routeItem
+  const Component = component
+
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
   }
-  const layoutFetchData = (!isCsr && layoutFetch) ? await layoutFetch(ctx) : null
-  const fetchData = (!isCsr && routeItem.fetch) ? await routeItem.fetch(ctx) : null
+
+  let layoutFetchData = {}
+  let fetchData = {}
+  if (!isCsr) {
+    // csr 下不需要服务端获取数据
+    if (parallelFetch) {
+      [layoutFetchData, fetchData] = await Promise.all([
+        layoutFetch ? layoutFetch(ctx) : Promise.resolve({}),
+        fetch ? fetch(ctx) : Promise.resolve({})
+      ])
+    } else {
+      if (layoutFetch) {
+        layoutFetchData = await layoutFetch(ctx)
+      }
+      if (fetch) {
+        fetchData = await fetch(ctx)
+      }
+    }
+  }
   const combineData = isCsr ? null : Object.assign(state ?? {}, layoutFetchData ?? {}, fetchData ?? {})
 
   const injectState = isCsr ? null : <script dangerouslySetInnerHTML={{
