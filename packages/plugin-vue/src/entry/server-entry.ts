@@ -16,7 +16,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   const ViteMode = process.env.BUILD_TOOL === 'vite'
   sync(store, router)
 
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, chunkName } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName } = config
   let path = ctx.request.path // 这里取 pathname 不能够包含 queyString
   if (BASE_NAME) {
     path = normalizePath(path)
@@ -128,6 +128,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           h('template', {
             slot: 'customeHeadScript'
           }, customeHeadScript?.map(item => h('script', Object.assign({}, item.describe, {
+            domProps: {
+              innerHTML: item.content
+            }
+          })))),
+          h('template', {
+            slot: 'customeFooterScript'
+          }, customeFooterScript?.map(item => h('script', Object.assign({}, item.describe, {
             domProps: {
               innerHTML: item.content
             }

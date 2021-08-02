@@ -257,6 +257,13 @@ module.exports = {
 }
 ```
 
+## customeFooterScript
+
+- 类型: `Array<{describe: object, content: string }>`
+- 默认: `[]`
+
+仅在 `Vue` 场景下使用, 意义同上。在页面底部加载的静态资源文件。需要配合 `<slot name="customeFooterScript" />` 使用。若当前 `example` 是之前创建的 `layout/index.vue` 不存在该 `slot` 的话需要手动添加
+
 ## css
 
 - 示例: 

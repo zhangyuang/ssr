@@ -47,6 +47,10 @@ export interface IConfig {
     describe: object
     content: string
   }>
+  customeFooterScript?: Array<{
+    describe: object
+    content: string
+  }>
   locale?: {
     enable: false
   }

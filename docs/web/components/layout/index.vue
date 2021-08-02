@@ -22,6 +22,7 @@
         <slot name="children" />
       </div>
       <slot name="initialData" />
+      <slot name="customeFooterScript" />
       <slot name="jsInject" />
     </body>
   </html>

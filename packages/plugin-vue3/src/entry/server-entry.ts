@@ -19,7 +19,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     path = normalizePath(path)
   }
   const store = createStore()
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, chunkName } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName } = config
   const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
   const ViteMode = process.env.BUILD_TOOL === 'vite'
 
@@ -111,6 +111,14 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
             }) : null,
 
           customeHeadScript: () => customeHeadScript?.map((item) =>
+            h(
+              'script',
+              Object.assign({}, item.describe, {
+                innerHTML: item.content
+              })
+            )
+          ),
+          customeFooterScript: () => customeFooterScript?.map((item) =>
             h(
               'script',
               Object.assign({}, item.describe, {
