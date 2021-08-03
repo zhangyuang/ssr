@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.92](https://github.com/ykfe/ssr/compare/v5.5.91...v5.5.92) (2021-08-03)
+
+
+### Bug Fixes
+
+* 修复渲染降级 ([9accc6c](https://github.com/ykfe/ssr/commit/9accc6c07998ca72602add786d53b41172d77086))
+
+
+
+
+
 ## [5.5.91](https://github.com/ykfe/ssr/compare/v5.5.90...v5.5.91) (2021-08-02)
 
 **Note:** Version bump only for package ssr-core-vue3
