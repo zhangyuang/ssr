@@ -93,4 +93,4 @@ provider:
 
 ### Nest.js 应用部署
 
-在 `Nest.js` 类型的应用中，我们提供了 `npm run prod` 命令。该命令将会直接调用 [pm2](https://pm2.keymetrics.io/) 进行生产环境多进程模式部署。
+在 `Nest.js` 类型的应用中，我们提供了 `npm run prod` 命令。该命令将会直接调用 [pm2](https://pm2.keymetrics.io/) 进行生产环境多进程模式部署。使用 `pm2` 部署时需要注意 `NODE_ENV` 需要设置为 `production`
