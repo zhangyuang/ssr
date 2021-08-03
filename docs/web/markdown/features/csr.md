@@ -55,9 +55,13 @@
 
 [ssr-core-react](https://github.com/ykfe/ssr/blob/dev/packages/core-react/src/render.ts) 和 [ssr-core-vue](https://github.com/ykfe/ssr/blob/dev/packages/core-vue3/src/index.ts) (vue3)模块均支持该方式
 
-在应用执行出错 `catch` 到 `error` 的时候降级为客户端渲染。也可根据具体的业务逻辑，由开发者自行决定在适当的时候通过该方式降级 `csr` 模式。
+在应用执行出错 `catch` 到 `error` 的时候降级为客户端渲染。也可根据具体的业务逻辑，由开发者自行决定在适当的时候通过该方式降级 `csr` 模式。也可以通过接入发布订阅机制，通过发布平台来实时设置当前的渲染模式。
 
-下面可以看到 `ssr-core-react` 模块的例子
+下面可以看到 `ssr-core-react` 模块的例子，如果你有更好的写法欢迎向我们反馈。
+
+#### 处理 字符串 返回形式的降级
+
+字符串的降级处理很简单，我们只需要 `try catch` 到错误后，直接修改渲染模式拿到新的结果即可。因为此时组件的渲染是在 `render` 方法被调用时就被渲染执行了
 
 ```js
 import { render } from 'ssr-core-react'
@@ -74,6 +78,50 @@ try {
 ```
 
 当 `server` 出现问题的时候，这样的容灾做法是比较好的。更好的做法是网关层面，配置容灾，将请求打到 `cdn` 上。
+
+
+#### 处理 流 返回形式的降级
+
+流返回形式的降级处理略麻烦。在 `Nest.js` 或者 `express` 系的框架中我们可以用以下写法进行降级
+
+```js
+const stream = await render<Readable>(ctx, {
+  stream: true
+})
+stream.pipe(res, { end: false })
+stream.on('error', async () => {
+  stream.destroy() // 销毁旧的错误流
+  const newStream = await render<Readable>(ctx, {
+    stream: true,
+    mode: 'csr'
+  })
+  newStream.pipe(res, { end: false })
+  newStream.on('end', () => {
+    res.end()
+  })
+})
+stream.on('end', () => {
+  res.end()
+})
+```
+
+在 `Midway.js/Koa` 系框架中采用如下写法
+
+```js
+const stream = await render<Readable>(this.ctx, {
+  stream: true,
+  mode: 'ssr'
+})
+stream.on('error', async () => {
+  stream.destroy()
+  const newStream = await render<Readable>(ctx, {
+    stream: false, // 这里只能用 string 形式来渲染 koa 无法二次赋值 stream 给 body
+    mode: 'csr'
+  })
+  this.ctx.res.end(newStream)
+})
+this.ctx.body = stream
+```
 
 ## 实现机制
 

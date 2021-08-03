@@ -34,7 +34,7 @@ function mergeStream2 () {
   }
 
   const doEnd = options.end !== false
-  const doPipeError = options.pipeError === true
+  const doPipeError = true
   if (options.objectMode == null) {
     options.objectMode = true
   }
@@ -75,7 +75,6 @@ function mergeStream2 () {
       merging = false
       mergeStream()
     }
-
     function pipe (stream) {
       function onend () {
         stream.removeListener('merge2UnpipeEnd', onend)

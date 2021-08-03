@@ -15,16 +15,24 @@ async function render<T = string> (ctx: ISSRContext, options?: UserConfig): Prom
     // clear cache in development environment
     delete require.cache[serverFile]
   }
-  if (typeof ctx.response.type === 'function') {
-    ctx.response.type('.html')
-  } else {
+  if (typeof ctx.response.type !== 'function') {
+    // midway/koa 场景设置默认 content-type
     ctx.response.type = 'text/html'
   }
   const serverRender = require(serverFile).default
-
   const serverRes = await serverRender(ctx, config)
-  // @ts-expect-error
-  return stream ? mergeStream2(new StringToStream('<!DOCTYPE html>'), renderToStream(serverRes)) : `<!DOCTYPE html>${await renderToString(serverRes)}`
+
+  if (stream) {
+    // @ts-expect-error
+    const stream = mergeStream2(new StringToStream('<!DOCTYPE html>'), renderToStream(serverRes))
+    stream.on('error', (e: any) => {
+      console.log(e)
+    })
+    return stream
+  } else {
+    // @ts-expect-error
+    return `<!DOCTYPE html>${await renderToString(serverRes)}`
+  }
 }
 
 export { render }

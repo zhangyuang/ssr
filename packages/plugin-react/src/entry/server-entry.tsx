@@ -80,7 +80,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
   }
-
   let layoutFetchData = {}
   let fetchData = {}
   if (!isCsr) {
