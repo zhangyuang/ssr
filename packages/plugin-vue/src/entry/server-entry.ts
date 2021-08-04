@@ -103,7 +103,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
       const injectScript: Vue.VNode[] = ViteMode ? [h('script', {
         attrs: {
           type: 'module',
-          src: `/node_modules/ssr-plugin-vue/esm/entry/client-entry.js?refresh=${Date.now()}`
+          src: '/node_modules/ssr-plugin-vue/esm/entry/client-entry.js'
         }
       })] : jsOrder.map(js => h('script', {
         attrs: {
