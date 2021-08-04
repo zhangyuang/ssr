@@ -114,7 +114,7 @@ const stream = await render<Readable>(this.ctx, {
 })
 stream.on('error', async () => {
   stream.destroy()
-  const newStream = await render<Readable>(ctx, {
+  const newStream = await render<string>(ctx, {
     stream: false, // 这里只能用 string 形式来渲染 koa 无法二次赋值 stream 给 body
     mode: 'csr'
   })
