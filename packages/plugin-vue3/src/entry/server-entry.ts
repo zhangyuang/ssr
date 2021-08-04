@@ -96,7 +96,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   const injectScript = ViteMode ? h('script', {
     type: 'module',
-    src: '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'
+    src: `/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js?refresh=${Date.now()}`
   }) : jsOrder.map(js =>
     h('script', {
       src: manifest[js]
