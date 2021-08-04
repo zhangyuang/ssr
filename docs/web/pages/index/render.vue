@@ -30,7 +30,7 @@
         </div>
         <div class="swiper-container mySwiper">
           <div class="swiper-wrapper">
-            <img class="swiper-slide" src="/images/material-2x.png" type="image/svg+xml">
+            <!-- <img class="swiper-slide" src="/images/material-2x.png" type="image/svg+xml"> -->
             <img class="swiper-slide" src="/images/resume3.svg" type="image/svg+xml">
             <img class="swiper-slide" src="/images/homecode3.svg" type="image/svg+xml">
             <img class="swiper-slide" src="/images/homecode4-1.svg" type="image/svg+xml">
