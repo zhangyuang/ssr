@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.93](https://github.com/ykfe/ssr/compare/v5.5.92...v5.5.93) (2021-08-04)
+
+
+### Bug Fixes
+
+* clear router cache in vite mode ([cea9fc0](https://github.com/ykfe/ssr/commit/cea9fc09c41813bbc1fe4a8d8d94c1d511f85945))
+
+
+
+
+
 ## [5.5.92](https://github.com/ykfe/ssr/compare/v5.5.91...v5.5.92) (2021-08-03)
 
 
