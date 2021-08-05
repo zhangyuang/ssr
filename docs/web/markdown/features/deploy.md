@@ -113,3 +113,4 @@ provider:
 - `node_modules` 你可以在服务器上去 `npm i` 或者本地 `npm i` 之后扔上去
 - `build` 前端静态资源文件夹，你可以本地构建完扔上去。也可以在服务器执行 `ssr build`，当然这一步必须要在 `npm i` 之后执行
 - `dist` 服务端 `Node.js` 部署文件。你可以本地构建完扔上去。也可以在服务器执行 `ssr build`，当然这一步必须要在 `npm i` 之后执行
+- `config.js` 应用配置文件，必须存在
