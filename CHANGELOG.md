@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.95](https://github.com/ykfe/ssr/compare/v5.5.94...v5.5.95) (2021-08-05)
+
+
+### Bug Fixes
+
+* ssr types ([5aad4da](https://github.com/ykfe/ssr/commit/5aad4dafbf25cff1ea55fd4773a76a957ebd58d5))
+
+
+
+
+
 ## [5.5.94](https://github.com/ykfe/ssr/compare/v5.5.93...v5.5.94) (2021-08-05)
 
 
