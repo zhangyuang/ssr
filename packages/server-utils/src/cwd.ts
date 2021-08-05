@@ -125,6 +125,12 @@ const copyViteConfig = async () => {
       folder = 'ssr-plugin-react'
     }
     await promises.copyFile(resolve(getCwd(), `./node_modules/${folder}/src/config/vite.config.tpl`), resolve(getCwd(), './vite.config.js'))
+  } else {
+    // 如果有 vite.config.js 则检测是不是最新的
+    const buildAlias = require(resolve(getCwd(), './vite.config.js')).resolve?.alias?._build
+    if (!buildAlias) {
+      throw new Error('当前 vite.config.js 为旧版，请删除后由框架重新创建或手动添加新的 alias 规则 \'_build\': join(process.cwd(), \'./build\')')
+    }
   }
 }
 

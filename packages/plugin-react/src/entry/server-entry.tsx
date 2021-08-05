@@ -4,7 +4,7 @@ import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from '
 import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactServerESMFeRouteItem } from 'ssr-types-react'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
-import * as Routes from 'ssr-temporary-routes'
+import * as Routes from '_build/ssr-temporary-routes'
 import { serverContext } from './create-context'
 // @ts-expect-error
 import Layout from '@/components/layout/index.tsx'

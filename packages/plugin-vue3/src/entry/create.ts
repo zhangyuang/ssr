@@ -2,7 +2,7 @@
 import { createRouter as create, createWebHistory, createMemoryHistory } from 'vue-router'
 import { createStore as createVuexStore } from 'vuex'
 // @ts-expect-error
-import * as Routes from 'ssr-temporary-routes'
+import * as Routes from '_build/ssr-temporary-routes'
 
 import { RoutesType, VueRouterOptions } from './interface'
 

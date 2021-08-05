@@ -146,6 +146,10 @@ export default defineComponent({
 
 ```
 
+### Vue 场景总结
+
+在 `fetch.ts` 中 `return value` 后，通过 `props.asyncData` 拿到 `layout fetch` 与 `page fetch` 合并后的结果。通过 `props.fetchData` 拿到当前页面对应的 `fetch` 的结果。也就是在 `layout/index.vue` 拿到的是 `layout fetch`，在页面组件拿到的是 `page fetch`。
+
 ## React 场景
 
 在 `React` 场景中，我们没有使用上述的任何一种数据管理方案，我们采用了思想上与 `Provide/Inject` 类似的，同样也是 [react-hooks](https://reactjs.org/docs/hooks-intro.html) 出现后出现在大家视野的 [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext)

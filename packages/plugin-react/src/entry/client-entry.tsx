@@ -5,7 +5,7 @@ import { preloadComponent } from 'ssr-client-utils'
 import { wrapComponent } from 'ssr-hoc-react'
 import { IWindow, LayoutProps, ReactClientESMFeRouteItem, ReactClientRoutesType } from 'ssr-types-react'
 // @ts-expect-error
-import * as Routes from 'ssr-temporary-routes'
+import * as Routes from '_build/ssr-temporary-routes'
 import { AppContext } from './context'
 
 const { FeRoutes, layoutFetch, App, BASE_NAME } = Routes as ReactClientRoutesType

@@ -4,7 +4,7 @@ import { ISSRContext, IConfig } from 'ssr-types'
 import { sync } from 'vuex-router-sync'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
-import * as Routes from 'ssr-temporary-routes'
+import * as Routes from '_build/ssr-temporary-routes'
 import { IServerFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 

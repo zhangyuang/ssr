@@ -75,6 +75,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .end()
   chain.resolve.alias
     .set('@', getFeDir())
+    .set('_build', join(getCwd(), './build'))
     .set('react', loadModule('react')) // 用cwd的路径alias，否则可能会出现多个react实例
     .set('react-router', loadModule('react-router'))
     .set('react-router-dom', loadModule('react-router-dom'))
@@ -92,7 +93,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .rule('compileBabelForExtraModule')
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
     .include
-    .add([/ssr-plugin-react/, /ssr-client-utils/, /ssr-hoc-react/, /ssr-temporary-routes/])
+    .add([/ssr-plugin-react/, /ssr-client-utils/, /ssr-hoc-react/])
 
   let babelForExtraModule
   if (babelExtraModule) {

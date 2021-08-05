@@ -56,10 +56,6 @@ const parseFeRoutes = async () => {
     return
   }
 
-  if (!await accessFile(join(cwd, './node_modules/ssr-temporary-routes'))) {
-    Shell.mkdir(join(cwd, './node_modules/ssr-temporary-routes'))
-  }
-
   let routes = ''
   const declaretiveRoutes = await accessFile(join(getFeDir(), './route.ts')) // 是否存在自定义路由
   if (!declaretiveRoutes) {
@@ -152,10 +148,14 @@ const parseFeRoutes = async () => {
   }
 
   debug('After the result that parse web folder to routes is: ', routes)
+  await writeRoutes(routes)
+}
 
-  await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
-  await fs.copyFile(resolve(__dirname, '../src/packagejson.tpl'), resolve(cwd, './node_modules/ssr-temporary-routes/package.json'))
-  await renderTmpFile(viteMode)
+const writeRoutes = async (routes: string) => {
+  if (!await accessFile(join(cwd, './build'))) {
+    Shell.mkdir(join(cwd, './build'))
+  }
+  await fs.writeFile(resolve(cwd, './build/ssr-temporary-routes.js'), routes)
 }
 
 const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {
@@ -229,14 +229,6 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
 
 const getDynamicParam = (url: string) => {
   return url.split('$').filter(r => r !== 'render' && r !== '').map(r => r.replace(/\.[\s\S]+/, '').replace('#', '?')).join('/:')
-}
-
-const renderTmpFile = async (viteMode: boolean) => {
-  if (process.env.TEST && viteMode) {
-    // 开发同学本地开发时 vite 场景将路由表写一份到 repo 下面而不是 example 下面，否则 client-entry 会找不到该文件
-    Shell.rm('-rf', resolve(__dirname, '../../../node_modules/ssr-temporary-routes/'))
-    Shell.cp('-r', resolve(cwd, './node_modules/ssr-temporary-routes/'), resolve(__dirname, '../../../node_modules/ssr-temporary-routes/'))
-  }
 }
 
 export {

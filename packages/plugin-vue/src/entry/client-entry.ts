@@ -3,7 +3,7 @@ import { Store } from 'vuex'
 import { Route } from 'vue-router'
 import { findRoute, normalizePath } from 'ssr-client-utils'
 // @ts-expect-error
-import * as Routes from 'ssr-temporary-routes'
+import * as Routes from '_build/ssr-temporary-routes'
 import { ESMFetch, RoutesType, IClientFeRouteItem } from './interface'
 import { createRouter, createStore } from './create'
 

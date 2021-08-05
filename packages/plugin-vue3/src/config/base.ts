@@ -117,6 +117,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .end()
   chain.resolve.alias
     .set('@', getFeDir())
+    .set('_build', join(getCwd(), './build'))
     .set('vue$', 'vue/dist/vue.runtime.esm-bundler.js')
     .end()
 
@@ -162,7 +163,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .rule('compileBabelForExtraModule')
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
     .include
-    .add([/ssr-plugin-vue3/, /ssr-client-utils/, /ssr-hoc-vue/, /ssr-temporary-routes/, /vue/])
+    .add([/ssr-plugin-vue3/, /ssr-client-utils/, /ssr-hoc-vue/, /vue/])
 
   let babelForExtraModule
   if (babelExtraModule) {

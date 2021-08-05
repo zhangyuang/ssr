@@ -5,7 +5,7 @@ import { IProps, Action, IWindow, ReactClientRoutesType } from 'ssr-types-react'
 import { clientContext as Context } from './create-context'
 
 // @ts-expect-error
-import * as Routes from 'ssr-temporary-routes'
+import * as Routes from '_build/ssr-temporary-routes'
 
 const { reducer, state } = Routes as ReactClientRoutesType
 

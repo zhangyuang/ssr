@@ -3,7 +3,12 @@ import { config } from './config'
 
 export default async ({ router }, ctx?: ISSRContext) => {
   const path = router.path.replace(/\$/g, '/').replace('/docs/', '')
-  const data = (await import(`../../markdown/${path}.md`)).default
+  let data
+  if (__isBrowser__) {
+    data = (await import(`../../markdown/${path}.md`)).default
+  } else {
+    data = require(`../../markdown/${path}.md`).default
+  }
   return {
     docsContent: data,
     pagePath: path,
