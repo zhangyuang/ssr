@@ -64,6 +64,8 @@ $ tree ./ -I node_modules -L 3
 ```shell
 $ DEBUG=ssr:* npm start
 ```
+
+也可以直接查看 `build/ssr-temporary-routes.js` 文件
 ### 实现代码
 
 具体的实现代码可以查看该[文件](https://github.com/ykfe/ssr/blob/dev/packages/server-utils/src/parse.ts#L13)
