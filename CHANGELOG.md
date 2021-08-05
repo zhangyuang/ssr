@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.94](https://github.com/ykfe/ssr/compare/v5.5.93...v5.5.94) (2021-08-05)
+
+
+### Bug Fixes
+
+* clear router cache in vite mode ([d2d7e00](https://github.com/ykfe/ssr/commit/d2d7e003f4cbecee6cc0770a64653714b50ff34b))
+
+
+### Features
+
+* move ssr-temporary-routes position ([9966d10](https://github.com/ykfe/ssr/commit/9966d10b466e2d6dcf10ba09b4267dd8e2a324f0))
+
+
+
+
+
 ## [5.5.93](https://github.com/ykfe/ssr/compare/v5.5.92...v5.5.93) (2021-08-04)
 
 
