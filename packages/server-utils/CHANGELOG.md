@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.98](https://github.com/ykfe/ssr/compare/v5.5.97...v5.5.98) (2021-08-06)
+
+
+### Bug Fixes
+
+* update plugin-react base config ([d275fed](https://github.com/ykfe/ssr/commit/d275fed8b9c678d9fb6345ba8f6a67df63f87902))
+
+
+
+
+
 ## [5.5.97](https://github.com/ykfe/ssr/compare/v5.5.96...v5.5.97) (2021-08-06)
 
 
