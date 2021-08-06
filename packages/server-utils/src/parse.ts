@@ -175,6 +175,10 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
       pathRecord.pop() // 回溯
       arr = arr.concat(childArr)
     } else {
+      // 遍历一个文件夹下面的所有文件
+      if (!pageFiles.includes('render')) {
+        continue
+      }
       // 拿到具体的文件
       if (pageFiles.includes('render')) {
         /* /news */
@@ -186,7 +190,6 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         }
         route.webpackChunkName = webpackChunkName
       }
-
       if (pageFiles.includes('render$')) {
         /* /news/:id */
         route.path = `${prefixPath}/:${getDynamicParam(pageFiles)}`
@@ -203,14 +206,13 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         if (fetchExactMatch.includes(fetchPageFiles)) {
           route.fetch = `${aliasPath}/${fetchPageFiles}`
         }
-      } else if (pageFiles.includes('fetch')) {
+      } else if (fetchExactMatch.includes('fetch.ts')) {
         // 单 fetch 文件的情况 所有类型的 render 都对应该 fetch
-        route.fetch = `${aliasPath}/${pageFiles}`
+        route.fetch = `${aliasPath}/fetch.ts`
       }
       routeArr.push({ ...route })
     }
   }
-
   routeArr.forEach((r) => {
     if (r.path?.includes('index')) {
       // /index 映射为 /
