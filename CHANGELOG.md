@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.97](https://github.com/ykfe/ssr/compare/v5.5.96...v5.5.97) (2021-08-06)
+
+
+### Bug Fixes
+
+* parseRoutes ([3953280](https://github.com/ykfe/ssr/commit/3953280649edcf823acc6d3c7f334d684314d853))
+
+
+
+
+
 ## [5.5.96](https://github.com/ykfe/ssr/compare/v5.5.94...v5.5.96) (2021-08-05)
 
 
