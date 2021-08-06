@@ -180,16 +180,6 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         continue
       }
       // 拿到具体的文件
-      if (pageFiles.includes('render')) {
-        /* /news */
-        route.path = `${prefixPath}`
-        route.component = `${aliasPath}/${pageFiles}`
-        let webpackChunkName = pathRecord.join('-')
-        if (webpackChunkName.startsWith('-')) {
-          webpackChunkName = webpackChunkName.replace('-', '')
-        }
-        route.webpackChunkName = webpackChunkName
-      }
       if (pageFiles.includes('render$')) {
         /* /news/:id */
         route.path = `${prefixPath}/:${getDynamicParam(pageFiles)}`
@@ -199,10 +189,20 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
           webpackChunkName = webpackChunkName.replace('-', '')
         }
         route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles).replace(/\/:\??/, '-').replace('?', '-optional')}`
+      } else if (pageFiles.includes('render')) {
+        /* /news */
+        route.path = `${prefixPath}`
+        route.component = `${aliasPath}/${pageFiles}`
+        let webpackChunkName = pathRecord.join('-')
+        if (webpackChunkName.startsWith('-')) {
+          webpackChunkName = webpackChunkName.replace('-', '')
+        }
+        route.webpackChunkName = webpackChunkName
       }
+
       if (fetchExactMatch.length >= 2) {
         // fetch文件数量 >=2 启用完全匹配策略 render$id => fetch$id, render => fetch
-        const fetchPageFiles = `fetch${pageFiles.replace('render', '').replace('.vue', '.ts').replace('.tsx', '.ts')}`
+        const fetchPageFiles = `${pageFiles.replace('render', 'fetch').split('.')[0]}.ts`
         if (fetchExactMatch.includes(fetchPageFiles)) {
           route.fetch = `${aliasPath}/${fetchPageFiles}`
         }

@@ -36,7 +36,8 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
             style: true
           }
         ],
-        [loadModule('@babel/plugin-proposal-private-methods'), { loose: true }]
+        [loadModule('@babel/plugin-proposal-private-methods'), { loose: true }],
+        [loadModule('@babel/plugin-proposal-private-property-in-object'), { loose: true }]
       ]
     })
     .end()
