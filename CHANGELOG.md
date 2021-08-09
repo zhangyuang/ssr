@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.5.99](https://github.com/ykfe/ssr/compare/v5.5.98...v5.5.99) (2021-08-09)
+
+
+### Bug Fixes
+
+* stdout color force in child_process ([b6e5666](https://github.com/ykfe/ssr/commit/b6e5666aaa8aa45923b5f9f9bbc1cabef94fc244))
+
+
+
+
+
 ## [5.5.98](https://github.com/ykfe/ssr/compare/v5.5.97...v5.5.98) (2021-08-06)
 
 
