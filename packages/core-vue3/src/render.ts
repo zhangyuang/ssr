@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { loadConfig, getCwd, StringToStream, mergeStream2 } from 'ssr-server-utils'
-import { renderToStream, renderToString } from '@vue/server-renderer'
+import { renderToNodeStream, renderToString } from '@vue/server-renderer'
 import { ISSRContext, UserConfig } from 'ssr-types'
 
 const cwd = getCwd()
@@ -24,7 +24,7 @@ async function render<T = string> (ctx: ISSRContext, options?: UserConfig): Prom
 
   if (stream) {
     // @ts-expect-error
-    const stream = mergeStream2(new StringToStream('<!DOCTYPE html>'), renderToStream(serverRes))
+    const stream = mergeStream2(new StringToStream('<!DOCTYPE html>'), renderToNodeStream(serverRes))
     stream.on('error', (e: any) => {
       console.log(e)
     })
