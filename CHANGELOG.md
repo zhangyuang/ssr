@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.6.0](https://github.com/ykfe/ssr/compare/v5.5.99...v5.6.0) (2021-08-10)
+
+
+### Features
+
+* upgrade typescript to 4.0 ([f82532c](https://github.com/ykfe/ssr/commit/f82532ca0bd83928e0d561c88d9284b232598089))
+* vue3 use renderToNodeStream replace renderToStream ([4ab3b4f](https://github.com/ykfe/ssr/commit/4ab3b4f716aa4a0640d279a2fcac4e3ab9f0d862))
+
+
+
+
+
 ## [5.5.99](https://github.com/ykfe/ssr/compare/v5.5.98...v5.5.99) (2021-08-09)
 
 

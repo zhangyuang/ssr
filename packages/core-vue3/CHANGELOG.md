@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.6.0](https://github.com/ykfe/ssr/compare/v5.5.99...v5.6.0) (2021-08-10)
+
+
+### Features
+
+* vue3 use renderToNodeStream replace renderToStream ([4ab3b4f](https://github.com/ykfe/ssr/commit/4ab3b4f716aa4a0640d279a2fcac4e3ab9f0d862))
+
+
+
+
+
 ## [5.5.98](https://github.com/ykfe/ssr/compare/v5.5.97...v5.5.98) (2021-08-06)
 
 **Note:** Version bump only for package ssr-core-vue3
