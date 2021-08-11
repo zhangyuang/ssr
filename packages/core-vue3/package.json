@@ -1,6 +1,6 @@
 {
   "name": "ssr-core-vue3",
-  "version": "5.6.0",
+  "version": "5.6.1",
   "description": "core for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",

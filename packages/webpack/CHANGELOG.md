@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.1](https://github.com/ykfe/ssr/compare/v5.6.0...v5.6.1) (2021-08-11)
+
+
+### Bug Fixes
+
+* core-render content-type ([a75bd95](https://github.com/ykfe/ssr/commit/a75bd9529050eaaf3d077f835bde1cb36bf39b43))
+
+
+
+
+
 ## [5.5.98](https://github.com/ykfe/ssr/compare/v5.5.97...v5.5.98) (2021-08-06)
 
 **Note:** Version bump only for package ssr-webpack
