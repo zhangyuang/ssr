@@ -135,8 +135,7 @@
 
 无论是 `Next.js` 还是 `Nuxt.js` 还是其他类型的解决方案，它们仅仅是 `React`, `Vue` 的上层封装并不是一个崭新的前端框架。然而这些解决方案的上层封装的复杂度无比庞大，并且新造了很多概念很多新模块。我认为这非常的 `dirty` 并且割裂了与原框架社区的联系。
 
-与 `Next.js/Nuxt.js` 等框架的对比，详细的代码层面技术细节对比可以查看本人在2020年 [Node.js party 上所做的分享](https://github.com/zhangyuang/2020-NodeParty-PPT)，从以下 9 个技术细节方面与 `Next/Nuxt/Easy-team` 等框架的做法进行对比。  
-相比于此 PPT 介绍的 2020 年的 `egg-react-ssr` 版本可以理解为 `ssr@1.0`，我们最新的版本在此基础之上又做了许多优化将会在本文档进行讲述。包括插件化的改造以及支持 `Vite` 作为构建工具，优化核心渲染逻辑等等。相比于 `Next/Nuxt` 的一堆 [issue](https://github.com/vercel/next.js/issues)， 当你深度使用本框架时你会发现你几乎不会遇到什么问题。无论如何，仔细阅读本文档，你会对服务端渲染应用有更加深度的认知。
+与 `egg-react-ssr` 相比，我们最新的版本在此基础之上又做了许多优化将会在本文档进行讲述。包括插件化的改造以及支持 `Vite` 作为构建工具，优化核心渲染逻辑等等。相比于 `Next/Nuxt` 的一堆 [issue](https://github.com/vercel/next.js/issues)， 当你深度使用本框架时你会发现你几乎不会遇到什么问题。无论如何，仔细阅读本文档，你会对服务端渲染应用有更加深度的认知。
 
 以下简单介绍一下比较显著的优点。事实上还有更多的优点没有足够的篇幅介绍需要开发者去发掘
 
@@ -173,7 +172,7 @@
 
 ### 没有新概念
 
-没有新造任何概念。在 `Next.js` 中，它自己实现了 `next/router` 以及 `link` 等路由能力并且其中内置了数据获取逻辑。我认为这是非常 `dirty` 的做法，这样的做法割裂了 `Next.js` 社区与 `React` 社区让内在的逻辑完全变成黑盒。事实上在 `ssr` 框架中我们的路由功能直接使用 `react-router` 来实现。
+没有新造任何概念没有 `next/head`, `next/link`, `next/router`, `vue-meta` 这些完全没有必要出现的库。在 `Next.js` 中，它自己实现了 `next/router` 以及 `link` 等路由能力并且其中内置了数据获取逻辑。我认为这是非常 `dirty` 的做法，这样的做法割裂了 `Next.js` 社区与 `React` 社区让内在的逻辑完全变成黑盒。事实上在 `ssr` 框架中我们的路由功能直接使用 `react-router` 来实现。
 
 ### 同时支持 Vite/Webpack
 
@@ -224,3 +223,14 @@
 ### 高性能
 
 没有 [runInNewContext](http://nodejs.cn/api/vm.html#vm_script_runinnewcontext_contextobject_options)，我们不像其他框架的做法一样使用 vm 模块创建上下文来解析服务端 bundle，所以我们的性能是极高的。等于直接调用框架提供的原生 API 无任何中间层损耗
+
+### 不基于 vue-server-renderer
+
+目前业界几乎所有与 `VueSSR` 有关的框架底层本质都是使用了官方的[vue-server-renderer](https://www.npmjs.com/package/vue-server-renderer) 提供的 `createBundleRenderer` 来进行核心渲染逻辑。这会有很多问题
+
+- `createBundleRenderer` 内部的逻辑对使用者和框架开发者来说完全是黑盒
+- `createBundleRenderer` 强耦合 `vm` 模块。无论怎么配置 `runInNewContext` 选项都会使用 `vm` 模块来解析 `js`
+- `createBundleRenderer` 内部的异步依赖收集逻辑过于复杂。且与 `vue-loader` 强耦合。并且 `Vue3` 版本官方的 `createBundleRenderer` 尚未出现。也就是在 `Vue3/React` 场景这块方案是用不了的
+- 强耦合 `vue-server-renderer/client-plugin`, 异步依赖收集前必须首先使用该 `Webpack` 插件构建出模块信息资源清单
+
+事实上在 `ssr` 框架内部我们实现了一个非常轻量级可以在所有前端框架场景适用的异步模块收集过程和渲染器。
