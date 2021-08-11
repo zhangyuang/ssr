@@ -21,7 +21,11 @@ async function render<T = string> (ctx: ISSRContext, options?: UserConfig): Prom
 
   if (typeof ctx.response.type !== 'function') {
     // midway/koa 场景设置默认 content-type
-    ctx.response.type = 'text/html'
+    ctx.response.type = 'text/html;charset=utf-8'
+  } else {
+    // express 场景
+    // @ts-expect-error
+    ctx.response.setHeader?.('Content-type', 'text/html;charset=utf-8')
   }
 
   if (stream) {
