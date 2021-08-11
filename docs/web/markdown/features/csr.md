@@ -82,7 +82,35 @@ try {
 
 #### 处理 流 返回形式的降级
 
-流返回形式的降级处理略麻烦。在 `Nest.js` 或者 `express` 系的框架中我们可以用以下写法进行降级
+流返回形式的降级处理略麻烦。在 `Nest.js` 或者 `express` 系的框架中我们可以用以下写法进行降级。
+
+这里又额外分为 `Vue3` 与非 `Vue3` 的情况。
+
+在 `Vue3` 的 `renderToNodeStream` 方法中，当渲染出错时会同步的将错误抛出。开发者可以在上层直接使用 `try catch` 捕获
+
+```js
+ try {
+    const stream = await render<Readable>(ctx, {
+      stream: true
+    })
+    stream.pipe(res, { end: false })
+    stream.on('end', () => {
+      res.end()
+    })
+  } catch (error) {
+    const stream = await render<Readable>(ctx, {
+      stream: true,
+      mode: 'csr'
+    })
+    stream.pipe(res, { end: false })
+    stream.on('end', () => {
+      res.end()
+    })
+  }
+
+```
+
+在 `Vue2/React` 中，它们会在底层通过 `stream.emit` 来触发 `error`, 这种情况需要开发者手动监听事件
 
 ```js
 const stream = await render<Readable>(ctx, {
