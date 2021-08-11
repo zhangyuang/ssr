@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import { renderToString, renderToNodeStream } from 'react-dom/server'
 import { loadConfig, getCwd, StringToStream, mergeStream2 } from 'ssr-server-utils'
-import { ISSRContext, UserConfig } from 'ssr-types'
+import { ISSRContext, UserConfig, ExpressContext } from 'ssr-types'
 
 const cwd = getCwd()
 const defaultConfig = loadConfig()
@@ -19,13 +19,12 @@ async function render<T = string> (ctx: ISSRContext, options?: UserConfig): Prom
   const serverRender = require(serverFile).default
   const serverRes = await serverRender(ctx, config)
 
-  if (typeof ctx.response.type !== 'function') {
+  if (typeof ctx.response.type !== 'function' && !ctx.response.type) {
     // midway/koa 场景设置默认 content-type
     ctx.response.type = 'text/html;charset=utf-8'
-  } else {
+  } else if (!(ctx as ExpressContext).response.hasHeader('content-type')) {
     // express 场景
-    // @ts-expect-error
-    ctx.response.setHeader?.('Content-type', 'text/html;charset=utf-8')
+    (ctx as ExpressContext).response.setHeader?.('Content-type', 'text/html;charset=utf-8')
   }
 
   if (stream) {

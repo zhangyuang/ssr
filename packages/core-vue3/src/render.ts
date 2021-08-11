@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import { loadConfig, getCwd, StringToStream, mergeStream2 } from 'ssr-server-utils'
 import { renderToNodeStream, renderToString } from '@vue/server-renderer'
-import { ISSRContext, UserConfig } from 'ssr-types'
+import { ISSRContext, UserConfig, ExpressContext } from 'ssr-types'
 
 const cwd = getCwd()
 const defaultConfig = loadConfig()
@@ -15,14 +15,14 @@ async function render<T = string> (ctx: ISSRContext, options?: UserConfig): Prom
     // clear cache in development environment
     delete require.cache[serverFile]
   }
-  if (typeof ctx.response.type !== 'function') {
+  if (typeof ctx.response.type !== 'function' && !ctx.response.type) {
     // midway/koa 场景设置默认 content-type
     ctx.response.type = 'text/html;charset=utf-8'
-  } else {
+  } else if (!(ctx as ExpressContext).response.hasHeader('content-type')) {
     // express 场景
-    // @ts-expect-error
-    ctx.response.setHeader?.('Content-type', 'text/html;charset=utf-8')
+    (ctx as ExpressContext).response.setHeader?.('Content-type', 'text/html;charset=utf-8')
   }
+
   const serverRender = require(serverFile).default
   const serverRes = await serverRender(ctx, config)
 

@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import { FaaSHTTPContext } from '@midwayjs/faas-typings'
 import { Context } from 'egg'
 
-interface ExpressContext {
+export interface ExpressContext {
   request: Request & {
     params: Request['params']
   }
