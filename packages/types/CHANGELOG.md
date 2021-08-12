@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.3](https://github.com/ykfe/ssr/compare/v5.6.2...v5.6.3) (2021-08-12)
+
+
+### Bug Fixes
+
+* 类型修复 nestjs 新增自定义提示 ([d17bf51](https://github.com/ykfe/ssr/commit/d17bf51e6a313a2f57abd87fde7ec014cf724da1))
+
+
+
+
+
 ## [5.6.2](https://github.com/ykfe/ssr/compare/v5.6.1...v5.6.2) (2021-08-11)
 
 
