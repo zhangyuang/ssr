@@ -1,8 +1,8 @@
-import * as WebpackChain from 'webpack-chain'
 import { StyleOptions } from 'ssr-types'
+import { Config } from 'ssr-types/cjs/third-party/webpack-chain'
 import { loadConfig } from '../loadConfig'
 
-const setStyle = (chain: WebpackChain, reg: RegExp, options: StyleOptions, isReact?: boolean) => {
+const setStyle = (chain: Config, reg: RegExp, options: StyleOptions, isReact?: boolean) => {
   const { css, isDev } = loadConfig()
   const { include, exclude, modules, importLoaders, loader } = options
   const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -50,6 +50,10 @@ const setStyle = (chain: WebpackChain, reg: RegExp, options: StyleOptions, isRea
     })
     .use('MiniCss')
     .loader(MiniCssExtractPlugin.loader)
+    .options({
+      // vite 场景下服务端 bundle 输出 css 文件，否则 服务端不输出
+      emit: process.env.BUILD_TOOL === 'vite' ? true : !options.isServer
+    })
     .end()
     .use('css-loader')
     .loader(loadModule('css-loader'))

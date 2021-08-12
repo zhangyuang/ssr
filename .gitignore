@@ -99,3 +99,9 @@ docs/dist
 docs/*.lock
 
 example/yarn.lock
+
+cypress
+
+e2e/screenshots
+
+e2e/videos

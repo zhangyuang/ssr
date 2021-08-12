@@ -40,12 +40,22 @@ $ tree ./ -I node_modules -L 3
 - `/user/render$id.vue` 映射为 `/user/:id`
 - `/user/render$foo$bar.vue` 多参数的情况下映射为 `/user/:foo/:bar`
 
+### 可选参数路由
+
+在 `React|Vue` 场景下均可使用。由于 `?` 符号无法作为文件名使用，所以这里我们需要用 `#` 号代替
+
+- `/index/render$id#.vue` 映射为 `/:id?`
+
 ### 多级路由
 
 尽管在大多数情况下我们用不到多级路由，但这里我们仍然提供了对应的解析策略。如果你的应用所有路由 `path` 前面都需要加上一个统一的前缀，那么你应该通过 `config.prefix` 来实现，而不是多级路由。参考[应用配置](./api$config#prefix)
 
 - `/user/detail/render$id` 映射为 `/user/detail/:id`
 - `/user/detail/render$foo$bar` 映射为 `/user/detail/:foo/:bar`
+
+### 嵌套路由
+
+约定式路由不支持生成嵌套路由也就是 `children` 子结构。虽然支持嵌套路由并不难，但这会让规范变得复杂。特别是获取数据这一块，且嵌套路由用业务代码实现是非常简单的事情。在 `React` 中直接手动引入 `Router` 来实现即可。在 `Vue` 中需要手动填写 `children` 字段。如果不支持嵌套路由的 `fetch`， 那么非常容易实现，但是意义不大开发者直接在业务代码中实现即可，如果要支持嵌套路由的 `fetch` 那么会让规范变得复杂。例如需要在框架层面让 `render$child$foo.vue` 对应 `fetch$child$foo.ts` 文件。这非常的 `dirty`，所以并不打算支持嵌套路由。
 
 ### 输出 parse 结构
 
@@ -54,6 +64,8 @@ $ tree ./ -I node_modules -L 3
 ```shell
 $ DEBUG=ssr:* npm start
 ```
+
+也可以直接查看 `build/ssr-temporary-routes.js` 文件
 ### 实现代码
 
 具体的实现代码可以查看该[文件](https://github.com/ykfe/ssr/blob/dev/packages/server-utils/src/parse.ts#L13)
@@ -69,6 +81,8 @@ $ DEBUG=ssr:* npm start
 在 Vue 场景我们按照如下规范编写前端路由结构
 
 ```js
+import * as store from '@/store/index.ts' // 使用了 Vuex 则需要引入 store
+
 export const FeRoutes = [
     {   
         "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts') : require('@/pages/detail/fetch.ts').default,
@@ -85,6 +99,7 @@ export const FeRoutes = [
 ]
 export { default as Layout } from "@/components/layout/index.vue"
 export { default as App } from "@/components/layout/App.vue"
+export { store }
 ```
 
 ### React 场景

@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getFeDir, getCwd, loadConfig, getLocalNodeModules, setStyle } from 'ssr-server-utils'
+import { getFeDir, getCwd, loadConfig, getLocalNodeModules, setStyle, addImageChain } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -29,15 +29,27 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
         ]
       ],
       plugins: [
-        [loadModule('@babel/plugin-transform-runtime'), {
-          corejs: false
-        }],
-        [loadModule('babel-plugin-import'),
+        [
+          loadModule('@babel/plugin-transform-runtime'), {
+            corejs: false
+          }
+        ],
+        [
+          loadModule('babel-plugin-import'),
           {
             libraryName: 'vant',
             libraryDirectory: 'lib',
             style: true
-          }, 'vant']
+          }, 'vant'
+        ],
+        [
+          loadModule('babel-plugin-import'),
+          {
+            libraryName: 'ant-design-vue',
+            libraryDirectory: 'lib',
+            style: true
+          }, 'ant-design-vue'
+        ]
       ]
     })
     .end()
@@ -92,29 +104,11 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .end()
   chain.resolve.alias
     .set('@', getFeDir())
+    .set('_build', join(getCwd(), './build'))
     .set('vue$', 'vue/dist/vue.runtime.esm.js')
     .end()
-  chain.module
-    .rule('images')
-    .test(/\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/)
-    .use('url-loader')
-    .loader(loadModule('url-loader'))
-    .options({
-      limit: 10000,
-      name: '[name].[hash:8].[ext]',
-      // require 图片的时候不用加 .default
-      esModule: false,
-      fallback: {
-        loader: loadModule('file-loader'),
-        options: {
-          publicPath: '/client/images',
-          name: '[name].[hash:8].[ext]',
-          esModule: false,
-          outputPath: 'images'
-        }
-      }
-    })
-    .end()
+
+  addImageChain(chain, isServer)
 
   chain.module
     .rule('vue')
@@ -140,7 +134,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .rule('compileBabelForExtraModule')
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
     .include
-    .add([/ssr-plugin-vue/, /ssr-client-utils/, /ssr-temporary-routes/])
+    .add([/ssr-plugin-vue/, /ssr-client-utils/])
 
   let babelForExtraModule
   if (babelExtraModule) {
@@ -155,13 +149,15 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   setStyle(chain, /\.css$/, {
     rule: 'css',
     modules: false,
-    importLoaders: 1
+    importLoaders: 1,
+    isServer
   }) // 设置css
   setStyle(chain, /\.less$/, {
     rule: 'less',
     loader: 'less-loader',
     modules: false,
-    importLoaders: 2
+    importLoaders: 2,
+    isServer
   })
 
   chain.module
@@ -171,7 +167,8 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .loader(loadModule('file-loader'))
     .options({
       name: 'static/[name].[hash:8].[ext]',
-      esModule: false
+      esModule: false,
+      emitFile: !isServer
     })
     .end()
 
@@ -182,7 +179,8 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .loader(loadModule('file-loader'))
     .options({
       name: 'static/[name].[hash:8].[ext]',
-      esModule: false
+      esModule: false,
+      emitFile: !isServer
     })
 
   chain.plugin('minify-css').use(MiniCssExtractPlugin, [{

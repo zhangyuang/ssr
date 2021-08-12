@@ -1,9 +1,8 @@
 import { resolve } from 'path'
-import { loadConfig, getCwd, StringToStream } from 'ssr-server-utils'
+import { loadConfig, getCwd, StringToStream, mergeStream2 } from 'ssr-server-utils'
 import { createRenderer } from 'vue-server-renderer'
-import { ISSRContext, UserConfig } from 'ssr-types'
+import { ISSRContext, UserConfig, ExpressContext } from 'ssr-types'
 
-const mergeStream = require('merge-stream')
 const cwd = getCwd()
 const defaultConfig = loadConfig()
 const { renderToStream, renderToString } = createRenderer()
@@ -17,14 +16,28 @@ async function render<T=string> (ctx: ISSRContext, options?: UserConfig): Promis
     // clear cache in development environment
     delete require.cache[serverFile]
   }
-  if (typeof ctx.response.type === 'function') {
-    ctx.response.type('.html')
-  } else {
-    ctx.response.type = 'text/html'
+  if (typeof ctx.response.type !== 'function' && !ctx.response.type) {
+    // midway/koa 场景设置默认 content-type
+    ctx.response.type = 'text/html;charset=utf-8'
+  } else if (!(ctx as ExpressContext).response.hasHeader('content-type')) {
+    // express 场景
+    (ctx as ExpressContext).response.setHeader?.('Content-type', 'text/html;charset=utf-8')
   }
+
   const serverRender = require(serverFile).default
   const serverRes = await serverRender(ctx, config)
-  return stream ? mergeStream(new StringToStream('<!DOCTYPE html>'), renderToStream(serverRes)) : `<!DOCTYPE html>${await renderToString(serverRes)}`
+
+  if (stream) {
+    // @ts-expect-error
+    const stream = mergeStream2(new StringToStream('<!DOCTYPE html>'), renderToStream(serverRes))
+    stream.on('error', (e: any) => {
+      console.log(e)
+    })
+    return stream
+  } else {
+    // @ts-expect-error
+    return `<!DOCTYPE html>${await renderToString(serverRes)}`
+  }
 }
 
 export {

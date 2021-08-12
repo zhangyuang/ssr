@@ -7,6 +7,7 @@ export interface LayoutProps {
   config?: IConfig
   children?: JSX.Element
   staticList?: StaticList
+  injectState?: any
 }
 export interface StaticList {
   injectCss: JSX.Element[]
@@ -54,6 +55,8 @@ export interface ReactRoutesType {
   layoutFetch: ReactFetch
   FeRoutes: ReactServerESMFeRouteItem[]
   BASE_NAME?: string
+  state?: any
+  reducer?: any
 }
 export interface ReactClientRoutesType {
   Layout: React.FC<LayoutProps>
@@ -61,6 +64,8 @@ export interface ReactClientRoutesType {
   layoutFetch: ReactFetch
   FeRoutes: ReactClientESMFeRouteItem[]
   BASE_NAME?: string
+  state?: any
+  reducer?: any
 }
 
 export interface IContext<T=any> {

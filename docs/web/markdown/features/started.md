@@ -31,7 +31,7 @@
 ```shell
 $ npm init ssr-app my-ssr-project
 $ cd my-ssr-project
-$ npm install
+$ npm install # 可以使用 yarn 不要使用 cnpm
 $ npm start
 $ open http://localhost:3000 # 访问应用
 $ npm run build # 资源构建，等价于 npx ssr build
@@ -40,6 +40,62 @@ $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 
 ![](http://doc.ssr-fc.com/images/resume3.svg)
 
+### 快速写一个服务端渲染服务
+
+通过 `core` 模块提供的 `render` 方法，我们可以快速的提供一个页面渲染的服务。这非常的简单，可以在所有 `Node.js` 框架中运行。具体的渲染原理查看[本地开发](./features$develop)章节
+
+```js
+import { render } from 'ssr-core-xxx'
+
+@Provide()
+@Controller('/')
+export class Index {
+  @Inject()
+  ctx: Context
+
+  @Get('/') // http://localhost:3000
+  @Get('/user') // http://localhost:3000/page，需创建需要渲染的 web/page/user/render.vue|tsx 文件 Midway 框架支持多装饰器，Nestjs 可采用中间件的形式来为多个 path 附加相同逻辑
+  async handler (): Promise<void> {
+    try {
+        // 只需要传入 ctx 作为参数即可
+        // 若无原生 ctx 可通过 request, response 手动构建 ctx
+      const stream = await render<Readable>(this.ctx, {
+        stream: true
+      })
+      this.ctx.body = stream
+    } catch (error) {
+      console.log(error)
+      this.ctx.body = error
+    }
+  }
+}
+```
+
+### 快速的写一个接口服务
+
+开发者可以将 `Node.js` 作为 `BFF` 层去掉用其他语言的接口或者直接调用数据库拿到数据返回
+
+```js
+@Provide()
+@Controller('/api')
+export class Index {
+  @Inject()
+  ctx: Context
+
+  @Get('/data') // http://localhost:3000/api/data
+  async handler (): Promise<void> {
+    try {
+      const data = await axios.get('xxx') // http 形式请求其他接口
+      const data = await this.service.rpc.call('xxx') // rpc 形式请求其他接口
+      this.ctx.body = data
+    } catch (error) {
+      console.log(error)
+      this.ctx.body = error
+    }
+  }
+}
+
+```
 ## 应用部署
 
 我们提供了传统 Node.js 应用部署以及 Serverless 形式部署两种方式。

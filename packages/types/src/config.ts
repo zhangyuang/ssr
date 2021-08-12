@@ -17,6 +17,8 @@ export interface IConfig {
   proxy?: any
   cssOrder: string[]
   jsOrder: string[]
+  extraJsOrder?: string[]
+  extraCssOrder?: string[]
   css?: () => {
     loaderOptions?: {
       cssOptions?: any
@@ -45,6 +47,10 @@ export interface IConfig {
     describe: object
     content: string
   }>
+  customeFooterScript?: Array<{
+    describe: object
+    content: string
+  }>
   locale?: {
     enable: false
   }
@@ -53,7 +59,11 @@ export interface IConfig {
   corejs: boolean
   https: boolean
   babelExtraModule?: RuleSetCondition
+  routerPriority?: Record<string, number>
+  parallelFetch?: boolean
+  nestStartTips?: string
 }
+
 type Optional <T>= { [key in keyof T]?: T[key] }
 
 export interface proxyOptions {
@@ -68,6 +78,7 @@ export interface StyleOptions {
   modules: boolean
   loader?: string
   importLoaders: number
+  isServer: boolean
 }
 
 export interface IPlugin {

@@ -32,6 +32,15 @@
 
 ![](https://res.wx.qq.com/op_res/B9tJE-lFR3gCif92sM4BeeqAcoJSZbJK-auM7MACgomrWm58C1moA3BfatZ5gS-tgZHYyk57e0JQRtgdcgho-g)
 
+## 什么情况下你应该选择 ssr 框架
+
+- 需要在 `Node.js` 与前端框架结合的场景使用，与其他纯前端的框架不同 `ssr` 框架是专为服务端渲染场景或者 `Node.js` 与前端结合的场景打造的框架
+- 需要一个开箱即用的服务端渲染能力，不需要手动去组合不同的前端框架与服务端框架之间的联系
+- 需要一个配置简单逻辑清晰的框架， `ssr` 框架的渲染逻辑和应用构建逻辑是同类型框架中最清晰的
+- 可能会改动技术栈，如从 `Vue2` 升级为 `Vue3`，从 `Vue3` 降级为 `Vue2` 或 `React/Vue` 互相切换
+- 需要在服务端渲染场景下开箱即用使用 `antd` `vant` 等流行 `ui` 库
+- 需要能够同时支持 `Webpack`, `Vite` 两种构建工具，以便同时得到快速的启动速度 `HMR` 速度以及稳定的生产环境代码
+
 ## 哪些应用在使用
 
 正在使用这个项目的公司(应用), 如果您正在使用但名单中没有列出来的话请提 [issue](https://github.com/ykfe/ssr/issues)，欢迎推广分享，我们将随时提供技术支持
@@ -87,7 +96,7 @@
 </b></a></td>
 </tr>
 <tr>
-<td align="center" style="height: 100px"><a href="https://m.film.qq.com/x/tva-vip-center/" target="_blank"><img src="https://res.wx.qq.com/op_res/x7sWI9AfUK1QwH0EDhKp4e_bGWxYOQ_1RlZqBFy9JntJzaE4aRzNhVgmxLNloAFpSQ-mBr9X9pux3QlV9QHHvQ" width="100px;margin: 20px 0" alt="腾讯视频"/><br />
+<td align="center" style="height: 100px"><a href="https://m.film.qq.com/x/tva-vip-center/" target="_blank"><img src="https://res.wx.qq.com/op_res/x7sWI9AfUK1QwH0EDhKp4e_bGWxYOQ_1RlZqBFy9JntJzaE4aRzNhVgmxLNloAFpSQ-mBr9X9pux3QlV9QHHvQ" width="200px;margin: 20px 0" alt="腾讯视频"/><br />
 <a href="https://m.film.qq.com/x/tva-vip-center/" target="_bvlank"><b>腾讯视频
 </b></a></td>
 </tr>
@@ -109,22 +118,26 @@
 | 里程碑                                                                 | 状态 |
 | ---------------------------------------------------------------------- | ---- |
 | 支持任意服务端框架与任意前端框架的组合使用。(Serverless/Midway/Nestjs) + (React/Vue2/Vue3)             | 🚀   |
-| 支持 [vite](https://vite-design.surge.sh/) 作为构建工具在 SSR 场景下的组合[使用](#使用Vite作为构建工具) |  🚀    |
+| 支持 [vite](https://vite-design.surge.sh/) 作为构建工具在 SSR 场景下的组合[使用](http://doc.ssr-fc.com/docs/features$vite) |  🚀    |
 | 最小而美的实现服务端渲染功能                           | 🚀   |
 | 针对Serverless 场景对代码包的大小的严格限制，将生产环境的代码包大小做到极致            | 🚀   |
 | 同时支持约定式前端路由和声明式前端路由                            | 🚀   |
 | React 场景下 All in JSX，Vue 场景 All in template，没有传统模版引擎，所有部分包括 html layout 布局皆使用 JSX/Vue 来编写生成            | 🚀   |
-| 渲染模式切换：服务端渲染一键降级为客户端渲染                            | 🚀   |
+| 同时支持三种渲染模式，提供服务端渲染一键降级为客户端渲染的能力                           | 🚀   |
 | 统一不同框架服务端客户端的数据获取方式，做到高度复用                                 | 🚀   |
 | 类型友好，全面拥抱 TS                                | 🚀   |
 | 支持无缝接入 [antd](https://github.com/ant-design/ant-design) [vant](https://vant-contrib.gitee.io/vant/#/) 无需修改任何配置                             | 🚀   |
 | 支持使用 less 作为 css 预处理器                                                | 🚀   |
 | 实现 React/Vue SSR 场景下的[优秀代码分割方案](https://zhuanlan.zhihu.com/p/343743374) 首屏性能做到极致                  |    🚀  |
-| React 场景下使用 useContext + useReducer 实现极简的[数据管理](#React跨组件通信)方案，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
-| Vue3 场景提供 [Provide/Inject](#provideinject代替vuex) 代替 Vuex 进行跨组件通信                     |    🚀  |
+| React 场景下使用 useContext + useReducer 实现极简的[数据管理](http://doc.ssr-fc.com/docs/features$communication#React%20%E5%9C%BA%E6%99%AF)方案，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
+| Vue3 场景提供 [Provide/Inject](http://doc.ssr-fc.com/docs/features$communication#Vue%20%E5%9C%BA%E6%99%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88) 代替 Vuex 进行跨组件通信                     |    🚀  |
 | 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
 | ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
 | ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                                |
+
+## 方案对比
+
+为什么要选择 `ssr` 框架以及与同类型框架的方案对比请查看[文档](http://doc.ssr-fc.com/docs/why)
 
 ## 快速开始
 
@@ -152,7 +165,7 @@
 ```bash
 $ npm init ssr-app my-ssr-project
 $ cd my-ssr-project
-$ npm install
+$ npm install # 可以使用yarn 不要使用 cnpm
 $ npm start
 $ open http://localhost:3000 # 访问应用
 $ npm run build # 资源构建，等价于 npx ssr build
@@ -174,10 +187,6 @@ $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 - http://vue3.ssr-fc.com 部署到阿里云的 Vue3 SSR 应用
 - http://vue.ssr-fc.com?csr=true 部署到阿里云的 Vue SSR 应用, 以 CSR 模式访问
 - http://vue3.ssr-fc.com?csr=true 部署到阿里云的 Vue3 SSR 应用, 以 CSR 模式访问
-
-## 方案对比
-
-为什么要选择 `ssr` 框架以及与同类型框架的方案对比请查看[文档](http://doc.ssr-fc.com/docs/why)
 
 ## 生态系统
 
@@ -246,7 +255,7 @@ $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 
 <div style="display:flex">
 <img src="https://res.wx.qq.com/op_res/rrhdxU0o2yUdgTjwgkAgO-CSFV-lArvMYzWzxl2SuvnKkcWECv7SXswEYjk2pPcDcL43r0kz_MIp_fsxPPqQ2Q" width="300">
-<img src="https://res.wx.qq.com/op_res/kWmJUok0vZk00qUGxVc9hceBtBTw8ohXkzmm54alPw_uqFEoZt0bWxHPAqHKFSJMrfPkKJZCVJauuZm4--hnrQ" width="300">
+<img src="https://res.wx.qq.com/op_res/rIX-_-PvEexhHVPjyI9DqhdMcBt9kEj8bWA3KnzlQ2JgpX1wky9VQjFqBnyXn2mJIbcYti0bFB9Z9yX5NyllSQ" width="300">
 </div>
 
 ## 前端开发手册

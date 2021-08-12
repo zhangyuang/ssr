@@ -11,17 +11,15 @@
     "react-dom": "^17.0.0",
     "react-loadable": "^5.0.0",
     "react-router-dom": "^5.1.2",
-    "serialize-javascript": "^3.0.0",
     "ssr-core-react": "^5.0.0",
     "ssr-types-react": "^5.0.0",
-    "swiper": "^6.0.0"
+    "swiper": "6.7.5"
   },
   "devDependencies": {
     "@midwayjs/egg-ts-helper": "^1.0.5",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.3",
-    "@types/serialize-javascript": "^1.5.0",
     "cross-env": "^7.0.3",
     "eslint-config-standard-react-ts": "^1.0.5",
     "ssr": "^5.0.0",

@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapState } from 'vuex'
 import Slider from '@/components/slider'
 import Rectangle from '@/components/rectangle'

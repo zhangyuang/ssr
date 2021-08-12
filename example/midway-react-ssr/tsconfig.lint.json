@@ -13,6 +13,7 @@
     "noUnusedLocals": true,
     "stripInternal": true,
     "pretty": true,
+    "jsx": "react",
     "declaration": true,
   },
   "include": [

@@ -1,7 +1,5 @@
 import { IWindow } from 'ssr-types'
 
-declare module '*.less'
-
 declare global {
   interface Window {
     __USE_SSR__?: IWindow['__USE_SSR__']

@@ -3,6 +3,282 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.2](https://github.com/ykfe/ssr/compare/v5.6.1...v5.6.2) (2021-08-11)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
+## [5.5.98](https://github.com/ykfe/ssr/compare/v5.5.97...v5.5.98) (2021-08-06)
+
+
+### Bug Fixes
+
+* update plugin-react base config ([d275fed](https://github.com/ykfe/ssr/commit/d275fed8b9c678d9fb6345ba8f6a67df63f87902))
+
+
+
+
+
+## [5.5.97](https://github.com/ykfe/ssr/compare/v5.5.96...v5.5.97) (2021-08-06)
+
+
+### Bug Fixes
+
+* parseRoutes ([3953280](https://github.com/ykfe/ssr/commit/3953280649edcf823acc6d3c7f334d684314d853))
+
+
+
+
+
+## [5.5.96](https://github.com/ykfe/ssr/compare/v5.5.94...v5.5.96) (2021-08-05)
+
+
+### Bug Fixes
+
+* ssr types ([742440f](https://github.com/ykfe/ssr/commit/742440f186af3577d0df0bf5fac25d665e43dbcd))
+
+
+
+
+
+## [5.5.95](https://github.com/ykfe/ssr/compare/v5.5.94...v5.5.95) (2021-08-05)
+
+
+### Bug Fixes
+
+* ssr types ([5aad4da](https://github.com/ykfe/ssr/commit/5aad4dafbf25cff1ea55fd4773a76a957ebd58d5))
+
+
+
+
+
+## [5.5.94](https://github.com/ykfe/ssr/compare/v5.5.93...v5.5.94) (2021-08-05)
+
+
+### Features
+
+* move ssr-temporary-routes position ([9966d10](https://github.com/ykfe/ssr/commit/9966d10b466e2d6dcf10ba09b4267dd8e2a324f0))
+
+
+
+
+
+## [5.5.92](https://github.com/ykfe/ssr/compare/v5.5.91...v5.5.92) (2021-08-03)
+
+
+### Bug Fixes
+
+* 修复渲染降级 ([9accc6c](https://github.com/ykfe/ssr/commit/9accc6c07998ca72602add786d53b41172d77086))
+
+
+
+
+
+## [5.5.91](https://github.com/ykfe/ssr/compare/v5.5.90...v5.5.91) (2021-08-02)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
+## [5.5.90](https://github.com/ykfe/ssr/compare/v5.5.89...v5.5.90) (2021-08-02)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
+## [5.5.89](https://github.com/ykfe/ssr/compare/v5.5.88...v5.5.89) (2021-07-31)
+
+
+### Features
+
+* support routerPriority ([385c07e](https://github.com/ykfe/ssr/commit/385c07efd19897ce67ddbc436dca4a3bb438b62a))
+
+
+
+
+
+## [5.5.88](https://github.com/ykfe/ssr/compare/v5.5.87...v5.5.88) (2021-07-30)
+
+
+### Bug Fixes
+
+* url-loader limit ([3baad15](https://github.com/ykfe/ssr/commit/3baad157585aa441b4f3ecda332fc0c327730248))
+
+
+
+
+
+## [5.5.87](https://github.com/ykfe/ssr/compare/v5.5.86...v5.5.87) (2021-07-30)
+
+
+### Bug Fixes
+
+* close limit base64 ([02f6e04](https://github.com/ykfe/ssr/commit/02f6e04eb24cbf83481608477417b57cd3ada685))
+
+
+
+
+
+## [5.5.84](https://github.com/ykfe/ssr/compare/v5.5.83...v5.5.84) (2021-07-26)
+
+
+### Bug Fixes
+
+* rename mergeStream to mergeStream2 ([a51e097](https://github.com/ykfe/ssr/commit/a51e097bf9d87a75b236620d3e9812a0f4d09406))
+
+
+
+
+
+## [5.5.83](https://github.com/ykfe/ssr/compare/v5.5.82...v5.5.83) (2021-07-26)
+
+
+### Features
+
+* update mergeStream function ([bba7484](https://github.com/ykfe/ssr/commit/bba7484e93fc9c3ff1ca51620a30141cd1e4a1c0))
+
+
+
+
+
+## [5.5.80](https://github.com/ykfe/ssr/compare/v5.5.79...v5.5.80) (2021-07-25)
+
+
+### Features
+
+* React useContext add user reducers ([69d00c5](https://github.com/ykfe/ssr/commit/69d00c58632bcccf7f981fd4d3855fe795ca26d3))
+
+
+
+
+
+## [5.5.79](https://github.com/ykfe/ssr/compare/v5.5.78...v5.5.79) (2021-07-24)
+
+
+### Bug Fixes
+
+* parseRoutes bug in multiply fetch files ([00f9be3](https://github.com/ykfe/ssr/commit/00f9be311c6e9f036424193d154e5dee31647ff1))
+
+
+
+
+
+## [5.5.77](https://github.com/ykfe/ssr/compare/v5.5.76...v5.5.77) (2021-07-22)
+
+
+### Bug Fixes
+
+* normalizePublicPath ([b5b4d21](https://github.com/ykfe/ssr/commit/b5b4d21dc62db870f1418a3a625888b69fd2e032))
+
+
+
+
+
+## [5.5.76](https://github.com/ykfe/ssr/compare/v5.5.75...v5.5.76) (2021-07-21)
+
+
+### Features
+
+* not emit unused file in server side close [#80](https://github.com/ykfe/ssr/issues/80) ([2b9a222](https://github.com/ykfe/ssr/commit/2b9a222b7889adb87bf2a24f9ad925ffffa2febf))
+
+
+
+
+
+## [5.5.75](https://github.com/ykfe/ssr/compare/v5.5.74...v5.5.75) (2021-07-19)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
+## [5.5.74](https://github.com/ykfe/ssr/compare/v5.5.73...v5.5.74) (2021-07-16)
+
+
+### Features
+
+* use crypto algorithm to crypto asyncChunkName to prevent too long ([675d6b8](https://github.com/ykfe/ssr/commit/675d6b8a9d233c732b361590032273354845b13b))
+
+
+
+
+
+## [5.5.73](https://github.com/ykfe/ssr/compare/v5.5.73-alpha.3...v5.5.73) (2021-07-16)
+
+
+### Features
+
+* vue3 vue2 react scene add asyncChunks logic ([d872fe3](https://github.com/ykfe/ssr/commit/d872fe3d3da27531d0ae16e595beeb91fa24a71d))
+
+
+
+
+
+## [5.5.72](https://github.com/ykfe/ssr/compare/v5.5.71...v5.5.72) (2021-07-15)
+
+
+### Features
+
+* add extraJsOrder extraCssOrder ([7d9f806](https://github.com/ykfe/ssr/commit/7d9f8066ec983183aaef951f321d02b499d68e9c))
+
+
+
+
+
+## [5.5.71](https://github.com/ykfe/ssr/compare/v5.5.70...v5.5.71) (2021-07-12)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
+## [5.5.70](https://github.com/ykfe/ssr/compare/v5.5.69...v5.5.70) (2021-07-05)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
+## [5.5.69](https://github.com/ykfe/ssr/compare/v5.5.68...v5.5.69) (2021-07-05)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
+## [5.5.68](https://github.com/ykfe/ssr/compare/v5.5.67...v5.5.68) (2021-07-05)
+
+
+### Features
+
+* 约定式路由支持可选参数 ([935759d](https://github.com/ykfe/ssr/commit/935759d4d42be48c44dc2800417ac76fa9f66ad8))
+
+
+
+
+
+## [5.5.65](https://github.com/ykfe/ssr/compare/v5.5.64...v5.5.65) (2021-07-01)
+
+
+### Bug Fixes
+
+* parseRoute multiply fetch fix ([fa6ccf6](https://github.com/ykfe/ssr/commit/fa6ccf6456d5e02098bf486b4b5dd44aac5a2694))
+
+
+
+
+
 ## [5.5.63](https://github.com/ykfe/ssr/compare/v5.5.62...v5.5.63) (2021-06-25)
 
 

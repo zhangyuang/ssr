@@ -1,6 +1,6 @@
 {
   "name": "ssr-core-vue",
-  "version": "5.5.63",
+  "version": "5.6.2",
   "description": "core for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -33,9 +33,8 @@
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
     "@babel/runtime": "^7.12.13",
-    "merge-stream": "^2.0.0",
     "serialize-javascript": "^3.0.0",
-    "ssr-server-utils": "^5.5.63",
+    "ssr-server-utils": "^5.6.2",
     "vue": "^2.0.0",
     "vue-server-renderer": "^2.6.0",
     "vuex": "^3.6.2",

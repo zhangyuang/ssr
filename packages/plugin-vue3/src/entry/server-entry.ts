@@ -1,10 +1,10 @@
 import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
-import * as Routes from 'ssr-temporary-routes'
+import * as Routes from '_build/ssr-temporary-routes'
 import { IServerFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 
@@ -19,7 +19,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     path = normalizePath(path)
   }
   const store = createStore()
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, chunkName } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch } = config
   const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
   const ViteMode = process.env.BUILD_TOOL === 'vite'
 
@@ -31,8 +31,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   let dynamicCssOrder = cssOrder
-  if (dynamic) {
+  if (dynamic && !ViteMode) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
+    dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
   }
 
   const manifest = ViteMode ? {} : await getManifest()
@@ -51,11 +52,19 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   if (!isCsr) {
     // csr 下不需要服务端获取数据
-    if (layoutFetch) {
-      layoutFetchData = await layoutFetch({ store, router: router.currentRoute.value }, ctx)
-    }
-    if (fetch) {
-      fetchData = await fetch({ store, router: router.currentRoute.value }, ctx)
+    if (parallelFetch) {
+      // 是否
+      [layoutFetchData, fetchData] = await Promise.all([
+        layoutFetch ? layoutFetch({ store, router: router.currentRoute.value }, ctx) : Promise.resolve({}),
+        fetch ? fetch({ store, router: router.currentRoute.value }, ctx) : Promise.resolve({})
+      ])
+    } else {
+      if (layoutFetch) {
+        layoutFetchData = await layoutFetch({ store, router: router.currentRoute.value }, ctx)
+      }
+      if (fetch) {
+        fetchData = await fetch({ store, router: router.currentRoute.value }, ctx)
+      }
     }
   }
 
@@ -117,10 +126,18 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
               })
             )
           ),
+          customeFooterScript: () => customeFooterScript?.map((item) =>
+            h(
+              'script',
+              Object.assign({}, item.describe, {
+                innerHTML: item.content
+              })
+            )
+          ),
 
           children: isCsr ? () => h('div', {
             id: 'app'
-          }) : () => h(App, { asyncData, fetchData: combineAysncData }),
+          }) : () => h(App, { ctx, config, asyncData, fetchData: combineAysncData }),
 
           initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${ViteMode}` })
             : () => h('script', { innerHTML: `window.__USE_VITE__=${ViteMode}` }),

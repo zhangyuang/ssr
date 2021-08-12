@@ -28,9 +28,11 @@ export const generateHtml = async (argv: Argv) => {
     const cwd = getCwd()
     const manifest = require(join(cwd, './build/client/asset-manifest.json'))
     let jsManifest = ''
+    // @ts-expect-error
     jsOrder.forEach(item => {
       jsManifest += `<script src=${manifest[item]}></script>`
     })
+    // @ts-expect-error
     let cssManifest = ''
     cssOrder.forEach(item => {
       cssManifest += `<link rel='stylesheet' href=${manifest[item]} />`

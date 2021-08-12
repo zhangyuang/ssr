@@ -6,10 +6,10 @@ import { getCwd, getPagesDir, getFeDir, accessFile } from './cwd'
 import { loadConfig } from './loadConfig'
 
 const debug = require('debug')('ssr:parse')
-const { dynamic } = loadConfig()
+const { dynamic, publicPath, isDev } = loadConfig()
 const pageDir = getPagesDir()
 const cwd = getCwd()
-let { prefix } = loadConfig()
+let { prefix, routerPriority } = loadConfig()
 
 if (prefix && !prefix.startsWith('/')) {
   prefix = `/${prefix}`
@@ -26,16 +26,34 @@ export const normalizePath = (path: string) => {
   return path
 }
 
+export const normalizePublicPath = (path: string) => {
+  // 兼容 /pre /pre/ 两种情况
+  if (!path.endsWith('/')) {
+    path = `${path}/`
+  }
+  return path
+}
+
+export const getOutputPublicPath = () => {
+  const path = normalizePublicPath(publicPath)
+  return isDev ? path : `${path}client/`
+}
+
+export const getImageOutputPath = () => {
+  const imagePath = 'static/images'
+  const normalizePath = normalizePublicPath(publicPath)
+  return {
+    publicPath: isDev ? `${normalizePath}${imagePath}` : `${normalizePath}client/${imagePath}`,
+    imagePath
+  }
+}
+
 const parseFeRoutes = async () => {
   const isVue = require(join(cwd, './package.json')).dependencies.vue
   const viteMode = process.env.BUILD_TOOL === 'vite'
   if (viteMode && !dynamic) {
     console.log('vite模式禁止关闭 dynamic ')
     return
-  }
-
-  if (!await accessFile(join(cwd, './node_modules/ssr-temporary-routes'))) {
-    Shell.mkdir(join(cwd, './node_modules/ssr-temporary-routes'))
   }
 
   let routes = ''
@@ -45,6 +63,12 @@ const parseFeRoutes = async () => {
     const pathRecord = [''] // 路径记录
     const route: ParseFeRouteItem = {}
     const arr = await renderRoutes(pageDir, pathRecord, route)
+    if (routerPriority) {
+      arr.sort((a, b) => {
+        // 没有显示指定的路由优先级统一为 0
+        return (routerPriority![b.path] || 0) - (routerPriority![a.path] || 0)
+      })
+    }
 
     debug('Before the result that parse web folder to routes is: ', arr)
 
@@ -82,6 +106,7 @@ const parseFeRoutes = async () => {
       // React 场景
       const accessReactApp = await accessFile(join(getFeDir(), './components/layout/App.tsx'))
       const layoutFetch = await accessFile(join(getFeDir(), './components/layout/fetch.ts'))
+      const accessStore = await accessFile(join(getFeDir(), './store/index.ts'))
       const re = /"webpackChunkName":("(.+?)")/g
       routes = `
         ${dynamic && !viteMode ? `
@@ -90,6 +115,7 @@ const parseFeRoutes = async () => {
         export const FeRoutes = ${JSON.stringify(arr)} 
         ${accessReactApp ? 'export { default as App } from "@/components/layout/App.tsx"' : ''}
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
+        ${accessStore ? 'export * from "@/store/index.ts"' : ''}
         ${prefix ? `export const BASE_NAME='${prefix}'` : ''}
 
         `
@@ -122,10 +148,14 @@ const parseFeRoutes = async () => {
   }
 
   debug('After the result that parse web folder to routes is: ', routes)
+  await writeRoutes(routes)
+}
 
-  await fs.writeFile(resolve(cwd, './node_modules/ssr-temporary-routes/route.js'), routes)
-  await fs.copyFile(resolve(__dirname, '../src/packagejson.tpl'), resolve(cwd, './node_modules/ssr-temporary-routes/package.json'))
-  await renderTmpFile(viteMode)
+const writeRoutes = async (routes: string) => {
+  if (!await accessFile(join(cwd, './build'))) {
+    Shell.mkdir(join(cwd, './build'))
+  }
+  await fs.writeFile(resolve(cwd, './build/ssr-temporary-routes.js'), routes)
 }
 
 const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {
@@ -145,8 +175,21 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
       pathRecord.pop() // 回溯
       arr = arr.concat(childArr)
     } else {
+      // 遍历一个文件夹下面的所有文件
+      if (!pageFiles.includes('render')) {
+        continue
+      }
       // 拿到具体的文件
-      if (pageFiles.includes('render')) {
+      if (pageFiles.includes('render$')) {
+        /* /news/:id */
+        route.path = `${prefixPath}/:${getDynamicParam(pageFiles)}`
+        route.component = `${aliasPath}/${pageFiles}`
+        let webpackChunkName = pathRecord.join('-')
+        if (webpackChunkName.startsWith('-')) {
+          webpackChunkName = webpackChunkName.replace('-', '')
+        }
+        route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles).replace(/\/:\??/, '-').replace('?', '-optional')}`
+      } else if (pageFiles.includes('render')) {
         /* /news */
         route.path = `${prefixPath}`
         route.component = `${aliasPath}/${pageFiles}`
@@ -157,32 +200,19 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         route.webpackChunkName = webpackChunkName
       }
 
-      if (pageFiles.includes('render$')) {
-        /* /news/:id */
-        route.path = `${prefixPath}/:${getDynamicParam(pageFiles)}`
-        route.component = `${aliasPath}/${pageFiles}`
-        // fetch文件数量>=2 启用完全匹配策略
-        if (fetchExactMatch.length >= 2) {
-          const fetchPageFiles = `fetch${pageFiles.replace('render', '').replace('.vue', '.ts')}`
-          if (fetchExactMatch.includes(fetchPageFiles)) {
-            route.fetch = `${aliasPath}/${fetchPageFiles}`
-          }
+      if (fetchExactMatch.length >= 2) {
+        // fetch文件数量 >=2 启用完全匹配策略 render$id => fetch$id, render => fetch
+        const fetchPageFiles = `${pageFiles.replace('render', 'fetch').split('.')[0]}.ts`
+        if (fetchExactMatch.includes(fetchPageFiles)) {
+          route.fetch = `${aliasPath}/${fetchPageFiles}`
         }
-        let webpackChunkName = pathRecord.join('-')
-        if (webpackChunkName.startsWith('-')) {
-          webpackChunkName = webpackChunkName.replace('-', '')
-        }
-        route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles)}`
+      } else if (fetchExactMatch.includes('fetch.ts')) {
+        // 单 fetch 文件的情况 所有类型的 render 都对应该 fetch
+        route.fetch = `${aliasPath}/fetch.ts`
       }
-
-      if (pageFiles.includes('fetch')) {
-        route.fetch = `${aliasPath}/${pageFiles}`
-      }
-
       routeArr.push({ ...route })
     }
   }
-
   routeArr.forEach((r) => {
     if (r.path?.includes('index')) {
       // /index 映射为 /
@@ -200,15 +230,7 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
 }
 
 const getDynamicParam = (url: string) => {
-  return url.split('$').filter(r => r !== 'render' && r !== '').map(r => r.replace(/\.[\s\S]+/, '')).join('/:')
-}
-
-const renderTmpFile = async (viteMode: boolean) => {
-  if (process.env.TEST && viteMode) {
-    // 开发同学本地开发时 vite 场景将路由表写一份到 repo 下面而不是 example 下面，否则 client-entry 会找不到该文件
-    Shell.rm('-rf', resolve(__dirname, '../../../node_modules/ssr-temporary-routes/'))
-    Shell.cp('-r', resolve(cwd, './node_modules/ssr-temporary-routes/'), resolve(__dirname, '../../../node_modules/ssr-temporary-routes/'))
-  }
+  return url.split('$').filter(r => r !== 'render' && r !== '').map(r => r.replace(/\.[\s\S]+/, '').replace('#', '?')).join('/:')
 }
 
 export {

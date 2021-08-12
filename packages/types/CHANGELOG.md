@@ -3,6 +3,127 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.2](https://github.com/ykfe/ssr/compare/v5.6.1...v5.6.2) (2021-08-11)
+
+
+### Bug Fixes
+
+* ssr-core ([34616df](https://github.com/ykfe/ssr/commit/34616dfda3826f3b87585e88ec0bc5410822662c))
+
+
+
+
+
+## [5.5.96](https://github.com/ykfe/ssr/compare/v5.5.94...v5.5.96) (2021-08-05)
+
+
+### Bug Fixes
+
+* ssr types ([742440f](https://github.com/ykfe/ssr/commit/742440f186af3577d0df0bf5fac25d665e43dbcd))
+
+
+
+
+
+## [5.5.95](https://github.com/ykfe/ssr/compare/v5.5.94...v5.5.95) (2021-08-05)
+
+
+### Bug Fixes
+
+* ssr types ([5aad4da](https://github.com/ykfe/ssr/commit/5aad4dafbf25cff1ea55fd4773a76a957ebd58d5))
+
+
+
+
+
+## [5.5.91](https://github.com/ykfe/ssr/compare/v5.5.90...v5.5.91) (2021-08-02)
+
+
+### Features
+
+* support parallel fetch ([0268c4c](https://github.com/ykfe/ssr/commit/0268c4c9ae25062feba75c40f10e6a3d3df64381))
+
+
+
+
+
+## [5.5.90](https://github.com/ykfe/ssr/compare/v5.5.89...v5.5.90) (2021-08-02)
+
+
+### Features
+
+* config add customeFooterScript ([0a41ad9](https://github.com/ykfe/ssr/commit/0a41ad9920d4d1b1bd9966ed6db99bb12a8b422f))
+
+
+
+
+
+## [5.5.89](https://github.com/ykfe/ssr/compare/v5.5.88...v5.5.89) (2021-07-31)
+
+
+### Features
+
+* support routerPriority ([385c07e](https://github.com/ykfe/ssr/commit/385c07efd19897ce67ddbc436dca4a3bb438b62a))
+
+
+
+
+
+## [5.5.76](https://github.com/ykfe/ssr/compare/v5.5.75...v5.5.76) (2021-07-21)
+
+
+### Features
+
+* not emit unused file in server side close [#80](https://github.com/ykfe/ssr/issues/80) ([2b9a222](https://github.com/ykfe/ssr/commit/2b9a222b7889adb87bf2a24f9ad925ffffa2febf))
+
+
+
+
+
+## [5.5.75](https://github.com/ykfe/ssr/compare/v5.5.74...v5.5.75) (2021-07-19)
+
+
+### Bug Fixes
+
+* @types/node use peerdependencies ([93d3cbd](https://github.com/ykfe/ssr/commit/93d3cbd6fe0851062c09965b9572dedb0f1ce0a5))
+
+
+
+
+
+## [5.5.72](https://github.com/ykfe/ssr/compare/v5.5.71...v5.5.72) (2021-07-15)
+
+
+### Features
+
+* add extraJsOrder extraCssOrder ([7d9f806](https://github.com/ykfe/ssr/commit/7d9f8066ec983183aaef951f321d02b499d68e9c))
+
+
+
+
+
+## [5.5.70](https://github.com/ykfe/ssr/compare/v5.5.69...v5.5.70) (2021-07-05)
+
+
+### Bug Fixes
+
+* remove NodeJS.Global ([ee545d5](https://github.com/ykfe/ssr/commit/ee545d5e2c7e522f0f6aec64b6d95b395c4d1091))
+
+
+
+
+
+## [5.5.69](https://github.com/ykfe/ssr/compare/v5.5.68...v5.5.69) (2021-07-05)
+
+
+### Bug Fixes
+
+* ssr-types lock @types/node version ([d9196d4](https://github.com/ykfe/ssr/commit/d9196d4e8ba4f1406e11d925c657a1fe65a884fd))
+
+
+
+
+
 ## [5.5.61](https://github.com/ykfe/ssr/compare/v5.5.60...v5.5.61) (2021-06-23)
 
 **Note:** Version bump only for package ssr-types

@@ -4,6 +4,8 @@
 
 配置文件可通过 `config.js` 文件定义以及调用 `core.render` 方法时实时传入。会将两者配置进行合并
 
+注：得益于 `ssr` 的强大设计，你会发现很多功能开发者完全可以自行在业务代码层面轻松实现而无需框架底层实现或者引入第三方库实现。比如指定页面 `ssr`，比如自定义 `meta` 标签。这些十分简单但重要的功能在其他框架用起来是无比的别扭。而在 `ssr` 框架。一切都是那么自然。
+
 ```js
 import { render } from 'ssr-core-vue3'
 
@@ -67,6 +69,34 @@ const stream = await render<Readable>(this.ctx, userConfig)
 - 默认: `Page`
 
 静态资源构建时默认的 `entry` 名, 默认为 `Page`。无特殊需求不需要修改
+
+## extraJsOrder
+
+- 类型: `string[]`
+- 默认: `[]`
+
+需要额外初始化加载的 `js chunk name`，通常配合 `splitChunks` 配置一起使用, 若生成其他 `name` 的 `chunk` 开发者可通过 `http://localhost:3000/asset-manifest.json` 文件查看具体的 `chunkName`
+
+```js
+module.exports = {
+  extraJsOrder: ['styles.js'], // 在页面底部额外加载 styles.chunk.js 文件，生产环境自动获取正确的 hash 文件
+  extraCssOrder: ['styles.css'] // 在页面头部额外加载 styles.chunk.css 文件，生产环境自动获取正确的 hash 文件
+}
+```
+
+## extraCssOrder
+
+- 类型: `string[]`
+- 默认: `[]`
+
+需要额外初始化加载的 `css chunk name`，通常配合 `splitChunks` 配置一起使用
+
+```js
+module.exports = {
+  extraJsOrder: ['styles.js'],
+  extraCssOrder: ['styles.css']
+}
+```
 ## webpackDevServerConfig
 
 - 类型: `webpackDevServer.Configuration`
@@ -227,6 +257,13 @@ module.exports = {
 }
 ```
 
+## customeFooterScript
+
+- 类型: `Array<{describe: object, content: string }>`
+- 默认: `[]`
+
+仅在 `Vue` 场景下使用, 意义同上。在页面底部加载的静态资源文件。需要配合 `<slot name="customeFooterScript" />` 使用。若当前 `example` 是之前创建的 `layout/index.vue` 不存在该 `slot` 的话需要手动添加
+
 ## css
 
 - 示例: 
@@ -251,6 +288,13 @@ module.exports = {
 - 默认: `() => {}`
 
 用于添加用户自定义配置 `css-loader` `less-loader` 以及 `postcss-loader` 的配置，需要用 `函数 return` 的形式
+
+## parallelFetch
+
+- 类型: `boolean`
+- 默认: `undefined`
+
+开启后在服务端获取数据时会并行请求 `layout fetch` 与 `page fetch`。若 `page fetch` 的请求依赖 `layout fetch` 的返回。请不要使用该选项
 
 ### antd 定制主题
 
@@ -335,6 +379,41 @@ module.exports = {
   babelExtraModule: [/module-name/]
 }
 ```
+
+## routerPriority
+
+针对同一前端 `path` 可以对应多个路由时控制约定式路由优先级例如 `/foo`, 可以同时匹配 `/:page` `/foo`。用于约定式路由解析生成的数组排序。数字越大代表优先级越高。没有显示指定的路由优先级统一为 `0`
+
+- 类型: `Record<string, number>`
+
+- 默认: `undefined`
+
+- version: `>5.5.89`
+
+```js
+module.exports = {
+  routerPriority: {
+      '/': 1,
+      '/detail/:id': 2 // 优先级更高
+    }
+}
+```
+
+## nestStartTips
+
+自定义 `Nest.js` 场景服务启动成功提示文案，不填写则为 `Server is listening on ${https ? 'https' : 'http'}://localhost:${serverPort}`
+
+- 类型: `string`
+
+- 默认: `undefined`
+
+
+```js
+module.exports = {
+  nestStartTips: 'xxx'
+}
+```
+
 ## 注意事项
 
 1. 由于 `config.js` 文件在 Node.js 环境也会被加载，如果直接在顶部 `require` 模块可能会导致模块`体积过大`，降低应用启动速度，我们建议在必要的函数当中再 `require` 需要用到的模块。

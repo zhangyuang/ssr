@@ -142,25 +142,6 @@ const render = (await vite.ssrLoadModule('/src/entry-server.js')).render
 
 从上述对比中，我们可以看出在使用 `Vite` 模式时的启动时间仅为原 `Webpack` 模式的 `50%` 左右，这样的提升是非常可观的。可以预见当应用足够大时，提升的效果会更加明显。
 
-## 老应用迁移
-
-分为 React 应用和 Vue 应用有不同的迁移步骤
-### Vue 应用迁移
-
-之前创建的模板应用只需以下三步便可接入 Vite
-
-- 安装最新版本的插件依赖 `version >= 5.5.1`
-- `layout/index.vue` 中添加 `<slot name="viteClient" />` 参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-vue3-ssr/web/components/layout/index.vue)
-- 服务端应用启动时中间件初始化改为 `async await` 形式, 参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-vue3-ssr/src/app.ts#L11)
-
-### React 应用迁移
-
-之前创建的模板应用只需以下三步便可接入 Vite
-
-- 安装最新版本的插件依赖 `version >= 5.5.16`
-- 服务端应用启动时中间件初始化改为 `async await` 形式, 参考该[文件](https://github.com/ykfe/ssr/blob/dev/example/midway-react-ssr/src/app.ts#L11)
-- 修改 CSS 文件名后缀，由于本框架默认为所有类型的样式文件都使用 `css modules`，而 `Vite` 只会对 `.module.css` 结尾的文件使用 `css modules`， 为了保证样式正确展示，我们需要将原模版的 less 文件后缀名都改为 `.module.less` 引入。参考最新的[模版文件](https://github.com/ykfe/ssr/tree/dev/example/midway-react-ssr/web)代码。
-
 ## 注意事项
 
 注: 切记，我们只会在 `本地开发` 阶段使用 `Vite`，生产环境仍然用 `Webpack` 进行构建。所以请不要依赖只能够在 `Vite` 场景生效的 `vite.config.js` 配置。建议只使用默认生成的 config 文件具备的功能来保持本地开发与生产环境行为一致。否则你需要同时在 `Vite` `Webpack` 场景保持配置的一致性

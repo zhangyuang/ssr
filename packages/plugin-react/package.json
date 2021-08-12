@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-react",
-  "version": "5.5.63",
+  "version": "5.6.2",
   "description": "plugin-react for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -44,7 +44,7 @@
     "ignore-loader": "^0.1.2",
     "less": "^4.1.1",
     "less-loader": "^7.3.0",
-    "mini-css-extract-plugin": "^0.9.0",
+    "mini-css-extract-plugin": "^1.0.0",
     "optimize-css-assets-webpack-plugin": "5.0.4",
     "postcss-discard-comments": "^4.0.2",
     "postcss-flexbugs-fixes": "4.1.0",
@@ -53,10 +53,11 @@
     "postcss-preset-env": "^6.0.5",
     "postcss-safe-parser": "4.0.1",
     "react-dev-utils": "^11.0.4",
-    "ssr-client-utils": "^5.5.61",
-    "ssr-hoc-react": "^5.5.61",
-    "ssr-server-utils": "^5.5.63",
-    "ssr-webpack": "^5.5.63",
+    "serialize-javascript": "^3.0.0",
+    "ssr-client-utils": "^5.6.2",
+    "ssr-hoc-react": "^5.6.2",
+    "ssr-server-utils": "^5.6.2",
+    "ssr-webpack": "^5.6.2",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "1.1.1",
     "webpack-bundle-analyzer": "^3.6.1",
@@ -68,7 +69,8 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.3",
+    "@types/serialize-javascript": "^1.5.0",
     "@types/webpack": "^4.41.10",
-    "ssr-types-react": "^5.5.61"
+    "ssr-types-react": "^5.6.2"
   }
 }

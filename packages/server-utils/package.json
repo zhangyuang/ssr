@@ -1,6 +1,6 @@
 {
   "name": "ssr-server-utils",
-  "version": "5.5.63",
+  "version": "5.6.2",
   "description": "utils for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -38,8 +38,7 @@
     "http-proxy-middleware": "^1.0.6",
     "koa2-connect": "^1.0.2",
     "path-to-regexp": "^6.2.0",
-    "readable-stream": "^3.6.0",
     "shelljs": "^0.8.3",
-    "ssr-types": "^5.5.61"
+    "ssr-types": "^5.6.2"
   }
 }

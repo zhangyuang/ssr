@@ -3,6 +3,259 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.2](https://github.com/ykfe/ssr/compare/v5.6.1...v5.6.2) (2021-08-11)
+
+
+### Bug Fixes
+
+* ssr-core ([34616df](https://github.com/ykfe/ssr/commit/34616dfda3826f3b87585e88ec0bc5410822662c))
+
+
+
+
+
+## [5.6.1](https://github.com/ykfe/ssr/compare/v5.6.0...v5.6.1) (2021-08-11)
+
+
+### Bug Fixes
+
+* core-render content-type ([a75bd95](https://github.com/ykfe/ssr/commit/a75bd9529050eaaf3d077f835bde1cb36bf39b43))
+
+
+
+
+
+# [5.6.0](https://github.com/ykfe/ssr/compare/v5.5.99...v5.6.0) (2021-08-10)
+
+
+### Features
+
+* vue3 use renderToNodeStream replace renderToStream ([4ab3b4f](https://github.com/ykfe/ssr/commit/4ab3b4f716aa4a0640d279a2fcac4e3ab9f0d862))
+
+
+
+
+
+## [5.5.98](https://github.com/ykfe/ssr/compare/v5.5.97...v5.5.98) (2021-08-06)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.97](https://github.com/ykfe/ssr/compare/v5.5.96...v5.5.97) (2021-08-06)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.96](https://github.com/ykfe/ssr/compare/v5.5.94...v5.5.96) (2021-08-05)
+
+
+### Bug Fixes
+
+* ssr types ([742440f](https://github.com/ykfe/ssr/commit/742440f186af3577d0df0bf5fac25d665e43dbcd))
+
+
+
+
+
+## [5.5.95](https://github.com/ykfe/ssr/compare/v5.5.94...v5.5.95) (2021-08-05)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.94](https://github.com/ykfe/ssr/compare/v5.5.93...v5.5.94) (2021-08-05)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.92](https://github.com/ykfe/ssr/compare/v5.5.91...v5.5.92) (2021-08-03)
+
+
+### Bug Fixes
+
+* 修复渲染降级 ([9accc6c](https://github.com/ykfe/ssr/commit/9accc6c07998ca72602add786d53b41172d77086))
+
+
+
+
+
+## [5.5.91](https://github.com/ykfe/ssr/compare/v5.5.90...v5.5.91) (2021-08-02)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.90](https://github.com/ykfe/ssr/compare/v5.5.89...v5.5.90) (2021-08-02)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.89](https://github.com/ykfe/ssr/compare/v5.5.88...v5.5.89) (2021-07-31)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.88](https://github.com/ykfe/ssr/compare/v5.5.87...v5.5.88) (2021-07-30)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.87](https://github.com/ykfe/ssr/compare/v5.5.86...v5.5.87) (2021-07-30)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.84](https://github.com/ykfe/ssr/compare/v5.5.83...v5.5.84) (2021-07-26)
+
+
+### Bug Fixes
+
+* rename mergeStream to mergeStream2 ([a51e097](https://github.com/ykfe/ssr/commit/a51e097bf9d87a75b236620d3e9812a0f4d09406))
+
+
+
+
+
+## [5.5.83](https://github.com/ykfe/ssr/compare/v5.5.82...v5.5.83) (2021-07-26)
+
+
+### Features
+
+* update mergeStream function ([bba7484](https://github.com/ykfe/ssr/commit/bba7484e93fc9c3ff1ca51620a30141cd1e4a1c0))
+
+
+
+
+
+## [5.5.80](https://github.com/ykfe/ssr/compare/v5.5.79...v5.5.80) (2021-07-25)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.79](https://github.com/ykfe/ssr/compare/v5.5.78...v5.5.79) (2021-07-24)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.77](https://github.com/ykfe/ssr/compare/v5.5.76...v5.5.77) (2021-07-22)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.76](https://github.com/ykfe/ssr/compare/v5.5.75...v5.5.76) (2021-07-21)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.75](https://github.com/ykfe/ssr/compare/v5.5.74...v5.5.75) (2021-07-19)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.74](https://github.com/ykfe/ssr/compare/v5.5.73...v5.5.74) (2021-07-16)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.73](https://github.com/ykfe/ssr/compare/v5.5.73-alpha.3...v5.5.73) (2021-07-16)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.72](https://github.com/ykfe/ssr/compare/v5.5.71...v5.5.72) (2021-07-15)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.71](https://github.com/ykfe/ssr/compare/v5.5.70...v5.5.71) (2021-07-12)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.70](https://github.com/ykfe/ssr/compare/v5.5.69...v5.5.70) (2021-07-05)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.69](https://github.com/ykfe/ssr/compare/v5.5.68...v5.5.69) (2021-07-05)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.68](https://github.com/ykfe/ssr/compare/v5.5.67...v5.5.68) (2021-07-05)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
+## [5.5.65](https://github.com/ykfe/ssr/compare/v5.5.64...v5.5.65) (2021-07-01)
+
+**Note:** Version bump only for package ssr-core-vue3
+
+
+
+
+
 ## [5.5.63](https://github.com/ykfe/ssr/compare/v5.5.62...v5.5.63) (2021-06-25)
 
 **Note:** Version bump only for package ssr-core-vue3

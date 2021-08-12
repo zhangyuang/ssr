@@ -49,9 +49,9 @@ const loadConfig = (): IConfig => {
 
   const whiteList: RegExp[] = []
 
-  const jsOrder = [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`]
+  const jsOrder = [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`].concat(userConfig.extraJsOrder ?? [])
 
-  const cssOrder = [`${chunkName}.css`]
+  const cssOrder = [`${chunkName}.css`].concat(userConfig.extraCssOrder ?? [])
 
   const webpackStatsOption = {
     assets: true, // 添加资源信息

@@ -3,6 +3,336 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.2](https://github.com/ykfe/ssr/compare/v5.6.1...v5.6.2) (2021-08-11)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.6.1](https://github.com/ykfe/ssr/compare/v5.6.0...v5.6.1) (2021-08-11)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.98](https://github.com/ykfe/ssr/compare/v5.5.97...v5.5.98) (2021-08-06)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.97](https://github.com/ykfe/ssr/compare/v5.5.96...v5.5.97) (2021-08-06)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.96](https://github.com/ykfe/ssr/compare/v5.5.94...v5.5.96) (2021-08-05)
+
+
+### Bug Fixes
+
+* ssr types ([742440f](https://github.com/ykfe/ssr/commit/742440f186af3577d0df0bf5fac25d665e43dbcd))
+
+
+
+
+
+## [5.5.95](https://github.com/ykfe/ssr/compare/v5.5.94...v5.5.95) (2021-08-05)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.94](https://github.com/ykfe/ssr/compare/v5.5.93...v5.5.94) (2021-08-05)
+
+
+### Bug Fixes
+
+* clear router cache in vite mode ([d2d7e00](https://github.com/ykfe/ssr/commit/d2d7e003f4cbecee6cc0770a64653714b50ff34b))
+
+
+### Features
+
+* move ssr-temporary-routes position ([9966d10](https://github.com/ykfe/ssr/commit/9966d10b466e2d6dcf10ba09b4267dd8e2a324f0))
+
+
+
+
+
+## [5.5.93](https://github.com/ykfe/ssr/compare/v5.5.92...v5.5.93) (2021-08-04)
+
+
+### Bug Fixes
+
+* clear router cache in vite mode ([cea9fc0](https://github.com/ykfe/ssr/commit/cea9fc09c41813bbc1fe4a8d8d94c1d511f85945))
+
+
+
+
+
+## [5.5.92](https://github.com/ykfe/ssr/compare/v5.5.91...v5.5.92) (2021-08-03)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.91](https://github.com/ykfe/ssr/compare/v5.5.90...v5.5.91) (2021-08-02)
+
+
+### Features
+
+* support parallel fetch ([0268c4c](https://github.com/ykfe/ssr/commit/0268c4c9ae25062feba75c40f10e6a3d3df64381))
+
+
+
+
+
+## [5.5.90](https://github.com/ykfe/ssr/compare/v5.5.89...v5.5.90) (2021-08-02)
+
+
+### Features
+
+* config add customeFooterScript ([0a41ad9](https://github.com/ykfe/ssr/commit/0a41ad9920d4d1b1bd9966ed6db99bb12a8b422f))
+
+
+
+
+
+## [5.5.89](https://github.com/ykfe/ssr/compare/v5.5.88...v5.5.89) (2021-07-31)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.88](https://github.com/ykfe/ssr/compare/v5.5.87...v5.5.88) (2021-07-30)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.87](https://github.com/ykfe/ssr/compare/v5.5.86...v5.5.87) (2021-07-30)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.86](https://github.com/ykfe/ssr/compare/v5.5.85...v5.5.86) (2021-07-27)
+
+
+### Features
+
+* not emit svg file in server side ([e8aaefc](https://github.com/ykfe/ssr/commit/e8aaefc5aef0627fb62e87ac5e37444c921c1c67))
+
+
+
+
+
+## [5.5.85](https://github.com/ykfe/ssr/compare/v5.5.84...v5.5.85) (2021-07-26)
+
+
+### Features
+
+* vue scene add props.ctx in App.vue in server render stage ([8f50d9a](https://github.com/ykfe/ssr/commit/8f50d9ab095059a526888833b722507af1564b45))
+
+
+
+
+
+## [5.5.84](https://github.com/ykfe/ssr/compare/v5.5.83...v5.5.84) (2021-07-26)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.83](https://github.com/ykfe/ssr/compare/v5.5.82...v5.5.83) (2021-07-26)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.82](https://github.com/ykfe/ssr/compare/v5.5.81...v5.5.82) (2021-07-26)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.81](https://github.com/ykfe/ssr/compare/v5.5.80...v5.5.81) (2021-07-25)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.80](https://github.com/ykfe/ssr/compare/v5.5.79...v5.5.80) (2021-07-25)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.79](https://github.com/ykfe/ssr/compare/v5.5.78...v5.5.79) (2021-07-24)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.78](https://github.com/ykfe/ssr/compare/v5.5.77...v5.5.78) (2021-07-23)
+
+
+### Features
+
+* update react injectState ([0acd219](https://github.com/ykfe/ssr/commit/0acd2196644a17a6aa826cb8cd32ff10fe64ab66))
+
+
+
+
+
+## [5.5.77](https://github.com/ykfe/ssr/compare/v5.5.76...v5.5.77) (2021-07-22)
+
+
+### Bug Fixes
+
+* normalizePublicPath ([b5b4d21](https://github.com/ykfe/ssr/commit/b5b4d21dc62db870f1418a3a625888b69fd2e032))
+
+
+
+
+
+## [5.5.76](https://github.com/ykfe/ssr/compare/v5.5.75...v5.5.76) (2021-07-21)
+
+
+### Features
+
+* not emit unused file in server side close [#80](https://github.com/ykfe/ssr/issues/80) ([2b9a222](https://github.com/ykfe/ssr/commit/2b9a222b7889adb87bf2a24f9ad925ffffa2febf))
+
+
+
+
+
+## [5.5.75](https://github.com/ykfe/ssr/compare/v5.5.74...v5.5.75) (2021-07-19)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.74](https://github.com/ykfe/ssr/compare/v5.5.73...v5.5.74) (2021-07-16)
+
+
+### Bug Fixes
+
+* vite mode judge ([61fbb80](https://github.com/ykfe/ssr/commit/61fbb803f687d0653c0f879fc8018c9ed5fa17d5))
+
+
+### Features
+
+* use crypto algorithm to crypto asyncChunkName to prevent too long ([675d6b8](https://github.com/ykfe/ssr/commit/675d6b8a9d233c732b361590032273354845b13b))
+
+
+
+
+
+## [5.5.73](https://github.com/ykfe/ssr/compare/v5.5.73-alpha.3...v5.5.73) (2021-07-16)
+
+
+### Features
+
+* vue3 vue2 react scene add asyncChunks logic ([d872fe3](https://github.com/ykfe/ssr/commit/d872fe3d3da27531d0ae16e595beeb91fa24a71d))
+
+
+
+
+
+## [5.5.72](https://github.com/ykfe/ssr/compare/v5.5.71...v5.5.72) (2021-07-15)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.71](https://github.com/ykfe/ssr/compare/v5.5.70...v5.5.71) (2021-07-12)
+
+
+### Bug Fixes
+
+* splitChunks 优化 ([16d820c](https://github.com/ykfe/ssr/commit/16d820c209bc04e25f78e56c63cae31a54c38d3e))
+* use chunks async in production environment ([61987e0](https://github.com/ykfe/ssr/commit/61987e0458d973b7a21c45e095f33680fa1af5da))
+
+
+
+
+
+## [5.5.70](https://github.com/ykfe/ssr/compare/v5.5.69...v5.5.70) (2021-07-05)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.69](https://github.com/ykfe/ssr/compare/v5.5.68...v5.5.69) (2021-07-05)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.68](https://github.com/ykfe/ssr/compare/v5.5.67...v5.5.68) (2021-07-05)
+
+**Note:** Version bump only for package ssr-plugin-vue
+
+
+
+
+
+## [5.5.65](https://github.com/ykfe/ssr/compare/v5.5.64...v5.5.65) (2021-07-01)
+
+
+### Bug Fixes
+
+* use inline sourcemap ([f1a2db5](https://github.com/ykfe/ssr/commit/f1a2db553429daa53be9f746df145bbee90d329f))
+
+
+### Features
+
+* use cheap-module-source-map replace eval sourcemap in server bundle ([8d59f44](https://github.com/ykfe/ssr/commit/8d59f44eea78409092d963cba04a89d3eaf55cbf))
+
+
+
+
+
 ## [5.5.63](https://github.com/ykfe/ssr/compare/v5.5.62...v5.5.63) (2021-06-25)
 
 **Note:** Version bump only for package ssr-plugin-vue
