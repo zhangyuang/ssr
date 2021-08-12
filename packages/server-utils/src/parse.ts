@@ -61,6 +61,7 @@ const parseFeRoutes = async () => {
   if (!declaretiveRoutes) {
     // 根据目录结构生成前端路由表
     const pathRecord = [''] // 路径记录
+    // @ts-expect-error
     const route: ParseFeRouteItem = {}
     const arr = await renderRoutes(pageDir, pathRecord, route)
     if (routerPriority) {
