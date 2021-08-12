@@ -61,6 +61,7 @@ export interface IConfig {
   babelExtraModule?: RuleSetCondition
   routerPriority?: Record<string, number>
   parallelFetch?: boolean
+  nestStartTips?: string
 }
 
 type Optional <T>= { [key in keyof T]?: T[key] }

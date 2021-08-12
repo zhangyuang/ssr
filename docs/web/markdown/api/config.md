@@ -398,6 +398,22 @@ module.exports = {
     }
 }
 ```
+
+## nestStartTips
+
+自定义 `Nest.js` 场景服务启动成功提示文案，不填写则为 `Server is listening on ${https ? 'https' : 'http'}://localhost:${serverPort}`
+
+- 类型: `string`
+
+- 默认: `undefined`
+
+
+```js
+module.exports = {
+  nestStartTips: 'xxx'
+}
+```
+
 ## 注意事项
 
 1. 由于 `config.js` 文件在 Node.js 环境也会被加载，如果直接在顶部 `require` 模块可能会导致模块`体积过大`，降低应用启动速度，我们建议在必要的函数当中再 `require` 需要用到的模块。

@@ -41,7 +41,7 @@ jobs:
             ${{ runner.os }}-v2.5.7-
       - name: Install dependencies
         run: | 
-          yarn && yarn build:only
+          yarn && yarn build:only && yarn run build
           node scripts/scripts.js --publishDoc
           cd example/midway-react-ssr && yarn && yarn add vite @vitejs/plugin-react-refresh -D
           cd ../midway-vue-ssr && yarn && yarn add vite vite-plugin-vue2 -D
