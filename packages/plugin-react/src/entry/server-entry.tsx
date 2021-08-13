@@ -14,7 +14,7 @@ const { FeRoutes, layoutFetch, BASE_NAME, state } = Routes as ReactRoutesType
 declare const global: IGlobal
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
-  const { cssOrder, jsOrder, dynamic, mode, chunkName, parallelFetch } = config
+  const { cssOrder, jsOrder, dynamic, mode, chunkName, parallelFetch, disableClientRender } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   let path = ctx.request.path // 这里取 pathname 不能够包含 queyString
   if (BASE_NAME) {
@@ -58,6 +58,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
         injectCss.push(<link rel='stylesheet' key={item} href={item} />)
       }
     })
+  }
+
+  if (disableClientRender) {
+    injectCss.push(<script key="disableClientRender" dangerouslySetInnerHTML={{
+      __html: 'window.__disableClientRender__ = true'
+    }}/>)
   }
 
   const injectScript = viteMode ? [

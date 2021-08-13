@@ -19,7 +19,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     path = normalizePath(path)
   }
   const store = createStore()
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender } = config
   const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
   const viteMode = process.env.BUILD_TOOL === 'vite'
 
@@ -102,6 +102,20 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       src: manifest[js]
     })
   )
+
+  const customeHeadScriptArr = customeHeadScript?.map((item) => h(
+    'script',
+    Object.assign({}, item.describe, {
+      innerHTML: item.content
+    })
+  )
+  ) ?? []
+
+  if (disableClientRender) {
+    customeHeadScriptArr.push(h('script', {
+      innerHTML: 'window.__disableClientRender__ = true'
+    }))
+  }
   const state = Object.assign({}, store.state ?? {}, asyncData.value)
 
   const app = createSSRApp({
@@ -118,14 +132,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
               src: '/@vite/client'
             }) : null,
 
-          customeHeadScript: () => customeHeadScript?.map((item) =>
-            h(
-              'script',
-              Object.assign({}, item.describe, {
-                innerHTML: item.content
-              })
-            )
-          ),
+          customeHeadScript: () => customeHeadScriptArr,
           customeFooterScript: () => customeFooterScript?.map((item) =>
             h(
               'script',

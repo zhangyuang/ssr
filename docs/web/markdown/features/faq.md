@@ -473,6 +473,61 @@ export default {
 
 在正式的线上应用执行阶段。我们一般使用以下方式来进行降级
 
+## 在微前端场景下使用(Beta)
+
+得益于框架底层代码的简单，我们不需要做很多改动就可以在微前端场景下集成。此功能尚在实验中，欢迎开发者与我们共同探寻最佳实践。
+
+首先开发者需要配置 `disableClientRender`，来禁用框架默认的客户端渲染逻辑的调用
+
+```js
+module.exports = {
+    disableClientRender: true
+}
+```
+
+然后开发者可以自行定义客户端入口文件自行决定什么时候调用客户端渲染方法。
+
+```js
+// 在项目根目录创建自己定义的 main.js
+// main.js
+
+import { clientRender } from 'ssr-plugin-vue3/cjs/entry/client-entry'
+
+if (!微前端) {
+  clientRender() // 手动调用客户端渲染方法
+}
+
+export async mount() {
+  // 通常微前端场景需要抛出一个 mount 方法
+  clientRender()
+}
+
+```
+
+修改 `Webpack` 构建配置，入口文件指向新的入口文件
+
+```js
+const { resolve } = require('path')
+
+module.exports = {
+  disableClientRender: true,
+  chainClientConfig: chain => {
+    // 只需要修改入口文件路径，其他配置可以沿用默认配置
+    const { loadConfig, getOutputPublicPath } = require('ssr-server-utils')
+    const { chunkName, getOutput, useHash } = loadConfig()
+    const publicPath = getOutputPublicPath()
+    chain.entry(chunkName)
+      .add(resolve(process.cwd(), './main.js'))
+      .end()
+      .output
+      .path(getOutput().clientOutPut)
+      .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
+      .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js')
+      .publicPath(publicPath)
+      .end()
+  }
+}
+```
 ## 指定页面 ssr
 
 开发者或许需要针对某些页面进行服务端渲染，某些页面不需要。得益于 `ssr` 的强大设计，此功能完全不需要框架底层支持，直接在业务代码实现即可。
@@ -481,8 +536,9 @@ export default {
 import { render } from 'ssr-core-vue3'
 // 开发者可以在 controller 中根据不同的 path 使用不同的运行配置来决定当前的渲染模式
 
-@Controller('/')
+@Controller('/detail')
 const stream = await render<Readable>(this.ctx, {
+  // 对 /detail 路由使用 csr 渲染模式
   mode: 'csr'
 })
 ```

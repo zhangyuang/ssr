@@ -62,6 +62,7 @@ export interface IConfig {
   routerPriority?: Record<string, number>
   parallelFetch?: boolean
   nestStartTips?: string
+  disableClientRender?: boolean
 }
 
 type Optional <T>= { [key in keyof T]?: T[key] }
