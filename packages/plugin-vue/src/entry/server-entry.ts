@@ -13,7 +13,7 @@ const { FeRoutes, App, layoutFetch, Layout, BASE_NAME } = Routes as RoutesType
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
   const router = createRouter()
   const store = createStore()
-  const ViteMode = process.env.BUILD_TOOL === 'vite'
+  const viteMode = process.env.BUILD_TOOL === 'vite'
   sync(store, router)
 
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch } = config
@@ -31,12 +31,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   }
 
   let dynamicCssOrder = cssOrder
-  if (dynamic && !ViteMode) {
+  if (dynamic && !viteMode) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
     dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
   }
 
-  const manifest = ViteMode ? {} : await getManifest()
+  const manifest = viteMode ? {} : await getManifest()
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
@@ -76,7 +76,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
     store,
     render: function (h: Vue.CreateElement) {
       const injectCss: Vue.VNode[] = []
-      if (ViteMode) {
+      if (viteMode) {
         injectCss.push(
           h('link', {
             attrs: {
@@ -100,7 +100,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
         })
       }
 
-      const injectScript: Vue.VNode[] = ViteMode ? [h('script', {
+      const injectScript: Vue.VNode[] = viteMode ? [h('script', {
         attrs: {
           type: 'module',
           src: '/node_modules/ssr-plugin-vue/esm/entry/client-entry.js'
@@ -129,7 +129,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
             ])
           ]),
-          ViteMode && h('template', {
+          viteMode && h('template', {
             slot: 'viteClient'
           }, [viteClient]),
 
@@ -166,11 +166,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           }, [
             isCsr ? h('script', {
               domProps: {
-                innerHTML: `window.__USE_VITE__=${ViteMode}`
+                innerHTML: `window.__USE_VITE__=${viteMode}`
               }
             }) : h('script', {
               domProps: {
-                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${ViteMode}`
+                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${viteMode}`
               }
             })
           ]),

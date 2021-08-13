@@ -22,7 +22,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   }
   const { window } = global
   const routeItem = findRoute<ReactServerESMFeRouteItem>(FeRoutes, path)
-  const ViteMode = process.env.BUILD_TOOL === 'vite'
+  const viteMode = process.env.BUILD_TOOL === 'vite'
 
   if (!routeItem) {
     throw new Error(`
@@ -33,15 +33,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   let dynamicCssOrder = cssOrder
 
-  if (dynamic && !ViteMode) {
+  if (dynamic && !viteMode) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
     dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
   }
-  const manifest = ViteMode ? {} : await getManifest()
+  const manifest = viteMode ? {} : await getManifest()
 
   const injectCss: JSX.Element[] = []
 
-  if (ViteMode) {
+  if (viteMode) {
     injectCss.push(<script src="/@vite/client" type="module" key="vite-client"/>)
     injectCss.push(<script key="vite-react-refresh" type="module" dangerouslySetInnerHTML={{
       __html: ` import RefreshRuntime from "/@react-refresh"
@@ -60,7 +60,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     })
   }
 
-  const injectScript = ViteMode ? [
+  const injectScript = viteMode ? [
     <script key="viteWindowInit" dangerouslySetInnerHTML={{
       __html: 'window.__USE_VITE__=true'
     }} />,

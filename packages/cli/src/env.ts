@@ -13,11 +13,6 @@ export const handleEnv = async (argv: Argv, spinner: any) => {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
   }
 
-  if (argv.test) {
-    // 开发同学本地 link 测试用
-    process.env.TEST = '1'
-  }
-
   if (process.env.BUILD_TOOL === 'vite') {
     const result = await checkVite()
     if (!result) {
