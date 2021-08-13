@@ -255,7 +255,7 @@ $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 
 <div style="display:flex">
 <img src="https://res.wx.qq.com/op_res/rrhdxU0o2yUdgTjwgkAgO-CSFV-lArvMYzWzxl2SuvnKkcWECv7SXswEYjk2pPcDcL43r0kz_MIp_fsxPPqQ2Q" width="300">
-<img src="https://res.wx.qq.com/op_res/rIX-_-PvEexhHVPjyI9DqhdMcBt9kEj8bWA3KnzlQ2JgpX1wky9VQjFqBnyXn2mJIbcYti0bFB9Z9yX5NyllSQ" width="300">
+<img src="https://res.wx.qq.com/op_res/fi6dmYKe6DVGQ3FRwwCioil-jiCAN56L1xTvvud56Tv7rqbE8JThVOLOVfEi5Ng_xIAC4GKgaRg7NVPf_0G7TQ" width="300">
 </div>
 
 ## 前端开发手册
