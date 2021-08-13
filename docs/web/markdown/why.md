@@ -224,7 +224,7 @@
 
 没有 [runInNewContext](http://nodejs.cn/api/vm.html#vm_script_runinnewcontext_contextobject_options)，我们不像其他框架的做法一样使用 vm 模块创建上下文来解析服务端 bundle，所以我们的性能是极高的。等于直接调用框架提供的原生 API 无任何中间层损耗
 
-### 不基于 vue-server-renderer
+### 不基于 createBundleRenderer
 
 目前业界几乎所有与 `VueSSR` 有关的框架底层本质都是使用了官方的[vue-server-renderer](https://www.npmjs.com/package/vue-server-renderer) 提供的 `createBundleRenderer` 来进行核心渲染逻辑。这会有很多问题
 
