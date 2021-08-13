@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.4](https://github.com/ykfe/ssr/compare/v5.6.3...v5.6.4) (2021-08-13)
+
+
+### Features
+
+* support micro-app ([e91c2ee](https://github.com/ykfe/ssr/commit/e91c2ee33ab1f24627118c224bda35064d331c40))
+
+
+
+
+
 ## [5.6.3](https://github.com/ykfe/ssr/compare/v5.6.2...v5.6.3) (2021-08-12)
 
 **Note:** Version bump only for package ssr-plugin-react
