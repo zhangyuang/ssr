@@ -199,4 +199,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   return app
 }
 
-export default serverRender
+export {
+  serverRender
+}

@@ -124,4 +124,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   )
 }
 
-export default serverRender
+export {
+  serverRender
+}

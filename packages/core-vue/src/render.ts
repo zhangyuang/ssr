@@ -24,7 +24,7 @@ async function render<T=string> (ctx: ISSRContext, options?: UserConfig): Promis
     (ctx as ExpressContext).response.setHeader?.('Content-type', 'text/html;charset=utf-8')
   }
 
-  const serverRender = require(serverFile).default
+  const { serverRender } = require(serverFile)
   const serverRes = await serverRender(ctx, config)
 
   if (stream) {

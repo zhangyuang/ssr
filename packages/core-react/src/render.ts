@@ -16,7 +16,7 @@ async function render<T = string> (ctx: ISSRContext, options?: UserConfig): Prom
     delete require.cache[serverFile]
   }
 
-  const serverRender = require(serverFile).default
+  const { serverRender } = require(serverFile)
   const serverRes = await serverRender(ctx, config)
 
   if (typeof ctx.response.type !== 'function' && !ctx.response.type) {

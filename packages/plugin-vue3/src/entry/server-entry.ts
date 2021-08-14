@@ -165,4 +165,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   return app
 }
 
-export default serverRender
+export {
+  serverRender
+}
