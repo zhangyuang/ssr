@@ -477,6 +477,14 @@ export default {
 
 得益于框架底层代码的简单，我们不需要做很多改动就可以在微前端场景下集成。此功能尚在实验中，欢迎开发者与我们共同探寻最佳实践。
 
+### 与 micro-app 结合使用
+
+这里有一个结合 [micro-app](https://zeroing.jd.com/micro-app/) 使用的示例。目前看起来对应用的侵入性很小。
+
+### 与 qiankun 结合使用
+
+如果是在 [qiankun](https://qiankun.umijs.org/) 场景下使用，目前看来侵入性略大。
+
 首先开发者需要配置 `disableClientRender`，来禁用框架默认的客户端渲染逻辑的调用
 
 ```js
