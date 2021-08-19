@@ -479,7 +479,7 @@ export default {
 
 ### 与 micro-app 结合使用
 
-这里有一个结合 [micro-app](https://zeroing.jd.com/micro-app/) 使用的示例。目前看起来对应用的侵入性很小。
+这里有一个结合 [micro-app](https://zeroing.jd.com/micro-app/) 使用的[示例](https://github.com/zhangyuang/micro-app-ssr)。目前看起来对应用的侵入性很小。个人非常喜欢这种方式。
 
 ### 与 qiankun 结合使用
 
