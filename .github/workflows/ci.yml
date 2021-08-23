@@ -44,7 +44,7 @@ jobs:
           yarn && yarn build:only && yarn run build
           node scripts/scripts.js --publishDoc
           cd example/midway-react-ssr && yarn && yarn add vite @vitejs/plugin-react-refresh -D
-          cd ../midway-vue-ssr && yarn && yarn add vite vite-plugin-vue2 -D
+          cd ../midway-vue-ssr && yarn && yarn add vite vite-plugin-vue2@1.4.4 -D
           cd ../midway-vue3-ssr && yarn && yarn add vite @vitejs/plugin-vue -D
           cd ../nestjs-react-ssr && yarn
           cd ../nestjs-vue-ssr && yarn

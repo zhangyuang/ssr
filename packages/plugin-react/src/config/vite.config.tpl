@@ -7,9 +7,6 @@ const reactRefresh = require('@vitejs/plugin-react-refresh')
  * @type {import('vite').UserConfig}
  */
 module.exports = {
-  optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', 'react-loadable']
-  },
   plugins: [
     reactRefresh()
   ],
@@ -24,8 +21,13 @@ module.exports = {
   resolve: {
     alias: {
       '@': join(process.cwd(), './web'),
-      '_build': join(process.cwd(), './build')
+      _build: join(process.cwd(), './build')
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
+  },
+  build: {
+    rollupOptions: {
+      input: './node_modules/ssr-plugin-react/esm/entry/client-entry.js'
+    }
   }
 }

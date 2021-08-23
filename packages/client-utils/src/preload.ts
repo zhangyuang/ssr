@@ -9,19 +9,17 @@ const preloadComponent = async (Routes: ReactClientESMFeRouteItem[], BASE_NAME?:
   // 预加载当前页面对应的组件
   for (const route of Routes) {
     const { component, path } = route
-    let activeComponent = component
-    if (window.__USE_VITE__) {
-      route.component = (await activeComponent()).default
-    } else {
-      let pathname = location.pathname
-      if (BASE_NAME) {
-        pathname = normalizePath(pathname, BASE_NAME)
-      }
-      if (activeComponent.preload && pathToRegexp(path).test(pathname)) {
+    let pathname = location.pathname
+    if (BASE_NAME) {
+      pathname = normalizePath(pathname, BASE_NAME)
+    }
+    if (pathToRegexp(path).test(pathname)) {
+      if (component.preload) {
         // 针对 react-loadble 包裹的组件
-        activeComponent = (await activeComponent.preload()).default
+        route.component = (await component.preload()).default
+      } else if (window.__USE_VITE__) {
+        route.component = (await component()).default
       }
-      route.component = activeComponent
     }
   }
   return Routes
