@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.6](https://github.com/ykfe/ssr/compare/v5.6.5...v5.6.6) (2021-08-23)
+
+
+### Features
+
+* add vite rollupOptions.input ([c88c531](https://github.com/ykfe/ssr/commit/c88c5310e415b78a4f6a0fd8616ffa9cf7fe1e0c))
+* remove react-loadable ([cde40ce](https://github.com/ykfe/ssr/commit/cde40cea20d364a9d728cbd9206f1665267dfc0b))
+
+
+
+
+
 ## [5.6.4](https://github.com/ykfe/ssr/compare/v5.6.3...v5.6.4) (2021-08-13)
 
 **Note:** Version bump only for package ssr-client-utils
