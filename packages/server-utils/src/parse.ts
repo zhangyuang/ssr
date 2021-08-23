@@ -110,9 +110,6 @@ const parseFeRoutes = async () => {
       const accessStore = await accessFile(join(getFeDir(), './store/index.ts'))
       const re = /"webpackChunkName":("(.+?)")/g
       routes = `
-        ${dynamic && !viteMode ? `
-        import React from "react"
-        import loadable from 'react-loadable' ` : ''}
         export const FeRoutes = ${JSON.stringify(arr)} 
         ${accessReactApp ? 'export { default as App } from "@/components/layout/App.tsx"' : ''}
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
@@ -123,16 +120,10 @@ const parseFeRoutes = async () => {
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
         if (dynamic) {
-          if (viteMode) {
-            return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
-          } else {
-            return `"component":  __isBrowser__ ? loadable({
-                  loader: () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}'),
-                  loading: function Loading () {
-                    return React.createElement('div')
-                  }
-                }) : require('${m2.replace(/\^/g, '"')}').default`
-          }
+          return `"component":  __isBrowser__ ? function dynamicComponent () {
+            return import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}')
+          } : require('${m2.replace(/\^/g, '"')}').default
+          `
         } else {
           return `"component":  require('${m2.replace(/\^/g, '"')}').default`
         }

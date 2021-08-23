@@ -6,7 +6,7 @@ import Recommend from '@/components/recommend'
 import Search from '@/components/search'
 import { Ddata, RecommendDataNode, PlayerDataNode, BriefDataNode } from '@/interface'
 
-export default (props: SProps) => {
+export default function Detail (props: SProps) {
   const { state, dispatch } = useContext<IContext<Ddata>>(window.STORE_CONTEXT)
   return (
     <div>
