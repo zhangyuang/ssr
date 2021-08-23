@@ -14,7 +14,7 @@ const start = () => {
     if (data.match('Nest application successfully started')) {
       spinner.stop()
       const https = process.env.HTTPS
-      logGreen(nestStartTips || `Server is listening on ${https ? 'https' : 'http'}://localhost:${serverPort}`)
+      logGreen(nestStartTips ?? `Server is listening on ${https ? 'https' : 'http'}://localhost:${serverPort}`)
     }
   })
   stderr?.on('data', function (data) {
