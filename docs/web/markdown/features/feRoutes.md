@@ -108,27 +108,20 @@ export { store }
 
 ```js
 import React from "react"
-import loadable from 'react-loadable'
 export const FeRoutes = [
 {
   "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts') : require('@/pages/detail/fetch.ts').default,
   "path": "/detail/:id",
-  "component": __isBrowser__ ? loadable({
-    loader: () => import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id.tsx'),
-    loading: function Loading() {
-      return React.createElement('div')
-    }
-  }) : require('@/pages/detail/render$id.tsx').default, "webpackChunkName": "detail-id"
+  "component": __isBrowser__ ?  function dynamicComponent () {
+    return import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id.tsx')
+   } : require('@/pages/detail/render$id.tsx').default, "webpackChunkName": "detail-id"
 }, 
 {
   "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts') : require('@/pages/index/fetch.ts').default,
   "path": "/",
-  "component": __isBrowser__ ? loadable({
-    loader: () => import(/* webpackChunkName: "index" */ '@/pages/index/render.tsx'),
-    loading: function Loading() {
-      return React.createElement('div')
-    }
-  }) : require('@/pages/index/render.tsx').default, "webpackChunkName": "index"
+  "component": __isBrowser__ ? function dynamicComponent () {
+    return import(/* webpackChunkName: "index" */ '@/pages/index/render.tsx')
+   } : require('@/pages/index/render.tsx').default, "webpackChunkName": "index"
 }]
 export { default as App } from "@/components/layout/App.tsx"
 ```
