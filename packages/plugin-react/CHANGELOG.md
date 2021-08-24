@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.11](https://github.com/ykfe/ssr/compare/v5.6.10...v5.6.11) (2021-08-24)
+
+
+### Bug Fixes
+
+* update react vite.config.tpl ([7d2d4bd](https://github.com/ykfe/ssr/commit/7d2d4bdce828633f7acd1db3e158c0f3d2ba7f3d))
+
+
+
+
+
 ## [5.6.10](https://github.com/ykfe/ssr/compare/v5.6.10-alpha.0...v5.6.10) (2021-08-24)
 
 
