@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.7](https://github.com/ykfe/ssr/compare/v5.6.6...v5.6.7) (2021-08-24)
+
+
+### Bug Fixes
+
+* keep function names in prod environment ([a1500ce](https://github.com/ykfe/ssr/commit/a1500ceb3b5f3573e2c793eb12327f4b185e7ac0))
+
+
+
+
+
 ## [5.6.6](https://github.com/ykfe/ssr/compare/v5.6.5...v5.6.6) (2021-08-23)
 
 
