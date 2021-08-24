@@ -1,6 +1,6 @@
 {
   "name": "ssr-core-react",
-  "version": "5.6.9",
+  "version": "5.6.10-alpha.0",
   "description": "core for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -34,7 +34,7 @@
   "dependencies": {
     "react-dom": "^17.0.0",
     "serialize-javascript": "^3.0.0",
-    "ssr-server-utils": "^5.6.9"
+    "ssr-server-utils": "^5.6.10-alpha.0"
   },
   "devDependencies": {
     "@types/react-dom": "^17.0.0"
