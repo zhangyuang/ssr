@@ -1,6 +1,6 @@
 {
   "name": "ssr-webpack",
-  "version": "5.6.10-alpha.0",
+  "version": "5.6.10",
   "description": "webpack config for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
-    "ssr-server-utils": "^5.6.10-alpha.0",
+    "ssr-server-utils": "^5.6.10",
     "webpack": "^4.42.1",
     "webpack-dev-server-ssr": "^3.10.3"
   },
