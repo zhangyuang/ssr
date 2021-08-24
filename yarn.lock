@@ -10154,13 +10154,6 @@ generic-names@^2.0.1:
   dependencies:
     loader-utils "^1.1.0"
 
-generic-names@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/generic-names/-/generic-names-3.0.0.tgz#c69a01700098e1215d5a0b820ac21ddd70a78dbb"
-  integrity sha512-4zZck5fpODoHpbiPaQqwhSWKk+dxHeCL7U1UpQsYwl9w5iNU4+K6uBHifOe7e0FCOuKMUiGUXxwJdsqHZBCVew==
-  dependencies:
-    loader-utils "^2.0.0"
-
 genfun@^5.0.0:
   version "5.0.0"
   resolved "https://registry.npmjs.org/genfun/-/genfun-5.0.0.tgz#9dd9710a06900a5c4a5bf57aca5da4e52fe76537"
