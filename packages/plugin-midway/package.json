@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-midway",
-  "version": "5.6.7",
+  "version": "5.6.8",
   "description": "plugin-midway for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -38,7 +38,7 @@
     "@midwayjs/fcli-plugin-scf": "^1.2.12",
     "@midwayjs/luckyeye": "^1.0.0",
     "mwts": "^1.0.5",
-    "ssr-server-utils": "^5.6.7"
+    "ssr-server-utils": "^5.6.8"
   },
   "peerDependencies": {
     "@midwayjs/decorator": "^2.3.0",
