@@ -49,6 +49,7 @@ const getClientWebpack = (chain: WebpackChain) => {
       optimization.minimizer('terser')
         .use(loadModule('terser-webpack-plugin'), [{
           terserOptions: {
+            keep_fnames: true,
             parse: {
               ecma: 8
             },
