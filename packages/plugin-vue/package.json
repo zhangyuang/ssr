@@ -38,7 +38,7 @@
     "concurrently": "^5.1.0",
     "core-js": "^3.6.4",
     "css-hot-loader": "^1.4.4",
-    "css-loader": "1.0.0",
+    "css-loader": "^5.2.7",
     "css-modules-require-hook": "^4.2.3",
     "file-loader": "2.0.0",
     "ignore-loader": "^0.1.2",

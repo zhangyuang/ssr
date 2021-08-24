@@ -2,6 +2,7 @@
 
 const { join } = require('path')
 const reactRefresh = require('@vitejs/plugin-react-refresh')
+const genericNames = require('generic-names')
 
 /**
  * @type {import('vite').UserConfig}
@@ -15,7 +16,12 @@ module.exports = {
   },
   css: {
     modules: {
-      generateScopedName: '[name]__[local]___[hash:base64:5]'
+      generateScopedName: function (name, filename, css) {
+        // 对齐 css-loader 与 postcss-modules 生成 hash 方式, 不要修改
+        return genericNames('[name]__[local]___[hash:base64:5]', {
+          context: process.cwd()
+        })(name, filename)
+      }
     }
   },
   resolve: {

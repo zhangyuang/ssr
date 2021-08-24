@@ -35,6 +35,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "debug": "^4.1.1",
+    "generic-names": "^3.0.0",
     "http-proxy-middleware": "^1.0.6",
     "koa2-connect": "^1.0.2",
     "path-to-regexp": "^6.2.0",

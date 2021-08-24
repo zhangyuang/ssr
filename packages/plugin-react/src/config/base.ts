@@ -109,7 +109,9 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   setStyle(chain, /\.css$/, {
     exclude: cssModulesWhiteList,
     rule: 'css',
-    modules: true,
+    modules: {
+      auto: true
+    },
     isServer,
     importLoaders: 1
   }, true) // 设置css
@@ -118,7 +120,9 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     exclude: cssModulesWhiteList,
     rule: 'less',
     loader: 'less-loader',
-    modules: true,
+    modules: {
+      auto: true
+    },
     isServer,
     importLoaders: 2
   }, true)
@@ -126,7 +130,9 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   setStyle(chain, /\.less$/, {
     include: cssModulesWhiteList,
     rule: 'cssModulesWhiteListLess',
-    modules: false,
+    modules: {
+      auto: false
+    },
     loader: 'less-loader',
     importLoaders: 2,
     isServer
@@ -135,7 +141,9 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   setStyle(chain, /\.css$/, {
     include: cssModulesWhiteList,
     rule: 'cssModulesWhiteListCss',
-    modules: false,
+    modules: {
+      auto: false
+    },
     importLoaders: 1,
     isServer
   }, true)
