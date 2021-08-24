@@ -2,7 +2,8 @@
 
 const { join } = require('path')
 const reactRefresh = require('@vitejs/plugin-react-refresh')
-const genericNames = require('generic-names')
+// 保证双端用的是同一版本的 hash 算法
+const genericNames = require('ssr-server-utils/node_modules/generic-names')
 
 /**
  * @type {import('vite').UserConfig}
