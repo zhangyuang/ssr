@@ -166,11 +166,11 @@
 ```bash
 $ npm init ssr-app my-ssr-project
 $ cd my-ssr-project
-$ npm install # 可以使用yarn 不要使用 cnpm
+$ npm install # 可以使用 yarn 不要使用 cnpm
 $ npm start
 $ open http://localhost:3000 # 访问应用
 $ npm run build # 资源构建，等价于 npx ssr build
-$ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
+$ npm run start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 ```
 
 ![](http://doc.ssr-fc.com/images/resume3.svg)
