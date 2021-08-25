@@ -16,7 +16,8 @@ const setStyle = (chain: Config, reg: RegExp, options: StyleOptions, isReact?: b
     modules: process.env.BUILD_TOOL === 'vite' ? {
       // 本地开发 vite 场景只针对 module 后缀名使用 css-modules
       auto: /\.module\.\w+$/i
-    } : modules
+    } : modules,
+    url: false // disable css-loader handle url() syntax
   }
   if (isReact && modules?.auto) {
     // 对齐 css-loader 与 postcss-modules 生成 hash 方式
