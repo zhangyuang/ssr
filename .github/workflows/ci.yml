@@ -83,7 +83,6 @@ jobs:
       - run: yarn run lint
 
   deploy-doc: 
-    if: ${{ contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
