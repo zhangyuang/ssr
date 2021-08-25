@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.14](https://github.com/ykfe/ssr/compare/v5.6.13...v5.6.14) (2021-08-25)
+
+
+### Bug Fixes
+
+* update generic-names version ([ec0cbf1](https://github.com/ykfe/ssr/commit/ec0cbf18a30c1eb2b92c79bcdcb6499f14a27151))
+
+
+
+
+
 ## [5.6.13](https://github.com/ykfe/ssr/compare/v5.6.12...v5.6.13) (2021-08-25)
 
 
