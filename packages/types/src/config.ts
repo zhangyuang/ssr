@@ -60,6 +60,10 @@ export interface IConfig {
   https: boolean
   babelExtraModule?: RuleSetCondition
   routerPriority?: Record<string, number>
+  routerOptimize?: {
+    include?: string[]
+    exclude?: string[]
+  }
   parallelFetch?: boolean
   nestStartTips?: string
   disableClientRender?: boolean

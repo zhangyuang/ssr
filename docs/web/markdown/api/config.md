@@ -431,6 +431,30 @@ module.exports = {
 }
 ```
 
+## routerOptimize
+
+指定前端页面进行编译构建。在某些情况下我们只需要调试某个前端页面而不是所有页面，此时可以通过该配置来选择需要调试的页面进行构建来提升构建速度减小代码体积。但要注意，如果生产环境仍然是所有页面都需要发布，需要在生产环境禁用此配置，否则构建出来的代码只包含当前选中的页面。
+
+- 类型: `routerOptimize?: {
+    include?: string[]
+    exclude?: string[]
+  }`
+
+- 默认: `undefined`
+
+- version: `>=5.6.12`
+
+```js
+module.exports {
+  routerOptimize: {
+    // 注意，include 和 exclude 不能同时设置只能设置一项
+    include: ['/'], // 选择需要构建的前端路由 path
+    exclude: ['/'] // 排除不需要构建的前端路由 path
+  }
+}
+
+```
+
 ## 注意事项
 
 1. 由于 `config.js` 文件在 Node.js 环境也会被加载，如果直接在顶部 `require` 模块可能会导致模块`体积过大`，降低应用启动速度，我们建议在必要的函数当中再 `require` 需要用到的模块。

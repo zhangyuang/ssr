@@ -6,10 +6,10 @@ import { getCwd, getPagesDir, getFeDir, accessFile } from './cwd'
 import { loadConfig } from './loadConfig'
 
 const debug = require('debug')('ssr:parse')
-const { dynamic, publicPath, isDev } = loadConfig()
+const { dynamic, publicPath, isDev, routerPriority, routerOptimize } = loadConfig()
 const pageDir = getPagesDir()
 const cwd = getCwd()
-let { prefix, routerPriority } = loadConfig()
+let { prefix } = loadConfig()
 
 if (prefix && !prefix.startsWith('/')) {
   prefix = `/${prefix}`
@@ -63,12 +63,26 @@ const parseFeRoutes = async () => {
     const pathRecord = [''] // 路径记录
     // @ts-expect-error
     const route: ParseFeRouteItem = {}
-    const arr = await renderRoutes(pageDir, pathRecord, route)
+    let arr = await renderRoutes(pageDir, pathRecord, route)
     if (routerPriority) {
+      // 路由优先级排序
       arr.sort((a, b) => {
         // 没有显示指定的路由优先级统一为 0
         return (routerPriority![b.path] || 0) - (routerPriority![a.path] || 0)
       })
+    }
+
+    if (routerOptimize) {
+      // 路由过滤
+      if (routerOptimize.include && routerOptimize.exclude) {
+        throw new Error('include and exclude cannot exist synchronal')
+      }
+      if (routerOptimize.include) {
+        arr = arr.filter(route => routerOptimize?.include?.includes(route.path))
+      }
+      if (routerOptimize.exclude) {
+        arr = arr.filter(route => !routerOptimize?.exclude?.includes(route.path))
+      }
     }
 
     debug('Before the result that parse web folder to routes is: ', arr)
