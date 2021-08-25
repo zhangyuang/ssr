@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.12](https://github.com/ykfe/ssr/compare/v5.6.11...v5.6.12) (2021-08-25)
+
+
+### Bug Fixes
+
+* disable css-loader handle url() syntax ([b71cfee](https://github.com/ykfe/ssr/commit/b71cfeeb83c8e0e3748fa9e006ad1f991c404f9a))
+
+
+### Features
+
+* support routerOptimize ([d54e739](https://github.com/ykfe/ssr/commit/d54e739ff28592387ff6d4be024736dceeb9c18c))
+
+
+
+
+
 ## [5.6.10](https://github.com/ykfe/ssr/compare/v5.6.10-alpha.0...v5.6.10) (2021-08-24)
 
 **Note:** Version bump only for package ssr-server-utils
