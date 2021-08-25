@@ -82,6 +82,26 @@ jobs:
           key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
       - run: yarn run lint
 
+  deploy-doc: 
+    if: ${{ contains(github.event.head_commit.message, '.md')}}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["12"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - run: cd docs && yarn && npm run deploy
+        env:
+          SERVERLESS_DEPLOY_AK: ${{ secrets.SERVERLESS_DEPLOY_AK }}
+          SERVERLESS_DEPLOY_ENDPOINT: ${{ secrets.SERVERLESS_DEPLOY_ENDPOINT }}
+          SERVERLESS_DEPLOY_ID: ${{ secrets.SERVERLESS_DEPLOY_ID }}
+          SERVERLESS_DEPLOY_SECRET: ${{ secrets.SERVERLESS_DEPLOY_SECRET }}
+          SERVERLESS_DEPLOY_TIMEOUT: ${{ secrets.SERVERLESS_DEPLOY_TIMEOUT }}
+
   e2e-chrome-midway-react:
     needs: bootstrap
     runs-on: ubuntu-latest
