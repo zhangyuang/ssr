@@ -37,7 +37,6 @@ export interface IConfig {
   moduleFileExtensions: string[]
   whiteList: RegExp[]
   cloudIDE?: boolean
-  cssModulesWhiteList: RegExp[]
   prefix?: string
   dynamic: boolean
   mode: string

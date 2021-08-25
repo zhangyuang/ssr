@@ -1,10 +1,11 @@
 import { StyleOptions } from 'ssr-types'
 import { Config } from 'ssr-types/cjs/third-party/webpack-chain'
+import type { loader } from 'webpack'
 import { loadConfig } from '../loadConfig'
 
 const genericNames = require('generic-names')
 
-const setStyle = (chain: Config, reg: RegExp, options: StyleOptions, isReact?: boolean) => {
+const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
   const { css, isDev } = loadConfig()
   const { include, exclude, modules, importLoaders, loader } = options
   const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -13,21 +14,19 @@ const setStyle = (chain: Config, reg: RegExp, options: StyleOptions, isReact?: b
   const userCssloaderOptions = css?.().loaderOptions?.cssOptions ?? {}
   const cssloaderOptions = {
     importLoaders: importLoaders,
-    modules: process.env.BUILD_TOOL === 'vite' ? {
-      // 本地开发 vite 场景只针对 module 后缀名使用 css-modules
-      auto: /\.module\.\w+$/i
-    } : modules,
+    modules: modules,
     url: false // disable css-loader handle url() syntax
   }
-  if (isReact && modules?.auto) {
+  if (modules?.auto) {
     // 对齐 css-loader 与 postcss-modules 生成 hash 方式
     // @ts-expect-error
-    cssloaderOptions.modules.getLocalIdent = (context, localIdentName, localName, options) => {
+    cssloaderOptions.modules.getLocalIdent = (context: loader.LoaderContext, localIdentName, localName, options) => {
       return genericNames('[name]__[local]___[hash:base64:5]', {
         context: process.cwd()
       })(localName, context.resourcePath)
     }
   }
+
   Object.assign(cssloaderOptions, userCssloaderOptions)
   const postCssPlugins = css?.().loaderOptions?.postcss?.plugins ?? [] // 用户自定义 postcss 插件
   const postCssOptions = Object.assign({

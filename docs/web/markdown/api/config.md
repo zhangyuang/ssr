@@ -149,13 +149,6 @@ module.exports = {
 
 设置服务端构建配置 `externals` 的白名单，即需要让 `Webpack` 来处理的模块
 
-## cssModulesWhiteList
-
-- 类型: `regExp[]`
-- 默认: `[/antd/, /swiper/]`
-
-设置该选项指定样式文件不用 `css-modules` 处理，防止服务端客户端 `className` 不匹配
-
 ## prefix
 
 - 类型: `string|undefined`

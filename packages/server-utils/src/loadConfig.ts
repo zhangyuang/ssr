@@ -72,7 +72,6 @@ const loadConfig = (): IConfig => {
     serverOutPut: join(cwd, './build/server')
   })
 
-  const cssModulesWhiteList = [/antd/, /swiper/]
   const webpackDevServerConfig = Object.assign({
     stats: webpackStatsOption,
     disableInfo: true, // 关闭webpack-dev-server 自带的server Info信息
@@ -119,7 +118,6 @@ const loadConfig = (): IConfig => {
     getOutput,
     webpackStatsOption,
     whiteList,
-    cssModulesWhiteList,
     dynamic,
     mode,
     stream,

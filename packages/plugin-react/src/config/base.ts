@@ -44,7 +44,7 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
 }
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList, chainBaseConfig, corejs, babelExtraModule } = config
+  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, corejs, babelExtraModule } = config
   const mode = process.env.NODE_ENV as Mode
   const envOptions = {
     modules: false
@@ -107,17 +107,15 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   addBabelLoader(babelForExtraModule, envOptions)
 
   setStyle(chain, /\.css$/, {
-    exclude: cssModulesWhiteList,
     rule: 'css',
     modules: {
       auto: true
     },
     isServer,
     importLoaders: 1
-  }, true) // 设置css
+  })
 
   setStyle(chain, /\.less$/, {
-    exclude: cssModulesWhiteList,
     rule: 'less',
     loader: 'less-loader',
     modules: {
@@ -125,28 +123,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     },
     isServer,
     importLoaders: 2
-  }, true)
-
-  setStyle(chain, /\.less$/, {
-    include: cssModulesWhiteList,
-    rule: 'cssModulesWhiteListLess',
-    modules: {
-      auto: false
-    },
-    loader: 'less-loader',
-    importLoaders: 2,
-    isServer
-  }, true) // 默认 antd swiper 不使用 css-modules，建议第三方 ui 库都不使用
-
-  setStyle(chain, /\.css$/, {
-    include: cssModulesWhiteList,
-    rule: 'cssModulesWhiteListCss',
-    modules: {
-      auto: false
-    },
-    importLoaders: 1,
-    isServer
-  }, true)
+  })
 
   chain.module
     .rule('svg')

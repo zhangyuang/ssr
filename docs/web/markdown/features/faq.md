@@ -439,7 +439,7 @@ module.exports = {
       loader: 'sass-loader',
       modules: false, // 是否开启 css-modules, Vue 场景不建议开启，直接用 scoped 功能代替即可
       importLoaders: 2 // 参考 https://www.npmjs.com/package/css-loader#importloaders
-    }, true) // React 场景为 true, Vue 场景为 false
+    })
   }
 }
 ```
@@ -1072,26 +1072,4 @@ module.exports = {
   }
 }
 
-```
-
-## 针对特定文件开启 css-modules
-
-在 `React` 场景下我们默认对所有类型的文件开启 `css-modules` 特性。在一些场景开发者不希望这么做。那么开发者可以自行选择针对特定文件后缀名进行 `css-modules` 的处理
-
-本地 `vite` 开发场景默认开启下列配置
-
-```js
-module.exports = {
-  css: () => {
-    return {
-      loaderOptions: {
-        cssOptions: {
-         modules: {
-           auto: /\.module\.\w+$/i // 针对 .module.xxx 类型的文件开启 css-modules
-         }
-       }
-      }
-    }
-  }
-}
 ```

@@ -15,7 +15,7 @@
 - 前端框架: React v17, 实时跟进 React17的新特性
 - 开发语言: TypeScript
 - 代码风格(可选): 默认[eslint-config-standard-react-ts](https://github.com/zhangyuang/standardjs-react)
-- 样式处理: less + css modules
+- 样式处理: less + css modules(根据后缀名自动识别)
 - UI 组件: 默认已对 `antd` 的使用做打包配置无需额外配置
 - 前端路由: 约定式路由/声明式路由
 - 数据管理: 使用 Hooks 提供的 `useContext` 实现极简的跨组件通信方案, 摒弃传统的 redux/dva 等数据管理方案, 详见 [组件通信](./features$communication)
