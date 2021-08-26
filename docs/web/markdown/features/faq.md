@@ -1073,3 +1073,26 @@ module.exports = {
 }
 
 ```
+
+## 对所有类型的文件使用 css modules
+
+主要用于 `React` 场景配置所有后缀类型的样式文件都使用 `css modules`
+
+```js
+module.exports = {
+  css: () => {
+    return {
+      loaderOptions: {
+        cssOptions: {
+          modules: {
+            auto: (resourcePath) => {
+              return !/node_modules/.test(resourcePath) // 这里要排除第三方模块，不要用 css modules 处理它
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+```
