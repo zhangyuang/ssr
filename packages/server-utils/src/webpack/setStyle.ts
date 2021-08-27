@@ -15,7 +15,10 @@ const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
   const cssloaderOptions = {
     importLoaders: importLoaders,
     modules: modules,
-    url: false // disable css-loader handle url() syntax
+    url: (url: string) => {
+      // 绝对路径开头的静态资源地址不处理
+      return !url.startsWith('/')
+    }
   }
   if (modules?.auto) {
     // 对齐 css-loader 与 postcss-modules 生成 hash 方式
