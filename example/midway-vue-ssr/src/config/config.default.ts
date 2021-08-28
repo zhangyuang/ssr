@@ -12,7 +12,7 @@ export default (appInfo: EggAppInfo) => {
   config.middleware = []
   config.static = {
     prefix: '/',
-    dir: join(appInfo.appDir, './build')
+    dir: [join(appInfo.appDir, './build'), join(appInfo.appDir, './public')]
   }
   return config
 }
