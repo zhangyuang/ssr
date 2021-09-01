@@ -89,8 +89,7 @@ const getClientWebpack = (chain: WebpackChain) => {
   }])
 
   chain.plugin('manifest').use(loadModule('webpack-manifest-plugin'), [{
-    fileName: 'asset-manifest.json',
-    publicPath: publicPath
+    fileName: 'asset-manifest.json'
   }])
 
   chain.when(generateAnalysis, chain => {
