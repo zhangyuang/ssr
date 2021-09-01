@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.16](https://github.com/ykfe/ssr/compare/v5.6.15...v5.6.16) (2021-09-01)
+
+
+### Bug Fixes
+
+* remove manifest plugin publicPath ([f4f3e0a](https://github.com/ykfe/ssr/commit/f4f3e0a74bbaaa0967c62d81d15d66f99ad66a1d))
+
+
+
+
+
 ## [5.6.15](https://github.com/ykfe/ssr/compare/v5.6.14...v5.6.15) (2021-08-27)
 
 **Note:** Version bump only for package ssr-plugin-vue
