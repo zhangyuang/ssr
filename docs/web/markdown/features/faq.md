@@ -307,17 +307,43 @@ export default {
 #### antd
 
 ```shell
-$ npm install antd
+$ npm install antd - D
 ```
 
 ```js
 
 import { Button } from 'antd'
 
-<Button><Button>
+<Button>btn<Button>
 ```
 
+#### antd-mobile
+
+根目录创建 `babel.config.js`，并写入如下内容
+
+```js
+module.exports = { 
+    "plugins": [ 
+        ["import", { 
+            "libraryName": "antd-mobile", 
+             "libraryDirectory": 'lib',
+            "style": true 
+        }, 'antd-mobile'] 
+    ] 
+} 
+```
+
+组件使用
+
+```js
+
+import { Button } from 'antd-mobile'
+
+<Button>btn<Button>
+```
 #### vant
+
+根据具体框架安装使用 `vue2/3` 对应的 [vant](https://github.com/youzan/vant) 版本
 
 ```shell
 $ npm install vant@next # vant in vue3

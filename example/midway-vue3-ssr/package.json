@@ -35,7 +35,7 @@
     "lint:fix": "eslint . --ext .js,.tsx,.ts,.vue --cache --fix"
   },
   "midway-integration": {
-    "tsCodeRoot": "."
+    "tsCodeRoot": "src"
   },
   "midway-luckyeye": {
     "packages": [
