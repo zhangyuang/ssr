@@ -3,6 +3,8 @@
   font-size: 0.875rem;
   position: sticky;
   top: 96px;
+  overflow: scroll;
+  height: calc(100vh - 100px);
 }
 
 .slider_top {
@@ -21,4 +23,10 @@
 .slider_item_text {
   color: var(--drake-text-color);
   cursor: pointer;
+}
+
+@media screen and (max-width: 48rem) {
+  .slider {
+    height: auto;
+  }
 }
