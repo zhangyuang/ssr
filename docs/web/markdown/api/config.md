@@ -263,14 +263,15 @@ module.exports = {
 
 ```js
 module.exports = {
+  // 这里需要查看框架使用的版本 loader 的文档
   css: () => { 
     return {
       loaderOptions: {
-        cssOptions: any // css-loader options
-        less?: any // less-loader options
-        sass?: any // css-loader options
+        cssOptions: any // css-loader options see https://www.npmjs.com/package/css-loader/v/5.2.7
+        less?: any // less-loader options see https://www.npmjs.com/package/less-loader/v/7.3.0
+        sass?: any // sass-loader options see https://www.npmjs.com/package/sass-loader/v/10.2.0
         postcss: {
-          options: any
+          options: function|object // 推荐使用 object see https://www.npmjs.com/package/postcss-loader/v/4.3.0
           plugins: any[]
         }
       }}
