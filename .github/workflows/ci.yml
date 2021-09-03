@@ -83,6 +83,7 @@ jobs:
       - run: yarn run lint
 
   deploy-doc: 
+    if: ${{ contains(github.actor, 'zhangyuang') }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
