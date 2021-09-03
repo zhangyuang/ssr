@@ -1102,7 +1102,7 @@ module.exports = {
 
 ## 对所有类型的文件使用 css modules
 
-主要用于 `React` 场景配置所有后缀类型的样式文件都使用 `css modules`
+主要用于 `React` 场景。默认规范只对 `.module.less` 格式的文件使用 `css-modules`, 如需要配置所有后缀类型的样式文件都使用 `css modules`
 
 ```js
 module.exports = {
