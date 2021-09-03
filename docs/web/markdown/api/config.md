@@ -271,7 +271,7 @@ module.exports = {
         less?: any // less-loader options see https://www.npmjs.com/package/less-loader/v/7.3.0
         sass?: any // sass-loader options see https://www.npmjs.com/package/sass-loader/v/10.2.0
         postcss: {
-          options: function|object // 推荐使用 object see https://www.npmjs.com/package/postcss-loader/v/4.3.0
+          options: Object|Function // 推荐使用 object see https://www.npmjs.com/package/postcss-loader/v/4.3.0
           plugins: any[]
         }
       }}
