@@ -32,9 +32,10 @@ const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
 
   Object.assign(cssloaderOptions, userCssloaderOptions)
   const postCssPlugins = css?.().loaderOptions?.postcss?.plugins ?? [] // 用户自定义 postcss 插件
-  const postCssOptions = Object.assign({
+  const userPostcssOptions = css?.().loaderOptions?.postcss?.options // postCssOptions maybe function|object
+  const postCssOptions = typeof userPostcssOptions === 'function' ? userPostcssOptions : Object.assign({
     ident: 'postcss',
-    plugins: () => [
+    plugins: [
       require('postcss-flexbugs-fixes'),
       require('postcss-discard-comments'),
       require('postcss-preset-env')({
@@ -73,7 +74,9 @@ const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
     .end()
     .use('postcss-loader')
     .loader(loadModule('postcss-loader'))
-    .options(postCssOptions)
+    .options({
+      postCssOptions: postCssOptions
+    })
     .end()
     .when(Boolean(loader), rule => {
       loader && rule.use(loader)
