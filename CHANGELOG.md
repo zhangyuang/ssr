@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.18](https://github.com/ykfe/ssr/compare/v5.6.17...v5.6.18) (2021-09-07)
+
+
+### Bug Fixes
+
+* wrapComponent ([3158027](https://github.com/ykfe/ssr/commit/31580279fe9dfa9d27300ca8e5db5dbf56a1a8e3))
+
+
+
+
+
 ## [5.6.17](https://github.com/ykfe/ssr/compare/v5.6.16...v5.6.17) (2021-09-03)
 
 
