@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.19](https://github.com/ykfe/ssr/compare/v5.6.17...v5.6.19) (2021-09-07)
+
+
+### Bug Fixes
+
+* wrapComponent ([5099eaf](https://github.com/ykfe/ssr/commit/5099eafc651b3e937018a68c73e1cece6ba0a4eb))
+
+
+
+
+
 ## [5.6.18](https://github.com/ykfe/ssr/compare/v5.6.17...v5.6.18) (2021-09-07)
 
 **Note:** Version bump only for package ssr-plugin-react
