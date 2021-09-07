@@ -1,11 +1,10 @@
-import Vue from 'vue'
 import { Store } from 'vuex'
 import { Route } from 'vue-router'
 import { findRoute, normalizePath } from 'ssr-client-utils'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
 import { ESMFetch, RoutesType, IClientFeRouteItem } from './interface'
-import { createRouter, createStore } from './create'
+import { createRouter, createStore, RealVue } from './create'
 
 declare const module: any
 const { FeRoutes, App, layoutFetch, BASE_NAME } = Routes as RoutesType
@@ -34,7 +33,7 @@ const clientRender = async () => {
   }
   let fetchData = window.__INITIAL_DATA__ ?? {}
 
-  const app = new Vue({
+  const app = new RealVue({
     // 根实例简单的渲染应用程序组件。
     render: h => h(App, {
       props: {
