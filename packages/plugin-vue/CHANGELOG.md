@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.20](https://github.com/ykfe/ssr/compare/v5.6.19...v5.6.20) (2021-09-07)
+
+
+### Bug Fixes
+
+* vue2 default ([77f9d2b](https://github.com/ykfe/ssr/commit/77f9d2b1a0b25317524a09172682fc6ddce340c7))
+
+
+
+
+
 ## [5.6.17](https://github.com/ykfe/ssr/compare/v5.6.16...v5.6.17) (2021-09-03)
 
 
