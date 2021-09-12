@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.21](https://github.com/ykfe/ssr/compare/v5.6.20...v5.6.21) (2021-09-12)
+
+
+### Features
+
+* rerender App.tsx when router change ([7df174e](https://github.com/ykfe/ssr/commit/7df174e8af15134033e63ae489b8109c211ed9c7))
+
+
+
+
+
 ## [5.6.20](https://github.com/ykfe/ssr/compare/v5.6.19...v5.6.20) (2021-09-07)
 
 
