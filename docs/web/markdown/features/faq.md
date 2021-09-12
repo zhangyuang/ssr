@@ -1122,3 +1122,51 @@ module.exports = {
 }
 
 ```
+
+## 不同页面使用不同的 Layout
+
+主要在 `React` 场景使用， `Vue` 场景原理相同更加简单。
+
+```js
+// 需依赖版本 >= 5.6.21, 注意如果 example 是之前创建的不是最新的，layout/index.tsx 的这块内容需改为 <div id="app"><App {...props} /></div>
+// App.tsx 
+export default (props: LayoutProps) => {
+  const path = __isBrowser__ ? location.pathname: props.ctx?.request.path // vue 场景无需区分环境直接使用 this.$r
+  if (/detail/.test(path)) {
+    return props.children!
+
+  } else {
+    return <div style={{backgroundColor:'red'}}>
+     { props.children!}
+    </div>
+  }
+}
+```
+
+```html
+// App.vue
+<template>
+  <div id="app">
+    <div v-if="showDetailLayout" style="background-color: red">
+      <router-view />
+    </div>
+    <router-view v-else />
+  </div>
+</template>
+
+<script lang="ts">
+export default {
+  data() {
+    return {
+      showDetailLayout: /detail/.test(this.$route.path),
+    };
+  },
+  watch: {
+    "$route.path": function (newVal, oldVal) {
+      this.showDetailLayout = /detail/.test(newVal);
+    }
+  }
+};
+</script>
+
+```
