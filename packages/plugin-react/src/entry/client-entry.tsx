@@ -25,6 +25,7 @@ const clientRender = async (): Promise<void> => {
       <AppContext>
         <Switch>
         <IApp>
+          <Switch>
             {
             // 使用高阶组件wrapComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
               routes.map((item: ReactClientESMFeRouteItem) => {
@@ -37,6 +38,7 @@ const clientRender = async (): Promise<void> => {
                 )
               })
             }
+            </Switch>
         </IApp>
         </Switch>
       </AppContext>

@@ -1036,6 +1036,8 @@ module.exports = {
 ```js
 // 需依赖版本 >= 5.6.21, 注意如果 example 是之前创建的不是最新的，layout/index.tsx 的这块内容需改为 <div id="app"><App {...props} /></div>
 // App.tsx 
+import React from 'react'
+
 export default (props: LayoutProps) => {
   const path = __isBrowser__ ? location.pathname: props.ctx?.request.path
   if (/detail/.test(path)) {
