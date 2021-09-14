@@ -11,7 +11,7 @@ module.exports = {
     context: true,
     beforeEach: true,
     afterEach: true,
-    Cypress,
+    Cypress: true,
     cy: true,
     expect: true,
     it: true,
