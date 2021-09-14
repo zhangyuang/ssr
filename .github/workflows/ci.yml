@@ -177,7 +177,7 @@ jobs:
           
       - name: Mv e2e example
         run: |
-          mv ssr-e2e-example/* example && cd example/react-dynamic-router-test && yarn
+          mv ssr-e2e-example/react-dynamic-router-test example && cd example/react-dynamic-router-test && yarn
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
