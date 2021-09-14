@@ -39,16 +39,6 @@ jobs:
             ${{ runner.os }}-v2.5.7-
             ${{ runner.os }}-v2.5.7-
             ${{ runner.os }}-v2.5.7-
-      - name: Get remote e2e example
-        uses: actions/checkout@master
-        with:
-          repository: zhangyuang/ssr-e2e-example
-          path: ssr-e2e-example
-          ref: master
-          
-      - name: Mv e2e example
-        run: |
-          mv ssr-e2e-example/* example && ls example
 
       - name: Install dependencies
         run: | 
@@ -60,7 +50,6 @@ jobs:
           cd ../nestjs-react-ssr && yarn
           cd ../nestjs-vue-ssr && yarn
           cd ../nestjs-vue3-ssr && yarn
-          cd ../react-dynamic-router-test && yarn
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
@@ -178,6 +167,17 @@ jobs:
             packages/**/node_modules
             example/**/node_modules
           key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Get remote e2e example
+        uses: actions/checkout@master
+        with:
+          repository: zhangyuang/ssr-e2e-example
+          path: ssr-e2e-example
+          ref: master
+          
+      - name: Mv e2e example
+        run: |
+          mv ssr-e2e-example/* example && cd example/react-dynamic-router-test && yarn
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -192,6 +192,7 @@ jobs:
           spec: | 
             e2e/integration/examples/dynamic-ssr.spec.spec.js  
           browser: chrome
+          
   e2e-firefox-midway-react:
     needs: bootstrap
     runs-on: ubuntu-latest
