@@ -33,7 +33,8 @@
     "example:midway:react:vite": "cd example/midway-react-ssr && npx ssr start --vite --test",
     "example:nestjs:react": "cd example/nestjs-vue-ssr && npm start",
     "example:nestjs:vue": "cd example/nestjs-vue-ssr && npm start",
-    "example:nestjs:vue3": "cd example/nestjs-vue3-ssr && npm start"
+    "example:nestjs:vue3": "cd example/nestjs-vue3-ssr && npm start",
+    "example:midway:react:dynamic:router": "cd example/react-dynamic-router-test && npm start"
   },
   "repository": {
     "type": "git",

@@ -1,4 +1,3 @@
-//@ts-nocheck
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
@@ -24,22 +23,22 @@ const clientRender = async (): Promise<void> => {
     <BrowserRouter basename={BASE_NAME}>
       <AppContext>
         <Switch>
-        <IApp>
-          <Switch>
-            {
-            // 使用高阶组件wrapComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
-              routes.map((item: ReactClientESMFeRouteItem) => {
-                const { fetch, component, path } = item
-                component.fetch = fetch
-                component.layoutFetch = layoutFetch
-                const WrappedComponent = wrapComponent(component)
-                return (
-                  <Route exact={true} key={path} path={path} render={() => <WrappedComponent key={location.pathname}/>}/>
-                )
-              })
-            }
+          <IApp>
+            <Switch>
+              {
+                // 使用高阶组件wrapComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
+                routes.map((item: ReactClientESMFeRouteItem) => {
+                  const { fetch, component, path } = item
+                  component.fetch = fetch
+                  component.layoutFetch = layoutFetch
+                  const WrappedComponent = wrapComponent(component)
+                  return (
+                    <Route exact={true} key={path} path={path} render={() => <WrappedComponent key={location.pathname}/>}/>
+                  )
+                })
+              }
             </Switch>
-        </IApp>
+          </IApp>
         </Switch>
       </AppContext>
     </BrowserRouter>

@@ -10,6 +10,8 @@ module.exports = {
   globals: {
     context: true,
     beforeEach: true,
+    afterEach: true,
+    Cypress,
     cy: true,
     expect: true,
     it: true,
