@@ -6,7 +6,7 @@ name: CI
 # events but only for the dev branch
 on:
   push:
-    branches: [dev, master, 'feat/**', ci/test]
+    branches: [dev, master, feat/**, ci/test, test/**]
   pull_request:
     branches: [dev, master]
 
@@ -39,6 +39,7 @@ jobs:
             ${{ runner.os }}-v2.5.7-
             ${{ runner.os }}-v2.5.7-
             ${{ runner.os }}-v2.5.7-
+
       - name: Install dependencies
         run: | 
           yarn && yarn build:only && yarn run build
@@ -50,14 +51,6 @@ jobs:
           cd ../nestjs-vue-ssr && yarn
           cd ../nestjs-vue3-ssr && yarn
 
-      - name: Get remote e2e example
-        with:
-          repository: zhangyuang/ssr-e2e-example
-          path: ssr-e2e-example
-          ref: master
-        run: 
-          cd ssr-e2e-example && yarn && yarn run init && cd .. && mv ssr-e2e-example/* example
-          
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
@@ -174,6 +167,17 @@ jobs:
             packages/**/node_modules
             example/**/node_modules
           key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Get remote e2e example
+        uses: actions/checkout@master
+        with:
+          repository: zhangyuang/ssr-e2e-example
+          path: ssr-e2e-example
+          ref: master
+          
+      - name: Mv e2e example
+        run: |
+          mv ssr-e2e-example/react-dynamic-router-test example && cd example/react-dynamic-router-test && yarn
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -186,8 +190,9 @@ jobs:
           start: yarn run example:midway:react:dynamic:router
           wait-on: 'http://localhost:3000'
           spec: | 
-            e2e/integration/examples/dynamic-ssr.spec.spec.js  
+            e2e/integration/examples/dynamic-ssr.spec.js  
           browser: chrome
+          
   e2e-firefox-midway-react:
     needs: bootstrap
     runs-on: ubuntu-latest
