@@ -190,7 +190,7 @@ jobs:
           start: yarn run example:midway:react:dynamic:router
           wait-on: 'http://localhost:3000'
           spec: | 
-            e2e/integration/examples/dynamic-ssr.spec.spec.js  
+            e2e/integration/examples/dynamic-ssr.spec.js  
           browser: chrome
           
   e2e-firefox-midway-react:
