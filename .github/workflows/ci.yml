@@ -45,6 +45,7 @@ jobs:
           repository: zhangyuang/ssr-e2e-example
           path: ssr-e2e-example
           ref: master
+          
       - name: Mv e2e example
         run: |
           mv ssr-e2e-example/* example && ls example
