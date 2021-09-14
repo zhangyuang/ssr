@@ -57,7 +57,7 @@ jobs:
           ref: master
       - name: Mv e2e example
         run: |
-          cd ssr-e2e-example && yarn && yarn run init
+          cd ssr-e2e-example && yarn && yarn run init && cd ..
           mv ssr-e2e-example/* example && ls example
       - name: Upload artifact
         uses: actions/upload-artifact@v2
