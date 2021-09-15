@@ -1,5 +1,4 @@
 import { join } from 'path'
-import * as webpack from 'webpack'
 import { loadConfig, getLocalNodeModules, nodeExternals } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
@@ -33,10 +32,6 @@ const getServerWebpack = (chain: WebpackChain) => {
   chain.when(isDev, () => {
     chain.watch(true)
   })
-
-  chain.plugin('define').use(webpack.DefinePlugin, [{
-    __isBrowser__: false
-  }])
 
   chainServerConfig(chain) // 合并用户自定义配置
 

@@ -1,7 +1,6 @@
 
 import { promises } from 'fs'
 import { resolve } from 'path'
-import * as webpack from 'webpack'
 import { loadConfig, getCwd, cryptoAsyncChunkName, getOutputPublicPath } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
@@ -85,11 +84,6 @@ const getClientWebpack = (chain: WebpackChain) => {
         }
       }])
     })
-
-  chain.plugin('define').use(webpack.DefinePlugin, [{
-    __isBrowser__: true
-    // __VUE_OPTIONS_API__: false // 配置后与 vuex 集成有bug，暂时不打开
-  }])
 
   chain.plugin('manifest').use(loadModule('webpack-manifest-plugin'), [{
     fileName: 'asset-manifest.json'

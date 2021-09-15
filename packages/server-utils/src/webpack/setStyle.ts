@@ -45,7 +45,7 @@ const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
         stage: 3
       })
     ].concat(postCssPlugins)
-  }, css?.().loaderOptions?.postcss?.options ?? {}) // 合并用户自定义 postcss options
+  }, userPostcssOptions ?? {}) // 合并用户自定义 postcss options
 
   chain.module
     .rule(options.rule)
