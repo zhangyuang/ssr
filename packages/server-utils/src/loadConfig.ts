@@ -2,6 +2,17 @@ import { join } from 'path'
 import { IConfig } from 'ssr-types'
 import { getCwd, getUserConfig } from './cwd'
 
+export const normalizeStartEndPath = (path: string) => {
+  // 保证得到的 path 是 /xxx/ 或者 / 的形式
+  if (!path.startsWith('/')) {
+    path = `/${path}`
+  }
+  if (!path.endsWith('/')) {
+    path = `${path}/`
+  }
+  return path
+}
+
 const loadConfig = (): IConfig => {
   const userConfig = getUserConfig()
   const cwd = getCwd()
@@ -9,7 +20,7 @@ const loadConfig = (): IConfig => {
   const stream = false
   type ClientLogLevel = 'error'
 
-  const publicPath = '/'
+  const publicPath = userConfig.publicPath ?? '/'
 
   const moduleFileExtensions = [
     '.web.mjs',
@@ -27,7 +38,7 @@ const loadConfig = (): IConfig => {
     '.css'
   ]
 
-  const isDev = process.env.NODE_ENV !== 'production'
+  const isDev = userConfig.isDev ?? process.env.NODE_ENV !== 'production'
 
   const fePort = userConfig.fePort ?? 8888
 
@@ -100,6 +111,12 @@ const loadConfig = (): IConfig => {
   const chainServerConfig = () => {
     // 覆盖默认 server webpack配置
   }
+
+  const manifestPath = normalizeStartEndPath(`${normalizeStartEndPath(publicPath)}asset-manifest.json`)
+  const staticPath = normalizeStartEndPath(`${normalizeStartEndPath(publicPath)}static`)
+  const hotUpdatePath = normalizeStartEndPath(`${normalizeStartEndPath(publicPath)}*.hot-update**`)
+  const proxyKey = [staticPath, hotUpdatePath, manifestPath]
+
   const config = Object.assign({}, {
     chainBaseConfig,
     chainServerConfig,
@@ -122,7 +139,9 @@ const loadConfig = (): IConfig => {
     mode,
     stream,
     corejs,
-    https
+    https,
+    manifestPath,
+    proxyKey
   }, userConfig)
 
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了

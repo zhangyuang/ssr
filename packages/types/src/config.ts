@@ -66,6 +66,8 @@ export interface IConfig {
   parallelFetch?: boolean
   nestStartTips?: string
   disableClientRender?: boolean
+  manifestPath: string
+  proxyKey: string[]
 }
 
 type Optional <T>= { [key in keyof T]?: T[key] }

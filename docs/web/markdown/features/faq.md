@@ -366,7 +366,7 @@ export default {
 ```
 
 ```html
-// 全局使用
+// Vue3 场景全局使用
 // layout/App.vue
 <template>
   <van-button type="primary">主要按钮</van-button>
@@ -383,6 +383,41 @@ export default {
     app.use(Button)
   }
 }
+</script>
+```
+
+#### element-ui
+
+根目录创建 `babel.config.js`，并写入如下内容
+
+```js
+module.exports = {
+    plugins: [
+        [
+            "component",
+            {
+              "libraryName": "element-ui",
+              "styleLibraryName": "theme-chalk"
+            }
+          ]
+    ]
+}
+```
+
+组件使用
+
+```html
+// Vue2 场景全局使用
+// layout/App.vue
+<template>
+  <van-button type="primary">主要按钮</van-button>
+</template>
+<script>
+import Vue from 'vue'
+import { Button } from 'element-ui'
+
+Vue.use(Button)
+
 </script>
 ```
 ### 原理
