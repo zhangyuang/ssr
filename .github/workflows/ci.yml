@@ -191,6 +191,8 @@ jobs:
           wait-on: 'http://localhost:3000'
           spec: | 
             e2e/integration/examples/dynamic-ssr.spec.js  
+            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/react-ssr.spec.js
           browser: chrome
           
   e2e-firefox-midway-react:

@@ -17,7 +17,9 @@ if (prefix && !prefix.startsWith('/')) {
 
 export const normalizePath = (path: string) => {
   // 移除 prefix 保证 path 跟路由表能够正确匹配
-  path = path.replace(prefix!, '')
+  if (prefix) {
+    path = path.replace(prefix, '')
+  }
   if (path.startsWith('//')) {
     path = path.replace('//', '/')
   }
