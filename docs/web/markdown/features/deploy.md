@@ -87,6 +87,11 @@ provider:
 
 如果你不需要使用 Serverless 的能力进行部署，有一套自己的部署方案。常见于公司内部应用部署。我们同样提供了以传统 Node.js 形式部署的脚本
 
+### 两种部署方式
+
+- ci 构建，服务器安装所有依赖 + 执行 `npm run prod`, 这种模式几乎不会出任何问题，唯一的缺点是安装的依赖较多
+- 本地构建，本地执行 `ssr build` 将 `build/dist` 目录提交到 `git` 仓库。服务器安装生产环境依赖 `npm i --production`, 然后把 `script prod` 脚本里面的 `ssr build` 这一段干掉，然后执行 `npm run prod`
+
 ### Midway 应用部署
 
 在 `Midway.js` 类型的应用中，我们提供了 `npm run prod` 命令。该命令将会直接调用 [egg-script](https://eggjs.org/zh-cn/core/deployment.html) 进行生产环境多进程模式部署。
