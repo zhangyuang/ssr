@@ -52,7 +52,6 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
         '/sockjs-node': remoteStaticServerOptions,
         '/__webpack_dev_server__': remoteStaticServerOptions
       }
-
       for (const key of proxyKey) {
         proxyPathMap[key] = remoteStaticServerOptions
       }

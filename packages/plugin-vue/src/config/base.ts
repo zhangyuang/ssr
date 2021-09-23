@@ -149,18 +149,12 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
 
   setStyle(chain, /\.css$/, {
     rule: 'css',
-    modules: {
-      auto: false
-    },
     importLoaders: 1,
     isServer
   }) // 设置css
   setStyle(chain, /\.less$/, {
     rule: 'less',
     loader: 'less-loader',
-    modules: {
-      auto: false
-    },
     importLoaders: 2,
     isServer
   })

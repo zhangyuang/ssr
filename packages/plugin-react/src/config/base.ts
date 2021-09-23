@@ -109,9 +109,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
 
   setStyle(chain, /\.css$/, {
     rule: 'css',
-    modules: {
-      auto: true
-    },
     isServer,
     importLoaders: 1
   })
@@ -119,9 +116,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   setStyle(chain, /\.less$/, {
     rule: 'less',
     loader: 'less-loader',
-    modules: {
-      auto: true
-    },
     isServer,
     importLoaders: 2
   })

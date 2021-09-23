@@ -1,17 +1,6 @@
 import { join } from 'path'
 import { IConfig } from 'ssr-types'
-import { getCwd, getUserConfig } from './cwd'
-
-export const normalizeStartEndPath = (path: string) => {
-  // 保证得到的 path 是 /xxx/ 或者 / 的形式
-  if (!path.startsWith('/')) {
-    path = `/${path}`
-  }
-  if (!path.endsWith('/')) {
-    path = `${path}/`
-  }
-  return path
-}
+import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath } from './cwd'
 
 const loadConfig = (): IConfig => {
   const userConfig = getUserConfig()
@@ -20,7 +9,7 @@ const loadConfig = (): IConfig => {
   const stream = false
   type ClientLogLevel = 'error'
 
-  const publicPath = userConfig.publicPath ?? '/'
+  const publicPath = normalizeStartPath(userConfig.publicPath ?? '/')
 
   const moduleFileExtensions = [
     '.web.mjs',
@@ -112,9 +101,10 @@ const loadConfig = (): IConfig => {
     // 覆盖默认 server webpack配置
   }
 
-  const manifestPath = normalizeStartEndPath(`${normalizeStartEndPath(publicPath)}asset-manifest.json`)
-  const staticPath = normalizeStartEndPath(`${normalizeStartEndPath(publicPath)}static`)
-  const hotUpdatePath = normalizeStartEndPath(`${normalizeStartEndPath(publicPath)}*.hot-update**`)
+  const manifestPath = `${normalizeEndPath(publicPath)}asset-manifest.json`
+  const staticPath = `${normalizeEndPath(publicPath)}static`
+  const hotUpdatePath = `${normalizeEndPath(publicPath)}*.hot-update**`
+
   const proxyKey = [staticPath, hotUpdatePath, manifestPath]
 
   const config = Object.assign({}, {

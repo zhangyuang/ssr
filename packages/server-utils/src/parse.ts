@@ -2,7 +2,7 @@ import { promises as fs } from 'fs'
 import { resolve, join } from 'path'
 import * as Shell from 'shelljs'
 import { ParseFeRouteItem } from 'ssr-types'
-import { getCwd, getPagesDir, getFeDir, accessFile } from './cwd'
+import { getCwd, getPagesDir, getFeDir, accessFile, normalizeStartPath } from './cwd'
 import { loadConfig } from './loadConfig'
 
 const debug = require('debug')('ssr:parse')
@@ -11,8 +11,8 @@ const pageDir = getPagesDir()
 const cwd = getCwd()
 let { prefix } = loadConfig()
 
-if (prefix && !prefix.startsWith('/')) {
-  prefix = `/${prefix}`
+if (prefix) {
+  prefix = normalizeStartPath(prefix)
 }
 
 export const normalizePath = (path: string) => {

@@ -81,7 +81,6 @@ export interface StyleOptions {
   rule: string
   include?: RegExp | RegExp[]
   exclude?: RegExp | RegExp[]
-  modules: any
   loader?: string
   importLoaders: number
   isServer: boolean
