@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.23](https://github.com/ykfe/ssr/compare/v5.6.22...v5.6.23) (2021-09-23)
+
+**Note:** Version bump only for package ssr-types-react
+
+
+
+
+
 ## [5.6.19](https://github.com/ykfe/ssr/compare/v5.6.17...v5.6.19) (2021-09-07)
 
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.23](https://github.com/ykfe/ssr/compare/v5.6.22...v5.6.23) (2021-09-23)
+
+
+### Features
+
+* add limit plugin in server side ([11c70aa](https://github.com/ykfe/ssr/commit/11c70aa2afc49fe5b7fa51ac2c72310ec5f8548f))
+
+
+
+
+
 ## [5.6.17](https://github.com/ykfe/ssr/compare/v5.6.16...v5.6.17) (2021-09-03)
 
 

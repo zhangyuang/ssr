@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.23](https://github.com/ykfe/ssr/compare/v5.6.22...v5.6.23) (2021-09-23)
+
+
+### Features
+
+* update publicPath logic in dev ([57fe590](https://github.com/ykfe/ssr/commit/57fe590910fc4ef526d6c48e82acbffd86882dce))
+
+
+
+
+
 ## [5.6.13](https://github.com/ykfe/ssr/compare/v5.6.12...v5.6.13) (2021-08-25)
 
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.23](https://github.com/ykfe/ssr/compare/v5.6.22...v5.6.23) (2021-09-23)
+
+
+### Features
+
+* add limit plugin in server side ([11c70aa](https://github.com/ykfe/ssr/commit/11c70aa2afc49fe5b7fa51ac2c72310ec5f8548f))
+* update publicPath logic in dev ([57fe590](https://github.com/ykfe/ssr/commit/57fe590910fc4ef526d6c48e82acbffd86882dce))
+
+
+
+
+
 ## [5.6.22](https://github.com/ykfe/ssr/compare/v5.6.20...v5.6.22) (2021-09-13)
 
 
