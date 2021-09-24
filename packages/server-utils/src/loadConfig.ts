@@ -9,7 +9,8 @@ const loadConfig = (): IConfig => {
   const stream = false
   type ClientLogLevel = 'error'
 
-  const publicPath = normalizeStartPath(userConfig.publicPath ?? '/')
+  const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPath(userConfig.publicPath ?? '/')
+  const devPublicPath = publicPath.startsWith('http') ? publicPath.replace(/^http(s)?:\/\/(.*)?\d/, '') : publicPath // 本地开发不使用 http://localhost:3000 这样的 path 赋值给 webpack-dev-server 会很难处理
 
   const moduleFileExtensions = [
     '.web.mjs',
@@ -76,7 +77,7 @@ const loadConfig = (): IConfig => {
     stats: webpackStatsOption,
     disableInfo: true, // 关闭webpack-dev-server 自带的server Info信息
     disableHostCheck: true,
-    publicPath: publicPath,
+    publicPath: devPublicPath,
     hotOnly: true,
     host,
     sockPort: fePort,
@@ -101,9 +102,9 @@ const loadConfig = (): IConfig => {
     // 覆盖默认 server webpack配置
   }
 
-  const manifestPath = `${normalizeEndPath(publicPath)}asset-manifest.json`
-  const staticPath = `${normalizeEndPath(publicPath)}static`
-  const hotUpdatePath = `${normalizeEndPath(publicPath)}*.hot-update**`
+  const manifestPath = `${normalizeEndPath(devPublicPath)}asset-manifest.json`
+  const staticPath = `${normalizeEndPath(devPublicPath)}static`
+  const hotUpdatePath = `${normalizeEndPath(devPublicPath)}*.hot-update**`
 
   const proxyKey = [staticPath, hotUpdatePath, manifestPath]
 
