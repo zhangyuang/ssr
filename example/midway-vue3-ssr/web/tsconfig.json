@@ -20,7 +20,8 @@
     "esModuleInterop": true,
     "jsx": "preserve",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "~/*": ["../*"]
     }
   },
   "include": [
