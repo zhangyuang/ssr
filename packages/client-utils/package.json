@@ -1,7 +1,7 @@
 {
   "name": "ssr-client-utils",
   "version": "5.6.24",
-  "description": "utils for serverless ssr",
+  "description": "client utils for react/vue2/vue3 ssr deploy on serverless or tradtional web server",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "sideEffects": false,
