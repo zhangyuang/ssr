@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.26](https://github.com/ykfe/ssr/compare/v5.6.25...v5.6.26) (2021-09-29)
+
+
+### Bug Fixes
+
+* dynamicCssOrder ([a00680d](https://github.com/ykfe/ssr/commit/a00680d4fedac8526b51e8e32e1bf4c85d3fd148))
+
+
+
+
+
 ## [5.6.25](https://github.com/ykfe/ssr/compare/v5.6.24...v5.6.25) (2021-09-24)
 
 
