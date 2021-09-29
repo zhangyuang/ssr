@@ -9,7 +9,6 @@ const config = [
       { title: '什么是服务端渲染', path: 'features$ssr' },
       { title: '快速开始', path: 'features$started' },
       { title: '在线案例', path: 'features$demo' },
-      { title: 'Serverless', path: 'features$serverless' },
       { title: '技术选型', path: 'features$technology' },
       { title: '目录结构', path: 'features$structure' },
       { title: '约定式路由', path: 'features$feRoutes' },
