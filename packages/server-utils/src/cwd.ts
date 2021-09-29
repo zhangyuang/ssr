@@ -39,13 +39,14 @@ const readAsyncChunk = async (): Promise<Record<string, string>> => {
 }
 
 const addAsyncChunk = async (dynamicCssOrder: string[], webpackChunkName: string) => {
+  const arr = []
   const asyncChunkMap = await readAsyncChunk()
   for (const key in asyncChunkMap) {
     if (asyncChunkMap[key].includes(webpackChunkName)) {
-      dynamicCssOrder = dynamicCssOrder.concat(`${key}.css`)
+      arr.push(`${key}.css`)
     }
   }
-  return dynamicCssOrder
+  return arr.concat(dynamicCssOrder)
 }
 const cyrb53 = function (str: string, seed = 0) {
   let h1 = 0xdeadbeef ^ seed; let h2 = 0x41c6ce57 ^ seed
