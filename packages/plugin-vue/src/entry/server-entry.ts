@@ -17,7 +17,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   sync(store, router)
 
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, chunkName } = config
-  let path = ctx.request.path // 这里取 pathname 不能够包含 queyString
+  let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
   if (BASE_NAME) {
     path = normalizePath(path)
   }
