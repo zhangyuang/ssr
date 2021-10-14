@@ -1,6 +1,6 @@
 import { join } from 'path'
 import { IConfig } from 'ssr-types'
-import { getCwd, getUserConfig } from './cwd'
+import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath } from './cwd'
 
 const loadConfig = (): IConfig => {
   const userConfig = getUserConfig()
@@ -9,7 +9,8 @@ const loadConfig = (): IConfig => {
   const stream = false
   type ClientLogLevel = 'error'
 
-  const publicPath = '/'
+  const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPath(userConfig.publicPath ?? '/')
+  const devPublicPath = publicPath.startsWith('http') ? publicPath.replace(/^http(s)?:\/\/(.*)?\d/, '') : publicPath // 本地开发不使用 http://localhost:3000 这样的 path 赋值给 webpack-dev-server 会很难处理
 
   const moduleFileExtensions = [
     '.web.mjs',
@@ -27,7 +28,7 @@ const loadConfig = (): IConfig => {
     '.css'
   ]
 
-  const isDev = process.env.NODE_ENV !== 'production'
+  const isDev = userConfig.isDev ?? process.env.NODE_ENV !== 'production'
 
   const fePort = userConfig.fePort ?? 8888
 
@@ -72,12 +73,11 @@ const loadConfig = (): IConfig => {
     serverOutPut: join(cwd, './build/server')
   })
 
-  const cssModulesWhiteList = [/antd/, /swiper/]
   const webpackDevServerConfig = Object.assign({
     stats: webpackStatsOption,
     disableInfo: true, // 关闭webpack-dev-server 自带的server Info信息
     disableHostCheck: true,
-    publicPath: publicPath,
+    publicPath: devPublicPath,
     hotOnly: true,
     host,
     sockPort: fePort,
@@ -101,6 +101,13 @@ const loadConfig = (): IConfig => {
   const chainServerConfig = () => {
     // 覆盖默认 server webpack配置
   }
+
+  const manifestPath = `${normalizeEndPath(devPublicPath)}asset-manifest.json`
+  const staticPath = `${normalizeEndPath(devPublicPath)}static`
+  const hotUpdatePath = `${normalizeEndPath(devPublicPath)}*.hot-update**`
+
+  const proxyKey = [staticPath, hotUpdatePath, manifestPath]
+
   const config = Object.assign({}, {
     chainBaseConfig,
     chainServerConfig,
@@ -119,12 +126,13 @@ const loadConfig = (): IConfig => {
     getOutput,
     webpackStatsOption,
     whiteList,
-    cssModulesWhiteList,
     dynamic,
     mode,
     stream,
     corejs,
-    https
+    https,
+    manifestPath,
+    proxyKey
   }, userConfig)
 
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了

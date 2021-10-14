@@ -2,6 +2,24 @@
 
 本篇章将会介绍在 `ssr` 框架的场景下，如何以传统 `Node.js Server` 的方式以及 `Serverless` 的形式进行部署
 
+## Serverless for Frontend
+
+> Serverless 解放了端开发者（不仅仅是 Web 开发者）的生产力，让端开发者可以更快、更好、更灵活地开发各种端上应用，不需要投入太多精力关注于后端服务的实现。”
+
+传统应用开发流程
+
+![](https://img.alicdn.com/tfs/TB1CE7FB5_1gK0jSZFqXXcpaXXa-1402-150.png)
+
+Serverless 应用开发流程
+
+![](https://img.alicdn.com/tfs/TB1hZgHB7T2gK0jSZPcXXcKkpXa-1136-174.png)
+
+使用本框架开发 Serverless SSR 应用开发流程
+
+![](https://img.alicdn.com/tfs/TB1wzqpCkP2gK0jSZPxXXacQpXa-1880-256.jpg)
+
+相比于传统服务端应用开发，我们将细节在底层统一抹平。前端开发者只需要关注业务逻辑，无需感知服务器的运行状况。成本和心智负担大大降低，只需要申请一个域名即可将应用发布到公网让所有用户可以访问。了解更多的部署细节，请阅读[应用部署](./features$deploy)章节
+
 ## Midway Serverless 形式部署
 
 如果你选择了 `Midway.js` 作为服务端框架，那么你的应用便具备了一站式的发布能力。这里我们在 `deploy` 方法的底层封装了 [Midway.js@2.0](https://www.yuque.com/midwayjs/midway_v2/introduction) 的发布能力。
@@ -10,7 +28,7 @@
 
 ### 在阿里云使用
 
-我们默认发布到阿里云，同样也可以支持发布到腾讯云
+我们默认发布到阿里云，同样也可以支持发布到腾讯云。由于 `Midway` 官方的侧重性，我们更推荐部署到阿里云来享受更加稳定的服务
 
 ```shell
 $ npm run deploy # 支持发布多个平台默认发布到阿里云 等价于 ssr deploy
@@ -48,7 +66,14 @@ $ npm run deploy:tencent # 发布到腾讯云 等价于 ssr deploy --tencent
 
 首次发布时需要使用微信扫终端展示的二维码注册/登陆腾讯云服务。如果想详细的了解腾讯云发布功能可参考[文档](https://www.yuque.com/midwayjs/faas/deploy_tencent_faq)
 
-发布后同样我们可以得到平台返回的一个地址, 需要绑定域名后才能正确的访问页面渲染服务。否则默认的发布环境腾讯云会在后面加上 `/test` `/pre` 的 `path` 来代表当前的函数环境。但这些 `path` 可能会造成服务端路由和客户端路由不一致会导致页面内容闪现后白屏。
+发布后同样我们可以得到平台返回的一个地址, 需要绑定域名后才能正确的访问页面渲染服务。否则默认的发布环境腾讯云会在后面加上 `/test` `/pre` 的 `path` 来代表当前的函数环境。但这些 `path` 可能会造成服务端路由和客户端路由不一致会导致页面内容闪现后白屏。例如我们需要部署在 `/test` 路径时需要额外在 `config.js` 文件配置
+
+```js
+module.exports = {
+  publicPath: '/test',
+  prefix: '/test'
+}
+```
 
 ![](https://res.wx.qq.com/op_res/mbNMsqF_px3tS0x_x1fryyR3Z5RipX3Lo8PIzvcAVxyXwoQyvQz0lQev-W2io3AP)
 
@@ -79,6 +104,8 @@ provider:
 
 ![](https://res.wx.qq.com/op_res/Ln1MuNWmmfNDyTuJlooXiGdhwtCtz_4rVDi_qvmuUEoL_mo6PNsd3z4d7z9RBj17)
 
+若函数访问过慢可通过平台调整函数运行内存来尝试优化性能
+
 ## Nest.js Serverless 形式部署
 
 与 `Midway.js` 不同， `Nest.js` 场景下调用 `deploy` 命令我们会直接使用底层的阿里云提供的 [fun](https://github.com/alibaba/funcraft) 工具进行部署。在 `template.yml` 的可读性上比起 `Midway.js` 的 `f.yml` 文件有一定差异。部署成功后的域名配置方式与 `Midway.js` 一致
@@ -86,6 +113,11 @@ provider:
 ## 传统 Node.js 形式部署
 
 如果你不需要使用 Serverless 的能力进行部署，有一套自己的部署方案。常见于公司内部应用部署。我们同样提供了以传统 Node.js 形式部署的脚本
+
+### 两种部署方式
+
+- ci 构建，服务器安装所有依赖 + 执行 `npm run prod`, 这种模式几乎不会出任何问题，唯一的缺点是安装的依赖较多
+- 本地构建，本地执行 `ssr build` 将 `build/dist` 目录提交到 `git` 仓库。服务器安装生产环境依赖 `npm i --production`, 然后把 `script prod` 脚本里面的 `ssr build` 这一段干掉，然后执行 `npm run prod`
 
 ### Midway 应用部署
 
@@ -104,7 +136,7 @@ provider:
 
 不要用传统 `SPA` 应用的部署思路来部署 `ssr` 应用或者说是 `Node.js` 应用
 
-重要的事情说三遍！！！
+重要的事情说三遍！！！比起丢一个 `html` 文件来部署的模式，`Node.js` 应用的部署要稍微复杂一点
 
 如果你是小白什么都不懂，那么你部署的时候要么用 `ssr deploy` 来部署到阿里云或者腾讯云。
 

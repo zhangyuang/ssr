@@ -14,15 +14,15 @@ const { FeRoutes, layoutFetch, BASE_NAME, state } = Routes as ReactRoutesType
 declare const global: IGlobal
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
-  const { cssOrder, jsOrder, dynamic, mode, chunkName, parallelFetch } = config
+  const { cssOrder, jsOrder, dynamic, mode, chunkName, parallelFetch, disableClientRender } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
-  let path = ctx.request.path // 这里取 pathname 不能够包含 queyString
+  let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
   if (BASE_NAME) {
     path = normalizePath(path)
   }
   const { window } = global
   const routeItem = findRoute<ReactServerESMFeRouteItem>(FeRoutes, path)
-  const ViteMode = process.env.BUILD_TOOL === 'vite'
+  const viteMode = process.env.BUILD_TOOL === 'vite'
 
   if (!routeItem) {
     throw new Error(`
@@ -33,15 +33,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   let dynamicCssOrder = cssOrder
 
-  if (dynamic && !ViteMode) {
+  if (dynamic && !viteMode) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
     dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
   }
-  const manifest = ViteMode ? {} : await getManifest()
+  const manifest = viteMode ? {} : await getManifest()
 
   const injectCss: JSX.Element[] = []
 
-  if (ViteMode) {
+  if (viteMode) {
     injectCss.push(<script src="/@vite/client" type="module" key="vite-client"/>)
     injectCss.push(<script key="vite-react-refresh" type="module" dangerouslySetInnerHTML={{
       __html: ` import RefreshRuntime from "/@react-refresh"
@@ -60,7 +60,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     })
   }
 
-  const injectScript = ViteMode ? [
+  if (disableClientRender) {
+    injectCss.push(<script key="disableClientRender" dangerouslySetInnerHTML={{
+      __html: 'window.__disableClientRender__ = true'
+    }}/>)
+  }
+
+  const injectScript = viteMode ? [
     <script key="viteWindowInit" dangerouslySetInnerHTML={{
       __html: 'window.__USE_VITE__=true'
     }} />,
@@ -118,4 +124,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   )
 }
 
-export default serverRender
+export {
+  serverRender
+}

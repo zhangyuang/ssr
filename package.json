@@ -20,8 +20,6 @@
     "build:only": "lerna run build:only --stream --parallel",
     "lint": "cross-env NODE_OPTIONS=--max_old_space_size=4096 eslint . --ext .js,.ts --cache",
     "lint:fix": "cross-env NODE_OPTIONS=--max_old_space_size=4096 eslint . --ext .js,.ts --cache --fix",
-    "test:unit-watch": "jest --coverage --verbose --watch",
-    "test:unit": "jest --coverage --verbose",
     "link": "node scripts/scripts.js --link",
     "unlink": "node scripts/scripts.js --unlink",
     "sync": "node scripts/scripts.js --sync",
@@ -35,7 +33,8 @@
     "example:midway:react:vite": "cd example/midway-react-ssr && npx ssr start --vite --test",
     "example:nestjs:react": "cd example/nestjs-vue-ssr && npm start",
     "example:nestjs:vue": "cd example/nestjs-vue-ssr && npm start",
-    "example:nestjs:vue3": "cd example/nestjs-vue3-ssr && npm start"
+    "example:nestjs:vue3": "cd example/nestjs-vue3-ssr && npm start",
+    "example:midway:react:dynamic:router": "cd example/react-dynamic-router-test && npm start"
   },
   "repository": {
     "type": "git",
@@ -54,7 +53,6 @@
   },
   "homepage": "https://github.com/ykfe/ssr#readme",
   "devDependencies": {
-    "@types/jest": "^24.0.18",
     "@vitejs/plugin-vue": "^1.2.1",
     "babel-eslint": "^10.0.2",
     "chalk": "^4.1.1",
@@ -65,10 +63,8 @@
     "eslint-config-standard-react-ts": "^1.0.3",
     "eslint-config-standard-vue-ts": "^1.0.0",
     "husky": "^4.3.0",
-    "jest": "^24.9.0",
     "lerna": "^3.20.2",
     "rimraf": "^3.0.2",
-    "ts-jest": "^24.0.2",
     "tsc-transpile-only": "^0.0.3",
     "typescript": "^4.0.0",
     "vite": "^2.1.5",

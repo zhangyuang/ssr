@@ -19,9 +19,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     path = normalizePath(path)
   }
   const store = createStore()
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender } = config
   const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
-  const ViteMode = process.env.BUILD_TOOL === 'vite'
+  const viteMode = process.env.BUILD_TOOL === 'vite'
 
   if (!routeItem) {
     throw new Error(`
@@ -31,12 +31,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   let dynamicCssOrder = cssOrder
-  if (dynamic && !ViteMode) {
+  if (dynamic && !viteMode) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
     dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
   }
 
-  const manifest = ViteMode ? {} : await getManifest()
+  const manifest = viteMode ? {} : await getManifest()
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
   if (isCsr) {
@@ -74,7 +74,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   const injectCss: Vue.VNode[] = []
-  if (ViteMode) {
+  if (viteMode) {
     injectCss.push(
       h('link', {
         rel: 'stylesheet',
@@ -94,7 +94,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     })
   }
 
-  const injectScript = ViteMode ? h('script', {
+  const injectScript = viteMode ? h('script', {
     type: 'module',
     src: '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'
   }) : jsOrder.map(js =>
@@ -102,6 +102,20 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       src: manifest[js]
     })
   )
+
+  const customeHeadScriptArr = customeHeadScript?.map((item) => h(
+    'script',
+    Object.assign({}, item.describe, {
+      innerHTML: item.content
+    })
+  )
+  ) ?? []
+
+  if (disableClientRender) {
+    customeHeadScriptArr.push(h('script', {
+      innerHTML: 'window.__disableClientRender__ = true'
+    }))
+  }
   const state = Object.assign({}, store.state ?? {}, asyncData.value)
 
   const app = createSSRApp({
@@ -112,20 +126,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         {
           remInitial: () => h('script', { innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }),
 
-          viteClient: ViteMode ? () =>
+          viteClient: viteMode ? () =>
             h('script', {
               type: 'module',
               src: '/@vite/client'
             }) : null,
 
-          customeHeadScript: () => customeHeadScript?.map((item) =>
-            h(
-              'script',
-              Object.assign({}, item.describe, {
-                innerHTML: item.content
-              })
-            )
-          ),
+          customeHeadScript: () => customeHeadScriptArr,
           customeFooterScript: () => customeFooterScript?.map((item) =>
             h(
               'script',
@@ -139,8 +146,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
             id: 'app'
           }) : () => h(App, { ctx, config, asyncData, fetchData: combineAysncData }),
 
-          initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${ViteMode}` })
-            : () => h('script', { innerHTML: `window.__USE_VITE__=${ViteMode}` }),
+          initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${viteMode}` })
+            : () => h('script', { innerHTML: `window.__USE_VITE__=${viteMode}` }),
 
           cssInject: () => injectCss,
 
@@ -158,4 +165,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   return app
 }
 
-export default serverRender
+export {
+  serverRender
+}

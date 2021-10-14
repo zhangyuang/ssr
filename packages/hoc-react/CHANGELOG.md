@@ -3,6 +3,95 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.24](https://github.com/ykfe/ssr/compare/v5.6.23...v5.6.24) (2021-09-23)
+
+**Note:** Version bump only for package ssr-hoc-react
+
+
+
+
+
+## [5.6.23](https://github.com/ykfe/ssr/compare/v5.6.22...v5.6.23) (2021-09-23)
+
+**Note:** Version bump only for package ssr-hoc-react
+
+
+
+
+
+## [5.6.19](https://github.com/ykfe/ssr/compare/v5.6.17...v5.6.19) (2021-09-07)
+
+
+### Bug Fixes
+
+* wrapComponent ([5099eaf](https://github.com/ykfe/ssr/commit/5099eafc651b3e937018a68c73e1cece6ba0a4eb))
+
+
+
+
+
+## [5.6.18](https://github.com/ykfe/ssr/compare/v5.6.17...v5.6.18) (2021-09-07)
+
+
+### Bug Fixes
+
+* wrapComponent ([3158027](https://github.com/ykfe/ssr/commit/31580279fe9dfa9d27300ca8e5db5dbf56a1a8e3))
+
+
+
+
+
+## [5.6.13](https://github.com/ykfe/ssr/compare/v5.6.12...v5.6.13) (2021-08-25)
+
+**Note:** Version bump only for package ssr-hoc-react
+
+
+
+
+
+## [5.6.12](https://github.com/ykfe/ssr/compare/v5.6.11...v5.6.12) (2021-08-25)
+
+**Note:** Version bump only for package ssr-hoc-react
+
+
+
+
+
+## [5.6.8](https://github.com/ykfe/ssr/compare/v5.6.7...v5.6.8) (2021-08-24)
+
+**Note:** Version bump only for package ssr-hoc-react
+
+
+
+
+
+## [5.6.6](https://github.com/ykfe/ssr/compare/v5.6.5...v5.6.6) (2021-08-23)
+
+
+### Features
+
+* remove react-loadable ([cde40ce](https://github.com/ykfe/ssr/commit/cde40cea20d364a9d728cbd9206f1665267dfc0b))
+
+
+
+
+
+## [5.6.4](https://github.com/ykfe/ssr/compare/v5.6.3...v5.6.4) (2021-08-13)
+
+**Note:** Version bump only for package ssr-hoc-react
+
+
+
+
+
+## [5.6.3](https://github.com/ykfe/ssr/compare/v5.6.2...v5.6.3) (2021-08-12)
+
+**Note:** Version bump only for package ssr-hoc-react
+
+
+
+
+
 ## [5.6.2](https://github.com/ykfe/ssr/compare/v5.6.1...v5.6.2) (2021-08-11)
 
 **Note:** Version bump only for package ssr-hoc-react

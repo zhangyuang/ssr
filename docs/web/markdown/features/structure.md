@@ -48,16 +48,18 @@ export * from './bar'
 
 ```shell
 .
-├── build # 默认作为服务端静态资源目录，负责存放web目录构建产物或者图片资源等静态文件
+├── build # web目录构建产物，与 public 文件夹一样会设置为静态资源文件夹，非应用构建产物静态资源文件如图片/字体等资源建议放在 public 文件夹前端代码通过绝对路径引入
 │   ├── client # 存放前端静态资源文件
 │   └── server # 存放 external 后的服务端 bundle，
-├── config.js # 定义应用的配置
+├── public # 作为静态资源目录存放静态资源文件
+├── config.js # 定义应用的配置 (框架层面使用，生产环境需要)
 ├── config.prod.js # (可选) 若存在则视为生产环境的应用配置
 ├── f.yml # (可选)，仅在 Serverless 场景下使用，若调用 ssr deploy 检测到无此文件会自动创建
 ├── package.json
 ├── src # 存放服务端 Node.js 相关代码
 │   └── index.ts
 ├── tsconfig.json # 服务端 Node.js 编译配置文件
+├── typings # 存放前后端公共类型文件
 ├── web # 存放前端组件相关代码
 │   ├── components # 存放公共组件
 │   │   └── header # 公共头部

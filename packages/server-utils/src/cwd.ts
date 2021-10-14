@@ -39,13 +39,14 @@ const readAsyncChunk = async (): Promise<Record<string, string>> => {
 }
 
 const addAsyncChunk = async (dynamicCssOrder: string[], webpackChunkName: string) => {
+  const arr = []
   const asyncChunkMap = await readAsyncChunk()
   for (const key in asyncChunkMap) {
     if (asyncChunkMap[key].includes(webpackChunkName)) {
-      dynamicCssOrder = dynamicCssOrder.concat(`${key}.css`)
+      arr.push(`${key}.css`)
     }
   }
-  return dynamicCssOrder
+  return arr.concat(dynamicCssOrder)
 }
 const cyrb53 = function (str: string, seed = 0) {
   let h1 = 0xdeadbeef ^ seed; let h2 = 0x41c6ce57 ^ seed
@@ -103,7 +104,7 @@ const checkVite = async () => {
     } else {
       plugin = '@vitejs/plugin-react-refresh'
     }
-    console.log(`当前项目缺少 vite 依赖，请根据实际技术栈安装 vite ${plugin} 或 其他对应插件`)
+    console.log(`当前项目缺少 vite 依赖，请根据实际技术栈安装 vite ${plugin}${version && !/^.?3/.test(version) ? '@1.4.4' : ''} 或 其他对应插件`)
     if (version && !/^.?3/.test(version)) {
       console.log('vue2 场景下使用 Vite 必须安装固定版本 vite-plugin-vue2@1.4.4')
     }
@@ -117,7 +118,7 @@ const copyViteConfig = async () => {
   const result = await accessFile(resolve(getCwd(), './vite.config.js'))
   if (!result) {
     const version = require(resolve(getCwd(), './package.json')).dependencies.vue
-    console.log('vite.config.js is not found, will be created automatically')
+    console.log('vite.config.js not found, will be created automatically')
     let folder = ''
     if (version) {
       folder = /^.?3/.test(version) ? 'ssr-plugin-vue3' : 'ssr-plugin-vue'
@@ -135,6 +136,21 @@ const copyViteConfig = async () => {
 }
 
 const execPromisify = promisify(exec)
+const normalizeStartPath = (path: string) => {
+  if (path.startsWith('//')) {
+    path = path.replace('//', '/')
+  }
+  if (!path.startsWith('/')) {
+    path = `/${path}`
+  }
+  return path
+}
+const normalizeEndPath = (path: string) => {
+  if (!path.endsWith('/')) {
+    path = `${path}/`
+  }
+  return path
+}
 
 export {
   getCwd,
@@ -151,5 +167,7 @@ export {
   execPromisify,
   readAsyncChunk,
   addAsyncChunk,
-  cryptoAsyncChunkName
+  cryptoAsyncChunkName,
+  normalizeStartPath,
+  normalizeEndPath
 }

@@ -2,6 +2,7 @@
 import { join } from 'path'
 import { Mode } from 'ssr-types'
 import { getFeDir, getCwd, loadConfig, getLocalNodeModules, setStyle, addImageChain } from 'ssr-server-utils'
+import * as webpack from 'webpack'
 import * as WebpackChain from 'webpack-chain'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -177,7 +178,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
 
   setStyle(chain, /\.css$/, {
     rule: 'css',
-    modules: false,
     importLoaders: 1,
     isServer
   }) // 设置css
@@ -185,7 +185,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   setStyle(chain, /\.less$/, {
     rule: 'less',
     loader: 'less-loader',
-    modules: false,
     importLoaders: 2,
     isServer
   })
@@ -222,6 +221,12 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     name: isServer ? 'server' : 'client',
     color: isServer ? '#f173ac' : '#45b97c'
   }))
+
+  chain.plugin('ssrDefine').use(webpack.DefinePlugin, [{
+    __isBrowser__: !isServer,
+    __VUE_OPTIONS_API__: true,
+    __VUE_PROD_DEVTOOLS__: false
+  }])
 
   chainBaseConfig(chain)
   return config

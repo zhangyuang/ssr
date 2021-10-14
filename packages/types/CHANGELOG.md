@@ -3,6 +3,80 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.24](https://github.com/ykfe/ssr/compare/v5.6.23...v5.6.24) (2021-09-23)
+
+**Note:** Version bump only for package ssr-types
+
+
+
+
+
+## [5.6.23](https://github.com/ykfe/ssr/compare/v5.6.22...v5.6.23) (2021-09-23)
+
+
+### Features
+
+* update publicPath logic in dev ([57fe590](https://github.com/ykfe/ssr/commit/57fe590910fc4ef526d6c48e82acbffd86882dce))
+
+
+
+
+
+## [5.6.13](https://github.com/ykfe/ssr/compare/v5.6.12...v5.6.13) (2021-08-25)
+
+
+### Features
+
+* remove cssModulesWhitelist update docs.md ([7473836](https://github.com/ykfe/ssr/commit/7473836725b0c2f8685ea58c2457d4b20a2ec747))
+
+
+
+
+
+## [5.6.12](https://github.com/ykfe/ssr/compare/v5.6.11...v5.6.12) (2021-08-25)
+
+
+### Features
+
+* support routerOptimize ([d54e739](https://github.com/ykfe/ssr/commit/d54e739ff28592387ff6d4be024736dceeb9c18c))
+
+
+
+
+
+## [5.6.8](https://github.com/ykfe/ssr/compare/v5.6.7...v5.6.8) (2021-08-24)
+
+
+### Features
+
+* upgrade css-loader version aligen modules hash ([8ff93d1](https://github.com/ykfe/ssr/commit/8ff93d1dc4031d870a9ff977c0508d29008fd6a5))
+
+
+
+
+
+## [5.6.4](https://github.com/ykfe/ssr/compare/v5.6.3...v5.6.4) (2021-08-13)
+
+
+### Features
+
+* support micro-app ([e91c2ee](https://github.com/ykfe/ssr/commit/e91c2ee33ab1f24627118c224bda35064d331c40))
+
+
+
+
+
+## [5.6.3](https://github.com/ykfe/ssr/compare/v5.6.2...v5.6.3) (2021-08-12)
+
+
+### Bug Fixes
+
+* 类型修复 nestjs 新增自定义提示 ([d17bf51](https://github.com/ykfe/ssr/commit/d17bf51e6a313a2f57abd87fde7ec014cf724da1))
+
+
+
+
+
 ## [5.6.2](https://github.com/ykfe/ssr/compare/v5.6.1...v5.6.2) (2021-08-11)
 
 

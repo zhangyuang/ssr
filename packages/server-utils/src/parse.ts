@@ -2,21 +2,24 @@ import { promises as fs } from 'fs'
 import { resolve, join } from 'path'
 import * as Shell from 'shelljs'
 import { ParseFeRouteItem } from 'ssr-types'
-import { getCwd, getPagesDir, getFeDir, accessFile } from './cwd'
+import { getCwd, getPagesDir, getFeDir, accessFile, normalizeStartPath } from './cwd'
 import { loadConfig } from './loadConfig'
 
 const debug = require('debug')('ssr:parse')
-const { dynamic, publicPath, isDev } = loadConfig()
+const { dynamic, publicPath, isDev, routerPriority, routerOptimize } = loadConfig()
 const pageDir = getPagesDir()
 const cwd = getCwd()
-let { prefix, routerPriority } = loadConfig()
+let { prefix } = loadConfig()
 
-if (prefix && !prefix.startsWith('/')) {
-  prefix = `/${prefix}`
+if (prefix) {
+  prefix = normalizeStartPath(prefix)
 }
 
 export const normalizePath = (path: string) => {
-  path = path.replace(prefix!, '')
+  // 移除 prefix 保证 path 跟路由表能够正确匹配
+  if (prefix) {
+    path = path.replace(prefix, '')
+  }
   if (path.startsWith('//')) {
     path = path.replace('//', '/')
   }
@@ -61,13 +64,28 @@ const parseFeRoutes = async () => {
   if (!declaretiveRoutes) {
     // 根据目录结构生成前端路由表
     const pathRecord = [''] // 路径记录
+    // @ts-expect-error
     const route: ParseFeRouteItem = {}
-    const arr = await renderRoutes(pageDir, pathRecord, route)
+    let arr = await renderRoutes(pageDir, pathRecord, route)
     if (routerPriority) {
+      // 路由优先级排序
       arr.sort((a, b) => {
         // 没有显示指定的路由优先级统一为 0
         return (routerPriority![b.path] || 0) - (routerPriority![a.path] || 0)
       })
+    }
+
+    if (routerOptimize) {
+      // 路由过滤
+      if (routerOptimize.include && routerOptimize.exclude) {
+        throw new Error('include and exclude cannot exist synchronal')
+      }
+      if (routerOptimize.include) {
+        arr = arr.filter(route => routerOptimize?.include?.includes(route.path))
+      }
+      if (routerOptimize.exclude) {
+        arr = arr.filter(route => !routerOptimize?.exclude?.includes(route.path))
+      }
     }
 
     debug('Before the result that parse web folder to routes is: ', arr)
@@ -109,9 +127,6 @@ const parseFeRoutes = async () => {
       const accessStore = await accessFile(join(getFeDir(), './store/index.ts'))
       const re = /"webpackChunkName":("(.+?)")/g
       routes = `
-        ${dynamic && !viteMode ? `
-        import React from "react"
-        import loadable from 'react-loadable' ` : ''}
         export const FeRoutes = ${JSON.stringify(arr)} 
         ${accessReactApp ? 'export { default as App } from "@/components/layout/App.tsx"' : ''}
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
@@ -122,16 +137,10 @@ const parseFeRoutes = async () => {
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
         if (dynamic) {
-          if (viteMode) {
-            return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
-          } else {
-            return `"component":  __isBrowser__ ? loadable({
-                  loader: () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}'),
-                  loading: function Loading () {
-                    return React.createElement('div')
-                  }
-                }) : require('${m2.replace(/\^/g, '"')}').default`
-          }
+          return `"component":  __isBrowser__ ? function dynamicComponent () {
+            return import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}')
+          } : require('${m2.replace(/\^/g, '"')}').default
+          `
         } else {
           return `"component":  require('${m2.replace(/\^/g, '"')}').default`
         }

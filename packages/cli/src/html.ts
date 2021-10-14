@@ -34,6 +34,7 @@ export const generateHtml = async (argv: Argv) => {
     })
     // @ts-expect-error
     let cssManifest = ''
+    // @ts-expect-error
     cssOrder.forEach(item => {
       cssManifest += `<link rel='stylesheet' href=${manifest[item]} />`
     })

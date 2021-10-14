@@ -20,11 +20,12 @@
     "esModuleInterop": true,
     "jsx": "preserve",
     "paths": {
-      "@/*": ["./*"] // 此处映射是相对于"baseUrl"
+      "@/*": ["./*"],
+      "~/*": ["../*"]
     }
   },
   "include": [
-    "."
+    "src"
   ]
 }
 

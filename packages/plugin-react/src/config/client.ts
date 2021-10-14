@@ -1,7 +1,6 @@
 import { promises } from 'fs'
 import { resolve } from 'path'
 import { loadConfig, getCwd, cryptoAsyncChunkName, getOutputPublicPath } from 'ssr-server-utils'
-import * as webpack from 'webpack'
 import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
 
@@ -49,6 +48,7 @@ const getClientWebpack = (chain: WebpackChain) => {
       optimization.minimizer('terser')
         .use(loadModule('terser-webpack-plugin'), [{
           terserOptions: {
+            keep_fnames: true,
             parse: {
               ecma: 8
             },
@@ -83,15 +83,10 @@ const getClientWebpack = (chain: WebpackChain) => {
       }])
     })
 
-  chain.plugin('define').use(webpack.DefinePlugin, [{
-    __isBrowser__: true
-  }])
-
   chain.plugin('moduleNotFound').use(ModuleNotFoundPlugin, [cwd])
 
   chain.plugin('manifest').use(loadModule('webpack-manifest-plugin'), [{
-    fileName: 'asset-manifest.json',
-    publicPath: publicPath
+    fileName: 'asset-manifest.json'
   }])
 
   chain.when(generateAnalysis, chain => {

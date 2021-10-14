@@ -307,17 +307,43 @@ export default {
 #### antd
 
 ```shell
-$ npm install antd
+$ npm install antd - D
 ```
 
 ```js
 
 import { Button } from 'antd'
 
-<Button><Button>
+<Button>btn<Button>
 ```
 
+#### antd-mobile
+
+根目录创建 `babel.config.js`，并写入如下内容
+
+```js
+module.exports = { 
+    "plugins": [ 
+        ["import", { 
+            "libraryName": "antd-mobile", 
+             "libraryDirectory": 'lib',
+            "style": true 
+        }, 'antd-mobile'] 
+    ] 
+} 
+```
+
+组件使用
+
+```js
+
+import { Button } from 'antd-mobile'
+
+<Button>btn<Button>
+```
 #### vant
+
+根据具体框架安装使用 `vue2/3` 对应的 [vant](https://github.com/youzan/vant) 版本
 
 ```shell
 $ npm install vant@next # vant in vue3
@@ -340,7 +366,7 @@ export default {
 ```
 
 ```html
-// 全局使用
+// Vue3 场景全局使用
 // layout/App.vue
 <template>
   <van-button type="primary">主要按钮</van-button>
@@ -357,6 +383,41 @@ export default {
     app.use(Button)
   }
 }
+</script>
+```
+
+#### element-ui
+
+根目录创建 `babel.config.js`，并写入如下内容
+
+```js
+module.exports = {
+    plugins: [
+        [
+            "component",
+            {
+              "libraryName": "element-ui",
+              "styleLibraryName": "theme-chalk"
+            }
+          ]
+    ]
+}
+```
+
+组件使用
+
+```html
+// Vue2 场景全局使用
+// layout/App.vue
+<template>
+  <van-button type="primary">主要按钮</van-button>
+</template>
+<script>
+import Vue from 'vue'
+import { Button } from 'element-ui'
+
+Vue.use(Button)
+
 </script>
 ```
 ### 原理
@@ -429,17 +490,17 @@ $ yarn add sass sass-loader@^10.0.0 -D # 必须安装 ^10.0.0 版本的 sass-loa
 ```
 
 ```js
-const { setStyle } = require('ssr-server-utils')
 
 module.exports = {
   chainBaseConfig: (chain) => {
+    const { setStyle } = require('ssr-server-utils') // 这里需要在具体的 function 里面加载 setStyle
     // setStyle 的详细入参类型可查看  https://github.com/ykfe/ssr/blob/dev/packages/server-utils/src/webpack/setStyle.ts
     setStyle(chain, /\.s[ac]ss$/i, {
       rule: 'sass',
       loader: 'sass-loader',
       modules: false, // 是否开启 css-modules, Vue 场景不建议开启，直接用 scoped 功能代替即可
       importLoaders: 2 // 参考 https://www.npmjs.com/package/css-loader#importloaders
-    }, true) // React 场景为 true, Vue 场景为 false
+    })
   }
 }
 ```
@@ -473,6 +534,69 @@ export default {
 
 在正式的线上应用执行阶段。我们一般使用以下方式来进行降级
 
+## 在微前端场景下使用(Beta)
+
+得益于框架底层代码的简单，我们不需要做很多改动就可以在微前端场景下集成。此功能尚在实验中，欢迎开发者与我们共同探寻最佳实践。
+
+### 与 micro-app 结合使用
+
+这里有一个结合 [micro-app](https://zeroing.jd.com/micro-app/) 使用的[示例](https://github.com/zhangyuang/micro-app-ssr)。目前看起来对应用的侵入性很小。个人非常喜欢这种方式。
+
+### 与 qiankun 结合使用
+
+如果是在 [qiankun](https://qiankun.umijs.org/) 场景下使用，目前看来侵入性略大。
+
+首先开发者需要配置 `disableClientRender`，来禁用框架默认的客户端渲染逻辑的调用
+
+```js
+module.exports = {
+    disableClientRender: true
+}
+```
+
+然后开发者可以自行定义客户端入口文件自行决定什么时候调用客户端渲染方法。
+
+```js
+// 在项目根目录创建自己定义的 main.js
+// main.js
+
+import { clientRender } from 'ssr-plugin-vue3/cjs/entry/client-entry'
+
+if (!微前端) {
+  clientRender() // 手动调用客户端渲染方法
+}
+
+export async mount() {
+  // 通常微前端场景需要抛出一个 mount 方法
+  clientRender()
+}
+
+```
+
+修改 `Webpack` 构建配置，入口文件指向新的入口文件
+
+```js
+const { resolve } = require('path')
+
+module.exports = {
+  disableClientRender: true,
+  chainClientConfig: chain => {
+    // 只需要修改入口文件路径，其他配置可以沿用默认配置
+    const { loadConfig, getOutputPublicPath } = require('ssr-server-utils')
+    const { chunkName, getOutput, useHash } = loadConfig()
+    const publicPath = getOutputPublicPath()
+    chain.entry(chunkName)
+      .add(resolve(process.cwd(), './main.js'))
+      .end()
+      .output
+      .path(getOutput().clientOutPut)
+      .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
+      .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js')
+      .publicPath(publicPath)
+      .end()
+  }
+}
+```
 ## 指定页面 ssr
 
 开发者或许需要针对某些页面进行服务端渲染，某些页面不需要。得益于 `ssr` 的强大设计，此功能完全不需要框架底层支持，直接在业务代码实现即可。
@@ -481,8 +605,9 @@ export default {
 import { render } from 'ssr-core-vue3'
 // 开发者可以在 controller 中根据不同的 path 使用不同的运行配置来决定当前的渲染模式
 
-@Controller('/')
+@Controller('/detail')
 const stream = await render<Readable>(this.ctx, {
+  // 对 /detail 路由使用 csr 渲染模式
   mode: 'csr'
 })
 ```
@@ -772,100 +897,6 @@ export const onlyCsr = defineComponent({
 ## 解决服务端代码加载 ESM 格式的模块
 
 这种问题相比于代码调用了浏览器对象导致的错误好解决很多。在 `Node.js` 环境中我们无法直接的运行 `ESM` 格式的代码, 开发者可以通过 [whiteList](./api$config#whiteList) 配置，来将这部分第三方模块的代码进行 `Webpack` 处理后再给到服务端去调用。但这会导致服务端构建后的文件体积增大，会稍稍拖慢构建运行速度。
-
-## 代码分割常见问题
-
-`注意：在 >=5.5.73 版本中框架已经支持绝大部分情况下开发者可能会遇到的异步文件加载的问题会自动切割出最优的文件以及自动预加载所需样式文件，所以理论上不需要开发者修改任何默认的 splitChunks 配置`
-
-框架使用 `splitChunks` 的 `chunks: 'all'` 选项来进行代码分割配置参考该[文件](https://github.com/ykfe/ssr/blob/dev/packages/plugin-react/src/config/client.ts#L31)。该配置能够保证最佳的代码尺寸。
-
-但可能会带来一定的体验问题需要手动解决。使用该配置 `webpack` 将会对不同页面的重复引入模块进行代码单独分块。这其中包含了 `css chunks` 和 `js chunks`，`js chunks` 不会对体验造成影响。`webpack runtime` 将会自行判断当前页面应该去加载哪些 `chunk`。但 `css chunks` 的分块可能会造成 `css` 闪烁。这是因为我们的 `css chunks` 是动态加载的而不是一开始就全部注入到页面头部的。也就是当我们的 `runtime~js` 文件执行的时候我们才能够知道当前页面需要去加载哪些 `css chunks`。
-
-### 延迟加载部分代码
-
-当我们只有某个页面使用到了某个模块时，我们可以将该模块进行切割，使得只在跳转到该页面时进行加载，例如我们只有详情页会用到 `ant-design-vue`。这时候我们就可以对 `ant-design-vue` 进行独立的提取操作
-
-```js
-module.exports = {
-  chainClientConfig: chain => {
-    console.log(chain.optimization.get('splitChunks'))
-    const splitChunksOptions = chain.optimization.get('splitChunks')
-    splitChunksOptions.cacheGroups.vendorsAntd = {
-      test: /node_modules\/(.*)?ant-design-vue/,
-      priority: 10,
-      name: 'chunks-antd'
-    }
-  }
-}
-
-```
-
-### 点击事件失效
-
-`注意：如果发生了这种情况请不要自己指定 splitChunksOptions.cacheGroups 的 name 属性，否则可能需要开发者手动加载该 chunk，继承框架默认的 name 配置，应用将会根据页面自动加载当前页面可能会用到的 chunk js`
-
-若代码切割后发现点击事件等事件失效。那么很有可能原因是切割后首页页面没有加载完全首页所需要的 `[name.chunk.js]`。例如我们进行代码切割后很可能会将首页与其他页面重复的模块进行切割生成 `0.chunk.js` 等形式的文件。此时首页页面需要加载该文件才能够正确的激活对应的组件 `DOM`。可以通过[extraJsOrder](./api$config#extraJsOrder)引入额外生成的 `chunk`
-
-总的来说这种情况一旦发生就比较麻烦也没有什么必要去切割这种情况，因为即使切割成了独立 `chunk` 首页仍需要加载完该 `chunk` 后才是一个可用状态，也可以通过 `splitChunksOptions.minSize` 来配置超出多少体积时才进行切割，来减少这种情况的处理。`splitChunksOptions.minChunks` 指定拆分前必须共享模块的最小 chunks 数。具体配置参考 [Webpack SplitChunks](https://webpack.docschina.org/plugins/split-chunks-plugin/#splitchunksminchunks)
-
-### 样式闪烁
-
-`注意：在 >=5.5.73 版本中框架已经添加了自动预加载异步 css chunks 的逻辑，理论上不会出现样式闪烁的问题，若开发者仍然出现，请联系官方开发者排查问题`
-
-最常遇到的问题就是样式闪烁。一旦首页和其他页面存在了重复模块并且被切割成独立 `chunk` 后这部分模块的 `css` 就存在闪烁的可能。
-
-举个例子：当我们的首页和详情页面都用到了 `搜索框组件` 和 `antd` 中的组件。此时 `搜索框组件` 和 `antd` 中的组件的代码便会单独分块进行构建加载。会导致的现象就是 `搜索框组件` 和 `antd` 中的组件的样式会闪烁。
-
-针对这种问题我们有两种解决方案
-
-#### 提前加载样式文件
-
-针对这种情况我们的样式文件不能够再放到具体的组件中去加载，只能够提前一步在更上层进行加载。
-
-例如我们可以将 `搜索框组件` 的样式放在 `common.less` 当中在 `App.vue|tsx` 层面进行加载。
-
-针对 `antd` 等第三方组件库的样式我们可以在 `App.vue|tsx` 提前加载具体组件的样式例如 `import 'antd/lib/button/style/index'` 或者是直接加载整个 `antd` 的样式 `import "antd/dist/antd.css";`
-
-#### 将 css 提取为一个大文件
-
-我们可以通过 `chainClientConfig` 中配置 `splitChunks` 来自由的控制代码的切割，例如我们可以将应用所有的 `css` 文件都打包成一个文件来加载不进行分块。但注意若同时生成了 `styles.chunk.js` 文件则需要手动引入，否则 `ui 组件` 点击事件会失效。如何引入参考[extraJsOrder](./api$config#extraJsOrder)
-
-```js
-// 将所有的样式文件都打包成一个 styles.chunk.css 文件
-module.exports = {
-  chainClientConfig: chain => {
-    const splitChunksOptions = chain.optimization.get('splitChunks')
-    splitChunksOptions.cacheGroups.styles = {
-        test: /\.(css|less)$/,
-        chunks: 'all',
-        priority: 10,
-        enforce: true
-    }
-    // 若使用以下配置可提取为一个 styles.chunk.css 文件，但会额外生成 styles.chunk.js 文件都需要在页面加载才能够正常使用
-    // splitChunksOptions.cacheGroups.styles = {
-    //   name: 'styles',
-    //   test: (m, c, entry = 'app') => m.constructor.name === 'CssModule',
-    //   chunks: 'all',
-    //   priority: 10,
-    //   enforce: true
-    // }
-  }
-}
-
-```
-#### 使用 chunks: initial (不推荐)
-
-此配置将会使用 `chunks: initial`，作为构建配置每一个页面 `chunk` 包含的都是当前页面依赖的所有代码。适用于对代码包大小不敏感的应用。如果开发者不熟悉 `splitChunks` 的优化。直接使用以下配置，但可能会导致模块的重复打包，造成代码冗余
-
-```js
-module.exports = {
-  chainClientConfig: chain => {
-    const splitChunksOptions = chain.optimization.get('splitChunks')
-    splitChunksOptions.chunks = 'initial'
-  }
-}
-```
-
 ## Proxy 转发 POST 请求失败
 
 某些用户反馈使用 `config.proxy` 转发 `POST` 请求时会失败，可能是因为 `Midway.js` 底层使用的 `egg` 自带的 `bodyParser` 导致的。如果你遇到了该问题可以尝试以下解决方案。
@@ -1007,5 +1038,77 @@ module.exports = {
       .options({ symbolId: '[name]' })
   }
 }
+
+```
+
+## 对所有类型的文件使用 css modules
+
+主要用于 `React` 场景。默认规范只对 `.module.less` 格式的文件使用 `css-modules`, 如需要配置所有后缀类型的样式文件都使用 `css modules`
+
+```js
+module.exports = {
+  css: () => {
+    return {
+      loaderOptions: {
+        cssOptions: {
+          modules: {
+            auto: (resourcePath) => {
+              return !/node_modules/.test(resourcePath) // 这里要排除第三方模块，不要用 css modules 处理它
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+```
+
+## 不同页面使用不同的 Layout
+
+主要在 `React` 场景使用， `Vue` 场景原理相同更加简单。
+
+```js
+// 需依赖版本 >= 5.6.21, 注意如果 example 是之前创建的不是最新的，layout/index.tsx 的这块内容需改为 <div id="app"><App {...props} /></div>
+// App.tsx 
+import React from 'react'
+
+export default (props: LayoutProps) => {
+  const path = __isBrowser__ ? location.pathname: props.ctx?.request.path
+  if (/detail/.test(path)) {
+    return props.children!
+  } else {
+    return <div style={{backgroundColor:'red'}}>
+     { props.children!}
+    </div>
+  }
+}
+```
+
+```html
+// App.vue
+<template>
+  <div id="app">
+    <div v-if="showDetailLayout" style="background-color: red">
+      <router-view />
+    </div>
+    <router-view v-else />
+  </div>
+</template>
+
+<script lang="ts">
+export default {
+  data() {
+    return {
+      showDetailLayout: /detail/.test(this.$route.path),
+    };
+  },
+  watch: {
+    "$route.path": function (newVal, oldVal) {
+      this.showDetailLayout = /detail/.test(newVal);
+    }
+  }
+};
+</script>
 
 ```

@@ -20,6 +20,7 @@ export interface IWindow extends Window {
   __INITIAL_DATA__?: any
   STORE_CONTEXT?: any
   __USE_VITE__?: boolean
+  __disableClientRender__?: boolean
 }
 
 export interface IGlobal {

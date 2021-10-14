@@ -3,6 +3,7 @@ import { join } from 'path'
 import { Mode } from 'ssr-types'
 import { getFeDir, getCwd, loadConfig, getLocalNodeModules, setStyle, addImageChain } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
+import * as webpack from 'webpack'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const WebpackBar = require('webpackbar')
@@ -34,7 +35,7 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
             libraryName: 'antd',
             libraryDirectory: 'lib',
             style: true
-          }
+          }, 'antd'
         ],
         [loadModule('@babel/plugin-proposal-private-methods'), { loose: true }],
         [loadModule('@babel/plugin-proposal-private-property-in-object'), { loose: true }]
@@ -44,7 +45,7 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
 }
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, cssModulesWhiteList, chainBaseConfig, corejs, babelExtraModule } = config
+  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, corejs, babelExtraModule } = config
   const mode = process.env.NODE_ENV as Mode
   const envOptions = {
     modules: false
@@ -107,38 +108,17 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   addBabelLoader(babelForExtraModule, envOptions)
 
   setStyle(chain, /\.css$/, {
-    exclude: cssModulesWhiteList,
     rule: 'css',
-    modules: true,
     isServer,
     importLoaders: 1
-  }, true) // 设置css
+  })
 
   setStyle(chain, /\.less$/, {
-    exclude: cssModulesWhiteList,
     rule: 'less',
     loader: 'less-loader',
-    modules: true,
     isServer,
     importLoaders: 2
-  }, true)
-
-  setStyle(chain, /\.less$/, {
-    include: cssModulesWhiteList,
-    rule: 'cssModulesWhiteListLess',
-    modules: false,
-    loader: 'less-loader',
-    importLoaders: 2,
-    isServer
-  }, true) // 默认 antd swiper 不使用 css-modules，建议第三方 ui 库都不使用
-
-  setStyle(chain, /\.css$/, {
-    include: cssModulesWhiteList,
-    rule: 'cssModulesWhiteListCss',
-    modules: false,
-    importLoaders: 1,
-    isServer
-  }, true)
+  })
 
   chain.module
     .rule('svg')
@@ -172,7 +152,9 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     name: isServer ? 'server' : 'client',
     color: isServer ? '#f173ac' : '#45b97c'
   }))
-
+  chain.plugin('ssrDefine').use(webpack.DefinePlugin, [{
+    __isBrowser__: !isServer
+  }])
   chainBaseConfig(chain)
   return config
 }
