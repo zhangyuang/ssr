@@ -18,8 +18,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
 
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, chunkName } = config
   let path = ctx.request.path // 这里取 pathname 不能够包含 queyString
+  let url = ctx.request.url
   if (BASE_NAME) {
     path = normalizePath(path)
+    url = normalizePath(url)
   }
   const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
 
@@ -45,7 +47,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   }
   const { fetch } = routeItem
   // 根据 path 匹配 router-view 展示的组件
-  router.push(path)
+  router.push(url)
 
   let layoutFetchData = {}
   let fetchData = {}
