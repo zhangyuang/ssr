@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.27](https://github.com/ykfe/ssr/compare/v5.6.26...v5.6.27) (2021-10-14)
+
+
+### Bug Fixes
+
+* queryString annotation ([#121](https://github.com/ykfe/ssr/issues/121)) ([b939ca9](https://github.com/ykfe/ssr/commit/b939ca9dfce93c297a5408c87af0617985a55cd1))
+
+
+
+
+
 ## [5.6.26](https://github.com/ykfe/ssr/compare/v5.6.25...v5.6.26) (2021-09-29)
 
 
