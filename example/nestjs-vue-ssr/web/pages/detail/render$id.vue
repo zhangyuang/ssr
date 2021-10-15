@@ -13,12 +13,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapState } from 'vuex'
-import Player from '@/components/player'
-import Search from '@/components/search'
-import Brief from '@/components/brief'
-import Recommend from '@/components/recommend'
+import Player from '@/components/player/index.vue'
+import Search from '@/components/search/index.vue'
+import Brief from '@/components/brief/index.vue'
+import Recommend from '@/components/recommend/index.vue'
 
 export default {
   components: {

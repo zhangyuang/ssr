@@ -5,7 +5,7 @@ import Rectangle from '@/components/rectangle'
 import Search from '@/components/search'
 import { IData } from '@/interface'
 
-export default (props: SProps) => {
+export default function Index (props: SProps) {
   const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT)
   return (
     <div>

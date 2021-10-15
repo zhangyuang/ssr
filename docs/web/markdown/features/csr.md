@@ -4,6 +4,7 @@
 ## 服务端和客户端渲染
 
 下面让我们来看看  `服务端渲染` 和 `客户端渲染` 有什么区别
+
 ### 区别
 
 `客户端渲染（client-side Renderingende)`, `HTML` 仅仅作为静态估价，客户端在请求时，服务端不做任何处理，直接以原文件的形式返回给客户端客户端，然后根据 `HTML` 上的 `JavaScript`，生成 `DOM` 插入 HTML
@@ -55,9 +56,13 @@
 
 [ssr-core-react](https://github.com/ykfe/ssr/blob/dev/packages/core-react/src/render.ts) 和 [ssr-core-vue](https://github.com/ykfe/ssr/blob/dev/packages/core-vue3/src/index.ts) (vue3)模块均支持该方式
 
-在应用执行出错 `catch` 到 `error` 的时候降级为客户端渲染。也可根据具体的业务逻辑，由开发者自行决定在适当的时候通过该方式降级 `csr` 模式。
+在应用执行出错 `catch` 到 `error` 的时候降级为客户端渲染。也可根据具体的业务逻辑，由开发者自行决定在适当的时候通过该方式降级 `csr` 模式。也可以通过接入发布订阅机制，通过发布平台来实时设置当前的渲染模式。
 
-下面可以看到 `ssr-core-react` 模块的例子
+下面可以看到 `ssr-core-react` 模块的例子，如果你有更好的写法欢迎向我们反馈。
+
+#### 处理 字符串 返回形式的降级
+
+字符串的降级处理很简单，我们只需要 `try catch` 到错误后，直接修改渲染模式拿到新的结果即可。因为此时组件的渲染是在 `render` 方法被调用时就被渲染执行了
 
 ```js
 import { render } from 'ssr-core-react'
@@ -74,6 +79,78 @@ try {
 ```
 
 当 `server` 出现问题的时候，这样的容灾做法是比较好的。更好的做法是网关层面，配置容灾，将请求打到 `cdn` 上。
+
+
+#### 处理 流 返回形式的降级
+
+流返回形式的降级处理略麻烦。在 `Nest.js` 或者 `express` 系的框架中我们可以用以下写法进行降级。
+
+这里又额外分为 `Vue3` 与非 `Vue3` 的情况。
+
+在 `Vue3` 的 `renderToNodeStream` 方法中，当渲染出错时会同步的将错误抛出。开发者可以在上层直接使用 `try catch` 捕获
+
+```js
+ try {
+    const stream = await render<Readable>(ctx, {
+      stream: true
+    })
+    stream.pipe(res, { end: false })
+    stream.on('end', () => {
+      res.end()
+    })
+  } catch (error) {
+    const stream = await render<Readable>(ctx, {
+      stream: true,
+      mode: 'csr'
+    })
+    stream.pipe(res, { end: false })
+    stream.on('end', () => {
+      res.end()
+    })
+  }
+
+```
+
+在 `Vue2/React` 中，它们会在底层通过 `stream.emit` 来触发 `error`, 这种情况需要开发者手动监听事件
+
+```js
+const stream = await render<Readable>(ctx, {
+  stream: true
+})
+stream.pipe(res, { end: false })
+stream.on('error', async () => {
+  stream.destroy() // 销毁旧的错误流
+  const newStream = await render<Readable>(ctx, {
+    stream: true,
+    mode: 'csr'
+  })
+  newStream.pipe(res, { end: false })
+  newStream.on('end', () => {
+    res.end()
+  })
+})
+stream.on('end', () => {
+  res.end()
+})
+```
+
+在 `Midway.js/Koa` 系框架中采用如下写法
+
+```js
+const stream = await render<Readable>(this.ctx, {
+  stream: true,
+  mode: 'ssr'
+})
+stream.on('error', async () => {
+  stream.destroy()
+  const newStream = await render<string>(ctx, {
+    stream: false, // 这里只能用 string 形式来渲染 koa 无法二次赋值 stream 给 body
+    mode: 'csr'
+  })
+  this.ctx.res.end(newStream)
+})
+this.ctx.body = stream
+```
 
 ## 实现机制
 
@@ -94,13 +171,27 @@ return (
 
 可以非常轻易的看出实现原理。同样在 `Vue` 场景我们通过 `slot` 实现了类似的功能
 
-## 注意事项
+## 注意事项(必看)
+
+出现错误时进行降级，这里的错误我们归类为两种 `实际运行时错误`, `资源加载时错误`
+
+### 错误分类
+
+对于 `实际运行时错误` 错误，常发生于具体的生命周期执行时，或者是组件 `render` 时，对于这种错误，我们可以通过框架提供的降级能力来避免。
+
+而对于 `资源加载时错误` 错误，也就是我们写在文件顶层的代码，例如我们在组件顶层 `import` 的文件中绑定了浏览器对象，那么无论我们是哪种渲染模式这种错误都将出现。因为我们在初始化路由结构的时候就会将组件 `import` 的逻辑执行一遍。对于这种错误只能手动编写代码来兼容解决。参考[文档](http://doc.ssr-fc.com/docs/features$faq#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AE%BF%E9%97%AE%E4%B8%8D%E5%8F%AF%E8%AE%BF%E9%97%AE%E7%9A%84%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%97%AE%E9%A2%98)
+
+### 组件分类
+
+在本框架中渲染降级在大部分场景下是针对 `pages` 类型的具体页面组件而言的。而对于 `layout` 组件以及 `App` 组件。无论是哪种渲染模式都会进行渲染。所以我们建议在这两种组件中不要进行与业务逻辑相关的代码编写，尽量存放 `no logic` 类型的代码。
+
+### 当心 xss
 
 通过前端框架来渲染 `html` 标签并不是这些框架所推荐的。我们可以看到代码中使用了诸如 `dangerouslySetInnerHTML` 这样的写法，来提醒我们不要这么做。因为这样很容易被恶意脚本注入导致 [xss](https://developer.mozilla.org/zh-CN/docs/Glossary/Cross-site_scripting)。所以我们必须严格把控这一部分的渲染内容，绝不能出现用户可以控制的部分。
 
 在注入页面数据时，我们会使用 [serialize-javascript](https://www.npmjs.com/package/serialize-javascript) 来将 `window.__INITIAL_DATA__` 序列化。但是在 `html` 头部的其他部分内容注入，特别是 `script` 标签相关内容需要开发者密切注意。
 
-## 独立 html 文件部署
+## 如何使用独立 html 文件部署
 
 此功能几乎不会用到。除非开发者的部署环境不存在 Node.js 服务或者需要对核心应用做容灾 CDN 降级时才可能需要用到。
 

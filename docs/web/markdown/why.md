@@ -26,6 +26,7 @@
 
 - 需要在 `Node.js` 与前端框架结合的场景使用，与其他纯前端的框架不同 `ssr` 框架是专为服务端渲染场景或者 `Node.js` 与前端结合的场景打造的框架
 - 需要一个开箱即用的服务端渲染能力，不需要手动去组合不同的前端框架与服务端框架之间的联系
+- 需要框架层面的渲染降级能力，在服务端渲染出错时自动降级到客户端渲染
 - 需要一个配置简单逻辑清晰的框架， `ssr` 框架的渲染逻辑和应用构建逻辑是同类型框架中最清晰的
 - 可能会改动技术栈，如从 `Vue2` 升级为 `Vue3`，从 `Vue3` 降级为 `Vue2` 或 `React/Vue` 互相切换
 - 需要在服务端渲染场景下开箱即用使用 `antd` `vant` 等流行 `ui` 库
@@ -34,7 +35,7 @@
 ## Features
 
 - 🌱　极易定制：前端支持 React/Vue2/Vue3 等现代Web框架；
-- 🚀　开箱即用：内置 10+ 脚手架配套扩展，如Antd、Vant、TS、Hooks等；
+- 🚀　开箱即用：内置 10+ 脚手架配套扩展，如 antd、vant、TypeScript、Hooks等；
 - 🧲　插件驱动：基于插件架构，用户更加专注于业务逻辑；
 - 💯　Serverless优先：一键发布到各种Serverless平台，也支持传统Web Server，比如Egg、Midway、Nest等。
 - 🛡　高可用场景，可无缝从SSR降级到CSR，最佳容灾方案。
@@ -47,23 +48,22 @@
 | 里程碑                                                                 | 状态 |
 | ---------------------------------------------------------------------- | ---- |
 | 支持任意服务端框架与任意前端框架的组合使用。(Serverless/Midway/Nestjs) + (React/Vue2/Vue3)             | 🚀   |
-| 支持一键部署 SSR 应用到各种 Serverless 平台            | 🚀   |
-| 支持 [vite](https://vite-design.surge.sh/) 作为构建工具在 SSR 场景下的组合[使用](./features$vite) |  🚀    |
+| 支持 [vite](https://vite-design.surge.sh/) 作为构建工具在 SSR 场景下的组合[使用](http://doc.ssr-fc.com/docs/features$vite) |  🚀    |
 | 最小而美的实现服务端渲染功能                           | 🚀   |
 | 针对Serverless 场景对代码包的大小的严格限制，将生产环境的代码包大小做到极致            | 🚀   |
 | 同时支持约定式前端路由和声明式前端路由                            | 🚀   |
-| React 场景下 All in JSX，Vue 场景 All in template，没有传统模版引擎，所有部分包括 html layout 布局皆使用 JSX/Vue 来编写生成            | 🚀   |
+| 摒弃传统模版引擎，所有页面元素统一使用前端组件作为 DSL          | 🚀   |
 | 同时支持三种渲染模式，提供服务端渲染一键降级为客户端渲染的能力                           | 🚀   |
 | 统一不同框架服务端客户端的数据获取方式，做到高度复用                                 | 🚀   |
 | 类型友好，全面拥抱 TS                                | 🚀   |
 | 支持无缝接入 [antd](https://github.com/ant-design/ant-design) [vant](https://vant-contrib.gitee.io/vant/#/) 无需修改任何配置                             | 🚀   |
 | 支持使用 less 作为 css 预处理器                                                | 🚀   |
-| 实现 React/Vue SSR 场景下的 [优秀代码分割方案](https://zhuanlan.zhihu.com/p/343743374) 首屏性能做到极致                  |    🚀  |
-| React 场景下使用 useContext + useReducer 实现极简的[数据管理](./features$communication#React%20场景)方案，摒弃传统的 `redux/dva` 等数据管理方案                         |    🚀  |
-| Vue3 场景提供 [Provide/Inject](./features$communication#Vue%20场景解决方案) 代替 Vuex 进行跨组件通信                     |    🚀  |
+| 微前端场景下无缝[使用](http://doc.ssr-fc.com/docs/features$faq#%E4%B8%8E%20micro-app%20%E7%BB%93%E5%90%88%E4%BD%BF%E7%94%A8)              | 🚀   |
+| React Hooks 实现极简的[数据管理](http://doc.ssr-fc.com/docs/features$communication#React%20%E5%9C%BA%E6%99%AF)方案，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
+| Vue3 场景提供 [Provide/Inject](http://doc.ssr-fc.com/docs/features$communication#Vue%20%E5%9C%BA%E6%99%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88) 代替 Vuex 进行跨组件通信                     |    🚀  |
 | 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
 | ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
-| ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                                |
+| ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                               |
 
 ## 哪些应用在使用
 
@@ -135,8 +135,7 @@
 
 无论是 `Next.js` 还是 `Nuxt.js` 还是其他类型的解决方案，它们仅仅是 `React`, `Vue` 的上层封装并不是一个崭新的前端框架。然而这些解决方案的上层封装的复杂度无比庞大，并且新造了很多概念很多新模块。我认为这非常的 `dirty` 并且割裂了与原框架社区的联系。
 
-与 `Next.js/Nuxt.js` 等框架的对比，详细的代码层面技术细节对比可以查看本人在2020年 [Node.js party 上所做的分享](https://github.com/zhangyuang/2020-NodeParty-PPT)，从以下 9 个技术细节方面与 `Next/Nuxt/Easy-team` 等框架的做法进行对比。  
-相比于此 PPT 介绍的 2020 年的 `egg-react-ssr` 版本可以理解为 `ssr@1.0`，我们最新的版本在此基础之上又做了许多优化将会在本文档进行讲述。包括插件化的改造以及支持 `Vite` 作为构建工具，优化核心渲染逻辑等等。相比于 `Next/Nuxt` 的一堆 [issue](https://github.com/vercel/next.js/issues)， 当你深度使用本框架时你会发现你几乎不会遇到什么问题。无论如何，仔细阅读本文档，你会对服务端渲染应用有更加深度的认知。
+与 `egg-react-ssr` 相比，我们最新的版本在此基础之上又做了许多优化将会在本文档进行讲述。包括插件化的改造以及支持 `Vite` 作为构建工具，优化核心渲染逻辑等等。相比于 `Next/Nuxt` 的一堆 [issue](https://github.com/vercel/next.js/issues)， 当你深度使用本框架时你会发现你几乎不会遇到什么问题。无论如何，仔细阅读本文档，你会对服务端渲染应用有更加深度的认知。
 
 以下简单介绍一下比较显著的优点。事实上还有更多的优点没有足够的篇幅介绍需要开发者去发掘
 
@@ -161,7 +160,7 @@
 
 ### 不内置服务端模块
 
-无论是 `nuxt` 还是 `next`, 它们都内置了非常简单的 `http server`, 用于生产环境的服务启动。但真实应用我们是不可能使用这些框架内置的 `http server` 而是会单独创建 `Node.js` 服务端框架来启动服务。而无论是 `nuxt` 还是 `next` 与 `Node.js` 框架的结合都非常不优雅无论是 `koa` 还是 `express`。你都必须要将请求经过它们提供的 `中间件` 或者 `handler` 来处理，这是非常黑盒并且 `dirty` 的开发者完全不知道它们干了什么。事实上绝大多数开发者的困惑都在此处。而 `ssr` 框架默认提供的示例就是与业界最优秀的两个 `Node.js` 框架的示例结合。无需开发者手动整合前端框架与服务端框架。且 `ssr` 框架仅抛出一个逻辑非常清晰的渲染函数供服务端框架调用，兼容 `koa`, `express` 系的所有框架
+无论是 `nuxt` 还是 `next`, 它们都内置了非常简单的 `http server`, 用于生产环境的服务启动。但真实应用我们是不可能使用这些框架内置的 `http server` 而是会单独创建 `Node.js` 服务端框架来启动服务。而无论是 `nuxt` 还是 `next` 与 `Node.js` 框架的结合都有有点别扭。你都必须要将请求经过它们提供的 `中间件` 或者 `handler` 来处理，这是非常黑盒并且 `dirty` 的开发者完全不知道它们干了什么。事实上绝大多数开发者的困惑都在此处。而 `ssr` 框架默认提供的示例就是与业界最优秀的两个 `Node.js` 框架的示例结合。无需开发者手动整合前端框架与服务端框架。且 `ssr` 框架仅抛出一个逻辑非常清晰的渲染函数供服务端框架调用，兼容 `koa`, `express` 系的所有框架
 
 ### 支持三种渲染模式
 
@@ -173,15 +172,15 @@
 
 ### 没有新概念
 
-没有新造任何概念。在 `Next.js` 中，它自己实现了 `next/router` 以及 `link` 等路由能力并且其中内置了数据获取逻辑。我认为这是非常 `dirty` 的做法，这样的做法割裂了 `Next.js` 社区与 `React` 社区让内在的逻辑完全变成黑盒。事实上在 `ssr` 框架中我们的路由功能直接使用 `react-router` 来实现。
+没有新造任何概念没有 `next/head`, `next/link`, `next/router`, `vue-meta` 这些完全没有必要出现的库。在 `Next.js` 中，它自己实现了 `next/router` 以及 `link` 等路由能力并且其中内置了数据获取逻辑。我认为这是非常 `dirty` 的做法，这样的做法割裂了 `Next.js` 社区与 `React` 社区让内在的逻辑完全变成黑盒。事实上在 `ssr` 框架中我们的路由功能直接使用 `react-router` 来实现。
 
 ### 同时支持 Vite/Webpack
 
-最轻量级的方式支持 [Vite](./features$vite), 得益于 `ssr` 框架的优秀设计，`ssr` 框架只花了两周时间便在所有框架场景都接入了 `Vite`，而 `Next`, `Nuxt` 团队至今无相关方案。
+最轻量级的方式支持 [Vite](./features$vite), 得益于 `ssr` 框架的优秀设计，`ssr` 框架只花了两周时间便在所有框架场景都接入了 `Vite`，而 `Next`, `Nuxt` 团队至今无相关成熟方案。
 
 ### 轻松 Debug
 
-没有恶心的 `.next`, `.nuxt` 这种隐藏文件夹包含着几万行通过 `模版渲染/Webpack` 打包出来的可读性极差的代码，当你的应用出错时，你几乎无法从这些隐藏文件中获得任何有效信息，在 `ssr` 框架中我们可以通过 `sourcemap` 来定位 服务端/客户端 构建文件的错误。同时我们默认生成的 服务端构建文件非常的小，只包含业务组件代码，保留了一定的可读性
+没有恶心的 `.next`, `.nuxt` 这种隐藏文件夹包含着几万行通过 `模版渲染/Webpack` 打包出来的可读性极差的代码，当你的应用出错时，你几乎无法从这些隐藏文件中获得任何有效信息。我们默认生成的每一个 `chunk` 的可读性是非常强的。你可以从文件名就知道该文件是有什么作用，文件内容也非常的清晰只包含业务代码。保留一定的可读性
 
 ### 更优秀的数据获取方案
 
@@ -224,3 +223,14 @@
 ### 高性能
 
 没有 [runInNewContext](http://nodejs.cn/api/vm.html#vm_script_runinnewcontext_contextobject_options)，我们不像其他框架的做法一样使用 vm 模块创建上下文来解析服务端 bundle，所以我们的性能是极高的。等于直接调用框架提供的原生 API 无任何中间层损耗
+
+### 不基于 createBundleRenderer
+
+目前业界几乎所有与 `VueSSR` 有关的框架底层本质都是使用了官方的[vue-server-renderer](https://www.npmjs.com/package/vue-server-renderer) 提供的 `createBundleRenderer` 来进行核心渲染逻辑。这会有很多问题
+
+- `createBundleRenderer` 内部的逻辑对使用者和框架开发者来说完全是黑盒
+- `createBundleRenderer` 强耦合 `vm` 模块。无论怎么配置 `runInNewContext` 选项都会使用 `vm` 模块来解析 `js`
+- `createBundleRenderer` 内部的异步依赖收集逻辑过于复杂。且与 `vue-loader` 强耦合。并且 `Vue3` 版本官方的 `createBundleRenderer` 尚未出现。也就是在 `Vue3/React` 场景这块方案是用不了的
+- 强耦合 `vue-server-renderer/client-plugin`, 异步依赖收集前必须首先使用该 `Webpack` 插件构建出模块信息资源清单
+
+事实上在 `ssr` 框架内部我们实现了一个非常轻量级可以在所有前端框架场景适用的异步模块收集过程和渲染器。

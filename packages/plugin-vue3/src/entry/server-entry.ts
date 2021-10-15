@@ -4,7 +4,7 @@ import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from '
 import { ISSRContext, IConfig } from 'ssr-types'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
-import * as Routes from 'ssr-temporary-routes'
+import * as Routes from '_build/ssr-temporary-routes'
 import { IServerFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 
@@ -14,14 +14,18 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   global.__VUE_PROD_DEVTOOLS__ = global.__VUE_PROD_DEVTOOLS__ ?? false
   const router = createRouter()
+  
   let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
+  let url = ctx.request.url
+
   if (BASE_NAME) {
     path = normalizePath(path)
+    url = normalizePath(url)
   }
   const store = createStore()
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, chunkName } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender } = config
   const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
-  const ViteMode = process.env.BUILD_TOOL === 'vite'
+  const viteMode = process.env.BUILD_TOOL === 'vite'
 
   if (!routeItem) {
     throw new Error(`
@@ -31,12 +35,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   let dynamicCssOrder = cssOrder
-  if (dynamic && !ViteMode) {
+  if (dynamic && !viteMode) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
     dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
   }
 
-  const manifest = ViteMode ? {} : await getManifest()
+  const manifest = viteMode ? {} : await getManifest()
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
   if (isCsr) {
@@ -44,7 +48,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   const { fetch } = routeItem
-  router.push(path)
+  router.push(url)
   await router.isReady()
 
   let layoutFetchData = {}
@@ -52,11 +56,19 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   if (!isCsr) {
     // csr 下不需要服务端获取数据
-    if (layoutFetch) {
-      layoutFetchData = await layoutFetch({ store, router: router.currentRoute.value }, ctx)
-    }
-    if (fetch) {
-      fetchData = await fetch({ store, router: router.currentRoute.value }, ctx)
+    if (parallelFetch) {
+      // 是否
+      [layoutFetchData, fetchData] = await Promise.all([
+        layoutFetch ? layoutFetch({ store, router: router.currentRoute.value }, ctx) : Promise.resolve({}),
+        fetch ? fetch({ store, router: router.currentRoute.value }, ctx) : Promise.resolve({})
+      ])
+    } else {
+      if (layoutFetch) {
+        layoutFetchData = await layoutFetch({ store, router: router.currentRoute.value }, ctx)
+      }
+      if (fetch) {
+        fetchData = await fetch({ store, router: router.currentRoute.value }, ctx)
+      }
     }
   }
 
@@ -66,7 +78,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   const injectCss: Vue.VNode[] = []
-  if (ViteMode) {
+  if (viteMode) {
     injectCss.push(
       h('link', {
         rel: 'stylesheet',
@@ -86,7 +98,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     })
   }
 
-  const injectScript = ViteMode ? h('script', {
+  const injectScript = viteMode ? h('script', {
     type: 'module',
     src: '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'
   }) : jsOrder.map(js =>
@@ -94,6 +106,20 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       src: manifest[js]
     })
   )
+
+  const customeHeadScriptArr = customeHeadScript?.map((item) => h(
+    'script',
+    Object.assign({}, item.describe, {
+      innerHTML: item.content
+    })
+  )
+  ) ?? []
+
+  if (disableClientRender) {
+    customeHeadScriptArr.push(h('script', {
+      innerHTML: 'window.__disableClientRender__ = true'
+    }))
+  }
   const state = Object.assign({}, store.state ?? {}, asyncData.value)
 
   const app = createSSRApp({
@@ -104,13 +130,14 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         {
           remInitial: () => h('script', { innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }),
 
-          viteClient: ViteMode ? () =>
+          viteClient: viteMode ? () =>
             h('script', {
               type: 'module',
               src: '/@vite/client'
             }) : null,
 
-          customeHeadScript: () => customeHeadScript?.map((item) =>
+          customeHeadScript: () => customeHeadScriptArr,
+          customeFooterScript: () => customeFooterScript?.map((item) =>
             h(
               'script',
               Object.assign({}, item.describe, {
@@ -121,10 +148,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
           children: isCsr ? () => h('div', {
             id: 'app'
-          }) : () => h(App, { asyncData, fetchData: combineAysncData }),
+          }) : () => h(App, { ctx, config, asyncData, fetchData: combineAysncData }),
 
-          initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${ViteMode}` })
-            : () => h('script', { innerHTML: `window.__USE_VITE__=${ViteMode}` }),
+          initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${viteMode}` })
+            : () => h('script', { innerHTML: `window.__USE_VITE__=${viteMode}` }),
 
           cssInject: () => injectCss,
 
@@ -142,4 +169,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   return app
 }
 
-export default serverRender
+export {
+  serverRender
+}

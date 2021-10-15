@@ -147,14 +147,7 @@ module.exports = {
 - 类型: `regExp[]`
 - 默认: `[/\.(css|less|sass|scss)$/]`
 
-设置服务端构建配置 `externals` 的白名单，即需要让 `Webpack` 来处理的模块
-
-## cssModulesWhiteList
-
-- 类型: `regExp[]`
-- 默认: `[/antd/, /swiper/]`
-
-设置该选项指定样式文件不用 `css-modules` 处理，防止服务端客户端 `className` 不匹配
+处理 `server` 端构建模块时，我们默认会对所有的第三方模块使用 `externals` 模式，即不在构建时用 `Webpack` 处理，运行时直接从 `node_modules` 中加载具体模块，但对于一些只提供了 `esm` 格式的模块，或者是非 `Node.js` 环境能直接执行的文件，例如 `jsx|less|sass|css` 等类型的文件会发生运行错误，针对这种类型的特殊模块我们提供了白名单配置，设置服务端构建配置 `externals` 的白名单，即需要让 `Webpack` 来处理的模块
 
 ## prefix
 
@@ -257,20 +250,28 @@ module.exports = {
 }
 ```
 
+## customeFooterScript
+
+- 类型: `Array<{describe: object, content: string }>`
+- 默认: `[]`
+
+仅在 `Vue` 场景下使用, 意义同上。在页面底部加载的静态资源文件。需要配合 `<slot name="customeFooterScript" />` 使用。若当前 `example` 是之前创建的 `layout/index.vue` 不存在该 `slot` 的话需要手动添加
+
 ## css
 
 - 示例: 
 
 ```js
 module.exports = {
+  // 这里需要查看框架使用的版本 loader 的文档
   css: () => { 
     return {
       loaderOptions: {
-        cssOptions: any // css-loader options
-        less?: any // less-loader options
-        sass?: any // css-loader options
+        cssOptions: any // css-loader options see https://www.npmjs.com/package/css-loader/v/5.2.7
+        less?: any // less-loader options see https://www.npmjs.com/package/less-loader/v/7.3.0
+        sass?: any // sass-loader options see https://www.npmjs.com/package/sass-loader/v/10.2.0
         postcss: {
-          options: any
+          options: Object|Function // 推荐使用 object see https://www.npmjs.com/package/postcss-loader/v/4.3.0
           plugins: any[]
         }
       }}
@@ -281,6 +282,13 @@ module.exports = {
 - 默认: `() => {}`
 
 用于添加用户自定义配置 `css-loader` `less-loader` 以及 `postcss-loader` 的配置，需要用 `函数 return` 的形式
+
+## parallelFetch
+
+- 类型: `boolean`
+- 默认: `undefined`
+
+开启后在服务端获取数据时会并行请求 `layout fetch` 与 `page fetch`。若 `page fetch` 的请求依赖 `layout fetch` 的返回。请不要使用该选项
 
 ### antd 定制主题
 
@@ -365,6 +373,82 @@ module.exports = {
   babelExtraModule: [/module-name/]
 }
 ```
+
+## routerPriority
+
+针对同一前端 `path` 可以对应多个路由时控制约定式路由优先级例如 `/foo`, 可以同时匹配 `/:page` `/foo`。用于约定式路由解析生成的数组排序。数字越大代表优先级越高。没有显示指定的路由优先级统一为 `0`
+
+- 类型: `Record<string, number>`
+
+- 默认: `undefined`
+
+- version: `>5.5.89`
+
+```js
+module.exports = {
+  routerPriority: {
+      '/': 1,
+      '/detail/:id': 2 // 优先级更高
+    }
+}
+```
+
+## nestStartTips
+
+自定义 `Nest.js` 场景服务启动成功提示文案，不填写则为 `Server is listening on ${https ? 'https' : 'http'}://localhost:${serverPort}`
+
+- 类型: `string`
+
+- 默认: `undefined`
+
+
+```js
+module.exports = {
+  nestStartTips: 'xxx'
+}
+```
+
+## disableClientRender
+
+禁用默认的客户端渲染逻辑调用。通常与[微前端](./features$在微前端场景下使用(Beta))结合使用
+
+- 类型: `boolean`
+
+- 默认: `undefined`
+
+- version: `>=5.6.4`
+
+
+```js
+module.exports = {
+  disableClientRender: true
+}
+```
+
+## routerOptimize
+
+指定前端页面进行编译构建。在某些情况下我们只需要调试某个前端页面而不是所有页面，此时可以通过该配置来选择需要调试的页面进行构建来提升构建速度减小代码体积。但要注意，如果生产环境仍然是所有页面都需要发布，需要在生产环境禁用此配置，否则构建出来的代码只包含当前选中的页面。
+
+- 类型: `routerOptimize?: {
+    include?: string[]
+    exclude?: string[]
+  }`
+
+- 默认: `undefined`
+
+- version: `>=5.6.12`
+
+```js
+module.exports {
+  routerOptimize: {
+    // 注意，include 和 exclude 不能同时设置只能设置一项
+    include: ['/'], // 选择需要构建的前端路由 path
+    exclude: ['/'] // 排除不需要构建的前端路由 path
+  }
+}
+
+```
+
 ## 注意事项
 
 1. 由于 `config.js` 文件在 Node.js 环境也会被加载，如果直接在顶部 `require` 模块可能会导致模块`体积过大`，降低应用启动速度，我们建议在必要的函数当中再 `require` 需要用到的模块。

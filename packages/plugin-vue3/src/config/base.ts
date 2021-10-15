@@ -2,6 +2,7 @@
 import { join } from 'path'
 import { Mode } from 'ssr-types'
 import { getFeDir, getCwd, loadConfig, getLocalNodeModules, setStyle, addImageChain } from 'ssr-server-utils'
+import * as webpack from 'webpack'
 import * as WebpackChain from 'webpack-chain'
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -117,6 +118,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .end()
   chain.resolve.alias
     .set('@', getFeDir())
+    .set('_build', join(getCwd(), './build'))
     .set('vue$', 'vue/dist/vue.runtime.esm-bundler.js')
     .end()
 
@@ -162,7 +164,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .rule('compileBabelForExtraModule')
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
     .include
-    .add([/ssr-plugin-vue3/, /ssr-client-utils/, /ssr-hoc-vue/, /ssr-temporary-routes/, /vue/])
+    .add([/ssr-plugin-vue3/, /ssr-client-utils/, /ssr-hoc-vue/, /vue/])
 
   let babelForExtraModule
   if (babelExtraModule) {
@@ -176,7 +178,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
 
   setStyle(chain, /\.css$/, {
     rule: 'css',
-    modules: false,
     importLoaders: 1,
     isServer
   }) // 设置css
@@ -184,7 +185,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   setStyle(chain, /\.less$/, {
     rule: 'less',
     loader: 'less-loader',
-    modules: false,
     importLoaders: 2,
     isServer
   })
@@ -196,7 +196,8 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .loader(loadModule('file-loader'))
     .options({
       name: 'static/[name].[hash:8].[ext]',
-      esModule: false
+      esModule: false,
+      emitFile: !isServer
     })
     .end()
 
@@ -207,7 +208,8 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .loader(loadModule('file-loader'))
     .options({
       name: 'static/[name].[hash:8].[ext]',
-      esModule: false
+      esModule: false,
+      emitFile: !isServer
     })
 
   chain.plugin('minify-css').use(MiniCssExtractPlugin, [{
@@ -219,6 +221,12 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     name: isServer ? 'server' : 'client',
     color: isServer ? '#f173ac' : '#45b97c'
   }))
+
+  chain.plugin('ssrDefine').use(webpack.DefinePlugin, [{
+    __isBrowser__: !isServer,
+    __VUE_OPTIONS_API__: true,
+    __VUE_PROD_DEVTOOLS__: false
+  }])
 
   chainBaseConfig(chain)
   return config

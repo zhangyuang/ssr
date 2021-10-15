@@ -3,13 +3,13 @@ import * as Vue from 'vue'
 import * as Vuex from 'vuex'
 import * as Router from 'vue-router'
 
-import { FeRoutes, store } from 'ssr-temporary-routes'
+import { FeRoutes, store } from '_build/ssr-temporary-routes'
 import { VueRouterOptions } from './interface'
 
 // without tsconfig esModuleInterop options must use the compatible syntax
-const RealVue: Vue = Vue.default || Vue
-const RealRouter: Router = Router.default || Router
-const RealVuex: Vuex = Vuex.default || Vuex
+const RealVue = Vue.default || Vue
+const RealRouter = Router.default || Router
+const RealVuex = Vuex.default || Vuex
 
 RealVue.use(RealRouter)
 RealVue.use(RealVuex)
@@ -28,5 +28,8 @@ function createStore () {
 
 export {
   createRouter,
-  createStore
+  createStore,
+  RealVue,
+  RealRouter,
+  RealVuex
 }

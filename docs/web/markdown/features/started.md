@@ -35,7 +35,7 @@ $ npm install # 可以使用 yarn 不要使用 cnpm
 $ npm start
 $ open http://localhost:3000 # 访问应用
 $ npm run build # 资源构建，等价于 npx ssr build
-$ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
+$ npm run start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 ```
 
 ![](http://doc.ssr-fc.com/images/resume3.svg)
@@ -54,7 +54,7 @@ export class Index {
   ctx: Context
 
   @Get('/') // http://localhost:3000
-  @Get('/user') // http://localhost:3000/page，需创建需要渲染的 web/page/user/render.vue|tsx 文件 Midway 框架支持多装饰器，Nestjs 可采用中间件的形式来为多个 path 附加相同逻辑
+  @Get('/page') // http://localhost:3000/page，需创建需要渲染的 web/page/user/render.vue|tsx 文件 Midway 框架支持多装饰器，Nestjs 可采用中间件的形式来为多个 path 附加相同逻辑
   async handler (): Promise<void> {
     try {
         // 只需要传入 ctx 作为参数即可

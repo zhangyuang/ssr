@@ -12,11 +12,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapState } from 'vuex'
-import Slider from '@/components/slider'
-import Rectangle from '@/components/rectangle'
-import Search from '@/components/search'
+import Slider from '@/components/slider/index.vue'
+import Rectangle from '@/components/rectangle/index.vue'
+import Search from '@/components/search/index.vue'
 
 export default {
   components: {

@@ -12,7 +12,7 @@ function onProxyReq (proxyReq: any, req: any) {
 }
 
 const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
-  const { fePort, proxy, isDev, https } = loadConfig()
+  const { fePort, proxy, isDev, https, proxyKey } = loadConfig()
   const express = options ? options.express : false
   const proxyMiddlewaresArr: any[] = []
 
@@ -48,12 +48,12 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
         logLevel: 'warn'
       }
 
-      const proxyPathMap = {
-        '/static': remoteStaticServerOptions,
+      const proxyPathMap: Record<string, any> = {
         '/sockjs-node': remoteStaticServerOptions,
-        '/*.hot-update**': remoteStaticServerOptions,
-        '/__webpack_dev_server__': remoteStaticServerOptions,
-        '/asset-manifest': remoteStaticServerOptions
+        '/__webpack_dev_server__': remoteStaticServerOptions
+      }
+      for (const key of proxyKey) {
+        proxyPathMap[key] = remoteStaticServerOptions
       }
       registerProxy(proxyPathMap)
     }

@@ -10,6 +10,7 @@ declare global {
     STORE_CONTEXT?: IWindow['STORE_CONTEXT']
     __USE_VITE__?: boolean
     __VUE_ROUTER__?: Router
+    __disableClientRender__?: boolean
   }
   const __isBrowser__: Boolean
 }

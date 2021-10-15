@@ -29,23 +29,31 @@ export type ReactESMFetch = () => Promise<{
 
 export type ESMLayout = () => Promise<React.FC<LayoutProps>>
 
-export interface FC<T={}> extends React.FC<T> {
+export interface StaticFC<T={}> extends React.FC<T> {
   fetch?: ReactESMFetch
   layoutFetch?: ReactFetch
-  preload?: () => Promise<FC>
+}
+
+export interface DynamicFC<T = {}> extends React.FC<T>{
+  (): Promise<{
+    default: StaticFC<T>
+  }>
+  name: 'dynamicComponent'
+  fetch?: ReactESMFetch
+  layoutFetch?: ReactFetch
 }
 
 export type ReactServerESMFeRouteItem<T = {}, U={}> = {
   path: string
   fetch?: ReactFetch
-  component: FC<T>
+  component: StaticFC<T>
   webpackChunkName: string
 } & U
 
 export type ReactClientESMFeRouteItem<T = {}, U={}> = {
   path: string
   fetch?: ReactESMFetch
-  component: FC<T>
+  component: DynamicFC<T>
   webpackChunkName: string
 } & U
 

@@ -19,7 +19,7 @@ const Layout = (props: LayoutProps) => {
         { injectCss }
       </head>
       <body>
-        <div id="app"><App children={props.children} /></div>
+        <div id="app"><App {...props} /></div>
         { injectState }
         { injectScript }
       </body>

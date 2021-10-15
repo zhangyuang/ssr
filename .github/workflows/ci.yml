@@ -6,7 +6,7 @@ name: CI
 # events but only for the dev branch
 on:
   push:
-    branches: [dev, master, 'feat/**', ci/test]
+    branches: [dev, master, feat/**, ci/test, test/**]
   pull_request:
     branches: [dev, master]
 
@@ -34,21 +34,23 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.8-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-v2.5.7-
-            ${{ runner.os }}-v2.5.7-
-            ${{ runner.os }}-v2.5.7-
+            ${{ runner.os }}-v2.5.8-
+            ${{ runner.os }}-v2.5.8-
+            ${{ runner.os }}-v2.5.8-
+
       - name: Install dependencies
         run: | 
-          yarn && yarn build:only
+          yarn && yarn build:only && yarn run build
           node scripts/scripts.js --publishDoc
           cd example/midway-react-ssr && yarn && yarn add vite @vitejs/plugin-react-refresh -D
-          cd ../midway-vue-ssr && yarn && yarn add vite vite-plugin-vue2 -D
+          cd ../midway-vue-ssr && yarn && yarn add vite vite-plugin-vue2@1.4.4 -D
           cd ../midway-vue3-ssr && yarn && yarn add vite @vitejs/plugin-vue -D
           cd ../nestjs-react-ssr && yarn
           cd ../nestjs-vue-ssr && yarn
           cd ../nestjs-vue3-ssr && yarn
+
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
@@ -79,8 +81,28 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.8-${{ hashFiles('**/yarn.lock') }}
       - run: yarn run lint
+
+  deploy-doc: 
+    if: ${{ contains(github.actor, 'zhangyuang') }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ["12"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - run: cd docs && yarn && npm run deploy
+        env:
+          SERVERLESS_DEPLOY_AK: ${{ secrets.SERVERLESS_DEPLOY_AK }}
+          SERVERLESS_DEPLOY_ENDPOINT: ${{ secrets.SERVERLESS_DEPLOY_ENDPOINT }}
+          SERVERLESS_DEPLOY_ID: ${{ secrets.SERVERLESS_DEPLOY_ID }}
+          SERVERLESS_DEPLOY_SECRET: ${{ secrets.SERVERLESS_DEPLOY_SECRET }}
+          SERVERLESS_DEPLOY_TIMEOUT: ${{ secrets.SERVERLESS_DEPLOY_TIMEOUT }}
 
   e2e-chrome-midway-react:
     needs: bootstrap
@@ -105,7 +127,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.8-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -121,6 +143,58 @@ jobs:
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/react-ssr.spec.js
           browser: chrome
+  e2e-chrome-midway-react-dynamic-router:
+    needs: bootstrap
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+        node: ["12"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
+            node_modules
+            packages/**/node_modules
+            example/**/node_modules
+          key: ${{ runner.os }}-v2.5.8-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Get remote e2e example
+        uses: actions/checkout@master
+        with:
+          repository: zhangyuang/ssr-e2e-example
+          path: ssr-e2e-example
+          ref: master
+          
+      - name: Mv e2e example
+        run: |
+          mv ssr-e2e-example/react-dynamic-router-test example && cd example/react-dynamic-router-test && yarn
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: bindings-${{matrix.node}}
+          path: packages
+      - name: prepare
+        run: yarn run link --react
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example:midway:react:dynamic:router
+          wait-on: 'http://localhost:3000'
+          spec: | 
+            e2e/integration/examples/dynamic-ssr.spec.js  
+            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/react-ssr.spec.js
+          browser: chrome
+          
   e2e-firefox-midway-react:
     needs: bootstrap
     runs-on: ubuntu-latest
@@ -144,7 +218,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.8-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -184,7 +258,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.8-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -223,7 +297,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.8-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -262,7 +336,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.8-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -301,7 +375,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.8-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -317,46 +391,6 @@ jobs:
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
-  # e2e-chrome-midway-react-vite:
-  #   needs: bootstrap
-  #   runs-on: ubuntu-latest
-  #   strategy:
-  #     matrix:
-  #       os: [macos-latest, windows-latest]
-  #       node: ["12"]
-  #   steps:
-  #     - uses: actions/checkout@v2
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v1
-  #       with:
-  #         node-version: ${{ matrix.node }}
-  #     - name: Load node_modules
-  #       uses: actions/cache@v2
-  #       id: yarn-cache
-  #       with:
-  #         path: |
-  #           /home/runner/.cache/Cypress  
-  #           ~/.cache/yarn
-  #           node_modules
-  #           packages/**/node_modules
-  #           example/**/node_modules
-  #         key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
-  #     - name: Download artifacts
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: bindings-${{matrix.node}}
-  #         path: packages
-  #     - name: prepare
-  #       run: yarn run link --react
-  #     - uses: cypress-io/github-action@v2
-  #       with:
-  #         start: yarn run example:midway:react:vite
-  #         wait-on: 'http://localhost:3000'
-  #         spec: |
-  #           e2e/integration/examples/common-ssr.spec.js  
-  #           e2e/integration/examples/react-ssr.spec.js
-  #         browser: chrome
-          
   e2e-chrome-nestjs-vue:
     needs: bootstrap
     runs-on: ubuntu-latest
@@ -380,7 +414,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.8-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -419,7 +453,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.8-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -458,7 +492,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.8-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -487,7 +521,7 @@ jobs:
       - e2e-chrome-midway-vue3
       - e2e-chrome-midway-vue3-vite
       - e2e-chrome-midway-vue-vite
-      # - e2e-chrome-midway-react-vite
+      - e2e-chrome-midway-react-dynamic-router
       - e2e-chrome-nestjs-vue
       - e2e-chrome-nestjs-vue3
 
@@ -505,7 +539,7 @@ jobs:
           path: |
             node_modules
             
-          key: ${{ runner.os }}-v2.5.7-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.8-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:

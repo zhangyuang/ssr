@@ -3,6 +3,300 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.26](https://github.com/ykfe/ssr/compare/v5.6.25...v5.6.26) (2021-09-29)
+
+
+### Bug Fixes
+
+* dynamicCssOrder ([a00680d](https://github.com/ykfe/ssr/commit/a00680d4fedac8526b51e8e32e1bf4c85d3fd148))
+
+
+
+
+
+## [5.6.25](https://github.com/ykfe/ssr/compare/v5.6.24...v5.6.25) (2021-09-24)
+
+
+### Features
+
+* support absolute publicPath in dev environment ([86e2cfe](https://github.com/ykfe/ssr/commit/86e2cfe25ceb58bb1faa339e9168b5517c096c44))
+
+
+
+
+
+## [5.6.24](https://github.com/ykfe/ssr/compare/v5.6.23...v5.6.24) (2021-09-23)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
+## [5.6.23](https://github.com/ykfe/ssr/compare/v5.6.22...v5.6.23) (2021-09-23)
+
+
+### Features
+
+* update publicPath logic in dev ([57fe590](https://github.com/ykfe/ssr/commit/57fe590910fc4ef526d6c48e82acbffd86882dce))
+
+
+
+
+
+## [5.6.17](https://github.com/ykfe/ssr/compare/v5.6.16...v5.6.17) (2021-09-03)
+
+
+### Bug Fixes
+
+* postcssOptions ([c9203f9](https://github.com/ykfe/ssr/commit/c9203f9ab44c953e31b80daf82817be9179d6cdb))
+
+
+### Features
+
+* update f.yml upgrade postcss-loader to v4 ([59e1cfb](https://github.com/ykfe/ssr/commit/59e1cfb944d460e690007b4fc10cfe945ec369fa))
+
+
+
+
+
+## [5.6.15](https://github.com/ykfe/ssr/compare/v5.6.14...v5.6.15) (2021-08-27)
+
+
+### Bug Fixes
+
+* update css-loaders url handler ([c9927c0](https://github.com/ykfe/ssr/commit/c9927c0b0d62467ccf5e346765d59d21c7402000))
+
+
+
+
+
+## [5.6.14](https://github.com/ykfe/ssr/compare/v5.6.13...v5.6.14) (2021-08-25)
+
+
+### Bug Fixes
+
+* update generic-names version ([ec0cbf1](https://github.com/ykfe/ssr/commit/ec0cbf18a30c1eb2b92c79bcdcb6499f14a27151))
+
+
+
+
+
+## [5.6.13](https://github.com/ykfe/ssr/compare/v5.6.12...v5.6.13) (2021-08-25)
+
+
+### Features
+
+* remove cssModulesWhitelist update docs.md ([7473836](https://github.com/ykfe/ssr/commit/7473836725b0c2f8685ea58c2457d4b20a2ec747))
+
+
+
+
+
+## [5.6.12](https://github.com/ykfe/ssr/compare/v5.6.11...v5.6.12) (2021-08-25)
+
+
+### Bug Fixes
+
+* disable css-loader handle url() syntax ([b71cfee](https://github.com/ykfe/ssr/commit/b71cfeeb83c8e0e3748fa9e006ad1f991c404f9a))
+
+
+### Features
+
+* support routerOptimize ([d54e739](https://github.com/ykfe/ssr/commit/d54e739ff28592387ff6d4be024736dceeb9c18c))
+
+
+
+
+
+## [5.6.10](https://github.com/ykfe/ssr/compare/v5.6.10-alpha.0...v5.6.10) (2021-08-24)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
+## [5.6.9](https://github.com/ykfe/ssr/compare/v5.6.8...v5.6.9) (2021-08-24)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
+## [5.6.8](https://github.com/ykfe/ssr/compare/v5.6.7...v5.6.8) (2021-08-24)
+
+
+### Features
+
+* upgrade css-loader version aligen modules hash ([8ff93d1](https://github.com/ykfe/ssr/commit/8ff93d1dc4031d870a9ff977c0508d29008fd6a5))
+
+
+
+
+
+## [5.6.7](https://github.com/ykfe/ssr/compare/v5.6.6...v5.6.7) (2021-08-24)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
+## [5.6.6](https://github.com/ykfe/ssr/compare/v5.6.5...v5.6.6) (2021-08-23)
+
+
+### Features
+
+* remove react-loadable ([cde40ce](https://github.com/ykfe/ssr/commit/cde40cea20d364a9d728cbd9206f1665267dfc0b))
+
+
+
+
+
+## [5.6.4](https://github.com/ykfe/ssr/compare/v5.6.3...v5.6.4) (2021-08-13)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
+## [5.6.3](https://github.com/ykfe/ssr/compare/v5.6.2...v5.6.3) (2021-08-12)
+
+
+### Bug Fixes
+
+* ci types error ([09986d8](https://github.com/ykfe/ssr/commit/09986d8ba3e847432c21ec918b993b8df3fcac8a))
+
+
+
+
+
+## [5.6.2](https://github.com/ykfe/ssr/compare/v5.6.1...v5.6.2) (2021-08-11)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
+## [5.5.98](https://github.com/ykfe/ssr/compare/v5.5.97...v5.5.98) (2021-08-06)
+
+
+### Bug Fixes
+
+* update plugin-react base config ([d275fed](https://github.com/ykfe/ssr/commit/d275fed8b9c678d9fb6345ba8f6a67df63f87902))
+
+
+
+
+
+## [5.5.97](https://github.com/ykfe/ssr/compare/v5.5.96...v5.5.97) (2021-08-06)
+
+
+### Bug Fixes
+
+* parseRoutes ([3953280](https://github.com/ykfe/ssr/commit/3953280649edcf823acc6d3c7f334d684314d853))
+
+
+
+
+
+## [5.5.96](https://github.com/ykfe/ssr/compare/v5.5.94...v5.5.96) (2021-08-05)
+
+
+### Bug Fixes
+
+* ssr types ([742440f](https://github.com/ykfe/ssr/commit/742440f186af3577d0df0bf5fac25d665e43dbcd))
+
+
+
+
+
+## [5.5.95](https://github.com/ykfe/ssr/compare/v5.5.94...v5.5.95) (2021-08-05)
+
+
+### Bug Fixes
+
+* ssr types ([5aad4da](https://github.com/ykfe/ssr/commit/5aad4dafbf25cff1ea55fd4773a76a957ebd58d5))
+
+
+
+
+
+## [5.5.94](https://github.com/ykfe/ssr/compare/v5.5.93...v5.5.94) (2021-08-05)
+
+
+### Features
+
+* move ssr-temporary-routes position ([9966d10](https://github.com/ykfe/ssr/commit/9966d10b466e2d6dcf10ba09b4267dd8e2a324f0))
+
+
+
+
+
+## [5.5.92](https://github.com/ykfe/ssr/compare/v5.5.91...v5.5.92) (2021-08-03)
+
+
+### Bug Fixes
+
+* 修复渲染降级 ([9accc6c](https://github.com/ykfe/ssr/commit/9accc6c07998ca72602add786d53b41172d77086))
+
+
+
+
+
+## [5.5.91](https://github.com/ykfe/ssr/compare/v5.5.90...v5.5.91) (2021-08-02)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
+## [5.5.90](https://github.com/ykfe/ssr/compare/v5.5.89...v5.5.90) (2021-08-02)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
+## [5.5.89](https://github.com/ykfe/ssr/compare/v5.5.88...v5.5.89) (2021-07-31)
+
+
+### Features
+
+* support routerPriority ([385c07e](https://github.com/ykfe/ssr/commit/385c07efd19897ce67ddbc436dca4a3bb438b62a))
+
+
+
+
+
+## [5.5.88](https://github.com/ykfe/ssr/compare/v5.5.87...v5.5.88) (2021-07-30)
+
+
+### Bug Fixes
+
+* url-loader limit ([3baad15](https://github.com/ykfe/ssr/commit/3baad157585aa441b4f3ecda332fc0c327730248))
+
+
+
+
+
+## [5.5.87](https://github.com/ykfe/ssr/compare/v5.5.86...v5.5.87) (2021-07-30)
+
+
+### Bug Fixes
+
+* close limit base64 ([02f6e04](https://github.com/ykfe/ssr/commit/02f6e04eb24cbf83481608477417b57cd3ada685))
+
+
+
+
+
 ## [5.5.84](https://github.com/ykfe/ssr/compare/v5.5.83...v5.5.84) (2021-07-26)
 
 

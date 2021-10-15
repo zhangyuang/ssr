@@ -14,7 +14,6 @@ function Recommend (props: Props) {
         为你推荐
       </div>
       <div className={styles.reContainer}>
-
         {
           data.map(item => (
             <div key={item.data.heat} className={styles.reContent}>

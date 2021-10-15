@@ -25,10 +25,10 @@ yargs
     await handleEnv(argv, spinner)
 
     const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
+    await parseFeRoutes()
     debug(`require ssr-server-utils time: ${Date.now() - start} ms`)
     const plugin = loadPlugin()
     debug(`loadPlugin time: ${Date.now() - start} ms`)
-    await parseFeRoutes()
     spinner.stop()
     debug(`parseFeRoutes ending time: ${Date.now() - start} ms`)
     await plugin.clientPlugin?.start?.(argv)
@@ -42,8 +42,8 @@ yargs
     process.env.NODE_ENV = 'production'
 
     const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
-    const plugin = loadPlugin()
     await parseFeRoutes()
+    const plugin = loadPlugin()
     spinner.stop()
     await plugin.clientPlugin?.build?.(argv)
     await cleanOutDir()

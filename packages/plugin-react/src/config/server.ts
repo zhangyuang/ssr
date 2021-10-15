@@ -1,7 +1,7 @@
 import { join } from 'path'
-import * as webpack from 'webpack'
 import { loadConfig, getLocalNodeModules, nodeExternals } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
+import * as webpack from 'webpack'
 import { getBaseConfig } from './base'
 
 const loadModule = require.resolve
@@ -24,7 +24,7 @@ const getServerWebpack = (chain: WebpackChain) => {
   modulesDir.push(getLocalNodeModules())
 
   chain.externals(nodeExternals({
-    whitelist: [/\.(css|less|sass|scss)$/, /ssr-temporary-routes/, /antd.*?(style)/].concat(whiteList || []),
+    whitelist: [/\.(css|less|sass|scss)$/, /antd.*?(style)/].concat(whiteList || []),
     // externals Dir contains example/xxx/node_modules ssr/node_modules
     modulesDir
   }))
@@ -33,8 +33,8 @@ const getServerWebpack = (chain: WebpackChain) => {
     chain.watch(true)
   })
 
-  chain.plugin('define').use(webpack.DefinePlugin, [{
-    __isBrowser__: false
+  chain.plugin('serverLimit').use(webpack.optimize.LimitChunkCountPlugin, [{
+    maxChunks: 1
   }])
 
   chainServerConfig(chain) // 合并用户自定义配置

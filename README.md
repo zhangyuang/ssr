@@ -36,6 +36,7 @@
 
 - 需要在 `Node.js` 与前端框架结合的场景使用，与其他纯前端的框架不同 `ssr` 框架是专为服务端渲染场景或者 `Node.js` 与前端结合的场景打造的框架
 - 需要一个开箱即用的服务端渲染能力，不需要手动去组合不同的前端框架与服务端框架之间的联系
+- 需要框架层面的渲染降级能力，在服务端渲染出错时自动降级到客户端渲染
 - 需要一个配置简单逻辑清晰的框架， `ssr` 框架的渲染逻辑和应用构建逻辑是同类型框架中最清晰的
 - 可能会改动技术栈，如从 `Vue2` 升级为 `Vue3`，从 `Vue3` 降级为 `Vue2` 或 `React/Vue` 互相切换
 - 需要在服务端渲染场景下开箱即用使用 `antd` `vant` 等流行 `ui` 库
@@ -96,7 +97,7 @@
 </b></a></td>
 </tr>
 <tr>
-<td align="center" style="height: 100px"><a href="https://m.film.qq.com/x/tva-vip-center/" target="_blank"><img src="https://res.wx.qq.com/op_res/x7sWI9AfUK1QwH0EDhKp4e_bGWxYOQ_1RlZqBFy9JntJzaE4aRzNhVgmxLNloAFpSQ-mBr9X9pux3QlV9QHHvQ" width="100px;margin: 20px 0" alt="腾讯视频"/><br />
+<td align="center" style="height: 100px"><a href="https://m.film.qq.com/x/tva-vip-center/" target="_blank"><img src="https://res.wx.qq.com/op_res/x7sWI9AfUK1QwH0EDhKp4e_bGWxYOQ_1RlZqBFy9JntJzaE4aRzNhVgmxLNloAFpSQ-mBr9X9pux3QlV9QHHvQ" width="200px;margin: 20px 0" alt="腾讯视频"/><br />
 <a href="https://m.film.qq.com/x/tva-vip-center/" target="_bvlank"><b>腾讯视频
 </b></a></td>
 </tr>
@@ -118,19 +119,19 @@
 | 里程碑                                                                 | 状态 |
 | ---------------------------------------------------------------------- | ---- |
 | 支持任意服务端框架与任意前端框架的组合使用。(Serverless/Midway/Nestjs) + (React/Vue2/Vue3)             | 🚀   |
-| 支持 [vite](https://vite-design.surge.sh/) 作为构建工具在 SSR 场景下的组合[使用](#使用Vite作为构建工具) |  🚀    |
+| 支持 [vite](https://vite-design.surge.sh/) 作为构建工具在 SSR 场景下的组合[使用](http://doc.ssr-fc.com/docs/features$vite) |  🚀    |
 | 最小而美的实现服务端渲染功能                           | 🚀   |
 | 针对Serverless 场景对代码包的大小的严格限制，将生产环境的代码包大小做到极致            | 🚀   |
 | 同时支持约定式前端路由和声明式前端路由                            | 🚀   |
-| React 场景下 All in JSX，Vue 场景 All in template，没有传统模版引擎，所有部分包括 html layout 布局皆使用 JSX/Vue 来编写生成            | 🚀   |
+| 摒弃传统模版引擎，所有页面元素统一使用前端组件作为 DSL          | 🚀   |
 | 同时支持三种渲染模式，提供服务端渲染一键降级为客户端渲染的能力                           | 🚀   |
 | 统一不同框架服务端客户端的数据获取方式，做到高度复用                                 | 🚀   |
 | 类型友好，全面拥抱 TS                                | 🚀   |
 | 支持无缝接入 [antd](https://github.com/ant-design/ant-design) [vant](https://vant-contrib.gitee.io/vant/#/) 无需修改任何配置                             | 🚀   |
 | 支持使用 less 作为 css 预处理器                                                | 🚀   |
-| 实现 React/Vue SSR 场景下的[优秀代码分割方案](https://zhuanlan.zhihu.com/p/343743374) 首屏性能做到极致                  |    🚀  |
-| React 场景下使用 useContext + useReducer 实现极简的[数据管理](#React跨组件通信)方案，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
-| Vue3 场景提供 [Provide/Inject](#provideinject代替vuex) 代替 Vuex 进行跨组件通信                     |    🚀  |
+| 微前端场景下无缝[使用](http://doc.ssr-fc.com/docs/features$faq#%E4%B8%8E%20micro-app%20%E7%BB%93%E5%90%88%E4%BD%BF%E7%94%A8)              | 🚀   |
+| React Hooks 实现极简的[数据管理](http://doc.ssr-fc.com/docs/features$communication#React%20%E5%9C%BA%E6%99%AF)方案，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
+| Vue3 场景提供 [Provide/Inject](http://doc.ssr-fc.com/docs/features$communication#Vue%20%E5%9C%BA%E6%99%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88) 代替 Vuex 进行跨组件通信                     |    🚀  |
 | 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
 | ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
 | ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                                |
@@ -165,11 +166,11 @@
 ```bash
 $ npm init ssr-app my-ssr-project
 $ cd my-ssr-project
-$ npm install # 可以使用yarn 不要使用 cnpm
+$ npm install # 可以使用 yarn 不要使用 cnpm
 $ npm start
 $ open http://localhost:3000 # 访问应用
 $ npm run build # 资源构建，等价于 npx ssr build
-$ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
+$ npm run start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 ```
 
 ![](http://doc.ssr-fc.com/images/resume3.svg)
@@ -254,8 +255,8 @@ $ npm run start:vite # 以 Vite 模式启动，等价于 npx ssr start --vite
 欢迎直接扫码加入钉钉群或者微信群
 
 <div style="display:flex">
-<img src="https://res.wx.qq.com/op_res/rrhdxU0o2yUdgTjwgkAgO-CSFV-lArvMYzWzxl2SuvnKkcWECv7SXswEYjk2pPcDcL43r0kz_MIp_fsxPPqQ2Q" width="300">
-<img src="https://res.wx.qq.com/op_res/rmZYrxJScR2gYuumTgy62cVg8p8osro1PEDjNwUxaVy2poA1Sqz33yt2ZREAC3RjZ_cWuGwz9AQcGKyoRUqh_A" width="300">
+<img src="https://res.wx.qq.com/op_res/7F1t4Z8yCHWilehbcFGjAj0yVn0URMiWBGVJa-TVu_eqw5IwUXA2kPYBnfX6YRHy0FVBB-yC6l0IEL02QTJkLg" width="300">
+<img src="https://res.wx.qq.com/op_res/iV7F10umsjENeklg1vaIZOXZ0Ye__gpnK8Js6sz5R2TlbvaeikeHIj6peLPN0-Z5nHEvjcGd5kE0Ii5Q1Iy0fw" width="300">
 </div>
 
 ## 前端开发手册

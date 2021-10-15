@@ -80,8 +80,6 @@ cypress/videos
 
 packages/**/README.md
 
-**/typings
-
 **/run
 
 example/**/vite.config.js

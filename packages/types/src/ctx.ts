@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import { FaaSHTTPContext } from '@midwayjs/faas-typings'
 import { Context } from 'egg'
 
-interface ExpressContext {
+export interface ExpressContext {
   request: Request & {
     params: Request['params']
   }
@@ -20,6 +20,7 @@ export interface IWindow extends Window {
   __INITIAL_DATA__?: any
   STORE_CONTEXT?: any
   __USE_VITE__?: boolean
+  __disableClientRender__?: boolean
 }
 
 export interface IGlobal {

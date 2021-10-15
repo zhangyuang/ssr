@@ -14,14 +14,14 @@
     "pretty": true,
     "declaration": true,
     "outDir": "dist",
-    "typeRoots": [ "./typings", "./node_modules/@types"]
+    "typeRoots": [ "./typings", "./node_modules/@types"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "~/*": ["./*"]
+    }
   },
-  "exclude": [
-    "dist",
-    "node_modules",
-    "test",
-    "web",
-    "build"
+  "include": [
+    "src"
   ]
 }
 

@@ -3,6 +3,383 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.27](https://github.com/ykfe/ssr/compare/v5.6.26...v5.6.27) (2021-10-14)
+
+
+### Bug Fixes
+
+* queryString annotation ([#121](https://github.com/ykfe/ssr/issues/121)) ([b939ca9](https://github.com/ykfe/ssr/commit/b939ca9dfce93c297a5408c87af0617985a55cd1))
+
+
+
+
+
+## [5.6.26](https://github.com/ykfe/ssr/compare/v5.6.25...v5.6.26) (2021-09-29)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.6.25](https://github.com/ykfe/ssr/compare/v5.6.24...v5.6.25) (2021-09-24)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.6.24](https://github.com/ykfe/ssr/compare/v5.6.23...v5.6.24) (2021-09-23)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.6.23](https://github.com/ykfe/ssr/compare/v5.6.22...v5.6.23) (2021-09-23)
+
+
+### Features
+
+* add limit plugin in server side ([11c70aa](https://github.com/ykfe/ssr/commit/11c70aa2afc49fe5b7fa51ac2c72310ec5f8548f))
+
+
+
+
+
+## [5.6.22](https://github.com/ykfe/ssr/compare/v5.6.20...v5.6.22) (2021-09-13)
+
+
+### Bug Fixes
+
+* add switch in router ([44dbde1](https://github.com/ykfe/ssr/commit/44dbde16dc986c2f42c1198302ae76fc15de0379))
+
+
+### Features
+
+* rerender App.tsx when router change ([7df174e](https://github.com/ykfe/ssr/commit/7df174e8af15134033e63ae489b8109c211ed9c7))
+
+
+
+
+
+## [5.6.21](https://github.com/ykfe/ssr/compare/v5.6.20...v5.6.21) (2021-09-12)
+
+
+### Features
+
+* rerender App.tsx when router change ([7df174e](https://github.com/ykfe/ssr/commit/7df174e8af15134033e63ae489b8109c211ed9c7))
+
+
+
+
+
+## [5.6.19](https://github.com/ykfe/ssr/compare/v5.6.17...v5.6.19) (2021-09-07)
+
+
+### Bug Fixes
+
+* wrapComponent ([5099eaf](https://github.com/ykfe/ssr/commit/5099eafc651b3e937018a68c73e1cece6ba0a4eb))
+
+
+
+
+
+## [5.6.18](https://github.com/ykfe/ssr/compare/v5.6.17...v5.6.18) (2021-09-07)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.6.17](https://github.com/ykfe/ssr/compare/v5.6.16...v5.6.17) (2021-09-03)
+
+
+### Features
+
+* update f.yml upgrade postcss-loader to v4 ([59e1cfb](https://github.com/ykfe/ssr/commit/59e1cfb944d460e690007b4fc10cfe945ec369fa))
+
+
+
+
+
+## [5.6.16](https://github.com/ykfe/ssr/compare/v5.6.15...v5.6.16) (2021-09-01)
+
+
+### Bug Fixes
+
+* remove manifest plugin publicPath ([f4f3e0a](https://github.com/ykfe/ssr/commit/f4f3e0a74bbaaa0967c62d81d15d66f99ad66a1d))
+
+
+
+
+
+## [5.6.15](https://github.com/ykfe/ssr/compare/v5.6.14...v5.6.15) (2021-08-27)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.6.14](https://github.com/ykfe/ssr/compare/v5.6.13...v5.6.14) (2021-08-25)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.6.13](https://github.com/ykfe/ssr/compare/v5.6.12...v5.6.13) (2021-08-25)
+
+
+### Features
+
+* remove cssModulesWhitelist update docs.md ([7473836](https://github.com/ykfe/ssr/commit/7473836725b0c2f8685ea58c2457d4b20a2ec747))
+
+
+
+
+
+## [5.6.12](https://github.com/ykfe/ssr/compare/v5.6.11...v5.6.12) (2021-08-25)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.6.11](https://github.com/ykfe/ssr/compare/v5.6.10...v5.6.11) (2021-08-24)
+
+
+### Bug Fixes
+
+* update react vite.config.tpl ([7d2d4bd](https://github.com/ykfe/ssr/commit/7d2d4bdce828633f7acd1db3e158c0f3d2ba7f3d))
+
+
+
+
+
+## [5.6.10](https://github.com/ykfe/ssr/compare/v5.6.10-alpha.0...v5.6.10) (2021-08-24)
+
+
+### Bug Fixes
+
+* update react vite.config.tpl ([df9c6f4](https://github.com/ykfe/ssr/commit/df9c6f47d8a54b923f4a47dd93b12346776f74c9))
+
+
+
+
+
+## [5.6.9](https://github.com/ykfe/ssr/compare/v5.6.8...v5.6.9) (2021-08-24)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.6.8](https://github.com/ykfe/ssr/compare/v5.6.7...v5.6.8) (2021-08-24)
+
+
+### Features
+
+* upgrade css-loader version aligen modules hash ([8ff93d1](https://github.com/ykfe/ssr/commit/8ff93d1dc4031d870a9ff977c0508d29008fd6a5))
+
+
+
+
+
+## [5.6.7](https://github.com/ykfe/ssr/compare/v5.6.6...v5.6.7) (2021-08-24)
+
+
+### Bug Fixes
+
+* keep function names in prod environment ([a1500ce](https://github.com/ykfe/ssr/commit/a1500ceb3b5f3573e2c793eb12327f4b185e7ac0))
+
+
+
+
+
+## [5.6.6](https://github.com/ykfe/ssr/compare/v5.6.5...v5.6.6) (2021-08-23)
+
+
+### Features
+
+* add vite rollupOptions.input ([c88c531](https://github.com/ykfe/ssr/commit/c88c5310e415b78a4f6a0fd8616ffa9cf7fe1e0c))
+
+
+
+
+
+## [5.6.4](https://github.com/ykfe/ssr/compare/v5.6.3...v5.6.4) (2021-08-13)
+
+
+### Features
+
+* support micro-app ([e91c2ee](https://github.com/ykfe/ssr/commit/e91c2ee33ab1f24627118c224bda35064d331c40))
+
+
+
+
+
+## [5.6.3](https://github.com/ykfe/ssr/compare/v5.6.2...v5.6.3) (2021-08-12)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.6.2](https://github.com/ykfe/ssr/compare/v5.6.1...v5.6.2) (2021-08-11)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.6.1](https://github.com/ykfe/ssr/compare/v5.6.0...v5.6.1) (2021-08-11)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.5.98](https://github.com/ykfe/ssr/compare/v5.5.97...v5.5.98) (2021-08-06)
+
+
+### Bug Fixes
+
+* update plugin-react base config ([d275fed](https://github.com/ykfe/ssr/commit/d275fed8b9c678d9fb6345ba8f6a67df63f87902))
+
+
+
+
+
+## [5.5.97](https://github.com/ykfe/ssr/compare/v5.5.96...v5.5.97) (2021-08-06)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.5.96](https://github.com/ykfe/ssr/compare/v5.5.94...v5.5.96) (2021-08-05)
+
+
+### Bug Fixes
+
+* ssr types ([742440f](https://github.com/ykfe/ssr/commit/742440f186af3577d0df0bf5fac25d665e43dbcd))
+
+
+
+
+
+## [5.5.95](https://github.com/ykfe/ssr/compare/v5.5.94...v5.5.95) (2021-08-05)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.5.94](https://github.com/ykfe/ssr/compare/v5.5.93...v5.5.94) (2021-08-05)
+
+
+### Bug Fixes
+
+* clear router cache in vite mode ([d2d7e00](https://github.com/ykfe/ssr/commit/d2d7e003f4cbecee6cc0770a64653714b50ff34b))
+
+
+### Features
+
+* move ssr-temporary-routes position ([9966d10](https://github.com/ykfe/ssr/commit/9966d10b466e2d6dcf10ba09b4267dd8e2a324f0))
+
+
+
+
+
+## [5.5.93](https://github.com/ykfe/ssr/compare/v5.5.92...v5.5.93) (2021-08-04)
+
+
+### Bug Fixes
+
+* clear router cache in vite mode ([cea9fc0](https://github.com/ykfe/ssr/commit/cea9fc09c41813bbc1fe4a8d8d94c1d511f85945))
+
+
+
+
+
+## [5.5.92](https://github.com/ykfe/ssr/compare/v5.5.91...v5.5.92) (2021-08-03)
+
+
+### Bug Fixes
+
+* 修复渲染降级 ([9accc6c](https://github.com/ykfe/ssr/commit/9accc6c07998ca72602add786d53b41172d77086))
+
+
+
+
+
+## [5.5.91](https://github.com/ykfe/ssr/compare/v5.5.90...v5.5.91) (2021-08-02)
+
+
+### Features
+
+* support parallel fetch ([0268c4c](https://github.com/ykfe/ssr/commit/0268c4c9ae25062feba75c40f10e6a3d3df64381))
+
+
+
+
+
+## [5.5.90](https://github.com/ykfe/ssr/compare/v5.5.89...v5.5.90) (2021-08-02)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.5.89](https://github.com/ykfe/ssr/compare/v5.5.88...v5.5.89) (2021-07-31)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.5.88](https://github.com/ykfe/ssr/compare/v5.5.87...v5.5.88) (2021-07-30)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.5.87](https://github.com/ykfe/ssr/compare/v5.5.86...v5.5.87) (2021-07-30)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [5.5.86](https://github.com/ykfe/ssr/compare/v5.5.85...v5.5.86) (2021-07-27)
+
+
+### Features
+
+* not emit svg file in server side ([e8aaefc](https://github.com/ykfe/ssr/commit/e8aaefc5aef0627fb62e87ac5e37444c921c1c67))
+
+
+
+
+
 ## [5.5.84](https://github.com/ykfe/ssr/compare/v5.5.83...v5.5.84) (2021-07-26)
 
 **Note:** Version bump only for package ssr-plugin-react

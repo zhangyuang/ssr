@@ -16,6 +16,7 @@ aggregation: # 聚合成一个函数发布
 package:
   include:
     - build
+    - public
   exclude:
     - package-lock.json
   artifact: code.zip

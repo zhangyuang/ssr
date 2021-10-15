@@ -146,6 +146,10 @@ export default defineComponent({
 
 ```
 
+### Vue 场景总结
+
+在 `fetch.ts` 中 `return value` 后，通过 `props.asyncData` 拿到 `layout fetch` 与 `page fetch` 合并后的结果。通过 `props.fetchData` 拿到当前页面对应的 `fetch` 的结果。也就是在 `layout/index.vue` 拿到的是 `layout fetch`，在页面组件拿到的是 `page fetch`。
+
 ## React 场景
 
 在 `React` 场景中，我们没有使用上述的任何一种数据管理方案，我们采用了思想上与 `Provide/Inject` 类似的，同样也是 [react-hooks](https://reactjs.org/docs/hooks-intro.html) 出现后出现在大家视野的 [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext)
@@ -298,6 +302,43 @@ function reducer (state: any, action: any) {
 export {
   state,
   reducer
+}
+```
+
+### 在组件中调用
+
+```js
+function Search () {
+  const { state, dispatch } = useContext<IContext<SearchState>>(window.STORE_CONTEXT)
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch?.({
+      type: 'updateSearchValue',
+      payload: {
+        searchState: {
+          text: e.target.value
+        }
+      }
+    })
+  }
+  return (
+    <div className={styles.searchContainer}>
+      <button onClick={() => {
+        dispatch({
+          type: 'updateCountValue',
+          payload: {
+            countState: {
+              value: state.countState.value+1
+            }
+          }
+        })
+      }}>+1</button>
+      <div>
+        {state.countState.value}
+      </div>
+      <input type="text" className={styles.input} value={state.searchState.text ?? ''} onChange={handleChange} placeholder="该搜索框内容会在所有页面共享" />
+      <img src="https://img.alicdn.com/tfs/TB15zSoX21TBuNjy0FjXXajyXXa-48-48.png" alt="" className={styles.searchImg} onClick={toSearch} />
+    </div >
+  )
 }
 ```
 

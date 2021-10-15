@@ -235,7 +235,7 @@ Although we have tried our best to check the application, there may still be som
 Welcome to scan the code to join DingDing group or WeChat group
 
 <div style="display:flex">
-<img src="https://res.wx.qq.com/op_res/rrhdxU0o2yUdgTjwgkAgO-CSFV-lArvMYzWzxl2SuvnKkcWECv7SXswEYjk2pPcDcL43r0kz_MIp_fsxPPqQ2Q" width="300">
+<img src="https://res.wx.qq.com/op_res/7F1t4Z8yCHWilehbcFGjAj0yVn0URMiWBGVJa-TVu_eqw5IwUXA2kPYBnfX6YRHy0FVBB-yC6l0IEL02QTJkLg" width="300">
 <img src="https://res.wx.qq.com/op_res/HoE46nyluxRmnuShyOHY-qb62H29FUnwEEfThhkfkjKLHC45WQ8keUiFAia2vkmRj63gkc4rtiMr8k5pb3h3gQ" width="300">
 </div>
 
