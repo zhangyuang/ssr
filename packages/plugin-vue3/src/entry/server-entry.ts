@@ -15,8 +15,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   global.__VUE_PROD_DEVTOOLS__ = global.__VUE_PROD_DEVTOOLS__ ?? false
   const router = createRouter()
   let path = ctx.request.path // 这里取 pathname 不能够包含 queyString
+  let url = ctx.request.url
   if (BASE_NAME) {
     path = normalizePath(path)
+    url = normalizePath(url)
   }
   const store = createStore()
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender } = config
@@ -44,7 +46,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   const { fetch } = routeItem
-  router.push(path)
+  router.push(url)
   await router.isReady()
 
   let layoutFetchData = {}
