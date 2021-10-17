@@ -6,7 +6,10 @@ import { ISSRContext, UserConfig, ExpressContext } from 'ssr-types'
 const cwd = getCwd()
 const defaultConfig = loadConfig()
 
-async function render<T = string> (ctx: ISSRContext, options?: UserConfig): Promise<T> {
+function render (ctx: ISSRContext, options?: UserConfig): Promise<string>
+function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
+
+async function render (ctx: ISSRContext, options?: UserConfig) {
   const config = Object.assign({}, defaultConfig, options ?? {})
   const { isDev, chunkName, stream } = config
   const isLocal = isDev || process.env.NODE_ENV !== 'production'
@@ -15,7 +18,7 @@ async function render<T = string> (ctx: ISSRContext, options?: UserConfig): Prom
     // clear cache in development environment
     delete require.cache[serverFile]
   }
-  if (typeof ctx.response.type !== 'function' && !ctx.response.type) {
+  if (!ctx.response.type && typeof ctx.response.type !== 'function') {
     // midway/koa 场景设置默认 content-type
     ctx.response.type = 'text/html;charset=utf-8'
   } else if (!(ctx as ExpressContext).response.hasHeader?.('content-type')) {
@@ -27,14 +30,12 @@ async function render<T = string> (ctx: ISSRContext, options?: UserConfig): Prom
   const serverRes = await serverRender(ctx, config)
 
   if (stream) {
-    // @ts-expect-error
     const stream = mergeStream2(new StringToStream('<!DOCTYPE html>'), renderToNodeStream(serverRes))
     stream.on('error', (e: any) => {
       console.log(e)
     })
     return stream
   } else {
-    // @ts-expect-error
     return `<!DOCTYPE html>${await renderToString(serverRes)}`
   }
 }
