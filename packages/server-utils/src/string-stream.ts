@@ -1,9 +1,9 @@
 // @ts-nocheck
-const Stream = require('stream')
-const PassThrough = Stream.PassThrough
+import { Readable, PassThrough } from 'stream'
+
 const slice = Array.prototype.slice
 
-class StringToStream extends Stream.Readable {
+class StringToStream extends Readable {
   constructor (str: string) {
     super()
     this._str = str
@@ -21,7 +21,7 @@ class StringToStream extends Stream.Readable {
   }
 }
 
-function mergeStream2 () {
+function mergeStream2 (...arg: any[]): Readable {
   const streamsQueue = []
   const args = slice.call(arguments)
   let merging = false
