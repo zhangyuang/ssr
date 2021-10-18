@@ -1,6 +1,6 @@
 # 约定式路由
 
-约定式路由即根据前端文件夹结构来自动的生成前端路由配置。  
+约定式路由即根据前端文件夹结构来自动的生成前端路由配置。
 
 本框架同时支持约定式路由和声明式路由，当检测到 `web/route.ts` 文件存在时会使用该文件来作为前端路由结构, 但我们默认不支持你这么做。因为框架会根据你当前的不同配置来生成不同的路由结构，例如在 `dynamic`， `vite` 这些模式下 `parse` 出的路由结构是有一定差异的。如果手动编写工作量过大且容易出错。在没有特殊需求的情况下建议直接使用约定式路由。
 
@@ -53,6 +53,147 @@ $ tree ./ -I node_modules -L 3
 - `/user/detail/render$id` 映射为 `/user/detail/:id`
 - `/user/detail/render$foo$bar` 映射为 `/user/detail/:foo/:bar`
 
+#### prefix 实现多个二级路径, 方便实现多语言需求
+
+> 实验特性, 目前仅支持 ssr-Midway-react
+
+#### 使用方式
+
+```
+// config.js
+module.exports = {
+  prefix: ['/en', '/zh'],
+}
+
+// 新建 controller zh.ts
+import { Readable } from 'stream'
+import { Controller, Get, Provide, Inject } from '@midwayjs/decorator'
+import { Context } from 'egg'
+import { render } from 'ssr-core-react'
+import { IApiService, IApiDetailService } from '../interface'
+
+interface IEggContext extends Context {
+  apiService: IApiService
+  apiDeatilservice: IApiDetailService
+}
+
+@Provide()
+@Controller('/zh', { middleware: ['multiLang'] })
+export class Zh {
+  @Inject()
+  ctx: IEggContext
+
+  @Inject('ApiService')
+  apiService: IApiService
+
+  @Inject('ApiDetailService')
+  apiDeatilservice: IApiDetailService
+
+  @Get('/')
+  @Get('/detail/:id')
+  async handler(): Promise<void> {
+    try {
+      this.ctx.apiService = this.apiService
+      this.ctx.apiDeatilservice = this.apiDeatilservice
+      const stream = await render<Readable>(this.ctx, {
+        stream: true,
+        BASE_NAME: '/zh'
+      })
+      this.ctx.body = stream
+    } catch (error) {
+      console.log(error)
+      this.ctx.body = error
+    }
+  }
+}
+
+// 新建 controller en.ts 同上
+
+// 新建中间件 MultiLang.ts
+import { Provide } from '@midwayjs/decorator';
+import { IWebMiddleware, IMidwayWebNext } from '@midwayjs/web';
+import { Context } from 'egg';
+
+@Provide()
+export class MultiLang implements IWebMiddleware {
+
+  resolve() {
+    return async (ctx: Context, next: IMidwayWebNext) => {
+      const pathArr = ctx.request.path.split('/')
+      ctx.cookies.set('BASE_NAME', `/${pathArr[1]}`, { httpOnly: false });
+      await next();
+    };
+  }
+
+}
+
+// 修改 controller index.ts
+import { Readable } from 'stream'
+import { Controller, Get, Provide, Inject } from '@midwayjs/decorator'
+import { Context } from 'egg'
+import { render } from 'ssr-core-react'
+import { IApiService, IApiDetailService } from '../interface'
+
+interface IEggContext extends Context {
+  apiService: IApiService
+  apiDeatilservice: IApiDetailService
+}
+
+@Provide()
+@Controller('/', { middleware: ['index'] })
+export class Index {
+  @Inject()
+  ctx: IEggContext
+
+  @Inject('ApiService')
+  apiService: IApiService
+
+  @Inject('ApiDetailService')
+  apiDeatilservice: IApiDetailService
+
+  @Get('/')
+  @Get('/detail/:id')
+  @Get('/*')
+  async handler(): Promise<void> {
+    try {
+      this.ctx.apiService = this.apiService
+      this.ctx.apiDeatilservice = this.apiDeatilservice
+      const stream = await render<Readable>(this.ctx, {
+        stream: true
+      })
+      this.ctx.body = stream
+    } catch (error) {
+      console.log(error)
+      this.ctx.body = error
+    }
+  }
+}
+
+// 添加中间件 index.ts
+import { Provide } from '@midwayjs/decorator';
+import { IWebMiddleware, IMidwayWebNext } from '@midwayjs/web';
+import { Context } from 'egg';
+
+@Provide()
+export class Index implements IWebMiddleware {
+
+  resolve() {
+    return async (ctx: Context, next: IMidwayWebNext) => {
+      const BASE_NAME = ctx.cookies.get('BASE_NAME');
+      if (BASE_NAME) {
+        ctx.redirect(BASE_NAME)
+      } else {
+        ctx.redirect('/en')
+      }
+    };
+  }
+
+}
+
+
+
+```
+
 ### 嵌套路由
 
 约定式路由不支持生成嵌套路由也就是 `children` 子结构。虽然支持嵌套路由并不难，但这会让规范变得复杂。特别是获取数据这一块，且嵌套路由用业务代码实现是非常简单的事情。在 `React` 中直接手动引入 `Router` 来实现即可。在 `Vue` 中需要手动填写 `children` 字段。如果不支持嵌套路由的 `fetch`， 那么非常容易实现，但是意义不大开发者直接在业务代码中实现即可，如果要支持嵌套路由的 `fetch` 那么会让规范变得复杂。例如需要在框架层面让 `render$child$foo.vue` 对应 `fetch$child$foo.ts` 文件。这非常的 `dirty`，所以并不打算支持嵌套路由。
@@ -66,6 +207,7 @@ $ DEBUG=ssr:* npm start
 ```
 
 也可以直接查看 `build/ssr-temporary-routes.js` 文件
+
 ### 实现代码
 
 具体的实现代码可以查看该[文件](https://github.com/ykfe/ssr/blob/dev/packages/server-utils/src/parse.ts#L13)
@@ -84,21 +226,36 @@ $ DEBUG=ssr:* npm start
 import * as store from '@/store/index.ts' // 使用了 Vuex 则需要引入 store
 
 export const FeRoutes = [
-    {   
-        "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts') : require('@/pages/detail/fetch.ts').default,
-        "path": "/detail/:id",
-        "component": __isBrowser__ ? () => import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id.vue') : require('@/pages/detail/render$id.vue').default,
-        "webpackChunkName": "detail-id"
-    },
-    {
-        "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts') : require('@/pages/index/fetch.ts').default,
-        "path": "/",
-        "component": __isBrowser__ ? () => import(/* webpackChunkName: "index" */ '@/pages/index/render.vue') : require('@/pages/index/render.vue').default,
-        "webpackChunkName": "index"
-    }
+  {
+    fetch: __isBrowser__
+      ? () =>
+          import(
+            /* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts'
+          )
+      : require('@/pages/detail/fetch.ts').default,
+    path: '/detail/:id',
+    component: __isBrowser__
+      ? () =>
+          import(
+            /* webpackChunkName: "detail-id" */ '@/pages/detail/render$id.vue'
+          )
+      : require('@/pages/detail/render$id.vue').default,
+    webpackChunkName: 'detail-id',
+  },
+  {
+    fetch: __isBrowser__
+      ? () =>
+          import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts')
+      : require('@/pages/index/fetch.ts').default,
+    path: '/',
+    component: __isBrowser__
+      ? () => import(/* webpackChunkName: "index" */ '@/pages/index/render.vue')
+      : require('@/pages/index/render.vue').default,
+    webpackChunkName: 'index',
+  },
 ]
-export { default as Layout } from "@/components/layout/index.vue"
-export { default as App } from "@/components/layout/App.vue"
+export { default as Layout } from '@/components/layout/index.vue'
+export { default as App } from '@/components/layout/App.vue'
 export { store }
 ```
 
@@ -107,21 +264,40 @@ export { store }
 在 React 场景我们按照如下规范编写前端路由结构
 
 ```js
-import React from "react"
+import React from 'react'
 export const FeRoutes = [
-{
-  "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts') : require('@/pages/detail/fetch.ts').default,
-  "path": "/detail/:id",
-  "component": __isBrowser__ ?  function dynamicComponent () {
-    return import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id.tsx')
-   } : require('@/pages/detail/render$id.tsx').default, "webpackChunkName": "detail-id"
-}, 
-{
-  "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts') : require('@/pages/index/fetch.ts').default,
-  "path": "/",
-  "component": __isBrowser__ ? function dynamicComponent () {
-    return import(/* webpackChunkName: "index" */ '@/pages/index/render.tsx')
-   } : require('@/pages/index/render.tsx').default, "webpackChunkName": "index"
-}]
-export { default as App } from "@/components/layout/App.tsx"
+  {
+    fetch: __isBrowser__
+      ? () =>
+          import(
+            /* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts'
+          )
+      : require('@/pages/detail/fetch.ts').default,
+    path: '/detail/:id',
+    component: __isBrowser__
+      ? function dynamicComponent() {
+          return import(
+            /* webpackChunkName: "detail-id" */ '@/pages/detail/render$id.tsx'
+          )
+        }
+      : require('@/pages/detail/render$id.tsx').default,
+    webpackChunkName: 'detail-id',
+  },
+  {
+    fetch: __isBrowser__
+      ? () =>
+          import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts')
+      : require('@/pages/index/fetch.ts').default,
+    path: '/',
+    component: __isBrowser__
+      ? function dynamicComponent() {
+          return import(
+            /* webpackChunkName: "index" */ '@/pages/index/render.tsx'
+          )
+        }
+      : require('@/pages/index/render.tsx').default,
+    webpackChunkName: 'index',
+  },
+]
+export { default as App } from '@/components/layout/App.tsx'
 ```

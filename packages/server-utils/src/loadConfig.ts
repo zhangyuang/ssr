@@ -1,6 +1,6 @@
 import { join } from 'path'
 import { IConfig } from 'ssr-types'
-import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath } from './cwd'
+import { getCwd, getUserConfig, normalizeStartPathItem, normalizeEndPath } from './cwd'
 
 const loadConfig = (): IConfig => {
   const userConfig = getUserConfig()
@@ -9,7 +9,7 @@ const loadConfig = (): IConfig => {
   const stream = false
   type ClientLogLevel = 'error'
 
-  const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPath(userConfig.publicPath ?? '/')
+  const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPathItem(userConfig.publicPath ?? '/')
   const devPublicPath = publicPath.startsWith('http') ? publicPath.replace(/^http(s)?:\/\/(.*)?\d/, '') : publicPath // 本地开发不使用 http://localhost:3000 这样的 path 赋值给 webpack-dev-server 会很难处理
 
   const moduleFileExtensions = [

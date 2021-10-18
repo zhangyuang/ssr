@@ -15,16 +15,31 @@ if (prefix) {
   prefix = normalizeStartPath(prefix)
 }
 
-export const normalizePath = (path: string) => {
-  // 移除 prefix 保证 path 跟路由表能够正确匹配
-  if (prefix) {
-    path = path.replace(prefix, '')
-  }
+function fixPath (path: string) {
   if (path.startsWith('//')) {
     path = path.replace('//', '/')
   }
   if (!path.startsWith('/')) {
     path = `/${path}`
+  }
+  return path
+}
+
+export const normalizePath = (path: string) => {
+  // 移除 prefix 保证 path 跟路由表能够正确匹配
+  if (prefix) {
+    // path = path.replace(prefix, '')
+    if (typeof prefix === 'string') {
+      path = path.replace(prefix as string, '')
+      path = fixPath(path)
+    } else if (Array.isArray(prefix)) {
+      prefix.forEach(item => {
+        if (path.startsWith(item)) {
+          path = path.replace(item, '')
+          path = fixPath(path)
+        }
+      })
+    }
   }
   return path
 }

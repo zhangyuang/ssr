@@ -37,7 +37,8 @@ export interface IConfig {
   moduleFileExtensions: string[]
   whiteList: RegExp[]
   cloudIDE?: boolean
-  prefix?: string
+  prefix?: string | string[]
+  BASE_NAME: string
   dynamic: boolean
   mode: string
   webpackDevServerConfig?: any
@@ -70,7 +71,7 @@ export interface IConfig {
   proxyKey: string[]
 }
 
-type Optional <T>= { [key in keyof T]?: T[key] }
+type Optional<T> = { [key in keyof T]?: T[key] }
 
 export interface proxyOptions {
   express?: boolean

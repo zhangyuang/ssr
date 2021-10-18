@@ -7,20 +7,28 @@ import { IWindow, LayoutProps, ReactClientESMFeRouteItem, ReactClientRoutesType 
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
 import { AppContext } from './context'
+import Cookies from "js-cookie";
 
-const { FeRoutes, layoutFetch, App, BASE_NAME } = Routes as ReactClientRoutesType
+const { FeRoutes, layoutFetch, App } = Routes as ReactClientRoutesType
 
 declare const module: any
-declare const window: IWindow
+declare const window: IWindow & {
+  __routeConfig: { BASE_NAME?: string }
+}
 
+const BASE_NAME = Cookies.get('BASE_NAME') || undefined
+window.__routeConfig = {
+  BASE_NAME
+}
+Object.freeze(window.__routeConfig)
 const clientRender = async (): Promise<void> => {
   const IApp = App ?? function (props: LayoutProps) {
     return props.children!
   }
   // 客户端渲染||hydrate
-  const routes = await preloadComponent(FeRoutes, BASE_NAME)
+  const routes = await preloadComponent(FeRoutes, window.__routeConfig.BASE_NAME)
   ReactDOM[window.__USE_SSR__ ? 'hydrate' : 'render'](
-    <BrowserRouter basename={BASE_NAME}>
+    <BrowserRouter basename={window.__routeConfig.BASE_NAME}>
       <AppContext>
         <Switch>
           <IApp>
@@ -33,7 +41,7 @@ const clientRender = async (): Promise<void> => {
                   component.layoutFetch = layoutFetch
                   const WrappedComponent = wrapComponent(component)
                   return (
-                    <Route exact={true} key={path} path={path} render={() => <WrappedComponent key={location.pathname}/>}/>
+                    <Route exact={true} key={path} path={path} render={() => <WrappedComponent key={location.pathname} />} />
                   )
                 })
               }

@@ -136,7 +136,7 @@ const copyViteConfig = async () => {
 }
 
 const execPromisify = promisify(exec)
-const normalizeStartPath = (path: string) => {
+const normalizeStartPathItem = (path: string) => {
   if (path.startsWith('//')) {
     path = path.replace('//', '/')
   }
@@ -144,6 +144,18 @@ const normalizeStartPath = (path: string) => {
     path = `/${path}`
   }
   return path
+}
+const normalizeStartPath = (path: string | string[]) => {
+  if (Array.isArray(path)) {
+    const tmp = []
+    for (let i = 0; i < path.length; i++) {
+      const item = path[i]
+      tmp.push(normalizeStartPathItem(item))
+    }
+    return tmp
+  } else {
+    return normalizeStartPathItem(path)
+  }
 }
 const normalizeEndPath = (path: string) => {
   if (!path.endsWith('/')) {
@@ -169,5 +181,6 @@ export {
   addAsyncChunk,
   cryptoAsyncChunkName,
   normalizeStartPath,
-  normalizeEndPath
+  normalizeEndPath,
+  normalizeStartPathItem
 }

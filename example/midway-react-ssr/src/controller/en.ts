@@ -10,8 +10,8 @@ interface IEggContext extends Context {
 }
 
 @Provide()
-@Controller('/', { middleware: ['index'] })
-export class Index {
+@Controller('/en', { middleware: ['multiLang'] })
+export class En {
   @Inject()
   ctx: IEggContext
 
@@ -23,13 +23,13 @@ export class Index {
 
   @Get('/')
   @Get('/detail/:id')
-  @Get('/*')
   async handler (): Promise<void> {
     try {
       this.ctx.apiService = this.apiService
       this.ctx.apiDeatilservice = this.apiDeatilservice
       const stream = await render<Readable>(this.ctx, {
-        stream: true
+        stream: true,
+        BASE_NAME: '/en'
       })
       this.ctx.body = stream
     } catch (error) {

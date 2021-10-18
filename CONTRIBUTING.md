@@ -2,7 +2,7 @@
 
 The markdown file introduce how to contribute for ssr-psec
 
-## 本地如何link调试模块
+## 本地如何 link 调试模块
 
 package.json 中已经封装好本地的调试命令
 
@@ -50,7 +50,7 @@ Please read the [document](https://classic.yarnpkg.com/en/docs/workspaces/) abou
   - 此时 issue 会被非常高的优先级进行处理。
   - 如果此 bug 是正在影响线上应用正常运行，会再打上 `critical`，代表是最高优先级，需要马上立刻处理！
   - bug 会在最低需要修复的版本进行修复，如是在 `0.9.x` 要修复的，而当前最新版本是 `1.1.x`，
-  那么此 issue 还会被打上 `0.9`，`0.10`，`1.0`，`1.1`，代表需要修复到这些版本。
+    那么此 issue 还会被打上 `0.9`，`0.10`，`1.0`，`1.1`，代表需要修复到这些版本。
 - `core: xx`: 代表 issue 跟 core 内核相关，如 `core: antx` 代表跟 `antx` 配置相关。
 - `plugin: xx`: 代表 issue 跟插件相关，如 `deps: session` 代表跟 `session` 插件相关。
 - `deps: xx`: 代表 issue 跟 `dependencies` 模块相关，如 `deps: egg-cors` 代表跟 `egg-cors` 模块相关。
@@ -63,7 +63,7 @@ Please read the [document](https://classic.yarnpkg.com/en/docs/workspaces/) abou
 
 - 必须说清楚问题的几个方面：what（是什么），why（为什么），how（怎么做），可根据问题的特性有所侧重。
 - how 部分必须包含详尽完整的操作步骤，必要时附上 **足够简单，可运行** 的范例代码，
-所有范例代码放在 [ssr/examples](https://github.com/ykfe/ssr) 库中。
+  所有范例代码放在 [ssr/examples](https://github.com/ykfe/ssr) 库中。
 - 提供必要的链接，如申请流程，术语解释和参考文档等。
 - 同步修改中英文文档，或者在 PR 里面说明。
 
@@ -167,9 +167,9 @@ BREAKING CHANGE:
 
 英语正文按照一般英语语法规律书写即可，但标题比较特殊，应该按照以下规范进行书写：
 
-- 名词、动词、代词、形容词、副词等首字母大写，介词、冠词、连词、感叹词和助词首字母小写，*标题第一个单词、最后一个单词无论词性首字母应该大写*。
+- 名词、动词、代词、形容词、副词等首字母大写，介词、冠词、连词、感叹词和助词首字母小写，_标题第一个单词、最后一个单词无论词性首字母应该大写_。
 - 专有名词（如直接引用某个变量，或者某个插件名称等），必须使用反单引号（键盘上 Esc 正下方）进行引用，并保持原来大小写。
-- 超过5个字母的介词首字母应该大写，否则一律小写。
+- 超过 5 个字母的介词首字母应该大写，否则一律小写。
 - 如果是重要提示性标题，或者是专有名称标题（例如 Http 请求方法：GET，POST，PUT，DELETE），可以全部字母都用大写（慎重考虑）。
 - 如果标题属于“动宾”性质的短语（如“配置管理”），尽量翻译成“宾+动词名词”的形式（Configuration Management），或者是“动名词+宾语”的形式（Managing Configuration）。
 - 如果标题被当做一个完整的英语句子，请按照英语句子的语法格式大小写（如：常见问题 FAQ 中每一个标题都是一个英语句子）。
@@ -203,9 +203,9 @@ ykfe 基于 [semver] 语义化版本号进行发布。
 
 - 确认当前 Milestone 所有的 issue 都已关闭或可延期，完成性能测试。
 - 发起一个新的 [Release Proposal MR]，按照 [node CHANGELOG] 进行 `History` 的编写，修正文档中与版本相关的内容，commits 可以自动生成。
-    ```bash
-    $ npm run commits
-    ```
+  ```bash
+  $ npm run commits
+  ```
 - 指定下一个大版本的 PM。
 
 #### 发布时：
@@ -224,8 +224,8 @@ ykfe 基于 [semver] 语义化版本号进行发布。
 ```
 
 [semver]: https://semver.org/lang/zh-CN/
-[Release Proposal MR]: https://github.com/nodejs/node/pull/4181
-[node CHANGELOG]: https://github.com/nodejs/node/blob/master/CHANGELOG.md
+[release proposal mr]: https://github.com/nodejs/node/pull/4181
+[node changelog]: https://github.com/nodejs/node/blob/master/CHANGELOG.md
 [1.x milestone]: https://github.com/eggjs/egg/milestone/1
 [npm]: http://npmjs.com/
 [我是如何发布一个 npm 包的]: https://fengmk2.com/blog/2016/how-i-publish-a-npm-package
