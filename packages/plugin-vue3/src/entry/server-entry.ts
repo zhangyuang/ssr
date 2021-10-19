@@ -107,19 +107,26 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     })
   )
 
-  const customeHeadScriptArr = customeHeadScript?.map((item) => h(
+  const customeHeadScriptArr = customeHeadScript ? (Array.isArray(customeHeadScript) ? customeHeadScript : customeHeadScript(ctx))?.map((item) => h(
     'script',
     Object.assign({}, item.describe, {
       innerHTML: item.content
     })
-  )
-  ) ?? []
+  )) : []
 
   if (disableClientRender) {
     customeHeadScriptArr.push(h('script', {
       innerHTML: 'window.__disableClientRender__ = true'
     }))
   }
+
+  const customeFooterScriptArr = customeFooterScript ? (Array.isArray(customeFooterScript) ? customeFooterScript : customeFooterScript(ctx))?.map((item) => h(
+    'script',
+    Object.assign({}, item.describe, {
+      innerHTML: item.content
+    })
+  )) : []
+
   const state = Object.assign({}, store.state ?? {}, asyncData.value)
 
   const app = createSSRApp({
@@ -137,14 +144,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
             }) : null,
 
           customeHeadScript: () => customeHeadScriptArr,
-          customeFooterScript: () => customeFooterScript?.map((item) =>
-            h(
-              'script',
-              Object.assign({}, item.describe, {
-                innerHTML: item.content
-              })
-            )
-          ),
+          customeFooterScript: () => customeFooterScriptArr,
 
           children: isCsr ? () => h('div', {
             id: 'app'

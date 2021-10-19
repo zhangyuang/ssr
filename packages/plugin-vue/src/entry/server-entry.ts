@@ -119,11 +119,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           src: '/@vite/client'
         }
       })
-      const customeHeadScriptArr = customeHeadScript?.map(item => h('script', Object.assign({}, item.describe, {
+      const customeHeadScriptArr = customeHeadScript ? (Array.isArray(customeHeadScript) ? customeHeadScript : customeHeadScript(ctx))?.map(item => h('script', Object.assign({}, item.describe, {
         domProps: {
           innerHTML: item.content
         }
-      }))) ?? []
+      }))) : []
 
       if (disableClientRender) {
         customeHeadScriptArr.push(h('script', {
@@ -132,6 +132,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           }
         }))
       }
+
+      const customeFooterScriptArr = customeFooterScript ? (Array.isArray(customeFooterScript) ? customeFooterScript : customeFooterScript(ctx))?.map(item => h('script', Object.assign({}, item.describe, {
+        domProps: {
+          innerHTML: item.content
+        }
+      }))) : []
 
       return h(
         Layout,
@@ -155,11 +161,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           }, customeHeadScriptArr),
           h('template', {
             slot: 'customeFooterScript'
-          }, customeFooterScript?.map(item => h('script', Object.assign({}, item.describe, {
-            domProps: {
-              innerHTML: item.content
-            }
-          })))),
+          }, customeFooterScriptArr),
 
           h('template', {
             slot: 'children'

@@ -11,6 +11,7 @@ declare global {
     __USE_VITE__?: boolean
     __VUE_ROUTER__?: Router
     __disableClientRender__?: boolean
+    prefix?: string
   }
   const __isBrowser__: Boolean
 }

@@ -15,10 +15,11 @@ if (prefix) {
   prefix = normalizeStartPath(prefix)
 }
 
-export const normalizePath = (path: string) => {
+export const normalizePath = (path: string, base?: string) => {
   // 移除 prefix 保证 path 跟路由表能够正确匹配
-  if (prefix) {
-    path = path.replace(prefix, '')
+  const baseName = base ?? prefix
+  if (baseName) {
+    path = path.replace(baseName, '')
   }
   if (path.startsWith('//')) {
     path = path.replace('//', '/')

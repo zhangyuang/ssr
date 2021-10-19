@@ -18,9 +18,10 @@ const clientRender = async (): Promise<void> => {
     return props.children!
   }
   // 客户端渲染||hydrate
-  const routes = await preloadComponent(FeRoutes, PrefixRouterBase)
+  const baseName = window.prefix ?? PrefixRouterBase
+  const routes = await preloadComponent(FeRoutes, baseName)
   ReactDOM[window.__USE_SSR__ ? 'hydrate' : 'render'](
-    <BrowserRouter basename={PrefixRouterBase}>
+    <BrowserRouter basename={baseName}>
       <AppContext>
         <Switch>
           <IApp>
