@@ -1112,3 +1112,85 @@ export default {
 </script>
 
 ```
+
+## 动态路由前缀
+
+在某些场景下我们希望 `/zh`, `/en` 的请求都能够打到当前应用。使用默认的 [prefix](./api$config#prefix) 配置无法满足需求。此时可以通过动态 `prefix` 设置来满足需求。代码如下
+
+```js
+  // controller 文件
+  @Get('/zh')
+  async handlerZh (): Promise<void> {
+    try {
+      this.ctx.apiService = this.apiService
+      this.ctx.apiDeatilservice = this.apiDeatilservice
+      const stream = await render<Readable>(this.ctx, {
+        stream: true,
+        prefix: '/zh'
+      })
+      this.ctx.body = stream
+    } catch (error) {
+      console.log(error)
+      this.ctx.body = error
+    }
+  }
+
+  @Get('/en')
+  async handlerEn (): Promise<void> {
+    try {
+      this.ctx.apiService = this.apiService
+      this.ctx.apiDeatilservice = this.apiDeatilservice
+      const stream = await render<Readable>(this.ctx, {
+        stream: true,
+        prefix: '/en'
+      })
+      this.ctx.body = stream
+    } catch (error) {
+      console.log(error)
+      this.ctx.body = error
+    }
+  }
+```
+
+在客户端逻辑中，我们需要额外添加前端路由的 `basename` 设置逻辑, 在 `React` 中很简单
+
+```js
+const Layout = (props: LayoutProps) => {
+  // 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑
+  const { injectState } = props
+  const { injectCss, injectScript } = props.staticList!
+
+  return (
+    <html lang='en'>
+      <head>
+        <meta charSet='utf-8' />
+        <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
+        <meta name='theme-color' content='#000000' />
+        <title>Serverless Side Render</title>
+        <script dangerouslySetInnerHTML={{ __html: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }} />
+        { injectCss }
+      </head>
+      <body>
+        <div id="app"><App {...props} /></div>
+        { injectState }
+        <script dangerouslySetInnerHTML={{
+          __html: `window.prefix="${props.ctx?.request.path}"`
+        }}></script>
+        { injectScript }
+      </body>
+    </html>
+  )
+}
+```
+
+在 `Vue` 当中我们需要通过 [customeHeadScript](./api$config#customeHeadScript) 或者 [customeFooterScript](./api$config#customeFooterScript)
+
+```js
+module.exports = {
+  customeHeadScript: ctx => [
+    {
+      content: `window.prefix="${ctx.request.path}"`
+    }
+  ]
+}
+```

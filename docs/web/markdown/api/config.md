@@ -203,10 +203,10 @@ module.exports = {
 
 ## customeHeadScript
 
-- 类型: `Array<{describe: object, content: string }>`
+- 类型: `Array<{describe: object, content: string }>|(ctx: ISSRContext) => Array<{describe: object, content: string }>`
 - 默认: `[]`
 
-仅在 `Vue` 场景下使用
+仅在 `Vue` 场景下使用, 这里最新版本支持两种类型，可根据当前请求上下文输出不同的脚本内容，常用于动态 [prefix](./features$faq#动态路由前缀) 场景
 
 用于通过配置在页面头部插入自定义的 `script` 为了避免影响期望功能这块内容不做 `escape`，为了避免 `xss` 需要保证插入脚本代码的安全性
 
@@ -252,7 +252,7 @@ module.exports = {
 
 ## customeFooterScript
 
-- 类型: `Array<{describe: object, content: string }>`
+- 类型: `Array<{describe: object, content: string }>|(ctx: ISSRContext) => Array<{describe: object, content: string }>`
 - 默认: `[]`
 
 仅在 `Vue` 场景下使用, 意义同上。在页面底部加载的静态资源文件。需要配合 `<slot name="customeFooterScript" />` 使用。若当前 `example` 是之前创建的 `layout/index.vue` 不存在该 `slot` 的话需要手动添加
