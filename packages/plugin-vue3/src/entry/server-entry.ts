@@ -11,21 +11,23 @@ import { createRouter, createStore } from './create'
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender, prefix } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   global.__VUE_PROD_DEVTOOLS__ = global.__VUE_PROD_DEVTOOLS__ ?? false
+
+  const store = createStore()
   const router = createRouter()
+  const viteMode = process.env.BUILD_TOOL === 'vite'
 
   let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
   let url = ctx.request.url
+  const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
 
-  if (PrefixRouterBase) {
-    path = normalizePath(path)
-    url = normalizePath(url)
+  if (base) {
+    path = normalizePath(path, base)
+    url = normalizePath(url, base)
   }
-  const store = createStore()
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender } = config
   const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
-  const viteMode = process.env.BUILD_TOOL === 'vite'
 
   if (!routeItem) {
     throw new Error(`
@@ -119,7 +121,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       innerHTML: 'window.__disableClientRender__ = true'
     }))
   }
-
   const customeFooterScriptArr = customeFooterScript ? (Array.isArray(customeFooterScript) ? customeFooterScript : customeFooterScript(ctx))?.map((item) => h(
     'script',
     Object.assign({}, item.describe, {
@@ -163,7 +164,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   app.use(router)
   app.use(store)
-  await router.isReady()
 
   window.__VUE_APP__ = app
   return app

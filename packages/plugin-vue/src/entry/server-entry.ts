@@ -11,18 +11,19 @@ import { createRouter, createStore } from './create'
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender, prefix } = config
   const router = createRouter()
   const store = createStore()
   const viteMode = process.env.BUILD_TOOL === 'vite'
   sync(store, router)
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender } = config
 
   let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
   let url = ctx.request.url
+  const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
 
-  if (PrefixRouterBase) {
-    path = normalizePath(path)
-    url = normalizePath(url)
+  if (base) {
+    path = normalizePath(path, base)
+    url = normalizePath(url, base)
   }
   const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
 
