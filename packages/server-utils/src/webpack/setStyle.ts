@@ -3,12 +3,11 @@ import { Config } from 'ssr-types/cjs/third-party/webpack-chain'
 import type { loader } from 'webpack'
 import { loadConfig } from '../loadConfig'
 
-const genericNames = require('generic-names')
-
 const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
+  const genericNames = require('generic-names')
+  const MiniCssExtractPlugin = require('mini-css-extract-plugin')
   const { css, isDev } = loadConfig()
   const { include, exclude, importLoaders, loader, isServer } = options
-  const MiniCssExtractPlugin = require('mini-css-extract-plugin')
   const loadModule = require.resolve
 
   const userCssloaderOptions = css?.().loaderOptions?.cssOptions ?? {}

@@ -3,8 +3,6 @@ import { proxyOptions } from 'ssr-types'
 import { getCwd } from '../cwd'
 import { loadConfig } from '../loadConfig'
 
-const koaConnect = require('koa2-connect')
-
 function onProxyReq (proxyReq: any, req: any) {
   Object.keys(req.headers).forEach(function (key) {
     proxyReq.setHeader(key, req.headers[key])
@@ -28,7 +26,7 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
   if (isDev) {
     if (process.env.BUILD_TOOL === 'vite') {
       // 本地开发请求走 vite 接管 前端文件夹请求
-      const { createServer } = require('vite')
+      const { createServer } = await import('vite')
       const vite = await createServer({
         root: getCwd(),
         logLevel: 'info',
@@ -36,6 +34,11 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
           middlewareMode: true
         }
       })
+      if (!global.vite) {
+        global.vite = vite
+        process.env.BUILD_TOOL === 'vite'
+      }
+      const koaConnect = require('koa2-connect')
       proxyMiddlewaresArr.push(express ? vite.middlewares : koaConnect(vite.middlewares))
     } else {
       // Webpack 场景 在本地开发阶段代理 serverPort 的资源到 fePort

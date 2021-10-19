@@ -31,7 +31,7 @@ yargs
     debug(`loadPlugin time: ${Date.now() - start} ms`)
     spinner.stop()
     debug(`parseFeRoutes ending time: ${Date.now() - start} ms`)
-    await plugin.clientPlugin?.start?.(argv)
+    // await plugin.clientPlugin?.start?.(argv)
     debug(`clientPlugin ending time: ${Date.now() - start} ms`)
     await cleanOutDir()
     await plugin.serverPlugin?.start?.(argv)
