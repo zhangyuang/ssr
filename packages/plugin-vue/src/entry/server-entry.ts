@@ -8,7 +8,7 @@ import * as Routes from '_build/ssr-temporary-routes'
 import { IServerFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 
-const { FeRoutes, App, layoutFetch, Layout, BASE_NAME } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
   const router = createRouter()
@@ -20,7 +20,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
   let url = ctx.request.url
 
-  if (BASE_NAME) {
+  if (PrefixRouterBase) {
     path = normalizePath(path)
     url = normalizePath(url)
   }

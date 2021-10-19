@@ -8,7 +8,7 @@ import { ESMFetch, IClientFeRouteItem, RoutesType } from './interface'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
 
-const { FeRoutes, App, layoutFetch, BASE_NAME } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch, PrefixRouterBase } = Routes as RoutesType
 declare const module: any
 
 async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<any>, router: RouteLocationNormalizedLoaded) {
@@ -27,7 +27,7 @@ async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<an
 const clientRender = async () => {
   const store = createStore()
   const router = createRouter({
-    base: BASE_NAME
+    base: PrefixRouterBase
   })
 
   if (window.__INITIAL_DATA__) {
@@ -65,8 +65,8 @@ const clientRender = async () => {
   if (!window.__USE_SSR__) {
     // 如果是 csr 模式 则需要客户端获取首页需要的数据
     let pathname = location.pathname
-    if (BASE_NAME) {
-      pathname = normalizePath(pathname, BASE_NAME)
+    if (PrefixRouterBase) {
+      pathname = normalizePath(pathname, PrefixRouterBase)
     }
     const { fetch } = findRoute<IClientFeRouteItem>(FeRoutes, pathname)
     const combineAysncData = await getAsyncCombineData(fetch, store, router.currentRoute.value)

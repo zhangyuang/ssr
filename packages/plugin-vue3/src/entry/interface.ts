@@ -21,7 +21,7 @@ export interface RoutesType {
   App: VNode
   layoutFetch?: (params: {store: Store<any>, router: RouteLocationNormalizedLoaded}, ctx?: ISSRContext) => Promise<any>
   FeRoutes: IClientFeRouteItem[]
-  BASE_NAME?: string
+  PrefixRouterBase?: string
   store?: StoreOptions<any>
 }
 

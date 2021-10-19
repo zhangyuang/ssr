@@ -8,7 +8,7 @@ import { IWindow, LayoutProps, ReactClientESMFeRouteItem, ReactClientRoutesType 
 import * as Routes from '_build/ssr-temporary-routes'
 import { AppContext } from './context'
 
-const { FeRoutes, layoutFetch, App, BASE_NAME } = Routes as ReactClientRoutesType
+const { FeRoutes, layoutFetch, App, PrefixRouterBase } = Routes as ReactClientRoutesType
 
 declare const module: any
 declare const window: IWindow
@@ -18,9 +18,9 @@ const clientRender = async (): Promise<void> => {
     return props.children!
   }
   // 客户端渲染||hydrate
-  const routes = await preloadComponent(FeRoutes, BASE_NAME)
+  const routes = await preloadComponent(FeRoutes, PrefixRouterBase)
   ReactDOM[window.__USE_SSR__ ? 'hydrate' : 'render'](
-    <BrowserRouter basename={BASE_NAME}>
+    <BrowserRouter basename={PrefixRouterBase}>
       <AppContext>
         <Switch>
           <IApp>

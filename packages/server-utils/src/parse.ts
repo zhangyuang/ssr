@@ -105,7 +105,7 @@ const parseFeRoutes = async () => {
         export { default as App } from "${AppPath}"
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
         ${store ? 'export { store }' : ''}
-        ${prefix ? `export const BASE_NAME='${prefix}'` : ''}
+        ${prefix ? `export const PrefixRouterBase='${prefix}'` : ''}
         `
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
@@ -131,7 +131,7 @@ const parseFeRoutes = async () => {
         ${accessReactApp ? 'export { default as App } from "@/components/layout/App.tsx"' : ''}
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
         ${accessStore ? 'export * from "@/store/index.ts"' : ''}
-        ${prefix ? `export const BASE_NAME='${prefix}'` : ''}
+        ${prefix ? `export const PrefixRouterBase='${prefix}'` : ''}
 
         `
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {

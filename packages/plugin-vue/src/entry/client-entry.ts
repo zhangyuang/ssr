@@ -7,7 +7,7 @@ import { ESMFetch, RoutesType, IClientFeRouteItem } from './interface'
 import { createRouter, createStore, RealVue } from './create'
 
 declare const module: any
-const { FeRoutes, App, layoutFetch, BASE_NAME } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch, PrefixRouterBase } = Routes as RoutesType
 
 async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<any>, router: Route) {
   let layoutFetchData = {}
@@ -25,7 +25,7 @@ async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<an
 const clientRender = async () => {
   const store = createStore()
   const router = createRouter({
-    base: BASE_NAME
+    base: PrefixRouterBase
   })
 
   if (window.__INITIAL_DATA__) {
@@ -48,8 +48,8 @@ const clientRender = async () => {
     if (!window.__USE_SSR__) {
       // 如果是 csr 模式 则需要客户端获取首页需要的数据
       let pathname = location.pathname
-      if (BASE_NAME) {
-        pathname = normalizePath(pathname, BASE_NAME)
+      if (PrefixRouterBase) {
+        pathname = normalizePath(pathname, PrefixRouterBase)
       }
       const route = findRoute<IClientFeRouteItem>(FeRoutes, pathname)
       const { fetch } = route
