@@ -88,7 +88,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .rule('compileBabel')
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
     .exclude
-    .add(/node_modules/)
+    .add(/node_modules|core-js/)
     .end()
 
   const module = chain.module
