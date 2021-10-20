@@ -49,6 +49,10 @@ const clientRender = async () => {
   app.use(router)
 
   await router.isReady()
+
+  window.__VUE_APP__ = app
+  window.__VUE_ROUTER__ = router
+
   router.beforeResolve(async (to, from, next) => {
     // 找到要进入的组件并提前执行 fetch 函数
     const { fetch } = findRoute<IClientFeRouteItem>(FeRoutes, to.path)
@@ -73,9 +77,6 @@ const clientRender = async () => {
     fetchData = combineAysncData
     asyncData.value = Object.assign(asyncData.value, combineAysncData)
   }
-
-  window.__VUE_APP__ = app
-  window.__VUE_ROUTER__ = router
 
   app.mount('#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
   if (!window.__USE_VITE__) {
