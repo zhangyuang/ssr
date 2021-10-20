@@ -44,20 +44,17 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
-  if (isCsr) {
-    logGreen(`Current path ${path} use csr render mode`)
-  }
-  const { fetch } = routeItem
-  // 根据 path 匹配 router-view 展示的组件
-  router.push(url)
-
   let layoutFetchData = {}
   let fetchData = {}
 
   if (!isCsr) {
+    logGreen(`Current path ${path} use csr render mode`)
+
+    const { fetch } = routeItem
+    router.push(url)
+
     // csr 下不需要服务端获取数据
     if (parallelFetch) {
-      // 是否
       [layoutFetchData, fetchData] = await Promise.all([
         layoutFetch ? layoutFetch({ store, router: router.currentRoute }, ctx) : Promise.resolve({}),
         fetch ? fetch({ store, router: router.currentRoute }, ctx) : Promise.resolve({})
@@ -167,12 +164,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           h('template', {
             slot: 'children'
           }, [
-            isCsr ? h('div', {
-              // csr 只需渲染一个空的 <div id="app"> 不需要渲染具体的组件也就是 router-view
-              attrs: {
-                id: 'app'
-              }
-            }) : h(App, {
+            h(App, {
               props: { ctx, config, fetchData: combineAysncData }
             })
           ]),

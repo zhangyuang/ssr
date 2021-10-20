@@ -45,21 +45,16 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const manifest = viteMode ? {} : await getManifest()
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
-  if (isCsr) {
-    logGreen(`Current path ${path} use csr render mode`)
-  }
-
-  const { fetch } = routeItem
-  router.push(url)
-  await router.isReady()
-
   let layoutFetchData = {}
   let fetchData = {}
 
   if (!isCsr) {
+    logGreen(`Current path ${path} use csr render mode`)
+    const { fetch } = routeItem
+    router.push(url)
+    await router.isReady()
     // csr 下不需要服务端获取数据
     if (parallelFetch) {
-      // 是否
       [layoutFetchData, fetchData] = await Promise.all([
         layoutFetch ? layoutFetch({ store, router: router.currentRoute.value }, ctx) : Promise.resolve({}),
         fetch ? fetch({ store, router: router.currentRoute.value }, ctx) : Promise.resolve({})
@@ -145,11 +140,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
             }) : null,
 
           customeHeadScript: () => customeHeadScriptArr,
+
           customeFooterScript: () => customeFooterScriptArr,
 
-          children: isCsr ? () => h('div', {
-            id: 'app'
-          }) : () => h(App, { ctx, config, asyncData, fetchData: combineAysncData }),
+          children: () => h(App, { ctx, config, asyncData, fetchData: combineAysncData }),
 
           initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${viteMode}` })
             : () => h('script', { innerHTML: `window.__USE_VITE__=${viteMode}` }),
