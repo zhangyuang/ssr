@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.31](https://github.com/ykfe/ssr/compare/v5.6.30...v5.6.31) (2021-10-21)
+
+
+### Bug Fixes
+
+* csr log info ([e55a66d](https://github.com/ykfe/ssr/commit/e55a66d154ce607e5bf4c77be2334f5801983cf3))
+
+
+
+
+
 ## [5.6.27](https://github.com/ykfe/ssr/compare/v5.6.26...v5.6.27) (2021-10-14)
 
 
