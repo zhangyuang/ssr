@@ -48,8 +48,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   let fetchData = {}
 
   if (!isCsr) {
-    logGreen(`Current path ${path} use csr render mode`)
-
     const { fetch } = routeItem
     router.push(url)
 
@@ -67,6 +65,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
         fetchData = await fetch({ store, router: router.currentRoute }, ctx)
       }
     }
+  } else {
+    logGreen(`Current path ${path} use csr render mode`)
   }
   const combineAysncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
   const state = Object.assign({}, store.state ?? {}, combineAysncData)

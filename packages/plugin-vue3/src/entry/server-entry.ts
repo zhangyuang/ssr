@@ -49,7 +49,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   let fetchData = {}
 
   if (!isCsr) {
-    logGreen(`Current path ${path} use csr render mode`)
     const { fetch } = routeItem
     router.push(url)
     await router.isReady()
@@ -67,6 +66,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         fetchData = await fetch({ store, router: router.currentRoute.value }, ctx)
       }
     }
+  } else {
+    logGreen(`Current path ${path} use csr render mode`)
   }
 
   const combineAysncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
