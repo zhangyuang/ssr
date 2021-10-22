@@ -1025,8 +1025,6 @@ module.exports = {
       .add(resolve(process.cwd(), './web/assets/icon'))
       .end()
 
-    chain.module.rules.delete('svg')
-
     chain.module
       .rule('svg')
       .test(/\.(svg)(\?.*)?$/)
