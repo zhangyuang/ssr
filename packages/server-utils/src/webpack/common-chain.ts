@@ -14,6 +14,7 @@ const addImageChain = (chain: WebpackChain, isServer: boolean) => {
       name: '[name].[hash:8].[ext]',
       // require 图片的时候不用加 .default
       esModule: false,
+      limit: 4096,
       fallback: {
         loader: loadModule('file-loader'),
         options: {

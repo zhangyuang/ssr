@@ -160,18 +160,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   })
 
   chain.module
-    .rule('svg')
-    .test(/\.(svg)(\?.*)?$/)
-    .use('file-loader')
-    .loader(loadModule('file-loader'))
-    .options({
-      name: 'static/[name].[hash:8].[ext]',
-      esModule: false,
-      emitFile: !isServer
-    })
-    .end()
-
-  chain.module
     .rule('fonts')
     .test(/\.(eot|woff|woff2|ttf)(\?.*)?$/)
     .use('file-loader')
