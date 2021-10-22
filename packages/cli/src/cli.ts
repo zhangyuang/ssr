@@ -7,7 +7,7 @@ import { handleEnv } from './env'
 import { generateHtml } from './html'
 import { cleanOutDir } from './clean'
 
-const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
+const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 同步代码 block 导致 loading 暂停
 const debug = require('debug')('ssr:cli')
 const start = Date.now()
 const spinner = {
