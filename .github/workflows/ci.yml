@@ -44,7 +44,6 @@ jobs:
         run: | 
           yarn && yarn build:only && yarn run build
           node scripts/scripts.js --publishDoc
-          node scripts/scripts.js --changelog
           cd example/midway-react-ssr && yarn && yarn add vite @vitejs/plugin-react-refresh -D
           cd ../midway-vue-ssr && yarn && yarn add vite vite-plugin-vue2@1.4.4 -D
           cd ../midway-vue3-ssr && yarn && yarn add vite @vitejs/plugin-vue -D
@@ -97,7 +96,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - run: cd docs && yarn && npm run deploy
+      - run: node scripts/scripts.js --changelog && cd docs && yarn && npm run deploy
         env:
           SERVERLESS_DEPLOY_AK: ${{ secrets.SERVERLESS_DEPLOY_AK }}
           SERVERLESS_DEPLOY_ENDPOINT: ${{ secrets.SERVERLESS_DEPLOY_ENDPOINT }}

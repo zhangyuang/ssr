@@ -8,7 +8,7 @@
     <div class="nav">
       <div class="nav_left" />
       <searchBox />
-      <router-link v-for="item in headerItems" :key="item.path" :to="item.path">
+      <router-link v-for="item in (headerItems.slice(0,3))" :key="item.path" :to="item.path">
         {{ item.label }}
       </router-link>
       <a target="__black" href="https://github.com/ykfe/ssr">
