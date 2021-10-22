@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.32](https://github.com/ykfe/ssr/compare/v5.6.31...v5.6.32) (2021-10-22)
+
+
+### Features
+
+* upgrade file-loader url-loader add changelog dependencies ([9f65e13](https://github.com/ykfe/ssr/commit/9f65e1324da02ed9768fe5f49431d2b043a3891c))
+
+
+
+
+
 ## [5.6.31](https://github.com/ykfe/ssr/compare/v5.6.30...v5.6.31) (2021-10-21)
 
 
