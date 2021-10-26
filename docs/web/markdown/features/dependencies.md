@@ -1,33 +1,8 @@
-{
-  "name": "ssr-plugin-vue",
-  "version": "5.6.33",
-  "description": "plugin-vue for ssr",
-  "main": "./cjs/index.js",
-  "module": "./esm/index.js",
-  "sideEffects": false,
-  "scripts": {
-    "build": "concurrently \"tsc -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc -p ./tsconfig.esm.json --inlineSourceMap false\"",
-    "build:only": "concurrently \"tsc-transpile-only --skipLibCheck -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc-transpile-only --skipLibCheck -p ./tsconfig.esm.json --inlineSourceMap false\"",
-    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \"",
-    "watch:cjs": "tsc -w -p ./tsconfig.cjs.json"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ykfe/ssr.git"
-  },
-  "keywords": [
-    "cli",
-    "serverless",
-    "ssr",
-    "vue",
-    "react"
-  ],
-  "author": "zhangyuang",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/ykfe/ssr/issues"
-  },
-  "homepage": "https://github.com/ykfe/ssr#readme",
+# 底层依赖模块版本
+
+在这里可以查看到框架底层依赖的第三方包版本，方便查看对应版本的文档
+
+```js
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.9.6",
@@ -67,7 +42,4 @@
     "webpack-manifest-plugin": "^2.2.0",
     "webpackbar": "^5.0.0-3"
   },
-  "devDependencies": {
-    "@types/serialize-javascript": "^5.0.0"
-  }
-}
+```

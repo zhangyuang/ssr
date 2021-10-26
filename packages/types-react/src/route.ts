@@ -21,7 +21,7 @@ export interface ProvisionalFeRouteItem {
   component?: string
 }
 
-export type ReactFetch = (params: ISSRContext | RouteComponentProps) => Promise<any>
+export type ReactFetch = (params: ISSRContext | RouteComponentProps, state?: any) => Promise<any>
 
 export type ReactESMFetch = () => Promise<{
   default: ReactFetch
@@ -62,7 +62,7 @@ export interface ReactRoutesType {
   App?: React.FC
   layoutFetch: ReactFetch
   FeRoutes: ReactServerESMFeRouteItem[]
-  BASE_NAME?: string
+  PrefixRouterBase?: string
   state?: any
   reducer?: any
 }
@@ -71,7 +71,7 @@ export interface ReactClientRoutesType {
   App?: React.FC
   layoutFetch: ReactFetch
   FeRoutes: ReactClientESMFeRouteItem[]
-  BASE_NAME?: string
+  PrefixRouterBase?: string
   state?: any
   reducer?: any
 }

@@ -15,7 +15,6 @@ import debounce from 'lodash.debounce'
 import { match, initConfig } from './matchQuery/index'
 import searchShow from './components/searchShow/index.vue'
 
-
 export default defineComponent({
   components: {
     searchShow

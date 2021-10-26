@@ -110,10 +110,12 @@ export default async ({ store, router }, ctx?: ISSRContext) => {
 
 #### React 场景
 
-在 `React` 场景，我们在 `服务端` 会将当前请求的上下文 `ctx` 作为参数传入。开发者可以通过 `ctx` 拿到上面挂载的 `自定义 Service` 或者 `ctx.request` 等对象信息。这取决于服务端代码调用 `core` 模块时的具体入参实现。在前端路由切换时，也就是客户端 `fetch` 数据场景。我们会将 `react-router` 提供的[路由元信息](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/d90beb2f67881d54384c0f9b42a03233aaba1ca1/types/react-router/index.d.ts#L69)作为参数传入
+在 `React` 场景，我们在 `服务端` 会将当前请求的上下文 `ctx` 作为参数传入。开发者可以通过 `ctx` 拿到上面挂载的 `自定义 Service` 或者 `ctx.request` 等对象信息。这取决于服务端代码调用 `core` 模块时的具体入参实现。在前端路由切换时，也就是客户端 `fetch` 数据场景。我们会将 `react-router` 提供的[路由元信息](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/d90beb2f67881d54384c0f9b42a03233aaba1ca1/types/react-router/index.d.ts#L69)作为参数传入。
+
+补充：在最新版本中，我们新增在客户端 `fetch` 阶段传入当前的 `context` 数据作为第二个参数传入 `fetch`，开发者可根据当前数据内容进行判断是否发起新的请求
 
 ```js
-export default async params => {
+export default async (params: ISSRContext | RouteComponentProps, state: any) => {
   const data = __isBrowser__ ? await (await window.fetch(`/api/detail/${(ctx as RouteComponentProps<{id: string}>).match.params.id}`)).json() : await ctx.apiDeatilservice.index(ctx.params.id)
   return {
     // 建议根据模块给数据加上 namespace防止数据覆盖

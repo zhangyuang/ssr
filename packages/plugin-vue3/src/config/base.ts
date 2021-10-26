@@ -157,7 +157,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .rule('compile')
     .test(/\.(js|mjs|ts|tsx)$/)
     .exclude
-    .add(/node_modules/)
+    .add(/node_modules|core-js/)
     .end()
 
   const module = chain.module
@@ -188,18 +188,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     importLoaders: 2,
     isServer
   })
-
-  chain.module
-    .rule('svg')
-    .test(/\.(svg)(\?.*)?$/)
-    .use('file-loader')
-    .loader(loadModule('file-loader'))
-    .options({
-      name: 'static/[name].[hash:8].[ext]',
-      esModule: false,
-      emitFile: !isServer
-    })
-    .end()
 
   chain.module
     .rule('fonts')

@@ -32,6 +32,10 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
         logLevel: 'info',
         server: {
           middlewareMode: true
+        },
+        define: {
+          __isBrowser__: false,
+          isVite: true
         }
       })
       if (!global.vite) {

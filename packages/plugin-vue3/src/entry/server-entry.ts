@@ -8,24 +8,26 @@ import * as Routes from '_build/ssr-temporary-routes'
 import { IServerFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 
-const { FeRoutes, App, layoutFetch, Layout, BASE_NAME } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender, prefix } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   global.__VUE_PROD_DEVTOOLS__ = global.__VUE_PROD_DEVTOOLS__ ?? false
+
+  const store = createStore()
   const router = createRouter()
+  const viteMode = process.env.BUILD_TOOL === 'vite'
 
   let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
   let url = ctx.request.url
+  const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
 
-  if (BASE_NAME) {
-    path = normalizePath(path)
-    url = normalizePath(url)
+  if (base) {
+    path = normalizePath(path, base)
+    url = normalizePath(url, base)
   }
-  const store = createStore()
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender } = config
   const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
-  const viteMode = process.env.BUILD_TOOL === 'vite'
 
   if (!routeItem) {
     throw new Error(`
@@ -43,21 +45,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const manifest = viteMode ? {} : await getManifest()
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
-  if (isCsr) {
-    logGreen(`Current path ${path} use csr render mode`)
-  }
-
-  const { fetch } = routeItem
-  router.push(url)
-  await router.isReady()
-
   let layoutFetchData = {}
   let fetchData = {}
 
   if (!isCsr) {
+    const { fetch } = routeItem
+    router.push(url)
+    await router.isReady()
     // csr 下不需要服务端获取数据
     if (parallelFetch) {
-      // 是否
       [layoutFetchData, fetchData] = await Promise.all([
         layoutFetch ? layoutFetch({ store, router: router.currentRoute.value }, ctx) : Promise.resolve({}),
         fetch ? fetch({ store, router: router.currentRoute.value }, ctx) : Promise.resolve({})
@@ -70,6 +66,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         fetchData = await fetch({ store, router: router.currentRoute.value }, ctx)
       }
     }
+  } else {
+    logGreen(`Current path ${path} use csr render mode`)
   }
 
   const combineAysncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
@@ -107,19 +105,25 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     })
   )
 
-  const customeHeadScriptArr = customeHeadScript?.map((item) => h(
+  const customeHeadScriptArr = customeHeadScript ? (Array.isArray(customeHeadScript) ? customeHeadScript : customeHeadScript(ctx))?.map((item) => h(
     'script',
     Object.assign({}, item.describe, {
       innerHTML: item.content
     })
-  )
-  ) ?? []
+  )) : []
 
   if (disableClientRender) {
     customeHeadScriptArr.push(h('script', {
       innerHTML: 'window.__disableClientRender__ = true'
     }))
   }
+  const customeFooterScriptArr = customeFooterScript ? (Array.isArray(customeFooterScript) ? customeFooterScript : customeFooterScript(ctx))?.map((item) => h(
+    'script',
+    Object.assign({}, item.describe, {
+      innerHTML: item.content
+    })
+  )) : []
+
   const state = Object.assign({}, store.state ?? {}, asyncData.value)
 
   const app = createSSRApp({
@@ -137,18 +141,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
             }) : null,
 
           customeHeadScript: () => customeHeadScriptArr,
-          customeFooterScript: () => customeFooterScript?.map((item) =>
-            h(
-              'script',
-              Object.assign({}, item.describe, {
-                innerHTML: item.content
-              })
-            )
-          ),
 
-          children: isCsr ? () => h('div', {
-            id: 'app'
-          }) : () => h(App, { ctx, config, asyncData, fetchData: combineAysncData }),
+          customeFooterScript: () => customeFooterScriptArr,
+
+          children: () => h(App, { ctx, config, asyncData, fetchData: combineAysncData }),
 
           initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${viteMode}` })
             : () => h('script', { innerHTML: `window.__USE_VITE__=${viteMode}` }),
@@ -163,7 +159,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   app.use(router)
   app.use(store)
-  await router.isReady()
 
   window.__VUE_APP__ = app
   return app

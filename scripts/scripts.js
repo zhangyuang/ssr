@@ -95,6 +95,10 @@ if (argv.publishDoc) {
   })
 }
 
+if (argv.changelog) {
+  execSync('cp CHANGELOG.md docs/web/markdown/changelog/index.md', options)
+}
+
 if (argv.sync) {
   const shell = 'cnpm sync '
   const linkedPackage = fs.readdirSync('./packages').map(item => item !== '.DS_Store' && item === 'cli' ? 'ssr' : 'ssr-' + item).join(' ')

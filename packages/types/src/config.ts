@@ -1,6 +1,12 @@
 import { Configuration, Options, RuleSetCondition } from 'webpack'
 import { Argv } from './yargs'
 import { Config } from './third-party/webpack-chain'
+import { ISSRContext } from './ctx'
+
+export type Script = Array<{
+  describe: object
+  content: string
+}>
 export interface IConfig {
   cwd: string
   isDev: boolean
@@ -42,14 +48,8 @@ export interface IConfig {
   mode: string
   webpackDevServerConfig?: any
   stream: boolean
-  customeHeadScript?: Array<{
-    describe: object
-    content: string
-  }>
-  customeFooterScript?: Array<{
-    describe: object
-    content: string
-  }>
+  customeHeadScript?: (ctx: ISSRContext) => Script | Script
+  customeFooterScript?: (ctx: ISSRContext) => Script | Script
   locale?: {
     enable: false
   }

@@ -12,15 +12,15 @@ interface fetchType {
   layoutFetch?: ReactFetch
 }
 
-const fetchAndDispatch = async ({ fetch, layoutFetch }: fetchType, dispatch: React.Dispatch<Action>, props: RouteComponentProps) => {
+const fetchAndDispatch = async ({ fetch, layoutFetch }: fetchType, dispatch: React.Dispatch<Action>, props: RouteComponentProps, state: any) => {
   let asyncLayoutData = {}
   let asyncData = {}
   if (layoutFetch) {
-    asyncLayoutData = await layoutFetch(props)
+    asyncLayoutData = await layoutFetch(props, state)
   }
   if (fetch) {
     const fetchFn = await fetch()
-    asyncData = await fetchFn.default(props)
+    asyncData = await fetchFn.default(props, state)
   }
 
   const combineData = Object.assign({}, asyncLayoutData, asyncData)
@@ -34,7 +34,7 @@ const fetchAndDispatch = async ({ fetch, layoutFetch }: fetchType, dispatch: Rea
 function wrapComponent (WrappedComponent: DynamicFC|StaticFC) {
   return withRouter(props => {
     const [ready, setReady] = useState(WrappedComponent.name !== 'dynamicComponent')
-    const { dispatch } = useContext(window.STORE_CONTEXT)
+    const { state, dispatch } = useContext(window.STORE_CONTEXT)
 
     useEffect(() => {
       didMount()
@@ -45,7 +45,7 @@ function wrapComponent (WrappedComponent: DynamicFC|StaticFC) {
         // ssr 情况下只有路由切换的时候才需要调用 fetch
         // csr 情况首次访问页面也需要调用 fetch
         const { fetch, layoutFetch } = (WrappedComponent as DynamicFC)
-        await fetchAndDispatch({ fetch, layoutFetch }, dispatch, props)
+        await fetchAndDispatch({ fetch, layoutFetch }, dispatch, props, state)
         if (WrappedComponent.name === 'dynamicComponent') {
           WrappedComponent = (await (WrappedComponent as DynamicFC)()).default
           WrappedComponent.fetch = fetch

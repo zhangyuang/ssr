@@ -100,6 +100,9 @@
 <td align="center" style="height: 100px"><a href="https://m.film.qq.com/x/tva-vip-center/" target="_blank"><img src="https://res.wx.qq.com/op_res/x7sWI9AfUK1QwH0EDhKp4e_bGWxYOQ_1RlZqBFy9JntJzaE4aRzNhVgmxLNloAFpSQ-mBr9X9pux3QlV9QHHvQ" width="200px;margin: 20px 0" alt="腾讯视频"/><br />
 <a href="https://m.film.qq.com/x/tva-vip-center/" target="_bvlank"><b>腾讯视频
 </b></a></td>
+<td align="center" style="height: 100px"><a href="https://blog.dreamer2q.wang/" target="_blank"><img src="https://res.wx.qq.com/op_res/MxxGgjPFRiTgjiReUefs2aMce-SgNvxxTB9U87YYhcOu6KPw9er7r2Lc0ne-b90nFstTUpc8REDwpxfUreKV1g" width="200px;margin: 20px 0" alt="Dream2qBlog"/><br />
+<a href="https://blog.dreamer2q.wang/" target="_bvlank"><b>个人博客
+</b></a></td>
 </tr>
 </table>
 
@@ -256,7 +259,7 @@ $ npm run start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 
 <div style="display:flex">
 <img src="https://res.wx.qq.com/op_res/7F1t4Z8yCHWilehbcFGjAj0yVn0URMiWBGVJa-TVu_eqw5IwUXA2kPYBnfX6YRHy0FVBB-yC6l0IEL02QTJkLg" width="300">
-<img src="https://res.wx.qq.com/op_res/iV7F10umsjENeklg1vaIZOXZ0Ye__gpnK8Js6sz5R2TlbvaeikeHIj6peLPN0-Z5nHEvjcGd5kE0Ii5Q1Iy0fw" width="300">
+<img src="https://res.wx.qq.com/op_res/e7Z2b52xu-o9gaw-FgTmM8w-ohj_vFoDwC9JFl7N3o4c5oThkJ1plMT4D2GrC0rheo5mu5pkgHSw6s-Z8UZhvg" width="300">
 </div>
 
 ## 前端开发手册

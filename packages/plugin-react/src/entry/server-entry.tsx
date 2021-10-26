@@ -9,16 +9,17 @@ import { serverContext } from './create-context'
 // @ts-expect-error
 import Layout from '@/components/layout/index.tsx'
 
-const { FeRoutes, layoutFetch, BASE_NAME, state } = Routes as ReactRoutesType
+const { FeRoutes, layoutFetch, PrefixRouterBase, state } = Routes as ReactRoutesType
 
 declare const global: IGlobal
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
-  const { cssOrder, jsOrder, dynamic, mode, chunkName, parallelFetch, disableClientRender } = config
+  const { cssOrder, jsOrder, dynamic, mode, chunkName, parallelFetch, disableClientRender, prefix } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
-  if (BASE_NAME) {
-    path = normalizePath(path)
+  const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
+  if (base) {
+    path = normalizePath(path, base)
   }
   const { window } = global
   const routeItem = findRoute<ReactServerESMFeRouteItem>(FeRoutes, path)

@@ -7,7 +7,7 @@ import { handleEnv } from './env'
 import { generateHtml } from './html'
 import { cleanOutDir } from './clean'
 
-const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 require 占用进程导致 loading 暂停
+const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 同步代码 block 导致 loading 暂停
 const debug = require('debug')('ssr:cli')
 const start = Date.now()
 const spinner = {
@@ -23,32 +23,45 @@ yargs
   .command('start', 'Start Server', {}, async (argv: Argv) => {
     spinner.start()
     await handleEnv(argv, spinner)
-
     const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
-    await parseFeRoutes()
     debug(`require ssr-server-utils time: ${Date.now() - start} ms`)
+
+    await parseFeRoutes()
+    debug(`parseFeRoutes ending time: ${Date.now() - start} ms`)
     const plugin = loadPlugin()
     debug(`loadPlugin time: ${Date.now() - start} ms`)
     spinner.stop()
-    debug(`parseFeRoutes ending time: ${Date.now() - start} ms`)
-    // await plugin.clientPlugin?.start?.(argv)
-    debug(`clientPlugin ending time: ${Date.now() - start} ms`)
-    await cleanOutDir()
-    await plugin.serverPlugin?.start?.(argv)
-    debug(`serverPlugin ending time: ${Date.now() - start} ms`)
+
+    if (process.env.BUILD_TOOL === 'vite') {
+      await cleanOutDir()
+      await plugin.serverPlugin?.start?.(argv)
+      debug(`serverPlugin ending time: ${Date.now() - start} ms`)
+    } else {
+      await plugin.clientPlugin?.start?.(argv)
+      debug(`clientPlugin ending time: ${Date.now() - start} ms`)
+      await cleanOutDir()
+      await plugin.serverPlugin?.start?.(argv)
+      debug(`serverPlugin ending time: ${Date.now() - start} ms`)
+    }
   })
   .command('build', 'Build server and client files', {}, async (argv: Argv) => {
     spinner.start()
     process.env.NODE_ENV = 'production'
-
     const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
     await parseFeRoutes()
     const plugin = loadPlugin()
     spinner.stop()
-    await plugin.clientPlugin?.build?.(argv)
-    await cleanOutDir()
-    await plugin.serverPlugin?.build?.(argv)
-    await generateHtml(argv)
+
+    if (process.env.BUILD_TOOL === 'vite') {
+      await cleanOutDir()
+      await plugin.serverPlugin?.build?.(argv)
+      await generateHtml(argv)
+    } else {
+      await plugin.clientPlugin?.build?.(argv)
+      await cleanOutDir()
+      await plugin.serverPlugin?.build?.(argv)
+      await generateHtml(argv)
+    }
   })
   .command('deploy', 'Deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {
     process.env.NODE_ENV = 'production'

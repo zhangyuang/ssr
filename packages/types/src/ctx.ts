@@ -21,6 +21,7 @@ export interface IWindow extends Window {
   STORE_CONTEXT?: any
   __USE_VITE__?: boolean
   __disableClientRender__?: boolean
+  prefix?: string
 }
 
 export interface IGlobal {

@@ -18,9 +18,10 @@ const getPrefix = () => {
   }
   return prefix
 }
-export const normalizePath = (path: string) => {
+
+export const normalizePath = (path: string, base?: string) => {
   // 移除 prefix 保证 path 跟路由表能够正确匹配
-  const prefix = getPrefix()
+  const prefix = base ?? getPrefix()
   if (prefix) {
     path = path.replace(prefix, '')
   }
@@ -113,12 +114,12 @@ const parseFeRoutes = async () => {
         export { default as App } from "${AppPath}"
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
         ${store ? 'export { store }' : ''}
-        ${prefix ? `export const BASE_NAME='${prefix}'` : ''}
+        ${prefix ? `export const PrefixRouterBase='${prefix}'` : ''}
         `
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
         if (dynamic) {
-          return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+          return `"component":  (__isBrowser__ || isVite) ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
         } else {
           return `"component":  require('${m2.replace(/\^/g, '"')}').default`
         }
@@ -126,7 +127,7 @@ const parseFeRoutes = async () => {
       re.lastIndex = 0
       routes = routes.replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
-        return `"fetch": __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+        return `"fetch": (__isBrowser__ || isVite) ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
       })
     } else {
       // React 场景
@@ -139,13 +140,13 @@ const parseFeRoutes = async () => {
         ${accessReactApp ? 'export { default as App } from "@/components/layout/App.tsx"' : ''}
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
         ${accessStore ? 'export * from "@/store/index.ts"' : ''}
-        ${prefix ? `export const BASE_NAME='${prefix}'` : ''}
+        ${prefix ? `export const PrefixRouterBase='${prefix}'` : ''}
 
         `
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
         if (dynamic) {
-          return `"component":  __isBrowser__ ? function dynamicComponent () {
+          return `"component":  (__isBrowser__ || isVite) ? function dynamicComponent () {
             return import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}')
           } : require('${m2.replace(/\^/g, '"')}').default
           `
@@ -156,7 +157,7 @@ const parseFeRoutes = async () => {
       re.lastIndex = 0
       routes = routes.replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
-        return `"fetch": __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+        return `"fetch": (__isBrowser__ || isVite) ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
       })
     }
   } else {

@@ -13,6 +13,7 @@ declare global {
     __VUE_ROUTER__?: Router
     __USE_VITE__?: boolean
     __disableClientRender__?: boolean
+    prefix?: string
   }
   var __VUE_PROD_DEVTOOLS__: boolean
   const __isBrowser__: Boolean

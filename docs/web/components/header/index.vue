@@ -8,7 +8,7 @@
     <div class="nav">
       <div class="nav_left" />
       <searchBox />
-      <router-link v-for="item in headerItems" :key="item.path" :to="item.path">
+      <router-link v-for="item in (isMobile ? headerItems.slice(0,3) : headerItems)" :key="item.path" :to="item.path">
         {{ item.label }}
       </router-link>
       <a target="__black" href="https://github.com/ykfe/ssr">
@@ -30,12 +30,20 @@ export default defineComponent({
   components: {
     searchBox
   },
+  inject: ['asyncData'],
   data () {
     return {
       headerItems: webSiteConfig.header.items,
-      activePath: '/'
+      activePath: '/',
+      isMobile: true
     }
+  },
+  created () {
+    const { ua } = this.asyncData.value
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(ua)
+    this.isMobile = isMobile
   }
+
 })
 </script>
 
