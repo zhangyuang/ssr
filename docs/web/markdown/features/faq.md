@@ -112,20 +112,18 @@ export default {
 由于 `ssr` 场景我们需要开启 `external` 选项，我们需要将 `node_modules` 上传到云服务上。但我们在发布时只会安装 `dependencies` 依赖。绝大部分情况下包大小不会超过 50MB，如果确实是因为 `dependencies` 依赖大小超出，可以配置 [whiteList](./api$config#whiteList) 来将该依赖与服务端 `bundle` 打在一起。若能正常运行，则可以将该依赖移除 `dependencies` 加入 `devDependencies`，在发布时则不会安装该依赖
 ## Vue3 全局注册组件
 
-由于 `Vue3` 创建 `app` 实例以及安装插件和注册自定义全局指令的方式与 `Vue2` 差别较大。
-
-为了方便用户开发，我们会将框架底层创建的 `VueApp` 实例挂在 `window.__VUE_APP__` 上方，在服务端/客户端都能够访问该属性。但由于服务端和客户端环境有差异。我们不建议过度依赖该属性。
+最新更新： 在之后的版本中我们将移除 `window.__VUE_APP__` 的挂载逻辑，请使用旧写法的开发者按照下面的写法改造
 
 ```js
 // 在 layout/App.vue 中做一些全局的任务
-const foo = window // error, 不要在这里去访问 window 此时 window 在服务端尚未创建
+import { getCurrentInstance } from 'vue'
+import { Button } from 'vant'
 
 export default {
-  // 在服务端渲染过程中我们只能够在 export 出的对象实际执行时才能够拿到服务端创建的  window 对象
   created () {
-    const app = window.__VUE_APP__
-    app.component('my-component', Component)
-    app.use('xxxPlugin', Plugin)
+    const app = getCurrentInstance()?.appContext.app
+    app?.use(Button)
+    app?.component('xxx')
   }
 }
 ```
@@ -173,9 +171,7 @@ module.exports = {
 
 ## Vue 修改路由钩子
 
-在 `Vue2`, `Vue3` 中我们同样将 `vue-router` 创建出来的实例挂在了 `window.__VUE_ROUTER__` 上方，开发者也可以直接在组件中通过 `this.$router` 来获取。额外的在 `Vue3` 中你也可以直接通过 [useRouter](https://next.router.vuejs.org/guide/advanced/composition-api.html#accessing-the-router-and-current-route-inside-setup) 来直接拿到 `Router` 实例。
-
-通过 `window.__VUE_ROUTER__.beforeEach` 等 `API` 来修改 `Router` 行为，我们建议该操作放在 `layout/App.vue` 中组件的 `mounted` 生命周期注册。
+可以直接在组件中通过 `this.$router` 来获取。额外的在 `Vue3` 中你也可以直接通过 [useRouter](https://next.router.vuejs.org/guide/advanced/composition-api.html#accessing-the-router-and-current-route-inside-setup) 来直接拿到 `Router` 实例。
 
 ## Vue 添加路由行为
 
@@ -214,6 +210,7 @@ module.exports = {
 在 `layout/App.vue` 做配置初始化
 
 ```js
+import { getCurrentInstance } from 'vue'
 import { createI18n } from 'vue-i18n'
 
 const i18n = createI18n({
@@ -227,7 +224,7 @@ const i18n = createI18n({
 
 export default {
   created () {
-    const app = window.__VUE_APP__
+    const app = const app = getCurrentInstance()?.appContext.app
     app.use(i18n)
   }
 }
@@ -379,7 +376,7 @@ export default {
     Button
   },
   created() {
-    const app = window.__VUE_APP__
+    const app = const app = getCurrentInstance()?.appContext.app
     app.use(Button)
   }
 }
