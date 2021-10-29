@@ -74,8 +74,6 @@ $ DEBUG=ssr:* npm start
 
 尽管我们不建议开发者来手动编写路由结构，但如果你一定要这么做的话，我们提供以下示例。
 
-关于为什么要使用 `__isBrowser__` 常量做环境区分，一方面是为了客户端兼容 `vite` 场景需要 `All in ESM`, 一方面是为了实现最简单的[代码分割](./features$dynamic)功能。
-
 ### Vue 场景
 
 在 Vue 场景我们按照如下规范编写前端路由结构
@@ -85,15 +83,15 @@ import * as store from '@/store/index.ts' // 使用了 Vuex 则需要引入 stor
 
 export const FeRoutes = [
     {   
-        "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts') : require('@/pages/detail/fetch.ts').default,
+        "fetch": () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts'),
         "path": "/detail/:id",
-        "component": __isBrowser__ ? () => import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id.vue') : require('@/pages/detail/render$id.vue').default,
+        "component": () => import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id.vue'),
         "webpackChunkName": "detail-id"
     },
     {
-        "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts') : require('@/pages/index/fetch.ts').default,
+        "fetch": () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts'),
         "path": "/",
-        "component": __isBrowser__ ? () => import(/* webpackChunkName: "index" */ '@/pages/index/render.vue') : require('@/pages/index/render.vue').default,
+        "component": () => import(/* webpackChunkName: "index" */ '@/pages/index/render.vue'),
         "webpackChunkName": "index"
     }
 ]
@@ -110,18 +108,20 @@ export { store }
 import React from "react"
 export const FeRoutes = [
 {
-  "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts') : require('@/pages/detail/fetch.ts').default,
+  "fetch": () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts'),
   "path": "/detail/:id",
-  "component": __isBrowser__ ?  function dynamicComponent () {
+  "component":  function dynamicComponent () {
     return import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id.tsx')
-   } : require('@/pages/detail/render$id.tsx').default, "webpackChunkName": "detail-id"
+   }, 
+   "webpackChunkName": "detail-id"
 }, 
 {
-  "fetch": __isBrowser__ ? () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts') : require('@/pages/index/fetch.ts').default,
+  "fetch": () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts')
   "path": "/",
-  "component": __isBrowser__ ? function dynamicComponent () {
+  "component": function dynamicComponent () {
     return import(/* webpackChunkName: "index" */ '@/pages/index/render.tsx')
-   } : require('@/pages/index/render.tsx').default, "webpackChunkName": "index"
+   }, 
+   "webpackChunkName": "index"
 }]
 export { default as App } from "@/components/layout/App.tsx"
 ```
