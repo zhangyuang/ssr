@@ -14,7 +14,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender, prefix } = config
   const router = createRouter()
   const store = createStore()
-  const viteMode = process.env.BUILD_TOOL === 'vite'
+  const viteMode = process.env['BUILD_TOOL'] === 'vite'
   sync(store, router)
 
   let path = ctx.request.path // 这里取 pathname 不能够包含 queryString

@@ -8,7 +8,7 @@ export function vuePlugin () {
       const { startServerBuild } = await import('ssr-webpack/cjs/server')
       const { getServerWebpack } = await import('./config/server')
       const serverConfigChain = new WebpackChain()
-      if (process.env.BUILD_TOOL === 'vite') {
+      if (process.env['BUILD_TOOL'] === 'vite') {
         await startServerBuild(getServerWebpack(serverConfigChain))
       } else {
         const { startClientServer } = await import('ssr-webpack')

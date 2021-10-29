@@ -32,7 +32,7 @@ yargs
     debug(`loadPlugin time: ${Date.now() - start} ms`)
     spinner.stop()
 
-    if (process.env.BUILD_TOOL === 'vite') {
+    if (process.env['BUILD_TOOL'] === 'vite') {
       await cleanOutDir()
       await plugin.serverPlugin?.start?.(argv)
       debug(`serverPlugin ending time: ${Date.now() - start} ms`)
@@ -52,7 +52,7 @@ yargs
     const plugin = loadPlugin()
     spinner.stop()
 
-    if (process.env.BUILD_TOOL === 'vite') {
+    if (process.env['BUILD_TOOL'] === 'vite') {
       await cleanOutDir()
       await plugin.serverPlugin?.build?.(argv)
       await generateHtml(argv)

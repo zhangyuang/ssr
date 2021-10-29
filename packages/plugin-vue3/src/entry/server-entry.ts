@@ -17,7 +17,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   const store = createStore()
   const router = createRouter()
-  const viteMode = process.env.BUILD_TOOL === 'vite'
+  const viteMode = process.env['BUILD_TOOL'] === 'vite'
 
   let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
   let url = ctx.request.url
@@ -41,7 +41,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
     dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
   }
-
   const manifest = viteMode ? {} : await getManifest()
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
@@ -50,6 +49,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   if (!isCsr) {
     const { fetch } = routeItem
+    const viteFetch = await fetch()
     router.push(url)
     await router.isReady()
     // csr 下不需要服务端获取数据
@@ -63,13 +63,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         layoutFetchData = await layoutFetch({ store, router: router.currentRoute.value }, ctx)
       }
       if (fetch) {
-        fetchData = await fetch({ store, router: router.currentRoute.value }, ctx)
+        fetchData = await viteFetch.default({ store, router: router.currentRoute.value }, ctx)
       }
     }
   } else {
     logGreen(`Current path ${path} use csr render mode`)
   }
-
   const combineAysncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
   const asyncData = {
     value: combineAysncData

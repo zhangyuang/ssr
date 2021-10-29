@@ -2,28 +2,24 @@ import { promises as fs } from 'fs'
 import { resolve, join } from 'path'
 import * as Shell from 'shelljs'
 import { ParseFeRouteItem } from 'ssr-types'
-import debug from 'debug'
 import { getCwd, getPagesDir, getFeDir, accessFile, normalizeStartPath } from './cwd'
 import { loadConfig } from './loadConfig'
 
-const ssrDebug = debug('ssr:parse')
+const debug = require('debug')('ssr:parse')
+const { dynamic, publicPath, isDev, routerPriority, routerOptimize } = loadConfig()
 const pageDir = getPagesDir()
 const cwd = getCwd()
+let { prefix } = loadConfig()
 
-const getPrefix = () => {
-  let { prefix } = loadConfig()
-
-  if (prefix) {
-    prefix = normalizeStartPath(prefix)
-  }
-  return prefix
+if (prefix) {
+  prefix = normalizeStartPath(prefix)
 }
 
 export const normalizePath = (path: string, base?: string) => {
   // 移除 prefix 保证 path 跟路由表能够正确匹配
-  const prefix = base ?? getPrefix()
-  if (prefix) {
-    path = path.replace(prefix, '')
+  const baseName = base ?? prefix
+  if (baseName) {
+    path = path.replace(baseName, '')
   }
   if (path.startsWith('//')) {
     path = path.replace('//', '/')
@@ -43,13 +39,11 @@ export const normalizePublicPath = (path: string) => {
 }
 
 export const getOutputPublicPath = () => {
-  const { publicPath, isDev } = loadConfig()
   const path = normalizePublicPath(publicPath)
   return isDev ? path : `${path}client/`
 }
 
 export const getImageOutputPath = () => {
-  const { publicPath, isDev } = loadConfig()
   const imagePath = 'static/images'
   const normalizePath = normalizePublicPath(publicPath)
   return {
@@ -59,10 +53,8 @@ export const getImageOutputPath = () => {
 }
 
 const parseFeRoutes = async () => {
-  const { dynamic, routerPriority, routerOptimize } = loadConfig()
-  const prefix = getPrefix()
   const isVue = require(join(cwd, './package.json')).dependencies.vue
-  const viteMode = process.env.BUILD_TOOL === 'vite'
+  const viteMode = process.env['BUILD_TOOL'] === 'vite'
   if (viteMode && !dynamic) {
     console.log('vite模式禁止关闭 dynamic ')
     return
@@ -97,7 +89,7 @@ const parseFeRoutes = async () => {
       }
     }
 
-    ssrDebug('Before the result that parse web folder to routes is: ', arr)
+    debug('Before the result that parse web folder to routes is: ', arr)
 
     if (isVue) {
       const layoutPath = '@/components/layout/index.vue'
@@ -119,7 +111,7 @@ const parseFeRoutes = async () => {
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
         if (dynamic) {
-          return `"component":  (__isBrowser__ || isVite) ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+          return `"component":  (__isBrowser__ || __isVite__) ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
         } else {
           return `"component":  require('${m2.replace(/\^/g, '"')}').default`
         }
@@ -127,7 +119,7 @@ const parseFeRoutes = async () => {
       re.lastIndex = 0
       routes = routes.replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
-        return `"fetch": (__isBrowser__ || isVite) ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+        return `"fetch": (__isBrowser__ || __isVite__) ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
       })
     } else {
       // React 场景
@@ -141,12 +133,11 @@ const parseFeRoutes = async () => {
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
         ${accessStore ? 'export * from "@/store/index.ts"' : ''}
         ${prefix ? `export const PrefixRouterBase='${prefix}'` : ''}
-
         `
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
         if (dynamic) {
-          return `"component":  (__isBrowser__ || isVite) ? function dynamicComponent () {
+          return `"component":  (__isBrowser__ || __isVite__) ? function dynamicComponent () {
             return import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}')
           } : require('${m2.replace(/\^/g, '"')}').default
           `
@@ -157,7 +148,7 @@ const parseFeRoutes = async () => {
       re.lastIndex = 0
       routes = routes.replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
-        return `"fetch": (__isBrowser__ || isVite) ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+        return `"fetch": (__isBrowser__ || __isVite__) ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
       })
     }
   } else {
@@ -165,7 +156,7 @@ const parseFeRoutes = async () => {
     routes = (await fs.readFile(join(getFeDir(), './route.ts'))).toString()
   }
 
-  ssrDebug('After the result that parse web folder to routes is: ', routes)
+  debug('After the result that parse web folder to routes is: ', routes)
   await writeRoutes(routes)
 }
 

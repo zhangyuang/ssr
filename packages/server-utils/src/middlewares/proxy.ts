@@ -1,5 +1,6 @@
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import { proxyOptions } from 'ssr-types'
+import { ViteDevServer } from 'vite'
 import { getCwd } from '../cwd'
 import { loadConfig } from '../loadConfig'
 
@@ -8,6 +9,8 @@ function onProxyReq (proxyReq: any, req: any) {
     proxyReq.setHeader(key, req.headers[key])
   })
 }
+
+let viteServer: ViteDevServer|null = null
 
 const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
   const { fePort, proxy, isDev, https, proxyKey } = loadConfig()
@@ -24,10 +27,10 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
   }
   proxy && registerProxy(proxy)
   if (isDev) {
-    if (process.env.BUILD_TOOL === 'vite') {
+    if (process.env['BUILD_TOOL'] === 'vite') {
       // 本地开发请求走 vite 接管 前端文件夹请求
       const { createServer } = await import('vite')
-      const vite = await createServer({
+      viteServer = await createServer({
         root: getCwd(),
         logLevel: 'info',
         server: {
@@ -35,15 +38,11 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
         },
         define: {
           __isBrowser__: false,
-          isVite: true
+          __isVite__: true
         }
       })
-      if (!global.vite) {
-        global.vite = vite
-        process.env.BUILD_TOOL === 'vite'
-      }
       const koaConnect = require('koa2-connect')
-      proxyMiddlewaresArr.push(express ? vite.middlewares : koaConnect(vite.middlewares))
+      proxyMiddlewaresArr.push(express ? viteServer.middlewares : koaConnect(viteServer.middlewares))
     } else {
       // Webpack 场景 在本地开发阶段代理 serverPort 的资源到 fePort
       // 例如 http://localhost:3000/static/js/page.chunk.js -> http://localhost:8888/static/js/page.chunk.js
@@ -69,6 +68,9 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
   return proxyMiddlewaresArr
 }
 
+const getViteServer = () => viteServer
+
 export {
-  getDevProxyMiddlewaresArr
+  getDevProxyMiddlewaresArr,
+  getViteServer
 }

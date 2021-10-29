@@ -23,7 +23,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   }
   const { window } = global
   const routeItem = findRoute<ReactServerESMFeRouteItem>(FeRoutes, path)
-  const viteMode = process.env.BUILD_TOOL === 'vite'
+  const viteMode = process.env['BUILD_TOOL'] === 'vite'
 
   if (!routeItem) {
     throw new Error(`

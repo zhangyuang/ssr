@@ -30,7 +30,8 @@
   "homepage": "https://github.com/ykfe/ssr#readme",
   "devDependencies": {
     "@types/shelljs": "^0.8.7",
-    "concurrently": "^5.1.0"
+    "concurrently": "^5.1.0",
+    "vite": "^2.1.5"
   },
   "dependencies": {
     "axios": "^0.21.1",
