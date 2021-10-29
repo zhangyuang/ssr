@@ -3,7 +3,7 @@ import { Route } from 'vue-router'
 import { findRoute, normalizePath } from 'ssr-client-utils'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
-import { ESMFetch, RoutesType, IClientFeRouteItem } from './interface'
+import { ESMFetch, RoutesType, IFeRouteItem } from './interface'
 import { createRouter, createStore, RealVue } from './create'
 
 declare const module: any
@@ -51,13 +51,13 @@ const clientRender = async () => {
       if (PrefixRouterBase) {
         pathname = normalizePath(pathname, PrefixRouterBase)
       }
-      const route = findRoute<IClientFeRouteItem>(FeRoutes, pathname)
+      const route = findRoute<IFeRouteItem>(FeRoutes, pathname)
       const { fetch } = route
       fetchData = await getAsyncCombineData(fetch, store, router.currentRoute)
     }
     router.beforeResolve(async (to, from, next) => {
       // 找到要进入的组件并提前执行 fetch 函数
-      const route = findRoute<IClientFeRouteItem>(FeRoutes, to.path)
+      const route = findRoute<IFeRouteItem>(FeRoutes, to.path)
       const { fetch } = route
       const combineAysncData = await getAsyncCombineData(fetch, store, to)
       to.matched?.forEach(item => {

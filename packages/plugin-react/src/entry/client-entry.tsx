@@ -3,12 +3,12 @@ import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { preloadComponent } from 'ssr-client-utils'
 import { wrapComponent } from 'ssr-hoc-react'
-import { IWindow, LayoutProps, ReactClientESMFeRouteItem, ReactClientRoutesType } from 'ssr-types-react'
+import { IWindow, LayoutProps, ReactESMFeRouteItem, ReactRoutesType } from 'ssr-types-react'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
 import { AppContext } from './context'
 
-const { FeRoutes, layoutFetch, App, PrefixRouterBase } = Routes as ReactClientRoutesType
+const { FeRoutes, layoutFetch, App, PrefixRouterBase } = Routes as ReactRoutesType
 
 declare const module: any
 declare const window: IWindow
@@ -28,7 +28,7 @@ const clientRender = async (): Promise<void> => {
             <Switch>
               {
                 // 使用高阶组件wrapComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
-                routes.map((item: ReactClientESMFeRouteItem) => {
+                routes.map((item: ReactESMFeRouteItem) => {
                   const { fetch, component, path } = item
                   component.fetch = fetch
                   component.layoutFetch = layoutFetch

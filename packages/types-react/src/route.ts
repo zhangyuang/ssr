@@ -43,14 +43,7 @@ export interface DynamicFC<T = {}> extends React.FC<T>{
   layoutFetch?: ReactFetch
 }
 
-export type ReactServerESMFeRouteItem<T = {}, U={}> = {
-  path: string
-  fetch?: ReactFetch
-  component: StaticFC<T>
-  webpackChunkName: string
-} & U
-
-export type ReactClientESMFeRouteItem<T = {}, U={}> = {
+export type ReactESMFeRouteItem<T = {}, U={}> = {
   path: string
   fetch?: ReactESMFetch
   component: DynamicFC<T>
@@ -61,16 +54,7 @@ export interface ReactRoutesType {
   Layout: React.FC<LayoutProps>
   App?: React.FC
   layoutFetch: ReactFetch
-  FeRoutes: ReactServerESMFeRouteItem[]
-  PrefixRouterBase?: string
-  state?: any
-  reducer?: any
-}
-export interface ReactClientRoutesType {
-  Layout: React.FC<LayoutProps>
-  App?: React.FC
-  layoutFetch: ReactFetch
-  FeRoutes: ReactClientESMFeRouteItem[]
+  FeRoutes: ReactESMFeRouteItem[]
   PrefixRouterBase?: string
   state?: any
   reducer?: any

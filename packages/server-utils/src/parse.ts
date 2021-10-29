@@ -111,15 +111,15 @@ const parseFeRoutes = async () => {
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
         if (dynamic) {
-          return `"component":  __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+          return `"component": () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}')`
         } else {
-          return `"component":  require('${m2.replace(/\^/g, '"')}').default`
+          return `"component": require('${m2.replace(/\^/g, '"')}').default`
         }
       })
       re.lastIndex = 0
       routes = routes.replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
-        return `"fetch": __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+        return `"fetch": () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}')`
       })
     } else {
       // React 场景
@@ -138,18 +138,18 @@ const parseFeRoutes = async () => {
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
         if (dynamic) {
-          return `"component":  __isBrowser__ ? function dynamicComponent () {
+          return `"component": function dynamicComponent () {
             return import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}')
-          } : require('${m2.replace(/\^/g, '"')}').default
+          }
           `
         } else {
-          return `"component":  require('${m2.replace(/\^/g, '"')}').default`
+          return `"component": require('${m2.replace(/\^/g, '"')}').default`
         }
       })
       re.lastIndex = 0
       routes = routes.replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
-        return `"fetch": __isBrowser__ ? () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}') : require('${m2.replace(/\^/g, '"')}').default`
+        return `"fetch": () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}')`
       })
     }
   } else {

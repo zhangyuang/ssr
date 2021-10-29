@@ -3,7 +3,7 @@ import { Store } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { findRoute, normalizePath } from 'ssr-client-utils'
 import { createRouter, createStore } from './create'
-import { ESMFetch, IClientFeRouteItem, RoutesType } from './interface'
+import { ESMFetch, IFeRouteItem, RoutesType } from './interface'
 
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
@@ -62,7 +62,7 @@ const clientRender = async () => {
 
   router.beforeResolve(async (to, from, next) => {
     // 找到要进入的组件并提前执行 fetch 函数
-    const { fetch } = findRoute<IClientFeRouteItem>(FeRoutes, to.path)
+    const { fetch } = findRoute<IFeRouteItem>(FeRoutes, to.path)
     const combineAysncData = await getAsyncCombineData(fetch, store, to)
     to.matched?.forEach(item => {
       item.props.default = Object.assign({}, item.props.default ?? {}, {
@@ -79,7 +79,7 @@ const clientRender = async () => {
     if (PrefixRouterBase) {
       pathname = normalizePath(pathname, PrefixRouterBase)
     }
-    const { fetch } = findRoute<IClientFeRouteItem>(FeRoutes, pathname)
+    const { fetch } = findRoute<IFeRouteItem>(FeRoutes, pathname)
     const combineAysncData = await getAsyncCombineData(fetch, store, router.currentRoute.value)
     fetchData = combineAysncData
     asyncData.value = Object.assign(asyncData.value, combineAysncData)
