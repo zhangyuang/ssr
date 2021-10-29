@@ -1,8 +1,11 @@
+import { resolve } from 'path'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import { proxyOptions } from 'ssr-types'
 import { ViteDevServer } from 'vite'
 import { getCwd } from '../cwd'
 import { loadConfig } from '../loadConfig'
+
+const koaConnect = require('koa2-connect')
 
 function onProxyReq (proxyReq: any, req: any) {
   Object.keys(req.headers).forEach(function (key) {
@@ -31,15 +34,7 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
       // 本地开发请求走 vite 接管 前端文件夹请求
       const { createServer } = await import('vite')
       viteServer = await createServer({
-        root: getCwd(),
-        logLevel: 'info',
-        server: {
-          middlewareMode: true
-        },
-        define: {
-          __isBrowser__: false,
-          __isVite__: true
-        }
+        configFile: resolve(getCwd(), './vite.server.config.js')
       })
       const koaConnect = require('koa2-connect')
       proxyMiddlewaresArr.push(express ? viteServer.middlewares : koaConnect(viteServer.middlewares))

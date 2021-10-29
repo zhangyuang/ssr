@@ -12,13 +12,12 @@ const { FeRoutes, App, layoutFetch, PrefixRouterBase } = Routes as RoutesType
 declare const module: any
 
 async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<any>, router: RouteLocationNormalizedLoaded) {
-  let layoutFetchData = {}
+  const layoutFetchData = layoutFetch ? await layoutFetch({ store, router }) : {}
   let fetchData = {}
-  if (layoutFetch) {
-    layoutFetchData = await layoutFetch({ store, router })
-  }
+
   if (fetch) {
     const fetchFn = await fetch()
+    console.log(fetchFn.default)
     fetchData = await fetchFn.default({ store, router })
   }
   return Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})

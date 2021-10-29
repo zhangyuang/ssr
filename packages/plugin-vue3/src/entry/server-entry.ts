@@ -5,7 +5,7 @@ import { ISSRContext, IConfig } from 'ssr-types'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
-import { IServerFeRouteItem, RoutesType } from './interface'
+import { IServerFeRouteItem, RoutesType, ESMFetch } from './interface'
 import { createRouter, createStore } from './create'
 
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
@@ -18,7 +18,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   const store = createStore()
   const router = createRouter()
-  const viteMode = process.env['BUILD_TOOL'] === 'vite'
+  const isVite = process.env['BUILD_TOOL'] === 'vite'
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
   let { path, url } = ctx.request
 
@@ -37,11 +37,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   let dynamicCssOrder = cssOrder
-  if (dynamic && !viteMode) {
+  if (dynamic && !isVite) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
     dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
   }
-  const manifest = viteMode ? {} : await getManifest()
+  const manifest = isVite ? {} : await getManifest()
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
   let layoutFetchData = {}
@@ -49,22 +49,18 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   if (!isCsr) {
     const { fetch } = routeItem
-    const viteFetch = await fetch()
     router.push(url)
     await router.isReady()
     // csr 下不需要服务端获取数据
+    const currentFetch = isVite ? (await (fetch as ESMFetch)()).default : fetch
     if (parallelFetch) {
       [layoutFetchData, fetchData] = await Promise.all([
-        layoutFetch ? layoutFetch({ store, router: router.currentRoute.value }, ctx) : Promise.resolve({}),
-        fetch ? fetch({ store, router: router.currentRoute.value }, ctx) : Promise.resolve({})
+        layoutFetch ? layoutFetch({ store, router: router.currentRoute.value }, ctx) : {},
+        currentFetch ? currentFetch({ store, router: router.currentRoute.value }, ctx) : {}
       ])
     } else {
-      if (layoutFetch) {
-        layoutFetchData = await layoutFetch({ store, router: router.currentRoute.value }, ctx)
-      }
-      if (fetch) {
-        fetchData = await viteFetch.default({ store, router: router.currentRoute.value }, ctx)
-      }
+      layoutFetchData = layoutFetch ? await layoutFetch({ store, router: router.currentRoute.value }, ctx) : {}
+      fetchData = currentFetch ? await currentFetch({ store, router: router.currentRoute.value }, ctx) : {}
     }
   } else {
     logGreen(`Current path ${path} use csr render mode`)
@@ -75,7 +71,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   const injectCss: Vue.VNode[] = []
-  if (viteMode) {
+  if (isVite) {
     injectCss.push(
       h('link', {
         rel: 'stylesheet',
@@ -95,7 +91,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     })
   }
 
-  const injectScript = viteMode ? h('script', {
+  const injectScript = isVite ? h('script', {
     type: 'module',
     src: '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'
   }) : jsOrder.map(js =>
@@ -131,7 +127,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       {
         remInitial: () => h('script', { innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }),
 
-        viteClient: viteMode ? () =>
+        viteClient: isVite ? () =>
           h('script', {
             type: 'module',
             src: '/@vite/client'
@@ -143,8 +139,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
         children: () => h(App, { ctx, config, asyncData, fetchData: combineAysncData }),
 
-        initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${viteMode}` })
-          : () => h('script', { innerHTML: `window.__USE_VITE__=${viteMode}` }),
+        initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${isVite}` })
+          : () => h('script', { innerHTML: `window.__USE_VITE__=${isVite}` }),
 
         cssInject: () => injectCss,
 

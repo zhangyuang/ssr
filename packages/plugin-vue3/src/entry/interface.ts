@@ -13,7 +13,7 @@ export type IClientFeRouteItem = ESMFeRouteItem<{
 }>
 
 export type IServerFeRouteItem = ESMFeRouteItem<{
-  fetch?: Fetch
+  fetch?: Fetch|ESMFetch
 }>
 
 export interface RoutesType {
