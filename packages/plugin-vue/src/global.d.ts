@@ -9,7 +9,6 @@ declare global {
     __INITIAL_DATA__?: IWindow['__INITIAL_DATA__']
     STORE_CONTEXT?: IWindow['STORE_CONTEXT']
     __USE_VITE__?: boolean
-    __VUE_ROUTER__?: Router
     __disableClientRender__?: boolean
     prefix?: string
   }
