@@ -198,7 +198,7 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         if (webpackChunkName.startsWith('-')) {
           webpackChunkName = webpackChunkName.replace('-', '')
         }
-        route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles).replace(/\/:\??/, '-').replace('?', '-optional')}`
+        route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles).replace(/\/:\??/g, '-').replace('?', '-optional')}`
       } else if (pageFiles.includes('render')) {
         /* /news */
         route.path = `${prefixPath}`
