@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.1](https://github.com/ykfe/ssr/compare/v5.7.0...v5.7.1) (2021-11-01)
+
+
+### Bug Fixes
+
+* multiply dynamic params ([bf4d150](https://github.com/ykfe/ssr/commit/bf4d150c3459ccf645459f137a8236e5cd65491d))
+
+
+
+
+
 # [5.7.0](https://github.com/ykfe/ssr/compare/v5.6.33...v5.7.0) (2021-10-29)
 
 
