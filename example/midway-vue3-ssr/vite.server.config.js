@@ -10,9 +10,6 @@ module.exports = {
   plugins: [
     vuePlugin()
   ],
-  server: {
-    middlewareMode: 'ssr'
-  },
   define: {
     __isBrowser__: false
   },

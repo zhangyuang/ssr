@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { loadConfig, getCwd, StringToStream, mergeStream2, getViteServer } from 'ssr-server-utils'
+import { loadConfig, getCwd, StringToStream, mergeStream2 } from 'ssr-server-utils'
 import { renderToNodeStream, renderToString } from '@vue/server-renderer'
 import { ISSRContext, UserConfig, ExpressContext, IConfig } from 'ssr-types'
 
@@ -35,7 +35,11 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
 }
 
 async function viteRender (ctx: ISSRContext, config: IConfig) {
-  const { serverRender } = await getViteServer()!.ssrLoadModule(resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js'))
+  const { createServer } = await import('vite')
+  const viteServer = await createServer({
+    configFile: resolve(getCwd(), './vite.server.config.js')
+  })
+  const { serverRender } = await viteServer.ssrLoadModule(resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js'))
   const serverRes = await serverRender(ctx, config)
   return serverRes
 }

@@ -1,8 +1,5 @@
-import { resolve } from 'path'
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import { proxyOptions } from 'ssr-types'
-import { ViteDevServer } from 'vite'
-import { getCwd } from '../cwd'
 import { loadConfig } from '../loadConfig'
 
 const koaConnect = require('koa2-connect')
@@ -12,8 +9,6 @@ function onProxyReq (proxyReq: any, req: any) {
     proxyReq.setHeader(key, req.headers[key])
   })
 }
-
-let viteServer: ViteDevServer|null = null
 
 const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
   const { fePort, proxy, isDev, https, proxyKey } = loadConfig()
@@ -33,8 +28,10 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
     if (process.env['BUILD_TOOL'] === 'vite') {
       // 本地开发请求走 vite 接管 前端文件夹请求
       const { createServer } = await import('vite')
-      viteServer = await createServer({
-        configFile: resolve(getCwd(), './vite.server.config.js')
+      const viteServer = await createServer({
+        server: {
+          middlewareMode: 'ssr'
+        }
       })
       const koaConnect = require('koa2-connect')
       proxyMiddlewaresArr.push(express ? viteServer.middlewares : koaConnect(viteServer.middlewares))
@@ -63,9 +60,6 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
   return proxyMiddlewaresArr
 }
 
-const getViteServer = () => viteServer
-
 export {
-  getDevProxyMiddlewaresArr,
-  getViteServer
+  getDevProxyMiddlewaresArr
 }

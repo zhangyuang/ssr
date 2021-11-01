@@ -17,7 +17,6 @@ async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<an
 
   if (fetch) {
     const fetchFn = await fetch()
-    console.log(fetchFn.default)
     fetchData = await fetchFn.default({ store, router })
   }
   return Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
