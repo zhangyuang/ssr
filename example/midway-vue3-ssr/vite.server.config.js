@@ -14,7 +14,6 @@ module.exports = {
     middlewareMode: 'ssr'
   },
   define: {
-    __isVite__: true,
     __isBrowser__: false
   },
   resolve: {

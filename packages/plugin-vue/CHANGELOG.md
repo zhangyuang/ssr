@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [5.7.0](https://github.com/ykfe/ssr/compare/v5.6.33...v5.7.0) (2021-10-29)
+
+
+### Features
+
+* remove __isBrowser__ when generate routes table ([650af13](https://github.com/ykfe/ssr/commit/650af1344fd7ce56f4b4c4f3946923a691adfb87))
+
+
+
+
+
 ## [5.6.33](https://github.com/ykfe/ssr/compare/v5.6.31...v5.6.33) (2021-10-22)
 
 

@@ -5,15 +5,14 @@ import { ISSRContext, IConfig } from 'ssr-types'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
-import { IServerFeRouteItem, RoutesType, ESMFetch } from './interface'
+import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender, prefix } = config
-  const window = global.window ?? {}// 防止覆盖上层应用自己定义的 window 对象
-  global.window = addWarning(window) // 添加 warning，之后的版本移除 window.__VUE_APP__
+  global.window = global.window ?? {}// 防止覆盖上层应用自己定义的 window 对象
   global.__VUE_PROD_DEVTOOLS__ = global.__VUE_PROD_DEVTOOLS__ ?? false
 
   const store = createStore()
@@ -27,7 +26,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     url = normalizePath(url, base)
   }
 
-  const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
+  const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
 
   if (!routeItem) {
     throw new Error(`
@@ -48,15 +47,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   let fetchData = {}
 
   if (!isCsr) {
-    const { fetch } = routeItem
     router.push(url)
     await router.isReady()
+    const { fetch } = routeItem
+    const currentFetch = fetch ? (await fetch()).default : null
     // csr 下不需要服务端获取数据
-    const currentFetch = isVite ? (await (fetch as ESMFetch)()).default : fetch
     if (parallelFetch) {
       [layoutFetchData, fetchData] = await Promise.all([
-        layoutFetch ? layoutFetch({ store, router: router.currentRoute.value }, ctx) : {},
-        currentFetch ? currentFetch({ store, router: router.currentRoute.value }, ctx) : {}
+        layoutFetch ? layoutFetch({ store, router: router.currentRoute.value }, ctx) : Promise.resolve({}),
+        currentFetch ? currentFetch({ store, router: router.currentRoute.value }, ctx) : Promise.resolve({})
       ])
     } else {
       layoutFetchData = layoutFetch ? await layoutFetch({ store, router: router.currentRoute.value }, ctx) : {}
@@ -156,17 +155,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   return app
 }
 
-const addWarning = (obj: any) => {
-  return new Proxy(obj, {
-    get (target, p) {
-      if (p === '__VUE_APP__') {
-        console.warn(`window.__VUE_APP__ will be removed in the future version please read doc and use the latest code to get app instance
-          \n http://doc.ssr-fc.com/docs/features$faq#Vue3%20%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C%E7%BB%84%E4%BB%B6`)
-      }
-      return target[p]
-    }
-  })
-}
 export {
   serverRender
 }

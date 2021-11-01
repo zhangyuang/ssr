@@ -5,7 +5,7 @@ import { sync } from 'vuex-router-sync'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
-import { IServerFeRouteItem, RoutesType } from './interface'
+import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
@@ -24,7 +24,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
     url = normalizePath(url, base)
   }
 
-  const routeItem = findRoute<IServerFeRouteItem>(FeRoutes, path)
+  const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
 
   if (!routeItem) {
     throw new Error(`
@@ -48,21 +48,18 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
 
   if (!isCsr) {
     const { fetch } = routeItem
+    const currentFetch = fetch ? (await fetch()).default : null
     router.push(url)
 
     // csr 下不需要服务端获取数据
     if (parallelFetch) {
       [layoutFetchData, fetchData] = await Promise.all([
         layoutFetch ? layoutFetch({ store, router: router.currentRoute }, ctx) : Promise.resolve({}),
-        fetch ? fetch({ store, router: router.currentRoute }, ctx) : Promise.resolve({})
+        currentFetch ? currentFetch({ store, router: router.currentRoute }, ctx) : Promise.resolve({})
       ])
     } else {
-      if (layoutFetch) {
-        layoutFetchData = await layoutFetch({ store, router: router.currentRoute }, ctx)
-      }
-      if (fetch) {
-        fetchData = await fetch({ store, router: router.currentRoute }, ctx)
-      }
+      layoutFetchData = layoutFetch ? await layoutFetch({ store, router: router.currentRoute }, ctx) : {}
+      fetchData = currentFetch ? await currentFetch({ store, router: router.currentRoute }, ctx) : {}
     }
   } else {
     logGreen(`Current path ${path} use csr render mode`)

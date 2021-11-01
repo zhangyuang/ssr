@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { useReducer } from 'react'
-import { IProps, Action, IWindow, ReactClientRoutesType } from 'ssr-types-react'
+import { IProps, Action, IWindow, ReactRoutesType } from 'ssr-types-react'
 
 import { clientContext as Context } from './create-context'
 
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
 
-const { reducer, state } = Routes as ReactClientRoutesType
+const { reducer, state } = Routes as ReactRoutesType
 
 const userState = state ?? {}
 const userReducer = reducer ?? function () {}

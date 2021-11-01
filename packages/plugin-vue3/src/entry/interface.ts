@@ -8,19 +8,15 @@ export type ESMFetch = () => Promise<{
   default: Fetch
 }>
 
-export type IClientFeRouteItem = ESMFeRouteItem<{
+export type IFeRouteItem = ESMFeRouteItem<{
   fetch?: ESMFetch
-}>
-
-export type IServerFeRouteItem = ESMFeRouteItem<{
-  fetch?: Fetch|ESMFetch
 }>
 
 export interface RoutesType {
   Layout: VNode
   App: VNode
   layoutFetch?: (params: {store: Store<any>, router: RouteLocationNormalizedLoaded}, ctx?: ISSRContext) => Promise<any>
-  FeRoutes: IClientFeRouteItem[]
+  FeRoutes: IFeRouteItem[]
   PrefixRouterBase?: string
   store?: StoreOptions<any>
 }

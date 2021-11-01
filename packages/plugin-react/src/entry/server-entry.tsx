@@ -1,7 +1,6 @@
 import * as React from 'react'
-import { StaticRouter } from 'react-router-dom'
 import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
-import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactServerESMFeRouteItem } from 'ssr-types-react'
+import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactESMFeRouteItem } from 'ssr-types-react'
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
@@ -22,7 +21,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     path = normalizePath(path, base)
   }
   const { window } = global
-  const routeItem = findRoute<ReactServerESMFeRouteItem>(FeRoutes, path)
+  const routeItem = findRoute<ReactESMFeRouteItem>(FeRoutes, path)
   const viteMode = process.env['BUILD_TOOL'] === 'vite'
 
   if (!routeItem) {
@@ -82,7 +81,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
   const { component, fetch } = routeItem
-  const Component = component
+  const Component = (await component()).default
 
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
@@ -90,19 +89,17 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   let layoutFetchData = {}
   let fetchData = {}
   if (!isCsr) {
+    const currentFetch = fetch ? (await fetch()).default : null
+
     // csr 下不需要服务端获取数据
     if (parallelFetch) {
       [layoutFetchData, fetchData] = await Promise.all([
         layoutFetch ? layoutFetch(ctx) : Promise.resolve({}),
-        fetch ? fetch(ctx) : Promise.resolve({})
+        currentFetch ? currentFetch(ctx) : Promise.resolve({})
       ])
     } else {
-      if (layoutFetch) {
-        layoutFetchData = await layoutFetch(ctx)
-      }
-      if (fetch) {
-        fetchData = await fetch(ctx)
-      }
+      layoutFetchData = layoutFetch ? await layoutFetch(ctx) : {}
+      fetchData = currentFetch ? await currentFetch(ctx) : {}
     }
   }
   const combineData = isCsr ? null : Object.assign(state ?? {}, layoutFetchData ?? {}, fetchData ?? {})
@@ -115,13 +112,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   window.STORE_CONTEXT = Context // 为每一个新的请求都创建一遍 context 并且覆盖 window 上的属性，使得无需通过props层层传递读取
 
   return (
-    <StaticRouter>
-      <Context.Provider value={{ state: combineData }}>
-        <Layout ctx={ctx} config={config} staticList={staticList} injectState={injectState}>
-          {isCsr ? <></> : <Component />}
-        </Layout>
-      </Context.Provider>
-    </StaticRouter>
+    <Context.Provider value={{ state: combineData }}>
+      <Layout ctx={ctx} config={config} staticList={staticList} injectState={injectState}>
+        {isCsr ? <></> : <Component />}
+      </Layout>
+    </Context.Provider>
   )
 }
 
