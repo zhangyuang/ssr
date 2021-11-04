@@ -224,7 +224,7 @@ const i18n = createI18n({
 
 export default {
   created () {
-    const app = const app = getCurrentInstance()?.appContext.app
+    const app = getCurrentInstance()?.appContext.app
     app.use(i18n)
   }
 }
@@ -376,8 +376,8 @@ export default {
     Button
   },
   created() {
-    const app = const app = getCurrentInstance()?.appContext.app
-    app.use(Button)
+    const app = getCurrentInstance()?.appContext.app
+    app?.use(Button)
   }
 }
 </script>
