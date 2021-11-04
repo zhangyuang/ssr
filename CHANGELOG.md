@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.2](https://github.com/ykfe/ssr/compare/v5.7.1...v5.7.2) (2021-11-04)
+
+
+### Bug Fixes
+
+* remove window.__VUE_APP__ ([95208e3](https://github.com/ykfe/ssr/commit/95208e3de87e090c1e2b4415c94d2060f10f5cc7))
+
+
+
+
+
 ## [5.7.1](https://github.com/ykfe/ssr/compare/v5.7.0...v5.7.1) (2021-11-01)
 
 
