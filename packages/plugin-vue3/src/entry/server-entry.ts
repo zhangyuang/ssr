@@ -12,7 +12,6 @@ const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as Route
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender, prefix } = config
-  global.window = global.window ?? {}// 防止覆盖上层应用自己定义的 window 对象
   global.__VUE_PROD_DEVTOOLS__ = global.__VUE_PROD_DEVTOOLS__ ?? false
 
   const store = createStore()

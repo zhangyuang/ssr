@@ -2,7 +2,7 @@ import { exec } from 'child_process'
 import { loadConfig } from 'ssr-server-utils'
 import { Argv } from 'ssr-types'
 
-const { cliFun } = require('@midwayjs/cli/bin/cli')
+const { cli } = require('@midwayjs/cli/bin/cli')
 
 const start = (argv: Argv) => {
   const config = loadConfig()
@@ -16,7 +16,7 @@ const start = (argv: Argv) => {
     argv._[0] = 'dev'
     argv.ts = true
     argv.port = config.serverPort
-    await cliFun(argv)
+    await cli(argv)
   })
 }
 
