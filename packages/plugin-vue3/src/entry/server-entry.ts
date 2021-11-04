@@ -153,7 +153,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   app.use(router)
   app.use(store)
 
-  window.__VUE_APP__ = app
   return app
 }
 
