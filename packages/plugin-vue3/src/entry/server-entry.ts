@@ -6,7 +6,7 @@ import * as serialize from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
 import { IFeRouteItem, RoutesType } from './interface'
-import { createRouter, createStore } from './create'
+import { createRouter, createStore2 } from './create'
 
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
@@ -15,7 +15,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   global.window = global.window ?? {}// 防止覆盖上层应用自己定义的 window 对象
   global.__VUE_PROD_DEVTOOLS__ = global.__VUE_PROD_DEVTOOLS__ ?? false
 
-  const store = createStore()
+  const store = createStore2()
   const router = createRouter()
   const isVite = process.env['BUILD_TOOL'] === 'vite'
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级

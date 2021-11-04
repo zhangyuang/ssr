@@ -2,7 +2,7 @@
 
 const { join } = require('path')
 const { createVuePlugin } = require('vite-plugin-vue2')
-const genericNames = require('generic-names')
+
 
 /**
  * @type {import('vite').UserConfig}

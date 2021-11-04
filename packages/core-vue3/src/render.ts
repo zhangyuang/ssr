@@ -39,7 +39,8 @@ async function viteRender (ctx: ISSRContext, config: IConfig) {
   const viteServer = await createServer({
     configFile: resolve(getCwd(), './vite.server.config.js')
   })
-  const { serverRender } = await viteServer.ssrLoadModule(resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js'))
+
+  const { serverRender } = await viteServer.ssrLoadModule(resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry'))
   const serverRes = await serverRender(ctx, config)
   return serverRes
 }

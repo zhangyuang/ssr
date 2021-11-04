@@ -1,10 +1,11 @@
 
 import { createRouter as create, createWebHistory, createMemoryHistory } from 'vue-router'
-import * as vuex from 'vuex'
+import { createStore } from 'vuex'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
 
 import { RoutesType, VueRouterOptions } from './interface'
+console.log('mystore', createStore)
 
 const { store, FeRoutes } = Routes as RoutesType
 
@@ -17,12 +18,11 @@ function createRouter (options: VueRouterOptions = {}) {
   })
 }
 
-function createStore () {
-  console.log('xxx', vuex)
-  return vuex.createStore(store ?? {})
+function createStore2 () {
+  return createStore(store ?? {})
 }
 
 export {
   createRouter,
-  createStore
+  createStore2
 }
