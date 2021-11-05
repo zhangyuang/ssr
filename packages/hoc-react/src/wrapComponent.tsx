@@ -2,6 +2,8 @@ import * as React from 'react'
 import { useContext, useEffect, useState } from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { DynamicFC, StaticFC, Action, IWindow, ReactESMFetch, ReactFetch } from 'ssr-types-react'
+// @ts-expect-error
+import { STORE_CONTEXT } from '_build/create-context'
 
 declare const window: IWindow
 
@@ -34,7 +36,7 @@ const fetchAndDispatch = async ({ fetch, layoutFetch }: fetchType, dispatch: Rea
 function wrapComponent (WrappedComponent: DynamicFC|StaticFC) {
   return withRouter(props => {
     const [ready, setReady] = useState(WrappedComponent.name !== 'dynamicComponent')
-    const { state, dispatch } = useContext(window.STORE_CONTEXT)
+    const { state, dispatch } = useContext(STORE_CONTEXT)
 
     useEffect(() => {
       didMount()

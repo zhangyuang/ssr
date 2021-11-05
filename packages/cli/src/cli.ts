@@ -24,13 +24,16 @@ yargs
     spinner.start()
     await handleEnv(argv, spinner)
 
-    const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
+    const { parseFeRoutes, loadPlugin, copyReactContext } = await import('ssr-server-utils')
     await parseFeRoutes()
     debug(`require ssr-server-utils time: ${Date.now() - start} ms`)
     const plugin = loadPlugin()
     debug(`loadPlugin time: ${Date.now() - start} ms`)
     spinner.stop()
     debug(`parseFeRoutes ending time: ${Date.now() - start} ms`)
+    if (plugin.clientPlugin?.name === 'plugin-react') {
+      await copyReactContext()
+    }
     await plugin.clientPlugin?.start?.(argv)
     debug(`clientPlugin ending time: ${Date.now() - start} ms`)
     await cleanOutDir()
@@ -41,10 +44,13 @@ yargs
     spinner.start()
     process.env.NODE_ENV = 'production'
 
-    const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
+    const { parseFeRoutes, loadPlugin, copyReactContext } = await import('ssr-server-utils')
     await parseFeRoutes()
     const plugin = loadPlugin()
     spinner.stop()
+    if (plugin.clientPlugin?.name === 'plugin-react') {
+      await copyReactContext()
+    }
     await plugin.clientPlugin?.build?.(argv)
     await cleanOutDir()
     await plugin.serverPlugin?.build?.(argv)

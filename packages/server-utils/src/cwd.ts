@@ -135,6 +135,10 @@ const copyViteConfig = async () => {
   }
 }
 
+const copyReactContext = async () => {
+  await promises.copyFile(resolve(getCwd(), './node_modules/ssr-plugin-react/src/entry/create-context.ts'), resolve(getCwd(), './build/create-context.ts'))
+}
+
 const execPromisify = promisify(exec)
 const normalizeStartPath = (path: string) => {
   if (path.startsWith('//')) {
@@ -169,5 +173,6 @@ export {
   addAsyncChunk,
   cryptoAsyncChunkName,
   normalizeStartPath,
-  normalizeEndPath
+  normalizeEndPath,
+  copyReactContext
 }

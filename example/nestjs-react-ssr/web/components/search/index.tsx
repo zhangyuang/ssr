@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { IContext } from 'ssr-types-react'
 import { IData } from '@/interface'
 import styles from './index.module.less'
+import { STORE_CONTEXT } from '_build/create-context'
 
 interface SearchState extends IData {
   search?: {
@@ -10,7 +11,7 @@ interface SearchState extends IData {
 }
 // 参考本组件学习如何使用 useContext 来跨组件/页面共享状态
 function Search () {
-  const { state, dispatch } = useContext<IContext<SearchState>>(window.STORE_CONTEXT)
+  const { state, dispatch } = useContext<IContext<SearchState>>(STORE_CONTEXT)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch?.({
       type: 'updateContext',

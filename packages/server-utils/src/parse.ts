@@ -100,6 +100,7 @@ const parseFeRoutes = async () => {
 
       const re = /"webpackChunkName":("(.+?)")/g
       routes = `
+      // The file is provisional，don't depend on it 
         ${store ? 'import * as store from "@/store/index.ts"' : ''}
         export const FeRoutes = ${JSON.stringify(arr)} 
         export { default as Layout } from "${layoutPath}"
@@ -128,6 +129,7 @@ const parseFeRoutes = async () => {
       const accessStore = await accessFile(join(getFeDir(), './store/index.ts'))
       const re = /"webpackChunkName":("(.+?)")/g
       routes = `
+      // The file is provisional，don't depend on it 
         export const FeRoutes = ${JSON.stringify(arr)} 
         ${accessReactApp ? 'export { default as App } from "@/components/layout/App.tsx"' : ''}
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}

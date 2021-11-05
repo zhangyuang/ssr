@@ -5,9 +5,10 @@ import Brief from '@/components/brief'
 import Recommend from '@/components/recommend'
 import Search from '@/components/search'
 import { Ddata, RecommendDataNode, PlayerDataNode, BriefDataNode } from '@/interface'
+import { STORE_CONTEXT } from '_build/create-context'
 
 export default (props: SProps) => {
-  const { state, dispatch } = useContext<IContext<Ddata>>(window.STORE_CONTEXT)
+  const { state, dispatch } = useContext<IContext<Ddata>>(STORE_CONTEXT)
   return (
     <div>
       <Search></Search>

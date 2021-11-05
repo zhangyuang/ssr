@@ -154,6 +154,8 @@ export default defineComponent({
 
 在 `React` 场景中，我们没有使用上述的任何一种数据管理方案，我们采用了思想上与 `Provide/Inject` 类似的，同样也是 [react-hooks](https://reactjs.org/docs/hooks-intro.html) 出现后出现在大家视野的 [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext)
 
+`注：在最新版本中请使用 import { STORE_CONTEXT } from '_build/create-context' 来代替 window.STORE_CONTEXT 的取值`
+
 ### 使用 userContext + useReducer
 
 随着 `hooks` 的流行以及 `useContext` 这个 API 的推出, 越来越多的开发者希望用它来代替 `Dva`, `Redux` 这些方案来实现数据管理，因为之前的数据管理方案写起来实在是太累了。  
@@ -173,7 +175,7 @@ import { IContext } from 'ssr-types'
 
 // 通过 IData 指定模块自己的 data interface
 
-const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT)
+const { state, dispatch } = useContext<IContext<IData>>(STORE_CONTEXT)
 ```
 
 通过 `dispatch action` 来触发全局 `context` 的更新，并通知到所有的组件。在本地开发环境下我们会在控制台中输出每个修改 context 的 action 的详细信息。 
@@ -183,9 +185,10 @@ const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT)
 ```js
 import React, { useContext } from 'react'
 import styles from './index.less'
+import { STORE_CONTEXT } from '_build/create-context'
 
 function Search (props) {
-  const { state, dispatch } = useContext<IContext<SearchState>>(window.STORE_CONTEXT)
+  const { state, dispatch } = useContext<IContext<SearchState>>(STORE_CONTEXT)
   const handleChange = e => {
     dispatch({
       type: 'updateContext',
@@ -309,7 +312,7 @@ export {
 
 ```js
 function Search () {
-  const { state, dispatch } = useContext<IContext<SearchState>>(window.STORE_CONTEXT)
+  const { state, dispatch } = useContext<IContext<SearchState>>(STORE_CONTEXT)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch?.({
       type: 'updateSearchValue',
