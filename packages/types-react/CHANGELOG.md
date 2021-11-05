@@ -3,6 +3,173 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 5.7.1 (2021-11-05)
+
+
+
+# 5.7.0 (2021-10-29)
+
+
+### Features
+
+* remove __isBrowser__ when generate routes table ([650af13](https://github.com/ykfe/ssr/commit/650af1344fd7ce56f4b4c4f3946923a691adfb87))
+
+
+
+## 5.6.33 (2021-10-22)
+
+
+
+## 5.6.29 (2021-10-20)
+
+
+### Features
+
+* react scene support get current context state in fetch ([5d8487b](https://github.com/ykfe/ssr/commit/5d8487b7c78c3e140d3efc8854513a2666761e44))
+
+
+
+## 5.6.28 (2021-10-19)
+
+
+
+## 5.6.24 (2021-09-23)
+
+
+
+## 5.6.23 (2021-09-23)
+
+
+
+## 5.6.19 (2021-09-07)
+
+
+### Bug Fixes
+
+* wrapComponent ([5099eaf](https://github.com/ykfe/ssr/commit/5099eafc651b3e937018a68c73e1cece6ba0a4eb))
+
+
+
+## 5.6.13 (2021-08-25)
+
+
+
+## 5.6.12 (2021-08-25)
+
+
+
+## 5.6.8 (2021-08-24)
+
+
+
+## 5.6.6 (2021-08-23)
+
+
+### Features
+
+* remove react-loadable ([cde40ce](https://github.com/ykfe/ssr/commit/cde40cea20d364a9d728cbd9206f1665267dfc0b))
+
+
+
+## 5.6.4 (2021-08-13)
+
+
+
+## 5.6.3 (2021-08-12)
+
+
+
+## 5.6.2 (2021-08-11)
+
+
+
+## 5.5.96 (2021-08-05)
+
+
+### Bug Fixes
+
+* ssr types ([742440f](https://github.com/ykfe/ssr/commit/742440f186af3577d0df0bf5fac25d665e43dbcd))
+
+
+
+## 5.5.91 (2021-08-02)
+
+
+
+## 5.5.90 (2021-08-02)
+
+
+
+## 5.5.89 (2021-07-31)
+
+
+
+## 5.5.82 (2021-07-26)
+
+
+### Features
+
+* optimize combineReducer ([8033d40](https://github.com/ykfe/ssr/commit/8033d4070fe4a8d92af5e31c1aad6ddfa4e0922e))
+
+
+
+## 5.5.80 (2021-07-25)
+
+
+### Features
+
+* React useContext add user reducers ([69d00c5](https://github.com/ykfe/ssr/commit/69d00c58632bcccf7f981fd4d3855fe795ca26d3))
+
+
+
+## 5.5.78 (2021-07-23)
+
+
+### Features
+
+* update react injectState ([0acd219](https://github.com/ykfe/ssr/commit/0acd2196644a17a6aa826cb8cd32ff10fe64ab66))
+
+
+
+## 5.5.76 (2021-07-21)
+
+
+
+## 5.5.75 (2021-07-19)
+
+
+
+## 5.5.72 (2021-07-15)
+
+
+
+## 5.5.70 (2021-07-05)
+
+
+
+## 5.5.69 (2021-07-05)
+
+
+
+## 5.5.61 (2021-06-23)
+
+
+
+## 5.5.60 (2021-06-23)
+
+
+
+## 5.5.59 (2021-06-23)
+
+
+### Bug Fixes
+
+* reac types ([#69](https://github.com/ykfe/ssr/issues/69)) ([41daeb2](https://github.com/ykfe/ssr/commit/41daeb25133db25bf474bf0a29dcb5c3c6c9930b))
+
+
+
+
+
 # [5.7.0](https://github.com/ykfe/ssr/compare/v5.6.33...v5.7.0) (2021-10-29)
 
 

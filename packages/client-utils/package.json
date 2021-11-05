@@ -1,6 +1,6 @@
 {
   "name": "ssr-client-utils",
-  "version": "5.6.33",
+  "version": "5.6.34",
   "description": "client utils for react/vue2/vue3 ssr deploy on serverless or tradtional web server",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -30,7 +30,7 @@
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
     "path-to-regexp": "^6.2.0",
-    "ssr-types": "^5.6.33"
+    "ssr-types": "^5.6.35"
   },
   "devDependencies": {
     "concurrently": "^5.1.0"
