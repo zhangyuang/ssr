@@ -18,12 +18,10 @@ const fetchAndDispatch = async ({ fetch, layoutFetch }: fetchType, dispatch: Rea
   let asyncLayoutData = {}
   let asyncData = {}
   if (layoutFetch) {
-    // @ts-expect-error
     asyncLayoutData = await layoutFetch({ routerProps, state })
   }
   if (fetch) {
     const fetchFn = await fetch()
-    // @ts-expect-error
     asyncData = await fetchFn.default({ routerProps, state })
   }
 
