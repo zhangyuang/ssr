@@ -70,6 +70,6 @@
     "@types/react-router-dom": "^5.1.3",
     "@types/serialize-javascript": "^1.5.0",
     "@types/webpack": "^4.41.10",
-    "ssr-types-react": "^5.7.1"
+    "ssr-types-react": "^6.0.0"
   }
 }
