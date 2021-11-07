@@ -21,7 +21,13 @@ export interface ProvisionalFeRouteItem {
   component?: string
 }
 
-export type ReactFetch = (params: ISSRContext | RouteComponentProps, state?: any) => Promise<any>
+export interface Params<T, U> {
+  ctx?: ISSRContext<T>
+  routerProps?: RouteComponentProps<U>
+  state?: any
+}
+
+export type ReactFetch<T={}, U={}> = (params: Params<T, U>) => Promise<any>
 
 export type ReactESMFetch = () => Promise<{
   default: ReactFetch

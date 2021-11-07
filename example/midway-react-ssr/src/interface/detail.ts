@@ -1,3 +1,4 @@
+import { DetailData } from '~/typings'
 export interface IApiDetailService {
-  index: (id: string) => Promise<any>
+  index: (id: string) => Promise<DetailData>
 }

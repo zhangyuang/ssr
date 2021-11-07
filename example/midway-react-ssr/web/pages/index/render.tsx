@@ -3,7 +3,7 @@ import { SProps, IContext } from 'ssr-types-react'
 import Slider from '@/components/slider'
 import Rectangle from '@/components/rectangle'
 import Search from '@/components/search'
-import { IData } from '@/interface'
+import { IData } from '~/typings'
 import { STORE_CONTEXT } from '_build/create-context'
 
 export default function Index (props: SProps) {

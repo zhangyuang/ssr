@@ -14,15 +14,15 @@ interface fetchType {
   layoutFetch?: ReactFetch
 }
 
-const fetchAndDispatch = async ({ fetch, layoutFetch }: fetchType, dispatch: React.Dispatch<Action>, props: RouteComponentProps, state: any) => {
+const fetchAndDispatch = async ({ fetch, layoutFetch }: fetchType, dispatch: React.Dispatch<Action>, routerProps: RouteComponentProps, state: any) => {
   let asyncLayoutData = {}
   let asyncData = {}
   if (layoutFetch) {
-    asyncLayoutData = await layoutFetch(props, state)
+    asyncLayoutData = await layoutFetch({ routerProps, state })
   }
   if (fetch) {
     const fetchFn = await fetch()
-    asyncData = await fetchFn.default(props, state)
+    asyncData = await fetchFn.default({ routerProps, state })
   }
 
   const combineData = Object.assign({}, asyncLayoutData, asyncData)

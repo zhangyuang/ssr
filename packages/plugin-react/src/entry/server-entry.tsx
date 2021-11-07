@@ -94,12 +94,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     // csr 下不需要服务端获取数据
     if (parallelFetch) {
       [layoutFetchData, fetchData] = await Promise.all([
-        layoutFetch ? layoutFetch(ctx) : Promise.resolve({}),
-        currentFetch ? currentFetch(ctx) : Promise.resolve({})
+        layoutFetch ? layoutFetch({ ctx }) : Promise.resolve({}),
+        currentFetch ? currentFetch({ ctx }) : Promise.resolve({})
       ])
     } else {
-      layoutFetchData = layoutFetch ? await layoutFetch(ctx) : {}
-      fetchData = currentFetch ? await currentFetch(ctx) : {}
+      layoutFetchData = layoutFetch ? await layoutFetch({ ctx }) : {}
+      fetchData = currentFetch ? await currentFetch({ ctx }) : {}
     }
   }
   const combineData = isCsr ? null : Object.assign(state ?? {}, layoutFetchData ?? {}, fetchData ?? {})

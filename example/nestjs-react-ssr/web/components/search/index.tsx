@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { IContext } from 'ssr-types-react'
-import { IData } from '@/interface'
+import { IData } from '~/typings'
 import styles from './index.module.less'
 import { STORE_CONTEXT } from '_build/create-context'
 

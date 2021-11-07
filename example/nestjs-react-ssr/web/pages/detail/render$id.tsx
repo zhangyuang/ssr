@@ -4,7 +4,7 @@ import Player from '@/components/player'
 import Brief from '@/components/brief'
 import Recommend from '@/components/recommend'
 import Search from '@/components/search'
-import { Ddata, RecommendDataNode, PlayerDataNode, BriefDataNode } from '@/interface'
+import { Ddata, RecommendDataNode, PlayerDataNode, BriefDataNode } from '~/typings'
 import { STORE_CONTEXT } from '_build/create-context'
 
 export default (props: SProps) => {
