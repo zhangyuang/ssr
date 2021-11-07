@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.3](https://github.com/ykfe/ssr/compare/ssr-types-react@6.0.2...ssr-types-react@6.0.3) (2021-11-07)
+
+
+### Features
+
+* add midway nest independent types ([35adc64](https://github.com/ykfe/ssr/commit/35adc64c8c9d17fe19844cee5e6ba8fc1e790235))
+
+
+
+
+
 ## [6.0.2](https://github.com/ykfe/ssr/compare/ssr-types-react@6.0.1...ssr-types-react@6.0.2) (2021-11-07)
 
 **Note:** Version bump only for package ssr-types-react

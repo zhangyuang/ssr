@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.38](https://github.com/ykfe/ssr/compare/ssr-types@5.6.37...ssr-types@5.6.38) (2021-11-07)
+
+
+### Features
+
+* add midway nest independent types ([35adc64](https://github.com/ykfe/ssr/commit/35adc64c8c9d17fe19844cee5e6ba8fc1e790235))
+
+
+
+
+
 ## [5.6.37](https://github.com/ykfe/ssr/compare/ssr-types@5.6.36...ssr-types@5.6.37) (2021-11-07)
 
 **Note:** Version bump only for package ssr-types

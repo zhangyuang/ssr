@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.3](https://github.com/ykfe/ssr/compare/ssr-plugin-react@6.1.2...ssr-plugin-react@6.1.3) (2021-11-07)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
 ## [6.1.2](https://github.com/ykfe/ssr/compare/ssr-plugin-react@6.1.1...ssr-plugin-react@6.1.2) (2021-11-07)
 
 **Note:** Version bump only for package ssr-plugin-react
