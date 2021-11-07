@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.37](https://github.com/ykfe/ssr/compare/ssr-types@5.6.36...ssr-types@5.6.37) (2021-11-07)
+
+**Note:** Version bump only for package ssr-types
+
+
+
+
+
 ## [5.6.36](https://github.com/ykfe/ssr/compare/ssr-types@5.6.35...ssr-types@5.6.36) (2021-11-07)
 
 

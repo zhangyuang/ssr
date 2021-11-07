@@ -3,6 +3,61 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 5.6.34 (2021-11-07)
+
+
+
+## 5.6.33 (2021-10-22)
+
+
+
+## 5.5.61 (2021-06-23)
+
+
+
+## 5.5.60 (2021-06-23)
+
+
+
+## 5.5.58 (2021-06-23)
+
+
+
+## 5.5.49 (2021-06-10)
+
+
+
+## 5.5.46 (2021-06-02)
+
+
+
+## 5.5.45 (2021-06-02)
+
+
+
+## 5.5.44 (2021-06-02)
+
+
+
+## 5.5.32 (2021-05-20)
+
+
+
+## 5.5.28 (2021-05-13)
+
+
+
+## 5.5.23 (2021-05-10)
+
+
+### Features
+
+* add ssrVueLoaderOptions csrVueloaderOptions ssr-hoc-vue3 ([09c4dc5](https://github.com/ykfe/ssr/commit/09c4dc5a820e4c57ece73427a78968b75abea2f3))
+
+
+
+
+
 ## [5.6.33](https://github.com/ykfe/ssr/compare/v5.6.31...v5.6.33) (2021-10-22)
 
 **Note:** Version bump only for package ssr-hoc-vue3
