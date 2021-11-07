@@ -1,7 +1,7 @@
-import { ReactFetch } from 'ssr-types-react'
+import { ReactMidwayFetch } from 'ssr-types-react'
 import { IndexData } from '~/typings'
 
-const fetch: ReactFetch<{
+const fetch: ReactMidwayFetch<{
   apiService: {
     index: () => Promise<IndexData>
   }

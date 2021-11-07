@@ -33,6 +33,8 @@
 
 在渲染的过程中，我们会将 `layout fetch` 与 `page fetch` 的 `返回数据` 组合后以 `props` 的形式注入到 `layout/index.vue` 以及 `layout/App.vue` 当中，开发者可以在该文件当中 `provide` 如下所示。
 
+`注: Vue2 场景也提供该属性，仅用于在 layout 组件中通过 props.asyncData 拿到合并后的 fetch 数据做一些逻辑处理，不包含数据管理功能`
+
 ```html
 // layout/App.vue
 <script>

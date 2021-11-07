@@ -1,7 +1,7 @@
-import { ReactFetch } from 'ssr-types-react'
+import { ReactNestFetch } from 'ssr-types-react'
 import { IndexData } from '~/typings'
 
-const fetch: ReactFetch<{
+const fetch: ReactNestFetch<{
   apiService: {
     index: () => Promise<IndexData>
   }

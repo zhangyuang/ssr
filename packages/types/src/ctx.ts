@@ -1,16 +1,14 @@
-import * as Koa from 'koa'
 import { Request, Response } from 'express'
 import { Context } from 'egg'
 
 export interface ExpressContext {
-  request: Request & {
-    params: Request['params']
-  }
-  params?: Request['params']
+  request: Request
   response: Response
 }
 
-export type ISSRContext<T={}> = (Koa.Context|ExpressContext|Context) & T
+export type ISSRContext<T={}> = (ExpressContext|Context) & T
+export type ISSRNestContext<T={}> = ExpressContext & T
+export type ISSRMidwayContext<T={}> = Context & T
 
 export interface Options {
   mode?: string
