@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.36](https://github.com/ykfe/ssr/compare/ssr-types@5.6.35...ssr-types@5.6.36) (2021-11-07)
+
+
+### Features
+
+* update plugin-react fetch params ([243c847](https://github.com/ykfe/ssr/commit/243c847c994032a3dc203bdee6c284b34b39dbfb))
+
+
+
+
+
 ## 5.6.35 (2021-11-05)
 
 
