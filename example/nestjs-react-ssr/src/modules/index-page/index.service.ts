@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { IndexData } from '~/typings'
+import { IndexData } from '~/typings/data'
 import mock from './index.mock'
 
 @Injectable()

@@ -1,5 +1,5 @@
 import { ReactMidwayFetch } from 'ssr-types-react'
-import { IndexData } from '~/typings'
+import { IndexData } from '~/typings/data'
 
 const fetch: ReactMidwayFetch<{
   apiService: {
