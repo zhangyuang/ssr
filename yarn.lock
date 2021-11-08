@@ -3332,7 +3332,7 @@
   dependencies:
     "@types/koa" "*"
 
-"@types/koa@*", "@types/koa@^2.0.48", "@types/koa@^2.11.3", "@types/koa@^2.11.4":
+"@types/koa@*", "@types/koa@^2.0.48", "@types/koa@^2.11.4":
   version "2.13.4"
   resolved "https://registry.npmjs.org/@types/koa/-/koa-2.13.4.tgz#10620b3f24a8027ef5cbae88b393d1b31205726b"
   integrity sha512-dfHYMfU+z/vKtQB7NUrthdAEiSvnLebvBjwHtfFmpZmB7em2N3WVQdHgnFq+xvyVgxW5jKDmjWfLD3lw4g4uTw==
@@ -17723,25 +17723,6 @@ sshpk@^1.7.0:
     jsbn "~0.1.0"
     safer-buffer "^2.0.2"
     tweetnacl "~0.14.0"
-
-ssr-hoc-react@^5.7.1:
-  version "5.7.1"
-  resolved "https://registry.npmjs.org/ssr-hoc-react/-/ssr-hoc-react-5.7.1.tgz#fda9b88ea69388bb0dc652a196b55bd69c680127"
-  integrity sha512-wKZXD+QkF1Gcn2ZagAl4GA6eMCCU+pVLe6jGxn/Qi1oKVKAp7TRTHlcxxal73SWtXsGFxG0Za3aAuQHGRnJMIQ==
-  dependencies:
-    react "^17.0.1"
-    react-dom "^17.0.0"
-    react-router-dom "^5.1.2"
-
-ssr-types-react@^5.7.1:
-  version "5.7.1"
-  resolved "https://registry.npmjs.org/ssr-types-react/-/ssr-types-react-5.7.1.tgz#8479a70cc7938ef301bfd5d664df06d31e4f3ccd"
-  integrity sha512-nokDa8fT5VLCh47bSFf5w/FRtCmZLBphCS3c/To7kN6WBwAgVAC7Qaf1YP6a/6cAhUzkWYVvdWblCXBF6PJs1g==
-  dependencies:
-    "@types/react" "^17.0.0"
-    "@types/react-dom" "^17.0.0"
-    "@types/react-router-dom" "^5.1.6"
-    ssr-types "^5.6.35"
 
 ssri@^6.0.0, ssri@^6.0.1:
   version "6.0.2"

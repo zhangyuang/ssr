@@ -2,7 +2,8 @@ import { h, createApp, reactive } from 'vue'
 import { Store } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { findRoute, normalizePath } from 'ssr-client-utils'
-import { createRouter, createStore } from './create'
+import { createRouter } from './create'
+import { createStore } from 'ssr-hoc-vue3'
 import { ESMFetch, IFeRouteItem, RoutesType } from './interface'
 
 // @ts-expect-error
@@ -26,6 +27,7 @@ async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<an
 
 const clientRender = async () => {
   const store = createStore()
+  console.log(333333)
   const router = createRouter({
     base: window.prefix ?? PrefixRouterBase
   })
