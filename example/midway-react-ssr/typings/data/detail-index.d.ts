@@ -13,7 +13,6 @@ export interface PlayerDataNode {
     title: string
   }
 }
-
 export interface RecommendDataNode {
   data: {
     heat: string

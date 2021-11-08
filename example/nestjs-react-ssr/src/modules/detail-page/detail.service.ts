@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { DetailData } from '~/typings'
+import { DetailData } from '~/typings/data'
 import mock from './detail.mock'
 
 @Injectable()

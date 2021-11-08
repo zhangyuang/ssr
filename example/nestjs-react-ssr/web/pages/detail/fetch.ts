@@ -1,5 +1,5 @@
 import { ReactNestFetch } from 'ssr-types-react'
-import { Ddata } from '~/typings'
+import { Ddata } from '~/typings/data'
 
 const fetch: ReactNestFetch<{
   apiDeatilservice: {
