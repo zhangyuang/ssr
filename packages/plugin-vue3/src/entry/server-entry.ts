@@ -6,7 +6,8 @@ import * as serialize from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
 import { IFeRouteItem, RoutesType } from './interface'
-import { createRouter, createStore } from './create'
+import { createRouter } from './create'
+import { createStore } from 'ssr-hoc-vue3'
 
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
