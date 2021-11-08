@@ -49,8 +49,6 @@ export default function Index (props: SProps) {
 }
 ```
 
-<<<<<<< HEAD
-=======
 ### 修改 web/tsconfig.json
 
 修改 `web/tsconfig.json` 获得正确的类型提示
@@ -67,18 +65,13 @@ export default function Index (props: SProps) {
 
 建议把公共类型全部放在根目录下的 `typings` 文件夹并以 `d.ts` 为文件后缀名结尾
 
->>>>>>> 2e03c60274cfc88cf6a7feb28cc325e66932bb7a
 ### 修改 fetch 方法入参
 
 为了更好的得到类型提示，在新版本中我们 `fetch` 方法的入参形式改为如下代码
 
 ```js
 import { ReactMidwayFetch } from 'ssr-types-react'
-<<<<<<< HEAD
-import { IndexData } from '~/typings'
-=======
 import { IndexData } from '~/typings/data'
->>>>>>> 2e03c60274cfc88cf6a7feb28cc325e66932bb7a
 
 const fetch: ReactMidwayFetch<{
   apiService: {
@@ -100,11 +93,7 @@ export default fetch
 
 ```js
 import { ReactMidwayFetch } from 'ssr-types-react'
-<<<<<<< HEAD
-import { Ddata } from '~/typings'
-=======
 import { Ddata } from '~/typings/data'
->>>>>>> 2e03c60274cfc88cf6a7feb28cc325e66932bb7a
 
 const fetch: ReactMidwayFetch<{
   apiDeatilservice: {
