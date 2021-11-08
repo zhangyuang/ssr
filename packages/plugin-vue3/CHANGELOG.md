@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.8](https://github.com/ykfe/ssr/compare/ssr-plugin-vue3@5.7.7...ssr-plugin-vue3@5.7.8) (2021-11-08)
+
+
+### Bug Fixes
+
+* add deepClone in createStore ([04cc23c](https://github.com/ykfe/ssr/commit/04cc23c54249d91deac0b62e44e9f81fe6133bf4))
+
+
+### Features
+
+* add create in Hoc-vue3  ([#131](https://github.com/ykfe/ssr/issues/131)) ([8f8c132](https://github.com/ykfe/ssr/commit/8f8c1325b51f2e681b80bb7b3870865c77975a37))
+
+
+### Reverts
+
+* Revert "feat: add create in Hoc-vue3  (#131)" (#132) ([de7e825](https://github.com/ykfe/ssr/commit/de7e825fa6264605060c0a821c5293253372e7d4)), closes [#131](https://github.com/ykfe/ssr/issues/131) [#132](https://github.com/ykfe/ssr/issues/132)
+
+
+
+
+
 ## [5.7.7](https://github.com/ykfe/ssr/compare/ssr-plugin-vue3@5.7.6...ssr-plugin-vue3@5.7.7) (2021-11-07)
 
 **Note:** Version bump only for package ssr-plugin-vue3

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.6](https://github.com/ykfe/ssr/compare/ssr-plugin-vue@5.7.5...ssr-plugin-vue@5.7.6) (2021-11-08)
+
+
+### Bug Fixes
+
+* add deepClone in createStore ([04cc23c](https://github.com/ykfe/ssr/commit/04cc23c54249d91deac0b62e44e9f81fe6133bf4))
+
+
+
+
+
 ## [5.7.5](https://github.com/ykfe/ssr/compare/ssr-plugin-vue@5.7.4...ssr-plugin-vue@5.7.5) (2021-11-07)
 
 **Note:** Version bump only for package ssr-plugin-vue
