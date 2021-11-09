@@ -27,7 +27,6 @@ const clientRender = async () => {
   const router = createRouter({
     base: window.prefix ?? PrefixRouterBase
   })
-
   if (window.__INITIAL_DATA__) {
     store.replaceState(window.__INITIAL_DATA__)
   }

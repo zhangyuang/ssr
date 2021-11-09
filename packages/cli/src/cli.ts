@@ -8,8 +8,7 @@ import { generateHtml } from './html'
 import { cleanOutDir } from './clean'
 
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 同步代码 block 导致 loading 暂停
-const debug = require('debug')('ssr:cli')
-const start = Date.now()
+
 const spinner = {
   start: () => spinnerProcess.send({
     message: 'start'
@@ -26,22 +25,18 @@ yargs
 
     const { parseFeRoutes, loadPlugin, copyReactContext } = await import('ssr-server-utils')
     await parseFeRoutes()
-    debug(`require ssr-server-utils time: ${Date.now() - start} ms`)
 
     await parseFeRoutes()
-    debug(`parseFeRoutes ending time: ${Date.now() - start} ms`)
     const plugin = loadPlugin()
-    debug(`loadPlugin time: ${Date.now() - start} ms`)
     spinner.stop()
-    debug(`parseFeRoutes ending time: ${Date.now() - start} ms`)
     if (plugin.clientPlugin?.name === 'plugin-react') {
       await copyReactContext()
     }
-    await plugin.clientPlugin?.start?.(argv)
-    debug(`clientPlugin ending time: ${Date.now() - start} ms`)
+    if (process.env['BUILD_TOOL'] !== 'vite') {
+      await plugin.clientPlugin?.start?.(argv)
+    }
     await cleanOutDir()
     await plugin.serverPlugin?.start?.(argv)
-    debug(`serverPlugin ending time: ${Date.now() - start} ms`)
   })
   .command('build', 'Build server and client files', {}, async (argv: Argv) => {
     spinner.start()

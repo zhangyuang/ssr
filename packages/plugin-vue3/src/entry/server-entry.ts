@@ -2,19 +2,20 @@ import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
 import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
-import * as serialize from 'serialize-javascript'
+
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
 import { IFeRouteItem, RoutesType } from './interface'
-import { createRouter, createStore2 } from './create'
+import { createRouter, createStore } from './create'
 
+const serialize = require('serialize-javascript')
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender, prefix } = config
   global.__VUE_PROD_DEVTOOLS__ = global.__VUE_PROD_DEVTOOLS__ ?? false
 
-  const store = createStore2()
+  const store = createStore()
   const router = createRouter()
   const isVite = process.env['BUILD_TOOL'] === 'vite'
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级

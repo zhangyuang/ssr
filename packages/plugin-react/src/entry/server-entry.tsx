@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
 import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactESMFeRouteItem } from 'ssr-types-react'
-import * as serialize from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
 // @ts-expect-error
@@ -9,6 +8,7 @@ import { STORE_CONTEXT as Context } from '_build/create-context'
 // @ts-expect-error
 import Layout from '@/components/layout/index.tsx'
 
+const serialize = require('serialize-javascript')
 const { FeRoutes, layoutFetch, PrefixRouterBase, state } = Routes as ReactRoutesType
 
 declare const global: IGlobal
