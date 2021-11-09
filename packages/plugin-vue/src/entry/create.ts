@@ -5,6 +5,7 @@ import * as Router from 'vue-router'
 
 import { FeRoutes, store } from '_build/ssr-temporary-routes'
 import { VueRouterOptions } from './interface'
+import { deepClone } from './clone'
 
 // without tsconfig esModuleInterop options must use the compatible syntax
 const RealVue = Vue.default || Vue
@@ -23,7 +24,7 @@ function createRouter (options: VueRouterOptions = {}): Router {
 }
 
 function createStore () {
-  return new Vuex.Store(store ?? {})
+  return new Vuex.Store(deepClone(store) ?? {})
 }
 
 export {

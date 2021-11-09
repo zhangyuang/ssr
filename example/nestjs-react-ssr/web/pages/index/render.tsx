@@ -3,10 +3,11 @@ import { SProps, IContext } from 'ssr-types-react'
 import Slider from '@/components/slider'
 import Rectangle from '@/components/rectangle'
 import Search from '@/components/search'
-import { IData } from '@/interface'
+import { IData } from '~/typings/data'
+import { STORE_CONTEXT } from '_build/create-context'
 
 export default (props: SProps) => {
-  const { state, dispatch } = useContext<IContext<IData>>(window.STORE_CONTEXT)
+  const { state, dispatch } = useContext<IContext<IData>>(STORE_CONTEXT)
   return (
     <div>
       <Search></Search>

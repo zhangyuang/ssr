@@ -2,7 +2,7 @@
   "packages": [
     "packages/*"
   ],
-  "version": "5.7.0",
+  "version": "independent",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "ignoreChanges": [
@@ -13,7 +13,11 @@
   ],
   "command": {
     "version": {
-      "message": "chore(release): publish %s"
+      "message": "chore(release): publish",
+      "conventionalCommits": true
+    },
+    "public": {
+      "conventionalCommits": true
     }
   }
 }

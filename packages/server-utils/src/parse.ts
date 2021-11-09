@@ -100,6 +100,7 @@ const parseFeRoutes = async () => {
 
       const re = /"webpackChunkName":("(.+?)")/g
       routes = `
+      // The file is provisional，don't depend on it 
         ${store ? 'import * as store from "@/store/index.ts"' : ''}
         export const FeRoutes = ${JSON.stringify(arr)} 
         export { default as Layout } from "${layoutPath}"
@@ -128,6 +129,7 @@ const parseFeRoutes = async () => {
       const accessStore = await accessFile(join(getFeDir(), './store/index.ts'))
       const re = /"webpackChunkName":("(.+?)")/g
       routes = `
+      // The file is provisional，don't depend on it 
         export const FeRoutes = ${JSON.stringify(arr)} 
         ${accessReactApp ? 'export { default as App } from "@/components/layout/App.tsx"' : ''}
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
@@ -197,7 +199,7 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         if (webpackChunkName.startsWith('-')) {
           webpackChunkName = webpackChunkName.replace('-', '')
         }
-        route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles).replace(/\/:\??/, '-').replace('?', '-optional')}`
+        route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles).replace(/\/:\??/g, '-').replace('?', '-optional')}`
       } else if (pageFiles.includes('render')) {
         /* /news */
         route.path = `${prefixPath}`

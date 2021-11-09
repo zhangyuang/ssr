@@ -2,6 +2,8 @@ import * as React from 'react'
 import { useContext, useEffect, useState } from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { DynamicFC, StaticFC, Action, IWindow, ReactESMFetch, ReactFetch } from 'ssr-types-react'
+// @ts-expect-error
+import { STORE_CONTEXT } from '_build/create-context'
 
 declare const window: IWindow
 
@@ -12,15 +14,15 @@ interface fetchType {
   layoutFetch?: ReactFetch
 }
 
-const fetchAndDispatch = async ({ fetch, layoutFetch }: fetchType, dispatch: React.Dispatch<Action>, props: RouteComponentProps, state: any) => {
+const fetchAndDispatch = async ({ fetch, layoutFetch }: fetchType, dispatch: React.Dispatch<Action>, routerProps: RouteComponentProps, state: any) => {
   let asyncLayoutData = {}
   let asyncData = {}
   if (layoutFetch) {
-    asyncLayoutData = await layoutFetch(props, state)
+    asyncLayoutData = await layoutFetch({ routerProps, state })
   }
   if (fetch) {
     const fetchFn = await fetch()
-    asyncData = await fetchFn.default(props, state)
+    asyncData = await fetchFn.default({ routerProps, state })
   }
 
   const combineData = Object.assign({}, asyncLayoutData, asyncData)
@@ -34,7 +36,7 @@ const fetchAndDispatch = async ({ fetch, layoutFetch }: fetchType, dispatch: Rea
 function wrapComponent (WrappedComponent: DynamicFC|StaticFC) {
   return withRouter(props => {
     const [ready, setReady] = useState(WrappedComponent.name !== 'dynamicComponent')
-    const { state, dispatch } = useContext(window.STORE_CONTEXT)
+    const { state, dispatch } = useContext(STORE_CONTEXT)
 
     useEffect(() => {
       didMount()

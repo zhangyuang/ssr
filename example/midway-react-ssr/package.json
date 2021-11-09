@@ -11,7 +11,7 @@
     "react-dom": "^17.0.0",
     "react-router-dom": "^5.1.2",
     "ssr-core-react": "^5.0.0",
-    "ssr-types-react": "^5.0.0",
+    "ssr-types-react": "^6.0.0",
     "swiper": "6.7.5"
   },
   "devDependencies": {
@@ -23,7 +23,7 @@
     "eslint-config-standard-react-ts": "^1.0.5",
     "ssr": "^5.0.0",
     "ssr-plugin-midway": "^5.0.0",
-    "ssr-plugin-react": "^5.0.0",
+    "ssr-plugin-react": "^6.0.0",
     "typescript": "^3.9.7"
   },
   "scripts": {

@@ -1,5 +1,5 @@
 import { RouteComponentProps } from 'react-router-dom'
-import { ISSRContext, IConfig } from 'ssr-types'
+import { ISSRContext, ISSRNestContext, ISSRMidwayContext, IConfig } from 'ssr-types'
 import { Action } from './component'
 
 export interface LayoutProps {
@@ -21,7 +21,25 @@ export interface ProvisionalFeRouteItem {
   component?: string
 }
 
-export type ReactFetch = (params: ISSRContext | RouteComponentProps, state?: any) => Promise<any>
+export interface Params<T, U> {
+  ctx?: ISSRContext<T>
+  routerProps?: RouteComponentProps<U>
+  state?: any
+}
+export interface ParamsMidway<T, U> {
+  ctx?: ISSRMidwayContext<T>
+  routerProps?: RouteComponentProps<U>
+  state?: any
+}
+export interface ParamsNest<T, U> {
+  ctx?: ISSRNestContext<T>
+  routerProps?: RouteComponentProps<U>
+  state?: any
+}
+
+export type ReactFetch<T={}, U={}> = (params: Params<T, U>) => Promise<any>
+export type ReactMidwayFetch<T={}, U={}> = (params: ParamsMidway<T, U>) => Promise<any>
+export type ReactNestFetch<T={}, U={}> = (params: ParamsNest<T, U>) => Promise<any>
 
 export type ReactESMFetch = () => Promise<{
   default: ReactFetch

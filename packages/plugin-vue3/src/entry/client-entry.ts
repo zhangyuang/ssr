@@ -48,16 +48,6 @@ const clientRender = async () => {
 
   await router.isReady()
 
-  window.__VUE_APP__ = app
-
-  Object.defineProperty(window, '__VUE_APP__', {
-    get: function () {
-      console.warn(`window.__VUE_APP__ will be removed in the future version please read doc and use the latest code to get app instance
-      \n http://doc.ssr-fc.com/docs/features$faq#Vue3%20%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C%E7%BB%84%E4%BB%B6`)
-      return app
-    }
-  })
-
   router.beforeResolve(async (to, from, next) => {
     // 找到要进入的组件并提前执行 fetch 函数
     const { fetch } = findRoute<IFeRouteItem>(FeRoutes, to.path)

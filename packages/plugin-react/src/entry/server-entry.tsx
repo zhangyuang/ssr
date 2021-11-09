@@ -4,7 +4,8 @@ import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactESMFeRouteItem } f
 import * as serialize from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
-import { serverContext } from './create-context'
+// @ts-expect-error
+import { STORE_CONTEXT as Context } from '_build/create-context'
 // @ts-expect-error
 import Layout from '@/components/layout/index.tsx'
 
@@ -20,7 +21,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   if (base) {
     path = normalizePath(path, base)
   }
-  const { window } = global
   const routeItem = findRoute<ReactESMFeRouteItem>(FeRoutes, path)
   const viteMode = process.env['BUILD_TOOL'] === 'vite'
 
@@ -94,12 +94,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     // csr 下不需要服务端获取数据
     if (parallelFetch) {
       [layoutFetchData, fetchData] = await Promise.all([
-        layoutFetch ? layoutFetch(ctx) : Promise.resolve({}),
-        currentFetch ? currentFetch(ctx) : Promise.resolve({})
+        layoutFetch ? layoutFetch({ ctx }) : Promise.resolve({}),
+        currentFetch ? currentFetch({ ctx }) : Promise.resolve({})
       ])
     } else {
-      layoutFetchData = layoutFetch ? await layoutFetch(ctx) : {}
-      fetchData = currentFetch ? await currentFetch(ctx) : {}
+      layoutFetchData = layoutFetch ? await layoutFetch({ ctx }) : {}
+      fetchData = currentFetch ? await currentFetch({ ctx }) : {}
     }
   }
   const combineData = isCsr ? null : Object.assign(state ?? {}, layoutFetchData ?? {}, fetchData ?? {})
@@ -107,9 +107,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   const injectState = isCsr ? null : <script dangerouslySetInnerHTML={{
     __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}`
   }} />
-
-  const Context = serverContext(combineData) // 服务端需要每个请求创建新的独立的 context
-  window.STORE_CONTEXT = Context // 为每一个新的请求都创建一遍 context 并且覆盖 window 上的属性，使得无需通过props层层传递读取
 
   return (
     <Context.Provider value={{ state: combineData }}>

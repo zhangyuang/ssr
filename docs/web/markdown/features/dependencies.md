@@ -41,5 +41,5 @@
     "webpack-chain": "^6.4.0",
     "webpack-manifest-plugin": "^2.2.0",
     "webpackbar": "^5.0.0-3"
-  },
+  }
 ```

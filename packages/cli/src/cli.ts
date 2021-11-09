@@ -23,7 +23,9 @@ yargs
   .command('start', 'Start Server', {}, async (argv: Argv) => {
     spinner.start()
     await handleEnv(argv, spinner)
-    const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
+
+    const { parseFeRoutes, loadPlugin, copyReactContext } = await import('ssr-server-utils')
+    await parseFeRoutes()
     debug(`require ssr-server-utils time: ${Date.now() - start} ms`)
 
     await parseFeRoutes()
@@ -31,27 +33,26 @@ yargs
     const plugin = loadPlugin()
     debug(`loadPlugin time: ${Date.now() - start} ms`)
     spinner.stop()
-
-    if (process.env['BUILD_TOOL'] === 'vite') {
-      await cleanOutDir()
-      await plugin.serverPlugin?.start?.(argv)
-      debug(`serverPlugin ending time: ${Date.now() - start} ms`)
-    } else {
-      await plugin.clientPlugin?.start?.(argv)
-      debug(`clientPlugin ending time: ${Date.now() - start} ms`)
-      await cleanOutDir()
-      await plugin.serverPlugin?.start?.(argv)
-      debug(`serverPlugin ending time: ${Date.now() - start} ms`)
+    debug(`parseFeRoutes ending time: ${Date.now() - start} ms`)
+    if (plugin.clientPlugin?.name === 'plugin-react') {
+      await copyReactContext()
     }
+    await plugin.clientPlugin?.start?.(argv)
+    debug(`clientPlugin ending time: ${Date.now() - start} ms`)
+    await cleanOutDir()
+    await plugin.serverPlugin?.start?.(argv)
+    debug(`serverPlugin ending time: ${Date.now() - start} ms`)
   })
   .command('build', 'Build server and client files', {}, async (argv: Argv) => {
     spinner.start()
     process.env.NODE_ENV = 'production'
-    const { parseFeRoutes, loadPlugin } = await import('ssr-server-utils')
+    const { parseFeRoutes, loadPlugin, copyReactContext } = await import('ssr-server-utils')
     await parseFeRoutes()
     const plugin = loadPlugin()
     spinner.stop()
-
+    if (plugin.clientPlugin?.name === 'plugin-react') {
+      await copyReactContext()
+    }
     if (process.env['BUILD_TOOL'] === 'vite') {
       await cleanOutDir()
       await plugin.serverPlugin?.build?.(argv)

@@ -1,9 +1,9 @@
 export interface Ddata {
   detailData?: {
-    data: Data[]
+    data: DetailData[]
   }
 }
-export interface Data {
+export interface DetailData {
   dataNode: RecommendDataNode[] | PlayerDataNode[] | BriefDataNode[]
 }
 
@@ -13,7 +13,6 @@ export interface PlayerDataNode {
     title: string
   }
 }
-
 export interface RecommendDataNode {
   data: {
     heat: string

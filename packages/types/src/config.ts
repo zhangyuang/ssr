@@ -88,11 +88,13 @@ export interface StyleOptions {
 
 export interface IPlugin {
   clientPlugin?: {
+    name: string
     start?: (argv?: Argv) => void
     build?: (argv?: Argv) => void
     deploy?: (argv?: Argv) => void
   }
   serverPlugin?: {
+    name: string
     start?: (argv?: Argv) => void
     build?: (argv?: Argv) => void
     deploy?: (argv?: Argv) => void

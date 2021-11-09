@@ -1,5 +1,7 @@
+import { IndexData } from '~/typings/data'
+
 export interface IApiService {
-  index: () => Promise<any>
+  index: () => Promise<IndexData>
 }
 
 export * from './detail'

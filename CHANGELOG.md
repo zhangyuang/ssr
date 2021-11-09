@@ -3,6 +3,39 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.3](https://github.com/ykfe/ssr/compare/v5.7.2...v5.7.3) (2021-11-04)
+
+
+### Bug Fixes
+
+* plugin-midway start ([4a542b6](https://github.com/ykfe/ssr/commit/4a542b63c38604bfc591e788375b0ae03bbcdf0f))
+
+
+
+
+
+## [5.7.2](https://github.com/ykfe/ssr/compare/v5.7.1...v5.7.2) (2021-11-04)
+
+
+### Bug Fixes
+
+* remove window.__VUE_APP__ ([95208e3](https://github.com/ykfe/ssr/commit/95208e3de87e090c1e2b4415c94d2060f10f5cc7))
+
+
+
+
+
+## [5.7.1](https://github.com/ykfe/ssr/compare/v5.7.0...v5.7.1) (2021-11-01)
+
+
+### Bug Fixes
+
+* multiply dynamic params ([bf4d150](https://github.com/ykfe/ssr/commit/bf4d150c3459ccf645459f137a8236e5cd65491d))
+
+
+
+
+
 # [5.7.0](https://github.com/ykfe/ssr/compare/v5.6.33...v5.7.0) (2021-10-29)
 
 
