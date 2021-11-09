@@ -103,6 +103,9 @@
 <td align="center" style="height: 100px"><a href="https://blog.dreamer2q.wang/" target="_blank"><img src="https://res.wx.qq.com/op_res/MxxGgjPFRiTgjiReUefs2aMce-SgNvxxTB9U87YYhcOu6KPw9er7r2Lc0ne-b90nFstTUpc8REDwpxfUreKV1g" width="200px;margin: 20px 0" alt="Dream2qBlog"/><br />
 <a href="https://blog.dreamer2q.wang/" target="_bvlank"><b>个人博客
 </b></a></td>
+<td align="center" style="height: 100px"><a href="https://jiawu.dewu.com" target="_blank"><img src="https://cdn.poizon.com/node-common/31116a45953ad8b468c6c832036aac88.png" width="200px;margin: 20px 0" alt="Dream2qBlog"/><br />
+<a href="https://jiawu.dewu.com" target="_bvlank"><b>得物
+</b></a></td>
 </tr>
 </table>
 
