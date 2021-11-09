@@ -13,7 +13,7 @@ let asyncChunkMap: Record<string, string> = {}
 
 const getClientWebpack = (chain: WebpackChain) => {
   const { isDev, chunkName, getOutput, useHash, chainClientConfig } = loadConfig()
-  const shouldUseSourceMap = isDev || process.env.GENERATE_SOURCEMAP
+  const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
   const publicPath = getOutputPublicPath()
   getBaseConfig(chain, false)
   chain.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
