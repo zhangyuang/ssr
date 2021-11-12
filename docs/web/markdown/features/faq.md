@@ -295,7 +295,7 @@ export default {
 
 ## 使用 UI 框架
 
-`React` 场景下我们已经对 [antd](https://ant.design/) 进行兼容，`Vue` 场景已经对 [vant](https://vant-contrib.gitee.io/vant/#/) [ant-design-vue](https://antdv.com/docs/vue/introduce-cn/) 进行兼容，可以直接在组件中引用无需做任何额外配置。
+`React` 场景下我们已经对 [antd](https://ant.design/) 进行兼容，`Vue` 场景已经对 [vant](https://vant-contrib.gitee.io/vant/#/) [ant-design-vue](https://antdv.com/docs/vue/introduce-cn/) 进行兼容，开发者只需要安装组件库依赖后可以直接在组件中引用无需做任何额外配置。
 
 ### 使用方式
 
@@ -425,12 +425,12 @@ Vue.use(Button)
 
 ```js
 import Button from 'vant/lib/button';
-import 'vant/lib/button/index.less'; // 手动导入的情况这里建议使用这种方式来导入样式文件而不是 import 'vant/lib/button/style' 这样导入的是一个 js 文件
+import 'vant/lib/button/style';
 ```
 
 使用手动按需引入的情况几乎不会出任何问题。但要注意
 
-1. 必须使用 `lib` 目录下的文件，不要用 `es`，`es` 模块在服务端无法解析  
+1. 必须使用 `lib` 目录下的文件，不要用 `es`，`es` 格式的模块在服务端无法直接解析, 除非配置白名单让 Webpack 构建服务端文件时去处理，但这样会拖慢构建速度  
 2. 如果是直接 `import *.css|less` 文件则不会有问题，但很多 UI 框架例如 `antd`, `vant` 这些都会都导出一个 `js` 文件去 `require` 要用到的 `css|less` 文件，这种情况不做额外配置是一定会出错的  
 3. 样式可能会缺漏，因为导出的 `js` 文件除了包含组件本身的样式还会包含一些公共样式
 
