@@ -21,5 +21,9 @@ module.exports = {
       _build: join(process.cwd(), './build')
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
+  },
+  build: {
+    ssr: './node_modules/ssr-plugin-vue3/esm/entry/server-entry'
+
   }
 }
