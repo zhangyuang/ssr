@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.7](https://github.com/ykfe/ssr/compare/ssr-plugin-vue@5.7.6...ssr-plugin-vue@5.7.7) (2021-11-17)
+
+
+### Bug Fixes
+
+*  boolean GENERATE_SOURCEMAP ([#133](https://github.com/ykfe/ssr/issues/133)) ([dbaeed8](https://github.com/ykfe/ssr/commit/dbaeed8efcf3d232c5754b2cfd6f3a664596610c))
+
+
+
+
+
 ## [5.7.6](https://github.com/ykfe/ssr/compare/ssr-plugin-vue@5.7.5...ssr-plugin-vue@5.7.6) (2021-11-08)
 
 
