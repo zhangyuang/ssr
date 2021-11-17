@@ -1,7 +1,7 @@
 import { h, createSSRApp, createApp, reactive, renderSlot } from 'vue'
 import { Store } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
-import { findRoute, normalizePath } from 'ssr-client-utils'
+import { findRoute } from 'ssr-client-utils'
 import { createRouter, createStore } from './create'
 import { ESMFetch, IFeRouteItem, RoutesType } from './interface'
 
@@ -11,6 +11,7 @@ import * as Routes from '_build/ssr-temporary-routes'
 const { FeRoutes, App, layoutFetch, PrefixRouterBase } = Routes as RoutesType
 declare const module: any
 
+let hasRender = false
 async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<any>, router: RouteLocationNormalizedLoaded) {
   let layoutFetchData = {}
   let fetchData = {}
@@ -38,32 +39,8 @@ const clientRender = async () => {
   const asyncData = reactive({
     value: window.__INITIAL_DATA__ ?? {}
   })
-  let fetchData = window.__INITIAL_DATA__ ?? {}
+  const fetchData = window.__INITIAL_DATA__ ?? {}
 
-  router.beforeResolve(async (to, from, next) => {
-    // 找到要进入的组件并提前执行 fetch 函数
-    const { fetch } = findRoute<IFeRouteItem>(FeRoutes, to.path)
-    const combineAysncData = await getAsyncCombineData(fetch, store, to)
-    to.matched?.forEach(item => {
-      item.props.default = Object.assign({}, item.props.default ?? {}, {
-        fetchData: combineAysncData
-      })
-    })
-    asyncData.value = Object.assign(asyncData.value, combineAysncData)
-    next()
-  })
-
-  if (!window.__USE_SSR__) {
-    // 如果是 csr 模式 则需要客户端获取首页需要的数据
-    let pathname = location.pathname
-    if (PrefixRouterBase) {
-      pathname = normalizePath(pathname, PrefixRouterBase)
-    }
-    const { fetch } = findRoute<IFeRouteItem>(FeRoutes, pathname)
-    const combineAysncData = await getAsyncCombineData(fetch, store, router.currentRoute.value)
-    fetchData = combineAysncData
-    asyncData.value = Object.assign(asyncData.value, combineAysncData)
-  }
   const app = create({
     render () {
       return renderSlot(this.$slots, 'default', {}, () => [h(App, {
@@ -72,9 +49,24 @@ const clientRender = async () => {
       })])
     }
   })
-
   app.use(store)
   app.use(router)
+
+  router.beforeResolve(async (to, from, next) => {
+    if (hasRender || !window.__USE_SSR__) {
+      // 找到要进入的组件并提前执行 fetch 函数
+      const { fetch } = findRoute<IFeRouteItem>(FeRoutes, to.path)
+      const combineAysncData = await getAsyncCombineData(fetch, store, to)
+      to.matched?.forEach(item => {
+        item.props.default = Object.assign({}, item.props.default ?? {}, {
+          fetchData: combineAysncData
+        })
+      })
+      asyncData.value = Object.assign(asyncData.value, combineAysncData)
+    }
+    hasRender = true
+    next()
+  })
   await router.isReady()
 
   app.mount('#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false

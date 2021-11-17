@@ -1,6 +1,6 @@
 import { Store } from 'vuex'
 import { Route } from 'vue-router'
-import { findRoute, normalizePath } from 'ssr-client-utils'
+import { findRoute } from 'ssr-client-utils'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
 import { ESMFetch, RoutesType, IFeRouteItem } from './interface'
@@ -9,6 +9,7 @@ import { createRouter, createStore, RealVue } from './create'
 declare const module: any
 const { FeRoutes, App, layoutFetch, PrefixRouterBase } = Routes as RoutesType
 
+let hasRender = false
 async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<any>, router: Route) {
   let layoutFetchData = {}
   let fetchData = {}
@@ -31,7 +32,7 @@ const clientRender = async () => {
   if (window.__INITIAL_DATA__) {
     store.replaceState(window.__INITIAL_DATA__)
   }
-  let fetchData = window.__INITIAL_DATA__ ?? {}
+  const fetchData = window.__INITIAL_DATA__ ?? {}
 
   const app = new RealVue({
     // 根实例简单的渲染应用程序组件。
@@ -44,19 +45,9 @@ const clientRender = async () => {
     router
   })
 
-  router.onReady(async () => {
-    if (!window.__USE_SSR__) {
-      // 如果是 csr 模式 则需要客户端获取首页需要的数据
-      let pathname = location.pathname
-      if (PrefixRouterBase) {
-        pathname = normalizePath(pathname, PrefixRouterBase)
-      }
-      const route = findRoute<IFeRouteItem>(FeRoutes, pathname)
-      const { fetch } = route
-      fetchData = await getAsyncCombineData(fetch, store, router.currentRoute)
-    }
-    router.beforeResolve(async (to, from, next) => {
-      // 找到要进入的组件并提前执行 fetch 函数
+  router.beforeResolve(async (to, from, next) => {
+    // 找到要进入的组件并提前执行 fetch 函数
+    if (hasRender || !window.__USE_SSR__) {
       const route = findRoute<IFeRouteItem>(FeRoutes, to.path)
       const { fetch } = route
       const combineAysncData = await getAsyncCombineData(fetch, store, to)
@@ -65,8 +56,12 @@ const clientRender = async () => {
           fetchData: combineAysncData
         })
       })
-      next()
-    })
+    }
+    hasRender = true
+    next()
+  })
+
+  router.onReady(() => {
     app.$mount('#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
   })
 

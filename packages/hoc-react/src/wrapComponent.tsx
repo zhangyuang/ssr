@@ -55,10 +55,7 @@ function wrapComponent (WrappedComponent: DynamicFC|StaticFC) {
           setReady(true)
         }
       }
-      if (!hasRender) {
-        // ssr 场景首次渲染的情况下客户端无需获取数据
-        hasRender = true
-      }
+      hasRender = true
     }
     return (
       ready ? <WrappedComponent {...props}></WrappedComponent> : null
