@@ -38,6 +38,8 @@
     "@midwayjs/fcli-plugin-scf": "^1.2.12",
     "@midwayjs/luckyeye": "^1.0.0",
     "@midwayjs/mock": "^2.13.4",
+    "@midwayjs/decorator": "^2.3.0",
+    "@midwayjs/web": "^2.3.0",
     "mwts": "^1.0.5",
     "ssr-server-utils": "^5.7.6"
   },
