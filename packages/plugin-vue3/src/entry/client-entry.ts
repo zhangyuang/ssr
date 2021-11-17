@@ -1,4 +1,4 @@
-import { h, createApp, reactive } from 'vue'
+import { h, createSSRApp, reactive, renderSlot } from 'vue'
 import { Store } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { findRoute, normalizePath } from 'ssr-client-utils'
@@ -38,11 +38,15 @@ const clientRender = async () => {
     value: window.__INITIAL_DATA__ ?? {}
   })
   let fetchData = window.__INITIAL_DATA__ ?? {}
-  const app = createApp({
-    render: () => h(App, {
-      asyncData,
-      fetchData
-    })
+  const app = createSSRApp({
+    render () {
+      return renderSlot(this.$slots, 'default', {}, () => [
+        h(App, {
+          asyncData,
+          fetchData
+        })
+      ])
+    }
   })
 
   app.use(store)
