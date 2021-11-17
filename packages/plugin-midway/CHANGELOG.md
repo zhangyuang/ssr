@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.9](https://github.com/ykfe/ssr/compare/ssr-plugin-midway@5.7.8...ssr-plugin-midway@5.7.9) (2021-11-17)
+
+
+### Bug Fixes
+
+* update plugin-midway add midway-mock ([94f9405](https://github.com/ykfe/ssr/commit/94f9405d0eb22977ae401e78bf31a31d256c7f39))
+
+
+
+
+
 ## [5.7.8](https://github.com/ykfe/ssr/compare/ssr-plugin-midway@5.7.7...ssr-plugin-midway@5.7.8) (2021-11-17)
 
 
