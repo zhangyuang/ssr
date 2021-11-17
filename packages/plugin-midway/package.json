@@ -30,6 +30,7 @@
   "homepage": "https://github.com/ykfe/ssr#readme",
   "dependencies": {
     "@midwayjs/cli": "^1.0.0",
+    "@midwayjs/mock": "^2.13.4",
     "@midwayjs/cli-plugin-faas": "^1.2.49",
     "@midwayjs/fcli-command-core": "^1.2.37",
     "@midwayjs/fcli-plugin-deploy": "^1.2.37",
