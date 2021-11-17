@@ -1,4 +1,4 @@
-import { h, createSSRApp, reactive, renderSlot } from 'vue'
+import { h, createSSRApp, createApp, reactive, renderSlot } from 'vue'
 import { Store } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { findRoute, normalizePath } from 'ssr-client-utils'
@@ -29,6 +29,7 @@ const clientRender = async () => {
   const router = createRouter({
     base: window.prefix ?? PrefixRouterBase
   })
+  const create = window.__USE_SSR__ ? createSSRApp : createApp
 
   if (window.__INITIAL_DATA__) {
     store.replaceState(window.__INITIAL_DATA__)
@@ -38,21 +39,6 @@ const clientRender = async () => {
     value: window.__INITIAL_DATA__ ?? {}
   })
   let fetchData = window.__INITIAL_DATA__ ?? {}
-  const app = createSSRApp({
-    render () {
-      return renderSlot(this.$slots, 'default', {}, () => [
-        h(App, {
-          asyncData,
-          fetchData
-        })
-      ])
-    }
-  })
-
-  app.use(store)
-  app.use(router)
-
-  await router.isReady()
 
   router.beforeResolve(async (to, from, next) => {
     // 找到要进入的组件并提前执行 fetch 函数
@@ -78,6 +64,18 @@ const clientRender = async () => {
     fetchData = combineAysncData
     asyncData.value = Object.assign(asyncData.value, combineAysncData)
   }
+  const app = create({
+    render () {
+      return renderSlot(this.$slots, 'default', {}, () => [h(App, {
+        asyncData,
+        fetchData
+      })])
+    }
+  })
+
+  app.use(store)
+  app.use(router)
+  await router.isReady()
 
   app.mount('#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
   if (!window.__USE_VITE__) {
