@@ -3,9 +3,9 @@ import { resolve } from 'path'
 import { fork } from 'child_process'
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
-import { handleEnv } from './env'
 import { generateHtml } from './html'
 import { cleanOutDir } from './clean'
+import { transformConfig, handleEnv } from './preprocess'
 
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 同步代码 block 导致 loading 暂停
 const debug = require('debug')('ssr:cli')
@@ -22,8 +22,8 @@ const spinner = {
 yargs
   .command('start', 'Start Server', {}, async (argv: Argv) => {
     spinner.start()
+    await transformConfig()
     await handleEnv(argv, spinner)
-
     const { parseFeRoutes, loadPlugin, copyReactContext } = await import('ssr-server-utils')
     await parseFeRoutes()
     debug(`require ssr-server-utils time: ${Date.now() - start} ms`)
@@ -43,7 +43,7 @@ yargs
   .command('build', 'Build server and client files', {}, async (argv: Argv) => {
     spinner.start()
     process.env.NODE_ENV = 'production'
-
+    await transformConfig()
     const { parseFeRoutes, loadPlugin, copyReactContext } = await import('ssr-server-utils')
     await parseFeRoutes()
     const plugin = loadPlugin()

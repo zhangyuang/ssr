@@ -45,7 +45,7 @@ export interface IConfig {
   cloudIDE?: boolean
   prefix?: string
   dynamic: boolean
-  mode: string
+  mode: 'ssr' | 'csr'
   webpackDevServerConfig?: any
   stream: boolean
   customeHeadScript?: (ctx: ISSRContext) => Script | Script

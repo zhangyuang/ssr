@@ -1,4 +1,3 @@
-import * as fs from 'fs'
 import { promises } from 'fs'
 import { resolve } from 'path'
 import { exec } from 'child_process'
@@ -18,10 +17,8 @@ const getPagesDir = () => {
 }
 
 const getUserConfig = (): UserConfig => {
-  // 生产环境如果有 config.prod 则读取
-  const isProd = process.env.NODE_ENV === 'production'
-  const hasProdConfig = fs.existsSync(resolve(getCwd(), 'config.prod.js'))
-  return require(resolve(getCwd(), isProd && hasProdConfig ? 'config.prod' : 'config'))
+  const config = require(resolve(getCwd(), './build/config'))
+  return config.userConfig ?? config
 }
 
 const loadPlugin = (): IPlugin => {

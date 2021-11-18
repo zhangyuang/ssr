@@ -1,21 +1,23 @@
 import { promises as fs } from 'fs'
 import { resolve, join } from 'path'
-import * as Shell from 'shelljs'
 import { ParseFeRouteItem } from 'ssr-types'
 import { getCwd, getPagesDir, getFeDir, accessFile, normalizeStartPath } from './cwd'
 import { loadConfig } from './loadConfig'
 
 const debug = require('debug')('ssr:parse')
-const { dynamic, publicPath, isDev, routerPriority, routerOptimize } = loadConfig()
 const pageDir = getPagesDir()
 const cwd = getCwd()
-let { prefix } = loadConfig()
 
-if (prefix) {
-  prefix = normalizeStartPath(prefix)
+const getPrefix = () => {
+  let { prefix } = loadConfig()
+  if (prefix) {
+    prefix = normalizeStartPath(prefix)
+  }
+  return prefix
 }
 
 export const normalizePath = (path: string, base?: string) => {
+  const prefix = getPrefix()
   // 移除 prefix 保证 path 跟路由表能够正确匹配
   const baseName = base ?? prefix
   if (baseName) {
@@ -39,11 +41,13 @@ export const normalizePublicPath = (path: string) => {
 }
 
 export const getOutputPublicPath = () => {
+  const { publicPath, isDev } = loadConfig()
   const path = normalizePublicPath(publicPath)
   return isDev ? path : `${path}client/`
 }
 
 export const getImageOutputPath = () => {
+  const { publicPath, isDev } = loadConfig()
   const imagePath = 'static/images'
   const normalizePath = normalizePublicPath(publicPath)
   return {
@@ -53,6 +57,8 @@ export const getImageOutputPath = () => {
 }
 
 const parseFeRoutes = async () => {
+  const { dynamic, routerPriority, routerOptimize } = loadConfig()
+  const prefix = getPrefix()
   const isVue = require(join(cwd, './package.json')).dependencies.vue
   const viteMode = process.env.BUILD_TOOL === 'vite'
   if (viteMode && !dynamic) {
@@ -164,9 +170,6 @@ const parseFeRoutes = async () => {
 }
 
 const writeRoutes = async (routes: string) => {
-  if (!await accessFile(join(cwd, './build'))) {
-    Shell.mkdir(join(cwd, './build'))
-  }
   await fs.writeFile(resolve(cwd, './build/ssr-temporary-routes.js'), routes)
 }
 
