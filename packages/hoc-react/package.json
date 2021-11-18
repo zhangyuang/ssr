@@ -1,6 +1,6 @@
 {
   "name": "ssr-hoc-react",
-  "version": "6.0.3",
+  "version": "6.0.4",
   "description": "hoc for react ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",

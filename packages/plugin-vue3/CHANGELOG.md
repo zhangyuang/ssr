@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.10](https://github.com/ykfe/ssr/compare/ssr-plugin-vue3@5.7.9...ssr-plugin-vue3@5.7.10) (2021-11-18)
+
+
+### Bug Fixes
+
+* vue3 slot ssr bug ([be093e7](https://github.com/ykfe/ssr/commit/be093e724aaf4a9b2a4c2417bd805d4d6d572f9f))
+* vue3 ssr slot bug ([#135](https://github.com/ykfe/ssr/issues/135)) ([3e7c90b](https://github.com/ykfe/ssr/commit/3e7c90b2ee9db51832d9710159858908b0a7bcfa))
+
+
+### Features
+
+* optimize client fetch data logic ([5ba22bd](https://github.com/ykfe/ssr/commit/5ba22bd51fae65c26901146dc88aa2e015328fb3))
+
+
+
+
+
 ## [5.7.9](https://github.com/ykfe/ssr/compare/ssr-plugin-vue3@5.7.8...ssr-plugin-vue3@5.7.9) (2021-11-17)
 
 

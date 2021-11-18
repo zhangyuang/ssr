@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.0.4](https://github.com/ykfe/ssr/compare/ssr-hoc-react@6.0.3...ssr-hoc-react@6.0.4) (2021-11-18)
+
+
+### Features
+
+* optimize client fetch data logic ([5ba22bd](https://github.com/ykfe/ssr/commit/5ba22bd51fae65c26901146dc88aa2e015328fb3))
+
+
+
+
+
 ## [6.0.3](https://github.com/ykfe/ssr/compare/ssr-hoc-react@6.0.2...ssr-hoc-react@6.0.3) (2021-11-07)
 
 **Note:** Version bump only for package ssr-hoc-react
