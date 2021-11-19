@@ -1,8 +1,10 @@
 # 应用配置
 
-本章节将介绍 `config.js` 支持的一些配置。了解详细的配置可以直接查看该[文件](https://github.com/ykfe/ssr/blob/dev/packages/server-utils/src/loadConfig.ts)
+注:在最新的 `example` 中我们支持 `ts` 文件来编写 `config` 以便获取更加完善的类型支持。同时结合本文档一起使用，减少出错的可能性
 
-配置文件可通过 `config.js` 文件定义以及调用 `core.render` 方法时实时传入。会将两者配置进行合并
+本章节将介绍 `config.ts|js` 支持的一些配置。了解详细的配置可以直接查看该[文件](https://github.com/ykfe/ssr/blob/dev/packages/server-utils/src/loadConfig.ts)
+
+配置文件可通过 `config.ts|js` 文件定义以及调用 `core.render` 方法时实时传入。会将两者配置进行合并
 
 注：得益于 `ssr` 的强大设计，你会发现很多功能开发者完全可以自行在业务代码层面轻松实现而无需框架底层实现或者引入第三方库实现。比如指定页面 `ssr`，比如自定义 `meta` 标签。这些十分简单但重要的功能在其他框架用起来是无比的别扭。而在 `ssr` 框架。一切都是那么自然。
 

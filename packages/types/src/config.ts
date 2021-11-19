@@ -4,7 +4,9 @@ import { Config } from './third-party/webpack-chain'
 import { ISSRContext } from './ctx'
 
 export type Script = Array<{
-  describe: object
+  describe: object | {
+    attrs: object
+  }
   content: string
 }>
 export interface IConfig {
@@ -56,7 +58,7 @@ export interface IConfig {
   ssrVueLoaderOptions?: any
   csrVueLoaderOptions?: any
   corejs: boolean
-  https: boolean
+  https: boolean | object
   babelExtraModule?: RuleSetCondition
   routerPriority?: Record<string, number>
   routerOptimize?: {
