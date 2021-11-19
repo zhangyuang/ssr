@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.7](https://github.com/ykfe/ssr/compare/ssr-server-utils@5.7.6...ssr-server-utils@5.7.7) (2021-11-19)
+
+
+### Features
+
+* config file support ts ([fcd291a](https://github.com/ykfe/ssr/commit/fcd291a8f326a037b500e349bcf1024588cf5559))
+
+
+
+
+
 ## [5.7.6](https://github.com/ykfe/ssr/compare/ssr-server-utils@5.7.5...ssr-server-utils@5.7.6) (2021-11-07)
 
 **Note:** Version bump only for package ssr-server-utils

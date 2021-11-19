@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.38](https://github.com/ykfe/ssr/compare/ssr-client-utils@5.6.37...ssr-client-utils@5.6.38) (2021-11-19)
+
+**Note:** Version bump only for package ssr-client-utils
+
+
+
+
+
 ## [5.6.37](https://github.com/ykfe/ssr/compare/ssr-client-utils@5.6.36...ssr-client-utils@5.6.37) (2021-11-07)
 
 **Note:** Version bump only for package ssr-client-utils

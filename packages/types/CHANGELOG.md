@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.39](https://github.com/ykfe/ssr/compare/ssr-types@5.6.38...ssr-types@5.6.39) (2021-11-19)
+
+
+### Features
+
+* config file support ts ([fcd291a](https://github.com/ykfe/ssr/commit/fcd291a8f326a037b500e349bcf1024588cf5559))
+
+
+
+
+
 ## [5.6.38](https://github.com/ykfe/ssr/compare/ssr-types@5.6.37...ssr-types@5.6.38) (2021-11-07)
 
 

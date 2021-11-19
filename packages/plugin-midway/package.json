@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-midway",
-  "version": "5.7.9",
+  "version": "5.7.10",
   "description": "plugin-midway for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -41,7 +41,7 @@
     "@midwayjs/mock": "^2.13.4",
     "@midwayjs/web": "^2.3.0",
     "mwts": "^1.0.5",
-    "ssr-server-utils": "^5.7.6"
+    "ssr-server-utils": "^5.7.7"
   },
   "peerDependencies": {
     "@midwayjs/decorator": "^2.3.0",
