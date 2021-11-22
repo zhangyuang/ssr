@@ -4,10 +4,10 @@ import { Config } from './third-party/webpack-chain'
 import { ISSRContext } from './ctx'
 
 export type Script = Array<{
-  describe: object | {
+  describe?: object | {
     attrs: object
   }
-  content: string
+  content?: string
 }>
 export interface IConfig {
   cwd: string
