@@ -53,7 +53,7 @@ export interface IConfig {
   customeHeadScript?: (ctx: ISSRContext) => Script | Script
   customeFooterScript?: (ctx: ISSRContext) => Script | Script
   locale?: {
-    enable: false
+    enable: boolean
   }
   ssrVueLoaderOptions?: any
   csrVueLoaderOptions?: any
