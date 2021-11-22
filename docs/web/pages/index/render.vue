@@ -24,7 +24,7 @@
             </router-link>
             <div class="license">
               License: MIT
-              <a href="https://github.com/ykfe/ssr" target="_blank">Github</a>
+              <a href="https://github.com/zhangyuang/ssr" target="_blank">Github</a>
             </div>
           </div>
         </div>

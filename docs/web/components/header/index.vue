@@ -11,7 +11,7 @@
       <router-link v-for="item in (isMobile ? headerItems.slice(0,3) : headerItems)" :key="item.path" :to="item.path">
         {{ item.label }}
       </router-link>
-      <a target="__black" href="https://github.com/ykfe/ssr">
+      <a target="__black" href="https://github.com/zhangyuang/ssr">
         Github
       </a>
       <a target="__black" href="http://fe.ssr-fc.com/">

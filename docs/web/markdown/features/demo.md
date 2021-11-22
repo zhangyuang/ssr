@@ -2,7 +2,7 @@
 
 本篇章将会展示使用本框架开发并部署的应用。包含传统 Node.js 形式部署的应用以及 Serverless 形式部署的应用。
 
-如果你发现你的应用也是以本框架进行开发，但这里没有列出来，欢迎提 [issue](https://github.com/ykfe/ssr/issues) 向我们反馈，我们会及时加入。
+如果你发现你的应用也是以本框架进行开发，但这里没有列出来，欢迎提 [issue](https://github.com/zhangyuang/ssr/issues) 向我们反馈，我们会及时加入。
 
 <table>
 <tr>

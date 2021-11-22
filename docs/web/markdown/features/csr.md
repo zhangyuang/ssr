@@ -54,7 +54,7 @@
 
 ### 通过 core 模块提供的 render 方法降级
 
-[ssr-core-react](https://github.com/ykfe/ssr/blob/dev/packages/core-react/src/render.ts) 和 [ssr-core-vue](https://github.com/ykfe/ssr/blob/dev/packages/core-vue3/src/index.ts) (vue3)模块均支持该方式
+[ssr-core-react](https://github.com/zhangyuang/ssr/blob/dev/packages/core-react/src/render.ts) 和 [ssr-core-vue](https://github.com/zhangyuang/ssr/blob/dev/packages/core-vue3/src/index.ts) (vue3)模块均支持该方式
 
 在应用执行出错 `catch` 到 `error` 的时候降级为客户端渲染。也可根据具体的业务逻辑，由开发者自行决定在适当的时候通过该方式降级 `csr` 模式。也可以通过接入发布订阅机制，通过发布平台来实时设置当前的渲染模式。
 

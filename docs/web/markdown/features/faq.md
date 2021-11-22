@@ -1,6 +1,6 @@
 # FAQ
 
-本章节记录开发者可能会遇到的常见问题。如果你的问题在这里没有描述，你可以直接去仓库地址提 [issue](https://github.com/ykfe/ssr/issues)
+本章节记录开发者可能会遇到的常见问题。如果你的问题在这里没有描述，你可以直接去仓库地址提 [issue](https://github.com/zhangyuang/ssr/issues)
 
 ## 404 500 异常处理
 
@@ -474,7 +474,7 @@ import { Button } from 'vant'
 
 不建议图片资源放在 `web` 文件夹，对图片资源若非有小文件 `base64` 内联或者 `hash` 缓存的需求是不建议用 `Webpack` 去处理的，这样会使得 `Webpack` 的构建速度变慢。
 
-建议放在默认的静态资源文件夹即 `build` 文件夹，即可通过 `<img src="/foo.jpg">` 即可引入。由于 [egg-static](https://github.com/eggjs/egg-static) 支持数组的形式，也可以自行在根目录下创建 `public` 文件夹用于存放图片等静态资源。但记住这里需要额外将 `public` 文件夹设置为[静态资源文件夹](https://github.com/ykfe/ssr/blob/dev/example/midway-vue3-ssr/src/config/config.default.ts#L15)
+建议放在默认的静态资源文件夹即 `build` 文件夹，即可通过 `<img src="/foo.jpg">` 即可引入。由于 [egg-static](https://github.com/eggjs/egg-static) 支持数组的形式，也可以自行在根目录下创建 `public` 文件夹用于存放图片等静态资源。但记住这里需要额外将 `public` 文件夹设置为[静态资源文件夹](https://github.com/zhangyuang/ssr/blob/dev/example/midway-vue3-ssr/src/config/config.default.ts#L15)
 
 ## 如何支持 Sass|Scss
 
@@ -491,7 +491,7 @@ $ yarn add sass sass-loader@^10.0.0 -D # 必须安装 ^10.0.0 版本的 sass-loa
 module.exports = {
   chainBaseConfig: (chain) => {
     const { setStyle } = require('ssr-server-utils') // 这里需要在具体的 function 里面加载 setStyle
-    // setStyle 的详细入参类型可查看  https://github.com/ykfe/ssr/blob/dev/packages/server-utils/src/webpack/setStyle.ts
+    // setStyle 的详细入参类型可查看  https://github.com/zhangyuang/ssr/blob/dev/packages/server-utils/src/webpack/setStyle.ts
     setStyle(chain, /\.s[ac]ss$/i, {
       rule: 'sass',
       loader: 'sass-loader',
@@ -523,7 +523,7 @@ export default {
 
 ## 是否考虑支持 SSG 静态渲染
 
-参考该 [issue](https://github.com/ykfe/ssr/issues/75) 目前没有支持 `SSG` 的打算。个人认为这是一个伪需求。若后来的开发者仍然有支持 `SSG `的需求。可以回复该 `issue`,后续将会根据人数决定是否框架原生支持。
+参考该 [issue](https://github.com/zhangyuang/ssr/issues/75) 目前没有支持 `SSG` 的打算。个人认为这是一个伪需求。若后来的开发者仍然有支持 `SSG `的需求。可以回复该 `issue`,后续将会根据人数决定是否框架原生支持。
 
 ## 如何降级为客户端渲染
 

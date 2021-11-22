@@ -5,16 +5,16 @@
 </div>
 <br />
 <div align="center">
-<a href="https://github.com/ykfe/ssr/actions" target="_blank"><img src="https://github.com/ykfe/ssr/workflows/CI/badge.svg" style="width:90px;height: 20px" alt="githubActions"></a>
+<a href="https://github.com/zhangyuang/ssr/actions" target="_blank"><img src="https://github.com/zhangyuang/ssr/workflows/CI/badge.svg" style="width:90px;height: 20px" alt="githubActions"></a>
 <a href="https://www.cypress.io/" target="_blank"><img src="https://img.shields.io/badge/cypress-dashboard-brightgreen.svg" style="width:90px;height: 20px" alt="cypress"></a>
 <a href="https://npmcharts.com/compare/ssr" target="_blank"><img src="https://img.shields.io/npm/dt/ssr" style="width:90px;height: 20px" alt="download"></a>
 <a href="https://standardjs.com" target="_blank"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" style="width:90px;height: 20px" alt="standardjs"></a>
-<a href="https://github.com/ykfe/ssr" target="_blank"><img src="https://img.shields.io/npm/l/vue.svg" style="width:90px;height: 20px" alt="License"></a>
-<a href="https://github.com/ykfe/ssr" target="_blank"><img src="https://img.shields.io/badge/node-%3E=12-green.svg" style="width:90px;height: 20px" alt="Node"></a>
+<a href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/npm/l/vue.svg" style="width:90px;height: 20px" alt="License"></a>
+<a href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/badge/node-%3E=12-green.svg" style="width:90px;height: 20px" alt="Node"></a>
 </div>
 <br />
 
-[ssr](https://github.com/ykfe/ssr) 框架是为前端框架在服务端渲染的场景下所打造的开箱即用的服务端渲染框架。
+[ssr](https://github.com/zhangyuang/ssr) 框架是为前端框架在服务端渲染的场景下所打造的开箱即用的服务端渲染框架。
 
 此框架脱胎于 [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) 项目和 `ssr` v4.3版本（midway-faas + react ssr），在之前的基础上做了诸多演进，通过插件化的代码组织形式，支持任意服务端框架与任意前端框架的组合使用。开发者可以选择通过 Serverless 方式部署或是以传统 Node.js 的应用形式部署，并且我们专注于提升 Serverless 场景下服务端渲染应用的开发体验，打造了一站式的开发，发布应用服务的功能。最大程度提升开发者的开发体验，将应用的开发，部署成本降到最低。
 
@@ -67,7 +67,7 @@
 
 ## 哪些应用在使用
 
-正在使用这个项目的公司(应用), 如果您正在使用但名单中没有列出来的话请提 [issue](https://github.com/ykfe/ssr/issues)，欢迎推广分享，我们将随时提供技术支持。事实上本文档的源代码便是使用本框架的 [vue3 + vite + provide/inject]() 编写的。
+正在使用这个项目的公司(应用), 如果您正在使用但名单中没有列出来的话请提 [issue](https://github.com/zhangyuang/ssr/issues)，欢迎推广分享，我们将随时提供技术支持。事实上本文档的源代码便是使用本框架的 [vue3 + vite + provide/inject]() 编写的。
 
 <table>
 <tr>
@@ -129,7 +129,7 @@
 
 ## 方案对比
 
-与其他方案的对比无疑是难写的但同时也是重要的。在保持谦虚的同时，我们也希望能够尽可能的展现出其他类型解决方案的不足。即使它们的 `star` 数量看起来非常多并不意味着这些方案 "好用"。事实上它们的问题实在是太多了。让开发者能够清晰的了解不同解决方案的差别在哪里。由于所有框架都是在不断更新当中如果你注意到一个不准确或似乎不太正确的地方，请提[issue](https://github.com/ykfe/ssr/issues)。
+与其他方案的对比无疑是难写的但同时也是重要的。在保持谦虚的同时，我们也希望能够尽可能的展现出其他类型解决方案的不足。即使它们的 `star` 数量看起来非常多并不意味着这些方案 "好用"。事实上它们的问题实在是太多了。让开发者能够清晰的了解不同解决方案的差别在哪里。由于所有框架都是在不断更新当中如果你注意到一个不准确或似乎不太正确的地方，请提[issue](https://github.com/zhangyuang/ssr/issues)。
 
 客观来说，作为项目核心团队成员，我们认为 `ssr` 框架是同类型解决方案中最优秀的能够解决非常多其他框架的问题，否则在一开始就不会去创建本项目。 目前 `ssr` 框架的历史使用者人数已经超过几千人，在统计了交流群的反馈后，我们十分有信心认为 `ssr` 框架是要优于同类型的任何解决方案的。有不少开发者是在使用过其他类型的方案后踩了无数的坑最终选择了 `ssr` 框架。或者直接应用从其他框架重构为 `ssr` 框架
 
@@ -145,7 +145,7 @@
 
 ### 优秀的依赖分离
 
-正如 [README.md](https://github.com/ykfe/ssr#%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F) 介绍的生态系统。之所以需要划分出这么多的 `npm` 包是为了
+正如 [README.md](https://github.com/zhangyuang/ssr#%E7%94%9F%E6%80%81%E7%B3%BB%E7%BB%9F) 介绍的生态系统。之所以需要划分出这么多的 `npm` 包是为了
 
 - 支持所有框架场景的使用
 - 分离开发环境依赖和生产环境依赖，保证生产环境安装的依赖最小。事实上生产环境只依赖 `core` 模块

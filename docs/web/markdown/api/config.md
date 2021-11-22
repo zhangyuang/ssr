@@ -2,7 +2,7 @@
 
 注:在最新的 `example` 中我们支持 `ts` 文件来编写 `config` 以便获取更加完善的类型支持。同时结合本文档一起使用，减少出错的可能性
 
-本章节将介绍 `config.ts|js` 支持的一些配置。了解详细的配置可以直接查看该[文件](https://github.com/ykfe/ssr/blob/dev/packages/server-utils/src/loadConfig.ts)
+本章节将介绍 `config.ts|js` 支持的一些配置。了解详细的配置可以直接查看该[文件](https://github.com/zhangyuang/ssr/blob/dev/packages/server-utils/src/loadConfig.ts)
 
 配置文件可通过 `config.ts|js` 文件定义以及调用 `core.render` 方法时实时传入。会将两者配置进行合并
 
@@ -109,7 +109,7 @@ module.exports = {
 ## chainBaseConfig
 
 - 类型: `(config: WebpackChain) => void`
-- 默认: [React](https://github.com/ykfe/ssr/blob/dev/packages/plugin-react/src/config/base.ts) [Vue](https://github.com/ykfe/ssr/blob/dev/packages/plugin-vue/src/config/base.ts) [Vue3](https://github.com/ykfe/ssr/blob/dev/packages/plugin-vue3/src/config/base.ts)
+- 默认: [React](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-react/src/config/base.ts) [Vue](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue/src/config/base.ts) [Vue3](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/config/base.ts)
 
 使用 [webpack-chain](https://github.com/neutrinojs/webpack-chain) 来修改 `服务端/客户端` 公共的 `Webpack` 构建配置。
 
@@ -133,14 +133,14 @@ module.exports = {
 ## chainServerConfig
 
 - 类型: `(config: WebpackChain) => void`
-- 默认: [React](https://github.com/ykfe/ssr/blob/dev/packages/plugin-react/src/config/server.ts) [Vue](https://github.com/ykfe/ssr/blob/dev/packages/plugin-vue/src/config/server.ts) [Vue3](https://github.com/ykfe/ssr/blob/dev/packages/plugin-vue3/src/config/server.ts)
+- 默认: [React](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-react/src/config/server.ts) [Vue](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue/src/config/server.ts) [Vue3](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/config/server.ts)
 
 使用 [webpack-chain](https://github.com/neutrinojs/webpack-chain) 来修改 `服务端` 公共的 `Webpack` 构建配置
 
 ## chainClientConfig
 
 - 类型: `(config: WebpackChain) => void`
-- 默认: [React](https://github.com/ykfe/ssr/blob/dev/packages/plugin-react/src/config/client.ts) [Vue](https://github.com/ykfe/ssr/blob/dev/packages/plugin-vue/src/config/client.ts) [Vue3](https://github.com/ykfe/ssr/blob/dev/packages/plugin-vue3/src/config/client.ts)
+- 默认: [React](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-react/src/config/client.ts) [Vue](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue/src/config/client.ts) [Vue3](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/config/client.ts)
 
 使用 [webpack-chain](https://github.com/neutrinojs/webpack-chain) 来修改 `客户端` 公共的 `Webpack` 构建配置
 
