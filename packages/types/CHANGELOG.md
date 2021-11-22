@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.40](https://github.com/ykfe/ssr/compare/ssr-types@5.6.39...ssr-types@5.6.40) (2021-11-22)
+
+
+### Bug Fixes
+
+* restore staicRouter ([1150a6c](https://github.com/ykfe/ssr/commit/1150a6c4e4fe17d4416e35d619f8aac10837a7b8))
+
+
+
+
+
 ## [5.6.39](https://github.com/ykfe/ssr/compare/ssr-types@5.6.38...ssr-types@5.6.39) (2021-11-19)
 
 
