@@ -23,7 +23,7 @@
 `ssr` is an out-of-the-box server side rendering framework, building for frontend framework in Serverless scene. 
 
 
-This framework originated from [egg-react-ssr](https://github.com/ykfe/egg-react-ssr) and `ssr` v4.3( midway-faas + react ssr), making a lot of evolution compared with the previous version. Through plugin-in code components, it supports the combination of any backend framework and any frontend framework. Developers can deploy applications through either  serverless or traditional Node.js. We focus on improving the development experiences of ssr applications and building a one-stop framework for development and deployment, which can also greatly reduce the costs for development and deployment. 
+This framework originated from [egg-react-ssr](https://github.com/zhangyuang/egg-react-ssr) and `ssr` v4.3( midway-faas + react ssr), making a lot of evolution compared with the previous version. Through plugin-in code components, it supports the combination of any backend framework and any frontend framework. Developers can deploy applications through either  serverless or traditional Node.js. We focus on improving the development experiences of ssr applications and building a one-stop framework for development and deployment, which can also greatly reduce the costs for development and deployment. 
 
 
 In the latest v5.0, the framkework supports `React` and `Vue2/Vue3` as server side rendering framework and `Vite` to improve the application's startup speed and HMR speed. It also provides one-click deployment to Serverless Cloud Function. With great confidence, we can say that it is the most advanced ssr framework on Earth. If you wish to get an out-of-the-box experience and on-click deployment, please use the `ssr` framework. 
