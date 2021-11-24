@@ -28,11 +28,8 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
     if (process.env['BUILD_TOOL'] === 'vite') {
       // 本地开发请求走 vite 接管 前端文件夹请求
       const { createServer } = await import('vite')
-      const viteServer = await createServer({
-        server: {
-          middlewareMode: 'ssr'
-        }
-      })
+      const { clientConfig } = await import('ssr-plugin-vue3')
+      const viteServer = await createServer(clientConfig)
       const koaConnect = require('koa2-connect')
       proxyMiddlewaresArr.push(express ? viteServer.middlewares : koaConnect(viteServer.middlewares))
     } else {

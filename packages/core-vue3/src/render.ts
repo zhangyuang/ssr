@@ -15,10 +15,8 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
   const isVite = process.env['BUILD_TOOL'] === 'vite'
 
   if (!ctx.response.type && typeof ctx.response.type !== 'function') {
-    // midway/koa 场景设置默认 content-type
     ctx.response.type = 'text/html;charset=utf-8'
   } else if (!(ctx as ExpressContext).response.hasHeader?.('content-type')) {
-    // express 场景
     (ctx as ExpressContext).response.setHeader?.('Content-type', 'text/html;charset=utf-8')
   }
 
@@ -35,13 +33,15 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
 }
 
 async function viteRender (ctx: ISSRContext, config: IConfig) {
-  const { createServer } = await import('vite')
-  const viteServer = await createServer({
-    configFile: resolve(getCwd(), './vite.server.config.js')
-  })
-
-  const { serverRender } = await viteServer.ssrLoadModule(resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry'))
-  const serverRes = await serverRender(ctx, config)
+  const { isDev } = config
+  let serverRes
+  if (isDev) {
+    const { createServer } = await import('vite')
+    const { serverConfig } = await import('ssr-plugin-vue3')
+    const viteServer = await createServer(serverConfig)
+    const { serverRender } = await viteServer.ssrLoadModule(resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry'))
+    serverRes = await serverRender(ctx, config)
+  }
   return serverRes
 }
 
@@ -51,7 +51,6 @@ async function commonRender (ctx: ISSRContext, config: IConfig) {
   const serverFile = resolve(cwd, `./build/server/${chunkName}.server.js`)
 
   if (isLocal) {
-    // clear cache in development environment
     delete require.cache[serverFile]
   }
 

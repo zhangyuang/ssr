@@ -22,3 +22,5 @@ export function vuePlugin () {
     }
   }
 }
+
+export * from './tools/vite'
