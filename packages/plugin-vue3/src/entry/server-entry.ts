@@ -12,7 +12,7 @@ const serialize = require('serialize-javascript')
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender, prefix } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, parallelFetch, disableClientRender, prefix } = config
   global.__VUE_PROD_DEVTOOLS__ = global.__VUE_PROD_DEVTOOLS__ ?? false
 
   const store = createStore()
@@ -70,14 +70,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   const injectCss: Vue.VNode[] = []
-  if (isVite) {
-    injectCss.push(
-      h('link', {
-        rel: 'stylesheet',
-        href: `/server/static/css/${chunkName}.css`
-      })
-    )
-  } else {
+  if (!isVite) {
     dynamicCssOrder.forEach(css => {
       if (manifest[css]) {
         injectCss.push(

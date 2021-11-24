@@ -30,10 +30,10 @@ const commonConfig = {
 const serverConfig = {
   ...commonConfig,
   build: {
-    ssrManifest: true,
+    ssr: resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js'),
     outDir: resolve(cwd, './build/server'),
     rollupOptions: {
-      input: resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
+      input: resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js')
     }
   },
   define: {
@@ -44,12 +44,24 @@ const serverConfig = {
 const clientConfig = {
   ...commonConfig,
   build: {
-    ssr: resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry'),
+    ssrManifest: true,
     outDir: resolve(cwd, './build/client'),
     rollupOptions: {
-      input: resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
+      input: resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'),
+      output: {
+        manualChunks: () => {
+          return (id, { getModuleInfo }) => {
+            if (
+              id.includes('render$id')
+            ) {
+              return 'detail'
+            }
+          }
+        }
+      }
     }
   },
+
   define: {
     __isBrowser__: true
   }
@@ -59,7 +71,7 @@ const viteStart = async () => {
 }
 const viteBuild = async () => {
   await build(clientConfig)
-  await build(serverConfig)
+  // await build(serverConfig)
 }
 
 export {
