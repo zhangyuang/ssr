@@ -1,6 +1,6 @@
 {
   "name": "ssr-server-utils",
-  "version": "5.7.6",
+  "version": "5.7.8",
   "description": "utils for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ykfe/ssr.git"
+    "url": "git+https://github.com/zhangyuang/ssr.git"
   },
   "keywords": [
     "cli",
@@ -25,13 +25,12 @@
   "author": "zhangyuang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ykfe/ssr/issues"
+    "url": "https://github.com/zhangyuang/ssr/issues"
   },
-  "homepage": "https://github.com/ykfe/ssr#readme",
+  "homepage": "https://github.com/zhangyuang/ssr#readme",
   "devDependencies": {
     "@types/shelljs": "^0.8.7",
-    "concurrently": "^5.1.0",
-    "vite": "^2.1.5"
+    "concurrently": "^5.1.0"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -40,6 +39,6 @@
     "koa2-connect": "^1.0.2",
     "path-to-regexp": "^6.2.0",
     "shelljs": "^0.8.3",
-    "ssr-types": "^5.6.38"
+    "ssr-types": "^5.6.40"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-vue",
-  "version": "5.7.6",
+  "version": "5.7.10",
   "description": "plugin-vue for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ykfe/ssr.git"
+    "url": "git+https://github.com/zhangyuang/ssr.git"
   },
   "keywords": [
     "cli",
@@ -25,9 +25,9 @@
   "author": "zhangyuang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ykfe/ssr/issues"
+    "url": "https://github.com/zhangyuang/ssr/issues"
   },
-  "homepage": "https://github.com/ykfe/ssr#readme",
+  "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.9.6",
@@ -50,10 +50,10 @@
     "postcss-loader": "^4.0.0",
     "postcss-preset-env": "^6.0.5",
     "postcss-safe-parser": "4.0.1",
-    "ssr-client-utils": "^5.6.37",
-    "ssr-server-utils": "^5.7.6",
-    "ssr-types": "^5.6.38",
-    "ssr-webpack": "^5.7.5",
+    "ssr-client-utils": "^5.6.39",
+    "ssr-server-utils": "^5.7.8",
+    "ssr-types": "^5.6.40",
+    "ssr-webpack": "^5.7.7",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "^4.1.1",
     "vue": "^2.0.0",
@@ -65,6 +65,8 @@
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-chain": "^6.4.0",
     "webpack-manifest-plugin": "^2.2.0",
-    "webpackbar": "^5.0.0-3"
+    "webpackbar": "^5.0.0-3",
+    "vite": "^2.1.5",
+    "vite-plugin-vue2": "^1.4.3"
   }
 }

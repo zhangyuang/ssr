@@ -1,6 +1,6 @@
 {
   "name": "ssr-webpack",
-  "version": "5.7.5",
+  "version": "5.7.7",
   "description": "webpack config for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ykfe/ssr.git"
+    "url": "git+https://github.com/zhangyuang/ssr.git"
   },
   "keywords": [
     "webpack",
@@ -25,16 +25,16 @@
   "author": "zhangyuang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ykfe/ssr/issues"
+    "url": "https://github.com/zhangyuang/ssr/issues"
   },
-  "homepage": "https://github.com/ykfe/ssr#readme",
+  "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
-    "ssr-server-utils": "^5.7.6",
+    "ssr-server-utils": "^5.7.8",
     "webpack": "^4.42.1",
     "webpack-dev-server-ssr": "^3.10.3"
   },
   "devDependencies": {
     "@types/webpack": "^4.41.8",
-    "ssr-types": "^5.6.38"
+    "ssr-types": "^5.6.40"
   }
 }

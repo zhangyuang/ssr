@@ -4,7 +4,7 @@
 
 本框架的插件机制不像大家熟悉的 `Webpack` 插件。通常我们基于 `Webpack `开发一个大型应用需要组合十多个 `Webpack Plugin` 才能够正常工作。它将每一个插件的功能粒度分的很细。大概原理就是在 `compile code` 的每个阶段，通过抛出对应的钩子来使得插件可以修改该阶段的 `code` 代码来组合成一个完整的应用。
 
-本框架的插件机制有点类似于 `Vite Plugin`, 目前我们提供了客户端插件 [plugin-react](https://github.com/ykfe/ssr/tree/dev/packages/plugin-react) [plugin-vue](https://github.com/ykfe/ssr/tree/dev/packages/plugin-vue) [plugin-vue3](https://github.com/ykfe/ssr/tree/dev/packages/plugin-vue3) 以及服务端插件 [plugin-midway](https://github.com/ykfe/ssr/tree/dev/packages/plugin-midway) [plugin-nestjs](https://github.com/ykfe/ssr/tree/dev/packages/plugin-nestjs)。它们所代表的含义是一个框架场景下的解决方案。
+本框架的插件机制有点类似于 `Vite Plugin`, 目前我们提供了客户端插件 [plugin-react](https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-react) [plugin-vue](https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-vue) [plugin-vue3](https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-vue3) 以及服务端插件 [plugin-midway](https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-midway) [plugin-nestjs](https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-nestjs)。它们所代表的含义是一个框架场景下的解决方案。
 
 相比于 `Webpack Plugin` 我们的粒度要更大一些。开发者可以在客户端插件与服务端插件之间进行任意的组合。但是无法将多个客户端插件进行组合。那么下面我们来看看如何编写一个 `ssr` 框架需要的插件吧
 

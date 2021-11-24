@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-nestjs",
-  "version": "5.7.5",
+  "version": "5.7.7",
   "description": "plugin-nestjs for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ykfe/ssr.git"
+    "url": "git+https://github.com/zhangyuang/ssr.git"
   },
   "keywords": [
     "cli",
@@ -24,13 +24,13 @@
   "author": "zhangyuang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ykfe/ssr/issues"
+    "url": "https://github.com/zhangyuang/ssr/issues"
   },
-  "homepage": "https://github.com/ykfe/ssr#readme",
+  "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "ora": "^4.0.4",
     "rimraf": "^3.0.2",
-    "ssr-server-utils": "^5.7.6"
+    "ssr-server-utils": "^5.7.8"
   },
   "peerDependencies": {
     "@nestjs/common": ">=7.5.1",

@@ -1,4 +1,3 @@
-import * as fs from 'fs'
 import { promises } from 'fs'
 import { resolve } from 'path'
 import { exec } from 'child_process'
@@ -18,10 +17,8 @@ const getPagesDir = () => {
 }
 
 const getUserConfig = (): UserConfig => {
-  // 生产环境如果有 config.prod 则读取
-  const isProd = process.env.NODE_ENV === 'production'
-  const hasProdConfig = fs.existsSync(resolve(getCwd(), 'config.prod.js'))
-  return require(resolve(getCwd(), isProd && hasProdConfig ? 'config.prod' : 'config'))
+  const config = require(resolve(getCwd(), './build/config'))
+  return config.userConfig ?? config
 }
 
 const loadPlugin = (): IPlugin => {
@@ -94,47 +91,6 @@ const accessFile = async (file: string) => {
   return result
 }
 
-const checkVite = async () => {
-  const result = await accessFile(resolve(getCwd(), './node_modules/vite/package.json'))
-  if (!result) {
-    const version = require(resolve(getCwd(), './package.json')).dependencies.vue
-    let plugin = ''
-    if (version) {
-      plugin = /^.?3/.test(version) ? '@vitejs/plugin-vue' : 'vite-plugin-vue2'
-    } else {
-      plugin = '@vitejs/plugin-react-refresh'
-    }
-    console.log(`当前项目缺少 vite 依赖，请根据实际技术栈安装 vite ${plugin}${version && !/^.?3/.test(version) ? '@1.4.4' : ''} 或 其他对应插件`)
-    if (version && !/^.?3/.test(version)) {
-      console.log('vue2 场景下使用 Vite 必须安装固定版本 vite-plugin-vue2@1.4.4')
-    }
-    return false
-  }
-  return true
-}
-
-const copyViteConfig = async () => {
-  // 如果当前项目没有 vite.config 则复制默认的文件
-  const result = await accessFile(resolve(getCwd(), './vite.config.js'))
-  if (!result) {
-    const version = require(resolve(getCwd(), './package.json')).dependencies.vue
-    console.log('vite.config.js not found, will be created automatically')
-    let folder = ''
-    if (version) {
-      folder = /^.?3/.test(version) ? 'ssr-plugin-vue3' : 'ssr-plugin-vue'
-    } else {
-      folder = 'ssr-plugin-react'
-    }
-    await promises.copyFile(resolve(getCwd(), `./node_modules/${folder}/src/config/vite.config.tpl`), resolve(getCwd(), './vite.config.js'))
-  } else {
-    // 如果有 vite.config.js 则检测是不是最新的
-    const buildAlias = require(resolve(getCwd(), './vite.config.js')).resolve?.alias?._build
-    if (!buildAlias) {
-      throw new Error('当前 vite.config.js 为旧版，请删除后由框架重新创建或手动添加新的 alias 规则 \'_build\': join(process.cwd(), \'./build\')')
-    }
-  }
-}
-
 const copyReactContext = async () => {
   await promises.copyFile(resolve(getCwd(), './node_modules/ssr-plugin-react/src/entry/create-context.ts'), resolve(getCwd(), './build/create-context.ts'))
 }
@@ -166,8 +122,6 @@ export {
   getLocalNodeModules,
   processError,
   accessFile,
-  copyViteConfig,
-  checkVite,
   execPromisify,
   readAsyncChunk,
   addAsyncChunk,

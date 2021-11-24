@@ -27,8 +27,8 @@ Please read the [document](https://classic.yarnpkg.com/en/docs/workspaces/) abou
 
 ## 代码贡献规范
 
-有任何疑问，欢迎提交 [issue](https://github.com/ykfe/ssr/issues)，
-或者直接修改提交 [PR](https://github.com/ykfe/ssr/pulls)!
+有任何疑问，欢迎提交 [issue](https://github.com/zhangyuang/ssr/issues)，
+或者直接修改提交 [PR](https://github.com/zhangyuang/ssr/pulls)!
 
 ## 提交 issue
 
@@ -36,7 +36,7 @@ Please read the [document](https://classic.yarnpkg.com/en/docs/workspaces/) abou
 - 请避免提交重复的 issue，在提交之前搜索现有的 issue。
 - 在标签(分类参考**标签分类**), 标题 或者内容中体现明确的意图。
 
-随后 ykfe 负责人会确认 issue 意图，更新合适的标签，关联 milestone，指派开发者。
+随后 负责人会确认 issue 意图，更新合适的标签，关联 milestone，指派开发者。
 
 标签可分为两类，type 和 scope
 
@@ -63,7 +63,7 @@ Please read the [document](https://classic.yarnpkg.com/en/docs/workspaces/) abou
 
 - 必须说清楚问题的几个方面：what（是什么），why（为什么），how（怎么做），可根据问题的特性有所侧重。
 - how 部分必须包含详尽完整的操作步骤，必要时附上 **足够简单，可运行** 的范例代码，
-所有范例代码放在 [ssr/examples](https://github.com/ykfe/ssr) 库中。
+所有范例代码放在 [ssr/examples](https://github.com/zhangyuang/ssr) 库中。
 - 提供必要的链接，如申请流程，术语解释和参考文档等。
 - 同步修改中英文文档，或者在 PR 里面说明。
 
@@ -71,7 +71,7 @@ Please read the [document](https://classic.yarnpkg.com/en/docs/workspaces/) abou
 
 ### 提交 Pull Request
 
-如果你有仓库的开发者权限，而且希望贡献代码，那么你可以创建分支修改代码提交 PR，ykfe 开发团队会 review 代码合并到主干。
+如果你有仓库的开发者权限，而且希望贡献代码，那么你可以创建分支修改代码提交 PR，开发团队会 review 代码合并到主干。
 
 ```bash
 # 先创建开发分支开发，分支名应该有含义，避免使用 update、tmp 之类的
@@ -178,7 +178,7 @@ BREAKING CHANGE:
 
 ## 发布管理
 
-ykfe 基于 [semver] 语义化版本号进行发布。
+基于 [semver] 语义化版本号进行发布。
 
 ### 分支策略
 

@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-midway",
-  "version": "5.7.7",
+  "version": "5.7.11",
   "description": "plugin-midway for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ykfe/ssr.git"
+    "url": "git+https://github.com/zhangyuang/ssr.git"
   },
   "keywords": [
     "cli",
@@ -25,20 +25,23 @@
   "author": "zhangyuang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ykfe/ssr/issues"
+    "url": "https://github.com/zhangyuang/ssr/issues"
   },
-  "homepage": "https://github.com/ykfe/ssr#readme",
+  "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "@midwayjs/cli": "^1.0.0",
     "@midwayjs/cli-plugin-faas": "^1.2.49",
+    "@midwayjs/decorator": "^2.3.0",
     "@midwayjs/fcli-command-core": "^1.2.37",
     "@midwayjs/fcli-plugin-deploy": "^1.2.37",
     "@midwayjs/fcli-plugin-fc": "^1.2.12",
     "@midwayjs/fcli-plugin-package": "^1.2.39",
     "@midwayjs/fcli-plugin-scf": "^1.2.12",
     "@midwayjs/luckyeye": "^1.0.0",
+    "@midwayjs/mock": "^2.13.4",
+    "@midwayjs/web": "^2.3.0",
     "mwts": "^1.0.5",
-    "ssr-server-utils": "^5.7.6"
+    "ssr-server-utils": "^5.7.8"
   },
   "peerDependencies": {
     "@midwayjs/decorator": "^2.3.0",

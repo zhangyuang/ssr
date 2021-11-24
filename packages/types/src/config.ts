@@ -4,8 +4,10 @@ import { Config } from './third-party/webpack-chain'
 import { ISSRContext } from './ctx'
 
 export type Script = Array<{
-  describe: object
-  content: string
+  describe?: object | {
+    attrs: object
+  }
+  content?: string
 }>
 export interface IConfig {
   cwd: string
@@ -45,18 +47,18 @@ export interface IConfig {
   cloudIDE?: boolean
   prefix?: string
   dynamic: boolean
-  mode: string
+  mode: 'ssr' | 'csr'
   webpackDevServerConfig?: any
   stream: boolean
   customeHeadScript?: (ctx: ISSRContext) => Script | Script
   customeFooterScript?: (ctx: ISSRContext) => Script | Script
   locale?: {
-    enable: false
+    enable: boolean
   }
   ssrVueLoaderOptions?: any
   csrVueLoaderOptions?: any
   corejs: boolean
-  https: boolean
+  https: boolean | object
   babelExtraModule?: RuleSetCondition
   routerPriority?: Record<string, number>
   routerOptimize?: {

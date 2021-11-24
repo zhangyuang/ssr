@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { StaticRouter } from 'react-router-dom'
 import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
 import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactESMFeRouteItem } from 'ssr-types-react'
 // @ts-expect-error
@@ -109,11 +110,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   }} />
 
   return (
-    <Context.Provider value={{ state: combineData }}>
-      <Layout ctx={ctx} config={config} staticList={staticList} injectState={injectState}>
-        {isCsr ? <></> : <Component />}
-      </Layout>
-    </Context.Provider>
+    <StaticRouter>
+      <Context.Provider value={{ state: combineData }}>
+        <Layout ctx={ctx} config={config} staticList={staticList} injectState={injectState}>
+          {isCsr ? <></> : <Component />}
+        </Layout>
+      </Context.Provider>
+    </StaticRouter>
   )
 }
 

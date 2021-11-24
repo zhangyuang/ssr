@@ -38,12 +38,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ykfe/ssr.git"
+    "url": "git+https://github.com/zhangyuang/ssr.git"
   },
   "author": "zhangyuang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ykfe/ssr/issues"
+    "url": "https://github.com/zhangyuang/ssr/issues"
   },
   "husky": {
     "hooks": {
@@ -51,9 +51,8 @@
       "commit-msg": "node scripts/verifyCommit.js"
     }
   },
-  "homepage": "https://github.com/ykfe/ssr#readme",
+  "homepage": "https://github.com/zhangyuang/ssr#readme",
   "devDependencies": {
-    "@vitejs/plugin-vue": "^1.2.1",
     "babel-eslint": "^10.0.2",
     "chalk": "^4.1.1",
     "concurrently": "^5.3.0",
@@ -66,8 +65,6 @@
     "lerna": "^3.20.2",
     "rimraf": "^3.0.2",
     "tsc-transpile-only": "^0.0.3",
-    "typescript": "^4.0.0",
-    "vite": "^2.1.5",
-    "vite-plugin-vue2": "^1.4.3"
+    "typescript": "^4.0.0"
   }
 }

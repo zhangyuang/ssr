@@ -132,7 +132,7 @@ export type ReactFetch<T={}, U={}> = (params: Params<T, U>) => Promise<any>
 
 在 `React` 场景以及 `Vue` 场景我们的切换路由 `fetch` 数据的时机略有不同。之所以会有差异这里是为了选择不同框架实现起来最简单好用的方式。
 
-在 `React` 场景，我们会用一个 [高阶组件](https://github.com/ykfe/ssr/blob/dev/packages/hoc-react/src/wrapComponent.tsx) 包裹在所有的页面级别组件外部。在 `useEffect` 中获取数据。所以我们的行为会是跳转后立即打开跳转后的页面组件，当执行完 `useEffect` 的逻辑后拿到数据修改 `Context` 再触发组件的重新 `render`
+在 `React` 场景，我们会用一个 [高阶组件](https://github.com/zhangyuang/ssr/blob/dev/packages/hoc-react/src/wrapComponent.tsx) 包裹在所有的页面级别组件外部。在 `useEffect` 中获取数据。所以我们的行为会是跳转后立即打开跳转后的页面组件，当执行完 `useEffect` 的逻辑后拿到数据修改 `Context` 再触发组件的重新 `render`
 
 在 `Vue` 场景，我们会在 `beforeResolve` 钩子调用跳转后的页面组件的 `fetch` 所以我们会在拿到数据后，才能够打开新页面
 

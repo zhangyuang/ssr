@@ -3,9 +3,9 @@ import { resolve } from 'path'
 import { fork } from 'child_process'
 import * as yargs from 'yargs'
 import { Argv } from 'ssr-types'
-import { handleEnv } from './env'
 import { generateHtml } from './html'
 import { cleanOutDir } from './clean'
+import { transformConfig, handleEnv } from './preprocess'
 
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 同步代码 block 导致 loading 暂停
 
@@ -21,26 +21,25 @@ const spinner = {
 yargs
   .command('start', 'Start Server', {}, async (argv: Argv) => {
     spinner.start()
+    process.env.NODE_ENV = 'development'
+    await transformConfig()
     await handleEnv(argv, spinner)
-
     const { parseFeRoutes, loadPlugin, copyReactContext } = await import('ssr-server-utils')
-    await parseFeRoutes()
-
     await parseFeRoutes()
     const plugin = loadPlugin()
     spinner.stop()
     if (plugin.clientPlugin?.name === 'plugin-react') {
       await copyReactContext()
     }
-    if (process.env['BUILD_TOOL'] !== 'vite') {
-      await plugin.clientPlugin?.start?.(argv)
-    }
     await cleanOutDir()
+    await plugin.clientPlugin?.start?.(argv)
     await plugin.serverPlugin?.start?.(argv)
   })
   .command('build', 'Build server and client files', {}, async (argv: Argv) => {
     spinner.start()
     process.env.NODE_ENV = 'production'
+    await transformConfig()
+    await handleEnv(argv, spinner)
     const { parseFeRoutes, loadPlugin, copyReactContext } = await import('ssr-server-utils')
     await parseFeRoutes()
     const plugin = loadPlugin()
@@ -48,16 +47,10 @@ yargs
     if (plugin.clientPlugin?.name === 'plugin-react') {
       await copyReactContext()
     }
-    if (process.env['BUILD_TOOL'] === 'vite') {
-      await cleanOutDir()
-      await plugin.serverPlugin?.build?.(argv)
-      await generateHtml(argv)
-    } else {
-      await plugin.clientPlugin?.build?.(argv)
-      await cleanOutDir()
-      await plugin.serverPlugin?.build?.(argv)
-      await generateHtml(argv)
-    }
+    await plugin.clientPlugin?.build?.(argv)
+    await cleanOutDir()
+    await plugin.serverPlugin?.build?.(argv)
+    await generateHtml(argv)
   })
   .command('deploy', 'Deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {
     process.env.NODE_ENV = 'production'

@@ -84,7 +84,7 @@ export const webSiteConfig = {
         children: [
           {
             label: 'Github',
-            path: 'https://github.com/ykfe/ssr'
+            path: 'https://github.com/zhangyuang/ssr'
           },
           {
             label: 'API 配置',

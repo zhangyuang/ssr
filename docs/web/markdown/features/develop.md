@@ -41,7 +41,7 @@ async handler (): Promise<void> {
 }
 ```
 
-当我们访问 `http://localhost:3000` 或者 `http://localhost:3000/detail/xxx` 时，请求会首先经过我们在 [Controller](https://github.com/ykfe/ssr/blob/dev/example/midway-vue3-ssr/src/controller/index.ts) 中注册的路由。并且交由对应的函数进行处理。
+当我们访问 `http://localhost:3000` 或者 `http://localhost:3000/detail/xxx` 时，请求会首先经过我们在 [Controller](https://github.com/zhangyuang/ssr/blob/dev/example/midway-vue3-ssr/src/controller/index.ts) 中注册的路由。并且交由对应的函数进行处理。
 
 示例函数的处理逻辑，调用了 `ssr-core-xxx` 模块提供的 `render` 方法，来渲染当前请求所对应的前端组件。并且将返回的结果是一个包含 `html`, `meta` 标签的完整 `html` 文档结构。我们提供 `string`, `stream` 两种格式的 `response` 类型给开发者使用。返回的文档结构中已经包含了 `script` 标签加载客户端资源的相关代码
 

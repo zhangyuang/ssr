@@ -34,7 +34,7 @@ build
 
 ## 客户端产物类型分析详解
 
-对于 `client` 文件夹构建出来的东西有经验的开发者会很熟悉。客户端构建产物通过 [client-entry](https://github.com/ykfe/ssr/blob/dev/packages/plugin-vue3/src/entry/client-entry.ts)生成， 唯一的区别就是在服务端渲染场景下我们调用的框架 API 为 `hydrate` 水合模式而不是 `render` 普通渲染模式
+对于 `client` 文件夹构建出来的东西有经验的开发者会很熟悉。客户端构建产物通过 [client-entry](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/entry/client-entry.ts)生成， 唯一的区别就是在服务端渲染场景下我们调用的框架 API 为 `hydrate` 水合模式而不是 `render` 普通渲染模式
 
 开发者可以通过 `GENERATE_ANALYSIS=true npm run build` 来可视化生成客户端构建产物，来判断 `tree shaking` 有没有生效有没有引入没有使用的文件
 
@@ -42,7 +42,7 @@ build
 
 这里我们着重提一下服务端构建产物中的 `Page.server.js` 
 
-该文件为 `commonjs` 格式在 `Node.js` 环境中被调用。由框架源码中的 [server-entry](https://github.com/ykfe/ssr/blob/dev/packages/plugin-vue3/src/entry/server-entry.ts) 文件构建而得到。该文件只会包含业务代码，也就是前端组件。由于 `Node.js` 环境无法直接使用 `ESM` 语法或识别 `JSX` 语法以及样式文件，所以我们需要做一层构建处理，保证构建后的产物能够在 `Node.js` 环境成功执行。
+该文件为 `commonjs` 格式在 `Node.js` 环境中被调用。由框架源码中的 [server-entry](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/entry/server-entry.ts) 文件构建而得到。该文件只会包含业务代码，也就是前端组件。由于 `Node.js` 环境无法直接使用 `ESM` 语法或识别 `JSX` 语法以及样式文件，所以我们需要做一层构建处理，保证构建后的产物能够在 `Node.js` 环境成功执行。
 
 对于服务端文件的构建我们通常会开启 `externals` 选项，也就是将第三方模块的依赖外置。举个例子
 

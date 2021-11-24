@@ -1,6 +1,6 @@
 # FAQ
 
-本章节记录开发者可能会遇到的常见问题。如果你的问题在这里没有描述，你可以直接去仓库地址提 [issue](https://github.com/ykfe/ssr/issues)
+本章节记录开发者可能会遇到的常见问题。如果你的问题在这里没有描述，你可以直接去仓库地址提 [issue](https://github.com/zhangyuang/ssr/issues)
 
 ## 404 500 异常处理
 
@@ -295,7 +295,7 @@ export default {
 
 ## 使用 UI 框架
 
-`React` 场景下我们已经对 [antd](https://ant.design/) 进行兼容，`Vue` 场景已经对 [vant](https://vant-contrib.gitee.io/vant/#/) [ant-design-vue](https://antdv.com/docs/vue/introduce-cn/) 进行兼容，可以直接在组件中引用无需做任何额外配置。
+`React` 场景下我们已经对 [antd](https://ant.design/) 进行兼容，`Vue` 场景已经对 [vant](https://vant-contrib.gitee.io/vant/#/) [ant-design-vue](https://antdv.com/docs/vue/introduce-cn/) 进行兼容，开发者只需要安装组件库依赖后可以直接在组件中引用无需做任何额外配置。
 
 ### 使用方式
 
@@ -425,12 +425,12 @@ Vue.use(Button)
 
 ```js
 import Button from 'vant/lib/button';
-import 'vant/lib/button/index.less'; // 手动导入的情况这里建议使用这种方式来导入样式文件而不是 import 'vant/lib/button/style' 这样导入的是一个 js 文件
+import 'vant/lib/button/style';
 ```
 
 使用手动按需引入的情况几乎不会出任何问题。但要注意
 
-1. 必须使用 `lib` 目录下的文件，不要用 `es`，`es` 模块在服务端无法解析  
+1. 必须使用 `lib` 目录下的文件，不要用 `es`，`es` 格式的模块在服务端无法直接解析, 除非配置白名单让 Webpack 构建服务端文件时去处理，但这样会拖慢构建速度  
 2. 如果是直接 `import *.css|less` 文件则不会有问题，但很多 UI 框架例如 `antd`, `vant` 这些都会都导出一个 `js` 文件去 `require` 要用到的 `css|less` 文件，这种情况不做额外配置是一定会出错的  
 3. 样式可能会缺漏，因为导出的 `js` 文件除了包含组件本身的样式还会包含一些公共样式
 
@@ -474,7 +474,7 @@ import { Button } from 'vant'
 
 不建议图片资源放在 `web` 文件夹，对图片资源若非有小文件 `base64` 内联或者 `hash` 缓存的需求是不建议用 `Webpack` 去处理的，这样会使得 `Webpack` 的构建速度变慢。
 
-建议放在默认的静态资源文件夹即 `build` 文件夹，即可通过 `<img src="/foo.jpg">` 即可引入。由于 [egg-static](https://github.com/eggjs/egg-static) 支持数组的形式，也可以自行在根目录下创建 `public` 文件夹用于存放图片等静态资源。但记住这里需要额外将 `public` 文件夹设置为[静态资源文件夹](https://github.com/ykfe/ssr/blob/dev/example/midway-vue3-ssr/src/config/config.default.ts#L15)
+建议放在默认的静态资源文件夹即 `build` 文件夹，即可通过 `<img src="/foo.jpg">` 即可引入。由于 [egg-static](https://github.com/eggjs/egg-static) 支持数组的形式，也可以自行在根目录下创建 `public` 文件夹用于存放图片等静态资源。但记住这里需要额外将 `public` 文件夹设置为[静态资源文件夹](https://github.com/zhangyuang/ssr/blob/dev/example/midway-vue3-ssr/src/config/config.default.ts#L15)
 
 ## 如何支持 Sass|Scss
 
@@ -491,7 +491,7 @@ $ yarn add sass sass-loader@^10.0.0 -D # 必须安装 ^10.0.0 版本的 sass-loa
 module.exports = {
   chainBaseConfig: (chain) => {
     const { setStyle } = require('ssr-server-utils') // 这里需要在具体的 function 里面加载 setStyle
-    // setStyle 的详细入参类型可查看  https://github.com/ykfe/ssr/blob/dev/packages/server-utils/src/webpack/setStyle.ts
+    // setStyle 的详细入参类型可查看  https://github.com/zhangyuang/ssr/blob/dev/packages/server-utils/src/webpack/setStyle.ts
     setStyle(chain, /\.s[ac]ss$/i, {
       rule: 'sass',
       loader: 'sass-loader',
@@ -523,7 +523,7 @@ export default {
 
 ## 是否考虑支持 SSG 静态渲染
 
-参考该 [issue](https://github.com/ykfe/ssr/issues/75) 目前没有支持 `SSG` 的打算。个人认为这是一个伪需求。若后来的开发者仍然有支持 `SSG `的需求。可以回复该 `issue`,后续将会根据人数决定是否框架原生支持。
+参考该 [issue](https://github.com/zhangyuang/ssr/issues/75) 目前没有支持 `SSG` 的打算。个人认为这是一个伪需求。若后来的开发者仍然有支持 `SSG `的需求。可以回复该 `issue`,后续将会根据人数决定是否框架原生支持。
 
 ## 如何降级为客户端渲染
 

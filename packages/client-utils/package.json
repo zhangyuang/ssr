@@ -1,6 +1,6 @@
 {
   "name": "ssr-client-utils",
-  "version": "5.6.37",
+  "version": "5.6.39",
   "description": "client utils for react/vue2/vue3 ssr deploy on serverless or tradtional web server",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ykfe/ssr.git"
+    "url": "git+https://github.com/zhangyuang/ssr.git"
   },
   "keywords": [
     "cli",
@@ -25,12 +25,12 @@
   "author": "zhangyuang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ykfe/ssr/issues"
+    "url": "https://github.com/zhangyuang/ssr/issues"
   },
-  "homepage": "https://github.com/ykfe/ssr#readme",
+  "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "path-to-regexp": "^6.2.0",
-    "ssr-types": "^5.6.38"
+    "ssr-types": "^5.6.40"
   },
   "devDependencies": {
     "concurrently": "^5.1.0"
