@@ -1,13 +1,13 @@
 
-import { resolve, sep, basename } from 'path'
-import { build, UserConfig } from 'vite'
-import { getCwd, loadConfig, getPagesDir, getDynamicParam } from 'ssr-server-utils'
+import { resolve } from 'path'
+import { build, UserConfig, Plugin } from 'vite'
+import { getCwd, loadConfig } from 'ssr-server-utils'
 import vuePlugin from '@vitejs/plugin-vue'
 import { parse as parseImports } from 'es-module-lexer'
+import MagicString from 'magic-string'
 
 const cwd = getCwd()
 const { prefix } = loadConfig()
-const pagesDir = getPagesDir()
 type SSR = 'ssr'
 
 const commonConfig = {
@@ -43,21 +43,25 @@ const serverConfig = {
   }
 }
 
-const myPlugin = () => {
-  return {
-    name: 'transform-file',
+const webpackCommentRegExp = /webpackChunkName:\s"(.*)?"/
+const chunkNameRe = /chunkName=(.*)/
 
+const chunkNamePlugin = function (): Plugin {
+  return {
+    name: 'chunkNamePlugin',
     transform (source, id) {
       if (id.includes('ssr-temporary-routes')) {
+        let str = new MagicString(source)
         const imports = parseImports(source)[0]
         for (let index = 0; index < imports.length; index++) {
-          const {
-            s: start,
-            e: end
-          } = imports[index]
-
+          const { s: start, e: end } = imports[index]
           const rawUrl = source.slice(start, end)
-          console.log(rawUrl)
+          if (!rawUrl.includes('render')) continue
+          const chunkName = webpackCommentRegExp.exec(rawUrl)![1]
+          str = str.appendRight(end - 1, `?chunkName=${chunkName}`)
+        }
+        return {
+          code: str.toString()
         }
       }
     }
@@ -71,29 +75,19 @@ const clientConfig: UserConfig = {
     rollupOptions: {
       input: resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'),
       output: {
-        chunkFileNames: '[name].[hash].chunk.js'
+        chunkFileNames: '[name].[hash].chunk.js',
+        assetFileNames: '[name].[hash].chunk.[ext]'
       },
-      plugins: [myPlugin()]
+      plugins: [chunkNamePlugin()]
+    },
+    manualChunks: () => {
+      return (id) => {
+        if (id.includes('chunkName')) {
+          return chunkNameRe.exec(id)![1]
+        }
+      }
     }
-    // manualChunks: () => {
-    //   return (id) => {
-    //     if (id.includes('render')) {
-    //       let chunkName = ''
-    //       const filename = basename(id)
-    //       chunkName = id.replace(pagesDir, '').split(sep).slice(1, -1).join('-')
-    //       if (filename.includes('$')) {
-    //         chunkName = `${chunkName}-${getDynamicParam(filename).replace(/\/:\??/g, '-').replace('?', '-optional')}`
-    //       }
-    //       return chunkName
-    //     }
-    //     if (id.includes('client-entry')) {
-    //       console.log(id)
-    //       return 'vendor123'
-    //     }
-    //   }
-    // }
   },
-
   define: {
     __isBrowser__: true
   }

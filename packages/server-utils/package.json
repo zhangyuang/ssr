@@ -38,6 +38,7 @@
     "es-module-lexer": "^0.9.3",
     "http-proxy-middleware": "^1.0.6",
     "koa2-connect": "^1.0.2",
+    "magic-string": "^0.25.7",
     "path-to-regexp": "^6.2.0",
     "shelljs": "^0.8.3",
     "ssr-types": "^5.6.40"
