@@ -72,12 +72,10 @@ export interface IConfig {
   proxyKey: string[]
 }
 
-type Optional <T>= { [key in keyof T]?: T[key] }
-
 export interface proxyOptions {
   express?: boolean
 }
-export type UserConfig = Optional<IConfig>
+export type UserConfig = Partial<IConfig>
 
 export interface StyleOptions {
   rule: string
