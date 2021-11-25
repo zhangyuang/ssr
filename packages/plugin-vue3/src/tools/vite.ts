@@ -1,11 +1,12 @@
 
-import { resolve } from 'path'
-import { build } from 'vite'
-import { getCwd, loadConfig } from 'ssr-server-utils'
+import { resolve, sep, basename } from 'path'
+import { build, UserConfig } from 'vite'
+import { getCwd, loadConfig, getFeDir, getDynamicParam } from 'ssr-server-utils'
 import vuePlugin from '@vitejs/plugin-vue'
 
 const cwd = getCwd()
 const { prefix } = loadConfig()
+const feDir = getFeDir()
 type SSR = 'ssr'
 
 const commonConfig = {
@@ -41,23 +42,23 @@ const serverConfig = {
   }
 }
 
-const clientConfig = {
+const clientConfig: UserConfig = {
   ...commonConfig,
   build: {
     ssrManifest: true,
     outDir: resolve(cwd, './build/client'),
     rollupOptions: {
-      input: resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'),
-      output: {
-        manualChunks: () => {
-          return (id, { getModuleInfo }) => {
-            if (
-              id.includes('render$id')
-            ) {
-              return 'detail'
-            }
-          }
+      input: resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
+    },
+    manualChunks: () => {
+      return (id) => {
+        let chunkName = ''
+        if (id.includes('render')) {
+          console.log('xx', getDynamicParam(basename(id)))
+          chunkName = id.replace(feDir, '').split(sep).slice(0, -1).join('-') + getDynamicParam(basename(id)).replace(/\/:\??/g, '-').replace('?', '-optional')
+          return chunkName
         }
+        return id
       }
     }
   },

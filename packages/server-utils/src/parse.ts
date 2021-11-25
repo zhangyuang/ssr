@@ -248,5 +248,6 @@ const getDynamicParam = (url: string) => {
 }
 
 export {
-  parseFeRoutes
+  parseFeRoutes,
+  getDynamicParam
 }
