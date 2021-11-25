@@ -50,7 +50,8 @@ const loadConfig = (): IConfig => {
 
   const whiteList: RegExp[] = []
 
-  const jsOrder = [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`].concat(userConfig.extraJsOrder ?? [])
+  const jsOrder = process.env['BUILD_TOOL'] === 'vite' ? ['vendor', 'client-entry']
+    : [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`].concat(userConfig.extraJsOrder ?? [])
 
   const cssOrder = [`${chunkName}.css`].concat(userConfig.extraCssOrder ?? [])
 
