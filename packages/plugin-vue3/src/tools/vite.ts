@@ -1,14 +1,13 @@
 
 import { resolve } from 'path'
-import { build, UserConfig, Plugin } from 'vite'
-import { getCwd, loadConfig } from 'ssr-server-utils'
+import { build, UserConfig } from 'vite'
+import { getCwd, loadConfig, manualChunks, chunkNamePlugin, output } from 'ssr-server-utils'
 import vuePlugin from '@vitejs/plugin-vue'
-import { parse as parseImports } from 'es-module-lexer'
-import MagicString from 'magic-string'
 
 const cwd = getCwd()
-const { prefix } = loadConfig()
+const { prefix, getOutput } = loadConfig()
 type SSR = 'ssr'
+const { clientOutPut, serverOutPut } = getOutput()
 
 const commonConfig = {
   root: cwd,
@@ -33,7 +32,7 @@ const serverConfig = {
   ...commonConfig,
   build: {
     ssr: resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js'),
-    outDir: resolve(cwd, './build/server'),
+    outDir: serverOutPut,
     rollupOptions: {
       input: resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js')
     }
@@ -43,50 +42,17 @@ const serverConfig = {
   }
 }
 
-const webpackCommentRegExp = /webpackChunkName:\s"(.*)?"/
-const chunkNameRe = /chunkName=(.*)/
-
-const chunkNamePlugin = function (): Plugin {
-  return {
-    name: 'chunkNamePlugin',
-    transform (source, id) {
-      if (id.includes('ssr-temporary-routes')) {
-        let str = new MagicString(source)
-        const imports = parseImports(source)[0]
-        for (let index = 0; index < imports.length; index++) {
-          const { s: start, e: end } = imports[index]
-          const rawUrl = source.slice(start, end)
-          if (!rawUrl.includes('render')) continue
-          const chunkName = webpackCommentRegExp.exec(rawUrl)![1]
-          str = str.appendRight(end - 1, `?chunkName=${chunkName}`)
-        }
-        return {
-          code: str.toString()
-        }
-      }
-    }
-  }
-}
 const clientConfig: UserConfig = {
   ...commonConfig,
   build: {
     ssrManifest: true,
-    outDir: resolve(cwd, './build/client'),
+    outDir: clientOutPut,
     rollupOptions: {
       input: resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'),
-      output: {
-        chunkFileNames: '[name].[hash].chunk.js',
-        assetFileNames: '[name].[hash].chunk.[ext]'
-      },
+      output: output,
       plugins: [chunkNamePlugin()]
     },
-    manualChunks: () => {
-      return (id) => {
-        if (id.includes('chunkName')) {
-          return chunkNameRe.exec(id)![1]
-        }
-      }
-    }
+    manualChunks: manualChunks
   },
   define: {
     __isBrowser__: true
@@ -96,8 +62,8 @@ const viteStart = async () => {
   //
 }
 const viteBuild = async () => {
-  await build(clientConfig)
-  // await build(serverConfig)
+  // await build(clientConfig)
+  await build(serverConfig)
 }
 
 export {
