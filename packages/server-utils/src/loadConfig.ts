@@ -7,6 +7,10 @@ const loadConfig = (): IConfig => {
   const cwd = getCwd()
   const mode = 'ssr'
   const stream = false
+  const isVite = process.env['BUILD_TOOL'] === 'vite'
+  const vue3ServerEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js')
+  const vue3ClientEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
+
   type ClientLogLevel = 'error'
 
   const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPath(userConfig.publicPath ?? '/')
@@ -132,7 +136,10 @@ const loadConfig = (): IConfig => {
     corejs,
     https,
     manifestPath,
-    proxyKey
+    proxyKey,
+    vue3ServerEntry,
+    vue3ClientEntry,
+    isVite
   }, userConfig)
 
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了

@@ -11,10 +11,9 @@ const serialize = require('serialize-javascript')
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender, prefix } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender, prefix, isVite } = config
   const router = createRouter()
   const store = createStore()
-  const viteMode = process.env['BUILD_TOOL'] === 'vite'
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
   sync(store, router)
   let { path, url } = ctx.request
@@ -34,12 +33,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   }
 
   let dynamicCssOrder = cssOrder
-  if (dynamic && !viteMode) {
+  if (dynamic && !isVite) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
     dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
   }
 
-  const manifest = viteMode ? {} : await getManifest()
+  const manifest = isVite ? {} : await getManifest()
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
@@ -73,7 +72,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
     store,
     render: function (h: Vue.CreateElement) {
       const injectCss: Vue.VNode[] = []
-      if (viteMode) {
+      if (isVite) {
         injectCss.push(
           h('link', {
             attrs: {
@@ -97,7 +96,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
         })
       }
 
-      const injectScript: Vue.VNode[] = viteMode ? [h('script', {
+      const injectScript: Vue.VNode[] = isVite ? [h('script', {
         attrs: {
           type: 'module',
           src: '/node_modules/ssr-plugin-vue/esm/entry/client-entry.js'
@@ -146,7 +145,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
             ])
           ]),
-          viteMode && h('template', {
+          isVite && h('template', {
             slot: 'viteClient'
           }, [viteClient]),
 
@@ -170,11 +169,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           }, [
             isCsr ? h('script', {
               domProps: {
-                innerHTML: `window.__USE_VITE__=${viteMode}`
+                innerHTML: `window.__USE_VITE__=${isVite}`
               }
             }) : h('script', {
               domProps: {
-                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${viteMode}`
+                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${isVite}`
               }
             })
           ]),

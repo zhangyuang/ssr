@@ -1,18 +1,18 @@
-
 import { resolve } from 'path'
-import { build, UserConfig } from 'vite'
-import { getCwd, loadConfig, manualChunks, chunkNamePlugin, output } from 'ssr-server-utils'
+import type { build as BuildType, UserConfig } from 'vite'
+import { getCwd, loadConfig, manualChunks, chunkNamePlugin, output, manifestPlugin } from 'ssr-server-utils'
 import vuePlugin from '@vitejs/plugin-vue'
 
+const build: typeof BuildType = require('vite').build
 const cwd = getCwd()
-const { prefix, getOutput } = loadConfig()
+const { prefix, getOutput, vue3ServerEntry, vue3ClientEntry } = loadConfig()
 type SSR = 'ssr'
 const { clientOutPut, serverOutPut } = getOutput()
 
 const commonConfig = {
   root: cwd,
   base: prefix,
-  mode: 'production',
+  mode: 'development',
   server: {
     middlewareMode: 'ssr' as SSR
   },
@@ -28,13 +28,15 @@ const commonConfig = {
   }
 }
 
-const serverConfig = {
+const serverConfig: UserConfig = {
   ...commonConfig,
   build: {
-    ssr: resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js'),
+    ssr: vue3ServerEntry,
     outDir: serverOutPut,
     rollupOptions: {
-      input: resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js')
+      output: {
+        entryFileNames: 'Page.server.js'
+      }
     }
   },
   define: {
@@ -48,9 +50,9 @@ const clientConfig: UserConfig = {
     ssrManifest: true,
     outDir: clientOutPut,
     rollupOptions: {
-      input: resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'),
+      input: vue3ClientEntry,
       output: output,
-      plugins: [chunkNamePlugin()]
+      plugins: [chunkNamePlugin(), manifestPlugin()]
     },
     manualChunks: manualChunks
   },
@@ -62,8 +64,8 @@ const viteStart = async () => {
   //
 }
 const viteBuild = async () => {
-  // await build(clientConfig)
-  await build(serverConfig)
+  await build({ ...clientConfig, mode: 'production' })
+  await build({ ...serverConfig, mode: 'production' })
 }
 
 export {

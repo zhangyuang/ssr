@@ -70,6 +70,9 @@ export interface IConfig {
   disableClientRender?: boolean
   manifestPath: string
   proxyKey: string[]
+  vue3ServerEntry: string
+  vue3ClientEntry: string
+  isVite: boolean
 }
 
 type Optional <T>= { [key in keyof T]?: T[key] }

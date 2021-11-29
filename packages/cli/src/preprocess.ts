@@ -4,11 +4,11 @@ import { transform } from 'esbuild'
 import { cp, mkdir } from 'shelljs'
 import { Argv } from 'ssr-types'
 
-export const handleEnv = async (argv: Argv, spinner: any) => {
+export const handleEnv = async (argv: Argv) => {
   process.env.BUILD_TOOL = argv.vite ? 'vite' : 'webpack'
   const { loadConfig } = await import('ssr-server-utils')
-  const { https } = loadConfig()
-  if (https && process.env.NODE_ENV === 'development') {
+  const { https, isDev } = loadConfig()
+  if (https && isDev) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
   }
 }

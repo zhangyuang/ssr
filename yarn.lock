@@ -16918,7 +16918,7 @@ rollup-plugin-output-manifest@^2.0.0:
     "@types/node" "^13.9.1"
     tslib "^1.10.0"
 
-rollup@^2.57.0, rollup@^2.58.0:
+rollup@^2.57.0, rollup@^2.58.0, rollup@^2.60.1:
   version "2.60.1"
   resolved "https://registry.npmjs.org/rollup/-/rollup-2.60.1.tgz#4b34cd247f09b421f10a3c9286eda2ecf9972079"
   integrity sha512-akwfnpjY0rXEDSn1UTVfKXJhPsEBu+imi1gqBA1ZkHGydUnkV/fWCC90P7rDaLEW8KTwBcS1G3N4893Ndz+jwg==

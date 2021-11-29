@@ -25,11 +25,12 @@
   },
   "scripts": {
     "prod": "ssr build && egg-scripts start --daemon --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
-    "prod:vite": "cross-env BUILD_TOOL=vite egg-scripts start --daemon --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
+    "prod:vite": "ssr build --vite && cross-env BUILD_TOOL=vite egg-scripts start --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
     "stop": "egg-scripts stop --title=midway-server-my_midway_project",
     "start": "ssr start",
     "start:vite": "ssr start --vite",
     "build": "ssr build",
+    "build:vite": "ssr build --vite",
     "deploy": "ssr build && ssr deploy",
     "deploy:tencent": "ssr build && ssr deploy --tencent",
     "lint": "eslint . --ext .js,.tsx,.ts,.vue --cache",

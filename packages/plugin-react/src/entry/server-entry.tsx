@@ -15,7 +15,7 @@ const { FeRoutes, layoutFetch, PrefixRouterBase, state } = Routes as ReactRoutes
 declare const global: IGlobal
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
-  const { cssOrder, jsOrder, dynamic, mode, chunkName, parallelFetch, disableClientRender, prefix } = config
+  const { cssOrder, jsOrder, dynamic, mode, chunkName, parallelFetch, disableClientRender, prefix, isVite } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
@@ -23,7 +23,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     path = normalizePath(path, base)
   }
   const routeItem = findRoute<ReactESMFeRouteItem>(FeRoutes, path)
-  const viteMode = process.env['BUILD_TOOL'] === 'vite'
 
   if (!routeItem) {
     throw new Error(`
@@ -34,15 +33,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   let dynamicCssOrder = cssOrder
 
-  if (dynamic && !viteMode) {
+  if (dynamic && !isVite) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
     dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
   }
-  const manifest = viteMode ? {} : await getManifest()
+  const manifest = isVite ? {} : await getManifest()
 
   const injectCss: JSX.Element[] = []
 
-  if (viteMode) {
+  if (isVite) {
     injectCss.push(<script src="/@vite/client" type="module" key="vite-client"/>)
     injectCss.push(<script key="vite-react-refresh" type="module" dangerouslySetInnerHTML={{
       __html: ` import RefreshRuntime from "/@react-refresh"
@@ -67,7 +66,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     }}/>)
   }
 
-  const injectScript = viteMode ? [
+  const injectScript = isVite ? [
     <script key="viteWindowInit" dangerouslySetInnerHTML={{
       __html: 'window.__USE_VITE__=true'
     }} />,

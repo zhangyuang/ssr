@@ -4,7 +4,7 @@ import { loadConfig } from '../loadConfig'
 
 const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
   const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-  const { css, isDev } = loadConfig()
+  const { css, isDev, isVite } = loadConfig()
   const { include, exclude, importLoaders, loader, isServer } = options
   const loadModule = require.resolve
 
@@ -56,7 +56,7 @@ const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
     .loader(MiniCssExtractPlugin.loader)
     .options({
       // vite 场景下服务端 bundle 输出 css 文件，否则 服务端不输出
-      emit: process.env['BUILD_TOOL'] === 'vite' ? true : !isServer
+      emit: isVite ? true : !isServer
     })
     .end()
     .use('css-loader')

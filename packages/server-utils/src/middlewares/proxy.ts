@@ -11,7 +11,7 @@ function onProxyReq (proxyReq: any, req: any) {
 }
 
 const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
-  const { fePort, proxy, isDev, https, proxyKey } = loadConfig()
+  const { fePort, proxy, isDev, https, proxyKey, isVite } = loadConfig()
   const express = options ? options.express : false
   const proxyMiddlewaresArr: any[] = []
 
@@ -24,13 +24,13 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
     }
   }
   proxy && registerProxy(proxy)
+
   if (isDev) {
-    if (process.env['BUILD_TOOL'] === 'vite') {
+    if (isVite) {
       // 本地开发请求走 vite 接管 前端文件夹请求
       const { createServer } = await import('vite')
       const { clientConfig } = await import('ssr-plugin-vue3')
       const viteServer = await createServer(clientConfig)
-      const koaConnect = require('koa2-connect')
       proxyMiddlewaresArr.push(express ? viteServer.middlewares : koaConnect(viteServer.middlewares))
     } else {
       // Webpack 场景 在本地开发阶段代理 serverPort 的资源到 fePort

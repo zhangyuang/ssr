@@ -12,12 +12,11 @@ const serialize = require('serialize-javascript')
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, parallelFetch, disableClientRender, prefix } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, parallelFetch, disableClientRender, prefix, isVite, isDev } = config
   global.__VUE_PROD_DEVTOOLS__ = global.__VUE_PROD_DEVTOOLS__ ?? false
 
   const store = createStore()
   const router = createRouter()
-  const isVite = process.env['BUILD_TOOL'] === 'vite'
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
   let { path, url } = ctx.request
 
@@ -36,11 +35,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   let dynamicCssOrder = cssOrder
-  if (dynamic && !isVite) {
+  if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
-    dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
+    if (!isVite) {
+      dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
+    }
   }
-  const manifest = isVite ? {} : await getManifest()
+  const manifest = await getManifest()
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
   let layoutFetchData = {}
@@ -70,28 +71,26 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   const injectCss: Vue.VNode[] = []
-  if (!isVite) {
-    dynamicCssOrder.forEach(css => {
-      if (manifest[css]) {
-        injectCss.push(
-          h('link', {
-            rel: 'stylesheet',
-            href: manifest[css]
-          })
-        )
-      }
-    })
-  }
+  dynamicCssOrder.forEach(css => {
+    if (manifest[css]) {
+      injectCss.push(
+        h('link', {
+          rel: 'stylesheet',
+          href: manifest[css]
+        })
+      )
+    }
+  })
 
-  const injectScript = isVite ? h('script', {
+  const injectScript = (isVite && isDev) ? h('script', {
     type: 'module',
     src: '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'
   }) : jsOrder.map(js =>
     h('script', {
-      src: manifest[js]
+      src: manifest[js],
+      type: isVite ? 'module' : ''
     })
   )
-
   const customeHeadScriptArr = customeHeadScript ? (Array.isArray(customeHeadScript) ? customeHeadScript : customeHeadScript(ctx))?.map((item) => h(
     'script',
     Object.assign({}, item.describe, {
@@ -119,7 +118,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       {
         remInitial: () => h('script', { innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }),
 
-        viteClient: isVite ? () =>
+        viteClient: (isVite && isDev) ? () =>
           h('script', {
             type: 'module',
             src: '/@vite/client'

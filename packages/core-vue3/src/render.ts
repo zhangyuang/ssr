@@ -11,8 +11,7 @@ function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
 
 async function render (ctx: ISSRContext, options?: UserConfig) {
   const config = Object.assign({}, defaultConfig, options ?? {})
-  const { stream } = config
-  const isVite = process.env['BUILD_TOOL'] === 'vite'
+  const { stream, isVite } = config
 
   if (!ctx.response.type && typeof ctx.response.type !== 'function') {
     ctx.response.type = 'text/html;charset=utf-8'
@@ -33,24 +32,28 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
 }
 
 async function viteRender (ctx: ISSRContext, config: IConfig) {
-  const { isDev } = config
+  const { isDev, chunkName, vue3ServerEntry } = config
   let serverRes
   if (isDev) {
     const { createServer } = await import('vite')
     const { serverConfig } = await import('ssr-plugin-vue3')
     const viteServer = await createServer(serverConfig)
-    const { serverRender } = await viteServer.ssrLoadModule(resolve(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry'))
+    const { serverRender } = await viteServer.ssrLoadModule(vue3ServerEntry)
     serverRes = await serverRender(ctx, config)
+  } else {
+    const serverFile = resolve(cwd, `./build/server/${chunkName}.server.js`)
+    const { serverRender } = require(serverFile)
+    const serverRes = await serverRender(ctx, config)
+    return serverRes
   }
   return serverRes
 }
 
 async function commonRender (ctx: ISSRContext, config: IConfig) {
   const { isDev, chunkName } = config
-  const isLocal = isDev || process.env.NODE_ENV !== 'production'
   const serverFile = resolve(cwd, `./build/server/${chunkName}.server.js`)
 
-  if (isLocal) {
+  if (isDev) {
     delete require.cache[serverFile]
   }
 

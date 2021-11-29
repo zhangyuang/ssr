@@ -57,11 +57,10 @@ export const getImageOutputPath = () => {
 }
 
 const parseFeRoutes = async () => {
-  const { dynamic, routerPriority, routerOptimize } = loadConfig()
+  const { dynamic, routerPriority, routerOptimize, isVite } = loadConfig()
   const prefix = getPrefix()
   const isVue = require(join(cwd, './package.json')).dependencies.vue
-  const viteMode = process.env['BUILD_TOOL'] === 'vite'
-  if (viteMode && !dynamic) {
+  if (isVite && !dynamic) {
     console.log('vite模式禁止关闭 dynamic ')
     return
   }
@@ -141,6 +140,7 @@ const parseFeRoutes = async () => {
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
         ${accessStore ? 'export * from "@/store/index.ts"' : ''}
         ${prefix ? `export const PrefixRouterBase='${prefix}'` : ''}
+
         `
       routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
         const currentWebpackChunkName = re.exec(routes)![2]
@@ -248,6 +248,5 @@ const getDynamicParam = (url: string) => {
 }
 
 export {
-  parseFeRoutes,
-  getDynamicParam
+  parseFeRoutes
 }

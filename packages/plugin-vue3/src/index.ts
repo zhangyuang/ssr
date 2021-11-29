@@ -1,9 +1,12 @@
+import { loadConfig } from 'ssr-server-utils'
+
+const { isVite } = loadConfig()
 
 export function vuePlugin () {
   return {
     name: 'plugin-vue3',
     start: async () => {
-      if (process.env['BUILD_TOOL'] === 'vite') {
+      if (isVite) {
         const { viteStart } = await import('./tools/vite')
         await viteStart()
       } else {
@@ -12,7 +15,7 @@ export function vuePlugin () {
       }
     },
     build: async () => {
-      if (process.env['BUILD_TOOL'] === 'vite') {
+      if (isVite) {
         const { viteBuild } = await import('./tools/vite')
         await viteBuild()
       } else {
