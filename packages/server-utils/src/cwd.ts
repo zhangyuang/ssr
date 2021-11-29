@@ -1,8 +1,10 @@
-import { promises } from 'fs'
+import { promises, accessSync, readFileSync, writeFileSync } from 'fs'
 import { resolve } from 'path'
 import { exec } from 'child_process'
 import { promisify } from 'util'
 import { UserConfig, IPlugin } from 'ssr-types'
+import { transformSync } from 'esbuild'
+import { cp, mkdir } from 'shelljs'
 
 const getCwd = () => {
   return resolve(process.cwd(), process.env.APP_ROOT ?? '')
@@ -16,7 +18,29 @@ const getPagesDir = () => {
   return resolve(getFeDir(), 'pages')
 }
 
+const transformConfig = () => {
+  const cwd = getCwd()
+  if (!accessFileSync(resolve(cwd, './build'))) {
+    mkdir(resolve(cwd, './build'))
+  }
+  if (accessFileSync(resolve(cwd, './config.js'))) {
+    cp('-r', `${resolve(cwd, './config.js')}`, `${resolve(cwd, './build/config.js')}`)
+  }
+  const configWithTs = accessFileSync(resolve(cwd, './config.ts'))
+  if (configWithTs) {
+    const fileContent = readFileSync(resolve(cwd, './config.ts')).toString()
+    const { code } = transformSync(fileContent, {
+      loader: 'ts',
+      format: 'cjs'
+    })
+    writeFileSync(resolve(cwd, './build/config.js'), code)
+  }
+}
+
 const getUserConfig = (): UserConfig => {
+  if (!accessFileSync(resolve(getCwd(), './build/config.js'))) {
+    transformConfig()
+  }
   const config = require(resolve(getCwd(), './build/config'))
   return config.userConfig ?? config
 }
@@ -91,6 +115,16 @@ const accessFile = async (file: string) => {
   return result
 }
 
+const accessFileSync = (file: string) => {
+  let res = true
+  try {
+    accessSync(file)
+  } catch (error) {
+    res = false
+  }
+  return res
+}
+
 const copyReactContext = async () => {
   await promises.copyFile(resolve(getCwd(), './node_modules/ssr-plugin-react/src/entry/create-context.ts'), resolve(getCwd(), './build/create-context.ts'))
 }
@@ -128,5 +162,7 @@ export {
   cryptoAsyncChunkName,
   normalizeStartPath,
   normalizeEndPath,
-  copyReactContext
+  copyReactContext,
+  transformConfig,
+  accessFileSync
 }

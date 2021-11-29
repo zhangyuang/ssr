@@ -41,6 +41,7 @@
     "magic-string": "^0.25.7",
     "path-to-regexp": "^6.2.0",
     "shelljs": "^0.8.3",
-    "ssr-types": "^5.6.40"
+    "ssr-types": "^5.6.40",
+    "esbuild": "^0.13.14"
   }
 }
