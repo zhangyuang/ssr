@@ -16,5 +16,8 @@ module.exports = {
     expect: true,
     it: true,
     describe: true
+  },
+  rules: {
+    'padded-blocks': ['off']
   }
 }

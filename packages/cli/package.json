@@ -32,7 +32,6 @@
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
-    "esbuild": "^0.13.14",
     "ora": "^4.0.4",
     "shelljs": "^0.8.3",
     "ssr-server-utils": "^5.7.8",
