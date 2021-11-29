@@ -23,7 +23,7 @@ yargs
     spinner.start()
     process.env.NODE_ENV = 'development'
     await transformConfig()
-    await handleEnv(argv, spinner)
+    await handleEnv(argv)
     const { parseFeRoutes, loadPlugin, copyReactContext } = await import('ssr-server-utils')
     await parseFeRoutes()
     const plugin = loadPlugin()
