@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.35](https://github.com/zhangyuang/ssr/compare/ssr-hoc-vue3@5.6.34...ssr-hoc-vue3@5.6.35) (2021-11-30)
+
+
+### Features
+
+* add create in Hoc-vue3  ([#131](https://github.com/zhangyuang/ssr/issues/131)) ([8f8c132](https://github.com/zhangyuang/ssr/commit/8f8c1325b51f2e681b80bb7b3870865c77975a37))
+
+
+### Reverts
+
+* Revert "feat: add create in Hoc-vue3  (#131)" (#132) ([de7e825](https://github.com/zhangyuang/ssr/commit/de7e825fa6264605060c0a821c5293253372e7d4)), closes [#131](https://github.com/zhangyuang/ssr/issues/131) [#132](https://github.com/zhangyuang/ssr/issues/132)
+
+
+
+
+
 ## 5.6.34 (2021-11-07)
 
 

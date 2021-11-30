@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.8](https://github.com/zhangyuang/ssr/compare/ssr-plugin-react@6.1.7...ssr-plugin-react@6.1.8) (2021-11-30)
+
+
+### Bug Fixes
+
+* create-context in vite ([109fc6c](https://github.com/zhangyuang/ssr/commit/109fc6ce2ebd73c67b003d5b74c732ad46bee64c))
+
+
+
+
+
 ## [6.1.7](https://github.com/zhangyuang/ssr/compare/ssr-plugin-react@6.1.6...ssr-plugin-react@6.1.7) (2021-11-22)
 
 

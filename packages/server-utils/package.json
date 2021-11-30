@@ -1,6 +1,6 @@
 {
   "name": "ssr-server-utils",
-  "version": "5.7.8",
+  "version": "5.7.9",
   "description": "utils for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -35,12 +35,12 @@
   "dependencies": {
     "axios": "^0.21.1",
     "debug": "^4.1.1",
+    "esbuild": "^0.13.14",
     "generic-names": "^2.0.1",
     "http-proxy-middleware": "^1.0.6",
     "koa2-connect": "^1.0.2",
     "path-to-regexp": "^6.2.0",
     "shelljs": "^0.8.3",
-    "ssr-types": "^5.6.40",
-    "esbuild": "^0.13.14"
+    "ssr-types": "^5.6.41"
   }
 }

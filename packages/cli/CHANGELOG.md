@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.8](https://github.com/zhangyuang/ssr/compare/ssr@5.7.7...ssr@5.7.8) (2021-11-30)
+
+
+### Features
+
+* change transformconfig to sync ([e43ddd9](https://github.com/zhangyuang/ssr/commit/e43ddd9d26391ffb0002c68b8216ce3ef4035c3f))
+
+
+
+
+
 ## [5.7.7](https://github.com/zhangyuang/ssr/compare/ssr@5.7.6...ssr@5.7.7) (2021-11-22)
 
 **Note:** Version bump only for package ssr
