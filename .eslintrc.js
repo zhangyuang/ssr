@@ -18,6 +18,7 @@ module.exports = {
     describe: true
   },
   rules: {
-    'padded-blocks': ['off']
+    'padded-blocks': ['off'],
+    '@typescript-eslint/restrict-plus-operands': ['off']
   }
 }
