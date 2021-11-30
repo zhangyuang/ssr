@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-vue3",
-  "version": "5.7.12",
+  "version": "5.7.13",
   "description": "plugin-vue3 for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
