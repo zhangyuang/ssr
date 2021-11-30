@@ -5,6 +5,7 @@ import { parse as parseImports } from 'es-module-lexer'
 import MagicString from 'magic-string'
 import type { OutputOptions } from 'rollup'
 import { loadConfig } from '../loadConfig'
+import { getOutputPublicPath } from '../parse'
 
 const webpackCommentRegExp = /webpackChunkName:\s"(.*)?"/
 const chunkNameRe = /chunkName=(.*)/
@@ -41,7 +42,7 @@ const manifestPlugin = (): Plugin => {
         const val = bundle
         const arr = bundle.split('.')
         arr.splice(1, 2)
-        manifest[arr.join('.')] = `/client/${val}`
+        manifest[arr.join('.')] = `${getOutputPublicPath()}${val}`
       }
       await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest))
     }

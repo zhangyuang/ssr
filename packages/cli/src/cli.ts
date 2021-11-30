@@ -21,6 +21,7 @@ const spinner = {
 yargs
   .command('start', 'Start Server', {}, async (argv: Argv) => {
     spinner.start()
+    process.env.NODE_ENV = 'development'
     await handleEnv(argv)
     const { parseFeRoutes, loadPlugin, copyReactContext } = await import('ssr-server-utils')
     await parseFeRoutes()
@@ -36,6 +37,7 @@ yargs
   .command('build', 'Build server and client files', {}, async (argv: Argv) => {
     spinner.start()
     process.env.NODE_ENV = 'production'
+    await handleEnv(argv)
     const { parseFeRoutes, loadPlugin, copyReactContext } = await import('ssr-server-utils')
     await parseFeRoutes()
     const plugin = loadPlugin()

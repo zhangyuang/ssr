@@ -38,8 +38,12 @@ const transformConfig = () => {
 }
 
 const getUserConfig = (): UserConfig => {
-  if (!accessFileSync(resolve(getCwd(), './build/config.js'))) {
+  const cwd = getCwd()
+  if (!accessFileSync(resolve(cwd, './build/config.js'))) {
     transformConfig()
+  }
+  if (!accessFileSync(resolve(cwd, './build/client'))) {
+    mkdir(resolve(cwd, './build/client'))
   }
   const config = require(resolve(getCwd(), './build/config'))
   return config.userConfig ?? config

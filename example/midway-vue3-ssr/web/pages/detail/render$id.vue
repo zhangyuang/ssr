@@ -1,6 +1,9 @@
 
 <template>
   <div>
+    <div>
+      detailpage
+    </div>
     <Search />
     <Button>123</Button>
     <template v-if="detailData">

@@ -2,7 +2,6 @@ import { resolve } from 'path'
 import type { build as BuildType, UserConfig } from 'vite'
 import { getCwd, loadConfig, manualChunks, chunkNamePlugin, output, manifestPlugin } from 'ssr-server-utils'
 import vuePlugin from '@vitejs/plugin-vue'
-
 const build: typeof BuildType = require('vite').build
 const cwd = getCwd()
 const { prefix, getOutput, vue3ServerEntry, vue3ClientEntry } = loadConfig()
@@ -21,8 +20,8 @@ const commonConfig = {
   ],
   resolve: {
     alias: {
-      '@': resolve(process.cwd(), './web'),
-      _build: resolve(process.cwd(), './build')
+      '@': resolve(cwd, './web'),
+      _build: resolve(cwd, './build')
     },
     extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
   }

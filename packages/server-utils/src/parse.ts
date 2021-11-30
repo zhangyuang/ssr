@@ -41,6 +41,7 @@ export const normalizePublicPath = (path: string) => {
 }
 
 export const getOutputPublicPath = () => {
+  // return /client/
   const { publicPath, isDev } = loadConfig()
   const path = normalizePublicPath(publicPath)
   return isDev ? path : `${path}client/`
