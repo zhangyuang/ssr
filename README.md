@@ -106,6 +106,14 @@
 <td align="center" style="height: 100px"><a href="https://jiawu.dewu.com" target="_blank"><img src="https://cdn.poizon.com/node-common/31116a45953ad8b468c6c832036aac88.png" width="200px;margin: 20px 0" alt="Dream2qBlog"/><br />
 <a href="https://jiawu.dewu.com" target="_bvlank"><b>得物
 </b></a></td>
+<td align="center" style="height: 100px"><a href="https://www.habisummercamp.com/" target="_blank"><img src="https://res.wx.qq.com/op_res/XXUpF56bDue53vZadoCSPSnqKF3bZqPOQnqsPa_ngEARa0OUIW22pX7eKsftPb6pc5ny62cR_wXM4g5xJ7G3DQ
+" width="200px;margin: 20px 0" alt="Dream2qBlog"/><br />
+<a href="https://www.habisummercamp.com/" target="_bvlank"><b>HappyPC
+</b></a></td>
+<td align="center" style="height: 100px"><a href="https://m.habisummercamp.com/" target="_blank"><img src="https://res.wx.qq.com/op_res/XXUpF56bDue53vZadoCSPSnqKF3bZqPOQnqsPa_ngEARa0OUIW22pX7eKsftPb6pc5ny62cR_wXM4g5xJ7G3DQ
+" width="200px;margin: 20px 0" alt="Dream2qBlog"/><br />
+<a href="https://m.habisummercamp.com/" target="_bvlank"><b>HappyMobile
+</b></a></td>
 </tr>
 </table>
 
