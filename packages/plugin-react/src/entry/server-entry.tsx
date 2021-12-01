@@ -109,7 +109,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   }} />
 
   return (
-    <StaticRouter>
+    <StaticRouter location={ctx.request.url}>
       <Context.Provider value={{ state: combineData }}>
         <Layout ctx={ctx} config={config} staticList={staticList} injectState={injectState}>
           {isCsr ? <></> : <Component />}
