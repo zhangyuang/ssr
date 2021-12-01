@@ -50,11 +50,11 @@ const manifestPlugin = (): Plugin => {
 }
 const manualChunks = () => {
   return (id: string) => {
+    if (id.includes('node_modules') && id.includes('.js')) {
+      return 'vendor'
+    }
     if (id.includes('chunkName')) {
       return chunkNameRe.exec(id)![1]
-    }
-    if (id.includes('client-entry')) {
-      return 'page'
     }
   }
 }
