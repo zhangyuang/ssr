@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.10](https://github.com/zhangyuang/ssr/compare/ssr-server-utils@5.7.9...ssr-server-utils@5.7.10) (2021-12-02)
+
+
+### Features
+
+* optimize dependencies in serverless ([abb120c](https://github.com/zhangyuang/ssr/commit/abb120c950f7871719e8097cbbbd2197f355de2a))
+
+
+
+
+
 ## [5.7.9](https://github.com/zhangyuang/ssr/compare/ssr-server-utils@5.7.8...ssr-server-utils@5.7.9) (2021-11-30)
 
 
