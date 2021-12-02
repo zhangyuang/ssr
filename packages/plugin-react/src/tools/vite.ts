@@ -1,12 +1,26 @@
+import { resolve } from 'path'
 import type { build as BuildType, UserConfig } from 'vite'
-import { loadConfig, manualChunks, chunkNamePlugin, output, manifestPlugin, commonConfig } from 'ssr-server-utils'
+import { loadConfig, chunkNamePlugin, output, manifestPlugin, commonConfig, getCwd } from 'ssr-server-utils'
 import react from '@vitejs/plugin-react'
 const build: typeof BuildType = require('vite').build
 const { getOutput, reactServerEntry, reactClientEntry } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
+const cwd = getCwd()
+const resolveObj = {
+  alias: {
+    '@': resolve(cwd, './web'),
+    _build: resolve(cwd, './build'),
+    react: require.resolve('react'),
+    'react-dom': require.resolve('react-dom'),
+    'jsx-dev-runtime': require.resolve('react/jsx-dev-runtime')
+  },
+  extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
+}
+console.log(require.resolve('react/jsx-dev-runtime'))
 const serverConfig: UserConfig = {
   ...commonConfig,
+  resolve: resolveObj,
   plugins: [
     react()
   ],
@@ -26,6 +40,7 @@ const serverConfig: UserConfig = {
 
 const clientConfig: UserConfig = {
   ...commonConfig,
+  resolve: resolveObj,
   plugins: [
     react()
   ],
@@ -34,10 +49,10 @@ const clientConfig: UserConfig = {
     outDir: clientOutPut,
     rollupOptions: {
       input: reactClientEntry,
+      //@ts-expect-error
       output: output,
       plugins: [chunkNamePlugin(), manifestPlugin()]
-    },
-    manualChunks: manualChunks
+    }
   },
   define: {
     __isBrowser__: true

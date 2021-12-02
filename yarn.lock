@@ -16976,7 +16976,7 @@ rndm@1.2.0:
   resolved "https://registry.npmjs.org/rndm/-/rndm-1.2.0.tgz#f33fe9cfb52bbfd520aa18323bc65db110a1b76c"
   integrity sha1-8z/pz7Urv9UgqhgyO8ZdsRCht2w=
 
-rollup@^2.57.0, rollup@^2.58.0:
+rollup@^2.57.0, rollup@^2.58.0, rollup@^2.60.2:
   version "2.60.2"
   resolved "https://registry.npmjs.org/rollup/-/rollup-2.60.2.tgz#3f45ace36a9b10b4297181831ea0719922513463"
   integrity sha512-1Bgjpq61sPjgoZzuiDSGvbI1tD91giZABgjCQBKM5aYLnzjq52GoDuWVwT/cm/MCxCMPU8gqQvkj8doQ5C8Oqw==

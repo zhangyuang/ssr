@@ -5,6 +5,7 @@ import { promisify } from 'util'
 import { UserConfig, IPlugin } from 'ssr-types'
 import { transformSync } from 'esbuild'
 import { cp, mkdir } from 'shelljs'
+import semver from 'semver'
 
 const getCwd = () => {
   return resolve(process.cwd(), process.env.APP_ROOT ?? '')
@@ -104,6 +105,18 @@ const isFaaS = async (fun?: boolean) => {
   return result
 }
 
+const judgeFramework = () => {
+  const cwd = getCwd()
+  const packageJSON = require(resolve(cwd, './package.json'))
+  if (packageJSON.dependencies.react || packageJSON.devDependencies.react) {
+    return 'react'
+  }
+  if (packageJSON.dependencies.vue || packageJSON.devDependencies.vue) {
+    const version = packageJSON.dependencies.vue || packageJSON.devDependencies.vue
+    return semver.coerce(version).raw.startsWith('3') ? 'vue3' : 'vue2'
+  }
+}
+
 const getLocalNodeModules = () => resolve(__dirname, '../../../node_modules')
 
 const processError = (err: any) => {
@@ -168,5 +181,6 @@ export {
   normalizeEndPath,
   copyReactContext,
   transformConfig,
-  accessFileSync
+  accessFileSync,
+  judgeFramework
 }

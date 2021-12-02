@@ -50,16 +50,7 @@ const manifestPlugin = (): Plugin => {
     }
   }
 }
-const manualChunks = () => {
-  return (id: string) => {
-    if (id.includes('node_modules') && id.includes('.js')) {
-      return 'vendor'
-    }
-    if (id.includes('chunkName')) {
-      return chunkNameRe.exec(id)![1]
-    }
-  }
-}
+
 const output: OutputOptions = {
   entryFileNames: 'Page.[hash].chunk.js',
   chunkFileNames: '[name].[hash].chunk.js',
@@ -68,6 +59,14 @@ const output: OutputOptions = {
       return 'Page.[hash].chunk.[ext]'
     }
     return '[name].[hash].chunk.[ext]'
+  },
+  manualChunks: (id: string) => {
+    if (id.includes('node_modules') && id.includes('.js')) {
+      return 'vendor'
+    }
+    if (id.includes('chunkName')) {
+      return chunkNameRe.exec(id)![1]
+    }
   }
 }
 type SSR = 'ssr'
@@ -77,19 +76,11 @@ const commonConfig = {
   mode: 'development',
   server: {
     middlewareMode: 'ssr' as SSR
-  },
-  resolve: {
-    alias: {
-      '@': resolve(cwd, './web'),
-      _build: resolve(cwd, './build')
-    },
-    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
   }
 }
 export {
   chunkNamePlugin,
   manifestPlugin,
-  manualChunks,
   output,
   commonConfig
 }

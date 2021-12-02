@@ -1,5 +1,6 @@
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import { proxyOptions } from 'ssr-types'
+import { judgeFramework } from '../cwd'
 import { loadConfig } from '../loadConfig'
 
 const koaConnect = require('koa2-connect')
@@ -27,9 +28,14 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
 
   if (isDev) {
     if (isVite) {
+      const framework = judgeFramework()
+      if (!framework) {
+        throw new Error('judgeFramework error')
+      }
+
       // 本地开发请求走 vite 接管 前端文件夹请求
       const { createServer } = await import('vite')
-      const { clientConfig } = await import('ssr-plugin-vue3')
+      const { clientConfig } = framework === 'react' ? await import('ssr-plugin-react') : (framework === 'vue3' ? await import('ssr-plugin-vue3') : await import('ssr-plugin-vue'))
       const viteServer = await createServer(clientConfig)
       proxyMiddlewaresArr.push(express ? viteServer.middlewares : koaConnect(viteServer.middlewares))
     } else {
