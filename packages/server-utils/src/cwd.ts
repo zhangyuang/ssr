@@ -43,10 +43,13 @@ const transformConfig = () => {
 }
 
 const getUserConfig = (): UserConfig => {
-  if (!accessFileSync(resolve(getCwd(), './build/config.js'))) {
+  let config
+  try {
+    config = require(resolve(getCwd(), './build/config'))
+  } catch (error) {
     transformConfig()
+    config = require(resolve(getCwd(), './build/config'))
   }
-  const config = require(resolve(getCwd(), './build/config'))
   return config.userConfig ?? config
 }
 
