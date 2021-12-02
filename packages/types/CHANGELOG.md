@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.6.42](https://github.com/zhangyuang/ssr/compare/ssr-types@5.6.41...ssr-types@5.6.42) (2021-12-02)
+
+**Note:** Version bump only for package ssr-types
+
+
+
+
+
 ## [5.6.41](https://github.com/zhangyuang/ssr/compare/ssr-types@5.6.40...ssr-types@5.6.41) (2021-11-30)
 
 **Note:** Version bump only for package ssr-types

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.12](https://github.com/zhangyuang/ssr/compare/ssr-server-utils@5.7.11...ssr-server-utils@5.7.12) (2021-12-02)
+
+**Note:** Version bump only for package ssr-server-utils
+
+
+
+
+
 ## [5.7.11](https://github.com/zhangyuang/ssr/compare/ssr-server-utils@5.7.10...ssr-server-utils@5.7.11) (2021-12-02)
 
 
