@@ -42,6 +42,8 @@ if (argv.link) {
   if (argv.react) {
     linkPackage.push('react')
     linkPackage.push('react-dom')
+    const shell = 'cd node_modules/react && yarn link && cd ../react-dom && yarn link'
+    execSync(shell, options)
   }
   let shell = 'npx concurrently'
   linkPackage.forEach(item => {

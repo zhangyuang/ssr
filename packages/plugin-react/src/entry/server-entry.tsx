@@ -15,7 +15,7 @@ const { FeRoutes, layoutFetch, PrefixRouterBase, state } = Routes as ReactRoutes
 declare const global: IGlobal
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
-  const { cssOrder, jsOrder, dynamic, mode, chunkName, parallelFetch, disableClientRender, prefix, isVite } = config
+  const { cssOrder, jsOrder, dynamic, mode, parallelFetch, disableClientRender, prefix, isVite, isDev } = config
   global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
@@ -33,15 +33,17 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   let dynamicCssOrder = cssOrder
 
-  if (dynamic && !isVite) {
+  if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
-    dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
+    if (!isVite) {
+      dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
+    }
   }
-  const manifest = isVite ? {} : await getManifest()
+  const manifest = await getManifest()
 
   const injectCss: JSX.Element[] = []
 
-  if (isVite) {
+  if (isVite && isDev) {
     injectCss.push(<script src="/@vite/client" type="module" key="vite-client"/>)
     injectCss.push(<script key="vite-react-refresh" type="module" dangerouslySetInnerHTML={{
       __html: ` import RefreshRuntime from "/@react-refresh"
@@ -50,7 +52,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
       window.$RefreshSig$ = () => (type) => type
       window.__vite_plugin_react_preamble_installed__ = true`
     }} />)
-    injectCss.push(<link rel='stylesheet' href={`/server/static/css/${chunkName}.css`} key="vite-head-css"/>)
   } else {
     dynamicCssOrder.forEach(css => {
       if (manifest[css]) {
@@ -66,14 +67,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     }}/>)
   }
 
-  const injectScript = isVite ? [
-    <script key="viteWindowInit" dangerouslySetInnerHTML={{
+  let injectScript = [
+    isVite && <script key="viteWindowInit" dangerouslySetInnerHTML={{
       __html: 'window.__USE_VITE__=true'
     }} />,
-    <script type="module" src='/node_modules/ssr-plugin-react/esm/entry/client-entry.js' key="vite-react-entry" />
+    (isVite && isDev) && <script type="module" src='/node_modules/ssr-plugin-react/esm/entry/client-entry.js' key="vite-react-entry" />
   ]
-    : jsOrder.map(js => manifest[js]).map(item => <script key={item} src={item} />)
-
+  if (!isDev) {
+    injectScript = injectScript.concat(jsOrder.map(js => manifest[js]).map(item => <script key={item} src={item} type={isVite ? 'module' : ''}/>))
+  }
   const staticList = {
     injectCss,
     injectScript

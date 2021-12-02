@@ -3,7 +3,7 @@
 
 import { createContext } from 'react'
 import { IContext } from 'ssr-types-react'
-
+console.log('xxx', createContext)
 let STORE_CONTEXT
 if (__isBrowser__) {
   STORE_CONTEXT = window.STORE_CONTEXT ?? createContext<IContext>({

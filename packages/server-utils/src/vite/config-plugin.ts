@@ -64,6 +64,7 @@ const output: OutputOptions = {
     if (id.includes('node_modules') && id.includes('.js')) {
       return 'vendor'
     }
+    console.log(id)
     if (id.includes('chunkName')) {
       return chunkNameRe.exec(id)![1]
     }

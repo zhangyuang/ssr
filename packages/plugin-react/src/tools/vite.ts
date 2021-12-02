@@ -10,14 +10,10 @@ const cwd = getCwd()
 const resolveObj = {
   alias: {
     '@': resolve(cwd, './web'),
-    _build: resolve(cwd, './build'),
-    react: require.resolve('react'),
-    'react-dom': require.resolve('react-dom'),
-    'jsx-dev-runtime': require.resolve('react/jsx-dev-runtime')
+    _build: resolve(cwd, './build')
   },
   extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
 }
-console.log(require.resolve('react/jsx-dev-runtime'))
 const serverConfig: UserConfig = {
   ...commonConfig,
   resolve: resolveObj,

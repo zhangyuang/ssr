@@ -5,7 +5,7 @@ import { promisify } from 'util'
 import { UserConfig, IPlugin } from 'ssr-types'
 import { transformSync } from 'esbuild'
 import { cp, mkdir } from 'shelljs'
-import semver from 'semver'
+const semver = require('semver')
 
 const getCwd = () => {
   return resolve(process.cwd(), process.env.APP_ROOT ?? '')
