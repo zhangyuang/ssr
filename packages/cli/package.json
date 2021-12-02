@@ -34,6 +34,7 @@
   "dependencies": {
     "ora": "^4.0.4",
     "shelljs": "^0.8.3",
+    "esbuild": "^0.13.14",
     "ssr-server-utils": "^5.7.9",
     "ssr-types": "^5.6.41",
     "yargs": "^13.2.4"
