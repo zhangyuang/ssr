@@ -11,7 +11,7 @@ const serialize = require('serialize-javascript')
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender, prefix, isVite } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, disableClientRender, prefix, isVite } = config
   const router = createRouter()
   const store = createStore()
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
@@ -33,12 +33,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   }
 
   let dynamicCssOrder = cssOrder
-  if (dynamic && !isVite) {
+  if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
-    dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
+    if (!isVite) {
+      dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
+    }
   }
-
-  const manifest = isVite ? {} : await getManifest()
+  const manifest = await getManifest()
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
@@ -72,38 +73,28 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
     store,
     render: function (h: Vue.CreateElement) {
       const injectCss: Vue.VNode[] = []
-      if (isVite) {
-        injectCss.push(
-          h('link', {
-            attrs: {
-              rel: 'stylesheet',
-              href: `/server/static/css/${chunkName}.css`
-            }
-          })
-        )
-      } else {
-        dynamicCssOrder.forEach(css => {
-          if (manifest[css]) {
-            injectCss.push(
-              h('link', {
-                attrs: {
-                  rel: 'stylesheet',
-                  href: manifest[css]
-                }
-              })
-            )
-          }
-        })
-      }
+      dynamicCssOrder.forEach(css => {
+        if (manifest[css]) {
+          injectCss.push(
+            h('link', {
+              attrs: {
+                rel: 'stylesheet',
+                href: manifest[css]
+              }
+            })
+          )
+        }
+      })
 
-      const injectScript: Vue.VNode[] = isVite ? [h('script', {
+      const injectScript: Vue.VNode[] = (isVite && isDev) ? [h('script', {
         attrs: {
           type: 'module',
           src: '/node_modules/ssr-plugin-vue/esm/entry/client-entry.js'
         }
       })] : jsOrder.map(js => h('script', {
         attrs: {
-          src: manifest[js]
+          src: manifest[js],
+          type: isVite ? 'module' : ''
         }
       }))
       const viteClient = h('script', {
@@ -145,7 +136,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
             ])
           ]),
-          isVite && h('template', {
+          (isVite && isDev) && h('template', {
             slot: 'viteClient'
           }, [viteClient]),
 

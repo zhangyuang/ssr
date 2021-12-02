@@ -10,6 +10,10 @@ const loadConfig = (): IConfig => {
   const isVite = process.env['BUILD_TOOL'] === 'vite'
   const vue3ServerEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js')
   const vue3ClientEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
+  const vueServerEntry = join(cwd, './node_modules/ssr-plugin-vue/esm/entry/server-entry.js')
+  const vueClientEntry = join(cwd, './node_modules/ssr-plugin-vue/esm/entry/client-entry.js')
+  const reactServerEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/server-entry.js')
+  const reactClientEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/client-entry.js')
 
   type ClientLogLevel = 'error'
 
@@ -139,6 +143,10 @@ const loadConfig = (): IConfig => {
     proxyKey,
     vue3ServerEntry,
     vue3ClientEntry,
+    vueServerEntry,
+    vueClientEntry,
+    reactServerEntry,
+    reactClientEntry,
     isVite
   }, userConfig)
 

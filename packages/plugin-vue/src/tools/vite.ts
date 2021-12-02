@@ -1,6 +1,6 @@
 import type { build as BuildType, UserConfig } from 'vite'
 import { loadConfig, manualChunks, chunkNamePlugin, output, manifestPlugin, commonConfig } from 'ssr-server-utils'
-import vuePlugin from '@vitejs/plugin-vue'
+import { createVuePlugin } from 'vite-plugin-vue2'
 const build: typeof BuildType = require('vite').build
 const { getOutput, vue3ServerEntry, vue3ClientEntry } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
@@ -8,7 +8,7 @@ const { clientOutPut, serverOutPut } = getOutput()
 const serverConfig: UserConfig = {
   ...commonConfig,
   plugins: [
-    vuePlugin()
+    createVuePlugin()
   ],
   build: {
     ssr: vue3ServerEntry,
@@ -27,7 +27,7 @@ const serverConfig: UserConfig = {
 const clientConfig: UserConfig = {
   ...commonConfig,
   plugins: [
-    vuePlugin()
+    createVuePlugin()
   ],
   build: {
     ssrManifest: true,

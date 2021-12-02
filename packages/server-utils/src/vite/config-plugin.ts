@@ -6,10 +6,12 @@ import MagicString from 'magic-string'
 import type { OutputOptions } from 'rollup'
 import { loadConfig } from '../loadConfig'
 import { getOutputPublicPath } from '../parse'
+import { getCwd } from '../cwd'
 
 const webpackCommentRegExp = /webpackChunkName:\s"(.*)?"/
 const chunkNameRe = /chunkName=(.*)/
-const { getOutput } = loadConfig()
+const cwd = getCwd()
+const { getOutput, prefix } = loadConfig()
 const { clientOutPut } = getOutput()
 
 const chunkNamePlugin = function (): Plugin {
@@ -68,9 +70,26 @@ const output: OutputOptions = {
     return '[name].[hash].chunk.[ext]'
   }
 }
+type SSR = 'ssr'
+const commonConfig = {
+  root: cwd,
+  base: prefix,
+  mode: 'development',
+  server: {
+    middlewareMode: 'ssr' as SSR
+  },
+  resolve: {
+    alias: {
+      '@': resolve(cwd, './web'),
+      _build: resolve(cwd, './build')
+    },
+    extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
+  }
+}
 export {
   chunkNamePlugin,
   manifestPlugin,
   manualChunks,
-  output
+  output,
+  commonConfig
 }

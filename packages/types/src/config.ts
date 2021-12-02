@@ -72,6 +72,10 @@ export interface IConfig {
   proxyKey: string[]
   vue3ServerEntry: string
   vue3ClientEntry: string
+  vueServerEntry: string
+  vueClientEntry: string
+  reactServerEntry: string
+  reactClientEntry: string
   isVite: boolean
 }
 
