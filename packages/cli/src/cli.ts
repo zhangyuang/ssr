@@ -22,6 +22,9 @@ const spinner = {
 yargs
   .command('start', 'Start Server', {}, async (argv: Argv) => {
     spinner.start()
+    if (!argv.noclean) {
+      await cleanOutDir()
+    }
     const { parseFeRoutes, loadPlugin, copyReactContext, transformConfig } = await import('ssr-server-utils')
     transformConfig()
     await handleEnv(argv, spinner)
@@ -31,9 +34,6 @@ yargs
     debug(`loadPlugin time: ${Date.now() - start} ms`)
     spinner.stop()
     debug(`parseFeRoutes ending time: ${Date.now() - start} ms`)
-    if (!argv.noclean) {
-      await cleanOutDir()
-    }
     if (plugin.clientPlugin?.name === 'plugin-react') {
       await copyReactContext()
     }
@@ -44,15 +44,15 @@ yargs
   })
   .command('build', 'Build server and client files', {}, async (argv: Argv) => {
     spinner.start()
+    if (!argv.noclean) {
+      await cleanOutDir()
+    }
     const { parseFeRoutes, loadPlugin, copyReactContext, transformConfig } = await import('ssr-server-utils')
     transformConfig()
     process.env.NODE_ENV = 'production'
     await parseFeRoutes()
     const plugin = loadPlugin()
     spinner.stop()
-    if (!argv.noclean) {
-      await cleanOutDir()
-    }
     if (plugin.clientPlugin?.name === 'plugin-react') {
       await copyReactContext()
     }

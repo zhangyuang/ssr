@@ -20,40 +20,44 @@ function getModuleName(request, includeAbsolutePaths) {
   }
   return req.split(delimiter)[0]
 }
-const map = {}
 
-function getDep(whitelist, deepWhiteList) {
-  for (const dep of whitelist) {
-    if (typeof dep !== 'string') {
-      continue
-    }
-    if (!map[dep]) {
-      deepWhiteList.push(new RegExp(dep))
-      map[dep] = true
-    }
-    const childWhiteList = []
-    try {
-      const packageJSON = require(resolve(getCwd(), `./node_modules/${dep}/package.json`))
-      for (const childDep in packageJSON.dependencies) {
-        if (!map[childDep]) {
-          deepWhiteList.push(new RegExp(childDep))
-          map[childDep] = true
-        }
-        childWhiteList.push(childDep)
-        getDep(childWhiteList, deepWhiteList)
+function wrap(whitelist) {
+  const deepWhiteList = [...whitelist]
+  const map = {}
+  function getDep(whitelist, deepWhiteList) {
+    for (const dep of whitelist) {
+      if (typeof dep !== 'string') {
+        continue
       }
-    } catch (error) {
+      try {
+        if (!map[dep]) {
+          deepWhiteList.push(new RegExp(dep))
+          map[dep] = true
+        }
+        const childWhiteList = []
+        const packageJSON = require(resolve(getCwd(), `./node_modules/${dep}/package.json`))
+        for (const childDep in packageJSON.dependencies) {
+          if (!map[childDep]) {
+            deepWhiteList.push(new RegExp(childDep))
+            map[childDep] = true
+          }
+          childWhiteList.push(childDep)
+          getDep(childWhiteList, deepWhiteList)
+        }
+      } catch (error) {
 
+      }
     }
   }
+  getDep(whitelist, deepWhiteList)
+  return deepWhiteList
 }
+
 
 function nodeExternals(options) {
   options = options || {}
   let whitelist = [].concat(options.whitelist || []);
-  const deepWhiteList = []
-  getDep(whitelist, deepWhiteList)
-  whitelist = whitelist.concat(deepWhiteList)
+  whitelist = wrap(whitelist)
   const binaryDirs = [].concat(options.binaryDirs || ['.bin'])
   const importType = options.importType || 'commonjs'
   const modulesDir = options.modulesDir || 'node_modules'
