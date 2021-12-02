@@ -31,11 +31,11 @@ yargs
     debug(`loadPlugin time: ${Date.now() - start} ms`)
     spinner.stop()
     debug(`parseFeRoutes ending time: ${Date.now() - start} ms`)
-    if (plugin.clientPlugin?.name === 'plugin-react') {
-      await copyReactContext()
-    }
     if (!argv.noclean) {
       await cleanOutDir()
+    }
+    if (plugin.clientPlugin?.name === 'plugin-react') {
+      await copyReactContext()
     }
     await plugin.clientPlugin?.start?.(argv)
     debug(`clientPlugin ending time: ${Date.now() - start} ms`)
@@ -50,11 +50,11 @@ yargs
     await parseFeRoutes()
     const plugin = loadPlugin()
     spinner.stop()
-    if (plugin.clientPlugin?.name === 'plugin-react') {
-      await copyReactContext()
-    }
     if (!argv.noclean) {
       await cleanOutDir()
+    }
+    if (plugin.clientPlugin?.name === 'plugin-react') {
+      await copyReactContext()
     }
     await plugin.clientPlugin?.build?.(argv)
     await plugin.serverPlugin?.build?.(argv)
