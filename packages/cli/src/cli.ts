@@ -34,9 +34,11 @@ yargs
     if (plugin.clientPlugin?.name === 'plugin-react') {
       await copyReactContext()
     }
+    if (!argv.noclean) {
+      await cleanOutDir()
+    }
     await plugin.clientPlugin?.start?.(argv)
     debug(`clientPlugin ending time: ${Date.now() - start} ms`)
-    await cleanOutDir()
     await plugin.serverPlugin?.start?.(argv)
     debug(`serverPlugin ending time: ${Date.now() - start} ms`)
   })
@@ -51,8 +53,10 @@ yargs
     if (plugin.clientPlugin?.name === 'plugin-react') {
       await copyReactContext()
     }
+    if (!argv.noclean) {
+      await cleanOutDir()
+    }
     await plugin.clientPlugin?.build?.(argv)
-    await cleanOutDir()
     await plugin.serverPlugin?.build?.(argv)
     await generateHtml(argv)
   })
