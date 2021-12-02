@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.10](https://github.com/zhangyuang/ssr/compare/ssr@5.7.9...ssr@5.7.10) (2021-12-02)
+
+
+### Bug Fixes
+
+* resolve config ([6506c50](https://github.com/zhangyuang/ssr/commit/6506c50403ecbebba23628f62a86e7920e0e2cf9))
+
+
+
+
+
 ## [5.7.9](https://github.com/zhangyuang/ssr/compare/ssr@5.7.8...ssr@5.7.9) (2021-12-02)
 
 

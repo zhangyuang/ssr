@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.14](https://github.com/zhangyuang/ssr/compare/ssr-plugin-midway@5.7.13...ssr-plugin-midway@5.7.14) (2021-12-02)
+
+**Note:** Version bump only for package ssr-plugin-midway
+
+
+
+
+
 ## [5.7.13](https://github.com/zhangyuang/ssr/compare/ssr-plugin-midway@5.7.12...ssr-plugin-midway@5.7.13) (2021-12-02)
 
 **Note:** Version bump only for package ssr-plugin-midway
