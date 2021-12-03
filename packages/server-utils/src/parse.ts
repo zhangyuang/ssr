@@ -61,8 +61,7 @@ const parseFeRoutes = async () => {
   const prefix = getPrefix()
   const isVue = require(join(cwd, './package.json')).dependencies.vue
   if (isVite && !dynamic) {
-    console.log('Vite模式禁止关闭 dynamic ')
-    return
+    throw new Error('Vite模式禁止关闭 dynamic ')
   }
 
   let routes = ''

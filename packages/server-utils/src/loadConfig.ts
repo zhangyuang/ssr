@@ -73,7 +73,7 @@ const loadConfig = (): IConfig => {
     entrypoints: false
   }
 
-  const dynamic = false
+  const dynamic = true
 
   const corejs = false
   const getOutput = () => ({

@@ -4,7 +4,7 @@ import { exec } from 'child_process'
 import { promisify } from 'util'
 import { UserConfig, IPlugin } from 'ssr-types'
 //@ts-expect-error
-import semver from 'semver'
+import { coerce } from 'semver'
 
 const getCwd = () => {
   return resolve(process.cwd(), process.env.APP_ROOT ?? '')
@@ -118,7 +118,7 @@ const judgeFramework = () => {
   }
   if (packageJSON.dependencies.vue || packageJSON.devDependencies.vue) {
     const version = packageJSON.dependencies.vue || packageJSON.devDependencies.vue
-    return semver.coerce(version).raw.startsWith('3') ? 'vue3' : 'vue2'
+    return coerce(version).raw.startsWith('3') ? 'vue3' : 'vue2'
   }
 }
 

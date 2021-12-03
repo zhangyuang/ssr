@@ -6,7 +6,7 @@ const { getOutput, vueServerEntry, vueClientEntry } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
 const serverConfig: UserConfig = {
-  ...commonConfig,
+  ...commonConfig(),
   plugins: [
     createVuePlugin()
   ],
@@ -25,7 +25,7 @@ const serverConfig: UserConfig = {
 }
 
 const clientConfig: UserConfig = {
-  ...commonConfig,
+  ...commonConfig(),
   plugins: [
     createVuePlugin()
   ],
