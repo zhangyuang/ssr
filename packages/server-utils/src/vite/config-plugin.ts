@@ -11,8 +11,6 @@ import { getCwd } from '../cwd'
 const webpackCommentRegExp = /webpackChunkName:\s"(.*)?"/
 const chunkNameRe = /chunkName=(.*)/
 const cwd = getCwd()
-const { getOutput, prefix } = loadConfig()
-const { clientOutPut } = getOutput()
 
 const chunkNamePlugin = function (): Plugin {
   return {
@@ -36,6 +34,8 @@ const chunkNamePlugin = function (): Plugin {
   }
 }
 const manifestPlugin = (): Plugin => {
+  const { getOutput } = loadConfig()
+  const { clientOutPut } = getOutput()
   return {
     name: 'manifestPlugin',
     async generateBundle (_, bundles) {
@@ -70,19 +70,23 @@ const output: OutputOptions = {
   }
 }
 type SSR = 'ssr'
-const commonConfig = {
-  root: cwd,
-  base: prefix,
-  mode: 'development',
-  server: {
-    middlewareMode: 'ssr' as SSR
-  },
-  resolve: {
-    alias: {
-      '@': resolve(cwd, './web'),
-      _build: resolve(cwd, './build')
+const commonConfig = () => {
+  const { prefix } = loadConfig()
+  return {
+    root: cwd,
+    base: prefix,
+    mode: 'development',
+    server: {
+      middlewareMode: 'ssr' as SSR
     },
-    extensions: ['.mjs', '.ts', '.jsx', '.tsx', '.json', '.vue', '.js']
+    resolve: {
+      alias: {
+        '@': resolve(cwd, './web'),
+        _build: resolve(cwd, './build')
+      },
+      extensions: ['.mjs', '.ts', '.jsx', '.tsx', '.json', '.vue', '.js']
+    }
+
   }
 }
 export {

@@ -22,23 +22,30 @@ yargs
   .command('start', 'Start Server', {}, async (argv: Argv) => {
     spinner.start()
     process.env.NODE_ENV = 'development'
+    if (!argv.noclean) {
+      await cleanOutDir()
+    }
+    const { parseFeRoutes, loadPlugin, copyReactContext, transformConfig } = await import('ssr-server-utils')
+    transformConfig()
     await handleEnv(argv)
-    const { parseFeRoutes, loadPlugin, copyReactContext } = await import('ssr-server-utils')
     await parseFeRoutes()
     const plugin = loadPlugin()
     spinner.stop()
     if (plugin.clientPlugin?.name === 'plugin-react') {
       await copyReactContext()
     }
-    await cleanOutDir()
     await plugin.clientPlugin?.start?.(argv)
     await plugin.serverPlugin?.start?.(argv)
   })
   .command('build', 'Build server and client files', {}, async (argv: Argv) => {
     spinner.start()
     process.env.NODE_ENV = 'production'
+    if (!argv.noclean) {
+      await cleanOutDir()
+    }
+    const { parseFeRoutes, loadPlugin, copyReactContext, transformConfig } = await import('ssr-server-utils')
+    transformConfig()
     await handleEnv(argv)
-    const { parseFeRoutes, loadPlugin, copyReactContext } = await import('ssr-server-utils')
     await parseFeRoutes()
     const plugin = loadPlugin()
     spinner.stop()
@@ -46,7 +53,6 @@ yargs
       await copyReactContext()
     }
     await plugin.clientPlugin?.build?.(argv)
-    await cleanOutDir()
     await plugin.serverPlugin?.build?.(argv)
     await generateHtml(argv)
   })

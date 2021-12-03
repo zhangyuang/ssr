@@ -1,7 +1,7 @@
 import { join } from 'path'
 import axios from 'axios'
+import { IConfig } from 'ssr-types'
 import { getCwd } from './cwd'
-import { loadConfig } from './loadConfig'
 
 // 创建一个实例来请求，防止业务代码的 axios 设置了 defaults 配置导致获取 manifest 失败
 const instance = axios.create({
@@ -9,8 +9,8 @@ const instance = axios.create({
   proxy: false
 })
 
-const getManiFest = async (): Promise<Record<string, string>> => {
-  const { isDev, fePort, https, manifestPath, isVite } = loadConfig()
+const getManifest = async (config: IConfig): Promise<Record<string, string>> => {
+  const { isDev, fePort, https, manifestPath, isVite } = config
   let manifest = {}
   const cwd = getCwd()
   if (isDev) {
@@ -22,9 +22,6 @@ const getManiFest = async (): Promise<Record<string, string>> => {
     manifest = require(join(cwd, './build/client/asset-manifest.json'))
   }
   return manifest
-}
-const getManifest = async () => {
-  return await getManiFest()
 }
 
 export {

@@ -31,7 +31,7 @@
     "ssr-plugin-midway": "^5.0.0",
     "ssr-plugin-vue3": "^5.0.0",
     "typescript": "^3.9.7",
-    "vite": "^2.1.5",
+    "vite": "^2.7.0-beta.10",
     "vite-raw-plugin": "^1.0.0"
   },
   "scripts": {

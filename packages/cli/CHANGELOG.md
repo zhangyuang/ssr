@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.12](https://github.com/zhangyuang/ssr/compare/ssr@5.7.11...ssr@5.7.12) (2021-12-02)
+
+
+### Features
+
+* support dep whiteList search ([b82d55b](https://github.com/zhangyuang/ssr/commit/b82d55b2d94452e0a4761513434acd827d6814dd))
+
+
+
+
+
+## [5.7.11](https://github.com/zhangyuang/ssr/compare/ssr@5.7.10...ssr@5.7.11) (2021-12-02)
+
+**Note:** Version bump only for package ssr
+
+
+
+
+
+## [5.7.10](https://github.com/zhangyuang/ssr/compare/ssr@5.7.9...ssr@5.7.10) (2021-12-02)
+
+
+### Bug Fixes
+
+* resolve config ([6506c50](https://github.com/zhangyuang/ssr/commit/6506c50403ecbebba23628f62a86e7920e0e2cf9))
+
+
+
+
+
+## [5.7.9](https://github.com/zhangyuang/ssr/compare/ssr@5.7.8...ssr@5.7.9) (2021-12-02)
+
+
+### Features
+
+* optimize dependencies in serverless ([abb120c](https://github.com/zhangyuang/ssr/commit/abb120c950f7871719e8097cbbbd2197f355de2a))
+
+
+
+
+
 ## [5.7.8](https://github.com/zhangyuang/ssr/compare/ssr@5.7.7...ssr@5.7.8) (2021-11-30)
 
 

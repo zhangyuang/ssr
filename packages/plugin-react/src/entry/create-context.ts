@@ -3,8 +3,7 @@
 
 import React from 'react'
 import { IContext } from 'ssr-types-react'
-import ReactDOM from 'react-dom'
-console.log(ReactDOM)
+
 let STORE_CONTEXT
 if (__isBrowser__) {
   STORE_CONTEXT = window.STORE_CONTEXT ?? React.createContext<IContext>({

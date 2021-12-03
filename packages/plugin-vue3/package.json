@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-vue3",
-  "version": "5.7.13",
+  "version": "5.7.17",
   "description": "plugin-vue3 for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -60,7 +60,7 @@
     "ssr-webpack": "^5.7.7",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "^4.1.1",
-    "vite": "^2.1.5",
+    "vite": "^2.7.0-beta.10",
     "vue": "^3.0.0",
     "vue-loader": "^16.1.2",
     "vue-router": "^4.0.0",

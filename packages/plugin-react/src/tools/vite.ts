@@ -6,7 +6,7 @@ const { getOutput, reactServerEntry, reactClientEntry } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
 const serverConfig: UserConfig = {
-  ...commonConfig,
+  ...commonConfig(),
   plugins: [
     react()
   ],
@@ -25,7 +25,7 @@ const serverConfig: UserConfig = {
 }
 
 const clientConfig: UserConfig = {
-  ...commonConfig,
+  ...commonConfig(),
   plugins: [
     react()
   ],

@@ -73,7 +73,7 @@ const loadConfig = (): IConfig => {
     entrypoints: false
   }
 
-  const dynamic = !process.env.SPA // SPA 部署模式下不开启 dynamic
+  const dynamic = false
 
   const corejs = false
   const getOutput = () => ({

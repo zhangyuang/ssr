@@ -106,6 +106,14 @@
 <td align="center" style="height: 100px"><a href="https://jiawu.dewu.com" target="_blank"><img src="https://cdn.poizon.com/node-common/31116a45953ad8b468c6c832036aac88.png" width="200px;margin: 20px 0" alt="Dream2qBlog"/><br />
 <a href="https://jiawu.dewu.com" target="_bvlank"><b>得物
 </b></a></td>
+<td align="center" style="height: 100px"><a href="https://www.habisummercamp.com/" target="_blank"><img src="https://res.wx.qq.com/op_res/XXUpF56bDue53vZadoCSPSnqKF3bZqPOQnqsPa_ngEARa0OUIW22pX7eKsftPb6pc5ny62cR_wXM4g5xJ7G3DQ
+" width="200px;margin: 20px 0" alt="Dream2qBlog"/><br />
+<a href="https://www.habisummercamp.com/" target="_bvlank"><b>HappyPC
+</b></a></td>
+<td align="center" style="height: 100px"><a href="https://m.habisummercamp.com/" target="_blank"><img src="https://res.wx.qq.com/op_res/XXUpF56bDue53vZadoCSPSnqKF3bZqPOQnqsPa_ngEARa0OUIW22pX7eKsftPb6pc5ny62cR_wXM4g5xJ7G3DQ
+" width="200px;margin: 20px 0" alt="Dream2qBlog"/><br />
+<a href="https://m.habisummercamp.com/" target="_bvlank"><b>HappyMobile
+</b></a></td>
 </tr>
 </table>
 
@@ -262,7 +270,7 @@ $ npm run start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 
 <div style="display:flex">
 <img src="https://res.wx.qq.com/op_res/7F1t4Z8yCHWilehbcFGjAj0yVn0URMiWBGVJa-TVu_eqw5IwUXA2kPYBnfX6YRHy0FVBB-yC6l0IEL02QTJkLg" width="300">
-<img src="https://res.wx.qq.com/op_res/LKApEGZg8dfVdons6UrO3dU1NRHcIes4wn3WQqHI60FOyMB5VlhYWiPiZjB-NlijbCZTX4Za4-isfAQSMK58pw" width="300">
+<img src="https://res.wx.qq.com/op_res/ECwdFhkCwm6NE1c_jP-DOYaVaR8K_ORJeEzFlDW9eBJj8igF3yeut9KnoChxyqJ4ReJogCG9bL_qZ3OYdZBI0w" width="300">
 </div>
 
 ## 前端开发手册

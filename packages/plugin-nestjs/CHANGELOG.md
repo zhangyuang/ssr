@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [5.7.12](https://github.com/zhangyuang/ssr/compare/ssr-plugin-nestjs@5.7.11...ssr-plugin-nestjs@5.7.12) (2021-12-02)
+
+**Note:** Version bump only for package ssr-plugin-nestjs
+
+
+
+
+
+## [5.7.11](https://github.com/zhangyuang/ssr/compare/ssr-plugin-nestjs@5.7.10...ssr-plugin-nestjs@5.7.11) (2021-12-02)
+
+**Note:** Version bump only for package ssr-plugin-nestjs
+
+
+
+
+
+## [5.7.10](https://github.com/zhangyuang/ssr/compare/ssr-plugin-nestjs@5.7.9...ssr-plugin-nestjs@5.7.10) (2021-12-02)
+
+**Note:** Version bump only for package ssr-plugin-nestjs
+
+
+
+
+
+## [5.7.9](https://github.com/zhangyuang/ssr/compare/ssr-plugin-nestjs@5.7.8...ssr-plugin-nestjs@5.7.9) (2021-12-02)
+
+**Note:** Version bump only for package ssr-plugin-nestjs
+
+
+
+
+
 ## [5.7.8](https://github.com/zhangyuang/ssr/compare/ssr-plugin-nestjs@5.7.7...ssr-plugin-nestjs@5.7.8) (2021-11-30)
 
 **Note:** Version bump only for package ssr-plugin-nestjs

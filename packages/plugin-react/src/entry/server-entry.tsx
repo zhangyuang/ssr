@@ -1,7 +1,9 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
-import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactESMFeRouteItem } from 'ssr-types-react'
+import { ISSRContext, IConfig, ReactRoutesType, ReactESMFeRouteItem } from 'ssr-types-react'
+//@ts-expect-error
+import * as serializeWrap from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
 // @ts-expect-error
@@ -9,14 +11,11 @@ import { STORE_CONTEXT as Context } from '_build/create-context'
 // @ts-expect-error
 import Layout from '@/components/layout/index.tsx'
 
-const serialize = require('serialize-javascript')
 const { FeRoutes, layoutFetch, PrefixRouterBase, state } = Routes as ReactRoutesType
-
-declare const global: IGlobal
+const serialize = serializeWrap.default || serializeWrap
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
   const { cssOrder, jsOrder, dynamic, mode, parallelFetch, disableClientRender, prefix, isVite, isDev } = config
-  global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
   let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
   if (base) {
@@ -39,7 +38,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
       dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
     }
   }
-  const manifest = await getManifest()
+  const manifest = await getManifest(config)
 
   const injectCss: JSX.Element[] = []
 
@@ -72,7 +71,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
       __html: 'window.__USE_VITE__=true'
     }} />,
     (isVite && isDev) && <script type="module" src='/node_modules/ssr-plugin-react/esm/entry/client-entry.js' key="vite-react-entry" />,
-    ...jsOrder.map(js => manifest[js]).map(item => <script key={item} src={item} type={isVite ? 'module' : ''}/>)
+    ...jsOrder.map(js => manifest[js]).map(item => item && <script key={item} src={item} type={isVite ? 'module' : ''}/>)
   ]
   const staticList = {
     injectCss,

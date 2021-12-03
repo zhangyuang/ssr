@@ -3,6 +3,41 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.12](https://github.com/zhangyuang/ssr/compare/ssr-plugin-react@6.1.11...ssr-plugin-react@6.1.12) (2021-12-02)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [6.1.11](https://github.com/zhangyuang/ssr/compare/ssr-plugin-react@6.1.10...ssr-plugin-react@6.1.11) (2021-12-02)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [6.1.10](https://github.com/zhangyuang/ssr/compare/ssr-plugin-react@6.1.9...ssr-plugin-react@6.1.10) (2021-12-02)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
+## [6.1.9](https://github.com/zhangyuang/ssr/compare/ssr-plugin-react@6.1.8...ssr-plugin-react@6.1.9) (2021-12-02)
+
+
+### Features
+
+* add location prop to StaticRouter ([#137](https://github.com/zhangyuang/ssr/issues/137)) ([301f997](https://github.com/zhangyuang/ssr/commit/301f9975ff08a94b8e792e36587c32796cf477ac))
+
+
+
+
+
 ## [6.1.8](https://github.com/zhangyuang/ssr/compare/ssr-plugin-react@6.1.7...ssr-plugin-react@6.1.8) (2021-11-30)
 
 

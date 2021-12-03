@@ -2,18 +2,18 @@ import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
 import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
-
+//@ts-expect-error
+import * as serializeWrap from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
 import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 
-const serialize = require('serialize-javascript')
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
+const serialize = serializeWrap.default || serializeWrap
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, parallelFetch, disableClientRender, prefix, isVite, isDev } = config
-  global.__VUE_PROD_DEVTOOLS__ = global.__VUE_PROD_DEVTOOLS__ ?? false
 
   const store = createStore()
   const router = createRouter()
@@ -41,7 +41,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
     }
   }
-  const manifest = await getManifest()
+  const manifest = await getManifest(config)
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
   let layoutFetchData = {}

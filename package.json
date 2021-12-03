@@ -26,7 +26,6 @@
     "publish": "lerna version --conventional-commits",
     "e2e": "cypress run --browser chrome",
     "example:midway:vue": "cd example/midway-vue-ssr && npm start",
-    "example:midway:vue:vite": "cd example/midway-vue-ssr && npx ssr start --vite",
     "example:midway:react": "cd example/midway-react-ssr && npm start",
     "example:midway:vue3": "cd example/midway-vue3-ssr && npm start",
     "example:midway:vue3:vite": "cd example/midway-vue3-ssr && npx ssr start --vite",

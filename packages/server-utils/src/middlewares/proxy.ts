@@ -1,9 +1,9 @@
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import { proxyOptions } from 'ssr-types'
+//@ts-expect-error
+import koaConnect from 'koa2-connect'
 import { judgeFramework } from '../cwd'
 import { loadConfig } from '../loadConfig'
-
-const koaConnect = require('koa2-connect')
 
 function onProxyReq (proxyReq: any, req: any) {
   Object.keys(req.headers).forEach(function (key) {

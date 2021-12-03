@@ -12,6 +12,7 @@ export type Script = Array<{
 export interface IConfig {
   cwd: string
   isDev: boolean
+  dynamic: boolean
   publicPath: string
   useHash: boolean
   host: string
@@ -43,10 +44,9 @@ export interface IConfig {
   chainClientConfig: (config: Config) => Configuration
   webpackStatsOption: Options.Stats
   moduleFileExtensions: string[]
-  whiteList: RegExp[]
+  whiteList: RegExp[] | string[]
   cloudIDE?: boolean
   prefix?: string
-  dynamic: boolean
   mode: 'ssr' | 'csr'
   webpackDevServerConfig?: any
   stream: boolean

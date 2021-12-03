@@ -3,9 +3,6 @@ import { resolve } from 'path'
 import { exec } from 'child_process'
 import { promisify } from 'util'
 import { UserConfig, IPlugin } from 'ssr-types'
-import { transformSync } from 'esbuild'
-import { cp, mkdir } from 'shelljs'
-const semver = require('semver')
 
 const getCwd = () => {
   return resolve(process.cwd(), process.env.APP_ROOT ?? '')
@@ -20,33 +17,39 @@ const getPagesDir = () => {
 }
 
 const transformConfig = () => {
-  const cwd = getCwd()
-  if (!accessFileSync(resolve(cwd, './build'))) {
-    mkdir(resolve(cwd, './build'))
-  }
-  if (accessFileSync(resolve(cwd, './config.js'))) {
-    cp('-r', `${resolve(cwd, './config.js')}`, `${resolve(cwd, './build/config.js')}`)
-  }
-  const configWithTs = accessFileSync(resolve(cwd, './config.ts'))
-  if (configWithTs) {
-    const fileContent = readFileSync(resolve(cwd, './config.ts')).toString()
-    const { code } = transformSync(fileContent, {
-      loader: 'ts',
-      format: 'cjs'
-    })
-    writeFileSync(resolve(cwd, './build/config.js'), code)
+  try {
+    // serverless 发布无需安装 shelljs esbuild, 提前本地 build 好
+    const { cp, mkdir } = require('shelljs')
+    const { transformSync } = require('esbuild')
+    const cwd = getCwd()
+    if (!accessFileSync(resolve(cwd, './build'))) {
+      mkdir(resolve(cwd, './build'))
+    }
+    if (accessFileSync(resolve(cwd, './config.js'))) {
+      cp('-r', `${resolve(cwd, './config.js')}`, `${resolve(cwd, './build/config.js')}`)
+    }
+    const configWithTs = accessFileSync(resolve(cwd, './config.ts'))
+    if (configWithTs) {
+      const fileContent = readFileSync(resolve(cwd, './config.ts')).toString()
+      const { code } = transformSync(fileContent, {
+        loader: 'ts',
+        format: 'cjs'
+      })
+      writeFileSync(resolve(cwd, './build/config.js'), code)
+    }
+  } catch (error) {
+
   }
 }
 
 const getUserConfig = (): UserConfig => {
-  const cwd = getCwd()
-  if (!accessFileSync(resolve(cwd, './build/config.js'))) {
+  let config
+  try {
+    config = require(resolve(getCwd(), './build/config'))
+  } catch (error) {
     transformConfig()
+    config = require(resolve(getCwd(), './build/config'))
   }
-  if (!accessFileSync(resolve(cwd, './build/client'))) {
-    mkdir(resolve(cwd, './build/client'))
-  }
-  const config = require(resolve(getCwd(), './build/config'))
   return config.userConfig ?? config
 }
 

@@ -15,4 +15,5 @@ export const cleanOutDir = async () => {
       console.log('检测到当前目录 tsconfig.json 文件可能存在语法错误')
     }
   }
+  rm('-rf', resolve(cwd, './build'))
 }

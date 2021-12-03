@@ -349,7 +349,7 @@ jobs:
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
-  e2e-chrome-midway-vue-vite:
+  e2e-chrome-midway-react-vite:
     needs: bootstrap
     runs-on: ubuntu-latest
     strategy:
@@ -379,10 +379,10 @@ jobs:
           name: bindings-${{matrix.node}}
           path: packages
       - name: prepare
-        run: yarn run link --vue2
+        run: yarn run link --react
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn run example:midway:vue:vite
+          start: yarn run example:midway:react:vite
           wait-on: 'http://localhost:3000'
           spec: |
             e2e/integration/examples/common-ssr.spec.js  
@@ -517,7 +517,6 @@ jobs:
       - e2e-chrome-midway-vue
       - e2e-chrome-midway-vue3
       - e2e-chrome-midway-vue3-vite
-      - e2e-chrome-midway-vue-vite
       - e2e-chrome-midway-react-dynamic-router
       - e2e-chrome-nestjs-vue
       - e2e-chrome-nestjs-vue3
