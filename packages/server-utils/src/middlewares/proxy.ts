@@ -35,8 +35,8 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
       }
 
       // 本地开发请求走 vite 接管 前端文件夹请求
-      const { createServer } = await import('vite')
-      const { clientConfig } = framework === 'react' ? await import('ssr-plugin-react') : (framework === 'vue3' ? await import('ssr-plugin-vue3') : await import('ssr-plugin-vue'))
+      const { createServer } = require('vite')
+      const { clientConfig } = framework === 'react' ? require('ssr-plugin-react') : (framework === 'vue3' ? require('ssr-plugin-vue3') : require('ssr-plugin-vue'))
       const viteServer = await createServer(clientConfig)
       proxyMiddlewaresArr.push(express ? viteServer.middlewares : kc(viteServer.middlewares))
     } else {

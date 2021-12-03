@@ -46,10 +46,6 @@ const viteStart = async () => {
   //
 }
 const viteBuild = async () => {
-  Object.defineProperty(process.env, 'NODE_ENV', {
-    configurable: true
-  })
-  process.env.NODE_ENV = 'production'
   await build({ ...clientConfig, mode: 'production' })
   await build({ ...serverConfig, mode: 'production' })
 }
