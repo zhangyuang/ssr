@@ -7,7 +7,7 @@ const loadConfig = (): IConfig => {
   const cwd = getCwd()
   const mode = 'ssr'
   const stream = false
-  const isVite = process.env['BUILD_TOOL'] === 'vite'
+  const isVite = process.env.BUILD_TOOL === 'vite'
   const vue3ServerEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js')
   const vue3ClientEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
   const vueServerEntry = join(cwd, './node_modules/ssr-plugin-vue/esm/entry/server-entry.js')
