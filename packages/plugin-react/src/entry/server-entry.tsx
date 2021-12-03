@@ -67,15 +67,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     }}/>)
   }
 
-  let injectScript = [
+  const injectScript = [
     isVite && <script key="viteWindowInit" dangerouslySetInnerHTML={{
       __html: 'window.__USE_VITE__=true'
     }} />,
-    (isVite && isDev) && <script type="module" src='/node_modules/ssr-plugin-react/esm/entry/client-entry.js' key="vite-react-entry" />
+    (isVite && isDev) && <script type="module" src='/node_modules/ssr-plugin-react/esm/entry/client-entry.js' key="vite-react-entry" />,
+    ...jsOrder.map(js => manifest[js]).map(item => <script key={item} src={item} type={isVite ? 'module' : ''}/>)
   ]
-  if (!isDev) {
-    injectScript = injectScript.concat(jsOrder.map(js => manifest[js]).map(item => <script key={item} src={item} type={isVite ? 'module' : ''}/>))
-  }
   const staticList = {
     injectCss,
     injectScript

@@ -58,13 +58,10 @@ export const getImageOutputPath = () => {
 }
 
 const parseFeRoutes = async () => {
-  const { dynamic, routerPriority, routerOptimize, isVite } = loadConfig()
+  const { dynamic, routerPriority, routerOptimize } = loadConfig()
+  console.log('xxx', dynamic)
   const prefix = getPrefix()
   const isVue = require(join(cwd, './package.json')).dependencies.vue
-  if (isVite && !dynamic) {
-    console.log('vite模式禁止关闭 dynamic ')
-    return
-  }
 
   let routes = ''
   const declaretiveRoutes = await accessFile(join(getFeDir(), './route.ts')) // 是否存在自定义路由

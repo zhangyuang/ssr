@@ -64,7 +64,6 @@ const output: OutputOptions = {
     if (id.includes('node_modules') && id.includes('.js')) {
       return 'vendor'
     }
-    console.log(id)
     if (id.includes('chunkName')) {
       return chunkNameRe.exec(id)![1]
     }
@@ -77,6 +76,13 @@ const commonConfig = {
   mode: 'development',
   server: {
     middlewareMode: 'ssr' as SSR
+  },
+  resolve: {
+    alias: {
+      '@': resolve(cwd, './web'),
+      _build: resolve(cwd, './build')
+    },
+    extensions: ['.mjs', '.ts', '.jsx', '.tsx', '.json', '.vue', '.js']
   }
 }
 export {

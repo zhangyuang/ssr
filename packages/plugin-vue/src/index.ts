@@ -7,8 +7,7 @@ export function vuePlugin () {
     name: 'plugin-vue',
     start: async () => {
       if (isVite) {
-        const { viteStart } = await import('./tools/vite')
-        await viteStart()
+        console.log('vite ssr is not supported vue2 ref https://github.com/underfin/vite-plugin-vue2/issues/31')
       } else {
         const { webpackStart } = await import('./tools/webpack')
         await webpackStart()
@@ -16,8 +15,7 @@ export function vuePlugin () {
     },
     build: async () => {
       if (isVite) {
-        const { viteBuild } = await import('./tools/vite')
-        await viteBuild()
+        console.log('vite ssr is not supported vue2 ref https://github.com/underfin/vite-plugin-vue2/issues/31')
       } else {
         const { webpackBuild } = await import('./tools/webpack')
         await webpackBuild()

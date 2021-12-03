@@ -1,22 +1,12 @@
-import { resolve } from 'path'
 import type { build as BuildType, UserConfig } from 'vite'
-import { loadConfig, chunkNamePlugin, output, manifestPlugin, commonConfig, getCwd } from 'ssr-server-utils'
+import { loadConfig, chunkNamePlugin, output, manifestPlugin, commonConfig } from 'ssr-server-utils'
 import react from '@vitejs/plugin-react'
 const build: typeof BuildType = require('vite').build
 const { getOutput, reactServerEntry, reactClientEntry } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
-const cwd = getCwd()
-const resolveObj = {
-  alias: {
-    '@': resolve(cwd, './web'),
-    _build: resolve(cwd, './build')
-  },
-  extensions: ['.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue']
-}
 const serverConfig: UserConfig = {
   ...commonConfig,
-  resolve: resolveObj,
   plugins: [
     react()
   ],
@@ -36,7 +26,6 @@ const serverConfig: UserConfig = {
 
 const clientConfig: UserConfig = {
   ...commonConfig,
-  resolve: resolveObj,
   plugins: [
     react()
   ],
