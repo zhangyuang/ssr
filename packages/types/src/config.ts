@@ -44,7 +44,7 @@ export interface IConfig {
   chainClientConfig: (config: Config) => Configuration
   webpackStatsOption: Options.Stats
   moduleFileExtensions: string[]
-  whiteList: RegExp[] | string[]
+  whiteList: RegExp[]
   cloudIDE?: boolean
   prefix?: string
   mode: 'ssr' | 'csr'
