@@ -513,6 +513,7 @@ jobs:
       - lint
       - e2e-firefox-midway-react
       - e2e-firefox-nestjs-react
+      - e2e-chrome-midway-react-vite
       - e2e-chrome-midway-react
       - e2e-chrome-midway-vue
       - e2e-chrome-midway-vue3
