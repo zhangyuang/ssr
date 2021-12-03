@@ -3,6 +3,8 @@ import { resolve } from 'path'
 import { exec } from 'child_process'
 import { promisify } from 'util'
 import { UserConfig, IPlugin } from 'ssr-types'
+//@ts-expect-error
+import semver from 'semver'
 
 const getCwd = () => {
   return resolve(process.cwd(), process.env.APP_ROOT ?? '')
