@@ -34,7 +34,6 @@ const clientConfig: UserConfig = {
     outDir: clientOutPut,
     rollupOptions: {
       input: vue3ClientEntry,
-      //@ts-expect-error
       output: output,
       plugins: [chunkNamePlugin(), manifestPlugin()]
     }

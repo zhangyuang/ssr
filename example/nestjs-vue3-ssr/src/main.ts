@@ -11,6 +11,7 @@ async function bootstrap (): Promise<void> {
     express: true
   })
   app.useStaticAssets(join(getCwd(), './build'))
+  app.useStaticAssets(join(getCwd(), './build/client'))
   app.useStaticAssets(join(getCwd(), './public'))
   const { serverPort } = loadConfig()
   await app.listen(serverPort)

@@ -34,7 +34,6 @@ const clientConfig: UserConfig = {
     outDir: clientOutPut,
     rollupOptions: {
       input: reactClientEntry,
-      //@ts-expect-error
       output: output,
       plugins: [chunkNamePlugin(), manifestPlugin()]
     }

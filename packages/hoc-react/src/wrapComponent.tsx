@@ -48,7 +48,6 @@ function wrapComponent (WrappedComponent: DynamicFC|StaticFC) {
         // csr 情况首次访问页面也需要调用 fetch
         const { fetch, layoutFetch } = (WrappedComponent as DynamicFC)
         await fetchAndDispatch({ fetch, layoutFetch }, dispatch, props, state)
-        console.log('xxx', WrappedComponent.name)
         if (WrappedComponent.name === 'dynamicComponent') {
           WrappedComponent = (await (WrappedComponent as DynamicFC)()).default
           WrappedComponent.fetch = fetch
