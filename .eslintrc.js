@@ -18,7 +18,9 @@ module.exports = {
     describe: true
   },
   rules: {
+    '@typescript-eslint/dot-notation': ['off'],
     'padded-blocks': ['off'],
+    '@typescript-eslint/no-base-to-string': ['off'],
     '@typescript-eslint/restrict-plus-operands': ['off']
   }
 }

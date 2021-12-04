@@ -1,14 +1,11 @@
 import { StyleOptions } from 'ssr-types'
 import { Config } from 'ssr-types/cjs/third-party/webpack-chain'
-import type { loader } from 'webpack'
 import { loadConfig } from '../loadConfig'
 
-const genericNames = require('generic-names')
-
 const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
-  const { css, isDev } = loadConfig()
-  const { include, exclude, importLoaders, loader, isServer } = options
   const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+  const { css, isDev, isVite } = loadConfig()
+  const { include, exclude, importLoaders, loader, isServer } = options
   const loadModule = require.resolve
 
   const userCssloaderOptions = css?.().loaderOptions?.cssOptions ?? {}
@@ -16,14 +13,7 @@ const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
     importLoaders: importLoaders,
     modules: {
       // 对 .module.xxx 的文件开启 css-modules
-      auto: true,
-      // 对齐vite 场景 css-loader 与 postcss-modules 生成 hash 方式
-      // @ts-expect-error
-      getLocalIdent: (context: loader.LoaderContext, localIdentName, localName, options) => {
-        return genericNames('[name]__[local]___[hash:base64:5]', {
-          context: process.cwd()
-        })(localName, context.resourcePath)
-      }
+      auto: true
     },
     url: (url: string) => {
       // 绝对路径开头的静态资源地址不处理
@@ -66,7 +56,7 @@ const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
     .loader(MiniCssExtractPlugin.loader)
     .options({
       // vite 场景下服务端 bundle 输出 css 文件，否则 服务端不输出
-      emit: process.env.BUILD_TOOL === 'vite' ? true : !isServer
+      emit: isVite ? true : !isServer
     })
     .end()
     .use('css-loader')

@@ -8,6 +8,7 @@ export * from './loadConfig'
 export * from './webpack'
 export * from './middlewares'
 export * from './parse'
+export * from './vite'
 
 /* types */
 export * from 'ssr-types'

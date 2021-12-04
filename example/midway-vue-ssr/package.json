@@ -22,13 +22,12 @@
     "ssr": "^5.0.0",
     "ssr-plugin-vue": "^5.0.0",
     "ssr-plugin-midway": "^5.0.0",
-    "typescript": "^3.9.7"
+    "typescript": "^4.0.0"
   },
   "scripts": {
     "prod": "ssr build && egg-scripts start --daemon --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
     "stop": "egg-scripts stop --title=midway-server-my_midway_project",
     "start": "ssr start",
-    "start:vite": "ssr start --vite",
     "build": "ssr build",
     "deploy": "ssr build && ssr deploy",
     "deploy:tencent": "ssr build && ssr deploy --tencent",

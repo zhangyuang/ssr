@@ -122,6 +122,11 @@ $ tree ./ -I node_modules -L 2
 │   │   ├── router.ts
 │   │   ├── server-entry.ts # 服务端文件打包入口
 │   │   └── store.ts
+│   └── tools
+│   │   ├── vite.d.ts
+│   │   ├── vite.js
+│   │   ├── webpack.d.ts
+│   │   └── webpack.js
 │   ├── global.d.ts
 │   └── index.ts
 ├── tsconfig.cjs.json
@@ -131,35 +136,36 @@ $ tree ./ -I node_modules -L 2
 同样在 `index.ts` 中，我们也是暴露 `start` `build` 方法让上层调用
 
 ```js
-import * as WebpackChain from 'webpack-chain'
+import { loadConfig } from 'ssr-server-utils'
+
+const { isVite } = loadConfig()
 
 export function vuePlugin () {
   return {
-    name: 'plugin-vue3',
+    name: 'plugin-vue',
     start: async () => {
-      // 本地开发的时候要做细致的依赖分离， Vite 场景不需要去加载 Webpack 构建客户端应用所需的模块
-      const { startServerBuild } = await import('ssr-webpack/cjs/server/server')
-      const { getServerWebpack } = await import('./config/server')
-      const serverConfigChain = new WebpackChain()
-      await startServerBuild(getServerWebpack(serverConfigChain))
-      if (process.env.BUILD_TOOL === 'vite') {
-        return
+      if (isVite) {
+        const { viteStart } = await import('./tools/vite')
+        await viteStart()
+      } else {
+        const { webpackStart } = await import('./tools/webpack')
+        await webpackStart()
       }
-      const { startClientServer } = await import('ssr-webpack')
-      const { getClientWebpack } = await import('./config')
-      const clientConfigChain = new WebpackChain()
-      await startClientServer(getClientWebpack(clientConfigChain))
     },
     build: async () => {
-      const { startServerBuild, startClientBuild } = await import('ssr-webpack')
-      const { getClientWebpack, getServerWebpack } = await import('./config')
-      const serverConfigChain = new WebpackChain()
-      await startServerBuild(getServerWebpack(serverConfigChain))
-      const clientConfigChain = new WebpackChain()
-      await startClientBuild(getClientWebpack(clientConfigChain))
+      if (isVite) {
+        const { viteBuild } = await import('./tools/vite')
+        await viteBuild()
+      } else {
+        const { webpackBuild } = await import('./tools/webpack')
+        await webpackBuild()
+      }
     }
   }
 }
+
+export * from './tools/vite'
+
 
 ```
 

@@ -34,18 +34,18 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.11-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-v2.5.11-
-            ${{ runner.os }}-v2.5.11-
-            ${{ runner.os }}-v2.5.11-
+            ${{ runner.os }}-v2.5.2-
+            ${{ runner.os }}-v2.5.2-
+            ${{ runner.os }}-v2.5.2-
       - name: Install dependencies
         run: | 
           yarn && yarn build:only && yarn run build
           node scripts/scripts.js --publishDoc
-          cd example/midway-react-ssr && yarn && yarn add vite @vitejs/plugin-react-refresh -D
-          cd ../midway-vue-ssr && yarn && yarn add vite vite-plugin-vue2@1.4.4 -D
-          cd ../midway-vue3-ssr && yarn && yarn add vite @vitejs/plugin-vue -D
+          cd example/midway-react-ssr && yarn
+          cd ../midway-vue-ssr && yarn
+          cd ../midway-vue3-ssr && yarn
           cd ../nestjs-react-ssr && yarn
           cd ../nestjs-vue-ssr && yarn
           cd ../nestjs-vue3-ssr && yarn
@@ -78,7 +78,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.11-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
       - run: yarn run lint
 
   deploy-doc: 
@@ -124,7 +124,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.11-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -163,7 +163,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.11-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
 
       - name: Get remote e2e example
         uses: actions/checkout@master
@@ -215,7 +215,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.11-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -255,7 +255,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.11-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -294,7 +294,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.11-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -333,7 +333,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.11-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -349,7 +349,7 @@ jobs:
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
-  e2e-chrome-midway-vue-vite:
+  e2e-chrome-midway-react-vite:
     needs: bootstrap
     runs-on: ubuntu-latest
     strategy:
@@ -372,17 +372,17 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.11-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
       - name: prepare
-        run: yarn run link --vue2
+        run: yarn run link --react
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn run example:midway:vue:vite
+          start: yarn run example:midway:react:vite
           wait-on: 'http://localhost:3000'
           spec: |
             e2e/integration/examples/common-ssr.spec.js  
@@ -411,7 +411,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.11-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -450,7 +450,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.11-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -489,7 +489,7 @@ jobs:
             node_modules
             packages/**/node_modules
             example/**/node_modules
-          key: ${{ runner.os }}-v2.5.11-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -513,11 +513,11 @@ jobs:
       - lint
       - e2e-firefox-midway-react
       - e2e-firefox-nestjs-react
+      - e2e-chrome-midway-react-vite
       - e2e-chrome-midway-react
       - e2e-chrome-midway-vue
       - e2e-chrome-midway-vue3
       - e2e-chrome-midway-vue3-vite
-      - e2e-chrome-midway-vue-vite
       - e2e-chrome-midway-react-dynamic-router
       - e2e-chrome-nestjs-vue
       - e2e-chrome-nestjs-vue3
@@ -536,7 +536,7 @@ jobs:
           path: |
             node_modules
             
-          key: ${{ runner.os }}-v2.5.11-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:

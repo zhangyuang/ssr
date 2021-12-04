@@ -2,20 +2,19 @@ import * as Vue from 'vue'
 import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { sync } from 'vuex-router-sync'
-import * as serialize from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
 import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 
+const serialize = require('serialize-javascript')
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, chunkName, parallelFetch, disableClientRender, prefix } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, disableClientRender, prefix, isVite } = config
   const router = createRouter()
   const store = createStore()
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
-  const viteMode = process.env.BUILD_TOOL === 'vite'
   sync(store, router)
   let { path, url } = ctx.request
 
@@ -34,12 +33,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   }
 
   let dynamicCssOrder = cssOrder
-  if (dynamic && !viteMode) {
+  if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
-    dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
+    if (!isVite) {
+      dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
+    }
   }
-
-  const manifest = viteMode ? {} : await getManifest()
+  const manifest = await getManifest(config)
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
@@ -73,38 +73,28 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
     store,
     render: function (h: Vue.CreateElement) {
       const injectCss: Vue.VNode[] = []
-      if (viteMode) {
-        injectCss.push(
-          h('link', {
-            attrs: {
-              rel: 'stylesheet',
-              href: `/server/static/css/${chunkName}.css`
-            }
-          })
-        )
-      } else {
-        dynamicCssOrder.forEach(css => {
-          if (manifest[css]) {
-            injectCss.push(
-              h('link', {
-                attrs: {
-                  rel: 'stylesheet',
-                  href: manifest[css]
-                }
-              })
-            )
-          }
-        })
-      }
+      dynamicCssOrder.forEach(css => {
+        if (manifest[css]) {
+          injectCss.push(
+            h('link', {
+              attrs: {
+                rel: 'stylesheet',
+                href: manifest[css]
+              }
+            })
+          )
+        }
+      })
 
-      const injectScript: Vue.VNode[] = viteMode ? [h('script', {
+      const injectScript: Vue.VNode[] = (isVite && isDev) ? [h('script', {
         attrs: {
           type: 'module',
           src: '/node_modules/ssr-plugin-vue/esm/entry/client-entry.js'
         }
       })] : jsOrder.map(js => h('script', {
         attrs: {
-          src: manifest[js]
+          src: manifest[js],
+          type: isVite ? 'module' : ''
         }
       }))
       const viteClient = h('script', {
@@ -146,7 +136,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
             ])
           ]),
-          viteMode && h('template', {
+          (isVite && isDev) && h('template', {
             slot: 'viteClient'
           }, [viteClient]),
 
@@ -170,11 +160,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           }, [
             isCsr ? h('script', {
               domProps: {
-                innerHTML: `window.__USE_VITE__=${viteMode}`
+                innerHTML: `window.__USE_VITE__=${isVite}`
               }
             }) : h('script', {
               domProps: {
-                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${viteMode}`
+                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${isVite}`
               }
             })
           ]),

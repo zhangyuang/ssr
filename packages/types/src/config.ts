@@ -12,6 +12,7 @@ export type Script = Array<{
 export interface IConfig {
   cwd: string
   isDev: boolean
+  dynamic: boolean
   publicPath: string
   useHash: boolean
   host: string
@@ -43,10 +44,9 @@ export interface IConfig {
   chainClientConfig: (config: Config) => Configuration
   webpackStatsOption: Options.Stats
   moduleFileExtensions: string[]
-  whiteList: RegExp[] | string[]
+  whiteList: RegExp[]
   cloudIDE?: boolean
   prefix?: string
-  dynamic: boolean
   mode: 'ssr' | 'csr'
   webpackDevServerConfig?: any
   stream: boolean
@@ -70,6 +70,13 @@ export interface IConfig {
   disableClientRender?: boolean
   manifestPath: string
   proxyKey: string[]
+  vue3ServerEntry: string
+  vue3ClientEntry: string
+  vueServerEntry: string
+  vueClientEntry: string
+  reactServerEntry: string
+  reactClientEntry: string
+  isVite: boolean
 }
 
 export interface proxyOptions {

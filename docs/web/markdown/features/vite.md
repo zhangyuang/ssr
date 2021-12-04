@@ -1,5 +1,6 @@
 # Vite
 
+本章介绍如何在 `ssr` 框架中使用 `Vite` 作为开发工具 
 ## 5 分钟了解 Vite
 
 > Vite (法语意为 "快速的"，发音  /vit/) 是一种新型前端构建工具，能够显著提升前端开发体验。它主要由两部分组成：
@@ -17,25 +18,62 @@
 
 ## 使用 Vite 作为构建工具
 
-在 `React/Vue2/Vue3` 场景中我们都已经以最小化成本的方式接入 `Vite` 并且 将 `Vite` 作为一个可选配置，底层已做相关兼容，但默认不会安装 `Vite` 相关依赖。具体使用方式如下
+在 `React/Vue3` 场景中我们都已经以最小化成本的方式接入 `Vite`。在 `Vue2` 场景中，由于 [vite-plugin-vue2](https://github.com/underfin/vite-plugin-vue2/issues/31) 的限制，我们暂时无法使用 `vite ssr`。
 
 ```shell
-$ npm init ssr-app my-ssr-project --template=midway-vue3-ssr # 这里可以创建人意类型的应用，都支持 Vite
-$ cd my-ssr-project && npm i && npm i vite @vitejs/plugin-vue --save-dev # 根据实际技术栈安装需要的插件 例如 vue2 场景安装 vite-plugin-vue2
-$ npx ssr start --vite # 建议在 package.json 中添加 "start:vite": "ssr start --vite"
+$ npm init ssr-app my-ssr-project
+$ cd my-ssr-project && yarn
+$ npx ssr start --vite # 等价于 npm run start:vite
+$ npx ssr build --vite # 等价于 npm run build:vite
+$ npm run prod:vite
 ```
 
-上述代码会自动检测当前应用的类型并且会在目录未安装 `Vite` 相关依赖时给出对应的提示。
+完成上述步骤即可使用 `Vite` 作为构建工具体验极快的
 
-完成上述步骤即可使用 `Vite` 作为构建工具接管客户端文件，提升启动速度和 `HMR` 速度。
+## SSRv6.0 + Vite
 
-## SSR + Vite 实现机制
+在 `5.x` 版本的 `ssr` 框架中，当时出于开发时间限制以及改动成本的关系，我们采用的方案是服务端 `bundle` 走 `Webpack` 编译，客户端文件走 `Vite` 服务的 `vite ssr` 这样的架构模式，来保证最小化代码的改动。现在看来当时的决定是无比正确的，确实 `vite ssr` 在那个时候有不少不成熟的地方也在这段期间中被 `vite` 官方团队逐一的解决，并且本人也在这段开发期间深度阅读了 `vite ssrloadModule` 这块的源码对它的运行机制有了更深刻的了解。也在这个过程中尝试对 `Vite` 做了一些微小的[贡献](https://github.com/vitejs/vite/commits?author=zhangyuang)。在这里感谢 `Vite` 团队的付出和及时的响应。
+
+那么，在 `6.0` 版本的 `ssr` 框架中，我们做到了 `All in Vite`，也就是提供了全套只使用 `Vite` 作为开发工具的开发链路来体验极快的启动速度。同时我们分离了 `Webpack` 与 `Vite`。也就是说开发者可以任意的选择 
+
+`ssr/csr + 本地开发 Webpack/Vite + 生产环境构建 Webpack/Vite + Midway/Nest.js` 这样的任意组合方式。同时我们在新增功能的保持对代码行数的克制，使得框架总代码量在没有刻意优化的情况下仍然保持在 `6000行` 左右。这里简单画了一个示意图如下。
+
+![](/images/vite1-1.png)
+
+具体的 `vite ssr` 结构如下图
+
+![](/images/vite1-2.png)
+
+
+在服务端我们用 `ssrLoadModule` 这个 `API` 来转换模块。客户端以中间件的形式让 `Vite` 接管请求。与 `Webpack SSR` 架构类似。在服务端和客户端我们有两套不同的 `vite.config` 配置，所以我们不会将 `vite.config.js` 直接暴露出来。而是通过框架统一的配置项抛出配置。
+
+由于 `Vite/Rollup` 没有 `Webpack-Chain` 这样的模块来生成配置，目前只能用一些比较笨的方式来 `Merge` 用户自定义配置。所以容易造成用户配置覆盖框架默认配置的情况。所以目前框架只会开放少量配置让用户自定义配置。在之后我们会不断完善这一块。
+
+正如上文所说的，开发者有多种开发构建组合方式。只要不使用只能够在特定平台运行的代码例如 `import.meta.env` 这些代码，那么你的代码在 `Vite/Webpack` 模式下都能够本地运行，生产环境构建成功。所以不建议开发者使用只能在特定工具下运行成功的代码以及配置。框架将会在之后将不同的工具的配置进行打平，抛出一个共同使用的配置项供开发者使用。
+
+在生产环境构建上尽管我们也支持了 `Vite` 并且能够运行成功, 但目前看来 `Rollup` 更适合用来构建库，用来构建应用的体验确实一般(也有可能是本人使用的姿势不对还在探索当中)。目前会有一些小瑕疵问题还未解决，主要表现在 `dynamicImport` 上，在之后的版本中我们将会不断优化这一块。
+
+综上所述，我们已经迈出了最困难的一步，接下来的做法就是抹平 `Vite/Webpack` 在本框架中的使用差异，配置差异，构建差异。特别是在 `UI` 框架使用这一块，我们之后将会集成一些配置，使得可以在 `Vite` 场景下无缝使用各大流行 `UI` 库例如 `antd`, `vant` 等等。也欢迎各位开发者的深度使用以及问题反馈
+
+## 升级步骤
+
+我们在业务代码层面和应用配置层面没有任何破坏性变更所有的开发习惯跟之前一样。唯一的区别在于开发者不再需要 `5.0` 版本的 `vite.config` 文件
+
+- 更新所有 `ssr-*` 相关依赖到 `^6.0.0` 或者直接 `npm init ssr-app` 创建最新的模版对比
+- 删除原有的 `vite.config.js` 文件，如之前没有创建，则不需要删除
+- 服务端静态资源文件夹新增 [build/client] 文件夹
+- `package.json` 新增 `ssr build --vite` 相关脚本
+## 以下为旧内容
+
+以下为 `5.0` 版本的 vite ssr 实现原理，可以不阅读，也可以作为额外材料了解变迁历史进行阅读
+
+### SSR + Vite 实现机制
 
 `注：此章节内容，如果是之前未了解过服务端渲染原理的同学可能阅读起来会有一定障碍。`
 
 通过阅读 `Vite` 官方给出的 [SSR Demo](https://github.com/vitejs/vite/tree/main/packages/playground/ssr-vue) ，我们得知在[服务端打包入口](https://github.com/vitejs/vite/blob/main/packages/playground/ssr-vue/src/entry-server.js)与[客户端打包入口](https://github.com/vitejs/vite/blob/main/packages/playground/ssr-vue/src/entry-client.js)文件这一块，其实与原来的 `Webpack` 场景几乎没有任何区别可以直接移植。值得关注的点如下:
 
-### Vite MiddleWare
+#### Vite MiddleWare
 
 如下代码所示
 
@@ -66,7 +104,7 @@ if (!isProd) {
 
 相比于使用 `Webpack` ,`Vite`少了构建 bundle 的操作，来提升应用的启动速度和 HMR 速度,而在生产环境时，`Vite` 则使用 `Rollup` 来将代码打包成一个 `bundle` 放在静态资源文件夹中加载，这种形式执行起来就跟 `Webpack` 没有任何区别了。因此只有在本地开发时才会感受到明显区别。
 
-### Vite LoadModule
+#### Vite LoadModule
 
 此外，在本地开发阶段 `Vite` 还提供了 `LoadModule` API 来解析 `entry-server`, 使得我们可以直接在 `Node.js` 环境执行 `ESM` 格式的代码，且支持 `HMR`
 
@@ -76,7 +114,7 @@ const render = (await vite.ssrLoadModule('/src/entry-server.js')).render
 
 分析完之后其实一个 `Vite SSR` 应用的执行流程就很容易看懂了。但是我们的框架并没有采用跟官方一样的方案思路。理由如下:
 
-### SSR 框架升级策略
+#### SSR 框架升级策略
 
 下面介绍了一下本框架是如何最小成本化的接入 `Vite` 的，如果有不准确的地方可以提 issue 会及时的进行更正。
 
@@ -95,16 +133,16 @@ const render = (await vite.ssrLoadModule('/src/entry-server.js')).render
 
 此方案的优劣势如下
 
-### 优势
+#### 优势
 
 - 稳定，只有本地开发才会用的 `Vite`，生产环境的行为仍和以前一致不需要担心，且本地开发时 `Vite` 我们只在客户端渲染的过程中使用，`Vite` 在这一过程是相当稳定的，这样我们几乎无需修改默认的任何配置即可得到稳定的服务端 `bundle` 构建服务以及 稳定的客户端文件渲染服务。
 - 改动成本极低，对于框架层面的改动我们其实只需要在本地开发时砍掉原来的 Webpack 构建客户端 bundle 的步骤以及服务端新增接入 `Vite` 中间件的操作，再将本来的一些 `entry-client` 中的语法改成 ESM 即可完成迁移。统计了一下大概改动量在几十行代码左右。
 
-### 不足
+#### 不足
 
 - 由于我们在本地开发与生产环境使用了不同的工具，这就会导致我们不能过分依赖某一个工具的某一配置特性，这样需要在本地开发和生产环境都做对应配置的兼容。好在我们默认的 Webpack 配置以及 `Vite` 默认的配置已经足够 cover 绝大多数客户端应用执行过程所需要的功能无需额外配置。我们尽量会在框架层面抛出一个通用配置来让用户使用，而不是让用户去更改具体的构建配置。
 
-## 性能对比
+### 性能对比
 
 由于我们仍然使用了 `Webpack` 去构建服务端 bundle 所以注定我们的性能速度跟 All in `Vite` 的情况肯定还是存在一定差异的。但其实就如同上面提到的，Webpack 的最大问题从来不是性能并且本框架之前的 `Webpack` 配置性能已经足够使用了，特别是在打包服务端 bundle 这一块，由于我们开启了 `externals` 配置需要打包的文件体积非常小，所以我们的打包速度大概在 2s 内即可完成。
 
@@ -124,27 +162,27 @@ const render = (await vite.ssrLoadModule('/src/entry-server.js')).render
 
 下面将在实际项目中进行最直观的速度对比。
 
-### 使用 Webpack 启动应用
+#### 使用 Webpack 启动应用
 
 以默认创建并发布到 `Serverless` 的 [example](http://ssr-fc.com/) 作为示例，该示例包含首页，详情页。使用了 `vue-router`, `vuex`, `swiper` 等基础组件，虽然复杂度比不上真实应用，但涉及到的功能和真实线上应用区别不大。使用 `Webpack` 构建
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5e2310613a9b40ac87c87eae3459e7b8~tplv-k3u1fbpfcp-zoom-1.image)
 
 可以看出完整启动时间大概在 6s 左右
-### 使用 Vite 启动应用
+#### 使用 Vite 启动应用
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/198b345679894bb0992353dfaa9d440f~tplv-k3u1fbpfcp-zoom-1.image)
 
 启动时间缩短到了 3 秒左右，并且此时我们的前端页面行为都被 Vite 接管。比如当我们修改前端组件时可以看到终端 Vite HMR 的提示。
 
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fa9d0ae2eeb24c8fbf5c300b1df5e375~tplv-k3u1fbpfcp-zoom-1.image)
-### 性能总结
+#### 性能总结
 
 从上述对比中，我们可以看出在使用 `Vite` 模式时的启动时间仅为原 `Webpack` 模式的 `50%` 左右，这样的提升是非常可观的。可以预见当应用足够大时，提升的效果会更加明显。
 
-## 注意事项
+### 注意事项
 
 注: 切记，我们只会在 `本地开发` 阶段使用 `Vite`，生产环境仍然用 `Webpack` 进行构建。所以请不要依赖只能够在 `Vite` 场景生效的 `vite.config.js` 配置。建议只使用默认生成的 config 文件具备的功能来保持本地开发与生产环境行为一致。否则你需要同时在 `Vite` `Webpack` 场景保持配置的一致性
-## 未来展望
+### 未来展望
 
 并不排除未来本框架会提供 `All in Vite` 的方案，来将 `Vite` 与 `Webpack` 完全分离供开发者使用

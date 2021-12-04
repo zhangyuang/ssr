@@ -1,8 +1,9 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
-import { ISSRContext, IGlobal, IConfig, ReactRoutesType, ReactESMFeRouteItem } from 'ssr-types-react'
-import * as serialize from 'serialize-javascript'
+import { ISSRContext, IConfig, ReactRoutesType, ReactESMFeRouteItem } from 'ssr-types-react'
+//@ts-expect-error
+import * as serializeWrap from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
 // @ts-expect-error
@@ -11,19 +12,16 @@ import { STORE_CONTEXT as Context } from '_build/create-context'
 import Layout from '@/components/layout/index.tsx'
 
 const { FeRoutes, layoutFetch, PrefixRouterBase, state } = Routes as ReactRoutesType
-
-declare const global: IGlobal
+const serialize = serializeWrap.default || serializeWrap
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
-  const { cssOrder, jsOrder, dynamic, mode, chunkName, parallelFetch, disableClientRender, prefix } = config
-  global.window = global.window ?? {} // 防止覆盖上层应用自己定义的 window 对象
+  const { cssOrder, jsOrder, dynamic, mode, parallelFetch, disableClientRender, prefix, isVite, isDev } = config
   let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
   if (base) {
     path = normalizePath(path, base)
   }
   const routeItem = findRoute<ReactESMFeRouteItem>(FeRoutes, path)
-  const viteMode = process.env.BUILD_TOOL === 'vite'
 
   if (!routeItem) {
     throw new Error(`
@@ -34,15 +32,17 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   let dynamicCssOrder = cssOrder
 
-  if (dynamic && !viteMode) {
+  if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
-    dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
+    if (!isVite) {
+      dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
+    }
   }
-  const manifest = viteMode ? {} : await getManifest()
+  const manifest = await getManifest(config)
 
   const injectCss: JSX.Element[] = []
 
-  if (viteMode) {
+  if (isVite && isDev) {
     injectCss.push(<script src="/@vite/client" type="module" key="vite-client"/>)
     injectCss.push(<script key="vite-react-refresh" type="module" dangerouslySetInnerHTML={{
       __html: ` import RefreshRuntime from "/@react-refresh"
@@ -51,7 +51,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
       window.$RefreshSig$ = () => (type) => type
       window.__vite_plugin_react_preamble_installed__ = true`
     }} />)
-    injectCss.push(<link rel='stylesheet' href={`/server/static/css/${chunkName}.css`} key="vite-head-css"/>)
   } else {
     dynamicCssOrder.forEach(css => {
       if (manifest[css]) {
@@ -67,14 +66,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     }}/>)
   }
 
-  const injectScript = viteMode ? [
-    <script key="viteWindowInit" dangerouslySetInnerHTML={{
+  const injectScript = [
+    isVite && <script key="viteWindowInit" dangerouslySetInnerHTML={{
       __html: 'window.__USE_VITE__=true'
     }} />,
-    <script type="module" src='/node_modules/ssr-plugin-react/esm/entry/client-entry.js' key="vite-react-entry" />
+    (isVite && isDev) && <script type="module" src='/node_modules/ssr-plugin-react/esm/entry/client-entry.js' key="vite-react-entry" />,
+    ...jsOrder.map(js => manifest[js]).map(item => item && <script key={item} src={item} type={isVite ? 'module' : ''}/>)
   ]
-    : jsOrder.map(js => manifest[js]).map(item => <script key={item} src={item} />)
-
   const staticList = {
     injectCss,
     injectScript

@@ -17,7 +17,7 @@
 <script lang="ts">
 import 'swiper/swiper-bundle.css'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import SwiperCore, { Autoplay, Pagination } from 'swiper'
+import { Swiper as SwiperCore, Autoplay, Pagination } from 'swiper'
 import 'swiper/components/pagination/pagination.less'
 
 SwiperCore.use([Autoplay, Pagination])

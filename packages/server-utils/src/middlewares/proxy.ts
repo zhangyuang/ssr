@@ -1,9 +1,9 @@
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import { proxyOptions } from 'ssr-types'
-import { getCwd } from '../cwd'
+// @ts-expect-error
+import * as koaConnect from 'koa2-connect'
+import { judgeFramework } from '../cwd'
 import { loadConfig } from '../loadConfig'
-
-const koaConnect = require('koa2-connect')
 
 function onProxyReq (proxyReq: any, req: any) {
   Object.keys(req.headers).forEach(function (key) {
@@ -11,8 +11,9 @@ function onProxyReq (proxyReq: any, req: any) {
   })
 }
 
+const kc = koaConnect.default || koaConnect
 const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
-  const { fePort, proxy, isDev, https, proxyKey } = loadConfig()
+  const { fePort, proxy, isDev, https, proxyKey, isVite } = loadConfig()
   const express = options ? options.express : false
   const proxyMiddlewaresArr: any[] = []
 
@@ -20,23 +21,24 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
     for (const path in proxy) {
       const options = proxy[path]
       // 如果底层服务端框架是基于 express的。则不需要用 koaConnect 转换为 koa 中间件
-      const middleware = express ? createProxyMiddleware(path, options) : koaConnect(createProxyMiddleware(path, options))
+      const middleware = express ? createProxyMiddleware(path, options) : kc(createProxyMiddleware(path, options))
       proxyMiddlewaresArr.push(middleware)
     }
   }
   proxy && registerProxy(proxy)
+
   if (isDev) {
-    if (process.env.BUILD_TOOL === 'vite') {
+    if (isVite) {
+      const framework = judgeFramework()
+      if (!framework) {
+        throw new Error('judgeFramework error')
+      }
+
       // 本地开发请求走 vite 接管 前端文件夹请求
       const { createServer } = require('vite')
-      const vite = await createServer({
-        root: getCwd(),
-        logLevel: 'info',
-        server: {
-          middlewareMode: true
-        }
-      })
-      proxyMiddlewaresArr.push(express ? vite.middlewares : koaConnect(vite.middlewares))
+      const { clientConfig } = framework === 'react' ? require('ssr-plugin-react') : (framework === 'vue3' ? require('ssr-plugin-vue3') : require('ssr-plugin-vue'))
+      const viteServer = await createServer(clientConfig)
+      proxyMiddlewaresArr.push(express ? viteServer.middlewares : kc(viteServer.middlewares))
     } else {
       // Webpack 场景 在本地开发阶段代理 serverPort 的资源到 fePort
       // 例如 http://localhost:3000/static/js/page.chunk.js -> http://localhost:8888/static/js/page.chunk.js

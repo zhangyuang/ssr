@@ -4,7 +4,6 @@ import { ParseFeRouteItem } from 'ssr-types'
 import { getCwd, getPagesDir, getFeDir, accessFile, normalizeStartPath } from './cwd'
 import { loadConfig } from './loadConfig'
 
-const debug = require('debug')('ssr:parse')
 const pageDir = getPagesDir()
 const cwd = getCwd()
 
@@ -41,6 +40,7 @@ export const normalizePublicPath = (path: string) => {
 }
 
 export const getOutputPublicPath = () => {
+  // return /client/
   const { publicPath, isDev } = loadConfig()
   const path = normalizePublicPath(publicPath)
   return isDev ? path : `${path}client/`
@@ -57,13 +57,11 @@ export const getImageOutputPath = () => {
 }
 
 const parseFeRoutes = async () => {
-  const { dynamic, routerPriority, routerOptimize } = loadConfig()
+  const { dynamic, routerPriority, routerOptimize, isVite } = loadConfig()
   const prefix = getPrefix()
   const isVue = require(join(cwd, './package.json')).dependencies.vue
-  const viteMode = process.env.BUILD_TOOL === 'vite'
-  if (viteMode && !dynamic) {
-    console.log('vite模式禁止关闭 dynamic ')
-    return
+  if (isVite && !dynamic) {
+    throw new Error('Vite模式禁止关闭 dynamic ')
   }
 
   let routes = ''
@@ -94,8 +92,6 @@ const parseFeRoutes = async () => {
         arr = arr.filter(route => !routerOptimize?.exclude?.includes(route.path))
       }
     }
-
-    debug('Before the result that parse web folder to routes is: ', arr)
 
     if (isVue) {
       const layoutPath = '@/components/layout/index.vue'
@@ -165,7 +161,6 @@ const parseFeRoutes = async () => {
     routes = (await fs.readFile(join(getFeDir(), './route.ts'))).toString()
   }
 
-  debug('After the result that parse web folder to routes is: ', routes)
   await writeRoutes(routes)
 }
 

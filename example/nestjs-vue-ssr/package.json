@@ -20,12 +20,11 @@
   },
   "devDependencies": {
     "@nestjs/cli": "^7.5.5",
-    "@types/serialize-javascript": "^1.5.0",
     "eslint-config-standard-vue-ts": "^1.0.5",
     "ssr": "^5.0.0",
     "ssr-plugin-nestjs": "^5.0.0",
     "ssr-plugin-vue": "^5.0.0",
-    "typescript": "^3.9.7",
+    "typescript": "^4.0.0",
     "webpack": "^4.0.0"
   },
   "scripts": {

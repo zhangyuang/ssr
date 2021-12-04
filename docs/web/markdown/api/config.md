@@ -200,7 +200,7 @@ module.exports = {
 - 类型: `boolean`
 - 默认: `true`
 
-是否开启代码分割，默认开启，不建议关闭。`Vite` 模式下必须开启
+是否开启代码分割，默认开启, Vite 模式下必须开启
 
 
 ## customeHeadScript

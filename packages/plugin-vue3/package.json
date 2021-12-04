@@ -33,6 +33,7 @@
     "@babel/plugin-transform-runtime": "^7.9.6",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.12.13",
+    "@vitejs/plugin-vue": "^1.2.1",
     "@vue/babel-plugin-jsx": "^1.0.3",
     "@vue/compiler-sfc": "^3.0.7",
     "babel-loader": "8.0.4",
@@ -52,12 +53,13 @@
     "postcss-loader": "^4.0.0",
     "postcss-preset-env": "^6.0.5",
     "postcss-safe-parser": "4.0.1",
-    "ssr-client-utils": "^5.6.42",
-    "ssr-server-utils": "^5.7.13",
-    "ssr-types": "^5.6.43",
-    "ssr-webpack": "^5.7.12",
+    "ssr-client-utils": "^5.6.39",
+    "ssr-server-utils": "^5.7.8",
+    "ssr-types": "^5.6.40",
+    "ssr-webpack": "^5.7.7",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "^4.1.1",
+    "vite": "^2.7.0-beta.10",
     "vue": "^3.0.0",
     "vue-loader": "^16.1.2",
     "vue-router": "^4.0.0",
@@ -66,8 +68,5 @@
     "webpack-chain": "^6.4.0",
     "webpack-manifest-plugin": "^2.2.0",
     "webpackbar": "^5.0.0-3"
-  },
-  "devDependencies": {
-    "@types/serialize-javascript": "^5.0.0"
   }
 }

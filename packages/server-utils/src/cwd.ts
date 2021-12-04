@@ -3,6 +3,8 @@ import { resolve } from 'path'
 import { exec } from 'child_process'
 import { promisify } from 'util'
 import { UserConfig, IPlugin } from 'ssr-types'
+// @ts-expect-error
+import { coerce } from 'semver'
 
 const getCwd = () => {
   return resolve(process.cwd(), process.env.APP_ROOT ?? '')
@@ -108,6 +110,18 @@ const isFaaS = async (fun?: boolean) => {
   return result
 }
 
+const judgeFramework = () => {
+  const cwd = getCwd()
+  const packageJSON = require(resolve(cwd, './package.json'))
+  if (packageJSON.dependencies.react || packageJSON.devDependencies.react) {
+    return 'react'
+  }
+  if (packageJSON.dependencies.vue || packageJSON.devDependencies.vue) {
+    const version = packageJSON.dependencies.vue || packageJSON.devDependencies.vue
+    return coerce(version).raw.startsWith('3') ? 'vue3' : 'vue2'
+  }
+}
+
 const getLocalNodeModules = () => resolve(__dirname, '../../../node_modules')
 
 const processError = (err: any) => {
@@ -131,46 +145,6 @@ const accessFileSync = (file: string) => {
     res = false
   }
   return res
-}
-const checkVite = async () => {
-  const result = await accessFile(resolve(getCwd(), './node_modules/vite/package.json'))
-  if (!result) {
-    const version = require(resolve(getCwd(), './package.json')).dependencies.vue
-    let plugin = ''
-    if (version) {
-      plugin = /^.?3/.test(version) ? '@vitejs/plugin-vue' : 'vite-plugin-vue2'
-    } else {
-      plugin = '@vitejs/plugin-react-refresh'
-    }
-    console.log(`当前项目缺少 vite 依赖，请根据实际技术栈安装 vite ${plugin}${version && !/^.?3/.test(version) ? '@1.4.4' : ''} 或 其他对应插件`)
-    if (version && !/^.?3/.test(version)) {
-      console.log('vue2 场景下使用 Vite 必须安装固定版本 vite-plugin-vue2@1.4.4')
-    }
-    return false
-  }
-  return true
-}
-
-const copyViteConfig = async () => {
-  // 如果当前项目没有 vite.config 则复制默认的文件
-  const result = await accessFile(resolve(getCwd(), './vite.config.js'))
-  if (!result) {
-    const version = require(resolve(getCwd(), './package.json')).dependencies.vue
-    console.log('vite.config.js not found, will be created automatically')
-    let folder = ''
-    if (version) {
-      folder = /^.?3/.test(version) ? 'ssr-plugin-vue3' : 'ssr-plugin-vue'
-    } else {
-      folder = 'ssr-plugin-react'
-    }
-    await promises.copyFile(resolve(getCwd(), `./node_modules/${folder}/src/config/vite.config.tpl`), resolve(getCwd(), './vite.config.js'))
-  } else {
-    // 如果有 vite.config.js 则检测是不是最新的
-    const buildAlias = require(resolve(getCwd(), './vite.config.js')).resolve?.alias?._build
-    if (!buildAlias) {
-      throw new Error('当前 vite.config.js 为旧版，请删除后由框架重新创建或手动添加新的 alias 规则 \'_build\': join(process.cwd(), \'./build\')')
-    }
-  }
 }
 
 const copyReactContext = async () => {
@@ -204,8 +178,6 @@ export {
   getLocalNodeModules,
   processError,
   accessFile,
-  copyViteConfig,
-  checkVite,
   execPromisify,
   readAsyncChunk,
   addAsyncChunk,
@@ -214,5 +186,6 @@ export {
   normalizeEndPath,
   copyReactContext,
   transformConfig,
-  accessFileSync
+  accessFileSync,
+  judgeFramework
 }

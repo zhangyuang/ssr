@@ -22,7 +22,6 @@ const getServerWebpack = (chain: WebpackChain) => {
 
   const modulesDir = [join(cwd, './node_modules')]
   modulesDir.push(getLocalNodeModules())
-
   chain.externals(nodeExternals({
     whitelist: [/\.(css|less|sass|scss)$/, /antd.*?(style)/].concat(whiteList || []),
     // externals Dir contains example/xxx/node_modules ssr/node_modules

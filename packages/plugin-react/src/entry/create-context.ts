@@ -1,17 +1,17 @@
 // @ts-nocheck
 // The file is provisional，don't depend on it
 
-import { createContext } from 'react'
+import React from 'react'
 import { IContext } from 'ssr-types-react'
 
 let STORE_CONTEXT
 if (__isBrowser__) {
-  STORE_CONTEXT = window.STORE_CONTEXT ?? createContext<IContext>({
+  STORE_CONTEXT = window.STORE_CONTEXT ?? React.createContext<IContext>({
     state: {}
   })
   window.STORE_CONTEXT = STORE_CONTEXT
 } else {
-  STORE_CONTEXT = createContext<IContext>({
+  STORE_CONTEXT = React.createContext<IContext>({
     state: {}
   })
 }

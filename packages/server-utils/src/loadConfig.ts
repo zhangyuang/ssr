@@ -7,6 +7,14 @@ const loadConfig = (): IConfig => {
   const cwd = getCwd()
   const mode = 'ssr'
   const stream = false
+  const isVite = process.env.BUILD_TOOL === 'vite'
+  const vue3ServerEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js')
+  const vue3ClientEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
+  const vueServerEntry = join(cwd, './node_modules/ssr-plugin-vue/esm/entry/server-entry.js')
+  const vueClientEntry = join(cwd, './node_modules/ssr-plugin-vue/esm/entry/client-entry.js')
+  const reactServerEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/server-entry.js')
+  const reactClientEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/client-entry.js')
+
   type ClientLogLevel = 'error'
 
   const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPath(userConfig.publicPath ?? '/')
@@ -50,7 +58,7 @@ const loadConfig = (): IConfig => {
 
   const whiteList: RegExp[] = []
 
-  const jsOrder = [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`].concat(userConfig.extraJsOrder ?? [])
+  const jsOrder = isVite ? ['react.js', `${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`].concat(userConfig.extraJsOrder ?? [])
 
   const cssOrder = [`${chunkName}.css`].concat(userConfig.extraCssOrder ?? [])
 
@@ -65,7 +73,7 @@ const loadConfig = (): IConfig => {
     entrypoints: false
   }
 
-  const dynamic = !process.env.SPA // SPA 部署模式下不开启 dynamic
+  const dynamic = true
 
   const corejs = false
   const getOutput = () => ({
@@ -132,7 +140,14 @@ const loadConfig = (): IConfig => {
     corejs,
     https,
     manifestPath,
-    proxyKey
+    proxyKey,
+    vue3ServerEntry,
+    vue3ClientEntry,
+    vueServerEntry,
+    vueClientEntry,
+    reactServerEntry,
+    reactClientEntry,
+    isVite
   }, userConfig)
 
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了

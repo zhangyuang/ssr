@@ -65,9 +65,8 @@
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-chain": "^6.4.0",
     "webpack-manifest-plugin": "^2.2.0",
-    "webpackbar": "^5.0.0-3"
-  },
-  "devDependencies": {
-    "@types/serialize-javascript": "^5.0.0"
+    "webpackbar": "^5.0.0-3",
+    "vite": "^2.7.0-beta.10",
+    "vite-plugin-vue2": "^1.4.3"
   }
 }
