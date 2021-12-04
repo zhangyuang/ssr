@@ -24,7 +24,7 @@
     "ssr": "^5.0.0",
     "ssr-plugin-midway": "^5.0.0",
     "ssr-plugin-react": "^6.0.0",
-    "typescript": "^3.9.7"
+    "typescript": "^4.0.0"
   },
   "scripts": {
     "prod": "ssr build && egg-scripts start --daemon --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",

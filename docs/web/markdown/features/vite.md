@@ -34,7 +34,7 @@ $ npm run prod:vite
 
 在 `6.0` 版本的 `ssr` 框架中，我们做到了 `All in Vite`，也就是提供了全套只使用 `Vite` 作为开发工具的开发链路。同时我们分离了 `Webpack` 与 `Vite`。也就是说开发者可以任意的选择 
 
-`ssr/csr + 本地开发 Webpack/Vite + 生产环境构建 Webpack/Vite + Midway/Nest.js` 这样的任意组合方式。同时我们在新增功能的同时继续克制代码行数，使得框架总代码量在没有刻意优化的情况下仍然保持在 `6000行` 左右。
+`ssr/csr + 本地开发 Webpack/Vite + 生产环境构建 Webpack/Vite + Midway/Nest.js` 这样的任意组合方式。同时我们在新增功能的同时继续克制代码行数，使得框架总代码量在没有刻意优化的情况下仍然保持在 `6000行` 左右。这里简单画了一个示意图如下。
 
 在服务端我们用 `ssrLoadModule` 这个 `API` 来转换模块。客户端以中间件的形式让 `Vite` 接管请求。与 `Webpack SSR` 架构类似。在服务端和客户端我们有两套不同的 `vite.config` 配置，所以我们不会将 `vite.config.js` 直接暴露出来。而是通过框架统一的配置项抛出配置。
 
