@@ -61,10 +61,10 @@ const output: OutputOptions = {
     return '[name].[hash].chunk.[ext]'
   },
   manualChunks: (id: string) => {
-    if (id.includes('node_modules')) {
-      console.log(id)
+    if (id.includes('node_modules') && id.includes('.js')) {
       return 'vendor'
     }
+
     if (id.includes('chunkName')) {
       return chunkNameRe.exec(id)![1]
     }
