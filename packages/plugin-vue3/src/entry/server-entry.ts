@@ -2,7 +2,7 @@ import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
 import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
-//@ts-expect-error
+// @ts-expect-error
 import * as serializeWrap from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'

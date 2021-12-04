@@ -3,7 +3,7 @@ import { resolve } from 'path'
 import { exec } from 'child_process'
 import { promisify } from 'util'
 import { UserConfig, IPlugin } from 'ssr-types'
-//@ts-expect-error
+// @ts-expect-error
 import { coerce } from 'semver'
 
 const getCwd = () => {
