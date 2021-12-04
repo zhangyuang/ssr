@@ -61,7 +61,8 @@ const output: OutputOptions = {
     return '[name].[hash].chunk.[ext]'
   },
   manualChunks: (id: string) => {
-    if (id.includes('node_modules') && id.includes('.js')) {
+    if (id.includes('node_modules')) {
+      console.log(id)
       return 'vendor'
     }
     if (id.includes('chunkName')) {
