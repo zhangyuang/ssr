@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.14-alpha.0](https://github.com/zhangyuang/ssr/compare/v5.7.3...v6.1.14-alpha.0) (2021-12-04)
+
+
+### Bug Fixes
+
+*  boolean GENERATE_SOURCEMAP ([#133](https://github.com/zhangyuang/ssr/issues/133)) ([dbaeed8](https://github.com/zhangyuang/ssr/commit/dbaeed8efcf3d232c5754b2cfd6f3a664596610c))
+* create-context in vite ([109fc6c](https://github.com/zhangyuang/ssr/commit/109fc6ce2ebd73c67b003d5b74c732ad46bee64c))
+* restore staicRouter ([1150a6c](https://github.com/zhangyuang/ssr/commit/1150a6c4e4fe17d4416e35d619f8aac10837a7b8))
+
+
+### Features
+
+* add location prop to StaticRouter ([#137](https://github.com/zhangyuang/ssr/issues/137)) ([301f997](https://github.com/zhangyuang/ssr/commit/301f9975ff08a94b8e792e36587c32796cf477ac))
+* update plugin-react fetch params ([243c847](https://github.com/zhangyuang/ssr/commit/243c847c994032a3dc203bdee6c284b34b39dbfb))
+* vite ([#127](https://github.com/zhangyuang/ssr/issues/127)) ([917e24f](https://github.com/zhangyuang/ssr/commit/917e24f1e9add29ceb7ed540029238f1d40defc3))
+
+
+
+
+
 ## [6.1.12](https://github.com/zhangyuang/ssr/compare/ssr-plugin-react@6.1.11...ssr-plugin-react@6.1.12) (2021-12-02)
 
 **Note:** Version bump only for package ssr-plugin-react

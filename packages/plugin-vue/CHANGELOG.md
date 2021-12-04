@@ -3,6 +3,24 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.14-alpha.0](https://github.com/zhangyuang/ssr/compare/v5.7.3...v6.1.14-alpha.0) (2021-12-04)
+
+
+### Bug Fixes
+
+*  boolean GENERATE_SOURCEMAP ([#133](https://github.com/zhangyuang/ssr/issues/133)) ([dbaeed8](https://github.com/zhangyuang/ssr/commit/dbaeed8efcf3d232c5754b2cfd6f3a664596610c))
+* add deepClone in createStore ([04cc23c](https://github.com/zhangyuang/ssr/commit/04cc23c54249d91deac0b62e44e9f81fe6133bf4))
+
+
+### Features
+
+* optimize client fetch data logic ([5ba22bd](https://github.com/zhangyuang/ssr/commit/5ba22bd51fae65c26901146dc88aa2e015328fb3))
+* vite ([#127](https://github.com/zhangyuang/ssr/issues/127)) ([917e24f](https://github.com/zhangyuang/ssr/commit/917e24f1e9add29ceb7ed540029238f1d40defc3))
+
+
+
+
+
 ## [5.7.15](https://github.com/zhangyuang/ssr/compare/ssr-plugin-vue@5.7.14...ssr-plugin-vue@5.7.15) (2021-12-02)
 
 **Note:** Version bump only for package ssr-plugin-vue

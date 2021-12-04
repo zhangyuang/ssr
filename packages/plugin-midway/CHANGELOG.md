@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.14-alpha.0](https://github.com/zhangyuang/ssr/compare/v5.7.3...v6.1.14-alpha.0) (2021-12-04)
+
+
+### Bug Fixes
+
+* update plugin-midway add midway-mock ([94f9405](https://github.com/zhangyuang/ssr/commit/94f9405d0eb22977ae401e78bf31a31d256c7f39))
+* update plugin-midway add midway-mock ([8a2397e](https://github.com/zhangyuang/ssr/commit/8a2397e87349ab05e4011f813b65943645e2abb9))
+
+
+
+
+
 ## [5.7.16](https://github.com/zhangyuang/ssr/compare/ssr-plugin-midway@5.7.15...ssr-plugin-midway@5.7.16) (2021-12-02)
 
 **Note:** Version bump only for package ssr-plugin-midway

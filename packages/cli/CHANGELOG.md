@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.14-alpha.0](https://github.com/zhangyuang/ssr/compare/v5.7.3...v6.1.14-alpha.0) (2021-12-04)
+
+
+### Bug Fixes
+
+* resolve config ([6506c50](https://github.com/zhangyuang/ssr/commit/6506c50403ecbebba23628f62a86e7920e0e2cf9))
+
+
+### Features
+
+* change transformconfig to sync ([e43ddd9](https://github.com/zhangyuang/ssr/commit/e43ddd9d26391ffb0002c68b8216ce3ef4035c3f))
+* config file support ts ([fcd291a](https://github.com/zhangyuang/ssr/commit/fcd291a8f326a037b500e349bcf1024588cf5559))
+* optimize dependencies in serverless ([abb120c](https://github.com/zhangyuang/ssr/commit/abb120c950f7871719e8097cbbbd2197f355de2a))
+* support dep whiteList search ([b82d55b](https://github.com/zhangyuang/ssr/commit/b82d55b2d94452e0a4761513434acd827d6814dd))
+* vite ([#127](https://github.com/zhangyuang/ssr/issues/127)) ([917e24f](https://github.com/zhangyuang/ssr/commit/917e24f1e9add29ceb7ed540029238f1d40defc3))
+
+
+
+
+
 ## [5.7.12](https://github.com/zhangyuang/ssr/compare/ssr@5.7.11...ssr@5.7.12) (2021-12-02)
 
 

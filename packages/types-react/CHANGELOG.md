@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.14-alpha.0](https://github.com/zhangyuang/ssr/compare/v5.7.3...v6.1.14-alpha.0) (2021-12-04)
+
+
+### Features
+
+* add midway nest independent types ([35adc64](https://github.com/zhangyuang/ssr/commit/35adc64c8c9d17fe19844cee5e6ba8fc1e790235))
+* update plugin-react fetch params ([243c847](https://github.com/zhangyuang/ssr/commit/243c847c994032a3dc203bdee6c284b34b39dbfb))
+
+
+
+
+
 ## [6.0.8](https://github.com/zhangyuang/ssr/compare/ssr-types-react@6.0.7...ssr-types-react@6.0.8) (2021-12-02)
 
 **Note:** Version bump only for package ssr-types-react

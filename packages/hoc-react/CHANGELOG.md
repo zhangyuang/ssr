@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.14-alpha.0](https://github.com/zhangyuang/ssr/compare/v5.7.3...v6.1.14-alpha.0) (2021-12-04)
+
+
+### Features
+
+* optimize client fetch data logic ([5ba22bd](https://github.com/zhangyuang/ssr/commit/5ba22bd51fae65c26901146dc88aa2e015328fb3))
+* update plugin-react fetch params ([243c847](https://github.com/zhangyuang/ssr/commit/243c847c994032a3dc203bdee6c284b34b39dbfb))
+
+
+
+
+
 ## [6.0.9](https://github.com/zhangyuang/ssr/compare/ssr-hoc-react@6.0.8...ssr-hoc-react@6.0.9) (2021-12-02)
 
 **Note:** Version bump only for package ssr-hoc-react

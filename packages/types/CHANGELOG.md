@@ -3,6 +3,26 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.14-alpha.0](https://github.com/zhangyuang/ssr/compare/v5.7.3...v6.1.14-alpha.0) (2021-12-04)
+
+
+### Bug Fixes
+
+* restore staicRouter ([1150a6c](https://github.com/zhangyuang/ssr/commit/1150a6c4e4fe17d4416e35d619f8aac10837a7b8))
+
+
+### Features
+
+* add midway nest independent types ([35adc64](https://github.com/zhangyuang/ssr/commit/35adc64c8c9d17fe19844cee5e6ba8fc1e790235))
+* config file support ts ([fcd291a](https://github.com/zhangyuang/ssr/commit/fcd291a8f326a037b500e349bcf1024588cf5559))
+* support dep whiteList search ([b82d55b](https://github.com/zhangyuang/ssr/commit/b82d55b2d94452e0a4761513434acd827d6814dd))
+* update plugin-react fetch params ([243c847](https://github.com/zhangyuang/ssr/commit/243c847c994032a3dc203bdee6c284b34b39dbfb))
+* vite ([#127](https://github.com/zhangyuang/ssr/issues/127)) ([917e24f](https://github.com/zhangyuang/ssr/commit/917e24f1e9add29ceb7ed540029238f1d40defc3))
+
+
+
+
+
 ## [5.6.43](https://github.com/zhangyuang/ssr/compare/ssr-types@5.6.42...ssr-types@5.6.43) (2021-12-02)
 
 

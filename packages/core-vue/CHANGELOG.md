@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.14-alpha.0](https://github.com/zhangyuang/ssr/compare/v5.7.3...v6.1.14-alpha.0) (2021-12-04)
+
+
+### Features
+
+* vite ([#127](https://github.com/zhangyuang/ssr/issues/127)) ([917e24f](https://github.com/zhangyuang/ssr/commit/917e24f1e9add29ceb7ed540029238f1d40defc3))
+
+
+
+
+
 ## [5.7.12](https://github.com/zhangyuang/ssr/compare/ssr-core-vue@5.7.11...ssr-core-vue@5.7.12) (2021-12-02)
 
 **Note:** Version bump only for package ssr-core-vue

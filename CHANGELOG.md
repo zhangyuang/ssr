@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.14-alpha.0](https://github.com/zhangyuang/ssr/compare/v5.7.3...v6.1.14-alpha.0) (2021-12-04)
+
+
+### Bug Fixes
+
+*  boolean GENERATE_SOURCEMAP ([#133](https://github.com/zhangyuang/ssr/issues/133)) ([dbaeed8](https://github.com/zhangyuang/ssr/commit/dbaeed8efcf3d232c5754b2cfd6f3a664596610c))
+* add deepClone in createStore ([04cc23c](https://github.com/zhangyuang/ssr/commit/04cc23c54249d91deac0b62e44e9f81fe6133bf4))
+* create-context in vite ([109fc6c](https://github.com/zhangyuang/ssr/commit/109fc6ce2ebd73c67b003d5b74c732ad46bee64c))
+* resolve config ([6506c50](https://github.com/zhangyuang/ssr/commit/6506c50403ecbebba23628f62a86e7920e0e2cf9))
+* restore staicRouter ([1150a6c](https://github.com/zhangyuang/ssr/commit/1150a6c4e4fe17d4416e35d619f8aac10837a7b8))
+* update plugin-midway add midway-mock ([94f9405](https://github.com/zhangyuang/ssr/commit/94f9405d0eb22977ae401e78bf31a31d256c7f39))
+* update plugin-midway add midway-mock ([8a2397e](https://github.com/zhangyuang/ssr/commit/8a2397e87349ab05e4011f813b65943645e2abb9))
+* vue3 slot ssr bug ([be093e7](https://github.com/zhangyuang/ssr/commit/be093e724aaf4a9b2a4c2417bd805d4d6d572f9f))
+* vue3 ssr slot bug ([#135](https://github.com/zhangyuang/ssr/issues/135)) ([3e7c90b](https://github.com/zhangyuang/ssr/commit/3e7c90b2ee9db51832d9710159858908b0a7bcfa))
+
+
+### Features
+
+* add create in Hoc-vue3  ([#131](https://github.com/zhangyuang/ssr/issues/131)) ([8f8c132](https://github.com/zhangyuang/ssr/commit/8f8c1325b51f2e681b80bb7b3870865c77975a37))
+* add location prop to StaticRouter ([#137](https://github.com/zhangyuang/ssr/issues/137)) ([301f997](https://github.com/zhangyuang/ssr/commit/301f9975ff08a94b8e792e36587c32796cf477ac))
+* add midway nest independent types ([35adc64](https://github.com/zhangyuang/ssr/commit/35adc64c8c9d17fe19844cee5e6ba8fc1e790235))
+* change transformconfig to sync ([e43ddd9](https://github.com/zhangyuang/ssr/commit/e43ddd9d26391ffb0002c68b8216ce3ef4035c3f))
+* config file support ts ([fcd291a](https://github.com/zhangyuang/ssr/commit/fcd291a8f326a037b500e349bcf1024588cf5559))
+* optimize client fetch data logic ([5ba22bd](https://github.com/zhangyuang/ssr/commit/5ba22bd51fae65c26901146dc88aa2e015328fb3))
+* optimize dependencies in serverless ([abb120c](https://github.com/zhangyuang/ssr/commit/abb120c950f7871719e8097cbbbd2197f355de2a))
+* support dep whiteList search ([b82d55b](https://github.com/zhangyuang/ssr/commit/b82d55b2d94452e0a4761513434acd827d6814dd))
+* update plugin-react fetch params ([243c847](https://github.com/zhangyuang/ssr/commit/243c847c994032a3dc203bdee6c284b34b39dbfb))
+* vite ([#127](https://github.com/zhangyuang/ssr/issues/127)) ([917e24f](https://github.com/zhangyuang/ssr/commit/917e24f1e9add29ceb7ed540029238f1d40defc3))
+
+
+### Reverts
+
+* Revert "feat: add create in Hoc-vue3  (#131)" (#132) ([de7e825](https://github.com/zhangyuang/ssr/commit/de7e825fa6264605060c0a821c5293253372e7d4)), closes [#131](https://github.com/zhangyuang/ssr/issues/131) [#132](https://github.com/zhangyuang/ssr/issues/132)
+
+
+
+
+
 ## [5.7.3](https://github.com/zhangyuang/ssr/compare/v5.7.2...v5.7.3) (2021-11-04)
 
 

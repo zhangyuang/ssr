@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.14-alpha.0](https://github.com/zhangyuang/ssr/compare/v5.7.3...v6.1.14-alpha.0) (2021-12-04)
+
+
+### Bug Fixes
+
+*  boolean GENERATE_SOURCEMAP ([#133](https://github.com/zhangyuang/ssr/issues/133)) ([dbaeed8](https://github.com/zhangyuang/ssr/commit/dbaeed8efcf3d232c5754b2cfd6f3a664596610c))
+* add deepClone in createStore ([04cc23c](https://github.com/zhangyuang/ssr/commit/04cc23c54249d91deac0b62e44e9f81fe6133bf4))
+* vue3 slot ssr bug ([be093e7](https://github.com/zhangyuang/ssr/commit/be093e724aaf4a9b2a4c2417bd805d4d6d572f9f))
+* vue3 ssr slot bug ([#135](https://github.com/zhangyuang/ssr/issues/135)) ([3e7c90b](https://github.com/zhangyuang/ssr/commit/3e7c90b2ee9db51832d9710159858908b0a7bcfa))
+
+
+### Features
+
+* add create in Hoc-vue3  ([#131](https://github.com/zhangyuang/ssr/issues/131)) ([8f8c132](https://github.com/zhangyuang/ssr/commit/8f8c1325b51f2e681b80bb7b3870865c77975a37))
+* optimize client fetch data logic ([5ba22bd](https://github.com/zhangyuang/ssr/commit/5ba22bd51fae65c26901146dc88aa2e015328fb3))
+* vite ([#127](https://github.com/zhangyuang/ssr/issues/127)) ([917e24f](https://github.com/zhangyuang/ssr/commit/917e24f1e9add29ceb7ed540029238f1d40defc3))
+
+
+### Reverts
+
+* Revert "feat: add create in Hoc-vue3  (#131)" (#132) ([de7e825](https://github.com/zhangyuang/ssr/commit/de7e825fa6264605060c0a821c5293253372e7d4)), closes [#131](https://github.com/zhangyuang/ssr/issues/131) [#132](https://github.com/zhangyuang/ssr/issues/132)
+
+
+
+
+
 ## [5.7.17](https://github.com/zhangyuang/ssr/compare/ssr-plugin-vue3@5.7.16...ssr-plugin-vue3@5.7.17) (2021-12-02)
 
 **Note:** Version bump only for package ssr-plugin-vue3
