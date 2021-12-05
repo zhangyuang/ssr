@@ -58,7 +58,7 @@ const loadConfig = (): IConfig => {
 
   const whiteList: RegExp[] = []
 
-  const jsOrder = isVite ? ['react.js', `${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`].concat(userConfig.extraJsOrder ?? [])
+  const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`].concat(userConfig.extraJsOrder ?? [])
 
   const cssOrder = [`${chunkName}.css`].concat(userConfig.extraCssOrder ?? [])
 

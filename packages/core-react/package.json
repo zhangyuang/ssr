@@ -33,7 +33,7 @@
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "react-dom": "^17.0.0",
-    "serialize-javascript": "^3.0.0",
+    "serialize-javascript": "^6.0.0",
     "ssr-server-utils": "^6.1.14"
   },
   "devDependencies": {

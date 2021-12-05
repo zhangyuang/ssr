@@ -53,7 +53,7 @@
     "postcss-preset-env": "^6.0.5",
     "postcss-safe-parser": "4.0.1",
     "react-dev-utils": "^11.0.4",
-    "serialize-javascript": "^3.0.0",
+    "serialize-javascript": "^6.0.0",
     "ssr-client-utils": "^6.1.14",
     "ssr-hoc-react": "^6.1.14",
     "ssr-server-utils": "^6.1.14",

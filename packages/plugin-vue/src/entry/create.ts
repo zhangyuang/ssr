@@ -11,7 +11,7 @@ import { deepClone } from './clone'
 const RealVue = Vue.default || Vue
 const RealRouter = Router.default || Router
 const RealVuex = Vuex.default || Vuex
-console.log(Vue)
+
 RealVue.use(RealRouter)
 RealVue.use(RealVuex)
 

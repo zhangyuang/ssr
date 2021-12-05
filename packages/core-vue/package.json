@@ -33,7 +33,7 @@
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "@babel/runtime": "^7.12.13",
-    "serialize-javascript": "^3.0.0",
+    "serialize-javascript": "^6.0.0",
     "ssr-server-utils": "^6.1.14",
     "vue": "^2.0.0",
     "vue-server-renderer": "^2.6.0",

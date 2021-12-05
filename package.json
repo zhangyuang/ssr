@@ -9,7 +9,9 @@
       "**/vuex",
       "**/vue-router",
       "**/vue-loader",
-      "**/core-js"
+      "**/core-js",
+      "**/@vitejs/plugin-vue",
+      "**/@vitejs/plugin-react"
     ]
   },
   "scripts": {

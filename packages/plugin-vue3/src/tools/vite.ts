@@ -5,6 +5,7 @@ const build: typeof BuildType = require('vite').build
 const { getOutput, vue3ServerEntry, vue3ClientEntry } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
+console.log('xxx', vuePlugin)
 const serverConfig: UserConfig = {
   ...commonConfig(),
   plugins: [

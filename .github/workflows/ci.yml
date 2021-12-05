@@ -339,8 +339,8 @@ jobs:
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --vue3
+      # - name: prepare
+      #   run: yarn run link --vue3
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:midway:vue3:vite
@@ -380,6 +380,8 @@ jobs:
           path: packages
       - name: prepare
         run: yarn run link --react
+      - name: Setup Debug Session
+        uses: csexton/debugger-action@master
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:midway:react:vite

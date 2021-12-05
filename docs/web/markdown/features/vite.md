@@ -21,48 +21,128 @@
 在 `React/Vue3` 场景中我们都已经以最小化成本的方式接入 `Vite`。在 `Vue2` 场景中，由于 [vite-plugin-vue2](https://github.com/underfin/vite-plugin-vue2/issues/31) 的限制，我们暂时无法使用 `vite ssr`。
 
 ```shell
-$ npm init ssr-app my-ssr-project
+$ npm init ssr-app my-ssr-project # 如需要使用 Vite 这里可以选择创建 React/Vue3 类型的应用
 $ cd my-ssr-project && yarn
 $ npx ssr start --vite # 等价于 npm run start:vite
 $ npx ssr build --vite # 等价于 npm run build:vite
-$ npm run prod:vite
+$ npm run prod:vite # 生产环境启动
+```
+
+也可以在 `config.ts` 中显式的添加 `isVite` 选项来固定启动模式
+
+```js
+// 添加后无需 ssr start/build 新增 --vite 参数
+import type { UserConfig } from 'ssr-types'
+
+const userConfig: UserConfig = {
+    isVite: true
+}
+
+export { userConfig }
 ```
 
 完成上述步骤即可使用 `Vite` 作为构建工具体验极快的
 
 ## SSRv6.0 + Vite
 
-在 `5.x` 版本的 `ssr` 框架中，当时出于开发时间限制以及改动成本的关系，我们采用的方案是服务端 `bundle` 走 `Webpack` 编译，客户端文件走 `Vite` 服务的 `vite ssr` 这样的架构模式，来保证最小化代码的改动。现在看来当时的决定是无比正确的，确实 `vite ssr` 在那个时候有不少不成熟的地方也在这段期间中被 `vite` 官方团队逐一的解决，并且本人也在这段开发期间深度阅读了 `vite ssrloadModule` 这块的源码对它的运行机制有了更深刻的了解。也在这个过程中尝试对 `Vite` 做了一些微小的[贡献](https://github.com/vitejs/vite/commits?author=zhangyuang)。在这里感谢 `Vite` 团队的付出和及时的响应。
+在 `5.x` 版本的 `ssr` 框架中，当时出于开发时间限制以及改动成本的关系，我们采用的方案是服务端 `bundle` 走 `Webpack` 编译，客户端文件走 `Vite` 服务的 `vite ssr` 这样的架构模式，来保证最小化代码的改动。现在看来当时的决定是非常正确的，确实 `vite ssr` 在那个时候有不少不成熟的地方也在这段期间中被 `Vite` 官方团队逐一的解决，并且本人也在这段开发期间深度阅读了 `vite ssrloadModule` 这块的源码对它的运行机制有了更深刻的了解。也在这个过程中尝试对 `Vite` 做了一些微小的[贡献](https://github.com/vitejs/vite/commits?author=zhangyuang)。在这里感谢 `Vite` 团队的付出和及时的响应。
 
-那么，在 `6.0` 版本的 `ssr` 框架中，我们做到了 `All in Vite`，也就是提供了全套只使用 `Vite` 作为开发工具的开发链路来体验极快的启动速度。同时我们分离了 `Webpack` 与 `Vite`。也就是说开发者可以任意的选择 
+那么，在 `6.0` 版本的 `ssr` 框架中，我们做到了 `All in Vite`，也就是提供了全套只使用 `Vite` 作为开发工具的开发链路来体验极快的启动速度。同时我们分离了 `Webpack` 与 `Vite`。也就是说开发者可以任意的选择喜欢的工具。
 
-`ssr/csr + 本地开发 Webpack/Vite + 生产环境构建 Webpack/Vite + Midway/Nest.js` 这样的任意组合方式。同时我们在新增功能的保持对代码行数的克制，使得框架总代码量在没有刻意优化的情况下仍然保持在 `6000行` 左右。这里简单画了一个示意图如下。
+开发者可以选择 `ssr/csr + 本地开发 Webpack/Vite + 生产环境构建 Webpack/Vite + Midway/Nest.js` 这样的任意组合方式。同时我们在新增功能的保持对代码行数的克制，使得框架总代码量在没有刻意优化的情况下仍然保持在 `6000行` 左右。
+
+那么先让我们用动图看看分别用 `Webpack/Vite` 启动的速度差别吧。如果图片动不了，请使用 `Chrome` 浏览器打开网页
+
+### Webpack 启动
+
+启动时间 = 初始化模块加载 + 编译服务端/客户端 bundle 时间 + Midway 启动时间
+
+![](http://doc.ssr-fc.com/images/homecode3.svg)
+
+### Vite 启动
+
+启动时间 = 更少的初始化模块加载 + Midway 启动时间
+
+![](http://doc.ssr-fc.com/images/homecode-vite.svg)
+
+### 应用结构
+
+对于应用结构这里简单画了一个示意图如下。
 
 ![](/images/vite1-1.png)
 
-具体的 `vite ssr` 结构如下图
+<!-- 具体的 `vite ssr` 结构如下图
 
 ![](/images/vite1-2.png)
 
 
-在服务端我们用 `ssrLoadModule` 这个 `API` 来转换模块。客户端以中间件的形式让 `Vite` 接管请求。与 `Webpack SSR` 架构类似。在服务端和客户端我们有两套不同的 `vite.config` 配置，所以我们不会将 `vite.config.js` 直接暴露出来。而是通过框架统一的配置项抛出配置。
+在服务端我们用 `ssrLoadModule` 这个 `API` 来转换模块。客户端以中间件的形式让 `Vite` 接管请求。与 `Webpack SSR` 架构类似。在服务端和客户端我们有两套不同的 `vite.config` 配置，所以我们不会将 `vite.config.js` 直接暴露出来。而是通过框架统一的配置项抛出配置。 -->
+### 开发建议
 
 由于 `Vite/Rollup` 没有 `Webpack-Chain` 这样的模块来生成配置，目前只能用一些比较笨的方式来 `Merge` 用户自定义配置。所以容易造成用户配置覆盖框架默认配置的情况。所以目前框架只会开放少量配置让用户自定义配置。在之后我们会不断完善这一块。
 
-正如上文所说的，开发者有多种开发构建组合方式。只要不使用只能够在特定平台运行的代码例如 `import.meta.env` 这些代码，那么你的代码在 `Vite/Webpack` 模式下都能够本地运行，生产环境构建成功。所以不建议开发者使用只能在特定工具下运行成功的代码以及配置。框架将会在之后将不同的工具的配置进行打平，抛出一个共同使用的配置项供开发者使用。
+正如上文所说的，开发者有多种开发构建组合方式。只要不使用只能够在特定平台运行的代码例如 `import.meta.env/module.hot` 这些代码，那么你的代码在 `Vite/Webpack` 模式下都能够本地运行，生产环境构建成功。所以不建议开发者使用只能在特定工具下运行成功的代码以及配置。框架将会在之后将不同的工具的配置进行打平，抛出一个共同使用的配置项供开发者使用。
 
-在生产环境构建上尽管我们也支持了 `Vite` 并且能够运行成功, 但目前看来 `Rollup` 更适合用来构建库，用来构建应用的体验确实一般(也有可能是本人使用的姿势不对还在探索当中)。目前会有一些小瑕疵问题还未解决，主要表现在 `dynamicImport` 上，在之后的版本中我们将会不断优化这一块。
+在生产环境构建上尽管我们也支持了 `Vite` 并且能够运行成功, 但目前看来 `Rollup` 更适合用来构建库，用来构建应用的体验确实一般(也有可能是本人使用的姿势不对还在探索当中)。目前会有一些小瑕疵问题还未解决，主要表现在 `dynamicImport` 上，不过不用担心在之后的版本中我们将会不断优化这一块。
 
-综上所述，我们已经迈出了最困难的一步，接下来的做法就是抹平 `Vite/Webpack` 在本框架中的使用差异，配置差异，构建差异。特别是在 `UI` 框架使用这一块，我们之后将会集成一些配置，使得可以在 `Vite` 场景下无缝使用各大流行 `UI` 库例如 `antd`, `vant` 等等。也欢迎各位开发者的深度使用以及问题反馈
+综上所述，我们已经迈出了最困难的一步，接下来的做法就是抹平 `Vite/Webpack` 在本框架中的使用差异，配置差异，构建差异。特别是在 `UI` 框架使用这一块，我们之后将会集成一些配置，使得可以在 `Vite` 场景下无缝使用各大流行 `UI` 库例如 `antd`, `vant` 等等而无需做任何额外的配置。也欢迎各位开发者的深度使用以及问题反馈
 
 ## 升级步骤
 
 我们在业务代码层面和应用配置层面没有任何破坏性变更所有的开发习惯跟之前一样。唯一的区别在于开发者不再需要 `5.0` 版本的 `vite.config` 文件
 
-- 更新所有 `ssr-*` 相关依赖到 `^6.0.0` 或者直接 `npm init ssr-app` 创建最新的模版对比
+- 更新所有 `ssr-*` 相关依赖到 `^6.0.0` 或者直接 `npm init ssr-app` 创建最新的模版对比, 以 `midway-vue3` 为例
+```json
+"dependencies": {
+    "@midwayjs/decorator": "^2.3.0",
+    "@midwayjs/web": "^2.3.0",
+    "egg": "^2.0.0",
+    "egg-scripts": "^2.10.0",
+    "ssr-core-vue3": "^5.0.0",
+    "serialize-javascript": "^6.0.0",
+    "ssr-server-utils": "^6.0.0",
+    "ssr-types": "^5.0.0",
+    "swiper": "6.7.5",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0",
+    "vuex": "^4.0.0"
+  },
+  "devDependencies": {
+    "@midwayjs/egg-ts-helper": "^1.0.5",
+    "cross-env": "^7.0.3",
+    "eslint-config-standard-vue-ts": "^1.0.5",
+    "ssr": "^5.0.0",
+    "ssr-plugin-midway": "^5.0.0",
+    "ssr-plugin-vue3": "^5.0.0",
+    "typescript": "^4.0.0"
+  },
+```
 - 删除原有的 `vite.config.js` 文件，如之前没有创建，则不需要删除
-- 服务端静态资源文件夹新增 [build/client] 文件夹
-- `package.json` 新增 `ssr build --vite` 相关脚本
+- 服务端静态资源文件夹新增 `build/client` 文件夹
+```js
+// midway config.default.js
+config.static = {
+    prefix: '/',
+    dir: [join(appInfo.appDir, './build'), join(appInfo.appDir, './public'), join(appInfo.appDir, './build/client')]
+}
+// nestjs main.ts
+app.useStaticAssets(join(getCwd(), './build/client'))
+```
+
+- `package.json` 新增 `ssr build --vite` 相关脚本, `dependencies` 中显式添加 
+
+```json
+"dependencies": {
+  "serialize-javascript": "^6.0.0",
+  "ssr-server-utils": "^6.0.0",
+},
+"scripts": {
+  "prod:vite": "ssr build --vite && cross-env BUILD_TOOL=vite egg-scripts start --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
+  "stop": "egg-scripts stop --title=midway-server-my_midway_project",
+  "start:vite": "ssr start --vite",
+  "build:vite": "ssr build --vite"
+}
+```
 ## 以下为旧内容
 
 以下为 `5.0` 版本的 vite ssr 实现原理，可以不阅读，也可以作为额外材料了解变迁历史进行阅读

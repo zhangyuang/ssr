@@ -31,7 +31,7 @@
   "dependencies": {
     "@babel/runtime": "^7.12.13",
     "@vue/server-renderer": "^3.0.7",
-    "serialize-javascript": "^3.0.0",
+    "serialize-javascript": "^6.0.0",
     "ssr-server-utils": "^6.1.14",
     "vue": "^3.0.0"
   }
