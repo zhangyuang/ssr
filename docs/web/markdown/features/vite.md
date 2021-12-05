@@ -51,7 +51,7 @@ export { userConfig }
 
 ### 前言
 
-在 `5.x` 版本的 `ssr` 框架中，当时出于开发时间限制以及改动成本的关系，我们采用的方案是服务端 `bundle` 走 `Webpack` 编译，客户端文件走 `Vite` 服务的 `vite ssr` 这样的架构模式，来保证最小化代码的改动。现在看来当时的决定是非常正确的，确实 `vite ssr` 在那个时候有不少不成熟的地方也在这段期间中被 `Vite` 官方团队逐一的解决，并且本人也在这段开发期间深度阅读了 `vite ssrloadModule` 这块的源码对它的运行机制有了更深刻的了解。也在这个过程中尝试对 `Vite` 做了一些微小的[贡献](https://github.com/vitejs/vite/commits?author=zhangyuang)。在这里感谢 `Vite` 团队的付出和及时的响应。
+在 `5.x` 版本的 `ssr` 框架中，当时出于开发时间限制以及改动成本的关系，我们采用的方案是服务端 `bundle` 走 `Webpack` 编译，客户端文件走 `Vite` 服务的 `vite ssr` 这样的架构模式，来保证最小化代码的改动。现在看来当时的决定是非常正确的，确实 `vite ssr` 在那个时候有不少不成熟的地方也在这段期间中被 `Vite` 官方团队逐一的解决，并且本人也在这段开发期间深度阅读了 `vite ssrloadModule` 这块的源码对它的运行机制有了更深刻的了解。也在这个过程中尝试对 `Vite` 做了一些微小的[贡献](https://github.com/vitejs/vite/pulls?q=zhangyuang)。在这里感谢 `Vite` 团队的付出和及时的响应。
 
 ### 现状
 
@@ -77,14 +77,14 @@ export { userConfig }
 
 对于应用结构这里简单画了一个示意图如下。
 
-![](/images/vite1-1.png)
+![](http://doc.ssr-fc.com/images/vite1-1.png)
 
-<!-- 具体的 `vite ssr` 结构如下图
+具体的 `vite ssr` 结构如下图
 
-![](/images/vite1-2.png)
+![](http://doc.ssr-fc.com/images/vite1-3.png)
 
 
-在服务端我们用 `ssrLoadModule` 这个 `API` 来转换模块。客户端以中间件的形式让 `Vite` 接管请求。与 `Webpack SSR` 架构类似。在服务端和客户端我们有两套不同的 `vite.config` 配置，所以我们不会将 `vite.config.js` 直接暴露出来。而是通过框架统一的配置项抛出配置。 -->
+在服务端我们用 `ssrLoadModule` 这个 `API` 来转换模块。客户端以中间件的形式让 `Vite` 接管请求。与 `Webpack SSR` 架构类似。在服务端和客户端我们有两套不同的 `vite.config` 配置，所以我们不会将 `vite.config.js` 直接暴露出来。而是通过框架统一的配置项抛出配置。
 ### 开发建议
 
 由于 `Vite/Rollup` 没有 `Webpack-Chain` 这样的模块来生成配置，目前只能用一些比较笨的方式来 `Merge` 用户自定义配置。所以容易造成用户配置覆盖框架默认配置的情况。所以目前框架只会开放少量配置让用户自定义配置。在之后我们会不断完善这一块。
@@ -95,17 +95,106 @@ export { userConfig }
 
 综上所述，我们已经迈出了最困难的一步，接下来的做法就是抹平 `Vite/Webpack` 在本框架中的使用差异，配置差异，构建差异。特别是在 `UI` 框架使用这一块，我们之后将会集成一些配置，使得可以在 `Vite` 场景下无缝使用各大流行 `UI` 库例如 `antd`, `vant` 等等而无需做任何额外的配置。也欢迎各位开发者的深度使用以及问题反馈
 
+### 踩坑记录
+
+以下记录开发 `vite ssr` 时遇见的问题，给其他框架开发者作为参考
+
+#### 干掉 CommonJS
+
+`ssrLoadModule` 方法传入的文件中只能够使用 `es6 module` 语法，不能够出现 `require/module` 等 `commonjs` 关键字，如必须使用，可使用 [createRequire](http://nodejs.cn/api/module.html#modulecreaterequirefilename) 方法。
+
+原因是因为 `ssrLoadModule` 采用 `new Function` 的形式执行入口文件。
+
+```js
+const AsyncFunction = async function () {}.constructor as typeof Function
+const initModule = new AsyncFunction(
+  `global`,
+  ssrModuleExportsKey,
+  ssrImportMetaKey,
+  ssrImportKey,
+  ssrDynamicImportKey,
+  ssrExportAllKey,
+  result.code + `\n//# sourceURL=${mod.url}`
+)
+await initModule(
+  context.global,
+  ssrModule,
+  ssrImportMeta,
+  ssrImport,
+  ssrDynamicImport,
+  ssrExportAll
+)
+```
+函数内部只能够访问 `new Function` 传入的变量，并且这些变量都是被 `Vite` 替换过一遍的。换句话说 `import Vue from 'vue'` 实际执行的是 `const Vue = await __vite_ssr_import__('vue')`。操作都会被 `Vite` 定义的函数接管。`new Function` 中没有传入 `require` 所以自然在代码内部无法识别 `require` 关键字。
+
+也就是说形如下面的代码是无法直接运行的
+
+```js
+const getConfig = () => require(resolve(process.cwd(), './config'))
+```
+
+#### 第三方模块必须显示添加到项目的 dependencies
+
+上面讲到了 `Vite` 使用  `new Function` 的形式来执行入口文件，对于入口文件中依赖的第三方模块或者是自身引用的相对路径模块 `Vite` 都有不同的处理方式。对于第三方模块一般是直接使用原生的 `const module = return import(file)` 的形式读取。
+
+```js
+const ssrImport = async (dep: string) => {
+    if (dep[0] !== '.' && dep[0] !== '/') {
+      // 原生的 import 方法处理第三方模块
+      return nodeRequire(
+        dep,
+        mod.file,
+        server.config.root,
+        !!server.config.resolve.preserveSymlinks
+      )
+    }
+    // 处理非第三方文件，会调用 vite 自身的 transform 逻辑进行代码转换以及 new Function 代码执行
+    // xxx 省略
+  }
+```
+
+这里有一个巨坑，就是 `ssrLoadModule` 里面执行的入口文件中依赖的第三方模块必须显示列在 `dependencies`，否则 `Vite` 这块的处理会有问题。举个🌰，当我们在 `server-entry` 中引用了 `semver` 这个只提供了 `CommonJS` 格式的模块
+
+```js
+import semver from 'semver'
+```
+
+如果你没有把它列在 `dependencies` 中将会被解析成
+
+```js
+// error
+const __vite_ssr_import_0__ = await __vite_ssr_import__("/node_modules/semver/index.js?v=cea99eb4");
+// true
+const __vite_ssr_import_0__ = await __vite_ssr_import__("semver");
+```
+
+这样的错误路径在 `__vite_ssr_import__` 中不会被当作第三方模块进行处理，会继续以 `new Function` 的形式解析，导致错误。
+
+这个问题我在 `Vite` 的源码中横跳了一天才发现。因为 `ssr-server-utils/serialize-javascript` 被 `ssr-core-vue3` 给依赖了，所以应用本身并没有列出它们在 `dependencies` 中，导致本地 `link` 能够正常运行，但是正式 `publish` 后死活也无法运行。
+
+#### 分成两个 vite 配置
+
+在官方的 `ssr-vue` 示例中前端服务端公用了一个 `vite.config` 文件，对于简单的应用来说这足够了，但对于大型应用来说这块最好是沿用 `Webpack` 场景下的思路，将服务端客户端的配置文件分离，优势在于我们可以通过 `define __isBrowser__` 这样的关键字在业务代码中区分当前环境。
+
+尽管 `Vite` 也提供了 `import.meta.env.SSR` 这样的关键字来区分环境，但依赖只能够在在特定工具下运行的代码不是一个好的方案。特别是当我们做构建时要对服务端，客户端的代码做不同的构建配置
+
+#### 缺少 manifest-plugin 以及 MagicComment
+
+对于 `Rollup` 来说，官方原生没有提供 `manifest-plugin` 这样的插件来提供源文件与构建后的 `hash` 文件映射关系，需要开发者自己寻找第三方插件或者自行编写。
+
+其次 `Rollup` 缺少 `import(/* webpackChunkName */)` 这样的 `MagicComment` 来定义 `chunkName`, 只能够通过 `manualChunks` 以及自行编写插件来实现对应的功能。对于开发者来说是一种挑战。
+
+对于上面的两个问题尽管 `Vite` 官方提供了 `ssr-manifest` 这样的插件来生成一些映射关系做资源预加载，但在一些场景下仍然不够用。特别是当我们组建渲染返回的结果是 `stream` 时，这样的字符串动态替换插值的方式就用不了了。
+
 ## 升级步骤
+
+对于之前使用 `5.x` 的开发者来说要如何进行升级呢？
 
 我们在业务代码层面和应用配置层面没有任何破坏性变更所有的开发习惯跟之前一样。唯一的区别在于开发者不再需要 `5.0` 版本的 `vite.config` 文件
 
 - 更新所有 `ssr-*` 相关依赖到 `^6.0.0` 或者直接 `npm init ssr-app` 创建最新的模版对比, 以 `midway-vue3` 为例
 ```json
 "dependencies": {
-    "@midwayjs/decorator": "^2.3.0",
-    "@midwayjs/web": "^2.3.0",
-    "egg": "^2.0.0",
-    "egg-scripts": "^2.10.0",
     "ssr-core-vue3": "^5.0.0",
     "serialize-javascript": "^6.0.0",
     "ssr-server-utils": "^6.0.0",
@@ -114,16 +203,13 @@ export { userConfig }
     "vue": "^3.0.0",
     "vue-router": "^4.0.0",
     "vuex": "^4.0.0"
-  },
-  "devDependencies": {
-    "@midwayjs/egg-ts-helper": "^1.0.5",
-    "cross-env": "^7.0.3",
-    "eslint-config-standard-vue-ts": "^1.0.5",
-    "ssr": "^5.0.0",
-    "ssr-plugin-midway": "^5.0.0",
-    "ssr-plugin-vue3": "^5.0.0",
-    "typescript": "^4.0.0"
-  },
+},
+"devDependencies": {
+  "ssr": "^5.0.0",
+  "ssr-plugin-midway": "^5.0.0",
+  "ssr-plugin-vue3": "^5.0.0",
+  "typescript": "^4.0.0"
+},
 ```
 - 删除原有的 `vite.config.js` 文件，如之前没有创建，则不需要删除
 - 服务端静态资源文件夹新增 `build/client` 文件夹
