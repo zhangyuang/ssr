@@ -1,6 +1,6 @@
 {
   "name": "ssr-types",
-  "version": "6.1.14",
+  "version": "6.1.15",
   "description": "types for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
