@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
-import { ISSRContext, IConfig, ReactRoutesType, ReactESMFeRouteItem, StaticFC } from 'ssr-types-react'
+import { ISSRContext, IConfig, ReactRoutesType, ReactESMFeRouteItem } from 'ssr-types-react'
 //@ts-expect-error
 import * as serializeWrap from 'serialize-javascript'
 // @ts-expect-error
