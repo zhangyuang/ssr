@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
-import { ISSRContext, IConfig, ReactRoutesType, ReactESMFeRouteItem } from 'ssr-types-react'
+import { ISSRContext, IConfig, ReactRoutesType, ReactESMFeRouteItem, StaticFC } from 'ssr-types-react'
 //@ts-expect-error
 import * as serializeWrap from 'serialize-javascript'
 // @ts-expect-error
@@ -80,7 +80,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
   const { component, fetch } = routeItem
-  let Component
+  let Component: StaticFC = () => {
+    return (
+      <></>
+    )
+  }
   if (!isCsr) {
     Component = (await component()).default
   }
