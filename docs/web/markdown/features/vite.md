@@ -16,7 +16,11 @@
 
 通过下面的命令，你可以快速的进行基于`Vite`的 vue 开发体验，想要更多了解有关 Vite 的内容，可以前往[Vite 官方文档](https://cn.vitejs.dev/)。
 
-## 使用 Vite 作为构建工具
+## SSRv6.0 + Vite
+
+本章介绍 `ssr` 框架 `6.0` 版本全新的 `Vite SSR` 体验
+
+### 快速开始 
 
 在 `React/Vue3` 场景中我们都已经以最小化成本的方式接入 `Vite`。在 `Vue2` 场景中，由于 [vite-plugin-vue2](https://github.com/underfin/vite-plugin-vue2/issues/31) 的限制，我们暂时无法使用 `vite ssr`。
 
@@ -41,10 +45,7 @@ const userConfig: UserConfig = {
 export { userConfig }
 ```
 
-完成上述步骤即可使用 `Vite` 作为构建工具体验极快的
-
-## SSRv6.0 + Vite
-
+完成上述步骤即可使用 `Vite` 作为构建工具体验极快的开发速度
 ### 框架背景
 
 关于[ssr](https://github.com/zhangyuang/ssr) 框架的介绍请查看[文章](http://doc.ssr-fc.com/docs/why)
@@ -60,6 +61,7 @@ export { userConfig }
 开发者可以选择 `ssr/csr + 本地开发 Webpack/Vite + 生产环境构建 Webpack/Vite + Midway/Nest.js` 这样的任意组合方式。同时我们在新增功能的保持对代码行数的克制，使得框架总代码量在没有刻意优化的情况下仍然保持在 `6000行` 左右单前端框架场景在 `2500` 行左右。
 
 那么先让我们用动图看看分别用 `Webpack/Vite` 启动的速度差别吧。如果图片动不了，请使用 `Chrome` 浏览器打开网页
+
 
 ### Webpack 启动
 
