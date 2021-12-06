@@ -8,7 +8,9 @@ const { clientOutPut, serverOutPut } = getOutput()
 const serverConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
-    react()
+    react({
+      jsxRuntime: 'classic'
+    })
   ],
   build: {
     ssr: reactServerEntry,
@@ -26,8 +28,13 @@ const serverConfig: UserConfig = {
 
 const clientConfig: UserConfig = {
   ...commonConfig(),
+  esbuild: {
+    keepNames: true
+  },
   plugins: [
-    react()
+    react({
+      jsxRuntime: 'classic'
+    })
   ],
   build: {
     ssrManifest: true,
