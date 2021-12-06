@@ -80,14 +80,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
   const { component, fetch } = routeItem
-  let Component: StaticFC = () => {
-    return (
-      <></>
-    )
-  }
-  if (!isCsr) {
-    Component = (await component()).default
-  }
+  const Component = isCsr ? React.Fragment : (await component()).default
 
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
@@ -118,7 +111,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     <StaticRouter location={ctx.request.url}>
       <Context.Provider value={{ state: combineData }}>
         <Layout ctx={ctx} config={config} staticList={staticList} injectState={injectState}>
-          {isCsr ? <></> : <Component />}
+          <Component />
         </Layout>
       </Context.Provider>
     </StaticRouter>
