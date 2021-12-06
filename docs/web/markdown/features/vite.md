@@ -67,13 +67,13 @@ export { userConfig }
 
 启动时间 = 初始化模块加载 + 编译服务端/客户端 bundle 时间 + Midway 启动时间
 
-![](http://doc.ssr-fc.com/images/homecode3.svg)
+![](http://doc.ssr-fc.com/images/start-webpack.gif)
 
 ### Vite 启动
 
 启动时间 = 更少的初始化模块加载 + Midway 启动时间
 
-![](http://doc.ssr-fc.com/images/homecode-vite.svg)
+![](http://doc.ssr-fc.com/images/start-vite.gif)
 
 ### 应用结构
 
