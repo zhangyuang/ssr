@@ -80,7 +80,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
   const { component, fetch } = routeItem
-  const Component = (await component()).default
+  let Component
+  if (!isCsr) {
+    Component = (await component()).default
+  }
 
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
