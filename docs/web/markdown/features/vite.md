@@ -135,7 +135,7 @@ await initModule(
 const getConfig = () => require(resolve(process.cwd(), './config'))
 ```
 
-#### 第三方模块必须显示添加到项目的 dependencies
+#### 第三方模块必须显示添加到项目的 dependencies 或者 external
 
 上面讲到了 `Vite` 使用  `new Function` 的形式来执行入口文件，对于入口文件中依赖的第三方模块或者是自身引用的相对路径模块 `Vite` 都有不同的处理方式。对于第三方模块一般是直接使用原生的 `const module = return import(file)` 的形式读取。
 
@@ -155,7 +155,7 @@ const ssrImport = async (dep: string) => {
   }
 ```
 
-这里有一个巨坑，就是 `ssrLoadModule` 里面执行的入口文件中依赖的第三方模块必须显示列在 `dependencies`，否则 `Vite` 这块的处理会有问题。举个🌰，当我们在 `server-entry` 中引用了 `semver` 这个只提供了 `CommonJS` 格式的模块
+这里有一个巨坑，就是 `ssrLoadModule` 里面执行的入口文件中依赖的第三方模块必须显示列在 `dependencies` 或者手动添加到配置中的 `ssr.external`，否则 `Vite` 这块的处理会有问题。举个🌰，当我们在 `server-entry` 中引用了 `semver` 这个只提供了 `CommonJS` 格式的模块
 
 ```js
 import semver from 'semver'

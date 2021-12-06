@@ -1,6 +1,6 @@
 import { promises } from 'fs'
 import { resolve } from 'path'
-import type { Plugin } from 'vite'
+import type { Plugin, UserConfig } from 'vite'
 import { parse as parseImports } from 'es-module-lexer'
 import MagicString from 'magic-string'
 import type { OutputOptions } from 'rollup'
@@ -71,7 +71,7 @@ const output: OutputOptions = {
   }
 }
 type SSR = 'ssr'
-const commonConfig = () => {
+const commonConfig = (): UserConfig => {
   const { prefix } = loadConfig()
   return {
     root: cwd,
@@ -79,6 +79,9 @@ const commonConfig = () => {
     mode: 'development',
     server: {
       middlewareMode: 'ssr' as SSR
+    },
+    ssr: {
+      external: ['serialize-javascript', 'ssr-server-utils']
     },
     resolve: {
       alias: {
