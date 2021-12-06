@@ -30,15 +30,12 @@
     "ssr": "^5.0.0",
     "ssr-plugin-midway": "^5.0.0",
     "ssr-plugin-vue3": "^5.0.0",
-    "typescript": "^4.0.0",
-    "vite": "^2.7.0-beta.10",
-    "vite-raw-plugin": "^1.0.0"
+    "typescript": "^4.0.0"
   },
   "scripts": {
     "prod": "ssr build && egg-scripts start --daemon --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
     "stop": "egg-scripts stop --title=midway-server-my_midway_project",
     "start": "ssr start",
-    "start:vite": "ssr start --vite",
     "build": "ssr build",
     "deploy": "rm -rf build && ssr build && ssr deploy",
     "deploy:tencent": "rm -rf build && ssr build && ssr deploy --tencent",
