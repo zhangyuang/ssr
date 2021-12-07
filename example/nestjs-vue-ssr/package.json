@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@nestjs/common": "^7.5.1",
-    "@nestjs/core": "^7.5.1",
-    "@nestjs/platform-express": "^7.5.1",
+    "@nestjs/common": "^8.0.0",
+    "@nestjs/core": "^8.0.0",
+    "@nestjs/platform-express": "^8.0.0",
     "pm2": "^4.5.4",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^6.6.3",
@@ -21,7 +21,7 @@
     "cross-env": "^7.0.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^7.5.5",
+    "@nestjs/cli": "^8.0.0",
     "eslint-config-standard-vue-ts": "^1.0.5",
     "ssr": "^6.0.0",
     "ssr-plugin-nestjs": "^6.0.0",

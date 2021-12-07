@@ -1,8 +1,6 @@
 // @ts-nocheck
 import { pathToRegexp } from 'path-to-regexp'
-import debug from 'debug'
 
-const ssrDebug = debug('ssr:render')
 const cache = {}
 const cacheLimit = 10000
 let cacheCount = 0
@@ -67,7 +65,6 @@ function matchPath (pathname, options = {}) {
 function findRoute<T extends {path: string}> (Routes: T[], path: string): T {
   // 根据请求的path来匹配到对应的Component
   const route = Routes.find(route => matchPath(path, route) && matchPath(path, route).isExact)
-  ssrDebug(`With path "${path}" find Route: `, route)
   return route
 }
 
