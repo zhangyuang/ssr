@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.17](https://github.com/zhangyuang/ssr/compare/v6.1.15...v6.1.17) (2021-12-07)
+
+
+### Bug Fixes
+
+* add keepNames when esbuild compile plugin-react jsxRuntime use classic ([8502e6c](https://github.com/zhangyuang/ssr/commit/8502e6ca898fd99e936e60af2093fb6b174f6aab))
+* component evaluating in csr mode ([#138](https://github.com/zhangyuang/ssr/issues/138)) ([66f5f09](https://github.com/zhangyuang/ssr/commit/66f5f09963502588bd59a09ff839d1dae8947817))
+* plugin-react csr ([572c6c0](https://github.com/zhangyuang/ssr/commit/572c6c092c63c915da15883e1d34ad26a5a6cadd))
+* plugin-react csr ([ab51062](https://github.com/zhangyuang/ssr/commit/ab510626946234de436a55184937d018c8c0e514))
+
+
+
+
+
 ## [6.1.16](https://github.com/zhangyuang/ssr/compare/v6.1.15...v6.1.16) (2021-12-06)
 
 

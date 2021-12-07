@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.17](https://github.com/zhangyuang/ssr/compare/v6.1.15...v6.1.17) (2021-12-07)
+
+
+### Features
+
+* upgrade nest dependencies fix docs bug ([e43d99a](https://github.com/zhangyuang/ssr/commit/e43d99ab3d0307dc8eb8070aa4ba670876323de4))
+
+
+
+
+
 ## [6.1.15](https://github.com/zhangyuang/ssr/compare/v6.1.14...v6.1.15) (2021-12-05)
 
 **Note:** Version bump only for package ssr-server-utils
