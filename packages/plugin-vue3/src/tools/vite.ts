@@ -8,7 +8,7 @@ const { clientOutPut, serverOutPut } = getOutput()
 const serverConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
-    vuePlugin({ ...viteConfig?.()?.server?.defaultPluginOptions }),
+    vuePlugin(viteConfig?.()?.server?.defaultPluginOptions),
     viteConfig?.()?.server?.extraPlugin
   ],
   build: {
@@ -29,7 +29,7 @@ const serverConfig: UserConfig = {
 const clientConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
-    vuePlugin(...viteConfig?.()?.client?.defaultPluginOptions),
+    vuePlugin(viteConfig?.()?.client?.defaultPluginOptions),
     viteConfig?.()?.client?.extraPlugin
   ],
   build: {
