@@ -2,9 +2,8 @@ import { exec } from 'child_process'
 import { loadConfig } from 'ssr-server-utils'
 import { Argv } from 'ssr-types'
 
-const { cli } = require('@midwayjs/cli/bin/cli')
-
 const start = (argv: Argv) => {
+  const { cli } = require('@midwayjs/cli/bin/cli')
   const config = loadConfig()
   exec('npx cross-env ets', async (err, stdout) => {
     if (err) {

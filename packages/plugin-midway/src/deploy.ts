@@ -1,10 +1,5 @@
 import { promises as fs } from 'fs'
 import { join } from 'path'
-import { CommandHookCore, loadSpec } from '@midwayjs/fcli-command-core'
-import { PackagePlugin } from '@midwayjs/fcli-plugin-package'
-import { DeployPlugin } from '@midwayjs/fcli-plugin-deploy'
-import { AliyunFCPlugin } from '@midwayjs/fcli-plugin-fc'
-import { TencentSCFPlugin } from '@midwayjs/fcli-plugin-scf'
 import { getCwd, isFaaS } from 'ssr-server-utils'
 import { Argv } from 'ssr-types'
 
@@ -29,6 +24,10 @@ const deploy = async (argv: Argv) => {
 }
 
 const deployTencent = async () => {
+  const { CommandHookCore, loadSpec } = await import('@midwayjs/fcli-command-core')
+  const { PackagePlugin } = await import('@midwayjs/fcli-plugin-package')
+  const { DeployPlugin } = await import('@midwayjs/fcli-plugin-deploy')
+  const { TencentSCFPlugin } = await import('@midwayjs/fcli-plugin-scf')
   const core: any = new CommandHookCore({
     config: {
       servicePath: cwd
@@ -46,6 +45,10 @@ const deployTencent = async () => {
 }
 
 const deployAliyun = async () => {
+  const { AliyunFCPlugin } = await import('@midwayjs/fcli-plugin-fc')
+  const { CommandHookCore, loadSpec } = await import('@midwayjs/fcli-command-core')
+  const { PackagePlugin } = await import('@midwayjs/fcli-plugin-package')
+  const { DeployPlugin } = await import('@midwayjs/fcli-plugin-deploy')
   const core: any = new CommandHookCore({
     config: {
       servicePath: cwd
