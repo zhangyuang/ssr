@@ -114,6 +114,9 @@
 " width="200px;margin: 20px 0" alt="Happy"/><br />
 <a href="https://m.habisummercamp.com/" target="_bvlank"><b>HappyMobile
 </b></a></td>
+<td align="center" style="height: 100px"><a href="https://www.paixin.com/" target="_blank"><img src="https://www.paixin.com/favicon.ico" width="200px;margin: 20px 0" alt="Happy"/><br />
+<a href="https://www.paixin.com/" target="_bvlank"><b>拍信创意
+</b></a></td>
 </tr>
 </table>
 
