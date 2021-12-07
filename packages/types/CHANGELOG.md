@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.18](https://github.com/zhangyuang/ssr/compare/v6.1.17...v6.1.18) (2021-12-07)
+
+
+### Features
+
+* add viteConfig ([ee86006](https://github.com/zhangyuang/ssr/commit/ee8600688b832b36089128e18f63a4cc8d630a25))
+
+
+
+
+
 ## [6.1.15](https://github.com/zhangyuang/ssr/compare/v6.1.14...v6.1.15) (2021-12-05)
 
 **Note:** Version bump only for package ssr-types
