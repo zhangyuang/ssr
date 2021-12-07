@@ -44,7 +44,7 @@ export interface IConfig {
   chainClientConfig: (config: Config) => Configuration
   webpackStatsOption: Options.Stats
   moduleFileExtensions: string[]
-  whiteList: RegExp[]
+  whiteList: RegExp[] | string[]
   cloudIDE?: boolean
   prefix?: string
   mode: 'ssr' | 'csr'
@@ -77,6 +77,21 @@ export interface IConfig {
   reactServerEntry: string
   reactClientEntry: string
   isVite: boolean
+  viteConfig?: () => {
+    common?: {
+      alias?: Record<string, string>
+    }
+    client?: {
+      defaultPluginOptions?: any
+      define?: Record<string, any>
+      extraPlugin?: any[]
+    }
+    server?: {
+      defaultPluginOptions?: any
+      define?: Record<string, any>
+      extraPlugin?: any[]
+    }
+  }
 }
 
 export interface proxyOptions {

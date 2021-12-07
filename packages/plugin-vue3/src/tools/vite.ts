@@ -2,13 +2,14 @@ import type { build as BuildType, UserConfig } from 'vite'
 import { loadConfig, chunkNamePlugin, output, manifestPlugin, commonConfig } from 'ssr-server-utils'
 import vuePlugin from '@vitejs/plugin-vue'
 const build: typeof BuildType = require('vite').build
-const { getOutput, vue3ServerEntry, vue3ClientEntry } = loadConfig()
+const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
 const serverConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
-    vuePlugin()
+    vuePlugin({ ...viteConfig?.()?.server?.defaultPluginOptions }),
+    viteConfig?.()?.server?.extraPlugin
   ],
   build: {
     ssr: vue3ServerEntry,
@@ -20,14 +21,16 @@ const serverConfig: UserConfig = {
     }
   },
   define: {
-    __isBrowser__: false
+    __isBrowser__: false,
+    ...viteConfig?.()?.server?.define
   }
 }
 
 const clientConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
-    vuePlugin()
+    vuePlugin(...viteConfig?.()?.client?.defaultPluginOptions),
+    viteConfig?.()?.client?.extraPlugin
   ],
   build: {
     ssrManifest: true,
@@ -39,7 +42,8 @@ const clientConfig: UserConfig = {
     }
   },
   define: {
-    __isBrowser__: true
+    __isBrowser__: true,
+    ...viteConfig?.()?.client?.define
   }
 }
 const viteStart = async () => {

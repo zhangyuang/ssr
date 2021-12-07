@@ -149,7 +149,9 @@ module.exports = {
 - 类型: `RegExp[]|string[]`
 - 默认: `[/\.(css|less|sass|scss)$/]`
 
-处理 `server` 端构建模块时，我们默认会对所有的第三方模块使用 `externals` 模式，即不在构建时用 `Webpack` 处理，运行时直接从 `node_modules` 中加载具体模块，但对于一些只提供了 `esm` 格式的模块，或者是非 `Node.js` 环境能直接执行的文件，例如 `jsx|less|sass|css` 等类型的文件会发生运行错误，针对这种类型的特殊模块我们提供了白名单配置，设置服务端构建配置 `externals` 的白名单，即需要让 `Webpack` 来处理的模块
+新增功能：同时支持 `Vite/Webpack` 模式下设置， Vite 模式下只能够为 `string[]` 等价于 `vite.ssr.noexternal`
+
+处理 `server` 端构建模块时，我们默认会对所有的第三方模块使用 `externals` 模式，即不在构建时用 `Webpack` 处理，运行时直接从 `node_modules` 中加载具体模块，但对于一些只提供了 `esm` 格式的模块，或者是非 `Node.js` 环境能直接执行的文件，例如 `jsx|less|sass|css` 等类型的文件会发生运行错误，针对这种类型的特殊模块我们提供了白名单配置，设置服务端构建配置 `externals` 的白名单，即需要让 `Webpack` 来处理的模块.
 
 ## prefix🤔 
 
@@ -451,6 +453,34 @@ module.exports {
 
 ```
 
+## viteConfig
+
+在 `vite` 模式下的 `config` 配置
+
+- 类型
+
+```js
+export type viteConfig? = () => {
+  // 这里以函数返回值的形式获取配置，参考注意事项，只在本地开发和构建阶段使用到的依赖在函数内部引入，防止生产环境引入导致拖慢速度
+  common?: {
+    alias?: Record<string, string> // 双端通用 alias
+  }
+  client?: {
+    // 只在客户端生效的配置
+    defaultPluginOptions?: any // 默认使用的 vite 前端框架插件的配置，vue3 场景为 @vitejs/plugin-vue， react场景为 @vitejs/plugin-react 查看对应文档获取类型 https://vitejs.dev/plugins/
+    define?: Record<string, any>
+    extraPlugin?: any[] // 需要使用的额外插件
+  }
+  server?: {
+    // 只在服务端生效的配置
+    defaultPluginOptions?: any
+    define?: Record<string, any>
+    extraPlugin?: any[]
+  }
+}
+```
+
+为了防止用户的配置覆盖框架默认的必要配置导致启动构建失败，所以这里我们暂时只会开放部分配置让开发者使用，若无法满足你的需求，可以提 `issue` 来反馈，我们会根据实际情况新增配置项
 ## 注意事项
 
 1. 由于 `config.js` 文件在 Node.js 环境也会被加载，如果直接在顶部 `require` 模块可能会导致模块`体积过大`，降低应用启动速度，我们建议在必要的函数当中再 `require` 需要用到的模块。

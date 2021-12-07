@@ -71,9 +71,9 @@ const output: OutputOptions = {
   }
 }
 type SSR = 'ssr'
-
+const noExternalArr: string[] = []
 const commonConfig = (): UserConfig => {
-  const { prefix } = loadConfig()
+  const { prefix, whiteList, viteConfig } = loadConfig()
   return {
     root: cwd,
     base: prefix,
@@ -83,12 +83,14 @@ const commonConfig = (): UserConfig => {
     },
     // @ts-expect-error
     ssr: {
-      external: ['serialize-javascript', 'ssr-server-utils']
+      external: ['serialize-javascript', 'ssr-server-utils'],
+      noExternal: noExternalArr.concat(whiteList as string[] || [])
     },
     resolve: {
       alias: {
         '@': resolve(cwd, './web'),
-        _build: resolve(cwd, './build')
+        _build: resolve(cwd, './build'),
+        ...viteConfig?.()?.common?.alias
       },
       extensions: ['.mjs', '.ts', '.jsx', '.tsx', '.json', '.vue', '.js']
     }

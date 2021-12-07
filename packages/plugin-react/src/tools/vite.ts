@@ -2,15 +2,17 @@ import type { build as BuildType, UserConfig } from 'vite'
 import { loadConfig, chunkNamePlugin, output, manifestPlugin, commonConfig } from 'ssr-server-utils'
 import react from '@vitejs/plugin-react'
 const build: typeof BuildType = require('vite').build
-const { getOutput, reactServerEntry, reactClientEntry } = loadConfig()
+const { getOutput, reactServerEntry, reactClientEntry, viteConfig } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
 const serverConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
     react({
+      ...viteConfig?.()?.server?.defaultPluginOptions,
       jsxRuntime: 'classic'
-    })
+    }),
+    viteConfig?.()?.server?.extraPlugin
   ],
   build: {
     ssr: reactServerEntry,
@@ -22,7 +24,8 @@ const serverConfig: UserConfig = {
     }
   },
   define: {
-    __isBrowser__: false
+    __isBrowser__: false,
+    ...viteConfig?.()?.server?.define
   }
 }
 
@@ -33,8 +36,10 @@ const clientConfig: UserConfig = {
   },
   plugins: [
     react({
+      ...viteConfig?.()?.client?.defaultPluginOptions,
       jsxRuntime: 'classic'
-    })
+    }),
+    viteConfig?.()?.client?.extraPlugin
   ],
   build: {
     ssrManifest: true,
@@ -46,7 +51,8 @@ const clientConfig: UserConfig = {
     }
   },
   define: {
-    __isBrowser__: true
+    __isBrowser__: true,
+    ...viteConfig?.()?.client?.define
   }
 }
 const viteStart = async () => {
