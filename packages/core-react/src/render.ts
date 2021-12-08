@@ -2,6 +2,7 @@ import { resolve } from 'path'
 import { renderToString, renderToNodeStream } from 'react-dom/server'
 import { loadConfig, getCwd, StringToStream, mergeStream2 } from 'ssr-server-utils'
 import { ISSRContext, UserConfig, ExpressContext, IConfig } from 'ssr-types'
+import type { ViteDevServer } from 'vite'
 
 const cwd = getCwd()
 const defaultConfig = loadConfig()
@@ -30,15 +31,15 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
     return `<!DOCTYPE html>${renderToString(serverRes)}`
   }
 }
-
+let viteServer: ViteDevServer|boolean = false
 async function viteRender (ctx: ISSRContext, config: IConfig) {
   const { isDev, chunkName, reactServerEntry } = config
   let serverRes
   if (isDev) {
     const { createServer } = await import('vite')
     const { serverConfig } = await import('ssr-plugin-react')
-    const viteServer = await createServer(serverConfig)
-    const { serverRender } = await viteServer.ssrLoadModule(reactServerEntry)
+    viteServer = !viteServer ? await createServer(serverConfig) : viteServer
+    const { serverRender } = await (viteServer as ViteDevServer).ssrLoadModule(reactServerEntry)
     serverRes = await serverRender(ctx, config)
   } else {
     const serverFile = resolve(cwd, `./build/server/${chunkName}.server.js`)
