@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.19](https://github.com/zhangyuang/ssr/compare/v6.1.18...v6.1.19) (2021-12-08)
+
+
+### Features
+
+* support static file import in vite production environment ([a7d6202](https://github.com/zhangyuang/ssr/commit/a7d62023816a4e954544b0873636290a5c7882aa))
+
+
+
+
+
 ## [6.1.18](https://github.com/zhangyuang/ssr/compare/v6.1.17...v6.1.18) (2021-12-07)
 
 
