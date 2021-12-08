@@ -13,10 +13,10 @@ export const webSiteConfig = {
         label: 'FAQ',
         path: '/docs/features$faq'
       },
-      // {
-      //   label: '发布记录',
-      //   path: '/docs/changelog$index'
-      // },
+      {
+        label: '发布记录',
+        path: '/docs/changelog$index'
+      },
       {
         label: '依赖升级',
         path: '/docs/update$index'
