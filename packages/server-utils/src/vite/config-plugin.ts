@@ -10,6 +10,8 @@ import { getCwd } from '../cwd'
 
 const webpackCommentRegExp = /webpackChunkName:\s"(.*)?"/
 const chunkNameRe = /chunkName=(.*)/
+const imageRegExp = /\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/
+const fontRegExp = /\.(eot|woff|woff2|ttf)(\?.*)?$/
 const cwd = getCwd()
 
 const chunkNamePlugin = function (): Plugin {
@@ -57,6 +59,9 @@ const output: OutputOptions = {
   assetFileNames: (assetInfo) => {
     if (assetInfo.name?.includes('client-entry')) {
       return 'Page.[hash].chunk.[ext]'
+    }
+    if (assetInfo.name && (imageRegExp.test(assetInfo.name) || fontRegExp.test(assetInfo.name))) {
+      return 'assets/[name].[hash].[ext]'
     }
     return '[name].[hash].chunk.[ext]'
   },
