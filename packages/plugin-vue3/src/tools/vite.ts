@@ -1,6 +1,7 @@
 import type { build as BuildType, UserConfig } from 'vite'
 import { loadConfig, chunkNamePlugin, output, manifestPlugin, commonConfig } from 'ssr-server-utils'
 import vuePlugin from '@vitejs/plugin-vue'
+import styleImport from 'vite-plugin-style-import'
 const build: typeof BuildType = require('vite').build
 const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
@@ -9,7 +10,18 @@ const serverConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
     vuePlugin(viteConfig?.()?.server?.defaultPluginOptions),
-    viteConfig?.()?.server?.extraPlugin
+    viteConfig?.()?.server?.extraPlugin,
+    styleImport({
+      libs: [
+        {
+          libraryName: 'vant',
+          esModule: true,
+          resolveStyle: (name) => {
+            return `vant/es/${name}/style/index`
+          }
+        }
+      ]
+    })
   ],
   build: {
     ssr: vue3ServerEntry,
@@ -30,7 +42,18 @@ const clientConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
     vuePlugin(viteConfig?.()?.client?.defaultPluginOptions),
-    viteConfig?.()?.client?.extraPlugin
+    viteConfig?.()?.client?.extraPlugin,
+    styleImport({
+      libs: [
+        {
+          libraryName: 'vant',
+          esModule: true,
+          resolveStyle: (name) => {
+            return `vant/es/${name}/style/index`
+          }
+        }
+      ]
+    })
   ],
   build: {
     ssrManifest: true,
