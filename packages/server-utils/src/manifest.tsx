@@ -15,7 +15,7 @@ const getManifest = async (config: IConfig): Promise<Record<string, string>> => 
   const cwd = getCwd()
   if (isDev) {
     if (!isVite) {
-      const res = await instance.get(`${https ? 'https' : 'http'}://localhost:${fePort}${manifestPath}`)
+      const res = await instance.get(`${https ? 'https' : 'http'}://0.0.0.0:${fePort}${manifestPath}`)
       manifest = res.data
     }
   } else {
