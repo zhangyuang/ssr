@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.21](https://github.com/zhangyuang/ssr/compare/v6.1.20...v6.1.21) (2021-12-09)
+
+**Note:** Version bump only for package ssr-core-react
+
+
+
+
+
 ## [6.1.20](https://github.com/zhangyuang/ssr/compare/v6.1.19...v6.1.20) (2021-12-08)
 
 
