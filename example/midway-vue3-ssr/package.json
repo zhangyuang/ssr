@@ -8,8 +8,6 @@
     "egg": "^2.0.0",
     "egg-scripts": "^2.10.0",
     "ssr-core-vue3": "^6.0.0",
-    "serialize-javascript": "^6.0.0",
-    "ssr-server-utils": "^6.0.0",
     "ssr-types": "^6.0.0",
     "swiper": "6.7.5",
     "vue": "^3.0.0",

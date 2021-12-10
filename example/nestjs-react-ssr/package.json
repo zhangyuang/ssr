@@ -14,8 +14,6 @@
     "rxjs": "^6.6.3",
     "ssr-core-react": "^6.0.0",
     "ssr-types-react": "^6.0.0",
-    "serialize-javascript": "^6.0.0",
-    "ssr-server-utils": "^6.0.0",
     "swiper": "6.7.5",
     "cross-env": "^7.0.0"
   },

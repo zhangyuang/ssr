@@ -66,7 +66,7 @@ const rollupOutputOptions: OutputOptions = {
     return '[name].[hash].chunk.[ext]'
   },
   manualChunks: (id: string) => {
-    if (id.includes('node_modules') && id.includes('.js')) {
+    if (id.includes('node_modules') && id.includes('.js') && !id.includes('client-entry')) {
       return 'vendor'
     }
 
@@ -85,6 +85,13 @@ const commonConfig = (): UserConfig => {
     mode: 'development',
     server: {
       middlewareMode: 'ssr' as SSR
+    },
+    css: {
+      preprocessorOptions: {
+        less: {
+          javascriptEnabled: true
+        }
+      }
     },
     // @ts-expect-error
     ssr: {

@@ -198,8 +198,6 @@ const __vite_ssr_import_0__ = await __vite_ssr_import__("semver");
 ```json
 "dependencies": {
     "ssr-core-vue3": "^5.0.0",
-    "serialize-javascript": "^6.0.0",
-    "ssr-server-utils": "^6.0.0",
     "ssr-types": "^5.0.0",
     "swiper": "6.7.5",
     "vue": "^3.0.0",
@@ -225,13 +223,9 @@ config.static = {
 app.useStaticAssets(join(getCwd(), './build/client'))
 ```
 
-- `package.json` 新增 `ssr build --vite` 相关脚本, `dependencies` 中显式添加 
+- `package.json` 新增 `ssr build --vite` 相关脚本
 
 ```json
-"dependencies": {
-  "serialize-javascript": "^6.0.0",
-  "ssr-server-utils": "^6.0.0",
-},
 "scripts": {
   "prod:vite": "ssr build --vite && cross-env BUILD_TOOL=vite egg-scripts start --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
   "stop": "egg-scripts stop --title=midway-server-my_midway_project",
