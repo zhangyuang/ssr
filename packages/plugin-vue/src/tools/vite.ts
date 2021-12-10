@@ -1,5 +1,5 @@
 import type { build as BuildType, UserConfig } from 'vite'
-import { loadConfig, chunkNamePlugin, output, manifestPlugin, commonConfig } from 'ssr-server-utils'
+import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig } from 'ssr-server-utils'
 import { createVuePlugin } from 'vite-plugin-vue2'
 const build: typeof BuildType = require('vite').build
 const { getOutput, vueServerEntry, vueClientEntry } = loadConfig()
@@ -34,7 +34,7 @@ const clientConfig: UserConfig = {
     outDir: clientOutPut,
     rollupOptions: {
       input: vueClientEntry,
-      output: output,
+      output: rollupOutputOptions,
       plugins: [chunkNamePlugin(), manifestPlugin()]
     }
   },

@@ -53,7 +53,7 @@ const manifestPlugin = (): Plugin => {
   }
 }
 
-const output: OutputOptions = {
+const rollupOutputOptions: OutputOptions = {
   entryFileNames: 'Page.[hash].chunk.js',
   chunkFileNames: '[name].[hash].chunk.js',
   assetFileNames: (assetInfo) => {
@@ -104,6 +104,6 @@ const commonConfig = (): UserConfig => {
 export {
   chunkNamePlugin,
   manifestPlugin,
-  output,
+  rollupOutputOptions,
   commonConfig
 }
