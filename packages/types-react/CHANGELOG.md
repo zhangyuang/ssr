@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.22](https://github.com/zhangyuang/ssr/compare/v6.1.22-alpha.1...v6.1.22) (2021-12-11)
+
+**Note:** Version bump only for package ssr-types-react
+
+
+
+
+
 ## [6.1.18](https://github.com/zhangyuang/ssr/compare/v6.1.17...v6.1.18) (2021-12-07)
 
 **Note:** Version bump only for package ssr-types-react
