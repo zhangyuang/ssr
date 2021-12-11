@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.22-alpha.1](https://github.com/zhangyuang/ssr/compare/v6.1.22-alpha.0...v6.1.22-alpha.1) (2021-12-11)
+
+
+### Features
+
+* support vite-style-import ([62d936b](https://github.com/zhangyuang/ssr/commit/62d936b62dd47365be8eb27564628adc139b619d))
+
+
+
+
+
 ## [6.1.22-alpha.0](https://github.com/zhangyuang/ssr/compare/v6.1.21...v6.1.22-alpha.0) (2021-12-10)
 
 
