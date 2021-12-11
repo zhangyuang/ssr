@@ -1,10 +1,26 @@
 import type { build as BuildType, UserConfig } from 'vite'
 import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig } from 'ssr-server-utils'
 import react from '@vitejs/plugin-react'
+import styleImport, {
+  AndDesignVueResolve,
+  VantResolve,
+  ElementPlusResolve,
+  NutuiResolve,
+  AntdResolve
+} from 'vite-plugin-style-import'
+
 const build: typeof BuildType = require('vite').build
 const { getOutput, reactServerEntry, reactClientEntry, viteConfig } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
-
+const styleImportConfig = {
+  include: ['**/*.vue', '**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx', /chunkName/],
+  resolves: [
+    AndDesignVueResolve(),
+    VantResolve(),
+    ElementPlusResolve(),
+    NutuiResolve(),
+    AntdResolve()]
+}
 const serverConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
@@ -12,7 +28,9 @@ const serverConfig: UserConfig = {
       ...viteConfig?.()?.server?.defaultPluginOptions,
       jsxRuntime: 'classic'
     }),
-    viteConfig?.()?.server?.extraPlugin
+    viteConfig?.()?.server?.extraPlugin,
+    styleImport(styleImportConfig)
+
   ],
   build: {
     ssr: reactServerEntry,
@@ -39,7 +57,8 @@ const clientConfig: UserConfig = {
       ...viteConfig?.()?.client?.defaultPluginOptions,
       jsxRuntime: 'classic'
     }),
-    viteConfig?.()?.client?.extraPlugin
+    viteConfig?.()?.client?.extraPlugin,
+    styleImport(styleImportConfig)
   ],
   build: {
     ssrManifest: true,

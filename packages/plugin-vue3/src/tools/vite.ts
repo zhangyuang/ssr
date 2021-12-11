@@ -1,27 +1,32 @@
 import type { build as BuildType, UserConfig } from 'vite'
 import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig } from 'ssr-server-utils'
 import vuePlugin from '@vitejs/plugin-vue'
-import styleImport from 'vite-plugin-style-import'
+import styleImport, {
+  AndDesignVueResolve,
+  VantResolve,
+  ElementPlusResolve,
+  NutuiResolve,
+  AntdResolve
+} from 'vite-plugin-style-import'
 const build: typeof BuildType = require('vite').build
 const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
+const styleImportConfig = {
+  include: ['**/*.vue', '**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx', /chunkName/],
+  resolves: [
+    AndDesignVueResolve(),
+    VantResolve(),
+    ElementPlusResolve(),
+    NutuiResolve(),
+    AntdResolve()]
+}
 
 const serverConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
     vuePlugin(viteConfig?.()?.server?.defaultPluginOptions),
     viteConfig?.()?.server?.extraPlugin,
-    styleImport({
-      libs: [
-        {
-          libraryName: 'vant',
-          esModule: true,
-          resolveStyle: (name) => {
-            return `vant/es/${name}/style/index`
-          }
-        }
-      ]
-    })
+    styleImport(styleImportConfig)
   ],
   build: {
     ssr: vue3ServerEntry,
@@ -43,17 +48,7 @@ const clientConfig: UserConfig = {
   plugins: [
     vuePlugin(viteConfig?.()?.client?.defaultPluginOptions),
     viteConfig?.()?.client?.extraPlugin,
-    styleImport({
-      libs: [
-        {
-          libraryName: 'vant',
-          esModule: true,
-          resolveStyle: (name) => {
-            return `vant/es/${name}/style/index`
-          }
-        }
-      ]
-    })
+    styleImport(styleImportConfig)
   ],
   build: {
     ssrManifest: true,
