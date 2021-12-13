@@ -92,7 +92,8 @@ const commonConfig = (): UserConfig => {
         less: {
           javascriptEnabled: true,
           ...css?.().loaderOptions?.less
-        }
+        },
+        scss: css?.().loaderOptions?.scss ?? {}
       }
     },
     // @ts-expect-error
