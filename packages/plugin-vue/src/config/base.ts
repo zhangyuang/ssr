@@ -58,7 +58,7 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
 
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, corejs, ssrVueLoaderOptions, csrVueLoaderOptions, babelExtraModule } = config
+  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, corejs, ssrVueLoaderOptions, csrVueLoaderOptions, babelExtraModule, alias } = config
 
   let vueLoaderOptions = {
     babelParserPlugins: ['jsx', 'classProperties', 'decorators-legacy']
@@ -108,6 +108,11 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .set('_build', join(getCwd(), './build'))
     .set('vue$', 'vue/dist/vue.runtime.esm.js')
     .end()
+
+  alias && Object.keys(alias).forEach(item => {
+    chain.resolve.alias
+      .set(item, alias[item])
+  })
 
   addImageChain(chain, isServer)
 

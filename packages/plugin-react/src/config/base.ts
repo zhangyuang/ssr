@@ -45,7 +45,7 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
 }
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, corejs, babelExtraModule } = config
+  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, corejs, babelExtraModule, alias } = config
   const mode = process.env.NODE_ENV as Mode
   const envOptions = {
     modules: false
@@ -81,6 +81,11 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .set('react', loadModule('react')) // 用cwd的路径alias，否则可能会出现多个react实例
     .set('react-router', loadModule('react-router'))
     .set('react-router-dom', loadModule('react-router-dom'))
+
+  alias && Object.keys(alias).forEach(item => {
+    chain.resolve.alias
+      .set(item, alias[item])
+  })
 
   addImageChain(chain, isServer)
 

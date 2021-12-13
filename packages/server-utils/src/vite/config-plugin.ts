@@ -78,7 +78,7 @@ const rollupOutputOptions: OutputOptions = {
 type SSR = 'ssr'
 const noExternalArr: string[] = []
 const commonConfig = (): UserConfig => {
-  const { prefix, whiteList, viteConfig } = loadConfig()
+  const { prefix, whiteList, alias } = loadConfig()
   return {
     root: cwd,
     base: prefix,
@@ -102,7 +102,7 @@ const commonConfig = (): UserConfig => {
       alias: {
         '@': resolve(cwd, './web'),
         _build: resolve(cwd, './build'),
-        ...viteConfig?.()?.common?.alias
+        ...alias
       },
       extensions: ['.mjs', '.ts', '.jsx', '.tsx', '.json', '.vue', '.js']
     }

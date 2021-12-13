@@ -11,6 +11,7 @@ export type Script = Array<{
 }>
 export interface IConfig {
   cwd: string
+  alias?: Record<string, string>
   isDev: boolean
   dynamic: boolean
   publicPath: string
@@ -79,7 +80,7 @@ export interface IConfig {
   isVite: boolean
   viteConfig?: () => {
     common?: {
-      alias?: Record<string, string>
+
     }
     client?: {
       defaultPluginOptions?: any
