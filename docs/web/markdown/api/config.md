@@ -1,8 +1,8 @@
 # 应用配置
 
-注:在最新的 `example` 中我们支持 `ts` 文件来编写 `config` 以便获取更加完善的类型支持。同时结合本文档一起使用，减少出错的可能性
+注: 在最新的 `example` 中我们支持 `ts` 文件来编写 `config` 以便获取更加完善的类型支持。同时结合本文档一起使用，减少出错的可能性。如果你发现文档滞后或是已有配置无法满足需求。请提 `issue`
 
-本章节将介绍 `config.ts|js` 支持的一些配置。了解详细的配置可以直接查看该[文件](https://github.com/zhangyuang/ssr/blob/dev/packages/server-utils/src/loadConfig.ts)
+本章节将介绍 `config.ts|js` 支持的一些配置。了解详细的配置可以直接查看该[文件](https://github.com/zhangyuang/ssr/blob/dev/packages/types/src/config.ts)
 
 配置文件可通过 `config.ts|js` 文件定义以及调用 `core.render` 方法时实时传入。会将两者配置进行合并
 
@@ -20,6 +20,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 - 类型: `string`
 - 默认: `ssr`
+- 生效场景: `Webpack/Vite` 
 
 通过渲染模式来决定当前应用采用服务端渲染还是客户端渲染
 
@@ -27,13 +28,22 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 - 类型: `boolean`
 - 默认: `false`
+- 生效场景: `Webpack/Vite` 
 
 是否将组件编译为 `stream` 进行返回来加快展现速度。默认为 `false`, 即返回普通 `html` 字符串
 
+## alias
+
+- 类型: `Record<string, string>`
+- 默认: `undefined`
+- 生效场景: `Webpack/Vite` 
+
+配置 `alias` 别名
 ## isDev
 
 - 类型: `boolean`
 - 默认: `false`
+- 生效场景: `Webpack/Vite` 
 
 标志当前运行环境，根据 `NODE_ENV === development` 判断
 
@@ -41,6 +51,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 - 类型: `string`
 - 默认: `/`
+- 生效场景: `Webpack/Vite` 
 
 静态资源的 `publicPath`, 本地开发环境一般无需配置。生产环境若走本地静态资源目录也无需配置。若需要走单独的 `CDN` 服务部署可配置为具体的 `CDN` 地址例如 `https://g.alicdn.com/path/xxx`
 
@@ -48,6 +59,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 - 类型: `boolean`
 - 默认: `true`
+- 生效场景: `Webpack` 
 
 构建产物是否带有 `hash`，默认生产环境开启，不建议关闭
 
@@ -55,6 +67,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 - 类型: `number`
 - 默认: `3000`
+- 生效场景: `Webpack/Vite` 
 
 本地开发时 `Node.js` 服务启动监听的端口, 也可以通过环境变量指定 `SERVER_PORT=9000 ssr start`
 
@@ -62,6 +75,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 - 类型: `number`
 - 默认: `8888`
+- 生效场景: `Webpack` 
 
 本地开发时 `webpack-dev-server` 托管前端静态资源的端口，`Node.js Server` 会自动 `proxy` 静态资源, 无特殊需求不需要修改
 
@@ -69,6 +83,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 - 类型: `string`
 - 默认: `Page`
+- 生效场景: `Webpack` 
 
 静态资源构建时默认的 `entry` 名, 默认为 `Page`。无特殊需求不需要修改
 
@@ -76,6 +91,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 - 类型: `string[]`
 - 默认: `[]`
+- 生效场景: `Webpack/Vite` 
 
 需要额外初始化加载的 `js chunk name`，通常配合 `splitChunks` 配置一起使用, 若生成其他 `name` 的 `chunk` 开发者可通过 `http://localhost:3000/asset-manifest.json` 文件查看具体的 `chunkName`
 
@@ -90,6 +106,7 @@ module.exports = {
 
 - 类型: `string[]`
 - 默认: `[]`
+- 生效场景: `Webpack/Vite` 
 
 需要额外初始化加载的 `css chunk name`，通常配合 `splitChunks` 配置一起使用
 
@@ -103,6 +120,7 @@ module.exports = {
 
 - 类型: `webpackDevServer.Configuration`
 - 默认: `见文章上方具体配置文件`
+- 生效场景: `Webpack` 
 
 `webpack-dev-server` 启动配置
 
@@ -110,6 +128,7 @@ module.exports = {
 
 - 类型: `(config: WebpackChain) => void`
 - 默认: [React](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-react/src/config/base.ts) [Vue](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue/src/config/base.ts) [Vue3](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/config/base.ts)
+- 生效场景: `Webpack` 
 
 使用 [webpack-chain](https://github.com/neutrinojs/webpack-chain) 来修改 `服务端/客户端` 公共的 `Webpack` 构建配置。
 
@@ -134,6 +153,7 @@ module.exports = {
 
 - 类型: `(config: WebpackChain) => void`
 - 默认: [React](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-react/src/config/server.ts) [Vue](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue/src/config/server.ts) [Vue3](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/config/server.ts)
+- 生效场景: `Webpack` 
 
 使用 [webpack-chain](https://github.com/neutrinojs/webpack-chain) 来修改 `服务端` 公共的 `Webpack` 构建配置
 
@@ -141,6 +161,7 @@ module.exports = {
 
 - 类型: `(config: WebpackChain) => void`
 - 默认: [React](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-react/src/config/client.ts) [Vue](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue/src/config/client.ts) [Vue3](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/config/client.ts)
+- 生效场景: `Webpack` 
 
 使用 [webpack-chain](https://github.com/neutrinojs/webpack-chain) 来修改 `客户端` 公共的 `Webpack` 构建配置
 
@@ -148,8 +169,9 @@ module.exports = {
 
 - 类型: `RegExp[]|string[]`
 - 默认: `[/\.(css|less|sass|scss)$/]`
+- 生效场景: `Webpack/Vite` 
 
-新增功能：同时支持 `Vite/Webpack` 模式下设置， Vite 模式下只能够为 `string[]` 等价于 `vite.ssr.noexternal`
+新增功能：同时支持 `Vite/Webpack` 模式下设置，等价于 `vite.ssr.noexternal`
 
 处理 `server` 端构建模块时，我们默认会对所有的第三方模块使用 `externals` 模式，即不在构建时用 `Webpack` 处理，运行时直接从 `node_modules` 中加载具体模块，但对于一些只提供了 `esm` 格式的模块，或者是非 `Node.js` 环境能直接执行的文件，例如 `jsx|less|sass|css` 等类型的文件会发生运行错误，针对这种类型的特殊模块我们提供了白名单配置，设置服务端构建配置 `externals` 的白名单，即需要让 `Webpack` 来处理的模块.
 
@@ -157,6 +179,7 @@ module.exports = {
 
 - 类型: `string|undefined`
 - 默认: `undefined`
+- 生效场景: `Webpack/Vite`
 
 为前端路由添加统一的 `prefix`, 如 `/${prefix}/`, `/${prefix}/detail/:id`。在功能上等价于 `React-Router` 提供的 `basename` 以及 `Vue-Router` 提供的 `base` 选项。  
 同样在设置完该参数后，前端路由的跳转操作都会添加该前缀
@@ -165,6 +188,7 @@ module.exports = {
 
 - 类型: `object`
 - 默认: `{}`
+- 生效场景: `Webpack/Vite` 
 
 底层使用 [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware) 来进行代理，框架只是单纯透传参数， 具体配置查看 `http-proxy-middleware` 文档即可
 
@@ -183,6 +207,7 @@ module.exports = {
 
 - 类型: `boolean`
 - 默认: `userConfig.https ? userConfig.https : !!process.env.HTTPS`
+- 生效场景: `Webpack/Vite` 
 
 是否开启底层 `webpack-dev-server` 的 `https` 模式，需配合 `3000` 端口的 `Node.js` 的 `https` 服务同步使用。设置为 `true` 将使用默认的自签名证书。当此证书无法被信任时，也可以自行传递与 `Node.js` 服务端一致的证书配置。
 
@@ -201,14 +226,15 @@ module.exports = {
 
 - 类型: `boolean`
 - 默认: `true`
+- 生效场景: `Webpack` 
 
 是否开启代码分割，默认开启, Vite 模式下必须开启
-
 
 ## customeHeadScript
 
 - 类型: `Array<{describe: object, content: string }>|(ctx: ISSRContext) => Array<{describe: object, content: string }>`
 - 默认: `[]`
+- 生效场景: `Webpack/Vite` 
 
 仅在 `Vue` 场景下使用, 这里最新版本支持两种类型，可根据当前请求上下文输出不同的脚本内容，常用于动态 [prefix](./features$faq#动态路由前缀) 场景
 
@@ -258,6 +284,7 @@ module.exports = {
 
 - 类型: `Array<{describe: object, content: string }>|(ctx: ISSRContext) => Array<{describe: object, content: string }>`
 - 默认: `[]`
+- 生效场景: `Webpack/Vite` 
 
 仅在 `Vue` 场景下使用, 意义同上。在页面底部加载的静态资源文件。需要配合 `<slot name="customeFooterScript" />` 使用。若当前 `example` 是之前创建的 `layout/index.vue` 不存在该 `slot` 的话需要手动添加
 
@@ -285,16 +312,21 @@ module.exports = {
 
 - 默认: `() => {}`
 
+- 生效场景: `Webpack/Vite` 
+
 用于添加用户自定义配置 `css-loader` `less-loader` 以及 `postcss-loader` 的配置，需要用 `函数 return` 的形式
 
 ## parallelFetch
 
 - 类型: `boolean`
 - 默认: `undefined`
+- 生效场景: `Webpack/Vite` 
 
 开启后在服务端获取数据时会并行请求 `layout fetch` 与 `page fetch`。若 `page fetch` 的请求依赖 `layout fetch` 的返回。请不要使用该选项
 
 ### antd 定制主题
+
+- 生效场景: `Webpack/Vite` 
 
 参考 `antd` 官方[文档](https://ant.design/docs/react/customize-theme-cn#%E5%AE%9A%E5%88%B6%E6%96%B9%E5%BC%8F), 在 `ssr` 框架中默认使用 `less-loader@^7.0.0` 采用如下配置, 需要 `ssr` 框架 `version >=5.5.21`
 
@@ -325,6 +357,8 @@ css: () => {
 
 - version: `>=5.5.23`
 
+- 生效场景: `Webpack/Vite` 
+
 构建服务端 `bundle` 时的 [vue-loader](https://vue-loader.vuejs.org/options.html) 选项
 ## csrVueLoaderOptions
 
@@ -334,6 +368,8 @@ css: () => {
 
 - version: `>=5.5.23`
 
+- 生效场景: `Webpack/Vite` 
+
 构建客户端 `bundle` 时的 [vue-loader](https://vue-loader.vuejs.org/options.html) 选项
 
 ## locale
@@ -342,6 +378,8 @@ css: () => {
 
 - 默认: `{ enable: false }`
 
+- 生效场景: `Webpack` 
+
 是否启用 `vue-i18n` 国际化插件
 
 ## corejs
@@ -349,6 +387,8 @@ css: () => {
 - 类型: `boolean`
 
 - 默认: `false`
+
+- 生效场景: `Webpack` 
 
 开启后我们将会在 [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env#corejs) 中追加如下配置。会自动根据当前代码的使用情况注入对应的 `polyfill` 具体表现请查看 `@babel/preset-env` 中相关说明。此选项用于兼容低端浏览器
 
@@ -370,6 +410,8 @@ module.exports = {
 
 - version: `>5.5.45`
 
+- 生效场景: `Webpack` 
+
 框架默认不使用 `babel` 来编译 `node_modules` 中的代码，这会拖慢构建速度，且十分没有必要。一个质量合格的模块应当在发布前对自身进行构建。针对模块质量不合格的特殊情况，我们提供了配置来让开发者指定具体的模块参与 `babel` 编译
 
 ```js
@@ -388,6 +430,8 @@ module.exports = {
 
 - version: `>5.5.89`
 
+- 生效场景: `Webpack/Vite` 
+
 ```js
 module.exports = {
   routerPriority: {
@@ -405,6 +449,8 @@ module.exports = {
 
 - 默认: `undefined`
 
+- 生效场景: `Webpack/Vite` 
+
 
 ```js
 module.exports = {
@@ -421,6 +467,8 @@ module.exports = {
 - 默认: `undefined`
 
 - version: `>=5.6.4`
+
+- 生效场景: `Webpack/Vite` 
 
 
 ```js
@@ -441,6 +489,8 @@ module.exports = {
 - 默认: `undefined`
 
 - version: `>=5.6.12`
+
+- 生效场景: `Webpack/Vite` 
 
 ```js
 module.exports {
@@ -463,7 +513,7 @@ module.exports {
 export type viteConfig? = () => {
   // 这里以函数返回值的形式获取配置，参考注意事项，只在本地开发和构建阶段使用到的依赖在函数内部引入，防止生产环境引入导致拖慢速度
   common?: {
-    alias?: Record<string, string> // 双端通用 alias
+    // 双端通用配置，暂无
   }
   client?: {
     // 只在客户端生效的配置
@@ -479,6 +529,8 @@ export type viteConfig? = () => {
   }
 }
 ```
+
+- 生效场景: `Webpack` 
 
 为了防止用户的配置覆盖框架默认的必要配置导致启动构建失败，所以这里我们暂时只会开放部分配置让开发者使用，若无法满足你的需求，可以提 `issue` 来反馈，我们会根据实际情况新增配置项
 ## 注意事项

@@ -32,9 +32,10 @@ export interface IConfig {
   css?: () => {
     loaderOptions?: {
       cssOptions?: any
-      less?: any
-      sass?: any
-      postcss?: {
+      less?: any // both vite and webpack
+      sass?: any // only webpack
+      scss?: any // only vite
+      postcss?: { // both vite and webpack
         options: any
         plugins: any[]
       }
