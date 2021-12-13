@@ -8,6 +8,9 @@
         <h2 class="desc">
           {{ firstFloor.desc }}
         </h2>
+         <h4 class="desc" >
+          {{ firstFloor.subtitle }}
+        </h4>
         <div class="media-wrapper weui-flex justify-align">
           <div class="button-wrapper weui-flex justify-align">
             <router-link
