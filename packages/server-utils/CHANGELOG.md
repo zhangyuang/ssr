@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.24](https://github.com/zhangyuang/ssr/compare/v6.1.23...v6.1.24) (2021-12-13)
+
+
+### Features
+
+* support more vite config ([4ee37a8](https://github.com/zhangyuang/ssr/commit/4ee37a8bb758d3ea9a70dac7f5d566727dca48be))
+
+
+
+
+
 ## [6.1.23](https://github.com/zhangyuang/ssr/compare/v6.1.22...v6.1.23) (2021-12-13)
 
 
