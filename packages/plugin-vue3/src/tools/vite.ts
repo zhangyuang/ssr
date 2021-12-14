@@ -1,6 +1,7 @@
 import type { build as BuildType, UserConfig } from 'vite'
 import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig } from 'ssr-server-utils'
 import vuePlugin from '@vitejs/plugin-vue'
+import vueJSXPlugin from '@vitejs/plugin-vue-jsx'
 import styleImport, {
   AndDesignVueResolve,
   VantResolve,
@@ -25,6 +26,7 @@ const serverConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
     vuePlugin(viteConfig?.()?.server?.defaultPluginOptions),
+    vueJSXPlugin(),
     viteConfig?.()?.server?.extraPlugin,
     styleImport(styleImportConfig)
   ],
