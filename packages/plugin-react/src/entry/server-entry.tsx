@@ -83,7 +83,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   const { resolve } = await import('path')
   const { readFileSync } = await import('fs')
   const Component = isCsr ? React.Fragment : (await component()).default
-  console.log('xxx', readFileSync(resolve(process.cwd(), './build/ssr-temporary-routes.js')))
+  console.log('xxx', readFileSync(resolve(process.cwd(), './build/ssr-temporary-routes.js')).toString())
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
   }
