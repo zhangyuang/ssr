@@ -79,6 +79,7 @@ export interface IConfig {
   reactServerEntry: string
   reactClientEntry: string
   isVite: boolean
+  isCI: boolean
   viteConfig?: () => {
     common?: {
 

@@ -10,7 +10,7 @@ import styleImport, {
   AntdResolve
 } from 'vite-plugin-style-import'
 const build: typeof BuildType = require('vite').build
-const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig } = loadConfig()
+const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig, isCI } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 const styleImportConfig = {
   include: ['**/*.vue', '**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx', /chunkName/],
@@ -19,16 +19,16 @@ const styleImportConfig = {
     VantResolve(),
     ElementPlusResolve(),
     NutuiResolve(),
-    AntdResolve()]
+    AntdResolve()
+  ]
 }
-
 const serverConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
     vuePlugin(viteConfig?.()?.server?.defaultPluginOptions),
-    vueJSXPlugin(),
+    !isCI && vueJSXPlugin(),
     viteConfig?.()?.server?.extraPlugin,
-    styleImport(styleImportConfig)
+    !isCI && styleImport(styleImportConfig)
   ],
   build: {
     ssr: vue3ServerEntry,
@@ -49,8 +49,9 @@ const clientConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
     vuePlugin(viteConfig?.()?.client?.defaultPluginOptions),
+    !isCI && vueJSXPlugin(),
     viteConfig?.()?.client?.extraPlugin,
-    styleImport(styleImportConfig)
+    !isCI && styleImport(styleImportConfig)
   ],
   build: {
     ssrManifest: true,

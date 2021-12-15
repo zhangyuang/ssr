@@ -140,6 +140,45 @@ jobs:
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/react-ssr.spec.js
           browser: chrome
+  e2e-chrome-midway-react-vite:
+    needs: bootstrap
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+        node: ["12"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
+            node_modules
+            packages/**/node_modules
+            example/**/node_modules
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: bindings-${{matrix.node}}
+          path: packages
+      - name: prepare
+        run: yarn run link --react
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example:midway:react:vite
+          wait-on: 'http://localhost:3000'
+          spec: | 
+            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/react-ssr.spec.js
+          browser: chrome
   e2e-chrome-midway-react-dynamic-router:
     needs: bootstrap
     runs-on: ubuntu-latest
@@ -309,7 +348,48 @@ jobs:
           spec: |
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/vue-ssr.spec.js
+          browser: chrome 
+  e2e-chrome-midway-vue3-vite:
+    needs: bootstrap
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+        node: ["12"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
+            node_modules
+            packages/**/node_modules
+            example/**/node_modules
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: bindings-${{matrix.node}}
+          path: packages
+      - name: prepare
+        run: yarn run link --vue3
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example:midway:vue3:vite
+          wait-on: 'http://localhost:3000'
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/vue-ssr.spec.js
           browser: chrome  
+        env:
+          CI_TEST: "true"
   e2e-chrome-nestjs-vue:
     needs: bootstrap
     runs-on: ubuntu-latest

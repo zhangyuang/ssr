@@ -10,7 +10,7 @@ import styleImport, {
 } from 'vite-plugin-style-import'
 
 const build: typeof BuildType = require('vite').build
-const { getOutput, reactServerEntry, reactClientEntry, viteConfig } = loadConfig()
+const { getOutput, reactServerEntry, reactClientEntry, viteConfig, isCI } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 const styleImportConfig = {
   include: ['**/*.vue', '**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx', /chunkName/],
@@ -19,7 +19,8 @@ const styleImportConfig = {
     VantResolve(),
     ElementPlusResolve(),
     NutuiResolve(),
-    AntdResolve()]
+    AntdResolve()
+  ]
 }
 const serverConfig: UserConfig = {
   ...commonConfig(),
@@ -29,8 +30,7 @@ const serverConfig: UserConfig = {
       jsxRuntime: 'classic'
     }),
     viteConfig?.()?.server?.extraPlugin,
-    styleImport(styleImportConfig)
-
+    !isCI && styleImport(styleImportConfig)
   ],
   build: {
     ssr: reactServerEntry,
@@ -58,7 +58,7 @@ const clientConfig: UserConfig = {
       jsxRuntime: 'classic'
     }),
     viteConfig?.()?.client?.extraPlugin,
-    styleImport(styleImportConfig)
+    !isCI && styleImport(styleImportConfig)
   ],
   build: {
     ssrManifest: true,
