@@ -4,19 +4,19 @@ import Player from '@/components/player'
 import Brief from '@/components/brief'
 import Recommend from '@/components/recommend'
 import Search from '@/components/search'
-import { Ddata, RecommendDataNode, PlayerDataNode, BriefDataNode } from '~/typings/data'
+// import { Ddata, RecommendDataNode, PlayerDataNode, BriefDataNode } from '~/typings/data'
 import { STORE_CONTEXT } from '_build/create-context'
 
 export default function Detail (props: SProps) {
-  const { state, dispatch } = useContext<IContext<Ddata>>(STORE_CONTEXT)
+  const { state, dispatch } = useContext<IContext<any>>(STORE_CONTEXT)
   return (
     <div>
       <Search></Search>
       {
         state?.detailData?.data[0].dataNode ? <div>
-          <Player data={state.detailData.data[0].dataNode as PlayerDataNode[]} />
-          <Brief data={state.detailData.data[1].dataNode as BriefDataNode[]} />
-          <Recommend data={state.detailData.data[2].dataNode as RecommendDataNode[]} />
+          <Player data={state.detailData.data[0].dataNode as any[]} />
+          <Brief data={state.detailData.data[1].dataNode as any[]} />
+          <Recommend data={state.detailData.data[2].dataNode as any[]} />
         </div> : <img src='https://gw.alicdn.com/tfs/TB1v.zIE7T2gK0jSZPcXXcKkpXa-128-128.gif' className='loading' />
       }
     </div>
