@@ -82,7 +82,7 @@ jobs:
       - run: yarn run lint
 
   deploy-doc: 
-    if: ${{ contains(github.actor, 'zhangyuang') }}
+    if: ${{ contains(github.actor, 'zhangyuang') && github.ref_name == 'dev'}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
