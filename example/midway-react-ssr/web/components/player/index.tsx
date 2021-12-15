@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { PlayerDataNode } from '~/typings/data'
+import type { PlayerDataNode } from '~/typings/data'
 import styles from './index.module.less'
 
 interface Props {
