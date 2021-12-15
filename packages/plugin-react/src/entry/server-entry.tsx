@@ -81,7 +81,16 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
   const { component, fetch } = routeItem
   const Component = isCsr ? React.Fragment : (await component()).default
-
+  async function foo () {
+    // @ts-expect-error
+    return await import('@/pages/index/render.tsx')
+  }
+  async function bar () {
+    // @ts-expect-error
+    return await import('@/pages/test.tsx')
+  }
+  console.log('xxx', await foo())
+  console.log('xxx', await bar())
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
   }

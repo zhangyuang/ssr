@@ -8,6 +8,7 @@ const loadConfig = (): IConfig => {
   const mode = 'ssr'
   const stream = false
   const isVite = process.env.BUILD_TOOL === 'vite'
+  const isCI = !!process.env.CI_TEST
   const vue3ServerEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js')
   const vue3ClientEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
   const vueServerEntry = join(cwd, './node_modules/ssr-plugin-vue/esm/entry/server-entry.js')
@@ -147,7 +148,8 @@ const loadConfig = (): IConfig => {
     vueClientEntry,
     reactServerEntry,
     reactClientEntry,
-    isVite
+    isVite,
+    isCI
   }, userConfig)
 
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了
