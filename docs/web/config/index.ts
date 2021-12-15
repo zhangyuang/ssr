@@ -31,7 +31,7 @@ export const webSiteConfig = {
     firstFloor: {
       title: '开箱即用的 SSR 框架',
       desc: '面向 Serverless，同时支持 React，Vue2，Vue3，地球上没有对手的 SSR 框架',
-      subtitle: '最丝滑的 Vite SSR 体验，最成熟的 Webpack SSR 支持',
+      subtitle: '同时支持 Webpack/Vite',
       startButton: {
         label: '开始学习',
         path: '/docs/features$started'
