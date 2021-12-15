@@ -76,7 +76,6 @@ const rollupOutputOptions: OutputOptions = {
   }
 }
 type SSR = 'ssr'
-const noExternalArr: string[] = []
 const commonConfig = (): UserConfig => {
   const { prefix, whiteList, alias, css } = loadConfig()
   return {
@@ -99,12 +98,13 @@ const commonConfig = (): UserConfig => {
     // @ts-expect-error
     ssr: {
       external: ['serialize-javascript', 'ssr-server-utils'],
-      noExternal: noExternalArr.concat(whiteList as string[] || [])
+      noExternal: whiteList
     },
     resolve: {
       alias: {
         '@': resolve(cwd, './web'),
         _build: resolve(cwd, './build'),
+        '~': resolve(cwd),
         ...alias
       },
       extensions: ['.mjs', '.ts', '.jsx', '.tsx', '.json', '.vue', '.js']
