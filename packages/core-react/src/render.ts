@@ -41,7 +41,6 @@ async function viteRender (ctx: ISSRContext, config: IConfig) {
     viteServer = !viteServer ? await createServer(serverConfig) : viteServer
     const { serverRender } = await (viteServer as ViteDevServer).ssrLoadModule(reactServerEntry)
     serverRes = await serverRender(ctx, config)
-    console.log('xxx', serverRender, serverRes)
   } else {
     const serverFile = resolve(cwd, `./build/server/${chunkName}.server.js`)
     const { serverRender } = require(serverFile)
