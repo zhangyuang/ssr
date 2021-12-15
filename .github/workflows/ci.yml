@@ -41,7 +41,7 @@ jobs:
             ${{ runner.os }}-v2.5.2-
       - name: Install dependencies
         run: | 
-          yarn && yarn build:only && yarn run build
+          yarn config set registry https://registry.yarnpkg.com/ && yarn && yarn build:only && yarn run build
           node scripts/scripts.js --publishDoc
           cd example/midway-react-ssr && yarn
           cd ../midway-vue-ssr && yarn
