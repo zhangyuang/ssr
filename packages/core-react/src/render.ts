@@ -38,7 +38,6 @@ async function viteRender (ctx: ISSRContext, config: IConfig) {
   if (isDev) {
     const { createServer } = await import('vite')
     const { serverConfig } = await import('ssr-plugin-react')
-    console.log('config', serverConfig)
     viteServer = !viteServer ? await createServer(serverConfig) : viteServer
     const { serverRender } = await (viteServer as ViteDevServer).ssrLoadModule(reactServerEntry)
     serverRes = await serverRender(ctx, config)

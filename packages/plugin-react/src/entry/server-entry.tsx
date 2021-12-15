@@ -81,10 +81,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
   const { component, fetch } = routeItem
   const Component = isCsr ? React.Fragment : (await component()).default
-  const { resolve } = await import('path')
+  const { renderToString } = await import('react-dom/server')
   // @ts-expect-error
-  console.log(await import('@/pages/index/render.tsx'))
-  console.log(await import(resolve('/home/runner/work/ssr/ssr/example/midway-react-ssr/web', './pages/index/render.tsx')))
+  const test = (await import('@/test')).default
+  console.log('xxx', await renderToString(React.createElement(test)))
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
   }
