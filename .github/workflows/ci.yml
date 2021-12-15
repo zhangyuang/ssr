@@ -179,6 +179,8 @@ jobs:
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/react-ssr.spec.js
           browser: chrome
+        env:
+          CI_TEST: "true"
   e2e-chrome-midway-react-dynamic-router:
     needs: bootstrap
     runs-on: ubuntu-latest
