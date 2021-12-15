@@ -85,7 +85,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     // @ts-expect-error
     return await import('@/pages/index/render.tsx')
   }
-  console.log('xxx', await foo())
+  async function bar () {
+    // @ts-expect-error
+    return await import('@/pages/test.tsx')
+  }
+  console.log('xxx', await foo(), await bar())
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
   }
