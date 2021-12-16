@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.25](https://github.com/zhangyuang/ssr/compare/v6.1.24...v6.1.25) (2021-12-16)
+
+
+### Features
+
+* add vite test ([#148](https://github.com/zhangyuang/ssr/issues/148)) ([efce102](https://github.com/zhangyuang/ssr/commit/efce102ebe1be25c1275712042b1ee0e7b088568))
+
+
+
+
+
 ## [6.1.24](https://github.com/zhangyuang/ssr/compare/v6.1.23...v6.1.24) (2021-12-13)
 
 **Note:** Version bump only for package ssr-plugin-react
