@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.28](https://github.com/zhangyuang/ssr/compare/v6.1.25...v6.1.28) (2021-12-16)
+
+
+### Bug Fixes
+
+* alias ([0417457](https://github.com/zhangyuang/ssr/commit/0417457959a8159f045b18d0cd801ef10f1c68c3))
+
+
+
+
+
 ## [6.1.27](https://github.com/zhangyuang/ssr/compare/v6.1.26...v6.1.27) (2021-12-16)
 
 **Note:** Version bump only for package ssr-plugin-vue
