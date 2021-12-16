@@ -8,6 +8,7 @@ import styleImport, {
   NutuiResolve,
   AntdResolve
 } from 'vite-plugin-style-import'
+import { babel } from '@rollup/plugin-babel'
 
 const build: typeof BuildType = require('vite').build
 const { getOutput, reactServerEntry, reactClientEntry, viteConfig, isCI } = loadConfig()
@@ -30,7 +31,13 @@ const serverConfig: UserConfig = {
       jsxRuntime: 'classic'
     }),
     viteConfig?.()?.server?.extraPlugin,
-    !isCI && styleImport(styleImportConfig)
+    !isCI && styleImport(styleImportConfig),
+    isCI && babel({
+      plugins: [
+        '@babel/plugin-proposal-optional-chaining',
+        '@babel/plugin-proposal-nullish-coalescing-operator'
+      ]
+    })
   ],
   build: {
     ssr: reactServerEntry,
