@@ -9,6 +9,7 @@ import styleImport, {
   NutuiResolve,
   AntdResolve
 } from 'vite-plugin-style-import'
+
 const build: typeof BuildType = require('vite').build
 const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
@@ -19,9 +20,9 @@ const styleImportConfig = {
     VantResolve(),
     ElementPlusResolve(),
     NutuiResolve(),
-    AntdResolve()]
+    AntdResolve()
+  ]
 }
-
 const serverConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
@@ -49,6 +50,7 @@ const clientConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
     vuePlugin(viteConfig?.()?.client?.defaultPluginOptions),
+    vueJSXPlugin(),
     viteConfig?.()?.client?.extraPlugin,
     styleImport(styleImportConfig)
   ],

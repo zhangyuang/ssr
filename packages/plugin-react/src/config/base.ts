@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getFeDir, getCwd, loadConfig, getLocalNodeModules, setStyle, addImageChain } from 'ssr-server-utils'
+import { getCwd, loadConfig, getLocalNodeModules, setStyle, addImageChain } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import * as webpack from 'webpack'
 
@@ -75,12 +75,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .end()
     .alias
     .end()
-  chain.resolve.alias
-    .set('@', getFeDir())
-    .set('_build', join(getCwd(), './build'))
-    .set('react', loadModule('react')) // 用cwd的路径alias，否则可能会出现多个react实例
-    .set('react-router', loadModule('react-router'))
-    .set('react-router-dom', loadModule('react-router-dom'))
 
   alias && Object.keys(alias).forEach(item => {
     chain.resolve.alias

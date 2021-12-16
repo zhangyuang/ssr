@@ -8,9 +8,8 @@
       "**/vue",
       "**/vuex",
       "**/vue-router",
-      "**/vue-loader",
       "**/core-js",
-      "**/vite-plugin-style-import"
+      "**/vue-loader"
     ]
   },
   "scripts": {
