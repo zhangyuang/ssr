@@ -10,7 +10,7 @@ import styleImport, {
 } from 'vite-plugin-style-import'
 
 const build: typeof BuildType = require('vite').build
-const { getOutput, reactServerEntry, reactClientEntry, viteConfig } = loadConfig()
+const { getOutput, reactServerEntry, reactClientEntry, viteConfig, isCI } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 const styleImportConfig = {
   include: ['**/*.vue', '**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx', /chunkName/],
@@ -27,13 +27,13 @@ const serverConfig: UserConfig = {
   plugins: [
     react({
       ...viteConfig?.()?.server?.defaultPluginOptions,
-      jsxRuntime: 'classic'
-      // babel: isCI && {
-      //   plugins: [
-      //     '@babel/plugin-proposal-optional-chaining',
-      //     '@babel/plugin-proposal-nullish-coalescing-operator'
-      //   ]
-      // }
+      jsxRuntime: 'classic',
+      babel: isCI && {
+        plugins: [
+          '@babel/plugin-proposal-optional-chaining',
+          '@babel/plugin-proposal-nullish-coalescing-operator'
+        ]
+      }
     }),
     viteConfig?.()?.server?.extraPlugin,
     styleImport(styleImportConfig)
