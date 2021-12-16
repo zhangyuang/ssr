@@ -36,7 +36,7 @@ const serverConfig: UserConfig = {
       }
     }),
     viteConfig?.()?.server?.extraPlugin,
-    !isCI && styleImport(styleImportConfig)
+    styleImport(styleImportConfig)
   ],
   build: {
     ssr: reactServerEntry,
@@ -64,7 +64,7 @@ const clientConfig: UserConfig = {
       jsxRuntime: 'classic'
     }),
     viteConfig?.()?.client?.extraPlugin,
-    !isCI && styleImport(styleImportConfig)
+    styleImport(styleImportConfig)
   ],
   build: {
     ssrManifest: true,
