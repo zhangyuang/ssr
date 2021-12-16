@@ -1,5 +1,5 @@
 import React from 'react'
-import type { RecommendDataNode } from '~/typings/data'
+import { RecommendDataNode } from '~/typings/data'
 import styles from './index.module.less'
 
 interface Props {

@@ -1,5 +1,5 @@
 import React from 'react'
-import type { BriefDataNode } from '~/typings/data'
+import { BriefDataNode } from '~/typings/data'
 import styles from './index.module.less'
 
 interface Props {

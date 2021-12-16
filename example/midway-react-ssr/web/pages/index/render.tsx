@@ -3,12 +3,11 @@ import { SProps, IContext } from 'ssr-types-react'
 import Slider from '@/components/slider'
 import Rectangle from '@/components/rectangle'
 import Search from '@/components/search'
-import type { IData } from '~/typings/data'
+import { IData } from '~/typings/data'
 import { STORE_CONTEXT } from '_build/create-context'
 
 export default function Index (props: SProps) {
   const { state, dispatch } = useContext<IContext<IData>>(STORE_CONTEXT)
-  const foo = { state: { bar: 1 } }
   return (
     <div>
       <Search></Search>
