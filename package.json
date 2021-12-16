@@ -8,7 +8,8 @@
       "**/vue",
       "**/vuex",
       "**/vue-router",
-      "**/core-js"
+      "**/core-js",
+      "**/vue-loader"
     ]
   },
   "scripts": {
