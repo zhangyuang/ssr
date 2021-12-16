@@ -9,7 +9,6 @@ import styleImport, {
   NutuiResolve,
   AntdResolve
 } from 'vite-plugin-style-import'
-import { babel } from './babelplugin'
 
 const build: typeof BuildType = require('vite').build
 const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig, isCI } = loadConfig()
@@ -27,17 +26,10 @@ const styleImportConfig = {
 const serverConfig: UserConfig = {
   ...commonConfig(),
   plugins: [
-    babel({
-      plugins: [
-        '@babel/plugin-proposal-optional-chaining',
-        '@babel/plugin-proposal-nullish-coalescing-operator'
-      ]
-    }),
     vuePlugin(viteConfig?.()?.server?.defaultPluginOptions),
     !isCI && vueJSXPlugin(),
     viteConfig?.()?.server?.extraPlugin,
     !isCI && styleImport(styleImportConfig)
-
   ],
   build: {
     ssr: vue3ServerEntry,

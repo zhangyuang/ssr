@@ -124,11 +124,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .options(vueLoaderOptions)
     .end()
 
-  chain
-    .plugin('vue-loader')
-    .use(require('vue-loader/lib/plugin'))
-    .end()
-
   const babelModule = chain.module
     .rule('compileBabel')
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
