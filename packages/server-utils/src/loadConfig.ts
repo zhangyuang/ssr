@@ -1,10 +1,11 @@
 import { join } from 'path'
 import { IConfig } from 'ssr-types'
-import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir } from './cwd'
+import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework } from './cwd'
 
 const loadModule = require.resolve
 const loadConfig = (): IConfig => {
   const userConfig = getUserConfig()
+  const framework = judgeFramework()
   const cwd = getCwd()
   const mode = 'ssr'
   const stream = false
@@ -16,16 +17,20 @@ const loadConfig = (): IConfig => {
   const vueClientEntry = join(cwd, './node_modules/ssr-plugin-vue/esm/entry/client-entry.js')
   const reactServerEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/server-entry.js')
   const reactClientEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/client-entry.js')
-  const alias = {
+
+  const alias = Object.assign({
     '@': getFeDir(),
     '~': getCwd(),
     _build: join(getCwd(), './build'),
-    vue$: 'vue/dist/vue.runtime.esm.js',
-    react: loadModule('react'),
-    'react-router': loadModule('react-router'),
-    'react-router-dom': loadModule('react-router-dom'),
     ...userConfig.alias
-  }
+  }, framework === 'react' ? {
+    react: loadModule('react') ?? join(cwd, './node_module/react'),
+    'react-router': loadModule('react-router') ?? join(cwd, './node_module/react-router'),
+    'react-router-dom': loadModule('react-router-dom') ?? join(cwd, './node_module/react-router-dom')
+  } : {
+    vue$: framework === 'vue2' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
+  })
+
   type ClientLogLevel = 'error'
 
   const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPath(userConfig.publicPath ?? '/')
@@ -161,6 +166,7 @@ const loadConfig = (): IConfig => {
     isVite,
     isCI
   }, userConfig)
+  // @ts-expect-error
   config.alias = alias
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了
 

@@ -1,6 +1,6 @@
 {
   "name": "ssr-core-vue3",
-  "version": "6.1.25",
+  "version": "6.1.27",
   "description": "vue3 core for react/vue2/vue3 ssr deploy on serverless or tradtional web server",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -32,7 +32,7 @@
     "@babel/runtime": "^7.12.13",
     "@vue/server-renderer": "^3.0.7",
     "serialize-javascript": "^6.0.0",
-    "ssr-server-utils": "^6.1.25",
+    "ssr-server-utils": "^6.1.27",
     "vue": "^3.0.0"
   }
 }

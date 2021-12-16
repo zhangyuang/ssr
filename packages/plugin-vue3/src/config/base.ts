@@ -121,9 +121,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     chain.resolve.alias
       .set(item, alias[item])
   })
-  chain.resolve.alias
-    .set('vue$', 'vue/dist/vue.runtime.esm-bundler.js')
-    .end()
+
   addImageChain(chain, isServer)
 
   chain.module
