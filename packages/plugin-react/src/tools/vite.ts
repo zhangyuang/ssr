@@ -10,7 +10,7 @@ import styleImport, {
 } from 'vite-plugin-style-import'
 
 const build: typeof BuildType = require('vite').build
-const { getOutput, reactServerEntry, reactClientEntry, viteConfig, isCI } = loadConfig()
+const { getOutput, reactServerEntry, reactClientEntry, viteConfig } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 const styleImportConfig = {
   include: ['**/*.vue', '**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx', /chunkName/],
