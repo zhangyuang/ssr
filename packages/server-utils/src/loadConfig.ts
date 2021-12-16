@@ -18,11 +18,13 @@ const loadConfig = (): IConfig => {
   const reactClientEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/client-entry.js')
   const alias = {
     '@': getFeDir(),
+    '~': getCwd(),
     _build: join(getCwd(), './build'),
     vue$: 'vue/dist/vue.runtime.esm.js',
     react: loadModule('react'),
     'react-router': loadModule('react-router'),
-    'react-router-dom': loadModule('react-router-dom')
+    'react-router-dom': loadModule('react-router-dom'),
+    ...userConfig.alias
   }
   type ClientLogLevel = 'error'
 

@@ -101,12 +101,7 @@ const commonConfig = (): UserConfig => {
       noExternal: whiteList
     },
     resolve: {
-      alias: {
-        '@': resolve(cwd, './web'),
-        _build: resolve(cwd, './build'),
-        '~': resolve(cwd),
-        ...alias
-      },
+      alias: alias,
       extensions: ['.mjs', '.ts', '.jsx', '.tsx', '.json', '.vue', '.js']
     }
   }
