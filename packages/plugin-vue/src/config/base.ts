@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getFeDir, getCwd, loadConfig, getLocalNodeModules, setStyle, addImageChain } from 'ssr-server-utils'
+import { getCwd, loadConfig, getLocalNodeModules, setStyle, addImageChain } from 'ssr-server-utils'
 import * as webpack from 'webpack'
 import * as WebpackChain from 'webpack-chain'
 
@@ -102,11 +102,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     })
     .end()
     .extensions.merge(moduleFileExtensions)
-    .end()
-  chain.resolve.alias
-    .set('@', getFeDir())
-    .set('_build', join(getCwd(), './build'))
-    .set('vue$', 'vue/dist/vue.runtime.esm.js')
     .end()
 
   alias && Object.keys(alias).forEach(item => {

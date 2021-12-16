@@ -1,7 +1,8 @@
 import { join } from 'path'
 import { IConfig } from 'ssr-types'
-import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath } from './cwd'
+import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir } from './cwd'
 
+const loadModule = require.resolve
 const loadConfig = (): IConfig => {
   const userConfig = getUserConfig()
   const cwd = getCwd()
@@ -15,7 +16,14 @@ const loadConfig = (): IConfig => {
   const vueClientEntry = join(cwd, './node_modules/ssr-plugin-vue/esm/entry/client-entry.js')
   const reactServerEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/server-entry.js')
   const reactClientEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/client-entry.js')
-
+  const alias = {
+    '@': getFeDir(),
+    _build: join(getCwd(), './build'),
+    vue$: 'vue/dist/vue.runtime.esm.js',
+    react: loadModule('react'),
+    'react-router': loadModule('react-router'),
+    'react-router-dom': loadModule('react-router-dom')
+  }
   type ClientLogLevel = 'error'
 
   const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPath(userConfig.publicPath ?? '/')
@@ -151,7 +159,7 @@ const loadConfig = (): IConfig => {
     isVite,
     isCI
   }, userConfig)
-
+  config.alias = alias
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了
 
   return config
