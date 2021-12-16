@@ -27,13 +27,13 @@ const serverConfig: UserConfig = {
   plugins: [
     react({
       ...viteConfig?.()?.server?.defaultPluginOptions,
-      jsxRuntime: 'classic',
-      babel: isCI && {
-        plugins: [
-          '@babel/plugin-proposal-optional-chaining',
-          '@babel/plugin-proposal-nullish-coalescing-operator'
-        ]
-      }
+      jsxRuntime: 'classic'
+      // babel: isCI && {
+      //   plugins: [
+      //     '@babel/plugin-proposal-optional-chaining',
+      //     '@babel/plugin-proposal-nullish-coalescing-operator'
+      //   ]
+      // }
     }),
     viteConfig?.()?.server?.extraPlugin,
     styleImport(styleImportConfig)
