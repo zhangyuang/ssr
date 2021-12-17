@@ -10,7 +10,7 @@ import styleImport, {
 } from 'vite-plugin-style-import'
 
 const build: typeof BuildType = require('vite').build
-const { getOutput, reactServerEntry, reactClientEntry, viteConfig, supportOptinalChaining } = loadConfig()
+const { getOutput, reactServerEntry, reactClientEntry, viteConfig, supportOptinalChaining, isDev } = loadConfig()
 
 const { clientOutPut, serverOutPut } = getOutput()
 const styleImportConfig = {
@@ -25,10 +25,6 @@ const styleImportConfig = {
 }
 const serverConfig: UserConfig = {
   ...commonConfig(),
-  optimizeDeps: {
-    include: ['path-to-regexp', 'react-dom'],
-    exclude: ['ssr-server-utils']
-  },
   plugins: [
     react({
       ...viteConfig?.()?.server?.defaultPluginOptions,
@@ -48,6 +44,7 @@ const serverConfig: UserConfig = {
     ssr: reactServerEntry,
     outDir: serverOutPut,
     rollupOptions: {
+      input: isDev ? reactClientEntry : '',
       output: {
         entryFileNames: 'Page.server.js'
       }

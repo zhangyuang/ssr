@@ -12,7 +12,7 @@ import styleImport, {
 } from 'vite-plugin-style-import'
 
 const build: typeof BuildType = require('vite').build
-const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining } = loadConfig()
+const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining, isDev } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 const styleImportConfig = {
   include: ['**/*.vue', '**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx', /chunkName/],
@@ -26,10 +26,6 @@ const styleImportConfig = {
 }
 const serverConfig: UserConfig = {
   ...commonConfig(),
-  optimizeDeps: {
-    include: ['path-to-regexp'],
-    exclude: ['ssr-server-utils']
-  },
   plugins: [
     vuePlugin(viteConfig?.()?.server?.defaultPluginOptions),
     vueJSXPlugin(),
@@ -50,6 +46,7 @@ const serverConfig: UserConfig = {
     ssr: vue3ServerEntry,
     outDir: serverOutPut,
     rollupOptions: {
+      input: isDev ? vue3ClientEntry : '',
       output: {
         entryFileNames: 'Page.server.js'
       }
