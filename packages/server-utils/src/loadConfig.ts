@@ -3,9 +3,9 @@ import { IConfig } from 'ssr-types'
 import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework } from './cwd'
 
 const loadModule = require.resolve
+const framework = judgeFramework()
 const loadConfig = (): IConfig => {
   const userConfig = getUserConfig()
-  const framework = judgeFramework()
   const cwd = getCwd()
   const mode = 'ssr'
   const stream = false
@@ -21,15 +21,14 @@ const loadConfig = (): IConfig => {
   const alias = Object.assign({
     '@': getFeDir(),
     '~': getCwd(),
-    _build: join(getCwd(), './build'),
-    ...userConfig.alias
+    _build: join(getCwd(), './build')
   }, framework === 'react' ? {
     react: loadModule('react') ?? join(cwd, './node_module/react'),
     'react-router': loadModule('react-router') ?? join(cwd, './node_module/react-router'),
     'react-router-dom': loadModule('react-router-dom') ?? join(cwd, './node_module/react-router-dom')
   } : {
     vue$: framework === 'vue2' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
-  })
+  }, userConfig.alias)
 
   type ClientLogLevel = 'error'
 
