@@ -516,6 +516,7 @@ jobs:
       - e2e-chrome-midway-react-vite
       - e2e-chrome-midway-vue
       - e2e-chrome-midway-vue3
+      - e2e-chrome-midway-vue3-vite
       - e2e-chrome-midway-react-dynamic-router
       - e2e-chrome-nestjs-vue
       - e2e-chrome-nestjs-vue3
