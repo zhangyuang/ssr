@@ -8,9 +8,12 @@ import styleImport, {
   NutuiResolve,
   AntdResolve
 } from 'vite-plugin-style-import'
+// @ts-expect-error
+import { coerce } from 'semver'
 
 const build: typeof BuildType = require('vite').build
-const { getOutput, reactServerEntry, reactClientEntry, viteConfig, isCI } = loadConfig()
+const { getOutput, reactServerEntry, reactClientEntry, viteConfig } = loadConfig()
+const supportOptinalChaining = coerce(process.version).major >= '14'
 const { clientOutPut, serverOutPut } = getOutput()
 const styleImportConfig = {
   include: ['**/*.vue', '**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx', /chunkName/],
@@ -28,7 +31,7 @@ const serverConfig: UserConfig = {
     react({
       ...viteConfig?.()?.server?.defaultPluginOptions,
       jsxRuntime: 'classic',
-      babel: isCI && {
+      babel: !supportOptinalChaining && {
         plugins: [
           '@babel/plugin-proposal-optional-chaining',
           '@babel/plugin-proposal-nullish-coalescing-operator'

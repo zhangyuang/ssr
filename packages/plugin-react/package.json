@@ -67,7 +67,8 @@
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-chain": "^6.4.0",
     "webpack-manifest-plugin": "^2.2.0",
-    "webpackbar": "^5.0.0-3"
+    "webpackbar": "^5.0.0-3",
+    "semver": "^7.3.5"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",

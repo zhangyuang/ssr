@@ -118,7 +118,7 @@ const judgeFramework = () => {
   }
   if (packageJSON.dependencies.vue || packageJSON.devDependencies.vue) {
     const version = packageJSON.dependencies.vue || packageJSON.devDependencies.vue
-    return coerce(version).raw.startsWith('3') ? 'vue3' : 'vue2'
+    return coerce(version).major === 3 ? 'vue3' : 'vue2'
   }
 }
 
