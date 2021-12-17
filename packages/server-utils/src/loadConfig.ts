@@ -165,7 +165,6 @@ const loadConfig = (): IConfig => {
     isVite,
     isCI
   }, userConfig)
-  // @ts-expect-error
   config.alias = alias
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了
 
