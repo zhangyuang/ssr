@@ -2,6 +2,7 @@ import type { build as BuildType, UserConfig } from 'vite'
 import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig } from 'ssr-server-utils'
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJSXPlugin from '@vitejs/plugin-vue-jsx'
+import babel from '@rollup/plugin-babel'
 import styleImport, {
   AndDesignVueResolve,
   VantResolve,
@@ -11,7 +12,7 @@ import styleImport, {
 } from 'vite-plugin-style-import'
 
 const build: typeof BuildType = require('vite').build
-const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig } = loadConfig()
+const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 const styleImportConfig = {
   include: ['**/*.vue', '**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx', /chunkName/],
@@ -25,11 +26,24 @@ const styleImportConfig = {
 }
 const serverConfig: UserConfig = {
   ...commonConfig(),
+  // no need to optimize deps in server side
+  optimizeDeps: {
+    entries: []
+  },
   plugins: [
     vuePlugin(viteConfig?.()?.server?.defaultPluginOptions),
     vueJSXPlugin(),
     viteConfig?.()?.server?.extraPlugin,
-    styleImport(styleImportConfig)
+    styleImport(styleImportConfig),
+    !supportOptinalChaining && babel({
+      babelHelpers: 'bundled',
+      plugins: [
+        '@babel/plugin-proposal-optional-chaining',
+        '@babel/plugin-proposal-nullish-coalescing-operator'
+      ],
+      exclude: /node_modules|\.(css|less|sass)/,
+      extensions: ['.vue', '.ts', '.js']
+    })
   ],
   build: {
     ssr: vue3ServerEntry,

@@ -8,12 +8,10 @@ import styleImport, {
   NutuiResolve,
   AntdResolve
 } from 'vite-plugin-style-import'
-// @ts-expect-error
-import { coerce } from 'semver'
 
 const build: typeof BuildType = require('vite').build
-const { getOutput, reactServerEntry, reactClientEntry, viteConfig } = loadConfig()
-const supportOptinalChaining = coerce(process.version).major >= '14'
+const { getOutput, reactServerEntry, reactClientEntry, viteConfig, supportOptinalChaining } = loadConfig()
+
 const { clientOutPut, serverOutPut } = getOutput()
 const styleImportConfig = {
   include: ['**/*.vue', '**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx', /chunkName/],
@@ -27,6 +25,10 @@ const styleImportConfig = {
 }
 const serverConfig: UserConfig = {
   ...commonConfig(),
+  // no need to optimize deps in server side
+  optimizeDeps: {
+    entries: []
+  },
   plugins: [
     react({
       ...viteConfig?.()?.server?.defaultPluginOptions,

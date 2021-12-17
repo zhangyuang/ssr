@@ -80,6 +80,7 @@ export interface IConfig {
   reactClientEntry: string
   isVite: boolean
   isCI: boolean
+  supportOptinalChaining: boolean
   viteConfig?: () => {
     common?: {
 

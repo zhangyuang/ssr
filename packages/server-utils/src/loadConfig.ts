@@ -1,7 +1,8 @@
 import { join } from 'path'
 import { IConfig } from 'ssr-types'
 import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework } from './cwd'
-
+// @ts-expect-error
+import { coerce } from 'semver'
 const loadModule = require.resolve
 const framework = judgeFramework()
 const loadConfig = (): IConfig => {
@@ -17,6 +18,7 @@ const loadConfig = (): IConfig => {
   const vueClientEntry = join(cwd, './node_modules/ssr-plugin-vue/esm/entry/client-entry.js')
   const reactServerEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/server-entry.js')
   const reactClientEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/client-entry.js')
+  const supportOptinalChaining = coerce(process.version).major >= '14'
 
   const alias = Object.assign({
     '@': getFeDir(),
@@ -163,7 +165,8 @@ const loadConfig = (): IConfig => {
     reactServerEntry,
     reactClientEntry,
     isVite,
-    isCI
+    isCI,
+    supportOptinalChaining
   }, userConfig)
   config.alias = alias
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了
