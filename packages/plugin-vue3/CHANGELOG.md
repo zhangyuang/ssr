@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.31](https://github.com/zhangyuang/ssr/compare/v6.1.30...v6.1.31) (2021-12-17)
+
+
+### Bug Fixes
+
+* node12 vite ssr optimize ([941a405](https://github.com/zhangyuang/ssr/commit/941a40507303606859ecd08a8594010929c4aaaa))
+
+
+
+
+
 ## [6.1.30](https://github.com/zhangyuang/ssr/compare/v6.1.29...v6.1.30) (2021-12-17)
 
 
