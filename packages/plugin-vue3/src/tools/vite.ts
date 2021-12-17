@@ -27,6 +27,7 @@ const styleImportConfig = {
 const serverConfig: UserConfig = {
   ...commonConfig(),
   optimizeDeps: {
+    include: ['path-to-regexp'],
     exclude: ['ssr-server-utils']
   },
   plugins: [
