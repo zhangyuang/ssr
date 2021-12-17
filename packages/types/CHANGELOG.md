@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.29](https://github.com/zhangyuang/ssr/compare/v6.1.28...v6.1.29) (2021-12-17)
+
+
+### Bug Fixes
+
+* vite in server side optimize deps ([b9af6f4](https://github.com/zhangyuang/ssr/commit/b9af6f4de403af9b2909d82c5dde8bd161d98397))
+
+
+### Features
+
+* support common plugin in vite ([6a0a3ab](https://github.com/zhangyuang/ssr/commit/6a0a3ab0e6b7a43179053a02342db303f40cfbd6))
+
+
+
+
+
 ## [6.1.25](https://github.com/zhangyuang/ssr/compare/v6.1.24...v6.1.25) (2021-12-16)
 
 

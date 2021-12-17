@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.29](https://github.com/zhangyuang/ssr/compare/v6.1.28...v6.1.29) (2021-12-17)
+
+
+### Features
+
+* support common plugin in vite ([6a0a3ab](https://github.com/zhangyuang/ssr/commit/6a0a3ab0e6b7a43179053a02342db303f40cfbd6))
+
+
+
+
+
 ## [6.1.28](https://github.com/zhangyuang/ssr/compare/v6.1.25...v6.1.28) (2021-12-16)
 
 

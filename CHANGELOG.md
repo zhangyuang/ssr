@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.29](https://github.com/zhangyuang/ssr/compare/v6.1.28...v6.1.29) (2021-12-17)
+
+
+### Bug Fixes
+
+* ci ([679fe00](https://github.com/zhangyuang/ssr/commit/679fe00c9496f8f34eecf23b24178eaf848f32a1))
+* vite in server side optimize deps ([b9af6f4](https://github.com/zhangyuang/ssr/commit/b9af6f4de403af9b2909d82c5dde8bd161d98397))
+* vite optimize ([f690358](https://github.com/zhangyuang/ssr/commit/f6903589bfd317b464aecb17db5acaca336dda31))
+
+
+### Features
+
+* support common plugin in vite ([6a0a3ab](https://github.com/zhangyuang/ssr/commit/6a0a3ab0e6b7a43179053a02342db303f40cfbd6))
+* support optionalchaining when node version less than 14 ([3b4bc90](https://github.com/zhangyuang/ssr/commit/3b4bc9044df5826bc7c9810bca4d8ccb0c6ad4fd))
+
+
+
+
+
 ## [6.1.28](https://github.com/zhangyuang/ssr/compare/v6.1.25...v6.1.28) (2021-12-16)
 
 

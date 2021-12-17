@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.29](https://github.com/zhangyuang/ssr/compare/v6.1.28...v6.1.29) (2021-12-17)
+
+
+### Bug Fixes
+
+* vite in server side optimize deps ([b9af6f4](https://github.com/zhangyuang/ssr/commit/b9af6f4de403af9b2909d82c5dde8bd161d98397))
+
+
+### Features
+
+* support optionalchaining when node version less than 14 ([3b4bc90](https://github.com/zhangyuang/ssr/commit/3b4bc9044df5826bc7c9810bca4d8ccb0c6ad4fd))
+
+
+
+
+
 ## [6.1.28](https://github.com/zhangyuang/ssr/compare/v6.1.25...v6.1.28) (2021-12-16)
 
 
