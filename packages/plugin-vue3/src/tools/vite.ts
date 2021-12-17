@@ -26,9 +26,8 @@ const styleImportConfig = {
 }
 const serverConfig: UserConfig = {
   ...commonConfig(),
-  // no need to optimize deps in server side
   optimizeDeps: {
-    entries: []
+    exclude: ['ssr-server-utils']
   },
   plugins: [
     vuePlugin(viteConfig?.()?.server?.defaultPluginOptions),
