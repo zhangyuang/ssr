@@ -33,6 +33,7 @@ const serverConfig: UserConfig = {
   plugins: [
     vuePlugin(viteConfig?.()?.server?.defaultPluginOptions),
     vueJSXPlugin(),
+    viteConfig?.()?.common?.extraPlugin,
     viteConfig?.()?.server?.extraPlugin,
     styleImport(styleImportConfig),
     !supportOptinalChaining && babel({
@@ -65,6 +66,7 @@ const clientConfig: UserConfig = {
   plugins: [
     vuePlugin(viteConfig?.()?.client?.defaultPluginOptions),
     vueJSXPlugin(),
+    viteConfig?.()?.common?.extraPlugin,
     viteConfig?.()?.client?.extraPlugin,
     styleImport(styleImportConfig)
   ],

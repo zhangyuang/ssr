@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { promises } from 'fs'
 import { join } from 'path'
 import { Argv } from 'ssr-types'
@@ -28,12 +29,10 @@ export const generateHtml = async (argv: Argv) => {
     const cwd = getCwd()
     const manifest = require(join(cwd, './build/client/asset-manifest.json'))
     let jsManifest = ''
-    // @ts-expect-error
     jsOrder.forEach(item => {
       jsManifest += `<script src=${manifest[item]}></script>`
     })
     let cssManifest = ''
-    // @ts-expect-error
     cssOrder.forEach(item => {
       cssManifest += `<link rel='stylesheet' href=${manifest[item]} />`
     })

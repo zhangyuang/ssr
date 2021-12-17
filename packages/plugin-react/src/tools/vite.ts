@@ -40,6 +40,7 @@ const serverConfig: UserConfig = {
         ]
       }
     }),
+    viteConfig?.()?.common?.extraPlugin,
     viteConfig?.()?.server?.extraPlugin,
     styleImport(styleImportConfig)
   ],
@@ -68,6 +69,7 @@ const clientConfig: UserConfig = {
       ...viteConfig?.()?.client?.defaultPluginOptions,
       jsxRuntime: 'classic'
     }),
+    viteConfig?.()?.common?.extraPlugin,
     viteConfig?.()?.client?.extraPlugin,
     styleImport(styleImportConfig)
   ],

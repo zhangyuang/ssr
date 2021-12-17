@@ -83,7 +83,8 @@ export interface IConfig {
   supportOptinalChaining: boolean
   viteConfig?: () => {
     common?: {
-
+    // 双端通用插件
+      extraPlugin?: any[]
     }
     client?: {
       defaultPluginOptions?: any
