@@ -18,55 +18,67 @@ const spinner = {
   })
 }
 
+const startFunc = async (argv: Argv) => {
+  spinner.start()
+  process.env.NODE_ENV = 'development'
+  if (!argv.noclean) {
+    await cleanOutDir()
+  }
+  const { parseFeRoutes, loadPlugin, copyReactContext, transformConfig } = await import('ssr-server-utils')
+  transformConfig()
+  await handleEnv(argv)
+  await parseFeRoutes()
+  const plugin = loadPlugin()
+  spinner.stop()
+  if (plugin.clientPlugin?.name === 'plugin-react') {
+    await copyReactContext()
+  }
+  await plugin.clientPlugin?.start?.(argv)
+  await plugin.serverPlugin?.start?.(argv)
+}
+
+const buildFunc = async (argv: Argv) => {
+  spinner.start()
+  process.env.NODE_ENV = 'production'
+  if (!argv.noclean) {
+    await cleanOutDir()
+  }
+  const { parseFeRoutes, loadPlugin, copyReactContext, transformConfig } = await import('ssr-server-utils')
+  transformConfig()
+  await handleEnv(argv)
+  await parseFeRoutes()
+  const plugin = loadPlugin()
+  spinner.stop()
+  if (plugin.clientPlugin?.name === 'plugin-react') {
+    await copyReactContext()
+  }
+  await plugin.clientPlugin?.build?.(argv)
+  await plugin.serverPlugin?.build?.(argv)
+  await generateHtml(argv)
+}
+
+const deployFunc = async (argv: Argv) => {
+  process.env.NODE_ENV = 'production'
+  const { loadPlugin } = await import('ssr-server-utils')
+  const plugin = loadPlugin()
+
+  if (!plugin?.serverPlugin?.deploy) {
+    console.log('当前插件不支持 deploy 功能，请使用 ssr-plugin-midway 插件 参考 https://www.yuque.com/midwayjs/faas/migrate_egg 或扫码进群了解')
+    return
+  }
+  await plugin.serverPlugin?.deploy?.(argv)
+  spinner.stop()
+}
+
 yargs
   .command('start', 'Start Server', {}, async (argv: Argv) => {
-    spinner.start()
-    process.env.NODE_ENV = 'development'
-    if (!argv.noclean) {
-      await cleanOutDir()
-    }
-    const { parseFeRoutes, loadPlugin, copyReactContext, transformConfig } = await import('ssr-server-utils')
-    transformConfig()
-    await handleEnv(argv)
-    await parseFeRoutes()
-    const plugin = loadPlugin()
-    spinner.stop()
-    if (plugin.clientPlugin?.name === 'plugin-react') {
-      await copyReactContext()
-    }
-    await plugin.clientPlugin?.start?.(argv)
-    await plugin.serverPlugin?.start?.(argv)
+    await startFunc(argv)
   })
   .command('build', 'Build server and client files', {}, async (argv: Argv) => {
-    spinner.start()
-    process.env.NODE_ENV = 'production'
-    if (!argv.noclean) {
-      await cleanOutDir()
-    }
-    const { parseFeRoutes, loadPlugin, copyReactContext, transformConfig } = await import('ssr-server-utils')
-    transformConfig()
-    await handleEnv(argv)
-    await parseFeRoutes()
-    const plugin = loadPlugin()
-    spinner.stop()
-    if (plugin.clientPlugin?.name === 'plugin-react') {
-      await copyReactContext()
-    }
-    await plugin.clientPlugin?.build?.(argv)
-    await plugin.serverPlugin?.build?.(argv)
-    await generateHtml(argv)
+    await buildFunc(argv)
   })
   .command('deploy', 'Deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {
-    process.env.NODE_ENV = 'production'
-    const { loadPlugin } = await import('ssr-server-utils')
-    const plugin = loadPlugin()
-
-    if (!plugin?.serverPlugin?.deploy) {
-      console.log('当前插件不支持 deploy 功能，请使用 ssr-plugin-midway 插件 参考 https://www.yuque.com/midwayjs/faas/migrate_egg 或扫码进群了解')
-      return
-    }
-    await plugin.serverPlugin?.deploy?.(argv)
-    spinner.stop()
+    await deployFunc(argv)
   })
   .demandCommand(1, 'You need at least one command before moving on')
   .option('version', {
@@ -82,3 +94,9 @@ yargs
     console.log(msg)
   })
   .parse()
+
+export {
+  startFunc,
+  buildFunc,
+  deployFunc
+}
