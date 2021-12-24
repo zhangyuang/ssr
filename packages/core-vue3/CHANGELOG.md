@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.32](https://github.com/zhangyuang/ssr/compare/v6.1.31...v6.1.32) (2021-12-24)
+
+
+### Bug Fixes
+
+* teleport ssr in vue3 string mode ([d284a25](https://github.com/zhangyuang/ssr/commit/d284a25898fd392c77ad81f0ffe1e94a30600ef9))
+
+
+
+
+
 ## [6.1.29](https://github.com/zhangyuang/ssr/compare/v6.1.28...v6.1.29) (2021-12-17)
 
 **Note:** Version bump only for package ssr-core-vue3
