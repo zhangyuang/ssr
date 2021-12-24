@@ -1206,3 +1206,18 @@ module.exports = {
   ]
 }
 ```
+
+## teleport ssr
+
+Ref [#5126](https://github.com/vuejs/vue-next/issues/5126) 在 Vue3 SSR 场景下使用 `teleport` 需要注意几点
+
+- to props 不能是 `body`, 可以自己在 `App.vue` 中自定义新的根结点
+- `teleport node` 必须被 `div` 包裹起来不能裸写
+
+## 自定义启动逻辑，构建逻辑
+
+```js
+import { startFunc, buildFunc, deployFunc } from 'ssr'
+
+await startFunc(options)
+```
