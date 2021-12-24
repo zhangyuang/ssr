@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.33](https://github.com/zhangyuang/ssr/compare/v6.1.32...v6.1.33) (2021-12-24)
+
+
+### Features
+
+* export cli func ([117b4f5](https://github.com/zhangyuang/ssr/commit/117b4f5384314c27ec07fdcf42ca001cb830e7dc))
+
+
+
+
+
 ## [6.1.29](https://github.com/zhangyuang/ssr/compare/v6.1.28...v6.1.29) (2021-12-17)
 
 
