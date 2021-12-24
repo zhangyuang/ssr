@@ -31,6 +31,7 @@
   "dependencies": {
     "@babel/runtime": "^7.12.13",
     "@vue/server-renderer": "^3.0.7",
+    "cheerio": "^1.0.0-rc.10",
     "serialize-javascript": "^6.0.0",
     "ssr-server-utils": "^6.1.29",
     "vue": "^3.0.0"

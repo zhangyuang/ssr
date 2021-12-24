@@ -28,7 +28,20 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
     })
     return stream
   } else {
-    return `<!DOCTYPE html>${await renderToString(serverRes)}`
+    const ctx: {
+      teleports?: Record<string, string>
+    } = {}
+    let html = await renderToString(serverRes, ctx)
+    if (ctx.teleports) {
+      const cheerio = require('cheerio')
+      const $ = cheerio.load(html)
+      for (const target in ctx.teleports) {
+        const content = ctx.teleports[target]
+        $(target).append(content)
+      }
+      html = $.html()
+    }
+    return `<!DOCTYPE html>${html}`
   }
 }
 
