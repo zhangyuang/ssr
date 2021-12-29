@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.34](https://github.com/zhangyuang/ssr/compare/v6.1.33...v6.1.34) (2021-12-29)
+
+
+### Features
+
+* support dynamic css preload in vite mode ([3979b42](https://github.com/zhangyuang/ssr/commit/3979b4236c3fdcc0312987f86783f8485892276e))
+
+
+
+
+
 ## [6.1.31](https://github.com/zhangyuang/ssr/compare/v6.1.30...v6.1.31) (2021-12-17)
 
 
