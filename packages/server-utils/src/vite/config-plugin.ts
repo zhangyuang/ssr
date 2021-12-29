@@ -6,13 +6,17 @@ import MagicString from 'magic-string'
 import type { OutputOptions } from 'rollup'
 import { loadConfig } from '../loadConfig'
 import { getOutputPublicPath } from '../parse'
-import { getCwd } from '../cwd'
+import { getCwd, cryptoAsyncChunkName } from '../cwd'
 
 const webpackCommentRegExp = /webpackChunkName:\s"(.*)?"/
 const chunkNameRe = /chunkName=(.*)/
 const imageRegExp = /\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/
 const fontRegExp = /\.(eot|woff|woff2|ttf)(\?.*)?$/
 const cwd = getCwd()
+const originAsyncChunkMap: Record<string, Array<{
+  name: string
+}>> = {}
+const asyncChunkMapJSON: Record<string, string> = {}
 
 const chunkNamePlugin = function (): Plugin {
   return {
@@ -35,6 +39,26 @@ const chunkNamePlugin = function (): Plugin {
     }
   }
 }
+
+const asyncOptimizeChunkPlugin = (): Plugin => {
+  return {
+    name: 'asyncOptimizeChunkPlugin',
+    moduleParsed (this, info) {
+      const { id, importedIds } = info
+      if (id.includes('chunkName')) {
+        const chunkname = chunkNameRe.exec(id)![1]
+        for (const importerId of importedIds) {
+          if (!originAsyncChunkMap[importerId]) {
+            originAsyncChunkMap[importerId] = []
+          }
+          originAsyncChunkMap[importerId].push({
+            name: chunkname
+          })
+        }
+      }
+    }
+  }
+}
 const manifestPlugin = (): Plugin => {
   const { getOutput } = loadConfig()
   const { clientOutPut } = getOutput()
@@ -49,6 +73,7 @@ const manifestPlugin = (): Plugin => {
         manifest[arr.join('.')] = `${getOutputPublicPath()}${val}`
       }
       await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest))
+      await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON))
     }
   }
 }
@@ -69,7 +94,9 @@ const rollupOutputOptions: OutputOptions = {
     if (id.includes('node_modules') && id.includes('.js') && !id.includes('client-entry')) {
       return 'vendor'
     }
-
+    if (originAsyncChunkMap?.[id]?.length >= 2) {
+      return cryptoAsyncChunkName(originAsyncChunkMap[id], asyncChunkMapJSON)
+    }
     if (id.includes('chunkName')) {
       return chunkNameRe.exec(id)![1]
     }
@@ -110,5 +137,6 @@ export {
   chunkNamePlugin,
   manifestPlugin,
   rollupOutputOptions,
-  commonConfig
+  commonConfig,
+  asyncOptimizeChunkPlugin
 }

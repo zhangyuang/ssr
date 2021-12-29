@@ -37,7 +37,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   let dynamicCssOrder = cssOrder
   if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
-    if (!isVite) {
+    if (!isVite || (isVite && !isDev)) {
+      // call it when webpack mode or vite prod mode
       dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
     }
   }

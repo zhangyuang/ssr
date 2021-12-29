@@ -1,5 +1,5 @@
 import type { build as BuildType, UserConfig } from 'vite'
-import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig } from 'ssr-server-utils'
+import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig, asyncOptimizeChunkPlugin } from 'ssr-server-utils'
 import react from '@vitejs/plugin-react'
 import styleImport, {
   AndDesignVueResolve,
@@ -76,7 +76,7 @@ const clientConfig: UserConfig = {
     rollupOptions: {
       input: reactClientEntry,
       output: rollupOutputOptions,
-      plugins: [chunkNamePlugin(), manifestPlugin()]
+      plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), manifestPlugin()]
     }
   },
   define: {

@@ -95,9 +95,8 @@ const cryptoAsyncChunkName = (chunks: any, asyncChunkMap: Record<string, string>
   // 加密异步模块 name，防止名称过长
   const allChunksNames = chunks.map((item: any) => item.name).join('~')
   const allChunksNamesArr = allChunksNames.split('~')
-
   const cryptoAllChunksNames = String(cyrb53(allChunksNames))
-  if (allChunksNamesArr.length >= 2 && !asyncChunkMap[cryptoAllChunksNames]) {
+  if (allChunksNamesArr.length >= 2 && !asyncChunkMap?.[cryptoAllChunksNames]) {
     asyncChunkMap[cryptoAllChunksNames] = allChunksNamesArr
   }
   return cryptoAllChunksNames

@@ -2,7 +2,7 @@ import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
 import { ISSRContext, IConfig, ReactRoutesType, ReactESMFeRouteItem } from 'ssr-types-react'
-//@ts-expect-error
+// @ts-expect-error
 import * as serializeWrap from 'serialize-javascript'
 // @ts-expect-error
 import * as Routes from '_build/ssr-temporary-routes'
@@ -34,7 +34,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
-    if (!isVite) {
+    if (!isVite || (isVite && !isDev)) {
+      // call it when webpack mode or vite prod mode
       dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
     }
   }

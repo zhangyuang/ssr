@@ -1,5 +1,5 @@
 import type { build as BuildType, UserConfig } from 'vite'
-import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig } from 'ssr-server-utils'
+import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig, asyncOptimizeChunkPlugin } from 'ssr-server-utils'
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJSXPlugin from '@vitejs/plugin-vue-jsx'
 import babel from '@rollup/plugin-babel'
@@ -73,7 +73,7 @@ const clientConfig: UserConfig = {
     rollupOptions: {
       input: vue3ClientEntry,
       output: rollupOutputOptions,
-      plugins: [chunkNamePlugin(), manifestPlugin()]
+      plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), manifestPlugin()]
     }
   },
   define: {
