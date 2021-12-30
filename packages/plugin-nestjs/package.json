@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-nestjs",
-  "version": "6.1.36",
+  "version": "6.1.37",
   "description": "plugin-nestjs for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -30,7 +30,7 @@
   "dependencies": {
     "ora": "^4.0.4",
     "rimraf": "^3.0.2",
-    "ssr-server-utils": "^6.1.36"
+    "ssr-server-utils": "^6.1.37"
   },
   "peerDependencies": {
     "@nestjs/common": ">=7.5.1",
