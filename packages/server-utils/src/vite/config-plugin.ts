@@ -94,6 +94,9 @@ const rollupOutputOptions: OutputOptions = {
     if (id.includes('node_modules') && id.includes('.js') && !id.includes('client-entry')) {
       return 'vendor'
     }
+    if (id.includes('create-context')) {
+      return 'vendor'
+    }
     if (originAsyncChunkMap?.[id]?.length >= 2) {
       return cryptoAsyncChunkName(originAsyncChunkMap[id], asyncChunkMapJSON)
     }
