@@ -78,6 +78,8 @@ const manifestPlugin = (): Plugin => {
   }
 }
 
+const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router', 'react-dom', 'create-context']
+
 const rollupOutputOptions: OutputOptions = {
   entryFileNames: 'Page.[hash].chunk.js',
   chunkFileNames: '[name].[hash].chunk.js',
@@ -91,14 +93,16 @@ const rollupOutputOptions: OutputOptions = {
     return '[name].[hash].chunk.[ext]'
   },
   manualChunks: (id: string) => {
-    if (id.includes('node_modules') && id.includes('.js') && !id.includes('client-entry')) {
-      return 'vendor'
-    }
-    if (id.includes('create-context')) {
+    if (vendorList.includes(id)) {
+      // 优先级最高白名单里面的库必须被 vendor
       return 'vendor'
     }
     if (originAsyncChunkMap?.[id]?.length >= 2) {
+      // 第二步处理公共模块。需要在第三步之前 否则 antd/es/style.js 这样的文件会被第三步包含
       return cryptoAsyncChunkName(originAsyncChunkMap[id], asyncChunkMapJSON)
+    }
+    if (id.includes('node_modules') && id.includes('.js') && !id.includes('client-entry')) {
+      return 'vendor'
     }
     if (id.includes('chunkName')) {
       return chunkNameRe.exec(id)![1]
