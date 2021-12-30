@@ -78,7 +78,7 @@ const manifestPlugin = (): Plugin => {
   }
 }
 
-const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router', 'react-dom', 'create-context']
+const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router', 'react-dom']
 
 const rollupOutputOptions: OutputOptions = {
   entryFileNames: 'Page.[hash].chunk.js',
@@ -93,8 +93,11 @@ const rollupOutputOptions: OutputOptions = {
     return '[name].[hash].chunk.[ext]'
   },
   manualChunks: (id: string) => {
-    if (vendorList.includes(id)) {
+    if (id.includes('node_modules') && vendorList.includes(id)) {
       // 优先级最高白名单里面的库必须被 vendor
+      return 'vendor'
+    }
+    if (id.includes('create-context')) {
       return 'vendor'
     }
     if (originAsyncChunkMap?.[id]?.length >= 2) {
