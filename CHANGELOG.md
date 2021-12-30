@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.35](https://github.com/zhangyuang/ssr/compare/v6.1.34...v6.1.35) (2021-12-30)
+
+
+### Bug Fixes
+
+* plugin-react build with rollup ([4a84a97](https://github.com/zhangyuang/ssr/commit/4a84a970c484535d5625f675e13e1d9f1e815e36))
+
+
+
+
+
 ## [6.1.34](https://github.com/zhangyuang/ssr/compare/v6.1.33...v6.1.34) (2021-12-29)
 
 
