@@ -6,7 +6,7 @@ import MagicString from 'magic-string'
 import type { OutputOptions } from 'rollup'
 import { loadConfig } from '../loadConfig'
 import { getOutputPublicPath } from '../parse'
-import { getCwd, cryptoAsyncChunkName } from '../cwd'
+import { getCwd, cryptoAsyncChunkName, getPackageName } from '../cwd'
 
 const webpackCommentRegExp = /webpackChunkName:\s"(.*)?"/
 const chunkNameRe = /chunkName=(.*)/
@@ -93,11 +93,11 @@ const rollupOutputOptions: OutputOptions = {
     return '[name].[hash].chunk.[ext]'
   },
   manualChunks: (id: string) => {
-    if (id.includes('node_modules') && vendorList.includes(id)) {
+    if (id.includes('node_modules') && vendorList.includes(getPackageName(id)!)) {
       // 优先级最高白名单里面的库必须被 vendor
       return 'vendor'
     }
-    if (id.includes('create-context')) {
+    if (id.includes('create-context') || id.includes('plugin-vue:export-helper')) {
       return 'vendor'
     }
     if (originAsyncChunkMap?.[id]?.length >= 2) {
