@@ -390,9 +390,12 @@ css: () => {
 
 - 生效场景: `Webpack` 
 
+- Ref: https://www.babeljs.cn/docs/babel-preset-env#corejs
+
 通常与下面的 `corejsOptions` 配合使用，开启后我们将会在 [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env#corejs) 中追加如下配置。会自动根据当前代码的使用情况注入对应的 `polyfill` 具体表现请查看 `@babel/preset-env` 中相关说明。此选项用于兼容低端浏览器
 
 ```js
+const corejsVersion = coerce(require('core-js/package.json').version).major
 const corejsOptions = userConfig.corejs ? {
     corejs: {
       version: corejsVersion,
