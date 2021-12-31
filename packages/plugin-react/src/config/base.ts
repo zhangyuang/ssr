@@ -45,21 +45,13 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
 }
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, corejs, babelExtraModule, alias } = config
+  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, corejsOptions, babelExtraModule, alias } = config
   const mode = process.env.NODE_ENV as Mode
   const envOptions = {
-    modules: false
+    modules: false,
+    ...corejsOptions
   }
 
-  if (corejs) {
-    Object.assign(envOptions, {
-      corejs: {
-        version: 3,
-        proposals: true
-      },
-      useBuiltIns: 'usage'
-    })
-  }
   chain.mode(mode)
   chain.module.strictExportPresence(true)
   chain

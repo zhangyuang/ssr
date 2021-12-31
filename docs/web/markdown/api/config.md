@@ -390,17 +390,34 @@ css: () => {
 
 - 生效场景: `Webpack` 
 
-开启后我们将会在 [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env#corejs) 中追加如下配置。会自动根据当前代码的使用情况注入对应的 `polyfill` 具体表现请查看 `@babel/preset-env` 中相关说明。此选项用于兼容低端浏览器
+通常与下面的 `corejsOptions` 配合使用，开启后我们将会在 [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env#corejs) 中追加如下配置。会自动根据当前代码的使用情况注入对应的 `polyfill` 具体表现请查看 `@babel/preset-env` 中相关说明。此选项用于兼容低端浏览器
 
 ```js
-module.exports = {
-  corejs: {
-    version: 3,
-    proposals: true
-  },
-  useBuiltIns: 'usage'
-}
+const corejsOptions = userConfig.corejs ? {
+    corejs: {
+      version: corejsVersion,
+      proposals: corejsVersion === 3
+    },
+    targets: {
+      chrome: '60',
+      firefox: '60',
+      ie: '9',
+      safari: '10',
+      edge: '17'
+    },
+    useBuiltIns: 'usage',
+    shippedProposals: corejsVersion === 2,
+    ...userConfig.corejsOptions
+  } : {}
 ```
+
+## corejsOptions
+
+- 类型: `Object`
+
+- 默认: `如上所示`
+
+该配置用于覆盖默认的 `corejsOptions` 配置
 
 ## babelExtraModule
 

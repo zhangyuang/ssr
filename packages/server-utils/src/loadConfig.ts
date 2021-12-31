@@ -91,8 +91,25 @@ const loadConfig = (): IConfig => {
   }
 
   const dynamic = true
+  // ref https://www.babeljs.cn/docs/babel-preset-env#corejs
+  const corejsVersion = coerce(require('core-js/package.json').version).major
+  const corejsOptions = userConfig.corejs ? {
+    corejs: {
+      version: corejsVersion,
+      proposals: corejsVersion === 3
+    },
+    targets: {
+      chrome: '60',
+      firefox: '60',
+      ie: '9',
+      safari: '10',
+      edge: '17'
+    },
+    useBuiltIns: 'usage',
+    shippedProposals: corejsVersion === 2,
+    ...userConfig.corejsOptions
+  } : {}
 
-  const corejs = false
   const getOutput = () => ({
     clientOutPut: join(cwd, './build/client'),
     serverOutPut: join(cwd, './build/server')
@@ -130,7 +147,6 @@ const loadConfig = (): IConfig => {
   const manifestPath = `${normalizeEndPath(devPublicPath)}asset-manifest.json`
   const staticPath = `${normalizeEndPath(devPublicPath)}static`
   const hotUpdatePath = `${normalizeEndPath(devPublicPath)}*.hot-update**`
-
   const proxyKey = [staticPath, hotUpdatePath, manifestPath]
 
   const config = Object.assign({}, {
@@ -154,7 +170,6 @@ const loadConfig = (): IConfig => {
     dynamic,
     mode,
     stream,
-    corejs,
     https,
     manifestPath,
     proxyKey,
@@ -169,6 +184,8 @@ const loadConfig = (): IConfig => {
     supportOptinalChaining
   }, userConfig)
   config.alias = alias
+  config.corejsOptions = corejsOptions
+
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了
 
   return config

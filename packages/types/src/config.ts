@@ -59,7 +59,8 @@ export interface IConfig {
   }
   ssrVueLoaderOptions?: any
   csrVueLoaderOptions?: any
-  corejs: boolean
+  corejs?: boolean
+  corejsOptions?: Object
   https: boolean | object
   babelExtraModule?: RuleSetCondition
   routerPriority?: Record<string, number>
