@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.38](https://github.com/zhangyuang/ssr/compare/v6.1.37...v6.1.38) (2021-12-31)
+
+
+### Features
+
+* better corejsOptions ([732a5ce](https://github.com/zhangyuang/ssr/commit/732a5ce3a60797e4fea564f5994650f9383ef98d))
+
+
+
+
+
 ## [6.1.37](https://github.com/zhangyuang/ssr/compare/v6.1.36...v6.1.37) (2021-12-30)
 
 
