@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.39](https://github.com/zhangyuang/ssr/compare/v6.1.38...v6.1.39) (2021-12-31)
+
+
+### Bug Fixes
+
+* manualChunks close [#151](https://github.com/zhangyuang/ssr/issues/151) ([6230bcd](https://github.com/zhangyuang/ssr/commit/6230bcd986f7ab08032a3053fcf774899791dcaa))
+
+
+
+
+
 ## [6.1.38](https://github.com/zhangyuang/ssr/compare/v6.1.37...v6.1.38) (2021-12-31)
 
 
