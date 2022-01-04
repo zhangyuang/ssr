@@ -92,7 +92,12 @@ const loadConfig = (): IConfig => {
 
   const dynamic = true
   // ref https://www.babeljs.cn/docs/babel-preset-env#corejs
-  const corejsVersion = coerce(require('core-js/package.json').version).major
+  let corejsVersion: 3 | 2 | undefined = 3
+  try {
+    corejsVersion = coerce(require('core-js/package.json').version).major
+  } catch (error) {
+    // corejs maybe not be install in prod environment
+  }
   const corejsOptions = userConfig.corejs ? {
     corejs: {
       version: corejsVersion,
