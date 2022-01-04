@@ -1,6 +1,6 @@
 import { join } from 'path'
 import { IConfig } from 'ssr-types'
-import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework, loadModule } from './cwd'
+import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework, loadModuleFromFramework } from './cwd'
 // @ts-expect-error
 import { coerce } from 'semver'
 const framework = judgeFramework()
@@ -24,9 +24,9 @@ const loadConfig = (): IConfig => {
     '~': getCwd(),
     _build: join(getCwd(), './build')
   }, framework === 'ssr-plugin-react' ? {
-    react: loadModule('react') ?? join(cwd, './node_module/react'),
-    'react-router': loadModule('react-router') ?? join(cwd, './node_module/react-router'),
-    'react-router-dom': loadModule('react-router-dom') ?? join(cwd, './node_module/react-router-dom')
+    react: loadModuleFromFramework('react') ?? join(cwd, './node_module/react'),
+    'react-router': loadModuleFromFramework('react-router') ?? join(cwd, './node_module/react-router'),
+    'react-router-dom': loadModuleFromFramework('react-router-dom') ?? join(cwd, './node_module/react-router-dom')
   } : {
     vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
   }, userConfig.alias)
@@ -91,12 +91,7 @@ const loadConfig = (): IConfig => {
 
   const dynamic = true
   // ref https://www.babeljs.cn/docs/babel-preset-env#corejs
-  let corejsVersion: 3 | 2 | undefined = 3
-  try {
-    corejsVersion = coerce(require('core-js/package.json').version).major
-  } catch (error) {
-    // corejs maybe not be install in prod environment
-  }
+  const corejsVersion: 2|3|undefined = loadModuleFromFramework('core-js/package.json') && coerce(require(loadModuleFromFramework('core-js/package.json')).version).major
   const corejsOptions = userConfig.corejs ? {
     corejs: {
       version: corejsVersion,

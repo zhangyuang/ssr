@@ -1,13 +1,12 @@
 import { StyleOptions } from 'ssr-types'
 import { Config } from 'ssr-types/cjs/third-party/webpack-chain'
 import { loadConfig } from '../loadConfig'
-import { loadModule } from '../cwd'
+import { loadModuleFromFramework } from '../cwd'
 
+const loadModule = loadModuleFromFramework
 const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
   const { css, isDev, isVite } = loadConfig()
   const { include, exclude, importLoaders, loader, isServer } = options
-  const m = require('mini-css-extract-plugin')
-  console.log('xxx', loadModule('mini-css-extract-plugin/dist/loader'), m.loader)
   const userCssloaderOptions = css?.().loaderOptions?.cssOptions ?? {}
   const defaultCssloaderOptions = {
     importLoaders: importLoaders,
@@ -53,7 +52,7 @@ const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
         .end()
     })
     .use('MiniCss')
-    .loader(m.loader)
+    .loader(loadModule('mini-css-extract-plugin/dist/loader'))
     .options({
       // vite 场景下服务端 bundle 输出 css 文件，否则 服务端不输出
       emit: isVite ? true : !isServer

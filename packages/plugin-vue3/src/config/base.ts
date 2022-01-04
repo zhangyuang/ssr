@@ -1,14 +1,14 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getCwd, loadConfig, getLocalNodeModules, setStyle, addImageChain } from 'ssr-server-utils'
+import { getCwd, loadConfig, getLocalNodeModules, setStyle, addImageChain, loadModuleFromFramework } from 'ssr-server-utils'
 import * as webpack from 'webpack'
 import * as WebpackChain from 'webpack-chain'
 
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const MiniCssExtractPlugin = require(loadModuleFromFramework('mini-css-extract-plugin'))
 const WebpackBar = require('webpackbar')
 
-const loadModule = require.resolve
+const loadModule = loadModuleFromFramework
 
 const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOptions: any) => {
   chain.use('babel-loader')

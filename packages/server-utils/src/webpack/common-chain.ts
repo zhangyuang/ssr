@@ -1,6 +1,6 @@
 import * as WebpackChain from 'webpack-chain'
 import { getImageOutputPath } from '../parse'
-import { loadModule } from '../cwd'
+import { loadModuleFromFramework } from '../cwd'
 
 const addImageChain = (chain: WebpackChain, isServer: boolean) => {
   const { publicPath, imagePath } = getImageOutputPath()
@@ -8,14 +8,14 @@ const addImageChain = (chain: WebpackChain, isServer: boolean) => {
     .rule('images')
     .test(/\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/)
     .use('url-loader')
-    .loader(loadModule('url-loader'))
+    .loader(loadModuleFromFramework('url-loader'))
     .options({
       name: '[name].[hash:8].[ext]',
       // require 图片的时候不用加 .default
       esModule: false,
       limit: 4096,
       fallback: {
-        loader: loadModule('file-loader'),
+        loader: loadModuleFromFramework('file-loader'),
         options: {
           emitFile: !isServer,
           publicPath,

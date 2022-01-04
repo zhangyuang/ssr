@@ -121,11 +121,15 @@ const judgeFramework = () => {
   }
 }
 
-const loadModule = (path: string) => {
-  const framework = judgeFramework()
-  return require.resolve(path, {
-    paths: [resolve(getCwd(), `./node_modules/${framework}`)]
-  })
+const loadModuleFromFramework = (path: string) => {
+  try {
+    const framework = judgeFramework()
+    return require.resolve(path, {
+      paths: [resolve(getCwd(), `./node_modules/${framework}`)]
+    })
+  } catch (error) {
+    return ''
+  }
 }
 
 const getLocalNodeModules = () => resolve(__dirname, '../../../node_modules')
@@ -213,5 +217,5 @@ export {
   accessFileSync,
   judgeFramework,
   getPackageName,
-  loadModule
+  loadModuleFromFramework
 }
