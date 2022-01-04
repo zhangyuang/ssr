@@ -4,10 +4,10 @@ import { loadConfig } from '../loadConfig'
 import { loadModule } from '../cwd'
 
 const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
-  const MiniCssExtractPlugin = require(loadModule('mini-css-extract-plugin'))
   const { css, isDev, isVite } = loadConfig()
   const { include, exclude, importLoaders, loader, isServer } = options
-
+  const m = require('mini-css-extract-plugin')
+  console.log('xxx', loadModule('mini-css-extract-plugin/dist/loader'), m.loader)
   const userCssloaderOptions = css?.().loaderOptions?.cssOptions ?? {}
   const defaultCssloaderOptions = {
     importLoaders: importLoaders,
@@ -53,7 +53,7 @@ const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
         .end()
     })
     .use('MiniCss')
-    .loader(loadModule('mini-css-extract-plugin/dist/loader'))
+    .loader(m.loader)
     .options({
       // vite 场景下服务端 bundle 输出 css 文件，否则 服务端不输出
       emit: isVite ? true : !isServer
