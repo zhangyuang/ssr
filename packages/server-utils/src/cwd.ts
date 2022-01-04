@@ -113,12 +113,19 @@ const judgeFramework = () => {
   const cwd = getCwd()
   const packageJSON = require(resolve(cwd, './package.json'))
   if (packageJSON.dependencies.react || packageJSON.devDependencies.react) {
-    return 'react'
+    return 'ssr-plugin-react'
   }
   if (packageJSON.dependencies.vue || packageJSON.devDependencies.vue) {
     const version = packageJSON.dependencies.vue || packageJSON.devDependencies.vue
-    return coerce(version).major === 3 ? 'vue3' : 'vue2'
+    return coerce(version).major === 3 ? 'ssr-plugin-vue3' : 'ssr-plugin-vue'
   }
+}
+
+const loadModule = (path: string) => {
+  const framework = judgeFramework()
+  return require.resolve(path, {
+    paths: [resolve(getCwd(), `./node_modules/${framework}`)]
+  })
 }
 
 const getLocalNodeModules = () => resolve(__dirname, '../../../node_modules')
@@ -205,5 +212,6 @@ export {
   transformConfig,
   accessFileSync,
   judgeFramework,
-  getPackageName
+  getPackageName,
+  loadModule
 }

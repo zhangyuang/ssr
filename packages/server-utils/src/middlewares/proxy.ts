@@ -5,7 +5,7 @@ import * as koaConnect from 'koa2-connect'
 import { judgeFramework } from '../cwd'
 import { loadConfig } from '../loadConfig'
 
-function onProxyReq (proxyReq: any, req: any) {
+function onProxyReq(proxyReq: any, req: any) {
   Object.keys(req.headers).forEach(function (key) {
     proxyReq.setHeader(key, req.headers[key])
   })
@@ -17,7 +17,7 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
   const express = options ? options.express : false
   const proxyMiddlewaresArr: any[] = []
 
-  function registerProxy (proxy: any) {
+  function registerProxy(proxy: any) {
     for (const path in proxy) {
       const options = proxy[path]
       // 如果底层服务端框架是基于 express的。则不需要用 koaConnect 转换为 koa 中间件
@@ -36,7 +36,7 @@ const getDevProxyMiddlewaresArr = async (options?: proxyOptions) => {
 
       // 本地开发请求走 vite 接管 前端文件夹请求
       const { createServer } = require('vite')
-      const { clientConfig } = framework === 'react' ? require('ssr-plugin-react') : (framework === 'vue3' ? require('ssr-plugin-vue3') : require('ssr-plugin-vue'))
+      const { clientConfig } = require(framework)
       const viteServer = await createServer(clientConfig)
       proxyMiddlewaresArr.push(express ? viteServer.middlewares : kc(viteServer.middlewares))
     } else {

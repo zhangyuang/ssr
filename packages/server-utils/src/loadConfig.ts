@@ -1,9 +1,8 @@
 import { join } from 'path'
 import { IConfig } from 'ssr-types'
-import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework } from './cwd'
+import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework, loadModule } from './cwd'
 // @ts-expect-error
 import { coerce } from 'semver'
-const loadModule = require.resolve
 const framework = judgeFramework()
 const loadConfig = (): IConfig => {
   const userConfig = getUserConfig()
@@ -24,12 +23,12 @@ const loadConfig = (): IConfig => {
     '@': getFeDir(),
     '~': getCwd(),
     _build: join(getCwd(), './build')
-  }, framework === 'react' ? {
+  }, framework === 'ssr-plugin-react' ? {
     react: loadModule('react') ?? join(cwd, './node_module/react'),
     'react-router': loadModule('react-router') ?? join(cwd, './node_module/react-router'),
     'react-router-dom': loadModule('react-router-dom') ?? join(cwd, './node_module/react-router-dom')
   } : {
-    vue$: framework === 'vue2' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
+    vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
   }, userConfig.alias)
 
   type ClientLogLevel = 'error'

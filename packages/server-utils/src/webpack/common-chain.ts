@@ -1,8 +1,8 @@
 import * as WebpackChain from 'webpack-chain'
 import { getImageOutputPath } from '../parse'
+import { loadModule } from '../cwd'
 
 const addImageChain = (chain: WebpackChain, isServer: boolean) => {
-  const loadModule = require.resolve
   const { publicPath, imagePath } = getImageOutputPath()
   chain.module
     .rule('images')
