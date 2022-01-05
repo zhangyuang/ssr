@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.44](https://github.com/zhangyuang/ssr/compare/v6.1.42...v6.1.44) (2022-01-05)
+
+
+### Bug Fixes
+
+* manualChunks ([663295c](https://github.com/zhangyuang/ssr/commit/663295c17693550301ac5a71ee78f68d3d11ecfa))
+
+
+
+
+
 ## [6.1.43](https://github.com/zhangyuang/ssr/compare/v6.1.42...v6.1.43) (2022-01-05)
 
 **Note:** Version bump only for package ssr-core-vue
