@@ -98,6 +98,11 @@ export interface IConfig {
       extraPlugin?: any[]
     }
   }
+  define?: {
+    base?: Record<string, string>
+    client?: Record<string, string>
+    server?: Record<string, string>
+  }
 }
 
 export interface proxyOptions {

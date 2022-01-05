@@ -87,6 +87,18 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 静态资源构建时默认的 `entry` 名, 默认为 `Page`。无特殊需求不需要修改 -->
 
+## define
+
+- 类型: `{define?: {
+    base?: Record<string, string>
+    client?: Record<string, string>
+    server?: Record<string, string>
+  }}`
+- 默认: `{}`
+- 生效场景: `Webpack/Vite` 
+
+添加通用 `definePlugin` 配置，在双端皆可生效。兼容 `Webpack/Vite` 场景
+
 ## extraJsOrder
 
 - 类型: `string[]`
@@ -378,7 +390,7 @@ css: () => {
 
 - 默认: `{ enable: false }`
 
-- 生效场景: `Webpack` 
+- 生效场景: `Vue3 + Webpack` 
 
 是否启用 `vue-i18n` 国际化插件
 
@@ -539,13 +551,11 @@ export type viteConfig? = () => {
   client?: {
     // 只在客户端生效的配置
     defaultPluginOptions?: any // 默认使用的 vite 前端框架插件的配置，vue3 场景为 @vitejs/plugin-vue， react场景为 @vitejs/plugin-react 查看对应文档获取类型 https://vitejs.dev/plugins/
-    define?: Record<string, any>
     extraPlugin?: any[] // 需要使用的额外插件
   }
   server?: {
     // 只在服务端生效的配置
     defaultPluginOptions?: any
-    define?: Record<string, any>
     extraPlugin?: any[]
   }
 }

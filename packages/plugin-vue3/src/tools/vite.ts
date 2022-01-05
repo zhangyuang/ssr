@@ -12,7 +12,7 @@ import styleImport, {
 } from 'vite-plugin-style-import'
 
 const build: typeof BuildType = require('vite').build
-const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining, isDev } = loadConfig()
+const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining, isDev, define } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 const styleImportConfig = {
   include: ['**/*.vue', '**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx', /chunkName/],
@@ -54,7 +54,9 @@ const serverConfig: UserConfig = {
   },
   define: {
     __isBrowser__: false,
-    ...viteConfig?.()?.server?.define
+    ...viteConfig?.()?.server?.define,
+    ...define?.server,
+    ...define?.base
   }
 }
 
@@ -78,7 +80,9 @@ const clientConfig: UserConfig = {
   },
   define: {
     __isBrowser__: true,
-    ...viteConfig?.()?.client?.define
+    ...viteConfig?.()?.client?.define,
+    ...define?.client,
+    ...define?.base
   }
 }
 const viteStart = async () => {

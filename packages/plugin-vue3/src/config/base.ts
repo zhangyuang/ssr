@@ -61,7 +61,7 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
 
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, locale, corejsOptions, ssrVueLoaderOptions, csrVueLoaderOptions, babelExtraModule, alias } = config
+  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, locale, corejsOptions, ssrVueLoaderOptions, csrVueLoaderOptions, babelExtraModule, alias, define } = config
 
   let vueLoaderOptions = {
     babelParserPlugins: ['jsx', 'classProperties', 'decorators-legacy']
@@ -204,7 +204,9 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   chain.plugin('ssrDefine').use(webpack.DefinePlugin, [{
     __isBrowser__: !isServer,
     __VUE_OPTIONS_API__: true,
-    __VUE_PROD_DEVTOOLS__: false
+    __VUE_PROD_DEVTOOLS__: false,
+    ...(isServer ? define?.server : define?.client),
+    ...define?.base
   }])
 
   chainBaseConfig(chain)

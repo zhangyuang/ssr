@@ -2,7 +2,7 @@ import type { build as BuildType, UserConfig } from 'vite'
 import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig } from 'ssr-server-utils'
 import { createVuePlugin } from 'vite-plugin-vue2'
 const build: typeof BuildType = require('vite').build
-const { getOutput, vueServerEntry, vueClientEntry } = loadConfig()
+const { getOutput, vueServerEntry, vueClientEntry, define } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
 const serverConfig: UserConfig = {
@@ -20,7 +20,9 @@ const serverConfig: UserConfig = {
     }
   },
   define: {
-    __isBrowser__: false
+    __isBrowser__: false,
+    ...define?.server,
+    ...define?.base
   }
 }
 
@@ -39,7 +41,9 @@ const clientConfig: UserConfig = {
     }
   },
   define: {
-    __isBrowser__: true
+    __isBrowser__: true,
+    ...define?.client,
+    ...define?.base
   }
 }
 const viteStart = async () => {

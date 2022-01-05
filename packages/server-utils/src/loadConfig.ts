@@ -18,15 +18,15 @@ const loadConfig = (): IConfig => {
   const reactServerEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/server-entry.js')
   const reactClientEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/client-entry.js')
   const supportOptinalChaining = coerce(process.version).major >= '14'
-
+  const define = {}
   const alias = Object.assign({
     '@': getFeDir(),
     '~': getCwd(),
     _build: join(getCwd(), './build')
   }, framework === 'ssr-plugin-react' ? {
-    react: loadModuleFromFramework('react') ?? join(cwd, './node_module/react'),
-    'react-router': loadModuleFromFramework('react-router') ?? join(cwd, './node_module/react-router'),
-    'react-router-dom': loadModuleFromFramework('react-router-dom') ?? join(cwd, './node_module/react-router-dom')
+    react: loadModuleFromFramework('react'),
+    'react-router': loadModuleFromFramework('react-router'),
+    'react-router-dom': loadModuleFromFramework('react-router-dom')
   } : {
     vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
   }, userConfig.alias)
@@ -180,7 +180,8 @@ const loadConfig = (): IConfig => {
     reactClientEntry,
     isVite,
     isCI,
-    supportOptinalChaining
+    supportOptinalChaining,
+    define
   }, userConfig)
   config.alias = alias
   config.corejsOptions = corejsOptions

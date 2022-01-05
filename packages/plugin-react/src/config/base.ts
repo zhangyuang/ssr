@@ -45,7 +45,7 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
 }
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, corejsOptions, babelExtraModule, alias } = config
+  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, corejsOptions, babelExtraModule, alias, define } = config
   const mode = process.env.NODE_ENV as Mode
   const envOptions = {
     modules: false,
@@ -132,7 +132,9 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     color: isServer ? '#f173ac' : '#45b97c'
   }))
   chain.plugin('ssrDefine').use(webpack.DefinePlugin, [{
-    __isBrowser__: !isServer
+    __isBrowser__: !isServer,
+    ...(isServer ? define?.server : define?.client),
+    ...define?.base
   }])
   chainBaseConfig(chain)
   return config
