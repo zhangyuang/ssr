@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.43](https://github.com/zhangyuang/ssr/compare/v6.1.42...v6.1.43) (2022-01-05)
+
+**Note:** Version bump only for package ssr-plugin-midway
+
+
+
+
+
 ## [6.1.42](https://github.com/zhangyuang/ssr/compare/v6.1.41...v6.1.42) (2022-01-05)
 
 **Note:** Version bump only for package ssr-plugin-midway

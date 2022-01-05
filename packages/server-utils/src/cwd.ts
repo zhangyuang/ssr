@@ -1,5 +1,5 @@
 import { promises, accessSync, readFileSync, writeFileSync } from 'fs'
-import { resolve, sep } from 'path'
+import { resolve } from 'path'
 import { exec } from 'child_process'
 import { promisify } from 'util'
 import { UserConfig, IPlugin } from 'ssr-types'
@@ -177,25 +177,7 @@ const normalizeEndPath = (path: string) => {
   }
   return path
 }
-function getPackageName (modulePath: string, packageFolder = 'node_modules') {
-  if (typeof modulePath === 'string' && modulePath.includes(packageFolder)) {
-    const segments = modulePath.split(sep)
-    const index = segments.lastIndexOf(packageFolder)
 
-    if (index > -1) {
-      const name = segments[index + 1] || ''
-      const scopedName = segments[index + 2] || ''
-
-      if (name[0] === '@') {
-        return scopedName ? `${name}/${scopedName}` : undefined
-      }
-
-      if (name) {
-        return name
-      }
-    }
-  }
-}
 export {
   getCwd,
   getFeDir,
@@ -216,6 +198,5 @@ export {
   transformConfig,
   accessFileSync,
   judgeFramework,
-  getPackageName,
   loadModuleFromFramework
 }
