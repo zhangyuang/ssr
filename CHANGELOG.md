@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.41](https://github.com/zhangyuang/ssr/compare/v6.1.40...v6.1.41) (2022-01-05)
+
+
+### Bug Fixes
+
+* loadModule ([9695840](https://github.com/zhangyuang/ssr/commit/96958403d0f02494e66ee2e4e6283aa58b8a50c1))
+* loadModule ([9b94dfe](https://github.com/zhangyuang/ssr/commit/9b94dfe21e11e646e3a01319ed2152585ec52a23))
+
+
+
+
+
 ## [6.1.40](https://github.com/zhangyuang/ssr/compare/v6.1.39...v6.1.40) (2022-01-04)
 
 
