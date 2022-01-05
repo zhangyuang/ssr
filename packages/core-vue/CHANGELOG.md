@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.42](https://github.com/zhangyuang/ssr/compare/v6.1.41...v6.1.42) (2022-01-05)
+
+**Note:** Version bump only for package ssr-core-vue
+
+
+
+
+
 ## [6.1.41](https://github.com/zhangyuang/ssr/compare/v6.1.40...v6.1.41) (2022-01-05)
 
 **Note:** Version bump only for package ssr-core-vue

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.42](https://github.com/zhangyuang/ssr/compare/v6.1.41...v6.1.42) (2022-01-05)
+
+
+### Features
+
+* support config.define ([c04f128](https://github.com/zhangyuang/ssr/commit/c04f12844e22300f57e17683cff0584e8f8ea123))
+
+
+
+
+
 ## [6.1.38](https://github.com/zhangyuang/ssr/compare/v6.1.37...v6.1.38) (2021-12-31)
 
 
