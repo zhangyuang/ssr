@@ -2,6 +2,9 @@ service:
   name: ssr-doc
 provider:
   name: aliyun
+  memorySize: 2048
+  timeout: 20
+  initTimeout: 20
 
 aggregation: # 聚合成一个函数发布
   ssr: # 聚合函数的名称
