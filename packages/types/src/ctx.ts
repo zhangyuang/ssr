@@ -1,6 +1,6 @@
 import type { Request, Response } from 'express'
 import type { RouterContext } from 'koa-router'
-import type Cookies from 'cookies'
+import type { ICookies, SetOption } from 'cookies'
 
 export interface ExpressContext {
   request: Request
@@ -9,7 +9,9 @@ export interface ExpressContext {
 
 // compatible with egg types
 type IKoaContext = Omit<RouterContext, 'cookies' |'router'| '_matchedRoute'| '_matchedRouteName'> & {
-  cookies: Partial<Cookies>
+  cookies: Omit<Partial<ICookies>, 'set'> & {
+    set?: (name: string, value?: string | null, opts?: SetOption) => any
+  }
 }
 
 export type ISSRContext<T={}> = (ExpressContext|IKoaContext) & T
