@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.45](https://github.com/zhangyuang/ssr/compare/v6.1.44...v6.1.45) (2022-01-06)
+
+
+### Features
+
+* update ssr-types remove egg ([0bb320d](https://github.com/zhangyuang/ssr/commit/0bb320deb948131baac90963371969fe8a051c9d))
+
+
+
+
+
 ## [6.1.42](https://github.com/zhangyuang/ssr/compare/v6.1.41...v6.1.42) (2022-01-05)
 
 
