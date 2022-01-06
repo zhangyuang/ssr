@@ -42,7 +42,6 @@
     "@vue/compiler-sfc": "^3.0.7",
     "babel-loader": "8.0.4",
     "babel-plugin-import": "^1.13.0",
-    "concurrently": "^5.1.0",
     "core-js": "^3.6.4",
     "css-hot-loader": "^1.4.4",
     "css-loader": "^5.2.7",
@@ -73,5 +72,8 @@
     "webpack-chain": "^6.4.0",
     "webpack-manifest-plugin": "^2.2.0",
     "webpackbar": "^5.0.0-3"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0"
   }
 }
