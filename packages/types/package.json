@@ -32,7 +32,8 @@
     "@types/tapable": "^1.0.6",
     "@types/webpack": "^4.41.10",
     "@types/yargs": "^13.0.4",
-    "egg": "^2.0.0"
+    "@types/koa-router": "^7.4.4",
+    "@types/cookies": "^0.7.7"
   },
   "peerDependencies": {
     "@types/node": ">=14.0.0"
