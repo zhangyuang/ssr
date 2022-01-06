@@ -140,6 +140,202 @@ jobs:
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/react-ssr.spec.js
           browser: chrome
+
+  e2e-chrome-nestjs-react-prod:
+    needs: bootstrap
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+        node: ["12"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
+            node_modules
+            packages/**/node_modules
+            example/**/node_modules
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: bindings-${{matrix.node}}
+          path: packages
+      - name: prepare
+        run: yarn run link --react
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example:nestjs:react:prod
+          wait-on: 'http://localhost:3000'
+          spec: | 
+            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/react-ssr.spec.js
+          browser: chrome
+  e2e-chrome-nestjs-react-prod-vite:
+    needs: bootstrap
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+        node: ["12"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
+            node_modules
+            packages/**/node_modules
+            example/**/node_modules
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: bindings-${{matrix.node}}
+          path: packages
+      - name: prepare
+        run: yarn run link --react
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example:nestjs:react:prod:vite
+          wait-on: 'http://localhost:3000'
+          spec: | 
+            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/react-ssr.spec.js
+          browser: chrome
+  e2e-chrome-nestjs-vue3-prod-vite:
+    needs: bootstrap
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+        node: ["12"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
+            node_modules
+            packages/**/node_modules
+            example/**/node_modules
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: bindings-${{matrix.node}}
+          path: packages
+      - name: prepare
+        run: yarn run link --vue3
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example:nestjs:vue3:prod:vite
+          wait-on: 'http://localhost:3000'
+          spec: | 
+            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/vue3-ssr.spec.js
+          browser: chrome
+  e2e-chrome-nestjs-vue-prod:
+    needs: bootstrap
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+        node: ["12"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
+            node_modules
+            packages/**/node_modules
+            example/**/node_modules
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: bindings-${{matrix.node}}
+          path: packages
+      - name: prepare
+        run: yarn run link --vue2
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example:nestjs:vue:prod
+          wait-on: 'http://localhost:3000'
+          spec: | 
+            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/vue-ssr.spec.js
+          browser: chrome
+  e2e-chrome-nestjs-vue3-prod:
+    needs: bootstrap
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+        node: ["12"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Load node_modules
+        uses: actions/cache@v2
+        id: yarn-cache
+        with:
+          path: |
+            /home/runner/.cache/Cypress  
+            ~/.cache/yarn
+            node_modules
+            packages/**/node_modules
+            example/**/node_modules
+          key: ${{ runner.os }}-v2.5.2-${{ hashFiles('**/yarn.lock') }}
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: bindings-${{matrix.node}}
+          path: packages
+      - name: prepare
+        run: yarn run link --vue3
+      - uses: cypress-io/github-action@v2
+        with:
+          start: yarn run example:nestjs:vue3:prod
+          wait-on: 'http://localhost:3000'
+          spec: | 
+            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/vue-ssr.spec.js
+          browser: chrome
   e2e-chrome-midway-react-vite:
     needs: bootstrap
     runs-on: ubuntu-latest
@@ -511,13 +707,18 @@ jobs:
     needs:  
       - lint
       - e2e-firefox-midway-react
-      - e2e-firefox-nestjs-react
       - e2e-chrome-midway-react
       - e2e-chrome-midway-react-vite
       - e2e-chrome-midway-vue
       - e2e-chrome-midway-vue3
       - e2e-chrome-midway-vue3-vite
       - e2e-chrome-midway-react-dynamic-router
+      - e2e-firefox-nestjs-react
+      - e2e-chrome-nestjs-react-prod
+      - e2e-chrome-nestjs-react-prod-vite
+      - e2e-chrome-nestjs-vue-prod
+      - e2e-chrome-nestjs-vue3-prod
+      - e2e-chrome-nestjs-vue3-prod-vite
       - e2e-chrome-nestjs-vue
       - e2e-chrome-nestjs-vue3
 
