@@ -8,7 +8,6 @@
     "@nestjs/platform-express": "^8.0.0",
     "pm2": "^4.5.4",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^6.6.3",
     "ssr-core-vue": "^6.0.0",
     "ssr-types": "^6.0.0",
     "ssr-server-utils": "^6.0.0",
