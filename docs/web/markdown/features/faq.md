@@ -1221,3 +1221,7 @@ import { startFunc, buildFunc, deployFunc } from 'ssr'
 
 await startFunc(options)
 ```
+
+## taliwind.css
+
+结合 [taliwind.css](https://tailwindcss.com/) 请参考 [ssr-taliwind](https://github.com/loyep/ssr-tailwindcss/blob/master/package.json#L20)，需要使用 `postcss@7` 对应的依赖

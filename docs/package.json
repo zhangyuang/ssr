@@ -52,5 +52,8 @@
   },
   "egg": {
     "framework": "@midwayjs/web"
+  },
+  "resolutions": {
+    "colors": "1.4.0"
   }
 }
