@@ -8,3 +8,7 @@ export default {
 
 }
 </script>
+
+<style lang="less">
+@import '@/common.less';
+</style>
