@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.47-alpha.1](https://github.com/zhangyuang/ssr/compare/v6.1.47-alpha.0...v6.1.47-alpha.1) (2022-01-13)
+
+
+### Features
+
+* support babelOptions ([2cd9139](https://github.com/zhangyuang/ssr/commit/2cd91398bed61fe4def651d1846ad438c517f78b))
+
+
+
+
+
 ## [6.1.47-alpha.0](https://github.com/zhangyuang/ssr/compare/v6.1.46...v6.1.47-alpha.0) (2022-01-13)
 
 
