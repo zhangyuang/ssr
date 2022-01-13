@@ -9,7 +9,7 @@ const safePostCssParser = require('postcss-safe-parser')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const loadModule = loadModuleFromFramework
-let asyncChunkMap: Record<string, string> = {}
+let asyncChunkMap: Record<string, string[]> = {}
 
 const getClientWebpack = (chain: WebpackChain) => {
   const { isDev, chunkName, getOutput, cwd, useHash, chainClientConfig } = loadConfig()

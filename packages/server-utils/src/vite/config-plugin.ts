@@ -16,7 +16,7 @@ const cwd = getCwd()
 const originAsyncChunkMap: Record<string, Array<{
   name: string
 }>> = {}
-const asyncChunkMapJSON: Record<string, string> = {}
+const asyncChunkMapJSON: Record<string, string[]> = {}
 
 const chunkNamePlugin = function (): Plugin {
   return {
@@ -45,15 +45,25 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
     name: 'asyncOptimizeChunkPlugin',
     moduleParsed (this, info) {
       const { id, importedIds } = info
-      if (id.includes('chunkName')) {
-        const chunkname = chunkNameRe.exec(id)![1]
-        for (const importerId of importedIds) {
-          if (!originAsyncChunkMap[importerId]) {
-            originAsyncChunkMap[importerId] = []
+      if (!id.includes('node_modules')) {
+        if (id.includes('chunkName')) {
+          const chunkname = chunkNameRe.exec(id)![1]
+          for (const importerId of importedIds) {
+            if (!originAsyncChunkMap[importerId]) {
+              originAsyncChunkMap[importerId] = []
+            }
+            originAsyncChunkMap[importerId].push({
+              name: chunkname
+            })
           }
-          originAsyncChunkMap[importerId].push({
-            name: chunkname
-          })
+        } else if (originAsyncChunkMap[id]) {
+          const { importedIds } = this.getModuleInfo(id)!
+          for (const importerId of importedIds) {
+            if (!originAsyncChunkMap[importerId]) {
+              originAsyncChunkMap[importerId] = []
+            }
+            originAsyncChunkMap[importerId] = originAsyncChunkMap[importerId].concat(originAsyncChunkMap[id] ?? [])
+          }
         }
       }
     }
