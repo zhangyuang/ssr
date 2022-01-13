@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.47-alpha.0](https://github.com/zhangyuang/ssr/compare/v6.1.46...v6.1.47-alpha.0) (2022-01-13)
+
+
+### Bug Fixes
+
+* resolutions colors ([dd65fa6](https://github.com/zhangyuang/ssr/commit/dd65fa6e7bf835b2364f62d26628f2ec9f1c2ac6))
+
+
+### Features
+
+* support babelOptions ([8847197](https://github.com/zhangyuang/ssr/commit/8847197ff8065b40a883c37f107ee8eae8d32ba9))
+
+
+
+
+
 ## [6.1.46](https://github.com/zhangyuang/ssr/compare/v6.1.45...v6.1.46) (2022-01-07)
 
 
