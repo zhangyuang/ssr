@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.48](https://github.com/zhangyuang/ssr/compare/v6.1.47...v6.1.48) (2022-01-13)
+
+
+### Bug Fixes
+
+* babelOptions ([67461c2](https://github.com/zhangyuang/ssr/commit/67461c2422384475887d173cf7532a408a58e301))
+
+
+
+
+
 ## [6.1.47](https://github.com/zhangyuang/ssr/compare/v6.1.47-alpha.1...v6.1.47) (2022-01-13)
 
 **Note:** Version bump only for package ssr
