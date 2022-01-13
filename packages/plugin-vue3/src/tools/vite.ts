@@ -12,8 +12,9 @@ import styleImport, {
 } from 'vite-plugin-style-import'
 
 const build: typeof BuildType = require('vite').build
-const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining, isDev, define } = loadConfig()
+const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
+
 const styleImportConfig = {
   include: ['**/*.vue', '**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx', /chunkName/],
   resolves: [
@@ -39,7 +40,10 @@ const serverConfig: UserConfig = {
         '@babel/plugin-proposal-nullish-coalescing-operator'
       ],
       exclude: /node_modules|\.(css|less|sass)/,
-      extensions: ['.vue', '.ts', '.js']
+      extensions: ['.vue', '.tsx', '.js']
+    }),
+    babelOptions && babel({
+      ...babelOptions
     })
   ],
   build: {
@@ -67,7 +71,10 @@ const clientConfig: UserConfig = {
     vueJSXPlugin(),
     viteConfig?.()?.common?.extraPlugin,
     viteConfig?.()?.client?.extraPlugin,
-    styleImport(styleImportConfig)
+    styleImport(styleImportConfig),
+    babelOptions && babel({
+      ...babelOptions
+    })
   ],
   build: {
     ssrManifest: true,

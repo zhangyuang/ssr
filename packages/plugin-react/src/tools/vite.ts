@@ -10,7 +10,7 @@ import styleImport, {
 } from 'vite-plugin-style-import'
 
 const build: typeof BuildType = require('vite').build
-const { getOutput, reactServerEntry, reactClientEntry, viteConfig, supportOptinalChaining, isDev, define } = loadConfig()
+const { getOutput, reactServerEntry, reactClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions } = loadConfig()
 
 const { clientOutPut, serverOutPut } = getOutput()
 const styleImportConfig = {
@@ -29,11 +29,12 @@ const serverConfig: UserConfig = {
     react({
       ...viteConfig?.()?.server?.defaultPluginOptions,
       jsxRuntime: 'classic',
-      babel: !supportOptinalChaining && {
-        plugins: [
+      babel: {
+        ...babelOptions,
+        plugins: (!supportOptinalChaining && babelOptions?.plugins) ? babelOptions.plugins.concat([
           '@babel/plugin-proposal-optional-chaining',
           '@babel/plugin-proposal-nullish-coalescing-operator'
-        ]
+        ]) : babelOptions?.plugins
       }
     }),
     viteConfig?.()?.common?.extraPlugin,
@@ -66,7 +67,8 @@ const clientConfig: UserConfig = {
   plugins: [
     react({
       ...viteConfig?.()?.client?.defaultPluginOptions,
-      jsxRuntime: 'classic'
+      jsxRuntime: 'classic',
+      ...babelOptions
     }),
     viteConfig?.()?.common?.extraPlugin,
     viteConfig?.()?.client?.extraPlugin,

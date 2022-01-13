@@ -39,7 +39,6 @@
     "magic-string": "^0.25.7",
     "path-to-regexp": "^6.2.0",
     "semver": "^7.3.5",
-    "shelljs": "^0.8.3",
-    "ssr-types": "^6.1.46"
+    "shelljs": "^0.8.3"
   }
 }

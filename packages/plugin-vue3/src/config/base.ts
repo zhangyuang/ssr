@@ -11,6 +11,8 @@ const WebpackBar = require('webpackbar')
 const loadModule = loadModuleFromFramework
 
 const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOptions: any) => {
+  const { babelOptions } = loadConfig()
+
   chain.use('babel-loader')
     .loader(loadModule('babel-loader'))
     .options({
@@ -28,7 +30,8 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
         [
           loadModule('@babel/preset-env'),
           envOptions
-        ]
+        ],
+        ...babelOptions?.presets ?? []
       ],
       plugins: [
         [
@@ -53,7 +56,8 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
             style: true
           }, 'ant-design-vue'
         ],
-        loadModule('@vue/babel-plugin-jsx')
+        loadModule('@vue/babel-plugin-jsx'),
+        ...babelOptions?.plugins ?? []
       ]
     })
     .end()

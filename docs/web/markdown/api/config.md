@@ -6,7 +6,8 @@
 
 配置文件可通过 `config.ts|js` 文件定义以及调用 `core.render` 方法时实时传入。会将两者配置进行合并
 
-注：得益于 `ssr` 的强大设计，你会发现很多功能开发者完全可以自行在业务代码层面轻松实现而无需框架底层实现或者引入第三方库实现。比如指定页面 `ssr`，比如自定义 `meta` 标签。这些十分简单但重要的功能在其他框架用起来是无比的别扭。而在 `ssr` 框架。一切都是那么自然。
+注：`config.ts|js` 文件将会在编译后统一放置于 `build/config.js` 路径，所以当你在配置文件中使用相对路径引用外部文件时请使用 `require cwd` 类似的语法。目前不支持引入外部 `ts` 文件
+
 
 ```js
 import { render } from 'ssr-core-vue3'
@@ -128,6 +129,26 @@ module.exports = {
   extraCssOrder: ['styles.css']
 }
 ```
+
+## babelOptions
+
+- 类型: `babelCore.transformOptions`
+- 默认: `undefined`
+- 生效场景: `Webpack/Vite` 
+
+建议使用该配置来修改默认的 `babel` 配置，兼容 `Webpack/Vite` 场景
+
+```js
+
+export {
+  babelOptions: {
+    presets: [] // 比较少用
+    plugins: [] // 通常使用该配置新增 plugin
+  }
+}
+```
+
+
 ## webpackDevServerConfig
 
 - 类型: `webpackDevServer.Configuration`

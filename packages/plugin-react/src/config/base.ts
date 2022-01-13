@@ -10,6 +10,7 @@ const WebpackBar = require('webpackbar')
 const loadModule = loadModuleFromFramework
 
 const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOptions: any) => {
+  const { babelOptions } = loadConfig()
   chain.use('babel-loader')
     .loader(loadModule('babel-loader'))
     .options({
@@ -21,7 +22,8 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
           loadModule('@babel/preset-env'),
           envOptions
         ],
-        [loadModule('babel-preset-react-app'), { flow: false, typescript: true }]
+        [loadModule('babel-preset-react-app'), { flow: false, typescript: true }],
+        ...babelOptions?.presets ?? []
       ],
       plugins: [
         [loadModule('@babel/plugin-transform-runtime'), {
@@ -38,7 +40,8 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
           }, 'antd'
         ],
         [loadModule('@babel/plugin-proposal-private-methods'), { loose: true }],
-        [loadModule('@babel/plugin-proposal-private-property-in-object'), { loose: true }]
+        [loadModule('@babel/plugin-proposal-private-property-in-object'), { loose: true }],
+        ...babelOptions?.plugins ?? []
       ]
     })
     .end()
