@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.47](https://github.com/zhangyuang/ssr/compare/v6.1.47-alpha.1...v6.1.47) (2022-01-13)
+
+**Note:** Version bump only for package ssr-client-utils
+
+
+
+
+
 ## [6.1.47-alpha.1](https://github.com/zhangyuang/ssr/compare/v6.1.47-alpha.0...v6.1.47-alpha.1) (2022-01-13)
 
 **Note:** Version bump only for package ssr-client-utils
