@@ -33,10 +33,10 @@ const serverConfig: UserConfig = {
         ...babelOptions,
         plugins: [
           ...babelOptions?.plugins ?? [],
-          !supportOptinalChaining && [
+          ...!supportOptinalChaining ? [
             '@babel/plugin-proposal-optional-chaining',
             '@babel/plugin-proposal-nullish-coalescing-operator'
-          ]
+          ] : []
         ]
       }
     }),
