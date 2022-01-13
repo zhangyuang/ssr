@@ -188,6 +188,14 @@ const loadConfig = (): IConfig => {
 
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了
 
+  config.babelOptions = userConfig.babelOptions ? {
+    ...{
+      babelHelpers: 'bundled' as 'bundled',
+      exclude: /node_modules|\.(css|less|sass)/,
+      extensions: ['.ts', '.vue', '.tsx', '.js']
+    },
+    ...userConfig.babelOptions
+  } : undefined
   return config
 }
 

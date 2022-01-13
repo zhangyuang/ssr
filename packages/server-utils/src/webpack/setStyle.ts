@@ -1,5 +1,4 @@
-import { StyleOptions } from 'ssr-types'
-import { Config } from 'ssr-types/cjs/third-party/webpack-chain'
+import type { StyleOptions, Config } from 'ssr-types'
 import { loadConfig } from '../loadConfig'
 import { loadModuleFromFramework } from '../cwd'
 

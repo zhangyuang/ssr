@@ -1,8 +1,12 @@
 import { Configuration, Options, RuleSetCondition } from 'webpack'
+import * as Config from 'webpack-chain'
+import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel'
 import { Argv } from './yargs'
-import { Config } from './third-party/webpack-chain'
 import { ISSRContext } from './ctx'
 
+export {
+  Config
+}
 export type Script = Array<{
   describe?: object | {
     attrs: object
@@ -103,6 +107,7 @@ export interface IConfig {
     client?: Record<string, string>
     server?: Record<string, string>
   }
+  babelOptions?: RollupBabelInputPluginOptions
 }
 
 export interface proxyOptions {
