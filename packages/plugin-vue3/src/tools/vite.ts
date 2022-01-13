@@ -40,7 +40,7 @@ const serverConfig: UserConfig = {
         '@babel/plugin-proposal-nullish-coalescing-operator'
       ],
       exclude: /node_modules|\.(css|less|sass)/,
-      extensions: ['.vue', '.tsx', '.js']
+      extensions: ['.vue', '.ts', '.tsx', '.js']
     }),
     babelOptions && babel({
       ...babelOptions
