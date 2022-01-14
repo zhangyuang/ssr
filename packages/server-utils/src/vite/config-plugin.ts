@@ -62,7 +62,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
             if (!originAsyncChunkMap[importerId]) {
               originAsyncChunkMap[importerId] = []
             }
-            originAsyncChunkMap[importerId] = originAsyncChunkMap[importerId].concat(originAsyncChunkMap[id] ?? [])
+            originAsyncChunkMap[importerId] = originAsyncChunkMap[importerId].concat(originAsyncChunkMap[id])
           }
         }
       }
