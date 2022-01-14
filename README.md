@@ -273,7 +273,7 @@ $ npm run start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 
 <div style="display:flex">
 <img src="https://res.wx.qq.com/op_res/7F1t4Z8yCHWilehbcFGjAj0yVn0URMiWBGVJa-TVu_eqw5IwUXA2kPYBnfX6YRHy0FVBB-yC6l0IEL02QTJkLg" width="300">
-<img src="https://res.wx.qq.com/op_res/7SpflSUP3RJ5InL7FkN0-9JeTj18T_lvqJXXHLNNpY_owTyqtgVH8qMqjk4w7S6YeDWZmUP-N_4vLLAUCdySTA" width="300">
+<img src="https://res.wx.qq.com/op_res/UXZQkqMG9Ej1Ox4pro3iDJPugn8EGQN7xKWXTDh0L0xgK7BOUZvT-MQ_Diks_iTtCL3Kregp-lS52WXsiDctuw" width="300">
 </div>
 
 ## 前端开发手册
@@ -283,3 +283,7 @@ $ npm run start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 ## 项目 Star 数增长趋势
 
 [![Stargazers over time](https://starchart.cc/zhangyuang/ssr.svg)](https://starchart.cc/zhangyuang/ssr)
+
+## 代码行数
+
+![](https://res.wx.qq.com/op_res/sE2C4qCTn9IN1dyiw4MMTEU9dW40eFXbfWe6-o31-kWEJN0ddQKR41_ZbAwAE01oW5yQj4zV3UJ_rVbX0D99Mw)
