@@ -10,7 +10,7 @@ export interface ExpressContext {
 // compatible with egg types
 type IKoaContext = Omit<RouterContext, 'cookies' |'router'| '_matchedRoute'| '_matchedRouteName'> & {
   cookies: Omit<Partial<ICookies>, 'set'> & {
-    set?: (name: string, value?: string | null, opts?: SetOption) => any
+    set?: (name: string, value?: string | null, opts?: SetOption) => IKoaContext['cookies']
   }
 }
 

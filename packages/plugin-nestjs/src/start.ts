@@ -1,12 +1,20 @@
 import { exec } from 'child_process'
 import { logGreen, loadConfig } from 'ssr-server-utils'
+import { Argv } from 'ssr-types'
+import { getNormalizeArgv } from './utils'
 
 const spinner = require('ora')('starting ')
+const singleDash = ['c', 'p', 'w', 'd', 'e', 'h']
+const doubleDash = ['config', 'path', 'watch', 'watchAssets', 'debug', 'webpack', 'webpackPath', 'tsc', 'exec', 'preserveWatchOutput', 'help']
 
-const start = () => {
+const start = (argv: Argv) => {
   const { serverPort, nestStartTips } = loadConfig()
   spinner.start()
-  const { stdout, stderr } = exec('npx nest start --watch', {
+  const normalizeArgv = getNormalizeArgv(argv, {
+    singleDash,
+    doubleDash
+  })
+  const { stdout, stderr } = exec(`npx nest start --watch ${normalizeArgv}`, {
     env: { ...process.env, FORCE_COLOR: '1' }
   })
   stdout?.on('data', function (data) {

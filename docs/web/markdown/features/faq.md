@@ -1225,3 +1225,14 @@ await startFunc(options)
 ## taliwind.css
 
 结合 [taliwind.css](https://tailwindcss.com/) 请参考 [ssr-taliwind](https://github.com/loyep/ssr-tailwindcss/blob/master/package.json#L20)，需要使用 `postcss@7` 对应的依赖
+
+## 启动参数透传
+
+`ssr start|build` 命令将会透传所有参数到底层的 `nest-cli`, `midway-bin`
+
+```shell
+$ ssr start --debug 8001 # 等价于 nest start --debug 8001
+$ ssr start --port 7001 # 等价于 midway-bin dev --port 7001
+```
+
+`build` 同理，参考当前服务端框架对应的文档即可
