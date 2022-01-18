@@ -13,12 +13,11 @@
 </div>
 <br />
 <div align="center">
-<a href="https://github.com/zhangyuang/ssr/actions" target="_blank"><img src="https://github.com/zhangyuang/ssr/workflows/CI/badge.svg" alt="githubActions"></a>
-<a href="https://www.cypress.io/" target="_blank"><img src="https://img.shields.io/badge/cypress-dashboard-brightgreen.svg" alt="cypress"></a>
-<a href="https://npmcharts.com/compare/ssr" target="_blank"><img src="https://img.shields.io/npm/dm/ssr" alt="download"></a>
-<a href="https://standardjs.com" target="_blank"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="standardjs"></a>
-<a href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
-<a href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/badge/node-%3E=12-green.svg" alt="Node"></a>
+<a href="https://github.com/zhangyuang/ssr/actions" target="_blank"><img src="https://github.com/zhangyuang/ssr/workflows/CI/badge.svg" alt="githubActions" />
+<a href="https://www.cypress.io/" target="_blank"><img src="https://img.shields.io/badge/cypress-dashboard-brightgreen.svg" alt="cypress" />
+<a href="https://npmcharts.com/compare/ssr" target="_blank"><img src="https://img.shields.io/npm/dm/ssr" alt="download" />
+<a href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/tokei/lines/github/zhangyuang/ssr-lines?color=97b93b" alt="Node" />
+<a href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/badge/node-%3E=12-green.svg" alt="Node" ></a>
 </div>
 <br />
 
