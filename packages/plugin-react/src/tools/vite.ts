@@ -1,15 +1,8 @@
-import type { build as BuildType, UserConfig } from 'vite'
+import { build, UserConfig } from 'vite'
 import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig, asyncOptimizeChunkPlugin } from 'ssr-server-utils'
 import react from '@vitejs/plugin-react'
-import styleImport, {
-  AndDesignVueResolve,
-  VantResolve,
-  ElementPlusResolve,
-  NutuiResolve,
-  AntdResolve
-} from 'vite-plugin-style-import'
+import styleImport, { AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'vite-plugin-style-import'
 
-const build: typeof BuildType = require('vite').build
 const { getOutput, reactServerEntry, reactClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions } = loadConfig()
 
 const { clientOutPut, serverOutPut } = getOutput()

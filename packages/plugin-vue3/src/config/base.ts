@@ -163,9 +163,9 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
 
   let babelForExtraModule
   if (babelExtraModule) {
-    babelForExtraModule = module.add(babelExtraModule).end()
+    babelForExtraModule = module.add(babelExtraModule).end().exclude.add(/node_modules|core-js/).end()
   } else {
-    babelForExtraModule = module.end()
+    babelForExtraModule = module.end().exclude.add(/node_modules|core-js/).end()
   }
 
   addBabelLoader(babelModule, envOptions)
