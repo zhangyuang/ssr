@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.49](https://github.com/zhangyuang/ssr/compare/v6.1.48...v6.1.49) (2022-01-19)
+
+
+### Bug Fixes
+
+* babelExtraModule ([503f3e6](https://github.com/zhangyuang/ssr/commit/503f3e618a8918fbd482267349059d743af75787))
+
+
+### Features
+
+* vite mode support extract children common module chunks ([4896c6c](https://github.com/zhangyuang/ssr/commit/4896c6cde8e39238f7d34183698acb480f2be9b6))
+
+
+
+
+
 ## [6.1.48](https://github.com/zhangyuang/ssr/compare/v6.1.47...v6.1.48) (2022-01-13)
 
 
