@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.50](https://github.com/zhangyuang/ssr/compare/v6.1.49...v6.1.50) (2022-01-20)
+
+
+### Bug Fixes
+
+* babelForExtraModule ([3c236a1](https://github.com/zhangyuang/ssr/commit/3c236a14104e1d347ea0d91c1d6d9f6634cd254d))
+
+
+
+
+
 ## [6.1.49](https://github.com/zhangyuang/ssr/compare/v6.1.48...v6.1.49) (2022-01-19)
 
 
