@@ -268,10 +268,10 @@ $ npm run start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 ## 答疑群
 
 虽然我们已经尽力检查了一遍应用，但仍有可能有疏漏的地方，如果你在使用过程中发现任何问题或者建议，欢迎提[issue](https://github.com/zhangyuang/ssr/issues)或者[PR](https://github.com/zhangyuang/ssr/pulls)
-欢迎直接扫码加入钉钉群或者微信群
+欢迎直接扫码加群
 
 <div style="display:flex">
-<img src="https://res.wx.qq.com/op_res/7F1t4Z8yCHWilehbcFGjAj0yVn0URMiWBGVJa-TVu_eqw5IwUXA2kPYBnfX6YRHy0FVBB-yC6l0IEL02QTJkLg" width="300">
+<!-- <img src="https://res.wx.qq.com/op_res/7F1t4Z8yCHWilehbcFGjAj0yVn0URMiWBGVJa-TVu_eqw5IwUXA2kPYBnfX6YRHy0FVBB-yC6l0IEL02QTJkLg" width="300"> -->
 <img src="https://res.wx.qq.com/op_res/UXZQkqMG9Ej1Ox4pro3iDJPugn8EGQN7xKWXTDh0L0xgK7BOUZvT-MQ_Diks_iTtCL3Kregp-lS52WXsiDctuw" width="300">
 </div>
 
