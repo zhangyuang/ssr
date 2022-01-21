@@ -10,7 +10,8 @@
 <a href="https://npmcharts.com/compare/ssr" target="_blank"><img src="https://img.shields.io/npm/dt/ssr" style="width:90px;height: 20px" alt="download"></a>
 <a href="https://standardjs.com" target="_blank"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" style="width:90px;height: 20px" alt="standardjs"></a>
 <a href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/npm/l/vue.svg" style="width:90px;height: 20px" alt="License"></a>
-<a href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/badge/node-%3E=12-green.svg" style="width:90px;height: 20px" alt="Node"></a>
+<a href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/badge/node-%3E=12-green.svg?color=4dc71f" alt="Node"  style="width:90px;height: 20px"></a>
+<a href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/github/stars/zhangyuang/ssr.svg?color=4dc71f" alt="Node"  style="width:90px;height: 20px"></a>
 </div>
 <br />
 
