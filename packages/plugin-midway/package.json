@@ -32,7 +32,7 @@
     "@midwayjs/cli": "^1.0.0",
     "@midwayjs/cli-plugin-faas": "1.2.92",
     "@midwayjs/decorator": "^2.3.0",
-    "@midwayjs/fcli-command-core": "1.2.92",
+    "@midwayjs/fcli-command-core": "1.2.41",
     "@midwayjs/fcli-plugin-deploy": "1.2.92",
     "@midwayjs/fcli-plugin-fc": "1.2.92",
     "@midwayjs/fcli-plugin-package": "1.2.92",
