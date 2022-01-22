@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.52](https://github.com/zhangyuang/ssr/compare/v6.1.51...v6.1.52) (2022-01-22)
+
+
+### Bug Fixes
+
+* plugin-midway deploy ([0b3e88c](https://github.com/zhangyuang/ssr/commit/0b3e88c95c15661a7b086317d869bb061bdf8f4b))
+
+
+
+
+
 ## [6.1.51](https://github.com/zhangyuang/ssr/compare/v6.1.50...v6.1.51) (2022-01-22)
 
 
