@@ -273,7 +273,7 @@ $ npm run start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 
 <div style="display:flex">
 <!-- <img src="https://res.wx.qq.com/op_res/7F1t4Z8yCHWilehbcFGjAj0yVn0URMiWBGVJa-TVu_eqw5IwUXA2kPYBnfX6YRHy0FVBB-yC6l0IEL02QTJkLg" width="300"> -->
-<img src="https://res.wx.qq.com/op_res/UXZQkqMG9Ej1Ox4pro3iDJPugn8EGQN7xKWXTDh0L0xgK7BOUZvT-MQ_Diks_iTtCL3Kregp-lS52WXsiDctuw" width="300">
+<img src="https://doc.ssr-fc.com/images/wechat.jpeg" width="300">
 </div>
 
 ## 前端开发手册
