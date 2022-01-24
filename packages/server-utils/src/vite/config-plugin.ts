@@ -13,9 +13,7 @@ const chunkNameRe = /chunkName=(.*)/
 const imageRegExp = /\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/
 const fontRegExp = /\.(eot|woff|woff2|ttf)(\?.*)?$/
 const cwd = getCwd()
-const originAsyncChunkMap: Record<string, Array<{
-  name: string
-}>> = {}
+const originAsyncChunkMap: Record<string, string[]> = {}
 const asyncChunkMapJSON: Record<string, string[]> = {}
 
 const chunkNamePlugin = function (): Plugin {
@@ -45,27 +43,24 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
     name: 'asyncOptimizeChunkPlugin',
     moduleParsed (this, info) {
       const { id, importedIds } = info
-      if (!id.includes('node_modules')) {
-        if (id.includes('chunkName')) {
-          const chunkname = chunkNameRe.exec(id)![1]
-          for (const importerId of importedIds) {
-            if (!originAsyncChunkMap[importerId]) {
-              originAsyncChunkMap[importerId] = []
-            }
-            originAsyncChunkMap[importerId].push({
-              name: chunkname
-            })
+      if (id.includes('chunkName')) {
+        const chunkname = chunkNameRe.exec(id)![1]
+        for (const importerId of importedIds) {
+          if (!originAsyncChunkMap[importerId]) {
+            originAsyncChunkMap[importerId] = []
           }
-        } else if (originAsyncChunkMap[id]) {
-          const { importedIds } = this.getModuleInfo(id)!
-          for (const importerId of importedIds) {
-            if (!originAsyncChunkMap[importerId]) {
-              originAsyncChunkMap[importerId] = []
-            }
-            originAsyncChunkMap[importerId] = originAsyncChunkMap[importerId].concat(originAsyncChunkMap[id])
+          originAsyncChunkMap[importerId].push(chunkname)
+        }
+      } else if (originAsyncChunkMap[id]) {
+        const { importedIds } = this.getModuleInfo(id)!
+        for (const importerId of importedIds) {
+          if (!originAsyncChunkMap[importerId]) {
+            originAsyncChunkMap[importerId] = []
           }
+          originAsyncChunkMap[importerId] = originAsyncChunkMap[importerId].concat(originAsyncChunkMap[id])
         }
       }
+
     }
   }
 }
@@ -111,9 +106,10 @@ const rollupOutputOptions: OutputOptions = {
     if (id.includes('create-context') || id.includes('plugin-vue:export-helper')) {
       return 'vendor'
     }
-    if (originAsyncChunkMap?.[id]?.length >= 2) {
+    const arr = Array.from(new Set(originAsyncChunkMap?.[id]))
+    if (arr.length >= 2) {
       // 第二步处理公共模块。需要在第三步之前 否则 antd/es/style.js 这样的文件会被第三步包含
-      return cryptoAsyncChunkName(originAsyncChunkMap[id], asyncChunkMapJSON)
+      return cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON)
     }
     if (id.includes('node_modules') && id.includes('.js') && !id.includes('client-entry')) {
       return 'vendor'
