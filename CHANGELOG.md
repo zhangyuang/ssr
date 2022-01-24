@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.54](https://github.com/zhangyuang/ssr/compare/v6.1.53...v6.1.54) (2022-01-24)
+
+
+### Bug Fixes
+
+* add [@vue](https://github.com/vue) in vendorList ([926472b](https://github.com/zhangyuang/ssr/commit/926472b775786ef3f6981dd1e7a50d17ad59b32d))
+
+
+
+
+
 ## [6.1.53](https://github.com/zhangyuang/ssr/compare/v6.1.52...v6.1.53) (2022-01-24)
 
 
