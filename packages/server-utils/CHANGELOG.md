@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.53](https://github.com/zhangyuang/ssr/compare/v6.1.52...v6.1.53) (2022-01-24)
+
+
+### Bug Fixes
+
+* asyncOptimizeChunk for third-party module ([e034b6b](https://github.com/zhangyuang/ssr/commit/e034b6b1d1c8d2e25e1b2a5ca08e82c6d2af9823))
+
+
+
+
+
 ## [6.1.49](https://github.com/zhangyuang/ssr/compare/v6.1.48...v6.1.49) (2022-01-19)
 
 
