@@ -1,5 +1,5 @@
 import { promises } from 'fs'
-import { resolve } from 'path'
+import { resolve, sep } from 'path'
 import type { UserConfig, Plugin } from 'vite'
 import { parse as parseImports } from 'es-module-lexer'
 import MagicString from 'magic-string'
@@ -99,24 +99,27 @@ const rollupOutputOptions: OutputOptions = {
     return '[name].[hash].chunk.[ext]'
   },
   manualChunks: (id: string) => {
-    if (id.includes('node_modules') && vendorList.includes(re.exec(id)?.[2] as string)) {
-      // 优先级最高白名单里面的库必须被 vendor
-      return 'vendor'
-    }
-    if (id.includes('create-context') || id.includes('plugin-vue:export-helper')) {
-      return 'vendor'
-    }
-    const arr = Array.from(new Set(originAsyncChunkMap?.[id]))
-    if (arr?.length >= 2) {
-      // 第二步处理公共模块。需要在第三步之前 否则 antd/es/style.js 这样的文件会被第三步包含
-      return cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON)
-    }
-    if (id.includes('node_modules') && id.includes('.js') && !id.includes('client-entry')) {
-      return 'vendor'
-    }
-    if (id.includes('chunkName')) {
-      return chunkNameRe.exec(id)![1]
-    }
+    return manualChunksFn(id)
+  }
+}
+const manualChunksFn = (id: string) => {
+  if (id.includes('node_modules') && vendorList.includes(re.exec(id)?.[2] as string)) {
+    // 优先级最高白名单里面的库必须被 vendor
+    return 'vendor'
+  }
+  if (id.includes('create-context') || id.includes('plugin-vue:export-helper') || id.includes(`web${sep}store`)) {
+    return 'vendor'
+  }
+  const arr = Array.from(new Set(originAsyncChunkMap?.[id]))
+  if (arr?.length >= 2) {
+    // 第二步处理公共模块。需要在第三步之前 否则 antd/es/style.js 这样的文件会被第三步包含
+    return cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON)
+  }
+  if (id.includes('node_modules') && id.includes('.js') && !id.includes('client-entry')) {
+    return 'vendor'
+  }
+  if (id.includes('chunkName')) {
+    return chunkNameRe.exec(id)![1]
   }
 }
 type SSR = 'ssr'
