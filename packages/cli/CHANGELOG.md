@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.55](https://github.com/zhangyuang/ssr/compare/v6.1.54...v6.1.55) (2022-01-26)
+
+
+### Features
+
+* support cli helps abounding ([ead8bee](https://github.com/zhangyuang/ssr/commit/ead8beeda4edc38cf9105c5ac3dff6889ec0f8b0))
+
+
+
+
+
 ## [6.1.54](https://github.com/zhangyuang/ssr/compare/v6.1.53...v6.1.54) (2022-01-24)
 
 **Note:** Version bump only for package ssr

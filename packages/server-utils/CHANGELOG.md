@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.55](https://github.com/zhangyuang/ssr/compare/v6.1.54...v6.1.55) (2022-01-26)
+
+
+### Bug Fixes
+
+* add store in vendor when vite build ([3d54ce1](https://github.com/zhangyuang/ssr/commit/3d54ce156e4209a182df16c0a339aaeff64ee9dc))
+
+
+
+
+
 ## [6.1.54](https://github.com/zhangyuang/ssr/compare/v6.1.53...v6.1.54) (2022-01-24)
 
 
