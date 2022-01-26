@@ -71,19 +71,39 @@ const deployFunc = async (argv: Argv) => {
 }
 
 yargs
-  .command('start', 'Start Server', {}, async (argv: Argv) => {
+  .command('start', 'Start Server', yargs => yargs.options({
+    vite: {
+      desc: 'start application by vite'
+    }
+  }), async (argv: Argv) => {
     await startFunc(argv)
   })
-  .command('build', 'Build server and client files', {}, async (argv: Argv) => {
+  .command('build', 'Build application by webpack or vite', yargs => yargs.options({
+    analyze: {
+      alias: 'a',
+      desc: 'analyze bundle when use webpack'
+    },
+    vite: {
+      desc: 'build application by vite'
+    },
+    html: {
+      desc: 'build application as a single html'
+    }
+  }), async (argv: Argv) => {
     await buildFunc(argv)
   })
-  .command('deploy', 'Deploy function to aliyun cloud or tencent cloud', {}, async (argv: Argv) => {
+  .command('deploy', 'Deploy function to aliyun cloud or tencent cloud', yargs => yargs.options({
+    tencent: {
+      desc: 'deploy application to tencent clound'
+    }
+  }), async (argv: Argv) => {
     await deployFunc(argv)
   })
   .demandCommand(1, 'You need at least one command before moving on')
   .option('version', {
     alias: 'v',
-    default: false
+    default: false,
+    desc: 'show current version'
   })
   .fail((msg, err) => {
     if (err) {

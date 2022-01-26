@@ -202,7 +202,7 @@ return (
 需要依赖版本 `>=5.5.62`
 
 ```shell
-$ SPA=true npm run build
+$ npx ssr build --html
 ```
 
 构建后我们将会生成 `build/index.html` 文件可直接用于部署。但选择此方案便意味着
