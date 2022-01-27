@@ -90,6 +90,9 @@ yargs
       desc: 'build application as a single html'
     }
   }), async (argv: Argv) => {
+    if (argv.analyze) {
+      console.log('ssr build by vite is beta now, if you find some bugs, please submit a issue and use webpack provisonal')
+    }
     await buildFunc(argv)
   })
   .command('deploy', 'Deploy function to aliyun cloud or tencent cloud', yargs => yargs.options({
