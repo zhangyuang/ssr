@@ -81,17 +81,22 @@ yargs
   .command('build', 'Build application by webpack or vite', yargs => yargs.options({
     analyze: {
       alias: 'a',
-      desc: 'analyze bundle when use webpack'
+      desc: 'analyze bundle result when using webpack for build'
     },
     vite: {
       desc: 'build application by vite'
+    },
+    legacy: {
+      desc: 'close default rollup manulChunks setting'
     },
     html: {
       desc: 'build application as a single html'
     }
   }), async (argv: Argv) => {
-    if (argv.analyze) {
-      console.log('ssr build by vite is beta now, if you find some bugs, please submit a issue and use webpack provisonal')
+    if (argv.vite) {
+      console.log(`ssr build by vite is beta now, if you find some bugs, please submit a issue or you can use ssr build --vite --legacy which will not use manualChunks
+      to get a stable bundle result but maybe some performance loss
+      `)
     }
     await buildFunc(argv)
   })

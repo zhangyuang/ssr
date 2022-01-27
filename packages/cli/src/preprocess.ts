@@ -8,6 +8,9 @@ export const handleEnv = async (argv: Argv) => {
   if (argv.html) {
     process.env.SPA = '1'
   }
+  if (argv.legacy) {
+    process.env.LEGACY_VITE = '1'
+  }
   const { loadConfig } = await import('ssr-server-utils')
   const { https, isDev } = loadConfig()
   if (!!https && isDev) {
