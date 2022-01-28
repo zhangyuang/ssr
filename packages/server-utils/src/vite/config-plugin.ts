@@ -79,12 +79,13 @@ const manifestPlugin = (): Plugin => {
       }
       await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest))
       await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON))
+      for (const i in originAsyncChunkMap) {
+        originAsyncChunkMap[i] = Array.from(new Set(originAsyncChunkMap[i]))
+      }
+      await promises.writeFile(resolve(getCwd(), './build/originAsyncChunkMap.json'), JSON.stringify(originAsyncChunkMap))
     }
   }
 }
-
-const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router', 'react-dom', '@vue']
-const re = /node_modules(\\|\/)(.*?)(\1)/
 
 const rollupOutputOptions: OutputOptions = {
   entryFileNames: 'Page.[hash].chunk.js',
@@ -103,28 +104,16 @@ const rollupOutputOptions: OutputOptions = {
   }
 }
 const manualChunksFn = (id: string) => {
-  if (id.includes('node_modules') && vendorList.includes(re.exec(id)?.[2] as string)) {
-    // 优先级最高白名单里面的库必须被 vendor
-    return 'vendor'
-  }
-  if (id.includes('create-context') || id.includes('plugin-vue:export-helper')) {
-    return 'vendor'
+  if (id.includes('chunkName')) {
+    return chunkNameRe.exec(id)![1]
   }
   if (!process.env.LEGACY_VITE) {
     const arr = Array.from(new Set(originAsyncChunkMap?.[id]))
     if (arr.length === 1) {
       return arr[0]
-    }
-    if (arr?.length >= 2) {
-      // 第二步处理公共模块。需要在第三步之前 否则 antd/es/style.js 这样的文件会被第三步包含
+    } else if (arr?.length >= 2) {
       return cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON)
     }
-  }
-  if (id.includes('node_modules') && id.includes('.js') && !id.includes('client-entry')) {
-    return 'vendor'
-  }
-  if (id.includes('chunkName')) {
-    return chunkNameRe.exec(id)![1]
   }
 }
 type SSR = 'ssr'
