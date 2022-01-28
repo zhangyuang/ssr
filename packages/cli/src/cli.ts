@@ -73,7 +73,10 @@ const deployFunc = async (argv: Argv) => {
 yargs
   .command('start', 'Start Server', yargs => yargs.options({
     vite: {
-      desc: 'start application by vite'
+      desc: 'Start application by vite'
+    },
+    port: {
+      desc: 'Setting application server port, default is 3000'
     }
   }), async (argv: Argv) => {
     await startFunc(argv)
@@ -81,23 +84,18 @@ yargs
   .command('build', 'Build application by webpack or vite', yargs => yargs.options({
     analyze: {
       alias: 'a',
-      desc: 'analyze bundle result when using webpack for build'
+      desc: 'Analyze bundle result when using webpack for build'
     },
     vite: {
-      desc: 'build application by vite'
+      desc: 'Build application by vite'
     },
     legacy: {
-      desc: 'close default rollup manulChunks setting'
+      desc: 'Close default rollup manulChunks setting'
     },
     html: {
-      desc: 'build application as a single html'
+      desc: 'Build application as a single html'
     }
   }), async (argv: Argv) => {
-    if (argv.vite) {
-      console.log(`ssr build by vite is beta now, if you find some bugs, please submit a issue or you can use ssr build --vite --legacy which will not use manualChunks
-      to get a stable bundle result but maybe some performance loss
-      `)
-    }
     await buildFunc(argv)
   })
   .command('deploy', 'Deploy function to aliyun cloud or tencent cloud', yargs => yargs.options({
@@ -111,7 +109,7 @@ yargs
   .option('version', {
     alias: 'v',
     default: false,
-    desc: 'show current version'
+    desc: 'Show current version'
   })
   .fail((msg, err) => {
     if (err) {

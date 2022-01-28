@@ -107,14 +107,13 @@ const manualChunksFn = (id: string) => {
   if (id.includes('chunkName')) {
     return chunkNameRe.exec(id)![1]
   }
-  if (!process.env.LEGACY_VITE) {
-    const arr = Array.from(new Set(originAsyncChunkMap?.[id]))
-    if (arr.length === 1) {
-      return arr[0]
-    } else if (arr?.length >= 2) {
-      return cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON)
-    }
+  const arr = Array.from(new Set(originAsyncChunkMap?.[id]))
+  if (arr.length === 1) {
+    return arr[0]
+  } else if (arr.length >= 2) {
+    return cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON)
   }
+
 }
 type SSR = 'ssr'
 const commonConfig = (): UserConfig => {

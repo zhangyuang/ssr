@@ -62,7 +62,7 @@ const loadConfig = (): IConfig => {
     https = false
   }
 
-  const serverPort = process.env.SERVER_PORT ?? 3000
+  const serverPort = process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 3000
 
   const host = '0.0.0.0'
 
