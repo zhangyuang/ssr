@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.56](https://github.com/zhangyuang/ssr/compare/v6.1.55...v6.1.56) (2022-01-28)
+
+
+### Features
+
+* support ssr build --vite --legacy ([2f0afb0](https://github.com/zhangyuang/ssr/commit/2f0afb01511ba4c76debe631fa6bb8a031eac38a))
+
+
+
+
+
 ## [6.1.55](https://github.com/zhangyuang/ssr/compare/v6.1.54...v6.1.55) (2022-01-26)
 
 
