@@ -86,7 +86,8 @@ const manifestPlugin = (): Plugin => {
     }
   }
 }
-
+const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router', 'react-dom', '@vue']
+const re = /node_modules(\\|\/)(.*?)(\1)/
 const rollupOutputOptions: OutputOptions = {
   entryFileNames: 'Page.[hash].chunk.js',
   chunkFileNames: '[name].[hash].chunk.js',
@@ -104,6 +105,9 @@ const rollupOutputOptions: OutputOptions = {
   }
 }
 const manualChunksFn = (id: string) => {
+  if (id.includes('node_modules') && vendorList.includes(re.exec(id)?.[2] as string)) {
+    return 'vendor'
+  }
   if (id.includes('chunkName')) {
     return chunkNameRe.exec(id)![1]
   }
@@ -113,7 +117,6 @@ const manualChunksFn = (id: string) => {
   } else if (arr.length >= 2) {
     return cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON)
   }
-
 }
 type SSR = 'ssr'
 const commonConfig = (): UserConfig => {
