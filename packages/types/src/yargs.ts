@@ -9,5 +9,6 @@ export type Argv = yargs.Arguments<{
   showArgs?: boolean
   analyze?: boolean
   html?: boolean
-  port?: string
+  port?: string | number
+  legacy?: boolean
 }>

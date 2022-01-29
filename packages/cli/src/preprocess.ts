@@ -11,7 +11,7 @@ export const handleEnv = async (argv: Argv) => {
   if (argv.legacy) {
     process.env.LEGACY_VITE = '1'
   }
-  process.env.SERVER_PORT = argv.port ?? '3000'
+  process.env.SERVER_PORT = argv.port ? String(argv.port) : '3000'
   const { loadConfig } = await import('ssr-server-utils')
   const { https, isDev } = loadConfig()
   if (!!https && isDev) {

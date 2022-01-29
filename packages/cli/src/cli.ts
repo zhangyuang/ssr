@@ -90,12 +90,17 @@ yargs
       desc: 'Build application by vite'
     },
     legacy: {
-      desc: 'Close default rollup manulChunks setting'
+      desc: 'Close default rollup manulChunks setting in vite mode'
     },
     html: {
       desc: 'Build application as a single html'
     }
   }), async (argv: Argv) => {
+    if (argv.vite) {
+      console.log(`ssr build by vite is beta now, if you find some bugs, please submit an issue or you can use ssr build --vite --legacy which will close manualChunks
+      to get a stable bundle result but maybe some performance loss
+      `)
+    }
     await buildFunc(argv)
   })
   .command('deploy', 'Deploy function to aliyun cloud or tencent cloud', yargs => yargs.options({
