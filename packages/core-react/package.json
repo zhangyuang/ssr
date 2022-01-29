@@ -1,6 +1,6 @@
 {
   "name": "ssr-core-react",
-  "version": "6.1.57",
+  "version": "6.1.58",
   "description": "react core for react/vue2/vue3 ssr deploy on serverless or tradtional web server",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -34,7 +34,7 @@
   "dependencies": {
     "react-dom": "^17.0.0",
     "serialize-javascript": "^6.0.0",
-    "ssr-server-utils": "^6.1.57"
+    "ssr-server-utils": "^6.1.58"
   },
   "devDependencies": {
     "@types/react-dom": "^17.0.0"
