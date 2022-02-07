@@ -12,5 +12,5 @@
 
 <div style="display:flex">
   <!-- <img src="https://res.wx.qq.com/op_res/7F1t4Z8yCHWilehbcFGjAj0yVn0URMiWBGVJa-TVu_eqw5IwUXA2kPYBnfX6YRHy0FVBB-yC6l0IEL02QTJkLg" style="width:300px"> -->
-  <img src="https://doc.ssr-fc.com/images/wechat.jpeg" style="width:300px">
+  <img src="https://res.wx.qq.com/op_res/UQMlAGgJt38dZ0iX_udYYLvwceEOo5w6OAcZ5XodX_aMSZ_cpvCtpbfQaLGkPnDMoK0Rnbhgr7FjpQ8YUjaX-Q" style="width:300px">
 </div>
