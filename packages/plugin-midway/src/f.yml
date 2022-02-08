@@ -2,6 +2,9 @@ service:
   name: serverless-ssr
 provider:
   name: aliyun
+  memorySize: 2048
+  timeout: 20
+  initTimeout: 20
 
 custom: # 发布后自动生成测试域名
   customDomain:
