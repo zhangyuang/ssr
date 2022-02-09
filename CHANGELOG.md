@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.60](https://github.com/zhangyuang/ssr/compare/v6.1.59...v6.1.60) (2022-02-09)
+
+
+### Bug Fixes
+
+* vite production inputOptions ([573b219](https://github.com/zhangyuang/ssr/commit/573b2193b2aef17a814abf8c0d8f53d6f7ba7719))
+
+
+
+
+
 ## [6.1.59](https://github.com/zhangyuang/ssr/compare/v6.1.58...v6.1.59) (2022-02-08)
 
 
