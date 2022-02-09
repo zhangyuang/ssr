@@ -42,12 +42,14 @@ const serverConfig: UserConfig = {
   build: {
     ssr: vue3ServerEntry,
     outDir: serverOutPut,
-    rollupOptions: {
-      input: isDev ? vue3ClientEntry : '',
-      output: {
-        entryFileNames: 'Page.server.js'
+    rollupOptions: Object.assign(
+      isDev ? { input: vue3ClientEntry } : {}, // setting prebundle list by client-entry in dev
+      {
+        output: {
+          entryFileNames: 'Page.server.js'
+        }
       }
-    }
+    )
   },
   define: {
     __isBrowser__: false,

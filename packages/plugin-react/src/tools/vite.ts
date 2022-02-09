@@ -40,12 +40,14 @@ const serverConfig: UserConfig = {
   build: {
     ssr: reactServerEntry,
     outDir: serverOutPut,
-    rollupOptions: {
-      input: isDev ? reactClientEntry : '',
-      output: {
-        entryFileNames: 'Page.server.js'
+    rollupOptions: Object.assign(
+      isDev ? { input: reactClientEntry } : {}, // setting prebundle list by client-entry in dev
+      {
+        output: {
+          entryFileNames: 'Page.server.js'
+        }
       }
-    }
+    )
   },
   define: {
     __isBrowser__: false,
