@@ -41,7 +41,6 @@
 - 可能会改动技术栈，如从 `Vue2` 升级为 `Vue3`，从 `Vue3` 降级为 `Vue2` 或 `React/Vue` 互相切换
 - 需要在服务端渲染场景下开箱即用使用 `antd` `vant` 等流行 `ui` 库
 - 需要能够同时支持 `Webpack`, `Vite` 两种开发工具，以便同时得到快速的启动速度 `HMR` 速度以及稳定的生产环境代码
-
 ## 哪些应用在使用
 
 正在使用这个项目的公司(应用), 如果您正在使用但名单中没有列出来的话请提 [issue](https://github.com/zhangyuang/ssr/issues)，欢迎推广分享，我们将随时提供技术支持
@@ -127,7 +126,7 @@
 - 🧲　插件驱动：基于插件架构，用户更加专注于业务逻辑；
 - 💯　Serverless优先：一键发布到各种Serverless平台，也支持传统Web Server，比如Egg、Midway、Nest等。
 - 🛡　高可用场景，可无缝从SSR降级到CSR，最佳容灾方案。
-- 😄　功能丰富，构建工具支持 Webpack/Vite
+- 😄　功能丰富，构建工具支持 Webpack/Vite，全新的 `Vue3 Script Setup` 支持
 
 ## 已实现的功能
 
