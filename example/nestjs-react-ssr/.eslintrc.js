@@ -5,5 +5,8 @@ module.exports = {
   ],
   parserOptions: {
     project: './tsconfig.lint.json'
+  },
+  globals: {
+    __isBrowser__: 'readonly'
   }
 }

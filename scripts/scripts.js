@@ -52,8 +52,13 @@ if (argv.link) {
 
   if (argv.vue2 || argv.vue3) {
     linkPackage.push('vue')
-    const shell = `cd packages/${argv.vue2 ? 'core-vue' : 'core-vue3'}/node_modules/vue && yarn link `
+    const shell = `cd packages/${argv.vue2 ? 'core-vue' : 'core-vue3'}/node_modules/vue && yarn link  `
     execSync(shell, options)
+    if (argv.vue3) {
+      linkPackage.push('vue-router')
+      const shell = 'cd packages/plugin-vue3/node_modules/vue-router && yarn link  '
+      execSync(shell, options)
+    }
   }
 
   packages.forEach(item => {

@@ -15,7 +15,7 @@
   </div>
 </template>
 
-<script lang="ts"  setup>
+<script lang="ts" setup>
 import { defineProps, toRefs } from 'vue'
 import { BriefDataNode } from '~/typings/data'
 

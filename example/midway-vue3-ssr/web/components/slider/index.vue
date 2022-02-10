@@ -14,30 +14,24 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
+import { defineProps } from 'vue'
+import { useRouter } from 'vue-router'
+import { ItemMapArr } from '~/typings/data'
 import 'swiper/swiper-bundle.css'
 import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Swiper as SwiperCore, Autoplay, Pagination } from 'swiper'
 import 'swiper/components/pagination/pagination.less'
+const Router = useRouter()
 
 SwiperCore.use([Autoplay, Pagination])
-
-export default {
-  components: {
-    Swiper,
-    SwiperSlide
-  },
-  props: ['data'],
-
-  mounted () {
-
-  },
-  methods: {
-    toDetail () {
-      this.$router.push('/detail/cbba934b14f747049187')
-    }
-  }
+defineProps<{
+  data: ItemMapArr[]
+}>()
+const toDetail = () => {
+  Router.push('/detail/cbba934b14f747049187')
 }
+
 </script>
 
 <style lang="less" scoped>

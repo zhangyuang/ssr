@@ -15,16 +15,19 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import { defineProps } from 'vue'
+import { useRouter } from 'vue-router'
+import { ItemMapArr } from '~/typings/data'
 
-export default {
-  props: ['data'],
-  methods: {
-    toDetail () {
-      this.$router.push('/detail/cbba934b14f747049187')
-    }
-  }
+const Router = useRouter()
+defineProps<{
+  data: ItemMapArr[]
+}>()
+const toDetail = () => {
+  Router.push('/detail/cbba934b14f747049187')
 }
+
 </script>
 
 <style lang="less" scoped>
