@@ -13,27 +13,15 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { mapState } from 'vuex'
+<script lang="ts" setup>
+import { mapState } from 'ssr-hoc-vue3'
 import Player from '@/components/player/index.vue'
 import Brief from '@/components/brief/index.vue'
 import Recommend from '@/components/recommend/index.vue'
 import Search from '@/components/search/index.vue'
 
-export default defineComponent({
-  components: {
-    Player,
-    Search,
-    Brief,
-    Recommend
-  },
-  computed: {
-    ...mapState({
-      detailData: state => state.detailStore?.data
-    })
-  }
-})
+const detailData = mapState().detailStore.value.data
+
 </script>
 
 <style>

@@ -18,12 +18,14 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
+import { defineProps } from 'vue'
+import { RecommendDataNode } from '~/typings/data'
 
-export default {
-  props: ['data']
+defineProps<{
+  data: RecommendDataNode[]
+}>()
 
-}
 </script>
 
 <style lang="less" scoped>

@@ -17,22 +17,18 @@
   </div>
 </template>
 
-<script lang="ts">
-
-export default {
-  props: ['data'],
-  data () {
-    return {
-      playData: this.data[0].data,
-      play: false
-    }
-  },
-  methods: {
-    playVideo () {
-      this.play = true
-    }
-  }
+<script lang="ts" setup>
+import { defineProps, toRefs, ref } from 'vue'
+import { PlayerDataNode } from '~/typings/data'
+const props = defineProps<{
+  data: PlayerDataNode[]
+}>()
+const playData = toRefs(props.data[0].data)
+const play = ref(false)
+const playVideo = () => {
+  play.value = true
 }
+
 </script>
 
 <style lang="less" scoped>

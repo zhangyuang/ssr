@@ -5,28 +5,20 @@
   </div>
 </template>
 
-<script lang="ts">
-import { mapState } from 'vuex'
-
-export default {
-  computed: {
-    ...mapState({
-      searchText: (state) => state.searchStore.searchText
-    })
-  },
-
-  methods: {
-    setText (e) {
-      this.$store.dispatch('searchStore/setText', {
-        payload: {
-          text: e.target.value
-        }
-      })
-    },
-    toSearch () {
-      location.href = `https://search.youku.com/search_video?keyword=${this.searchText}`
+<script lang="ts" setup>
+import { useStore } from 'vuex'
+import { mapState } from 'ssr-hoc-vue3'
+const searchText = mapState().searchStore.value.searchText
+const store = useStore()
+const setText = (e: any) => {
+  store.dispatch('searchStore/setText', {
+    payload: {
+      text: e.target.value
     }
-  }
+  })
+}
+const toSearch = () => {
+  location.href = `https://search.youku.com/search_video?keyword=${searchText}`
 }
 </script>
 

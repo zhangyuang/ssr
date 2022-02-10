@@ -12,26 +12,12 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-import { mapState } from 'vuex'
+<script lang="ts" setup>
+import { mapState } from 'ssr-hoc-vue3'
+import { IndexData } from '~/typings/data'
 import Slider from '@/components/slider/index.vue'
 import Rectangle from '@/components/rectangle/index.vue'
 import Search from '@/components/search/index.vue'
 
-export default defineComponent({
-  components: {
-    Slider,
-    Rectangle,
-    Search
-  },
-  computed: {
-    ...mapState({
-      indexData: state => state.indexStore?.data
-    })
-  }
-})
+const indexData = mapState<IndexData>().indexStore.value.data
 </script>
-
-<style>
-</style>
