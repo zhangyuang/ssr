@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.61](https://github.com/zhangyuang/ssr/compare/v6.1.60...v6.1.61) (2022-02-10)
+
+
+### Features
+
+* change vue3 example to script setup ([520acf5](https://github.com/zhangyuang/ssr/commit/520acf586f60c0ff4a21b83913cae2f64a7e382a))
+
+
+
+
+
 ## [6.1.48](https://github.com/zhangyuang/ssr/compare/v6.1.47...v6.1.48) (2022-01-13)
 
 **Note:** Version bump only for package ssr-hoc-vue3
