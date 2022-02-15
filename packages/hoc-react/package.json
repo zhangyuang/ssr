@@ -1,13 +1,16 @@
 {
   "name": "ssr-hoc-react",
-  "version": "6.1.62",
+  "version": "6.1.64",
   "description": "hoc for react ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "exports": {
-    ".": {
-      "node": "./cjs/node.js"
-    }
+    "node": {
+      "require": "./cjs/node.js",
+      "import": "./esm/node.js"
+    },
+    "import": "./esm/index.js",
+    "require": "./cjs/index.js"
   },
   "sideEffects": false,
   "scripts": {
