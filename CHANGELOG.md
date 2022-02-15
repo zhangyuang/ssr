@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.62](https://github.com/zhangyuang/ssr/compare/v6.1.61...v6.1.62) (2022-02-15)
+
+
+### Bug Fixes
+
+* add @types/estree ([90c0dd5](https://github.com/zhangyuang/ssr/commit/90c0dd5d626094747b2adc4083df1c69ca852f56))
+
+
+
+
+
 ## [6.1.61](https://github.com/zhangyuang/ssr/compare/v6.1.60...v6.1.61) (2022-02-10)
 
 

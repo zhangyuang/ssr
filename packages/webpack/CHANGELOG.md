@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.62](https://github.com/zhangyuang/ssr/compare/v6.1.61...v6.1.62) (2022-02-15)
+
+**Note:** Version bump only for package ssr-webpack
+
+
+
+
+
 ## [6.1.59](https://github.com/zhangyuang/ssr/compare/v6.1.58...v6.1.59) (2022-02-08)
 
 **Note:** Version bump only for package ssr-webpack
