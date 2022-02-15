@@ -31,6 +31,7 @@
     "@rollup/plugin-babel": "^5.3.0",
     "@types/babel__core": "^7.1.18",
     "@types/cookies": "^0.7.7",
+    "@types/estree": "^0.0.51",
     "@types/express": "^4.17.11",
     "@types/koa-router": "^7.4.4",
     "@types/tapable": "^1.0.6",

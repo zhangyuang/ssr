@@ -18,7 +18,7 @@
 <script lang="ts">
 
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
-import 'swiper/swiper-bundle.css'
+import 'swiper/css/swiper.min.css'
 
 export default {
   components: {
