@@ -4,6 +4,11 @@
   "description": "hoc for react ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
+  "exports": {
+    ".": {
+      "node": "./cjs/node.js"
+    }
+  },
   "sideEffects": false,
   "scripts": {
     "build": "concurrently \"tsc -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc -p ./tsconfig.esm.json --inlineSourceMap false\"",
