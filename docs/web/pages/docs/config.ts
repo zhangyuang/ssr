@@ -11,7 +11,7 @@ const config = [
       { title: '在线案例', path: 'features$demo' },
       { title: '技术选型', path: 'features$technology' },
       { title: '目录结构', path: 'features$structure' },
-      { title: '约定式路由', path: 'features$feRoutes' },
+      { title: '前端路由', path: 'features$feRoutes' },
       { title: '本地开发', path: 'features$develop' },
       { title: '数据获取', path: 'features$fetch' },
       { title: '组件通信', path: 'features$communication' },

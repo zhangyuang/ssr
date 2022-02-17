@@ -5,6 +5,7 @@ provider:
   memorySize: 2048
   timeout: 20
   initTimeout: 20
+  runtime: nodejs12
 
 aggregation: # 聚合成一个函数发布
   ssr: # 聚合函数的名称

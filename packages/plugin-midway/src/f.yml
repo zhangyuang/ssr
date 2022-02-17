@@ -5,6 +5,7 @@ provider:
   memorySize: 2048
   timeout: 20
   initTimeout: 20
+  runtime: nodejs12
 
 custom: # 发布后自动生成测试域名
   customDomain:
