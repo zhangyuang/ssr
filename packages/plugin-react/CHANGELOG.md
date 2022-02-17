@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.65](https://github.com/zhangyuang/ssr/compare/v6.1.62...v6.1.65) (2022-02-17)
+
+
+### Features
+
+* support combine declareRouter with manualRouter ([c2b5482](https://github.com/zhangyuang/ssr/commit/c2b548284f8683c266e6e858d6a9eb91cb72bc50))
+
+
+
+
+
 ## [6.1.64](https://github.com/zhangyuang/ssr/compare/v6.1.63...v6.1.64) (2022-02-15)
 
 **Note:** Version bump only for package ssr-plugin-react

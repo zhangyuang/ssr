@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.65](https://github.com/zhangyuang/ssr/compare/v6.1.62...v6.1.65) (2022-02-17)
+
+
+### Bug Fixes
+
+* f.yml ([6d6b9e8](https://github.com/zhangyuang/ssr/commit/6d6b9e87fc313de0295442b388703a75664d06d9))
+
+
+
+
+
 ## [6.1.59](https://github.com/zhangyuang/ssr/compare/v6.1.58...v6.1.59) (2022-02-08)
 
 

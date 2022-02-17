@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.65](https://github.com/zhangyuang/ssr/compare/v6.1.62...v6.1.65) (2022-02-17)
+
+
+### Bug Fixes
+
+* f.yml ([6d6b9e8](https://github.com/zhangyuang/ssr/commit/6d6b9e87fc313de0295442b388703a75664d06d9))
+* ssr-hoc-react export in node ([e88c0c9](https://github.com/zhangyuang/ssr/commit/e88c0c9dd57529927ce0cb0c87e829dc32a9713d))
+
+
+### Features
+
+* support combine declareRouter with manualRouter ([c2b5482](https://github.com/zhangyuang/ssr/commit/c2b548284f8683c266e6e858d6a9eb91cb72bc50))
+
+
+
+
+
 ## [6.1.64](https://github.com/zhangyuang/ssr/compare/v6.1.63...v6.1.64) (2022-02-15)
 
 
