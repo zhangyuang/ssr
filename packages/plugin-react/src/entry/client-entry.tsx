@@ -4,8 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { preloadComponent } from 'ssr-client-utils'
 import { wrapComponent } from 'ssr-hoc-react'
 import { IWindow, LayoutProps, ReactESMFeRouteItem, ReactRoutesType } from 'ssr-types-react'
-// @ts-expect-error
-import * as Routes from '_build/ssr-temporary-routes'
+import { Routes } from './create-router'
 import { AppContext } from './context'
 
 const { FeRoutes, layoutFetch, App, PrefixRouterBase } = Routes as ReactRoutesType

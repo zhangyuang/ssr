@@ -4,8 +4,7 @@ import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from '
 import { ISSRContext, IConfig } from 'ssr-types'
 // @ts-expect-error
 import * as serializeWrap from 'serialize-javascript'
-// @ts-expect-error
-import * as Routes from '_build/ssr-temporary-routes'
+import { Routes } from './create-router'
 import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 

@@ -5,11 +5,10 @@ import { ISSRContext, IConfig, ReactRoutesType, ReactESMFeRouteItem } from 'ssr-
 // @ts-expect-error
 import * as serializeWrap from 'serialize-javascript'
 // @ts-expect-error
-import * as Routes from '_build/ssr-temporary-routes'
-// @ts-expect-error
 import { STORE_CONTEXT as Context } from '_build/create-context'
 // @ts-expect-error
 import Layout from '@/components/layout/index.tsx'
+import { Routes } from './create-router'
 
 const { FeRoutes, layoutFetch, PrefixRouterBase, state } = Routes as ReactRoutesType
 const serialize = serializeWrap.default || serializeWrap

@@ -20,7 +20,7 @@ const chunkNamePlugin = function (): Plugin {
   return {
     name: 'chunkNamePlugin',
     transform (source, id) {
-      if (id.includes('ssr-temporary-routes')) {
+      if (id.includes('ssr-temporary-routes') || id.includes('ssr-manual-routes')) {
         let str = new MagicString(source)
         const imports = parseImports(source)[0]
         for (let index = 0; index < imports.length; index++) {

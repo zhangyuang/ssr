@@ -2,8 +2,7 @@ import * as Vue from 'vue'
 import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { sync } from 'vuex-router-sync'
-// @ts-expect-error
-import * as Routes from '_build/ssr-temporary-routes'
+import { Routes } from './create-router'
 import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 

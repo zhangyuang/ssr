@@ -1,10 +1,9 @@
 // @ts-nocheck
 import { createRouter as create, createWebHistory, createMemoryHistory } from 'vue-router'
 import { createStore as createVuexStore } from 'vuex'
-import * as Routes from '_build/ssr-temporary-routes'
-
-import { RoutesType, VueRouterOptions } from './interface'
+import { Routes } from './create-router'
 import { deepClone } from './clone'
+import { RoutesType, VueRouterOptions } from './interface'
 
 const { store, FeRoutes } = Routes as RoutesType
 

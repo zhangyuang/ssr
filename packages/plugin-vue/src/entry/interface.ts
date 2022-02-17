@@ -18,6 +18,7 @@ export interface RoutesType {
   layoutFetch?: (params: {store: Store<any>, router: Route}, ctx?: ISSRContext) => Promise<any>
   FeRoutes: IFeRouteItem[]
   PrefixRouterBase?: string
+  store?: any
 }
 
 export interface VueRouterOptions {

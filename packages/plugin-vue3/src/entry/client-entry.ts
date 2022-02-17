@@ -4,9 +4,7 @@ import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { findRoute } from 'ssr-client-utils'
 import { createRouter, createStore } from './create'
 import { ESMFetch, IFeRouteItem, RoutesType } from './interface'
-
-// @ts-expect-error
-import * as Routes from '_build/ssr-temporary-routes'
+import { Routes } from './create-router'
 
 const { FeRoutes, App, layoutFetch, PrefixRouterBase } = Routes as RoutesType
 declare const module: any

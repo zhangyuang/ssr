@@ -56,6 +56,12 @@ export const getImageOutputPath = () => {
   }
 }
 
+const writeManualRoutes = async () => {
+  const declaretiveRoutes = await accessFile(join(getFeDir(), './route.ts')) // 是否存在自定义路由
+  // 没有声明式路由的情况创建空文件
+  const manualRoutes = declaretiveRoutes ? (await fs.readFile(join(getFeDir(), './route.ts'))).toString() : 'export {}'
+  await writeRoutes(manualRoutes, 'ssr-manual-routes')
+}
 const parseFeRoutes = async () => {
   const { dynamic, routerPriority, routerOptimize, isVite } = loadConfig()
   const prefix = getPrefix()
@@ -63,45 +69,43 @@ const parseFeRoutes = async () => {
   if (isVite && !dynamic) {
     throw new Error('Vite模式禁止关闭 dynamic ')
   }
-
+  await writeManualRoutes() // 写入声明式路由
   let routes = ''
-  const declaretiveRoutes = await accessFile(join(getFeDir(), './route.ts')) // 是否存在自定义路由
-  if (!declaretiveRoutes) {
-    // 根据目录结构生成前端路由表
-    const pathRecord = [''] // 路径记录
-    // @ts-expect-error
-    const route: ParseFeRouteItem = {}
-    let arr = await renderRoutes(pageDir, pathRecord, route)
-    if (routerPriority) {
-      // 路由优先级排序
-      arr.sort((a, b) => {
-        // 没有显示指定的路由优先级统一为 0
-        return (routerPriority![b.path] || 0) - (routerPriority![a.path] || 0)
-      })
+  // 根据目录结构生成前端路由表
+  const pathRecord = [''] // 路径记录
+  // @ts-expect-error
+  const route: ParseFeRouteItem = {}
+  let arr = await renderRoutes(pageDir, pathRecord, route)
+  if (routerPriority) {
+    // 路由优先级排序
+    arr.sort((a, b) => {
+      // 没有显示指定的路由优先级统一为 0
+      return (routerPriority![b.path] || 0) - (routerPriority![a.path] || 0)
+    })
+  }
+
+  if (routerOptimize) {
+    // 路由过滤
+    if (routerOptimize.include && routerOptimize.exclude) {
+      throw new Error('include and exclude cannot exist synchronal')
     }
-
-    if (routerOptimize) {
-      // 路由过滤
-      if (routerOptimize.include && routerOptimize.exclude) {
-        throw new Error('include and exclude cannot exist synchronal')
-      }
-      if (routerOptimize.include) {
-        arr = arr.filter(route => routerOptimize?.include?.includes(route.path))
-      }
-      if (routerOptimize.exclude) {
-        arr = arr.filter(route => !routerOptimize?.exclude?.includes(route.path))
-      }
+    if (routerOptimize.include) {
+      arr = arr.filter(route => routerOptimize?.include?.includes(route.path))
     }
+    if (routerOptimize.exclude) {
+      arr = arr.filter(route => !routerOptimize?.exclude?.includes(route.path))
+    }
+  }
 
-    if (isVue) {
-      const layoutPath = '@/components/layout/index.vue'
-      const accessVueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
-      const layoutFetch = await accessFile(join(getFeDir(), './components/layout/fetch.ts'))
-      const store = await accessFile(join(getFeDir(), './store/index.ts'))
-      const AppPath = `@/components/layout/App.${accessVueApp ? 'vue' : 'tsx'}`
+  if (isVue) {
+    const layoutPath = '@/components/layout/index.vue'
+    const accessVueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
+    const layoutFetch = await accessFile(join(getFeDir(), './components/layout/fetch.ts'))
+    const store = await accessFile(join(getFeDir(), './store/index.ts'))
+    const AppPath = `@/components/layout/App.${accessVueApp ? 'vue' : 'tsx'}`
 
-      const re = /"webpackChunkName":("(.+?)")/g
-      routes = `
+    const re = /"webpackChunkName":("(.+?)")/g
+    routes = `
       // The file is provisional，don't depend on it 
         ${store ? 'import * as store from "@/store/index.ts"' : ''}
         export const FeRoutes = ${JSON.stringify(arr)} 
@@ -111,26 +115,26 @@ const parseFeRoutes = async () => {
         ${store ? 'export { store }' : ''}
         ${prefix ? `export const PrefixRouterBase='${prefix}'` : ''}
         `
-      routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
-        const currentWebpackChunkName = re.exec(routes)![2]
-        if (dynamic) {
-          return `"component": () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}')`
-        } else {
-          return `"component": require('${m2.replace(/\^/g, '"')}').default`
-        }
-      })
-      re.lastIndex = 0
-      routes = routes.replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
-        const currentWebpackChunkName = re.exec(routes)![2]
-        return `"fetch": () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}')`
-      })
-    } else {
-      // React 场景
-      const accessReactApp = await accessFile(join(getFeDir(), './components/layout/App.tsx'))
-      const layoutFetch = await accessFile(join(getFeDir(), './components/layout/fetch.ts'))
-      const accessStore = await accessFile(join(getFeDir(), './store/index.ts'))
-      const re = /"webpackChunkName":("(.+?)")/g
-      routes = `
+    routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
+      const currentWebpackChunkName = re.exec(routes)![2]
+      if (dynamic) {
+        return `"component": () => import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}')`
+      } else {
+        return `"component": require('${m2.replace(/\^/g, '"')}').default`
+      }
+    })
+    re.lastIndex = 0
+    routes = routes.replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
+      const currentWebpackChunkName = re.exec(routes)![2]
+      return `"fetch": () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}')`
+    })
+  } else {
+    // React 场景
+    const accessReactApp = await accessFile(join(getFeDir(), './components/layout/App.tsx'))
+    const layoutFetch = await accessFile(join(getFeDir(), './components/layout/fetch.ts'))
+    const accessStore = await accessFile(join(getFeDir(), './store/index.ts'))
+    const re = /"webpackChunkName":("(.+?)")/g
+    routes = `
       // The file is provisional，don't depend on it 
         export const FeRoutes = ${JSON.stringify(arr)} 
         ${accessReactApp ? 'export { default as App } from "@/components/layout/App.tsx"' : ''}
@@ -139,33 +143,28 @@ const parseFeRoutes = async () => {
         ${prefix ? `export const PrefixRouterBase='${prefix}'` : ''}
 
         `
-      routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
-        const currentWebpackChunkName = re.exec(routes)![2]
-        if (dynamic) {
-          return `"component": function dynamicComponent () {
+    routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
+      const currentWebpackChunkName = re.exec(routes)![2]
+      if (dynamic) {
+        return `"component": function dynamicComponent () {
             return import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}')
           }
           `
-        } else {
-          return `"component": require('${m2.replace(/\^/g, '"')}').default`
-        }
-      })
-      re.lastIndex = 0
-      routes = routes.replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
-        const currentWebpackChunkName = re.exec(routes)![2]
-        return `"fetch": () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}')`
-      })
-    }
-  } else {
-    // 使用了声明式路由
-    routes = (await fs.readFile(join(getFeDir(), './route.ts'))).toString()
+      } else {
+        return `"component": require('${m2.replace(/\^/g, '"')}').default`
+      }
+    })
+    re.lastIndex = 0
+    routes = routes.replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
+      const currentWebpackChunkName = re.exec(routes)![2]
+      return `"fetch": () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}')`
+    })
   }
-
   await writeRoutes(routes)
 }
 
-const writeRoutes = async (routes: string) => {
-  await fs.writeFile(resolve(cwd, './build/ssr-temporary-routes.js'), routes)
+const writeRoutes = async (routes: string, name?: string) => {
+  await fs.writeFile(resolve(cwd, `./build/${name ?? 'ssr-temporary-routes'}.js`), routes)
 }
 
 const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {

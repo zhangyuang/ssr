@@ -1,8 +1,7 @@
 import { Store } from 'vuex'
 import { Route } from 'vue-router'
 import { findRoute } from 'ssr-client-utils'
-// @ts-expect-error
-import * as Routes from '_build/ssr-temporary-routes'
+import { Routes } from './create-router'
 import { ESMFetch, RoutesType, IFeRouteItem } from './interface'
 import { createRouter, createStore, RealVue } from './create'
 

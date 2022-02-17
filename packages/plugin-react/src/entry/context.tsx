@@ -4,8 +4,7 @@ import { IProps, Action, IWindow, ReactRoutesType } from 'ssr-types-react'
 
 // @ts-expect-error
 import { STORE_CONTEXT } from '_build/create-context'
-// @ts-expect-error
-import * as Routes from '_build/ssr-temporary-routes'
+import { Routes } from './create-router'
 
 const { reducer, state } = Routes as ReactRoutesType
 
