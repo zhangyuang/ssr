@@ -3,7 +3,6 @@ import { resolve } from 'path'
 import { exec } from 'child_process'
 import { promisify } from 'util'
 import { UserConfig, IPlugin } from 'ssr-types'
-// @ts-expect-error
 import { coerce } from 'semver'
 
 const getCwd = () => {
@@ -16,6 +15,11 @@ const getFeDir = () => {
 
 const getPagesDir = () => {
   return resolve(getFeDir(), 'pages')
+}
+
+const writeRoutes = async (routes: string, name?: string) => {
+  const cwd = getCwd()
+  await promises.writeFile(resolve(cwd, `./build/${name ?? 'ssr-declare-routes'}`), routes)
 }
 
 const transformConfig = () => {
@@ -42,6 +46,18 @@ const transformConfig = () => {
   } catch (error) {
 
   }
+}
+
+const transformManualRoutes = async () => {
+  const { transform } = await import('esbuild')
+  const declaretiveRoutes = await accessFile(resolve(getFeDir(), './route.ts')) // 是否存在自定义路由
+  // 没有声明式路由的情况创建空文件
+  const manualRoutes = declaretiveRoutes ? (await promises.readFile(resolve(getFeDir(), './route.ts'))).toString() : 'export {}'
+  const { code } = await transform(manualRoutes, {
+    loader: 'ts',
+    format: 'esm'
+  })
+  await writeRoutes(code, 'ssr-manual-routes.js')
 }
 
 const getUserConfig = (): UserConfig => {
@@ -118,7 +134,7 @@ const judgeFramework = () => {
   }
   if (packageJSON.dependencies.vue || packageJSON.devDependencies.vue) {
     const version = packageJSON.dependencies.vue || packageJSON.devDependencies.vue
-    return coerce(version).major === 3 ? 'ssr-plugin-vue3' : 'ssr-plugin-vue'
+    return coerce(version)!.major === 3 ? 'ssr-plugin-vue3' : 'ssr-plugin-vue'
   }
 }
 
@@ -199,5 +215,7 @@ export {
   transformConfig,
   accessFileSync,
   judgeFramework,
-  loadModuleFromFramework
+  loadModuleFromFramework,
+  transformManualRoutes,
+  writeRoutes
 }

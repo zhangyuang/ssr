@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs'
-import { resolve, join } from 'path'
+import { join } from 'path'
 import { ParseFeRouteItem } from 'ssr-types'
-import { getCwd, getPagesDir, getFeDir, accessFile, normalizeStartPath } from './cwd'
+import { getCwd, getPagesDir, getFeDir, accessFile, normalizeStartPath, writeRoutes, transformManualRoutes } from './cwd'
 import { loadConfig } from './loadConfig'
 
 const pageDir = getPagesDir()
@@ -56,12 +56,6 @@ export const getImageOutputPath = () => {
   }
 }
 
-const writeManualRoutes = async () => {
-  const declaretiveRoutes = await accessFile(join(getFeDir(), './route.ts')) // 是否存在自定义路由
-  // 没有声明式路由的情况创建空文件
-  const manualRoutes = declaretiveRoutes ? (await fs.readFile(join(getFeDir(), './route.ts'))).toString() : 'export {}'
-  await writeRoutes(manualRoutes, 'ssr-manual-routes')
-}
 const parseFeRoutes = async () => {
   const { dynamic, routerPriority, routerOptimize, isVite } = loadConfig()
   const prefix = getPrefix()
@@ -69,7 +63,6 @@ const parseFeRoutes = async () => {
   if (isVite && !dynamic) {
     throw new Error('Vite模式禁止关闭 dynamic ')
   }
-  await writeManualRoutes() // 写入声明式路由
   let routes = ''
   // 根据目录结构生成前端路由表
   const pathRecord = [''] // 路径记录
@@ -106,7 +99,7 @@ const parseFeRoutes = async () => {
 
     const re = /"webpackChunkName":("(.+?)")/g
     routes = `
-      // The file is provisional，don't depend on it 
+        // The file is provisional which will be overwrite when restart
         ${store ? 'import * as store from "@/store/index.ts"' : ''}
         export const FeRoutes = ${JSON.stringify(arr)} 
         export { default as Layout } from "${layoutPath}"
@@ -135,13 +128,12 @@ const parseFeRoutes = async () => {
     const accessStore = await accessFile(join(getFeDir(), './store/index.ts'))
     const re = /"webpackChunkName":("(.+?)")/g
     routes = `
-      // The file is provisional，don't depend on it 
+        // The file is provisional which will be overwrite when restart
         export const FeRoutes = ${JSON.stringify(arr)} 
         ${accessReactApp ? 'export { default as App } from "@/components/layout/App.tsx"' : ''}
         ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch.ts"' : ''}
         ${accessStore ? 'export * from "@/store/index.ts"' : ''}
         ${prefix ? `export const PrefixRouterBase='${prefix}'` : ''}
-
         `
     routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
       const currentWebpackChunkName = re.exec(routes)![2]
@@ -160,11 +152,8 @@ const parseFeRoutes = async () => {
       return `"fetch": () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}')`
     })
   }
-  await writeRoutes(routes)
-}
-
-const writeRoutes = async (routes: string, name?: string) => {
-  await fs.writeFile(resolve(cwd, `./build/${name ?? 'ssr-temporary-routes'}.js`), routes)
+  await writeRoutes(routes, 'ssr-declare-routes.js')
+  await transformManualRoutes() // 转换声明式路由
 }
 
 const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {

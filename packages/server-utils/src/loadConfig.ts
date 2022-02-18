@@ -1,7 +1,6 @@
 import { join } from 'path'
 import { IConfig } from 'ssr-types'
 import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework, loadModuleFromFramework } from './cwd'
-// @ts-expect-error
 import { coerce } from 'semver'
 const framework = judgeFramework()
 const loadConfig = (): IConfig => {
@@ -17,7 +16,7 @@ const loadConfig = (): IConfig => {
   const vueClientEntry = join(cwd, './node_modules/ssr-plugin-vue/esm/entry/client-entry.js')
   const reactServerEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/server-entry.js')
   const reactClientEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/client-entry.js')
-  const supportOptinalChaining = coerce(process.version).major >= '14'
+  const supportOptinalChaining = coerce(process.version)!.major >= 14
   const define = {}
   const alias = Object.assign({
     '@': getFeDir(),
@@ -91,7 +90,7 @@ const loadConfig = (): IConfig => {
 
   const dynamic = true
   // ref https://www.babeljs.cn/docs/babel-preset-env#corejs
-  const corejsVersion: 2|3|undefined = loadModuleFromFramework('core-js/package.json') && coerce(require(loadModuleFromFramework('core-js/package.json')).version).major
+  const corejsVersion = loadModuleFromFramework('core-js/package.json') && coerce(require(loadModuleFromFramework('core-js/package.json')).version)!.major
   const corejsOptions = userConfig.corejs ? {
     corejs: {
       version: corejsVersion,

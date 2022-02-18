@@ -1,5 +1,5 @@
 // @ts-expect-error
-import * as declareRoutes from '_build/ssr-temporary-routes'
+import * as declareRoutes from '_build/ssr-declare-routes'
 // @ts-expect-error
 import * as ManualRoutes from '_build/ssr-manual-routes'
 import { RoutesType } from './interface'

@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "devDependencies": {
+    "@types/semver": "^7.3.9",
     "concurrently": "^5.1.0"
   },
   "dependencies": {
