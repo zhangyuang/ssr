@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.66](https://github.com/zhangyuang/ssr/compare/v6.1.65...v6.1.66) (2022-02-18)
+
+
+### Bug Fixes
+
+* create-router ([ee9c3fa](https://github.com/zhangyuang/ssr/commit/ee9c3fa5fe14f8e324edcf5da64bf1dd8e041891))
+
+
+
+
+
 ## [6.1.65](https://github.com/zhangyuang/ssr/compare/v6.1.62...v6.1.65) (2022-02-17)
 
 
