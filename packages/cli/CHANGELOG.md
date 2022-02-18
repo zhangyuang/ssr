@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.67](https://github.com/zhangyuang/ssr/compare/v6.1.66...v6.1.67) (2022-02-18)
+
+**Note:** Version bump only for package ssr
+
+
+
+
+
 ## [6.1.65](https://github.com/zhangyuang/ssr/compare/v6.1.62...v6.1.65) (2022-02-17)
 
 **Note:** Version bump only for package ssr

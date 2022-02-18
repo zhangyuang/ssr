@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.67](https://github.com/zhangyuang/ssr/compare/v6.1.66...v6.1.67) (2022-02-18)
+
+
+### Features
+
+* transform route.ts by esbuild ([1719168](https://github.com/zhangyuang/ssr/commit/17191687db5dc6805b5bbcf5dcd8f80d8d29bbde))
+
+
+
+
+
 ## [6.1.66](https://github.com/zhangyuang/ssr/compare/v6.1.65...v6.1.66) (2022-02-18)
 
 
