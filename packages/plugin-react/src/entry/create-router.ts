@@ -12,12 +12,9 @@ const Routes: ReactRoutesType = {
   ...ManualRoutesWithType
 }
 if (ManualRoutesWithType.FeRoutes) {
-  // 如果存在相同 path，取声明式路由为最高优先级
-  const combineRoutes = declareRoutesWithType.FeRoutes.map(route => {
-    const found = ManualRoutesWithType.FeRoutes.find(e => e.path === route.path)
-    return found ?? route
-  })
-  declareRoutesWithType.FeRoutes.forEach(route => {
+  // 声明式路由覆盖约定式路由同名path
+  const combineRoutes = declareRoutesWithType.FeRoutes.map(route => ManualRoutesWithType.FeRoutes.find(e => e.path === route.path) ?? route)
+  ManualRoutesWithType.FeRoutes.forEach(route => {
     // 补充声明式路由新增的配置
     const found = combineRoutes.find(e => e.path === route.path)
     if (!found) {
