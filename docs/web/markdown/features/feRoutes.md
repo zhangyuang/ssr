@@ -57,16 +57,6 @@ $ tree ./ -I node_modules -L 3
 ### 嵌套路由
 
 约定式路由不支持生成嵌套路由也就是 `children` 子结构。虽然支持嵌套路由并不难，但这会让规范变得复杂。特别是获取数据这一块，且嵌套路由用业务代码实现是非常简单的事情。在 `React` 中直接手动引入 `Router` 来实现即可。在 `Vue` 中需要手动填写 `children` 字段。如果不支持嵌套路由的 `fetch`， 那么非常容易实现，但是意义不大开发者直接在业务代码中实现即可，如果要支持嵌套路由的 `fetch` 那么会让规范变得复杂。例如需要在框架层面让 `render$child$foo.vue` 对应 `fetch$child$foo.ts` 文件。这非常的 `dirty`，所以并不打算支持嵌套路由。
-
-### 输出 parse 结构
-
-在本地开发时可以通过框架内置的 `DEBUG` 模块的能力打印出 `parse` 后的前端路由结构
-
-```shell
-$ DEBUG=ssr:* npm start
-```
-
-也可以直接查看 `build/ssr-temporary-routes.js` 文件
 ### 实现代码
 
 具体的实现代码可以查看该[文件](https://github.com/zhangyuang/ssr/blob/dev/packages/server-utils/src/parse.ts#L13)
@@ -74,6 +64,8 @@ $ DEBUG=ssr:* npm start
 ## 手动编写路由结构
 
 尽管我们不建议开发者来手动编写路由结构，但如果你一定要这么做的话，我们提供以下示例。
+
+`注: web/route.ts 将会被编译到 build/route.js 目录，所以不要在路由文件中使用相对路径引入其他模块，否则将会无法正确识别路径`
 
 ### Vue 场景
 
