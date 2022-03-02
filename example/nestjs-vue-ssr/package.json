@@ -10,7 +10,6 @@
     "reflect-metadata": "^0.1.13",
     "ssr-core-vue": "^6.0.0",
     "ssr-server-utils": "^6.0.0",
-    "serialize-javascript": "^6.0.0",
     "swiper": "^5.2.0",
     "vue": "^2.0.0",
     "vue-awesome-swiper": "^4.1.1",
