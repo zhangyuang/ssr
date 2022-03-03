@@ -1,4 +1,4 @@
-import { Configuration, Options, RuleSetCondition } from 'webpack'
+import { Options, RuleSetCondition } from 'webpack'
 import * as Config from 'webpack-chain'
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel'
 import { Argv } from './yargs'
@@ -45,9 +45,9 @@ export interface IConfig {
       }
     }
   }
-  chainBaseConfig: (config: Config) => Configuration
-  chainServerConfig: (config: Config) => Configuration
-  chainClientConfig: (config: Config) => Configuration
+  chainBaseConfig: (config: Config) => void
+  chainServerConfig: (config: Config) => void
+  chainClientConfig: (config: Config) => void
   webpackStatsOption: Options.Stats
   moduleFileExtensions: string[]
   whiteList: RegExp[] | string[]
