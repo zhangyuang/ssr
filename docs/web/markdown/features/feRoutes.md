@@ -65,15 +65,10 @@ $ tree ./ -I node_modules -L 3
 
 尽管我们不建议开发者来手动编写路由结构，但如果你一定要这么做的话，我们提供以下示例。
 
-`注: web/route.ts 将会被编译到 build/route.js 目录，所以不要在路由文件中使用相对路径引入其他模块，否则将会无法正确识别路径`
-
-### Vue 场景
-
-在 Vue 场景我们按照如下规范编写前端路由结构
+`注: web/route.ts 将会被编译为 build/ssr-manual-route.js 文件，所以不要在路由文件中使用相对路径引入其他模块，否则将会无法正确识别路径`
 
 ```js
-import * as store from '@/store/index.ts' // 使用了 Vuex 则需要引入 store
-
+// web/route.ts
 export const FeRoutes = [
     {   
         "fetch": () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch'),
@@ -88,40 +83,10 @@ export const FeRoutes = [
         "webpackChunkName": "index"
     }
 ]
-export { default as Layout } from "@/components/layout/index.vue"
-export { default as App } from "@/components/layout/App.vue"
-export { store }
-```
-
-### React 场景
-
-在 React 场景我们按照如下规范编写前端路由结构
-
-```js
-import React from "react"
-export const FeRoutes = [
-{
-  "fetch": () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch'),
-  "path": "/detail/:id",
-  "component":  function dynamicComponent () {
-    return import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id')
-   }, 
-   "webpackChunkName": "detail-id"
-}, 
-{
-  "fetch": () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch'),
-  "path": "/",
-  "component": function dynamicComponent () {
-    return import(/* webpackChunkName: "index" */ '@/pages/index/render')
-   }, 
-   "webpackChunkName": "index"
-}]
-export { default as App } from "@/components/layout/App"
 ```
 
 ### 优先级覆盖
 
 覆盖规则如下
 
-- 除了 `FeRoutes` 以外的同名字段，例如 `App,Layout` 等字段，将会取声明式路由文件为最高优先级
 - `FeRoutes` 在声明式路由存在于约定式路由相同的 `path` 时，取声明式路由文件为最高优先级覆盖默认的约定式路由规则，并且会额外添加声明式路由新增的路由配置
