@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.68](https://github.com/zhangyuang/ssr/compare/v6.1.67...v6.1.68) (2022-03-04)
+
+
+### Bug Fixes
+
+* keepNames in esbuild ([58ef1ab](https://github.com/zhangyuang/ssr/commit/58ef1ab59da573d7608ae3a77339ec2c36f817d8))
+* manualRoutes in vite ([c1fcb91](https://github.com/zhangyuang/ssr/commit/c1fcb913b5dccb449856936d6290ca82624c51cc))
+
+
+
+
+
 ## [6.1.67](https://github.com/zhangyuang/ssr/compare/v6.1.66...v6.1.67) (2022-02-18)
 
 

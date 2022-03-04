@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.68](https://github.com/zhangyuang/ssr/compare/v6.1.67...v6.1.68) (2022-03-04)
+
+
+### Bug Fixes
+
+* update types ([e765071](https://github.com/zhangyuang/ssr/commit/e765071776923935e417a4408b050fbfc93d1ee1))
+
+
+
+
+
 ## [6.1.62](https://github.com/zhangyuang/ssr/compare/v6.1.61...v6.1.62) (2022-02-15)
 
 
