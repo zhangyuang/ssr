@@ -39,7 +39,8 @@ const transformConfig = () => {
       const fileContent = readFileSync(resolve(cwd, './config.ts')).toString()
       const { code } = transformSync(fileContent, {
         loader: 'ts',
-        format: 'cjs'
+        format: 'cjs',
+        keepNames: true
       })
       writeFileSync(resolve(cwd, './build/config.js'), code)
     }
@@ -55,7 +56,8 @@ const transformManualRoutes = async () => {
   const manualRoutes = declaretiveRoutes ? (await promises.readFile(resolve(getFeDir(), './route.ts'))).toString() : 'export {}'
   const { code } = await transform(manualRoutes, {
     loader: 'ts',
-    format: 'esm'
+    format: 'esm',
+    keepNames: true
   })
   // remove empty character and wrapline in vite mode for rollup
   const serializeCode = code.replace(/(import\([\s\S]*?,)/g, ($1) => {
