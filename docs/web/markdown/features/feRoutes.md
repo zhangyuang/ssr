@@ -76,13 +76,13 @@ import * as store from '@/store/index.ts' // 使用了 Vuex 则需要引入 stor
 
 export const FeRoutes = [
     {   
-        "fetch": () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts'),
+        "fetch": () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch'),
         "path": "/detail/:id",
         "component": () => import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id.vue'),
         "webpackChunkName": "detail-id"
     },
     {
-        "fetch": () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts'),
+        "fetch": () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch'),
         "path": "/",
         "component": () => import(/* webpackChunkName: "index" */ '@/pages/index/render.vue'),
         "webpackChunkName": "index"
@@ -101,22 +101,22 @@ export { store }
 import React from "react"
 export const FeRoutes = [
 {
-  "fetch": () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch.ts'),
+  "fetch": () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch'),
   "path": "/detail/:id",
   "component":  function dynamicComponent () {
-    return import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id.tsx')
+    return import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id')
    }, 
    "webpackChunkName": "detail-id"
 }, 
 {
-  "fetch": () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch.ts')
+  "fetch": () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch'),
   "path": "/",
   "component": function dynamicComponent () {
-    return import(/* webpackChunkName: "index" */ '@/pages/index/render.tsx')
+    return import(/* webpackChunkName: "index" */ '@/pages/index/render')
    }, 
    "webpackChunkName": "index"
 }]
-export { default as App } from "@/components/layout/App.tsx"
+export { default as App } from "@/components/layout/App"
 ```
 
 ### 优先级覆盖

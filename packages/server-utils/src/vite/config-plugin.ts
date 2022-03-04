@@ -8,7 +8,7 @@ import { loadConfig } from '../loadConfig'
 import { getOutputPublicPath } from '../parse'
 import { getCwd, cryptoAsyncChunkName } from '../cwd'
 
-const webpackCommentRegExp = /webpackChunkName:\s"(.*)?"/
+const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
 const chunkNameRe = /chunkName=(.*)/
 const imageRegExp = /\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/
 const fontRegExp = /\.(eot|woff|woff2|ttf)(\?.*)?$/

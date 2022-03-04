@@ -51,13 +51,17 @@ const transformConfig = () => {
 const transformManualRoutes = async () => {
   const { transform } = await import('esbuild')
   const declaretiveRoutes = await accessFile(resolve(getFeDir(), './route.ts')) // 是否存在自定义路由
-  // 没有声明式路由的情况创建空文件
+  // without manualRoutes create emtry object
   const manualRoutes = declaretiveRoutes ? (await promises.readFile(resolve(getFeDir(), './route.ts'))).toString() : 'export {}'
   const { code } = await transform(manualRoutes, {
     loader: 'ts',
     format: 'esm'
   })
-  await writeRoutes(code, 'ssr-manual-routes.js')
+  // remove empty character and wrapline in vite mode for rollup
+  const serializeCode = code.replace(/(import\([\s\S]*?,)/g, ($1) => {
+    return $1.replace(/\s/g, '')
+  })
+  await writeRoutes(serializeCode, 'ssr-manual-routes.js')
 }
 
 const getUserConfig = (): UserConfig => {
