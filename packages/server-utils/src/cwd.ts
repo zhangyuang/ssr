@@ -1,4 +1,4 @@
-import { promises, accessSync, readFileSync, writeFileSync } from 'fs'
+import { promises, accessSync, readFileSync, writeFileSync, realpathSync } from 'fs'
 import { resolve } from 'path'
 import { exec } from 'child_process'
 import { promisify } from 'util'
@@ -148,7 +148,7 @@ const loadModuleFromFramework = (path: string) => {
   try {
     const framework = judgeFramework()
     return require.resolve(path, {
-      paths: [resolve(getCwd(), `./node_modules/${framework}`)]
+      paths: [realpathSync(resolve(getCwd(), `./node_modules/${framework}`))]
     })
   } catch (error) {
     return ''

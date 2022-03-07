@@ -23,16 +23,15 @@ const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
   const postCssPlugins = css?.().loaderOptions?.postcss?.plugins ?? [] // 用户自定义 postcss 插件
   const userPostcssOptions = css?.().loaderOptions?.postcss?.options // postCssOptions maybe function|object
   const postcssOptions = typeof userPostcssOptions === 'function' ? userPostcssOptions : Object.assign({
-    ident: 'postcss',
     plugins: [
-      require('postcss-flexbugs-fixes'),
-      require('postcss-discard-comments'),
-      require('postcss-preset-env')({
+      require(loadModule('postcss-flexbugs-fixes')),
+      require(loadModule('postcss-discard-comments')),
+      [require(loadModule('postcss-preset-env')), {
         autoprefixer: {
           flexbox: 'no-2009'
         },
         stage: 3
-      })
+      }]
     ].concat(postCssPlugins)
   }, userPostcssOptions ?? {}) // 合并用户自定义 postcss options
 
