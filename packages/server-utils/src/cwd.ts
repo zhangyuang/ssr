@@ -60,8 +60,8 @@ const transformManualRoutes = async () => {
     keepNames: true
   })
   // remove empty character and wrapline in vite mode for rollup
-  const serializeCode = code.replace(/(import\([\s\S]*?,)/g, ($1) => {
-    return $1.replace(/\s/g, '')
+  const serializeCode = code.replace(/(import\([\s\S]*?,)/g, (match) => {
+    return match.replace(/\s/g, '')
   })
   await writeRoutes(serializeCode, 'ssr-manual-routes.js')
 }
