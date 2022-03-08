@@ -504,19 +504,22 @@ $ yarn add sass sass-loader@^10.0.0 -D # 必须安装 ^10.0.0 版本的 sass-loa
 ```
 
 ```js
+import { setStyle } from 'ssr-server-utils'
+import type { UserConfig } from 'ssr-types'
 
-module.exports = {
+const userConfig: UserConfig = {
   chainBaseConfig: (chain) => {
-    const { setStyle } = require('ssr-server-utils') // 这里需要在具体的 function 里面加载 setStyle
     // setStyle 的详细入参类型可查看  https://github.com/zhangyuang/ssr/blob/dev/packages/server-utils/src/webpack/setStyle.ts
     setStyle(chain, /\.s[ac]ss$/i, {
       rule: 'sass',
       loader: 'sass-loader',
-      modules: false, // 是否开启 css-modules, Vue 场景不建议开启，直接用 scoped 功能代替即可
       importLoaders: 2 // 参考 https://www.npmjs.com/package/css-loader#importloaders
     })
   }
 }
+
+export { userConfig }
+
 ```
 
 如何配置 `sass-loader` 请参考[文档](./api$config#css) 
