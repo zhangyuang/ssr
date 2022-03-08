@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.69](https://github.com/zhangyuang/ssr/compare/v6.1.68...v6.1.69) (2022-03-08)
+
+
+### Bug Fixes
+
+* vue-loader options ([c62f0ee](https://github.com/zhangyuang/ssr/commit/c62f0eed29c84991d436ab57ec550756b49e336f))
+
+
+### Features
+
+* upgrade postcss to 8.0 ([70707e8](https://github.com/zhangyuang/ssr/commit/70707e8b297c2c7f77bb3344a907f1421bce0104))
+
+
+
+
+
 ## [6.1.68](https://github.com/zhangyuang/ssr/compare/v6.1.67...v6.1.68) (2022-03-04)
 
 **Note:** Version bump only for package ssr-plugin-vue3
