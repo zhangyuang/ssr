@@ -127,7 +127,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .end()
   chain
     .plugin('vue-loader')
-    .use(require('vue-loader').VueLoaderPlugin)
+    .use(require(loadModule('vue-loader')).VueLoaderPlugin)
     .end()
 
   locale?.enable && chain.module
