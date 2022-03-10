@@ -42,18 +42,21 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
   return {
     name: 'asyncOptimizeChunkPlugin',
     moduleParsed (this, info) {
-      const { id, importedIds } = info
+      const { id } = info
       if (id.includes('chunkName')) {
+        const { importedIds, dynamicallyImportedIds } = info
+        const ids = importedIds.concat(dynamicallyImportedIds)
         const chunkname = chunkNameRe.exec(id)![1]
-        for (const importerId of importedIds) {
+        for (const importerId of ids) {
           if (!originAsyncChunkMap[importerId]) {
             originAsyncChunkMap[importerId] = []
           }
           originAsyncChunkMap[importerId].push(chunkname)
         }
       } else if (originAsyncChunkMap[id]) {
-        const { importedIds } = this.getModuleInfo(id)!
-        for (const importerId of importedIds) {
+        const { importedIds, dynamicallyImportedIds } = this.getModuleInfo(id)!
+        const ids = importedIds.concat(dynamicallyImportedIds)
+        for (const importerId of ids) {
           if (!originAsyncChunkMap[importerId]) {
             originAsyncChunkMap[importerId] = []
           }

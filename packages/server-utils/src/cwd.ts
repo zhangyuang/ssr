@@ -116,7 +116,7 @@ const cyrb53 = function (str: string, seed = 0) {
 const cryptoAsyncChunkName = (chunks: Array<{name: string}>, asyncChunkMap: Record<string, string[]>) => {
   // 加密异步模块 name，防止名称过长
   chunks.sort((a, b) => a.name > b.name ? -1 : 1) // 保证相同值不同顺序的数组最终的加密结果一致
-  const allChunksNames = chunks.map((item: any) => item.name).join('~')
+  const allChunksNames = chunks.map(item => item.name).join('~')
   const allChunksNamesArr = allChunksNames.split('~')
   const cryptoAllChunksNames = String(cyrb53(allChunksNames))
   if (allChunksNamesArr.length >= 2 && !asyncChunkMap?.[cryptoAllChunksNames]) {
