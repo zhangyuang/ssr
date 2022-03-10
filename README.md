@@ -266,12 +266,13 @@ $ npm run start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 
 ## 答疑群
 
-虽然我们已经尽力检查了一遍应用，但仍有可能有疏漏的地方，如果你在使用过程中发现任何问题或者建议，欢迎提[issue](https://github.com/zhangyuang/ssr/issues)或者[PR](https://github.com/zhangyuang/ssr/pulls)
-欢迎直接扫码加群
+虽然我们已经尽力检查了一遍应用，但仍有可能有疏漏的地方，如果你在使用过程中发现任何问题或者建议，欢迎提[issue](https://github.com/zhangyuang/ssr/issues)或者[PR](https://github.com/zhangyuang/ssr/pulls)  
+
+`注: 由于微信交流群人数限制，进群请添加私人二维码并备注进入 ssr 交流群，由于是私人微信，拉群后将会自行删除好友，敬请谅解。我们更加鼓励通过 issue 和 discussion 来交流问题`
 
 <div style="display:flex">
 <!-- <img src="https://res.wx.qq.com/op_res/7F1t4Z8yCHWilehbcFGjAj0yVn0URMiWBGVJa-TVu_eqw5IwUXA2kPYBnfX6YRHy0FVBB-yC6l0IEL02QTJkLg" width="300"> -->
-<img src="https://res.wx.qq.com/op_res/QAMR2cMecWSBwvxF-zDR9Rt2TfALiULQ5SQbagHYpceeisESp-BCPUwEX9N8Ty2Xu6sGSHrU6PCJyaL7-Ry1Qw" width="300">
+<img src="https://res.wx.qq.com/op_res/Nv12X2und927FEOvJ5iflzX-WBW07GSC22kumTCiShZnudKpG0jMuRs70ecHQb3Hy1QjjaASNzyOuMgHr43Wpw" width="300">
 </div>
 
 ## 前端开发手册
