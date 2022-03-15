@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.70](https://github.com/zhangyuang/ssr/compare/v6.1.68...v6.1.70) (2022-03-15)
+
+
+### Features
+
+* inject prefix to browser ([3f568cc](https://github.com/zhangyuang/ssr/commit/3f568cc6f15182ffe5fc3e58e1bffebcc4eb7a18))
+* support dynamic component build preload in vite ([8e9e551](https://github.com/zhangyuang/ssr/commit/8e9e5514d81f0db24a8c9e59bac8379f7a09a2c0))
+* upgrade postcss to 8.0 ([70707e8](https://github.com/zhangyuang/ssr/commit/70707e8b297c2c7f77bb3344a907f1421bce0104))
+
+
+
+
+
 ## [6.1.69](https://github.com/zhangyuang/ssr/compare/v6.1.68...v6.1.69) (2022-03-08)
 
 

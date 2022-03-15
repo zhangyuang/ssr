@@ -1,6 +1,6 @@
 {
   "name": "ssr-hoc-react",
-  "version": "6.1.68",
+  "version": "6.1.70",
   "description": "hoc for react ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -45,6 +45,6 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.3",
-    "ssr-types-react": "^6.1.68"
+    "ssr-types-react": "^6.1.70"
   }
 }

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.70](https://github.com/zhangyuang/ssr/compare/v6.1.68...v6.1.70) (2022-03-15)
+
+
+### Features
+
+* inject prefix to browser ([3f568cc](https://github.com/zhangyuang/ssr/commit/3f568cc6f15182ffe5fc3e58e1bffebcc4eb7a18))
+
+
+
+
+
 ## [6.1.68](https://github.com/zhangyuang/ssr/compare/v6.1.67...v6.1.68) (2022-03-04)
 
 
