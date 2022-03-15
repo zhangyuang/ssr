@@ -125,10 +125,9 @@ const manualChunksFn = (id: string) => {
 }
 type SSR = 'ssr'
 const commonConfig = (): UserConfig => {
-  const { prefix, whiteList, alias, css } = loadConfig()
+  const { whiteList, alias, css } = loadConfig()
   return {
     root: cwd,
-    base: prefix,
     mode: 'development',
     server: {
       middlewareMode: 'ssr' as SSR

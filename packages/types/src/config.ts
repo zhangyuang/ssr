@@ -93,12 +93,10 @@ export interface IConfig {
     }
     client?: {
       defaultPluginOptions?: any
-      define?: Record<string, any>
       extraPlugin?: any[]
     }
     server?: {
       defaultPluginOptions?: any
-      define?: Record<string, any>
       extraPlugin?: any[]
     }
   }

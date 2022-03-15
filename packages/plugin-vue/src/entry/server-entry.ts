@@ -163,7 +163,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               }
             }) : h('script', {
               domProps: {
-                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${isVite}`
+                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${isVite};  ${base && `window.prefix=${base}`}`
               }
             })
           ]),

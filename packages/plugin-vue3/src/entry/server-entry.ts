@@ -129,7 +129,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
         children: () => h(App, { ctx, config, asyncData, fetchData: combineAysncData }),
 
-        initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${isVite}` })
+        initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${isVite}; ${base && `window.prefix=${base}`}` })
           : () => h('script', { innerHTML: `window.__USE_VITE__=${isVite}` }),
 
         cssInject: () => injectCss,

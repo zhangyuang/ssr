@@ -1,6 +1,6 @@
 import { join } from 'path'
 import { IConfig } from 'ssr-types'
-import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework, loadModuleFromFramework } from './cwd'
+import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework, loadModuleFromFramework, stringifyDefine } from './cwd'
 import { coerce } from 'semver'
 const framework = judgeFramework()
 const loadConfig = (): IConfig => {
@@ -17,7 +17,9 @@ const loadConfig = (): IConfig => {
   const reactServerEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/server-entry.js')
   const reactClientEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/client-entry.js')
   const supportOptinalChaining = coerce(process.version)!.major >= 14
-  const define = {}
+  const define = userConfig.define ?? {}
+  userConfig.define && stringifyDefine(define)
+
   const alias = Object.assign({
     '@': getFeDir(),
     '~': getCwd(),

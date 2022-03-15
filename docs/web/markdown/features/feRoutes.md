@@ -73,13 +73,15 @@ export const FeRoutes = [
     {   
         "fetch": () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch'),
         "path": "/detail/:id",
-        "component": () => import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id.vue'),
+        "component": () => import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id'), // vue 场景用此写法
+        "component": async function dynamicComponent () { return await import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id') }, // react 场景需要固定函数名称为 dynamicComponent
         "webpackChunkName": "detail-id"
     },
     {
         "fetch": () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch'),
         "path": "/",
-        "component": () => import(/* webpackChunkName: "index" */ '@/pages/index/render.vue'),
+        "component": () => import(/* webpackChunkName: "index" */ '@/pages/index/render'), // vue 场景用此写法
+        "component": async function dynamicComponent () { return await import(/* webpackChunkName: "index" */ '@/pages/index/render') }, // react 场景需要固定函数名称为 dynamicComponent
         "webpackChunkName": "index"
     }
 ]

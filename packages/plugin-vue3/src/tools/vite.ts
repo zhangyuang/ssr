@@ -51,7 +51,6 @@ const serverConfig: UserConfig = {
   },
   define: {
     __isBrowser__: false,
-    ...viteConfig?.()?.server?.define,
     ...define?.server,
     ...define?.base
   }
@@ -80,7 +79,6 @@ const clientConfig: UserConfig = {
   },
   define: {
     __isBrowser__: true,
-    ...viteConfig?.()?.client?.define,
     ...define?.client,
     ...define?.base
   }

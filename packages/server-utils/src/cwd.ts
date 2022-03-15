@@ -201,6 +201,17 @@ const normalizeEndPath = (path: string) => {
   return path
 }
 
+const stringifyDefine = (obj?: any) => {
+  if (!obj) return
+  for (const key in obj) {
+    const val = obj[key]
+    if (typeof val === 'string' && val.slice(0, 1) !== '"') {
+      obj[key] = JSON.stringify(val)
+    } else if (typeof val === 'object') {
+      stringifyDefine(val)
+    }
+  }
+}
 export {
   getCwd,
   getFeDir,
@@ -223,5 +234,6 @@ export {
   judgeFramework,
   loadModuleFromFramework,
   transformManualRoutes,
-  writeRoutes
+  writeRoutes,
+  stringifyDefine
 }
