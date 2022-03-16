@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.71](https://github.com/zhangyuang/ssr/compare/v6.1.70...v6.1.71) (2022-03-16)
+
+**Note:** Version bump only for package ssr-hoc-react
+
+
+
+
+
 ## [6.1.70](https://github.com/zhangyuang/ssr/compare/v6.1.68...v6.1.70) (2022-03-15)
 
 **Note:** Version bump only for package ssr-hoc-react
