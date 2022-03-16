@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.73](https://github.com/zhangyuang/ssr/compare/v6.1.72...v6.1.73) (2022-03-16)
+
+**Note:** Version bump only for package ssr-hoc-vue3
+
+
+
+
+
 ## [6.1.61](https://github.com/zhangyuang/ssr/compare/v6.1.60...v6.1.61) (2022-02-10)
 
 
