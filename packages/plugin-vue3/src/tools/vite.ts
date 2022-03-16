@@ -5,7 +5,7 @@ import vueJSXPlugin from '@vitejs/plugin-vue-jsx'
 import babel from '@rollup/plugin-babel'
 import styleImport, { AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'vite-plugin-style-import'
 
-const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions } = loadConfig()
+const { getOutput, prefix, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
 const styleImportConfig = {
@@ -58,6 +58,7 @@ const serverConfig: UserConfig = {
 
 const clientConfig: UserConfig = {
   ...commonConfig(),
+  base: isDev ? '/' : prefix,
   plugins: [
     vuePlugin(viteConfig?.()?.client?.defaultPluginOptions),
     vueJSXPlugin(),

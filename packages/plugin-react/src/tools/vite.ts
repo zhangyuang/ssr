@@ -3,7 +3,7 @@ import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commo
 import react from '@vitejs/plugin-react'
 import styleImport, { AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'vite-plugin-style-import'
 
-const { getOutput, reactServerEntry, reactClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions } = loadConfig()
+const { getOutput, prefix, reactServerEntry, reactClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions } = loadConfig()
 
 const { clientOutPut, serverOutPut } = getOutput()
 const styleImportConfig = {
@@ -56,6 +56,7 @@ const serverConfig: UserConfig = {
 
 const clientConfig: UserConfig = {
   ...commonConfig(),
+  base: isDev ? '/' : prefix,
   esbuild: {
     keepNames: true
   },
