@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.72](https://github.com/zhangyuang/ssr/compare/v6.1.71...v6.1.72) (2022-03-16)
+
+
+### Bug Fixes
+
+* window.prefix ([c4634ef](https://github.com/zhangyuang/ssr/commit/c4634efa399057f0cd7041a58e6e8813b631f986))
+
+
+
+
+
 ## [6.1.71](https://github.com/zhangyuang/ssr/compare/v6.1.70...v6.1.71) (2022-03-16)
 
 **Note:** Version bump only for package ssr-plugin-vue
