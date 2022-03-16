@@ -2,7 +2,7 @@ import { promises, accessSync, readFileSync, writeFileSync, realpathSync } from 
 import { resolve } from 'path'
 import { exec } from 'child_process'
 import { promisify } from 'util'
-import { UserConfig, IPlugin } from 'ssr-types'
+import { UserConfig, IPlugin, Json } from 'ssr-types'
 import { coerce } from 'semver'
 
 const getCwd = () => {
@@ -201,8 +201,7 @@ const normalizeEndPath = (path: string) => {
   return path
 }
 
-const stringifyDefine = (obj?: any) => {
-  if (!obj) return
+const stringifyDefine = (obj: {[key: string]: Json}) => {
   for (const key in obj) {
     const val = obj[key]
     if (typeof val === 'string' && val.slice(0, 1) !== '"') {

@@ -13,6 +13,8 @@ export type Script = Array<{
   }
   content?: string
 }>
+export type Json = string | number | boolean | { [key: string]: Json }
+
 export interface IConfig {
   cwd: string
   alias?: Record<string, string>
