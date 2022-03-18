@@ -28,8 +28,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   if (!routeItem) {
     throw new Error(`
-    查找组件失败，请确认当前 path: ${path} 对应前端组件是否存在
-    若创建了新的页面文件夹，请重新执行 npm start 重启服务
+    With Path: ${path} search component failed
+    If you create new folder or component file, please restart server by npm start
     `)
   }
 
