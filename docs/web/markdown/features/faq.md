@@ -1126,48 +1126,7 @@ export default {
   }
 ```
 
-在客户端逻辑中，我们需要额外添加前端路由的 `basename` 设置逻辑, 在 `React` 中很简单
-
-```js
-const Layout = (props: LayoutProps) => {
-  // 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑
-  const { injectState } = props
-  const { injectCss, injectScript } = props.staticList!
-
-  return (
-    <html lang='en'>
-      <head>
-        <meta charSet='utf-8' />
-        <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no' />
-        <meta name='theme-color' content='#000000' />
-        <title>Serverless Side Render</title>
-        <script dangerouslySetInnerHTML={{ __html: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }} />
-        { injectCss }
-      </head>
-      <body>
-        <div id="app"><App {...props} /></div>
-        { injectState }
-        <script dangerouslySetInnerHTML={{
-          __html: `window.prefix="${props.ctx?.request.path}"`
-        }}></script>
-        { injectScript }
-      </body>
-    </html>
-  )
-}
-```
-
-在 `Vue` 当中我们需要通过 [customeHeadScript](./api$config#customeHeadScript) 或者 [customeFooterScript](./api$config#customeFooterScript)
-
-```js
-module.exports = {
-  customeHeadScript: ctx => [
-    {
-      content: `window.prefix="${ctx.request.path}"`
-    }
-  ]
-}
-```
+我们会将当前请求对应的 `prefix` 注入到 `window.prefix` 中，框架将会读取这个值并做适配逻辑。
 
 ### 如何使用 svg-sprite-loader
 
