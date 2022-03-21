@@ -58,8 +58,8 @@ export interface IConfig {
   mode: 'ssr' | 'csr'
   webpackDevServerConfig?: any
   stream: boolean
-  customeHeadScript?: (ctx: ISSRContext) => Script | Script
-  customeFooterScript?: (ctx: ISSRContext) => Script | Script
+  customeHeadScript?: ((ctx: ISSRContext) => Script) | Script
+  customeFooterScript?: ((ctx: ISSRContext) => Script) | Script
   locale?: {
     enable: boolean
   }
