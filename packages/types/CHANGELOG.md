@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.75](https://github.com/zhangyuang/ssr/compare/v6.1.74...v6.1.75) (2022-03-21)
+
+
+### Bug Fixes
+
+* customeheadscript types ([ac64c27](https://github.com/zhangyuang/ssr/commit/ac64c2716043241086d95a6c5725f1b5e3bc87b5))
+
+
+
+
+
 ## [6.1.74](https://github.com/zhangyuang/ssr/compare/v6.1.73...v6.1.74) (2022-03-16)
 
 **Note:** Version bump only for package ssr-types
