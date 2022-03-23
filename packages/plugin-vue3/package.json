@@ -58,6 +58,7 @@
     "postcss-preset-env": "^7.0.0",
     "postcss-safe-parser": "^6.0.0",
     "ssr-client-utils": "^6.1.75",
+    "ssr-deepclone": "^1.0.0",
     "ssr-server-utils": "^6.1.74",
     "ssr-types": "^6.1.75",
     "ssr-webpack": "^6.1.75",

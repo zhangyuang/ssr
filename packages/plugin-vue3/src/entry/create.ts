@@ -1,8 +1,8 @@
 // @ts-nocheck
 import { createRouter as create, createWebHistory, createMemoryHistory } from 'vue-router'
 import { createStore as createVuexStore } from 'vuex'
+import { deepClone } from 'ssr-deepclone'
 import { Routes } from './create-router'
-import { deepClone } from './clone'
 import { RoutesType, VueRouterOptions } from './interface'
 
 const { store, FeRoutes } = Routes as RoutesType
@@ -16,7 +16,7 @@ function createRouter (options: VueRouterOptions = {}) {
 }
 
 function createStore () {
-  return createVuexStore(deepClone(store) ?? {})
+  return createVuexStore(deepClone(store ?? {}))
 }
 
 export {

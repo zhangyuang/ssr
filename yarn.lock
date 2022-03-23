@@ -17867,6 +17867,11 @@ sshpk@^1.14.1, sshpk@^1.7.0:
     safer-buffer "^2.0.2"
     tweetnacl "~0.14.0"
 
+ssr-deepclone@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/ssr-deepclone/-/ssr-deepclone-1.0.0.tgz#661f19aac9edbcec03ad72aacd800194e96fae36"
+  integrity sha512-3PtfttGmLvkCcqLIyLm5SzPhQGgA6SJdmdFaxCFV9BIBIJnDSmtj2jxgvoZdbiKamwgYhxV80l29N3WAf7+aLw==
+
 ssri@^6.0.0, ssri@^6.0.1:
   version "6.0.2"
   resolved "https://registry.npmjs.org/ssri/-/ssri-6.0.2.tgz#157939134f20464e7301ddba3e90ffa8f7728ac5"
