@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.76](https://github.com/zhangyuang/ssr/compare/v6.1.75...v6.1.76) (2022-03-24)
+
+
+### Features
+
+* remove plugin.js ([a97ed3e](https://github.com/zhangyuang/ssr/commit/a97ed3e58cd239ba649f3bf3551e24ce3a96da44))
+
+
+
+
+
 ## [6.1.75](https://github.com/zhangyuang/ssr/compare/v6.1.74...v6.1.75) (2022-03-21)
 
 **Note:** Version bump only for package ssr-plugin-vue
