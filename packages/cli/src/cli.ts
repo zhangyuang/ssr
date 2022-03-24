@@ -18,32 +18,38 @@ const spinner = {
   })
 }
 
-const startFunc = async (argv: Argv) => {
-  spinner.start()
-  process.env.NODE_ENV = 'development'
-  if (!argv.noclean) {
-    await cleanOutDir()
-  }
-  const { parseFeRoutes, copyReactContext, transformConfig, judgeFramework, judgeServerFramework } = await import('ssr-server-utils')
+const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
+  const { copyReactContext, judgeFramework, judgeServerFramework } = await import('ssr-server-utils')
   const framework = judgeFramework()
   const serverFramework = judgeServerFramework()
-  transformConfig()
-  await handleEnv(argv)
-  await parseFeRoutes()
-  spinner.stop()
+
   if (!argv.api) {
     const { clientPlugin } = await import(framework)
     const client = clientPlugin()
     if (client?.name === 'plugin-react') {
       await copyReactContext()
     }
-    await client?.start?.(argv)
+    await client?.[type]?.(argv)
   }
   if (!argv.web) {
     const { serverPlugin } = await import(serverFramework)
     const server = serverPlugin()
-    await server?.start?.(argv)
+    await server?.[type]?.(argv)
   }
+}
+
+const startFunc = async (argv: Argv) => {
+  spinner.start()
+  process.env.NODE_ENV = 'development'
+  if (!argv.noclean) {
+    await cleanOutDir()
+  }
+  const { parseFeRoutes, transformConfig } = await import('ssr-server-utils')
+  transformConfig()
+  await handleEnv(argv)
+  await parseFeRoutes()
+  spinner.stop()
+  await startOrBuild(argv, 'start')
 }
 
 const buildFunc = async (argv: Argv) => {
@@ -52,27 +58,12 @@ const buildFunc = async (argv: Argv) => {
   if (!argv.noclean) {
     await cleanOutDir()
   }
-  const { parseFeRoutes, copyReactContext, transformConfig, judgeFramework, judgeServerFramework } = await import('ssr-server-utils')
+  const { parseFeRoutes, transformConfig } = await import('ssr-server-utils')
   transformConfig()
   await handleEnv(argv)
   await parseFeRoutes()
   spinner.stop()
-  const framework = judgeFramework()
-  const serverFramework = judgeServerFramework()
-  if (!argv.api) {
-    const { clientPlugin } = await import(framework)
-    const client = clientPlugin()
-    if (client?.name === 'plugin-react') {
-      await copyReactContext()
-    }
-    await client?.build?.(argv)
-  }
-  if (!argv.web) {
-    const { serverPlugin } = await import(serverFramework)
-    const server = serverPlugin()
-    await server?.build?.(argv)
-  }
-  await generateHtml(argv)
+  await startOrBuild(argv, 'build')
 }
 
 const deployFunc = async (argv: Argv) => {
