@@ -24,17 +24,26 @@ const startFunc = async (argv: Argv) => {
   if (!argv.noclean) {
     await cleanOutDir()
   }
-  const { parseFeRoutes, loadPlugin, copyReactContext, transformConfig } = await import('ssr-server-utils')
+  const { parseFeRoutes, copyReactContext, transformConfig, judgeFramework, judgeServerFramework } = await import('ssr-server-utils')
+  const framework = judgeFramework()
+  const serverFramework = judgeServerFramework()
   transformConfig()
   await handleEnv(argv)
   await parseFeRoutes()
-  const plugin = loadPlugin()
   spinner.stop()
-  if (plugin.clientPlugin?.name === 'plugin-react') {
-    await copyReactContext()
+  if (!argv.api) {
+    const { clientPlugin } = await import(framework)
+    const client = clientPlugin()
+    if (client?.name === 'plugin-react') {
+      await copyReactContext()
+    }
+    await client?.start?.(argv)
   }
-  await plugin.clientPlugin?.start?.(argv)
-  await plugin.serverPlugin?.start?.(argv)
+  if (!argv.web) {
+    const { serverPlugin } = await import(serverFramework)
+    const server = serverPlugin()
+    await server?.start?.(argv)
+  }
 }
 
 const buildFunc = async (argv: Argv) => {
@@ -43,33 +52,51 @@ const buildFunc = async (argv: Argv) => {
   if (!argv.noclean) {
     await cleanOutDir()
   }
-  const { parseFeRoutes, loadPlugin, copyReactContext, transformConfig } = await import('ssr-server-utils')
+  const { parseFeRoutes, copyReactContext, transformConfig, judgeFramework, judgeServerFramework } = await import('ssr-server-utils')
   transformConfig()
   await handleEnv(argv)
   await parseFeRoutes()
-  const plugin = loadPlugin()
   spinner.stop()
-  if (plugin.clientPlugin?.name === 'plugin-react') {
-    await copyReactContext()
+  const framework = judgeFramework()
+  const serverFramework = judgeServerFramework()
+  if (!argv.api) {
+    const { clientPlugin } = await import(framework)
+    const client = clientPlugin()
+    if (client?.name === 'plugin-react') {
+      await copyReactContext()
+    }
+    await client?.build?.(argv)
   }
-  await plugin.clientPlugin?.build?.(argv)
-  await plugin.serverPlugin?.build?.(argv)
+  if (!argv.web) {
+    const { serverPlugin } = await import(serverFramework)
+    const server = serverPlugin()
+    await server?.build?.(argv)
+  }
   await generateHtml(argv)
 }
 
 const deployFunc = async (argv: Argv) => {
   process.env.NODE_ENV = 'production'
-  const { loadPlugin } = await import('ssr-server-utils')
-  const plugin = loadPlugin()
-
-  if (!plugin?.serverPlugin?.deploy) {
+  const { judgeServerFramework } = await import('ssr-server-utils')
+  const serverFramework = judgeServerFramework()
+  const { serverPlugin } = await import(serverFramework)
+  const server = serverPlugin()
+  if (!server?.deploy) {
     console.log('当前插件不支持 deploy 功能，请使用 ssr-plugin-midway 插件 参考 https://www.yuque.com/midwayjs/faas/migrate_egg 或扫码进群了解')
     return
   }
-  await plugin.serverPlugin?.deploy?.(argv)
+  await server?.deploy?.(argv)
   spinner.stop()
 }
 
+const cliDesc = {
+  web: {
+    desc: 'only start client plugin'
+  },
+  api: {
+    desc: 'only start server plugin'
+  }
+}
 yargs
   .command('start', 'Start Server', yargs => yargs.options({
     vite: {
@@ -77,7 +104,8 @@ yargs
     },
     port: {
       desc: 'Setting application server port, default is 3000'
-    }
+    },
+    ...cliDesc
   }), async (argv: Argv) => {
     await startFunc(argv)
   })
@@ -94,7 +122,8 @@ yargs
     },
     html: {
       desc: 'Build application as a single html'
-    }
+    },
+    ...cliDesc
   }), async (argv: Argv) => {
     if (argv.vite) {
       console.log(`ssr build by vite is beta now, if you find some bugs, please submit an issue or you can use ssr build --vite --legacy which will close manualChunks

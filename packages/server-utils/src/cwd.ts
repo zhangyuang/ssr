@@ -77,10 +77,6 @@ const getUserConfig = (): UserConfig => {
   return config.userConfig ?? config
 }
 
-const loadPlugin = (): IPlugin => {
-  return require(resolve(getCwd(), 'plugin'))
-}
-
 const readAsyncChunk = async (): Promise<Record<string, string>> => {
   const cwd = getCwd()
   try {
@@ -137,10 +133,21 @@ const judgeFramework = () => {
   const packageJSON = require(resolve(cwd, './package.json'))
   if (packageJSON.dependencies.react || packageJSON.devDependencies.react) {
     return 'ssr-plugin-react'
-  }
-  if (packageJSON.dependencies.vue || packageJSON.devDependencies.vue) {
+  } else if (packageJSON.dependencies.vue || packageJSON.devDependencies.vue) {
     const version = packageJSON.dependencies.vue || packageJSON.devDependencies.vue
     return coerce(version)!.major === 3 ? 'ssr-plugin-vue3' : 'ssr-plugin-vue'
+  } else {
+    throw new Error('get framework failed, please check dependencies')
+  }
+}
+
+const judgeServerFramework = () => {
+  const cwd = getCwd()
+  const packageJSON = require(resolve(cwd, './package.json'))
+  if (packageJSON.dependencies['@midwayjs/web'] || packageJSON.devDependencies['@midwayjs/web']) {
+    return 'ssr-plugin-midway'
+  } else {
+    return 'ssr-plugin-nestjs'
   }
 }
 
@@ -217,7 +224,6 @@ export {
   getPagesDir,
   getUserConfig,
   isFaaS,
-  loadPlugin,
   getLocalNodeModules,
   processError,
   accessFile,
@@ -234,5 +240,6 @@ export {
   loadModuleFromFramework,
   transformManualRoutes,
   writeRoutes,
-  stringifyDefine
+  stringifyDefine,
+  judgeServerFramework
 }

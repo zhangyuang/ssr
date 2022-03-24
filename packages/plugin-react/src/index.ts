@@ -2,7 +2,7 @@ import { loadConfig } from 'ssr-server-utils'
 
 const { isVite } = loadConfig()
 
-export function reactPlugin () {
+export function clientPlugin () {
   return {
     name: 'plugin-react',
     start: async () => {

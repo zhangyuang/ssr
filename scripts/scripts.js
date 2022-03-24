@@ -25,7 +25,7 @@ if (argv.bootstrap) {
   execSync('yarn build:only', options)
 }
 
-const excludePackage = ['.DS_Store', 'plugin-midway', 'plugin-nestjs']
+const excludePackage = ['.DS_Store']
 const packages = fs.readdirSync('./packages').filter(name => {
   return !excludePackage.includes(name)
 })

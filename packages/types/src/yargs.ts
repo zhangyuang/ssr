@@ -11,4 +11,9 @@ export type Argv = yargs.Arguments<{
   html?: boolean
   port?: string | number
   legacy?: boolean
+  react?: boolean
+  vue?: boolean
+  vue3?: boolean
+  web?: boolean
+  api?: boolean
 }>

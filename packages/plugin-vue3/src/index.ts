@@ -2,7 +2,7 @@ import { loadConfig } from 'ssr-server-utils'
 
 const { isVite } = loadConfig()
 
-export function vuePlugin () {
+export function clientPlugin () {
   return {
     name: 'plugin-vue3',
     start: async () => {
