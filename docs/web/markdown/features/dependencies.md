@@ -15,7 +15,6 @@
     "css-hot-loader": "^1.4.4",
     "css-loader": "^5.2.7",
     "file-loader": "^6.2.0",
-    "ignore-loader": "^0.1.2",
     "less": "^4.1.1",
     "less-loader": "^7.3.0",
     "mini-css-extract-plugin": "^1.0.0",
