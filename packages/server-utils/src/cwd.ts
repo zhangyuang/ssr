@@ -2,7 +2,7 @@ import { promises, accessSync, readFileSync, writeFileSync, realpathSync } from 
 import { resolve } from 'path'
 import { exec } from 'child_process'
 import { promisify } from 'util'
-import { UserConfig, IPlugin, Json } from 'ssr-types'
+import { UserConfig, Json } from 'ssr-types'
 import { coerce } from 'semver'
 
 const getCwd = () => {

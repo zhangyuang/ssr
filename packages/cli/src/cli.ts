@@ -2,7 +2,7 @@
 import { resolve } from 'path'
 import { fork } from 'child_process'
 import * as yargs from 'yargs'
-import { Argv } from 'ssr-types'
+import { Argv, IPlugin } from 'ssr-types'
 import { generateHtml } from './html'
 import { cleanOutDir } from './clean'
 import { handleEnv } from './preprocess'
@@ -22,10 +22,9 @@ const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
   const { copyReactContext, judgeFramework, judgeServerFramework } = await import('ssr-server-utils')
   const framework = judgeFramework()
   const serverFramework = judgeServerFramework()
-
   if (!argv.api) {
     const { clientPlugin } = await import(framework)
-    const client = clientPlugin()
+    const client: IPlugin['clientPlugin'] = clientPlugin()
     if (client?.name === 'plugin-react') {
       await copyReactContext()
     }
@@ -33,8 +32,11 @@ const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
   }
   if (!argv.web) {
     const { serverPlugin } = await import(serverFramework)
-    const server = serverPlugin()
+    const server: IPlugin['serverPlugin'] = serverPlugin()
     await server?.[type]?.(argv)
+  }
+  if (type === 'build') {
+    await generateHtml(argv)
   }
 }
 
@@ -71,7 +73,7 @@ const deployFunc = async (argv: Argv) => {
   const { judgeServerFramework } = await import('ssr-server-utils')
   const serverFramework = judgeServerFramework()
   const { serverPlugin } = await import(serverFramework)
-  const server = serverPlugin()
+  const server: IPlugin['serverPlugin'] = serverPlugin()
   if (!server?.deploy) {
     console.log('当前插件不支持 deploy 功能，请使用 ssr-plugin-midway 插件 参考 https://www.yuque.com/midwayjs/faas/migrate_egg 或扫码进群了解')
     return
