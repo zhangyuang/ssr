@@ -47,7 +47,7 @@ const startFunc = async (argv: Argv) => {
     await cleanOutDir()
   }
   const { parseFeRoutes, transformConfig } = await import('ssr-server-utils')
-  transformConfig()
+  await transformConfig()
   await handleEnv(argv)
   await parseFeRoutes()
   spinner.stop()
@@ -61,7 +61,7 @@ const buildFunc = async (argv: Argv) => {
     await cleanOutDir()
   }
   const { parseFeRoutes, transformConfig } = await import('ssr-server-utils')
-  transformConfig()
+  await transformConfig()
   await handleEnv(argv)
   await parseFeRoutes()
   spinner.stop()

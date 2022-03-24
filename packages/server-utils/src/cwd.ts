@@ -1,4 +1,4 @@
-import { promises, accessSync, readFileSync, writeFileSync, realpathSync } from 'fs'
+import { promises, accessSync, realpathSync } from 'fs'
 import { resolve } from 'path'
 import { exec } from 'child_process'
 import { promisify } from 'util'
@@ -22,30 +22,26 @@ const writeRoutes = async (routes: string, name?: string) => {
   await promises.writeFile(resolve(cwd, `./build/${name ?? 'ssr-declare-routes'}`), routes)
 }
 
-const transformConfig = () => {
-  try {
-    // serverless 发布无需安装 shelljs esbuild, 提前本地 build 好
-    const { cp, mkdir } = require('shelljs')
-    const { transformSync } = require('esbuild')
-    const cwd = getCwd()
-    if (!accessFileSync(resolve(cwd, './build'))) {
-      mkdir(resolve(cwd, './build'))
-    }
-    if (accessFileSync(resolve(cwd, './config.js'))) {
-      cp('-r', `${resolve(cwd, './config.js')}`, `${resolve(cwd, './build/config.js')}`)
-    }
-    const configWithTs = accessFileSync(resolve(cwd, './config.ts'))
-    if (configWithTs) {
-      const fileContent = readFileSync(resolve(cwd, './config.ts')).toString()
-      const { code } = transformSync(fileContent, {
-        loader: 'ts',
-        format: 'cjs',
-        keepNames: true
-      })
-      writeFileSync(resolve(cwd, './build/config.js'), code)
-    }
-  } catch (error) {
-
+const transformConfig = async () => {
+  // serverless 发布无需安装 shelljs esbuild, 提前本地 build 好
+  const { cp, mkdir } = await import('shelljs')
+  const { transform } = await import('esbuild')
+  const cwd = getCwd()
+  if (!await accessFile(resolve(cwd, './build'))) {
+    mkdir(resolve(cwd, './build'))
+  }
+  if (await accessFile(resolve(cwd, './config.js'))) {
+    cp('-r', `${resolve(cwd, './config.js')}`, `${resolve(cwd, './build/config.js')}`)
+  }
+  const configWithTs = await accessFile(resolve(cwd, './config.ts'))
+  if (configWithTs) {
+    const fileContent = (await promises.readFile(resolve(cwd, './config.ts'))).toString()
+    const { code } = await transform(fileContent, {
+      loader: 'ts',
+      format: 'cjs',
+      keepNames: true
+    })
+    await promises.writeFile(resolve(cwd, './build/config.js'), code)
   }
 }
 
