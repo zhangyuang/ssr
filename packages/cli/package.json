@@ -1,6 +1,6 @@
 {
   "name": "ssr",
-  "version": "6.1.76",
+  "version": "6.1.77",
   "description": "cli for react/vue2/vue3 ssr deploy on serverless or tradtional web server",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -35,7 +35,7 @@
     "esbuild": "^0.13.14",
     "ora": "^4.0.4",
     "shelljs": "^0.8.3",
-    "ssr-server-utils": "^6.1.76",
+    "ssr-server-utils": "^6.1.77",
     "ssr-types": "^6.1.76",
     "yargs": "^13.2.4"
   },
