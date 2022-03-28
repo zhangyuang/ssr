@@ -227,7 +227,7 @@ app.useStaticAssets(join(getCwd(), './build/client'))
 
 ```json
 "scripts": {
-  "prod:vite": "ssr build --vite && cross-env BUILD_TOOL=vite egg-scripts start --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
+  "prod:vite": "ssr build --vite && egg-scripts start --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
   "stop": "egg-scripts stop --title=midway-server-my_midway_project",
   "start:vite": "ssr start --vite",
   "build:vite": "ssr build --vite"

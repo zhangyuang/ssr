@@ -18,7 +18,6 @@
   },
   "devDependencies": {
     "@midwayjs/egg-ts-helper": "^1.0.5",
-    "cross-env": "^7.0.3",
     "eslint-config-standard-vue-ts": "^1.0.5",
     "ssr": "^6.0.0",
     "ssr-plugin-midway": "^6.0.0",
@@ -28,7 +27,7 @@
   },
   "scripts": {
     "prod": "ssr build && egg-scripts start --daemon --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
-    "prod:vite": "ssr build --vite && cross-env BUILD_TOOL=vite egg-scripts start --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
+    "prod:vite": "ssr build --vite && egg-scripts start --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
     "stop": "egg-scripts stop --title=midway-server-my_midway_project",
     "start": "ssr start",
     "start:vite": "ssr start --vite",

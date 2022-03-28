@@ -1,6 +1,6 @@
 import { join } from 'path'
 import { IConfig } from 'ssr-types'
-import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework, loadModuleFromFramework, stringifyDefine } from './cwd'
+import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework, loadModuleFromFramework, stringifyDefine, accessFileSync } from './cwd'
 import { coerce } from 'semver'
 const framework = judgeFramework()
 const loadConfig = (): IConfig => {
@@ -8,7 +8,7 @@ const loadConfig = (): IConfig => {
   const cwd = getCwd()
   const mode = 'ssr'
   const stream = false
-  const isVite = process.env.BUILD_TOOL === 'vite'
+  const isVite = process.env.BUILD_TOOL === 'vite' || accessFileSync(join(cwd, './build/originAsyncChunkMap.json'))
   const isCI = !!process.env.CI_TEST
   const vue3ServerEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js')
   const vue3ClientEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
