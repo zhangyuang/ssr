@@ -14,4 +14,4 @@ $ npm run stop # 生产环境停止服务
 
 Open this example on [CodeSandbox](https://codesandbox.com):
 
-[![Open in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/zhangyuang/ssr/tree/dev/example/nestjs-vue-ssr)
+[![Open in CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/zhangyuang/ssr/tree/feat/codesandbox/example/nestjs-vue-ssr)
