@@ -41,7 +41,9 @@ const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
 }
 
 const startFunc = async (argv: Argv) => {
-  spinner.start()
+  if (!argv.vite) {
+    spinner.start()
+  }
   process.env.NODE_ENV = 'development'
   if (!argv.noclean) {
     await cleanOutDir()
