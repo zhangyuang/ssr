@@ -2,6 +2,6 @@
   "hardReloadOnChange": true,
   "container": {
     "port": 3000,
-    "startScript": "start:vite"
+    "startScript": "start"
   }
 }
