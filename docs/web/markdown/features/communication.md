@@ -158,7 +158,7 @@ export default defineComponent({
 
 `注：在最新版本中请使用 import { STORE_CONTEXT } from '_build/create-context' 来代替 window.STORE_CONTEXT 的取值`
 
-### 使用 userContext + useReducer
+### 使用 useContext + useReducer
 
 随着 `hooks` 的流行以及 `useContext` 这个 API 的推出, 越来越多的开发者希望用它来代替 `Dva`, `Redux` 这些方案来实现数据管理，因为之前的数据管理方案写起来实在是太累了。  
 
