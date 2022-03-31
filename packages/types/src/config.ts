@@ -55,6 +55,7 @@ export interface IConfig {
   whiteList: RegExp[] | string[]
   cloudIDE?: boolean
   prefix?: string
+  clientPrefix?: string
   mode: 'ssr' | 'csr'
   webpackDevServerConfig?: any
   stream: boolean
