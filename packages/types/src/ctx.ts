@@ -28,4 +28,5 @@ export interface IWindow {
   __USE_VITE__?: boolean
   __disableClientRender__?: boolean
   prefix?: string
+  clientPrefix?: string
 }

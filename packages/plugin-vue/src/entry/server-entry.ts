@@ -10,7 +10,7 @@ const serialize = require('serialize-javascript')
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, disableClientRender, prefix, isVite } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, disableClientRender, prefix, isVite, clientPrefix } = config
   const router = createRouter()
   const store = createStore()
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
@@ -163,7 +163,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               }
             }) : h('script', {
               domProps: {
-                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${isVite};  ${base && `window.prefix="${base}"`}`
+                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${isVite};  ${base && `window.prefix="${base}";${clientPrefix && `window.clientPrefix="${clientPrefix}"`}`}`
               }
             })
           ]),

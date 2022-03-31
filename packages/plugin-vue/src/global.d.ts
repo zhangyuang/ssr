@@ -10,6 +10,7 @@ declare global {
     __USE_VITE__?: boolean
     __disableClientRender__?: boolean
     prefix?: string
+    clientPrefix?: string
   }
   const __isBrowser__: Boolean
 }

@@ -14,7 +14,7 @@ const { FeRoutes, layoutFetch, PrefixRouterBase, state } = Routes as ReactRoutes
 const serialize = serializeWrap.default || serializeWrap
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
-  const { cssOrder, jsOrder, dynamic, mode, parallelFetch, disableClientRender, prefix, isVite, isDev } = config
+  const { cssOrder, jsOrder, dynamic, mode, parallelFetch, disableClientRender, prefix, isVite, isDev, clientPrefix } = config
   let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
   if (base) {
@@ -103,7 +103,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   }
   const combineData = isCsr ? null : Object.assign(state ?? {}, layoutFetchData ?? {}, fetchData ?? {})
   const injectState = isCsr ? null : <script dangerouslySetInnerHTML={{
-    __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}; ${base && `window.prefix="${base}"`}`
+    __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}; ${base && `window.prefix="${base}"`};${clientPrefix && `window.clientPrefix="${clientPrefix}"`}`
   }} />
 
   return (
