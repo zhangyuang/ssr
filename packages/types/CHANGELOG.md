@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.1.79-alpha.0](https://github.com/zhangyuang/ssr/compare/v6.1.78...v6.1.79-alpha.0) (2022-03-31)
+
+
+### Features
+
+* support clientPrefix in vue3 for microapp ([5c504ca](https://github.com/zhangyuang/ssr/commit/5c504cafbaba0a106debe31221e5c6c6bb4430db))
+
+
+
+
+
 ## [6.1.76](https://github.com/zhangyuang/ssr/compare/v6.1.75...v6.1.76) (2022-03-24)
 
 
