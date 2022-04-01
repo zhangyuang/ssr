@@ -122,6 +122,7 @@ const loadConfig = (): IConfig => {
     publicPath: devPublicPath,
     hotOnly: true,
     host,
+    sockHost: host,
     sockPort: fePort,
     hot: true,
     port: fePort,
