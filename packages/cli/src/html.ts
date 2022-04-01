@@ -31,28 +31,24 @@ export const generateHtml = async (argv: Argv) => {
     const framewor = judgeFramework()
     let jsHeaderManifest = ''
     let jsFooterManifest = ''
-    if (customeHeadScript && framewor === 'ssr-plugin-vue3') {
+    if (framewor === 'ssr-plugin-vue3') {
       const { h } = await import(loadModuleFromFramework('vue'))
       const { renderToString } = await import ('@vue/server-renderer')
-      const customeHeadScriptArr = (Array.isArray(customeHeadScript) ? customeHeadScript : customeHeadScript({}))?.map((item) => h(
+      const flag = customeHeadScript ? 'header' : 'footer'
+      const arr = customeHeadScript ?? customeFooterScript
+      const scriptArr = (Array.isArray(arr) ? arr : arr({}))?.map((item) => h(
         'script',
         Object.assign({}, item.describe, {
           innerHTML: item.content
         })
       ))
-      jsHeaderManifest = (await renderToString(h('div', {}, customeHeadScriptArr))).replace('<div>', '').replace('</div>', '')
+      if (flag === 'header') {
+        jsHeaderManifest = (await renderToString(h('div', {}, scriptArr))).replace('<div>', '').replace('</div>', '')
+      } else {
+        jsFooterManifest = (await renderToString(h('div', {}, scriptArr))).replace('<div>', '').replace('</div>', '')
+      }
     }
-    if (customeFooterScript && framewor === 'ssr-plugin-vue3') {
-      const { h } = await import(loadModuleFromFramework('vue'))
-      const { renderToString } = await import ('@vue/server-renderer')
-      const customeFooterScriptArr = (Array.isArray(customeFooterScript) ? customeFooterScript : customeFooterScript({}))?.map((item) => h(
-        'script',
-        Object.assign({}, item.describe, {
-          innerHTML: item.content
-        })
-      ))
-      jsFooterManifest = (await renderToString(h('div', {}, customeFooterScriptArr))).replace('<div>', '').replace('</div>', '')
-    }
+
     const cwd = getCwd()
     const manifest = require(join(cwd, './build/client/asset-manifest.json'))
     let jsManifest = ''
