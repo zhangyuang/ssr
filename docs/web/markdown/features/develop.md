@@ -91,9 +91,9 @@ async handler (): Promise<void> {
 
 通过服务端返回出来的完整 `html` 结构交由浏览器渲染后只是一个“死”的页面，并不包含 DOM 事件的绑定。所以我们还需要加载客户端的静态资源文件来调用各框架提供的 [hydrate](https://zh-hans.reactjs.org/docs/react-dom.html#hydrate) 操作来激活 DOM。
 
-在本地开发时，我们会使用 [webpack-dev-server](https://github.com/webpack/webpack-dev-server) 这个非常成熟的模块。来编译以及托管前端静态资源代码到内存中。使其具备快速加载以及 `HMR` 能力。由于 `webpack-dev-server` 自带了一个小型的 `express` 服务。所以这里底层我们使用它去监听了 `8888` 端口。
+在本地开发时，我们会使用 [webpack-dev-server](https://github.com/webpack/webpack-dev-server) 这个非常成熟的模块。来编译以及托管前端静态资源代码到内存中。使其具备快速加载以及 `HMR` 能力。由于 `webpack-dev-server` 自带了一个小型的 `express` 服务。所以这里底层我们使用它去监听了 `8999` 端口。
 
-也就是说我们的前端静态资源文件实际是托管在 `8888` 端口的服务之下的。但这一切对于使用者来说是无感知的，因为我们在本地开发时会做一个 `proxy` 的操作，来将 `3000` 端口的下列 `path` 的请求给代理到 `8888` 端口
+也就是说我们的前端静态资源文件实际是托管在 `8999` 端口的服务之下的。但这一切对于使用者来说是无感知的，因为我们在本地开发时会做一个 `proxy` 的操作，来将 `3000` 端口的下列 `path` 的请求给代理到 `8999` 端口
 
 ```js
 const proxyPathMap = {
@@ -105,6 +105,6 @@ const proxyPathMap = {
 }
 ```
 
-也就是说，在实际的页面当中，我们加载的是 `http://127.0.0.1:3000/static/js/Page.chunk.js` 其实在底层会自动 `proxy` 到 `http://127.0.0.1:8888/static/js/Page.chunk.js`
+也就是说，在实际的页面当中，我们加载的是 `http://127.0.0.1:3000/static/js/Page.chunk.js` 其实在底层会自动 `proxy` 到 `http://127.0.0.1:8999/static/js/Page.chunk.js`
 
 ![](https://res.wx.qq.com/op_res/NwnohVbzIg_ko9mFMQ6_JGbXlHbTeVmDcrYihLC8hi0_CEOMH67s4DCGx8vQuSah0gnZaZOyDy7zKI9ODg4cbA)
