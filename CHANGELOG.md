@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.4](https://github.com/zhangyuang/ssr/compare/v6.2.3...v6.2.4) (2022-04-01)
+
+
+### Features
+
+* set sockHost in webpack-dev server ([a5df84c](https://github.com/zhangyuang/ssr/commit/a5df84c1d3a621109b44ad428828e2d95e54f62a))
+
+
+
+
+
 ## [6.2.3](https://github.com/zhangyuang/ssr/compare/v6.2.1...v6.2.3) (2022-04-01)
 
 
