@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.1](https://github.com/zhangyuang/ssr/compare/v6.2.0...v6.2.1) (2022-04-01)
+
+
+### Features
+
+* support clientPrefix in vue2 react ([05dd609](https://github.com/zhangyuang/ssr/commit/05dd609e685d7b0855557733738f9ce74979c389))
+* support customeheadscript inject in html node with vue3 ([4252d80](https://github.com/zhangyuang/ssr/commit/4252d8085b2f69c06890c221ddc741b6d3b928f9))
+
+
+
+
+
 # [6.2.0](https://github.com/zhangyuang/ssr/compare/v6.2.0-alpha.0...v6.2.0) (2022-03-31)
 
 **Note:** Version bump only for package ssr
