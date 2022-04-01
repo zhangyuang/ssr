@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.3](https://github.com/zhangyuang/ssr/compare/v6.2.1...v6.2.3) (2022-04-01)
+
+
+### Features
+
+* change default fePort to 8999 ([6476f13](https://github.com/zhangyuang/ssr/commit/6476f133718730cc733ae68b8495a39e21dcb021))
+
+
+
+
+
 # [6.2.0](https://github.com/zhangyuang/ssr/compare/v6.2.0-alpha.0...v6.2.0) (2022-03-31)
 
 **Note:** Version bump only for package ssr-server-utils

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.3](https://github.com/zhangyuang/ssr/compare/v6.2.1...v6.2.3) (2022-04-01)
+
+
+### Features
+
+* judge microapp environment automaticlly ([85395dc](https://github.com/zhangyuang/ssr/commit/85395dcd3755ec2d2fdbeb22b2aa7097035e07d2))
+
+
+
+
+
 ## [6.2.2](https://github.com/zhangyuang/ssr/compare/v6.2.1...v6.2.2) (2022-04-01)
 
 
