@@ -11,6 +11,7 @@ declare global {
     __disableClientRender__?: boolean
     prefix?: string
     clientPrefix?: string
+    microApp?: any
   }
   const __isBrowser__: Boolean
 }
