@@ -12,9 +12,11 @@ const htmlStr = `
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   cssInject
+  jsHeaderManifest
 </head>
 <body>
   <div id="app"></div>
+  jsFooterManifest
   jsManifest
 </body>
 </html>
@@ -24,19 +26,48 @@ export const generateHtml = async (argv: Argv) => {
   if (process.env.SPA) {
     console.log('当前构建开启 SPA 模式，将生成 html 文件用于独立部署，默认关闭 dynamic 选项')
     // spa 模式下生成 html 文件直接部署
-    const { loadConfig, getCwd } = await import('ssr-server-utils')
-    const { jsOrder, cssOrder } = loadConfig()
+    const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework } = await import('ssr-server-utils')
+    const { jsOrder, cssOrder, customeHeadScript, customeFooterScript } = loadConfig()
+    const framewor = judgeFramework()
+    let jsHeaderManifest = ''
+    let jsFooterManifest = ''
+    if (customeHeadScript && framewor === 'ssr-plugin-vue3') {
+      const { h } = await import(loadModuleFromFramework('vue'))
+      const { renderToString } = await import ('@vue/server-renderer')
+      const customeHeadScriptArr = (Array.isArray(customeHeadScript) ? customeHeadScript : customeHeadScript({}))?.map((item) => h(
+        'script',
+        Object.assign({}, item.describe, {
+          innerHTML: item.content
+        })
+      ))
+      jsHeaderManifest = (await renderToString(h('div', {}, customeHeadScriptArr))).replace('<div>', '').replace('</div>', '')
+    }
+    if (customeFooterScript && framewor === 'ssr-plugin-vue3') {
+      const { h } = await import(loadModuleFromFramework('vue'))
+      const { renderToString } = await import ('@vue/server-renderer')
+      const customeFooterScriptArr = (Array.isArray(customeFooterScript) ? customeFooterScript : customeFooterScript({}))?.map((item) => h(
+        'script',
+        Object.assign({}, item.describe, {
+          innerHTML: item.content
+        })
+      ))
+      jsFooterManifest = (await renderToString(h('div', {}, customeFooterScriptArr))).replace('<div>', '').replace('</div>', '')
+    }
     const cwd = getCwd()
     const manifest = require(join(cwd, './build/client/asset-manifest.json'))
     let jsManifest = ''
     jsOrder.forEach(item => {
-      jsManifest += `<script src=${manifest[item]}></script>`
+      if (manifest[item]) {
+        jsManifest += `<script src=${manifest[item]}></script>`
+      }
     })
     let cssManifest = ''
     cssOrder.forEach(item => {
-      cssManifest += `<link rel='stylesheet' href=${manifest[item]} />`
+      if (manifest[item]) {
+        cssManifest += `<link rel='stylesheet' href=${manifest[item]} />`
+      }
     })
-    const generateHtmlStr = htmlStr.replace('cssInject', cssManifest).replace('jsManifest', jsManifest)
+    const generateHtmlStr = htmlStr.replace('cssInject', cssManifest).replace('jsManifest', jsManifest).replace('jsHeaderManifest', jsHeaderManifest).replace('jsFooterManifest', jsFooterManifest)
     await promises.writeFile(join(cwd, './build/index.html'), generateHtmlStr)
   }
 }
