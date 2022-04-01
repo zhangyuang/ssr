@@ -109,6 +109,7 @@ export interface IConfig {
     server?: Record<string, string>
   }
   babelOptions?: RollupBabelInputPluginOptions
+  hashRouter?: boolean
 }
 
 export interface proxyOptions {

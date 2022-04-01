@@ -16,6 +16,7 @@ const htmlStr = `
 </head>
 <body>
   <div id="app"></div>
+  hashRouterScript
   jsFooterManifest
   jsManifest
 </body>
@@ -27,25 +28,28 @@ export const generateHtml = async (argv: Argv) => {
     console.log('当前构建开启 SPA 模式，将生成 html 文件用于独立部署，默认关闭 dynamic 选项')
     // spa 模式下生成 html 文件直接部署
     const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework } = await import('ssr-server-utils')
-    const { jsOrder, cssOrder, customeHeadScript, customeFooterScript } = loadConfig()
+    const { jsOrder, cssOrder, customeHeadScript, customeFooterScript, hashRouter } = loadConfig()
     const framewor = judgeFramework()
     let jsHeaderManifest = ''
     let jsFooterManifest = ''
+    const hashRouterScript = hashRouter ? '<script>window.hashRouter=true</script>' : ''
     if (framewor === 'ssr-plugin-vue3') {
       const { h } = await import(loadModuleFromFramework('vue'))
       const { renderToString } = await import ('@vue/server-renderer')
       const flag = customeHeadScript ? 'header' : 'footer'
       const arr = customeHeadScript ?? customeFooterScript
-      const scriptArr = (Array.isArray(arr) ? arr : arr({}))?.map((item) => h(
-        'script',
-        Object.assign({}, item.describe, {
-          innerHTML: item.content
-        })
-      ))
-      if (flag === 'header') {
-        jsHeaderManifest = (await renderToString(h('div', {}, scriptArr))).replace('<div>', '').replace('</div>', '')
-      } else {
-        jsFooterManifest = (await renderToString(h('div', {}, scriptArr))).replace('<div>', '').replace('</div>', '')
+      if (arr) {
+        const scriptArr = (Array.isArray(arr) ? arr : arr({}))?.map((item) => h(
+          'script',
+          Object.assign({}, item.describe, {
+            innerHTML: item.content
+          })
+        ))
+        if (flag === 'header') {
+          jsHeaderManifest = (await renderToString(h('div', {}, scriptArr))).replace('<div>', '').replace('</div>', '')
+        } else {
+          jsFooterManifest = (await renderToString(h('div', {}, scriptArr))).replace('<div>', '').replace('</div>', '')
+        }
       }
     }
 
@@ -63,7 +67,9 @@ export const generateHtml = async (argv: Argv) => {
         cssManifest += `<link rel='stylesheet' href=${manifest[item]} />`
       }
     })
-    const generateHtmlStr = htmlStr.replace('cssInject', cssManifest).replace('jsManifest', jsManifest).replace('jsHeaderManifest', jsHeaderManifest).replace('jsFooterManifest', jsFooterManifest)
+    const generateHtmlStr = htmlStr.replace('cssInject', cssManifest).replace('jsManifest', jsManifest).replace('jsHeaderManifest', jsHeaderManifest)
+      .replace('jsFooterManifest', jsFooterManifest)
+      .replace('hashRouterScript', hashRouterScript)
     await promises.writeFile(join(cwd, './build/index.html'), generateHtmlStr)
   }
 }

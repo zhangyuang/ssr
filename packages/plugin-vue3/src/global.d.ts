@@ -12,6 +12,7 @@ declare global {
     prefix?: string
     clientPrefix?: string
     microApp?: any
+    hashRouter: boolean
   }
   var __VUE_PROD_DEVTOOLS__: boolean
   const __isBrowser__: Boolean

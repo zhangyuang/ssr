@@ -12,7 +12,7 @@ const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as Route
 const serialize = serializeWrap.default || serializeWrap
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, parallelFetch, disableClientRender, prefix, isVite, isDev, clientPrefix } = config
+  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, parallelFetch, disableClientRender, prefix, isVite, isDev, clientPrefix, hashRouter } = config
 
   const store = createStore()
   const router = createRouter()
@@ -129,7 +129,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
         children: () => h(App, { ctx, config, asyncData, fetchData: combineAysncData }),
 
-        initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${isVite}; ${base && `window.prefix="${base}"`};${clientPrefix && `window.clientPrefix="${clientPrefix}"`}` })
+        initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${isVite}; ${base && `window.prefix="${base}"`};${clientPrefix && `window.clientPrefix="${clientPrefix}"`};${hashRouter && `window.hashRouter="${hashRouter}"`}` })
           : () => h('script', { innerHTML: `window.__USE_VITE__=${isVite}` }),
 
         cssInject: () => injectCss,

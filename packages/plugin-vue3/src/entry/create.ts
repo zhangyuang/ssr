@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { createRouter as create, createWebHistory, createMemoryHistory } from 'vue-router'
+import { createRouter as create, createWebHistory, createMemoryHistory, createWebHashHistory } from 'vue-router'
 import { createStore as createVuexStore } from 'vuex'
 import { deepClone } from 'ssr-deepclone'
 import { Routes } from './create-router'
@@ -7,10 +7,11 @@ import { RoutesType, VueRouterOptions } from './interface'
 
 const { store, FeRoutes } = Routes as RoutesType
 
-function createRouter (options: VueRouterOptions = {}) {
+function createRouter (options: VueRouterOptions&{hashRouter: boolean} = {}) {
   const base = options.base ?? '/'
+  const { hashRouter } = options
   return create({
-    history: __isBrowser__ ? createWebHistory(base) : createMemoryHistory(),
+    history: __isBrowser__ ? (hashRouter ? createWebHashHistory(base) : createWebHistory(base)) : createMemoryHistory(),
     routes: FeRoutes
   })
 }

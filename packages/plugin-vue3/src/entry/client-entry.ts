@@ -24,7 +24,8 @@ async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<an
 const clientRender = async () => {
   const store = createStore()
   const router = createRouter({
-    base: (window.microApp && window.clientPrefix) ?? window.prefix ?? PrefixRouterBase
+    base: (window.microApp && window.clientPrefix) ?? window.prefix ?? PrefixRouterBase,
+    hashRouter: window.hashRouter
   })
   const create = window.__USE_SSR__ ? createSSRApp : createApp
 
