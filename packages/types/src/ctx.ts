@@ -29,4 +29,5 @@ export interface IWindow {
   __disableClientRender__?: boolean
   prefix?: string
   clientPrefix?: string
+  microApp?: any
 }
