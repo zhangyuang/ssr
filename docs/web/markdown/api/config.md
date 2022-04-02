@@ -564,9 +564,10 @@ module.exports {
 
 - version: `>=6.2.2`
 
-- 生效场景: `Webpack/Vite/Vue3`
+- 生效场景: `Vue3` + `Webpack/Vite`
 
-仅在 `Vue3` 场景下生效，通常用于降级 `html` 渲染的场景不存在服务器环境，此时需要让客户端使用 `hashRouter`。
+
+仅在 `Vue3 ssr build --html` 场景下生效，通于降级 `html` 渲染的场景不存在服务器环境，此时需要让客户端使用 `hashRouter`。
 
 ```js
 import type { UserConfig } from 'ssr-types'
