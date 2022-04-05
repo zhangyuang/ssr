@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.6](https://github.com/zhangyuang/ssr/compare/v6.2.4...v6.2.6) (2022-04-05)
+
+
+### Bug Fixes
+
+* compatible version conflict in nestjs ([1df2023](https://github.com/zhangyuang/ssr/commit/1df202301cf446b7a8a016bf8e65abf41d6f6de8))
+* postintall ([9883d45](https://github.com/zhangyuang/ssr/commit/9883d45b029f0e2f408d2a2e6d072d89db61b26d))
+
+
+
+
+
 ## [6.2.5](https://github.com/zhangyuang/ssr/compare/v6.2.4...v6.2.5) (2022-04-05)
 
 
