@@ -10,7 +10,7 @@ const accessFileSync = (file) => {
   }
   return res
 }
-
-if (accessFileSync(resolve('./cjs/compatible.js'))) {
-  require(resolve('./cjs/compatible.js'))
+const compatible = resolve(__dirname, './cjs/compatible.js')
+if (accessFileSync(compatible)) {
+  require(compatible)
 }
