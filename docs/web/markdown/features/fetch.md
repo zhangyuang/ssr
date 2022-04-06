@@ -100,12 +100,25 @@ class Foo extends React.component {
 在 `Vue` 场景中，我们将会把 `vuex`, `vue-router` 返回的实例作为参数传入。开发者可以在任何时候使用它们。在 `服务端` 环境，我们会额外把当前请求的上下文 `ctx` 传入。开发者可以通过 `ctx` 拿到上面挂载的 `自定义 Service` 或者 `ctx.request` 等对象信息。这取决于服务端代码调用 `core` 模块时的具体入参实现。
 
 ```js
-import { ISSRContext } from 'ssr-types'
+import { Store } from 'vuex'
+import { RouteLocationNormalizedLoaded } from 'vue-router'
+import { ISSRMidwayContext } from 'ssr-types'
+import { IndexData } from '~/typings/data'
+interface IApiService {
+  index: () => Promise<IndexData>
+}
+interface Params {
+  store: Store<any>
+  router: RouteLocationNormalizedLoaded
+}
 
-export default async ({ store, router }, ctx?: ISSRContext) => {
+export default async ({ store, router }: Params, ctx?: ISSRMidwayContext<{
+  apiService?: IApiService
+}>) => {
   const data = __isBrowser__ ? await (await window.fetch('/api/index')).json() : await ctx?.apiService?.index()
   await store.dispatch('indexStore/initialData', { payload: data })
 }
+
 ```
 
 #### React 场景
@@ -114,13 +127,24 @@ export default async ({ store, router }, ctx?: ISSRContext) => {
 
 
 ```js
-export interface Params<T, U> {
-  ctx?: ISSRContext<T> // 请求上下文，仅在服务端使用
-  routerProps?: RouteComponentProps<U> // 客户端路由参数
-  state?: any // 当前的 store state
+import { ReactMidwayFetch } from 'ssr-types-react'
+import { IndexData } from '~/typings/data'
+
+const fetch: ReactMidwayFetch<{
+  apiService: {
+    index: () => Promise<IndexData>
+  }
+}> = async ({ ctx, routerProps }) => {
+  // 阅读文档获得更多信息 http://doc.ssr-fc.com/docs/features$fetch#%E5%88%A4%E6%96%AD%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83
+  const data = __isBrowser__ ? await (await window.fetch('/api/index')).json() : await ctx!.apiService?.index()
+  return {
+    // 建议根据模块给数据加上 namespace防止数据覆盖
+    indexData: data
+  }
 }
 
-export type ReactFetch<T={}, U={}> = (params: Params<T, U>) => Promise<any>
+export default fetch
+
 ```
 ### 注意
 

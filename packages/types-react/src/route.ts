@@ -68,6 +68,13 @@ export type ReactESMFeRouteItem<T = {}, U={}> = {
   webpackChunkName: string
 } & U
 
+export type ReactESMPreloadFeRouteItem<T = {}, U={}> = {
+  path: string
+  fetch?: ReactESMFetch
+  component: DynamicFC<T> | StaticFC<T>
+  webpackChunkName: string
+} & U
+
 export interface ReactRoutesType {
   Layout: React.FC<LayoutProps>
   App?: React.FC

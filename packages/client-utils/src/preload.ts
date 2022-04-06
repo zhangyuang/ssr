@@ -1,9 +1,8 @@
-// @ts-nocheck
-import { ReactClientESMFeRouteItem } from 'ssr-types'
+import { ReactESMPreloadFeRouteItem, ReactESMFeRouteItem } from 'ssr-types-react'
 import { pathToRegexp } from 'path-to-regexp'
 import { normalizePath } from './utils'
 
-const preloadComponent = async (Routes: ReactClientESMFeRouteItem[], PrefixRouterBase?: string) => {
+const preloadComponent = async (Routes: ReactESMPreloadFeRouteItem[], PrefixRouterBase?: string) => {
   for (const route of Routes) {
     const { component, path } = route
     let pathname = location.pathname
@@ -11,7 +10,7 @@ const preloadComponent = async (Routes: ReactClientESMFeRouteItem[], PrefixRoute
       pathname = normalizePath(pathname, PrefixRouterBase)
     }
     if (component.name === 'dynamicComponent' && pathToRegexp(path).test(pathname)) {
-      route.component = (await component()).default
+      route.component = (await (component as ReactESMFeRouteItem['component'])()).default
     }
   }
   return Routes

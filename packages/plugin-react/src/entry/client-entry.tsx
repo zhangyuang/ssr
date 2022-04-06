@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { preloadComponent } from 'ssr-client-utils'
 import { wrapComponent } from 'ssr-hoc-react'
-import { IWindow, LayoutProps, ReactESMFeRouteItem, ReactRoutesType } from 'ssr-types-react'
+import { IWindow, LayoutProps, ReactRoutesType } from 'ssr-types-react'
 import { Routes } from './create-router'
 import { AppContext } from './context'
 
@@ -27,7 +27,7 @@ const clientRender = async (): Promise<void> => {
             <Switch>
               {
                 // 使用高阶组件wrapComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
-                routes.map((item: ReactESMFeRouteItem) => {
+                routes.map(item => {
                   const { fetch, component, path } = item
                   component.fetch = fetch
                   component.layoutFetch = layoutFetch
