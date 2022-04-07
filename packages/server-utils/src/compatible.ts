@@ -8,8 +8,8 @@ export function checkForkTs () {
   try {
     const framework = judgeServerFramework()
     if (framework === 'ssr-plugin-midway') return
-    const fork = resolve(cwd, './node_modules/fork-ts-checker-webpack-plugin')
-    const nestCli = resolve(cwd, './node_modules/@nestjs/cli/node_modules')
+    const fork = resolve(cwd, '../../node_modules/fork-ts-checker-webpack-plugin')
+    const nestCli = resolve(cwd, '../../node_modules/@nestjs/cli/node_modules')
     const forkVersion = require(resolve(fork, './package.json')).version
     if (
       // @ts-expect-error
