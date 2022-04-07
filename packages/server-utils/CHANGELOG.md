@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.9](https://github.com/zhangyuang/ssr/compare/v6.2.8...v6.2.9) (2022-04-07)
+
+
+### Bug Fixes
+
+* not throw error when load module failed ([6ea59d4](https://github.com/zhangyuang/ssr/commit/6ea59d46c1d877c976828180f0547980bd3d179d))
+* postinstall get courrect path ([5d36584](https://github.com/zhangyuang/ssr/commit/5d36584018ffeaf749feedfe4bb6863eacb6400e))
+
+
+
+
+
 ## [6.2.8](https://github.com/zhangyuang/ssr/compare/v6.2.7...v6.2.8) (2022-04-07)
 
 **Note:** Version bump only for package ssr-server-utils
