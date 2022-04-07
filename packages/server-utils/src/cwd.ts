@@ -155,7 +155,7 @@ const loadModuleFromFramework = (path: string) => {
       paths: [accessFileSync(paths) ? realpathSync(paths) : paths]
     })
   } catch (error) {
-    throw new Error(`load module ${path} error from paths ${paths}`)
+    return ''
   }
 }
 
