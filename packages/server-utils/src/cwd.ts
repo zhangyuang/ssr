@@ -148,13 +148,14 @@ const judgeServerFramework = () => {
 }
 
 const loadModuleFromFramework = (path: string) => {
+  const framework = judgeFramework()
+  const paths = resolve(getCwd(), `./node_modules/${framework}`)
   try {
-    const framework = judgeFramework()
     return require.resolve(path, {
-      paths: [realpathSync(resolve(getCwd(), `./node_modules/${framework}`))]
+      paths: [accessFileSync(paths) ? realpathSync(paths) : paths]
     })
   } catch (error) {
-    return ''
+    throw new Error(`load module ${path} error from paths ${paths}`)
   }
 }
 
