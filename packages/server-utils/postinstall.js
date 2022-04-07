@@ -1,6 +1,9 @@
 const { accessSync } = require('fs')
 const { resolve } = require('path')
 
+if (process.env.SHOWLOG) {
+  console.log('execute postinstall compatible')
+}
 const accessFileSync = (file) => {
   let res = true
   try {
