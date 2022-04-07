@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.7](https://github.com/zhangyuang/ssr/compare/v6.2.6...v6.2.7) (2022-04-07)
+
+
+### Bug Fixes
+
+* loadModuleFromFramework close [#182](https://github.com/zhangyuang/ssr/issues/182) ([f882365](https://github.com/zhangyuang/ssr/commit/f882365dc47df5b9217dcb814abff4e4f1208a38))
+
+
+
+
+
 ## [6.2.6](https://github.com/zhangyuang/ssr/compare/v6.2.4...v6.2.6) (2022-04-05)
 
 
