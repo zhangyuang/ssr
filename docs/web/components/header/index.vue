@@ -17,7 +17,7 @@
       <a target="__black" href="http://fe.ssr-fc.com/">
         前端开发手册
       </a>
-      <a v-if="!isMobile" href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/github/stars/zhangyuang/ssr.svg?color=000" alt="Node"  style="width:90px"></a>
+      <a v-if="!isMobile" href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/github/stars/zhangyuang/ssr.svg?color=000" alt="Node" style="width:90px"></a>
     </div>
   </div>
 </template>
@@ -35,7 +35,6 @@ export default defineComponent({
   data () {
     return {
       headerItems: webSiteConfig.header.items,
-      activePath: '/',
       isMobile: true
     }
   },

@@ -16,7 +16,7 @@
           <div class="menu_flex menu_item">
             <div class="menu_left" />
             <div>
-              <a class="menu_text " @click="handleClick(item2)">{{ item2.title }}</a>
+              <a :class="['menu_text', item2.active ? 'active': '' ]" @click="handleClick(item2)">{{ item2.title }}</a>
             </div>
           </div>
         </div>
@@ -70,7 +70,10 @@ export default defineComponent({
         let open = false;
         (menu.routes || []).forEach((item) => {
           if (item.path && pathname === item.path.replace(/\$/g, '/')) {
+            item.active = true
             open = true
+          } else {
+            item.active = false
           }
         })
         menu.open = open

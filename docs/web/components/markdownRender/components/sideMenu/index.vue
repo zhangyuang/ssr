@@ -2,7 +2,7 @@
   <nav class="slider">
     <div>
       <div v-for="(item,index) in dataList" :key="index" :class="[ item.relativeLevel === 0 ? 'slider_top' : 'slider_item' ]" :style="{'padding-left': `${item.relativeLevel * 10}px`}">
-        <a class="slider_item_text" :href="`#${item.n}`">{{ item.n }}</a>
+        <a :class="['slider_item_text',item.active && 'active' ]" :href="`#${item.n}`">{{ item.n }}</a>
       </div>
     </div>
   </nav>
@@ -27,6 +27,9 @@ export default defineComponent({
   watch: {
     list (newValue) {
       this.creatList(newValue)
+    },
+    $route (to, from) {
+      this.creatList(this.list)
     }
   },
   created () {
@@ -47,6 +50,13 @@ export default defineComponent({
       newList.forEach((item) => {
         item.relativeLevel = item.l - maxLevel
         item.n = item.n.replace(/(^\s*)|(\s*$)/g, '')
+        if (__isBrowser__) {
+          if (decodeURIComponent(location.hash.slice(1)) === item.n) {
+            item.active = true
+          } else {
+            item.active = false
+          }
+        }
       })
       this.dataList = newList
     }
