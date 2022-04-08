@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [6.2.10](https://github.com/zhangyuang/ssr/compare/v6.2.8...v6.2.10) (2022-04-08)
+
+**Note:** Version bump only for package ssr-plugin-react
+
+
+
+
+
 ## [6.2.9](https://github.com/zhangyuang/ssr/compare/v6.2.8...v6.2.9) (2022-04-07)
 
 **Note:** Version bump only for package ssr-plugin-react
