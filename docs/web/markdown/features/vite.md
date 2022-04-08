@@ -73,7 +73,7 @@ export { userConfig }
 
 启动时间 = 更少的初始化模块加载 + Midway 启动时间
 
-![](http://doc.ssr-fc.com/images/start-vite2.gif)
+![](http://doc.ssr-fc.com/images/start-vite3.gif)
 
 ### 应用结构
 

@@ -188,7 +188,7 @@ $ yarn build # 资源构建，等价于 npx ssr build
 $ yarn start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 ```
 
-![](http://doc.ssr-fc.com/images/start-vite2.gif)
+![](images/start-vite3.gif)
 
 ## 线上案例
 

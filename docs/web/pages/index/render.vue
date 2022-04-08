@@ -35,7 +35,7 @@
           <div class="swiper-wrapper">
             <img class="swiper-slide" src="/images/resume3.svg" type="image/svg+xml">
             <img class="swiper-slide" src="/images/start-webpack2.gif">
-            <img class="swiper-slide" src="/images/start-vite2.gif">
+            <img class="swiper-slide" src="/images/start-vite3.gif">
           </div>
           <div class="swiper-button-next" />
           <div class="swiper-button-prev" />
