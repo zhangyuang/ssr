@@ -11,7 +11,7 @@ const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const loadModule = loadModuleFromFramework
 let asyncChunkMap: Record<string, string[]> = {}
 
-const getClientWebpack = (chain: WebpackChain) => {
+const getClientWebpack  = (chain: WebpackChain) => {
   const { isDev, chunkName, getOutput, useHash, chainClientConfig } = loadConfig()
   const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
   const publicPath = getOutputPublicPath()

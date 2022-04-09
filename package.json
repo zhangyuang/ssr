@@ -3,21 +3,14 @@
   "workspaces": {
     "packages": [
       "packages/*"
-    ],
-    "nohoist": [
-      "**/vue",
-      "**/vuex",
-      "**/vue-router",
-      "**/core-js",
-      "**/vue-loader"
     ]
   },
   "scripts": {
-    "bootstrap": "yarn && yarn run build:only && yarn run link",
+    "bootstrap": "pnpm i && pnpm run build:only && pnpm run link",
     "clean": "node scripts/scripts.js --clean",
-    "dev": "lerna run watch --stream --parallel",
-    "build": "lerna run build --stream --parallel",
-    "build:only": "lerna run build:only --stream --parallel",
+    "build": "pnpm --filter \"*\" build",
+    "dev": "pnpm --filter \"*\" watch",
+    "build:only": "pnpm --filter \"*\" build:only",
     "lint": "cross-env NODE_OPTIONS=--max_old_space_size=4096 eslint packages example e2e --ext .js,.ts --cache",
     "lint:fix": "cross-env NODE_OPTIONS=--max_old_space_size=4096 eslint packages example e2e --ext .js,.ts --cache --fix",
     "link": "node scripts/scripts.js --link",
@@ -57,7 +50,6 @@
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "devDependencies": {
-    "babel-eslint": "^10.0.2",
     "chalk": "^4.1.1",
     "concurrently": "^5.3.0",
     "core-js": "^3.6.4",

@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
+    "@babel/runtime": "^7.12.13",
     "@babel/core": "^7.0.0",
     "@babel/plugin-transform-runtime": "^7.9.6",
     "@babel/preset-env": "^7.5.5",
@@ -64,12 +65,14 @@
     "vue-template-compiler": "^2.6.12",
     "vuex": "^3.6.2",
     "vuex-router-sync": "^5.0.0",
+    "webpack": "^4.42.1",
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-chain": "^6.4.0",
     "webpack-manifest-plugin": "^2.2.0",
     "webpackbar": "^5.0.0-3"
   },
   "devDependencies": {
+    "@types/webpack": "^4.41.10",
     "concurrently": "^5.1.0"
   }
 }

@@ -31,7 +31,10 @@
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "devDependencies": {
     "@types/semver": "^7.3.9",
-    "concurrently": "^5.1.0"
+    "@types/shelljs": "^0.8.7",
+    "concurrently": "^5.1.0",
+    "ssr-types": "workspace:^6.2.3",
+    "webpack-chain": "^6.4.0"
   },
   "dependencies": {
     "axios": "^0.21.1",

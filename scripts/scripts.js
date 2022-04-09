@@ -42,27 +42,27 @@ if (argv.link) {
   if (argv.react) {
     linkPackage.push('react')
     linkPackage.push('react-dom')
-    const shell = 'cd node_modules/react && yarn link && cd ../react-dom && yarn link'
+    const shell = 'cd node_modules/react && pnpm link --global && cd ../react-dom && pnpm link --global'
     execSync(shell, options)
   }
   let shell = 'npx concurrently'
   linkPackage.forEach(item => {
-    shell += ` "cd node_modules/${item} && yarn link" ` // link react-dom 防止出现多个react实例
+    shell += ` "cd node_modules/${item} && pnpm link --global" ` // link react-dom 防止出现多个react实例
   })
 
   if (argv.vue2 || argv.vue3) {
     linkPackage.push('vue')
-    const shell = `cd packages/${argv.vue2 ? 'core-vue' : 'core-vue3'}/node_modules/vue && yarn link  `
+    const shell = `cd packages/${argv.vue2 ? 'core-vue' : 'core-vue3'}/node_modules/vue && pnpm link --global  `
     execSync(shell, options)
     if (argv.vue3) {
       linkPackage.push('vue-router')
-      const shell = 'cd packages/plugin-vue3/node_modules/vue-router && yarn link  '
+      const shell = 'cd packages/plugin-vue3/node_modules/vue-router && pnpm link --global  '
       execSync(shell, options)
     }
   }
 
   packages.forEach(item => {
-    shell += ` "cd packages/${item} && yarn link" ` // link packages 下面所有的包
+    shell += ` "cd packages/${item} && pnpm link --global" ` // link packages 下面所有的包
   })
   const linkedPackage = packages.map(item => item === 'cli' ? 'ssr' : 'ssr-' + item)
     .concat(linkPackage).join(' ')
@@ -70,10 +70,8 @@ if (argv.link) {
   const examples = fs.readdirSync('./example')
   examples.forEach(example => {
     if (example !== '.DS_Store') {
-      const commonShell = `${shell} && cd example/${example} && yarn link ${linkedPackage}`
-      const grantExecutePermission = 'chmod 777 ./node_modules/ssr/cjs/cli.js'
-      const exampleShell = isWin() ? commonShell : `${commonShell} && ${grantExecutePermission}`
-      execSync(exampleShell, options)
+      const commonShell = `${shell} && cd example/${example} && pnpm link ${linkedPackage}`
+      execSync(commonShell, options)
     }
   })
 }

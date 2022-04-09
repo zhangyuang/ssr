@@ -3,7 +3,7 @@
     "packages/*"
   ],
   "version": "6.2.10",
-  "npmClient": "yarn",
+  "npmClient": "pnpm",
   "useWorkspaces": true,
   "ignoreChanges": [
     "**/src",

@@ -33,6 +33,7 @@
     "ssr-types": "^6.2.3"
   },
   "devDependencies": {
-    "concurrently": "^5.1.0"
+    "concurrently": "^5.1.0",
+    "ssr-types-react": "workspace:^6.2.7"
   }
 }
