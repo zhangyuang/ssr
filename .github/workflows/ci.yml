@@ -34,7 +34,7 @@ jobs:
           cache: 'pnpm'
       - name: Install dependencies
         run: | 
-          pnpm i -f && pnpm build:only && pnpm build
+          pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
           node scripts/scripts.js --publishDoc
       - name: Upload artifact
         uses: actions/upload-artifact@v2
@@ -64,7 +64,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - run: yarn run lint
 
   deploy-doc: 
@@ -102,7 +102,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -132,7 +132,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -161,7 +161,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -190,7 +190,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -219,7 +219,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -248,7 +248,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -278,7 +278,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -307,7 +307,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -337,7 +337,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
 
       - name: Get remote e2e example
         uses: actions/checkout@master
@@ -380,7 +380,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -411,7 +411,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -441,7 +441,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -471,7 +471,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -501,7 +501,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -531,7 +531,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -577,7 +577,7 @@ jobs:
           node-version: 12
           cache: 'pnpm'
       - name: Install dependencies
-        run: pnpm i -f
+        run: pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
