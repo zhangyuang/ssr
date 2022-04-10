@@ -18,7 +18,6 @@ if (argv.bootstrap) {
   execSync('yarn build:only', options)
 }
 
-
 if (argv.clean) {
   let shell = 'rm -rf node_modules **/**/cjs **/**/esm packages/**/node_modules'
   if (argv.deep) {
@@ -26,7 +25,6 @@ if (argv.clean) {
   }
   execSync(shell, options)
 }
-
 
 if (argv.changelog) {
   execSync('cp CHANGELOG.md docs/web/markdown/changelog/index.md', options)

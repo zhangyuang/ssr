@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "devDependencies": {
+    "rollup": "^2.70.1",
     "@types/semver": "^7.3.9",
     "@types/shelljs": "^0.8.7",
     "concurrently": "^5.1.0",

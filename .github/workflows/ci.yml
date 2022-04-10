@@ -24,31 +24,19 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Cache node modules
-        uses: actions/cache@v2
-        id: yarn-cache
+      - uses: actions/checkout@v2
+      - uses: pnpm/action-setup@v2.0.1
         with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-v2.5.4-
-            ${{ runner.os }}-v2.5.4-
-            ${{ runner.os }}-v2.5.4-
+          version: 7.0.0-rc.3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
       - name: Install dependencies
         run: | 
-          yarn && yarn build:only && yarn run build
+          pnpm i && pnpm build:only && pnpm build
           node scripts/scripts.js --publishDoc
-          cd example/midway-react-ssr && yarn
-          cd ../midway-vue-ssr && yarn
-          cd ../midway-vue3-ssr && yarn
-          cd ../nestjs-react-ssr && yarn
-          cd ../nestjs-vue-ssr && yarn
-          cd ../nestjs-vue3-ssr && yarn
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
@@ -65,20 +53,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - run: yarn run lint
 
   deploy-doc: 
@@ -114,24 +94,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --react
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:midway:react
@@ -154,24 +124,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --react
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:nestjs:react:prod
@@ -193,24 +153,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --react
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:nestjs:react:prod:vite
@@ -232,24 +182,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --vue3
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:nestjs:vue3:prod:vite
@@ -271,24 +211,14 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --vue2
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:nestjs:vue:prod
@@ -310,24 +240,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --vue3
+        
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:nestjs:vue3:prod
@@ -349,24 +270,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --react
+        
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:midway:react:vite
@@ -387,24 +299,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --vue3
+        
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:midway:vue3:vite
@@ -426,17 +329,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
 
       - name: Get remote e2e example
         uses: actions/checkout@master
@@ -447,14 +342,13 @@ jobs:
           
       - name: Mv e2e example
         run: |
-          mv ssr-e2e-example/react-dynamic-router-test example && cd example/react-dynamic-router-test && yarn
+          mv ssr-e2e-example/react-dynamic-router-test example
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --react
+        
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:midway:react:dynamic:router
@@ -478,24 +372,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --react
+        
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:midway:react
@@ -518,24 +403,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --vue2
+        
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:midway:vue
@@ -557,24 +433,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --vue3
+        
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:midway:vue3
@@ -596,24 +463,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --vue2
+        
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:nestjs:vue
@@ -635,24 +493,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --vue3
+        
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:nestjs:vue3
@@ -674,24 +523,15 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
           name: bindings-${{matrix.node}}
           path: packages
-      - name: prepare
-        run: yarn run link --react
+        
       - uses: cypress-io/github-action@v2
         with:
           start: yarn run example:nestjs:react
@@ -729,14 +569,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            node_modules
-            
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm i
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:

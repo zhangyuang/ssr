@@ -6,7 +6,6 @@ importers:
     specifiers:
       chalk: ^4.1.1
       concurrently: ^5.3.0
-      core-js: ^3.6.4
       cross-env: ^7.0.3
       cypress: ^6.2.1
       eslint: ^8.13.0
@@ -19,7 +18,6 @@ importers:
     devDependencies:
       chalk: 4.1.2
       concurrently: 5.3.0
-      core-js: 3.21.1
       cross-env: 7.0.3
       cypress: 6.9.1
       eslint: 8.13.0
@@ -40,8 +38,10 @@ importers:
       '@types/react-dom': ^17.0.0
       '@types/react-router-dom': ^5.1.3
       egg: ^2.0.0
+      egg-mock: ^3.2.0
       egg-scripts: ^2.10.0
       eslint-config-standard-react-ts: ^1.0.5
+      midway-schedule: ^2.0.0
       react: ^17.0.0
       react-dom: ^17.0.0
       react-router-dom: ^5.1.2
@@ -58,7 +58,9 @@ importers:
       '@midwayjs/mock': 2.14.6
       '@midwayjs/web': 2.14.7_@midwayjs+decorator@2.14.0
       egg: 2.35.0
+      egg-mock: 3.26.0
       egg-scripts: 2.16.0
+      midway-schedule: 2.14.7
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-router-dom: 5.3.0_react@17.0.2
@@ -85,8 +87,10 @@ importers:
       '@midwayjs/web': ^2.3.0
       cross-env: ^7.0.3
       egg: ^2.0.0
+      egg-mock: ^3.2.0
       egg-scripts: ^2.10.0
       eslint-config-standard-vue-ts: ^1.0.5
+      midway-schedule: ^2.0.0
       ssr: ^6.0.0
       ssr-core-vue: ^6.0.0
       ssr-plugin-midway: ^6.0.0
@@ -104,7 +108,9 @@ importers:
       '@midwayjs/mock': 2.14.6
       '@midwayjs/web': 2.14.7_@midwayjs+decorator@2.14.0
       egg: 2.35.0
+      egg-mock: 3.26.0
       egg-scripts: 2.16.0
+      midway-schedule: 2.14.7
       ssr-core-vue: link:../../packages/core-vue
       ssr-server-utils: link:../../packages/server-utils
       swiper: 5.4.5
@@ -129,8 +135,10 @@ importers:
       '@midwayjs/mock': ^2.13.4
       '@midwayjs/web': ^2.3.0
       egg: ^2.0.0
+      egg-mock: ^3.2.0
       egg-scripts: ^2.10.0
       eslint-config-standard-vue-ts: ^1.0.5
+      midway-schedule: ^2.0.0
       ssr: ^6.0.0
       ssr-core-vue3: ^6.0.0
       ssr-hoc-vue3: ^6.0.0
@@ -138,7 +146,7 @@ importers:
       ssr-plugin-vue3: ^6.0.0
       ssr-server-utils: ^6.0.0
       ssr-types: ^6.0.0
-      swiper: 6.7.5
+      swiper: ^8.0.0
       typescript: ^4.0.0
       vue: ^3.0.0
       vue-router: ^4.0.0
@@ -148,11 +156,13 @@ importers:
       '@midwayjs/mock': 2.14.6
       '@midwayjs/web': 2.14.7_@midwayjs+decorator@2.14.0
       egg: 2.35.0
+      egg-mock: 3.26.0
       egg-scripts: 2.16.0
+      midway-schedule: 2.14.7
       ssr-core-vue3: link:../../packages/core-vue3
       ssr-hoc-vue3: link:../../packages/hoc-vue3
       ssr-server-utils: link:../../packages/server-utils
-      swiper: 6.7.5
+      swiper: 8.1.0
       vue: 3.2.31
       vue-router: 4.0.14_vue@3.2.31
       vuex: 4.0.2_vue@3.2.31
@@ -275,7 +285,6 @@ importers:
       ssr-plugin-vue3: ^6.0.0
       ssr-server-utils: ^6.0.0
       ssr-types: ^6.0.0
-      swiper: 6.7.5
       typescript: ^4.0.0
       vue: ^3.0.0
       vue-router: ^4.0.0
@@ -290,7 +299,6 @@ importers:
       ssr-core-vue3: link:../../packages/core-vue3
       ssr-hoc-vue3: link:../../packages/hoc-vue3
       ssr-server-utils: link:../../packages/server-utils
-      swiper: 6.7.5
       vue: 3.2.31
       vue-router: 4.0.14_vue@3.2.31
       vuex: 4.0.2_vue@3.2.31
@@ -490,7 +498,7 @@ importers:
       '@types/react-router-dom': ^5.1.3
       '@types/webpack': ^4.41.10
       '@vitejs/plugin-react': ^1.0.0
-      babel-loader: 8.0.4
+      babel-loader: ^8.0.4
       babel-plugin-import: ^1.13.0
       babel-preset-react-app: ^9.0.2
       concurrently: ^5.1.0
@@ -509,7 +517,11 @@ importers:
       postcss-modules: ^4.0.0
       postcss-preset-env: ^7.0.0
       postcss-safe-parser: ^6.0.0
+      react: ^17.0.1
       react-dev-utils: ^11.0.4
+      react-dom: ^17.0.0
+      react-router: ^5.2.1
+      react-router-dom: ^5.1.2
       serialize-javascript: ^6.0.0
       ssr-client-utils: ^6.2.7
       ssr-hoc-react: ^6.2.7
@@ -533,7 +545,7 @@ importers:
       '@babel/plugin-transform-runtime': 7.17.0_@babel+core@7.17.9
       '@babel/preset-env': 7.16.11_@babel+core@7.17.9
       '@vitejs/plugin-react': 1.3.0
-      babel-loader: 8.0.4_598a497cebab8e15ee8f9e5632178e63
+      babel-loader: 8.2.4_598a497cebab8e15ee8f9e5632178e63
       babel-plugin-import: 1.13.3
       babel-preset-react-app: 9.1.2
       core-js: 3.21.1
@@ -551,7 +563,11 @@ importers:
       postcss-modules: 4.3.1_postcss@8.4.12
       postcss-preset-env: 7.4.3_postcss@8.4.12
       postcss-safe-parser: 6.0.0_postcss@8.4.12
+      react: 17.0.2
       react-dev-utils: 11.0.4
+      react-dom: 17.0.2_react@17.0.2
+      react-router: 5.2.1_react@17.0.2
+      react-router-dom: 5.3.0_react@17.0.2
       serialize-javascript: 6.0.0
       ssr-client-utils: link:../client-utils
       ssr-hoc-react: link:../hoc-react
@@ -583,7 +599,7 @@ importers:
       '@babel/preset-typescript': ^7.12.13
       '@babel/runtime': ^7.12.13
       '@types/webpack': ^4.41.10
-      babel-loader: 8.0.4
+      babel-loader: ^8.0.4
       babel-plugin-import: ^1.13.0
       concurrently: ^5.1.0
       core-js: ^3.6.4
@@ -627,7 +643,7 @@ importers:
       '@babel/preset-env': 7.16.11_@babel+core@7.17.9
       '@babel/preset-typescript': 7.16.7_@babel+core@7.17.9
       '@babel/runtime': 7.17.9
-      babel-loader: 8.0.4_598a497cebab8e15ee8f9e5632178e63
+      babel-loader: 8.2.4_598a497cebab8e15ee8f9e5632178e63
       babel-plugin-import: 1.13.3
       core-js: 3.21.1
       css-hot-loader: 1.4.4
@@ -683,7 +699,7 @@ importers:
       '@vitejs/plugin-vue-jsx': ^1.3.2
       '@vue/babel-plugin-jsx': ^1.0.3
       '@vue/compiler-sfc': ^3.0.7
-      babel-loader: 8.0.4
+      babel-loader: ^8.0.4
       babel-plugin-import: ^1.13.0
       concurrently: ^5.1.0
       core-js: ^3.6.4
@@ -732,7 +748,7 @@ importers:
       '@vitejs/plugin-vue-jsx': 1.3.9
       '@vue/babel-plugin-jsx': 1.1.1_@babel+core@7.17.9
       '@vue/compiler-sfc': 3.2.31
-      babel-loader: 8.0.4_598a497cebab8e15ee8f9e5632178e63
+      babel-loader: 8.2.4_598a497cebab8e15ee8f9e5632178e63
       babel-plugin-import: 1.13.3
       core-js: 3.21.1
       css-hot-loader: 1.4.4
@@ -782,6 +798,7 @@ importers:
       koa2-connect: ^1.0.2
       magic-string: ^0.25.7
       path-to-regexp: ^6.2.0
+      rollup: ^2.70.1
       semver: ^7.3.5
       shelljs: ^0.8.3
       ssr-types: workspace:^6.2.3
@@ -799,6 +816,7 @@ importers:
       '@types/semver': 7.3.9
       '@types/shelljs': 0.8.11
       concurrently: 5.3.0
+      rollup: 2.70.1
       ssr-types: link:../types
       webpack-chain: 6.5.1
 
@@ -5936,18 +5954,18 @@ packages:
       - supports-color
     dev: false
 
-  /babel-loader/8.0.4_598a497cebab8e15ee8f9e5632178e63:
-    resolution: {integrity: sha512-fhBhNkUToJcW9nV46v8w87AJOwAJDz84c1CL57n3Stj73FANM/b9TbCUK4YhdOwEyZ+OxhYpdeZDNzSI29Firw==}
-    engines: {node: '>= 6.9'}
+  /babel-loader/8.2.4_598a497cebab8e15ee8f9e5632178e63:
+    resolution: {integrity: sha512-8dytA3gcvPPPv4Grjhnt8b5IIiTcq/zeXOPk4iTYI0SVXcsmuGg7JtBRDp8S9X+gJfhQ8ektjXZlDu1Bb33U8A==}
+    engines: {node: '>= 8.9'}
     peerDependencies:
       '@babel/core': ^7.0.0
       webpack: '>=2'
     dependencies:
       '@babel/core': 7.17.9
-      find-cache-dir: 1.0.0
-      loader-utils: 1.4.0
-      mkdirp: 0.5.6
-      util.promisify: 1.1.1
+      find-cache-dir: 3.3.2
+      loader-utils: 2.0.2
+      make-dir: 3.1.0
+      schema-utils: 2.7.1
       webpack: 4.46.0
     dev: false
 
@@ -7320,6 +7338,7 @@ packages:
   /core-js/3.21.1:
     resolution: {integrity: sha512-FRq5b/VMrWlrmCzwRrpDYNxyHP9BcAZC+xHJaqTgIE5091ZV1NTmyh0sGOg5XqpnHvR0svdy0sv1gWA1zmhxig==}
     requiresBuild: true
+    dev: false
 
   /core-util-is/1.0.2:
     resolution: {integrity: sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=}
@@ -8220,6 +8239,12 @@ packages:
     resolution: {integrity: sha512-oNlcUdHsC4zb7Msx7JN3K0Nro1dzJ48knvBOnDPKJ2GV9wl1i5vydJZUSyOfrkKFDZEud/jBsTk92S/VGSAe/g==}
     dependencies:
       ssr-window: 3.0.0
+    dev: false
+
+  /dom7/4.0.4:
+    resolution: {integrity: sha512-DSSgBzQ4rJWQp1u6o+3FVwMNnT5bzQbMb+o31TjYYeRi05uAcpF8koxdfzeoe5ElzPmua7W7N28YJhF7iEKqIw==}
+    dependencies:
+      ssr-window: 4.0.2
     dev: false
 
   /domain-browser/1.2.0:
@@ -10058,15 +10083,6 @@ packages:
       unpipe: 1.0.0
     dev: false
 
-  /find-cache-dir/1.0.0:
-    resolution: {integrity: sha1-kojj6ePMN0hxfTnq3hfPcfww7m8=}
-    engines: {node: '>=4'}
-    dependencies:
-      commondir: 1.0.1
-      make-dir: 1.3.0
-      pkg-dir: 2.0.0
-    dev: false
-
   /find-cache-dir/2.1.0:
     resolution: {integrity: sha512-Tq6PixE0w/VMFfCgbONnkiQIVol/JJL7nRMi20fqzA4NRs9AfeqMGeRdPi3wIhYkxjeBaWh2rxwapn5Tu3IqOQ==}
     engines: {node: '>=6'}
@@ -10093,6 +10109,7 @@ packages:
     engines: {node: '>=4'}
     dependencies:
       locate-path: 2.0.0
+    dev: true
 
   /find-up/3.0.0:
     resolution: {integrity: sha512-1yD6RmLI1XBfxugvORwlck6f75tYL+iR0jqwsOrOxMZyGYqUuDhJ0l4AXdO1iX/FTs9cBAMEk1gWSEx1kSbylg==}
@@ -10171,12 +10188,6 @@ packages:
         optional: true
     dependencies:
       debug: 4.3.4_supports-color@6.1.0
-    dev: false
-
-  /for-each/0.3.3:
-    resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
-    dependencies:
-      is-callable: 1.2.4
     dev: false
 
   /for-in/1.0.2:
@@ -12908,6 +12919,7 @@ packages:
     dependencies:
       p-locate: 2.0.0
       path-exists: 3.0.0
+    dev: true
 
   /locate-path/3.0.0:
     resolution: {integrity: sha512-7AO748wWnIhNqAuaty2ZWHkQHRSNfPVIsPIfwEOWO22AmaoVrWavlOcMR5nzTLNYvp36X220/maaRsrec1G65A==}
@@ -14215,6 +14227,7 @@ packages:
     engines: {node: '>=4'}
     dependencies:
       p-try: 1.0.0
+    dev: true
 
   /p-limit/2.3.0:
     resolution: {integrity: sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w==}
@@ -14233,6 +14246,7 @@ packages:
     engines: {node: '>=4'}
     dependencies:
       p-limit: 1.3.0
+    dev: true
 
   /p-locate/3.0.0:
     resolution: {integrity: sha512-x+12w/To+4GFfgJhBEpiDcLozRJGegY+Ei7/z0tSLkMmxGZNybVMSfWj9aJn8Z5Fc7dBUNJOOVgPv2H7IwulSQ==}
@@ -14281,6 +14295,7 @@ packages:
   /p-try/1.0.0:
     resolution: {integrity: sha1-y8ec26+P1CKOE/Yh8rGiN8GyB7M=}
     engines: {node: '>=4'}
+    dev: true
 
   /p-try/2.2.0:
     resolution: {integrity: sha512-R4nPAVTAU0B9D35/Gk3uJf/7XYbQcyohSKdvAxIRSNghFl4e71hVoGnBNQz9cWaXxO2I10KTC+3jMdvvoKw6dQ==}
@@ -14582,13 +14597,6 @@ packages:
   /pirates/4.0.5:
     resolution: {integrity: sha512-8V9+HQPupnaXMA23c5hvl69zXvTwTzyAYasnkb0Tts4XvO4CliqONMOnvlq26rkhLC3nWDFBJf73LU1e1VZLaQ==}
     engines: {node: '>= 6'}
-    dev: false
-
-  /pkg-dir/2.0.0:
-    resolution: {integrity: sha1-9tXREJ4Z1j7fQo4L1X4Sd3YVM0s=}
-    engines: {node: '>=4'}
-    dependencies:
-      find-up: 2.1.0
     dev: false
 
   /pkg-dir/3.0.0:
@@ -16329,7 +16337,6 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
-    dev: false
 
   /rsvp/4.8.5:
     resolution: {integrity: sha512-nfMOlASu9OnRJo1mbEk2cz0D56a1MBNrJ7orjRZQG10XDyuvwksKbuXNp6qa+kbn839HwjwhBzhFmdsaEAfauA==}
@@ -17044,6 +17051,10 @@ packages:
     resolution: {integrity: sha512-q+8UfWDg9Itrg0yWK7oe5p/XRCJpJF9OBtXfOPgSJl+u3Xd5KI328RUEvUqSMVM9CiQUEf1QdBzJMkYGErj9QA==}
     dev: false
 
+  /ssr-window/4.0.2:
+    resolution: {integrity: sha512-ISv/Ch+ig7SOtw7G2+qkwfVASzazUnvlDTwypdLoPoySv+6MqlOV10VwPSE6EWkGjhW50lUmghPmpYZXMu/+AQ==}
+    dev: false
+
   /ssri/6.0.2:
     resolution: {integrity: sha512-cepbSq/neFK7xB6A50KHN0xHDotYzq58wWCa5LeWqnPrHG8GzfEjO/4O8kpmcGW+oaxkvhEJCWgbgNk4/ZV93Q==}
     dependencies:
@@ -17438,6 +17449,15 @@ packages:
     dependencies:
       dom7: 3.0.0
       ssr-window: 3.0.0
+    dev: false
+
+  /swiper/8.1.0:
+    resolution: {integrity: sha512-Py2vuk7Nb3xlZMB2e201DQkjslTb6Uaju6wvr4BB7VjWrouSZegA0QjbxDVheJOsbKMUV092iDL3kymPBbuVzw==}
+    engines: {node: '>= 4.7.0'}
+    requiresBuild: true
+    dependencies:
+      dom7: 4.0.4
+      ssr-window: 4.0.2
     dev: false
 
   /symbol-observable/1.2.0:
@@ -18224,16 +18244,6 @@ packages:
 
   /util-deprecate/1.0.2:
     resolution: {integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=}
-
-  /util.promisify/1.1.1:
-    resolution: {integrity: sha512-/s3UsZUrIfa6xDhr7zZhnE9SLQ5RIXyYfiVnMMyMDzOc8WhWN4Nbh36H842OyurKbCDAesZOJaVyvmSl6fhGQw==}
-    dependencies:
-      call-bind: 1.0.2
-      define-properties: 1.1.3
-      for-each: 0.3.3
-      has-symbols: 1.0.3
-      object.getownpropertydescriptors: 2.1.3
-    dev: false
 
   /util/0.10.3:
     resolution: {integrity: sha1-evsa/lCAUkZInj23/g7TeTNqwPk=}

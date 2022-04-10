@@ -8,7 +8,7 @@
     "@babel/plugin-transform-runtime": "^7.9.6",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.12.13",
-    "babel-loader": "8.0.4",
+    "babel-loader": "^8.0.4",
     "babel-plugin-import": "^1.13.0",
     "concurrently": "^5.1.0",
     "core-js": "^3.6.4",

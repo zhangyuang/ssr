@@ -1,15 +1,10 @@
 {
   "private": true,
-  "workspaces": {
-    "packages": [
-      "packages/*"
-    ]
-  },
   "scripts": {
     "bootstrap": "pnpm i && pnpm run build:only && pnpm run link",
     "clean": "node scripts/scripts.js --clean",
-    "build": "pnpm --filter \"*\" build --parallel",
-    "dev": "pnpm --filter \"*\" watch",
+    "dev": "pnpm --filter \"*\" watch  --parallel",
+    "build": "pnpm --filter \"*\" build",
     "build:only": "pnpm --filter \"*\" build:only",
     "lint": "cross-env NODE_OPTIONS=--max_old_space_size=4096 eslint packages example e2e --ext .js,.ts --cache",
     "lint:fix": "cross-env NODE_OPTIONS=--max_old_space_size=4096 eslint packages example e2e --ext .js,.ts --cache --fix",
@@ -49,7 +44,6 @@
   "devDependencies": {
     "chalk": "^4.1.1",
     "concurrently": "^5.3.0",
-    "core-js": "^3.6.4",
     "cross-env": "^7.0.3",
     "cypress": "^6.2.1",
     "eslint": "^8.13.0",

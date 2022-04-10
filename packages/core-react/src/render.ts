@@ -10,8 +10,6 @@ const defaultConfig = loadConfig()
 function render (ctx: ISSRContext, options?: UserConfig): Promise<string>
 function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
 
-
-
 async function render (ctx: ISSRContext, options?: UserConfig) {
   const config = Object.assign({}, defaultConfig, options ?? {})
   const { stream, isVite } = config
