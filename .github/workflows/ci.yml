@@ -117,6 +117,7 @@ jobs:
           path: packages
       - uses: cypress-io/github-action@v2
         with:
+          install-command: pnpm i --no-frozen-lockfile
           start: yarn run example:midway:react
           wait-on: 'http://localhost:3000'
           spec: | 
@@ -154,6 +155,7 @@ jobs:
           path: packages
       - uses: cypress-io/github-action@v2
         with:
+          install-command: pnpm i --no-frozen-lockfile
           start: yarn run example:nestjs:react:prod
           wait-on: 'http://localhost:3000'
           spec: | 
@@ -190,6 +192,7 @@ jobs:
           path: packages
       - uses: cypress-io/github-action@v2
         with:
+          install-command: pnpm i --no-frozen-lockfile
           start: yarn run example:nestjs:react:prod:vite
           wait-on: 'http://localhost:3000'
           spec: | 
@@ -226,6 +229,7 @@ jobs:
           path: packages
       - uses: cypress-io/github-action@v2
         with:
+          install-command: pnpm i --no-frozen-lockfile
           start: yarn run example:nestjs:vue3:prod:vite
           wait-on: 'http://localhost:3000'
           spec: | 
@@ -262,6 +266,7 @@ jobs:
           path: packages
       - uses: cypress-io/github-action@v2
         with:
+          install-command: pnpm i --no-frozen-lockfile
           start: yarn run example:nestjs:vue:prod
           wait-on: 'http://localhost:3000'
           spec: | 
@@ -299,6 +304,7 @@ jobs:
         
       - uses: cypress-io/github-action@v2
         with:
+          install-command: pnpm i --no-frozen-lockfile
           start: yarn run example:nestjs:vue3:prod
           wait-on: 'http://localhost:3000'
           spec: | 
@@ -336,6 +342,7 @@ jobs:
         
       - uses: cypress-io/github-action@v2
         with:
+          install-command: pnpm i --no-frozen-lockfile
           start: yarn run example:midway:react:vite
           wait-on: 'http://localhost:3000'
           spec: | 
@@ -372,6 +379,7 @@ jobs:
         
       - uses: cypress-io/github-action@v2
         with:
+          install-command: pnpm i --no-frozen-lockfile
           start: yarn run example:midway:vue3:vite
           wait-on: 'http://localhost:3000'
           spec: | 
@@ -420,6 +428,7 @@ jobs:
         
       - uses: cypress-io/github-action@v2
         with:
+          install-command: pnpm i --no-frozen-lockfile
           start: yarn run example:midway:react:dynamic:router
           wait-on: 'http://localhost:3000'
           spec: | 
@@ -459,6 +468,7 @@ jobs:
         
       - uses: cypress-io/github-action@v2
         with:
+          install-command: pnpm i --no-frozen-lockfile
           start: yarn run example:midway:react
           wait-on: 'http://localhost:3000'
           spec: | 
@@ -497,6 +507,7 @@ jobs:
         
       - uses: cypress-io/github-action@v2
         with:
+          install-command: pnpm i --no-frozen-lockfile
           start: yarn run example:midway:vue
           wait-on: 'http://localhost:3000'
           spec: |
@@ -534,6 +545,7 @@ jobs:
         
       - uses: cypress-io/github-action@v2
         with:
+          install-command: pnpm i --no-frozen-lockfile
           start: yarn run example:midway:vue3
           wait-on: 'http://localhost:3000'
           spec: |
@@ -571,6 +583,7 @@ jobs:
         
       - uses: cypress-io/github-action@v2
         with:
+          install-command: pnpm i --no-frozen-lockfile
           start: yarn run example:nestjs:vue
           wait-on: 'http://localhost:3000'
           spec: |
@@ -608,6 +621,7 @@ jobs:
         
       - uses: cypress-io/github-action@v2
         with:
+          install-command: pnpm i --no-frozen-lockfile
           start: yarn run example:nestjs:vue3
           wait-on: 'http://localhost:3000'
           spec: |
@@ -645,6 +659,7 @@ jobs:
         
       - uses: cypress-io/github-action@v2
         with:
+          install-command: pnpm i --no-frozen-lockfile
           start: yarn run example:nestjs:react
           wait-on: 'http://localhost:3000'
           spec: | 
