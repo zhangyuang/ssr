@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "postinstall": "ts-node scripts/postinstall.ts",
     "bootstrap": "pnpm i && pnpm run build:only && pnpm build",
     "clean": "node scripts/scripts.js --clean",
     "dev": "pnpm --filter ./packages watch --parallel",
