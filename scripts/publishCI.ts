@@ -2,12 +2,12 @@ import { args, getPackageInfo, publishPackage, step } from './releaseUtils'
 
 async function main () {
   const tag = args._[0]
-
+  console.log('tag', tag)
   if (!tag) {
     throw new Error('No tag specified')
   }
 
-  let pkgName = 'vite'
+  let pkgName = ''
   let version
 
   if (tag.includes('@')) [pkgName, version] = tag.split('@')

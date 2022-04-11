@@ -1,3 +1,7 @@
+## [6.2.8-beta.5](https://github.com/zhangyuang/ssr/compare/types-react@6.2.8-beta.4...types-react@6.2.8-beta.5) (2022-04-11)
+
+
+
 ## [6.2.8-beta.4](https://github.com/zhangyuang/ssr/compare/types-react@6.2.8-beta.3...types-react@6.2.8-beta.4) (2022-04-11)
 
 

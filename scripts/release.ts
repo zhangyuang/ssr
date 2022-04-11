@@ -105,7 +105,7 @@ async function main (): Promise<void> {
     stdio: 'pipe'
   }) as any
   await runIfNotDry('git', ['push', 'origin', `refs/tags/${tag}`])
-  await runIfNotDry('git', ['push', 'origin', res.stdio])
+  await runIfNotDry('git', ['push', 'origin', res.stdout])
 
   if (isDryRun) {
     console.log('\nDry run finished - run git diff to see package changes.')
