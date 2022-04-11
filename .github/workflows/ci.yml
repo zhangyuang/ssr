@@ -62,11 +62,11 @@ jobs:
         with:
           node-version: 12
           cache: "pnpm"
-
-      - name: Install deps
-        run: pnpm install
+      - name: Install dependencies
+        run: | 
+          pnpm i
       - name: Lint
-        run: pnpm run lint
+        run: pnpm lint
 
   deploy-doc: 
     if: ${{ contains(github.actor, 'zhangyuang') && github.ref_name == 'dev'}}
