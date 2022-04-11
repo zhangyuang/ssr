@@ -13,7 +13,7 @@ const accessFile = async (file: string) => {
   const example = await promises.readdir(resolve(cwd, './example'))
   for (const item of example) {
     const path = resolve(cwd, `./example/${item}`)
-    if (item.includes('vue3')) {
+    if (item.includes('midway-vue3-ssr')) {
       const swiperPath = resolve(path, './node_modules/swiper/node_modules')
       if (!await accessFile(swiperPath)) {
         mkdir(swiperPath)
@@ -22,7 +22,6 @@ const accessFile = async (file: string) => {
     } else if (item.includes('midway-vue-ssr')) {
       ln('-s', resolve(path, './node_modules/vue'), resolve(cwd, './node_modules/vue-template-compiler/node_modules/vue'))
       ln('-s', resolve(path, './node_modules/vue'), resolve(cwd, './node_modules/vue-server-renderer/node_modules/vue'))
-
     }
   }
 
