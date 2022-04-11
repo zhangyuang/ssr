@@ -81,9 +81,11 @@ jobs:
       - name: Install dependencies
         run: | 
           pnpm i --no-frozen-lockfile
+
       - name: Build packages
         run: |
           pnpm build:only && pnpm build
+
       - uses: cypress-io/github-action@v2
         with:
           install: false
@@ -115,7 +117,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
 
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build
+          
       - uses: cypress-io/github-action@v2
         with:
           install: false
@@ -125,6 +134,7 @@ jobs:
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/react-ssr.spec.js
           browser: chrome
+
   e2e-chrome-nestjs-react-prod-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest

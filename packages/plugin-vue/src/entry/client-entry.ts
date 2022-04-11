@@ -41,6 +41,7 @@ const clientRender = async () => {
       }
     }),
     store,
+    // @ts-expect-error
     router
   })
 
