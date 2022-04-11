@@ -32,11 +32,14 @@
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
+    "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "serialize-javascript": "^6.0.0",
     "ssr-server-utils": "^6.2.10"
   },
   "devDependencies": {
-    "@types/react-dom": "^17.0.0"
+    "@types/react-dom": "^17.0.0",
+    "ssr-plugin-react": "^6.0.0",
+    "ssr-types": "^6.0.0"
   }
 }

@@ -41,7 +41,10 @@ const clientRender = async () => {
       }
     }),
     store,
-    router
+    // for type checker
+    ...{
+      router
+    }
   })
 
   router.beforeResolve(async (to, from, next) => {

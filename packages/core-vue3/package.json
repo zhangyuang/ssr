@@ -36,5 +36,9 @@
     "ssr-deepclone": "^1.0.0",
     "ssr-server-utils": "^6.2.10",
     "vue": "^3.0.0"
+  },
+  "devDependencies": {
+    "ssr-plugin-vue3": "^6.2.10",
+    "ssr-types": "^6.0.0"
   }
 }

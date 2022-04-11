@@ -2,29 +2,20 @@
 
 The markdown file introduce how to contribute for ssr-psec
 
-## 本地如何link调试模块
+## bootstrap
 
 package.json 中已经封装好本地的调试命令
 
 ```bash
-$ yarn run bootstrap # 项目初始化
-$ yarn run link --vue3|vue2|react # 由于同时存在 vue2,vue3 不同版本的 vue 实例，这里需要根据具体需要调试的 example 的种类 link
-$ yarn run dev # 开启监听模式
+$ npm i -g pnpm
+$ pnpm bootstrap
 ```
 
-执行以上命令后 `example/midway-react-ssr` 中的依赖已经成功 link 到本地的包。若在 `example/midway-react-ssr` 中执行 `yarn start` 提示 `permisson denied` 请手动通过 chmod 提升文件权限。
-`chmod 777 ./node_modules/.bin/ssr`
-
-执行完上述操作后去到需要调试的 example 例如 `midway-vue3-ssr`
+## publish 
 
 ```bash
-$ cd example/midway-vue3-ssr
-$ yarn && npm start
-$ npx ssr start --vite --test # 开发人员本地测试 vite 使用，正式使用直接 ssr start --vite 即可
+$ pnpm release
 ```
-
-Please read the [document](https://classic.yarnpkg.com/en/docs/workspaces/) about yarn workspace
-
 ## 代码贡献规范
 
 有任何疑问，欢迎提交 [issue](https://github.com/zhangyuang/ssr/issues)，
@@ -77,15 +68,12 @@ Please read the [document](https://classic.yarnpkg.com/en/docs/workspaces/) abou
 # 先创建开发分支开发，分支名应该有含义，避免使用 update、tmp 之类的
 $ git checkout -b branch-name
 
-# 开发完成后跑下测试是否通过，必要时需要新增或修改测试用例
-$ npm test
-
-# 测试通过后，提交代码，message 见下面的规范
-
 $ git add . # git add -u 删除文件
 $ git commit -m "fix(role): role.use must xxx"
 $ git push origin branch-name
 ```
+
+推送后关注 `github actions` 执行结果
 
 由于谁也无法保证过了多久之后还记得多少，为了后期回溯历史的方便，请在提交 MR 时确保提供了以下信息。
 

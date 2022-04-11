@@ -1,7 +1,6 @@
 import { loadConfig } from 'ssr-server-utils'
 
 const { isVite } = loadConfig()
-
 export function clientPlugin () {
   return {
     name: 'plugin-react',

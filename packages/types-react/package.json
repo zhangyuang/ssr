@@ -1,6 +1,6 @@
 {
   "name": "ssr-types-react",
-  "version": "6.2.7",
+  "version": "6.2.8-beta.6",
   "description": "types for react ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",

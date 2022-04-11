@@ -11,82 +11,38 @@ on:
     branches: [dev, master]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  bootstrap:
+jobs:  
+  lint:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ["12"]
+    name: "Lint"
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
         with:
-          node-version: ${{ matrix.node }}
-      - name: Cache node modules
-        uses: actions/cache@v2
-        id: yarn-cache
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-v2.5.4-
-            ${{ runner.os }}-v2.5.4-
-            ${{ runner.os }}-v2.5.4-
+          version: 6
+
+      - name: Set node version
+        uses: actions/setup-node@v3
+        with:
+          node-version: 12
+          cache: "pnpm"
       - name: Install dependencies
         run: | 
-          yarn && yarn build:only && yarn run build
-          node scripts/scripts.js --publishDoc
-          cd example/midway-react-ssr && yarn
-          cd ../midway-vue-ssr && yarn
-          cd ../midway-vue3-ssr && yarn
-          cd ../nestjs-react-ssr && yarn
-          cd ../nestjs-vue-ssr && yarn
-          cd ../nestjs-vue3-ssr && yarn
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: |
-           packages
-           !packages/**/node_modules    
-  lint:
-    needs: bootstrap
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ["12"]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - run: yarn run lint
+          pnpm i --no-frozen-lockfile
+      - name: Lint
+        run: pnpm lint
 
   deploy-doc: 
     if: ${{ contains(github.actor, 'zhangyuang') && github.ref_name == 'dev'}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ["12"]
+        node: ["14"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -102,39 +58,38 @@ jobs:
           SERVERLESS_DEPLOY_TIMEOUT: ${{ secrets.SERVERLESS_DEPLOY_TIMEOUT }}
 
   e2e-chrome-midway-react:
-    needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
-        node: ["12"]
+        os: [macos-latest]
+        node: ["14"]
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
+          version: 6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link --react
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn run example:midway:react
+          install: false
+          start: pnpm example:midway:react
           wait-on: 'http://localhost:3000'
           spec: | 
             e2e/integration/examples/common-ssr.spec.js  
@@ -142,322 +97,306 @@ jobs:
           browser: chrome
 
   e2e-chrome-nestjs-react-prod:
-    needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
+          version: 6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link --react
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn run example:nestjs:react:prod
+          install: false
+          start: pnpm example:nestjs:react:prod
           wait-on: 'http://localhost:3000'
           spec: | 
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/react-ssr.spec.js
           browser: chrome
+
   e2e-chrome-nestjs-react-prod-vite:
-    needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
+          version: 6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link --react
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+          
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn run example:nestjs:react:prod:vite
+          install: false
+          start: pnpm example:nestjs:react:prod:vite
           wait-on: 'http://localhost:3000'
           spec: | 
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/react-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-vue3-prod-vite:
-    needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
+          version: 6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link --vue3
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn run example:nestjs:vue3:prod:vite
+          install: false
+          start: pnpm example:nestjs:vue3:prod:vite
           wait-on: 'http://localhost:3000'
           spec: | 
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/vue3-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-vue-prod:
-    needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
+          version: 6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link --vue2
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn run example:nestjs:vue:prod
+          install: false
+          start: pnpm example:nestjs:vue:prod
           wait-on: 'http://localhost:3000'
           spec: | 
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-vue3-prod:
-    needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
+          version: 6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link --vue3
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+        
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn run example:nestjs:vue3:prod
+          install: false
+          start: pnpm example:nestjs:vue3:prod
           wait-on: 'http://localhost:3000'
           spec: | 
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
   e2e-chrome-midway-react-vite:
-    needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
-        node: ["12"]
+        os: [macos-latest]
+        node: ["14"]
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
+          version: 6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link --react
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+        
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn run example:midway:react:vite
+          install: false
+          start: pnpm example:midway:react:vite
           wait-on: 'http://localhost:3000'
           spec: | 
             e2e/integration/examples/common-ssr.spec.js  
           browser: chrome
   e2e-chrome-midway-vue3-vite:
-    needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
-        node: ["12"]
+        os: [macos-latest]
+        node: ["14"]
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
+          version: 6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link --vue3
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+        
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn run example:midway:vue3:vite
+          install: false
+          start: pnpm example:midway:vue3:vite
           wait-on: 'http://localhost:3000'
           spec: | 
             e2e/integration/examples/common-ssr.spec.js  
           browser: chrome
           
   e2e-chrome-midway-react-dynamic-router:
-    needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
-        node: ["12"]
+        os: [macos-latest]
+        node: ["14"]
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-
       - name: Get remote e2e example
         uses: actions/checkout@master
         with:
           repository: zhangyuang/ssr-e2e-example
           path: ssr-e2e-example
           ref: master
-          
+        
       - name: Mv e2e example
         run: |
-          mv ssr-e2e-example/react-dynamic-router-test example && cd example/react-dynamic-router-test && yarn
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
+          mv ssr-e2e-example/react-dynamic-router-test example
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link --react
+          version: 6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+        
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn run example:midway:react:dynamic:router
+          install: false
+          start: pnpm example:midway:react:dynamic:router
           wait-on: 'http://localhost:3000'
           spec: | 
             e2e/integration/examples/dynamic-ssr.spec.js  
@@ -465,255 +404,166 @@ jobs:
             e2e/integration/examples/react-ssr.spec.js
           browser: chrome
           
-  e2e-firefox-midway-react:
-    needs: bootstrap
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest]
-        node: ["12"]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link --react
-      - uses: cypress-io/github-action@v2
-        with:
-          start: yarn run example:midway:react
-          wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
-            e2e/integration/examples/react-ssr.spec.js
-          browser: firefox
-
   e2e-chrome-midway-vue:
-    needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
-        node: ["12"]
+        os: [macos-latest]
+        node: ["14"]
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
+          version: 6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link --vue2
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+        
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn run example:midway:vue
+          install: false
+          start: pnpm example:midway:vue
           wait-on: 'http://localhost:3000'
           spec: |
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
   e2e-chrome-midway-vue3:
-    needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
-        node: ["12"]
+        os: [macos-latest]
+        node: ["14"]
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
+          version: 6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link --vue3
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+        
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn run example:midway:vue3
+          install: false
+          start: pnpm example:midway:vue3
           wait-on: 'http://localhost:3000'
           spec: |
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome 
   e2e-chrome-nestjs-vue:
-    needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
-        node: ["12"]
+        os: [windows-latest]
+        node: ["14"]
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
+          version: 6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link --vue2
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+        
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn run example:nestjs:vue
+          install: false
+          start: pnpm example:nestjs:vue
           wait-on: 'http://localhost:3000'
           spec: |
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-vue3:
-    needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
-        node: ["12"]
+        os: [windows-latest]
+        node: ["14"]
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
           node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
+          version: 6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
         with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link --vue3
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+        
       - uses: cypress-io/github-action@v2
         with:
-          start: yarn run example:nestjs:vue3
+          install: false
+          start: pnpm example:nestjs:vue3
           wait-on: 'http://localhost:3000'
           spec: |
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
-  e2e-firefox-nestjs-react:
-    needs: bootstrap
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest]
-        node: ["12"]
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
-        with:
-          path: |
-            /home/runner/.cache/Cypress  
-            ~/.cache/yarn
-            node_modules
-            packages/**/node_modules
-            example/**/node_modules
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
-      - name: prepare
-        run: yarn run link --react
-      - uses: cypress-io/github-action@v2
-        with:
-          start: yarn run example:nestjs:react
-          wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
-            e2e/integration/examples/react-ssr.spec.js
-          browser: firefox
   publish:
     name: Publish
-    if: "startsWith(github.event.head_commit.message, 'chore(release): publish')"
+    if: "startsWith(github.event.head_commit.message, 'release')"
     runs-on: ubuntu-latest
     needs:  
       - lint
-      - e2e-firefox-midway-react
       - e2e-chrome-midway-react
       - e2e-chrome-midway-react-vite
       - e2e-chrome-midway-vue
       - e2e-chrome-midway-vue3
       - e2e-chrome-midway-vue3-vite
       - e2e-chrome-midway-react-dynamic-router
-      - e2e-firefox-nestjs-react
       - e2e-chrome-nestjs-react-prod
       - e2e-chrome-nestjs-react-prod-vite
       - e2e-chrome-nestjs-vue-prod
@@ -723,33 +573,33 @@ jobs:
       - e2e-chrome-nestjs-vue3
 
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
-          node-version: 12
-      - name: Load node_modules
-        uses: actions/cache@v2
-        id: yarn-cache
+          node-version: 14
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         with:
-          path: |
-            node_modules
-            
-          key: ${{ runner.os }}-v2.5.4-${{ hashFiles('**/yarn.lock') }}
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
+          version: 6
+      - name: Use Node.js 14
+        uses: actions/setup-node@v3
         with:
-          name: bindings-12
-          path: packages
+          node-version: 14
+          cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
       - name: List packages
         run: ls -R packages
         shell: bash
-      - name: Lerna publish
+      - name: npm publish
         run: |
           find ./packages/ -type d -maxdepth 1 -exec cp LICENSE {} \;
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-          npx lerna publish from-package --no-verify-access --yes
+          pnpm run ci-publish -- ${{ github.event.head_commit.message }}
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
