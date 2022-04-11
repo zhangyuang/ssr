@@ -1,3 +1,12 @@
+## [6.2.8-beta.6](https://github.com/zhangyuang/ssr/compare/types-react@6.2.8-beta.4...types-react@6.2.8-beta.6) (2022-04-11)
+
+
+### Features
+
+* update example ([c4cdb62](https://github.com/zhangyuang/ssr/commit/c4cdb6218f0faf4f8be847fdb01d6bd067d990ae))
+
+
+
 ## [6.2.8-beta.5](https://github.com/zhangyuang/ssr/compare/types-react@6.2.8-beta.4...types-react@6.2.8-beta.5) (2022-04-11)
 
 
