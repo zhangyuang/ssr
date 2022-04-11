@@ -62,8 +62,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
-      - name: Install dependencies
-        run: pnpm i
+      - name: "lint"
       - run: pnpm lint
 
   deploy-doc: 
@@ -145,7 +144,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
-          
+
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
