@@ -34,7 +34,7 @@
     "@types/semver": "^7.3.9",
     "@types/shelljs": "^0.8.7",
     "concurrently": "^5.1.0",
-    "ssr-types": "workspace:^6.2.3",
+    "ssr-types": "^6.2.3",
     "webpack-chain": "^6.4.0"
   },
   "dependencies": {

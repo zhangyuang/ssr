@@ -43,7 +43,7 @@
     "vuex-router-sync": "^5.0.0"
   },
   "devDependencies": {
-    "ssr-plugin-vue": "workspace:^6.2.10",
+    "ssr-plugin-vue": "^6.2.10",
     "ssr-types": "^6.2.3"
   }
 }

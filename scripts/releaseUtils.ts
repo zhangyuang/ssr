@@ -144,7 +144,7 @@ export async function publishPackage (
   if (tag) {
     publicArgs.push('--tag', tag)
   }
-  await runIfNotDry('pnpm', publicArgs, {
+  await runIfNotDry('npm', publicArgs, {
     stdio: 'pipe',
     cwd: pkdDir
   })

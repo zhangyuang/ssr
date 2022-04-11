@@ -101,8 +101,9 @@ async function main (): Promise<void> {
   }
 
   step('\nPushing to GitHub...')
+  const branch = await runIfNotDry('git', ['rev-parse', '--abbrev-ref', 'HEAD']) as any
   await runIfNotDry('git', ['push', 'origin', `refs/tags/${tag}`])
-  await runIfNotDry('git', ['push'])
+  await runIfNotDry('git', ['push', 'origin', branch])
 
   if (isDryRun) {
     console.log('\nDry run finished - run git diff to see package changes.')
