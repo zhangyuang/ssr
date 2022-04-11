@@ -81,11 +81,6 @@ jobs:
       - name: Install dependencies
         run: | 
           pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
       - uses: cypress-io/github-action@v2
         with:
           install: false
@@ -118,11 +113,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
 
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
       - uses: cypress-io/github-action@v2
         with:
           install: false
@@ -191,11 +181,6 @@ jobs:
       - name: Install dependencies
         run: | 
           pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
       - uses: cypress-io/github-action@v2
         with:
           install: false
@@ -229,11 +214,6 @@ jobs:
       - name: Install dependencies
         run: | 
           pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
       - uses: cypress-io/github-action@v2
         with:
           install: false
@@ -267,11 +247,6 @@ jobs:
       - name: Install dependencies
         run: | 
           pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
         
       - uses: cypress-io/github-action@v2
         with:
@@ -306,11 +281,6 @@ jobs:
       - name: Install dependencies
         run: | 
           pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
         
       - uses: cypress-io/github-action@v2
         with:
@@ -344,11 +314,6 @@ jobs:
       - name: Install dependencies
         run: | 
           pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
         
       - uses: cypress-io/github-action@v2
         with:
@@ -394,11 +359,6 @@ jobs:
       - name: Mv e2e example
         run: |
           mv ssr-e2e-example/react-dynamic-router-test example
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
         
       - uses: cypress-io/github-action@v2
         with:
@@ -436,11 +396,6 @@ jobs:
       - name: Install dependencies
         run: | 
           pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
         
       - uses: cypress-io/github-action@v2
         with:
@@ -475,11 +430,6 @@ jobs:
       - name: Install dependencies
         run: | 
           pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
         
       - uses: cypress-io/github-action@v2
         with:
@@ -514,11 +464,6 @@ jobs:
       - name: Install dependencies
         run: | 
           pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
         
       - uses: cypress-io/github-action@v2
         with:
@@ -553,11 +498,6 @@ jobs:
       - name: Install dependencies
         run: | 
           pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
         
       - uses: cypress-io/github-action@v2
         with:
