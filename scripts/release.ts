@@ -85,7 +85,7 @@ async function main (): Promise<void> {
     '-s'
   ]
   if (pkgName !== 'vite') changelogArgs.push('--lerna-package', pkgName)
-  await run('npx', changelogArgs, { cwd: pkgDir })
+  await run('npx', changelogArgs, { cwd: process.cwd() })
 
   const { stdout } = await run('git', ['diff'], { stdio: 'pipe' })
   if (stdout) {

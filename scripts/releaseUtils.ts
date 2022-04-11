@@ -146,7 +146,7 @@ export async function publishPackage (
   }
   await runIfNotDry('npm', publicArgs, {
     stdio: 'pipe',
-    cwd: process.cwd()
+    cwd: pkdDir
   })
 }
 
