@@ -599,7 +599,7 @@ jobs:
         run: |
           find ./packages/ -type d -maxdepth 1 -exec cp LICENSE {} \;
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
-          pnpm run ci-publish -- ${{ github.ref_name }}
+          pnpm run ci-publish -- ${{ github.event.head_commit.message }}
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
