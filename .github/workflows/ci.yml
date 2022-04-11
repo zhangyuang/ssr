@@ -14,8 +14,8 @@ on:
 jobs:  
   lint:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
-    name: "Lint: node-12, ubuntu-latest"
+    runs-on: macos-10.15
+    name: "Lint: node-12, macos-10.15"
     steps:
       - uses: actions/checkout@v3
         with:
@@ -39,7 +39,7 @@ jobs:
 
   deploy-doc: 
     if: ${{ contains(github.actor, 'zhangyuang') && github.ref_name == 'dev'}}
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     strategy:
       matrix:
         node: ["12"]
@@ -59,7 +59,7 @@ jobs:
 
   e2e-chrome-midway-react:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -93,7 +93,7 @@ jobs:
 
   e2e-chrome-nestjs-react-prod:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -124,7 +124,7 @@ jobs:
           browser: chrome
   e2e-chrome-nestjs-react-prod-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -159,7 +159,7 @@ jobs:
           browser: chrome
   e2e-chrome-nestjs-vue3-prod-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -192,7 +192,7 @@ jobs:
           browser: chrome
   e2e-chrome-nestjs-vue-prod:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -225,7 +225,7 @@ jobs:
           browser: chrome
   e2e-chrome-nestjs-vue3-prod:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -259,7 +259,7 @@ jobs:
           browser: chrome
   e2e-chrome-midway-react-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -292,7 +292,7 @@ jobs:
           browser: chrome
   e2e-chrome-midway-vue3-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -326,7 +326,7 @@ jobs:
           
   e2e-chrome-midway-react-dynamic-router:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -374,7 +374,7 @@ jobs:
 
   e2e-chrome-midway-vue:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -408,7 +408,7 @@ jobs:
           browser: chrome
   e2e-chrome-midway-vue3:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -442,7 +442,7 @@ jobs:
           browser: chrome 
   e2e-chrome-nestjs-vue:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -476,7 +476,7 @@ jobs:
           browser: chrome
   e2e-chrome-nestjs-vue3:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
@@ -511,7 +511,7 @@ jobs:
   publish:
     name: Publish
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
+    runs-on: macos-10.15
     needs:  
       - lint
       - e2e-chrome-midway-react
