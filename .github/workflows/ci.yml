@@ -44,7 +44,6 @@ jobs:
            packages
            !packages/**/node_modules    
   lint:
-    timeout-minutes: 10
     runs-on: ubuntu-latest
     name: "Lint: node-12, ubuntu-latest"
     steps:
@@ -183,13 +182,16 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
+          
       - name: Install dependencies
-        run: pnpm i --no-frozen-lockfile
-      - name: Download artifacts
-        uses: actions/download-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: packages
+        run: | 
+          pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
+
+      # - name: Download artifacts
+      #   uses: actions/download-artifact@v2
+      #   with:
+      #     name: bindings-${{matrix.node}}
+      #     path: packages
       - uses: cypress-io/github-action@v2
         with:
           install: false
