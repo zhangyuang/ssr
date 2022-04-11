@@ -1,7 +1,7 @@
 import { args, getPackageInfo, publishPackage, step } from './releaseUtils'
 
 async function main () {
-  const tag = args._[0].replace('release: ', '')
+  const tag = args._[1]
   if (!tag) {
     throw new Error('No tag specified')
   }
@@ -12,7 +12,7 @@ async function main () {
   if (tag.includes('@')) [pkgName, version] = tag.split('@')
   else version = tag
 
-  console.log('publich Info', tag, pkgName, version)
+  console.log('publish Info', tag, pkgName, version)
 
   if (version.startsWith('v')) version = version.slice(1)
 

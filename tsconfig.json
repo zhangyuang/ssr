@@ -21,5 +21,6 @@
     "esm",
     "cjs",
     "**/*.test.ts",
+    "example"
   ]
 }

@@ -1,4 +1,4 @@
-x.<template>
+<template>
   <div class="swiperContainer">
     <Swiper ref="mySwiper">
       <swiper-slide v-for="val in data[0].itemMap" :key="val.img" class="sliderContainer" @click="toDetail">

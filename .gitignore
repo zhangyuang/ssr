@@ -98,10 +98,10 @@ docs/*.lock
 
 example/yarn.lock
 
-example/pnpm-lock.yaml
-
 cypress
 
 e2e/screenshots
 
 e2e/videos
+
+packages/**/CHANGELOG.md
