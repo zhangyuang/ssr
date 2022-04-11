@@ -1159,7 +1159,9 @@ module.exports = {
 
 ## 兼容低端浏览器
 
-如果开发者需要兼容低端浏览器，我们提供了选项来使得开发者可以直接使用。但此选项会导致构建出来的 `bundle` 体积变大。请视情况开启
+默认构建出来的结果已经能够在大部分浏览器运行，如果报错，可根据报错首先定位错误来源是第三方模块还是业务代码。如果属于第三方模块，优先考虑使用 [babelExtraModule](./api$config#babelExtraModule) 选项来设置第三方模块。
+
+若仍然无法成功，则考虑以下方案
 
 参考 [corejs](./api$config#corejs) 选项
 
@@ -1206,4 +1208,12 @@ $ ssr start --debug 8001 # 等价于 nest start --debug 8001
 $ ssr start --port 7001 # 等价于 midway-bin dev --port 7001
 ```
 
-`build` 同理，参考当前服务端框架对应的文档即可
+`build` 同理，参考当前服务端框架对应的文档即可。也可以执行 `npx ssr start|build --help` 查看框架支持的其他能力
+
+## 其他问题
+
+### class IssueWebpackError 报错
+
+错误原因：`Webpack` 多版本冲突查询依赖逻辑错误
+
+解决方法：使用 `pnpm|yarn|npm@version >= 7` 来安装依赖
