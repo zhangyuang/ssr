@@ -4,6 +4,8 @@ importers:
 
   .:
     specifiers:
+      '@types/prompts': ^2.0.14
+      '@types/semver': ^7.3.9
       '@types/shelljs': ^0.8.7
       concurrently: ^5.3.0
       cross-env: ^7.0.3
@@ -11,12 +13,18 @@ importers:
       eslint: ^8.13.0
       eslint-config-standard-react-ts: ^1.0.3
       eslint-config-standard-vue-ts: ^1.0.0
+      execa: ^5.1.1
       husky: ^4.3.0
+      picocolors: ^1.0.0
+      prompts: ^2.4.2
+      semver: ^7.3.5
       shelljs: ^0.8.3
       ts-node: ^10.7.0
       tsc-transpile-only: ^0.0.3
       typescript: ^4.0.0
     devDependencies:
+      '@types/prompts': 2.0.14
+      '@types/semver': 7.3.9
       '@types/shelljs': 0.8.11
       concurrently: 5.3.0
       cross-env: 7.0.3
@@ -24,7 +32,11 @@ importers:
       eslint: 8.13.0
       eslint-config-standard-react-ts: 1.0.16_typescript@4.6.3
       eslint-config-standard-vue-ts: 1.0.20_typescript@4.6.3
+      execa: 5.1.1
       husky: 4.3.8
+      picocolors: 1.0.0
+      prompts: 2.4.2
+      semver: 7.3.6
       shelljs: 0.8.5
       ts-node: 10.7.0_typescript@4.6.3
       tsc-transpile-only: 0.0.3_typescript@4.6.3
@@ -4650,6 +4662,12 @@ packages:
   /@types/prettier/2.6.0:
     resolution: {integrity: sha512-G/AdOadiZhnJp0jXCaBQU449W2h716OW/EoXeYkCytxKL06X1WCXB4DZpp8TpZ8eyIJVS1cw4lrlkkSYU21cDw==}
     dev: false
+
+  /@types/prompts/2.0.14:
+    resolution: {integrity: sha512-HZBd99fKxRWpYCErtm2/yxUZv6/PBI9J7N4TNFffl5JbrYMHBwF25DjQGTW3b3jmXq+9P6/8fCIb2ee57BFfYA==}
+    dependencies:
+      '@types/node': 17.0.23
+    dev: true
 
   /@types/prop-types/15.7.5:
     resolution: {integrity: sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==}
@@ -9779,7 +9797,6 @@ packages:
       onetime: 5.1.2
       signal-exit: 3.0.7
       strip-final-newline: 2.0.0
-    dev: false
 
   /executable/4.1.1:
     resolution: {integrity: sha512-8iA79xD3uAch729dUG8xaaBBFGaEa0wdD2VkYLFHwlqosEj/jT66AzcreRDSgV7ehnNLBW2WR5jIXwGKjVdTLg==}
@@ -10522,7 +10539,6 @@ packages:
   /get-stream/6.0.1:
     resolution: {integrity: sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==}
     engines: {node: '>=10'}
-    dev: false
 
   /get-symbol-description/1.0.0:
     resolution: {integrity: sha512-2EmdH1YvIQiZpltCNgkuiUnyukzxM/R6NDJX31Ke3BG1Nq5b0S2PhX59UKi9vZpPDQVdqn+1IcaAwnzTT5vCjw==}
@@ -11135,7 +11151,6 @@ packages:
   /human-signals/2.1.0:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
-    dev: false
 
   /humanize-bytes/1.0.1:
     resolution: {integrity: sha1-IfV8oxjSEaAG3JeYpGWE+vLZfpw=}
@@ -12593,7 +12608,6 @@ packages:
   /kleur/3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
-    dev: false
 
   /klona/2.0.5:
     resolution: {integrity: sha512-pJiBpiXMbt7dkzXe8Ghj/u4FfXOOa98fPW+bihOJ4SjnoijweJrNThJfd3ifXpXhREjpoF2mZVH1GfS9LV3kHQ==}
@@ -15646,7 +15660,6 @@ packages:
     dependencies:
       kleur: 3.0.3
       sisteransi: 1.0.5
-    dev: false
 
   /prop-types/15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
@@ -16795,7 +16808,6 @@ packages:
 
   /sisteransi/1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
-    dev: false
 
   /slash/2.0.0:
     resolution: {integrity: sha512-ZYKh3Wh2z1PpEXWr0MpSBZ0V6mZHAQfYevttO11c51CaWjGTaadiKZ+wVt1PbMlDV5qhMFslpZCemhwOK7C89A==}
