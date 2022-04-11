@@ -41,8 +41,10 @@ const clientRender = async () => {
       }
     }),
     store,
-    // @ts-expect-error
-    router
+    // for type checker
+    ...{
+      router
+    }
   })
 
   router.beforeResolve(async (to, from, next) => {
