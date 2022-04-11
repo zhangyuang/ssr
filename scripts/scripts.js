@@ -6,23 +6,8 @@ const options = {
   stdio: 'inherit'
 }
 
-if (argv.bootstrap) {
-  let shell = 'npx concurrently "yarn"'
-  const examples = fs.readdirSync('./example')
-  examples.forEach(example => {
-    if (example !== '.DS_Store') {
-      shell += ` "cd example/${example} && yarn" `
-    }
-  })
-  execSync(shell, options)
-  execSync('yarn build:only', options)
-}
-
 if (argv.clean) {
-  let shell = 'rm -rf node_modules **/**/cjs **/**/esm packages/**/node_modules'
-  if (argv.deep) {
-    shell += ' example/**/node_modules'
-  }
+  const shell = 'rm -rf node_modules **/**/cjs **/**/esm packages/**/node_modules example/**/node_modules'
   execSync(shell, options)
 }
 

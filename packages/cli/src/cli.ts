@@ -102,6 +102,7 @@ yargs
     },
     ...cliDesc
   }), async (argv: Argv) => {
+    console.log('yuuangconsole')
     await startFunc(argv)
   })
   .command('build', 'Build application by webpack or vite', yargs => yargs.options({

@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "bootstrap": "pnpm i && pnpm run build:only && pnpm run link",
+    "bootstrap": "pnpm i && pnpm run build:only && pnpm build",
     "clean": "node scripts/scripts.js --clean",
     "dev": "pnpm --filter ./packages watch --parallel",
     "build": "pnpm --filter ./packages build --parallel",
@@ -10,20 +10,20 @@
     "lint:fix": "cross-env NODE_OPTIONS=--max_old_space_size=4096 eslint packages example e2e --ext .js,.ts --cache --fix",
     "sync": "node scripts/scripts.js --sync",
     "e2e": "cypress run --browser chrome",
-    "example:midway:vue": "ls -l packages/* && cd example/midway-vue-ssr && npm start",
-    "example:midway:react": "ls -l packages/* && cd example/midway-react-ssr && npm start",
-    "example:midway:vue3": "ls -l packages/* && cd example/midway-vue3-ssr && npm start",
-    "example:midway:vue3:vite": "ls -l packages/* && cd example/midway-vue3-ssr && npm run start:vite",
-    "example:midway:react:vite": "ls -l packages/* && cd example/midway-react-ssr && npm run start:vite",
-    "example:nestjs:react:prod": "ls -l packages/* && cd example/nestjs-react-ssr && npm run prod",
-    "example:nestjs:vue3:prod": "ls -l packages/* && cd example/nestjs-vue3-ssr && npm run prod",
-    "example:nestjs:vue:prod": "ls -l packages/* && cd example/nestjs-vue-ssr && npm run prod",
-    "example:nestjs:react:prod:vite": "ls -l packages/* && cd example/nestjs-react-ssr && npm run prod:vite",
-    "example:nestjs:vue3:prod:vite": "ls -l packages/* && cd example/nestjs-vue3-ssr && npm run prod:vite",
-    "example:nestjs:react": "ls -l packages/* && cd example/nestjs-react-ssr && npm start",
-    "example:nestjs:vue": "ls -l packages/* && cd example/nestjs-vue-ssr && npm start",
-    "example:nestjs:vue3": "ls -l packages/* && cd example/nestjs-vue3-ssr && npm start",
-    "example:midway:react:dynamic:router": "ls -l packages/* && cd example/react-dynamic-router-test && npm start"
+    "example:midway:vue": "cd example/midway-vue-ssr && npm start",
+    "example:midway:react": "cd example/midway-react-ssr && npm start",
+    "example:midway:vue3": "cd example/midway-vue3-ssr && npm start",
+    "example:midway:vue3:vite": "cd example/midway-vue3-ssr && npm run start:vite",
+    "example:midway:react:vite": "cd example/midway-react-ssr && npm run start:vite",
+    "example:nestjs:react:prod": "cd example/nestjs-react-ssr && npm run prod",
+    "example:nestjs:vue3:prod": "cd example/nestjs-vue3-ssr && npm run prod",
+    "example:nestjs:vue:prod": "cd example/nestjs-vue-ssr && npm run prod",
+    "example:nestjs:react:prod:vite": "cd example/nestjs-react-ssr && npm run prod:vite",
+    "example:nestjs:vue3:prod:vite": "cd example/nestjs-vue3-ssr && npm run prod:vite",
+    "example:nestjs:react": "cd example/nestjs-react-ssr && npm start",
+    "example:nestjs:vue": "cd example/nestjs-vue-ssr && npm start",
+    "example:nestjs:vue3": "cd example/nestjs-vue3-ssr && npm start",
+    "example:midway:react:dynamic:router": "cd example/react-dynamic-router-test && npm start"
   },
   "repository": {
     "type": "git",
@@ -42,7 +42,7 @@
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "devDependencies": {
-    "chalk": "^4.1.1",
+    "@types/shelljs": "^0.8.7",
     "concurrently": "^5.3.0",
     "cross-env": "^7.0.3",
     "cypress": "^6.2.1",
@@ -50,6 +50,8 @@
     "eslint-config-standard-react-ts": "^1.0.3",
     "eslint-config-standard-vue-ts": "^1.0.0",
     "husky": "^4.3.0",
+    "shelljs": "^0.8.3",
+    "ts-node": "^10.7.0",
     "tsc-transpile-only": "^0.0.3",
     "typescript": "^4.0.0"
   }
