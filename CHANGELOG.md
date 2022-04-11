@@ -1,6 +1,22 @@
 # [](https://github.com/zhangyuang/ssr/compare/v6.2.8...v) (2022-04-11)
 
 
+### Bug Fixes
+
+* don't throw error when load module failed ([2e5d077](https://github.com/zhangyuang/ssr/commit/2e5d077848dc10998a04fcccccc7c745c0d1bea7))
+* lock babel-plugin-import ([72c3041](https://github.com/zhangyuang/ssr/commit/72c3041bf61a1fc9b7593df1fdb6c4dc850c6bbd))
+* postinstall get correct path ([b3d1951](https://github.com/zhangyuang/ssr/commit/b3d1951b7537c5954fd040797fc0011a1d4439d7))
+
+
+### Features
+
+* use pnpm replace yarn workspace and lerna ([#186](https://github.com/zhangyuang/ssr/issues/186)) ([d578506](https://github.com/zhangyuang/ssr/commit/d578506160712847c1dd021b7759c7e9ff3c03e8))
+
+
+
+# [](https://github.com/zhangyuang/ssr/compare/v6.2.8...v) (2022-04-11)
+
+
 ### Features
 
 * update example ([b86add2](https://github.com/zhangyuang/ssr/commit/b86add2ad1f843598b5b85f1b470a0c047615f39))
