@@ -33,7 +33,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: | 
-          pnpm i
+          pnpm i --no-frozen-lockfile
       - name: Lint
         run: pnpm lint
 
@@ -80,11 +80,11 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: | 
-          pnpm i
+          pnpm i --no-frozen-lockfile
 
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
 
       - uses: cypress-io/github-action@v2
         with:
@@ -119,11 +119,11 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: | 
-          pnpm i
+          pnpm i --no-frozen-lockfile
 
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
           
       - uses: cypress-io/github-action@v2
         with:
@@ -159,10 +159,10 @@ jobs:
           
       - name: Install dependencies
         run: | 
-          pnpm i
+          pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
 
       - uses: cypress-io/github-action@v2
         with:
@@ -196,10 +196,10 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: | 
-          pnpm i
+          pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
       - uses: cypress-io/github-action@v2
         with:
           install: false
@@ -232,10 +232,10 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: | 
-          pnpm i
+          pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
       - uses: cypress-io/github-action@v2
         with:
           install: false
@@ -268,10 +268,10 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: | 
-          pnpm i
+          pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
         
       - uses: cypress-io/github-action@v2
         with:
@@ -305,10 +305,10 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: | 
-          pnpm i
+          pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
         
       - uses: cypress-io/github-action@v2
         with:
@@ -341,10 +341,10 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: | 
-          pnpm i
+          pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
         
       - uses: cypress-io/github-action@v2
         with:
@@ -427,10 +427,10 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: | 
-          pnpm i
+          pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
         
       - uses: cypress-io/github-action@v2
         with:
@@ -464,10 +464,10 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: | 
-          pnpm i
+          pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
         
       - uses: cypress-io/github-action@v2
         with:
@@ -501,10 +501,10 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: | 
-          pnpm i
+          pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
         
       - uses: cypress-io/github-action@v2
         with:
@@ -538,10 +538,10 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: | 
-          pnpm i
+          pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
         
       - uses: cypress-io/github-action@v2
         with:
@@ -582,10 +582,10 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: | 
-          pnpm i
+          pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:

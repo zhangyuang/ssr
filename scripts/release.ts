@@ -109,7 +109,7 @@ async function main (): Promise<void> {
   } else {
     console.log(
       colors.green(
-        '\nPushed, publishing should starts shortly on CI.\nhttps://github.com/vitejs/vite/actions/workflows/publish.yml'
+        '\nPushed, publishing should starts shortly on CI.\nhttps://github.com/zhangyuang/ssr/blob/dev/.github/workflows/ci.yml'
       )
     )
   }
