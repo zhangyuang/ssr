@@ -11,39 +11,9 @@ on:
     branches: [dev, master]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  bootstrap:
-    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ["12"]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 6
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "pnpm"
-      - name: Install dependencies
-        run: | 
-          pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
-          node scripts/scripts.js --publishDoc
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: bindings-${{matrix.node}}
-          path: |
-           packages
-           !packages/**/node_modules    
+jobs:  
   lint:
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     name: "Lint: node-12, ubuntu-latest"
     steps:
@@ -89,6 +59,7 @@ jobs:
 
   e2e-chrome-midway-react:
     needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -109,7 +80,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm i --no-frozen-lockfile
+        run: | 
+          pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -127,6 +99,7 @@ jobs:
 
   e2e-chrome-nestjs-react-prod:
     needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -163,6 +136,7 @@ jobs:
           browser: chrome
   e2e-chrome-nestjs-react-prod-vite:
     needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -203,6 +177,7 @@ jobs:
           browser: chrome
   e2e-chrome-nestjs-vue3-prod-vite:
     needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -223,7 +198,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm i --no-frozen-lockfile
+        run: | 
+          pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -240,6 +216,7 @@ jobs:
           browser: chrome
   e2e-chrome-nestjs-vue-prod:
     needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -260,7 +237,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm i --no-frozen-lockfile
+        run: | 
+          pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -277,6 +255,7 @@ jobs:
           browser: chrome
   e2e-chrome-nestjs-vue3-prod:
     needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -297,7 +276,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm i --no-frozen-lockfile
+        run: | 
+          pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -315,6 +295,7 @@ jobs:
           browser: chrome
   e2e-chrome-midway-react-vite:
     needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -335,7 +316,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm i --no-frozen-lockfile
+        run: | 
+          pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -352,6 +334,7 @@ jobs:
           browser: chrome
   e2e-chrome-midway-vue3-vite:
     needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -372,7 +355,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm i --no-frozen-lockfile
+        run: | 
+          pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -390,6 +374,7 @@ jobs:
           
   e2e-chrome-midway-react-dynamic-router:
     needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -410,7 +395,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm i --no-frozen-lockfile
+        run: | 
+          pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
 
       - name: Get remote e2e example
         uses: actions/checkout@master
@@ -442,6 +428,7 @@ jobs:
 
   e2e-chrome-midway-vue:
     needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -462,7 +449,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm i --no-frozen-lockfile
+        run: | 
+          pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -480,6 +468,7 @@ jobs:
           browser: chrome
   e2e-chrome-midway-vue3:
     needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -500,7 +489,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm i --no-frozen-lockfile
+        run: | 
+          pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -518,6 +508,7 @@ jobs:
           browser: chrome 
   e2e-chrome-nestjs-vue:
     needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -538,7 +529,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm i --no-frozen-lockfile
+        run: | 
+          pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -556,6 +548,7 @@ jobs:
           browser: chrome
   e2e-chrome-nestjs-vue3:
     needs: bootstrap
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -576,7 +569,8 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm i --no-frozen-lockfile
+        run: | 
+          pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
@@ -594,7 +588,7 @@ jobs:
           browser: chrome
   publish:
     name: Publish
-    if: "startsWith(github.event.head_commit.message, 'chore(release): publish')"
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     needs:  
       - lint
@@ -621,7 +615,8 @@ jobs:
           node-version: 12
           cache: "pnpm"
       - name: Install dependencies
-        run: pnpm i --no-frozen-lockfile
+        run: | 
+          pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
