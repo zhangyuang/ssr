@@ -63,7 +63,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: "lint"
-      - run: pnpm lint
+        run: pnpm lint
 
   deploy-doc: 
     if: ${{ contains(github.actor, 'zhangyuang') && github.ref_name == 'dev'}}
