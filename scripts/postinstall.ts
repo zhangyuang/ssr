@@ -21,6 +21,8 @@ const accessFile = async (file: string) => {
       ln('-s', resolve(path, './node_modules/vue'), resolve(swiperPath, './vue'))
     } else if (item.includes('midway-vue-ssr')) {
       ln('-s', resolve(path, './node_modules/vue'), resolve(cwd, './node_modules/vue-template-compiler/node_modules/vue'))
+      ln('-s', resolve(path, './node_modules/vue'), resolve(cwd, './node_modules/vue-server-renderer/node_modules/vue'))
+
     }
   }
 
