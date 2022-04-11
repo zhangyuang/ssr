@@ -28,7 +28,7 @@ async function main (): Promise<void> {
 
   await logRecentCommits(pkg)
 
-  const { currentVersion, pkgName, pkgPath } = getPackageInfo(pkg)
+  const { currentVersion, pkgName, pkgPath, pkgDir } = getPackageInfo(pkg)
 
   if (!targetVersion) {
     const { release }: { release: string } = await prompts({
@@ -55,8 +55,7 @@ async function main (): Promise<void> {
     throw new Error(`invalid target version: ${targetVersion}`)
   }
 
-  const tag =
-    pkgName === 'vite' ? `v${targetVersion}` : `${pkgName}@${targetVersion}`
+  const tag = `${pkgName}@${targetVersion}`
 
   if (targetVersion.includes('beta') && !args.tag) {
     args.tag = 'beta'
@@ -85,7 +84,7 @@ async function main (): Promise<void> {
     '-s'
   ]
   if (pkgName !== 'vite') changelogArgs.push('--lerna-package', pkgName)
-  await run('npx', changelogArgs, { cwd: process.cwd() })
+  await run('npx', changelogArgs, { cwd: pkgDir })
 
   const { stdout } = await run('git', ['diff'], { stdio: 'pipe' })
   if (stdout) {

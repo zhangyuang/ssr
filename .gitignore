@@ -103,5 +103,3 @@ cypress
 e2e/screenshots
 
 e2e/videos
-
-packages/**/CHANGELOG.md

@@ -49,7 +49,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}
-      - run: node scripts/scripts.js --changelog && cd docs && yarn && npm run deploy
+      - run: cd docs && yarn && npm run deploy
         env:
           SERVERLESS_DEPLOY_AK: ${{ secrets.SERVERLESS_DEPLOY_AK }}
           SERVERLESS_DEPLOY_ENDPOINT: ${{ secrets.SERVERLESS_DEPLOY_ENDPOINT }}
