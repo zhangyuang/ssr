@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ["12"]
+        node: ["14"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -63,7 +63,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -102,7 +102,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -141,7 +141,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -179,7 +179,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -215,7 +215,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -251,7 +251,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -288,7 +288,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -324,7 +324,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -361,7 +361,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -412,7 +412,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -449,7 +449,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -486,7 +486,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -523,7 +523,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest]
-        node: ["12"]
+        node: ["14"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
