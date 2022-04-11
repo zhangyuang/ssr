@@ -58,7 +58,6 @@ jobs:
           SERVERLESS_DEPLOY_TIMEOUT: ${{ secrets.SERVERLESS_DEPLOY_TIMEOUT }}
 
   e2e-chrome-midway-react:
-    needs: bootstrap
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
@@ -98,7 +97,6 @@ jobs:
           browser: chrome
 
   e2e-chrome-nestjs-react-prod:
-    needs: bootstrap
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
@@ -135,7 +133,6 @@ jobs:
             e2e/integration/examples/react-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-react-prod-vite:
-    needs: bootstrap
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
@@ -161,11 +158,6 @@ jobs:
         run: | 
           pnpm i --no-frozen-lockfile && pnpm build:only && pnpm build
 
-      # - name: Download artifacts
-      #   uses: actions/download-artifact@v2
-      #   with:
-      #     name: bindings-${{matrix.node}}
-      #     path: packages
       - uses: cypress-io/github-action@v2
         with:
           install: false
@@ -176,7 +168,6 @@ jobs:
             e2e/integration/examples/react-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-vue3-prod-vite:
-    needs: bootstrap
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
@@ -215,7 +206,6 @@ jobs:
             e2e/integration/examples/vue3-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-vue-prod:
-    needs: bootstrap
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
@@ -254,7 +244,6 @@ jobs:
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-vue3-prod:
-    needs: bootstrap
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
@@ -294,7 +283,6 @@ jobs:
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
   e2e-chrome-midway-react-vite:
-    needs: bootstrap
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
@@ -333,7 +321,6 @@ jobs:
             e2e/integration/examples/common-ssr.spec.js  
           browser: chrome
   e2e-chrome-midway-vue3-vite:
-    needs: bootstrap
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
@@ -373,7 +360,6 @@ jobs:
           browser: chrome
           
   e2e-chrome-midway-react-dynamic-router:
-    needs: bootstrap
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
@@ -427,7 +413,6 @@ jobs:
           
 
   e2e-chrome-midway-vue:
-    needs: bootstrap
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
@@ -467,7 +452,6 @@ jobs:
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
   e2e-chrome-midway-vue3:
-    needs: bootstrap
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
@@ -507,7 +491,6 @@ jobs:
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome 
   e2e-chrome-nestjs-vue:
-    needs: bootstrap
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
@@ -547,7 +530,6 @@ jobs:
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-vue3:
-    needs: bootstrap
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     strategy:
