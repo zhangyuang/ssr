@@ -44,26 +44,29 @@ jobs:
            packages
            !packages/**/node_modules    
   lint:
+    timeout-minutes: 10
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ["12"]
+    name: "Lint: node-12, ubuntu-latest"
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
-          node-version: ${{ matrix.node }}
+          fetch-depth: 0
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 6
-      - name: Use Node.js ${{ matrix.node-version }}
+
+      - name: Set node version
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 12
           cache: "pnpm"
-      - name: "lint"
-        run: pnpm lint
+
+      - name: Install deps
+        run: pnpm install
+      - name: Lint
+        run: pnpm run lint
 
   deploy-doc: 
     if: ${{ contains(github.actor, 'zhangyuang') && github.ref_name == 'dev'}}
