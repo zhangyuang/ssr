@@ -44,7 +44,6 @@ jobs:
            packages
            !packages/**/node_modules    
   lint:
-    needs: bootstrap
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -146,8 +145,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "pnpm"
-      - name: Install dependencies
-        run: pnpm i
+          
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
