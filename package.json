@@ -1,4 +1,5 @@
 {
+  "name": "ssr",
   "private": true,
   "scripts": {
     "postinstall": "ts-node scripts/postinstall.ts",
