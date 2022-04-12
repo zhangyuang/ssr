@@ -1217,3 +1217,13 @@ $ ssr start --port 7001 # 等价于 midway-bin dev --port 7001
 错误原因：`Webpack` 多版本冲突查询依赖逻辑错误
 
 解决方法：使用 `pnpm|yarn|npm@version >= 7` 来安装依赖
+
+或在应用 `package.json` 中添加
+
+```json
+{
+  "scripts": {
+    "postinstall:": "node ./node_modules/server-utils/postinstall.js"
+  }
+}
+```
