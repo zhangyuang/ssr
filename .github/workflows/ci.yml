@@ -403,6 +403,53 @@ jobs:
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/react-ssr.spec.js
           browser: chrome
+  e2e-chrome-nestjs-vue3-pinia:
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [macos-latest]
+        node: ["14"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Get remote e2e example
+        uses: actions/checkout@master
+        with:
+          repository: zhangyuang/nestjs-vue3-ssr-pinia
+          path: nestjs-vue3-ssr-pinia
+          ref: master
+        
+      - name: Mv e2e example
+        run: |
+          mv nestjs-vue3-ssr-pinia example
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+      - name: Build packages
+        run: |
+          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+        
+      - uses: cypress-io/github-action@v2
+        with:
+          install: false
+          start: pnpm example:nestjs:vue3:pinia
+          wait-on: 'http://localhost:3000'
+          spec: | 
+            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/vue-ssr.spec.js
+          browser: chrome
           
   e2e-chrome-midway-vue:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -571,6 +618,7 @@ jobs:
       - e2e-chrome-nestjs-vue3-prod-vite
       - e2e-chrome-nestjs-vue
       - e2e-chrome-nestjs-vue3
+      - e2e-chrome-nestjs-vue3-pinia
 
     steps:
       - name: Checkout
