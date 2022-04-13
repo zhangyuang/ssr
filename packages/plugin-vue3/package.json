@@ -60,7 +60,6 @@
     "postcss-safe-parser": "^6.0.0",
     "serialize-javascript": "^6.0.0",
     "ssr-client-utils": "^6.2.7",
-    "ssr-core-vue3": "workspace:^6.0.0",
     "ssr-deepclone": "^1.0.0",
     "ssr-server-utils": "^6.2.10",
     "ssr-types": "^6.2.3",
