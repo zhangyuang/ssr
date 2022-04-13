@@ -132,12 +132,13 @@ Although the technologies are different, the development ideas are consistent. I
 
 Note: We provide one-click deployment to `Serverless` platform in both `Midway.js` and `Nest.js` but the underlying implementation is slightly different. For more details please read [Serverless](http://doc.ssr-fc.com/docs/features$serverless). If you need to make extensive use of the capabilities provided by the framework, we recommend creating an application of type 'middle.js'. Reading our [Document](http://doc.ssr-fc.com/) is strongly recommended to get a more detailed understanding. 
 
-- [midway-react-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-react-ssr)
-- [midway-vue-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue-ssr)
-- [midway-vue3-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue3-ssr)
 - [nestjs-react-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-react-ssr)
 - [nestjs-vue-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-vue-ssr)
 - [nestjs-vue3-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-vue3-ssr)
+- [nestjs-vue3-ssr-pinia](https://github.com/zhangyuang/nestjs-vue3-ssr-pinia)
+- [midway-react-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-react-ssr)
+- [midway-vue-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue-ssr)
+- [midway-vue3-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue3-ssr)
 
 Developers can create different types of applications according to the actual technology stack to start quickly. 
 
