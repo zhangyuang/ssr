@@ -330,6 +330,53 @@ importers:
       typescript: 4.6.3
       webpack: 4.46.0
 
+  example/nestjs-vue3-ssr-pinia:
+    specifiers:
+      '@nestjs/cli': ^8.0.0
+      '@nestjs/common': ^8.0.0
+      '@nestjs/core': ^8.0.0
+      '@nestjs/platform-express': ^8.0.0
+      eslint-config-standard-vue-ts: ^1.0.5
+      pinia: ^2.0.13
+      pm2: ^4.5.4
+      reflect-metadata: ^0.1.13
+      ssr: ^6.0.0
+      ssr-core-vue3: ^6.0.0
+      ssr-hoc-vue3: ^6.0.0
+      ssr-plugin-nestjs: ^6.0.0
+      ssr-plugin-vue3: ^6.0.0
+      ssr-server-utils: ^6.0.0
+      ssr-types: ^6.0.0
+      swiper: 6.7.5
+      typescript: ^4.0.0
+      vue: ^3.0.0
+      vue-router: ^4.0.0
+      vuex: ^4.0.0
+      webpack: ^4.0.0
+    dependencies:
+      '@nestjs/common': 8.4.4_reflect-metadata@0.1.13
+      '@nestjs/core': 8.4.4_989c9235953c8a38a85f6db4cf5f46a5
+      '@nestjs/platform-express': 8.4.4_a78378ec5f3cecc3c353ed91b578f3e6
+      pinia: 2.0.13_typescript@4.6.3+vue@3.2.32
+      pm2: 4.5.6
+      reflect-metadata: 0.1.13
+      ssr-core-vue3: link:../../packages/core-vue3
+      ssr-hoc-vue3: link:../../packages/hoc-vue3
+      ssr-server-utils: link:../../packages/server-utils
+      swiper: 6.7.5
+      vue: 3.2.32
+      vue-router: 4.0.14_vue@3.2.32
+      vuex: 4.0.2_vue@3.2.32
+    devDependencies:
+      '@nestjs/cli': 8.2.5
+      eslint-config-standard-vue-ts: 1.0.20_typescript@4.6.3
+      ssr: link:../../packages/cli
+      ssr-plugin-nestjs: link:../../packages/plugin-nestjs
+      ssr-plugin-vue3: link:../../packages/plugin-vue3
+      ssr-types: link:../../packages/types
+      typescript: 4.6.3
+      webpack: 4.46.0
+
   packages/cli:
     specifiers:
       '@types/shelljs': ^0.8.7
@@ -417,6 +464,7 @@ importers:
       '@babel/runtime': ^7.12.13
       '@vue/server-renderer': ^3.0.7
       cheerio: ^1.0.0-rc.10
+      pinia: ^2.0.13
       serialize-javascript: ^6.0.0
       ssr-deepclone: ^1.0.0
       ssr-plugin-vue3: ^6.2.10
@@ -427,6 +475,7 @@ importers:
       '@babel/runtime': 7.17.9
       '@vue/server-renderer': 3.2.32_vue@3.2.32
       cheerio: 1.0.0-rc.10
+      pinia: 2.0.13_typescript@4.6.3+vue@3.2.32
       serialize-javascript: 6.0.0
       ssr-deepclone: 1.0.1
       ssr-server-utils: link:../server-utils
@@ -724,6 +773,7 @@ importers:
       less-loader: ^7.3.0
       mini-css-extract-plugin: ^1.0.0
       optimize-css-assets-webpack-plugin: ^6.0.0
+      pinia: ^2.0.13
       postcss: ^8.0.0
       postcss-discard-comments: ^5.0.0
       postcss-flexbugs-fixes: ^5.0.0
@@ -732,6 +782,7 @@ importers:
       postcss-safe-parser: ^6.0.0
       serialize-javascript: ^6.0.0
       ssr-client-utils: ^6.2.7
+      ssr-core-vue3: workspace:^6.0.0
       ssr-deepclone: ^1.0.0
       ssr-server-utils: ^6.2.10
       ssr-types: ^6.2.3
@@ -772,6 +823,7 @@ importers:
       less-loader: 7.3.0_less@4.1.2+webpack@4.46.0
       mini-css-extract-plugin: 1.6.2_webpack@4.46.0
       optimize-css-assets-webpack-plugin: 6.0.1_webpack@4.46.0
+      pinia: 2.0.13_typescript@4.6.3+vue@3.2.32
       postcss: 8.4.12
       postcss-discard-comments: 5.1.1_postcss@8.4.12
       postcss-flexbugs-fixes: 5.0.2_postcss@8.4.12
@@ -780,6 +832,7 @@ importers:
       postcss-safe-parser: 6.0.0_postcss@8.4.12
       serialize-javascript: 6.0.0
       ssr-client-utils: link:../client-utils
+      ssr-core-vue3: link:../core-vue3
       ssr-deepclone: 1.0.1
       ssr-server-utils: link:../server-utils
       ssr-types: link:../types
@@ -14979,6 +15032,24 @@ packages:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
 
+  /pinia/2.0.13_typescript@4.6.3+vue@3.2.32:
+    resolution: {integrity: sha512-B7rSqm1xNpwcPMnqns8/gVBfbbi7lWTByzS6aPZ4JOXSJD4Y531rZHDCoYWBwLyHY/8hWnXljgiXp6rRyrofcw==}
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 6.1.4
+      typescript: 4.6.3
+      vue: 3.2.32
+      vue-demi: 0.12.5_vue@3.2.32
+    dev: false
+
   /pinkie-promise/2.0.1:
     resolution: {integrity: sha1-ITXW36ejWMBprJsXh3YogihFD/o=}
     engines: {node: '>=0.10.0'}
@@ -19012,6 +19083,21 @@ packages:
     dependencies:
       swiper: 5.4.5
       vue: 2.6.14
+    dev: false
+
+  /vue-demi/0.12.5_vue@3.2.32:
+    resolution: {integrity: sha512-BREuTgTYlUr0zw0EZn3hnhC3I6gPWv+Kwh4MCih6QcAeaTlaIX0DwOVN0wHej7hSvDPecz4jygy/idsgKfW58Q==}
+    engines: {node: '>=12'}
+    hasBin: true
+    requiresBuild: true
+    peerDependencies:
+      '@vue/composition-api': ^1.0.0-rc.1
+      vue: ^3.0.0-0 || ^2.6.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+    dependencies:
+      vue: 3.2.32
     dev: false
 
   /vue-eslint-parser/7.11.0_eslint@7.32.0:

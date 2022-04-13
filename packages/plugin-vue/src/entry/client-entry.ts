@@ -32,12 +32,15 @@ const clientRender = async () => {
     store.replaceState(window.__INITIAL_DATA__)
   }
   const fetchData = window.__INITIAL_DATA__ ?? {}
-
+  const reactiveFetchData = {
+    value: window.__INITIAL_DATA__ ?? {}
+  }
   const app = new RealVue({
     // 根实例简单的渲染应用程序组件。
     render: h => h(App, {
       props: {
-        fetchData
+        fetchData,
+        reactiveFetchData
       }
     }),
     store,
@@ -58,6 +61,7 @@ const clientRender = async () => {
           fetchData: combineAysncData
         })
       })
+      reactiveFetchData.value = combineAysncData
     }
     hasRender = true
     next()

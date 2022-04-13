@@ -2,6 +2,7 @@ import { h, createSSRApp, createApp, reactive, renderSlot } from 'vue'
 import { Store } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { findRoute } from 'ssr-client-utils'
+import { createPinia } from 'pinia'
 import { createRouter, createStore } from './create'
 import { ESMFetch, IFeRouteItem, RoutesType } from './interface'
 import { Routes } from './create-router'
@@ -36,19 +37,23 @@ const clientRender = async () => {
   const asyncData = reactive({
     value: window.__INITIAL_DATA__ ?? {}
   })
+  const reactiveFetchData = reactive({
+    value: window.__INITIAL_DATA__ ?? {}
+  })
   const fetchData = window.__INITIAL_DATA__ ?? {}
 
   const app = create({
     render () {
       return renderSlot(this.$slots, 'default', {}, () => [h(App, {
         asyncData,
-        fetchData
+        fetchData,
+        reactiveFetchData
       })])
     }
   })
   app.use(store)
   app.use(router)
-
+  app.use(createPinia())
   router.beforeResolve(async (to, from, next) => {
     if (hasRender || !window.__USE_SSR__) {
       // 找到要进入的组件并提前执行 fetch 函数
@@ -59,6 +64,7 @@ const clientRender = async () => {
           fetchData: combineAysncData
         })
       })
+      reactiveFetchData.value = combineAysncData
       asyncData.value = Object.assign(asyncData.value, combineAysncData)
     }
     hasRender = true

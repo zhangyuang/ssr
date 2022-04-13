@@ -125,7 +125,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
       return h(
         Layout,
         {
-          props: { ctx, config, asyncData: combineAysncData, fetchData: layoutFetchData }
+          props: { ctx, config, asyncData: combineAysncData, fetchData: layoutFetchData, reactiveFetchData: { value: layoutFetchData } }
         },
         [
           h('template', {
@@ -150,7 +150,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
             slot: 'children'
           }, [
             h(App, {
-              props: { ctx, config, fetchData: combineAysncData }
+              props: { ctx, config, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData } }
             })
           ]),
 

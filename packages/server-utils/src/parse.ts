@@ -92,11 +92,9 @@ const parseFeRoutes = async () => {
 
   if (isVue) {
     const layoutPath = '@/components/layout/index.vue'
-    const accessVueApp = await accessFile(join(getFeDir(), './components/layout/App.vue'))
     const layoutFetch = await accessFile(join(getFeDir(), './components/layout/fetch.ts'))
     const store = await accessFile(join(getFeDir(), './store/index.ts'))
-    const AppPath = `@/components/layout/App.${accessVueApp ? 'vue' : 'tsx'}`
-
+    const AppPath = '@/components/layout/App'
     const re = /"webpackChunkName":("(.+?)")/g
     routes = `
         // The file is provisional which will be overwrite when restart

@@ -2,6 +2,7 @@ import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
 import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
+import { createPinia } from 'pinia'
 // @ts-expect-error
 import * as serializeWrap from 'serialize-javascript'
 import { Routes } from './create-router'
@@ -16,6 +17,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   const store = createStore()
   const router = createRouter()
+  const pinia = createPinia()
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
   let { path, url } = ctx.request
 
@@ -113,7 +115,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   const app = createSSRApp({
     render: () => h(Layout,
-      { ctx, config, asyncData, fetchData: layoutFetchData },
+      { ctx, config, asyncData, fetchData: layoutFetchData, reactiveFetchData: { value: layoutFetchData } },
       {
         remInitial: () => h('script', { innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }),
 
@@ -127,7 +129,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
         customeFooterScript: () => customeFooterScriptArr,
 
-        children: () => h(App, { ctx, config, asyncData, fetchData: combineAysncData }),
+        children: () => h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData } }),
 
         initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${isVite}; ${base && `window.prefix="${base}"`};${clientPrefix && `window.clientPrefix="${clientPrefix}"`};` })
           : () => h('script', { innerHTML: `window.__USE_VITE__=${isVite}` }),
@@ -141,6 +143,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   app.use(router)
   app.use(store)
+  app.use(pinia)
 
   return app
 }

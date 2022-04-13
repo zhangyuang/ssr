@@ -129,6 +129,13 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .plugin('vue-loader')
     .use(require(loadModule('vue-loader')).VueLoaderPlugin)
     .end()
+  chain.module
+    .rule('mjs')
+    .test(/\.mjs/)
+    .include
+    .add(/node_modules/).end()
+    .type('javascript/auto')
+    .end()
 
   locale?.enable && chain.module
     .rule('i18n-resource')
