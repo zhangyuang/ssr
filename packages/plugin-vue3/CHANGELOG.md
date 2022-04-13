@@ -1,3 +1,19 @@
+## [6.2.12](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.11...plugin-vue3@6.2.12) (2022-04-13)
+
+
+### Bug Fixes
+
+* postinstall ([fef24ba](https://github.com/zhangyuang/ssr/commit/fef24bada3498f162efd0bdd09921503e44ad21a))
+
+
+### Features
+
+* plugin-midway remove luckyeye ([bb4b11f](https://github.com/zhangyuang/ssr/commit/bb4b11f289d060c8b332cf610bb6d8c4cf25142b))
+* upgrade vue-router^2 to vue-router^3 ([283ed9e](https://github.com/zhangyuang/ssr/commit/283ed9ec4f6d8a622bcc3599ca33f9b0885ed3e5))
+* vue3 support pinia, replace props.fetchData to props.reactiveFetchData in vue2/3 ([eabcb50](https://github.com/zhangyuang/ssr/commit/eabcb50729517b7cb649729d52356a06a010a8fc))
+
+
+
 ## 6.2.11 (2022-04-11)
 
 
