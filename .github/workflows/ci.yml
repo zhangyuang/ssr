@@ -101,7 +101,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
+        os: [windows-latest]
         node: ["14"]
     steps:
       - name: Checkout
@@ -140,7 +140,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
+        os: [windows-latest]
         node: ["14"]
     steps:
       - name: Checkout
@@ -178,7 +178,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
+        os: [windows-latest]
         node: ["14"]
     steps:
       - name: Checkout
@@ -214,7 +214,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
+        os: [windows-latest]
         node: ["14"]
     steps:
       - name: Checkout
@@ -250,7 +250,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        os: [macos-latest, windows-latest]
+        os: [windows-latest]
         node: ["14"]
     steps:
       - name: Checkout
