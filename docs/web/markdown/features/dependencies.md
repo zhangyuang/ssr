@@ -32,7 +32,7 @@
     "url-loader": "^4.1.1",
     "vue": "^2.0.0",
     "vue-loader": "^17.0.0",
-    "vue-router": "^2.0.0",
+    "vue-router": "^3.0.0",
     "vue-template-compiler": "^2.6.12",
     "vuex": "^3.6.2",
     "vuex-router-sync": "^5.0.0",

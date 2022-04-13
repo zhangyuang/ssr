@@ -8,15 +8,13 @@ import { VueRouterOptions } from './interface'
 
 // without tsconfig esModuleInterop options must use the compatible syntax
 const RealVue = Vue.default || Vue
-// @ts-expect-error
-const RealRouter = Router.default || Router
 const RealVuex = Vuex.default || Vuex
-
+const RealRouter = Router.default || Router
 RealVue.use(RealRouter)
 RealVue.use(RealVuex)
 const { FeRoutes, store } = Routes
 
-function createRouter (options: VueRouterOptions = {}): Router {
+function createRouter (options: VueRouterOptions = {}) {
   return new RealRouter({
     mode: 'history',
     routes: FeRoutes,
