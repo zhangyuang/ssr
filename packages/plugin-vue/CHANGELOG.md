@@ -1,3 +1,13 @@
+## [6.2.13](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.12...plugin-vue@6.2.13) (2022-04-13)
+
+
+### Features
+
+* plugin-midway remove luckyeye ([bb4b11f](https://github.com/zhangyuang/ssr/commit/bb4b11f289d060c8b332cf610bb6d8c4cf25142b))
+* vue3 support pinia, replace props.fetchData to props.reactiveFetchData in vue2/3 ([eabcb50](https://github.com/zhangyuang/ssr/commit/eabcb50729517b7cb649729d52356a06a010a8fc))
+
+
+
 ## [6.2.12](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.11...plugin-vue@6.2.12) (2022-04-13)
 
 
