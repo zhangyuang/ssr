@@ -1,3 +1,12 @@
+## [6.2.13](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.12...plugin-vue3@6.2.13) (2022-04-13)
+
+
+### Bug Fixes
+
+* vue3 package.json ([c49fb14](https://github.com/zhangyuang/ssr/commit/c49fb146fc6ba79ffbeee567e334b560ffecbcac))
+
+
+
 ## [6.2.12](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.11...plugin-vue3@6.2.12) (2022-04-13)
 
 
