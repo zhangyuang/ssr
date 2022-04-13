@@ -41,11 +41,6 @@
   "midway-integration": {
     "tsCodeRoot": "src"
   },
-  "midway-luckyeye": {
-    "packages": [
-      "midway_v2"
-    ]
-  },
   "egg": {
     "framework": "@midwayjs/web"
   }
