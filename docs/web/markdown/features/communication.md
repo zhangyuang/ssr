@@ -107,7 +107,7 @@ export default {
 export default {
   props: ['reactiveFetchData'],
   created () {
-    console.log(this.reactiveFetchData)
+    console.log(this.reactiveFetchData) // {value: 'xxxx'} 类似于 vue3 ref 对象，值在 value 中
   }
 }
 </script>
