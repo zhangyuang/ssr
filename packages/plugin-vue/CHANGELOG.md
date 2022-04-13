@@ -1,3 +1,17 @@
+## [6.2.12](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.11...plugin-vue@6.2.12) (2022-04-13)
+
+
+### Bug Fixes
+
+* postinstall ([fef24ba](https://github.com/zhangyuang/ssr/commit/fef24bada3498f162efd0bdd09921503e44ad21a))
+
+
+### Features
+
+* upgrade vue-router^2 to vue-router^3 ([283ed9e](https://github.com/zhangyuang/ssr/commit/283ed9ec4f6d8a622bcc3599ca33f9b0885ed3e5))
+
+
+
 ## 6.2.11 (2022-04-11)
 
 
