@@ -5,7 +5,7 @@ import vueJSXPlugin from '@vitejs/plugin-vue-jsx'
 import babel from '@rollup/plugin-babel'
 import styleImport, { AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'vite-plugin-style-import'
 
-const { getOutput, prefix, publicPath, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions } = loadConfig()
+const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
 const styleImportConfig = {
@@ -51,16 +51,14 @@ const serverConfig: UserConfig = {
   },
   define: {
     __isBrowser__: false,
-    ...define?.server,
-    ...define?.base
+    ...define?.base,
+    ...define?.server
   }
 }
 
-// 配置了 publicPath 则使用 getOutputPublicPath，否则使用 prefix
-const clientBase = publicPath ? getOutputPublicPath() : prefix
 const clientConfig: UserConfig = {
   ...commonConfig(),
-  base: isDev ? '/' : clientBase,
+  base: isDev ? '/' : getOutputPublicPath(),
   plugins: [
     vuePlugin(viteConfig?.()?.client?.defaultPluginOptions),
     vueJSXPlugin(),
@@ -82,8 +80,8 @@ const clientConfig: UserConfig = {
   },
   define: {
     __isBrowser__: true,
-    ...define?.client,
-    ...define?.base
+    ...define?.base,
+    ...define?.client
   }
 }
 const viteStart = async () => {
