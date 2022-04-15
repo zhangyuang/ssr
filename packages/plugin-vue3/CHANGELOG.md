@@ -1,3 +1,20 @@
+## [6.2.14](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.12...plugin-vue3@6.2.14) (2022-04-15)
+
+
+### Bug Fixes
+
+* fix config htmlTemplate read ([#191](https://github.com/zhangyuang/ssr/issues/191)) ([8c3e12b](https://github.com/zhangyuang/ssr/commit/8c3e12b6adb64b7898bc6232d980e72c5353026b))
+* vite mode config.base ([c64aa1a](https://github.com/zhangyuang/ssr/commit/c64aa1ab9d88cdfd7df1cce6feb43b191847e666))
+* **vite:** vite config base use publicPath first in client ([#192](https://github.com/zhangyuang/ssr/issues/192)) ([ef5b145](https://github.com/zhangyuang/ssr/commit/ef5b1451850441b0748727d09144e6e671f71208))
+* vue3 package.json ([c49fb14](https://github.com/zhangyuang/ssr/commit/c49fb146fc6ba79ffbeee567e334b560ffecbcac))
+
+
+### Features
+
+* support htmlTemplate ([b240811](https://github.com/zhangyuang/ssr/commit/b2408114a6314ef4f96f4c06159d18fc6d881a57))
+
+
+
 ## [6.2.13](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.12...plugin-vue3@6.2.13) (2022-04-13)
 
 
