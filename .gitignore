@@ -54,6 +54,9 @@ jspm_packages/
 # dotenv environment variables file
 .env
 
+# JetBrains annotations
+.idea
+
 *.map
 
 node_modules/
