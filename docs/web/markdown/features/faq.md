@@ -678,9 +678,9 @@ import { Button } from 'vant'
 
 ## 引入其他 css 处理器
 
-### 如何支持 Sass|Scss
+### 如何支持 Sass|SCSS
 
-框架默认使用 `less`，同样框架并不建议使用 `Sass|Scss`，若需要使用可直接添加以下配置开启，使用框架提供的 `setStyle` 方法来快速的添加样式处理规则
+框架默认使用 `less`，同样框架并不建议使用 `Sass|SCSS`，若需要使用可直接添加以下配置开启，使用框架提供的 `setStyle` 方法来快速的添加样式处理规则
 
 需 `version >= 5.5.48`
 
@@ -711,7 +711,7 @@ export { userConfig }
 
 ### Sass 场景使用 Vite 构建报错
 
-若遇到 `Sass` + `Vite` 报 `Uri.base` is not supported 的错误，参考该 [issue](https://github.com/vitejs/vite/issues/2240)
+若遇到 `Sass` + `Vite` 报 `URI.base` is not supported 的错误，参考该 [issue](https://github.com/vitejs/vite/issues/2240)
 
 `layout/index.vue` 中加入该代码即可
 
@@ -995,7 +995,7 @@ export const onlyCsr = defineComponent({
 默认 `Webpack` 构建前端文件时不会进行类型检查，原因如下
 
 - `type check` 很慢，`esbuild`, `swc` 都不带 `type check`
-- 开发时可借助 `VSCode` 的 `type check` 功能
+- 开发时可借助 `VS Code` 的 `type check` 功能
 - 服务端代码会强制检查类型 `Nest.js/Midway.js`，前端代码多变需要大量使用 `nocheck/ignore`
 - 有需要可以单独跑一遍 `tsc` 或者 `fork-ts-checker-plugin`
 
@@ -1187,7 +1187,7 @@ module.exports = {
 
 ### 样式迁移
 
-框架默认支持 `less` 作为样式预处理器，若需要使用 `sass` 参考[文档](./features$faq#如何支持%20Sass|Scss)。`React` 场景只支持 `css modules` 的形式，若需要使用全局样式，则需要使用 `:global` 的语法
+框架默认支持 `less` 作为样式预处理器，若需要使用 `sass` 参考[文档](./features$faq#如何支持%20Sass|SCSS)。`React` 场景只支持 `css modules` 的形式，若需要使用全局样式，则需要使用 `:global` 的语法
 ### 封装双端通用的请求
 
 推荐用 [axios](https://www.npmjs.com/package/axios) 来发起 `http` 请求会自动根据当前环境判断应该使用 `xhr` 还是 `http` 模块发起。针对 `cookie` 的携带，客户端请求时同源请求会自动带上 `cookie` 当跨域请求时需要通过 `withCredentials` 配置来带上 `cookie`。服务端请求时可以通过 `ctx.req.cookies` 具体查看对应服务端框架文档拿到当前请求 `cookie`
