@@ -606,9 +606,34 @@ export type viteConfig? = () => {
 }
 ```
 
-- 生效场景: `Webpack` 
-
 为了防止用户的配置覆盖框架默认的必要配置导致启动构建失败，所以这里我们暂时只会开放部分配置让开发者使用，若无法满足你的需求，可以提 `issue` 来反馈，我们会根据实际情况新增配置项
+
+## htmlTemplate
+
+- 类型: `string`
+- 默认: `
+  \<!DOCTYPE html>
+  \<html lang="en">
+  \<head>
+    \<meta charset="UTF-8">
+    \<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    \<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    \<title>Document\</title>
+    cssInject
+    jsHeaderManifest
+  \</head>
+  \<body>
+    \<div id="app">\</div>
+    hashRouterScript
+    jsFooterManifest
+    jsManifest
+  \</body>
+  \</html>
+  `
+
+- 生效场景: `Webpack/Vite` 
+
+作为 `ssr build --spa` 的构建模版，开发者可自行设置 `title, meta` 等标签信息，其余模版插入内容请不要修改保持不变。
 ## 注意事项
 
 1. 由于 `config.js` 文件在 Node.js 环境也会被加载，如果直接在顶部 `require` 模块可能会导致模块`体积过大`，降低应用启动速度，我们建议在必要的函数当中再 `require` 需要用到的模块。
