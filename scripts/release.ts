@@ -1,4 +1,4 @@
-import * as prompts from 'prompts'
+import prompts from 'prompts'
 import * as semver from 'semver'
 import * as colors from 'picocolors'
 import {

@@ -3,7 +3,7 @@
  */
 import * as colors from 'picocolors'
 import type { Options as ExecaOptions } from 'execa'
-import * as execa from 'execa'
+import execa from 'execa'
 import { readFileSync, writeFileSync, existsSync } from 'fs'
 import * as path from 'path'
 import type { ReleaseType } from 'semver'
@@ -57,7 +57,7 @@ export async function run (
   args: string[],
   opts: ExecaOptions<string> = {}
 ) {
-  return execa(bin, args, { stdio: 'inherit', ...opts })
+  return await execa(bin, args, { stdio: 'inherit', ...opts })
 }
 
 export async function dryRun (
