@@ -54,7 +54,7 @@
     "cross-env": "^7.0.3",
     "cypress": "^6.2.1",
     "conventional-changelog-cli": "^2.2.2",
-    "eslint": "^8.13.0",
+    "eslint": "^7.9.0",
     "eslint-config-standard-react-ts": "^1.0.3",
     "eslint-config-standard-vue-ts": "^1.0.0",
     "execa": "^5.1.1",

@@ -1,3 +1,21 @@
+## [6.2.13](https://github.com/zhangyuang/ssr/compare/cli@6.2.11...cli@6.2.13) (2022-04-15)
+
+
+### Bug Fixes
+
+* fix config htmlTemplate read ([#191](https://github.com/zhangyuang/ssr/issues/191)) ([8c3e12b](https://github.com/zhangyuang/ssr/commit/8c3e12b6adb64b7898bc6232d980e72c5353026b))
+
+
+
+## [6.2.12](https://github.com/zhangyuang/ssr/compare/cli@6.2.11...cli@6.2.12) (2022-04-15)
+
+
+### Bug Fixes
+
+* fix config htmlTemplate read ([#191](https://github.com/zhangyuang/ssr/issues/191)) ([8c3e12b](https://github.com/zhangyuang/ssr/commit/8c3e12b6adb64b7898bc6232d980e72c5353026b))
+
+
+
 ## 6.2.11 (2022-04-15)
 
 

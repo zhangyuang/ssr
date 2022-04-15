@@ -9,7 +9,7 @@ export const generateHtml = async (argv: Argv) => {
     // spa 模式下生成 html 文件直接部署
     const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework } = await import('ssr-server-utils')
     const { jsOrder, cssOrder, customeHeadScript, customeFooterScript, hashRouter, htmlTemplate } = loadConfig()
-    const htmlStr = htmlTemplate || `
+    const htmlStr = htmlTemplate ?? `
   <!DOCTYPE html>
   <html lang="en">
   <head>
