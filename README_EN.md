@@ -91,7 +91,7 @@ Read out [Document](http://doc.ssr-fc.com/) to get a more detailed understanding
 ## Features
 
 - 🌱　Easy to customize: support modern frontend frameworks such as React/Vue2/Vue3. 
-- 🚀　Out-of-the-box: 10+ built-in cli tools such as Antd、Vant、TS、Hooks. 
+- 🚀　Out-of-the-box: 10+ built-in cli tools such as AntD、Vant、TS、Hooks. 
 - 🧲　Plug-in components: based on plugin-in architecture, users are more focused on business logic. 
 - 💯　Serverless first: one-click deployment to various Serverless platforms, also support traditional web server like Egg、Midway、Nest. 
 - 🛡　High availability: seamless degradation from SSR to CSR, the best disaster recovery plan. 
@@ -103,7 +103,7 @@ Read out [Document](http://doc.ssr-fc.com/) to get a more detailed understanding
 
 | milestone                                                                 | status |
 | ---------------------------------------------------------------------- | ---- |
-| Support the combination of any backend and frontend framework. (Serverless/Midway/Nestjs) + (React/Vue2/Vue3)             | 🚀   |
+| Support the combination of any backend and frontend framework. (Serverless/Midway/NestJS) + (React/Vue2/Vue3)             | 🚀   |
 | Support [vite](https://vite-design.surge.sh/) as building tool in SSR scene [how to use](#使用Vite作为构建工具) |  🚀    |
 | Inplement server side rendering function lightly and beautifully                            | 🚀   |
 | Restrict code package size in Serverless scene, minimize it of production environment            | 🚀   |
@@ -180,7 +180,7 @@ Use queryParams `csr=true` to degrade from SSR to CSR, also can be configured th
 | [ssr-core-vue]          | [![ssr-core-vue-status]][ssr-core-vue] | core render for vue |
 | [ssr-core-react]          | [![ssr-core-react-status]][ssr-core-react] | core render for react |
 | [ssr-plugin-midway]          | [![ssr-plugin-midway-status]][ssr-plugin-midway] | provide start and build fetature by [midway@2.0](https://midwayjs.org/) |
-| [ssr-plugin-nestjs]          | [![ssr-plugin-nestjs-status]][ssr-plugin-nestjs] | provide start and build feature by [Nestjs](https://docs.nestjs.com/) |
+| [ssr-plugin-nestjs]          | [![ssr-plugin-nestjs-status]][ssr-plugin-nestjs] | provide start and build feature by [NestJS](https://docs.nestjs.com/) |
 | [ssr-plugin-react]          | [![ssr-plugin-react-status]][ssr-plugin-react] | develop react application only be used in development |
 | [ssr-plugin-vue]          | [![ssr-plugin-vue-status]][ssr-plugin-vue] | develop vue2 application only be used in development |
 | [ssr-plugin-vue3]          | [![ssr-plugin-vue3-status]][ssr-plugin-vue3] | develop vue3 application only be used in development |

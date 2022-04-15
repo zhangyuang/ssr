@@ -135,7 +135,7 @@
 
 | 里程碑                                                                 | 状态 |
 | ---------------------------------------------------------------------- | ---- |
-| 支持任意服务端框架与任意前端框架的组合使用。(Serverless/Midway/Nestjs) + (React/Vue2/Vue3)             | 🚀   |
+| 支持任意服务端框架与任意前端框架的组合使用。(Serverless/Midway/NestJS) + (React/Vue2/Vue3)             | 🚀   |
 | 最丝滑的 [vite](https://vite-design.surge.sh/) [支持](http://doc.ssr-fc.com/docs/features$vite) |  🚀    |
 | 最小而美的实现服务端渲染功能                           | 🚀   |
 | 针对Serverless 场景对代码包的大小的严格限制，将生产环境的代码包大小做到极致            | 🚀   |
@@ -215,7 +215,7 @@ $ yarn start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 | [ssr-core-vue]          | [![ssr-core-vue-status]][ssr-core-vue] | core render for vue |
 | [ssr-core-react]          | [![ssr-core-react-status]][ssr-core-react] | core render for react |
 | [ssr-plugin-midway]          | [![ssr-plugin-midway-status]][ssr-plugin-midway] | provide start and build fetature by [midway@2.0](https://midwayjs.org/) |
-| [ssr-plugin-nestjs]          | [![ssr-plugin-nestjs-status]][ssr-plugin-nestjs] | provide start and build feature by [Nestjs](https://docs.nestjs.com/) |
+| [ssr-plugin-nestjs]          | [![ssr-plugin-nestjs-status]][ssr-plugin-nestjs] | provide start and build feature by [NestJS](https://docs.nestjs.com/) |
 | [ssr-plugin-react]          | [![ssr-plugin-react-status]][ssr-plugin-react] | develop react application only be used in development |
 | [ssr-plugin-vue]          | [![ssr-plugin-vue-status]][ssr-plugin-vue] | develop vue2 application only be used in development |
 | [ssr-plugin-vue3]          | [![ssr-plugin-vue3-status]][ssr-plugin-vue3] | develop vue3 application only be used in development |

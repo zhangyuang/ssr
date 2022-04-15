@@ -55,7 +55,7 @@ export class Index {
   ctx: Context
 
   @Get('/') // http://localhost:3000
-  @Get('/page') // http://localhost:3000/page，需创建需要渲染的 web/page/user/render.vue|tsx 文件 Midway 框架支持多装饰器，Nestjs 可采用中间件的形式来为多个 path 附加相同逻辑
+  @Get('/page') // http://localhost:3000/page，需创建需要渲染的 web/page/user/render.vue|tsx 文件 Midway 框架支持多装饰器，NestJS 可采用中间件的形式来为多个 path 附加相同逻辑
   async handler (): Promise<void> {
     try {
         // 只需要传入 ctx 作为参数即可
