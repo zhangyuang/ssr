@@ -1,11 +1,11 @@
 import { build, UserConfig } from 'vite'
-import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig, asyncOptimizeChunkPlugin } from 'ssr-server-utils'
+import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig, asyncOptimizeChunkPlugin, getOutputPublicPath } from 'ssr-server-utils'
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJSXPlugin from '@vitejs/plugin-vue-jsx'
 import babel from '@rollup/plugin-babel'
 import styleImport, { AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'vite-plugin-style-import'
 
-const { getOutput, prefix, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions } = loadConfig()
+const { getOutput, prefix, publicPath, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
 const styleImportConfig = {
@@ -56,9 +56,11 @@ const serverConfig: UserConfig = {
   }
 }
 
+// 配置了 publicPath 则使用 getOutputPublicPath，否则使用 prefix
+const clientBase = publicPath ? getOutputPublicPath() : prefix
 const clientConfig: UserConfig = {
   ...commonConfig(),
-  base: isDev ? '/' : prefix,
+  base: isDev ? '/' : clientBase,
   plugins: [
     vuePlugin(viteConfig?.()?.client?.defaultPluginOptions),
     vueJSXPlugin(),
