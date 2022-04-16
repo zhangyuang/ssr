@@ -28,10 +28,14 @@ const clientRender = async () => {
     base: (window.microApp && window.clientPrefix) ?? window.prefix ?? PrefixRouterBase,
     hashRouter: window.hashRouter
   })
+  const pinia = createPinia()
   const create = window.__USE_SSR__ ? createSSRApp : createApp
 
   if (window.__INITIAL_DATA__) {
     store.replaceState(window.__INITIAL_DATA__)
+  }
+  if (window.__INITIAL_PINIA_DATA__) {
+    pinia.state.value = window.__INITIAL_PINIA_DATA__
   }
 
   const asyncData = reactive({
@@ -53,7 +57,7 @@ const clientRender = async () => {
   })
   app.use(store)
   app.use(router)
-  app.use(createPinia())
+  app.use(pinia)
   router.beforeResolve(async (to, from, next) => {
     if (hasRender || !window.__USE_SSR__) {
       // 找到要进入的组件并提前执行 fetch 函数

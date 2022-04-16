@@ -24,6 +24,7 @@ export interface Options {
 export interface IWindow {
   __USE_SSR__?: boolean
   __INITIAL_DATA__?: any
+  __INITIAL_PINIA_DATA__?: any
   STORE_CONTEXT?: any
   __USE_VITE__?: boolean
   __disableClientRender__?: boolean

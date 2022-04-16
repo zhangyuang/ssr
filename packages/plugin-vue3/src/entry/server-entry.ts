@@ -14,7 +14,6 @@ const serialize = serializeWrap.default || serializeWrap // compatible webpack a
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, parallelFetch, disableClientRender, prefix, isVite, isDev, clientPrefix } = config
-
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
@@ -48,6 +47,39 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   let layoutFetchData = {}
   let fetchData = {}
+  const app = createSSRApp({
+    render: () => h(Layout,
+      { ctx, config, asyncData, fetchData: layoutFetchData, reactiveFetchData: { value: layoutFetchData } },
+      {
+        remInitial: () => h('script', { innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }),
+
+        viteClient: (isVite && isDev) ? () =>
+          h('script', {
+            type: 'module',
+            src: '/@vite/client'
+          }) : null,
+
+        customeHeadScript: () => customeHeadScriptArr,
+
+        customeFooterScript: () => customeFooterScriptArr,
+
+        children: () => h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData } }),
+
+        initialData: !isCsr ? () => h('script', {
+          innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};window.__USE_VITE__=${isVite}; ${base && `window.prefix="${base}"`};${clientPrefix && `window.clientPrefix="${clientPrefix}"`};`
+        })
+          : () => h('script', { innerHTML: `window.__USE_VITE__=${isVite}` }),
+
+        cssInject: () => injectCss,
+
+        jsInject: () => injectScript
+      }
+    )
+  })
+
+  app.use(router)
+  app.use(store)
+  app.use(pinia)
 
   if (!isCsr) {
     router.push(url)
@@ -112,38 +144,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   )) : []
 
   const state = Object.assign({}, store.state ?? {}, asyncData.value)
-
-  const app = createSSRApp({
-    render: () => h(Layout,
-      { ctx, config, asyncData, fetchData: layoutFetchData, reactiveFetchData: { value: layoutFetchData } },
-      {
-        remInitial: () => h('script', { innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }),
-
-        viteClient: (isVite && isDev) ? () =>
-          h('script', {
-            type: 'module',
-            src: '/@vite/client'
-          }) : null,
-
-        customeHeadScript: () => customeHeadScriptArr,
-
-        customeFooterScript: () => customeFooterScriptArr,
-
-        children: () => h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData } }),
-
-        initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${isVite}; ${base && `window.prefix="${base}"`};${clientPrefix && `window.clientPrefix="${clientPrefix}"`};` })
-          : () => h('script', { innerHTML: `window.__USE_VITE__=${isVite}` }),
-
-        cssInject: () => injectCss,
-
-        jsInject: () => injectScript
-      }
-    )
-  })
-
-  app.use(router)
-  app.use(store)
-  app.use(pinia)
 
   return app
 }
