@@ -19,9 +19,11 @@ if (isDryRun) {
 }
 
 export const packages = [
-  'cli', 'core-vue', 'hoc-vue3', 'plugin-react', 'server-utils', 'webpack',
-  'client-utils', 'core-vue3', 'plugin-midway', 'plugin-vue', 'types',
-  'core-react', 'hoc-react', 'plugin-nestjs', 'plugin-vue3', 'types-react'
+  'cli', 'plugin-nestjs', 'plugin-vue3', 'plugin-react',
+  'plugin-vue', 'types', 'types-react', 'server-utils',
+  'core-vue', 'hoc-vue3', 'webpack', 'core-react',
+  'client-utils', 'core-vue3', 'plugin-midway',
+  'hoc-react'
 ]
 
 export function getPackageInfo (pkgName: string) {

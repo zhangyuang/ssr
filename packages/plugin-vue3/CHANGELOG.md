@@ -1,3 +1,12 @@
+## [6.2.15](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.14...plugin-vue3@6.2.15) (2022-04-16)
+
+
+### Features
+
+* update plugin-vue3 support call pinia in fetch.ts ([958fdc7](https://github.com/zhangyuang/ssr/commit/958fdc787ab615593f3114a6bf2c6cea4823afc2))
+
+
+
 ## [6.2.14](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.12...plugin-vue3@6.2.14) (2022-04-15)
 
 
