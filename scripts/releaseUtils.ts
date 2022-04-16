@@ -156,7 +156,7 @@ export async function getLatestTag (pkgName: string) {
   const tags = (await run('git', ['tag'], { stdio: 'pipe' })).stdout
     .split(/\n/)
     .filter(Boolean)
-  const prefix = tags.filter(tag => tag.startsWith(`${pkgName}/@`)).length > 0 ? `${pkgName}/@` : 'v'
+  const prefix = tags.filter(tag => tag.startsWith(`${pkgName}@`)).length > 0 ? `${pkgName}@` : 'v'
   return tags
     .filter((tag) => tag.startsWith(prefix))
     .sort()
