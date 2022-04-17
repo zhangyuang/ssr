@@ -1,3 +1,7 @@
+## [6.2.6](https://github.com/zhangyuang/ssr/compare/types@6.2.5...types@6.2.6) (2022-04-17)
+
+
+
 ## [6.2.5](https://github.com/zhangyuang/ssr/compare/types@6.2.4...types@6.2.5) (2022-04-17)
 
 
