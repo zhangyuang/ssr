@@ -19,10 +19,10 @@ if (isDryRun) {
 }
 
 export const packages = [
-  'cli', 'plugin-nestjs', 'plugin-vue3', 'plugin-react',
-  'plugin-vue', 'types', 'types-react', 'server-utils',
-  'core-vue', 'hoc-vue3', 'webpack', 'core-react',
-  'client-utils', 'core-vue3', 'plugin-midway',
+  'cli',  'plugin-vue3', 'plugin-react',
+  'plugin-vue', 'types', 'server-utils',
+  'core-vue', 'hoc-vue3', 'webpack', 'core-react','types-react',
+  'client-utils', 'core-vue3', 'plugin-midway','plugin-nestjs',
   'hoc-react'
 ]
 

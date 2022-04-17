@@ -1,3 +1,20 @@
+## [6.2.5](https://github.com/zhangyuang/ssr/compare/types@6.2.4...types@6.2.5) (2022-04-17)
+
+
+### Bug Fixes
+
+* fix config htmlTemplate read ([#191](https://github.com/zhangyuang/ssr/issues/191)) ([8c3e12b](https://github.com/zhangyuang/ssr/commit/8c3e12b6adb64b7898bc6232d980e72c5353026b))
+* vite mode config.base ([c64aa1a](https://github.com/zhangyuang/ssr/commit/c64aa1ab9d88cdfd7df1cce6feb43b191847e666))
+* **vite:** vite config base use publicPath first in client ([#192](https://github.com/zhangyuang/ssr/issues/192)) ([ef5b145](https://github.com/zhangyuang/ssr/commit/ef5b1451850441b0748727d09144e6e671f71208))
+
+
+### Features
+
+* update plugin-vue3 support call pinia in fetch.ts ([958fdc7](https://github.com/zhangyuang/ssr/commit/958fdc787ab615593f3114a6bf2c6cea4823afc2))
+* upgrade midway example to v3 ([572f7c5](https://github.com/zhangyuang/ssr/commit/572f7c5d171346cc17f5f6cdebe33aee76e0c146))
+
+
+
 ## 6.2.4 (2022-04-15)
 
 
