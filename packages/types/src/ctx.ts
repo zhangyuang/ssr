@@ -1,5 +1,6 @@
 import type { Request, Response } from 'express'
 import type { RouterContext } from 'koa-router'
+import type { Context } from '@midwayjs/koa'
 import type { ICookies, SetOption } from 'cookies'
 
 export interface ExpressContext {
@@ -14,9 +15,10 @@ type IKoaContext = Omit<RouterContext, 'cookies' |'router'| '_matchedRoute'| '_m
   }
 }
 
-export type ISSRContext<T={}> = (ExpressContext|IKoaContext) & T
+export type ISSRContext<T={}> = (Context|ExpressContext|IKoaContext) & T
 export type ISSRNestContext<T={}> = ExpressContext & T
 export type ISSRMidwayContext<T={}> = IKoaContext & T
+export type ISSRMidwayKoaContext<T={}> = Context & T
 
 export interface Options {
   mode?: string

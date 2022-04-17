@@ -1,6 +1,6 @@
 import { Store } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
-import { ISSRMidwayContext } from 'ssr-types'
+import { ISSRMidwayKoaContext } from 'ssr-types'
 import { IndexData } from '~/typings/data'
 interface IApiService {
   index: () => Promise<IndexData>
@@ -10,7 +10,7 @@ interface Params {
   router: RouteLocationNormalizedLoaded
 }
 
-export default async ({ store, router }: Params, ctx?: ISSRMidwayContext<{
+export default async ({ store, router }: Params, ctx?: ISSRMidwayKoaContext<{
   apiService?: IApiService
 }>) => {
   const data = __isBrowser__ ? await (await window.fetch('/api/index')).json() : await ctx?.apiService?.index()

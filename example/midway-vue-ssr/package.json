@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@midwayjs/decorator": "^2.3.0",
-    "@midwayjs/web": "^2.3.0",
-    "@midwayjs/mock": "^2.13.4",
-    "egg": "^2.0.0",
-    "egg-scripts": "^2.10.0",
+    "@midwayjs/bootstrap": "^3.0.0",
+    "@midwayjs/core": "^3.0.0",
+    "@midwayjs/decorator": "^3.0.0",
+    "@midwayjs/koa": "^3.0.0",
+    "koa-static-cache": "^5.1.4",
     "ssr-core-vue": "^6.0.0",
     "ssr-server-utils": "^6.0.0",
     "swiper": "^5.2.0",
@@ -15,11 +15,11 @@
     "vue-awesome-swiper": "^4.1.1",
     "vue-router": "^3.0.0",
     "vuex": "^3.6.2",
-    "egg-mock": "^3.2.0",
-    "midway-schedule": "^2.0.0"
+    "midway-schedule": "^2.0.0",
+    "pm2": "^4.5.4"
   },
   "devDependencies": {
-    "@midwayjs/egg-ts-helper": "^1.0.5",
+    "@midwayjs/mock": "^3.0.0",
     "cross-env": "^7.0.3",
     "eslint-config-standard-vue-ts": "^1.0.5",
     "ssr": "^6.0.0",
@@ -29,8 +29,8 @@
     "typescript": "^4.0.0"
   },
   "scripts": {
-    "prod": "ssr build && egg-scripts start --daemon --port=3000 --title=midway-server-my_midway_project --framework=@midwayjs/web",
-    "stop": "egg-scripts stop --title=midway-server-my_midway_project",
+    "prod": "ssr build && pm2 start pm2.config.js",
+    "stop": "pm2 stop pm2.config.js",
     "start": "ssr start",
     "build": "ssr build",
     "deploy": "ssr build && ssr deploy",

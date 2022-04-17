@@ -1,5 +1,5 @@
 import { RouteComponentProps } from 'react-router-dom'
-import { ISSRContext, ISSRNestContext, ISSRMidwayContext, IConfig } from 'ssr-types'
+import { ISSRContext, ISSRNestContext, ISSRMidwayContext, IConfig, ISSRMidwayKoaContext } from 'ssr-types'
 import { Action } from './component'
 
 export interface LayoutProps {
@@ -31,6 +31,11 @@ export interface ParamsMidway<T, U> {
   routerProps?: RouteComponentProps<U>
   state?: any
 }
+export interface ParamsMidwayKoa<T, U> {
+  ctx?: ISSRMidwayKoaContext<T>
+  routerProps?: RouteComponentProps<U>
+  state?: any
+}
 export interface ParamsNest<T, U> {
   ctx?: ISSRNestContext<T>
   routerProps?: RouteComponentProps<U>
@@ -39,6 +44,7 @@ export interface ParamsNest<T, U> {
 
 export type ReactFetch<T={}, U={}> = (params: Params<T, U>) => Promise<any>
 export type ReactMidwayFetch<T={}, U={}> = (params: ParamsMidway<T, U>) => Promise<any>
+export type ReactMidwayKoaFetch<T={}, U={}> = (params: ParamsMidwayKoa<T, U>) => Promise<any>
 export type ReactNestFetch<T={}, U={}> = (params: ParamsNest<T, U>) => Promise<any>
 
 export type ReactESMFetch = () => Promise<{

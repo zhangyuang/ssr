@@ -137,10 +137,14 @@ const judgeFramework = () => {
   }
 }
 
+const judgeVersion = (version: string) => {
+  return coerce(version)
+}
+
 const judgeServerFramework = () => {
   const cwd = getCwd()
   const packageJSON = require(resolve(cwd, './package.json'))
-  if (packageJSON.dependencies['@midwayjs/web'] || packageJSON.devDependencies['@midwayjs/web']) {
+  if (packageJSON.dependencies['@midwayjs/decorator']) {
     return 'ssr-plugin-midway'
   } else {
     return 'ssr-plugin-nestjs'
@@ -238,5 +242,6 @@ export {
   transformManualRoutes,
   writeRoutes,
   stringifyDefine,
-  judgeServerFramework
+  judgeServerFramework,
+  judgeVersion
 }

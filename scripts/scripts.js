@@ -7,7 +7,7 @@ const options = {
 }
 
 if (argv.clean) {
-  const shell = 'rm -rf node_modules **/**/cjs **/**/esm packages/**/node_modules example/**/node_modules'
+  const shell = 'rm -rf pnpm-lock.yaml node_modules packages/**/node_modules example/**/node_modules'
   execSync(shell, options)
 }
 

@@ -1,22 +1,19 @@
-import { exec } from 'child_process'
-import { loadConfig } from 'ssr-server-utils'
+import { join } from 'path'
+import { execSync } from 'child_process'
+import { loadConfig, getCwd, judgeVersion } from 'ssr-server-utils'
 import { Argv } from 'ssr-types'
 
-const start = (argv: Argv) => {
+const start = async (argv: Argv) => {
   const { cli } = require('@midwayjs/cli/bin/cli')
+  const cwd = getCwd()
   const config = loadConfig()
-  exec('npx cross-env ets', async (err, stdout) => {
-    if (err) {
-      console.log(err)
-      return
-    }
-    console.log(stdout)
-    // 透传参数给 midway-bin
-    argv._[0] = 'dev'
-    argv.ts = true
-    argv.port = config.serverPort
-    await cli(argv)
-  })
+  if (judgeVersion(require(join(cwd, './package.json')).dependencies['@midwayjs/decorator'])?.major === 2) {
+    execSync('npx cross-env ets')
+  }
+  argv._[0] = 'dev'
+  argv.ts = true
+  argv.port = config.serverPort
+  await cli(argv)
 }
 
 export {

@@ -1,5 +1,5 @@
 import { Inject, Controller, Provide, Get } from '@midwayjs/decorator'
-import { Context } from 'egg'
+import { Context } from '@midwayjs/koa'
 import { IApiService, IApiDetailService } from '../interface'
 
 @Provide()

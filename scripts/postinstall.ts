@@ -23,6 +23,12 @@ const accessFile = async (file: string) => {
       ln('-s', resolve(path, './node_modules/vue'), resolve(cwd, './node_modules/vue-template-compiler/node_modules/vue'))
       ln('-s', resolve(path, './node_modules/vue'), resolve(cwd, './node_modules/vue-server-renderer/node_modules/vue'))
     }
+    // else if (item.includes('midway')) {
+    //   if (!await accessFile(resolve(path, './node_modules/@midwayjs/koa/node_modules/@midwayjs/'))) {
+    //     mkdir('-p', resolve(path, './node_modules/@midwayjs/koa/node_modules/@midwayjs/'))
+    //   }
+    //   ln('-s', resolve(path, './node_modules/@midwayjs/decorator'), resolve(path, './node_modules/@midwayjs/koa/node_modules/@midwayjs/decorator'))
+    // }
   }
 
 })()

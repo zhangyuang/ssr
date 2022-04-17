@@ -1,7 +1,7 @@
-import { ReactMidwayFetch } from 'ssr-types-react'
+import { ReactMidwayKoaFetch } from 'ssr-types-react'
 import { Ddata } from '~/typings/data'
 
-const fetch: ReactMidwayFetch<{
+const fetch: ReactMidwayKoaFetch<{
   apiDeatilservice: {
     index: (id: string) => Promise<Ddata>
   }

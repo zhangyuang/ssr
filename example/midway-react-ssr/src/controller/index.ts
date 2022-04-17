@@ -1,10 +1,10 @@
 import { Readable } from 'stream'
 import { Controller, Get, Provide, Inject } from '@midwayjs/decorator'
-import { Context } from 'egg'
+import { Context } from '@midwayjs/koa'
 import { render } from 'ssr-core-react'
 import { IApiService, IApiDetailService } from '../interface'
 
-interface IEggContext extends Context {
+interface IKoaContext extends Context {
   apiService: IApiService
   apiDeatilservice: IApiDetailService
 }
@@ -13,7 +13,7 @@ interface IEggContext extends Context {
 @Controller('/')
 export class Index {
   @Inject()
-  ctx: IEggContext
+  ctx: IKoaContext
 
   @Inject('ApiService')
   apiService: IApiService

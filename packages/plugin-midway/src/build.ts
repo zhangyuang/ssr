@@ -1,18 +1,16 @@
-import { exec } from 'child_process'
+import { join } from 'path'
+import { execSync } from 'child_process'
 import { Argv } from 'ssr-types'
+import { judgeVersion, getCwd } from 'ssr-server-utils'
 
-const build = (argv: Argv) => {
+const build = async (argv: Argv) => {
   const { cli } = require('@midwayjs/cli/bin/cli')
-  exec('npx cross-env ets', async (err, stdout) => {
-    if (err) {
-      console.log(err)
-      return
-    }
-    console.log(stdout)
-    // 透传参数给 midway-bin
-    argv.c = true
-    await cli(argv)
-  })
+  const cwd = getCwd()
+  if (judgeVersion(require(join(cwd, './package.json')).dependencies['@midwayjs/decorator'])?.major === 2) {
+    execSync('npx cross-env ets')
+  }
+  argv.c = true
+  await cli(argv)
 }
 
 export {
