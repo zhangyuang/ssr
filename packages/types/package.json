@@ -30,6 +30,7 @@
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@midwayjs/koa": "^3.0.0",
+    "@midwayjs/decorator": "^3.0.0",
     "@rollup/plugin-babel": "^5.3.0",
     "@types/babel__core": "^7.1.18",
     "@types/cookies": "^0.7.7",
