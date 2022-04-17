@@ -40,8 +40,5 @@
   },
   "midway-integration": {
     "tsCodeRoot": "src"
-  },
-  "egg": {
-    "framework": "@midwayjs/web"
   }
 }
