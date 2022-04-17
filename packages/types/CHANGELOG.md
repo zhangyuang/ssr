@@ -1,3 +1,12 @@
+## [6.2.7](https://github.com/zhangyuang/ssr/compare/types@6.2.6...types@6.2.7) (2022-04-17)
+
+
+### Features
+
+* update midway deploy ([a473c59](https://github.com/zhangyuang/ssr/commit/a473c599657df42b4bf7a59f248b3c7c33907657))
+
+
+
 ## [6.2.6](https://github.com/zhangyuang/ssr/compare/types@6.2.5...types@6.2.6) (2022-04-17)
 
 
