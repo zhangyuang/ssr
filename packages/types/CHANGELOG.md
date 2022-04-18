@@ -1,3 +1,12 @@
+## [6.2.8](https://github.com/zhangyuang/ssr/compare/types@6.2.7...types@6.2.8) (2022-04-18)
+
+
+### Features
+
+* update extraJsOrder extraCssOrder ([cd5ca99](https://github.com/zhangyuang/ssr/commit/cd5ca99a686ea565020500a6c4f77e310b422ce3))
+
+
+
 ## [6.2.7](https://github.com/zhangyuang/ssr/compare/types@6.2.6...types@6.2.7) (2022-04-17)
 
 
