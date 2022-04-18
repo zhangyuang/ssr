@@ -1,3 +1,13 @@
+## [6.2.13](https://github.com/zhangyuang/ssr/compare/server-utils@6.2.12...server-utils@6.2.13) (2022-04-18)
+
+
+### Features
+
+* update extraJsOrder extraCssOrder ([cd5ca99](https://github.com/zhangyuang/ssr/commit/cd5ca99a686ea565020500a6c4f77e310b422ce3))
+* update midway deploy ([a473c59](https://github.com/zhangyuang/ssr/commit/a473c599657df42b4bf7a59f248b3c7c33907657))
+
+
+
 ## [6.2.12](https://github.com/zhangyuang/ssr/compare/server-utils@6.2.11...server-utils@6.2.12) (2022-04-17)
 
 
