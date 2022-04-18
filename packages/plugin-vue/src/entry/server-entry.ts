@@ -1,5 +1,5 @@
 import * as Vue from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { sync } from 'vuex-router-sync'
 import { Routes } from './create-router'
@@ -96,11 +96,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           src: '/@vite/client'
         }
       })
-      const customeHeadScriptArr = customeHeadScript ? (Array.isArray(customeHeadScript) ? customeHeadScript : customeHeadScript(ctx))?.map(item => h('script', Object.assign({}, item.describe, {
-        domProps: {
-          innerHTML: item.content
-        }
-      }))) : []
+      const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue')
+      const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue')
 
       if (disableClientRender) {
         customeHeadScriptArr.push(h('script', {
@@ -109,12 +106,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           }
         }))
       }
-
-      const customeFooterScriptArr = customeFooterScript ? (Array.isArray(customeFooterScript) ? customeFooterScript : customeFooterScript(ctx))?.map(item => h('script', Object.assign({}, item.describe, {
-        domProps: {
-          innerHTML: item.content
-        }
-      }))) : []
 
       return h(
         Layout,

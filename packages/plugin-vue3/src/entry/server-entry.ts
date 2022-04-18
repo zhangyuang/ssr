@@ -1,6 +1,6 @@
 import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
 // @ts-expect-error
@@ -39,6 +39,14 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const dynamicJsOrder = await getAsyncJsChunk(ctx)
   const manifest = await getManifest(config)
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
+  const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3')
+  const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue3')
+
+  if (disableClientRender) {
+    customeHeadScriptArr.push(h('script', {
+      innerHTML: 'window.__disableClientRender__ = true'
+    }))
+  }
 
   let layoutFetchData = {}
   let fetchData = {}
@@ -118,24 +126,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       type: isVite ? 'module' : ''
     })
   )
-  const customeHeadScriptArr = customeHeadScript ? (Array.isArray(customeHeadScript) ? customeHeadScript : customeHeadScript(ctx))?.map((item) => h(
-    'script',
-    Object.assign({}, item.describe, {
-      innerHTML: item.content
-    })
-  )) : []
-
-  if (disableClientRender) {
-    customeHeadScriptArr.push(h('script', {
-      innerHTML: 'window.__disableClientRender__ = true'
-    }))
-  }
-  const customeFooterScriptArr = customeFooterScript ? (Array.isArray(customeFooterScript) ? customeFooterScript : customeFooterScript(ctx))?.map((item) => h(
-    'script',
-    Object.assign({}, item.describe, {
-      innerHTML: item.content
-    })
-  )) : []
 
   const state = Object.assign({}, store.state ?? {}, asyncData.value)
 

@@ -46,7 +46,22 @@ export const getAsyncCssChunk = async (ctx: ISSRContext, webpackChunkName: strin
   }
   return dynamicCssOrder
 }
+
 export const getAsyncJsChunk = async (ctx: ISSRContext): Promise<string[]> => {
   const { jsOrder, extraJsOrder } = loadConfig()
   return jsOrder.concat(nomalrizeOrder(extraJsOrder, ctx))
+}
+
+export const getUserScriptVue = (script: UserConfig['customeHeadScript'], ctx: ISSRContext, h: any, type: 'vue3'| 'vue') => {
+  if (!script) {
+    return []
+  }
+  return (Array.isArray(script) ? script : script(ctx)).map(item => h('script', Object.assign({}, item.describe, type === 'vue' ? {
+    domProps: {
+      innerHTML: item.content
+    }
+  } : {
+    innerHTML: item.content
+  }
+  )))
 }
