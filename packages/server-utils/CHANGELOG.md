@@ -1,3 +1,12 @@
+## [6.2.14](https://github.com/zhangyuang/ssr/compare/server-utils@6.2.13...server-utils@6.2.14) (2022-04-18)
+
+
+### Features
+
+* optimize customescript ([f374760](https://github.com/zhangyuang/ssr/commit/f3747608d4684576875968394eca6315e2fa8dd1))
+
+
+
 ## [6.2.13](https://github.com/zhangyuang/ssr/compare/server-utils@6.2.12...server-utils@6.2.13) (2022-04-18)
 
 
