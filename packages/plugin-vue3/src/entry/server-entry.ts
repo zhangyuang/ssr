@@ -1,6 +1,6 @@
 import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
 // @ts-expect-error
@@ -13,7 +13,7 @@ const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as Route
 const serialize = serializeWrap.default || serializeWrap // compatible webpack and vite
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, parallelFetch, disableClientRender, prefix, isVite, isDev, clientPrefix } = config
+  const { mode, customeHeadScript, customeFooterScript, parallelFetch, disableClientRender, prefix, isVite, isDev, clientPrefix } = config
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
@@ -34,14 +34,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     `)
   }
 
-  let dynamicCssOrder = cssOrder
-  if (dynamic) {
-    dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
-    if (!isVite || (isVite && !isDev)) {
-      // call it when webpack mode or vite prod mode
-      dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
-    }
-  }
+  const { fetch, webpackChunkName } = routeItem
+  const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName)
+  const dynamicJsOrder = await getAsyncJsChunk(ctx)
   const manifest = await getManifest(config)
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
@@ -84,9 +79,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   if (!isCsr) {
     router.push(url)
     await router.isReady()
-    const { fetch } = routeItem
     const currentFetch = fetch ? (await fetch()).default : null
-    // csr 下不需要服务端获取数据
+    // don't need getData when csr
     if (parallelFetch) {
       [layoutFetchData, fetchData] = await Promise.all([
         layoutFetch ? layoutFetch({ store, router: router.currentRoute.value }, ctx) : Promise.resolve({}),
@@ -118,7 +112,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const injectScript = (isVite && isDev) ? h('script', {
     type: 'module',
     src: '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'
-  }) : jsOrder.map(js =>
+  }) : dynamicJsOrder.map(js =>
     h('script', {
       src: manifest[js],
       type: isVite ? 'module' : ''

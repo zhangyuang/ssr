@@ -73,26 +73,6 @@ const getUserConfig = (): UserConfig => {
   return config.userConfig ?? config
 }
 
-const readAsyncChunk = async (): Promise<Record<string, string>> => {
-  const cwd = getCwd()
-  try {
-    const str = (await promises.readFile(resolve(cwd, './build/asyncChunkMap.json'))).toString()
-    return JSON.parse(str)
-  } catch (error) {
-    return {}
-  }
-}
-
-const addAsyncChunk = async (dynamicCssOrder: string[], webpackChunkName: string) => {
-  const arr = []
-  const asyncChunkMap = await readAsyncChunk()
-  for (const key in asyncChunkMap) {
-    if (asyncChunkMap[key].includes(webpackChunkName)) {
-      arr.push(`${key}.css`)
-    }
-  }
-  return arr.concat(dynamicCssOrder)
-}
 const cyrb53 = function (str: string, seed = 0) {
   let h1 = 0xdeadbeef ^ seed; let h2 = 0x41c6ce57 ^ seed
   for (let i = 0, ch; i < str.length; i++) {
@@ -219,6 +199,7 @@ const stringifyDefine = (obj: {[key: string]: Json}) => {
     }
   }
 }
+
 export {
   getCwd,
   getFeDir,
@@ -229,8 +210,6 @@ export {
   processError,
   accessFile,
   execPromisify,
-  readAsyncChunk,
-  addAsyncChunk,
   cryptoAsyncChunkName,
   normalizeStartPath,
   normalizeEndPath,

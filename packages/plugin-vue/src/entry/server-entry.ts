@@ -1,5 +1,5 @@
 import * as Vue from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { sync } from 'vuex-router-sync'
 import { Routes } from './create-router'
@@ -10,7 +10,7 @@ const serialize = require('serialize-javascript')
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, disableClientRender, prefix, isVite, clientPrefix } = config
+  const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, disableClientRender, prefix, isVite, clientPrefix } = config
   const router = createRouter()
   const store = createStore()
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
@@ -30,14 +30,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
     If you create new folder or component file, please restart server by npm start
     `)
   }
-
-  let dynamicCssOrder = cssOrder
-  if (dynamic) {
-    dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
-    if (!isVite) {
-      dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
-    }
-  }
+  const { fetch, webpackChunkName } = routeItem
+  const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName)
+  const dynamicJsOrder = await getAsyncJsChunk(ctx)
   const manifest = await getManifest(config)
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
@@ -46,7 +41,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   let fetchData = {}
 
   if (!isCsr) {
-    const { fetch } = routeItem
     const currentFetch = fetch ? (await fetch()).default : null
     router.push(url)
 
@@ -90,7 +84,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           type: 'module',
           src: '/node_modules/ssr-plugin-vue/esm/entry/client-entry.js'
         }
-      })] : jsOrder.map(js => h('script', {
+      })] : dynamicJsOrder.map(js => h('script', {
         attrs: {
           src: manifest[js],
           type: isVite ? 'module' : ''

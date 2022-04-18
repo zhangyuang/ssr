@@ -2,8 +2,9 @@ import { join } from 'path'
 import { IConfig } from 'ssr-types'
 import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework, loadModuleFromFramework, stringifyDefine, accessFileSync } from './cwd'
 import { coerce } from 'semver'
-const framework = judgeFramework()
+
 const loadConfig = (): IConfig => {
+  const framework = judgeFramework()
   const userConfig = getUserConfig()
   const cwd = getCwd()
   const mode = 'ssr'
@@ -75,9 +76,9 @@ const loadConfig = (): IConfig => {
 
   const whiteList: RegExp[] = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/]
 
-  const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`].concat(userConfig.extraJsOrder ?? [])
+  const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`]
 
-  const cssOrder = ['vendor.css', `${chunkName}.css`].concat(userConfig.extraCssOrder ?? [])
+  const cssOrder = ['vendor.css', `${chunkName}.css`]
 
   const webpackStatsOption = {
     assets: true, // 添加资源信息

@@ -15,10 +15,10 @@ type IKoaContext = Omit<RouterContext, 'cookies' |'router'| '_matchedRoute'| '_m
   }
 }
 
-export type ISSRContext<T={}> = (Context|ExpressContext|IKoaContext) & T
 export type ISSRNestContext<T={}> = ExpressContext & T
 export type ISSRMidwayContext<T={}> = IKoaContext & T
-export type ISSRMidwayKoaContext<T={}> = Context & T
+export type ISSRMidwayKoaContext<T={}> = Context & T // for midway3.0
+export type ISSRContext<T={}> = ISSRMidwayKoaContext<T>|ISSRNestContext<T>|ISSRMidwayContext<T>
 
 export interface Options {
   mode?: string

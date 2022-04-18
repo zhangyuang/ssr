@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
-import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk } from 'ssr-server-utils'
 import { ISSRContext, IConfig, ReactRoutesType, ReactESMFeRouteItem } from 'ssr-types-react'
 // @ts-expect-error
 import * as serializeWrap from 'serialize-javascript'
@@ -14,7 +14,7 @@ const { FeRoutes, layoutFetch, PrefixRouterBase, state } = Routes as ReactRoutes
 const serialize = serializeWrap.default || serializeWrap
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
-  const { cssOrder, jsOrder, dynamic, mode, parallelFetch, disableClientRender, prefix, isVite, isDev, clientPrefix } = config
+  const { mode, parallelFetch, disableClientRender, prefix, isVite, isDev, clientPrefix } = config
   let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
   if (base) {
@@ -29,15 +29,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     `)
   }
 
-  let dynamicCssOrder = cssOrder
-
-  if (dynamic) {
-    dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
-    if (!isVite || (isVite && !isDev)) {
-      // call it when webpack mode or vite prod mode
-      dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
-    }
-  }
+  const { fetch, webpackChunkName, component } = routeItem
+  const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName)
+  const dynamicJsOrder = await getAsyncJsChunk(ctx)
   const manifest = await getManifest(config)
 
   const injectCss: JSX.Element[] = []
@@ -71,7 +65,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
       __html: 'window.__USE_VITE__=true'
     }} />,
     (isVite && isDev) && <script type="module" src='/node_modules/ssr-plugin-react/esm/entry/client-entry.js' key="vite-react-entry" />,
-    ...jsOrder.map(js => manifest[js]).map(item => item && <script key={item} src={item} type={isVite ? 'module' : ''}/>)
+    ...dynamicJsOrder.map(js => manifest[js]).map(item => item && <script key={item} src={item} type={isVite ? 'module' : ''}/>)
   ]
   const staticList = {
     injectCss,
@@ -79,7 +73,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   }
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
-  const { component, fetch } = routeItem
   const Component = isCsr ? React.Fragment : (await component()).default
 
   if (isCsr) {

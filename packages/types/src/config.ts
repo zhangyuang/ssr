@@ -33,8 +33,8 @@ export interface IConfig {
   proxy?: any
   cssOrder: string[]
   jsOrder: string[]
-  extraJsOrder?: string[]
-  extraCssOrder?: string[]
+  extraJsOrder?: ((ctx: ISSRContext) => string[]) | string[] | undefined
+  extraCssOrder?: ((ctx: ISSRContext) => string[]) | string[] | undefined
   css?: () => {
     loaderOptions?: {
       cssOptions?: any
