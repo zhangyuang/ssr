@@ -1,3 +1,12 @@
+## [6.2.17](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.16...plugin-vue3@6.2.17) (2022-04-18)
+
+
+### Features
+
+* optimize customescript ([f374760](https://github.com/zhangyuang/ssr/commit/f3747608d4684576875968394eca6315e2fa8dd1))
+
+
+
 ## [6.2.16](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.15...plugin-vue3@6.2.16) (2022-04-18)
 
 
