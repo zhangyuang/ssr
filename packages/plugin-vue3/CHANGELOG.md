@@ -1,3 +1,14 @@
+## [6.2.16](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.15...plugin-vue3@6.2.16) (2022-04-18)
+
+
+### Features
+
+* update extraJsOrder extraCssOrder ([cd5ca99](https://github.com/zhangyuang/ssr/commit/cd5ca99a686ea565020500a6c4f77e310b422ce3))
+* update midway deploy ([a473c59](https://github.com/zhangyuang/ssr/commit/a473c599657df42b4bf7a59f248b3c7c33907657))
+* upgrade midway example to v3 ([572f7c5](https://github.com/zhangyuang/ssr/commit/572f7c5d171346cc17f5f6cdebe33aee76e0c146))
+
+
+
 ## [6.2.15](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.14...plugin-vue3@6.2.15) (2022-04-16)
 
 
