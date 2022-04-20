@@ -78,13 +78,12 @@ const clientRender = async () => {
 
   app.mount('#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
   if (!window.__USE_VITE__) {
-    module?.hot?.accept?.() // webpack 场景下的 hmr
+    module?.hot?.accept?.() // webpack hmr for vue jsx
   }
 }
 
 if (!window.__disableClientRender__) {
-  // 如果服务端直出的时候带上该记号，则默认不进行客户端渲染，将处理逻辑交给上层
-  // 可用于微前端场景下自定义什么时候进行组件渲染的逻辑调用
+  // for micro front-end
   clientRender()
 }
 

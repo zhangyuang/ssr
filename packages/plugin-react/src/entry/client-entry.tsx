@@ -9,7 +9,6 @@ import { AppContext } from './context'
 
 const { FeRoutes, layoutFetch, App, PrefixRouterBase } = Routes as ReactRoutesType
 
-declare const module: any
 declare const window: IWindow
 
 const clientRender = async (): Promise<void> => {
@@ -44,9 +43,6 @@ const clientRender = async (): Promise<void> => {
     </BrowserRouter>
     , document.getElementById('app'))
 
-  if (!window.__USE_VITE__) {
-    module?.hot?.accept?.() // webpack 场景下的 hmr
-  }
 }
 if (!window.__disableClientRender__) {
   // 如果服务端直出的时候带上该记号，则默认不进行客户端渲染，将处理逻辑交给上层
