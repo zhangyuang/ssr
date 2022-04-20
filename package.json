@@ -2,6 +2,8 @@
   "name": "ssr",
   "private": true,
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
+    "pnpm:devPreinstall": "npx esno scripts/preinstall.ts",
     "postinstall": "esno scripts/postinstall.ts",
     "bootstrap": "pnpm i && pnpm run build:only && pnpm build",
     "clean": "node scripts/scripts.js --clean",

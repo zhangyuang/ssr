@@ -4,7 +4,7 @@
 import * as colors from 'picocolors'
 import type { Options as ExecaOptions } from 'execa'
 import execa from 'execa'
-import { readFileSync, writeFileSync, existsSync } from 'fs'
+import { readFileSync, writeFileSync, existsSync, promises } from 'fs'
 import * as path from 'path'
 import type { ReleaseType } from 'semver'
 import * as semver from 'semver'
@@ -17,12 +17,17 @@ if (isDryRun) {
   console.log(colors.inverse(colors.yellow(' DRY RUN ')))
   console.log()
 }
-
+export const accessFile = async (file: string) => {
+  const result = await promises.access(file)
+    .then(() => true)
+    .catch(() => false)
+  return result
+}
 export const packages = [
-  'cli',  'plugin-vue3', 'plugin-react',
+  'cli', 'plugin-vue3', 'plugin-react',
   'plugin-vue', 'types', 'server-utils',
-  'core-vue', 'hoc-vue3', 'webpack', 'core-react','types-react',
-  'client-utils', 'core-vue3', 'plugin-midway','plugin-nestjs',
+  'core-vue', 'hoc-vue3', 'webpack', 'core-react', 'types-react',
+  'client-utils', 'core-vue3', 'plugin-midway', 'plugin-nestjs',
   'hoc-react'
 ]
 
