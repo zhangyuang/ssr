@@ -36,7 +36,7 @@
 
 在 Vue3 场景下我们默认在底层已加载 [@vue/babel-plugin-jsx](https://github.com/vuejs/jsx-next#installation) 插件，开发者可根据个人喜好决定使用 template 的方式抑或是 tsx 的方式进行开发。例如想使用 tsx 的话，只需要将 .vue 文件改为 .tsx 文件即可。
 
-`注：Vue3 + volar(VSCode插件) + Pinia 的 ts 支持已经十分优秀，不推荐用 Vue3 + TSX 的组合。由于 babel 插件自身的问题，在该场景下 HMR 热更新能力存在一定问题`
+`注：Vue3 + volar(VSCode插件) + Pinia 的 ts 支持已经十分优秀，不推荐用 Vue3 + TSX 的组合。由于 babel 插件自身的问题，在该场景下 Webpack HMR 热更新能力存在一定问题，若一定要使用建议配合 Vite 一起使用`
 
 ```html
 <template>
