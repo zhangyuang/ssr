@@ -1,3 +1,7 @@
+## [6.2.9-beta.1](https://github.com/zhangyuang/ssr/compare/types@6.2.9-beta.0...types@6.2.9-beta.1) (2022-04-22)
+
+
+
 ## [6.2.9-beta.0](https://github.com/zhangyuang/ssr/compare/types@6.2.8...types@6.2.9-beta.0) (2022-04-22)
 
 
