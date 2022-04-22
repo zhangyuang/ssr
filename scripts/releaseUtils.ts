@@ -152,7 +152,7 @@ export async function publishPackage (
   if (tag) {
     publicArgs.push('--tag', tag)
   }
-  await promises.writeFile(resolve(pkdDir, './.npmignore'), '*.map')
+  await promises.writeFile(resolve(pkdDir, './.npmignore'), '**/*.map')
   await runIfNotDry('npm', publicArgs, {
     stdio: 'pipe',
     cwd: pkdDir
