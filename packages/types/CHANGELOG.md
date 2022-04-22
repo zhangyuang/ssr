@@ -1,3 +1,18 @@
+## [6.2.9-beta.0](https://github.com/zhangyuang/ssr/compare/types@6.2.8...types@6.2.9-beta.0) (2022-04-22)
+
+
+### Bug Fixes
+
+* update preinstall ([2b4b869](https://github.com/zhangyuang/ssr/commit/2b4b869c28b83b414bef10260e5561bc3773cea9))
+
+
+### Features
+
+* optimize customescript ([f374760](https://github.com/zhangyuang/ssr/commit/f3747608d4684576875968394eca6315e2fa8dd1))
+* plugin-react add react-refresh, remove module.hot ([7bee211](https://github.com/zhangyuang/ssr/commit/7bee211ddfefaef688713f505756e1155320b844))
+
+
+
 ## [6.2.8](https://github.com/zhangyuang/ssr/compare/types@6.2.7...types@6.2.8) (2022-04-18)
 
 
