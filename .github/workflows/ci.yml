@@ -84,7 +84,7 @@ jobs:
 
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
 
       - uses: cypress-io/github-action@v2
         with:
@@ -123,7 +123,7 @@ jobs:
 
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
           
       - uses: cypress-io/github-action@v2
         with:
@@ -162,7 +162,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
 
       - uses: cypress-io/github-action@v2
         with:
@@ -199,7 +199,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
       - uses: cypress-io/github-action@v2
         with:
           install: false
@@ -235,7 +235,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
       - uses: cypress-io/github-action@v2
         with:
           install: false
@@ -271,7 +271,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -308,7 +308,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -344,7 +344,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -391,7 +391,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -439,7 +439,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -477,7 +477,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -514,7 +514,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -551,7 +551,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -588,7 +588,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -639,7 +639,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
       - name: List packages
         run: ls -R packages
         shell: bash

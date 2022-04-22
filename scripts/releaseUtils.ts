@@ -6,6 +6,7 @@ import type { Options as ExecaOptions } from 'execa'
 import execa from 'execa'
 import { readFileSync, writeFileSync, existsSync, promises } from 'fs'
 import * as path from 'path'
+import { resolve } from 'path'
 import type { ReleaseType } from 'semver'
 import * as semver from 'semver'
 
@@ -151,6 +152,7 @@ export async function publishPackage (
   if (tag) {
     publicArgs.push('--tag', tag)
   }
+  await promises.writeFile(resolve(pkdDir, './.npmignore'), '*.map')
   await runIfNotDry('npm', publicArgs, {
     stdio: 'pipe',
     cwd: pkdDir
