@@ -1,6 +1,6 @@
 
 import { join } from 'path'
-import { Mode } from 'ssr-types'
+import { Mode } from 'ssr-types-react'
 import { getCwd, loadConfig, getLocalNodeModules, setStyle, addImageChain, loadModuleFromFramework } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import * as webpack from 'webpack'
