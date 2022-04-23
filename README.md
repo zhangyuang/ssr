@@ -278,6 +278,24 @@ $ yarn start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 <img src="https://res.wx.qq.com/op_res/Nv12X2und927FEOvJ5iflzX-WBW07GSC22kumTCiShZnudKpG0jMuRs70ecHQb3Hy1QjjaASNzyOuMgHr43Wpw" width="300">
 </div>
 
+## 代码行数
+
+```bash
+$ cloc packages --include-ext=ts
+     984 text files.
+     668 unique files.
+     823 files ignored.
+
+github.com/AlDanial/cloc v 1.90  T=0.57 s (284.6 files/s, 10042.8 lines/s)
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+TypeScript                     161            480            197           5004
+-------------------------------------------------------------------------------
+SUM:                           161            480            197           5004
+-------------------------------------------------------------------------------
+```
+
 ## 前端开发手册
 
 [如何打造舒适高效的前端开发环境](http://fe.ssr-fc.com/)
@@ -285,7 +303,3 @@ $ yarn start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 ## 项目 Star 数增长趋势
 
 [![Stargazers over time](https://starchart.cc/zhangyuang/ssr.svg)](https://starchart.cc/zhangyuang/ssr)
-
-## 代码行数
-
-![](https://res.wx.qq.com/op_res/sE2C4qCTn9IN1dyiw4MMTEU9dW40eFXbfWe6-o31-kWEJN0ddQKR41_ZbAwAE01oW5yQj4zV3UJ_rVbX0D99Mw)
