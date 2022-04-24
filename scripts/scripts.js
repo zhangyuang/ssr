@@ -1,6 +1,6 @@
 const fs = require('fs')
 const { execSync } = require('child_process')
-const argv = require('./minimist')(process.argv.slice(2))
+const argv = require('minimist')(process.argv.slice(2))
 
 const options = {
   stdio: 'inherit'
