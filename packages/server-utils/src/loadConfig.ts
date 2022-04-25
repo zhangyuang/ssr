@@ -168,7 +168,6 @@ const loadConfig = (): IConfig => {
     cssOrder,
     getOutput,
     webpackStatsOption,
-    whiteList,
     dynamic,
     mode,
     stream,
@@ -188,7 +187,7 @@ const loadConfig = (): IConfig => {
   }, userConfig)
   config.alias = alias
   config.corejsOptions = corejsOptions
-
+  config.whiteList = whiteList
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了
 
   config.babelOptions = userConfig.babelOptions ? {
