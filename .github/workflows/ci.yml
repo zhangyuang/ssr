@@ -47,8 +47,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Setup Node.js
         uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
+        
       - run: cd docs && yarn && npm run deploy
         env:
           SERVERLESS_DEPLOY_AK: ${{ secrets.SERVERLESS_DEPLOY_AK }}
@@ -67,8 +66,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -106,8 +104,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -145,8 +142,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -183,8 +179,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -219,8 +214,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -255,8 +249,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -292,8 +285,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -328,8 +320,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -365,8 +356,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Get remote e2e example
         uses: actions/checkout@master
         with:
@@ -413,8 +403,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Get remote e2e example
         uses: actions/checkout@master
         with:
@@ -461,8 +450,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -498,8 +486,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -535,8 +522,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -572,8 +558,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
