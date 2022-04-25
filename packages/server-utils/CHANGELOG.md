@@ -1,3 +1,19 @@
+## [6.2.15](https://github.com/zhangyuang/ssr/compare/server-utils@6.2.13...server-utils@6.2.15) (2022-04-25)
+
+
+### Bug Fixes
+
+* update preinstall ([2b4b869](https://github.com/zhangyuang/ssr/commit/2b4b869c28b83b414bef10260e5561bc3773cea9))
+* whitList concat userconfig ([e2328f8](https://github.com/zhangyuang/ssr/commit/e2328f87f5cfc18c9a30867e4f6e18d0df5c1ba3))
+
+
+### Features
+
+* optimize customescript ([f374760](https://github.com/zhangyuang/ssr/commit/f3747608d4684576875968394eca6315e2fa8dd1))
+* plugin-react add react-refresh, remove module.hot ([7bee211](https://github.com/zhangyuang/ssr/commit/7bee211ddfefaef688713f505756e1155320b844))
+
+
+
 ## [6.2.14](https://github.com/zhangyuang/ssr/compare/server-utils@6.2.13...server-utils@6.2.14) (2022-04-18)
 
 
