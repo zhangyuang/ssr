@@ -51,7 +51,8 @@ const clientRender = async () => {
       return renderSlot(this.$slots, 'default', {}, () => [h(App, {
         asyncData,
         fetchData,
-        reactiveFetchData
+        reactiveFetchData,
+        ssrApp: app
       })])
     }
   })
@@ -76,7 +77,7 @@ const clientRender = async () => {
   })
   await router.isReady()
 
-  app.mount('#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
+  app.mount('#app', !!window.__USE_SSR__) // judge ssr/csr
   if (!window.__USE_VITE__) {
     module?.hot?.accept?.() // webpack hmr for vue jsx
   }

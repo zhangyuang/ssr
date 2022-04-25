@@ -317,20 +317,32 @@ export default {
 ```
 ### Vue3 全局注册组件
 
-最新更新： 在之后的版本中我们将移除 `window.__VUE_APP__` 的挂载逻辑，请使用旧写法的开发者按照下面的写法改造
+最新更新： 在之后的版本中我们将移除 `window.__VUE_APP__` 的挂载逻辑，请使用旧写法的开发者按照下面的写法改造。
 
-```js
-// 在 layout/App.vue 中做一些全局的任务
-import { getCurrentInstance } from 'vue'
+```html
+// layout/App.vue
+<template>
+  <router-view :reactiveFetchData="reactiveFetchData" />
+</template>
+
+<script lang="ts" setup>
+  // 在这里我们可以通过 props.ssrApp 获取 Vue3 App 实例，也可以通过 getCurrentInstance(不建议) 来获取
+import { defineProps, App, getCurrentInstance } from 'vue'
 import { Button } from 'vant'
 
-export default {
-  created () {
-    const app = getCurrentInstance()?.appContext.app
-    app?.use(Button)
-    app?.component('xxx')
-  }
-}
+const props = defineProps<{
+  ssrApp: App,
+  reactiveFetchData: any,
+  asyncData: any
+}>()
+
+const app = props.ssrApp
+
+// const app = getCurrentInstance()?.appContext.app 写法 2
+app?.use(Button)
+app?.component('xxx')
+</script>
+
 ```
 
 ### Vue 场景使用自定义指令
