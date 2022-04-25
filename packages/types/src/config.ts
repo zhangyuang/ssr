@@ -52,7 +52,7 @@ export interface IConfig {
   chainClientConfig: (config: Config) => void
   webpackStatsOption: Options.Stats
   moduleFileExtensions: string[]
-  whiteList: RegExp[] | string[]
+  whiteList: Array<RegExp|string>
   cloudIDE?: boolean
   prefix?: string
   clientPrefix?: string

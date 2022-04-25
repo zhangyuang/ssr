@@ -73,8 +73,8 @@ const loadConfig = (): IConfig => {
   const clientLogLevel: ClientLogLevel = 'error'
 
   const useHash = !isDev // 生产环境默认生成hash
-
-  const whiteList: RegExp[] = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/]
+  const defaultWhiteList: Array<RegExp|string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/]
+  const whiteList = defaultWhiteList.concat(userConfig.whiteList ?? [])
 
   const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`]
 
