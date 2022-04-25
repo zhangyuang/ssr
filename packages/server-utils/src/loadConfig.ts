@@ -66,7 +66,7 @@ const loadConfig = (): IConfig => {
 
   const serverPort = process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 3000
 
-  const host = '0.0.0.0'
+  const host = '127.0.0.1'
 
   const chunkName = 'Page'
 
