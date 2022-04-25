@@ -1,3 +1,12 @@
+## [6.2.10](https://github.com/zhangyuang/ssr/compare/types@6.2.9-beta.0...types@6.2.10) (2022-04-25)
+
+
+### Bug Fixes
+
+* whitList concat userconfig ([e2328f8](https://github.com/zhangyuang/ssr/commit/e2328f87f5cfc18c9a30867e4f6e18d0df5c1ba3))
+
+
+
 ## [6.2.9-beta.1](https://github.com/zhangyuang/ssr/compare/types@6.2.9-beta.0...types@6.2.9-beta.1) (2022-04-22)
 
 
