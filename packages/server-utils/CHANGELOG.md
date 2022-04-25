@@ -1,3 +1,12 @@
+## [6.2.16](https://github.com/zhangyuang/ssr/compare/server-utils@6.2.15...server-utils@6.2.16) (2022-04-25)
+
+
+### Bug Fixes
+
+* whitList concat userconfig ([fdd971a](https://github.com/zhangyuang/ssr/commit/fdd971ab11aebc0f348d789e758183b877e791af))
+
+
+
 ## [6.2.15](https://github.com/zhangyuang/ssr/compare/server-utils@6.2.13...server-utils@6.2.15) (2022-04-25)
 
 

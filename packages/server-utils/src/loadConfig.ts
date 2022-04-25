@@ -74,7 +74,7 @@ const loadConfig = (): IConfig => {
 
   const useHash = !isDev // 生产环境默认生成hash
   const defaultWhiteList: Array<RegExp|string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/]
-  const whiteList = defaultWhiteList.concat(userConfig.whiteList ?? [])
+  const whiteList: Array<RegExp|string> = defaultWhiteList.concat(userConfig.whiteList ?? [])
 
   const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`]
 
@@ -181,6 +181,7 @@ const loadConfig = (): IConfig => {
     reactServerEntry,
     reactClientEntry,
     isVite,
+    whiteList,
     isCI,
     supportOptinalChaining,
     define
@@ -189,7 +190,6 @@ const loadConfig = (): IConfig => {
   config.corejsOptions = corejsOptions
   config.whiteList = whiteList
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了
-
   config.babelOptions = userConfig.babelOptions ? {
     ...{
       babelHelpers: 'bundled' as 'bundled',
@@ -198,6 +198,7 @@ const loadConfig = (): IConfig => {
     },
     ...userConfig.babelOptions
   } : undefined
+
   return config
 }
 
