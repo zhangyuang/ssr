@@ -371,14 +371,14 @@ importers:
       '@types/react-dom': ^17.0.0
       react: ^17.0.0
       react-dom: ^17.0.0
-      serialize-javascript: ^6.0.0
       ssr-plugin-react: ^6.0.0
+      ssr-serialize-javascript: ^6.0.0
       ssr-server-utils: ^6.2.10
       ssr-types: ^6.0.0
     dependencies:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      serialize-javascript: 6.0.0
+      ssr-serialize-javascript: 6.0.1
       ssr-server-utils: link:../server-utils
     devDependencies:
       '@types/react-dom': 17.0.15
@@ -388,9 +388,9 @@ importers:
   packages/core-vue:
     specifiers:
       '@babel/runtime': ^7.12.13
-      serialize-javascript: ^6.0.0
       ssr-deepclone: ^1.0.0
       ssr-plugin-vue: ^6.2.10
+      ssr-serialize-javascript: ^6.0.0
       ssr-server-utils: ^6.2.10
       ssr-types: ^6.2.3
       vue: ^2.0.0
@@ -400,8 +400,8 @@ importers:
       vuex-router-sync: ^5.0.0
     dependencies:
       '@babel/runtime': 7.17.9
-      serialize-javascript: 6.0.0
       ssr-deepclone: 1.0.1
+      ssr-serialize-javascript: 6.0.1
       ssr-server-utils: link:../server-utils
       vue: 2.6.14
       vue-router: 3.5.3
@@ -418,9 +418,9 @@ importers:
       '@vue/server-renderer': ^3.0.7
       cheerio: ^1.0.0-rc.10
       pinia: ^2.0.13
-      serialize-javascript: ^6.0.0
       ssr-deepclone: ^1.0.0
       ssr-plugin-vue3: ^6.2.10
+      ssr-serialize-javascript: ^6.0.0
       ssr-server-utils: ^6.2.10
       ssr-types: ^6.0.0
       vue: ^3.0.0
@@ -429,8 +429,8 @@ importers:
       '@vue/server-renderer': 3.2.33_vue@3.2.33
       cheerio: 1.0.0-rc.10
       pinia: 2.0.13_typescript@4.6.3+vue@3.2.33
-      serialize-javascript: 6.0.0
       ssr-deepclone: 1.0.1
+      ssr-serialize-javascript: 6.0.1
       ssr-server-utils: link:../server-utils
       vue: 3.2.33
     devDependencies:
@@ -528,9 +528,9 @@ importers:
       react-refresh: ^0.12.0
       react-router: ^5.2.1
       react-router-dom: ^5.1.2
-      serialize-javascript: ^6.0.0
       ssr-client-utils: ^6.2.7
       ssr-hoc-react: ^6.2.7
+      ssr-serialize-javascript: ^6.0.0
       ssr-server-utils: ^6.2.10
       ssr-types-react: ^6.2.7
       ssr-webpack: ^6.2.10
@@ -575,9 +575,9 @@ importers:
       react-refresh: 0.12.0
       react-router: 5.3.1_react@17.0.2
       react-router-dom: 5.3.1_react@17.0.2
-      serialize-javascript: 6.0.0
       ssr-client-utils: link:../client-utils
       ssr-hoc-react: link:../hoc-react
+      ssr-serialize-javascript: 6.0.1
       ssr-server-utils: link:../server-utils
       ssr-webpack: link:../webpack
       terser-webpack-plugin: 2.3.8_webpack@4.46.0
@@ -622,9 +622,9 @@ importers:
       postcss-loader: ^4.0.0
       postcss-preset-env: ^7.0.0
       postcss-safe-parser: ^6.0.0
-      serialize-javascript: ^6.0.0
       ssr-client-utils: ^6.2.7
       ssr-deepclone: ^1.0.0
+      ssr-serialize-javascript: ^6.0.0
       ssr-server-utils: ^6.2.10
       ssr-types: ^6.2.3
       ssr-webpack: ^6.2.10
@@ -665,9 +665,9 @@ importers:
       postcss-loader: 4.3.0_postcss@8.4.12+webpack@4.46.0
       postcss-preset-env: 7.4.3_postcss@8.4.12
       postcss-safe-parser: 6.0.0_postcss@8.4.12
-      serialize-javascript: 6.0.0
       ssr-client-utils: link:../client-utils
       ssr-deepclone: 1.0.1
+      ssr-serialize-javascript: 6.0.1
       ssr-server-utils: link:../server-utils
       ssr-types: link:../types
       ssr-webpack: link:../webpack
@@ -723,9 +723,9 @@ importers:
       postcss-loader: ^4.0.0
       postcss-preset-env: ^7.0.0
       postcss-safe-parser: ^6.0.0
-      serialize-javascript: ^6.0.0
       ssr-client-utils: ^6.2.7
       ssr-deepclone: ^1.0.0
+      ssr-serialize-javascript: ^6.0.0
       ssr-server-utils: ^6.2.10
       ssr-types: ^6.2.3
       ssr-webpack: ^6.2.10
@@ -772,9 +772,9 @@ importers:
       postcss-loader: 4.3.0_postcss@8.4.12+webpack@4.46.0
       postcss-preset-env: 7.4.3_postcss@8.4.12
       postcss-safe-parser: 6.0.0_postcss@8.4.12
-      serialize-javascript: 6.0.0
       ssr-client-utils: link:../client-utils
       ssr-deepclone: 1.0.1
+      ssr-serialize-javascript: 6.0.1
       ssr-server-utils: link:../server-utils
       ssr-types: link:../types
       ssr-webpack: link:../webpack
@@ -14651,6 +14651,7 @@ packages:
     resolution: {integrity: sha512-Qr3TosvguFt8ePWqsvRfrKyQXIiW+nGbYpy8XK24NQHE83caxWt+mIymTT19DGFbNWNLfEwsrkSmN64lVWB9ag==}
     dependencies:
       randombytes: 2.1.0
+    dev: true
 
   /serve-index/1.9.1:
     resolution: {integrity: sha1-03aNabHn2C5c4FD/9bRTvqEqkjk=}
@@ -15020,6 +15021,12 @@ packages:
 
   /ssr-deepclone/1.0.1:
     resolution: {integrity: sha512-c2kI7QQsPqZPgX8VY3mgq9tW27O2lGtXTTWrrMN85REWVKRP1jGRAxTdCegwvpxd5DHmvBQdd33PCRhAmf9p0Q==}
+    dev: false
+
+  /ssr-serialize-javascript/6.0.1:
+    resolution: {integrity: sha512-OU+73AvnykfwbnAifoi+mkw9z4epj9ju8mgSHGgYxcULnEHgo2cuq+5WHELFTkIpgDd5qPkB5plGvGaxWEe/6A==}
+    dependencies:
+      randombytes: 2.1.0
     dev: false
 
   /ssr-window/2.0.0:

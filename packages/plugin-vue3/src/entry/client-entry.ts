@@ -44,7 +44,7 @@ const clientRender = async () => {
   const reactiveFetchData = reactive({
     value: window.__INITIAL_DATA__ ?? {}
   })
-  const fetchData = window.__INITIAL_DATA__ ?? {}
+  const fetchData = window.__INITIAL_DATA__ ?? {} // will be remove at next major version
 
   const app = create({
     render () {

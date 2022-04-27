@@ -1,19 +1,17 @@
 import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
-// @ts-expect-error
-import * as serializeWrap from 'serialize-javascript'
+import { serialize } from 'ssr-serialize-javascript'
 import { Routes } from './create-router'
 import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
-const serialize = serializeWrap.default || serializeWrap // compatible webpack and vite
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, customeHeadScript, customeFooterScript, parallelFetch, disableClientRender, prefix, isVite, isDev, clientPrefix } = config
+  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix } = config
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
@@ -42,19 +40,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3')
   const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue3')
 
-  if (disableClientRender) {
-    customeHeadScriptArr.push(h('script', {
-      innerHTML: 'window.__disableClientRender__ = true'
-    }))
-  }
-
   let layoutFetchData = {}
   let fetchData = {}
   const app = createSSRApp({
     render: () => h(Layout,
       { ctx, config, asyncData, fetchData: layoutFetchData, reactiveFetchData: { value: layoutFetchData } },
       {
-        remInitial: () => h('script', { innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }),
+        remInitial: () => h('script', { innerHTML: remInitial }),
 
         viteClient: (isVite && isDev) ? () =>
           h('script', {
@@ -70,8 +62,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
         initialData: !isCsr ? () => h('script', {
           innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};window.__USE_VITE__=${isVite}; ${base && `window.prefix="${base}"`};${clientPrefix && `window.clientPrefix="${clientPrefix}"`};`
-        })
-          : () => h('script', { innerHTML: `window.__USE_VITE__=${isVite}` }),
+        }) : () => h('script', { innerHTML: `window.__USE_VITE__=${isVite}` }),
 
         cssInject: () => injectCss,
 

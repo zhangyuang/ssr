@@ -1,16 +1,16 @@
 import * as Vue from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
+import { serialize } from 'ssr-serialize-javascript'
 import { sync } from 'vuex-router-sync'
 import { Routes } from './create-router'
 import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 
-const serialize = require('serialize-javascript')
 const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
-  const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, disableClientRender, prefix, isVite, clientPrefix } = config
+  const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix } = config
   const router = createRouter()
   const store = createStore()
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
@@ -99,14 +99,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
       const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue')
       const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue')
 
-      if (disableClientRender) {
-        customeHeadScriptArr.push(h('script', {
-          domProps: {
-            innerHTML: 'window.__disableClientRender__ = true'
-          }
-        }))
-      }
-
       return h(
         Layout,
         {
@@ -117,7 +109,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
             slot: 'remInitial'
           }, [
             h('script', {}, [
-              "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
+              remInitial
             ])
           ]),
           (isVite && isDev) && h('template', {

@@ -1,9 +1,8 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, reactRefreshFragment } from 'ssr-server-utils'
 import { ISSRContext, IConfig, ReactRoutesType, ReactESMFeRouteItem } from 'ssr-types-react'
-// @ts-expect-error
-import * as serializeWrap from 'serialize-javascript'
+import { serialize } from 'ssr-serialize-javascript'
 // @ts-expect-error
 import { STORE_CONTEXT as Context } from '_build/create-context'
 // @ts-expect-error
@@ -11,7 +10,6 @@ import Layout from '@/components/layout/index.tsx'
 import { Routes } from './create-router'
 
 const { FeRoutes, layoutFetch, PrefixRouterBase, state } = Routes as ReactRoutesType
-const serialize = serializeWrap.default || serializeWrap
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
   const { mode, parallelFetch, disableClientRender, prefix, isVite, isDev, clientPrefix } = config
@@ -39,11 +37,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   if (isVite && isDev) {
     injectCss.push(<script src="/@vite/client" type="module" key="vite-client"/>)
     injectCss.push(<script key="vite-react-refresh" type="module" dangerouslySetInnerHTML={{
-      __html: ` import RefreshRuntime from "/@react-refresh"
-      RefreshRuntime.injectIntoGlobalHook(window)
-      window.$RefreshReg$ = () => {}
-      window.$RefreshSig$ = () => (type) => type
-      window.__vite_plugin_react_preamble_installed__ = true`
+      __html: reactRefreshFragment
     }} />)
   } else {
     dynamicCssOrder.forEach(css => {

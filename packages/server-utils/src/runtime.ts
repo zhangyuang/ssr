@@ -56,6 +56,7 @@ export const getUserScriptVue = (script: UserConfig['customeHeadScript'], ctx: I
   if (!script) {
     return []
   }
+  const { disableClientRender } = loadConfig()
   return (Array.isArray(script) ? script : script(ctx)).map(item => h('script', Object.assign({}, item.describe, type === 'vue' ? {
     domProps: {
       innerHTML: item.content
@@ -63,5 +64,12 @@ export const getUserScriptVue = (script: UserConfig['customeHeadScript'], ctx: I
   } : {
     innerHTML: item.content
   }
-  )))
+  ))).concat(disableClientRender ? [h('script', type === 'vue' ? {
+    // for qiankun
+    innerHTML: 'window.__disableClientRender__ = true'
+  } : {
+    domProps: {
+      innerHTML: 'window.__disableClientRender__ = true'
+    }
+  })] : [])
 }
