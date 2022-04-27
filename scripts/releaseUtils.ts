@@ -156,7 +156,6 @@ export async function publishPackage (
   await promises.writeFile(resolve(pkdDir, './.npmignore'), '**/*.map')
   cp(resolve(process.cwd(), './README.md'), resolve(pkdDir, './README.md'))
   await runIfNotDry('npm', publicArgs, {
-    stdio: 'pipe',
     cwd: pkdDir
   })
 }
