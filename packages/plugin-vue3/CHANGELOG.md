@@ -1,3 +1,23 @@
+## [6.2.19](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.16...plugin-vue3@6.2.19) (2022-04-27)
+
+
+### Bug Fixes
+
+* ci ([57e713f](https://github.com/zhangyuang/ssr/commit/57e713f1f96b4ceb893837c15c6032b23a0b1a4c))
+* update preinstall ([2b4b869](https://github.com/zhangyuang/ssr/commit/2b4b869c28b83b414bef10260e5561bc3773cea9))
+* whitList concat userconfig ([fdd971a](https://github.com/zhangyuang/ssr/commit/fdd971ab11aebc0f348d789e758183b877e791af))
+* whitList concat userconfig ([e2328f8](https://github.com/zhangyuang/ssr/commit/e2328f87f5cfc18c9a30867e4f6e18d0df5c1ba3))
+
+
+### Features
+
+* add ssr-serialize-javascript code optimize ([41bb14d](https://github.com/zhangyuang/ssr/commit/41bb14d31efd89d4a85d5220544d2f7a3883e1a3))
+* optimize customescript ([f374760](https://github.com/zhangyuang/ssr/commit/f3747608d4684576875968394eca6315e2fa8dd1))
+* plugin-react add react-refresh, remove module.hot ([7bee211](https://github.com/zhangyuang/ssr/commit/7bee211ddfefaef688713f505756e1155320b844))
+* support props.ssrApp in vue3 ([8985037](https://github.com/zhangyuang/ssr/commit/898503753cbe69187d27f91c70dff3f4cd4a0b2a))
+
+
+
 ## [6.2.18](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.17...plugin-vue3@6.2.18) (2022-04-25)
 
 
