@@ -9,6 +9,7 @@ import * as path from 'path'
 import { resolve } from 'path'
 import type { ReleaseType } from 'semver'
 import * as semver from 'semver'
+import { cp } from 'shelljs'
 
 export const args = require('minimist')(process.argv.slice(2))
 
@@ -153,6 +154,7 @@ export async function publishPackage (
     publicArgs.push('--tag', tag)
   }
   await promises.writeFile(resolve(pkdDir, './.npmignore'), '**/*.map')
+  cp(resolve(process.cwd(), './README.md'), resolve(pkdDir, './README.md'))
   await runIfNotDry('npm', publicArgs, {
     stdio: 'pipe',
     cwd: pkdDir
