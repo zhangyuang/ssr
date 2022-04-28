@@ -95,7 +95,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .merge(['.mjs', '.js', '.jsx', '.vue', '.json', '.wasm'])
     .end()
   chain.module
-    .noParse(/^(vue|vue-router|vuex|vuex-router-sync)$/)
+    .noParse(/^(vue|vue-router|vuex)$/)
 
   chain.mode(mode)
 

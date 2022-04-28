@@ -2,7 +2,6 @@ import * as Vue from 'vue'
 import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
-import { sync } from 'vuex-router-sync'
 import { Routes } from './create-router'
 import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
@@ -14,7 +13,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   const router = createRouter()
   const store = createStore()
   const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
-  sync(store, router)
   let { path, url } = ctx.request
 
   if (base) {

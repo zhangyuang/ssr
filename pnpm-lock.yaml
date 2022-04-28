@@ -397,7 +397,6 @@ importers:
       vue-router: ^3.0.0
       vue-server-renderer: ^2.6.0
       vuex: ^3.6.2
-      vuex-router-sync: ^5.0.0
     dependencies:
       '@babel/runtime': 7.17.9
       ssr-deepclone: 1.0.1
@@ -407,7 +406,6 @@ importers:
       vue-router: 3.5.3
       vue-server-renderer: 2.6.14
       vuex: 3.6.2_vue@2.6.14
-      vuex-router-sync: 5.0.0_vue-router@3.5.3+vuex@3.6.2
     devDependencies:
       ssr-plugin-vue: link:../plugin-vue
       ssr-types: link:../types
@@ -637,7 +635,6 @@ importers:
       vue-router: ^3.0.0
       vue-template-compiler: ^2.6.12
       vuex: ^3.6.2
-      vuex-router-sync: ^5.0.0
       webpack: ^4.42.1
       webpack-bundle-analyzer: ^3.6.1
       webpack-chain: ^6.4.0
@@ -680,7 +677,6 @@ importers:
       vue-router: 3.5.3
       vue-template-compiler: 2.6.14
       vuex: 3.6.2_vue@2.6.14
-      vuex-router-sync: 5.0.0_vue-router@3.5.3+vuex@3.6.2
       webpack: 4.46.0
       webpack-bundle-analyzer: 3.9.0
       webpack-chain: 6.5.1
@@ -16303,16 +16299,6 @@ packages:
       '@vue/runtime-dom': 3.2.33
       '@vue/server-renderer': 3.2.33_vue@3.2.33
       '@vue/shared': 3.2.33
-    dev: false
-
-  /vuex-router-sync/5.0.0_vue-router@3.5.3+vuex@3.6.2:
-    resolution: {integrity: sha512-Mry2sO4kiAG64714X1CFpTA/shUH1DmkZ26DFDtwoM/yyx6OtMrc+MxrU+7vvbNLO9LSpgwkiJ8W+rlmRtsM+w==}
-    peerDependencies:
-      vue-router: ^3.0.0
-      vuex: ^3.0.0
-    dependencies:
-      vue-router: 3.5.3
-      vuex: 3.6.2_vue@2.6.14
     dev: false
 
   /vuex/3.6.2_vue@2.6.14:
