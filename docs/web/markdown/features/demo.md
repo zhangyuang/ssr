@@ -72,8 +72,6 @@
 <td align="center" style="width: 120px" style="height: 100px"><a href="https://www.paixin.com/" target="_blank"><img src="https://www.paixin.com/favicon.ico" width="200px;margin: 20px 0" alt="Happy"/><br />
 <a href="https://www.paixin.com/" target="_bvlank"><b>拍信创意
 </b></a></td>
-<td align="center" style="width: 120px"><a href="https://aijiaoyi.n8n8.cn/" target="_blank"><img src="https://static.jingzhuan.cn/static/aijiaoyi/image/logo.png" width="120px;" alt="经传多赢&第一创业"/><br />
-<a href="https://aijiaoyi.n8n8.cn/" target="_bvlank"><sub><b>经传多赢&第一创业</b></a></td>
 <td align="center" style="width: 120px"><a href="https://www.66tools.com/" target="_blank"><img src="https://cdn.66tools.com/extension/chrome_qrcode_avatar.png" width="120px;" alt="极速二维码"/><br />
 <a href="https://www.66tools.com/" target="_bvlank"><sub><b>极速二维码
 </b></a></td>
