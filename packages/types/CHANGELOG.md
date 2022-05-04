@@ -1,3 +1,19 @@
+## [6.2.11](https://github.com/zhangyuang/ssr/compare/types@6.2.10...types@6.2.11) (2022-05-04)
+
+
+### Bug Fixes
+
+* ci ([57e713f](https://github.com/zhangyuang/ssr/commit/57e713f1f96b4ceb893837c15c6032b23a0b1a4c))
+* whitList concat userconfig ([fdd971a](https://github.com/zhangyuang/ssr/commit/fdd971ab11aebc0f348d789e758183b877e791af))
+
+
+### Features
+
+* add ssr-serialize-javascript code optimize ([41bb14d](https://github.com/zhangyuang/ssr/commit/41bb14d31efd89d4a85d5220544d2f7a3883e1a3))
+* support props.ssrApp in vue3 ([8985037](https://github.com/zhangyuang/ssr/commit/898503753cbe69187d27f91c70dff3f4cd4a0b2a))
+
+
+
 ## [6.2.10](https://github.com/zhangyuang/ssr/compare/types@6.2.9-beta.0...types@6.2.10) (2022-04-25)
 
 
