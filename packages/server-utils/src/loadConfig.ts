@@ -150,7 +150,7 @@ const loadConfig = (): IConfig => {
   const staticPath = `${normalizeEndPath(devPublicPath)}static`
   const hotUpdatePath = `${normalizeEndPath(devPublicPath)}*.hot-update**`
   const proxyKey = [staticPath, hotUpdatePath, manifestPath]
-
+  const prefix = '/'
   const config = Object.assign({}, {
     chainBaseConfig,
     chainServerConfig,
@@ -184,9 +184,11 @@ const loadConfig = (): IConfig => {
     whiteList,
     isCI,
     supportOptinalChaining,
-    define
+    define,
+    prefix
   }, userConfig)
   config.alias = alias
+  config.prefix = normalizeStartPath(config.prefix ?? '/')
   config.corejsOptions = corejsOptions
   config.whiteList = whiteList
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了

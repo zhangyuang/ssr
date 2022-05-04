@@ -1,5 +1,5 @@
 export const normalizePath = (path: string, prefix: string) => {
-  path = path.replace(prefix!, '')
+  path = path.replace(prefix, '')
   if (path.startsWith('//')) {
     path = path.replace('//', '/')
   }

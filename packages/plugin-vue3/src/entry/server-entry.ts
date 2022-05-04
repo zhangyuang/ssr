@@ -8,21 +8,14 @@ import { Routes } from './create-router'
 import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 
-const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch, Layout } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix } = config
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
-  const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
-  let { path, url } = ctx.request
-
-  if (base) {
-    path = normalizePath(path, base)
-    url = normalizePath(url, base)
-  }
-
+  const [path, url] = [normalizePath(ctx.request.path, prefix), normalizePath(ctx.request.url, prefix)]
   const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
 
   if (!routeItem) {
@@ -61,7 +54,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         children: () => h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app }),
 
         initialData: !isCsr ? () => h('script', {
-          innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};window.__USE_VITE__=${isVite}; ${base && `window.prefix="${base}"`};${clientPrefix && `window.clientPrefix="${clientPrefix}"`};`
+          innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ;${clientPrefix && `window.clientPrefix="${clientPrefix}"`};`
         }) : () => h('script', { innerHTML: `window.__USE_VITE__=${isVite}` }),
 
         cssInject: () => injectCss,

@@ -86,7 +86,6 @@ export interface ReactRoutesType {
   App?: React.FC
   layoutFetch: ReactFetch
   FeRoutes: ReactESMFeRouteItem[]
-  PrefixRouterBase?: string
   state?: any
   reducer?: any
 }

@@ -5,19 +5,13 @@ import { ISSRContext, IConfig, ReactRoutesType, ReactESMFeRouteItem } from 'ssr-
 import { serialize } from 'ssr-serialize-javascript'
 // @ts-expect-error
 import { STORE_CONTEXT as Context } from '_build/create-context'
-// @ts-expect-error
-import Layout from '@/components/layout/index.tsx'
 import { Routes } from './create-router'
 
-const { FeRoutes, layoutFetch, PrefixRouterBase, state } = Routes as ReactRoutesType
+const { FeRoutes, layoutFetch, state, Layout } = Routes as ReactRoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
   const { mode, parallelFetch, disableClientRender, prefix, isVite, isDev, clientPrefix } = config
-  let path = ctx.request.path // 这里取 pathname 不能够包含 queryString
-  const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
-  if (base) {
-    path = normalizePath(path, base)
-  }
+  const path = normalizePath(ctx.request.path, prefix)
   const routeItem = findRoute<ReactESMFeRouteItem>(FeRoutes, path)
 
   if (!routeItem) {
@@ -55,11 +49,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   }
 
   const injectScript = [
-    isVite && <script key="viteWindowInit" dangerouslySetInnerHTML={{
+    ...(isVite ? [<script key="viteWindowInit" dangerouslySetInnerHTML={{
       __html: 'window.__USE_VITE__=true'
-    }} />,
-    (isVite && isDev) && <script type="module" src='/node_modules/ssr-plugin-react/esm/entry/client-entry.js' key="vite-react-entry" />,
-    ...dynamicJsOrder.map(js => manifest[js]).map(item => item && <script key={item} src={item} type={isVite ? 'module' : ''}/>)
+    }} />] : []),
+    ...((isVite && isDev) ? [<script type="module" src='/node_modules/ssr-plugin-react/esm/entry/client-entry.js' key="vite-react-entry" />] : []),
+    ...dynamicJsOrder.map(js => manifest[js]).filter(item => !!item).map(item => <script key={item} src={item} type={isVite ? 'module' : ''}/>)
   ]
   const staticList = {
     injectCss,
@@ -90,7 +84,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   }
   const combineData = isCsr ? null : Object.assign(state ?? {}, layoutFetchData ?? {}, fetchData ?? {})
   const injectState = isCsr ? null : <script dangerouslySetInnerHTML={{
-    __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}; ${base && `window.prefix="${base}"`};${clientPrefix && `window.clientPrefix="${clientPrefix}"`}`
+    __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}; window.prefix="${prefix}";${clientPrefix && `window.clientPrefix="${clientPrefix}"`}`
   }} />
 
   return (

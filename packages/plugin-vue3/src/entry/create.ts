@@ -5,8 +5,7 @@ import { deepClone } from 'ssr-deepclone'
 import { Routes } from './create-router'
 import { RoutesType, VueRouterOptions } from './interface'
 
-const { store, FeRoutes } = Routes as RoutesType
-
+const { modules, FeRoutes } = Routes as RoutesType
 function createRouter (options: VueRouterOptions&{hashRouter: boolean} = {}) {
   const base = options.base ?? '/'
   const { hashRouter } = options
@@ -17,7 +16,9 @@ function createRouter (options: VueRouterOptions&{hashRouter: boolean} = {}) {
 }
 
 function createStore () {
-  return createVuexStore(deepClone(store ?? {}))
+  return createVuexStore({
+    modules: deepClone(modules ?? {})
+  })
 }
 
 export {

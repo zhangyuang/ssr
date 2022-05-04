@@ -7,7 +7,7 @@ import { createRouter, createStore } from './create'
 import { ESMFetch, IFeRouteItem, RoutesType } from './interface'
 import { Routes } from './create-router'
 
-const { FeRoutes, App, layoutFetch, PrefixRouterBase } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch } = Routes as RoutesType
 declare const module: any
 
 let hasRender = false
@@ -25,7 +25,7 @@ async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<an
 const clientRender = async () => {
   const store = createStore()
   const router = createRouter({
-    base: (window.microApp && window.clientPrefix) ?? window.prefix ?? PrefixRouterBase,
+    base: window.microApp ? window.clientPrefix : window.prefix,
     hashRouter: window.hashRouter
   })
   const pinia = createPinia()

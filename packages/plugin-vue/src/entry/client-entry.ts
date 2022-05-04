@@ -5,7 +5,7 @@ import { Routes } from './create-router'
 import { ESMFetch, RoutesType, IFeRouteItem } from './interface'
 import { createRouter, createStore, RealVue } from './create'
 
-const { FeRoutes, App, layoutFetch, PrefixRouterBase } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch } = Routes as RoutesType
 
 let hasRender = false
 async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<any>, router: Route) {
@@ -24,7 +24,7 @@ async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<an
 const clientRender = async () => {
   const store = createStore()
   const router = createRouter({
-    base: (window.microApp && window.clientPrefix) ?? window.prefix ?? PrefixRouterBase
+    base: window.microApp ? window.clientPrefix : window.prefix
   })
 
   if (window.__INITIAL_DATA__) {
