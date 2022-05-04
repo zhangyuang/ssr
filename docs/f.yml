@@ -7,15 +7,16 @@ provider:
   initTimeout: 20
   runtime: nodejs12
 
+custom: # 发布后自动生成测试域名
+  customDomain:
+    domainName: auto
+
 aggregation: # 聚合成一个函数发布
   ssr: # 聚合函数的名称
     deployOrigin: false
     functionsPattern:
       - '*'
-custom:
-  customDomain:
-    domainName: auto
-    
+
 package:
   include:
     - build
@@ -23,9 +24,8 @@ package:
   exclude:
     - package-lock.json
     - src
-    - vite.config.js
-    - vetur.config.js
-    
   artifact: code.zip
 
-deployType: egg       ## 部署的应用类型
+deployType:
+  type: koa                    ## 部署的应用类型
+  version: 3.0.0

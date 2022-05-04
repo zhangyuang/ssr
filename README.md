@@ -282,17 +282,17 @@ $ yarn start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 
 ```bash
 $ cloc packages --include-ext=ts
-     984 text files.
-     668 unique files.
-     823 files ignored.
+     993 text files.
+     679 unique files.
+     829 files ignored.
 
-github.com/AlDanial/cloc v 1.90  T=0.57 s (284.6 files/s, 10042.8 lines/s)
+github.com/AlDanial/cloc v 1.90  T=0.33 s (491.6 files/s, 16882.2 lines/s)
 -------------------------------------------------------------------------------
 Language                     files          blank        comment           code
 -------------------------------------------------------------------------------
-TypeScript                     161            480            197           5004
+TypeScript                     164            472            198           4962
 -------------------------------------------------------------------------------
-SUM:                           161            480            197           5004
+SUM:                           164            472            198           4962
 -------------------------------------------------------------------------------
 ```
 

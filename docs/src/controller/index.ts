@@ -1,6 +1,6 @@
 import { Readable } from 'stream'
 import { Controller, Get, Provide, Inject } from '@midwayjs/decorator'
-import { Context } from 'egg'
+import { Context } from '@midwayjs/koa'
 import { render } from 'ssr-core-vue3'
 
 @Provide()
