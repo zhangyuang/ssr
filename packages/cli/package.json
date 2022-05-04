@@ -1,6 +1,6 @@
 {
   "name": "ssr",
-  "version": "6.2.15",
+  "version": "6.2.16",
   "description": "cli for react/vue2/vue3 ssr deploy on serverless or tradtional web server",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
