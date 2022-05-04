@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs'
 import { join } from 'path'
 import { ParseFeRouteItem } from 'ssr-types'
-import { getFeDir, accessFile, writeRoutes, cpManualRoutes, normalizeEndPath } from './cwd'
+import { getFeDir, accessFile, writeRoutes, cpManualRoutes, normalizeEndPath, getPagesDir } from './cwd'
 import { loadConfig } from './loadConfig'
 
 export const getOutputPublicPath = () => {
@@ -22,7 +22,8 @@ export const getImageOutputPath = () => {
 }
 
 // const extraOptions = {}
-const parseFeRoutes = async ({ dir }: {dir: string}) => {
+const parseFeRoutes = async () => {
+  const dir = getPagesDir()
   const { dynamic, routerPriority, routerOptimize } = loadConfig()
   // 根据目录结构生成前端路由表
   const pathRecord = [''] // 路径记录
