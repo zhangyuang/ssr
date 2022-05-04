@@ -1,28 +1,20 @@
 import { promises as fs } from 'fs'
 import { join } from 'path'
 import { ParseFeRouteItem } from 'ssr-types'
-import { getFeDir, accessFile, writeRoutes, cpManualRoutes } from './cwd'
+import { getFeDir, accessFile, writeRoutes, cpManualRoutes, normalizeEndPath } from './cwd'
 import { loadConfig } from './loadConfig'
-
-export const normalizePublicPath = (path: string) => {
-  // 兼容 /pre /pre/ 两种情况
-  if (!path.endsWith('/')) {
-    path = `${path}/`
-  }
-  return path
-}
 
 export const getOutputPublicPath = () => {
   // return /client/
   const { publicPath, isDev } = loadConfig()
-  const path = normalizePublicPath(publicPath)
+  const path = normalizeEndPath(publicPath)
   return isDev ? path : `${path}client/`
 }
 
 export const getImageOutputPath = () => {
   const { publicPath, isDev } = loadConfig()
   const imagePath = 'static/images'
-  const normalizePath = normalizePublicPath(publicPath)
+  const normalizePath = normalizeEndPath(publicPath)
   return {
     publicPath: isDev ? `${normalizePath}${imagePath}` : `${normalizePath}client/${imagePath}`,
     imagePath
@@ -31,10 +23,7 @@ export const getImageOutputPath = () => {
 
 // const extraOptions = {}
 const parseFeRoutes = async ({ dir }: {dir: string}) => {
-  const { dynamic, routerPriority, routerOptimize, isVite } = loadConfig()
-  if (isVite && !dynamic) {
-    throw new Error('Vite模式禁止关闭 dynamic ')
-  }
+  const { dynamic, routerPriority, routerOptimize } = loadConfig()
   // 根据目录结构生成前端路由表
   const pathRecord = [''] // 路径记录
   // @ts-expect-error
