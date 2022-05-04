@@ -1,3 +1,7 @@
+## [6.2.16](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.15...plugin-react@6.2.16) (2022-05-04)
+
+
+
 ## [6.2.15](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.14...plugin-react@6.2.15) (2022-04-27)
 
 
