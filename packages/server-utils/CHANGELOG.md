@@ -1,3 +1,12 @@
+## [6.2.21](https://github.com/zhangyuang/ssr/compare/server-utils@6.2.20...server-utils@6.2.21) (2022-05-05)
+
+
+### Features
+
+*  optimize code remove disableClientRender fix vite ([eeff477](https://github.com/zhangyuang/ssr/commit/eeff4770f8d9ff400289cf4d1ca4dd32883be108))
+
+
+
 ## [6.2.20](https://github.com/zhangyuang/ssr/compare/server-utils@6.2.19...server-utils@6.2.20) (2022-05-04)
 
 
