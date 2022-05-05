@@ -77,7 +77,6 @@ export interface IConfig {
   }
   parallelFetch?: boolean
   nestStartTips?: string
-  disableClientRender?: boolean
   manifestPath: string
   proxyKey: string[]
   vue3ServerEntry: string

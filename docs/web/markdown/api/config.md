@@ -547,7 +547,7 @@ module.exports = {
 }
 ```
 
-## disableClientRender
+<!-- ## disableClientRender
 
 禁用默认的客户端渲染逻辑调用。通常与[微前端](./features$在微前端场景下使用(Beta))结合使用
 
@@ -564,7 +564,7 @@ module.exports = {
 module.exports = {
   disableClientRender: true
 }
-```
+``` -->
 
 ## routerOptimize
 

@@ -56,21 +56,18 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
     router,
     store,
     render: function (h: Vue.CreateElement) {
-      const injectCss: Vue.VNode[] = []
-      dynamicCssOrder.forEach(css => {
-        if (manifest[css]) {
-          injectCss.push(
-            h('link', {
-              attrs: {
-                rel: 'stylesheet',
-                href: manifest[css]
-              }
-            })
-          )
+      const injectCss = (isVite && isDev) ? [h('script', {
+        attrs: {
+          type: 'module',
+          src: '/@vite/client'
         }
-      })
-
-      const injectScript: Vue.VNode[] = (isVite && isDev) ? [h('script', {
+      })] : dynamicCssOrder.map(css => manifest[css]).filter(Boolean).map(css => h('link', {
+        attrs: {
+          rel: 'stylesheet',
+          href: css
+        }
+      }))
+      const injectScript = (isVite && isDev) ? [h('script', {
         attrs: {
           type: 'module',
           src: '/node_modules/ssr-plugin-vue/esm/entry/client-entry.js'
@@ -81,12 +78,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           type: isVite ? 'module' : ''
         }
       }))
-      const viteClient = h('script', {
-        attrs: {
-          type: 'module',
-          src: '/@vite/client'
-        }
-      })
+
       const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue')
       const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue')
 
@@ -103,9 +95,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               remInitial
             ])
           ]),
-          (isVite && isDev) && h('template', {
-            slot: 'viteClient'
-          }, [viteClient]),
 
           h('template', {
             slot: 'customeHeadScript'

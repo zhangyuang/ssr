@@ -29,7 +29,6 @@ export interface IWindow {
   __INITIAL_PINIA_DATA__?: any
   STORE_CONTEXT?: any
   __USE_VITE__?: boolean
-  __disableClientRender__?: boolean
   prefix?: string
   clientPrefix?: string
   microApp?: any

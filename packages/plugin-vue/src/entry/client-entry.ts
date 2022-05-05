@@ -71,10 +71,7 @@ const clientRender = async () => {
   })
 }
 
-if (!window.__disableClientRender__) {
-  // for micro front-end
-  clientRender()
-}
+clientRender()
 
 export {
   clientRender

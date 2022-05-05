@@ -41,12 +41,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       {
         remInitial: () => h('script', { innerHTML: remInitial }),
 
-        viteClient: (isVite && isDev) ? () =>
-          h('script', {
-            type: 'module',
-            src: '/@vite/client'
-          }) : null,
-
         customeHeadScript: () => customeHeadScriptArr,
 
         customeFooterScript: () => customeFooterScriptArr,
@@ -90,27 +84,23 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     value: combineAysncData
   }
 
-  const injectCss: Vue.VNode[] = []
-  dynamicCssOrder.forEach(css => {
-    if (manifest[css]) {
-      injectCss.push(
-        h('link', {
-          rel: 'stylesheet',
-          href: manifest[css]
-        })
-      )
-    }
-  })
-  const injectScript = (isVite && isDev) ? h('script', {
+  const injectCss = (isVite && isDev) ? [h('script', {
+    type: 'module',
+    src: '/@vite/client'
+  })] : dynamicCssOrder.map(css => manifest[css]).filter(Boolean).map(css => h('link', {
+    rel: 'stylesheet',
+    href: css
+  }))
+
+  const injectScript = (isVite && isDev) ? [h('script', {
     type: 'module',
     src: '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'
-  }) : dynamicJsOrder.map(js =>
+  })] : dynamicJsOrder.map(js =>
     h('script', {
       src: manifest[js],
       type: isVite ? 'module' : ''
     })
   )
-
   const state = Object.assign({}, store.state ?? {}, asyncData.value)
 
   return app

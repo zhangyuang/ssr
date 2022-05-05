@@ -10,7 +10,7 @@ import { Routes } from './create-router'
 const { FeRoutes, layoutFetch, state, Layout } = Routes as ReactRoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
-  const { mode, parallelFetch, disableClientRender, prefix, isVite, isDev, clientPrefix } = config
+  const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix } = config
   const path = normalizePath(ctx.request.path, prefix)
   const routeItem = findRoute<ReactESMFeRouteItem>(FeRoutes, path)
 
@@ -26,27 +26,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   const dynamicJsOrder = await getAsyncJsChunk(ctx)
   const manifest = await getManifest(config)
 
-  const injectCss: JSX.Element[] = []
-
-  if (isVite && isDev) {
-    injectCss.push(<script src="/@vite/client" type="module" key="vite-client"/>)
-    injectCss.push(<script key="vite-react-refresh" type="module" dangerouslySetInnerHTML={{
+  const injectCss = (isVite && isDev) ? [
+    <script src="/@vite/client" type="module" key="vite-client"/>,
+    <script key="vite-react-refresh" type="module" dangerouslySetInnerHTML={{
       __html: reactRefreshFragment
-    }} />)
-  } else {
-    dynamicCssOrder.forEach(css => {
-      if (manifest[css]) {
-        const item = manifest[css]
-        injectCss.push(<link rel='stylesheet' key={item} href={item} />)
-      }
-    })
-  }
-
-  if (disableClientRender) {
-    injectCss.push(<script key="disableClientRender" dangerouslySetInnerHTML={{
-      __html: 'window.__disableClientRender__ = true'
-    }}/>)
-  }
+    }} />
+  ] : dynamicCssOrder.map(css => manifest[css]).filter(Boolean).map(css => <link rel='stylesheet' key={css} href={css} />)
 
   const injectScript = [
     ...(isVite ? [<script key="viteWindowInit" dangerouslySetInnerHTML={{

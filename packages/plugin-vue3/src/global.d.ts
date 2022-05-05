@@ -9,7 +9,6 @@ declare global {
     __INITIAL_DATA__?: IWindow['__INITIAL_DATA__']
     __INITIAL_PINIA_DATA__?: IWindow['__INITIAL_PINIA_DATA__']
     __USE_VITE__?: boolean
-    __disableClientRender__?: boolean
     prefix?: string
     clientPrefix?: string
     microApp?: any
