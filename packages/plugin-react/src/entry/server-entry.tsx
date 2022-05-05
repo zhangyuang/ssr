@@ -53,7 +53,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
       __html: 'window.__USE_VITE__=true'
     }} />] : []),
     ...((isVite && isDev) ? [<script type="module" src='/node_modules/ssr-plugin-react/esm/entry/client-entry.js' key="vite-react-entry" />] : []),
-    ...dynamicJsOrder.map(js => manifest[js]).filter(item => !!item).map(item => <script key={item} src={item} type={isVite ? 'module' : ''}/>)
+    ...dynamicJsOrder.map(js => manifest[js]).filter(Boolean).map(item => <script key={item} src={item} type={isVite ? 'module' : ''}/>)
   ]
   const staticList = {
     injectCss,
