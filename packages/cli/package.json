@@ -7,6 +7,7 @@
   "sideEffects": false,
   "scripts": {
     "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
+    "build:publish": "concurrently \"tsc -p ./tsconfig.cjs.json --sourcemap false\" \" tsc -p ./tsconfig.esm.json --sourcemap false\"",
     "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
   },
   "bin": {
