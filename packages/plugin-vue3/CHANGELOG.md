@@ -1,3 +1,17 @@
+## [6.2.22](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.21...plugin-vue3@6.2.22) (2022-05-05)
+
+
+### Bug Fixes
+
+* add build:publish disable sourcemap ([ef82b29](https://github.com/zhangyuang/ssr/commit/ef82b298ddf19b72b130d76c33bfbca67339b139))
+
+
+### Features
+
+*  optimize code remove disableClientRender fix vite ([eeff477](https://github.com/zhangyuang/ssr/commit/eeff4770f8d9ff400289cf4d1ca4dd32883be108))
+
+
+
 ## [6.2.21](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.20...plugin-vue3@6.2.21) (2022-05-04)
 
 
