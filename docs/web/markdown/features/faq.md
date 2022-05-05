@@ -761,7 +761,7 @@ export default {
 
 如果是在 [qiankun](https://qiankun.umijs.org/) 场景下使用，目前看来侵入性略大。
 
-首先开发者需要配置 `disableClientRender`，来禁用框架默认的客户端渲染逻辑的调用
+<!-- 首先开发者需要配置 `disableClientRender`，来禁用框架默认的客户端渲染逻辑的调用 -->
 
 <!-- ```js
 module.exports = {
