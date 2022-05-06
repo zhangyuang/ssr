@@ -33,12 +33,19 @@ export const generateHtml = async (argv: Argv) => {
     let jsHeaderManifest = ''
     let jsFooterManifest = ''
     const hashRouterScript = hashRouter ? '<script>window.hashRouter=true</script>' : ''
+    const combine = [
+      {
+        arr: customeHeadScript ?? [],
+        flag: 'header'
+      }, {
+        arr: customeFooterScript ?? [],
+        flag: 'footer'
+      }]
     if (framework === 'ssr-plugin-vue3') {
       const { h } = await import(loadModuleFromFramework('vue'))
       const { renderToString } = await import('@vue/server-renderer')
-      const flag = customeHeadScript ? 'header' : 'footer'
-      const arr = customeHeadScript ?? customeFooterScript
-      if (arr) {
+      for (const item of combine) {
+        const { arr, flag } = item
         const scriptArr = (Array.isArray(arr) ? arr : arr({}))?.map((item) => h(
           'script',
           Object.assign({}, item.describe, {
@@ -52,9 +59,8 @@ export const generateHtml = async (argv: Argv) => {
         }
       }
     } if (framework === 'ssr-plugin-vue') {
-      const flag = customeHeadScript ? 'header' : 'footer'
-      const arr = customeHeadScript ?? customeFooterScript
-      if (arr) {
+      for (const item of combine) {
+        const { arr, flag } = item
         const scriptArr = (Array.isArray(arr) ? arr : arr({}))?.map((item) => `<script ${item.describe?.attrs ? `src="${item.describe.attrs.src}" type=text/javascript` : ''}>${item.content} </script>`)
         if (flag === 'header') {
           jsHeaderManifest = scriptArr.join('')
