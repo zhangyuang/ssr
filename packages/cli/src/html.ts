@@ -5,7 +5,7 @@ import { Argv } from 'ssr-types'
 
 export const generateHtml = async (argv: Argv) => {
   if (process.env.SPA) {
-    console.log('当前构建开启 SPA 模式，将生成 html 文件用于独立部署，默认关闭 dynamic 选项')
+    console.log('Generating html file...')
     // spa 模式下生成 html 文件直接部署
     const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework } = await import('ssr-server-utils')
     const { jsOrder, cssOrder, customeHeadScript, customeFooterScript, hashRouter, htmlTemplate } = loadConfig()
@@ -29,13 +29,13 @@ export const generateHtml = async (argv: Argv) => {
   </html>
   `
 
-    const framewor = judgeFramework()
+    const framework = judgeFramework()
     let jsHeaderManifest = ''
     let jsFooterManifest = ''
     const hashRouterScript = hashRouter ? '<script>window.hashRouter=true</script>' : ''
-    if (framewor === 'ssr-plugin-vue3') {
+    if (framework === 'ssr-plugin-vue3') {
       const { h } = await import(loadModuleFromFramework('vue'))
-      const { renderToString } = await import ('@vue/server-renderer')
+      const { renderToString } = await import('@vue/server-renderer')
       const flag = customeHeadScript ? 'header' : 'footer'
       const arr = customeHeadScript ?? customeFooterScript
       if (arr) {
@@ -51,6 +51,17 @@ export const generateHtml = async (argv: Argv) => {
           jsFooterManifest = (await renderToString(h('div', {}, scriptArr))).replace('<div>', '').replace('</div>', '')
         }
       }
+    } if (framework === 'ssr-plugin-vue') {
+      const flag = customeHeadScript ? 'header' : 'footer'
+      const arr = customeHeadScript ?? customeFooterScript
+      if (arr) {
+        const scriptArr = (Array.isArray(arr) ? arr : arr({}))?.map((item) => `<script ${item.describe?.attrs ? `src="${item.describe.attrs.src}" type=text/javascript` : ''}>${item.content} </script>`)
+        if (flag === 'header') {
+          jsHeaderManifest = scriptArr.join('')
+        } else {
+          jsFooterManifest = scriptArr.join('')
+        }
+      }
     }
 
     const cwd = getCwd()
@@ -58,13 +69,13 @@ export const generateHtml = async (argv: Argv) => {
     let jsManifest = ''
     jsOrder.forEach(item => {
       if (manifest[item]) {
-        jsManifest += `<script src=${manifest[item]}></script>`
+        jsManifest += `<script src="${manifest[item]}"></script>`
       }
     })
     let cssManifest = ''
     cssOrder.forEach(item => {
       if (manifest[item]) {
-        cssManifest += `<link rel='stylesheet' href=${manifest[item]} />`
+        cssManifest += `<link rel='stylesheet' href="${manifest[item]}" />`
       }
     })
     const generateHtmlStr = htmlStr.replace('cssInject', cssManifest).replace('jsManifest', jsManifest).replace('jsHeaderManifest', jsHeaderManifest)
