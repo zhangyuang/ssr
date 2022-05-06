@@ -1,3 +1,12 @@
+## [6.2.18](https://github.com/zhangyuang/ssr/compare/cli@6.2.17...cli@6.2.18) (2022-05-06)
+
+
+### Bug Fixes
+
+* build html ([83be7be](https://github.com/zhangyuang/ssr/commit/83be7be185985a5dcbb9b8e846a5e2b14b94c1b0))
+
+
+
 ## [6.2.17](https://github.com/zhangyuang/ssr/compare/cli@6.2.16...cli@6.2.17) (2022-05-06)
 
 
