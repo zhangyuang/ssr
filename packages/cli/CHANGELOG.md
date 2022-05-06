@@ -1,3 +1,18 @@
+## [6.2.17](https://github.com/zhangyuang/ssr/compare/cli@6.2.16...cli@6.2.17) (2022-05-06)
+
+
+### Bug Fixes
+
+* add build:publish disable sourcemap ([ef82b29](https://github.com/zhangyuang/ssr/commit/ef82b298ddf19b72b130d76c33bfbca67339b139))
+* build html ([59a8d7f](https://github.com/zhangyuang/ssr/commit/59a8d7f31bed703601e753d02db49ea5a0f93054))
+
+
+### Features
+
+*  optimize code remove disableClientRender fix vite ([eeff477](https://github.com/zhangyuang/ssr/commit/eeff4770f8d9ff400289cf4d1ca4dd32883be108))
+
+
+
 ## [6.2.16](https://github.com/zhangyuang/ssr/compare/cli@6.2.15...cli@6.2.16) (2022-05-04)
 
 
