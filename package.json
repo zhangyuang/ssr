@@ -8,7 +8,7 @@
     "bootstrap": "pnpm i && pnpm build",
     "clean": "node scripts/scripts.js --clean",
     "dev": "esno scripts/dev.ts",
-    "build": "pnpm --filter ./packages build",
+    "build": "esno scripts/turbo.ts --cmd build",
     "build:publish": "pnpm --filter ./packages build:publish",
     "lint": "cross-env NODE_OPTIONS=--max_old_space_size=4096 eslint packages example e2e --ext .js,.ts --cache",
     "lint:fix": "cross-env NODE_OPTIONS=--max_old_space_size=4096 eslint packages example e2e --ext .js,.ts --cache --fix",
@@ -68,6 +68,7 @@
     "semver": "^7.3.5",
     "shelljs": "^0.8.3",
     "tsc-transpile-only": "^0.0.3",
+    "turbo": "^1.2.6",
     "typescript": "^4.0.0"
   }
 }
