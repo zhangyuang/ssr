@@ -10,7 +10,6 @@ importers:
       concurrently: ^5.3.0
       conventional-changelog-cli: ^2.2.2
       cross-env: ^7.0.3
-      cross-spawn: ^7.0.3
       cypress: ^6.2.1
       eslint: ^7.9.0
       eslint-config-standard-react-ts: ^1.0.3
@@ -26,7 +25,6 @@ importers:
       tsc-transpile-only: ^0.0.3
       turbo: ^1.2.6
       typescript: ^4.0.0
-      yargs-parser: 21.0.1
     devDependencies:
       '@types/prompts': 2.0.14
       '@types/semver': 7.3.9
@@ -34,7 +32,6 @@ importers:
       concurrently: 5.3.0
       conventional-changelog-cli: 2.2.2
       cross-env: 7.0.3
-      cross-spawn: 7.0.3
       cypress: 6.9.1
       eslint: 7.32.0
       eslint-config-standard-react-ts: 1.0.16_typescript@4.6.3
@@ -50,7 +47,6 @@ importers:
       tsc-transpile-only: 0.0.3_typescript@4.6.3
       turbo: 1.2.8
       typescript: 4.6.3
-      yargs-parser: 21.0.1
 
   example/midway-react-ssr:
     specifiers:
@@ -17030,11 +17026,6 @@ packages:
   /yargs-parser/20.2.9:
     resolution: {integrity: sha512-y11nGElTIV+CT3Zv9t7VKl+Q3hTQoT9a1Qzezhhl6Rp21gJ/IVTW7Z3y9EWXhuUBC2Shnf+DX0antecpAwSP8w==}
     engines: {node: '>=10'}
-
-  /yargs-parser/21.0.1:
-    resolution: {integrity: sha512-9BK1jFpLzJROCI5TzwZL/TU4gqjK5xiHV/RfWLOahrjAko/e4DJkRDZQXfvqAsiZzzYhgAzbgz6lg48jcm4GLg==}
-    engines: {node: '>=12'}
-    dev: true
 
   /yargs/12.0.5:
     resolution: {integrity: sha512-Lhz8TLaYnxq/2ObqHDql8dX8CJi97oHxrjUcYtzKbbykPtVW9WB+poxI+NM2UIzsMgNCZTIf0AQwsjK5yMAqZw==}

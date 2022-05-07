@@ -1,44 +1,46 @@
-import yArgs from 'yargs-parser';
-import { spawnSync } from './utils';
+import execa from 'execa';
 
 (async () => {
-  const args = yArgs(process.argv.slice(2));
-  const filter = args.filter || './packages/*';
-  const extra = (args._ || []).join(' ');
+  const args = require('minimist')(process.argv.slice(2))
+  const filter = args.filter || './packages/*'
+  const extra = (args._ || []).join(' ')
 
   turbo({
     cmd: args.cmd,
     filter,
     extra,
     cache: args.cache,
-    parallel: args.parallel,
-  });
-})();
+    parallel: args.parallel
+  })
+})()
 
-function turbo(opts: {
-  filter: string;
-  cmd: string;
-  extra?: string;
-  cache?: boolean;
-  parallel?: boolean;
+function turbo (opts: {
+  filter: string
+  cmd: string
+  extra?: string
+  cache?: boolean
+  parallel?: boolean
 }) {
-  const extraCmd = opts.extra ? `-- -- ${opts.extra}` : '';
-  const cacheCmd = opts.cache === false ? '--no-cache --force' : '';
-  const parallelCmd = opts.parallel ? '--parallel' : '';
+  const extraCmd = opts.extra ? `-- -- ${opts.extra}` : ''
+  const cacheCmd = opts.cache === false ? '--no-cache --force' : ''
+  const parallelCmd = opts.parallel ? '--parallel' : ''
 
   const options = [
+    'run',
     opts.cmd,
-    `--cache-dir=".turbo"`,
+    '--cache-dir=".turbo"',
     `--filter="${opts.filter}"`,
     cacheCmd,
     parallelCmd,
-    extraCmd,
+    extraCmd
   ]
     .filter(Boolean)
-    .join(' ');
 
-  const command = `turbo run ${options}`;
-  spawnSync(command, {
+  console.log(process.cwd())
+
+  execa('turbo', options, {
     cwd: process.cwd(),
-  });
+    stdio: 'inherit',
+    shell: true
+  })
 }
