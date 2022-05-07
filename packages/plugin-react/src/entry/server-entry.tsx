@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, reactRefreshFragment } from 'ssr-server-utils'
-import { ISSRContext, IConfig, ReactRoutesType, ReactESMFeRouteItem } from 'ssr-types-react'
+import { ISSRContext, IConfig, ReactRoutesType, ReactESMPreloadFeRouteItem, DynamicFC, StaticFC } from 'ssr-types-react'
 import { serialize } from 'ssr-serialize-javascript'
 // @ts-expect-error
 import { STORE_CONTEXT as Context } from '_build/create-context'
@@ -12,7 +12,7 @@ const { FeRoutes, layoutFetch, state, Layout } = Routes as ReactRoutesType
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
   const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix } = config
   const path = normalizePath(ctx.request.path, prefix)
-  const routeItem = findRoute<ReactESMFeRouteItem>(FeRoutes, path)
+  const routeItem = findRoute<ReactESMPreloadFeRouteItem>(FeRoutes, path)
 
   if (!routeItem) {
     throw new Error(`
@@ -46,7 +46,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   }
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
-  const Component = isCsr ? React.Fragment : (await component()).default
+  const Component = isCsr ? React.Fragment : (component.name === 'dynamicComponent' ? (await (component as DynamicFC)()).default : component as StaticFC)
 
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
