@@ -35,6 +35,9 @@ const serverConfig: UserConfig = {
     viteConfig?.()?.server?.extraPlugin,
     styleImport(styleImportConfig)
   ],
+  esbuild: {
+    keepNames: true
+  },
   build: {
     ssr: reactServerEntry,
     outDir: serverOutPut,
