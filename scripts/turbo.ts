@@ -27,7 +27,6 @@ function turbo (opts: {
   const options = [
     'run',
     opts.cmd,
-    '--cache-dir=".turbo"',
     `--filter="${opts.filter}"`,
     cacheCmd,
     parallelCmd,

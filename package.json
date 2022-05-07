@@ -10,7 +10,7 @@
     "dev": "esno scripts/dev.ts",
     "build": "esno scripts/turbo.ts --cmd build",
     "build:publish": "pnpm --filter ./packages build:publish",
-    "lint": "cross-env NODE_OPTIONS=--max_old_space_size=4096 eslint packages example e2e --ext .js,.ts --cache",
+    "lint": "cross-env NODE_OPTIONS=--max_old_space_size=4096 eslint packages example e2e --ext .js,.ts --cache --cache-strategy content",
     "lint:fix": "cross-env NODE_OPTIONS=--max_old_space_size=4096 eslint packages example e2e --ext .js,.ts --cache --fix",
     "sync": "node scripts/scripts.js --sync",
     "e2e": "cypress run --browser chrome",
