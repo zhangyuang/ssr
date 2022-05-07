@@ -4,7 +4,6 @@ import execa from 'execa';
   const args = require('minimist')(process.argv.slice(2))
   const filter = args.filter || './packages/*'
   const extra = (args._ || []).join(' ')
-
   turbo({
     cmd: args.cmd,
     filter,
@@ -35,8 +34,6 @@ function turbo (opts: {
     extraCmd
   ]
     .filter(Boolean)
-
-  console.log(process.cwd())
 
   execa('turbo', options, {
     cwd: process.cwd(),
