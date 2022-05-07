@@ -7,12 +7,13 @@ import { getBaseConfig } from './base'
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
 const safePostCssParser = require('postcss-safe-parser')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const loadModule = loadModuleFromFramework
 let asyncChunkMap: Record<string, string[]> = {}
 
 const getClientWebpack = (chain: WebpackChain) => {
-  const { isDev, chunkName, getOutput, cwd, useHash, chainClientConfig } = loadConfig()
+  const { isDev, chunkName, getOutput, cwd, useHash, chainClientConfig, host, fePort } = loadConfig()
   const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
   const publicPath = getOutputPublicPath()
   getBaseConfig(chain, false)
@@ -92,6 +93,15 @@ const getClientWebpack = (chain: WebpackChain) => {
   chain.when(generateAnalysis, chain => {
     chain.plugin('analyze').use(BundleAnalyzerPlugin)
   })
+  chain.when(isDev, chain => {
+    chain.plugin('fast-refresh').use(new ReactRefreshWebpackPlugin({
+      overlay: {
+        sockHost: host,
+        sockPort: fePort
+      }
+    }))
+  })
+
   chain.plugin('WriteAsyncManifest').use(
     class WriteAsyncChunkManifest {
       apply (compiler: any) {

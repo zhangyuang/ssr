@@ -1,5 +1,5 @@
 import { Component } from 'vue'
-import { Store } from 'vuex'
+import { Store, StoreOptions } from 'vuex'
 import { Route } from 'vue-router'
 import { ESMFeRouteItem, ISSRContext } from 'ssr-types'
 
@@ -17,8 +17,7 @@ export interface RoutesType {
   App: Component
   layoutFetch?: (params: {store: Store<any>, router: Route}, ctx?: ISSRContext) => Promise<any>
   FeRoutes: IFeRouteItem[]
-  PrefixRouterBase?: string
-  store?: any
+  modules?: StoreOptions<any>['modules']
 }
 
 export interface VueRouterOptions {

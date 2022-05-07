@@ -7,9 +7,8 @@ import { IWindow, LayoutProps, ReactRoutesType } from 'ssr-types-react'
 import { Routes } from './create-router'
 import { AppContext } from './context'
 
-const { FeRoutes, layoutFetch, App, PrefixRouterBase } = Routes as ReactRoutesType
+const { FeRoutes, layoutFetch, App } = Routes as ReactRoutesType
 
-declare const module: any
 declare const window: IWindow
 
 const clientRender = async (): Promise<void> => {
@@ -17,7 +16,7 @@ const clientRender = async (): Promise<void> => {
     return props.children!
   }
   // 客户端渲染||hydrate
-  const baseName = (window.microApp && window.clientPrefix) ?? window.prefix ?? PrefixRouterBase
+  const baseName = window.microApp ? window.clientPrefix : window.prefix
   const routes = await preloadComponent(FeRoutes, baseName)
   ReactDOM[window.__USE_SSR__ ? 'hydrate' : 'render'](
     <BrowserRouter basename={baseName}>
@@ -44,15 +43,9 @@ const clientRender = async (): Promise<void> => {
     </BrowserRouter>
     , document.getElementById('app'))
 
-  if (!window.__USE_VITE__) {
-    module?.hot?.accept?.() // webpack 场景下的 hmr
-  }
 }
-if (!window.__disableClientRender__) {
-  // 如果服务端直出的时候带上该记号，则默认不进行客户端渲染，将处理逻辑交给上层
-  // 可用于微前端场景下自定义什么时候进行组件渲染的逻辑调用
-  clientRender()
-}
+
+clientRender()
 
 export {
   clientRender

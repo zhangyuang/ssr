@@ -40,15 +40,13 @@ jobs:
   deploy-doc: 
     if: ${{ contains(github.actor, 'zhangyuang') && github.ref_name == 'dev'}}
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node: ["14"]
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 14
+        
       - run: cd docs && yarn && npm run deploy
         env:
           SERVERLESS_DEPLOY_AK: ${{ secrets.SERVERLESS_DEPLOY_AK }}
@@ -63,12 +61,11 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest]
-        node: ["14"]
+        node: ["12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -84,7 +81,7 @@ jobs:
 
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
 
       - uses: cypress-io/github-action@v2
         with:
@@ -102,12 +99,11 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest]
-        node: ["14"]
+        node: ["12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -123,7 +119,7 @@ jobs:
 
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
           
       - uses: cypress-io/github-action@v2
         with:
@@ -141,12 +137,11 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest]
-        node: ["14"]
+        node: ["12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -162,7 +157,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
 
       - uses: cypress-io/github-action@v2
         with:
@@ -179,12 +174,11 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest]
-        node: ["14"]
+        node: ["12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -199,7 +193,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
       - uses: cypress-io/github-action@v2
         with:
           install: false
@@ -215,12 +209,11 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest]
-        node: ["14"]
+        node: ["12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -235,7 +228,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
       - uses: cypress-io/github-action@v2
         with:
           install: false
@@ -251,12 +244,11 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest]
-        node: ["14"]
+        node: ["12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -271,7 +263,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -288,12 +280,11 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest]
-        node: ["14"]
+        node: ["12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -308,7 +299,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -324,12 +315,11 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest]
-        node: ["14"]
+        node: ["12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -344,7 +334,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -361,12 +351,11 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest]
-        node: ["14"]
+        node: ["12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Get remote e2e example
         uses: actions/checkout@master
         with:
@@ -391,7 +380,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -409,12 +398,11 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest]
-        node: ["14"]
+        node: ["12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Get remote e2e example
         uses: actions/checkout@master
         with:
@@ -439,7 +427,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -457,12 +445,11 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest]
-        node: ["14"]
+        node: ["12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -477,7 +464,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -494,12 +481,11 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest]
-        node: ["14"]
+        node: ["12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -514,7 +500,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -531,12 +517,11 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest]
-        node: ["14"]
+        node: ["12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -551,7 +536,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -568,12 +553,11 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest]
-        node: ["14"]
+        node: ["12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: ${{ matrix.node }}
+        
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -588,7 +572,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build
         
       - uses: cypress-io/github-action@v2
         with:
@@ -619,27 +603,29 @@ jobs:
       - e2e-chrome-nestjs-vue
       - e2e-chrome-nestjs-vue3
       - e2e-chrome-nestjs-vue3-pinia
-
+    strategy:
+      matrix:
+        os: [macos-latest]
+        node: ["12"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        with:
-          node-version: 14
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 6
-      - name: Use Node.js 14
+      - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: ${{ matrix.node-version }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build:only && pnpm build && pnpm i --no-frozen-lockfile
+          pnpm build:publish
       - name: List packages
         run: ls -R packages
         shell: bash

@@ -1,6 +1,6 @@
 
 import { join } from 'path'
-import { Mode } from 'ssr-types'
+import { Mode } from 'ssr-types-react'
 import { getCwd, loadConfig, getLocalNodeModules, setStyle, addImageChain, loadModuleFromFramework } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import * as webpack from 'webpack'
@@ -9,8 +9,8 @@ const MiniCssExtractPlugin = require(loadModuleFromFramework('mini-css-extract-p
 const WebpackBar = require('webpackbar')
 const loadModule = loadModuleFromFramework
 
-const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOptions: any) => {
-  const { babelOptions } = loadConfig()
+const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOptions: any, isServer: boolean) => {
+  const { babelOptions, isDev } = loadConfig()
   chain.use('babel-loader')
     .loader(loadModule('babel-loader'))
     .options({
@@ -42,7 +42,7 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
         [loadModule('@babel/plugin-proposal-private-methods'), { loose: true }],
         [loadModule('@babel/plugin-proposal-private-property-in-object'), { loose: true }],
         ...babelOptions?.plugins ?? []
-      ]
+      ].concat((!isServer && isDev) ? loadModule('react-refresh/babel') : [])
     })
     .end()
 }
@@ -106,8 +106,8 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     babelForExtraModule = module.end().exclude.add(/core-js/).end()
   }
 
-  addBabelLoader(babelModule, envOptions)
-  addBabelLoader(babelForExtraModule, envOptions)
+  addBabelLoader(babelModule, envOptions, isServer)
+  addBabelLoader(babelForExtraModule, envOptions, isServer)
 
   setStyle(chain, /\.css$/, {
     rule: 'css',

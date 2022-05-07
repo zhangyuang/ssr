@@ -1,6 +1,6 @@
-import { ReactMidwayFetch } from 'ssr-types-react'
+import { ReactMidwayKoaFetch } from 'ssr-types-react'
 
-const fetch: ReactMidwayFetch = async ({ ctx, routerProps }) => {
+const fetch: ReactMidwayKoaFetch = async ({ ctx, routerProps }) => {
 
 }
 

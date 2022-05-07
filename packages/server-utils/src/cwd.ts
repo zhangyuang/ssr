@@ -45,21 +45,15 @@ const transformConfig = async () => {
   }
 }
 
-const transformManualRoutes = async () => {
-  const { transform } = await import('esbuild')
+const cpManualRoutes = async () => {
+  const cwd = getCwd()
   const declaretiveRoutes = await accessFile(resolve(getFeDir(), './route.ts')) // 是否存在自定义路由
-  // without manualRoutes create emtry object
-  const manualRoutes = declaretiveRoutes ? (await promises.readFile(resolve(getFeDir(), './route.ts'))).toString() : 'export {}'
-  const { code } = await transform(manualRoutes, {
-    loader: 'ts',
-    format: 'esm',
-    keepNames: true
-  })
-  // remove empty character and wrapline in vite mode for rollup
-  const serializeCode = code.replace(/(import\([\s\S]*?,)/g, (match) => {
-    return match.replace(/\s/g, '')
-  })
-  await writeRoutes(serializeCode, 'ssr-manual-routes.js')
+  if (!declaretiveRoutes) {
+    await promises.writeFile(resolve(cwd, './build/ssr-manual-routes.js'), '')
+    return
+  }
+  const { cp } = await import('shelljs')
+  cp(resolve(getFeDir(), './route.ts'), resolve(cwd, './build/ssr-manual-routes.ts'))
 }
 
 const getUserConfig = (): UserConfig => {
@@ -73,26 +67,6 @@ const getUserConfig = (): UserConfig => {
   return config.userConfig ?? config
 }
 
-const readAsyncChunk = async (): Promise<Record<string, string>> => {
-  const cwd = getCwd()
-  try {
-    const str = (await promises.readFile(resolve(cwd, './build/asyncChunkMap.json'))).toString()
-    return JSON.parse(str)
-  } catch (error) {
-    return {}
-  }
-}
-
-const addAsyncChunk = async (dynamicCssOrder: string[], webpackChunkName: string) => {
-  const arr = []
-  const asyncChunkMap = await readAsyncChunk()
-  for (const key in asyncChunkMap) {
-    if (asyncChunkMap[key].includes(webpackChunkName)) {
-      arr.push(`${key}.css`)
-    }
-  }
-  return arr.concat(dynamicCssOrder)
-}
 const cyrb53 = function (str: string, seed = 0) {
   let h1 = 0xdeadbeef ^ seed; let h2 = 0x41c6ce57 ^ seed
   for (let i = 0, ch; i < str.length; i++) {
@@ -137,10 +111,14 @@ const judgeFramework = () => {
   }
 }
 
+const judgeVersion = (version: string) => {
+  return coerce(version)
+}
+
 const judgeServerFramework = () => {
   const cwd = getCwd()
   const packageJSON = require(resolve(cwd, './package.json'))
-  if (packageJSON.dependencies['@midwayjs/web'] || packageJSON.devDependencies['@midwayjs/web']) {
+  if (packageJSON.dependencies['@midwayjs/decorator']) {
     return 'ssr-plugin-midway'
   } else {
     return 'ssr-plugin-nestjs'
@@ -189,6 +167,13 @@ const copyReactContext = async () => {
 }
 
 const execPromisify = promisify(exec)
+
+export const normalizePath = (path: string, prefix: string) => {
+  // 移除 prefix 保证 path 跟路由表能够正确匹配
+  const res = normalizeStartPath(path.replace(prefix, ''))
+  return res
+}
+
 const normalizeStartPath = (path: string) => {
   if (path.startsWith('//')) {
     path = path.replace('//', '/')
@@ -215,6 +200,7 @@ const stringifyDefine = (obj: {[key: string]: Json}) => {
     }
   }
 }
+
 export {
   getCwd,
   getFeDir,
@@ -225,8 +211,6 @@ export {
   processError,
   accessFile,
   execPromisify,
-  readAsyncChunk,
-  addAsyncChunk,
   cryptoAsyncChunkName,
   normalizeStartPath,
   normalizeEndPath,
@@ -235,8 +219,9 @@ export {
   accessFileSync,
   judgeFramework,
   loadModuleFromFramework,
-  transformManualRoutes,
+  cpManualRoutes,
   writeRoutes,
   stringifyDefine,
-  judgeServerFramework
+  judgeServerFramework,
+  judgeVersion
 }

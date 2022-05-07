@@ -1,18 +1,6 @@
-import { join } from 'path'
-import { EggAppConfig, EggAppInfo, PowerPartial } from 'egg'
+import { MidwayConfig } from '@midwayjs/core'
 
-export type DefaultConfig = PowerPartial<EggAppConfig>
-
-export default (appInfo: EggAppInfo) => {
-  const config = {} as DefaultConfig
-
+export default {
   // use for cookie sign key, should change to your own and keep security
-  config.keys = appInfo.name + '_1611038425326_4049'
-  // add your config here
-  config.middleware = []
-  config.static = {
-    prefix: '/',
-    dir: [join(appInfo.appDir, './build'), join(appInfo.appDir, './public')]
-  }
-  return config
-}
+  keys: '1650192482948_2252'
+} as MidwayConfig

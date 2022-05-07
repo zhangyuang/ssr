@@ -102,7 +102,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 ## extraJsOrder
 
-- 类型: `string[]`
+- 类型: `((ctx: ISSRContext) => string[]) | string[]`
 - 默认: `[]`
 - 生效场景: `Webpack/Vite` 
 
@@ -115,13 +115,49 @@ module.exports = {
 }
 ```
 
+高级用法，按需加载切割出来的 `vendor`
+
+```js
+import type { UserConfig, ISSRMidwayKoaContext } from 'ssr-types'
+
+const userConfig: UserConfig = {
+  chainClientConfig: chain => {
+    chain.optimization.splitChunks({
+      ...chain.optimization.get('splitChunks'),
+      cacheGroups: {
+        'vendor-swiper': {
+          test: (module: any) => {
+            return module.resource &&
+              /\.js$/.test(module.resource) &&
+              module.resource.match('swiper')
+          },
+          name: 'vendor-swiper',
+          priority: 3
+        },
+        ...chain.optimization.get('splitChunks').cacheGroups
+      }
+    })
+  },
+  extraJsOrder: (ctx) => {
+    const ctxWithType = ctx as ISSRMidwayKoaContext
+    // 只有访问首页的时候加载 vendor-swiper
+    if (ctxWithType.path === '/') {
+      return ['vendor-swiper.js']
+    }
+  }
+}
+
+export { userConfig }
+
+```
+
 ## extraCssOrder
 
-- 类型: `string[]`
+- 类型: `((ctx: ISSRContext) => string[]) | string[]`
 - 默认: `[]`
 - 生效场景: `Webpack/Vite` 
 
-需要额外初始化加载的 `css chunk name`，通常配合 `splitChunks` 配置一起使用
+需要额外初始化加载的 `css chunk name`，通常配合 `splitChunks` 配置一起使用。用法与 `extraJsOrder` 一样
 
 ```js
 module.exports = {
@@ -511,7 +547,7 @@ module.exports = {
 }
 ```
 
-## disableClientRender
+<!-- ## disableClientRender
 
 禁用默认的客户端渲染逻辑调用。通常与[微前端](./features$在微前端场景下使用(Beta))结合使用
 
@@ -528,7 +564,7 @@ module.exports = {
 module.exports = {
   disableClientRender: true
 }
-```
+``` -->
 
 ## routerOptimize
 

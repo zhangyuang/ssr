@@ -7,7 +7,7 @@ The markdown file introduce how to contribute for ssr-psec
 package.json 中已经封装好本地的调试命令
 
 ```bash
-$ npm i -g pnpm
+$ npm i -g pnpm@6
 $ pnpm bootstrap
 ```
 

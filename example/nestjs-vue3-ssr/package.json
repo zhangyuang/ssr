@@ -35,7 +35,6 @@
     "build": "ssr build",
     "build:vite": "ssr build --vite",
     "deploy": "ssr build && ssr deploy",
-    "deploy:tencent": "ssr build && ssr deploy --tencent",
     "lint": "eslint . --ext .js,.tsx,.ts,.vue --cache",
     "lint:fix": "eslint . --ext .js,.tsx,.ts,.vue --cache --fix"
   }

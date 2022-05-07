@@ -33,8 +33,8 @@ export interface IConfig {
   proxy?: any
   cssOrder: string[]
   jsOrder: string[]
-  extraJsOrder?: string[]
-  extraCssOrder?: string[]
+  extraJsOrder?: ((ctx: ISSRContext) => string[]) | string[] | undefined
+  extraCssOrder?: ((ctx: ISSRContext) => string[]) | string[] | undefined
   css?: () => {
     loaderOptions?: {
       cssOptions?: any
@@ -52,9 +52,9 @@ export interface IConfig {
   chainClientConfig: (config: Config) => void
   webpackStatsOption: Options.Stats
   moduleFileExtensions: string[]
-  whiteList: RegExp[] | string[]
+  whiteList: Array<RegExp|string>
   cloudIDE?: boolean
-  prefix?: string
+  prefix: string
   clientPrefix?: string
   mode: 'ssr' | 'csr'
   webpackDevServerConfig?: any
@@ -77,7 +77,6 @@ export interface IConfig {
   }
   parallelFetch?: boolean
   nestStartTips?: string
-  disableClientRender?: boolean
   manifestPath: string
   proxyKey: string[]
   vue3ServerEntry: string

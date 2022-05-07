@@ -1,14 +1,12 @@
 {
   "name": "ssr-types",
-  "version": "6.2.4",
+  "version": "6.2.11",
   "description": "types for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "scripts": {
-    "build": "concurrently \"tsc -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc -p ./tsconfig.esm.json --inlineSourceMap false\"",
-    "build:only": "concurrently \"tsc-transpile-only --skipLibCheck -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc-transpile-only --skipLibCheck -p ./tsconfig.esm.json --inlineSourceMap false\"",
-    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \"",
-    "watch:cjs": "tsc -w -p ./tsconfig.cjs.json"
+        "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
+    "build:publish": "concurrently \"tsc -p ./tsconfig.cjs.json --sourcemap false\" \" tsc -p ./tsconfig.esm.json --sourcemap false\"",    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
   },
   "repository": {
     "type": "git",
@@ -29,6 +27,8 @@
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "@babel/core": "^7.0.0",
+    "@midwayjs/koa": "^3.0.0",
+    "@midwayjs/decorator": "^3.0.0",
     "@rollup/plugin-babel": "^5.3.0",
     "@types/babel__core": "^7.1.18",
     "@types/cookies": "^0.7.7",

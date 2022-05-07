@@ -1,27 +1,18 @@
 import * as Vue from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
-import { sync } from 'vuex-router-sync'
+import { serialize } from 'ssr-serialize-javascript'
 import { Routes } from './create-router'
 import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 
-const serialize = require('serialize-javascript')
-const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch, Layout } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, disableClientRender, prefix, isVite, clientPrefix } = config
+  const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix } = config
   const router = createRouter()
   const store = createStore()
-  const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
-  sync(store, router)
-  let { path, url } = ctx.request
-
-  if (base) {
-    path = normalizePath(path, base)
-    url = normalizePath(url, base)
-  }
-
+  const [path, url] = [normalizePath(ctx.request.path, prefix), normalizePath(ctx.request.url, prefix)]
   const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
 
   if (!routeItem) {
@@ -30,14 +21,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
     If you create new folder or component file, please restart server by npm start
     `)
   }
-
-  let dynamicCssOrder = cssOrder
-  if (dynamic) {
-    dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
-    if (!isVite) {
-      dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
-    }
-  }
+  const { fetch, webpackChunkName } = routeItem
+  const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName)
+  const dynamicJsOrder = await getAsyncJsChunk(ctx)
   const manifest = await getManifest(config)
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
@@ -46,7 +32,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   let fetchData = {}
 
   if (!isCsr) {
-    const { fetch } = routeItem
     const currentFetch = fetch ? (await fetch()).default : null
     router.push(url)
 
@@ -71,56 +56,31 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
     router,
     store,
     render: function (h: Vue.CreateElement) {
-      const injectCss: Vue.VNode[] = []
-      dynamicCssOrder.forEach(css => {
-        if (manifest[css]) {
-          injectCss.push(
-            h('link', {
-              attrs: {
-                rel: 'stylesheet',
-                href: manifest[css]
-              }
-            })
-          )
+      const injectCss = (isVite && isDev) ? [h('script', {
+        attrs: {
+          type: 'module',
+          src: '/@vite/client'
         }
-      })
-
-      const injectScript: Vue.VNode[] = (isVite && isDev) ? [h('script', {
+      })] : dynamicCssOrder.map(css => manifest[css]).filter(Boolean).map(css => h('link', {
+        attrs: {
+          rel: 'stylesheet',
+          href: css
+        }
+      }))
+      const injectScript = (isVite && isDev) ? [h('script', {
         attrs: {
           type: 'module',
           src: '/node_modules/ssr-plugin-vue/esm/entry/client-entry.js'
         }
-      })] : jsOrder.map(js => h('script', {
+      })] : dynamicJsOrder.map(js => h('script', {
         attrs: {
           src: manifest[js],
           type: isVite ? 'module' : ''
         }
       }))
-      const viteClient = h('script', {
-        attrs: {
-          type: 'module',
-          src: '/@vite/client'
-        }
-      })
-      const customeHeadScriptArr = customeHeadScript ? (Array.isArray(customeHeadScript) ? customeHeadScript : customeHeadScript(ctx))?.map(item => h('script', Object.assign({}, item.describe, {
-        domProps: {
-          innerHTML: item.content
-        }
-      }))) : []
 
-      if (disableClientRender) {
-        customeHeadScriptArr.push(h('script', {
-          domProps: {
-            innerHTML: 'window.__disableClientRender__ = true'
-          }
-        }))
-      }
-
-      const customeFooterScriptArr = customeFooterScript ? (Array.isArray(customeFooterScript) ? customeFooterScript : customeFooterScript(ctx))?.map(item => h('script', Object.assign({}, item.describe, {
-        domProps: {
-          innerHTML: item.content
-        }
-      }))) : []
+      const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue')
+      const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue')
 
       return h(
         Layout,
@@ -132,12 +92,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
             slot: 'remInitial'
           }, [
             h('script', {}, [
-              "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
+              remInitial
             ])
           ]),
-          (isVite && isDev) && h('template', {
-            slot: 'viteClient'
-          }, [viteClient]),
 
           h('template', {
             slot: 'customeHeadScript'
@@ -163,7 +120,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
               }
             }) : h('script', {
               domProps: {
-                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${isVite};  ${base && `window.prefix="${base}";${clientPrefix && `window.clientPrefix="${clientPrefix}"`}`}`
+                innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ;${clientPrefix && `window.clientPrefix="${clientPrefix}"`};`
               }
             })
           ]),

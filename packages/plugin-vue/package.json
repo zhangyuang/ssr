@@ -1,15 +1,14 @@
 {
   "name": "ssr-plugin-vue",
-  "version": "6.2.13",
+  "version": "6.2.16",
   "description": "plugin-vue for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "sideEffects": false,
   "scripts": {
-    "build": "concurrently \"tsc -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc -p ./tsconfig.esm.json --inlineSourceMap false\"",
-    "build:only": "concurrently \"tsc-transpile-only --skipLibCheck -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc-transpile-only --skipLibCheck -p ./tsconfig.esm.json --inlineSourceMap false\"",
-    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \"",
-    "watch:cjs": "tsc -w -p ./tsconfig.cjs.json"
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
+    "build:publish": "concurrently \"tsc -p ./tsconfig.cjs.json --sourcemap false\" \" tsc -p ./tsconfig.esm.json --sourcemap false\"",
+    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
   },
   "repository": {
     "type": "git",
@@ -55,7 +54,7 @@
     "ssr-server-utils": "^6.2.10",
     "ssr-types": "^6.2.3",
     "ssr-webpack": "^6.2.10",
-    "serialize-javascript": "^6.0.0",
+    "ssr-serialize-javascript": "^6.0.0",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "^4.1.1",
     "vite": "^2.7.0",
@@ -65,7 +64,6 @@
     "vue-router": "^3.0.0",
     "vue-template-compiler": "^2.6.12",
     "vuex": "^3.6.2",
-    "vuex-router-sync": "^5.0.0",
     "webpack": "^4.42.1",
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-chain": "^6.4.0",

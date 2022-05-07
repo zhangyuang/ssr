@@ -108,7 +108,6 @@ export class Index {
 
 ```shell
 $ npm run deploy # 应用发布, 等价于 npx ssr deploy
-$ npm run deploy:tencent # 发布到腾讯云 等价于 npx ssr deploy --tencent
 ```
 
 ### 传统 Node.js 应用形式部署

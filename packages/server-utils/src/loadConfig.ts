@@ -2,8 +2,9 @@ import { join } from 'path'
 import { IConfig } from 'ssr-types'
 import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework, loadModuleFromFramework, stringifyDefine, accessFileSync } from './cwd'
 import { coerce } from 'semver'
-const framework = judgeFramework()
+
 const loadConfig = (): IConfig => {
+  const framework = judgeFramework()
   const userConfig = getUserConfig()
   const cwd = getCwd()
   const mode = 'ssr'
@@ -33,8 +34,8 @@ const loadConfig = (): IConfig => {
   }, userConfig.alias)
 
   type ClientLogLevel = 'error'
-
   const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPath(userConfig.publicPath ?? '/')
+
   const devPublicPath = publicPath.startsWith('http') ? publicPath.replace(/^http(s)?:\/\/(.*)?\d/, '') : publicPath // 本地开发不使用 http://localhost:3000 这样的 path 赋值给 webpack-dev-server 会很难处理
 
   const moduleFileExtensions = [
@@ -65,19 +66,19 @@ const loadConfig = (): IConfig => {
 
   const serverPort = process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 3000
 
-  const host = '0.0.0.0'
+  const host = '127.0.0.1'
 
   const chunkName = 'Page'
 
   const clientLogLevel: ClientLogLevel = 'error'
 
   const useHash = !isDev // 生产环境默认生成hash
+  const defaultWhiteList: Array<RegExp|string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/]
+  const whiteList: Array<RegExp|string> = defaultWhiteList.concat(userConfig.whiteList ?? [])
 
-  const whiteList: RegExp[] = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/]
+  const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`]
 
-  const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`].concat(userConfig.extraJsOrder ?? [])
-
-  const cssOrder = ['vendor.css', `${chunkName}.css`].concat(userConfig.extraCssOrder ?? [])
+  const cssOrder = ['vendor.css', `${chunkName}.css`]
 
   const webpackStatsOption = {
     assets: true, // 添加资源信息
@@ -149,7 +150,7 @@ const loadConfig = (): IConfig => {
   const staticPath = `${normalizeEndPath(devPublicPath)}static`
   const hotUpdatePath = `${normalizeEndPath(devPublicPath)}*.hot-update**`
   const proxyKey = [staticPath, hotUpdatePath, manifestPath]
-
+  const prefix = '/'
   const config = Object.assign({}, {
     chainBaseConfig,
     chainServerConfig,
@@ -167,7 +168,6 @@ const loadConfig = (): IConfig => {
     cssOrder,
     getOutput,
     webpackStatsOption,
-    whiteList,
     dynamic,
     mode,
     stream,
@@ -181,15 +181,17 @@ const loadConfig = (): IConfig => {
     reactServerEntry,
     reactClientEntry,
     isVite,
+    whiteList,
     isCI,
     supportOptinalChaining,
-    define
+    define,
+    prefix
   }, userConfig)
   config.alias = alias
+  config.prefix = normalizeStartPath(config.prefix ?? '/')
   config.corejsOptions = corejsOptions
-
+  config.whiteList = whiteList
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了
-
   config.babelOptions = userConfig.babelOptions ? {
     ...{
       babelHelpers: 'bundled' as 'bundled',
@@ -198,6 +200,7 @@ const loadConfig = (): IConfig => {
     },
     ...userConfig.babelOptions
   } : undefined
+
   return config
 }
 

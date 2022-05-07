@@ -1,8 +1,8 @@
 import { build, UserConfig } from 'vite'
-import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig, asyncOptimizeChunkPlugin } from 'ssr-server-utils'
+import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig, asyncOptimizeChunkPlugin, getOutputPublicPath } from 'ssr-server-utils'
 import react from '@vitejs/plugin-react'
 import styleImport, { AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'vite-plugin-style-import'
-const { getOutput, prefix, reactServerEntry, reactClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions } = loadConfig()
+const { getOutput, reactServerEntry, reactClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 const styleImportConfig = {
   include: ['**/*.vue', '**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx', /chunkName/],
@@ -47,14 +47,14 @@ const serverConfig: UserConfig = {
   },
   define: {
     __isBrowser__: false,
-    ...define?.server,
-    ...define?.base
+    ...define?.base,
+    ...define?.server
   }
 }
 
 const clientConfig: UserConfig = {
   ...commonConfig(),
-  base: isDev ? '/' : prefix,
+  base: isDev ? '/' : getOutputPublicPath(),
   esbuild: {
     keepNames: true
   },
@@ -79,8 +79,8 @@ const clientConfig: UserConfig = {
   },
   define: {
     __isBrowser__: true,
-    ...define?.client,
-    ...define?.base
+    ...define?.base,
+    ...define?.client
   }
 }
 const viteStart = async () => {

@@ -317,20 +317,32 @@ export default {
 ```
 ### Vue3 全局注册组件
 
-最新更新： 在之后的版本中我们将移除 `window.__VUE_APP__` 的挂载逻辑，请使用旧写法的开发者按照下面的写法改造
+最新更新： 在之后的版本中我们将移除 `window.__VUE_APP__` 的挂载逻辑，请使用旧写法的开发者按照下面的写法改造。
 
-```js
-// 在 layout/App.vue 中做一些全局的任务
-import { getCurrentInstance } from 'vue'
+```html
+// layout/App.vue
+<template>
+  <router-view :reactiveFetchData="reactiveFetchData" />
+</template>
+
+<script lang="ts" setup>
+  // 在这里我们可以通过 props.ssrApp 获取 Vue3 App 实例，也可以通过 getCurrentInstance(不建议) 来获取
+import { defineProps, App, getCurrentInstance } from 'vue'
 import { Button } from 'vant'
 
-export default {
-  created () {
-    const app = getCurrentInstance()?.appContext.app
-    app?.use(Button)
-    app?.component('xxx')
-  }
-}
+const props = defineProps<{
+  ssrApp: App,
+  reactiveFetchData: any,
+  asyncData: any
+}>()
+
+const app = props.ssrApp
+
+// const app = getCurrentInstance()?.appContext.app 写法 2
+app?.use(Button)
+app?.component('xxx')
+</script>
+
 ```
 
 ### Vue 场景使用自定义指令
@@ -741,15 +753,17 @@ export default {
 
 ### 与 micro-app 结合使用
 
-这里有一个结合 [micro-app](https://zeroing.jd.com/micro-app/) 使用的[示例](https://github.com/zhangyuang/micro-app-ssr)。目前看起来对应用的侵入性很小。个人非常喜欢这种方式。
+官方提供结合 [micro-app](https://zeroing.jd.com/micro-app/) 使用的[示例](https://github.com/zhangyuang/micro-app-ssr)。目前看起来对应用的侵入性很小。个人非常喜欢这种方式。同样也可以在创建项目时选择微前端类型的模版。我们已经在线上业务启用了该方案。
 
 ### 与 qiankun 结合使用
 
+建议使用 `micro-app` 作为微前端方案。与 `qiankun` 集成复杂度过高
+
 如果是在 [qiankun](https://qiankun.umijs.org/) 场景下使用，目前看来侵入性略大。
 
-首先开发者需要配置 `disableClientRender`，来禁用框架默认的客户端渲染逻辑的调用
+<!-- 首先开发者需要配置 `disableClientRender`，来禁用框架默认的客户端渲染逻辑的调用 -->
 
-```js
+<!-- ```js
 module.exports = {
     disableClientRender: true
 }
@@ -797,7 +811,7 @@ module.exports = {
       .end()
   }
 }
-```
+``` -->
 
 ## 实际业务问题
 ### 如何自定义页面标题, meta 等信息

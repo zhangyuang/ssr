@@ -97,19 +97,17 @@ export default {
 ```html
 // layout/App.vue
 <template>
-  <div id="app">
-    <router-view :reactiveFetchData="reactiveFetchData" />
-  </div>
+  <router-view :reactiveFetchData="reactiveFetchData" />
 </template>
 
-<script lang="ts">
-// 在这里可以进行一些全局组件的注册逻辑
-export default {
-  props: ['reactiveFetchData'],
-  created () {
-    console.log(this.reactiveFetchData) // {value: 'xxxx'} 类似于 vue3 ref 对象，值在 value 中
-  }
-}
+<script lang="ts" setup>
+import { defineProps, App } from 'vue'
+
+const props = defineProps<{
+  ssrApp: App,
+  reactiveFetchData: any,
+  asyncData: any
+}>()
 </script>
 
 ```

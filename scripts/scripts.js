@@ -1,13 +1,13 @@
 const fs = require('fs')
 const { execSync } = require('child_process')
-const argv = require('./minimist')(process.argv.slice(2))
+const argv = require('minimist')(process.argv.slice(2))
 
 const options = {
   stdio: 'inherit'
 }
 
 if (argv.clean) {
-  const shell = 'rm -rf node_modules **/**/cjs **/**/esm packages/**/node_modules example/**/node_modules'
+  const shell = 'rm -rf pnpm-lock.yaml node_modules packages/**/node_modules example/**/node_modules'
   execSync(shell, options)
 }
 

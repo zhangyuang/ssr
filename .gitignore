@@ -97,12 +97,16 @@ example/**/bootstrap
 
 docs/dist
 
-docs/*.lock
-
 example/yarn.lock
+
+docs/yarn.lock
+
+docs/*.zip
 
 cypress
 
 e2e/screenshots
 
 e2e/videos
+
+

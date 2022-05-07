@@ -1,14 +1,10 @@
 import { resolve } from 'path'
 import { promises } from 'fs'
 import { mkdir, ln } from 'shelljs'
+import { accessFile } from './releaseUtils'
 
-const cwd = process.cwd()
-const accessFile = async (file: string) => {
-  const result = await promises.access(file)
-    .then(() => true)
-    .catch(() => false)
-  return result
-}
+const cwd = process.cwd();
+
 (async () => {
   const example = await promises.readdir(resolve(cwd, './example'))
   for (const item of example) {
@@ -24,5 +20,4 @@ const accessFile = async (file: string) => {
       ln('-s', resolve(path, './node_modules/vue'), resolve(cwd, './node_modules/vue-server-renderer/node_modules/vue'))
     }
   }
-
 })()

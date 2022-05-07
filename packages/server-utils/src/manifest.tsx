@@ -9,7 +9,7 @@ const instance = axios.create({
   proxy: false
 })
 
-const getManifest = async (config: IConfig): Promise<Record<string, string>> => {
+const getManifest = async (config: IConfig): Promise<Record<string, string|undefined>> => {
   const { isDev, fePort, https, manifestPath, isVite } = config
   let manifest = {}
   const cwd = getCwd()

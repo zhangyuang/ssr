@@ -1,31 +1,21 @@
 import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath, addAsyncChunk } from 'ssr-server-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
-// @ts-expect-error
-import * as serializeWrap from 'serialize-javascript'
+import { serialize } from 'ssr-serialize-javascript'
 import { Routes } from './create-router'
 import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 
-const { FeRoutes, App, layoutFetch, Layout, PrefixRouterBase } = Routes as RoutesType
-const serialize = serializeWrap.default || serializeWrap // compatible webpack and vite
+const { FeRoutes, App, layoutFetch, Layout } = Routes as RoutesType
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { cssOrder, jsOrder, dynamic, mode, customeHeadScript, customeFooterScript, parallelFetch, disableClientRender, prefix, isVite, isDev, clientPrefix } = config
-
+  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix } = config
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
-  const base = prefix ?? PrefixRouterBase // 以开发者实际传入的为最高优先级
-  let { path, url } = ctx.request
-
-  if (base) {
-    path = normalizePath(path, base)
-    url = normalizePath(url, base)
-  }
-
+  const [path, url] = [normalizePath(ctx.request.path, prefix), normalizePath(ctx.request.url, prefix)]
   const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
 
   if (!routeItem) {
@@ -35,26 +25,48 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     `)
   }
 
-  let dynamicCssOrder = cssOrder
-  if (dynamic) {
-    dynamicCssOrder = cssOrder.concat([`${routeItem.webpackChunkName}.css`])
-    if (!isVite || (isVite && !isDev)) {
-      // call it when webpack mode or vite prod mode
-      dynamicCssOrder = await addAsyncChunk(dynamicCssOrder, routeItem.webpackChunkName)
-    }
-  }
+  const { fetch, webpackChunkName } = routeItem
+  const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName)
+  const dynamicJsOrder = await getAsyncJsChunk(ctx)
   const manifest = await getManifest(config)
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
+  const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3')
+  const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue3')
 
   let layoutFetchData = {}
   let fetchData = {}
+  const app = createSSRApp({
+    render: () => h(Layout,
+      { ctx, config, asyncData, fetchData: layoutFetchData, reactiveFetchData: { value: layoutFetchData } },
+      {
+        remInitial: () => h('script', { innerHTML: remInitial }),
+
+        customeHeadScript: () => customeHeadScriptArr,
+
+        customeFooterScript: () => customeFooterScriptArr,
+
+        children: () => h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app }),
+
+        initialData: !isCsr ? () => h('script', {
+          innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ;${clientPrefix && `window.clientPrefix="${clientPrefix}"`};`
+        }) : () => h('script', { innerHTML: `window.__USE_VITE__=${isVite}` }),
+
+        cssInject: () => injectCss,
+
+        jsInject: () => injectScript
+      }
+    )
+  })
+
+  app.use(router)
+  app.use(store)
+  app.use(pinia)
 
   if (!isCsr) {
     router.push(url)
     await router.isReady()
-    const { fetch } = routeItem
     const currentFetch = fetch ? (await fetch()).default : null
-    // csr 下不需要服务端获取数据
+    // don't need getData when csr
     if (parallelFetch) {
       [layoutFetchData, fetchData] = await Promise.all([
         layoutFetch ? layoutFetch({ store, router: router.currentRoute.value }, ctx) : Promise.resolve({}),
@@ -72,78 +84,24 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     value: combineAysncData
   }
 
-  const injectCss: Vue.VNode[] = []
-  dynamicCssOrder.forEach(css => {
-    if (manifest[css]) {
-      injectCss.push(
-        h('link', {
-          rel: 'stylesheet',
-          href: manifest[css]
-        })
-      )
-    }
-  })
-  const injectScript = (isVite && isDev) ? h('script', {
+  const injectCss = (isVite && isDev) ? [h('script', {
+    type: 'module',
+    src: '/@vite/client'
+  })] : dynamicCssOrder.map(css => manifest[css]).filter(Boolean).map(css => h('link', {
+    rel: 'stylesheet',
+    href: css
+  }))
+
+  const injectScript = (isVite && isDev) ? [h('script', {
     type: 'module',
     src: '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'
-  }) : jsOrder.map(js =>
+  })] : dynamicJsOrder.map(js =>
     h('script', {
       src: manifest[js],
       type: isVite ? 'module' : ''
     })
   )
-  const customeHeadScriptArr = customeHeadScript ? (Array.isArray(customeHeadScript) ? customeHeadScript : customeHeadScript(ctx))?.map((item) => h(
-    'script',
-    Object.assign({}, item.describe, {
-      innerHTML: item.content
-    })
-  )) : []
-
-  if (disableClientRender) {
-    customeHeadScriptArr.push(h('script', {
-      innerHTML: 'window.__disableClientRender__ = true'
-    }))
-  }
-  const customeFooterScriptArr = customeFooterScript ? (Array.isArray(customeFooterScript) ? customeFooterScript : customeFooterScript(ctx))?.map((item) => h(
-    'script',
-    Object.assign({}, item.describe, {
-      innerHTML: item.content
-    })
-  )) : []
-
   const state = Object.assign({}, store.state ?? {}, asyncData.value)
-
-  const app = createSSRApp({
-    render: () => h(Layout,
-      { ctx, config, asyncData, fetchData: layoutFetchData, reactiveFetchData: { value: layoutFetchData } },
-      {
-        remInitial: () => h('script', { innerHTML: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }),
-
-        viteClient: (isVite && isDev) ? () =>
-          h('script', {
-            type: 'module',
-            src: '/@vite/client'
-          }) : null,
-
-        customeHeadScript: () => customeHeadScriptArr,
-
-        customeFooterScript: () => customeFooterScriptArr,
-
-        children: () => h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData } }),
-
-        initialData: !isCsr ? () => h('script', { innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(state)};window.__USE_VITE__=${isVite}; ${base && `window.prefix="${base}"`};${clientPrefix && `window.clientPrefix="${clientPrefix}"`};` })
-          : () => h('script', { innerHTML: `window.__USE_VITE__=${isVite}` }),
-
-        cssInject: () => injectCss,
-
-        jsInject: () => injectScript
-      }
-    )
-  })
-
-  app.use(router)
-  app.use(store)
-  app.use(pinia)
 
   return app
 }

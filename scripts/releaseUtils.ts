@@ -3,11 +3,13 @@
  */
 import * as colors from 'picocolors'
 import type { Options as ExecaOptions } from 'execa'
-import * as execa from 'execa'
-import { readFileSync, writeFileSync, existsSync } from 'fs'
+import execa from 'execa'
+import { readFileSync, writeFileSync, existsSync, promises } from 'fs'
 import * as path from 'path'
+import { resolve } from 'path'
 import type { ReleaseType } from 'semver'
 import * as semver from 'semver'
+import { cp } from 'shelljs'
 
 export const args = require('minimist')(process.argv.slice(2))
 
@@ -17,11 +19,18 @@ if (isDryRun) {
   console.log(colors.inverse(colors.yellow(' DRY RUN ')))
   console.log()
 }
-
+export const accessFile = async (file: string) => {
+  const result = await promises.access(file)
+    .then(() => true)
+    .catch(() => false)
+  return result
+}
 export const packages = [
-  'cli', 'core-vue', 'hoc-vue3', 'plugin-react', 'server-utils', 'webpack',
-  'client-utils', 'core-vue3', 'plugin-midway', 'plugin-vue', 'types',
-  'core-react', 'hoc-react', 'plugin-nestjs', 'plugin-vue3', 'types-react'
+  'cli', 'plugin-vue3', 'plugin-react',
+  'plugin-vue', 'types', 'server-utils',
+  'core-vue', 'hoc-vue3', 'webpack', 'core-react', 'types-react',
+  'client-utils', 'core-vue3', 'plugin-midway', 'plugin-nestjs',
+  'hoc-react'
 ]
 
 export function getPackageInfo (pkgName: string) {
@@ -57,7 +66,7 @@ export async function run (
   args: string[],
   opts: ExecaOptions<string> = {}
 ) {
-  return execa(bin, args, { stdio: 'inherit', ...opts })
+  return await execa(bin, args, { stdio: 'inherit', ...opts })
 }
 
 export async function dryRun (
@@ -144,8 +153,9 @@ export async function publishPackage (
   if (tag) {
     publicArgs.push('--tag', tag)
   }
+  await promises.writeFile(resolve(pkdDir, './.npmignore'), '**/*.map')
+  cp(resolve(process.cwd(), './README.md'), resolve(pkdDir, './README.md'))
   await runIfNotDry('npm', publicArgs, {
-    stdio: 'pipe',
     cwd: pkdDir
   })
 }
@@ -154,7 +164,7 @@ export async function getLatestTag (pkgName: string) {
   const tags = (await run('git', ['tag'], { stdio: 'pipe' })).stdout
     .split(/\n/)
     .filter(Boolean)
-  const prefix = tags.filter(tag => tag.startsWith(`${pkgName}/@`)).length > 0 ? `${pkgName}/@` : 'v'
+  const prefix = tags.filter(tag => tag.startsWith(`${pkgName}@`)).length > 0 ? `${pkgName}@` : 'v'
   return tags
     .filter((tag) => tag.startsWith(prefix))
     .sort()

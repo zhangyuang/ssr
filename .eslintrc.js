@@ -19,6 +19,7 @@ module.exports = {
     'padded-blocks': ['off'],
     '@typescript-eslint/no-base-to-string': ['off'],
     '@typescript-eslint/restrict-plus-operands': ['off'],
-    'react-hooks/rules-of-hooks': ['off']
+    'react-hooks/rules-of-hooks': ['off'],
+    '@typescript-eslint/no-var-requires': ['off']
   }
 }

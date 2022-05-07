@@ -35,7 +35,6 @@
     "vue-router": "^3.0.0",
     "vue-template-compiler": "^2.6.12",
     "vuex": "^3.6.2",
-    "vuex-router-sync": "^5.0.0",
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-chain": "^6.4.0",
     "webpack-manifest-plugin": "^2.2.0",

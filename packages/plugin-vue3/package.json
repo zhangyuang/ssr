@@ -1,15 +1,14 @@
 {
   "name": "ssr-plugin-vue3",
-  "version": "6.2.13",
+  "version": "6.2.22",
   "description": "plugin-vue3 for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "sideEffects": false,
   "scripts": {
-    "build": "concurrently \"tsc -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc -p ./tsconfig.esm.json --inlineSourceMap false\"",
-    "build:only": "concurrently \"tsc-transpile-only --skipLibCheck -p ./tsconfig.cjs.json --inlineSourceMap false\" \" tsc-transpile-only --skipLibCheck -p ./tsconfig.esm.json --inlineSourceMap false\"",
-    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \"",
-    "watch:cjs": "tsc -w -p ./tsconfig.cjs.json"
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
+    "build:publish": "concurrently \"tsc -p ./tsconfig.cjs.json --sourcemap false\" \" tsc -p ./tsconfig.esm.json --sourcemap false\"",
+    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
   },
   "repository": {
     "type": "git",
@@ -58,7 +57,7 @@
     "postcss-loader": "^4.0.0",
     "postcss-preset-env": "^7.0.0",
     "postcss-safe-parser": "^6.0.0",
-    "serialize-javascript": "^6.0.0",
+    "ssr-serialize-javascript": "^6.0.0",
     "ssr-client-utils": "^6.2.7",
     "ssr-deepclone": "^1.0.0",
     "ssr-server-utils": "^6.2.10",
