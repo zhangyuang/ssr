@@ -28,6 +28,7 @@ function turbo (opts: {
     'run',
     opts.cmd,
     `--filter="${opts.filter}"`,
+    '--cache-dir=".turbo"',
     cacheCmd,
     parallelCmd,
     extraCmd

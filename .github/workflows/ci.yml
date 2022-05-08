@@ -91,7 +91,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.cache/turbo
+              .turbo
               node_modules/.pnpm
               ~/.pnpm-store
               /home/runner/.cache/Cypress
@@ -142,7 +142,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.cache/turbo
+              .turbo
               node_modules/.pnpm
               ~/.pnpm-store
               /home/runner/.cache/Cypress
@@ -193,7 +193,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.cache/turbo
+              .turbo
               node_modules/.pnpm
               ~/.pnpm-store
               /home/runner/.cache/Cypress
@@ -243,7 +243,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.cache/turbo
+              .turbo
               node_modules/.pnpm
               ~/.pnpm-store
               /home/runner/.cache/Cypress
@@ -291,7 +291,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.cache/turbo
+              .turbo
               node_modules/.pnpm
               ~/.pnpm-store
               /home/runner/.cache/Cypress
@@ -339,7 +339,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.cache/turbo
+              .turbo
               node_modules/.pnpm
               ~/.pnpm-store
               /home/runner/.cache/Cypress
@@ -388,7 +388,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.cache/turbo
+              .turbo
               node_modules/.pnpm
               ~/.pnpm-store
               /home/runner/.cache/Cypress
@@ -436,7 +436,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.cache/turbo
+              .turbo
               node_modules/.pnpm
               ~/.pnpm-store
               /home/runner/.cache/Cypress
@@ -496,7 +496,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.cache/turbo
+              .turbo
               /home/runner/.cache/Cypress
           key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -554,7 +554,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.cache/turbo
+              .turbo
               /home/runner/.cache/Cypress
           key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -602,7 +602,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.cache/turbo
+              .turbo
               node_modules/.pnpm
               ~/.pnpm-store
               /home/runner/.cache/Cypress
@@ -651,7 +651,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.cache/turbo
+              .turbo
               node_modules/.pnpm
               ~/.pnpm-store
               /home/runner/.cache/Cypress
@@ -700,7 +700,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.cache/turbo
+              .turbo
               node_modules/.pnpm
               ~/.pnpm-store
               /home/runner/.cache/Cypress
@@ -749,7 +749,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.cache/turbo
+              .turbo
               node_modules/.pnpm
               ~/.pnpm-store
               /home/runner/.cache/Cypress
@@ -815,7 +815,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.cache/turbo
+              .turbo
               node_modules/.pnpm
               ~/.pnpm-store
               /home/runner/.cache/Cypress
