@@ -126,7 +126,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .loader(loadModule('vue-loader')).options(vueLoaderOptions)
     .end()
   babelExtraModule && chain.module
-    .rule('vue')
+    .rule('vueExtraModule')
     .test(/\.vue$/)
     .include
     .add(babelExtraModule)
