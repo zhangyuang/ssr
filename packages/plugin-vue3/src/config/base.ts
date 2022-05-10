@@ -125,6 +125,15 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .use('vue-loader')
     .loader(loadModule('vue-loader')).options(vueLoaderOptions)
     .end()
+  babelExtraModule && chain.module
+    .rule('vue')
+    .test(/\.vue$/)
+    .include
+    .add(babelExtraModule)
+    .end()
+    .use('vue-loader')
+    .loader(loadModule('vue-loader')).options(vueLoaderOptions)
+    .end()
   chain
     .plugin('vue-loader')
     .use(require(loadModule('vue-loader')).VueLoaderPlugin)
