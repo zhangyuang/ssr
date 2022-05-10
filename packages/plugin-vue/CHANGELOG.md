@@ -1,3 +1,31 @@
+## [6.2.17](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.15...plugin-vue@6.2.17) (2022-05-10)
+
+
+### Bug Fixes
+
+* add build:publish disable sourcemap ([ef82b29](https://github.com/zhangyuang/ssr/commit/ef82b298ddf19b72b130d76c33bfbca67339b139))
+* build html ([83be7be](https://github.com/zhangyuang/ssr/commit/83be7be185985a5dcbb9b8e846a5e2b14b94c1b0))
+* build html ([59a8d7f](https://github.com/zhangyuang/ssr/commit/59a8d7f31bed703601e753d02db49ea5a0f93054))
+* ci ([57e713f](https://github.com/zhangyuang/ssr/commit/57e713f1f96b4ceb893837c15c6032b23a0b1a4c))
+* plugin-react without dynamic mode ([487cc84](https://github.com/zhangyuang/ssr/commit/487cc84188640aab13c27214df758da0d19e4368))
+* update preinstall ([2b4b869](https://github.com/zhangyuang/ssr/commit/2b4b869c28b83b414bef10260e5561bc3773cea9))
+* whitList concat userconfig ([fdd971a](https://github.com/zhangyuang/ssr/commit/fdd971ab11aebc0f348d789e758183b877e791af))
+* whitList concat userconfig ([e2328f8](https://github.com/zhangyuang/ssr/commit/e2328f87f5cfc18c9a30867e4f6e18d0df5c1ba3))
+
+
+### Features
+
+*  optimize code remove disableClientRender fix vite ([eeff477](https://github.com/zhangyuang/ssr/commit/eeff4770f8d9ff400289cf4d1ca4dd32883be108))
+* add `turbo` ([#196](https://github.com/zhangyuang/ssr/issues/196)) ([2be17bb](https://github.com/zhangyuang/ssr/commit/2be17bba5d80610b97b3813b3d4fe9579f88e5c3))
+* add ssr-serialize-javascript code optimize ([41bb14d](https://github.com/zhangyuang/ssr/commit/41bb14d31efd89d4a85d5220544d2f7a3883e1a3))
+* babelExtraModule support vue ([513073d](https://github.com/zhangyuang/ssr/commit/513073ddcecbb728d34eae233686a93d63355e00))
+* plugin-react add react-refresh, remove module.hot ([7bee211](https://github.com/zhangyuang/ssr/commit/7bee211ddfefaef688713f505756e1155320b844))
+* support props.ssrApp in vue3 ([8985037](https://github.com/zhangyuang/ssr/commit/898503753cbe69187d27f91c70dff3f4cd4a0b2a))
+* update turbo ([9ee14f5](https://github.com/zhangyuang/ssr/commit/9ee14f59359187e35f4ef990998846ac3847347b))
+* use terser minify plugin-react server bundle ([0a3c7fe](https://github.com/zhangyuang/ssr/commit/0a3c7fe61908fe24bcb2d8c6394daf2afd18ba82))
+
+
+
 ## [6.2.16](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.14...plugin-vue@6.2.16) (2022-04-27)
 
 
