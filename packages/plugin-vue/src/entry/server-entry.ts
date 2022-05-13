@@ -116,7 +116,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           }, [
             isCsr ? h('script', {
               domProps: {
-                innerHTML: `window.__USE_VITE__=${isVite}`
+                innerHTML: `window.__USE_VITE__=${isVite}; window.prefix="${prefix}"`
               }
             }) : h('script', {
               domProps: {
