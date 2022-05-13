@@ -1,3 +1,12 @@
+## [6.2.19](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.18...plugin-vue@6.2.19) (2022-05-13)
+
+
+### Bug Fixes
+
+* add prefix output to window.prefix in csr mode ([#197](https://github.com/zhangyuang/ssr/issues/197)) ([479bb3d](https://github.com/zhangyuang/ssr/commit/479bb3df67d7da5635939a4219b5f5f9a40b5508))
+
+
+
 ## [6.2.18](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.16...plugin-vue@6.2.18) (2022-05-10)
 
 
