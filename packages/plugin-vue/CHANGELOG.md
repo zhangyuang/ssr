@@ -1,3 +1,7 @@
+## [6.2.20](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.19...plugin-vue@6.2.20) (2022-05-13)
+
+
+
 ## [6.2.19](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.18...plugin-vue@6.2.19) (2022-05-13)
 
 
