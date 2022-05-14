@@ -8,31 +8,39 @@
 
 本章节讲述如何特殊自定义处理 `404`, `500` 等异常情况。
 
-以 `404` 为例，我们在中间件中处理异常情况，以下代码以服务端使用 [Midway.js](https://www.yuque.com/midwayjs/midway_v2/web_middleware#ML31g) 为例讲述如何使用
+以 `404` 为例，我们在中间件中处理异常情况，以下代码以服务端使用 [Midway.js](https://midwayjs.org/en/docs/middleware#%E7%BC%96%E5%86%99%E4%B8%AD%E9%97%B4%E4%BB%B6) 为例讲述如何使用
 
 ```js
 // /src/middleware/NotFound.ts
-import { Provide } from '@midwayjs/decorator'
-import { IWebMiddleware, IMidwayWebNext } from '@midwayjs/web'
-import { Context } from 'egg'
+import { Middleware } from '@midwayjs/decorator';
+import type { IMiddleware } from '@midwayjs/core';
+import type { NextFunction, Context } from '@midwayjs/koa';
 
-@Provide()
-export class NotFoundMiddleware implements IWebMiddleware {
+@Middleware()
+export class NotFoundMiddleware implements IMiddleware<Context, NextFunction> {
   resolve () {
-    return async (ctx: Context, next: IMidwayWebNext) => {
-      await next()
-      if (ctx.status === 404) {
-        // 手动建立 /web/pages/404 相关文件 
-        ctx.redirect('/404')
+    return async (ctx: Context, next: NextFunction) => {
+      try {
+        await next()
+      } catch (error) {
+        if (ctx.status === 404) {
+          // 手动建立 /web/pages/404 相关文件 
+          ctx.redirect('/404')
+        }
       }
     }
   }
 }
 
-// /src/config/config.default.ts
-config.middleware = [
-  'notFoundMiddleware'
-];
+// /src/configuration.ts
+export class ContainerLifeCycle {
+  async onReady() {
+
+    this.app.useMiddleware(NotFoundMiddleware);
+
+    await initialSSRDevProxy(this.app);
+  }
+}
 
 ```
 
