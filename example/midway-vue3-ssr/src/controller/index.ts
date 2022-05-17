@@ -1,4 +1,3 @@
-import { Readable } from 'stream'
 import { Controller, Get, Provide, Inject } from '@midwayjs/decorator'
 import { Context } from '@midwayjs/koa'
 import { render } from 'ssr-core-vue3'
@@ -27,7 +26,7 @@ export class Index {
     try {
       this.ctx.apiService = this.apiService
       this.ctx.apiDeatilservice = this.apiDeatilservice
-      const stream = await render<Readable>(this.ctx, {
+      const stream = await render(this.ctx, {
         stream: true
       })
       this.ctx.body = stream

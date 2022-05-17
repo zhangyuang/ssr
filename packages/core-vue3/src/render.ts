@@ -1,4 +1,5 @@
 import { resolve } from 'path'
+import { Readable } from 'stream'
 import { loadConfig, getCwd, StringToStream, mergeStream2 } from 'ssr-server-utils'
 import { renderToNodeStream, renderToString } from '@vue/server-renderer'
 import { ISSRContext, UserConfig, ExpressContext, IConfig } from 'ssr-types'
@@ -7,6 +8,8 @@ import type { ViteDevServer } from 'vite'
 const cwd = getCwd()
 const defaultConfig = loadConfig()
 
+function render (ctx: ISSRContext, options?: UserConfig & {stream: true}): Promise<Readable>
+function render (ctx: ISSRContext, options?: UserConfig & {stream: false}): Promise<string>
 function render (ctx: ISSRContext, options?: UserConfig): Promise<string>
 function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
 
