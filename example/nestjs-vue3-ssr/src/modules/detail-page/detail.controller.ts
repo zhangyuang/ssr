@@ -1,6 +1,5 @@
 import { Controller, Get, Req, Res } from '@nestjs/common'
 import { Request, Response } from 'express'
-import { Readable } from 'stream'
 import { render } from 'ssr-core-vue3'
 
 import { ApiDetailService } from './detail.service'
@@ -17,7 +16,7 @@ export class DetailController {
         response: res,
         apiDeatilservice: this.apiDeatilservice
       }
-      const stream = await render<Readable>(ctx, {
+      const stream = await render(ctx, {
         stream: true
       })
       stream.pipe(res, { end: false })
