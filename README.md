@@ -51,7 +51,8 @@
 <td align="center"><a target="_blank" href="http://youku.com/"><img src="https://img.alicdn.com/tfs/TB17DTuXkH0gK0jSZPiXXavapXa-680-133.svg" width="120"/><br />
  <sub><b>优酷视频
 </b></td>
-<td align="center" style="width: 120px;"><a target="_blank" href="https://yulebao.alibaba.com/"><img src="https://gw.alicdn.com/tfs/TB1CmlIIFT7gK0jSZFpXXaTkpXa-190-46.png" width="120"/><br><sub><b>阿里影业娱乐宝
+<td align="center" style="width: 120px;"><a target="_blank" href="#"><img src="https://res.wx.qq.com/op_res/ukPzHBTlzSjyc3Sr9YOeq1GzgiuT6lRIX3YR120n7E1odJXIde7rlMIFlRtX2bGRdmcBxtggHXY9Gg-XKURElQ
+" width="120"/><br><sub><b>微信公众平台
 </b></sub></a></td>
 <td align="center"><a href="https://www.niuniuda.com/mall" target="_blank"><img src="https://img.alicdn.com/tfs/TB1df_8pBr0gK0jSZFnXXbRRXXa-160-60.png" width="120" alt="牛牛搭"/><br />
 <a href="https://www.niuniuda.com/mall" target="_blank"><sub><b>牛牛搭
@@ -105,6 +106,8 @@
 </b></a></td>
 </tr>
 <tr>
+<td align="center" style="width: 120px;"><a target="_blank" href="https://yulebao.alibaba.com/"><img src="https://gw.alicdn.com/tfs/TB1CmlIIFT7gK0jSZFpXXaTkpXa-190-46.png" width="120"/><br><sub><b>阿里影业娱乐宝
+</b></sub></a></td>
 <td align="center"><a target="_blank" href="https://campaign.vmate.com/vrbollywood"><img src="https://img.alicdn.com/tfs/TB17p6Vhbj1gK0jSZFOXXc7GpXa-512-512.png" width="120" alt="vmate 积分商城"/><br />
   <a target="_blank" href="https://job.alibaba.com/zhaopin/position_detail.htm?trace=qrcode_share&positionCode=GP524819"><sub><b>Vmate短视频
 </b></a></td>
