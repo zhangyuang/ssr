@@ -1,4 +1,5 @@
 import * as React from 'react'
+import 'react-router'
 import { useContext, useEffect, useState } from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { DynamicFC, StaticFC, Action, IWindow, ReactESMFetch, ReactFetch } from 'ssr-types-react'

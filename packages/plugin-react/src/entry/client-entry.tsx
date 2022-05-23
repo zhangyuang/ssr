@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { preloadComponent } from 'ssr-client-utils'
+import { preloadComponent, isMicro } from 'ssr-client-utils'
 import { wrapComponent } from 'ssr-hoc-react'
 import { IWindow, LayoutProps, ReactRoutesType } from 'ssr-types-react'
 import { Routes } from './create-router'
@@ -16,7 +16,7 @@ const clientRender = async (): Promise<void> => {
     return props.children!
   }
   // 客户端渲染||hydrate
-  const baseName = window.microApp ? window.clientPrefix : window.prefix
+  const baseName = isMicro() ? window.clientPrefix : window.prefix
   const routes = await preloadComponent(FeRoutes, baseName)
   ReactDOM[window.__USE_SSR__ ? 'hydrate' : 'render'](
     <BrowserRouter basename={baseName}>

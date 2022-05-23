@@ -1,7 +1,7 @@
 import { h, createSSRApp, createApp, reactive, renderSlot } from 'vue'
 import { Store } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
-import { findRoute } from 'ssr-client-utils'
+import { findRoute, isMicro } from 'ssr-client-utils'
 import { createPinia } from 'pinia'
 import { createRouter, createStore } from './create'
 import { ESMFetch, IFeRouteItem, RoutesType } from './interface'
@@ -25,7 +25,7 @@ async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<an
 const clientRender = async () => {
   const store = createStore()
   const router = createRouter({
-    base: window.microApp ? window.clientPrefix : window.prefix,
+    base: isMicro() ? window.clientPrefix : window.prefix,
     hashRouter: window.hashRouter
   })
   const pinia = createPinia()

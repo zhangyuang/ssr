@@ -15,7 +15,8 @@
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "lib": ["ES2020", "DOM"],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "typeRoots": ["./@types"]
   },
   "exclude": [
     "node_modules",

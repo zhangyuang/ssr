@@ -1,6 +1,7 @@
 import { join } from 'path'
 import { IConfig } from 'ssr-types'
-import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework, loadModuleFromFramework, stringifyDefine, accessFileSync } from './cwd'
+import { normalizeStartPath, normalizeEndPath } from 'ssr-common-utils'
+import { getCwd, getUserConfig, getFeDir, judgeFramework, loadModuleFromFramework, stringifyDefine, accessFileSync } from './cwd'
 import { coerce } from 'semver'
 
 const loadConfig = (): IConfig => {

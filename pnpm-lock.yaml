@@ -359,10 +359,12 @@ importers:
     specifiers:
       concurrently: ^5.1.0
       path-to-regexp: ^6.2.0
+      ssr-common-utils: ^6.0.0
       ssr-types: ^6.2.3
       ssr-types-react: ^6.2.7
     dependencies:
       path-to-regexp: 6.2.0
+      ssr-common-utils: link:../utils
       ssr-types: link:../types
     devDependencies:
       concurrently: 5.3.0
@@ -807,6 +809,7 @@ importers:
       rollup: ^2.70.1
       semver: ^7.3.5
       shelljs: ^0.8.3
+      ssr-common-utils: ^6.0.0
       ssr-types: ^6.2.3
       webpack-chain: ^6.4.0
     dependencies:
@@ -823,6 +826,7 @@ importers:
       '@types/shelljs': 0.8.11
       concurrently: 5.3.0
       rollup: 2.70.2
+      ssr-common-utils: link:../utils
       ssr-types: link:../types
       webpack-chain: 6.5.1
 
@@ -873,6 +877,12 @@ importers:
       ssr-types: link:../types
     devDependencies:
       concurrently: 5.3.0
+
+  packages/utils:
+    specifiers:
+      path-to-regexp: ^6.2.0
+    dependencies:
+      path-to-regexp: 6.2.0
 
   packages/webpack:
     specifiers:

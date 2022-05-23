@@ -1,6 +1,6 @@
 import { Store } from 'vuex'
 import { Route } from 'vue-router'
-import { findRoute } from 'ssr-client-utils'
+import { findRoute, isMicro } from 'ssr-client-utils'
 import { Routes } from './create-router'
 import { ESMFetch, RoutesType, IFeRouteItem } from './interface'
 import { createRouter, createStore, RealVue } from './create'
@@ -24,7 +24,7 @@ async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<an
 const clientRender = async () => {
   const store = createStore()
   const router = createRouter({
-    base: window.microApp ? window.clientPrefix : window.prefix
+    base: isMicro() ? window.clientPrefix : window.prefix
   })
 
   if (window.__INITIAL_DATA__) {
