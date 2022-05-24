@@ -3,13 +3,11 @@ import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { preloadComponent, isMicro } from 'ssr-client-utils'
 import { wrapComponent } from 'ssr-hoc-react'
-import { IWindow, LayoutProps, ReactRoutesType } from 'ssr-types-react'
+import { LayoutProps, ReactRoutesType } from 'ssr-types-react'
 import { Routes } from './create-router'
 import { AppContext } from './context'
 
 const { FeRoutes, layoutFetch, App } = Routes as ReactRoutesType
-
-declare const window: IWindow
 
 const clientRender = async (): Promise<void> => {
   const IApp = App ?? function (props: LayoutProps) {

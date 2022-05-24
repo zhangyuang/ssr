@@ -32,4 +32,5 @@ export interface IWindow {
   prefix?: string
   clientPrefix?: string
   microApp?: any
+  hashRouter: boolean
 }

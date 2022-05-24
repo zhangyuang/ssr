@@ -16,13 +16,8 @@
     "allowSyntheticDefaultImports": true,
     "lib": ["ES2020", "DOM"],
     "skipLibCheck": true,
-    "typeRoots": ["./@types"]
-  },
-  "exclude": [
-    "node_modules",
-    "esm",
-    "cjs",
-    "**/*.test.ts",
-    "example"
-  ]
+    "typeRoots": [
+      "./@types"
+    ]
+  }
 }
