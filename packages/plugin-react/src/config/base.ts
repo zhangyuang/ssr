@@ -88,8 +88,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   chain.module
     .rule('mjs')
     .test(/\.mjs/)
-    .include
-    .add(/node_modules/).end()
     .type('javascript/auto')
     .end()
 
