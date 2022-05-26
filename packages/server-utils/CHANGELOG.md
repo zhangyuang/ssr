@@ -1,3 +1,7 @@
+## [6.2.24](https://github.com/zhangyuang/ssr/compare/server-utils@6.2.23...server-utils@6.2.24) (2022-05-26)
+
+
+
 ## [6.2.23](https://github.com/zhangyuang/ssr/compare/server-utils@6.2.22...server-utils@6.2.23) (2022-05-26)
 
 
