@@ -522,9 +522,15 @@ export default {
 
 默认已经使用 [babel-plugin-import](https://www.npmjs.com/package/babel-plugin-import)集成按需语法引入的 `UI` 框架
 
-- `React`: [antd](https://ant.design/)
-- `Vue`: [vant](https://vant-contrib.gitee.io/vant/#/) [ant-design-vue](https://antdv.com/docs/vue/introduce-cn/)
+在 `Webpack` 场景可直接使用以下 `UI` 框架按需引入语法
 
+- `React`: [antd](https://ant.design/)
+- `Vue`: [vant](https://vant-contrib.gitee.io/vant/#/), [ant-design-vue](https://antdv.com/docs/vue/introduce-cn/)
+
+在 `Vite` 场景可直接使用以下 `UI` 框架按需引入语法
+
+- `React`: [antd](https://ant.design/)
+- `Vue`: [vant](https://vant-contrib.gitee.io/vant/#/), [ant-design-vue](https://antdv.com/docs/vue/introduce-cn/),[element-plus](https://element-plus.org/zh-CN/)
 
 ```js
 // 注意: 使用了按需引入的框架无法再使用全量引入的语法
@@ -542,7 +548,8 @@ props.ssrApp.use(Button)
 
 ### 接入其他 UI 框架
 
-下面讲述如何以按需引入的语法接入其他 `UI` 框架。若使用全量引入的语法，在大部分情况下无需做任何配置即可使用。
+下面讲述如何按需引入的语法接入其他未默认集成的 `UI` 框架。若使用全量引入的语法，在大部分情况下无需做任何配置即可使用。  
+下方讲述的解决方案在 `Webpack` 场景下适用。`Vite` 场景请参考 [vite-plugin-style-import](https://www.npmjs.com/package/vite-plugin-style-import)
 #### antd-mobile
 
 ```js

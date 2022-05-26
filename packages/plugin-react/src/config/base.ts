@@ -145,7 +145,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     ...(isServer ? define?.server : define?.client),
     ...define?.base
   }])
-  chainBaseConfig(chain)
+  chainBaseConfig(chain, isServer)
   return config
 }
 

@@ -47,7 +47,7 @@ export interface IConfig {
       }
     }
   }
-  chainBaseConfig: (config: Config) => void
+  chainBaseConfig: (config: Config, isServer: boolean) => void
   chainServerConfig: (config: Config) => void
   chainClientConfig: (config: Config) => void
   webpackStatsOption: Options.Stats

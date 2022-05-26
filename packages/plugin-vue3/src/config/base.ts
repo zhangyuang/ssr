@@ -219,7 +219,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     ...define?.base
   }])
 
-  chainBaseConfig(chain)
+  chainBaseConfig(chain, isServer)
   return config
 }
 
