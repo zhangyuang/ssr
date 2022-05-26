@@ -1,3 +1,15 @@
+## [6.2.24](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.23...plugin-vue3@6.2.24) (2022-05-26)
+
+
+### Features
+
+* add ssr-common-utils ([c12a283](https://github.com/zhangyuang/ssr/commit/c12a283e0133285402f4af5cd0346b84f2aaf098))
+* render add generic function overloading ([f03897f](https://github.com/zhangyuang/ssr/commit/f03897f07844d8fd5f9d2cf3eeef1a726da794bf))
+* update chainBaseConfig ([51c1fbe](https://github.com/zhangyuang/ssr/commit/51c1fbe5a645d4701c7ebc035083096d50301891))
+* update ssr-common-utils ([c7cadc1](https://github.com/zhangyuang/ssr/commit/c7cadc14922383f8fdaa6c76b4dbe9c220d0ac72))
+
+
+
 ## [6.2.23](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.22...plugin-vue3@6.2.23) (2022-05-13)
 
 

@@ -821,12 +821,12 @@ importers:
       path-to-regexp: 6.2.0
       semver: 7.3.7
       shelljs: 0.8.5
+      ssr-common-utils: link:../utils
     devDependencies:
       '@types/semver': 7.3.9
       '@types/shelljs': 0.8.11
       concurrently: 5.3.0
       rollup: 2.70.2
-      ssr-common-utils: link:../utils
       ssr-types: link:../types
       webpack-chain: 6.5.1
 

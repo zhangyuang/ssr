@@ -1,6 +1,6 @@
 {
   "name": "ssr-server-utils",
-  "version": "6.2.23",
+  "version": "6.2.24",
   "description": "utils for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -34,8 +34,7 @@
     "@types/shelljs": "^0.8.7",
     "concurrently": "^5.1.0",
     "ssr-types": "^6.2.3",
-    "webpack-chain": "^6.4.0",
-    "ssr-common-utils": "^6.0.0"
+    "webpack-chain": "^6.4.0"
   },
   "dependencies": {
     "axios": "^0.21.1",
@@ -45,6 +44,7 @@
     "magic-string": "^0.25.7",
     "path-to-regexp": "^6.2.0",
     "semver": "^7.3.5",
-    "shelljs": "^0.8.3"
+    "shelljs": "^0.8.3",
+    "ssr-common-utils": "^6.0.0"
   }
 }
