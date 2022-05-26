@@ -207,7 +207,7 @@ export {
 
 ```js
 module.exports = {
-  chainBaseConfig: (chain) => {
+  chainBaseConfig: (chain, isServer) => {
     chain.module
       .rule('markdown')
       .test(/\.md$/)

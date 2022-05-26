@@ -527,7 +527,7 @@ export default {
 - `React`: [antd](https://ant.design/)
 - `Vue`: [vant](https://vant-contrib.gitee.io/vant/#/), [ant-design-vue](https://antdv.com/docs/vue/introduce-cn/)
 
-在 `Vite` 场景可直接使用以下 `UI` 框架按需引入语法
+在 `Vite` 场景可直接使用以下 `UI` 框架按需引入语法。若发现问题请及时提 `issue`, 我们将会尽快修复
 
 - `React`: [antd](https://ant.design/)
 - `Vue`: [vant](https://vant-contrib.gitee.io/vant/#/), [ant-design-vue](https://antdv.com/docs/vue/introduce-cn/),[element-plus](https://element-plus.org/zh-CN/)
@@ -577,7 +577,6 @@ render () {
 ```
 #### element-ui
 
-额外安装 [babel-plugin-component](https://www.npmjs.com/package/babel-plugin-component)
 
 ```js
 // config.ts
@@ -585,10 +584,10 @@ const userConfig = {
   babelOptions: {
    plugins: [
         [
-            "component",
+            "import",
             {
-              "libraryName": "element-ui",
-              "styleLibraryName": "theme-chalk"
+               "libraryName": "element-ui",
+              "styleLibraryDirectory": "lib/theme-chalk",
             }
         ]
     ]
@@ -597,6 +596,45 @@ const userConfig = {
 export { userConfig }
 ```
 
+#### element-plus
+
+```js
+import type { UserConfig } from 'ssr-types'
+import { setStyle } from 'ssr-server-utils'
+
+const userConfig: UserConfig = {
+  chainBaseConfig: (chain, isServer) => {
+    setStyle(chain, /\.s[ac]ss$/i, {
+      rule: 'sass',
+      loader: 'sass-loader',
+      isServer,
+      importLoaders: 2, // 参考 https://www.npmjs.com/package/css-loader#importloaders
+    })
+  },
+  babelOptions: {
+    plugins: [
+      [
+        "import", {
+          "libraryName": "element-plus",
+          "customName": (name: string) => {
+            // 不一定能覆盖所有的组件引入语法，如果出错请自行查看该组件在 element-plus 的导出规则修改此方法
+            const name = name.replace('El', '').toLocaleLowerCase() // change ElButton to Button for setting current component path that `element-plus/lib/components/${name}/index.js`
+            return `element-plus/lib/components/${name}/index.js`
+          },
+          "customStyleName": (name: string) => {
+            const name = name.replace('El', '').toLocaleLowerCase()
+            return `element-plus/lib/components/${name}/style/index.js`
+          }
+        }, 'element-plus']
+    ]
+  },
+  whiteList: [/element-plus.*?style/]
+}
+export { userConfig }
+// 代码使用
+import { ElButton } from 'element-plus'
+
+```
 
 ## 引入其他 css 处理器
 
@@ -616,11 +654,12 @@ import { setStyle } from 'ssr-server-utils'
 import type { UserConfig } from 'ssr-types'
 
 const userConfig: UserConfig = {
-  chainBaseConfig: (chain) => {
+  chainBaseConfig: (chain, isServer) => {
     // setStyle 的详细入参类型可查看  https://github.com/zhangyuang/ssr/blob/dev/packages/server-utils/src/webpack/setStyle.ts
     setStyle(chain, /\.s[ac]ss$/i, {
       rule: 'sass',
       loader: 'sass-loader',
+      isServer,
       importLoaders: 2 // 参考 https://www.npmjs.com/package/css-loader#importloaders
     })
   }
