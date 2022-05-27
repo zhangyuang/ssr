@@ -1,3 +1,12 @@
+## [6.2.13](https://github.com/zhangyuang/ssr/compare/types@6.2.12...types@6.2.13) (2022-05-27)
+
+
+### Features
+
+* update vite config ([0596573](https://github.com/zhangyuang/ssr/commit/05965738898d96d53dedbd41746b8100dcc5653b))
+
+
+
 ## [6.2.12](https://github.com/zhangyuang/ssr/compare/types@6.2.11...types@6.2.12) (2022-05-26)
 
 
