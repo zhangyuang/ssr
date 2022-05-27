@@ -1,3 +1,12 @@
+## [6.2.25](https://github.com/zhangyuang/ssr/compare/server-utils@6.2.23...server-utils@6.2.25) (2022-05-27)
+
+
+### Features
+
+* update vite config ([0596573](https://github.com/zhangyuang/ssr/commit/05965738898d96d53dedbd41746b8100dcc5653b))
+
+
+
 ## [6.2.24](https://github.com/zhangyuang/ssr/compare/server-utils@6.2.23...server-utils@6.2.24) (2022-05-26)
 
 
