@@ -96,7 +96,7 @@ export interface IConfig {
       server?: ServerOptions
     }
     client?: {
-      defaultPluginOptions?: any
+      defaultPluginOptions?: any // 为默认装载的插件定义 options, vue3 场景是 @vitejs/plugin-vue, react 场景是 @vitejs/plugin-react
       extraPlugin?: PluginOption | PluginOption[]
     }
     server?: {
