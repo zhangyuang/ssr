@@ -54,10 +54,13 @@ const loadConfig = (): IConfig => {
     '.vue',
     '.css'
   ]
-
   const isDev = userConfig.isDev ?? process.env.NODE_ENV !== 'production'
 
   const fePort = userConfig.fePort ?? 8999
+
+  const hmr = Object.assign({
+    host: '127.0.0.1'
+  }, userConfig.hmr)
 
   let https = userConfig.https ? userConfig.https : !!process.env.HTTPS
 
@@ -67,7 +70,7 @@ const loadConfig = (): IConfig => {
 
   const serverPort = process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 3000
 
-  const host = '127.0.0.1'
+  const host = hmr?.host ?? '127.0.0.1'
 
   const chunkName = 'Page'
 
@@ -125,9 +128,9 @@ const loadConfig = (): IConfig => {
     hotOnly: true,
     host,
     sockHost: host,
-    sockPort: fePort,
+    sockPort: hmr?.port ?? fePort,
     hot: true,
-    port: fePort,
+    port: hmr?.port ?? fePort,
     https,
     clientLogLevel: clientLogLevel,
     headers: {
@@ -192,6 +195,7 @@ const loadConfig = (): IConfig => {
   config.prefix = normalizeStartPath(config.prefix ?? '/')
   config.corejsOptions = corejsOptions
   config.whiteList = whiteList
+  config.hmr = hmr
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了
   config.babelOptions = userConfig.babelOptions ? {
     ...{

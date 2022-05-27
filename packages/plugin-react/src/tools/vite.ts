@@ -54,7 +54,6 @@ const serverConfig: UserConfig = {
     ...define?.server
   }
 }
-
 const clientConfig: UserConfig = {
   ...commonConfig(),
   base: isDev ? '/' : getOutputPublicPath(),

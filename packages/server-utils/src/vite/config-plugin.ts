@@ -125,12 +125,14 @@ const manualChunksFn = (id: string) => {
 }
 type SSR = 'ssr'
 const commonConfig = (): UserConfig => {
-  const { whiteList, alias, css } = loadConfig()
+  const { whiteList, alias, css, hmr, viteConfig } = loadConfig()
   return {
     root: cwd,
     mode: 'development',
     server: {
-      middlewareMode: 'ssr' as SSR
+      middlewareMode: 'ssr' as SSR,
+      hmr,
+      ...viteConfig?.().common?.server
     },
     css: {
       postcss: css?.().loaderOptions?.postcss ?? {},

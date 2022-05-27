@@ -1,5 +1,6 @@
 import { Options, RuleSetCondition } from 'webpack'
 import * as Config from 'webpack-chain'
+import type { PluginOption, ServerOptions } from 'vite'
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel'
 import { Argv } from './yargs'
 import { ISSRContext } from './ctx'
@@ -90,17 +91,22 @@ export interface IConfig {
   supportOptinalChaining: boolean
   viteConfig?: () => {
     common?: {
-    // 双端通用插件
-      extraPlugin?: any[]
+      // 双端通用配置
+      extraPlugin?: PluginOption | PluginOption[]
+      server?: ServerOptions
     }
     client?: {
       defaultPluginOptions?: any
-      extraPlugin?: any[]
+      extraPlugin?: PluginOption | PluginOption[]
     }
     server?: {
       defaultPluginOptions?: any
-      extraPlugin?: any[]
+      extraPlugin?: PluginOption | PluginOption[]
     }
+  }
+  hmr?: {
+    host?: string
+    port?: number
   }
   define?: {
     base?: Record<string, string>
