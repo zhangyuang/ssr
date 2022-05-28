@@ -14,7 +14,7 @@ import {
   updateVersion
 } from './releaseUtils'
 
-async function main (): Promise<void> {
+async function main(): Promise<void> {
   let targetVersion: string | undefined
 
   const { pkg }: { pkg: string } = await prompts({
@@ -83,7 +83,6 @@ async function main (): Promise<void> {
     'CHANGELOG.md',
     '-s'
   ]
-  if (pkgName !== 'vite') changelogArgs.push('--lerna-package', pkgName)
   await run('npx', changelogArgs, { cwd: pkgDir })
 
   const { stdout } = await run('git', ['diff'], { stdio: 'pipe' })
