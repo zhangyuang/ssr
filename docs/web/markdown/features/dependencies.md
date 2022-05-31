@@ -22,7 +22,7 @@
     "postcss-discard-comments": "^5.0.0",
     "postcss-flexbugs-fixes": "^5.0.0",
     "postcss-loader": "^4.0.0",
-    "postcss-preset-env": "^7.0.0",
+    "postcss-preset-env": "7.6.0",
     "postcss-safe-parser": "^6.0.0",
     "ssr-client-utils": "^5.6.33",
     "ssr-server-utils": "^5.6.33",

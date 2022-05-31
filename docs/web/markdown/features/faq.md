@@ -1191,3 +1191,24 @@ $ ssr start --port 7001 # 等价于 midway-bin dev --port 7001
   }
 }
 ```
+
+## wasm(Webassembly) 支持
+
+在 `ssr` 框架中使用 [wasm](https://webassembly.org/) 以 [color-thief-wasm](https://github.com/zhangyuang/color-thief-wasm) 为例。
+
+```bash
+$ yarn add color-thief-wasm-bundler
+```
+
+如何使用
+
+In `Webpack`
+
+```js
+if (__isBrowser__) {
+  const foo = require('color-thief-wasm-bundler')
+  console.log(foo.get_color_thief([1,2,3,4], 64*64, 9,5))
+}
+```
+
+In `Vite`, 待更新...

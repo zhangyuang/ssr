@@ -51,7 +51,7 @@
     "postcss-flexbugs-fixes": "^5.0.0",
     "postcss-loader": "^4.0.0",
     "postcss-modules": "^4.0.0",
-    "postcss-preset-env": "^7.0.0",
+    "postcss-preset-env": "7.6.0",
     "postcss-safe-parser": "^6.0.0",
     "react": "^17.0.1",
     "react-dev-utils": "^11.0.4",
