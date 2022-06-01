@@ -1,6 +1,6 @@
 import { Options, RuleSetCondition } from 'webpack'
 import * as Config from 'webpack-chain'
-import type { PluginOption, ServerOptions } from 'vite'
+import type { PluginOption, ServerOptions, UserConfig as ViteConfig } from 'vite'
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel'
 import { Argv } from './yargs'
 import { ISSRContext } from './ctx'
@@ -98,10 +98,12 @@ export interface IConfig {
     client?: {
       defaultPluginOptions?: any // 为默认装载的插件定义 options, vue3 场景是 @vitejs/plugin-vue, react 场景是 @vitejs/plugin-react
       extraPlugin?: PluginOption | PluginOption[]
+      otherConfig?: ViteConfig
     }
     server?: {
       defaultPluginOptions?: any
       extraPlugin?: PluginOption | PluginOption[]
+      otherConfig?: ViteConfig
     }
   }
   hmr?: {

@@ -6,7 +6,7 @@
 
 配置文件可通过 `config.ts|js` 文件定义以及调用 `core.render` 方法时实时传入。会将两者配置进行合并
 
-注：`config.ts|js` 文件将会在编译后统一放置于 `build/config.js` 路径，所以当你在配置文件中使用相对路径引用外部文件时请使用 `require cwd` 类似的语法。目前不支持引入外部 `ts` 文件
+注：`config.ts|js` 文件将会在编译后统一放置于 `build/config.js` 路径，所以当你在配置文件中使用相对路径引用外部文件时请使用 `require cwd` 类似的语法。目前不支持引入外部 `ts` 文件。由于文档更新不一定及时，建议以最新的 `ssr-types` 类型为主要参考
 
 
 ```js

@@ -16,6 +16,7 @@ const styleImportConfig = {
 }
 const serverConfig: UserConfig = {
   ...commonConfig(),
+  ...viteConfig?.().server?.otherConfig,
   plugins: [
     react({
       ...viteConfig?.()?.server?.defaultPluginOptions,
@@ -56,6 +57,7 @@ const serverConfig: UserConfig = {
 }
 const clientConfig: UserConfig = {
   ...commonConfig(),
+  ...viteConfig?.().client?.otherConfig,
   base: isDev ? '/' : getOutputPublicPath(),
   esbuild: {
     keepNames: true

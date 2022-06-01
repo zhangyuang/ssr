@@ -20,6 +20,7 @@ const styleImportConfig = {
 }
 const serverConfig: UserConfig = {
   ...commonConfig(),
+  ...viteConfig?.().server?.otherConfig,
   plugins: [
     vuePlugin(viteConfig?.()?.server?.defaultPluginOptions),
     vueJSXPlugin(),
@@ -58,6 +59,7 @@ const serverConfig: UserConfig = {
 
 const clientConfig: UserConfig = {
   ...commonConfig(),
+  ...viteConfig?.().client?.otherConfig,
   base: isDev ? '/' : getOutputPublicPath(),
   plugins: [
     vuePlugin(viteConfig?.()?.client?.defaultPluginOptions),

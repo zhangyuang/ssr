@@ -1196,13 +1196,10 @@ $ ssr start --port 7001 # 等价于 midway-bin dev --port 7001
 
 在 `ssr` 框架中使用 [wasm](https://webassembly.org/) 以 [color-thief-wasm](https://github.com/zhangyuang/color-thief-wasm) 为例。
 
+`In Webpack`
 ```bash
 $ yarn add color-thief-wasm-bundler
 ```
-
-如何使用
-
-In `Webpack`
 
 ```js
 if (__isBrowser__) {
@@ -1211,4 +1208,34 @@ if (__isBrowser__) {
 }
 ```
 
-In `Vite`, 待更新...
+`In Vite`
+
+```bash
+$ yarn add color-thief-wasm-web
+```
+
+```js
+// config.ts
+
+export const userConfig = {
+  whiteList: [/color-thief-wasm-web/],
+  viteConfig: () => ({
+    clientConfig: {
+      otherConfig: {
+        optimizeDeps: {
+          exclude: ['color-thief-wasm-web']
+        }
+      }
+    }
+  })
+}
+
+// render.vue
+
+import init, { get_color_thief } from 'color-thief-wasm-web'
+
+init().then(() => {
+  const foo = require('color-thief-wasm-bundler')
+  console.log(foo.get_color_thief([1,2,3,4], 64*64, 9,5))
+})
+```
