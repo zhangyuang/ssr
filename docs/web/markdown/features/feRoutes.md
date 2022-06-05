@@ -47,6 +47,14 @@ $ tree ./ -I node_modules -L 3
 
 - `/index/render$id#.vue` 映射为 `/:id?`
 
+### 通配符路由
+
+用来匹配所有符合要求的文件, 综合考虑 [path-to-regexp](https://www.npmjs.com/package/path-to-regexp) 和 [vue-router](https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html#%E6%8D%95%E8%8E%B7%E6%89%80%E6%9C%89%E8%B7%AF%E7%94%B1%E6%88%96-404-not-found-%E8%B7%AF%E7%94%B1) 文档，使用如下结构
+
+- `/detail/render$params*.vue` 映射为 `/detail/:params*`，本质上对应所有来自 `/detail/*` 的请求
+
+`React` 场景同理生效
+
 ### 多级路由
 
 尽管在大多数情况下我们用不到多级路由，但这里我们仍然提供了对应的解析策略。如果你的应用所有路由 `path` 前面都需要加上一个统一的前缀，那么你应该通过 `config.prefix` 来实现，而不是多级路由。参考[应用配置](./api$config#prefix)
