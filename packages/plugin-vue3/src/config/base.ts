@@ -73,6 +73,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
       isCustomElement: (tag: string) => tag.includes('micro')
     }
   }
+
   if (isServer && ssrVueLoaderOptions) {
     vueLoaderOptions = {
       vueLoaderOptions,
