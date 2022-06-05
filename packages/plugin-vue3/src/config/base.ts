@@ -68,7 +68,10 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const { moduleFileExtensions, useHash, isDev, chainBaseConfig, locale, corejsOptions, ssrVueLoaderOptions, csrVueLoaderOptions, babelExtraModule, alias, define } = config
 
   let vueLoaderOptions = {
-    babelParserPlugins: ['jsx', 'classProperties', 'decorators-legacy']
+    babelParserPlugins: ['jsx', 'classProperties', 'decorators-legacy'],
+    compilerOptions: {
+      isCustomElement: (tag: string) => tag.includes('micro')
+    }
   }
   if (isServer && ssrVueLoaderOptions) {
     vueLoaderOptions = {
