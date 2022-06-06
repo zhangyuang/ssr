@@ -4,9 +4,10 @@ import type { UserConfig, Plugin } from 'vite'
 import { parse as parseImports } from 'es-module-lexer'
 import MagicString from 'magic-string'
 import type { OutputOptions } from 'rollup'
+import { mkdir } from 'shelljs'
 import { loadConfig } from '../loadConfig'
 import { getOutputPublicPath } from '../parse'
-import { getCwd, cryptoAsyncChunkName } from '../cwd'
+import { getCwd, cryptoAsyncChunkName, accessFile } from '../cwd'
 
 const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
 const chunkNameRe = /chunkName=(.*)/
@@ -79,6 +80,9 @@ const manifestPlugin = (): Plugin => {
         const arr = bundle.split('.')
         arr.splice(1, 2)
         manifest[arr.join('.')] = `${getOutputPublicPath()}${val}`
+      }
+      if (!await accessFile(resolve(clientOutPut))) {
+        mkdir(resolve(clientOutPut))
       }
       await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest))
       await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON))
