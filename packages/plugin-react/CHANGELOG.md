@@ -1,3 +1,62 @@
+## [6.2.22](https://github.com/zhangyuang/ssr/compare/v6.2.8...v6.2.22) (2022-06-06)
+
+
+### Bug Fixes
+
+* add build:publish disable sourcemap ([ef82b29](https://github.com/zhangyuang/ssr/commit/ef82b298ddf19b72b130d76c33bfbca67339b139))
+* add prefix output to window.prefix in csr mode ([#197](https://github.com/zhangyuang/ssr/issues/197)) ([479bb3d](https://github.com/zhangyuang/ssr/commit/479bb3df67d7da5635939a4219b5f5f9a40b5508))
+* build html ([83be7be](https://github.com/zhangyuang/ssr/commit/83be7be185985a5dcbb9b8e846a5e2b14b94c1b0))
+* build html ([59a8d7f](https://github.com/zhangyuang/ssr/commit/59a8d7f31bed703601e753d02db49ea5a0f93054))
+* ci ([57e713f](https://github.com/zhangyuang/ssr/commit/57e713f1f96b4ceb893837c15c6032b23a0b1a4c))
+* don't throw error when load module failed ([2e5d077](https://github.com/zhangyuang/ssr/commit/2e5d077848dc10998a04fcccccc7c745c0d1bea7))
+* fix config htmlTemplate read ([#191](https://github.com/zhangyuang/ssr/issues/191)) ([8c3e12b](https://github.com/zhangyuang/ssr/commit/8c3e12b6adb64b7898bc6232d980e72c5353026b))
+* lock babel-plugin-import ([72c3041](https://github.com/zhangyuang/ssr/commit/72c3041bf61a1fc9b7593df1fdb6c4dc850c6bbd))
+* lock vite version in plugin-react ([e015b75](https://github.com/zhangyuang/ssr/commit/e015b750c60dcae9a4a7e5fe14937177b80367ca))
+* plugin-react without dynamic mode ([487cc84](https://github.com/zhangyuang/ssr/commit/487cc84188640aab13c27214df758da0d19e4368))
+* postinstall ([fef24ba](https://github.com/zhangyuang/ssr/commit/fef24bada3498f162efd0bdd09921503e44ad21a))
+* postinstall get correct path ([b3d1951](https://github.com/zhangyuang/ssr/commit/b3d1951b7537c5954fd040797fc0011a1d4439d7))
+* update preinstall ([2b4b869](https://github.com/zhangyuang/ssr/commit/2b4b869c28b83b414bef10260e5561bc3773cea9))
+* vite mode config.base ([c64aa1a](https://github.com/zhangyuang/ssr/commit/c64aa1ab9d88cdfd7df1cce6feb43b191847e666))
+* **vite:** vite config base use publicPath first in client ([#192](https://github.com/zhangyuang/ssr/issues/192)) ([ef5b145](https://github.com/zhangyuang/ssr/commit/ef5b1451850441b0748727d09144e6e671f71208))
+* vue3 package.json ([c49fb14](https://github.com/zhangyuang/ssr/commit/c49fb146fc6ba79ffbeee567e334b560ffecbcac))
+* whitList concat userconfig ([fdd971a](https://github.com/zhangyuang/ssr/commit/fdd971ab11aebc0f348d789e758183b877e791af))
+* whitList concat userconfig ([e2328f8](https://github.com/zhangyuang/ssr/commit/e2328f87f5cfc18c9a30867e4f6e18d0df5c1ba3))
+
+
+### Features
+
+*  optimize code remove disableClientRender fix vite ([eeff477](https://github.com/zhangyuang/ssr/commit/eeff4770f8d9ff400289cf4d1ca4dd32883be108))
+* add .vue to defaultWhiteList ([dbabfa2](https://github.com/zhangyuang/ssr/commit/dbabfa2864ec0a5487aadc31286da5630a8603fc))
+* add `turbo` ([#196](https://github.com/zhangyuang/ssr/issues/196)) ([2be17bb](https://github.com/zhangyuang/ssr/commit/2be17bba5d80610b97b3813b3d4fe9579f88e5c3))
+* add ssr-common-utils ([c12a283](https://github.com/zhangyuang/ssr/commit/c12a283e0133285402f4af5cd0346b84f2aaf098))
+* add ssr-serialize-javascript code optimize ([41bb14d](https://github.com/zhangyuang/ssr/commit/41bb14d31efd89d4a85d5220544d2f7a3883e1a3))
+* babelExtraModule support vue ([06251e7](https://github.com/zhangyuang/ssr/commit/06251e716678e1f882f06f68f72c518a341de0d7))
+* babelExtraModule support vue ([513073d](https://github.com/zhangyuang/ssr/commit/513073ddcecbb728d34eae233686a93d63355e00))
+* optimize customescript ([f374760](https://github.com/zhangyuang/ssr/commit/f3747608d4684576875968394eca6315e2fa8dd1))
+* plugin-midway remove luckyeye ([bb4b11f](https://github.com/zhangyuang/ssr/commit/bb4b11f289d060c8b332cf610bb6d8c4cf25142b))
+* plugin-react add react-refresh, remove module.hot ([7bee211](https://github.com/zhangyuang/ssr/commit/7bee211ddfefaef688713f505756e1155320b844))
+* render add generic function overloading ([f03897f](https://github.com/zhangyuang/ssr/commit/f03897f07844d8fd5f9d2cf3eeef1a726da794bf))
+* support htmlTemplate ([b240811](https://github.com/zhangyuang/ssr/commit/b2408114a6314ef4f96f4c06159d18fc6d881a57))
+* support props.ssrApp in vue3 ([8985037](https://github.com/zhangyuang/ssr/commit/898503753cbe69187d27f91c70dff3f4cd4a0b2a))
+* support vite + wasm vite otherConfig ([7e65899](https://github.com/zhangyuang/ssr/commit/7e658998bc404c28374645c3a8a433a3db171f36))
+* support wasm in webpack, lock postcss-preset-env version ([8ad50a4](https://github.com/zhangyuang/ssr/commit/8ad50a41227a8eb5395c955e5deeda7eb56036b0))
+* update chainBaseConfig ([51c1fbe](https://github.com/zhangyuang/ssr/commit/51c1fbe5a645d4701c7ebc035083096d50301891))
+* update extraJsOrder extraCssOrder ([cd5ca99](https://github.com/zhangyuang/ssr/commit/cd5ca99a686ea565020500a6c4f77e310b422ce3))
+* update midway deploy ([a473c59](https://github.com/zhangyuang/ssr/commit/a473c599657df42b4bf7a59f248b3c7c33907657))
+* update plugin-vue3 support call pinia in fetch.ts ([958fdc7](https://github.com/zhangyuang/ssr/commit/958fdc787ab615593f3114a6bf2c6cea4823afc2))
+* update ssr-common-utils ([c7cadc1](https://github.com/zhangyuang/ssr/commit/c7cadc14922383f8fdaa6c76b4dbe9c220d0ac72))
+* update turbo ([9ee14f5](https://github.com/zhangyuang/ssr/commit/9ee14f59359187e35f4ef990998846ac3847347b))
+* update vite config ([0596573](https://github.com/zhangyuang/ssr/commit/05965738898d96d53dedbd41746b8100dcc5653b))
+* upgrade midway example to v3 ([572f7c5](https://github.com/zhangyuang/ssr/commit/572f7c5d171346cc17f5f6cdebe33aee76e0c146))
+* upgrade vue-router^2 to vue-router^3 ([283ed9e](https://github.com/zhangyuang/ssr/commit/283ed9ec4f6d8a622bcc3599ca33f9b0885ed3e5))
+* use pnpm replace yarn workspace and lerna ([#186](https://github.com/zhangyuang/ssr/issues/186)) ([d578506](https://github.com/zhangyuang/ssr/commit/d578506160712847c1dd021b7759c7e9ff3c03e8))
+* use ssr-vite-plugin-style-import ([1c8cac2](https://github.com/zhangyuang/ssr/commit/1c8cac2ff9bb7ec0132c23203efa5c85a8c7492e))
+* use terser minify plugin-react server bundle ([0a3c7fe](https://github.com/zhangyuang/ssr/commit/0a3c7fe61908fe24bcb2d8c6394daf2afd18ba82))
+* vue3 add default isCustomElement ([44ab37c](https://github.com/zhangyuang/ssr/commit/44ab37c27908b5927578d78a834d2404d42c70dd))
+* vue3 support pinia, replace props.fetchData to props.reactiveFetchData in vue2/3 ([eabcb50](https://github.com/zhangyuang/ssr/commit/eabcb50729517b7cb649729d52356a06a010a8fc))
+
+
+
 ## [6.2.21](https://github.com/zhangyuang/ssr/compare/v6.2.8...v6.2.21) (2022-05-31)
 
 
