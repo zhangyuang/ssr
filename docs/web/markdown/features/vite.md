@@ -97,7 +97,7 @@ export { userConfig }
 
 综上所述，我们已经迈出了最困难的一步，接下来的做法就是抹平 `Vite/Webpack` 在本框架中的使用差异，配置差异，构建差异。特别是在 `UI` 框架使用这一块，我们之后将会集成一些配置，使得可以在 `Vite` 场景下无缝使用各大流行 `UI` 库例如 `antd`, `vant` 等等而无需做任何额外的配置。也欢迎各位开发者的深度使用以及问题反馈
 
-### 踩坑记录
+<!-- ### 踩坑记录
 
 以下记录开发 `vite ssr` 时遇见的问题，给其他框架开发者作为参考
 
@@ -353,4 +353,4 @@ const render = (await vite.ssrLoadModule('/src/entry-server.js')).render
 注: 切记，我们只会在 `本地开发` 阶段使用 `Vite`，生产环境仍然用 `Webpack` 进行构建。所以请不要依赖只能够在 `Vite` 场景生效的 `vite.config.js` 配置。建议只使用默认生成的 config 文件具备的功能来保持本地开发与生产环境行为一致。否则你需要同时在 `Vite` `Webpack` 场景保持配置的一致性
 ### 未来展望
 
-并不排除未来本框架会提供 `All in Vite` 的方案，来将 `Vite` 与 `Webpack` 完全分离供开发者使用
+并不排除未来本框架会提供 `All in Vite` 的方案，来将 `Vite` 与 `Webpack` 完全分离供开发者使用 -->
