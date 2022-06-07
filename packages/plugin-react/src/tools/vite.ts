@@ -1,7 +1,7 @@
 import { build, UserConfig } from 'vite'
 import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig, asyncOptimizeChunkPlugin, getOutputPublicPath } from 'ssr-server-utils'
 import react from '@vitejs/plugin-react'
-import styleImport, { AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'vite-plugin-style-import'
+import { createStyleImportPlugin, AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'ssr-vite-plugin-style-import'
 const { getOutput, reactServerEntry, reactClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 const styleImportConfig = {
@@ -16,6 +16,7 @@ const styleImportConfig = {
 }
 const serverConfig: UserConfig = {
   ...commonConfig(),
+  ...viteConfig?.().server?.otherConfig,
   plugins: [
     react({
       ...viteConfig?.()?.server?.defaultPluginOptions,
@@ -33,8 +34,11 @@ const serverConfig: UserConfig = {
     }),
     viteConfig?.()?.common?.extraPlugin,
     viteConfig?.()?.server?.extraPlugin,
-    styleImport(styleImportConfig)
+    createStyleImportPlugin(styleImportConfig)
   ],
+  esbuild: {
+    keepNames: true
+  },
   build: {
     ssr: reactServerEntry,
     outDir: serverOutPut,
@@ -51,9 +55,9 @@ const serverConfig: UserConfig = {
     ...define?.server
   }
 }
-
 const clientConfig: UserConfig = {
   ...commonConfig(),
+  ...viteConfig?.().client?.otherConfig,
   base: isDev ? '/' : getOutputPublicPath(),
   esbuild: {
     keepNames: true
@@ -66,7 +70,7 @@ const clientConfig: UserConfig = {
     }),
     viteConfig?.()?.common?.extraPlugin,
     viteConfig?.()?.client?.extraPlugin,
-    styleImport(styleImportConfig)
+    createStyleImportPlugin(styleImportConfig)
   ],
   build: {
     ssrManifest: true,

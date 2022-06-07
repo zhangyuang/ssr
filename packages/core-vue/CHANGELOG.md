@@ -1,3 +1,28 @@
+## [6.2.12](https://github.com/zhangyuang/ssr/compare/core-vue@6.2.11...core-vue@6.2.12) (2022-05-17)
+
+
+### Bug Fixes
+
+* add build:publish disable sourcemap ([ef82b29](https://github.com/zhangyuang/ssr/commit/ef82b298ddf19b72b130d76c33bfbca67339b139))
+* add prefix output to window.prefix in csr mode ([#197](https://github.com/zhangyuang/ssr/issues/197)) ([479bb3d](https://github.com/zhangyuang/ssr/commit/479bb3df67d7da5635939a4219b5f5f9a40b5508))
+* build html ([83be7be](https://github.com/zhangyuang/ssr/commit/83be7be185985a5dcbb9b8e846a5e2b14b94c1b0))
+* build html ([59a8d7f](https://github.com/zhangyuang/ssr/commit/59a8d7f31bed703601e753d02db49ea5a0f93054))
+* plugin-react without dynamic mode ([487cc84](https://github.com/zhangyuang/ssr/commit/487cc84188640aab13c27214df758da0d19e4368))
+
+
+### Features
+
+*  optimize code remove disableClientRender fix vite ([eeff477](https://github.com/zhangyuang/ssr/commit/eeff4770f8d9ff400289cf4d1ca4dd32883be108))
+* add .vue to defaultWhiteList ([dbabfa2](https://github.com/zhangyuang/ssr/commit/dbabfa2864ec0a5487aadc31286da5630a8603fc))
+* add `turbo` ([#196](https://github.com/zhangyuang/ssr/issues/196)) ([2be17bb](https://github.com/zhangyuang/ssr/commit/2be17bba5d80610b97b3813b3d4fe9579f88e5c3))
+* babelExtraModule support vue ([06251e7](https://github.com/zhangyuang/ssr/commit/06251e716678e1f882f06f68f72c518a341de0d7))
+* babelExtraModule support vue ([513073d](https://github.com/zhangyuang/ssr/commit/513073ddcecbb728d34eae233686a93d63355e00))
+* render add generic function overloading ([f03897f](https://github.com/zhangyuang/ssr/commit/f03897f07844d8fd5f9d2cf3eeef1a726da794bf))
+* update turbo ([9ee14f5](https://github.com/zhangyuang/ssr/commit/9ee14f59359187e35f4ef990998846ac3847347b))
+* use terser minify plugin-react server bundle ([0a3c7fe](https://github.com/zhangyuang/ssr/commit/0a3c7fe61908fe24bcb2d8c6394daf2afd18ba82))
+
+
+
 ## 6.2.11 (2022-04-27)
 
 

@@ -15,13 +15,9 @@
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "lib": ["ES2020", "DOM"],
-    "skipLibCheck": true
-  },
-  "exclude": [
-    "node_modules",
-    "esm",
-    "cjs",
-    "**/*.test.ts",
-    "example"
-  ]
+    "skipLibCheck": true,
+    "typeRoots": [
+      "./@types"
+    ]
+  }
 }

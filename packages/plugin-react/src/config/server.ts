@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { loadConfig, getLocalNodeModules, nodeExternals } from 'ssr-server-utils'
+import { loadConfig, getLocalNodeModules, nodeExternals, loadModuleFromFramework } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import * as webpack from 'webpack'
 import { getBaseConfig } from './base'
@@ -7,6 +7,7 @@ import { getBaseConfig } from './base'
 const getServerWebpack = (chain: WebpackChain) => {
   const config = loadConfig()
   const { isDev, cwd, getOutput, chainServerConfig, whiteList, chunkName } = config
+  const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
   getBaseConfig(chain, true)
   chain.devtool(isDev ? 'inline-source-map' : false)
   chain.target('node')
@@ -25,7 +26,18 @@ const getServerWebpack = (chain: WebpackChain) => {
     // externals Dir contains example/xxx/node_modules ssr/node_modules
     modulesDir
   }))
-
+  if (!isDev) {
+    chain.optimization.minimizer('terser')
+      .use(loadModuleFromFramework('terser-webpack-plugin'), [{
+        terserOptions: {
+          keep_fnames: true
+        },
+        extractComments: false,
+        parallel: true,
+        cache: true,
+        sourceMap: shouldUseSourceMap
+      }])
+  }
   chain.when(isDev, () => {
     chain.watch(true)
   })

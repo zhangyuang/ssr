@@ -3,7 +3,7 @@ import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commo
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJSXPlugin from '@vitejs/plugin-vue-jsx'
 import babel from '@rollup/plugin-babel'
-import styleImport, { AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'vite-plugin-style-import'
+import { createStyleImportPlugin, AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'ssr-vite-plugin-style-import'
 
 const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
@@ -20,12 +20,13 @@ const styleImportConfig = {
 }
 const serverConfig: UserConfig = {
   ...commonConfig(),
+  ...viteConfig?.().server?.otherConfig,
   plugins: [
     vuePlugin(viteConfig?.()?.server?.defaultPluginOptions),
     vueJSXPlugin(),
     viteConfig?.()?.common?.extraPlugin,
     viteConfig?.()?.server?.extraPlugin,
-    styleImport(styleImportConfig),
+    createStyleImportPlugin(styleImportConfig),
     !supportOptinalChaining && babel({
       babelHelpers: 'bundled',
       plugins: [
@@ -58,13 +59,14 @@ const serverConfig: UserConfig = {
 
 const clientConfig: UserConfig = {
   ...commonConfig(),
+  ...viteConfig?.().client?.otherConfig,
   base: isDev ? '/' : getOutputPublicPath(),
   plugins: [
     vuePlugin(viteConfig?.()?.client?.defaultPluginOptions),
     vueJSXPlugin(),
     viteConfig?.()?.common?.extraPlugin,
     viteConfig?.()?.client?.extraPlugin,
-    styleImport(styleImportConfig),
+    createStyleImportPlugin(styleImportConfig),
     babelOptions && babel({
       ...babelOptions
     })

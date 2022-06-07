@@ -88,8 +88,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   chain.module
     .rule('mjs')
     .test(/\.mjs/)
-    .include
-    .add(/node_modules/).end()
     .type('javascript/auto')
     .end()
 
@@ -147,7 +145,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     ...(isServer ? define?.server : define?.client),
     ...define?.base
   }])
-  chainBaseConfig(chain)
+  chainBaseConfig(chain, isServer)
   return config
 }
 

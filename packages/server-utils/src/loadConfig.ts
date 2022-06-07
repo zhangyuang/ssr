@@ -1,6 +1,7 @@
 import { join } from 'path'
 import { IConfig } from 'ssr-types'
-import { getCwd, getUserConfig, normalizeStartPath, normalizeEndPath, getFeDir, judgeFramework, loadModuleFromFramework, stringifyDefine, accessFileSync } from './cwd'
+import { normalizeStartPath, normalizeEndPath } from 'ssr-common-utils'
+import { getCwd, getUserConfig, getFeDir, judgeFramework, loadModuleFromFramework, stringifyDefine, accessFileSync } from './cwd'
 import { coerce } from 'semver'
 
 const loadConfig = (): IConfig => {
@@ -53,10 +54,13 @@ const loadConfig = (): IConfig => {
     '.vue',
     '.css'
   ]
-
   const isDev = userConfig.isDev ?? process.env.NODE_ENV !== 'production'
 
   const fePort = userConfig.fePort ?? 8999
+
+  const hmr = Object.assign({
+    host: '127.0.0.1'
+  }, userConfig.hmr)
 
   let https = userConfig.https ? userConfig.https : !!process.env.HTTPS
 
@@ -66,14 +70,14 @@ const loadConfig = (): IConfig => {
 
   const serverPort = process.env.SERVER_PORT ? Number(process.env.SERVER_PORT) : 3000
 
-  const host = '127.0.0.1'
+  const host = hmr?.host ?? '127.0.0.1'
 
   const chunkName = 'Page'
 
   const clientLogLevel: ClientLogLevel = 'error'
 
   const useHash = !isDev // 生产环境默认生成hash
-  const defaultWhiteList: Array<RegExp|string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/]
+  const defaultWhiteList: Array<RegExp|string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/, /\.(vue)$/]
   const whiteList: Array<RegExp|string> = defaultWhiteList.concat(userConfig.whiteList ?? [])
 
   const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`]
@@ -124,9 +128,9 @@ const loadConfig = (): IConfig => {
     hotOnly: true,
     host,
     sockHost: host,
-    sockPort: fePort,
+    sockPort: hmr?.port ?? fePort,
     hot: true,
-    port: fePort,
+    port: hmr?.port ?? fePort,
     https,
     clientLogLevel: clientLogLevel,
     headers: {
@@ -191,6 +195,7 @@ const loadConfig = (): IConfig => {
   config.prefix = normalizeStartPath(config.prefix ?? '/')
   config.corejsOptions = corejsOptions
   config.whiteList = whiteList
+  config.hmr = hmr
   config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了
   config.babelOptions = userConfig.babelOptions ? {
     ...{

@@ -1,7 +1,7 @@
 {
-  "name": "ssr-core-vue",
-  "version": "6.2.12",
-  "description": "vue2 core for react/vue2/vue3 ssr deploy on serverless or tradtional web server",
+  "name": "ssr-common-utils",
+  "version": "6.2.23",
+  "description": "utils for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
   "sideEffects": false,
@@ -18,30 +18,16 @@
     "cli",
     "serverless",
     "ssr",
-    "vue",
-    "react"
+    "react",
+    "vue"
   ],
   "author": "zhangyuang",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/zhangyuang/ssr/issues"
   },
-  "engines": {
-    "node": ">=12"
-  },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
-    "@babel/runtime": "^7.12.13",
-    "ssr-serialize-javascript": "^6.0.0",
-    "ssr-deepclone": "^1.0.0",
-    "ssr-server-utils": "^6.2.10",
-    "vue": "^2.0.0",
-    "vue-router": "^3.0.0",
-    "vue-server-renderer": "^2.6.0",
-    "vuex": "^3.6.2"
-  },
-  "devDependencies": {
-    "ssr-plugin-vue": "^6.2.10",
-    "ssr-types": "^6.2.3"
+    "path-to-regexp": "^6.2.0"
   }
 }

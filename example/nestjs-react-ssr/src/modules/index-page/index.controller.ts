@@ -1,6 +1,5 @@
 import { Controller, Get, Req, Res } from '@nestjs/common'
 import { Request, Response } from 'express'
-import { Readable } from 'stream'
 import { render } from 'ssr-core-react'
 
 import { ApiService } from './index.service'
@@ -17,7 +16,7 @@ export class AppController {
         response: res,
         apiService: this.apiService
       }
-      const stream = await render<Readable>(ctx, {
+      const stream = await render(ctx, {
         stream: true
       })
       stream.pipe(res, { end: false })

@@ -6,7 +6,7 @@
 
 配置文件可通过 `config.ts|js` 文件定义以及调用 `core.render` 方法时实时传入。会将两者配置进行合并
 
-注：`config.ts|js` 文件将会在编译后统一放置于 `build/config.js` 路径，所以当你在配置文件中使用相对路径引用外部文件时请使用 `require cwd` 类似的语法。目前不支持引入外部 `ts` 文件
+注：`config.ts|js` 文件将会在编译后统一放置于 `build/config.js` 路径，所以当你在配置文件中使用相对路径引用外部文件时请使用 `require cwd` 类似的语法。目前不支持引入外部 `ts` 文件。由于文档更新不一定及时，建议以最新的 `ssr-types` 类型为主要参考
 
 
 ```js
@@ -207,7 +207,7 @@ export {
 
 ```js
 module.exports = {
-  chainBaseConfig: (chain) => {
+  chainBaseConfig: (chain, isServer) => {
     chain.module
       .rule('markdown')
       .test(/\.md$/)
@@ -623,23 +623,23 @@ export { userConfig }
 - 类型
 
 ```js
-export type viteConfig? = () => {
-  // 这里以函数返回值的形式获取配置，参考注意事项，只在本地开发和构建阶段使用到的依赖在函数内部引入，防止生产环境引入导致拖慢速度
-  common?: {
-    // 双端通用配置
-    extraPlugin?: any[] // 需要使用的额外插件
+type viteConfig?: () => {
+    common?: {
+      // 双端通用配置
+      extraPlugin?: PluginOption | PluginOption[]
+      server?: ServerOptions // 对应 vite.server 配置
+    }
+    client?: {
+      // 只在客户端生效的配置
+      defaultPluginOptions?: any // 为默认装载的插件定义 options, vue3 场景是 @vitejs/plugin-vue, react 场景是 @vitejs/plugin-react
+      extraPlugin?: PluginOption | PluginOption[]
+    }
+    server?: {
+      // 只在服务端生效的配置
+      defaultPluginOptions?: any
+      extraPlugin?: PluginOption | PluginOption[]
+    }
   }
-  client?: {
-    // 只在客户端生效的配置
-    defaultPluginOptions?: any // 默认使用的 vite 前端框架插件的配置，vue3 场景为 @vitejs/plugin-vue， react场景为 @vitejs/plugin-react 查看对应文档获取类型 https://vitejs.dev/plugins/
-    extraPlugin?: any[] // 需要使用的额外插件
-  }
-  server?: {
-    // 只在服务端生效的配置
-    defaultPluginOptions?: any
-    extraPlugin?: any[]
-  }
-}
 ```
 
 为了防止用户的配置覆盖框架默认的必要配置导致启动构建失败，所以这里我们暂时只会开放部分配置让开发者使用，若无法满足你的需求，可以提 `issue` 来反馈，我们会根据实际情况新增配置项

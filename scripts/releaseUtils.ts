@@ -27,7 +27,7 @@ export const accessFile = async (file: string) => {
 }
 export const packages = [
   'cli', 'plugin-vue3', 'plugin-react',
-  'plugin-vue', 'types', 'server-utils',
+  'plugin-vue', 'types', 'server-utils', 'utils',
   'core-vue', 'hoc-vue3', 'webpack', 'core-react', 'types-react',
   'client-utils', 'core-vue3', 'plugin-midway', 'plugin-nestjs',
   'hoc-react'
@@ -153,7 +153,7 @@ export async function publishPackage (
   if (tag) {
     publicArgs.push('--tag', tag)
   }
-  await promises.writeFile(resolve(pkdDir, './.npmignore'), '**/*.map')
+  // await promises.writeFile(resolve(pkdDir, './.npmignore'), '**/*.map')
   cp(resolve(process.cwd(), './README.md'), resolve(pkdDir, './README.md'))
   await runIfNotDry('npm', publicArgs, {
     cwd: pkdDir

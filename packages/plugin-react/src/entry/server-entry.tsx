@@ -68,7 +68,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
     }
   }
   const combineData = isCsr ? null : Object.assign(state ?? {}, layoutFetchData ?? {}, fetchData ?? {})
-  const injectState = isCsr ? null : <script dangerouslySetInnerHTML={{
+  const injectState = isCsr ? <script dangerouslySetInnerHTML={{ __html: `window.prefix="${prefix}"` }} /> : <script dangerouslySetInnerHTML={{
     __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}; window.prefix="${prefix}";${clientPrefix && `window.clientPrefix="${clientPrefix}"`}`
   }} />
 

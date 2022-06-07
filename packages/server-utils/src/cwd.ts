@@ -168,28 +168,6 @@ const copyReactContext = async () => {
 
 const execPromisify = promisify(exec)
 
-export const normalizePath = (path: string, prefix: string) => {
-  // 移除 prefix 保证 path 跟路由表能够正确匹配
-  const res = normalizeStartPath(path.replace(prefix, ''))
-  return res
-}
-
-const normalizeStartPath = (path: string) => {
-  if (path.startsWith('//')) {
-    path = path.replace('//', '/')
-  }
-  if (!path.startsWith('/')) {
-    path = `/${path}`
-  }
-  return path
-}
-const normalizeEndPath = (path: string) => {
-  if (!path.endsWith('/')) {
-    path = `${path}/`
-  }
-  return path
-}
-
 const stringifyDefine = (obj: {[key: string]: Json}) => {
   for (const key in obj) {
     const val = obj[key]
@@ -212,8 +190,6 @@ export {
   accessFile,
   execPromisify,
   cryptoAsyncChunkName,
-  normalizeStartPath,
-  normalizeEndPath,
   copyReactContext,
   transformConfig,
   accessFileSync,

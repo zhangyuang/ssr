@@ -113,6 +113,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .loader(loadModule('vue-loader'))
     .options(vueLoaderOptions)
     .end()
+
   chain
     .plugin('vue-loader')
     .use(require('vue-loader/lib/plugin'))
@@ -120,8 +121,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   chain.module
     .rule('mjs')
     .test(/\.mjs/)
-    .include
-    .add(/node_modules/).end()
     .type('javascript/auto')
     .end()
 
@@ -187,7 +186,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     ...define?.base
   }])
 
-  chainBaseConfig(chain)
+  chainBaseConfig(chain, isServer)
   return config
 }
 

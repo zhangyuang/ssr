@@ -4,9 +4,10 @@ import type { UserConfig, Plugin } from 'vite'
 import { parse as parseImports } from 'es-module-lexer'
 import MagicString from 'magic-string'
 import type { OutputOptions } from 'rollup'
+import { mkdir } from 'shelljs'
 import { loadConfig } from '../loadConfig'
 import { getOutputPublicPath } from '../parse'
-import { getCwd, cryptoAsyncChunkName } from '../cwd'
+import { getCwd, cryptoAsyncChunkName, accessFile } from '../cwd'
 
 const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
 const chunkNameRe = /chunkName=(.*)/
@@ -80,6 +81,9 @@ const manifestPlugin = (): Plugin => {
         arr.splice(1, 2)
         manifest[arr.join('.')] = `${getOutputPublicPath()}${val}`
       }
+      if (!await accessFile(resolve(clientOutPut))) {
+        mkdir(resolve(clientOutPut))
+      }
       await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest))
       await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON))
       for (const i in originAsyncChunkMap) {
@@ -125,12 +129,14 @@ const manualChunksFn = (id: string) => {
 }
 type SSR = 'ssr'
 const commonConfig = (): UserConfig => {
-  const { whiteList, alias, css } = loadConfig()
+  const { whiteList, alias, css, hmr, viteConfig } = loadConfig()
   return {
     root: cwd,
     mode: 'development',
     server: {
-      middlewareMode: 'ssr' as SSR
+      middlewareMode: 'ssr' as SSR,
+      hmr,
+      ...viteConfig?.().common?.server
     },
     css: {
       postcss: css?.().loaderOptions?.postcss ?? {},

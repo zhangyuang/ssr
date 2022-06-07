@@ -49,7 +49,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
         initialData: !isCsr ? () => h('script', {
           innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ;${clientPrefix && `window.clientPrefix="${clientPrefix}"`};`
-        }) : () => h('script', { innerHTML: `window.__USE_VITE__=${isVite}` }),
+        }) : () => h('script', { innerHTML: `window.__USE_VITE__=${isVite}; window.prefix="${prefix}"` }),
 
         cssInject: () => injectCss,
 
