@@ -2,7 +2,7 @@ import { join } from 'path'
 import { IConfig } from 'ssr-types'
 import { normalizeStartPath, normalizeEndPath } from 'ssr-common-utils'
 import { getCwd, getUserConfig, getFeDir, judgeFramework, loadModuleFromFramework, stringifyDefine, accessFileSync } from './cwd'
-import { coerce } from 'semver'
+import { coerce, SemVer } from 'semver'
 
 const loadConfig = (): IConfig => {
   const framework = judgeFramework()
@@ -98,13 +98,12 @@ const loadConfig = (): IConfig => {
   const dynamic = true
   // ref https://www.babeljs.cn/docs/babel-preset-env#corejs
   const corejsVersion = loadModuleFromFramework('core-js/package.json') && coerce(require(loadModuleFromFramework('core-js/package.json')).version)
-  const corejsVersionMajor = corejsVersion!.major
-  const corejsVersionMinor = corejsVersion!.minor
+  const { major, minor } = corejsVersion as SemVer
 
   const corejsOptions = userConfig.corejs ? {
     corejs: {
-      version: `${corejsVersionMajor}.${corejsVersionMinor}`,
-      proposals: corejsVersionMajor === 3
+      version: `${major}.${minor}`,
+      proposals: major === 3
     },
     targets: {
       chrome: '60',
@@ -114,7 +113,7 @@ const loadConfig = (): IConfig => {
       edge: '17'
     },
     useBuiltIns: 'usage',
-    shippedProposals: corejsVersionMajor === 2,
+    shippedProposals: major === 2,
     ...userConfig.corejsOptions
   } : {}
 
