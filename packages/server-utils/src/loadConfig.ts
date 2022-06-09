@@ -97,11 +97,14 @@ const loadConfig = (): IConfig => {
 
   const dynamic = true
   // ref https://www.babeljs.cn/docs/babel-preset-env#corejs
-  const corejsVersion = loadModuleFromFramework('core-js/package.json') && coerce(require(loadModuleFromFramework('core-js/package.json')).version)!.major
+  const corejsVersion = loadModuleFromFramework('core-js/package.json') && coerce(require(loadModuleFromFramework('core-js/package.json')).version)
+  const corejsVersionMajor = corejsVersion!.major
+  const corejsVersionMinor = corejsVersion!.minor
+
   const corejsOptions = userConfig.corejs ? {
     corejs: {
-      version: corejsVersion,
-      proposals: corejsVersion === 3
+      version: `${corejsVersionMajor}.${corejsVersionMinor}`,
+      proposals: corejsVersionMajor === 3
     },
     targets: {
       chrome: '60',
@@ -111,7 +114,7 @@ const loadConfig = (): IConfig => {
       edge: '17'
     },
     useBuiltIns: 'usage',
-    shippedProposals: corejsVersion === 2,
+    shippedProposals: corejsVersionMajor === 2,
     ...userConfig.corejsOptions
   } : {}
 
