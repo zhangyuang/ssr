@@ -98,7 +98,7 @@ const loadConfig = (): IConfig => {
   const dynamic = true
   // ref https://www.babeljs.cn/docs/babel-preset-env#corejs
   const corejsVersion = coerce(require(loadModuleFromFramework('core-js/package.json')).version)
-  const { major, minor } = corejsVersion!
+  const { major, minor } = corejsVersion ?? {}
 
   const corejsOptions = userConfig.corejs ? {
     corejs: {
