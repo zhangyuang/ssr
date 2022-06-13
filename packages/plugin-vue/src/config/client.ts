@@ -30,7 +30,7 @@ const getClientWebpack = (chain: WebpackChain) => {
   chain.optimization
     .runtimeChunk(true)
     .splitChunks({
-      chunks: 'all',
+      chunks: 'initial',
       name (module: any, chunks: any, cacheGroupKey: string) {
         return cryptoAsyncChunkName(chunks, asyncChunkMap)
       },
