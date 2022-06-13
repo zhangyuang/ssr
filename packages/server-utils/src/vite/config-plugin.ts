@@ -150,7 +150,7 @@ const commonConfig = (): UserConfig => {
     },
     // @ts-expect-error
     ssr: {
-      external: ['ssr-serialize-javascript', 'ssr-server-utils', 'ssr-deepclone'],
+      external: ['ssr-serialize-javascript', 'ssr-server-utils', 'ssr-deepclone'].concat(viteConfig?.()?.server?.externals ?? []),
       noExternal: whiteList
     },
     resolve: {

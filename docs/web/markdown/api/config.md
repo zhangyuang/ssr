@@ -636,8 +636,10 @@ type viteConfig?: () => {
     }
     server?: {
       // 只在服务端生效的配置
-      defaultPluginOptions?: any
+      externals?: string[] // 强制 externals 的第三方依赖
+      defaultPluginOptions?: any 
       extraPlugin?: PluginOption | PluginOption[]
+      otherConfig?: ViteConfig
     }
   }
 ```

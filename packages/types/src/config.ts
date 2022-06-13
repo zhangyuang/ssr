@@ -101,6 +101,7 @@ export interface IConfig {
       otherConfig?: ViteConfig
     }
     server?: {
+      externals?: string[]
       defaultPluginOptions?: any
       extraPlugin?: PluginOption | PluginOption[]
       otherConfig?: ViteConfig
