@@ -46,22 +46,32 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
       const { id } = info
       if (id.includes('chunkName')) {
         const { importedIds, dynamicallyImportedIds } = info
-        const ids = importedIds.concat(dynamicallyImportedIds)
         const chunkname = chunkNameRe.exec(id)![1]
-        for (const importerId of ids) {
+        for (const importerId of importedIds) {
           if (!originAsyncChunkMap[importerId]) {
             originAsyncChunkMap[importerId] = []
           }
           originAsyncChunkMap[importerId].push(chunkname)
         }
+        for (const dyImporterId of dynamicallyImportedIds) {
+          if (!originAsyncChunkMap[dyImporterId]) {
+            originAsyncChunkMap[dyImporterId] = ['dynamic']
+          }
+          originAsyncChunkMap[dyImporterId].push(chunkname)
+        }
       } else if (originAsyncChunkMap[id]) {
         const { importedIds, dynamicallyImportedIds } = this.getModuleInfo(id)!
-        const ids = importedIds.concat(dynamicallyImportedIds)
-        for (const importerId of ids) {
+        for (const importerId of importedIds) {
           if (!originAsyncChunkMap[importerId]) {
             originAsyncChunkMap[importerId] = []
           }
           originAsyncChunkMap[importerId] = originAsyncChunkMap[importerId].concat(originAsyncChunkMap[id])
+        }
+        for (const dyImporterId of dynamicallyImportedIds) {
+          if (!originAsyncChunkMap[dyImporterId]) {
+            originAsyncChunkMap[dyImporterId] = ['dynamic']
+          }
+          originAsyncChunkMap[dyImporterId] = originAsyncChunkMap[dyImporterId].concat(originAsyncChunkMap[id])
         }
       }
 
