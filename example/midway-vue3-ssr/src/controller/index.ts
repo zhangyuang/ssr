@@ -23,16 +23,22 @@ export class Index {
   @Get('/')
   @Get('/detail/:id')
   async handler (): Promise<void> {
+    // 渲染降级参考文档 http://doc.ssr-fc.com/docs/features$csr#%E5%A4%84%E7%90%86%20%E6%B5%81%20%E8%BF%94%E5%9B%9E%E5%BD%A2%E5%BC%8F%E7%9A%84%E9%99%8D%E7%BA%A7
+    const { ctx } = this
     try {
-      this.ctx.apiService = this.apiService
-      this.ctx.apiDeatilservice = this.apiDeatilservice
+      ctx.apiService = this.apiService
+      ctx.apiDeatilservice = this.apiDeatilservice
       const stream = await render(this.ctx, {
         stream: true
       })
-      this.ctx.body = stream
+      ctx.body = stream
     } catch (error) {
-      console.log(error)
-      this.ctx.body = error
+      console.log('ssr error', error)
+      const stream = await render(ctx, {
+        stream: true,
+        mode: 'csr'
+      })
+      ctx.body = stream
     }
   }
 }
