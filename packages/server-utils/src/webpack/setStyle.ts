@@ -52,8 +52,7 @@ const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
     .use('MiniCss')
     .loader(loadModule('mini-css-extract-plugin/dist/loader'))
     .options({
-      // vite 场景下服务端 bundle 输出 css 文件，否则 服务端不输出
-      emit: isVite ? true : !isServer
+      emit: !isServer
     })
     .end()
     .use('css-loader')
