@@ -4,7 +4,7 @@ import { loadModuleFromFramework } from '../cwd'
 
 const loadModule = loadModuleFromFramework
 const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
-  const { css, isDev, isVite } = loadConfig()
+  const { css, isDev } = loadConfig()
   const { include, exclude, importLoaders, loader, isServer } = options
   const userCssloaderOptions = css?.().loaderOptions?.cssOptions ?? {}
   const defaultCssloaderOptions = {
