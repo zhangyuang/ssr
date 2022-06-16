@@ -1,13 +1,12 @@
 import { Options, RuleSetCondition } from 'webpack'
-import * as Config from 'webpack-chain'
+import * as WebpackChainConfig from 'webpack-chain'
 import type { PluginOption, ServerOptions, UserConfig as ViteConfig } from 'vite'
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel'
 import { Argv } from './yargs'
 import { ISSRContext } from './ctx'
 
-export {
-  Config
-}
+export type Config = WebpackChainConfig
+
 export type Script = Array<{
   describe?: object | {
     attrs: object

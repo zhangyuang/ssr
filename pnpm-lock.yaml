@@ -336,6 +336,7 @@ importers:
     specifiers:
       '@types/shelljs': ^0.8.7
       '@types/yargs': ^13.0.0
+      chokidar: ^3.5.3
       concurrently: ^5.1.0
       esbuild: ^0.13.14
       ora: ^4.0.4
@@ -344,6 +345,7 @@ importers:
       ssr-types: ^6.2.3
       yargs: ^13.2.4
     dependencies:
+      chokidar: 3.5.3
       esbuild: 0.13.15
       ora: 4.1.1
       shelljs: 0.8.5
@@ -3149,6 +3151,7 @@ packages:
   /@colors/colors/1.5.0:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
+    requiresBuild: true
 
   /@cspotcode/source-map-support/0.8.1:
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -10123,7 +10126,7 @@ packages:
     engines: {node: '>= 4'}
 
   /image-size/0.5.5:
-    resolution: {integrity: sha512-6TDAlDPZxUFCv+fuOkIoXT/V/f3Qbq8e37p+YOiYrUv3v9cc3/6x78VdfPgFVaB9dZYeLUfKgHRebpkm/oP2VQ==}
+    resolution: {integrity: sha1-Cd/Uq50g4p6xw+gLiZA3jfnjy5w=}
     engines: {node: '>=0.10.0'}
     hasBin: true
     requiresBuild: true
