@@ -4,7 +4,7 @@ export const createWatcher = async () => {
   const { getPagesDir } = await import('ssr-server-utils')
   const pageDir = getPagesDir()
   const watcher = chokidar.watch(pageDir, {
-    ignored: /.(less|css|scss)/, // ignore dotfiles
+    ignored: /.(less|css|scss)/, // ignore style files
     persistent: true
   })
   return watcher
