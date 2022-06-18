@@ -3,7 +3,7 @@ import { resolve } from 'path'
 import type { UserConfig, Plugin } from 'vite'
 import { parse as parseImports } from 'es-module-lexer'
 import MagicString from 'magic-string'
-import type { OutputOptions } from 'rollup'
+import type { OutputOptions, PreRenderedChunk } from 'rollup'
 import { mkdir } from 'shelljs'
 import { loadConfig } from '../loadConfig'
 import { getOutputPublicPath } from '../parse'
@@ -14,8 +14,9 @@ const chunkNameRe = /chunkName=(.*)/
 const imageRegExp = /\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/
 const fontRegExp = /\.(eot|woff|woff2|ttf)(\?.*)?$/
 const cwd = getCwd()
-const originAsyncChunkMap: Record<string, string[]> = {}
+const dependenciesMap: Record<string, string[]> = {}
 const asyncChunkMapJSON: Record<string, string[]> = {}
+const generateMap: Record<string, string> = {}
 
 const chunkNamePlugin = function (): Plugin {
   return {
@@ -48,35 +49,32 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
         const { importedIds, dynamicallyImportedIds } = info
         const chunkname = chunkNameRe.exec(id)![1]
         for (const importerId of importedIds) {
-          if (!originAsyncChunkMap[importerId]) {
-            originAsyncChunkMap[importerId] = []
+          if (!dependenciesMap[importerId]) {
+            dependenciesMap[importerId] = []
           }
-          originAsyncChunkMap[importerId].push(chunkname)
+          dependenciesMap[importerId].push(chunkname)
         }
         for (const dyImporterId of dynamicallyImportedIds) {
-          if (!originAsyncChunkMap[dyImporterId]) {
-            originAsyncChunkMap[dyImporterId] = ['dynamic']
+          if (!dependenciesMap[dyImporterId]) {
+            dependenciesMap[dyImporterId] = ['dynamic']
           }
-          originAsyncChunkMap[dyImporterId].push(chunkname)
+          dependenciesMap[dyImporterId].push(chunkname)
         }
-      } else if (originAsyncChunkMap[id]) {
+      } else if (dependenciesMap[id]) {
         const { importedIds, dynamicallyImportedIds } = this.getModuleInfo(id)!
         for (const importerId of importedIds) {
-          if (!originAsyncChunkMap[importerId]) {
-            originAsyncChunkMap[importerId] = []
+          if (!dependenciesMap[importerId]) {
+            dependenciesMap[importerId] = []
           }
-          originAsyncChunkMap[importerId] = originAsyncChunkMap[importerId].concat(originAsyncChunkMap[id])
+          dependenciesMap[importerId] = dependenciesMap[importerId].concat(dependenciesMap[id])
         }
         for (const dyImporterId of dynamicallyImportedIds) {
-          if (!originAsyncChunkMap[dyImporterId]) {
-            originAsyncChunkMap[dyImporterId] = ['dynamic']
+          if (!dependenciesMap[dyImporterId]) {
+            dependenciesMap[dyImporterId] = ['dynamic']
           }
-          originAsyncChunkMap[dyImporterId] = originAsyncChunkMap[dyImporterId].concat(originAsyncChunkMap[id])
+          dependenciesMap[dyImporterId] = dependenciesMap[dyImporterId].concat(dependenciesMap[id])
         }
       }
-      //  else {
-      //   originAsyncChunkMap[id] = ['entry']
-      // }
     }
   }
 }
@@ -96,19 +94,22 @@ const manifestPlugin = (): Plugin => {
       if (!await accessFile(resolve(clientOutPut))) {
         mkdir(resolve(clientOutPut))
       }
-      await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest))
-      await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON))
-      for (const i in originAsyncChunkMap) {
-        originAsyncChunkMap[i] = Array.from(new Set(originAsyncChunkMap[i]))
-      }
-      await promises.writeFile(resolve(getCwd(), './build/originAsyncChunkMap.json'), JSON.stringify(originAsyncChunkMap))
+      await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest, null, 2))
+      await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
+      await promises.writeFile(resolve(getCwd(), './build/generateMap.json'), JSON.stringify(generateMap, null, 2))
     }
   }
 }
-const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router', 'react-dom', '@vue']
+// const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router', 'react-router-dom', 'react-dom', '@vue']
+const entryList = ['vue', 'vuex', 'vue-router', 'react', 'react-router', 'react-router-dom', 'react-dom', '@vue', 'ssr-client-utils', 'pinia', 'create-router', 'combine-router']
 const re = /node_modules(\\|\/)(.*?)(\1)/
 const rollupOutputOptions: OutputOptions = {
-  entryFileNames: 'Page.[hash].chunk.js',
+  entryFileNames: (chunkInfo: PreRenderedChunk) => {
+    for (const id in chunkInfo.modules) {
+      generateMap[id] = 'Page'
+    }
+    return 'Page.[hash].chunk.js'
+  },
   chunkFileNames: '[name].[hash].chunk.js',
   assetFileNames: (assetInfo) => {
     if (assetInfo.name?.includes('client-entry')) {
@@ -120,30 +121,40 @@ const rollupOutputOptions: OutputOptions = {
     return '[name].[hash].chunk.[ext]'
   },
   manualChunks: (id: string) => {
-    return manualChunksFn(id)
+    const res = manualChunksFn(id)
+    const name = res ? (typeof res === 'string' ? res : res.name) : undefined
+    if (!res) {
+      generateMap[id] = 'entry'
+      return 'entry'
+    } else {
+      generateMap[id] = (typeof res === 'string' ? res : res.originalName)
+    }
+    return name
   }
 }
 const manualChunksFn = (id: string) => {
   if (id.includes('chunkName')) {
     return chunkNameRe.exec(id)![1]
   }
-
   if (!process.env.LEGACY_VITE) {
     if (id.includes('node_modules')) {
       const lastStart = id.lastIndexOf('node_modules')
-      if (vendorList.includes(re.exec(id.slice(lastStart, id.length))?.[2] as string)) {
-        return 'vendor'
+      if (entryList.includes(re.exec(id.slice(lastStart, id.length))?.[2] as string)) {
+        return
       }
-      if (!originAsyncChunkMap[id]) {
-        originAsyncChunkMap[id] = []
+      if (!dependenciesMap[id]) {
+        dependenciesMap[id] = []
       }
-      originAsyncChunkMap[id].push('vendor')
+      dependenciesMap[id].push('vendor')
     }
-    const arr = Array.from(new Set(originAsyncChunkMap?.[id]))
+    const arr = Array.from(new Set(dependenciesMap?.[id]))
     if (arr.length === 1) {
       return arr[0]
     } else if (arr.length >= 2) {
-      return cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON)
+      return {
+        name: cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON),
+        originalName: arr.join('~')
+      }
     }
   }
 }
