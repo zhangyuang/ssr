@@ -67,24 +67,24 @@ const getUserConfig = (): UserConfig => {
   return config.userConfig ?? config
 }
 
-// const cyrb53 = function (str: string, seed = 0) {
-//   let h1 = 0xdeadbeef ^ seed; let h2 = 0x41c6ce57 ^ seed
-//   for (let i = 0, ch; i < str.length; i++) {
-//     ch = str.charCodeAt(i)
-//     h1 = Math.imul(h1 ^ ch, 2654435761)
-//     h2 = Math.imul(h2 ^ ch, 1597334677)
-//   }
-//   h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909)
-//   h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909)
-//   return 4294967296 * (2097151 & h2) + (h1 >>> 0)
-// }
+const cyrb53 = function (str: string, seed = 0) {
+  let h1 = 0xdeadbeef ^ seed; let h2 = 0x41c6ce57 ^ seed
+  for (let i = 0, ch; i < str.length; i++) {
+    ch = str.charCodeAt(i)
+    h1 = Math.imul(h1 ^ ch, 2654435761)
+    h2 = Math.imul(h2 ^ ch, 1597334677)
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909)
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909)
+  return 4294967296 * (2097151 & h2) + (h1 >>> 0)
+}
 
 const cryptoAsyncChunkName = (chunks: Array<{name: string}>, asyncChunkMap: Record<string, string[]>) => {
   // 加密异步模块 name，防止名称过长
   chunks.sort((a, b) => a.name > b.name ? -1 : 1) // 保证相同值不同顺序的数组最终的加密结果一致
   const allChunksNames = chunks.map(item => item.name).join('~')
   const allChunksNamesArr = allChunksNames.split('~')
-  const cryptoAllChunksNames = String((allChunksNames))
+  const cryptoAllChunksNames = String(cyrb53(allChunksNames))
   if (allChunksNamesArr.length >= 2 && !asyncChunkMap?.[cryptoAllChunksNames]) {
     asyncChunkMap[cryptoAllChunksNames] = allChunksNamesArr
   }
