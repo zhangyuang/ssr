@@ -1,8 +1,8 @@
-import * as WebpackChain from 'webpack-chain'
+import { Config } from 'ssr-types'
 import { getImageOutputPath } from '../parse'
 import { loadModuleFromFramework } from '../cwd'
 
-const addImageChain = (chain: WebpackChain, isServer: boolean) => {
+const addImageChain = (chain: Config, isServer: boolean) => {
   const { publicPath, imagePath } = getImageOutputPath()
   chain.module
     .rule('images')
