@@ -5,7 +5,7 @@ import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel'
 import { Argv } from './yargs'
 import { ISSRContext } from './ctx'
 
-export type Config = WebpackChainConfig
+export type Chain = WebpackChainConfig
 
 export type Script = Array<{
   describe?: object | {
@@ -47,9 +47,9 @@ export interface IConfig {
       }
     }
   }
-  chainBaseConfig: (config: Config, isServer: boolean) => void
-  chainServerConfig: (config: Config) => void
-  chainClientConfig: (config: Config) => void
+  chainBaseConfig: (config: Chain, isServer: boolean) => void
+  chainServerConfig: (config: Chain) => void
+  chainClientConfig: (config: Chain) => void
   webpackStatsOption: Options.Stats
   moduleFileExtensions: string[]
   whiteList: Array<RegExp|string>

@@ -1,9 +1,9 @@
-import type { StyleOptions, Config } from 'ssr-types'
+import type { StyleOptions, Chain } from 'ssr-types'
 import { loadConfig } from '../loadConfig'
 import { loadModuleFromFramework } from '../cwd'
 
 const loadModule = loadModuleFromFramework
-const setStyle = (chain: Config, reg: RegExp, options: StyleOptions) => {
+const setStyle = (chain: Chain, reg: RegExp, options: StyleOptions) => {
   const { css, isDev } = loadConfig()
   const { include, exclude, importLoaders, loader, isServer } = options
   const userCssloaderOptions = css?.().loaderOptions?.cssOptions ?? {}
