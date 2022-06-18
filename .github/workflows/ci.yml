@@ -170,11 +170,11 @@ jobs:
 
   e2e-chrome-nestjs-react-prod-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: windows-latest
     strategy:
       matrix:
         os: [windows-latest]
         node: ["12"]
+    runs-on: ${{runner.os}}
     steps:
       - name: Checkout
         uses: actions/checkout@v3
