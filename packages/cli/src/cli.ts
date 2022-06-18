@@ -6,7 +6,7 @@ import { Argv, IPlugin } from 'ssr-types'
 import { generateHtml } from './html'
 import { cleanOutDir } from './clean'
 import { handleEnv } from './preprocess'
-
+import { onWatcher, createWatcher } from './watcher'
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 同步代码 block 导致 loading 暂停
 
 const spinner = {
@@ -49,11 +49,13 @@ const startFunc = async (argv: Argv) => {
     await cleanOutDir()
   }
   const { parseFeRoutes, transformConfig } = await import('ssr-server-utils')
+  const watcher = await createWatcher()
   await transformConfig()
   await handleEnv(argv)
   await parseFeRoutes()
   spinner.stop()
   await startOrBuild(argv, 'start')
+  await onWatcher(watcher)
 }
 
 const buildFunc = async (argv: Argv) => {
@@ -121,7 +123,8 @@ yargs
     ...cliDesc
   }), async (argv: Argv) => {
     if (argv.vite) {
-      console.log(`ssr build by vite is beta now, if you find some bugs, please submit an issue or you can use ssr build --vite --legacy which will close manualChunks
+      const { logWarning } = await import('ssr-server-utils')
+      logWarning(`ssr build by vite is beta now, if you find some bugs, please submit an issue or you can use ssr build --vite --legacy which will close manualChunks
       to get a stable bundle result but maybe some performance loss
       `)
     }

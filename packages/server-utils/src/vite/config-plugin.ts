@@ -74,7 +74,9 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
           originAsyncChunkMap[dyImporterId] = originAsyncChunkMap[dyImporterId].concat(originAsyncChunkMap[id])
         }
       }
-
+      //  else {
+      //   originAsyncChunkMap[id] = ['entry']
+      // }
     }
   }
 }
@@ -137,7 +139,6 @@ const manualChunksFn = (id: string) => {
       }
       originAsyncChunkMap[id].push('vendor')
     }
-    console.log('xxx')
     const arr = Array.from(new Set(originAsyncChunkMap?.[id]))
     if (arr.length === 1) {
       return arr[0]

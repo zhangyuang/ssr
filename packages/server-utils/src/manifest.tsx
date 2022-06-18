@@ -13,12 +13,10 @@ const getManifest = async (config: IConfig): Promise<Record<string, string|undef
   const { isDev, fePort, https, manifestPath, isVite } = config
   let manifest = {}
   const cwd = getCwd()
-  if (isDev) {
-    if (!isVite) {
-      const res = await instance.get(`${https ? 'https' : 'http'}://0.0.0.0:${fePort}${manifestPath}`)
-      manifest = res.data
-    }
-  } else {
+  if (isDev && !isVite) {
+    const res = await instance.get(`${https ? 'https' : 'http'}://0.0.0.0:${fePort}${manifestPath}`)
+    manifest = res.data
+  } else if (!isDev) {
     manifest = require(join(cwd, './build/client/asset-manifest.json'))
   }
   return manifest

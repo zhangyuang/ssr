@@ -95,7 +95,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .rule('compileBabelForExtraModule')
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
     .include
-    .add([/ssr-plugin-react/, /ssr-client-utils/, /ssr-hoc-react/])
+    .add([/ssr-plugin-react/, /ssr-client-utils/, /ssr-hoc-react/, /ssr-common-utils/])
 
   let babelForExtraModule
   if (babelExtraModule) {

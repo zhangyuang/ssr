@@ -1,6 +1,6 @@
 {
   "name": "ssr",
-  "version": "6.2.20",
+  "version": "6.2.23",
   "description": "cli for react/vue2/vue3 ssr deploy on serverless or tradtional web server",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -31,6 +31,7 @@
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
+    "chokidar": "^3.5.3",
     "esbuild": "^0.13.14",
     "ora": "^4.0.4",
     "shelljs": "^0.8.3",
