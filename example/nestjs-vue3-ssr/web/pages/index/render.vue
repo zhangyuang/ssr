@@ -1,9 +1,6 @@
 
 <template>
   <div>
-    <div class="red">
-      red
-    </div>
     <Search />
     <template v-if="indexData">
       <Slider :data="indexData[0].components" />
