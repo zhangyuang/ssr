@@ -5,7 +5,7 @@ import { findRoute, isMicro } from 'ssr-client-utils'
 import { createPinia } from 'pinia'
 import { createRouter, createStore } from './create'
 import { ESMFetch, IFeRouteItem, RoutesType } from './interface'
-import { Routes } from './create-router'
+import { Routes } from './combine-router'
 
 const { FeRoutes, App, layoutFetch } = Routes as RoutesType
 declare const module: any

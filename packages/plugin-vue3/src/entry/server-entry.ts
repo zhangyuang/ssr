@@ -4,7 +4,7 @@ import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getA
 import { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
 import { serialize } from 'ssr-serialize-javascript'
-import { Routes } from './create-router'
+import { Routes } from './combine-router'
 import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
 
