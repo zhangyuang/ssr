@@ -3,7 +3,7 @@ import { resolve } from 'path'
 import type { UserConfig, Plugin } from 'vite'
 import { parse as parseImports } from 'es-module-lexer'
 import MagicString from 'magic-string'
-import type { OutputOptions } from 'rollup'
+import type { OutputOptions, PreRenderedChunk } from 'rollup'
 import { mkdir } from 'shelljs'
 import { loadConfig } from '../loadConfig'
 import { getOutputPublicPath } from '../parse'
@@ -14,8 +14,9 @@ const chunkNameRe = /chunkName=(.*)/
 const imageRegExp = /\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/
 const fontRegExp = /\.(eot|woff|woff2|ttf)(\?.*)?$/
 const cwd = getCwd()
-const originAsyncChunkMap: Record<string, string[]> = {}
+const dependenciesMap: Record<string, string[]> = {}
 const asyncChunkMapJSON: Record<string, string[]> = {}
+const generateMap: Record<string, string> = {}
 
 const chunkNamePlugin = function (): Plugin {
   return {
@@ -44,44 +45,41 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
     name: 'asyncOptimizeChunkPlugin',
     moduleParsed (this, info) {
       const { id } = info
-      if (id.includes('chunkName')) {
+      if (id.includes('chunkName') || id.includes('client-entry')) {
         const { importedIds, dynamicallyImportedIds } = info
-        const chunkname = chunkNameRe.exec(id)![1]
+        const chunkname = id.includes('client-entry') ? 'client-entry' : chunkNameRe.exec(id)![1]
         for (const importerId of importedIds) {
-          if (!originAsyncChunkMap[importerId]) {
-            originAsyncChunkMap[importerId] = []
+          if (!dependenciesMap[importerId]) {
+            dependenciesMap[importerId] = []
           }
-          originAsyncChunkMap[importerId].push(chunkname)
+          dependenciesMap[importerId].push(chunkname)
         }
         for (const dyImporterId of dynamicallyImportedIds) {
-          if (!originAsyncChunkMap[dyImporterId]) {
-            originAsyncChunkMap[dyImporterId] = ['dynamic']
+          if (!dependenciesMap[dyImporterId]) {
+            dependenciesMap[dyImporterId] = ['dynamic']
           }
-          originAsyncChunkMap[dyImporterId].push(chunkname)
+          dependenciesMap[dyImporterId].push(chunkname)
         }
-      } else if (originAsyncChunkMap[id]) {
+      } else if (dependenciesMap[id]) {
         const { importedIds, dynamicallyImportedIds } = this.getModuleInfo(id)!
         for (const importerId of importedIds) {
-          if (!originAsyncChunkMap[importerId]) {
-            originAsyncChunkMap[importerId] = []
+          if (!dependenciesMap[importerId]) {
+            dependenciesMap[importerId] = []
           }
-          originAsyncChunkMap[importerId] = originAsyncChunkMap[importerId].concat(originAsyncChunkMap[id])
+          dependenciesMap[importerId] = dependenciesMap[importerId].concat(dependenciesMap[id])
         }
         for (const dyImporterId of dynamicallyImportedIds) {
-          if (!originAsyncChunkMap[dyImporterId]) {
-            originAsyncChunkMap[dyImporterId] = ['dynamic']
+          if (!dependenciesMap[dyImporterId]) {
+            dependenciesMap[dyImporterId] = ['dynamic']
           }
-          originAsyncChunkMap[dyImporterId] = originAsyncChunkMap[dyImporterId].concat(originAsyncChunkMap[id])
+          dependenciesMap[dyImporterId] = dependenciesMap[dyImporterId].concat(dependenciesMap[id])
         }
       }
-      //  else {
-      //   originAsyncChunkMap[id] = ['entry']
-      // }
     }
   }
 }
 const manifestPlugin = (): Plugin => {
-  const { getOutput } = loadConfig()
+  const { getOutput, viteManifest } = loadConfig()
   const { clientOutPut } = getOutput()
   return {
     name: 'manifestPlugin',
@@ -96,17 +94,19 @@ const manifestPlugin = (): Plugin => {
       if (!await accessFile(resolve(clientOutPut))) {
         mkdir(resolve(clientOutPut))
       }
-      await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest))
-      await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON))
-      for (const i in originAsyncChunkMap) {
-        originAsyncChunkMap[i] = Array.from(new Set(originAsyncChunkMap[i]))
-      }
-      await promises.writeFile(resolve(getCwd(), './build/originAsyncChunkMap.json'), JSON.stringify(originAsyncChunkMap))
+      await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest, null, 2))
+      await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
+      await promises.writeFile(resolve(getCwd(), `./build/${viteManifest}.json`), JSON.stringify(generateMap, null, 2))
     }
   }
 }
 const rollupOutputOptions: OutputOptions = {
-  entryFileNames: 'Page.[hash].chunk.js',
+  entryFileNames: (chunkInfo: PreRenderedChunk) => {
+    for (const id in chunkInfo.modules) {
+      generateMap[id] = 'Page'
+    }
+    return 'Page.[hash].chunk.js'
+  },
   chunkFileNames: '[name].[hash].chunk.js',
   assetFileNames: (assetInfo) => {
     if (assetInfo.name?.includes('client-entry')) {
@@ -118,7 +118,9 @@ const rollupOutputOptions: OutputOptions = {
     return '[name].[hash].chunk.[ext]'
   },
   manualChunks: (id: string) => {
-    return manualChunksFn(id)
+    const res = manualChunksFn(id)
+    generateMap[id] = res ?? 'void'
+    return res
   }
 }
 const manualChunksFn = (id: string) => {
@@ -126,18 +128,17 @@ const manualChunksFn = (id: string) => {
     return chunkNameRe.exec(id)![1]
   }
   if (!process.env.LEGACY_VITE) {
-    // if (id.includes('node_modules')) {
-    //   if (!originAsyncChunkMap[id]) {
-    //     originAsyncChunkMap[id] = []
-    //   }
-    //   console.log(originAsyncChunkMap[id])
-    //   originAsyncChunkMap[id].push('vendor')
-    // }
-    const arr = Array.from(new Set(originAsyncChunkMap?.[id]))
+    if (id.includes('node_modules')) {
+      if (!dependenciesMap[id]) {
+        dependenciesMap[id] = []
+      }
+      dependenciesMap[id].push('vendor')
+    }
+    const arr = Array.from(new Set(dependenciesMap?.[id]))
     if (arr.length === 1) {
       return arr[0]
     } else if (arr.length >= 2) {
-      return cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON)
+      return arr.includes('client-entry') ? 'client-entry' : cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON)
     }
   }
 }

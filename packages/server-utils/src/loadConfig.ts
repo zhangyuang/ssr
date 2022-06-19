@@ -10,7 +10,8 @@ const loadConfig = (): IConfig => {
   const cwd = getCwd()
   const mode = 'ssr'
   const stream = false
-  const isVite = process.env.BUILD_TOOL === 'vite' || accessFileSync(join(cwd, './build/originAsyncChunkMap.json'))
+  const viteManifest = 'generateMap'
+  const isVite = process.env.BUILD_TOOL === 'vite' || accessFileSync(join(cwd, `./build/${viteManifest}.json`))
   const isCI = !!process.env.CI_TEST
   const vue3ServerEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js')
   const vue3ClientEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
@@ -191,7 +192,8 @@ const loadConfig = (): IConfig => {
     isCI,
     supportOptinalChaining,
     define,
-    prefix
+    prefix,
+    viteManifest
   }, userConfig)
   config.alias = alias
   config.prefix = normalizeStartPath(config.prefix ?? '/')
