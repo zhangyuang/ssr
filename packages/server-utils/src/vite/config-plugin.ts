@@ -100,7 +100,6 @@ const manifestPlugin = (): Plugin => {
     }
   }
 }
-
 const rollupOutputOptions: OutputOptions = {
   entryFileNames: (chunkInfo: PreRenderedChunk) => {
     for (const id in chunkInfo.modules) {
