@@ -45,9 +45,9 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
     name: 'asyncOptimizeChunkPlugin',
     moduleParsed (this, info) {
       const { id } = info
-      if (id.includes('chunkName')) {
+      if (id.includes('chunkName') || id.includes('client-entry')) {
         const { importedIds, dynamicallyImportedIds } = info
-        const chunkname = chunkNameRe.exec(id)![1]
+        const chunkname = id.includes('client-entry') ? 'client-entry' : chunkNameRe.exec(id)![1]
         for (const importerId of importedIds) {
           if (!dependenciesMap[importerId]) {
             dependenciesMap[importerId] = []
@@ -79,7 +79,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
   }
 }
 const manifestPlugin = (): Plugin => {
-  const { getOutput } = loadConfig()
+  const { getOutput, viteManifest } = loadConfig()
   const { clientOutPut } = getOutput()
   return {
     name: 'manifestPlugin',
@@ -96,13 +96,11 @@ const manifestPlugin = (): Plugin => {
       }
       await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest, null, 2))
       await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
-      await promises.writeFile(resolve(getCwd(), './build/generateMap.json'), JSON.stringify(generateMap, null, 2))
+      await promises.writeFile(resolve(getCwd(), `./build/${viteManifest}.json`), JSON.stringify(generateMap, null, 2))
     }
   }
 }
-// const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router', 'react-router-dom', 'react-dom', '@vue']
-const entryList = ['vue', 'vuex', 'vue-router', 'react', 'react-router', 'react-router-dom', 'react-dom', '@vue', 'ssr-client-utils', 'pinia', 'create-router', 'combine-router']
-const re = /node_modules(\\|\/)(.*?)(\1)/
+
 const rollupOutputOptions: OutputOptions = {
   entryFileNames: (chunkInfo: PreRenderedChunk) => {
     for (const id in chunkInfo.modules) {
@@ -122,14 +120,8 @@ const rollupOutputOptions: OutputOptions = {
   },
   manualChunks: (id: string) => {
     const res = manualChunksFn(id)
-    const name = res ? (typeof res === 'string' ? res : res.name) : undefined
-    if (!res) {
-      generateMap[id] = 'entry'
-      return 'entry'
-    } else {
-      generateMap[id] = (typeof res === 'string' ? res : res.originalName)
-    }
-    return name
+    generateMap[id] = res ?? 'void'
+    return res
   }
 }
 const manualChunksFn = (id: string) => {
@@ -138,10 +130,6 @@ const manualChunksFn = (id: string) => {
   }
   if (!process.env.LEGACY_VITE) {
     if (id.includes('node_modules')) {
-      const lastStart = id.lastIndexOf('node_modules')
-      if (entryList.includes(re.exec(id.slice(lastStart, id.length))?.[2] as string)) {
-        return
-      }
       if (!dependenciesMap[id]) {
         dependenciesMap[id] = []
       }
@@ -151,10 +139,7 @@ const manualChunksFn = (id: string) => {
     if (arr.length === 1) {
       return arr[0]
     } else if (arr.length >= 2) {
-      return {
-        name: cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON),
-        originalName: arr.join('~')
-      }
+      return arr.includes('client-entry') ? 'client-entry' : cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON)
     }
   }
 }

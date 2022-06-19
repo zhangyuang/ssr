@@ -84,7 +84,7 @@ const cryptoAsyncChunkName = (chunks: Array<{name: string}>, asyncChunkMap: Reco
   chunks.sort((a, b) => a.name > b.name ? -1 : 1) // 保证相同值不同顺序的数组最终的加密结果一致
   const allChunksNames = chunks.map(item => item.name).join('~')
   const allChunksNamesArr = allChunksNames.split('~')
-  const cryptoAllChunksNames = String((allChunksNames))
+  const cryptoAllChunksNames = String(chunks.length > 3 ? cyrb53(allChunksNames) : allChunksNames)
   if (allChunksNamesArr.length >= 2 && !asyncChunkMap?.[cryptoAllChunksNames]) {
     asyncChunkMap[cryptoAllChunksNames] = allChunksNamesArr
   }

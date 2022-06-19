@@ -118,6 +118,7 @@ export interface IConfig {
   babelOptions?: RollupBabelInputPluginOptions
   hashRouter?: boolean
   htmlTemplate?: string
+  viteManifest: string
 }
 
 export interface proxyOptions {
