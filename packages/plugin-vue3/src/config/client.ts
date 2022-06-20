@@ -34,11 +34,14 @@ const getClientWebpack = (chain: WebpackChain) => {
     .splitChunks({
       chunks: 'all',
       name (module: any, chunks: any, cacheGroupKey: string) {
+        console.log('name')
         return cryptoAsyncChunkName(chunks, asyncChunkMap)
       },
       cacheGroups: {
         vendors: {
           test: (module: any) => {
+            console.log('split')
+
             return module.resource &&
               /\.js$/.test(module.resource) &&
               module.resource.match('node_modules')
