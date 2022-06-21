@@ -285,6 +285,7 @@ const fs = require('fs')
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
+  // 可以通过 ssr-server-utils 的 loadConfig api 在服务端代码中读取配置，传递给对应的服务端框架设置证书
   https: isProd ? {} : {
     key: fs.readFileSync('./scripts/https/https.key'),
     cert: fs.readFileSync('./scripts/https/https.crt')
