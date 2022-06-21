@@ -3,6 +3,7 @@ import { promises } from 'fs'
 import { resolve } from 'path'
 import { loadConfig, getCwd, cryptoAsyncChunkName, getOutputPublicPath, loadModuleFromFramework } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
+import { Compiler, WebpackPluginInstance, compilation } from 'webpack'
 import { getBaseConfig } from './base'
 
 const safePostCssParser = require('postcss-safe-parser')
@@ -34,14 +35,12 @@ const getClientWebpack = (chain: WebpackChain) => {
     .splitChunks({
       chunks: 'all',
       name (module: any, chunks: any, cacheGroupKey: string) {
-        console.log('name')
         return cryptoAsyncChunkName(chunks, asyncChunkMap)
       },
       cacheGroups: {
         vendors: {
           test: (module: any) => {
             console.log('split')
-
             return module.resource &&
               /\.js$/.test(module.resource) &&
               module.resource.match('node_modules')
@@ -95,7 +94,23 @@ const getClientWebpack = (chain: WebpackChain) => {
   chain.when(generateAnalysis, chain => {
     chain.plugin('analyze').use(BundleAnalyzerPlugin)
   })
-
+  class MyExampleWebpackPlugin implements WebpackPluginInstance {
+    apply (compiler: Compiler) {
+      compiler.hooks.afterCompile.tap(
+        'MyExampleWebpackPlugin',
+        (compilation) => {
+          // console.log('这是一个示例插件！')
+          compilation.hooks.buildModule.tap(
+            'SourceMapDevToolModuleOptionsPlugin',
+            (module) => {
+              console.log('xxx')
+            }
+          )
+        }
+      )
+    }
+  }
+  chain.plugin('MyExampleWebpackPlugin').use(MyExampleWebpackPlugin)
   chain.plugin('WriteAsyncManifest').use(
     class WriteAsyncChunkManifest {
       apply (compiler: any) {
