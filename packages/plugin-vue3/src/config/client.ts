@@ -96,14 +96,14 @@ const getClientWebpack = (chain: WebpackChain) => {
   })
   class MyExampleWebpackPlugin implements WebpackPluginInstance {
     apply (compiler: Compiler) {
-      compiler.hooks.afterCompile.tap(
+      compiler.hooks.compilation.tap(
         'MyExampleWebpackPlugin',
         (compilation) => {
           // console.log('这是一个示例插件！')
           compilation.hooks.buildModule.tap(
             'SourceMapDevToolModuleOptionsPlugin',
-            (module) => {
-              console.log('xxx')
+            (module: compilation.Module) => {
+              console.log('xxx', module.context, module.usedExports)
             }
           )
         }
