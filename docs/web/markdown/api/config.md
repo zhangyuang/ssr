@@ -291,6 +291,15 @@ module.exports = {
     cert: fs.readFileSync('./scripts/https/https.crt')
   }
 }
+
+// server 端如何读取, 以 nest.js 为例
+// main.ts
+import { loadConfig } from 'ssr-server-utils'
+
+const { https } = loadConfig()
+const app = await NestFactory.create<NestExpressApplication>(AppModule, isProd ? {} : {
+  httpsOptions: https
+})
 ```
 ## dynamic
 
