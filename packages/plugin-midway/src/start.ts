@@ -13,9 +13,7 @@ const start = async (argv: Argv) => {
   argv._[0] = 'dev'
   argv.ts = true
   argv.port = config.serverPort
-  if (config.https) {
-    argv.ssl = true
-  }
+  argv.ssl = !!config.https
   await cli(argv)
 }
 
