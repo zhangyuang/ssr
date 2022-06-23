@@ -22,7 +22,6 @@ export const getImageOutputPath = () => {
   }
 }
 
-// const extraOptions = {}
 const parseFeRoutes = async () => {
   const dir = getPagesDir()
   const { dynamic, routerPriority, routerOptimize } = loadConfig()
@@ -64,7 +63,7 @@ const parseFeRoutes = async () => {
       export { default as Layout } from "${layoutPath}"
       export { default as App } from "${AppPath}"
       ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch"' : ''}
-      ${accessStore ? 'export * from "@/store/index"' : ''}
+      ${accessStore ? 'export * as store from "@/store/index"' : ''}
       `
   routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
     const currentWebpackChunkName = re.exec(routes)![2]

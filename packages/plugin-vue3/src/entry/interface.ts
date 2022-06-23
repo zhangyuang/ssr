@@ -17,7 +17,7 @@ export interface RoutesType {
   App: VNode
   layoutFetch?: (params: {store: Store<any>, router: RouteLocationNormalizedLoaded}, ctx?: ISSRContext) => Promise<any>
   FeRoutes: IFeRouteItem[]
-  modules?: StoreOptions<any>['modules']
+  store?: StoreOptions<any>
 }
 
 export interface VueRouterOptions {
