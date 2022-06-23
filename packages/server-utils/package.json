@@ -31,6 +31,7 @@
   "devDependencies": {
     "@types/semver": "^7.3.9",
     "@types/shelljs": "^0.8.7",
+    "@types/webpack": "^4.41.10",
     "concurrently": "^5.1.0",
     "rollup": "^2.70.1",
     "ssr-types": "^6.2.3"

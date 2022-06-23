@@ -1,9 +1,8 @@
 
 import { promises } from 'fs'
 import { resolve } from 'path'
-import { loadConfig, getCwd, cryptoAsyncChunkName, getOutputPublicPath, loadModuleFromFramework } from 'ssr-server-utils'
+import { loadConfig, getCwd, cryptoAsyncChunkName, getOutputPublicPath, loadModuleFromFramework, WebpackChunkNamePlugin, WebpackChunkNamePlugin2 } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
-import { Compiler, WebpackPluginInstance, compilation } from 'webpack'
 import { getBaseConfig } from './base'
 
 const safePostCssParser = require('postcss-safe-parser')
@@ -94,23 +93,10 @@ const getClientWebpack = (chain: WebpackChain) => {
   chain.when(generateAnalysis, chain => {
     chain.plugin('analyze').use(BundleAnalyzerPlugin)
   })
-  class MyExampleWebpackPlugin implements WebpackPluginInstance {
-    apply (compiler: Compiler) {
-      compiler.hooks.compilation.tap(
-        'MyExampleWebpackPlugin',
-        (compilation) => {
-          // console.log('这是一个示例插件！')
-          compilation.hooks.buildModule.tap(
-            'SourceMapDevToolModuleOptionsPlugin',
-            (module: compilation.Module) => {
-              console.log('xxx', module.context, module.usedExports)
-            }
-          )
-        }
-      )
-    }
-  }
-  chain.plugin('MyExampleWebpackPlugin').use(MyExampleWebpackPlugin)
+
+  chain.plugin('WebpackChunkNamePlugin').use(WebpackChunkNamePlugin)
+  chain.plugin('WebpackChunkNamePlugin2').use(WebpackChunkNamePlugin2)
+
   chain.plugin('WriteAsyncManifest').use(
     class WriteAsyncChunkManifest {
       apply (compiler: any) {
