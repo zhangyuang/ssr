@@ -8,7 +8,7 @@ export const generateHtml = async (argv: Argv) => {
     console.log('Generating html file...')
     // spa 模式下生成 html 文件直接部署
     const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework } = await import('ssr-server-utils')
-    const { jsOrder, cssOrder, customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix, clientPrefix } = loadConfig()
+    const { jsOrder, cssOrder, customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix, clientPrefix, isVite } = loadConfig()
     const htmlStr = htmlTemplate ?? `
   <!DOCTYPE html>
   <html lang="en">
@@ -45,10 +45,7 @@ export const generateHtml = async (argv: Argv) => {
       }]
     combine[0].arr = combine[0].arr.concat([
       {
-        content: `window.prefix="${prefix}"`
-      },
-      {
-        content: `window.clientPrefix="${clientPrefix ?? '/'}"`
+        content: `window.__USE_SSR__=false;window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ;${clientPrefix ? `window.clientPrefix="${clientPrefix};"` : ''}`
       }
     ])
 
