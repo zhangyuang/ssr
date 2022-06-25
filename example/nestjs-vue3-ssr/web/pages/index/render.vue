@@ -1,6 +1,9 @@
 
 <template>
   <div>
+    <div class="red">
+      red
+    </div>
     <Search />
     <template v-if="indexData">
       <Slider :data="indexData[0].components" />
@@ -18,5 +21,10 @@ import { IndexData } from '~/typings/data'
 import Slider from '@/components/slider/index.vue'
 import Rectangle from '@/components/rectangle/index.vue'
 import Search from '@/components/search/index.vue'
+import { onMounted } from 'vue'
 const indexData = mapState<IndexData>().indexStore.value.data
+onMounted(async () => {
+  const foo = await import('./foo')
+  console.log(foo)
+})
 </script>

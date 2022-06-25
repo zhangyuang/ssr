@@ -19,6 +19,7 @@ const spinner = {
 }
 
 const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
+  debugger
   const { copyReactContext, judgeFramework, judgeServerFramework } = await import('ssr-server-utils')
   const framework = judgeFramework()
   const serverFramework = judgeServerFramework()
