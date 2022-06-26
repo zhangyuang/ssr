@@ -50,6 +50,7 @@ const checkOrigin = (request: string) => {
 }
 export class WebpackChunkNamePlugin2 implements WebpackPluginInstance {
   apply (compiler: Compiler) {
+
     compiler.hooks.compilation.tap(
       'ChunkNamePlugin',
       (compilation) => {
@@ -63,8 +64,8 @@ export class WebpackChunkNamePlugin2 implements WebpackPluginInstance {
             const isPageChunk = checkOrigin(resource)
             if (isPageChunk || resource.includes('client-entry')) {
               if (resource.includes('render.vue')) {
-                debugger
-                // console.log('xxx',module.dependencies)
+                // debugger
+                console.log('xxx', module.dependencies)
               }
               // const { importedIds, dynamicallyImportedIds } = info
               // const chunkname = id.includes('client-entry') ? 'client-entry' : chunkNameRe.exec(id)![1]
