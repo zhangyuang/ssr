@@ -5,11 +5,25 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "command": "npm run build",
-            "name": "Run npm start",
+            "name": "Launch via NPM",
             "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "build"
+            ],
             "cwd": "${workspaceFolder}/example/nestjs-vue3-ssr",
-            "type": "node-terminal",
-        },
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        }
+        // {
+        //     "command": "npm run build",
+        //     "name": "Run npm start",
+        //     "request": "launch",
+        //     "cwd": "${workspaceFolder}/example/nestjs-vue3-ssr",
+        //     "type": "node-terminal",
+        // },
     ]
 }
