@@ -63,9 +63,14 @@ export class WebpackChunkNamePlugin2 implements WebpackPluginInstance {
             }
             const isPageChunk = checkOrigin(resource)
             if (isPageChunk || resource.includes('client-entry')) {
-              if (resource.includes('render.vue')) {
-                // debugger
-                console.log('xxx', module.dependencies)
+              // if (resource.includes('render.vue')) {
+              //   debugger
+              //   // console.log('xxxxxxx', module.dependencies)
+              // }
+              if (resource === '/Users/zhangyuang/Desktop/github/ssr/example/nestjs-vue3-ssr/web/pages/index/render.vue?vue&type=script&lang=ts&setup=true') {
+                module.dependencies.forEach(item => {
+                  console.log(item.request)
+                })
               }
               // const { importedIds, dynamicallyImportedIds } = info
               // const chunkname = id.includes('client-entry') ? 'client-entry' : chunkNameRe.exec(id)![1]
