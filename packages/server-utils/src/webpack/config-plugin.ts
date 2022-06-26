@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { parse as parseImports } from 'es-module-lexer'
 import type { Compiler, WebpackPluginInstance, compilation } from 'webpack'
 import { loadConfig } from '../loadConfig'
@@ -64,7 +63,7 @@ export class WebpackChunkNamePlugin2 implements WebpackPluginInstance {
             const isPageChunk = checkOrigin(resource)
             if (isPageChunk || resource.includes('client-entry')) {
               if (resource.includes('render.vue')) {
-
+                debugger
                 // console.log('xxx',module.dependencies)
               }
               // const { importedIds, dynamicallyImportedIds } = info
