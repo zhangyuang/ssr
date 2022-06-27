@@ -34,11 +34,11 @@ export class Index {
     stream.on('error', async (err) => {
       console.log('ssr error', err)
       stream.destroy()
-      const newStream = await render<string>(ctx, {
+      const csrStream = await render<string>(ctx, {
         stream: false,
         mode: 'csr'
       })
-      ctx.res.end(newStream)
+      ctx.res.end(csrStream)
     })
     ctx.body = stream
   }
