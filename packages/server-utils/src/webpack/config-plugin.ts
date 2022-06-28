@@ -29,8 +29,7 @@ export class WebpackChunkNamePlugin implements WebpackPluginInstance {
                 }
                 const chunkName = webpackCommentRegExp.exec(rawUrl)![1]
                 rawUrl = rawUrl.replace(/\/\*(.*)?\*\//, '')
-                const originUrl = pageChunkRe.exec(rawUrl)[1]
-                console.log(originUrl)
+                const originUrl = pageChunkRe.exec(rawUrl)![1]
                 pageMap[originUrl] = chunkName
               }
             }
@@ -57,6 +56,7 @@ export class WebpackChunkNamePlugin2 implements WebpackPluginInstance {
         compilation.hooks.succeedModule.tap(
           'ChunkNamePlugin',
           (module: compilation.Module) => {
+            debugger
             const resource = module.resource
             if (!resource) {
               return
