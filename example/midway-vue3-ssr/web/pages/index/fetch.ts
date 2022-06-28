@@ -8,11 +8,12 @@ interface IApiService {
 interface Params {
   store: Store<any>
   router: RouteLocationNormalizedLoaded
+  ctx?: ISSRMidwayKoaContext<{
+    apiService?: IApiService
+  }>
 }
 
-export default async ({ store, router }: Params, ctx?: ISSRMidwayKoaContext<{
-  apiService?: IApiService
-}>) => {
+export default async ({ store, router, ctx }: Params) => {
   const data = __isBrowser__ ? await (await window.fetch('/api/index')).json() : await ctx?.apiService?.index()
   await store.dispatch('indexStore/initialData', { payload: data })
 }

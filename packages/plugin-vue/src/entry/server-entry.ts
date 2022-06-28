@@ -38,12 +38,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
     // csr 下不需要服务端获取数据
     if (parallelFetch) {
       [layoutFetchData, fetchData] = await Promise.all([
-        layoutFetch ? layoutFetch({ store, router: router.currentRoute }, ctx) : Promise.resolve({}),
-        currentFetch ? currentFetch({ store, router: router.currentRoute }, ctx) : Promise.resolve({})
+        layoutFetch ? layoutFetch({ store, router: router.currentRoute, ctx }, ctx) : Promise.resolve({}),
+        currentFetch ? currentFetch({ store, router: router.currentRoute, ctx }, ctx) : Promise.resolve({})
       ])
     } else {
-      layoutFetchData = layoutFetch ? await layoutFetch({ store, router: router.currentRoute }, ctx) : {}
-      fetchData = currentFetch ? await currentFetch({ store, router: router.currentRoute }, ctx) : {}
+      layoutFetchData = layoutFetch ? await layoutFetch({ store, router: router.currentRoute, ctx }, ctx) : {}
+      fetchData = currentFetch ? await currentFetch({ store, router: router.currentRoute, ctx }, ctx) : {}
     }
   } else {
     logGreen(`Current path ${path} use csr render mode`)
