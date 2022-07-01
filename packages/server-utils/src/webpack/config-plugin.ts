@@ -9,7 +9,7 @@ const dependenciesMap: Record<string, string[]> = {}
 const pageChunkRe = /['"](.*)?['"]/
 
 export class WebpackChunkNamePlugin implements WebpackPluginInstance {
-  apply (compiler: Compiler) {
+  apply(compiler: Compiler) {
     const { alias } = loadConfig()
     compiler.hooks.compilation.tap(
       'ChunkNamePlugin',
@@ -48,45 +48,49 @@ const checkOrigin = (request: string) => {
   return false
 }
 export class WebpackChunkNamePlugin2 implements WebpackPluginInstance {
-  apply (compiler: Compiler) {
+  apply(compiler: Compiler) {
 
     compiler.hooks.compilation.tap(
       'ChunkNamePlugin',
       (compilation) => {
-        compilation.hooks.succeedModule.tap(
+        console.log(compilation.getModule)
+        compilation.hooks.buildModule.tap(
           'ChunkNamePlugin',
-          (module: compilation.Module) => {
-            debugger
+          (module) => {
             const resource = module.resource
-            if (!resource) {
-              return
+            if (resource?.includes('web/pages/index/render.vue?vue&type=script&lang=ts&setup=true')) {
+              console.log(module)
             }
-            const isPageChunk = checkOrigin(resource)
-            if (isPageChunk || resource.includes('client-entry')) {
-              // if (resource.includes('render.vue')) {
-              //   debugger
-              //   // console.log('xxxxxxx', module.dependencies)
-              // }
-              if (resource === '/Users/zhangyuang/Desktop/github/ssr/example/nestjs-vue3-ssr/web/pages/index/render.vue?vue&type=script&lang=ts&setup=true') {
-                module.dependencies.forEach(item => {
-                  console.log(item.request)
-                })
-              }
-              // const { importedIds, dynamicallyImportedIds } = info
-              // const chunkname = id.includes('client-entry') ? 'client-entry' : chunkNameRe.exec(id)![1]
-              // for (const importerId of importedIds) {
-              //   if (!dependenciesMap[importerId]) {
-              //     dependenciesMap[importerId] = []
-              //   }
-              //   dependenciesMap[importerId].push(chunkname)
-              // }
-              // for (const dyImporterId of dynamicallyImportedIds) {
-              //   if (!dependenciesMap[dyImporterId]) {
-              //     dependenciesMap[dyImporterId] = ['dynamic']
-              //   }
-              //   dependenciesMap[dyImporterId].push(chunkname)
-              // }
-            }
+            // const resource = module.resource
+            // if (!resource) {
+            //   return
+            // }
+            // const isPageChunk = checkOrigin(resource)
+            // if (isPageChunk || resource.includes('client-entry')) {
+            //   // if (resource.includes('render.vue')) {
+            //   //   debugger
+            //   //   // console.log('xxxxxxx', module.dependencies)
+            //   // }
+            //   if (resource.includes('web/pages/index/render.vue?vue&type=script&lang=ts&setup=true')) {
+            //     module.dependencies.forEach(item => {
+            //       console.log(item.request)
+            //     })
+            //   }
+            // const { importedIds, dynamicallyImportedIds } = info
+            // const chunkname = id.includes('client-entry') ? 'client-entry' : chunkNameRe.exec(id)![1]
+            // for (const importerId of importedIds) {
+            //   if (!dependenciesMap[importerId]) {
+            //     dependenciesMap[importerId] = []
+            //   }
+            //   dependenciesMap[importerId].push(chunkname)
+            // }
+            // for (const dyImporterId of dynamicallyImportedIds) {
+            //   if (!dependenciesMap[dyImporterId]) {
+            //     dependenciesMap[dyImporterId] = ['dynamic']
+            //   }
+            //   dependenciesMap[dyImporterId].push(chunkname)
+            // }
+          }
             // else if (dependenciesMap[id]) {
             //   const { importedIds, dynamicallyImportedIds } = this.getModuleInfo(id)!
             //   for (const importerId of importedIds) {
@@ -103,8 +107,8 @@ export class WebpackChunkNamePlugin2 implements WebpackPluginInstance {
             //   }
             // }
           }
-        )
-      }
     )
   }
+    )
+}
 }
