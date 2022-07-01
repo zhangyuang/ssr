@@ -13,6 +13,6 @@ const storeCache = {
 export const setStore = (store: any) => {
   storeCache.setStore(store)
 }
-export const useStore = (store: any) => {
+export const useStore = () => {
   return storeCache.getStore()
 }
