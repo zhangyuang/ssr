@@ -1,6 +1,7 @@
 import * as Vue from 'vue'
 import { h, createSSRApp } from 'vue'
 import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial } from 'ssr-server-utils'
+import { setStore } from 'ssr-common-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
 import { serialize } from 'ssr-serialize-javascript'
@@ -15,6 +16,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
+  setStore(store)
   const [path, url] = [normalizePath(ctx.request.path, prefix), normalizePath(ctx.request.url, prefix)]
   const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
 

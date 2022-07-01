@@ -2,6 +2,7 @@ import * as Vue from 'vue'
 import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial } from 'ssr-server-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
+import { setStore } from 'ssr-common-utils'
 import { Routes } from './create-router'
 import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
@@ -12,6 +13,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix } = config
   const router = createRouter()
   const store = createStore()
+  setStore(store)
   const [path, url] = [normalizePath(ctx.request.path, prefix), normalizePath(ctx.request.url, prefix)]
   const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
 

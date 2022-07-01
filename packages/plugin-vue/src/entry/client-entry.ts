@@ -1,6 +1,7 @@
 import { Store } from 'vuex'
 import { Route } from 'vue-router'
 import { findRoute, isMicro } from 'ssr-client-utils'
+import { setStore } from 'ssr-common-utils'
 import { Routes } from './create-router'
 import { ESMFetch, RoutesType, IFeRouteItem } from './interface'
 import { createRouter, createStore, RealVue } from './create'
@@ -26,7 +27,7 @@ const clientRender = async () => {
   const router = createRouter({
     base: isMicro() ? window.clientPrefix : window.prefix
   })
-
+  setStore(store)
   if (window.__INITIAL_DATA__) {
     store.replaceState(window.__INITIAL_DATA__)
   }
