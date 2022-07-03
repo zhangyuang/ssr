@@ -84,22 +84,21 @@ export class WebpackChunkNamePlugin2 implements WebpackPluginInstance {
                 }
                 dependenciesMap[importerId].push(chunkname)
               }
+            } else if (dependenciesMap[id]) {
+              const { importedIds, dynamicallyImportedIds } = this.getModuleInfo(id)!
+              for (const importerId of importedIds) {
+                if (!dependenciesMap[importerId]) {
+                  dependenciesMap[importerId] = []
+                }
+                dependenciesMap[importerId] = dependenciesMap[importerId].concat(dependenciesMap[id])
+              }
+              for (const dyImporterId of dynamicallyImportedIds) {
+                if (!dependenciesMap[dyImporterId]) {
+                  dependenciesMap[dyImporterId] = ['dynamic']
+                }
+                dependenciesMap[dyImporterId] = dependenciesMap[dyImporterId].concat(dependenciesMap[id])
+              }
             }
-            // else if (dependenciesMap[id]) {
-            //   const { importedIds, dynamicallyImportedIds } = this.getModuleInfo(id)!
-            //   for (const importerId of importedIds) {
-            //     if (!dependenciesMap[importerId]) {
-            //       dependenciesMap[importerId] = []
-            //     }
-            //     dependenciesMap[importerId] = dependenciesMap[importerId].concat(dependenciesMap[id])
-            //   }
-            //   for (const dyImporterId of dynamicallyImportedIds) {
-            //     if (!dependenciesMap[dyImporterId]) {
-            //       dependenciesMap[dyImporterId] = ['dynamic']
-            //     }
-            //     dependenciesMap[dyImporterId] = dependenciesMap[dyImporterId].concat(dependenciesMap[id])
-            //   }
-            // }
           }
         )
       }
