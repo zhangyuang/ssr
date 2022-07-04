@@ -35,31 +35,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3')
   const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue3')
 
-  let layoutFetchData = {}
-  let fetchData = {}
-  if (!isCsr) {
-    router.push(url)
-    await router.isReady()
-    const currentFetch = fetch ? (await fetch()).default : null
-    // don't need getData when csr
-    if (parallelFetch) {
-      [layoutFetchData, fetchData] = await Promise.all([
-        layoutFetch ? layoutFetch({ store, router: router.currentRoute.value, ctx }, ctx) : Promise.resolve({}),
-        currentFetch ? currentFetch({ store, router: router.currentRoute.value, ctx }, ctx) : Promise.resolve({})
-      ])
-    } else {
-      layoutFetchData = layoutFetch ? await layoutFetch({ store, router: router.currentRoute.value, ctx }, ctx) : {}
-      fetchData = currentFetch ? await currentFetch({ store, router: router.currentRoute.value, ctx }, ctx) : {}
-    }
-  } else {
-    logGreen(`Current path ${path} use csr render mode`)
-  }
-  const combineAysncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
-
-  const asyncData = {
-    value: combineAysncData
-  }
-
   const cssInject = (isVite && isDev) ? [h('script', {
     type: 'module',
     src: '/@vite/client'
@@ -77,8 +52,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       type: isVite ? 'module' : ''
     })
   )
-
-  const state = Object.assign({}, store.state ?? {}, asyncData.value)
 
   const app = createSSRApp({
     render: function () {
@@ -125,6 +98,34 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   app.use(router)
   app.use(store)
   app.use(pinia)
+
+  let layoutFetchData = {}
+  let fetchData = {}
+
+  if (!isCsr) {
+    router.push(url)
+    await router.isReady()
+    const currentFetch = fetch ? (await fetch()).default : null
+    // don't need getData when csr
+    if (parallelFetch) {
+      [layoutFetchData, fetchData] = await Promise.all([
+        layoutFetch ? layoutFetch({ store, router: router.currentRoute.value, ctx }, ctx) : Promise.resolve({}),
+        currentFetch ? currentFetch({ store, router: router.currentRoute.value, ctx }, ctx) : Promise.resolve({})
+      ])
+    } else {
+      layoutFetchData = layoutFetch ? await layoutFetch({ store, router: router.currentRoute.value, ctx }, ctx) : {}
+      fetchData = currentFetch ? await currentFetch({ store, router: router.currentRoute.value, ctx }, ctx) : {}
+    }
+  } else {
+    logGreen(`Current path ${path} use csr render mode`)
+  }
+  const combineAysncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
+
+  const asyncData = {
+    value: combineAysncData
+  }
+
+  const state = Object.assign({}, store.state ?? {}, asyncData.value)
 
   return app
 }
