@@ -40,6 +40,7 @@ const serverConfig: UserConfig = {
     keepNames: true
   },
   build: {
+    ...viteConfig?.().server?.otherConfig?.build,
     ssr: reactServerEntry,
     outDir: serverOutPut,
     rollupOptions: {
@@ -73,6 +74,7 @@ const clientConfig: UserConfig = {
     createStyleImportPlugin(styleImportConfig)
   ],
   build: {
+    ...viteConfig?.().client?.otherConfig?.build,
     ssrManifest: true,
     outDir: clientOutPut,
     rollupOptions: {

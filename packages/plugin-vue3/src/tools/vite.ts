@@ -41,6 +41,7 @@ const serverConfig: UserConfig = {
     })
   ],
   build: {
+    ...viteConfig?.().server?.otherConfig?.build,
     ssr: vue3ServerEntry,
     outDir: serverOutPut,
     rollupOptions: {
@@ -72,6 +73,7 @@ const clientConfig: UserConfig = {
     })
   ],
   build: {
+    ...viteConfig?.().client?.otherConfig?.build,
     ssrManifest: true,
     outDir: clientOutPut,
     rollupOptions: {
