@@ -37,12 +37,16 @@ const clientRender = async () => {
   }
   const app = new RealVue({
     // 根实例简单的渲染应用程序组件。
-    render: h => h(App, {
+    render: h => h('div', {
+      attrs: {
+        id: 'app'
+      }
+    }, [h(App, {
       props: {
         fetchData,
         reactiveFetchData
       }
-    }),
+    })]),
     store,
     // for type checker
     ...{

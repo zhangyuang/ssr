@@ -1,6 +1,5 @@
 <template>
-  <!-- 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑 -->
-  <!-- 页面初始化数据注入内容已经过 serialize-javascript 转义 防止 xss -->
+  <!-- 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑，不要删除 rem 初始化以外的任何初始设置 -->
   <html>
     <head>
       <meta charSet="utf-8">
@@ -9,15 +8,10 @@
       <title>Serverless Side Render for Vue</title>
       <!-- 初始化移动端 rem 设置，如不需要可自行删除 -->
       <slot name="remInitial" />
-      <!-- 用于通过配置插入自定义的 script 为了避免影响期望功能这块内容不做 escape，为了避免 xss 需要保证插入脚本代码的安全性  -->
-      <slot name="customeHeadScript" />
-      <slot name="cssInject" />
+      <slot name="injectHeader" />
     </head>
     <body>
-      <slot name="children" />
-      <slot name="initialData" />
-      <slot name="customeFooterScript" />
-      <slot name="jsInject" />
+      <slot name="content" />
     </body>
   </html>
 </template>

@@ -37,33 +37,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   let layoutFetchData = {}
   let fetchData = {}
-  const app = createSSRApp({
-    render: () => h(Layout,
-      { ctx, config, asyncData, fetchData: layoutFetchData, reactiveFetchData: { value: layoutFetchData } },
-      {
-        remInitial: () => h('script', { innerHTML: remInitial }),
-
-        customeHeadScript: () => customeHeadScriptArr,
-
-        customeFooterScript: () => customeFooterScriptArr,
-
-        children: () => h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app }),
-
-        initialData: !isCsr ? () => h('script', {
-          innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ;${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}`
-        }) : () => h('script', { innerHTML: `window.__USE_VITE__=${isVite}; window.prefix="${prefix}"` }),
-
-        cssInject: () => injectCss,
-
-        jsInject: () => injectScript
-      }
-    )
-  })
-
-  app.use(router)
-  app.use(store)
-  app.use(pinia)
-
   if (!isCsr) {
     router.push(url)
     await router.isReady()
@@ -82,11 +55,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     logGreen(`Current path ${path} use csr render mode`)
   }
   const combineAysncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
+
   const asyncData = {
     value: combineAysncData
   }
 
-  const injectCss = (isVite && isDev) ? [h('script', {
+  const cssInject = (isVite && isDev) ? [h('script', {
     type: 'module',
     src: '/@vite/client'
   })] : dynamicCssOrder.map(css => manifest[css]).filter(Boolean).map(css => h('link', {
@@ -94,7 +68,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     href: css
   }))
 
-  const injectScript = (isVite && isDev) ? [h('script', {
+  const jsInject = (isVite && isDev) ? [h('script', {
     type: 'module',
     src: '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'
   })] : dynamicJsOrder.map(js =>
@@ -103,7 +77,54 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       type: isVite ? 'module' : ''
     })
   )
+
   const state = Object.assign({}, store.state ?? {}, asyncData.value)
+
+  const app = createSSRApp({
+    render: function () {
+      const initialData = !isCsr ? h('script', {
+        innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ;${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}`
+      }) : h('script', { innerHTML: `window.__USE_VITE__=${isVite}; window.prefix="${prefix}"` })
+      const children = h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app })
+
+      return h(Layout,
+        { ctx, config, asyncData, fetchData: layoutFetchData, reactiveFetchData: { value: layoutFetchData } },
+        {
+          remInitial: () => h('script', { innerHTML: remInitial }),
+
+          customeHeadScript: () => customeHeadScriptArr,
+
+          customeFooterScript: () => customeFooterScriptArr,
+
+          children: () => children,
+
+          initialData: () => initialData,
+
+          cssInject: () => cssInject,
+
+          jsInject: () => jsInject,
+
+          injectHeader: () => [
+            customeHeadScriptArr,
+            cssInject
+          ],
+
+          content: () => [
+            h('div', {
+              id: 'app'
+            }, children),
+            initialData,
+            customeFooterScriptArr,
+            jsInject
+          ]
+        }
+      )
+    }
+  })
+
+  app.use(router)
+  app.use(store)
+  app.use(pinia)
 
   return app
 }
