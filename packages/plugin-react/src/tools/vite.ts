@@ -38,7 +38,8 @@ const serverConfig: UserConfig = {
   ],
   esbuild: {
     ...viteConfig?.().server?.otherConfig?.esbuild,
-    keepNames: true
+    keepNames: true,
+    logOverride: { 'this-is-undefined-in-esm': 'silent' }
   },
   build: {
     ...viteConfig?.().server?.otherConfig?.build,
@@ -68,6 +69,7 @@ const clientConfig: UserConfig = {
   },
   optimizeDeps: {
     ...viteConfig?.().client?.otherConfig?.optimizeDeps,
+    include: ['react-router'].concat(...viteConfig?.().client?.otherConfig?.optimizeDeps?.include ?? []),
     exclude: ['ssr-hoc-react'].concat(...viteConfig?.().client?.otherConfig?.optimizeDeps?.exclude ?? [])
   },
   plugins: [
