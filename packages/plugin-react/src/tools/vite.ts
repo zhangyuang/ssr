@@ -37,6 +37,7 @@ const serverConfig: UserConfig = {
     createStyleImportPlugin(styleImportConfig)
   ],
   esbuild: {
+    ...viteConfig?.().server?.otherConfig?.esbuild,
     keepNames: true
   },
   build: {
@@ -61,7 +62,13 @@ const clientConfig: UserConfig = {
   ...viteConfig?.().client?.otherConfig,
   base: isDev ? '/' : getOutputPublicPath(),
   esbuild: {
-    keepNames: true
+    ...viteConfig?.().client?.otherConfig?.esbuild,
+    keepNames: true,
+    logOverride: { 'this-is-undefined-in-esm': 'silent' }
+  },
+  optimizeDeps: {
+    ...viteConfig?.().client?.otherConfig?.optimizeDeps,
+    exclude: ['ssr-hoc-react'].concat(...viteConfig?.().client?.otherConfig?.optimizeDeps?.exclude ?? [])
   },
   plugins: [
     react({
