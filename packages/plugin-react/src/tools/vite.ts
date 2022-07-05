@@ -46,6 +46,7 @@ const serverConfig: UserConfig = {
     ssr: reactServerEntry,
     outDir: serverOutPut,
     rollupOptions: {
+      ...viteConfig?.().server?.otherConfig?.build?.rollupOptions,
       input: isDev ? reactClientEntry : reactServerEntry, // setting prebundle list by client-entry in dev
       output: {
         entryFileNames: 'Page.server.js'
@@ -53,6 +54,7 @@ const serverConfig: UserConfig = {
     }
   },
   define: {
+    ...viteConfig?.().server?.otherConfig?.define,
     __isBrowser__: false,
     ...define?.base,
     ...define?.server
@@ -87,12 +89,14 @@ const clientConfig: UserConfig = {
     ssrManifest: true,
     outDir: clientOutPut,
     rollupOptions: {
+      ...viteConfig?.().client?.otherConfig?.build?.rollupOptions,
       input: reactClientEntry,
       output: rollupOutputOptions,
       plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), manifestPlugin()]
     }
   },
   define: {
+    ...viteConfig?.().client?.otherConfig?.define,
     __isBrowser__: true,
     ...define?.base,
     ...define?.client
