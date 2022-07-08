@@ -1,5 +1,5 @@
 import { parse as parseImports } from 'es-module-lexer'
-import { Compiler, WebpackPluginInstance, compilation } from 'webpack'
+import webpack, { Compiler, WebpackPluginInstance, compilation } from 'webpack'
 import { create } from 'enhanced-resolve'
 import { loadConfig } from '../loadConfig'
 
@@ -14,14 +14,16 @@ const ssrResolve = create.sync({
 })
 
 declare module 'webpack' {
-  export interface compilation {
-    Compilation: {
-      resource: string
-    }
 
-    Module: {
-      resource: string
-    }
+  export interface compilation {
+    resource: string
+    // export class Compilation {
+    //   resource =1
+    // }
+
+    // Module: {
+    //   resource: string
+    // }
   }
 }
 
@@ -30,7 +32,7 @@ export class WebpackChunkNamePlugin implements WebpackPluginInstance {
     compiler.hooks.compilation.tap(
       'ChunkNamePlugin',
       (compilation: compilation.Compilation) => {
-        const foo = compilation.resource
+        const foo = webpack['compilation'].resource
         compilation.hooks.succeedModule.tap(
           'ChunkNamePlugin',
           (module: compilation.Module) => {
