@@ -409,6 +409,17 @@ this.$router.options.scrollBehavior = (to, from, savedPosition) {
 }
 ```
 
+### Vue 获取 Vuex 实例
+
+为了方便开发者在任意地方都能够使用 `Vuex` 实例，这里框架提供了 `useStore` api 可以在任意文件调用
+
+```js
+import { useStore } from 'ssr-common-utils'
+
+const store = useStore()
+
+```
+
 ### 使用Vue3国际化插件
 
 在 `plugin-vue3` 中，我们已在底层对国际化所需要的 `Webpack-loader` 进行支持。详细见官方文档：https://vue-i18n.intlify.dev/guide/advanced/composition.html
@@ -777,7 +788,7 @@ module.exports = {
 ```html
 <template>
   <!-- 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑 -->
-  <!-- 页面初始化数据注入内容已经过 serialize-javascript 转义 防止 xss -->
+ 
   <html>
     <head>
       <meta charSet="utf-8">

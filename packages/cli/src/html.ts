@@ -8,7 +8,7 @@ export const generateHtml = async (argv: Argv) => {
     console.log('Generating html file...')
     // spa 模式下生成 html 文件直接部署
     const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework } = await import('ssr-server-utils')
-    const { jsOrder, cssOrder, customeHeadScript, customeFooterScript, hashRouter, htmlTemplate } = loadConfig()
+    const { jsOrder, cssOrder, customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix, clientPrefix, isVite } = loadConfig()
     const htmlStr = htmlTemplate ?? `
   <!DOCTYPE html>
   <html lang="en">
@@ -33,22 +33,30 @@ export const generateHtml = async (argv: Argv) => {
     let jsHeaderManifest = ''
     let jsFooterManifest = ''
     const hashRouterScript = hashRouter ? '<script>window.hashRouter=true</script>' : ''
+    const header = customeHeadScript ?? []
+    const footer = customeFooterScript ?? []
     const combine = [
       {
-        arr: customeHeadScript ?? [],
+        arr: Array.isArray(header) ? header : header({}),
         flag: 'header'
       }, {
-        arr: customeFooterScript ?? [],
+        arr: Array.isArray(footer) ? footer : footer({}),
         flag: 'footer'
       }]
+    combine[0].arr = combine[0].arr.concat([
+      {
+        content: `window.__USE_SSR__=false;window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ;${clientPrefix ? `window.clientPrefix="${clientPrefix};"` : ''}`
+      }
+    ])
+
     if (framework === 'ssr-plugin-vue3') {
       const { h } = await import(loadModuleFromFramework('vue'))
       const { renderToString } = await import('@vue/server-renderer')
       for (const item of combine) {
         const { arr, flag } = item
-        const scriptArr = (Array.isArray(arr) ? arr : arr({}))?.map((item) => h(
+        const scriptArr = arr.map((item) => h(
           'script',
-          Object.assign({}, item.describe, {
+          Object.assign({}, item.describe ?? {}, {
             innerHTML: item.content
           })
         ))
@@ -61,7 +69,7 @@ export const generateHtml = async (argv: Argv) => {
     } if (framework === 'ssr-plugin-vue') {
       for (const item of combine) {
         const { arr, flag } = item
-        const scriptArr = (Array.isArray(arr) ? arr : arr({}))?.map((item) => `<script ${item.describe?.attrs ? `src="${item.describe.attrs.src}" type=text/javascript` : ''}>${item.content} </script>`)
+        const scriptArr = arr.map((item) => `<script ${item.describe?.attrs ? `src="${item.describe.attrs.src}" type=text/javascript` : ''}>${item.content} </script>`)
         if (flag === 'header') {
           jsHeaderManifest = scriptArr.join('')
         } else {

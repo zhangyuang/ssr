@@ -22,12 +22,12 @@ export class AppController {
     stream.on('error', async (err) => {
       console.log('ssr error', err)
       stream.destroy()
-      const newStream = await render(ctx, {
+      const csrStream = await render(ctx, {
         stream: true,
         mode: 'csr'
       })
-      newStream.pipe(res, { end: false })
-      newStream.on('end', () => {
+      csrStream.pipe(res, { end: false })
+      csrStream.on('end', () => {
         res.end()
       })
     })

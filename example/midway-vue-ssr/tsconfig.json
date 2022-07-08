@@ -15,14 +15,18 @@
     "pretty": true,
     "declaration": true,
     "outDir": "dist",
+    "jsx": "preserve",
     "typeRoots": [ "./typings", "./node_modules/@types"],
     "paths": {
-      "@/*": ["./src/*"],
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "@/*": ["./web/*"],
+      "~src/*": ["./src/*"],
+      "_build/*": ["./build/*"]
     }
   },
   "include": [
-    "src"
+    "src",
+    "web"
   ]
 }
 

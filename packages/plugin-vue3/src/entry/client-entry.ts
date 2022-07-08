@@ -2,6 +2,7 @@ import { h, createSSRApp, createApp, reactive, renderSlot } from 'vue'
 import { Store } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { findRoute, isMicro } from 'ssr-client-utils'
+import { setStore } from 'ssr-common-utils'
 import { createPinia } from 'pinia'
 import { createRouter, createStore } from './create'
 import { ESMFetch, IFeRouteItem, RoutesType } from './interface'
@@ -29,6 +30,7 @@ const clientRender = async () => {
     hashRouter: window.hashRouter
   })
   const pinia = createPinia()
+  setStore(store)
   const create = window.__USE_SSR__ ? createSSRApp : createApp
 
   if (window.__INITIAL_DATA__) {

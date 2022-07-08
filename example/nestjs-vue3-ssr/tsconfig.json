@@ -12,18 +12,22 @@
     "noUnusedLocals": true,
     "stripInternal": true,
     "skipLibCheck": true,
+    "esModuleInterop": true,
     "pretty": true,
     "declaration": true,
-    "outDir": "dist",
     "jsx": "preserve",
+    "outDir": "dist",
     "typeRoots": [ "./typings", "./node_modules/@types"],
     "paths": {
-      "@/*": ["./src/*"],
-      "~/*": ["./*"]
+      "~/*": ["./*"],
+      "@/*": ["./web/*"],
+      "~src/*": ["./src/*"],
+      "_build/*": ["./build/*"]
     }
   },
   "include": [
-    "src"
+    "src",
+    "web"
   ]
 }
 

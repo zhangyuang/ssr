@@ -69,11 +69,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   }
   const combineData = isCsr ? null : Object.assign(state ?? {}, layoutFetchData ?? {}, fetchData ?? {})
   const injectState = isCsr ? <script dangerouslySetInnerHTML={{ __html: `window.prefix="${prefix}"` }} /> : <script dangerouslySetInnerHTML={{
-    __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}; window.prefix="${prefix}";${clientPrefix && `window.clientPrefix="${clientPrefix}"`}`
+    __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}`
   }} />
 
   return (
-    <StaticRouter location={ctx.request.url}>
+    <StaticRouter location={ctx.request.url} basename={prefix}>
       <Context.Provider value={{ state: combineData }}>
         <Layout ctx={ctx} config={config} staticList={staticList} injectState={injectState}>
           <Component />

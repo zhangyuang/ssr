@@ -12,7 +12,7 @@ const RealVuex = Vuex.default || Vuex
 const RealRouter = Router.default || Router
 RealVue.use(RealRouter)
 RealVue.use(RealVuex)
-const { FeRoutes, modules } = Routes
+const { FeRoutes, store } = Routes
 
 function createRouter (options: VueRouterOptions = {}) {
   return new RealRouter({
@@ -23,9 +23,7 @@ function createRouter (options: VueRouterOptions = {}) {
 }
 
 function createStore () {
-  return new Vuex.Store(deepClone({
-    modules: modules ?? {}
-  }))
+  return new Vuex.Store(deepClone(store))
 }
 
 export {

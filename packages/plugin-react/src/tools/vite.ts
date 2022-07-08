@@ -37,12 +37,16 @@ const serverConfig: UserConfig = {
     createStyleImportPlugin(styleImportConfig)
   ],
   esbuild: {
-    keepNames: true
+    ...viteConfig?.().server?.otherConfig?.esbuild,
+    keepNames: true,
+    logOverride: { 'this-is-undefined-in-esm': 'silent' }
   },
   build: {
+    ...viteConfig?.().server?.otherConfig?.build,
     ssr: reactServerEntry,
     outDir: serverOutPut,
     rollupOptions: {
+      ...viteConfig?.().server?.otherConfig?.build?.rollupOptions,
       input: isDev ? reactClientEntry : reactServerEntry, // setting prebundle list by client-entry in dev
       output: {
         entryFileNames: 'Page.server.js'
@@ -50,6 +54,7 @@ const serverConfig: UserConfig = {
     }
   },
   define: {
+    ...viteConfig?.().server?.otherConfig?.define,
     __isBrowser__: false,
     ...define?.base,
     ...define?.server
@@ -60,7 +65,14 @@ const clientConfig: UserConfig = {
   ...viteConfig?.().client?.otherConfig,
   base: isDev ? '/' : getOutputPublicPath(),
   esbuild: {
-    keepNames: true
+    ...viteConfig?.().client?.otherConfig?.esbuild,
+    keepNames: true,
+    logOverride: { 'this-is-undefined-in-esm': 'silent' }
+  },
+  optimizeDeps: {
+    ...viteConfig?.().client?.otherConfig?.optimizeDeps,
+    include: ['react-router'].concat(...viteConfig?.().client?.otherConfig?.optimizeDeps?.include ?? []),
+    exclude: ['ssr-hoc-react'].concat(...viteConfig?.().client?.otherConfig?.optimizeDeps?.exclude ?? [])
   },
   plugins: [
     react({
@@ -73,15 +85,18 @@ const clientConfig: UserConfig = {
     createStyleImportPlugin(styleImportConfig)
   ],
   build: {
+    ...viteConfig?.().client?.otherConfig?.build,
     ssrManifest: true,
     outDir: clientOutPut,
     rollupOptions: {
+      ...viteConfig?.().client?.otherConfig?.build?.rollupOptions,
       input: reactClientEntry,
       output: rollupOutputOptions,
       plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), manifestPlugin()]
     }
   },
   define: {
+    ...viteConfig?.().client?.otherConfig?.define,
     __isBrowser__: true,
     ...define?.base,
     ...define?.client

@@ -22,7 +22,6 @@ export const getImageOutputPath = () => {
   }
 }
 
-// const extraOptions = {}
 const parseFeRoutes = async () => {
   const dir = getPagesDir()
   const { dynamic, routerPriority, routerOptimize } = loadConfig()
@@ -64,7 +63,7 @@ const parseFeRoutes = async () => {
       export { default as Layout } from "${layoutPath}"
       export { default as App } from "${AppPath}"
       ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch"' : ''}
-      ${accessStore ? 'export * from "@/store/index"' : ''}
+      ${accessStore ? 'export * as store from "@/store/index"' : ''}
       `
   routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
     const currentWebpackChunkName = re.exec(routes)![2]
@@ -116,7 +115,7 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         if (webpackChunkName.startsWith('-')) {
           webpackChunkName = webpackChunkName.replace('-', '')
         }
-        route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles).replace(/\/:\??/g, '-').replace('?', '-optional')}`
+        route.webpackChunkName = `${webpackChunkName}-${getDynamicParam(pageFiles).replace(/\/:\??/g, '-').replace('?', '-optional').replace('*', '-all')}`
       } else if (pageFiles.includes('render')) {
         /* /news */
         route.path = `${prefixPath}`
@@ -158,7 +157,9 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
 }
 
 const getDynamicParam = (url: string) => {
-  return url.split('$').filter(r => r !== 'render' && r !== '').map(r => r.replace(/\.[\s\S]+/, '').replace('#', '?')).join('/:')
+  return url.split('$').filter(r => r !== 'render' && r !== '').map(r => r.replace(/\.[\s\S]+/, '').replace('#', '?')
+    .replace('&', '*')
+  ).join('/:')
 }
 
 export {

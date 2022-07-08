@@ -160,19 +160,22 @@ export async function publishPackage (
   })
 }
 
-export async function getLatestTag (pkgName: string) {
+export async function getLatestTag (pkgName: string, version: string) {
   const tags = (await run('git', ['tag'], { stdio: 'pipe' })).stdout
     .split(/\n/)
     .filter(Boolean)
+  const isBeta = version.includes('beta')
   const prefix = tags.filter(tag => tag.startsWith(`${pkgName}@`)).length > 0 ? `${pkgName}@` : 'v'
   return tags
-    .filter((tag) => tag.startsWith(prefix))
-    .sort()
+    .filter((tag) => tag.startsWith(prefix) && (isBeta ? tag.includes('beta') : !tag.includes('beta')))
+    .sort((v1, v2) => {
+      return semver.compare(semver.coerce(v1)!.version, semver.coerce(v2)!.version)
+    })
     .reverse()[0]
 }
 
-export async function logRecentCommits (pkgName: string) {
-  const tag = await getLatestTag(pkgName)
+export async function logRecentCommits (pkgName: string, version: string) {
+  const tag = await getLatestTag(pkgName, version)
   if (!tag) return
   const sha = await run('git', ['rev-list', '-n', '1', tag], {
     stdio: 'pipe'

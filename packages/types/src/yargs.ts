@@ -16,4 +16,5 @@ export type Argv = yargs.Arguments<{
   vue3?: boolean
   web?: boolean
   api?: boolean
+  ssl?: boolean
 }>

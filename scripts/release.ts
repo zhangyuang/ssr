@@ -14,7 +14,7 @@ import {
   updateVersion
 } from './releaseUtils'
 
-async function main(): Promise<void> {
+async function main (): Promise<void> {
   let targetVersion: string | undefined
 
   const { pkg }: { pkg: string } = await prompts({
@@ -25,8 +25,6 @@ async function main(): Promise<void> {
   })
 
   if (!pkg) return
-
-  await logRecentCommits(pkg)
 
   const { currentVersion, pkgName, pkgPath, pkgDir } = getPackageInfo(pkg)
 
@@ -50,6 +48,8 @@ async function main(): Promise<void> {
       targetVersion = release
     }
   }
+
+  await logRecentCommits(pkg, targetVersion)
 
   if (!semver.valid(targetVersion)) {
     throw new Error(`invalid target version: ${targetVersion}`)

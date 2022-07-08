@@ -51,7 +51,9 @@ $ tree ./ -I node_modules -L 3
 
 用来匹配所有符合要求的文件, 综合考虑 [path-to-regexp](https://www.npmjs.com/package/path-to-regexp) 和 [vue-router](https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html#%E6%8D%95%E8%8E%B7%E6%89%80%E6%9C%89%E8%B7%AF%E7%94%B1%E6%88%96-404-not-found-%E8%B7%AF%E7%94%B1) 文档，使用如下结构
 
-- `/detail/render$params*.vue` 映射为 `/detail/:params*`，本质上对应所有来自 `/detail/*` 的请求
+由于 `*` 符号在 `Windows` 下无法作为文件名使用，所以这里我们需要用 `&` 号代替
+
+- `/detail/render$params&.vue` 映射为 `/detail/:params*`，本质上对应所有来自 `/detail/*` 的请求
 
 `React` 场景同理生效
 

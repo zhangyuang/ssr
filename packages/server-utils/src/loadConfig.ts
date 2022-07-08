@@ -26,7 +26,8 @@ const loadConfig = (): IConfig => {
   const alias = Object.assign({
     '@': getFeDir(),
     '~': getCwd(),
-    _build: join(getCwd(), './build')
+    '~/src': join(cwd, './src'),
+    _build: join(cwd, './build')
   }, framework === 'ssr-plugin-react' ? {
     react: loadModuleFromFramework('react'),
     'react-router': loadModuleFromFramework('react-router'),

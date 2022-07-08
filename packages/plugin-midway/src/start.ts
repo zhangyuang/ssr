@@ -1,6 +1,6 @@
 import { join } from 'path'
 import { execSync } from 'child_process'
-import { loadConfig, getCwd, judgeVersion } from 'ssr-server-utils'
+import { loadConfig, getCwd, judgeVersion, accessFile } from 'ssr-server-utils'
 import { Argv } from 'ssr-types'
 
 const start = async (argv: Argv) => {
@@ -13,6 +13,8 @@ const start = async (argv: Argv) => {
   argv._[0] = 'dev'
   argv.ts = true
   argv.port = config.serverPort
+  argv.ssl = !!config.https
+  argv.tsConfig = await accessFile(join(cwd, './tsconfig.build.json')) ? join(cwd, './tsconfig.build.json') : join(cwd, './tsconfig.json')
   await cli(argv)
 }
 

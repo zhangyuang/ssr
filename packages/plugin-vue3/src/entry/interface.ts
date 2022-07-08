@@ -3,7 +3,9 @@ import { Store, StoreOptions } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { ESMFeRouteItem, ISSRContext } from 'ssr-types'
 
-export type Fetch = (params: {store: Store<any>, router: RouteLocationNormalizedLoaded}, ctx?: ISSRContext) => Promise<any>
+export interface Params {store: Store<any>, router: RouteLocationNormalizedLoaded, ctx?: ISSRContext}
+
+export type Fetch = (params: Params, ctx?: ISSRContext) => Promise<any>
 export type ESMFetch = () => Promise<{
   default: Fetch
 }>
@@ -15,9 +17,9 @@ export type IFeRouteItem = ESMFeRouteItem<{
 export interface RoutesType {
   Layout: VNode
   App: VNode
-  layoutFetch?: (params: {store: Store<any>, router: RouteLocationNormalizedLoaded}, ctx?: ISSRContext) => Promise<any>
+  layoutFetch?: (params: Params, ctx?: ISSRContext) => Promise<any>
   FeRoutes: IFeRouteItem[]
-  modules?: StoreOptions<any>['modules']
+  store?: StoreOptions<any>
 }
 
 export interface VueRouterOptions {
