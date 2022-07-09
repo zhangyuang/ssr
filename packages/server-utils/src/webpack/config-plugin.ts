@@ -12,10 +12,17 @@ const dependenciesMap: Record<string, string[]> = {}
 const pageChunkRe = /['"](.*)?['"]/
 const { alias } = loadConfig()
 
-const ssrResolve = create.sync({
-  alias
-})
-console.log(ssrResolve({}, '/Users/zhangyuang/Desktop/github/ssr/packages/plugin-vue3/esm/entry/client-entry.js', 'pinia'))
+const ssrResolve = (request: string, path: string) => {
+  try {
+    return create.sync({
+      alias
+    })(request, path)
+  } catch (error) {
+    return require.resolve(path, {
+      paths: [request]
+    })
+  }
+}
 
 export class WebpackChunkNamePlugin implements WebpackPluginInstance {
   apply (compiler: Compiler) {
@@ -34,7 +41,7 @@ export class WebpackChunkNamePlugin implements WebpackPluginInstance {
                 const rawUrl: string = content.slice(start, end)
                 if (!rawUrl.includes('render')) continue
                 const chunkName = webpackCommentRegExp.exec(rawUrl)![1]
-                const entirePath = ssrResolve(module.resource, rawPath)
+                const entirePath = ssrResolve(module.context, rawPath)
                 if (!entirePath) {
                   throw new Error(`ssr resolve error with resource ${module.resource} and path ${rawPath}`)
                 }
@@ -71,8 +78,11 @@ export class WebpackChunkNamePlugin2 implements WebpackPluginInstance {
         compilation.hooks.succeedModule.tap(
           'ChunkNamePlugin',
           (module: SSRModule) => {
-            const { resource } = module
-            if (!resource) {
+            const { resource, context } = module
+            if (module?._source?._value.includes('@/components/search/index.vue')) {
+              console.log('xxx', module)
+            }
+            if (!resource || !context) {
               return
             }
             const pageChunkName = checkOrigin(resource)
@@ -83,8 +93,7 @@ export class WebpackChunkNamePlugin2 implements WebpackPluginInstance {
                 for (const d of dependencies) {
                   const { request } = d
                   if (request) {
-                    console.log(resource, request)
-                    const importerId = ssrResolve(resource, request)
+                    const importerId = ssrResolve(context, request)
                     if (!importerId) {
                       throw new Error(`ssr resolve error with resource ${resource} and path ${request}`)
                     }
