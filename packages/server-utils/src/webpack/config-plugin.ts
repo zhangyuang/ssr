@@ -1,7 +1,10 @@
 import { parse as parseImports } from 'es-module-lexer'
-import webpack, { Compiler, WebpackPluginInstance, compilation } from 'webpack'
+import { Compiler, WebpackPluginInstance, compilation } from 'webpack'
+import type { SSRModule } from 'webpack'
 import { create } from 'enhanced-resolve'
 import { loadConfig } from '../loadConfig'
+// const bar: typeof compilation.foo = 1
+// console.log(bar)
 
 const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
 const pageMap: Record<string, string> = {}
@@ -12,30 +15,17 @@ const { alias } = loadConfig()
 const ssrResolve = create.sync({
   alias
 })
-
-declare module 'webpack' {
-
-  export interface compilation {
-    resource: string
-    // export class Compilation {
-    //   resource =1
-    // }
-
-    // Module: {
-    //   resource: string
-    // }
-  }
-}
+console.log(ssrResolve({}, '/Users/zhangyuang/Desktop/github/ssr/packages/plugin-vue3/esm/entry/client-entry.js', 'pinia'))
 
 export class WebpackChunkNamePlugin implements WebpackPluginInstance {
   apply (compiler: Compiler) {
     compiler.hooks.compilation.tap(
       'ChunkNamePlugin',
       (compilation: compilation.Compilation) => {
-        const foo = webpack['compilation'].resource
+
         compilation.hooks.succeedModule.tap(
           'ChunkNamePlugin',
-          (module: compilation.Module) => {
+          (module: SSRModule) => {
             if (module.resource?.includes('ssr-declare-routes' || module.resource?.includes('ssr-manual-routes'))) {
               const content = module._source._value
               const imports = parseImports(content)[0]
@@ -45,6 +35,9 @@ export class WebpackChunkNamePlugin implements WebpackPluginInstance {
                 if (!rawUrl.includes('render')) continue
                 const chunkName = webpackCommentRegExp.exec(rawUrl)![1]
                 const entirePath = ssrResolve(module.resource, rawPath)
+                if (!entirePath) {
+                  throw new Error(`ssr resolve error with resource ${module.resource} and path ${rawPath}`)
+                }
                 pageMap[entirePath] = chunkName
               }
             }
@@ -60,16 +53,16 @@ const checkOrigin = (request: string) => {
       return pageMap[originUrl]
     }
   }
-  return false
+  return ''
 }
 
-const getDependenciesPath = (dependency, module: compilation.Module) => {
-  const { request } = dependency
-  const { context } = module
-  return require.resolve(normalizePath(request), {
-    paths: [context!]
-  })
-}
+// const getDependenciesPath = (dependency, module: compilation.Module) => {
+//   const { request } = dependency
+//   const { context } = module
+//   return require.resolve(normalizePath(request), {
+//     paths: [context!]
+//   })
+// }
 export class WebpackChunkNamePlugin2 implements WebpackPluginInstance {
   apply (compiler: Compiler) {
     compiler.hooks.compilation.tap(
@@ -77,7 +70,7 @@ export class WebpackChunkNamePlugin2 implements WebpackPluginInstance {
       (compilation) => {
         compilation.hooks.succeedModule.tap(
           'ChunkNamePlugin',
-          (module) => {
+          (module: SSRModule) => {
             const { resource } = module
             if (!resource) {
               return
@@ -85,23 +78,22 @@ export class WebpackChunkNamePlugin2 implements WebpackPluginInstance {
             const pageChunkName = checkOrigin(resource)
             if (pageChunkName || resource.includes('client-entry')) {
               const { dependencies } = module
-              const chunkname = resource.includes('client-entry') ? 'client-entry' : pageChunkName
-              for (const d of dependencies) {
-                // console.log(d._module())
-                // if (d.request) {
-                //   console.log(d.request)
-                //   const childModule = compilation.getModule(d)
-                //   console.log(childModule)
-
-                // }
-
-                // if (d.request) {
-                //   const importerId = getDependenciesPath(d, module)
-                //   if (!dependenciesMap[importerId]) {
-                //     dependenciesMap[importerId] = []
-                //   }
-                //   dependenciesMap[importerId].push(chunkname)
-                // }
+              const chunkName = resource.includes('client-entry') ? 'client-entry' : pageChunkName
+              if (dependencies) {
+                for (const d of dependencies) {
+                  const { request } = d
+                  if (request) {
+                    console.log(resource, request)
+                    const importerId = ssrResolve(resource, request)
+                    if (!importerId) {
+                      throw new Error(`ssr resolve error with resource ${resource} and path ${request}`)
+                    }
+                    if (!dependenciesMap[importerId]) {
+                      dependenciesMap[importerId] = []
+                    }
+                    dependenciesMap[importerId].push(chunkName)
+                  }
+                }
               }
             }
             // else if (dependenciesMap[id]) {
