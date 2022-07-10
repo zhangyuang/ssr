@@ -26,11 +26,20 @@ const chunkNamePlugin = function (): Plugin {
         let str = new MagicString(source)
         const imports = parseImports(source)[0]
         for (let index = 0; index < imports.length; index++) {
-          const { s: start, e: end } = imports[index]
+          const { s: start, e: end, se: statementEnd } = imports[index]
           const rawUrl = source.slice(start, end)
-          if (!rawUrl.includes('render')) continue
+          if (!rawUrl.includes('render')) {
+            if (rawUrl.includes('fetch')) {
+              str = str.appendRight(statementEnd - 1, '?chunkName=void')
+            } else if (rawUrl.includes('layout') || rawUrl.includes('App') || rawUrl.includes('store')) {
+              str = str.appendRight(statementEnd - 1, '?chunkName=layout-app')
+            } else {
+              str = str.appendRight(statementEnd - 1, '?chunkName=void')
+            }
+            continue
+          }
           const chunkName = webpackCommentRegExp.exec(rawUrl)![1]
-          str = str.appendRight(end - 1, `?chunkName=${chunkName}`)
+          str = str.appendRight(statementEnd - 1, `?chunkName=${chunkName}`)
         }
         return {
           code: str.toString()
@@ -39,26 +48,38 @@ const chunkNamePlugin = function (): Plugin {
     }
   }
 }
-
+const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router', 'react-router-dom', 'react-dom', '@vue', 'ssr-client-utils', 'ssr-common-utils', 'pinia']
+const re = /node_modules(\\|\/)(.*?)(\1)/
+const recordInfo = (id: string, chunkName: string, defaultChunkName?: string) => {
+  if (!dependenciesMap[id]) {
+    dependenciesMap[id] = defaultChunkName ? [defaultChunkName] : []
+  }
+  dependenciesMap[id].push(chunkName)
+}
 const asyncOptimizeChunkPlugin = (): Plugin => {
   return {
     name: 'asyncOptimizeChunkPlugin',
     moduleParsed (this, info) {
       const { id } = info
+      const lastStart = id.lastIndexOf('node_modules')
       if (id.includes('chunkName') || id.includes('client-entry')) {
         const { importedIds, dynamicallyImportedIds } = info
-        const chunkname = id.includes('client-entry') ? 'client-entry' : chunkNameRe.exec(id)![1]
+        const chunkName = id.includes('client-entry') ? 'client-entry' : chunkNameRe.exec(id)![1]
         for (const importerId of importedIds) {
-          if (!dependenciesMap[importerId]) {
-            dependenciesMap[importerId] = []
-          }
-          dependenciesMap[importerId].push(chunkname)
+          recordInfo(importerId, chunkName)
         }
         for (const dyImporterId of dynamicallyImportedIds) {
-          if (!dependenciesMap[dyImporterId]) {
-            dependenciesMap[dyImporterId] = ['dynamic']
-          }
-          dependenciesMap[dyImporterId].push(chunkname)
+          recordInfo(dyImporterId, chunkName, 'dynamic')
+        }
+      } else if (id.includes('node_modules') && lastStart > -1 && vendorList.includes(re.exec(id.slice(lastStart, id.length))?.[2] as string)) {
+        const { importedIds, dynamicallyImportedIds } = info
+        const chunkName = 'common-vendor'
+        recordInfo(id, chunkName, chunkName)
+        for (const importerId of importedIds) {
+          recordInfo(importerId, chunkName)
+        }
+        for (const dyImporterId of dynamicallyImportedIds) {
+          recordInfo(dyImporterId, chunkName, 'dynamic')
         }
       } else if (dependenciesMap[id]) {
         const { importedIds, dynamicallyImportedIds } = this.getModuleInfo(id)!
@@ -78,6 +99,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
     }
   }
 }
+
 const manifestPlugin = (): Plugin => {
   const { getOutput, viteManifest } = loadConfig()
   const { clientOutPut } = getOutput()
@@ -123,9 +145,11 @@ const rollupOutputOptions: OutputOptions = {
     return res
   }
 }
+
 const manualChunksFn = (id: string) => {
   if (id.includes('chunkName')) {
-    return chunkNameRe.exec(id)![1]
+    const chunkName = chunkNameRe.exec(id)![1]
+    return chunkName === 'void' ? undefined : chunkName
   }
   if (!process.env.LEGACY_VITE) {
     if (id.includes('node_modules')) {
@@ -135,13 +159,19 @@ const manualChunksFn = (id: string) => {
       dependenciesMap[id].push('vendor')
     }
     const arr = Array.from(new Set(dependenciesMap?.[id]))
+    if (arr.includes('common-vendor')) {
+      return 'common-vendor'
+    } else if (arr.includes('client-entry')) {
+      return
+    }
     if (arr.length === 1) {
       return arr[0]
     } else if (arr.length >= 2) {
-      return arr.includes('client-entry') ? 'client-entry' : cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON)
+      return cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON)
     }
   }
 }
+
 type SSR = 'ssr'
 const commonConfig = (): UserConfig => {
   const { whiteList, alias, css, hmr, viteConfig } = loadConfig()
