@@ -50,7 +50,7 @@ const getWebpackSplitCache = () => {
         cacheGroups[chunkName] = {
           name: chunkName,
           test: (module) => {
-            if (chunkName === 'void' || !module.nameForCondition?.()) return
+            if (chunkName.includes('void') || !module.nameForCondition?.()) return
             const nameForCondition = module.nameForCondition?.()
             return arr.includes(nameForCondition)
           }
