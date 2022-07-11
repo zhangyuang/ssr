@@ -1,7 +1,7 @@
 
 import { promises } from 'fs'
 import { resolve } from 'path'
-import { loadConfig, getCwd, cryptoAsyncChunkName, getOutputPublicPath, loadModuleFromFramework } from 'ssr-server-utils'
+import { loadConfig, getCwd, getOutputPublicPath, loadModuleFromFramework, getSplitChunksOptions } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
 
@@ -12,7 +12,7 @@ const loadModule = loadModuleFromFramework
 let asyncChunkMap: Record<string, string[]> = {}
 
 const getClientWebpack = (chain: WebpackChain) => {
-  const { isDev, chunkName, getOutput, useHash, chainClientConfig } = loadConfig()
+  const { isDev, chunkName, getOutput, useHash, chainClientConfig, optimize } = loadConfig()
   const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
   const publicPath = getOutputPublicPath()
 
@@ -31,22 +31,7 @@ const getClientWebpack = (chain: WebpackChain) => {
 
   chain.optimization
     .runtimeChunk(true)
-    .splitChunks({
-      chunks: 'all',
-      name (module: any, chunks: any, cacheGroupKey: string) {
-        return cryptoAsyncChunkName(chunks, asyncChunkMap)
-      },
-      cacheGroups: {
-        vendors: {
-          test: (module: any) => {
-            return module.resource &&
-              /\.js$/.test(module.resource) &&
-              module.resource.match('node_modules')
-          },
-          name: 'vendor'
-        }
-      }
-    })
+    .splitChunks(getSplitChunksOptions(asyncChunkMap))
     .when(!isDev, optimization => {
       optimization.minimizer('terser')
         .use(loadModule('terser-webpack-plugin'), [{
@@ -103,7 +88,9 @@ const getClientWebpack = (chain: WebpackChain) => {
         compiler.hooks.done.tapAsync(
           'WriteAsyncChunkManifest',
           async (params: any, callback: any) => {
-            await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap))
+            if (!optimize) {
+              await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap))
+            }
             callback()
           }
         )

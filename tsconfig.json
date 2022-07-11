@@ -4,7 +4,7 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "sourceMap":true,
+    "sourceMap": true,
     "declarationMap": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
@@ -17,7 +17,8 @@
     "lib": ["ES2020", "DOM"],
     "skipLibCheck": true,
     "typeRoots": [
-      "./@types"
+      "./@types",
+      "./node_modules/@types"
     ]
   }
 }

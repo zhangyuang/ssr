@@ -8,7 +8,7 @@
             "request": "launch",
             "runtimeArgs": [
                 "run-script",
-                "build:vite"
+                "build"
             ],
             "cwd": "${workspaceFolder}/example/nestjs-vue3-ssr",
             "runtimeExecutable": "npm",

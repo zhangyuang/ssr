@@ -1,9 +1,15 @@
-import { Options, RuleSetCondition } from 'webpack'
+import { Options, RuleSetCondition, compilation } from 'webpack'
 import * as WebpackChainConfig from 'webpack-chain'
 import type { PluginOption, ServerOptions, UserConfig as ViteConfig } from 'vite'
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel'
 import { Argv } from './yargs'
 import { ISSRContext } from './ctx'
+
+export interface SSRModule extends compilation.Module {
+  resource?: string
+  dependencies?: Array<{request: string}>
+  nameForCondition?: () => string
+}
 
 export type Chain = WebpackChainConfig
 
@@ -86,7 +92,7 @@ export interface IConfig {
   reactServerEntry: string
   reactClientEntry: string
   isVite: boolean
-  isCI: boolean
+  optimize: boolean
   supportOptinalChaining: boolean
   viteConfig?: () => {
     common?: {
@@ -118,7 +124,6 @@ export interface IConfig {
   babelOptions?: RollupBabelInputPluginOptions
   hashRouter?: boolean
   htmlTemplate?: string
-  viteManifest: string
 }
 
 export interface proxyOptions {

@@ -10,8 +10,8 @@ const loadConfig = (): IConfig => {
   const cwd = getCwd()
   const mode = 'ssr'
   const stream = false
-  const viteManifest = 'generateMap'
-  const isVite = process.env.BUILD_TOOL === 'vite' || accessFileSync(join(cwd, `./build/${viteManifest}.json`))
+  const isVite = accessFileSync(join(cwd, './build/tag.json'))
+  const optimize = process.env.OPTIMIZE === '1'
   const isCI = !!process.env.CI_TEST
   const vue3ServerEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js')
   const vue3ClientEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
@@ -82,7 +82,7 @@ const loadConfig = (): IConfig => {
   const defaultWhiteList: Array<RegExp|string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/, /\.(vue)$/]
   const whiteList: Array<RegExp|string> = defaultWhiteList.concat(userConfig.whiteList ?? [])
 
-  const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', `${chunkName}.js`]
+  const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', 'common-vendor.js', `${chunkName}.js`, 'layout-app.js']
 
   const cssOrder = ['vendor.css', `${chunkName}.css`, 'layout-app.css']
 
@@ -194,7 +194,7 @@ const loadConfig = (): IConfig => {
     supportOptinalChaining,
     define,
     prefix,
-    viteManifest
+    optimize
   }, userConfig)
   config.alias = alias
   config.prefix = normalizeStartPath(config.prefix ?? '/')

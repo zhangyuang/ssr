@@ -101,7 +101,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 }
 
 const manifestPlugin = (): Plugin => {
-  const { getOutput, viteManifest } = loadConfig()
+  const { getOutput } = loadConfig()
   const { clientOutPut } = getOutput()
   return {
     name: 'manifestPlugin',
@@ -118,7 +118,7 @@ const manifestPlugin = (): Plugin => {
       }
       await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest, null, 2))
       await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
-      await promises.writeFile(resolve(getCwd(), `./build/${viteManifest}.json`), JSON.stringify(generateMap, null, 2))
+      await promises.writeFile(resolve(getCwd(), './build/generateMap.json'), JSON.stringify(generateMap, null, 2))
     }
   }
 }
@@ -174,10 +174,11 @@ const manualChunksFn = (id: string) => {
 
 type SSR = 'ssr'
 const commonConfig = (): UserConfig => {
-  const { whiteList, alias, css, hmr, viteConfig } = loadConfig()
+  const { whiteList, alias, css, hmr, viteConfig, optimize } = loadConfig()
   return {
     root: cwd,
     mode: 'development',
+    ...(optimize ? { logLevel: 'silent' } : {}),
     server: {
       middlewareMode: 'ssr' as SSR,
       hmr,
