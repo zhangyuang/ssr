@@ -519,6 +519,7 @@ importers:
       less-loader: ^7.3.0
       mini-css-extract-plugin: ^1.0.0
       optimize-css-assets-webpack-plugin: ^6.0.0
+      ora: ^4.0.4
       postcss: ^8.0.0
       postcss-discard-comments: ^5.0.0
       postcss-flexbugs-fixes: ^5.0.0
@@ -566,6 +567,7 @@ importers:
       less-loader: 7.3.0_less@4.1.2+webpack@4.46.0
       mini-css-extract-plugin: 1.6.2_webpack@4.46.0
       optimize-css-assets-webpack-plugin: 6.0.1_webpack@4.46.0
+      ora: 4.1.1
       postcss: 8.4.14
       postcss-discard-comments: 5.1.2_postcss@8.4.14
       postcss-flexbugs-fixes: 5.0.2_postcss@8.4.14
@@ -720,6 +722,7 @@ importers:
       less-loader: ^7.3.0
       mini-css-extract-plugin: ^1.0.0
       optimize-css-assets-webpack-plugin: ^6.0.0
+      ora: ^4.0.4
       pinia: ^2.0.13
       postcss: ^8.0.0
       postcss-discard-comments: ^5.0.0
@@ -770,6 +773,7 @@ importers:
       less-loader: 7.3.0_less@4.1.2+webpack@4.46.0
       mini-css-extract-plugin: 1.6.2_webpack@4.46.0
       optimize-css-assets-webpack-plugin: 6.0.1_webpack@4.46.0
+      ora: 4.1.1
       pinia: 2.0.14_typescript@4.7.4+vue@3.2.36
       postcss: 8.4.14
       postcss-discard-comments: 5.1.2_postcss@8.4.14
@@ -17096,7 +17100,7 @@ packages:
     dev: false
 
   /wcwidth/1.0.1:
-    resolution: {integrity: sha1-8LDc+RW8X/FSivrbLA4XtTLaL+g=}
+    resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}
     dependencies:
       defaults: 1.0.3
 

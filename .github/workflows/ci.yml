@@ -369,6 +369,56 @@ jobs:
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
+  e2e-chrome-nestjs-vue3-prod-optimize:
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [windows-latest]
+        node: ["12"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Turbo Cache
+        id: turbo-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+              .turbo
+              node_modules/.cache/turbo
+              node_modules/.pnpm
+              ~/.pnpm-store
+              /home/runner/.cache/Cypress
+          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+              ${{ runner.os }}-
+          
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: | 
+          pnpm i --no-frozen-lockfile
+      - name: Build packages
+        run: |
+          pnpm build
+        
+      - uses: cypress-io/github-action@v2
+        with:
+          install: false
+          start: pnpm example:nestjs:vue3:prod:optimize
+          wait-on: 'http://localhost:3000'
+          spec: | 
+            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/vue-ssr.spec.js
+          browser: chrome
   e2e-chrome-midway-react-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest

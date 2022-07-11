@@ -1,7 +1,13 @@
+import { promises } from 'fs'
+import { resolve } from 'path'
 import { Argv } from 'ssr-types'
 
 export const handleEnv = async (argv: Argv) => {
+  const { loadConfig, getCwd } = await import('ssr-server-utils')
+  const { https, isDev } = loadConfig()
+  const cwd = getCwd()
   process.env.BUILD_TOOL = argv.vite ? 'vite' : 'webpack'
+  process.env.OPTIMIZE = (process.env.BUILD_TOOL === 'webpack' && argv.optimize) ? '1' : '0'
   if (argv.analyze) {
     process.env.GENERATE_ANALYSIS = '1'
   }
@@ -12,8 +18,11 @@ export const handleEnv = async (argv: Argv) => {
     process.env.LEGACY_VITE = '1'
   }
   process.env.SERVER_PORT = argv.port ? String(argv.port) : '3000'
-  const { loadConfig } = await import('ssr-server-utils')
-  const { https, isDev } = loadConfig()
+  if (argv.vite) {
+    await promises.writeFile(resolve(cwd, './build/tag.json'), JSON.stringify({
+      BUILD_TOOL: process.env.BUILD_TOOL
+    }, null, 2))
+  }
   if (!!https && isDev) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
   }

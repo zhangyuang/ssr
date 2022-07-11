@@ -100,9 +100,18 @@ const viteBuild = async () => {
   await build({ ...serverConfig, mode: 'production' })
 }
 
+const viteBuildClient = async (type: string) => {
+  await build({ ...clientConfig, mode: 'production' })
+}
+const viteBuildServer = async () => {
+  await build({ ...serverConfig, mode: 'production' })
+}
+
 export {
   viteBuild,
   viteStart,
+  viteBuildClient,
+  viteBuildServer,
   serverConfig,
   clientConfig
 }

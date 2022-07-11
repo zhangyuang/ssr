@@ -2,8 +2,10 @@ import { promises, accessSync, realpathSync } from 'fs'
 import { resolve } from 'path'
 import { exec } from 'child_process'
 import { promisify } from 'util'
-import { UserConfig, Json } from 'ssr-types'
+import { UserConfig, Json, SSRModule } from 'ssr-types'
 import { coerce } from 'semver'
+import { rm } from 'shelljs'
+import { loadConfig } from './loadConfig'
 
 const getCwd = () => {
   return resolve(process.cwd(), process.env.APP_ROOT ?? '')
@@ -17,9 +19,69 @@ const getPagesDir = () => {
   return resolve(getFeDir(), 'pages')
 }
 
+const cleanOutClientDir = () => {
+  rm('-rf', resolve(getCwd(), './build/client'))
+}
+
 const writeRoutes = async (routes: string, name?: string) => {
   const cwd = getCwd()
   await promises.writeFile(resolve(cwd, `./build/${name ?? 'ssr-declare-routes'}`), routes)
+}
+
+const getWebpackSplitCache = () => {
+  const { optimize } = loadConfig()
+  if (optimize) {
+    const generateMap: Record<string, string> = require(resolve(getCwd(), './build/generateMap.json'))
+    const webpackMap: Record<string, string[]> = {}
+    for (const fileName in generateMap) {
+      const chunkName = generateMap[fileName]
+      if (!webpackMap[chunkName]) {
+        webpackMap[chunkName] = []
+      }
+      webpackMap[chunkName].push(fileName)
+    }
+    const cacheGroups: Record<string, {
+      name: string
+      test: (module: SSRModule) => boolean | undefined
+    }> = {}
+    for (const chunkName in webpackMap) {
+      const arr = webpackMap[chunkName]
+      if (!cacheGroups[chunkName]) {
+        cacheGroups[chunkName] = {
+          name: chunkName,
+          test: (module) => {
+            if (chunkName === 'void' || !module.nameForCondition?.()) return
+            const nameForCondition = module.nameForCondition?.()
+            return arr.includes(nameForCondition)
+          }
+        }
+      }
+    }
+    return cacheGroups
+  } else {
+    return {
+      vendors: {
+        test: (module: SSRModule) => {
+          return module.resource &&
+            /\.js$/.test(module.resource) &&
+            module.resource.match('node_modules')
+        },
+        name: 'vendor'
+      }
+    }
+  }
+}
+
+const getSplitChunksOptions = (asyncChunkMap: Record<string, string[]>) => {
+  const { optimize } = loadConfig()
+  return {
+    minSize: optimize ? 0 : 2000,
+    chunks: 'all',
+    name (module: SSRModule, chunks: any, cacheGroupKey: string) {
+      return cryptoAsyncChunkName(chunks, asyncChunkMap)
+    },
+    cacheGroups: getWebpackSplitCache()
+  }
 }
 
 const transformConfig = async () => {
@@ -199,5 +261,8 @@ export {
   writeRoutes,
   stringifyDefine,
   judgeServerFramework,
-  judgeVersion
+  judgeVersion,
+  getWebpackSplitCache,
+  getSplitChunksOptions,
+  cleanOutClientDir
 }

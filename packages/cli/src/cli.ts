@@ -102,14 +102,30 @@ yargs
     port: {
       desc: 'Setting application server port, default is 3000'
     },
+    optimize: {
+      alias: 'o',
+      desc: 'Optimize webpack bundle for high performance'
+    },
     ...cliDesc
   }), async (argv: Argv) => {
+    const { logInfo, judgeFramework } = await import('ssr-server-utils')
+    if (!argv.vite && judgeFramework() !== 'ssr-plugin-vue') {
+      logInfo(`
+      In Webpack mode, you can use ssr start --optimize for get high performance bundle but it's experimental at present.
+      For get more stable bundle demand developers use ESM module Syntax like (import / export) instead of CommonJS Syntax (require / module.exports) as possible.
+      If you find some bugs, please submit an issue
+      `)
+    }
     await startFunc(argv)
   })
   .command('build', 'Build application by webpack or vite', yargs => yargs.options({
     analyze: {
       alias: 'a',
       desc: 'Analyze bundle result when using webpack for build'
+    },
+    optimize: {
+      alias: 'o',
+      desc: 'Optimize webpack bundle for high performance'
     },
     vite: {
       desc: 'Build application by vite'
@@ -122,10 +138,16 @@ yargs
     },
     ...cliDesc
   }), async (argv: Argv) => {
+    const { logWarning, judgeFramework, logInfo } = await import('ssr-server-utils')
     if (argv.vite) {
-      const { logWarning } = await import('ssr-server-utils')
       logWarning(`ssr build by vite is beta now, if you find some bugs, please submit an issue or you can use ssr build --vite --legacy which will close manualChunks
       to get a stable bundle result but maybe some performance loss
+      `)
+    } else if (!argv.vite && judgeFramework() !== 'ssr-plugin-vue') {
+      logInfo(`
+      In Webpack mode, you can use ssr build --optimize for get high performance bundle but it's experimental at present.
+      For get more stable bundle demand developers use ESM module Syntax like (import / export) instead of CommonJS Syntax (require / module.exports) as possible.
+      If you find some bugs, please submit an issue
       `)
     }
     await buildFunc(argv)

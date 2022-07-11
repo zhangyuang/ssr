@@ -1,6 +1,6 @@
 {
   "name": "ssr-server-utils",
-  "version": "6.2.39",
+  "version": "6.2.40",
   "description": "utils for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -38,7 +38,6 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "enhanced-resolve": "^5.10.0",
     "es-module-lexer": "^0.9.3",
     "http-proxy-middleware": "^1.0.6",
     "koa2-connect": "^1.0.2",
