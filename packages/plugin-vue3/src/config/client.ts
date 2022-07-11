@@ -3,13 +3,14 @@ import { promises } from 'fs'
 import { resolve } from 'path'
 import { loadConfig, getCwd, getOutputPublicPath, loadModuleFromFramework, getSplitChunksOptions } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
+import { Compiler } from 'webpack'
 import { getBaseConfig } from './base'
 
 const safePostCssParser = require('postcss-safe-parser')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const loadModule = loadModuleFromFramework
-let asyncChunkMap: Record<string, string[]> = {}
+const asyncChunkMap: Record<string, string[]> = {}
 
 const getClientWebpack = (chain: WebpackChain) => {
   const { isDev, chunkName, getOutput, useHash, chainClientConfig, optimize } = loadConfig()
@@ -80,11 +81,7 @@ const getClientWebpack = (chain: WebpackChain) => {
 
   chain.plugin('WriteAsyncManifest').use(
     class WriteAsyncChunkManifest {
-      apply (compiler: any) {
-        compiler.hooks.watchRun.tap('thisCompilation', async () => {
-          // 每次构建前清空上一次的 chunk 信息
-          asyncChunkMap = {}
-        })
+      apply (compiler: Compiler) {
         compiler.hooks.done.tapAsync(
           'WriteAsyncChunkManifest',
           async (params: any, callback: any) => {

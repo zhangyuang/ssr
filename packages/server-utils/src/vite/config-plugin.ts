@@ -149,7 +149,7 @@ const rollupOutputOptions: OutputOptions = {
 const manualChunksFn = (id: string) => {
   if (id.includes('chunkName')) {
     const chunkName = chunkNameRe.exec(id)![1]
-    return chunkName.includes('void') ? undefined : chunkName
+    return chunkName === 'void' ? undefined : chunkName
   }
   if (!process.env.LEGACY_VITE) {
     if (id.includes('node_modules')) {
