@@ -41,7 +41,7 @@ export class WebpackChunkNamePlugin implements WebpackPluginInstance {
                 const rawUrl: string = content.slice(start, end)
                 if (!rawUrl.includes('render')) continue
                 const chunkName = webpackCommentRegExp.exec(rawUrl)![1]
-                const entirePath = ssrResolve(module.context, rawPath)
+                const entirePath = ssrResolve(module.context, rawPath!)
                 if (!entirePath) {
                   throw new Error(`ssr resolve error with resource ${module.resource} and path ${rawPath}`)
                 }
@@ -79,11 +79,11 @@ export class WebpackChunkNamePlugin2 implements WebpackPluginInstance {
           'ChunkNamePlugin',
           (module: SSRModule) => {
             const { resource, context } = module
-            if (module?._source?._value.includes('@/components/search/index.vue')) {
-              console.log('xxx', module)
-            }
             if (!resource || !context) {
               return
+            }
+            if (resource.includes('.vue')) {
+              console.log('xxx', module)
             }
             const pageChunkName = checkOrigin(resource)
             if (pageChunkName || resource.includes('client-entry')) {

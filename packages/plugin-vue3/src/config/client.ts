@@ -94,8 +94,8 @@ const getClientWebpack = (chain: WebpackChain) => {
     chain.plugin('analyze').use(BundleAnalyzerPlugin)
   })
 
-  chain.plugin('WebpackChunkNamePlugin').use(WebpackChunkNamePlugin)
-  chain.plugin('WebpackChunkNamePlugin2').use(WebpackChunkNamePlugin2)
+  // chain.plugin('WebpackChunkNamePlugin').use(WebpackChunkNamePlugin)
+  // chain.plugin('WebpackChunkNamePlugin2').use(WebpackChunkNamePlugin2)
 
   chain.plugin('WriteAsyncManifest').use(
     class WriteAsyncChunkManifest {
