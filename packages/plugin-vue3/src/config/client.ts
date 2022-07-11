@@ -12,7 +12,7 @@ const loadModule = loadModuleFromFramework
 let asyncChunkMap: Record<string, string[]> = {}
 
 const getClientWebpack = (chain: WebpackChain) => {
-  const { isDev, chunkName, getOutput, useHash, chainClientConfig, vue3ClientEntry, optimize } = loadConfig()
+  const { isDev, chunkName, getOutput, useHash, chainClientConfig, optimize } = loadConfig()
   const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
   const publicPath = getOutputPublicPath()
 
@@ -20,7 +20,7 @@ const getClientWebpack = (chain: WebpackChain) => {
 
   chain.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
   chain.entry(chunkName)
-    .add(vue3ClientEntry)
+    .add(require.resolve('../entry/client-entry'))
     .end()
     .output
     .path(getOutput().clientOutPut)

@@ -23,7 +23,7 @@ export function clientPlugin () {
         if (optimize) {
           spinner.start()
           const { viteBuildClient } = await import('./tools/vite')
-          await viteBuildClient('webpack')
+          await viteBuildClient()
           cleanOutClientDir()
           spinner.stop()
         }
