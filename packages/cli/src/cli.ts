@@ -113,7 +113,7 @@ yargs
       logInfo(`
       In Webpack mode, you can use ssr start --optimize for get high performance bundle but it's experimental at present.
       For get more stable bundle demand developers use ESM module Syntax like (import / export) instead of CommonJS Syntax (require / module.exports) as possible.
-      If you find some bugs, please submit an issue
+      If you find some bugs, please submit an issue on https://github.com/zhangyuang/ssr/issues
       `)
     }
     await startFunc(argv)
@@ -140,14 +140,14 @@ yargs
   }), async (argv: Argv) => {
     const { logWarning, judgeFramework, logInfo } = await import('ssr-server-utils')
     if (argv.vite) {
-      logWarning(`ssr build by vite is beta now, if you find some bugs, please submit an issue or you can use ssr build --vite --legacy which will close manualChunks
+      logWarning(`ssr build by vite is beta now, if you find some bugs, please submit an issue on https://github.com/zhangyuang/ssr/issues or you can use ssr build --vite --legacy which will close manualChunks
       to get a stable bundle result but maybe some performance loss
       `)
     } else if (!argv.vite && judgeFramework() !== 'ssr-plugin-vue') {
       logInfo(`
       In Webpack mode, you can use ssr build --optimize for get high performance bundle but it's experimental at present.
       For get more stable bundle demand developers use ESM module Syntax like (import / export) instead of CommonJS Syntax (require / module.exports) as possible.
-      If you find some bugs, please submit an issue
+      If you find some bugs, please submit an issue on https://github.com/zhangyuang/ssr/issues
       `)
     }
     await buildFunc(argv)
