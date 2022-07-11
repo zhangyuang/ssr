@@ -10,8 +10,8 @@ const safePostCssParser = require('postcss-safe-parser')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const loadModule = loadModuleFromFramework
-const asyncChunkMap: Record<string, string[]> = {}
-
+let asyncChunkMap: Record<string, string[]> = {}
+let watchCount = 1
 const getClientWebpack = (chain: WebpackChain) => {
   const { isDev, chunkName, getOutput, useHash, chainClientConfig, optimize } = loadConfig()
   const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
@@ -82,6 +82,13 @@ const getClientWebpack = (chain: WebpackChain) => {
   chain.plugin('WriteAsyncManifest').use(
     class WriteAsyncChunkManifest {
       apply (compiler: Compiler) {
+        compiler.hooks.watchRun.tap('thisCompilation', async () => {
+          // 每次构建前清空上一次的 chunk 信息
+          if (watchCount >= 2) {
+            asyncChunkMap = {}
+          }
+          watchCount++
+        })
         compiler.hooks.done.tapAsync(
           'WriteAsyncChunkManifest',
           async (params: any, callback: any) => {
