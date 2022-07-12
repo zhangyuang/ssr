@@ -101,7 +101,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 }
 
 const manifestPlugin = (): Plugin => {
-  const { getOutput } = loadConfig()
+  const { getOutput, optimize } = loadConfig()
   const { clientOutPut } = getOutput()
   return {
     name: 'manifestPlugin',
@@ -116,7 +116,7 @@ const manifestPlugin = (): Plugin => {
       if (!await accessFile(resolve(clientOutPut))) {
         mkdir(resolve(clientOutPut))
       }
-      await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest, null, 2))
+      !optimize && await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest, null, 2))
       await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
       await promises.writeFile(resolve(getCwd(), './build/generateMap.json'), JSON.stringify(generateMap, null, 2))
     }

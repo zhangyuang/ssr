@@ -1,4 +1,4 @@
-import { loadConfig, cleanOutClientDir } from 'ssr-server-utils'
+import { loadConfig } from 'ssr-server-utils'
 
 const { isVite, optimize } = loadConfig()
 const spinner = require('ora')('Building')
@@ -24,7 +24,6 @@ export function clientPlugin () {
           spinner.start()
           const { viteBuildClient } = await import('./tools/vite')
           await viteBuildClient()
-          cleanOutClientDir()
           spinner.stop()
         }
         const { webpackBuild } = await import('./tools/webpack')
