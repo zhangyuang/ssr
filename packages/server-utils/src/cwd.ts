@@ -51,8 +51,8 @@ const getWebpackSplitCache = () => {
           name: chunkName,
           test: (module) => {
             if (chunkName === 'void' || !module.nameForCondition?.()) return
-            const nameForCondition = module.nameForCondition?.()
-            return arr.includes(nameForCondition)
+            const nameForCondition = module.nameForCondition()
+            return checkContains(arr, nameForCondition)
           }
         }
       }
@@ -70,6 +70,15 @@ const getWebpackSplitCache = () => {
       }
     }
   }
+}
+
+const checkContains = (arr: string[], name: string) => {
+  for (const val of arr) {
+    if (val.includes(name)) {
+      return true
+    }
+  }
+  return false
 }
 
 const getSplitChunksOptions = (asyncChunkMap: {
