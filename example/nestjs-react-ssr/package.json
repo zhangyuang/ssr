@@ -35,6 +35,7 @@
     "start": "ssr start",
     "start:vite": "ssr start --vite",
     "build": "ssr build",
+    "build:o": "ssr build --optimize",
     "build:vite": "ssr build --vite",
     "deploy": "ssr build && ssr deploy",
     "lint": "eslint . --ext .js,.tsx,.ts --cache",
