@@ -72,13 +72,15 @@ const getWebpackSplitCache = () => {
   }
 }
 
-const getSplitChunksOptions = (asyncChunkMap: Record<string, string[]>) => {
+const getSplitChunksOptions = (asyncChunkMap: {
+  val: Record<string, string[]>
+}) => {
   const { optimize } = loadConfig()
   return {
     minSize: optimize ? 0 : 2000,
     chunks: 'all',
     name (module: SSRModule, chunks: any, cacheGroupKey: string) {
-      return cryptoAsyncChunkName(chunks, asyncChunkMap)
+      return cryptoAsyncChunkName(chunks, asyncChunkMap.val)
     },
     cacheGroups: getWebpackSplitCache()
   }

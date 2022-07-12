@@ -11,8 +11,11 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const loadModule = loadModuleFromFramework
-let asyncChunkMap: Record<string, string[]> = {}
-let watchCount = 1
+const asyncChunkMap: {
+  val: Record<string, string[]>
+} = {
+  val: {}
+}
 const getClientWebpack = (chain: WebpackChain) => {
   const { isDev, chunkName, getOutput, cwd, useHash, chainClientConfig, host, fePort, optimize } = loadConfig()
   const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
@@ -91,18 +94,14 @@ const getClientWebpack = (chain: WebpackChain) => {
   chain.plugin('WriteAsyncManifest').use(
     class WriteAsyncChunkManifest {
       apply (compiler: Compiler) {
-        compiler.hooks.watchRun.tap('thisCompilation', async () => {
-          // 每次构建前清空上一次的 chunk 信息
-          if (watchCount >= 2) {
-            asyncChunkMap = {}
-          }
-          watchCount++
+        compiler.hooks.watchRun.tap('ClearLastAsyncChunkMap', async () => {
+          asyncChunkMap.val = {}
         })
         compiler.hooks.done.tapAsync(
           'WriteAsyncChunkManifest',
           async (params: any, callback: any) => {
             if (!optimize) {
-              await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap))
+              await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap.val))
             }
             callback()
           }

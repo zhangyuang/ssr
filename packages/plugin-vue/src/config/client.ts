@@ -10,8 +10,11 @@ const safePostCssParser = require('postcss-safe-parser')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const loadModule = loadModuleFromFramework
-let asyncChunkMap: Record<string, string[]> = {}
-let watchCount = 1
+const asyncChunkMap: {
+  val: Record<string, string[]>
+} = {
+  val: {}
+}
 
 const getClientWebpack = (chain: WebpackChain) => {
   const { isDev, chunkName, getOutput, useHash, chainClientConfig } = loadConfig()
@@ -34,7 +37,7 @@ const getClientWebpack = (chain: WebpackChain) => {
     .splitChunks({
       chunks: 'all',
       name (module: any, chunks: any, cacheGroupKey: string) {
-        return cryptoAsyncChunkName(chunks, asyncChunkMap)
+        return cryptoAsyncChunkName(chunks, asyncChunkMap.val)
       },
       cacheGroups: {
         vendors: {
@@ -95,17 +98,13 @@ const getClientWebpack = (chain: WebpackChain) => {
   chain.plugin('WriteAsyncManifest').use(
     class WriteAsyncChunkManifest {
       apply (compiler: Compiler) {
-        compiler.hooks.watchRun.tap('thisCompilation', async () => {
-          // 每次构建前清空上一次的 chunk 信息
-          if (watchCount >= 2) {
-            asyncChunkMap = {}
-          }
-          watchCount++
+        compiler.hooks.watchRun.tap('ClearLastAsyncChunkMap', async () => {
+          asyncChunkMap.val = {}
         })
         compiler.hooks.done.tapAsync(
           'WriteAsyncChunkManifest',
           async (params: any, callback: any) => {
-            await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap))
+            await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap.val))
             callback()
           }
         )
