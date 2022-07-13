@@ -178,7 +178,7 @@ const commonConfig = (): UserConfig => {
   return {
     root: cwd,
     mode: 'development',
-    ...(optimize ? { logLevel: 'silent' } : {}),
+    ...(optimize ? { logLevel: 'error' } : {}),
     server: {
       middlewareMode: 'ssr' as SSR,
       hmr,
