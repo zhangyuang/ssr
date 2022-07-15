@@ -3,7 +3,7 @@ import { Store } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { findRoute, isMicro } from 'ssr-client-utils'
 import { setStore } from 'ssr-common-utils'
-import { createPinia } from 'pinia'
+import { createPinia, Pinia } from 'pinia'
 import { createRouter, createStore } from './create'
 import { ESMFetch, IFeRouteItem, RoutesType } from './interface'
 import { Routes } from './combine-router'
@@ -12,13 +12,13 @@ const { FeRoutes, App, layoutFetch } = Routes as RoutesType
 declare const module: any
 
 let hasRender = false
-async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<any>, router: RouteLocationNormalizedLoaded) {
-  const layoutFetchData = layoutFetch ? await layoutFetch({ store, router }) : {}
+async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<any>, router: RouteLocationNormalizedLoaded, pinia: Pinia) {
+  const layoutFetchData = layoutFetch ? await layoutFetch({ store, router, pinia }) : {}
   let fetchData = {}
 
   if (fetch) {
     const fetchFn = await fetch()
-    fetchData = await fetchFn.default({ store, router })
+    fetchData = await fetchFn.default({ store, router, pinia })
   }
   return Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
 }
@@ -65,7 +65,7 @@ const clientRender = async () => {
     if (hasRender || !window.__USE_SSR__) {
       // 找到要进入的组件并提前执行 fetch 函数
       const { fetch } = findRoute<IFeRouteItem>(FeRoutes, to.path)
-      const combineAysncData = await getAsyncCombineData(fetch, store, to)
+      const combineAysncData = await getAsyncCombineData(fetch, store, to, pinia)
       to.matched?.forEach(item => {
         item.props.default = Object.assign({}, item.props.default ?? {}, {
           fetchData: combineAysncData

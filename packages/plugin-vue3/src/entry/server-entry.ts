@@ -109,12 +109,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     // don't need getData when csr
     if (parallelFetch) {
       [layoutFetchData, fetchData] = await Promise.all([
-        layoutFetch ? layoutFetch({ store, router: router.currentRoute.value, ctx }, ctx) : Promise.resolve({}),
-        currentFetch ? currentFetch({ store, router: router.currentRoute.value, ctx }, ctx) : Promise.resolve({})
+        layoutFetch ? layoutFetch({ store, router: router.currentRoute.value, ctx, pinia }, ctx) : Promise.resolve({}),
+        currentFetch ? currentFetch({ store, router: router.currentRoute.value, ctx, pinia }, ctx) : Promise.resolve({})
       ])
     } else {
-      layoutFetchData = layoutFetch ? await layoutFetch({ store, router: router.currentRoute.value, ctx }, ctx) : {}
-      fetchData = currentFetch ? await currentFetch({ store, router: router.currentRoute.value, ctx }, ctx) : {}
+      layoutFetchData = layoutFetch ? await layoutFetch({ store, router: router.currentRoute.value, ctx, pinia }, ctx) : {}
+      fetchData = currentFetch ? await currentFetch({ store, router: router.currentRoute.value, ctx, pinia }, ctx) : {}
     }
   } else {
     logGreen(`Current path ${path} use csr render mode`)

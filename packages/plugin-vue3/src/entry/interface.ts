@@ -2,8 +2,9 @@ import { VNode } from 'vue'
 import { Store, StoreOptions } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { ESMFeRouteItem, ISSRContext } from 'ssr-types'
+import { Pinia } from 'pinia'
 
-export interface Params {store: Store<any>, router: RouteLocationNormalizedLoaded, ctx?: ISSRContext}
+export interface Params {store: Store<any>, router: RouteLocationNormalizedLoaded, ctx?: ISSRContext, pinia: Pinia }
 
 export type Fetch = (params: Params, ctx?: ISSRContext) => Promise<any>
 export type ESMFetch = () => Promise<{
