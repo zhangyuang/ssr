@@ -61,7 +61,8 @@ const loadConfig = (): IConfig => {
   const fePort = userConfig.fePort ?? 8999
 
   const hmr = Object.assign({
-    host: '127.0.0.1'
+    host: '127.0.0.1',
+    protocol: 'ws'
   }, userConfig.hmr)
 
   let https = userConfig.https ? userConfig.https : !!process.env.HTTPS
