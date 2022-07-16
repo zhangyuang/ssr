@@ -4,8 +4,8 @@ import { ISSRContext, IConfig } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
 import { setStore } from 'ssr-common-utils'
 import { Routes } from './create-router'
-import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
+import { IFeRouteItem, RoutesType } from '../types'
 
 const { FeRoutes, App, layoutFetch, Layout } = Routes as RoutesType
 

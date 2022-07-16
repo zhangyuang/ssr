@@ -1,10 +1,24 @@
 import { VNode } from 'vue'
 import { Store, StoreOptions } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
-import { ESMFeRouteItem, ISSRContext } from 'ssr-types'
+import { ISSRMidwayKoaContext, ISSRNestContext, ISSRContext, ESMFeRouteItem } from 'ssr-types'
 import { Pinia } from 'pinia'
 
-export interface Params {store: Store<any>, router: RouteLocationNormalizedLoaded, ctx?: ISSRContext, pinia: Pinia }
+export interface ParamsKoa<T=any, U=any> {
+  store: Store<T>
+  router: RouteLocationNormalizedLoaded
+  ctx?: ISSRMidwayKoaContext<U>
+  pinia: Pinia
+}
+
+export interface ParamsNest<T=any, U=any> {
+  store: Store<T>
+  router: RouteLocationNormalizedLoaded
+  ctx?: ISSRNestContext<U>
+  pinia: Pinia
+}
+
+export type Params = ParamsKoa | ParamsNest
 
 export type Fetch = (params: Params, ctx?: ISSRContext) => Promise<any>
 export type ESMFetch = () => Promise<{

@@ -1,9 +1,7 @@
 import { Component } from 'vue'
 import { Store, StoreOptions } from 'vuex'
 import { Route } from 'vue-router'
-import { ESMFeRouteItem, ISSRContext } from 'ssr-types'
-
-export interface Params {store: Store<any>, router: Route, ctx?: ISSRContext}
+import { ESMFeRouteItem, ISSRContext, ISSRMidwayKoaContext, ISSRNestContext } from 'ssr-types'
 
 export type Fetch = (params: Params, ctx?: ISSRContext) => Promise<any>
 export type ESMFetch = () => Promise<{
@@ -13,6 +11,19 @@ export type ESMFetch = () => Promise<{
 export type IFeRouteItem = ESMFeRouteItem<{
   fetch?: ESMFetch
 }>
+
+export interface ParamsNest<T=any, U=any> {
+  store: Store<T>
+  router: Route
+  ctx?: ISSRNestContext<U>
+}
+
+export interface ParamsKoa<T=any, U=any> {
+  store: Store<T>
+  router: Route
+  ctx?: ISSRMidwayKoaContext<U>
+}
+export type Params = ParamsKoa | ParamsNest
 
 export interface RoutesType {
   Layout: Component

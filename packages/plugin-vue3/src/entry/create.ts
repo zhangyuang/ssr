@@ -3,7 +3,7 @@ import { createRouter as create, createWebHistory, createMemoryHistory, createWe
 import { createStore as createVuexStore } from 'vuex'
 import { deepClone } from 'ssr-deepclone'
 import { Routes } from './combine-router'
-import { RoutesType, VueRouterOptions } from './interface'
+import { RoutesType, VueRouterOptions } from '../types'
 
 const { store, FeRoutes } = Routes as RoutesType
 function createRouter (options: VueRouterOptions&{hashRouter: boolean} = {}) {

@@ -6,8 +6,8 @@ import { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
 import { serialize } from 'ssr-serialize-javascript'
 import { Routes } from './combine-router'
-import { IFeRouteItem, RoutesType } from './interface'
 import { createRouter, createStore } from './create'
+import { IFeRouteItem, RoutesType } from '../types'
 
 const { FeRoutes, App, layoutFetch, Layout } = Routes as RoutesType
 

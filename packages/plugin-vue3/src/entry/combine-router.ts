@@ -2,7 +2,8 @@
 import * as declareRoutes from '_build/ssr-declare-routes'
 // @ts-expect-error
 import * as ManualRoutes from '_build/ssr-manual-routes'
-import { RoutesType } from './interface'
+import { RoutesType } from '../types'
+
 const declareRoutesWithType = declareRoutes as RoutesType
 const ManualRoutesWithType = ManualRoutes as RoutesType
 

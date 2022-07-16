@@ -1,9 +1,7 @@
-import { Store } from 'vuex'
-import { RouteLocationNormalizedLoaded } from 'vue-router'
-import { ISSRNestContext } from 'ssr-types'
-import { Pinia } from 'pinia'
+import type { ParamsNest } from 'ssr-plugin-vue3'
+import { IndexData } from './page-index'
+import { Ddata } from './detail-index'
 
-import { IndexData, Ddata } from '~/typings/data'
 interface IApiService {
   index: () => Promise<IndexData>
 }
@@ -11,12 +9,7 @@ interface ApiDeatilservice {
   index: (id: string) => Promise<Ddata>
 }
 
-export interface Params {
-  store: Store<any>
-  router: RouteLocationNormalizedLoaded
-  ctx?: ISSRNestContext<{
-    apiService?: IApiService,
-    apiDeatilservice?: ApiDeatilservice
-  }>
-  pinia: Pinia
-}
+export type Params = ParamsNest<any, {
+  apiService: IApiService
+  apiDeatilservice: ApiDeatilservice
+}>

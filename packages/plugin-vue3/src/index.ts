@@ -34,3 +34,4 @@ export function clientPlugin () {
 }
 
 export * from './tools/vite'
+export * from './types'

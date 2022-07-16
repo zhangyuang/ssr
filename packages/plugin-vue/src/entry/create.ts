@@ -4,7 +4,7 @@ import * as Router from 'vue-router'
 // @ts-expect-error
 import { deepClone } from 'ssr-deepclone'
 import { Routes } from './create-router'
-import { VueRouterOptions } from './interface'
+import { VueRouterOptions } from '../types'
 
 // without tsconfig esModuleInterop options must use the compatible syntax
 const RealVue = Vue.default || Vue

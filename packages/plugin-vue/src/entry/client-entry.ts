@@ -3,7 +3,7 @@ import { Route } from 'vue-router'
 import { findRoute, isMicro } from 'ssr-client-utils'
 import { setStore } from 'ssr-common-utils'
 import { Routes } from './create-router'
-import { ESMFetch, RoutesType, IFeRouteItem } from './interface'
+import { ESMFetch, RoutesType, IFeRouteItem } from '../types'
 import { createRouter, createStore, RealVue } from './create'
 
 const { FeRoutes, App, layoutFetch } = Routes as RoutesType
