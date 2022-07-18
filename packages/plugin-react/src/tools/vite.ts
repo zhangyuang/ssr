@@ -115,7 +115,7 @@ const viteBuild = async () => {
 }
 
 const viteBuildClient = async () => {
-  await build({ ...clientConfig, mode: 'production' })
+  await build({ ...clientConfig, mode: 'production' }).catch(_ => {})
 }
 const viteBuildServer = async () => {
   await build({ ...serverConfig, mode: 'production' })
