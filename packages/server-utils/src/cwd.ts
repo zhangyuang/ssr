@@ -81,6 +81,15 @@ const checkContains = (arr: string[], name: string) => {
   return false
 }
 
+const checkContainsRev = (arr: string[], name: string) => {
+  for (const val of arr) {
+    if (name.includes(val)) {
+      return true
+    }
+  }
+  return false
+}
+
 const getSplitChunksOptions = (asyncChunkMap: {
   val: Record<string, string[]>
 }) => {
@@ -275,5 +284,6 @@ export {
   judgeVersion,
   getWebpackSplitCache,
   getSplitChunksOptions,
-  cleanOutClientDir
+  cleanOutClientDir,
+  checkContainsRev
 }

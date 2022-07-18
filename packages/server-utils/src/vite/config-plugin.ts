@@ -7,7 +7,7 @@ import type { OutputOptions, PreRenderedChunk } from 'rollup'
 import { mkdir } from 'shelljs'
 import { loadConfig } from '../loadConfig'
 import { getOutputPublicPath } from '../parse'
-import { getCwd, cryptoAsyncChunkName, accessFile } from '../cwd'
+import { getCwd, cryptoAsyncChunkName, accessFile, checkContainsRev } from '../cwd'
 
 const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
 const chunkNameRe = /chunkName=(.*)/
@@ -49,6 +49,7 @@ const chunkNamePlugin = function (): Plugin {
   }
 }
 const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router', 'react-router-dom', 'react-dom', '@vue', 'ssr-client-utils', 'ssr-common-utils', 'pinia']
+const entryList = ['__vite-browser-external']
 const re = /node_modules(\\|\/)(.*?)(\1)/
 const recordInfo = (id: string, chunkName: string, defaultChunkName?: string) => {
   if (!dependenciesMap[id]) {
@@ -159,7 +160,7 @@ const manualChunksFn = (id: string) => {
       dependenciesMap[id].push('vendor')
     }
     const arr = Array.from(new Set(dependenciesMap?.[id]))
-    if (arr.includes('common-vendor')) {
+    if (arr.includes('common-vendor') || checkContainsRev(entryList, id)) {
       return 'common-vendor'
     } else if (arr.includes('client-entry')) {
       return
