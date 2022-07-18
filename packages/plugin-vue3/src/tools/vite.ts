@@ -86,7 +86,7 @@ const clientConfig: UserConfig = {
       ...viteConfig?.().client?.otherConfig?.build?.rollupOptions,
       input: vue3ClientEntry,
       output: rollupOutputOptions,
-      plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), generateMapPlugin(), optimize ? undefined : manifestPlugin()]
+      plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), generateMapPlugin(), manifestPlugin()]
     }
   },
   define: {

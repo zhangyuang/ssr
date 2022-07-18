@@ -96,7 +96,7 @@ const clientConfig: UserConfig = {
       ...viteConfig?.().client?.otherConfig?.build?.rollupOptions,
       input: reactClientEntry,
       output: rollupOutputOptions,
-      plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), generateMapPlugin(), optimize ? undefined : manifestPlugin()]
+      plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), generateMapPlugin(), manifestPlugin()]
     }
   },
   define: {

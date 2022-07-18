@@ -119,11 +119,12 @@ const debounce = (func: Function, wait: number) => {
 }
 
 const manifestPlugin = (): Plugin => {
-  const { getOutput } = loadConfig()
+  const { getOutput, optimize } = loadConfig()
   const { clientOutPut } = getOutput()
   return {
     name: 'manifestPlugin',
     async generateBundle (_, bundles) {
+      if (optimize) return
       const manifest: Record<string, string> = {}
       for (const bundle in bundles) {
         const val = bundle
