@@ -1,4 +1,5 @@
 import { promises } from 'fs'
+import { EventEmitter } from 'events'
 import { resolve } from 'path'
 import type { UserConfig, Plugin } from 'vite'
 import { parse as parseImports } from 'es-module-lexer'
@@ -9,6 +10,7 @@ import { loadConfig } from '../loadConfig'
 import { getOutputPublicPath } from '../parse'
 import { getCwd, cryptoAsyncChunkName, accessFile, checkContainsRev } from '../cwd'
 
+const writeEmitter = new EventEmitter()
 const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
 const chunkNameRe = /chunkName=(.*)/
 const imageRegExp = /\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/
@@ -102,12 +104,13 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 }
 
 const generateMapPlugin = (): Plugin => {
+  const fn = write()
   return {
     name: 'generateMapPlugin',
     async transform (this, code, id) {
       const res = manualChunksFn(id)
       generateMap[id] = res ?? 'void'
-      write()
+      await fn()
     }
   }
 }
@@ -140,11 +143,19 @@ const manifestPlugin = (): Plugin => {
     }
   }
 }
-
-const write = debounce(async () => {
-  await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
-  await promises.writeFile(resolve(getCwd(), './build/generateMap.json'), JSON.stringify(generateMap, null, 2))
-}, 300)
+let hasWritten = false
+const write = () => {
+  const { writeDebounceTime } = loadConfig()
+  return debounce(async () => {
+    if (hasWritten) {
+      throw new Error('generateMap has been written over twice, please check your machine performance, or add config.writeDebounceTime')
+    }
+    hasWritten = true
+    await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
+    await promises.writeFile(resolve(getCwd(), './build/generateMap.json'), JSON.stringify(generateMap, null, 2))
+    writeEmitter.emit('writeEnd')
+  }, writeDebounceTime)
+}
 
 const rollupOutputOptions: OutputOptions = {
   entryFileNames: (chunkInfo: PreRenderedChunk) => {
@@ -233,5 +244,6 @@ export {
   rollupOutputOptions,
   commonConfig,
   asyncOptimizeChunkPlugin,
-  generateMapPlugin
+  generateMapPlugin,
+  writeEmitter
 }

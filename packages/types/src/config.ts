@@ -124,6 +124,7 @@ export interface IConfig {
   babelOptions?: RollupBabelInputPluginOptions
   hashRouter?: boolean
   htmlTemplate?: string
+  writeDebounceTime: number
 }
 
 export interface proxyOptions {

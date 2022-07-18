@@ -1,4 +1,4 @@
-import { loadConfig } from 'ssr-server-utils'
+import { loadConfig, writeEmitter } from 'ssr-server-utils'
 
 const { isVite, optimize } = loadConfig()
 const spinner = require('ora')('Building')
@@ -21,13 +21,19 @@ export function clientPlugin () {
         await viteBuild()
       } else {
         if (optimize) {
+          writeEmitter.on('writeEnd', async () => {
+            writeEmitter.removeAllListeners()
+            const { webpackBuild } = await import('./tools/webpack')
+            await webpackBuild()
+          })
           spinner.start()
           const { viteBuildClient } = await import('./tools/vite')
           await viteBuildClient()
           spinner.stop()
+        } else {
+          const { webpackBuild } = await import('./tools/webpack')
+          await webpackBuild()
         }
-        const { webpackBuild } = await import('./tools/webpack')
-        await webpackBuild()
       }
     }
   }

@@ -124,7 +124,7 @@ const loadConfig = (): IConfig => {
     clientOutPut: join(cwd, './build/client'),
     serverOutPut: join(cwd, './build/server')
   })
-
+  const writeDebounceTime = 500
   const webpackDevServerConfig = Object.assign({
     stats: webpackStatsOption,
     disableInfo: true, // 关闭webpack-dev-server 自带的server Info信息
@@ -195,7 +195,8 @@ const loadConfig = (): IConfig => {
     supportOptinalChaining,
     define,
     prefix,
-    optimize
+    optimize,
+    writeDebounceTime
   }, userConfig)
   config.alias = alias
   config.prefix = normalizeStartPath(config.prefix ?? '/')
