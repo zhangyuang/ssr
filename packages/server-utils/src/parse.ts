@@ -2,7 +2,7 @@ import { promises as fs } from 'fs'
 import { join } from 'path'
 import { ParseFeRouteItem } from 'ssr-types'
 import { normalizeEndPath } from 'ssr-common-utils'
-import { getFeDir, accessFile, writeRoutes, cpManualRoutes, getPagesDir } from './cwd'
+import { getFeDir, accessFile, writeRoutes, cpManualRoutes, getPagesDir, judgeFramework } from './cwd'
 import { loadConfig } from './loadConfig'
 
 export const getOutputPublicPath = () => {
@@ -25,6 +25,7 @@ export const getImageOutputPath = () => {
 const parseFeRoutes = async () => {
   const dir = getPagesDir()
   const { dynamic, routerPriority, routerOptimize } = loadConfig()
+  const framework = judgeFramework()
   // 根据目录结构生成前端路由表
   const pathRecord = [''] // 路径记录
   // @ts-expect-error
@@ -56,14 +57,15 @@ const parseFeRoutes = async () => {
   const layoutFetch = await accessFile(join(getFeDir(), './components/layout/fetch.ts'))
   const accessStore = await accessFile(join(getFeDir(), './store/index.ts'))
   const re = /"webpackChunkName":("(.+?)")/g
-
+  const isReact = framework === 'ssr-plugin-react'
   let routes = `
       // The file is provisional which will be overwritten when restart
       export const FeRoutes = ${JSON.stringify(arr)} 
       export { default as Layout } from "${layoutPath}"
       export { default as App } from "${AppPath}"
       ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch"' : ''}
-      ${accessStore ? 'export * as store from "@/store/index"' : ''}
+      ${accessStore && !isReact ? 'export * as store from "@/store/index"' : ''}
+      ${accessStore && isReact ? 'export * from "@/store/index"' : ''}
       `
   routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
     const currentWebpackChunkName = re.exec(routes)![2]
