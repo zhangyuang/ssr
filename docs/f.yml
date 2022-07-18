@@ -11,12 +11,6 @@ custom: # 发布后自动生成测试域名
   customDomain:
     domainName: auto
 
-aggregation: # 聚合成一个函数发布
-  ssr: # 聚合函数的名称
-    deployOrigin: false
-    functionsPattern:
-      - '*'
-
 package:
   include:
     - build
