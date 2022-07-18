@@ -1,6 +1,6 @@
 {
   "name": "ssr-server-utils",
-  "version": "6.2.47",
+  "version": "6.2.48",
   "description": "utils for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
