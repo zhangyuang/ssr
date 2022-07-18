@@ -104,6 +104,7 @@ const generateMapPlugin = (): Plugin => {
   return {
     name: 'generateMapPlugin',
     load (this, id) {
+      console.log('xxx')
       const res = manualChunksFn(id)
       generateMap[id] = res ?? 'void'
     }
@@ -134,6 +135,10 @@ const manifestPlugin = (): Plugin => {
         mkdir(resolve(clientOutPut))
       }
       await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest, null, 2))
+      await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
+      console.log('xxx', Object.keys(generateMap).length)
+
+      await promises.writeFile(resolve(getCwd(), './build/generateMap.json'), JSON.stringify(generateMap, null, 2))
     }
   }
 }
@@ -141,8 +146,8 @@ const manifestPlugin = (): Plugin => {
 const writeManualChunkMapPlugin = (): Plugin => {
   return {
     name: 'writeManualChunkMapPlugin',
-    async  generateBundle () {
-      console.log('xxx', generateMap)
+    moduleParsed () {
+      // console.log('xxx', Object.keys(generateMap).length)
       // await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
       // await promises.writeFile(resolve(getCwd(), './build/generateMap.json'), JSON.stringify(generateMap, null, 2))
     }
