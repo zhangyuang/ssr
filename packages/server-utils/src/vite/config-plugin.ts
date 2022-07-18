@@ -100,8 +100,25 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
   }
 }
 
+const generateMapPlugin = (): Plugin => {
+  return {
+    name: 'generateMapPlugin',
+    load (this, id) {
+      const res = manualChunksFn(id)
+      generateMap[id] = res ?? 'void'
+    }
+  }
+}
+// const debounce = (func: Function, wait: number) => {
+//   let timer: NodeJS.Timeout
+//   return () => {
+//     clearTimeout(timer)
+//     timer = setTimeout(func, wait)
+//   }
+// }
+
 const manifestPlugin = (): Plugin => {
-  const { getOutput, optimize } = loadConfig()
+  const { getOutput } = loadConfig()
   const { clientOutPut } = getOutput()
   return {
     name: 'manifestPlugin',
@@ -116,12 +133,22 @@ const manifestPlugin = (): Plugin => {
       if (!await accessFile(resolve(clientOutPut))) {
         mkdir(resolve(clientOutPut))
       }
-      !optimize && await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest, null, 2))
-      await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
-      await promises.writeFile(resolve(getCwd(), './build/generateMap.json'), JSON.stringify(generateMap, null, 2))
+      await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest, null, 2))
     }
   }
 }
+
+const writeManualChunkMapPlugin = (): Plugin => {
+  return {
+    name: 'writeManualChunkMapPlugin',
+    async  generateBundle () {
+      console.log('xxx', generateMap)
+      // await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
+      // await promises.writeFile(resolve(getCwd(), './build/generateMap.json'), JSON.stringify(generateMap, null, 2))
+    }
+  }
+}
+
 const rollupOutputOptions: OutputOptions = {
   entryFileNames: (chunkInfo: PreRenderedChunk) => {
     for (const id in chunkInfo.modules) {
@@ -140,9 +167,8 @@ const rollupOutputOptions: OutputOptions = {
     return '[name].[hash].chunk.[ext]'
   },
   manualChunks: (id: string) => {
-    const res = manualChunksFn(id)
-    generateMap[id] = res ?? 'void'
-    return res
+    console.log('manual')
+    return generateMap[id] ?? 'void'
   }
 }
 
@@ -178,7 +204,7 @@ const commonConfig = (): UserConfig => {
   return {
     root: cwd,
     mode: 'development',
-    ...(optimize ? { logLevel: 'error' } : {}),
+    ...(optimize ? { logLevel: 'slient' } : {}),
     server: {
       middlewareMode: 'ssr' as SSR,
       hmr,
@@ -210,5 +236,7 @@ export {
   manifestPlugin,
   rollupOutputOptions,
   commonConfig,
-  asyncOptimizeChunkPlugin
+  asyncOptimizeChunkPlugin,
+  generateMapPlugin,
+  writeManualChunkMapPlugin
 }

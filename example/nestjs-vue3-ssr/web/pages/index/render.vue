@@ -21,3 +21,11 @@ import Search from '@/components/search/index.vue'
 const indexData = mapState<IndexData>().indexStore.value.data
 
 </script>
+
+<style lang="less">
+// @red-lt:   #000;
+
+.red {
+  color: @red-lt;
+}
+</style>
