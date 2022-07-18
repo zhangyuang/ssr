@@ -164,7 +164,7 @@ const rollupOutputOptions: OutputOptions = {
     return '[name].[hash].chunk.[ext]'
   },
   manualChunks: (id: string) => {
-    return generateMap[id] ?? 'void'
+    return generateMap[id] === 'void' ? undefined : generateMap[id]
   }
 }
 
