@@ -26,8 +26,8 @@ export function clientPlugin () {
           await viteBuildClient()
           spinner.stop()
         }
-        // const { webpackBuild } = await import('./tools/webpack')
-        // await webpackBuild()
+        const { webpackBuild } = await import('./tools/webpack')
+        await webpackBuild()
       }
     }
   }
