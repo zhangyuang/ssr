@@ -58,7 +58,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-      - run: cd docs && npm i && cat node_modules/ssr-plugin-vue3/package.json && npm run deploy
+      - run: cd docs && npm i && npm run deploy
         env:
           SERVERLESS_DEPLOY_AK: ${{ secrets.SERVERLESS_DEPLOY_AK }}
           SERVERLESS_DEPLOY_ENDPOINT: ${{ secrets.SERVERLESS_DEPLOY_ENDPOINT }}
