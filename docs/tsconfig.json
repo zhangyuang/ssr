@@ -11,18 +11,22 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "stripInternal": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
     "pretty": true,
     "declaration": true,
+    "jsx": "preserve",
     "outDir": "dist",
     "typeRoots": [ "./typings", "./node_modules/@types"],
-    "skipLibCheck": true
+    "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./web/*"],
+      "~src/*": ["./src/*"],
+      "_build/*": ["./build/*"]
+    }
   },
-  "exclude": [
-    "dist",
-    "node_modules",
-    "test",
-    "web",
-    "build"
+  "include": [
+    "src",
+    "web"
   ]
 }
-

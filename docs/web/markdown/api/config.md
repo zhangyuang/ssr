@@ -15,7 +15,7 @@ import { render } from 'ssr-core-vue3'
 const stream = await render<Readable>(this.ctx, userConfig)
 ```
 
-## mode
+## mode🤔
 
 渲染模式
 
@@ -25,7 +25,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 通过渲染模式来决定当前应用采用服务端渲染还是客户端渲染
 
-## stream
+## stream🤔
 
 - 类型: `boolean`
 - 默认: `false`
@@ -33,14 +33,14 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 是否将组件编译为 `stream` 进行返回来加快展现速度。默认为 `false`, 即返回普通 `html` 字符串
 
-## alias
+## alias🤔
 
 - 类型: `Record<string, string>`
 - 默认: `undefined`
 - 生效场景: `Webpack/Vite` 
 
 配置 `alias` 别名
-## isDev
+## isDev🤔
 
 - 类型: `boolean`
 - 默认: `false`
@@ -48,7 +48,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 标志当前运行环境，根据 `NODE_ENV === development` 判断
 
-## publicPath
+## publicPath🤔
 
 - 类型: `string`
 - 默认: `/`
@@ -56,7 +56,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 静态资源的 `publicPath`, 本地开发环境一般无需配置。生产环境若走本地静态资源目录也无需配置。若需要走单独的 `CDN` 服务部署可配置为具体的 `CDN` 地址例如 `https://g.alicdn.com/path/xxx`
 
-## useHash
+## useHash🤔
 
 - 类型: `boolean`
 - 默认: `true`
@@ -64,7 +64,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 构建产物是否带有 `hash`，默认生产环境开启，不建议关闭
 
-## serverPort
+## serverPort🤔
 
 - 类型: `number`
 - 默认: `3000`
@@ -72,7 +72,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 本地开发时 `Node.js` 服务启动监听的端口, 也可以通过环境变量指定 `SERVER_PORT=9000 ssr start`
 
-## fePort
+## fePort🤔
 
 - 类型: `number`
 - 默认: `8999`
@@ -88,7 +88,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 静态资源构建时默认的 `entry` 名, 默认为 `Page`。无特殊需求不需要修改 -->
 
-## define
+## define🤔
 
 - 类型: `{define?: {
     base?: Record<string, string>
@@ -100,7 +100,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 添加通用 `definePlugin` 配置，在双端皆可生效。兼容 `Webpack/Vite` 场景
 
-## extraJsOrder
+## extraJsOrder🤔
 
 - 类型: `((ctx: ISSRContext) => string[]) | string[]`
 - 默认: `[]`
@@ -151,7 +151,7 @@ export { userConfig }
 
 ```
 
-## extraCssOrder
+## extraCssOrder🤔
 
 - 类型: `((ctx: ISSRContext) => string[]) | string[]`
 - 默认: `[]`
@@ -166,7 +166,7 @@ module.exports = {
 }
 ```
 
-## babelOptions
+## babelOptions🤔
 
 - 类型: `babelCore.transformOptions`
 - 默认: `undefined`
@@ -185,7 +185,7 @@ export {
 ```
 
 
-## webpackDevServerConfig
+## webpackDevServerConfig🤔
 
 - 类型: `webpackDevServer.Configuration`
 - 默认: `见文章上方具体配置文件`
@@ -193,7 +193,7 @@ export {
 
 `webpack-dev-server` 启动配置
 
-## chainBaseConfig
+## chainBaseConfig🤔
 
 - 类型: `(config: WebpackChain) => void`
 - 默认: [React](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-react/src/config/base.ts) [Vue](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue/src/config/base.ts) [Vue3](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/config/base.ts)
@@ -218,7 +218,7 @@ module.exports = {
 }
 ```
 
-## chainServerConfig
+## chainServerConfig🤔
 
 - 类型: `(config: WebpackChain) => void`
 - 默认: [React](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-react/src/config/server.ts) [Vue](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue/src/config/server.ts) [Vue3](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/config/server.ts)
@@ -226,7 +226,7 @@ module.exports = {
 
 使用 [webpack-chain](https://github.com/neutrinojs/webpack-chain) 来修改 `服务端` 公共的 `Webpack` 构建配置
 
-## chainClientConfig
+## chainClientConfig🤔
 
 - 类型: `(config: WebpackChain) => void`
 - 默认: [React](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-react/src/config/client.ts) [Vue](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue/src/config/client.ts) [Vue3](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/config/client.ts)
@@ -234,7 +234,7 @@ module.exports = {
 
 使用 [webpack-chain](https://github.com/neutrinojs/webpack-chain) 来修改 `客户端` 公共的 `Webpack` 构建配置
 
-## whiteList
+## whiteList🤔
 
 - 类型: `RegExp[]|string[]`
 - 默认: `[/\.(css|less|sass|scss)$/]`
@@ -253,7 +253,7 @@ module.exports = {
 为前端路由添加统一的 `prefix`, 如 `/${prefix}/`, `/${prefix}/detail/:id`。在功能上等价于 `React-Router` 提供的 `basename` 以及 `Vue-Router` 提供的 `base` 选项。  
 同样在设置完该参数后，前端路由的跳转操作都会添加该前缀
 
-## proxy
+## proxy🤔
 
 - 类型: `object`
 - 默认: `{}`
@@ -272,7 +272,7 @@ module.exports = {
 }
 ```
 
-## https
+## https🤔
 
 - 类型: `boolean`
 - 默认: `userConfig.https ? userConfig.https : !!process.env.HTTPS`
@@ -301,7 +301,7 @@ const app = await NestFactory.create<NestExpressApplication>(AppModule, isProd ?
   httpsOptions: https
 })
 ```
-## dynamic
+## dynamic🤔
 
 - 类型: `boolean`
 - 默认: `true`
@@ -309,7 +309,7 @@ const app = await NestFactory.create<NestExpressApplication>(AppModule, isProd ?
 
 是否开启代码分割，默认开启, Vite 模式下必须开启
 
-## customeHeadScript
+## customeHeadScript🤔
 
 - 类型: `Array<{describe: object, content: string }>|(ctx: ISSRContext) => Array<{describe: object, content: string }>`
 - 默认: `[]`
@@ -359,7 +359,7 @@ module.exports = {
 }
 ```
 
-## customeFooterScript
+## customeFooterScript🤔
 
 - 类型: `Array<{describe: object, content: string }>|(ctx: ISSRContext) => Array<{describe: object, content: string }>`
 - 默认: `[]`
@@ -395,7 +395,7 @@ module.exports = {
 
 用于添加用户自定义配置 `css-loader` `less-loader` 以及 `postcss-loader` 的配置，需要用 `函数 return` 的形式
 
-## parallelFetch
+## parallelFetch🤔
 
 - 类型: `boolean`
 - 默认: `undefined`
@@ -403,7 +403,7 @@ module.exports = {
 
 开启后在服务端获取数据时会并行请求 `layout fetch` 与 `page fetch`。若 `page fetch` 的请求依赖 `layout fetch` 的返回。请不要使用该选项
 
-### antd 定制主题
+### antd 定制主题🤔
 
 - 生效场景: `Webpack/Vite` 
 
@@ -428,7 +428,7 @@ css: () => {
   }
 }
 ```
-## ssrVueLoaderOptions
+## ssrVueLoaderOptions🤔
 
 - 类型: `Object`
 
@@ -439,7 +439,7 @@ css: () => {
 - 生效场景: `Webpack/Vite` 
 
 构建服务端 `bundle` 时的 [vue-loader](https://vue-loader.vuejs.org/options.html) 选项
-## csrVueLoaderOptions
+## csrVueLoaderOptions🤔
 
 - 类型: `Object`
 
@@ -451,7 +451,7 @@ css: () => {
 
 构建客户端 `bundle` 时的 [vue-loader](https://vue-loader.vuejs.org/options.html) 选项
 
-## locale
+## locale🤔
 
 - 类型: `{ enable: boolean }`
 
@@ -461,7 +461,7 @@ css: () => {
 
 是否启用 `vue-i18n` 国际化插件
 
-## corejs
+## corejs🤔
 
 - 类型: `boolean`
 
@@ -493,7 +493,7 @@ const corejsOptions = userConfig.corejs ? {
   } : {}
 ```
 
-## corejsOptions
+## corejsOptions🤔
 
 - 类型: `Object`
 
@@ -501,7 +501,7 @@ const corejsOptions = userConfig.corejs ? {
 
 该配置用于覆盖默认的 `corejsOptions` 配置
 
-## babelExtraModule
+## babelExtraModule🤔
 
 - 类型: `webpack.RuleSetCondition`
 
@@ -519,7 +519,7 @@ module.exports = {
 }
 ```
 
-## routerPriority
+## routerPriority🤔
 
 针对同一前端 `path` 可以对应多个路由时控制约定式路由优先级例如 `/foo`, 可以同时匹配 `/:page` `/foo`。用于约定式路由解析生成的数组排序。数字越大代表优先级越高。没有显示指定的路由优先级统一为 `0`
 
@@ -540,7 +540,7 @@ module.exports = {
 }
 ```
 
-## nestStartTips
+## nestStartTips🤔
 
 自定义 `Nest.js` 场景服务启动成功提示文案，不填写则为 `Server is listening on ${https ? 'https' : 'http'}://localhost:${serverPort}`
 
@@ -576,7 +576,7 @@ module.exports = {
 }
 ``` -->
 
-## routerOptimize
+## routerOptimize🤔
 
 指定前端页面进行编译构建。在某些情况下我们只需要调试某个前端页面而不是所有页面，此时可以通过该配置来选择需要调试的页面进行构建来提升构建速度减小代码体积。但要注意，如果生产环境仍然是所有页面都需要发布，需要在生产环境禁用此配置，否则构建出来的代码只包含当前选中的页面。
 
@@ -602,7 +602,7 @@ module.exports {
 
 ```
 
-## hashRouter
+## hashRouter🤔
 
 - 类型: `boolean`
 
@@ -626,7 +626,7 @@ export { userConfig }
 
 ```
 
-## viteConfig
+## viteConfig🤔
 
 在 `vite` 模式下的 `config` 配置
 
@@ -656,7 +656,7 @@ type viteConfig?: () => {
 
 为了防止用户的配置覆盖框架默认的必要配置导致启动构建失败，所以这里我们暂时只会开放部分配置让开发者使用，若无法满足你的需求，可以提 `issue` 来反馈，我们会根据实际情况新增配置项
 
-## htmlTemplate
+## htmlTemplate🤔
 
 - 类型: `string`
 - 默认: `
