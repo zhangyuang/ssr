@@ -103,7 +103,7 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
       arr = arr.concat(childArr)
     } else {
       // 遍历一个文件夹下面的所有文件
-      if (!pageFiles.includes('render')) {
+      if (!pageFiles.includes('render') || !pageFiles.endsWith('.vue') || !pageFiles.endsWith('.tsx') || !pageFiles.endsWith('.ts') || !pageFiles.endsWith('.js') || !pageFiles.endsWith('.jsx')) {
         continue
       }
       // 拿到具体的文件
