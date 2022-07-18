@@ -160,9 +160,9 @@ const manualChunksFn = (id: string) => {
       dependenciesMap[id].push('vendor')
     }
     const arr = Array.from(new Set(dependenciesMap?.[id]))
-    if (arr.includes('common-vendor') || checkContainsRev(entryList, id)) {
+    if (arr.includes('common-vendor')) {
       return 'common-vendor'
-    } else if (arr.includes('client-entry')) {
+    } else if (arr.includes('client-entry') || checkContainsRev(entryList, id)) {
       return
     }
     if (arr.length === 1) {
