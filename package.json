@@ -24,7 +24,7 @@
     "example:nestjs:react:prod": "cd example/nestjs-react-ssr && npm run prod",
     "example:nestjs:vue3:prod": "cd example/nestjs-vue3-ssr && npm run prod",
     "example:nestjs:vue3:prod:optimize": "cd example/nestjs-vue3-ssr && npx ssr build -o && npx pm2 start pm2.config.js",
-    "example:nestjs:react:prod:optimize": "cd example/nestjs-react-ssr && npx ssr build -o && npx pm2 start pm2.config.js",
+    "example:nestjs:react:prod:optimize": "cd example/nestjs-react-ssr && npx ssr start -o",
     "example:nestjs:vue:prod": "cd example/nestjs-vue-ssr && npm run prod",
     "example:nestjs:react:prod:vite": "cd example/nestjs-react-ssr && npm run prod:vite",
     "example:nestjs:vue3:prod:vite": "cd example/nestjs-vue3-ssr && npm run prod:vite",
