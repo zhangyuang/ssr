@@ -14,6 +14,7 @@ const start = (argv: Argv) => {
     singleDash,
     doubleDash
   })
+
   const { stdout, stderr } = exec(`npx nest start --watch ${normalizeArgv}`, {
     env: { ...process.env, FORCE_COLOR: '1' }
   })

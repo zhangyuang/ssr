@@ -15,7 +15,6 @@ export function clientPlugin () {
           writeEmitter.on('writeEnd', async () => {
             process.env.NODE_ENV = 'development'
             spinner.stop()
-            writeEmitter.removeAllListeners()
             const { webpackStart } = await import('./tools/webpack')
             await webpackStart()
           })
@@ -36,7 +35,6 @@ export function clientPlugin () {
         if (optimize) {
           writeEmitter.on('writeEnd', async () => {
             spinner.stop()
-            writeEmitter.removeAllListeners()
             const { webpackBuild } = await import('./tools/webpack')
             await webpackBuild()
           })

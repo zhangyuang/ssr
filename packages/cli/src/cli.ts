@@ -19,9 +19,18 @@ const spinner = {
 }
 
 const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
-  const { copyReactContext, judgeFramework, judgeServerFramework } = await import('ssr-server-utils')
+  const { copyReactContext, judgeFramework, judgeServerFramework, writeEmitter, loadConfig } = await import('ssr-server-utils')
+  const { optimize } = loadConfig()
   const framework = judgeFramework()
   const serverFramework = judgeServerFramework()
+  if (optimize) {
+    writeEmitter.on('writeEnd', async () => {
+      const { serverPlugin } = await import(serverFramework)
+      const server: IPlugin['serverPlugin'] = serverPlugin()
+      writeEmitter.removeAllListeners()
+      await server?.[type]?.(argv)
+    })
+  }
   if (!argv.api) {
     const { clientPlugin } = await import(framework)
     const client: IPlugin['clientPlugin'] = clientPlugin()
@@ -30,7 +39,7 @@ const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
     }
     await client?.[type]?.(argv)
   }
-  if (!argv.web) {
+  if (!argv.web && !optimize) {
     const { serverPlugin } = await import(serverFramework)
     const server: IPlugin['serverPlugin'] = serverPlugin()
     await server?.[type]?.(argv)
