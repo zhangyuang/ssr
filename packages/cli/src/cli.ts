@@ -24,7 +24,7 @@ const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
   const framework = judgeFramework()
   const serverFramework = judgeServerFramework()
   if (optimize) {
-    writeEmitter.on('writeEnd', async () => {
+    writeEmitter.on('clientBuildEnd', async () => {
       const { serverPlugin } = await import(serverFramework)
       const server: IPlugin['serverPlugin'] = serverPlugin()
       writeEmitter.removeAllListeners()
