@@ -11,8 +11,21 @@ export function clientPlugin () {
         const { viteStart } = await import('./tools/vite')
         await viteStart()
       } else {
-        const { webpackStart } = await import('./tools/webpack')
-        await webpackStart()
+        if (optimize) {
+          writeEmitter.on('writeEnd', async () => {
+            process.env.NODE_ENV = 'development'
+            spinner.stop()
+            writeEmitter.removeAllListeners()
+            const { webpackStart } = await import('./tools/webpack')
+            await webpackStart()
+          })
+          spinner.start()
+          const { viteBuildClient } = await import('./tools/vite')
+          await viteBuildClient()
+        } else {
+          const { webpackStart } = await import('./tools/webpack')
+          await webpackStart()
+        }
       }
     },
     build: async () => {
@@ -22,6 +35,7 @@ export function clientPlugin () {
       } else {
         if (optimize) {
           writeEmitter.on('writeEnd', async () => {
+            spinner.stop()
             writeEmitter.removeAllListeners()
             const { webpackBuild } = await import('./tools/webpack')
             await webpackBuild()
@@ -29,7 +43,6 @@ export function clientPlugin () {
           spinner.start()
           const { viteBuildClient } = await import('./tools/vite')
           await viteBuildClient()
-          spinner.stop()
         } else {
           const { webpackBuild } = await import('./tools/webpack')
           await webpackBuild()

@@ -1,7 +1,7 @@
 import * as WebpackChain from 'webpack-chain'
 
 export const webpackStart = async () => {
-  const { startServerBuild } = await import('ssr-webpack/cjs/server')
+  const { startServerBuild } = await import('ssr-webpack')
   const { getServerWebpack } = await import('../config/server')
   const serverConfigChain = new WebpackChain()
 

@@ -21,7 +21,6 @@ const getClientWebpack = (chain: WebpackChain) => {
   const publicPath = getOutputPublicPath()
 
   getBaseConfig(chain, false)
-
   chain.devtool(isDev ? 'cheap-module-source-map' : (shouldUseSourceMap ? 'source-map' : false))
   chain.entry(chunkName)
     .add(require.resolve('../entry/client-entry'))

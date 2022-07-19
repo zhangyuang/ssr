@@ -57,7 +57,6 @@ const loadConfig = (): IConfig => {
     '.css'
   ]
   const isDev = userConfig.isDev ?? process.env.NODE_ENV !== 'production'
-
   const fePort = userConfig.fePort ?? 8999
 
   const hmr = Object.assign({
@@ -78,7 +77,6 @@ const loadConfig = (): IConfig => {
   const chunkName = 'Page'
 
   const clientLogLevel: ClientLogLevel = 'error'
-
   const useHash = !isDev // 生产环境默认生成hash
   const defaultWhiteList: Array<RegExp|string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/, /\.(vue)$/]
   const whiteList: Array<RegExp|string> = defaultWhiteList.concat(userConfig.whiteList ?? [])
