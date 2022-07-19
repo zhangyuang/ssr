@@ -17,6 +17,7 @@ export function clientPlugin () {
             spinner.stop()
             const { webpackStart } = await import('./tools/webpack')
             await webpackStart()
+            writeEmitter.emit('clientBuildEnd')
           })
           spinner.start()
           const { viteBuildClient } = await import('./tools/vite')
