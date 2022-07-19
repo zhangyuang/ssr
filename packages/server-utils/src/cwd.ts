@@ -28,6 +28,11 @@ const writeRoutes = async (routes: string, name?: string) => {
   await promises.writeFile(resolve(cwd, `./build/${name ?? 'ssr-declare-routes'}`), routes)
 }
 
+const splitPriorityMap: Record<string, number|undefined> = {
+  'common-vendor': 10,
+  'layout-app': 9
+}
+
 const getWebpackSplitCache = () => {
   const { optimize } = loadConfig()
   if (optimize) {
@@ -43,6 +48,7 @@ const getWebpackSplitCache = () => {
     const cacheGroups: Record<string, {
       name: string
       test: (module: SSRModule) => boolean | undefined
+      priority: number
     }> = {}
     for (const chunkName in webpackMap) {
       const arr = webpackMap[chunkName]
@@ -53,7 +59,8 @@ const getWebpackSplitCache = () => {
             if (chunkName === 'void' || !module.nameForCondition?.()) return
             const nameForCondition = module.nameForCondition()
             return checkContains(arr, nameForCondition)
-          }
+          },
+          priority: splitPriorityMap[chunkName] ?? 1
         }
       }
     }
