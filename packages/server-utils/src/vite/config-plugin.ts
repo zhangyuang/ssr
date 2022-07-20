@@ -123,6 +123,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
           dependenciesMap[dyImporterId] = dependenciesMap[dyImporterId].concat(dependenciesMap[id])
         }
       }
+
     },
     buildStart () {
       checkBuildEnd = fn()
@@ -142,6 +143,9 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
             writeGenerateMap().then(() => resolve())
           })
         } else {
+          for (const id of moduleIds) {
+            setGenerateMap(id)
+          }
           writeGenerateMap().then(() => resolve())
         }
       })
@@ -199,7 +203,6 @@ const rollupOutputOptions: OutputOptions = {
     return '[name].[hash].chunk.[ext]'
   },
   manualChunks: (id: string) => {
-    setGenerateMap(id)
     return generateMap[id] === 'void' ? undefined : generateMap[id]
   }
 }
