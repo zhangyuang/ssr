@@ -133,9 +133,9 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
     async buildEnd (err) {
       return await new Promise((resolve) => {
         if (err) {
-          writeEmitter.on('buildEnd', async () => {
+          writeEmitter.on('buildEnd', () => {
             writeEmitter.removeAllListeners()
-            await writeGenerateMap().then(() => resolve())
+            writeGenerateMap().then(() => resolve())
           })
         } else {
           writeGenerateMap().then(() => resolve())
