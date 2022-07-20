@@ -82,7 +82,7 @@ const fn = () => {
 }
 
 let checkBuildEnd: () => void
-
+const moduleIds: string[] = []
 const asyncOptimizeChunkPlugin = (): Plugin => {
   return {
     name: 'asyncOptimizeChunkPlugin',
@@ -127,13 +127,17 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
     buildStart () {
       checkBuildEnd = fn()
     },
-    transform () {
+    transform (this, code, id) {
+      moduleIds.push(id)
       checkBuildEnd()
     },
     async buildEnd (err) {
       return await new Promise((resolve) => {
         if (err) {
           writeEmitter.on('buildEnd', () => {
+            for (const id of moduleIds) {
+              setGenerateMap(id)
+            }
             writeEmitter.removeAllListeners()
             writeGenerateMap().then(() => resolve())
           })
