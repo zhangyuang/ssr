@@ -10,7 +10,6 @@ import { loadConfig } from '../loadConfig'
 import { getOutputPublicPath } from '../parse'
 import { getCwd, cryptoAsyncChunkName, accessFile, checkContainsRev } from '../cwd'
 
-const writeEmitter = new EventEmitter()
 const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
 const chunkNameRe = /chunkName=(.*)/
 const imageRegExp = /\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/
@@ -53,12 +52,37 @@ const chunkNamePlugin = function (): Plugin {
 const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router', 'react-router-dom', 'react-dom', '@vue', 'ssr-client-utils', 'ssr-common-utils', 'pinia']
 const entryList = ['__vite-browser-external']
 const re = /node_modules(\\|\/)(.*?)(\1)/
+
 const recordInfo = (id: string, chunkName: string, defaultChunkName?: string) => {
   if (!dependenciesMap[id]) {
     dependenciesMap[id] = defaultChunkName ? [defaultChunkName] : []
   }
   dependenciesMap[id].push(chunkName)
 }
+const debounce = (func: Function, wait: number) => {
+  let timer: number
+  return () => {
+    clearTimeout(timer)
+    timer = setTimeout(func, wait)
+  }
+}
+
+let hasWritten = false
+const writeEmitter = new EventEmitter()
+
+const fn = () => {
+  const { writeDebounceTime } = loadConfig()
+  return debounce(() => {
+    if (hasWritten) {
+      throw new Error('generateMap has been written over twice, please check your machine performance, or add config.writeDebounceTime that default is 1000ms')
+    }
+    hasWritten = true
+    writeEmitter.emit('buildEnd')
+  }, writeDebounceTime)
+}
+
+let checkBuildEnd: () => void
+
 const asyncOptimizeChunkPlugin = (): Plugin => {
   return {
     name: 'asyncOptimizeChunkPlugin',
@@ -99,15 +123,24 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
           dependenciesMap[dyImporterId] = dependenciesMap[dyImporterId].concat(dependenciesMap[id])
         }
       }
-    }
-  }
-}
-
-const generateMapPlugin = (): Plugin => {
-  return {
-    name: 'generateMapPlugin',
-    transform (this, code, id) {
-
+    },
+    buildStart () {
+      checkBuildEnd = fn()
+    },
+    transform () {
+      checkBuildEnd()
+    },
+    async buildEnd (err) {
+      return await new Promise((resolve) => {
+        if (err) {
+          writeEmitter.on('buildEnd', async () => {
+            writeEmitter.removeAllListeners()
+            await writeGenerateMap().then(() => resolve())
+          })
+        } else {
+          writeGenerateMap().then(() => resolve())
+        }
+      })
     }
   }
 }
@@ -118,7 +151,6 @@ const manifestPlugin = (): Plugin => {
   return {
     name: 'manifestPlugin',
     async generateBundle (_, bundles) {
-      await writeFile()
       if (optimize) return
       const manifest: Record<string, string> = {}
       for (const bundle in bundles) {
@@ -135,9 +167,14 @@ const manifestPlugin = (): Plugin => {
   }
 }
 
-const writeFile = async () => {
+const writeGenerateMap = async () => {
   await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
   await promises.writeFile(resolve(getCwd(), './build/generateMap.json'), JSON.stringify(generateMap, null, 2))
+}
+
+const setGenerateMap = (id: string) => {
+  const res = manualChunksFn(id)
+  generateMap[id] = res ?? 'void'
 }
 
 const rollupOutputOptions: OutputOptions = {
@@ -158,8 +195,7 @@ const rollupOutputOptions: OutputOptions = {
     return '[name].[hash].chunk.[ext]'
   },
   manualChunks: (id: string) => {
-    const res = manualChunksFn(id)
-    generateMap[id] = res ?? 'void'
+    setGenerateMap(id)
     return generateMap[id] === 'void' ? undefined : generateMap[id]
   }
 }
@@ -229,6 +265,5 @@ export {
   rollupOutputOptions,
   commonConfig,
   asyncOptimizeChunkPlugin,
-  generateMapPlugin,
   writeEmitter
 }

@@ -1253,3 +1253,11 @@ if (__isBrowser__) {
   })
 }
 ```
+
+## 高性能产物构建
+
+在 `Vite` 模式下，框架实现了一种高性能的产物构建策略，来保证开发者只会加载到当前页面所必需的文件不会加载多余的文件，同时也不会在不同文件中构建重复的内容来保证 `bundle` 体积最小。
+
+在 `Webpack` 模式下，框架提供了 `ssr start|build --optimize` 选项来开启这一构建策略。这个过程中会借助 `Vite|Rollup` 的一些模块依赖分析的能力。所以会增加一些构建时间，开发者可只在构建生产环境产物时使用此配置。如果你使用过程中发现了什么问题，请提 [issue](https://github.com/zhangyuang/ssr/issues)。
+
+为了保证构建的性能最高，分析结果最准确。请尽量使用 `ESM Module(import / export)` 语法而不是 `CommonJS(require / module.exports)` 语法来导入导出模块。

@@ -1,7 +1,7 @@
 import { build, UserConfig } from 'vite'
 import {
   loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig,
-  asyncOptimizeChunkPlugin, getOutputPublicPath, generateMapPlugin
+  asyncOptimizeChunkPlugin, getOutputPublicPath
 } from 'ssr-server-utils'
 import react from '@vitejs/plugin-react'
 import { createStyleImportPlugin, AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'ssr-vite-plugin-style-import'
@@ -96,7 +96,7 @@ const clientConfig: UserConfig = {
       ...viteConfig?.().client?.otherConfig?.build?.rollupOptions,
       input: reactClientEntry,
       output: rollupOutputOptions,
-      plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), generateMapPlugin(), manifestPlugin()]
+      plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), manifestPlugin()]
     }
   },
   define: {

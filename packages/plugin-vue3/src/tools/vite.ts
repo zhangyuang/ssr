@@ -1,7 +1,7 @@
 import { build, UserConfig } from 'vite'
 import {
   loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin,
-  commonConfig, asyncOptimizeChunkPlugin, getOutputPublicPath, generateMapPlugin
+  commonConfig, asyncOptimizeChunkPlugin, getOutputPublicPath
 } from 'ssr-server-utils'
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJSXPlugin from '@vitejs/plugin-vue-jsx'
@@ -86,7 +86,7 @@ const clientConfig: UserConfig = {
       ...viteConfig?.().client?.otherConfig?.build?.rollupOptions,
       input: vue3ClientEntry,
       output: rollupOutputOptions,
-      plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), generateMapPlugin(), manifestPlugin()]
+      plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), manifestPlugin()]
     }
   },
   define: {
