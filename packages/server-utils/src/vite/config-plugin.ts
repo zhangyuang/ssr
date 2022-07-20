@@ -104,21 +104,11 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 }
 
 const generateMapPlugin = (): Plugin => {
-  const fn = write()
   return {
     name: 'generateMapPlugin',
-    async transform (this, code, id) {
-      const res = manualChunksFn(id)
-      generateMap[id] = res ?? 'void'
-      await fn()
+    transform (this, code, id) {
+
     }
-  }
-}
-const debounce = (func: Function, wait: number) => {
-  let timer: number
-  return () => {
-    clearTimeout(timer)
-    timer = setTimeout(func, wait)
   }
 }
 
@@ -128,6 +118,7 @@ const manifestPlugin = (): Plugin => {
   return {
     name: 'manifestPlugin',
     async generateBundle (_, bundles) {
+      await writeFile()
       if (optimize) return
       const manifest: Record<string, string> = {}
       for (const bundle in bundles) {
@@ -143,18 +134,10 @@ const manifestPlugin = (): Plugin => {
     }
   }
 }
-let hasWritten = false
-const write = () => {
-  const { writeDebounceTime } = loadConfig()
-  return debounce(async () => {
-    if (hasWritten) {
-      throw new Error('generateMap has been written over twice, please check your machine performance, or add config.writeDebounceTime')
-    }
-    hasWritten = true
-    await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
-    await promises.writeFile(resolve(getCwd(), './build/generateMap.json'), JSON.stringify(generateMap, null, 2))
-    writeEmitter.emit('writeEnd')
-  }, writeDebounceTime)
+
+const writeFile = async () => {
+  await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
+  await promises.writeFile(resolve(getCwd(), './build/generateMap.json'), JSON.stringify(generateMap, null, 2))
 }
 
 const rollupOutputOptions: OutputOptions = {
@@ -175,6 +158,8 @@ const rollupOutputOptions: OutputOptions = {
     return '[name].[hash].chunk.[ext]'
   },
   manualChunks: (id: string) => {
+    const res = manualChunksFn(id)
+    generateMap[id] = res ?? 'void'
     return generateMap[id] === 'void' ? undefined : generateMap[id]
   }
 }
