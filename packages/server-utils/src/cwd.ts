@@ -117,6 +117,8 @@ const getSplitChunksOptions = (asyncChunkMap: {
   const { optimize } = loadConfig()
   return {
     minSize: optimize ? 0 : 2000,
+    maxAsyncRequests: 5,
+    maxInitialRequests: 3,
     chunks: 'all',
     name (module: SSRModule, chunks: any, cacheGroupKey: string) {
       return cryptoAsyncChunkName(chunks, asyncChunkMap.val)
