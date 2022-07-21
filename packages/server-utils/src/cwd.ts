@@ -28,15 +28,29 @@ const writeRoutes = async (routes: string, name?: string) => {
   await promises.writeFile(resolve(cwd, `./build/${name ?? 'ssr-declare-routes'}`), routes)
 }
 
-const splitPriorityMap: Record<string, number|undefined> = {
-  'common-vendor': 10,
-  'layout-app': 9
-}
-
 const getWebpackSplitCache = () => {
   const { optimize } = loadConfig()
   if (optimize) {
     const generateMap: Record<string, string> = require(resolve(getCwd(), './build/generateMap.json'))
+    const asyncChunkMap = require(resolve(getCwd(), './build/asyncChunkMap.json'))
+    let maxPriority = Object.keys(asyncChunkMap).length + 1
+    const splitPriorityMap: Record<string, number|undefined> = {
+      'common-vendor': maxPriority + 1,
+      'layout-app': maxPriority
+    }
+    for (const chunkName of Object.keys(asyncChunkMap).sort((a, b) => {
+      // make priority consistent
+      const lenA = asyncChunkMap[a]
+      const lenB = asyncChunkMap[b]
+      if (lenA !== lenB) {
+        return asyncChunkMap[b].length - asyncChunkMap[a].length
+      } else {
+        return a > b ? 1 : -1
+      }
+    })) {
+      splitPriorityMap[chunkName] = maxPriority - 1
+      maxPriority--
+    }
     const webpackMap: Record<string, string[]> = {}
     for (const fileName in generateMap) {
       const chunkName = generateMap[fileName]
@@ -60,7 +74,7 @@ const getWebpackSplitCache = () => {
             const nameForCondition = module.nameForCondition()
             return checkContains(arr, nameForCondition)
           },
-          priority: splitPriorityMap[chunkName] ?? 1
+          priority: splitPriorityMap[chunkName] ?? 0
         }
       }
     }
