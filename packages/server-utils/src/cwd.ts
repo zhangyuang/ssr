@@ -38,8 +38,8 @@ const getWebpackSplitCache = () => {
       'common-vendor': maxPriority + 1,
       'layout-app': maxPriority
     }
-    for (const chunkName of Object.keys(asyncChunkMap).sort((a, b) => {
-      // make priority consistent
+    // make priority consistent
+    Object.keys(asyncChunkMap).sort((a, b) => {
       const lenA = asyncChunkMap[a]
       const lenB = asyncChunkMap[b]
       if (lenA !== lenB) {
@@ -47,10 +47,10 @@ const getWebpackSplitCache = () => {
       } else {
         return a > b ? 1 : -1
       }
-    })) {
+    }).forEach(chunkName => {
       splitPriorityMap[chunkName] = maxPriority - 1
       maxPriority--
-    }
+    })
     const webpackMap: Record<string, string[]> = {}
     for (const fileName in generateMap) {
       const chunkName = generateMap[fileName]
