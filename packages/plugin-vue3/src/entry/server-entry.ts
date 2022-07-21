@@ -35,18 +35,22 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3')
   const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue3')
 
-  const cssInject = (isVite && isDev) ? [h('script', {
+  const cssInject = ((isVite && isDev) ? [h('script', {
     type: 'module',
     src: '/@vite/client'
   })] : dynamicCssOrder.map(css => manifest[css]).filter(Boolean).map(css => h('link', {
     rel: 'stylesheet',
     href: css
-  }))
+  }))).concat((isVite && isDev) ? [] : dynamicJsOrder.map(js => manifest[js]).filter(Boolean).map(js => h('link', {
+    href: js,
+    as: 'script',
+    rel: isVite ? 'modulepreload' : 'preload'
+  })))
 
   const jsInject = (isVite && isDev) ? [h('script', {
     type: 'module',
     src: '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'
-  })] : dynamicJsOrder.map(js =>
+  })] : dynamicJsOrder.filter(Boolean).map(js =>
     h('script', {
       src: manifest[js],
       type: isVite ? 'module' : ''

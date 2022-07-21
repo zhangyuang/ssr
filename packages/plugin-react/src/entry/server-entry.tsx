@@ -26,12 +26,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   const dynamicJsOrder = await getAsyncJsChunk(ctx)
   const manifest = await getManifest(config)
 
-  const injectCss = (isVite && isDev) ? [
+  const injectCss = ((isVite && isDev) ? [
     <script src="/@vite/client" type="module" key="vite-client"/>,
     <script key="vite-react-refresh" type="module" dangerouslySetInnerHTML={{
       __html: reactRefreshFragment
     }} />
-  ] : dynamicCssOrder.map(css => manifest[css]).filter(Boolean).map(css => <link rel='stylesheet' key={css} href={css} />)
+  ] : dynamicCssOrder.map(css => manifest[css]).filter(Boolean).map(css => <link rel='stylesheet' key={css} href={css} />))
+    .concat((isVite && isDev) ? [] : dynamicJsOrder.map(js => manifest[js]).filter(Boolean).map(js =>
+      <link href={js} as="script" rel={isVite ? 'modulepreload' : 'preload'} key={js}/>
+    ))
 
   const injectScript = [
     ...(isVite ? [<script key="viteWindowInit" dangerouslySetInnerHTML={{
