@@ -766,8 +766,8 @@ module.exports = {
       .end()
       .output
       .path(getOutput().clientOutPut)
-      .filename(useHash ? 'static/js/[name].[contenthash:8].js' : 'static/js/[name].js')
-      .chunkFilename(useHash ? 'static/js/[name].[contenthash:8].chunk.js' : 'static/js/[name].chunk.js')
+      .filename(useHash ? '[name].[contenthash:8].js' : '[name].js')
+      .chunkFilename(useHash ? '[name].[contenthash:8].chunk.js' : '[name].chunk.js')
       .publicPath(publicPath)
       .end()
   }

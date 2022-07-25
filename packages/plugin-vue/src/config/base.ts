@@ -171,8 +171,8 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     })
 
   chain.plugin('minify-css').use(MiniCssExtractPlugin, [{
-    filename: useHash ? 'static/css/[name].[contenthash:8].css' : 'static/css/[name].css',
-    chunkFilename: useHash ? 'static/css/[name].[contenthash:8].chunk.css' : 'static/css/[name].chunk.css'
+    filename: useHash ? '[name].[contenthash:8].css' : 'static/[name].css',
+    chunkFilename: useHash ? '[name].[contenthash:8].chunk.css' : 'static/[[name].chunk.css'
   }])
 
   chain.plugin('webpackBar').use(new WebpackBar({
