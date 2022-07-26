@@ -3,16 +3,16 @@ import * as React from 'react'
 import { useState, useEffect } from 'react'
 import { SProps } from 'ssr-types-react'
 
-type FC = (props: SProps) => JSX.Element
+type FC<T={}, U={}> = (props: Partial<SProps<T>> & Partial<U>) => JSX.Element
 
-function onlyCsr (WrappedComponent: FC): FC {
-  return (props: SProps) => {
+function onlyCsr<T={}, U={}> (WrappedComponent: FC<T, U>) {
+  return (props: SProps<T> & U) => {
     const [isClient, setIsClient] = useState(false)
     useEffect(() => {
       setIsClient(true)
     }, [])
     return (
-      isClient ? <WrappedComponent {...props}></WrappedComponent> : <div></div>
+      isClient ? <WrappedComponent {...props}></WrappedComponent> : React.Fragment
     )
   }
 }

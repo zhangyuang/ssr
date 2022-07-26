@@ -109,7 +109,7 @@ yargs
     ...cliDesc
   }), async (argv: Argv) => {
     const { logInfo, judgeFramework } = await import('ssr-server-utils')
-    if (!argv.vite && judgeFramework() !== 'ssr-plugin-vue') {
+    if (!argv.optimize && !argv.vite && judgeFramework() !== 'ssr-plugin-vue') {
       logInfo(`
       In Webpack mode, you can use ssr start --optimize for get high performance, read http://doc.ssr-fc.com/docs/features$faq#%E9%AB%98%E6%80%A7%E8%83%BD%E4%BA%A7%E7%89%A9%E6%9E%84%E5%BB%BA for more details
       `)
@@ -141,7 +141,7 @@ yargs
       logWarning(`ssr build by vite is beta now, if you find some bugs, please submit an issue on https://github.com/zhangyuang/ssr/issues or you can use ssr build --vite --legacy which will close manualChunks
       to get a stable bundle result but maybe some performance loss
       `)
-    } else if (!argv.vite && judgeFramework() !== 'ssr-plugin-vue') {
+    } else if (!argv.optimize && !argv.vite && judgeFramework() !== 'ssr-plugin-vue') {
       logInfo(`
       In Webpack mode, you can use ssr build --optimize for get high performance bundle read http://doc.ssr-fc.com/docs/features$faq#%E9%AB%98%E6%80%A7%E8%83%BD%E4%BA%A7%E7%89%A9%E6%9E%84%E5%BB%BA for more details
       `)

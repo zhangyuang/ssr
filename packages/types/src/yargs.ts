@@ -17,4 +17,5 @@ export type Argv = yargs.Arguments<{
   web?: boolean
   api?: boolean
   ssl?: boolean
+  optimize?: boolean
 }>

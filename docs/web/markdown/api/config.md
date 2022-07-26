@@ -280,6 +280,8 @@ module.exports = {
 
 是否开启底层 `webpack-dev-server` 的 `https` 模式，需配合 `3000` 端口的 `Node.js` 的 `https` 服务同步使用。设置为 `true` 将使用默认的自签名证书。当此证书无法被信任时，也可以自行传递与 `Node.js` 服务端一致的证书配置。
 
+注：更加推荐本地开发时使用 [whistle](https://wproxy.org/whistle/) 启动 `https` 代理服务
+
 ```js
 const fs = require('fs')
 const isProd = process.env.NODE_ENV === 'production'
