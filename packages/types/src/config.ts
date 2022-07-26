@@ -125,6 +125,12 @@ export interface IConfig {
   hashRouter?: boolean
   htmlTemplate?: string
   writeDebounceTime: number
+  dynamicFile: {
+    serverBundle: string
+    asyncChunkMap: string
+    assetManifest: string
+    configFile?: string
+  }
 }
 
 export interface proxyOptions {

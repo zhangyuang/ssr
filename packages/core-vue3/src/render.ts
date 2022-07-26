@@ -1,11 +1,9 @@
-import { resolve } from 'path'
 import { Readable } from 'stream'
-import { loadConfig, getCwd, StringToStream, mergeStream2 } from 'ssr-server-utils'
+import { loadConfig, StringToStream, mergeStream2 } from 'ssr-server-utils'
 import { renderToNodeStream, renderToString } from '@vue/server-renderer'
 import { ISSRContext, UserConfig, ExpressContext, IConfig } from 'ssr-types'
 import type { ViteDevServer } from 'vite'
 
-const cwd = getCwd()
 const defaultConfig = loadConfig()
 
 function render (ctx: ISSRContext, options?: UserConfig & {stream: true}): Promise<Readable>
@@ -14,8 +12,12 @@ function render (ctx: ISSRContext, options?: UserConfig): Promise<string>
 function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
 
 async function render (ctx: ISSRContext, options?: UserConfig) {
-  const config = Object.assign({}, defaultConfig, options ?? {})
-  const { stream, isVite } = config
+  const extraConfig = options?.dynamicFile?.configFile ? require(options.dynamicFile.configFile) : {}
+  const config: IConfig = Object.assign({}, defaultConfig, options ?? {}, extraConfig)
+  const { stream, isVite, isDev } = config
+  if (!isDev && options?.dynamicFile?.assetManifest) {
+    config.isVite = !!require(options.dynamicFile.assetManifest)
+  }
 
   if (!ctx.response.type && typeof ctx.response.type !== 'function') {
     ctx.response.type = 'text/html;charset=utf-8'
@@ -50,7 +52,7 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
 
 let viteServer: ViteDevServer|boolean = false
 async function viteRender (ctx: ISSRContext, config: IConfig) {
-  const { isDev, chunkName, vue3ServerEntry } = config
+  const { isDev, vue3ServerEntry, dynamicFile } = config
   let serverRes
   if (isDev) {
     const { createServer } = await import('vite')
@@ -59,8 +61,7 @@ async function viteRender (ctx: ISSRContext, config: IConfig) {
     const { serverRender } = await (viteServer as ViteDevServer).ssrLoadModule(vue3ServerEntry)
     serverRes = await serverRender(ctx, config)
   } else {
-    const serverFile = resolve(cwd, `./build/server/${chunkName}.server.js`)
-    const { serverRender } = require(serverFile)
+    const { serverRender } = require(dynamicFile.serverBundle)
     const serverRes = await serverRender(ctx, config)
     return serverRes
   }
@@ -68,14 +69,14 @@ async function viteRender (ctx: ISSRContext, config: IConfig) {
 }
 
 async function commonRender (ctx: ISSRContext, config: IConfig) {
-  const { isDev, chunkName } = config
-  const serverFile = resolve(cwd, `./build/server/${chunkName}.server.js`)
+  const { isDev, dynamicFile } = config
+  const serverBundle = dynamicFile.serverBundle
 
   if (isDev) {
-    delete require.cache[serverFile]
+    delete require.cache[serverBundle]
   }
 
-  const { serverRender } = require(serverFile)
+  const { serverRender } = require(dynamicFile.serverBundle)
   const serverRes = await serverRender(ctx, config)
   return serverRes
 }

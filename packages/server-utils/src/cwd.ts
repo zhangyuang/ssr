@@ -162,14 +162,19 @@ const cpManualRoutes = async () => {
 }
 
 const getUserConfig = (): UserConfig => {
-  let config
   try {
-    config = require(resolve(getCwd(), './build/config'))
+    let config
+    try {
+      config = require(resolve(getCwd(), './build/config'))
+    } catch (error) {
+      transformConfig()
+      config = require(resolve(getCwd(), './build/config'))
+    }
+    return config.userConfig ?? config
   } catch (error) {
-    transformConfig()
-    config = require(resolve(getCwd(), './build/config'))
+    // for dynamic file
+    return {}
   }
-  return config.userConfig ?? config
 }
 
 const cyrb53 = function (str: string, seed = 0) {

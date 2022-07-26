@@ -1,21 +1,18 @@
 import { promises } from 'fs'
-import { resolve } from 'path'
-import { UserConfig, ISSRContext } from 'ssr-types'
-import { loadConfig } from './loadConfig'
-import { getCwd } from './cwd'
+import { UserConfig, ISSRContext, IConfig } from 'ssr-types'
 
-const readAsyncChunk = async (): Promise<Record<string, string>> => {
-  const cwd = getCwd()
+const readAsyncChunk = async (config: IConfig): Promise<Record<string, string>> => {
   try {
-    const str = (await promises.readFile(resolve(cwd, './build/asyncChunkMap.json'))).toString()
+    const { dynamicFile } = config
+    const str = (await promises.readFile(dynamicFile?.asyncChunkMap)).toString()
     return JSON.parse(str)
   } catch (error) {
     return {}
   }
 }
-const addAsyncChunk = async (webpackChunkName: string) => {
+const addAsyncChunk = async (webpackChunkName: string, config: IConfig) => {
   const arr = []
-  const asyncChunkMap = await readAsyncChunk()
+  const asyncChunkMap = await readAsyncChunk(config)
   for (const key in asyncChunkMap) {
     if (asyncChunkMap[key].includes(webpackChunkName)) {
       arr.push(`${key}.css`)
@@ -34,21 +31,21 @@ export const nomalrizeOrder = (order: UserConfig['extraJsOrder'], ctx: ISSRConte
   }
 }
 
-export const getAsyncCssChunk = async (ctx: ISSRContext, webpackChunkName: string): Promise<string[]> => {
-  const { dynamic, isVite, isDev, cssOrder, extraCssOrder } = loadConfig()
+export const getAsyncCssChunk = async (ctx: ISSRContext, webpackChunkName: string, config: IConfig): Promise<string[]> => {
+  const { dynamic, isVite, isDev, cssOrder, extraCssOrder } = config
   let dynamicCssOrder = cssOrder.concat(nomalrizeOrder(extraCssOrder, ctx))
   if (dynamic) {
     dynamicCssOrder = cssOrder.concat([`${webpackChunkName}.css`])
     if (!isVite || (isVite && !isDev)) {
       // call it when webpack mode or vite prod mode
-      dynamicCssOrder = dynamicCssOrder.concat(await addAsyncChunk(webpackChunkName))
+      dynamicCssOrder = dynamicCssOrder.concat(await addAsyncChunk(webpackChunkName, config))
     }
   }
   return dynamicCssOrder
 }
 
-export const getAsyncJsChunk = async (ctx: ISSRContext): Promise<string[]> => {
-  const { jsOrder, extraJsOrder } = loadConfig()
+export const getAsyncJsChunk = async (ctx: ISSRContext, config: IConfig): Promise<string[]> => {
+  const { jsOrder, extraJsOrder } = config
   return jsOrder.concat(nomalrizeOrder(extraJsOrder, ctx))
 }
 

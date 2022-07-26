@@ -170,6 +170,7 @@ const manifestPlugin = (): Plugin => {
       if (!await accessFile(resolve(clientOutPut))) {
         mkdir(resolve(clientOutPut))
       }
+      manifest['vite'] = '1'
       await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest, null, 2))
     }
   }

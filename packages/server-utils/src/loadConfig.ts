@@ -158,6 +158,11 @@ const loadConfig = (): IConfig => {
   const hotUpdatePath = `${normalizeEndPath(devPublicPath)}*.hot-update**`
   const proxyKey = [staticPath, hotUpdatePath, manifestPath]
   const prefix = '/'
+  const dynamicFile = {
+    serverBundle: join(cwd, `./build/server/${chunkName}.server.js`),
+    assetManifest: join(cwd, './build/client/asset-manifest.json'),
+    asyncChunkMap: join(cwd, './build/asyncChunkMap.json')
+  }
   const config = Object.assign({}, {
     chainBaseConfig,
     chainServerConfig,
@@ -194,7 +199,8 @@ const loadConfig = (): IConfig => {
     define,
     prefix,
     optimize,
-    writeDebounceTime
+    writeDebounceTime,
+    dynamicFile
   }, userConfig)
   config.alias = alias
   config.prefix = normalizeStartPath(config.prefix ?? '/')
