@@ -163,7 +163,7 @@ const cpManualRoutes = async () => {
 
 const getUserConfig = (): UserConfig => {
   const defaultConfig = resolve(getCwd(), './build/config.js')
-  return accessFileSync(defaultConfig) ? require(defaultConfig) : {} // for dynamic file
+  return accessFileSync(defaultConfig) ? (require(defaultConfig).userConfig ?? require(defaultConfig)) : {} // for dynamic file
 }
 
 const cyrb53 = function (str: string, seed = 0) {
