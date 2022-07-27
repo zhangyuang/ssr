@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types-react'
-import { getCwd, loadConfig, getLocalNodeModules, setStyle, addImageChain, loadModuleFromFramework } from 'ssr-server-utils'
+import { getCwd, loadConfig, setStyle, addImageChain, loadModuleFromFramework } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import * as webpack from 'webpack'
 
@@ -48,7 +48,7 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
 }
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, corejsOptions, babelExtraModule, alias, define } = config
+  const { moduleFileExtensions, useHash, chainBaseConfig, corejsOptions, babelExtraModule, alias, define } = config
   const mode = process.env.NODE_ENV as Mode
   const envOptions = {
     modules: false,
@@ -62,9 +62,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .modules
     .add('node_modules')
     .add(join(getCwd(), './node_modules'))
-    .when(isDev, chain => {
-      chain.add(getLocalNodeModules())
-    })
     .end()
     .extensions.merge(moduleFileExtensions)
     .end()

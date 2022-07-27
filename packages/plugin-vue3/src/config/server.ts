@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { loadConfig, getLocalNodeModules, nodeExternals } from 'ssr-server-utils'
+import { loadConfig, nodeExternals } from 'ssr-server-utils'
 import * as WebpackChain from 'webpack-chain'
 import * as webpack from 'webpack'
 import { getBaseConfig } from './base'
@@ -21,7 +21,6 @@ const getServerWebpack = (chain: WebpackChain) => {
     .end()
 
   const modulesDir = [join(cwd, './node_modules')]
-  modulesDir.push(getLocalNodeModules())
 
   chain.externals(nodeExternals({
     whitelist: whiteList,

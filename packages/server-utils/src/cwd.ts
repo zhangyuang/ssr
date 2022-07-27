@@ -162,19 +162,8 @@ const cpManualRoutes = async () => {
 }
 
 const getUserConfig = (): UserConfig => {
-  try {
-    let config
-    try {
-      config = require(resolve(getCwd(), './build/config'))
-    } catch (error) {
-      transformConfig()
-      config = require(resolve(getCwd(), './build/config'))
-    }
-    return config.userConfig ?? config
-  } catch (error) {
-    // for dynamic file
-    return {}
-  }
+  const defaultConfig = resolve(getCwd(), './build/config.js')
+  return accessFileSync(defaultConfig) ? require(defaultConfig) : {} // for dynamic file
 }
 
 const cyrb53 = function (str: string, seed = 0) {
@@ -247,8 +236,6 @@ const loadModuleFromFramework = (path: string) => {
   }
 }
 
-const getLocalNodeModules = () => resolve(__dirname, '../../../node_modules')
-
 const processError = (err: any) => {
   if (err) {
     console.log(err)
@@ -295,7 +282,6 @@ export {
   getPagesDir,
   getUserConfig,
   isFaaS,
-  getLocalNodeModules,
   processError,
   accessFile,
   execPromisify,

@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getCwd, loadConfig, getLocalNodeModules, setStyle, addImageChain, loadModuleFromFramework } from 'ssr-server-utils'
+import { getCwd, loadConfig, setStyle, addImageChain, loadModuleFromFramework } from 'ssr-server-utils'
 import * as webpack from 'webpack'
 import * as WebpackChain from 'webpack-chain'
 
@@ -61,7 +61,7 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
 
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, isDev, chainBaseConfig, corejsOptions, ssrVueLoaderOptions, csrVueLoaderOptions, babelExtraModule, alias, define } = config
+  const { moduleFileExtensions, useHash, chainBaseConfig, corejsOptions, ssrVueLoaderOptions, csrVueLoaderOptions, babelExtraModule, alias, define } = config
 
   let vueLoaderOptions = {
     babelParserPlugins: ['jsx', 'classProperties', 'decorators-legacy']
@@ -92,9 +92,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .modules
     .add('node_modules')
     .add(join(getCwd(), './node_modules'))
-    .when(isDev, chain => {
-      chain.add(getLocalNodeModules())
-    })
     .end()
     .extensions.merge(moduleFileExtensions)
     .end()
