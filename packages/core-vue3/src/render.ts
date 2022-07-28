@@ -12,7 +12,7 @@ function render (ctx: ISSRContext, options?: UserConfig): Promise<string>
 function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
 
 async function render (ctx: ISSRContext, options?: UserConfig) {
-  const extraConfig = options?.dynamicFile?.configFile ? require(options.dynamicFile.configFile) : {}
+  const extraConfig: UserConfig = options?.dynamicFile?.configFile ? require(options.dynamicFile.configFile).userConfig : {}
   const config: IConfig = Object.assign({}, defaultConfig, options ?? {}, extraConfig)
   const { stream, isVite, isDev } = config
   if (!isDev && options?.dynamicFile?.assetManifest) {
