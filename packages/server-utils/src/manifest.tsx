@@ -10,7 +10,7 @@ const instance = axios.create({
 const getManifest = async (config: IConfig): Promise<Record<string, string|undefined>> => {
   const { isDev, fePort, https, manifestPath, isVite, dynamicFile } = config
   let manifest = {}
-  if (dynamicFile || !isDev) {
+  if (dynamicFile.configFile ?? !isDev) {
     manifest = require(dynamicFile.assetManifest)
   } else if (isDev && !isVite) {
     const res = await instance.get(`${https ? 'https' : 'http'}://0.0.0.0:${fePort}${manifestPath}`)
