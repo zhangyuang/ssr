@@ -5,9 +5,9 @@ import { Argv } from 'ssr-types'
 
 export const generateHtml = async (argv: Argv) => {
   if (process.env.SPA) {
-    console.log('Generating html file...')
     // spa 模式下生成 html 文件直接部署
-    const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework } = await import('ssr-server-utils')
+    const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework, logGreen } = await import('ssr-server-utils')
+    logGreen('Generating html file...')
     const { jsOrder, cssOrder, customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix, clientPrefix, isVite } = loadConfig()
     const htmlStr = htmlTemplate ?? `
   <!DOCTYPE html>
@@ -69,7 +69,7 @@ export const generateHtml = async (argv: Argv) => {
     } if (framework === 'ssr-plugin-vue') {
       for (const item of combine) {
         const { arr, flag } = item
-        const scriptArr = arr.map((item) => `<script ${item.describe?.attrs ? `src="${item.describe.attrs.src}" type=text/javascript` : ''}>${item.content} </script>`)
+        const scriptArr = arr.map((item) => `<script ${isVite ? 'type="module"' : ''} ${item.describe?.attrs ? `src="${item.describe.attrs.src}" type=text/javascript` : ''}>${item.content} </script>`)
         if (flag === 'header') {
           jsHeaderManifest = scriptArr.join('')
         } else {
@@ -83,7 +83,7 @@ export const generateHtml = async (argv: Argv) => {
     let jsManifest = ''
     jsOrder.forEach(item => {
       if (manifest[item]) {
-        jsManifest += `<script src="${manifest[item]}"></script>`
+        jsManifest += `<script src="${manifest[item]}" ${isVite ? 'type="module"' : ''}></script>`
       }
     })
     let cssManifest = ''
