@@ -50,10 +50,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const jsInject = (isVite && isDev) ? [h('script', {
     type: 'module',
     src: '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'
-  })] : dynamicJsOrder.filter(Boolean).map(js =>
+  })] : dynamicJsOrder.map(js => manifest[js]).filter(Boolean).map(js =>
     h('script', {
-      src: manifest[js],
-      type: isVite ? 'module' : ''
+      src: js,
+      type: isVite ? 'module' : 'text/javascript'
     })
   )
 

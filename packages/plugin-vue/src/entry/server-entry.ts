@@ -73,10 +73,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
           type: 'module',
           src: '/node_modules/ssr-plugin-vue/esm/entry/client-entry.js'
         }
-      })] : dynamicJsOrder.map(js => h('script', {
+      })] : dynamicJsOrder.map(js => manifest[js]).filter(Boolean).map(js => h('script', {
         attrs: {
-          src: manifest[js],
-          type: isVite ? 'module' : ''
+          src: js,
+          type: isVite ? 'module' : 'text/javascript'
         }
       }))
 

@@ -95,7 +95,7 @@ const loadConfig = (): IConfig => {
     warnings: false,
     entrypoints: false
   }
-  const dynamic = isVite ? true : process.env.SPA !== '1'
+  const dynamic = true
   // ref https://www.babeljs.cn/docs/babel-preset-env#corejs
   const corejsVersion = loadModuleFromFramework('core-js/package.json') ? coerce(require(loadModuleFromFramework('core-js/package.json')).version) : {}
   const { major, minor } = corejsVersion as SemVer
