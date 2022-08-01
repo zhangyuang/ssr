@@ -15,7 +15,7 @@
 <div align="center">
 <a href="https://github.com/zhangyuang/ssr/actions" target="_blank"><img src="https://github.com/zhangyuang/ssr/workflows/CI/badge.svg" alt="githubActions" />
 <a href="https://www.cypress.io/" target="_blank"><img src="https://img.shields.io/badge/cypress-dashboard-brightgreen.svg" alt="cypress" />
-<a href="https://npmcharts.com/compare/ssr" target="_blank"><img src="https://img.shields.io/npm/dm/ssr" alt="download" />
+<a href="https://npmcharts.com/compare/ssr-server-utils" target="_blank"><img src="https://img.shields.io/npm/dm/ssr-server-utils" alt="download" />
 <a href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/badge/node-%3E=12-green.svg?color=4dc71f" alt="Node" ></a>
 <a href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/github/stars/zhangyuang/ssr.svg?color=4dc71f" alt="Node" ></a>
 </div>
