@@ -5,6 +5,7 @@ import { ISSRContext, UserConfig, ISSRNestContext, IConfig } from 'ssr-types'
 import type { ViteDevServer } from 'vite'
 
 const defaultConfig = loadConfig()
+const serverFrameWork = judgeServerFramework()
 
 function render (ctx: ISSRContext, options?: UserConfig & {stream: true}): Promise<Readable>
 function render (ctx: ISSRContext, options?: UserConfig & {stream: false}): Promise<string>
@@ -14,8 +15,8 @@ function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
 async function render (ctx: ISSRContext, options?: UserConfig) {
   const extraConfig: UserConfig = options?.dynamicFile?.configFile ? require(options.dynamicFile.configFile).userConfig : {}
   const config: IConfig = Object.assign({}, defaultConfig, options ?? {}, extraConfig)
-  const serverFrameWork = judgeServerFramework()
   const { stream, isVite, isDev } = config
+
   if (!isDev && options?.dynamicFile?.assetManifest) {
     config.isVite = !!(require(options.dynamicFile.assetManifest).vite)
   }

@@ -7,6 +7,7 @@ import type { ViteDevServer } from 'vite'
 
 const cwd = getCwd()
 const defaultConfig = loadConfig()
+const serverFrameWork = judgeServerFramework()
 
 function render (ctx: ISSRContext, options?: UserConfig & {stream: true}): Promise<Readable>
 function render (ctx: ISSRContext, options?: UserConfig & {stream: false}): Promise<string>
@@ -16,7 +17,6 @@ function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
 async function render (ctx: ISSRContext, options?: UserConfig) {
   const config = Object.assign({}, defaultConfig, options ?? {})
   const { stream, isVite } = config
-  const serverFrameWork = judgeServerFramework()
 
   if (serverFrameWork === 'ssr-plugin-midway') {
     ctx.response.type = 'text/html;charset=utf-8'
