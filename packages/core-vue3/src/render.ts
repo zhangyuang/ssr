@@ -1,7 +1,7 @@
 import { Readable } from 'stream'
-import { loadConfig, StringToStream, mergeStream2 } from 'ssr-server-utils'
+import { loadConfig, StringToStream, mergeStream2, judgeServerFramework } from 'ssr-server-utils'
 import { renderToNodeStream, renderToString } from '@vue/server-renderer'
-import { ISSRContext, UserConfig, ExpressContext, IConfig } from 'ssr-types'
+import { ISSRContext, UserConfig, ISSRNestContext, IConfig } from 'ssr-types'
 import type { ViteDevServer } from 'vite'
 
 const defaultConfig = loadConfig()
@@ -14,15 +14,15 @@ function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
 async function render (ctx: ISSRContext, options?: UserConfig) {
   const extraConfig: UserConfig = options?.dynamicFile?.configFile ? require(options.dynamicFile.configFile).userConfig : {}
   const config: IConfig = Object.assign({}, defaultConfig, options ?? {}, extraConfig)
+  const serverFrameWork = judgeServerFramework()
   const { stream, isVite, isDev } = config
   if (!isDev && options?.dynamicFile?.assetManifest) {
-    config.isVite = !!require(options.dynamicFile.assetManifest)
+    config.isVite = !!(require(options.dynamicFile.assetManifest).vite)
   }
-
-  if (!ctx.response.type && typeof ctx.response.type !== 'function') {
+  if (serverFrameWork === 'ssr-plugin-midway') {
     ctx.response.type = 'text/html;charset=utf-8'
-  } else if (!(ctx as ExpressContext).response.hasHeader?.('content-type')) {
-    (ctx as ExpressContext).response.setHeader?.('Content-type', 'text/html;charset=utf-8')
+  } else if (serverFrameWork === 'ssr-plugin-nestjs') {
+    (ctx as ISSRNestContext).response.setHeader('Content-type', 'text/html;charset=utf-8')
   }
 
   const serverRes = isVite ? await viteRender(ctx, config) : await commonRender(ctx, config)
