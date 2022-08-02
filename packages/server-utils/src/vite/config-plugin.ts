@@ -136,12 +136,17 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
     async buildEnd (err) {
       return await new Promise((resolve) => {
         Object.entries(dependenciesMap).forEach(([fileName, dependenciesArr]) => {
-          const lastStart = fileName.lastIndexOf('node_modules')
           const arr = Array.from(new Set(dependenciesArr))
-          if (lastStart > -1) {
+          if (fileName.includes('node_modules')) {
             arr.push('vendor')
             const modulename = getPkgName(fileName)
-            vendorMap[modulename] = !vendorMap[modulename] ? arr : (arr.length > vendorMap[modulename].length ? arr : vendorMap[modulename])
+            if (!vendorMap[modulename]) {
+              vendorMap[modulename] = arr
+            } else if (arr.length > vendorMap[modulename].length) {
+              vendorMap[modulename] = arr
+            } else if (arr.length === vendorMap[modulename].length) {
+              vendorMap[modulename] = Array.from(new Set(vendorMap[modulename].concat(arr)))
+            }
           } else {
             vendorMap[fileName] = arr
           }
