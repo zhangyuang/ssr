@@ -38,7 +38,6 @@
   "dependencies": {
     "axios": "^0.21.1",
     "es-module-lexer": "^0.9.3",
-    "get-package-name": "^2.2.0",
     "http-proxy-middleware": "^1.0.6",
     "koa2-connect": "^1.0.2",
     "magic-string": "^0.25.7",

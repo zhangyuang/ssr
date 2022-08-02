@@ -178,6 +178,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   }))
 
   chain.plugin('ssrDefine').use(webpack.DefinePlugin, [{
+    ...process.env,
     __isBrowser__: !isServer,
     ...(isServer ? define?.server : define?.client),
     ...define?.base

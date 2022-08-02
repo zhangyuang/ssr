@@ -1,3 +1,4 @@
+import { CreateElement } from 'vue'
 import { Store } from 'vuex'
 import { Route } from 'vue-router'
 import { findRoute, isMicro } from 'ssr-client-utils'
@@ -35,9 +36,9 @@ const clientRender = async () => {
   const reactiveFetchData = {
     value: window.__INITIAL_DATA__ ?? {}
   }
-  const app = new RealVue({
+  const params = {
     // 根实例简单的渲染应用程序组件。
-    render: h => h('div', {
+    render: (h: CreateElement) => h('div', {
       attrs: {
         id: 'app'
       }
@@ -48,11 +49,9 @@ const clientRender = async () => {
       }
     })]),
     store,
-    // for type checker
-    ...{
-      router
-    }
-  })
+    router
+  }
+  const app = new RealVue(params as any)
 
   router.beforeResolve(async (to, from, next) => {
     // 找到要进入的组件并提前执行 fetch 函数

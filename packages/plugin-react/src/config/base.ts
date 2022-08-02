@@ -138,6 +138,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     color: isServer ? '#f173ac' : '#45b97c'
   }))
   chain.plugin('ssrDefine').use(webpack.DefinePlugin, [{
+    ...process.env,
     __isBrowser__: !isServer,
     ...(isServer ? define?.server : define?.client),
     ...define?.base

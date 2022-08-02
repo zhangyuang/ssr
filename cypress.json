@@ -1,7 +1,7 @@
 {
   "video": false,
   "chromeWebSecurity": false,
-  "defaultCommandTimeout": 60000,
+  "defaultCommandTimeout": 100000,
   "downloadsFolder": "e2e/downloads",
   "fixturesFolder": "e2e/fixtures",
   "integrationFolder": "e2e/integration",

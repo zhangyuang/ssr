@@ -29,7 +29,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   const { fetch, webpackChunkName } = routeItem
   const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName, config)
-  const dynamicJsOrder = await getAsyncJsChunk(ctx, config)
+  const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
   const manifest = await getManifest(config)
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
   const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3')

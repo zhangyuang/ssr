@@ -211,8 +211,8 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     name: isServer ? 'server' : 'client',
     color: isServer ? '#f173ac' : '#45b97c'
   }))
-
   chain.plugin('ssrDefine').use(webpack.DefinePlugin, [{
+    ...process.env,
     __isBrowser__: !isServer,
     __VUE_OPTIONS_API__: true,
     __VUE_PROD_DEVTOOLS__: false,

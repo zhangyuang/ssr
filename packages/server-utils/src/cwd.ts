@@ -223,7 +223,13 @@ const judgeServerFramework = () => {
     return 'ssr-plugin-nestjs'
   }
 }
-
+export const debounce = (func: Function, wait: number) => {
+  let timer: number
+  return () => {
+    clearTimeout(timer)
+    timer = setTimeout(func, wait)
+  }
+}
 const loadModuleFromFramework = (path: string) => {
   const framework = judgeFramework()
   const paths = resolve(getCwd(), `./node_modules/${framework}`)

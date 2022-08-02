@@ -11,7 +11,7 @@
     "ssr-core-vue": "^6.0.0",
     "ssr-server-utils": "^6.0.0",
     "swiper": "^5.2.0",
-    "vue": "^2.0.0",
+    "vue": "^2.7.8",
     "vue-awesome-swiper": "^4.1.1",
     "vue-router": "^3.0.0",
     "vuex": "^3.6.2"

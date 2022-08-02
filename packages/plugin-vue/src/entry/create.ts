@@ -5,12 +5,11 @@ import * as Router from 'vue-router'
 import { deepClone } from 'ssr-deepclone'
 import { Routes } from './create-router'
 import { VueRouterOptions } from '../types'
-
 // without tsconfig esModuleInterop options must use the compatible syntax
 const RealVue = Vue.default || Vue
 const RealVuex = Vuex.default || Vuex
 const RealRouter = Router.default || Router
-RealVue.use(RealRouter)
+RealVue.use(RealRouter as any)
 RealVue.use(RealVuex)
 const { FeRoutes, store } = Routes
 

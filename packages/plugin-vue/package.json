@@ -63,7 +63,7 @@
     "vue": "^2.0.0",
     "vue-loader": "^15.0.0",
     "vue-router": "^3.0.0",
-    "vue-template-compiler": "^2.6.12",
+    "vue-template-compiler": "^2.7.8",
     "vuex": "^3.6.2",
     "webpack": "^4.42.1",
     "webpack-bundle-analyzer": "^3.6.1",

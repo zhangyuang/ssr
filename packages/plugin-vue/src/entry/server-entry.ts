@@ -25,7 +25,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   }
   const { fetch, webpackChunkName } = routeItem
   const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName, config)
-  const dynamicJsOrder = await getAsyncJsChunk(ctx, config)
+  const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
   const manifest = await getManifest(config)
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)

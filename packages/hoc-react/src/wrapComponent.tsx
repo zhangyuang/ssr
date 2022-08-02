@@ -32,7 +32,7 @@ const fetchAndDispatch = async ({ fetch, layoutFetch }: fetchType, dispatch: Rea
   })
 }
 function wrapComponent (WrappedComponent: DynamicFC|StaticFC) {
-  return withRouter(props => {
+  return withRouter((props) => {
     const [ready, setReady] = useState(WrappedComponent.name !== 'dynamicComponent')
     const { state, dispatch } = useContext(STORE_CONTEXT)
 

@@ -2,6 +2,8 @@
 import { resolve } from 'path'
 import { contains, containsPattern, readFromPackageJson, readDir } from './external-utils'
 import { getCwd } from '../cwd'
+import { getDependencies } from '../build-utils'
+import { logErr } from '../log'
 
 const scopedModuleRegex = new RegExp('@[a-zA-Z0-9][\\w-.]+\/[a-zA-Z0-9][\\w-.]+([a-zA-Z0-9.\/]+)?', 'g')
 
@@ -22,35 +24,18 @@ function getModuleName(request, includeAbsolutePaths) {
 }
 
 function wrap(whitelist) {
-  const deepWhiteList = [...whitelist]
   const map = {}
-  function getDep(whitelist, deepWhiteList) {
-    for (const dep of whitelist) {
-      if (typeof dep !== 'string') {
-        continue
-      }
+  const allDependencies = {}
+  whitelist.forEach(item => {
+    if (typeof item === 'string') {
       try {
-        if (!map[dep]) {
-          deepWhiteList.push(new RegExp(dep))
-          map[dep] = true
-        }
-        const childWhiteList = []
-        const packageJSON = require(resolve(getCwd(), `./node_modules/${dep}/package.json`))
-        for (const childDep in packageJSON.dependencies) {
-          if (!map[childDep]) {
-            deepWhiteList.push(new RegExp(childDep))
-            map[childDep] = true
-          }
-          childWhiteList.push(childDep)
-          getDep(childWhiteList, deepWhiteList)
-        }
+        getDependencies(require.resolve(item), allDependencies)
       } catch (error) {
-
+        logErr(`Please check package.json, current program use ${item} but don't specify it in dependencies`)
       }
     }
-  }
-  getDep(whitelist, deepWhiteList)
-  return deepWhiteList
+  })
+  return whitelist.concat( Object.keys(allDependencies).map(item => new RegExp(item)))
 }
 
 
