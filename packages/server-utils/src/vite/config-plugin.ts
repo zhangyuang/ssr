@@ -11,7 +11,7 @@ import { loadConfig } from '../loadConfig'
 import { getOutputPublicPath } from '../parse'
 import { getCwd, cryptoAsyncChunkName, accessFile, checkContainsRev } from '../cwd'
 
-const getPkgName = getPackageName.default
+const getPkgName = getPackageName.default || getPackageName
 const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
 const chunkNameRe = /chunkName=(.*)/
 const imageRegExp = /\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/
