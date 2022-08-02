@@ -6,10 +6,12 @@ import { parse as parseImports } from 'es-module-lexer'
 import MagicString from 'magic-string'
 import type { OutputOptions, PreRenderedChunk } from 'rollup'
 import { mkdir } from 'shelljs'
+import * as getPackageName from 'get-package-name'
 import { loadConfig } from '../loadConfig'
 import { getOutputPublicPath } from '../parse'
 import { getCwd, cryptoAsyncChunkName, accessFile, checkContainsRev } from '../cwd'
 
+const getPkgName = getPackageName.default
 const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
 const chunkNameRe = /chunkName=(.*)/
 const imageRegExp = /\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/
@@ -18,6 +20,7 @@ const cwd = getCwd()
 const dependenciesMap: Record<string, string[]> = {}
 const asyncChunkMapJSON: Record<string, string[]> = {}
 const generateMap: Record<string, string> = {}
+const vendorMap: Record<string, string[]> = {}
 
 const chunkNamePlugin = function (): Plugin {
   return {
@@ -51,7 +54,6 @@ const chunkNamePlugin = function (): Plugin {
 }
 const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router', 'react-router-dom', 'react-dom', '@vue', 'ssr-client-utils', 'ssr-common-utils', 'pinia']
 const entryList = ['__vite-browser-external']
-const re = /node_modules(\\|\/)(.*?)(\1)/
 
 const recordInfo = (id: string, chunkName: string, defaultChunkName?: string) => {
   if (!dependenciesMap[id]) {
@@ -98,7 +100,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
         for (const dyImporterId of dynamicallyImportedIds) {
           recordInfo(dyImporterId, chunkName, 'dynamic')
         }
-      } else if (id.includes('node_modules') && lastStart > -1 && vendorList.includes(re.exec(id.slice(lastStart, id.length))?.[2] as string)) {
+      } else if (id.includes('node_modules') && lastStart > -1 && vendorList.includes(getPkgName(id))) {
         const { importedIds, dynamicallyImportedIds } = info
         const chunkName = 'common-vendor'
         recordInfo(id, chunkName, chunkName)
@@ -123,7 +125,6 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
           dependenciesMap[dyImporterId] = dependenciesMap[dyImporterId].concat(dependenciesMap[id])
         }
       }
-
     },
     buildStart () {
       checkBuildEnd = fn()
@@ -134,6 +135,17 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
     },
     async buildEnd (err) {
       return await new Promise((resolve) => {
+        Object.entries(dependenciesMap).forEach(([fileName, dependenciesArr]) => {
+          const lastStart = fileName.lastIndexOf('node_modules')
+          const arr = Array.from(new Set(dependenciesArr))
+          if (lastStart > -1) {
+            arr.push('vendor')
+            const modulename = getPkgName(fileName)
+            vendorMap[modulename] = !vendorMap[modulename] ? arr : (arr.length > vendorMap[modulename].length ? arr : vendorMap[modulename])
+          } else {
+            vendorMap[fileName] = arr
+          }
+        })
         if (err) {
           writeEmitter.on('buildEnd', () => {
             for (const id of moduleIds) {
@@ -179,6 +191,7 @@ const manifestPlugin = (): Plugin => {
 const writeGenerateMap = async () => {
   await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
   await promises.writeFile(resolve(getCwd(), './build/generateMap.json'), JSON.stringify(generateMap, null, 2))
+  await promises.writeFile(resolve(getCwd(), './build/vendorMap.json'), JSON.stringify(vendorMap, null, 2))
 }
 
 const setGenerateMap = (id: string) => {
@@ -214,17 +227,11 @@ const manualChunksFn = (id: string) => {
     return chunkName === 'void' ? undefined : chunkName
   }
   if (!process.env.LEGACY_VITE) {
-    if (id.includes('node_modules')) {
-      if (!dependenciesMap[id]) {
-        dependenciesMap[id] = []
-      }
-      dependenciesMap[id].push('vendor')
-    }
-    const arr = Array.from(new Set(dependenciesMap?.[id]))
-    if (arr.includes('common-vendor')) {
-      return 'common-vendor'
-    } else if (arr.includes('client-entry') || checkContainsRev(entryList, id)) {
+    const arr = vendorMap[getPkgName(id)] || vendorMap[id]
+    if (!arr || (arr.includes('client-entry') || checkContainsRev(entryList, id))) {
       return
+    } else if (arr.includes('common-vendor')) {
+      return 'common-vendor'
     }
     if (arr.length === 1) {
       return arr[0]
