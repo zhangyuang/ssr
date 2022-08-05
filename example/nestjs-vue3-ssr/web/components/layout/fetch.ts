@@ -1,12 +1,5 @@
-import { Store } from 'vuex'
-import { RouteLocationNormalizedLoaded } from 'vue-router'
-import { ISSRNestContext } from 'ssr-types'
+import { Params } from '~/typings/data'
 
-interface Params {
-  store: Store<any>
-  router: RouteLocationNormalizedLoaded
-}
-
-export default async ({ store, router }: Params, ctx?: ISSRNestContext) => {
+export default async ({ store, router, ctx }: Params) => {
 
 }

@@ -1,12 +1,5 @@
-import { Store } from 'vuex'
-import { Route } from 'vue-router'
-import { ISSRMidwayKoaContext } from 'ssr-types'
+import { Params } from '~/typings/data'
 
-interface Params {
-  store: Store<any>
-  router: Route
-}
-
-export default async ({ store, router }: Params, ctx?: ISSRMidwayKoaContext) => {
+export default async ({ store, router, ctx }: Params) => {
 
 }
