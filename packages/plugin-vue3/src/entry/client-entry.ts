@@ -2,7 +2,7 @@ import { h, createSSRApp, createApp, reactive, renderSlot } from 'vue'
 import { Store } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { findRoute, isMicro } from 'ssr-client-utils'
-import { setStore } from 'ssr-common-utils'
+import { setStore, setPinia, setApp } from 'ssr-common-utils'
 import { createPinia, Pinia } from 'pinia'
 import { createRouter, createStore } from './create'
 import { Routes } from './combine-router'
@@ -31,6 +31,8 @@ const clientRender = async () => {
   })
   const pinia = createPinia()
   setStore(store)
+  setPinia(pinia)
+
   const create = window.__USE_SSR__ ? createSSRApp : createApp
 
   if (window.__INITIAL_DATA__) {
@@ -61,6 +63,7 @@ const clientRender = async () => {
   app.use(store)
   app.use(router)
   app.use(pinia)
+  setApp(app)
   router.beforeResolve(async (to, from, next) => {
     if (hasRender || !window.__USE_SSR__) {
       // 找到要进入的组件并提前执行 fetch 函数

@@ -31,6 +31,7 @@
     "path-to-regexp": "^6.2.0"
   },
   "devDependencies": {
-    "pinia": "^2.0.13"
+    "pinia": "^2.0.13",
+    "vue": "^3.0.0"
   }
 }

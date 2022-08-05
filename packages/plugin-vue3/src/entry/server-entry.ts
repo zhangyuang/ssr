@@ -1,6 +1,6 @@
 import { h, createSSRApp, renderSlot, VNode } from 'vue'
 import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial } from 'ssr-server-utils'
-import { setStore, setPinia } from 'ssr-common-utils'
+import { setStore, setPinia, setApp } from 'ssr-common-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
 import { serialize } from 'ssr-serialize-javascript'
@@ -103,7 +103,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   app.use(router)
   app.use(store)
   app.use(pinia)
-
+  setApp(app)
   let layoutFetchData = {}
   let fetchData = {}
 
