@@ -63,7 +63,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       const initialData = !isCsr ? h('script', {
         innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};${commonInject}`
       }) : h('script', { innerHTML: commonInject })
-      // console.log(App)
       const children = h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app })
 
       return h(Layout,

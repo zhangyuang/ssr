@@ -26,7 +26,11 @@
     "url": "https://github.com/zhangyuang/ssr/issues"
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
-  "dependencies": {
+  "peerDependencies": {
+    "@types/node": ">=14.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
     "@babel/core": "^7.0.0",
     "@midwayjs/decorator": "^3.0.0",
     "@midwayjs/koa": "^3.0.0",
@@ -41,11 +45,5 @@
     "@types/yargs": "^13.0.4",
     "vite": "^2.9.13",
     "webpack-chain": "^6.4.0"
-  },
-  "peerDependencies": {
-    "@types/node": ">=14.0.0"
-  },
-  "devDependencies": {
-    "concurrently": "^5.1.0"
   }
 }

@@ -1,5 +1,5 @@
-import { Options, RuleSetCondition, compilation } from 'webpack'
-import * as WebpackChainConfig from 'webpack-chain'
+import type { Options, RuleSetCondition, compilation } from 'webpack'
+import type WebpackChainConfig from 'webpack-chain'
 import type { PluginOption, ServerOptions, UserConfig as ViteConfig } from 'vite'
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel'
 import { Argv } from './yargs'

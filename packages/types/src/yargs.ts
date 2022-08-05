@@ -1,7 +1,7 @@
 
-import * as yargs from 'yargs'
+import type { Arguments } from 'yargs'
 
-export type Argv = yargs.Arguments<{
+export type Argv = Arguments<{
   tencent?: boolean
   vite?: boolean
   test?: boolean
