@@ -420,6 +420,19 @@ const store = useStore()
 
 ```
 
+### Vue3 获取 Pinia 实例
+
+在服务端渲染过程中，当我们在非 `setup` 环境调用 `Pinia` 时，其自身并不一定能够准确的判断出当前的实例。在高并发场景可能会导致数据混乱，所以针对这种情况，我们需要手动调用 `api` 时传入当前正确的 `Pinia Instance` ，为了方便开发者在任意地方都能够使用 `Pinia` 实例，这里框架提供了 `usePinia` api 可以在任意文件调用
+
+
+```js
+import { usePinia } from 'ssr-common-utils'
+
+const pinia = usePinia()
+
+const data = usePiniaStore(pinia) // 非 setup 上下文调用时需要手动传入实例
+```
+
 ### 使用Vue3国际化插件
 
 在 `plugin-vue3` 中，我们已在底层对国际化所需要的 `Webpack-loader` 进行支持。详细见官方文档：https://vue-i18n.intlify.dev/guide/advanced/composition.html

@@ -1,7 +1,6 @@
-import * as Vue from 'vue'
-import { h, createSSRApp, renderSlot } from 'vue'
+import { h, createSSRApp, renderSlot, VNode } from 'vue'
 import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial } from 'ssr-server-utils'
-import { setStore } from 'ssr-common-utils'
+import { setStore, setPinia } from 'ssr-common-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
 import { serialize } from 'ssr-serialize-javascript'
@@ -17,6 +16,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const router = createRouter()
   const pinia = createPinia()
   setStore(store)
+  setPinia(pinia)
   const [path, url] = [normalizePath(ctx.request.path, prefix), normalizePath(ctx.request.url, prefix)]
   const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
 
@@ -32,8 +32,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
   const manifest = await getManifest(config)
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
-  const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3')
-  const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue3')
+  const customeHeadScriptArr: VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3')
+  const customeFooterScriptArr: VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue3')
 
   const cssInject = ((isVite && isDev) ? [h('script', {
     type: 'module',
@@ -63,6 +63,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       const initialData = !isCsr ? h('script', {
         innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};${commonInject}`
       }) : h('script', { innerHTML: commonInject })
+      // console.log(App)
       const children = h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app })
 
       return h(Layout,

@@ -51,7 +51,7 @@
     "mini-css-extract-plugin": "^1.0.0",
     "optimize-css-assets-webpack-plugin": "^6.0.0",
     "ora": "^4.0.4",
-    "pinia": "^2.0.13",
+    "pinia": "^2.0.17",
     "postcss": "^8.0.0",
     "postcss-discard-comments": "^5.0.0",
     "postcss-flexbugs-fixes": "^5.0.0",

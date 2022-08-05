@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { createElement } from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, reactRefreshFragment } from 'ssr-server-utils'
 import { ISSRContext, IConfig, ReactRoutesType, ReactESMPreloadFeRouteItem, DynamicFC, StaticFC } from 'ssr-types-react'
@@ -9,7 +10,7 @@ import { Routes } from './create-router'
 
 const { FeRoutes, layoutFetch, state, Layout } = Routes as ReactRoutesType
 
-const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.ReactElement> => {
+const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix } = config
   const path = normalizePath(ctx.request.path, prefix)
   const routeItem = findRoute<ReactESMPreloadFeRouteItem>(FeRoutes, path)
@@ -23,7 +24,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
 
   const { fetch, webpackChunkName, component } = routeItem
   const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName, config)
-  const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName,  config)
+  const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
   const manifest = await getManifest(config)
 
   const injectCss = ((isVite && isDev) ? [
@@ -74,15 +75,20 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<React.Re
   const injectState = isCsr ? <script dangerouslySetInnerHTML={{ __html: `window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}` }} /> : <script dangerouslySetInnerHTML={{
     __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}`
   }} />
-  return (
-    <StaticRouter location={ctx.request.url} basename={prefix === '/' ? undefined : prefix}>
-      <Context.Provider value={{ state: combineData }}>
-        <Layout ctx={ctx} config={config} staticList={staticList} injectState={injectState}>
-          <Component />
-        </Layout>
-      </Context.Provider>
-    </StaticRouter>
-  )
+  // with jsx type error, use createElement here
+  return createElement(StaticRouter, {
+    location: ctx.request.url,
+    basename: prefix === '/' ? undefined : prefix
+  }, createElement(Context.Provider, {
+    value: {
+      state: combineData
+    }
+  }, createElement(Layout, {
+    ctx: ctx,
+    config: config,
+    staticList: staticList,
+    injectState: injectState
+  }, createElement(Component, null))))
 }
 
 export {

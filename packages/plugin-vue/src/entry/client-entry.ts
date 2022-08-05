@@ -37,7 +37,6 @@ const clientRender = async () => {
     value: window.__INITIAL_DATA__ ?? {}
   }
   const params = {
-    // 根实例简单的渲染应用程序组件。
     render: (h: CreateElement) => h('div', {
       attrs: {
         id: 'app'
@@ -51,7 +50,7 @@ const clientRender = async () => {
     store,
     router
   }
-  const app = new RealVue(params as any)
+  const app = new RealVue(params)
 
   router.beforeResolve(async (to, from, next) => {
     // 找到要进入的组件并提前执行 fetch 函数

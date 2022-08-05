@@ -83,7 +83,7 @@ export type ReactESMPreloadFeRouteItem<T = {}, U={}> = {
 
 export interface ReactRoutesType {
   Layout: React.FC<LayoutProps>
-  App?: React.FC
+  App?: (props: LayoutProps) => JSX.Element
   layoutFetch: ReactFetch
   FeRoutes: ReactESMFeRouteItem[]
   state?: any
