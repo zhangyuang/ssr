@@ -1,5 +1,7 @@
 import type { Pinia } from 'pinia'
 import type { App } from 'vue'
+import type { Context } from 'react'
+import type { IContext } from 'ssr-types-react'
 
 const storeCache = {
   val: {
@@ -37,6 +39,18 @@ const appCache = {
   }
 }
 
+const contextCache = {
+  val: {
+    obj: {} as Context<IContext>
+  },
+  set: function (app: Context<IContext>) {
+    this.val.obj = app
+  },
+  get: function () {
+    return this.val.obj
+  }
+}
+
 export const setStore = (store: any) => {
   storeCache.set(store)
 }
@@ -56,4 +70,11 @@ export const setApp = (app: App) => {
 }
 export const useApp = () => {
   return appCache.get()
+}
+
+export const setStoreContext = (context: Context<IContext>) => {
+  contextCache.set(context)
+}
+export const useStoreContext = () => {
+  return contextCache.get()
 }

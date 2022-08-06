@@ -163,7 +163,6 @@ export default defineComponent({
 
 在 `React` 场景中，我们没有使用上述的任何一种数据管理方案，我们采用了思想上与 `Provide/Inject` 类似的，同样也是 [react-hooks](https://reactjs.org/docs/hooks-intro.html) 出现后出现在大家视野的 [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext)
 
-`注：在最新版本中请使用 import { STORE_CONTEXT } from '_build/create-context' 来代替 window.STORE_CONTEXT 的取值`
 
 ### 使用 useContext + useReducer
 
@@ -194,10 +193,10 @@ const { state, dispatch } = useContext<IContext<IData>>(STORE_CONTEXT)
 ```js
 import React, { useContext } from 'react'
 import styles from './index.less'
-import { STORE_CONTEXT } from '_build/create-context'
+import { useStoreContext } from 'ssr-common-utils'
 
 function Search (props) {
-  const { state, dispatch } = useContext<IContext<SearchState>>(STORE_CONTEXT)
+  const { state, dispatch } = useContext<IContext<SearchState>>(useStoreContext())
   const handleChange = e => {
     dispatch({
       type: 'updateContext',

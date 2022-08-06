@@ -1,5 +1,5 @@
-import { ReactChild } from 'react'
-import { RouteComponentProps } from 'react-router-dom'
+import type { ReactChild } from 'react'
+import type { RouteComponentProps } from 'react-router-dom'
 
 type IProps<T={}> = T & {
   children: ReactChild

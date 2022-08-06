@@ -1,9 +1,6 @@
-import * as React from 'react'
-import { useReducer } from 'react'
+import { useReducer, createElement } from 'react'
 import { IProps, Action, IWindow, ReactRoutesType } from 'ssr-types-react'
-
-// @ts-expect-error
-import { STORE_CONTEXT } from '_build/create-context'
+import { STORE_CONTEXT as Context } from '_build/create-context'
 import { Routes } from './create-router'
 
 const { reducer, state } = Routes as ReactRoutesType
@@ -34,9 +31,10 @@ function combineReducer (state: any, action: any) {
 }
 export function AppContext (props: IProps) {
   const [state, dispatch] = useReducer(combineReducer, initialState)
-  return (
-    <STORE_CONTEXT.Provider value={{ state, dispatch }}>
-      {props.children}
-    </STORE_CONTEXT.Provider>
-  )
+  return createElement(Context.Provider, {
+    value: {
+      state,
+      dispatch
+    }
+  }, props.children)
 }

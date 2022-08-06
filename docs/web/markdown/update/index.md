@@ -31,10 +31,10 @@ $ npm run start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 在老版本中我们通过将 `STORE_CONTEXT` 挂在了 `window` 上可以在任何地方使用，但这种方式很不优雅。在新版本中我们按照如下方式进行 `context` 获取
 
 ```js
-import { STORE_CONTEXT } from '_build/create-context'
+import { useStoreContext } from 'ssr-common-utils'
 
 export default function Index (props: SProps) {
-  const { state, dispatch } = useContext<IContext<IData>>(STORE_CONTEXT)
+  const { state, dispatch } = useContext<IContext<IData>>(useStoreContext())
   return (
     <div>
       <Search></Search>

@@ -32,6 +32,8 @@
   },
   "devDependencies": {
     "pinia": "^2.0.13",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "@types/react": "^17.0.0",
+    "ssr-types-react": "^6.0.0"
   }
 }

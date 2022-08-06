@@ -3,7 +3,6 @@ import 'react-router'
 import { useContext, useEffect, useState } from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { DynamicFC, StaticFC, Action, ReactESMFetch, ReactFetch } from 'ssr-types-react'
-// @ts-expect-error
 import { STORE_CONTEXT } from '_build/create-context'
 
 let hasRender = false
@@ -45,7 +44,7 @@ function wrapComponent (WrappedComponent: DynamicFC|StaticFC) {
         // ssr 情况下只有路由切换的时候才需要调用 fetch
         // csr 情况首次访问页面也需要调用 fetch
         const { fetch, layoutFetch } = (WrappedComponent as DynamicFC)
-        await fetchAndDispatch({ fetch, layoutFetch }, dispatch, props, state)
+        await fetchAndDispatch({ fetch, layoutFetch }, dispatch!, props, state)
         if (WrappedComponent.name === 'dynamicComponent') {
           WrappedComponent = (await (WrappedComponent as DynamicFC)()).default
           WrappedComponent.fetch = fetch

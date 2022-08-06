@@ -13,6 +13,7 @@
     "reflect-metadata": "^0.1.13",
     "ssr-core-react": "^6.0.0",
     "ssr-server-utils": "^6.0.0",
+    "ssr-common-utils": "^6.0.0",
     "swiper": "6.7.5"
   },
   "devDependencies": {

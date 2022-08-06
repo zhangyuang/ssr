@@ -3,8 +3,8 @@ import { createElement } from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, reactRefreshFragment } from 'ssr-server-utils'
 import { ISSRContext, IConfig, ReactRoutesType, ReactESMPreloadFeRouteItem, DynamicFC, StaticFC } from 'ssr-types-react'
+import { setStoreContext } from 'ssr-common-utils'
 import { serialize } from 'ssr-serialize-javascript'
-// @ts-expect-error
 import { STORE_CONTEXT as Context } from '_build/create-context'
 import { Routes } from './create-router'
 
@@ -14,6 +14,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix } = config
   const path = normalizePath(ctx.request.path, prefix)
   const routeItem = findRoute<ReactESMPreloadFeRouteItem>(FeRoutes, path)
+  setStoreContext(Context)
 
   if (!routeItem) {
     throw new Error(`
@@ -59,7 +60,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   let fetchData = {}
   if (!isCsr) {
     const currentFetch = fetch ? (await fetch()).default : null
-
     // csr 下不需要服务端获取数据
     if (parallelFetch) {
       [layoutFetchData, fetchData] = await Promise.all([

@@ -2,8 +2,10 @@ import { createElement } from 'react'
 import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { preloadComponent, isMicro } from 'ssr-client-utils'
+import { setStoreContext } from 'ssr-common-utils'
 import { wrapComponent } from 'ssr-hoc-react'
 import { LayoutProps, ReactRoutesType } from 'ssr-types-react'
+import { STORE_CONTEXT as Context } from '_build/create-context'
 import { Routes } from './create-router'
 import { AppContext } from './context'
 
@@ -13,6 +15,7 @@ const clientRender = async (): Promise<void> => {
   const IApp = App ?? function (props: LayoutProps) {
     return props.children!
   }
+  setStoreContext(Context)
   // 客户端渲染||hydrate
   const baseName = isMicro() ? window.clientPrefix : window.prefix
   const routes = await preloadComponent(FeRoutes, baseName)
