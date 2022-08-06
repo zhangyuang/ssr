@@ -435,7 +435,7 @@ const data = usePiniaStore(pinia) // 非 setup 上下文调用时需要手动传
 ```
 ### Vue3 任意文件获取 App 实例
 
-为了方便开发者在任意地方都能够使用 `App` 实例，这里框架提供了 `useAoo` api 可以在任意文件调用
+为了方便开发者在任意地方都能够使用 `App` 实例，这里框架提供了 `useApp` api 可以在任意文件调用
 
 ```js
 import { useApp } from 'ssr-common-utils'
