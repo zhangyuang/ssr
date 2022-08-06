@@ -9,7 +9,6 @@ import { Routes } from './combine-router'
 import { ESMFetch, IFeRouteItem, RoutesType } from '../types'
 
 const { FeRoutes, App, layoutFetch } = Routes as RoutesType
-declare const module: any
 
 let hasRender = false
 async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<any>, router: RouteLocationNormalizedLoaded, pinia: Pinia) {
@@ -84,7 +83,7 @@ const clientRender = async () => {
 
   app.mount('#app', !!window.__USE_SSR__) // judge ssr/csr
   if (!window.__USE_VITE__) {
-    module?.hot?.accept?.() // webpack hmr for vue jsx
+    (module as any)?.hot?.accept?.() // webpack hmr for vue jsx
   }
 }
 

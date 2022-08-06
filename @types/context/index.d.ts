@@ -10,3 +10,7 @@ declare module '_build/create-context' {
   }
   const STORE_CONTEXT: Context<IContext>
 }
+
+declare module 'ssr-deepclone' {
+  const deepClone: (obj: any) => any
+}

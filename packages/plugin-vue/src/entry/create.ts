@@ -1,7 +1,6 @@
 import * as Vue from 'vue'
 import * as Vuex from 'vuex'
 import * as Router from 'vue-router'
-// @ts-expect-error
 import { deepClone } from 'ssr-deepclone'
 import { Routes } from './create-router'
 import { VueRouterOptions } from '../types'
