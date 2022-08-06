@@ -6,9 +6,9 @@ import { setStore, setPinia, setApp } from 'ssr-common-utils'
 import { createPinia, Pinia } from 'pinia'
 import { createRouter, createStore } from './create'
 import { Routes } from './combine-router'
-import { ESMFetch, IFeRouteItem, RoutesType } from '../types'
+import { ESMFetch, IFeRouteItem } from '../types'
 
-const { FeRoutes, App, layoutFetch } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch } = Routes
 
 let hasRender = false
 async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<any>, router: RouteLocationNormalizedLoaded, pinia: Pinia) {

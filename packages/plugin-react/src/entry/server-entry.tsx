@@ -2,13 +2,13 @@ import * as React from 'react'
 import { createElement } from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, reactRefreshFragment } from 'ssr-server-utils'
-import { ISSRContext, IConfig, ReactRoutesType, ReactESMPreloadFeRouteItem, DynamicFC, StaticFC } from 'ssr-types-react'
+import { ISSRContext, IConfig, ReactESMPreloadFeRouteItem, DynamicFC, StaticFC } from 'ssr-types-react'
 import { setStoreContext } from 'ssr-common-utils'
 import { serialize } from 'ssr-serialize-javascript'
 import { STORE_CONTEXT as Context } from '_build/create-context'
 import { Routes } from './create-router'
 
-const { FeRoutes, layoutFetch, state, Layout } = Routes as ReactRoutesType
+const { FeRoutes, layoutFetch, state, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix } = config

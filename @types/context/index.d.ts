@@ -14,3 +14,7 @@ declare module '_build/create-context' {
 declare module 'ssr-deepclone' {
   const deepClone: (obj: any) => any
 }
+
+declare module '_build/ssr-declare-routes' {}
+declare module '_build/ssr-manual-routes' {}
+

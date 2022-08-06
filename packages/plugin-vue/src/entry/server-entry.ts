@@ -5,9 +5,9 @@ import { serialize } from 'ssr-serialize-javascript'
 import { setStore } from 'ssr-common-utils'
 import { Routes } from './create-router'
 import { createRouter, createStore } from './create'
-import { IFeRouteItem, RoutesType } from '../types'
+import { IFeRouteItem } from '../types'
 
-const { FeRoutes, App, layoutFetch, Layout } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
   const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix } = config

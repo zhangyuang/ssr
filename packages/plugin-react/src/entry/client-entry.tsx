@@ -4,12 +4,12 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { preloadComponent, isMicro } from 'ssr-client-utils'
 import { setStoreContext } from 'ssr-common-utils'
 import { wrapComponent } from 'ssr-hoc-react'
-import { LayoutProps, ReactRoutesType } from 'ssr-types-react'
+import { LayoutProps } from 'ssr-types-react'
 import { STORE_CONTEXT as Context } from '_build/create-context'
 import { Routes } from './create-router'
 import { AppContext } from './context'
 
-const { FeRoutes, layoutFetch, App } = Routes as ReactRoutesType
+const { FeRoutes, layoutFetch, App } = Routes
 
 const clientRender = async (): Promise<void> => {
   const IApp = App ?? function (props: LayoutProps) {

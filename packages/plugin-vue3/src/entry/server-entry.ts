@@ -6,9 +6,9 @@ import { createPinia } from 'pinia'
 import { serialize } from 'ssr-serialize-javascript'
 import { Routes } from './combine-router'
 import { createRouter, createStore } from './create'
-import { IFeRouteItem, RoutesType } from '../types'
+import { IFeRouteItem } from '../types'
 
-const { FeRoutes, App, layoutFetch, Layout } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix } = config

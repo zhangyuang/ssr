@@ -4,10 +4,10 @@ import { Route } from 'vue-router'
 import { findRoute, isMicro } from 'ssr-client-utils'
 import { setStore } from 'ssr-common-utils'
 import { Routes } from './create-router'
-import { ESMFetch, RoutesType, IFeRouteItem } from '../types'
+import { ESMFetch, IFeRouteItem } from '../types'
 import { createRouter, createStore, RealVue } from './create'
 
-const { FeRoutes, App, layoutFetch } = Routes as RoutesType
+const { FeRoutes, App, layoutFetch } = Routes
 
 let hasRender = false
 async function getAsyncCombineData (fetch: ESMFetch | undefined, store: Store<any>, router: Route) {
