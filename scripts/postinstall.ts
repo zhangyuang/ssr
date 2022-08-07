@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { promises } from 'fs'
-import { mkdir, ln, ls } from 'shelljs'
+import { mkdir, ln } from 'shelljs'
 import { accessFile } from './releaseUtils'
 
 const cwd = process.cwd();
