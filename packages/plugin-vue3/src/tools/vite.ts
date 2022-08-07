@@ -46,6 +46,7 @@ const serverConfig: UserConfig = {
   ],
   optimizeDeps: {
     esbuildOptions: {
+      // @ts-expect-error
       bundle: false
     }
   },
