@@ -17,4 +17,7 @@ declare module 'ssr-deepclone' {
 
 declare module '_build/ssr-declare-routes' {}
 declare module '_build/ssr-manual-routes' {}
+declare module 'koa2-connect' {
+  export default (params: any):any => {}
+}
 
