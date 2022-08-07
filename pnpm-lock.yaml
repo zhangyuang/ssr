@@ -69,7 +69,6 @@ importers:
       ssr-core-react: ^6.0.0
       ssr-plugin-midway: ^6.0.0
       ssr-plugin-react: ^6.0.0
-      ssr-server-utils: ^6.0.0
       ssr-types-react: ^6.0.0
       swiper: 6.7.5
       typescript: ^4.0.0
@@ -85,7 +84,6 @@ importers:
       react-router-dom: 5.3.3_react@17.0.2
       ssr-common-utils: link:../../packages/utils
       ssr-core-react: link:../../packages/core-react
-      ssr-server-utils: link:../../packages/server-utils
       swiper: 6.7.5
     devDependencies:
       '@midwayjs/mock': 3.3.5
@@ -112,10 +110,10 @@ importers:
       midway-schedule: ^2.0.0
       pm2: ^4.5.4
       ssr: ^6.0.0
+      ssr-common-utils: ^6.0.0
       ssr-core-vue: ^6.0.0
       ssr-plugin-midway: ^6.0.0
       ssr-plugin-vue: ^6.0.0
-      ssr-server-utils: ^6.0.0
       ssr-types: ^6.0.0
       swiper: ^5.2.0
       typescript: ^4.0.0
@@ -131,8 +129,8 @@ importers:
       koa-static-cache: 5.1.4
       midway-schedule: 2.14.7
       pm2: 4.5.6
+      ssr-common-utils: link:../../packages/utils
       ssr-core-vue: link:../../packages/core-vue
-      ssr-server-utils: link:../../packages/server-utils
       swiper: 5.4.5
       vue: 2.7.8
       vue-awesome-swiper: 4.1.1_swiper@5.4.5+vue@2.7.8
@@ -160,11 +158,11 @@ importers:
       midway-schedule: ^2.0.0
       pm2: ^4.5.4
       ssr: ^6.0.0
+      ssr-common-utils: ^6.0.0
       ssr-core-vue3: ^6.0.0
       ssr-hoc-vue3: ^6.0.0
       ssr-plugin-midway: ^6.0.0
       ssr-plugin-vue3: ^6.0.0
-      ssr-server-utils: ^6.0.0
       ssr-types: ^6.0.0
       swiper: 6.7.5
       typescript: ^4.0.0
@@ -179,9 +177,9 @@ importers:
       koa-static-cache: 5.1.4
       midway-schedule: 2.14.7
       pm2: 4.5.6
+      ssr-common-utils: link:../../packages/utils
       ssr-core-vue3: link:../../packages/core-vue3
       ssr-hoc-vue3: link:../../packages/hoc-vue3
-      ssr-server-utils: link:../../packages/server-utils
       swiper: 6.7.5
       vue: 3.2.36
       vue-router: 4.0.15_vue@3.2.36
@@ -215,7 +213,6 @@ importers:
       ssr-core-react: ^6.0.0
       ssr-plugin-nestjs: ^6.0.0
       ssr-plugin-react: ^6.0.0
-      ssr-server-utils: ^6.0.0
       ssr-types-react: ^6.0.0
       swiper: 6.7.5
       typescript: ^4.0.0
@@ -231,7 +228,6 @@ importers:
       reflect-metadata: 0.1.13
       ssr-common-utils: link:../../packages/utils
       ssr-core-react: link:../../packages/core-react
-      ssr-server-utils: link:../../packages/server-utils
       swiper: 6.7.5
     devDependencies:
       '@nestjs/cli': 8.2.6
@@ -256,10 +252,10 @@ importers:
       pm2: ^4.5.4
       reflect-metadata: ^0.1.13
       ssr: ^6.0.0
+      ssr-common-utils: ^6.0.0
       ssr-core-vue: ^6.0.0
       ssr-plugin-nestjs: ^6.0.0
       ssr-plugin-vue: ^6.0.0
-      ssr-server-utils: ^6.0.0
       ssr-types: ^6.0.0
       swiper: ^5.2.0
       typescript: ^4.0.0
@@ -274,8 +270,8 @@ importers:
       '@nestjs/platform-express': 8.4.6_24ca02718c236197ee32dbe80f8a4d36
       pm2: 4.5.6
       reflect-metadata: 0.1.13
+      ssr-common-utils: link:../../packages/utils
       ssr-core-vue: link:../../packages/core-vue
-      ssr-server-utils: link:../../packages/server-utils
       swiper: 5.4.5
       vue: 2.7.8
       vue-awesome-swiper: 4.1.1_swiper@5.4.5+vue@2.7.8
@@ -301,11 +297,11 @@ importers:
       pm2: ^4.5.4
       reflect-metadata: ^0.1.13
       ssr: ^6.0.0
+      ssr-common-utils: ^6.0.0
       ssr-core-vue3: ^6.0.0
       ssr-hoc-vue3: ^6.0.0
       ssr-plugin-nestjs: ^6.0.0
       ssr-plugin-vue3: ^6.0.0
-      ssr-server-utils: ^6.0.0
       ssr-types: ^6.0.0
       swiper: 6.7.5
       typescript: ^4.0.0
@@ -319,9 +315,9 @@ importers:
       '@nestjs/platform-express': 8.4.6_24ca02718c236197ee32dbe80f8a4d36
       pm2: 4.5.6
       reflect-metadata: 0.1.13
+      ssr-common-utils: link:../../packages/utils
       ssr-core-vue3: link:../../packages/core-vue3
       ssr-hoc-vue3: link:../../packages/hoc-vue3
-      ssr-server-utils: link:../../packages/server-utils
       swiper: 6.7.5
       vue: 3.2.36
       vue-router: 4.0.15_vue@3.2.36
@@ -345,7 +341,7 @@ importers:
       esbuild: 0.14.48
       ora: ^4.0.4
       shelljs: ^0.8.3
-      ssr-server-utils: ^6.2.10
+      ssr-common-utils: ^6.2.10
       ssr-types: ^6.2.3
       yargs: ^13.2.4
     dependencies:
@@ -353,7 +349,7 @@ importers:
       esbuild: 0.14.48
       ora: 4.1.1
       shelljs: 0.8.5
-      ssr-server-utils: link:../server-utils
+      ssr-common-utils: link:../utils
       ssr-types: link:../types
       yargs: 13.3.2
     devDependencies:
@@ -361,35 +357,20 @@ importers:
       '@types/yargs': 13.0.12
       concurrently: 5.3.0
 
-  packages/client-utils:
-    specifiers:
-      concurrently: ^5.1.0
-      path-to-regexp: ^6.2.0
-      ssr-common-utils: ^6.0.0
-      ssr-types: ^6.2.3
-      ssr-types-react: ^6.2.7
-    dependencies:
-      path-to-regexp: 6.2.1
-      ssr-common-utils: link:../utils
-      ssr-types: link:../types
-    devDependencies:
-      concurrently: 5.3.0
-      ssr-types-react: link:../types-react
-
   packages/core-react:
     specifiers:
       '@types/react-dom': ^17.0.0
       react: ^17.0.0
       react-dom: ^17.0.0
+      ssr-common-utils: ^6.2.10
       ssr-plugin-react: ^6.0.0
       ssr-serialize-javascript: ^6.0.0
-      ssr-server-utils: ^6.2.10
       ssr-types: ^6.0.0
     dependencies:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
+      ssr-common-utils: link:../utils
       ssr-serialize-javascript: 6.0.4
-      ssr-server-utils: link:../server-utils
     devDependencies:
       '@types/react-dom': 17.0.17
       ssr-plugin-react: link:../plugin-react
@@ -398,10 +379,10 @@ importers:
   packages/core-vue:
     specifiers:
       '@babel/runtime': ^7.12.13
+      ssr-common-utils: ^6.2.10
       ssr-deepclone: ^1.0.0
       ssr-plugin-vue: ^6.2.10
       ssr-serialize-javascript: ^6.0.0
-      ssr-server-utils: ^6.2.10
       ssr-types: ^6.2.3
       vue: ^2.0.0
       vue-router: ^3.0.0
@@ -409,9 +390,9 @@ importers:
       vuex: ^3.6.2
     dependencies:
       '@babel/runtime': 7.18.3
+      ssr-common-utils: link:../utils
       ssr-deepclone: 1.0.1
       ssr-serialize-javascript: 6.0.4
-      ssr-server-utils: link:../server-utils
       vue: 2.7.8
       vue-router: 3.5.4
       vue-server-renderer: 2.7.8
@@ -426,10 +407,10 @@ importers:
       '@vue/server-renderer': ^3.0.7
       cheerio: ^1.0.0-rc.10
       pinia: ^2.0.13
+      ssr-common-utils: ^6.2.10
       ssr-deepclone: ^1.0.0
       ssr-plugin-vue3: ^6.2.10
       ssr-serialize-javascript: ^6.0.0
-      ssr-server-utils: ^6.2.10
       ssr-types: ^6.0.0
       vue: ^3.0.0
     dependencies:
@@ -437,9 +418,9 @@ importers:
       '@vue/server-renderer': 3.2.36_vue@3.2.36
       cheerio: 1.0.0-rc.11
       pinia: 2.0.14_typescript@4.7.4+vue@3.2.36
+      ssr-common-utils: link:../utils
       ssr-deepclone: 1.0.1
       ssr-serialize-javascript: 6.0.4
-      ssr-server-utils: link:../server-utils
       vue: 3.2.36
     devDependencies:
       ssr-plugin-vue3: link:../plugin-vue3
@@ -479,11 +460,11 @@ importers:
   packages/plugin-midway:
     specifiers:
       '@midwayjs/cli': ^1.0.0
-      ssr-server-utils: ^6.2.10
+      ssr-common-utils: ^6.2.10
       ssr-types: ^6.2.3
     dependencies:
       '@midwayjs/cli': 1.3.6_typescript@4.7.4
-      ssr-server-utils: link:../server-utils
+      ssr-common-utils: link:../utils
     devDependencies:
       ssr-types: link:../types
 
@@ -491,12 +472,12 @@ importers:
     specifiers:
       ora: ^4.0.4
       rimraf: ^3.0.2
-      ssr-server-utils: ^6.2.10
+      ssr-common-utils: ^6.2.10
       ssr-types: ^6.2.3
     dependencies:
       ora: 4.1.1
       rimraf: 3.0.2
-      ssr-server-utils: link:../server-utils
+      ssr-common-utils: link:../utils
     devDependencies:
       ssr-types: link:../types
 
@@ -543,9 +524,8 @@ importers:
       ssr-common-utils: ^6.0.0
       ssr-hoc-react: ^6.2.7
       ssr-serialize-javascript: ^6.0.0
-      ssr-server-utils: ^6.2.10
       ssr-types-react: ^6.2.7
-      ssr-vite-plugin-style-import: ^2.0.0
+      ssr-vite-plugin-style-import: ^2.0.1
       ssr-webpack: ^6.2.10
       terser-webpack-plugin: ^2.3.5
       url-loader: ^4.1.1
@@ -588,12 +568,11 @@ importers:
       react-refresh: 0.12.0
       react-router: 5.3.3_react@17.0.2
       react-router-dom: 5.3.3_react@17.0.2
-      ssr-client-utils: link:../client-utils
+      ssr-client-utils: 6.2.9
       ssr-common-utils: link:../utils
       ssr-hoc-react: link:../hoc-react
       ssr-serialize-javascript: 6.0.4
-      ssr-server-utils: link:../server-utils
-      ssr-vite-plugin-style-import: 2.0.0_vite@2.9.13
+      ssr-vite-plugin-style-import: 2.0.1_vite@2.9.13
       ssr-webpack: link:../webpack
       terser-webpack-plugin: 2.3.8_webpack@4.46.0
       url-loader: 4.1.1_file-loader@6.2.0+webpack@4.46.0
@@ -640,7 +619,6 @@ importers:
       ssr-common-utils: ^6.0.0
       ssr-deepclone: ^1.0.0
       ssr-serialize-javascript: ^6.0.0
-      ssr-server-utils: ^6.2.10
       ssr-types: ^6.2.3
       ssr-webpack: ^6.2.10
       terser-webpack-plugin: ^2.3.5
@@ -679,11 +657,10 @@ importers:
       postcss-loader: 4.3.0_postcss@8.4.14+webpack@4.46.0
       postcss-preset-env: 7.6.0_postcss@8.4.14
       postcss-safe-parser: 6.0.0_postcss@8.4.14
-      ssr-client-utils: link:../client-utils
+      ssr-client-utils: 6.2.9
       ssr-common-utils: link:../utils
       ssr-deepclone: 1.0.1
       ssr-serialize-javascript: 6.0.4
-      ssr-server-utils: link:../server-utils
       ssr-types: link:../types
       ssr-webpack: link:../webpack
       terser-webpack-plugin: 2.3.8_webpack@4.46.0
@@ -742,9 +719,8 @@ importers:
       ssr-common-utils: ^6.0.0
       ssr-deepclone: ^1.0.0
       ssr-serialize-javascript: ^6.0.0
-      ssr-server-utils: ^6.2.10
       ssr-types: ^6.2.3
-      ssr-vite-plugin-style-import: ^2.0.0
+      ssr-vite-plugin-style-import: ^2.0.1
       ssr-webpack: ^6.2.10
       terser-webpack-plugin: ^2.3.5
       url-loader: ^4.1.1
@@ -789,13 +765,12 @@ importers:
       postcss-loader: 4.3.0_postcss@8.4.14+webpack@4.46.0
       postcss-preset-env: 7.6.0_postcss@8.4.14
       postcss-safe-parser: 6.0.0_postcss@8.4.14
-      ssr-client-utils: link:../client-utils
+      ssr-client-utils: 6.2.9
       ssr-common-utils: link:../utils
       ssr-deepclone: 1.0.1
       ssr-serialize-javascript: 6.0.4
-      ssr-server-utils: link:../server-utils
       ssr-types: link:../types
-      ssr-vite-plugin-style-import: 2.0.0_vite@2.9.13
+      ssr-vite-plugin-style-import: 2.0.1_vite@2.9.13
       ssr-webpack: link:../webpack
       terser-webpack-plugin: 2.3.8_webpack@4.46.0
       url-loader: 4.1.1_file-loader@6.2.0+webpack@4.46.0
@@ -812,39 +787,6 @@ importers:
     devDependencies:
       '@types/webpack': 4.41.32
       concurrently: 5.3.0
-
-  packages/server-utils:
-    specifiers:
-      '@types/semver': ^7.3.9
-      '@types/shelljs': ^0.8.7
-      axios: ^0.21.1
-      concurrently: ^5.1.0
-      es-module-lexer: ^0.9.3
-      http-proxy-middleware: ^1.0.6
-      koa2-connect: ^1.0.2
-      magic-string: ^0.25.7
-      path-to-regexp: ^6.2.0
-      rollup: ^2.70.1
-      semver: ^7.3.5
-      shelljs: ^0.8.3
-      ssr-common-utils: ^6.0.0
-      ssr-types: ^6.2.3
-    dependencies:
-      axios: 0.21.4
-      es-module-lexer: 0.9.3
-      http-proxy-middleware: 1.3.1
-      koa2-connect: 1.0.2
-      magic-string: 0.25.9
-      path-to-regexp: 6.2.1
-      semver: 7.3.7
-      shelljs: 0.8.5
-      ssr-common-utils: link:../utils
-    devDependencies:
-      '@types/semver': 7.3.9
-      '@types/shelljs': 0.8.11
-      concurrently: 5.3.0
-      rollup: 2.75.5
-      ssr-types: link:../types
 
   packages/types:
     specifiers:
@@ -898,27 +840,51 @@ importers:
   packages/utils:
     specifiers:
       '@types/react': ^17.0.0
+      '@types/semver': ^7.3.9
+      '@types/shelljs': ^0.8.7
+      axios: ^0.21.1
+      concurrently: ^5.1.0
+      es-module-lexer: ^0.9.3
+      http-proxy-middleware: ^1.0.6
+      koa2-connect: ^1.0.2
+      magic-string: ^0.25.7
       path-to-regexp: ^6.2.0
       pinia: ^2.0.13
+      rollup: ^2.70.1
+      semver: ^7.3.5
+      shelljs: ^0.8.3
+      ssr-types: ^6.2.3
       ssr-types-react: ^6.0.0
       vue: ^3.0.0
     dependencies:
+      axios: 0.21.4
+      es-module-lexer: 0.9.3
+      http-proxy-middleware: 1.3.1
+      koa2-connect: 1.0.2
+      magic-string: 0.25.9
       path-to-regexp: 6.2.1
+      semver: 7.3.7
+      shelljs: 0.8.5
     devDependencies:
       '@types/react': 17.0.45
+      '@types/semver': 7.3.10
+      '@types/shelljs': 0.8.11
+      concurrently: 5.3.0
       pinia: 2.0.14_typescript@4.7.4+vue@3.2.36
+      rollup: 2.75.7
+      ssr-types: link:../types
       ssr-types-react: link:../types-react
       vue: 3.2.36
 
   packages/webpack:
     specifiers:
       '@types/webpack': ^4.41.8
-      ssr-server-utils: ^6.2.10
+      ssr-common-utils: ^6.2.10
       ssr-types: ^6.2.3
       webpack: ^4.42.1
       webpack-dev-server-ssr: ^3.10.3
     dependencies:
-      ssr-server-utils: link:../server-utils
+      ssr-common-utils: link:../utils
       webpack: 4.46.0
       webpack-dev-server-ssr: 3.10.8_webpack@4.46.0
     devDependencies:
@@ -4704,10 +4670,6 @@ packages:
     resolution: {integrity: sha512-zsv3fsC7S84NN6nPK06u79oWgrPVd0NvOyqgghV1haPaFcVxIrP4DLomRwGAXk0ui4HZA7mOcSFL98sMVW9viw==}
     dev: true
 
-  /@types/semver/7.3.9:
-    resolution: {integrity: sha512-L/TMpyURfBkf+o/526Zb6kd/tchUP3iBDEPjqjb+U2MAJhVRxxrmr2fwpe08E7QsV7YLcpq0tUaQ9O9x97ZIxQ==}
-    dev: true
-
   /@types/serve-static/1.13.10:
     resolution: {integrity: sha512-nCkHGI4w7ZgAdNkrEu0bv+4xNV/XDqW+DydknebMOQwkpDGx8G+HTlj7R7ABI8i8nKxVw0wtKPi1D+lPOkh4YQ==}
     dependencies:
@@ -6549,7 +6511,7 @@ packages:
       mississippi: 3.0.0
       mkdirp: 0.5.6
       move-concurrently: 1.0.1
-      promise-inflight: 1.0.1
+      promise-inflight: 1.0.1_bluebird@3.7.2
       rimraf: 2.7.1
       ssri: 6.0.2
       unique-filename: 1.1.1
@@ -6573,7 +6535,7 @@ packages:
       mkdirp: 0.5.6
       move-concurrently: 1.0.1
       p-map: 3.0.0
-      promise-inflight: 1.0.1
+      promise-inflight: 1.0.1_bluebird@3.7.2
       rimraf: 2.7.1
       ssri: 7.1.1
       unique-filename: 1.1.1
@@ -9379,7 +9341,7 @@ packages:
       eslint-import-resolver-webpack:
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.7.3
+      '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.7.4
       debug: 3.2.7
       eslint-import-resolver-node: 0.3.6
       find-up: 2.1.0
@@ -9408,7 +9370,7 @@ packages:
       '@typescript-eslint/parser':
         optional: true
     dependencies:
-      '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.7.3
+      '@typescript-eslint/parser': 4.33.0_eslint@7.32.0+typescript@4.7.4
       array-includes: 3.1.5
       array.prototype.flat: 1.3.0
       debug: 2.6.9
@@ -15002,13 +14964,15 @@ packages:
     resolution: {integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==}
     engines: {node: '>=0.4.0'}
 
-  /promise-inflight/1.0.1:
+  /promise-inflight/1.0.1_bluebird@3.7.2:
     resolution: {integrity: sha512-6zWPyEOFaQBJYcGMHBKTKJ3u6TBsnMFOIZSa6ce1e/ZrrsOlnHRHbabMjLiBYKp+n44X9eUI6VUPaukCXHuG4g==}
     peerDependencies:
       bluebird: '*'
     peerDependenciesMeta:
       bluebird:
         optional: true
+    dependencies:
+      bluebird: 3.7.2
 
   /promptly/2.2.0:
     resolution: {integrity: sha512-aC9j+BZsRSSzEsXBNBwDnAxujdx19HycZoKgRgzWnS8eOHg1asuf9heuLprfbe739zY3IdUQx+Egv6Jn135WHA==}
@@ -15679,6 +15643,7 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
+    dev: false
 
   /rollup/2.75.7:
     resolution: {integrity: sha512-VSE1iy0eaAYNCxEXaleThdFXqZJ42qDBatAwrfnPlENEZ8erQ+0LYX4JXOLPceWfZpV1VtZwZ3dFCuOZiSyFtQ==}
@@ -16314,6 +16279,22 @@ packages:
       tweetnacl: 0.14.5
     dev: true
 
+  /ssr-client-utils/6.2.9:
+    resolution: {integrity: sha512-ovHG3jVF4pwsExq8rm67uDvm4ZBIso8e8v4sprbTQu4u1blToM5arzgFC5zNOyWGkp63oNtpTpqZnlIgmZI0tA==}
+    dependencies:
+      path-to-regexp: 6.2.1
+      ssr-common-utils: 6.2.29
+      ssr-types: 6.2.24
+    transitivePeerDependencies:
+      - '@types/node'
+    dev: false
+
+  /ssr-common-utils/6.2.29:
+    resolution: {integrity: sha512-rEFHv2s3q38c3mpoaSAghZWWA/FweDW/EfdNkukS71CVvFKKjzfCU4U0FF47uCiRK9uyQ6TJrSHtZGJIT42oyA==}
+    dependencies:
+      path-to-regexp: 6.2.1
+    dev: false
+
   /ssr-deepclone/1.0.1:
     resolution: {integrity: sha512-c2kI7QQsPqZPgX8VY3mgq9tW27O2lGtXTTWrrMN85REWVKRP1jGRAxTdCegwvpxd5DHmvBQdd33PCRhAmf9p0Q==}
     dev: false
@@ -16322,8 +16303,14 @@ packages:
     resolution: {integrity: sha512-i+P/IOzEhWXDV5TSvBvEN3A/7TR5UhePg7DauFFNsrkwdtjqMvZ86E+zj+163fYhBfEVpebiHSetRrBt2w2nDQ==}
     dev: false
 
-  /ssr-vite-plugin-style-import/2.0.0_vite@2.9.13:
-    resolution: {integrity: sha512-KTLLV1pwo/Kiw7+WKEpSnWL3l1oY4NQbvob/mhla3EVez+LpaxMEkdzXhUON7eXn19u38aLLgs8Wif2IGJfPSA==}
+  /ssr-types/6.2.24:
+    resolution: {integrity: sha512-xcv+0gu3mad1VAzUrBBY7fsL44Yt5gLYPu5ZT4FRjx27FuELlO4cnf7kMDtn6jRzQGro8nH0cPYglVz1Y0bsyA==}
+    peerDependencies:
+      '@types/node': '>=14.0.0'
+    dev: false
+
+  /ssr-vite-plugin-style-import/2.0.1_vite@2.9.13:
+    resolution: {integrity: sha512-7YLzo1n8ezCVUKj+EUPImwrt3waSY8c8L3uc8/6mWy8KfDx77KRgRh437x+pTreLSJz9dYD3HGms8vkK4m4F6A==}
     peerDependencies:
       vite: '>=2.0.0'
     dependencies:

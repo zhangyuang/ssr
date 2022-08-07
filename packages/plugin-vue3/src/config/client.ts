@@ -1,7 +1,7 @@
 
 import { promises } from 'fs'
 import { resolve } from 'path'
-import { loadConfig, getCwd, getOutputPublicPath, loadModuleFromFramework, getSplitChunksOptions } from 'ssr-server-utils'
+import { loadConfig, getCwd, getOutputPublicPath, loadModuleFromFramework, getSplitChunksOptions } from 'ssr-common-utils'
 import * as WebpackChain from 'webpack-chain'
 import { Compiler } from 'webpack'
 import { getBaseConfig } from './base'

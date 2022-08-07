@@ -5,6 +5,7 @@ import { deploy } from './deploy'
 
 export function serverPlugin () {
   return {
+    name: 'plugin-nestjs',
     start,
     build,
     deploy

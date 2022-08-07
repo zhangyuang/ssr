@@ -2,10 +2,20 @@
   "name": "ssr-common-utils",
   "version": "6.2.29",
   "description": "utils for serverless ssr",
-  "main": "./cjs/index.js",
-  "module": "./esm/index.js",
+  "types": "./src/types.d.ts",
+  "exports": {
+    "node": {
+      "import": "./esm/server/index.js",
+      "require": "./cjs/server/index.js"
+    },
+    "default": {
+      "import": "./esm/client/index.js",
+      "require": "./cjs/client/index.js"
+    }
+  },
   "sideEffects": false,
   "scripts": {
+    "postinstall": "node postinstall.js",
     "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
     "build:publish": "concurrently \"tsc -p ./tsconfig.cjs.json --sourcemap false\" \" tsc -p ./tsconfig.esm.json --sourcemap false\"",
     "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
@@ -21,6 +31,9 @@
     "react",
     "vue"
   ],
+  "engines": {
+    "node": ">=12.17.0"
+  },
   "author": "zhangyuang",
   "license": "MIT",
   "bugs": {
@@ -28,12 +41,24 @@
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
-    "path-to-regexp": "^6.2.0"
+    "path-to-regexp": "^6.2.0",
+    "axios": "^0.21.1",
+    "es-module-lexer": "^0.9.3",
+    "http-proxy-middleware": "^1.0.6",
+    "koa2-connect": "^1.0.2",
+    "magic-string": "^0.25.7",
+    "semver": "^7.3.5",
+    "shelljs": "^0.8.3"
   },
   "devDependencies": {
     "pinia": "^2.0.13",
     "vue": "^3.0.0",
     "@types/react": "^17.0.0",
-    "ssr-types-react": "^6.0.0"
+    "ssr-types-react": "^6.0.0",
+    "@types/semver": "^7.3.9",
+    "@types/shelljs": "^0.8.7",
+    "concurrently": "^5.1.0",
+    "rollup": "^2.70.1",
+    "ssr-types": "^6.2.3"
   }
 }

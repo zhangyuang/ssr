@@ -34,7 +34,7 @@
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "ssr-serialize-javascript": "^6.0.0",
-    "ssr-server-utils": "^6.2.10"
+    "ssr-common-utils": "^6.2.10"
   },
   "devDependencies": {
     "@types/react-dom": "^17.0.0",

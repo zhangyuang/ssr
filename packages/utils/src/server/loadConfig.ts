@@ -1,8 +1,8 @@
 import { join } from 'path'
 import { IConfig } from 'ssr-types'
-import { normalizeStartPath, normalizeEndPath } from 'ssr-common-utils'
 import { getCwd, getUserConfig, getFeDir, judgeFramework, loadModuleFromFramework, stringifyDefine, accessFileSync } from './cwd'
 import { coerce, SemVer } from 'semver'
+import { normalizeStartPath, normalizeEndPath } from '../common'
 
 const loadConfig = (): IConfig => {
   const framework = judgeFramework()

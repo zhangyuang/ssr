@@ -1,7 +1,7 @@
 import { createElement } from 'react'
 import * as ReactDOM from 'react-dom'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { preloadComponent, isMicro } from 'ssr-client-utils'
+import { preloadComponent, isMicro } from 'ssr-common-utils'
 import { setStoreContext } from 'ssr-common-utils'
 import { wrapComponent } from 'ssr-hoc-react'
 import { LayoutProps } from 'ssr-types-react'

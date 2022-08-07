@@ -2,7 +2,7 @@ import { build, UserConfig } from 'vite'
 import {
   loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin,
   commonConfig, asyncOptimizeChunkPlugin, getOutputPublicPath
-} from 'ssr-server-utils'
+} from 'ssr-common-utils'
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJSXPlugin from '@vitejs/plugin-vue-jsx'
 import babel from '@rollup/plugin-babel'

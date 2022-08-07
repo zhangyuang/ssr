@@ -296,7 +296,7 @@ module.exports = {
 
 // server 端如何读取, 以 nest.js 为例
 // main.ts
-import { loadConfig } from 'ssr-server-utils'
+import { loadConfig } from 'ssr-common-utils'
 
 const { https } = loadConfig()
 const app = await NestFactory.create<NestExpressApplication>(AppModule, isProd ? {} : {

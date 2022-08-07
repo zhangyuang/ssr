@@ -102,10 +102,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -159,10 +159,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -215,10 +215,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
           
       - name: Install dependencies
@@ -226,7 +226,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build
+          node -v && pnpm build
 
       
       - uses: cypress-io/github-action@v2
@@ -273,10 +273,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -328,10 +328,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -383,10 +383,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -437,10 +437,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -493,10 +493,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -550,10 +550,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -606,10 +606,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -668,10 +668,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -733,10 +733,10 @@ jobs:
   #       uses: pnpm/action-setup@v2
   #       with:
   #         version: 6.32.11
-  #     - name: Use Node.js ${{ matrix.node-version }}
+  #     - name: Use Node.js ${{ matrix.node }}
   #       uses: actions/setup-node@v3
   #       with:
-  #         node-version: ${{ matrix.node-version }}
+  #         node-version: ${{ matrix.node }}
   #         cache: "pnpm"
   #     - name: Install dependencies
   #       run: | 
@@ -789,10 +789,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -845,10 +845,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -900,10 +900,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -956,10 +956,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -1029,10 +1029,10 @@ jobs:
         uses: pnpm/action-setup@v2
         with:
           version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 

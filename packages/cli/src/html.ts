@@ -6,7 +6,7 @@ import { Argv } from 'ssr-types'
 export const generateHtml = async (argv: Argv) => {
   if (process.env.SPA) {
     // spa 模式下生成 html 文件直接部署
-    const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework, logGreen } = await import('ssr-server-utils')
+    const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework, logGreen } = await import('ssr-common-utils')
     logGreen('Generating html file...')
     const { jsOrder, customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix, clientPrefix, isVite } = loadConfig()
     const htmlStr = htmlTemplate ?? `

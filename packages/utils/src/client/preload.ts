@@ -1,6 +1,7 @@
 import { ReactESMPreloadFeRouteItem, ReactESMFeRouteItem } from 'ssr-types-react'
-import { normalizePath } from 'ssr-common-utils'
 import { pathToRegexp } from 'path-to-regexp'
+import { normalizePath } from '../common'
+
 const preloadComponent = async (Routes: ReactESMPreloadFeRouteItem[], base?: string) => {
   for (const route of Routes) {
     const { component, path } = route

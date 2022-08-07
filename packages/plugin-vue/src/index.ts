@@ -1,4 +1,4 @@
-import { loadConfig } from 'ssr-server-utils'
+import { loadConfig } from 'ssr-common-utils'
 
 const { isVite } = loadConfig()
 

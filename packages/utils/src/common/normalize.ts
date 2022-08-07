@@ -24,7 +24,7 @@ export const normalizeEndPath = (path: string) => {
 }
 
 export const isMicro = () => {
-  return !!(window.microApp)
+  return !!((window as any).microApp)
 }
 
 export const combineRoutes = (declareRoutes: any, manualRoutes: any): any => {
