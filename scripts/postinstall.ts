@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { promises } from 'fs'
-import { mkdir, ln } from 'shelljs'
+import { mkdir, ln, ls } from 'shelljs'
 import { accessFile } from './releaseUtils'
 
 const cwd = process.cwd();
@@ -17,6 +17,9 @@ const cwd = process.cwd();
       ln('-s', resolve(path, './node_modules/vue'), resolve(swiperPath, './vue'))
     } else if (item.includes('midway-vue-ssr')) {
       ln('-s', resolve(path, './node_modules/vue'), resolve(cwd, './node_modules/vue-template-compiler/node_modules/vue'))
+      console.log(await accessFile(resolve(path, './node_modules/vue')))
+      console.log(await accessFile(resolve(cwd, './node_modules/vue-server-renderer/node_modules/vue')))
+      ls(resolve(path, './node_modules'))
       ln('-s', resolve(path, './node_modules/vue'), resolve(cwd, './node_modules/vue-server-renderer/node_modules/vue'))
     }
   }
