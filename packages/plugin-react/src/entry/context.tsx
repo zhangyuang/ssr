@@ -1,5 +1,5 @@
 import { useReducer, createElement } from 'react'
-import { IProps, Action, IWindow, ReactRoutesType } from 'ssr-types-react'
+import { IProps, Action, IWindow, ReactRoutesType } from 'ssr-types'
 import { STORE_CONTEXT as Context } from '_build/create-context'
 import { Routes } from './create-router'
 

@@ -1,4 +1,4 @@
-import { ReactNestFetch } from 'ssr-types-react'
+import { ReactNestFetch } from 'ssr-types'
 import { IndexData } from '~/typings/data'
 
 const fetch: ReactNestFetch<{

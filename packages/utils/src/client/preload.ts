@@ -1,4 +1,4 @@
-import { ReactESMPreloadFeRouteItem, ReactESMFeRouteItem } from 'ssr-types-react'
+import { ReactESMPreloadFeRouteItem, ReactESMFeRouteItem } from 'ssr-types'
 import { pathToRegexp } from 'path-to-regexp'
 import { normalizePath } from '../common'
 

@@ -1,5 +1,5 @@
 
-import type { ReactRoutesType } from 'ssr-types-react'
+import type { ReactRoutesType } from 'ssr-types'
 
 export const normalizePath = (path: string, prefix: string) => {
   // 移除 prefix 保证 path 跟路由表能够正确匹配

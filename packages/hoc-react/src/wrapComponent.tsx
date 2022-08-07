@@ -2,7 +2,7 @@ import * as React from 'react'
 import 'react-router'
 import { useContext, useEffect, useState } from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-import { DynamicFC, StaticFC, Action, ReactESMFetch, ReactFetch } from 'ssr-types-react'
+import { DynamicFC, StaticFC, Action, ReactESMFetch, ReactFetch } from 'ssr-types'
 import { STORE_CONTEXT } from '_build/create-context'
 
 let hasRender = false

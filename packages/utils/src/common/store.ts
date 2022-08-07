@@ -1,7 +1,7 @@
 import type { Pinia } from 'pinia'
 import type { App } from 'vue'
 import type { Context } from 'react'
-import type { IContext } from 'ssr-types-react'
+import type { IContext } from 'ssr-types'
 
 const storeCache = {
   val: {

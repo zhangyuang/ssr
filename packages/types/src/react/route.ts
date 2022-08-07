@@ -1,6 +1,7 @@
 import type { RouteComponentProps } from 'react-router-dom'
-import type { ISSRContext, ISSRNestContext, ISSRMidwayContext, IConfig, ISSRMidwayKoaContext } from 'ssr-types'
 import type { Action } from './component'
+import type { ISSRContext, ISSRNestContext, ISSRMidwayContext, ISSRMidwayKoaContext } from '../ctx'
+import type { IConfig } from '../config'
 
 export interface LayoutProps {
   ctx?: ISSRContext

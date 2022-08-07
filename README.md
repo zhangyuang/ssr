@@ -230,45 +230,38 @@ $ yarn start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 | [ssr-plugin-react]          | [![ssr-plugin-react-status]][ssr-plugin-react] | develop react application only be used in development |
 | [ssr-plugin-vue]          | [![ssr-plugin-vue-status]][ssr-plugin-vue] | develop vue2 application only be used in development |
 | [ssr-plugin-vue3]          | [![ssr-plugin-vue3-status]][ssr-plugin-vue3] | develop vue3 application only be used in development |
-| [ssr-server-utils]          | [![ssr-server-utils-status]][ssr-server-utils] | server utils in Node.js environment |
-| [ssr-client-utils]          | [![ssr-client-utils-status]][ssr-client-utils] | client utils in browser environment |
+| [ssr-common-utils]          | [![ssr-common-utils-status]][ssr-common-utils] | common utils in Node.js environment and browser |
 | [ssr-hoc-react]          | [![ssr-hoc-react-status]][ssr-hoc-react] | provide hoc component for react |
 | [ssr-hoc-vue3]          | [![ssr-hoc-vue3-status]][ssr-hoc-vue3] | provide hoc component for vue3 |
 | [ssr-types]          | [![ssr-types-status]][ssr-types] | provide common types |
-| [ssr-types-react]          | [![ssr-types-react-status]][ssr-types-react] | provide react scene types |
 | [ssr-webpack]          | [![ssr-webpack-status]][ssr-webpack] | start local server and build production bundle by webpack |
 
 
 [ssr-status]: https://img.shields.io/npm/v/ssr.svg
-[ssr-client-utils-status]: https://img.shields.io/npm/v/ssr-client-utils.svg
 [ssr-core-react-status]: https://img.shields.io/npm/v/ssr-core-react.svg
 [ssr-core-vue-status]: https://img.shields.io/npm/v/ssr-core-vue.svg
 [ssr-hoc-react-status]: https://img.shields.io/npm/v/ssr-hoc-react.svg
 [ssr-hoc-vue3-status]: https://img.shields.io/npm/v/ssr-hoc-vue3.svg
+[ssr-common-utils-status]: https://img.shields.io/npm/v/ssr-common-utils.svg
 [ssr-plugin-midway-status]: https://img.shields.io/npm/v/ssr-plugin-midway.svg
 [ssr-plugin-nestjs-status]: https://img.shields.io/npm/v/ssr-plugin-nestjs.svg
 [ssr-plugin-react-status]: https://img.shields.io/npm/v/ssr-plugin-react.svg
 [ssr-plugin-vue-status]: https://img.shields.io/npm/v/ssr-plugin-vue.svg
 [ssr-plugin-vue3-status]: https://img.shields.io/npm/v/ssr-plugin-vue3.svg
-[ssr-server-utils-status]: https://img.shields.io/npm/v/ssr-server-utils.svg
-[ssr-types-status]: https://img.shields.io/npm/v/ssr-types.svg
-[ssr-types-react-status]: https://img.shields.io/npm/v/ssr-types-react.svg
 [ssr-webpack-status]: https://img.shields.io/npm/v/ssr-webpack.svg
 
 [ssr]: https://github.com/zhangyuang/ssr/tree/dev/packages/cli
-[ssr-client-utils]: https://github.com/zhangyuang/ssr/tree/dev/packages/client-utils
 [ssr-core-react]: https://github.com/zhangyuang/ssr/tree/dev/packages/core-react
 [ssr-core-vue]: https://github.com/zhangyuang/ssr/tree/dev/packages/core-vue
 [ssr-hoc-react]: https://github.com/zhangyuang/ssr/tree/dev/packages/hoc-react
 [ssr-hoc-vue3]: https://github.com/zhangyuang/ssr/tree/dev/packages/hoc-vue3
 [ssr-plugin-midway]: https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-midway
+[ssr-common-utils]: https://github.com/zhangyuang/ssr/tree/dev/packages/utils
 [ssr-plugin-nestjs]: https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-nestjs
 [ssr-plugin-react]: https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-react
 [ssr-plugin-vue]: https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-vue
 [ssr-plugin-vue3]: https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-vue3
-[ssr-server-utils]: https://github.com/zhangyuang/ssr/tree/dev/packages/server-utils
 [ssr-types]: https://github.com/zhangyuang/ssr/tree/dev/packages/types
-[ssr-types-react]: https://github.com/zhangyuang/ssr/tree/dev/packages/types-react
 [ssr-webpack]: https://github.com/zhangyuang/ssr/tree/dev/packages/webpack
 ## CONTRIBUTING
 

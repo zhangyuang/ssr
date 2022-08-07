@@ -127,7 +127,7 @@ export default async ({ store, router }: Params, ctx?: ISSRMidwayContext<{
 
 
 ```js
-import { ReactMidwayFetch } from 'ssr-types-react'
+import { ReactMidwayFetch } from 'ssr-types'
 import { IndexData } from '~/typings/data'
 
 const fetch: ReactMidwayFetch<{

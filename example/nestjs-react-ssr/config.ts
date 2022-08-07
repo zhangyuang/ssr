@@ -1,4 +1,4 @@
-import type { UserConfig } from 'ssr-types-react'
+import type { UserConfig } from 'ssr-types'
 
 const userConfig: UserConfig = {
 
