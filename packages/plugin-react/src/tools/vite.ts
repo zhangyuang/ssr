@@ -44,6 +44,11 @@ const serverConfig: UserConfig = {
     keepNames: true,
     logOverride: { 'this-is-undefined-in-esm': 'silent' }
   },
+  optimizeDeps: {
+    esbuildOptions: {
+      bundle: false
+    }
+  },
   build: {
     ...viteConfig?.().server?.otherConfig?.build,
     ssr: reactServerEntry,

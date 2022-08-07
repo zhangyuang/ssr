@@ -261,7 +261,6 @@ const commonConfig = (): UserConfig => {
         scss: css?.().loaderOptions?.scss ?? {}
       }
     },
-    // @ts-expect-error
     ssr: {
       external: ['ssr-serialize-javascript', 'ssr-server-utils', 'ssr-deepclone', 'ssr-hoc-react', 'ssr-common-utils'].concat(viteConfig?.()?.server?.externals ?? []),
       noExternal: whiteList

@@ -21,6 +21,7 @@ const styleImportConfig = {
     AntdResolve()
   ]
 }
+
 const serverConfig: UserConfig = {
   ...commonConfig(),
   ...viteConfig?.().server?.otherConfig,
@@ -43,6 +44,11 @@ const serverConfig: UserConfig = {
       ...babelOptions
     })
   ],
+  optimizeDeps: {
+    esbuildOptions: {
+      bundle: false
+    }
+  },
   build: {
     ...viteConfig?.().server?.otherConfig?.build,
     ssr: vue3ServerEntry,
