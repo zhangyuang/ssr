@@ -8,11 +8,12 @@
       "import": "./esm/server/index.js",
       "require": "./cjs/server/index.js"
     },
-    "browser": {
+    "default": {
       "import": "./esm/client/index.js",
       "require": "./cjs/client/index.js"
     }
   },
+  "browser": "./esm/client/index.js",
   "sideEffects": false,
   "scripts": {
     "postinstall": "node postinstall.js",
