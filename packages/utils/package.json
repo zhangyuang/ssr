@@ -8,6 +8,10 @@
       "import": "./esm/server/index.js",
       "require": "./cjs/server/index.js"
     },
+    "module": {
+      "browser": "./esm/client/index.js",
+      "node": "./esm/server/index.js"
+    },
     "browser": {
       "import": "./esm/client/index.js",
       "require": "./cjs/client/index.js"

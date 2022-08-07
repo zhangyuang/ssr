@@ -72,5 +72,10 @@
     "tsc-transpile-only": "^0.0.3",
     "turbo": "^1.4.2",
     "typescript": "^4.7.4"
+  },
+  "pnpm": {
+    "overrides": {
+      "rollup": "2.75.7"
+    }
   }
 }
