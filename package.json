@@ -49,6 +49,9 @@
       "commit-msg": "node scripts/verifyCommit.js"
     }
   },
+  "engines": {
+    "node": ">=12.17.0"
+  },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "devDependencies": {
     "@types/prompts": "^2.0.14",
