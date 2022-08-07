@@ -1,6 +1,8 @@
 import { h, createSSRApp, renderSlot, VNode } from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial } from 'ssr-server-utils'
-import { setStore, setPinia, setApp } from 'ssr-common-utils'
+import {
+  findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk,
+  getUserScriptVue, remInitial, setStore, setPinia, setApp
+} from 'ssr-common-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
 import { serialize } from 'ssr-serialize-javascript'

@@ -1,7 +1,7 @@
 import * as chokidar from 'chokidar'
 import type { FSWatcher } from 'chokidar'
 export const createWatcher = async () => {
-  const { getPagesDir } = await import('ssr-server-utils')
+  const { getPagesDir } = await import('ssr-common-utils')
   const pageDir = getPagesDir()
   const watcher = chokidar.watch(pageDir, {
     ignored: /.(less|css|scss)/, // ignore style files
@@ -11,7 +11,7 @@ export const createWatcher = async () => {
 }
 
 export const onWatcher = async (watcher: FSWatcher) => {
-  const { parseFeRoutes, logGreen, logErr } = await import('ssr-server-utils')
+  const { parseFeRoutes, logGreen, logErr } = await import('ssr-common-utils')
   watcher
     .on('add', async path => {
       logGreen(`File ${path} has been added ParseFeRoutes reload`)

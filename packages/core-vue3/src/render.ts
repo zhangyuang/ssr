@@ -1,5 +1,5 @@
 import { Readable } from 'stream'
-import { loadConfig, StringToStream, mergeStream2, judgeServerFramework } from 'ssr-server-utils'
+import { loadConfig, StringToStream, mergeStream2, judgeServerFramework } from 'ssr-common-utils'
 import { renderToNodeStream, renderToString } from '@vue/server-renderer'
 import { ISSRContext, UserConfig, ISSRNestContext, IConfig } from 'ssr-types'
 import type { ViteDevServer } from 'vite'

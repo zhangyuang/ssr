@@ -11,7 +11,7 @@
     "midway-schedule": "^2.0.0",
     "pm2": "^4.5.4",
     "ssr-core-vue": "^6.0.0",
-    "ssr-server-utils": "^6.0.0",
+    "ssr-common-utils": "^6.0.0",
     "swiper": "^5.2.0",
     "vue": "^2.7.8",
     "vue-awesome-swiper": "^4.1.1",

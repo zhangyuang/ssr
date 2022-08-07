@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { loadConfig, nodeExternals } from 'ssr-server-utils'
+import { loadConfig, nodeExternals } from 'ssr-common-utils'
 import * as WebpackChain from 'webpack-chain'
 import * as webpack from 'webpack'
 import { getBaseConfig } from './base'

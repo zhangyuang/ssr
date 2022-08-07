@@ -263,7 +263,7 @@ const commonConfig = (): UserConfig => {
     },
     // @ts-expect-error
     ssr: {
-      external: ['ssr-serialize-javascript', 'ssr-server-utils', 'ssr-deepclone', 'ssr-hoc-react'].concat(viteConfig?.()?.server?.externals ?? []),
+      external: ['ssr-serialize-javascript', 'ssr-server-utils', 'ssr-deepclone', 'ssr-hoc-react', 'ssr-common-utils'].concat(viteConfig?.()?.server?.externals ?? []),
       noExternal: whiteList
     },
     resolve: {

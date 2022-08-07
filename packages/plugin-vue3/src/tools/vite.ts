@@ -2,7 +2,7 @@ import { build, UserConfig } from 'vite'
 import {
   loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin,
   commonConfig, asyncOptimizeChunkPlugin, getOutputPublicPath
-} from 'ssr-server-utils'
+} from 'ssr-common-utils'
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJSXPlugin from '@vitejs/plugin-vue-jsx'
 import babel from '@rollup/plugin-babel'
@@ -21,6 +21,7 @@ const styleImportConfig = {
     AntdResolve()
   ]
 }
+
 const serverConfig: UserConfig = {
   ...commonConfig(),
   ...viteConfig?.().server?.otherConfig,
@@ -43,6 +44,12 @@ const serverConfig: UserConfig = {
       ...babelOptions
     })
   ],
+  optimizeDeps: {
+    esbuildOptions: {
+      // @ts-expect-error
+      bundle: false
+    }
+  },
   build: {
     ...viteConfig?.().server?.otherConfig?.build,
     ssr: vue3ServerEntry,

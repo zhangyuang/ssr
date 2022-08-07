@@ -1,6 +1,6 @@
 
 import React from 'react'
-import { LayoutProps } from 'ssr-types-react'
+import { LayoutProps } from 'ssr-types'
 import App from './App'
 
 const Layout = (props: LayoutProps) => {

@@ -34,7 +34,7 @@
     "pinia": "^2.0.13",
     "ssr-serialize-javascript": "^6.0.0",
     "ssr-deepclone": "^1.0.0",
-    "ssr-server-utils": "^6.2.10",
+    "ssr-common-utils": "^6.2.10",
     "vue": "^3.0.0"
   },
   "devDependencies": {

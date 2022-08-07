@@ -44,7 +44,7 @@ export function midwayPlugin () {
 
 ```js
 import { exec } from 'child_process'
-import { loadConfig } from 'ssr-server-utils'
+import { loadConfig } from 'ssr-common-utils'
 import { Argv } from 'ssr-types'
 
 const { cli } = require('@midwayjs/cli/bin/cli')
@@ -136,7 +136,7 @@ $ tree ./ -I node_modules -L 2
 同样在 `index.ts` 中，我们也是暴露 `start` `build` 方法让上层调用
 
 ```js
-import { loadConfig } from 'ssr-server-utils'
+import { loadConfig } from 'ssr-common-utils'
 
 const { isVite } = loadConfig()
 

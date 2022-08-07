@@ -1,9 +1,9 @@
 import { promises as fs } from 'fs'
 import { join } from 'path'
 import { ParseFeRouteItem } from 'ssr-types'
-import { normalizeEndPath } from 'ssr-common-utils'
 import { getFeDir, accessFile, writeRoutes, cpManualRoutes, getPagesDir, judgeFramework } from './cwd'
 import { loadConfig } from './loadConfig'
+import { normalizeEndPath } from '../common'
 
 export const getOutputPublicPath = () => {
   // return /client/

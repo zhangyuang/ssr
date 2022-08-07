@@ -1,4 +1,4 @@
-import { ReactNestFetch } from 'ssr-types-react'
+import { ReactNestFetch } from 'ssr-types'
 
 const fetch: ReactNestFetch = async ({ ctx, routerProps }) => {
 

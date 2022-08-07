@@ -1,5 +1,5 @@
 import { exec } from 'child_process'
-import { logGreen, loadConfig } from 'ssr-server-utils'
+import { logGreen, loadConfig } from 'ssr-common-utils'
 import { Argv } from 'ssr-types'
 import { getNormalizeArgv } from './utils'
 

@@ -1,5 +1,5 @@
 import * as webpack from 'webpack'
-import { loadConfig } from 'ssr-server-utils'
+import { loadConfig } from 'ssr-common-utils'
 import { webpackPromisify } from './utils/promisify'
 
 // fork 后移除 webpack-dev-server 默认的启动 log，只展示服务端 Node.js 的启动监听端口

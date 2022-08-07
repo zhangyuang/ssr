@@ -1,6 +1,6 @@
 import { promises as fs } from 'fs'
 import { join } from 'path'
-import { getCwd, isFaaS, judgeVersion, logGreen } from 'ssr-server-utils'
+import { getCwd, isFaaS, judgeVersion, logGreen } from 'ssr-common-utils'
 import { Argv } from 'ssr-types'
 
 const cwd = getCwd()

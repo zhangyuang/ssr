@@ -1,7 +1,7 @@
 
 import { promises } from 'fs'
 import { resolve } from 'path'
-import { loadConfig, getCwd, cryptoAsyncChunkName, getOutputPublicPath, loadModuleFromFramework } from 'ssr-server-utils'
+import { loadConfig, getCwd, cryptoAsyncChunkName, getOutputPublicPath, loadModuleFromFramework } from 'ssr-common-utils'
 import * as WebpackChain from 'webpack-chain'
 import { Compiler } from 'webpack'
 import { getBaseConfig } from './base'

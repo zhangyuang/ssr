@@ -2,7 +2,7 @@ import { build, UserConfig } from 'vite'
 import {
   loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig,
   asyncOptimizeChunkPlugin, getOutputPublicPath
-} from 'ssr-server-utils'
+} from 'ssr-common-utils'
 import react from '@vitejs/plugin-react'
 import { createStyleImportPlugin, AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'ssr-vite-plugin-style-import'
 const { getOutput, reactServerEntry, reactClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions, optimize } = loadConfig()
@@ -43,6 +43,12 @@ const serverConfig: UserConfig = {
     ...viteConfig?.().server?.otherConfig?.esbuild,
     keepNames: true,
     logOverride: { 'this-is-undefined-in-esm': 'silent' }
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      // @ts-expect-error
+      bundle: false
+    }
   },
   build: {
     ...viteConfig?.().server?.otherConfig?.build,

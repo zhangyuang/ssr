@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { Readable } from 'stream'
-import { loadConfig, getCwd, StringToStream, mergeStream2, judgeServerFramework } from 'ssr-server-utils'
+import { loadConfig, getCwd, StringToStream, mergeStream2, judgeServerFramework } from 'ssr-common-utils'
 import { createRenderer } from 'vue-server-renderer'
 import { ISSRContext, UserConfig, ISSRNestContext, IConfig } from 'ssr-types'
 

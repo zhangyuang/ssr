@@ -1,5 +1,4 @@
 /* utils */
-export * from 'ssr-common-utils'
 export * from './cwd'
 export * from './log'
 export * from './manifest'
@@ -12,3 +11,4 @@ export * from './vite'
 export * from './runtime'
 export * from './static'
 export * from './build-utils'
+export * from '../common'

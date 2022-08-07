@@ -24,8 +24,6 @@ $ npm run start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 
 `ssr-plugin-react@^5.0.0` => `ssr-plugin-react@^6.0.0`
 
-`ssr-types-react@^5.0.0` => `ssr-types-react@^6.0.0`
-
 ### 修改 context 获取方式
 
 在老版本中我们通过将 `STORE_CONTEXT` 挂在了 `window` 上可以在任何地方使用，但这种方式很不优雅。在新版本中我们按照如下方式进行 `context` 获取
@@ -70,7 +68,7 @@ export default function Index (props: SProps) {
 为了更好的得到类型提示，在新版本中我们 `fetch` 方法的入参形式改为如下代码
 
 ```js
-import { ReactMidwayFetch } from 'ssr-types-react'
+import { ReactMidwayFetch } from 'ssr-types'
 import { IndexData } from '~/typings/data'
 
 const fetch: ReactMidwayFetch<{
@@ -92,7 +90,7 @@ export default fetch
 当需要获取动态参数时
 
 ```js
-import { ReactMidwayFetch } from 'ssr-types-react'
+import { ReactMidwayFetch } from 'ssr-types'
 import { Ddata } from '~/typings/data'
 
 const fetch: ReactMidwayFetch<{

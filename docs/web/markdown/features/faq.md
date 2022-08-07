@@ -636,7 +636,7 @@ export { userConfig }
 
 ```js
 import type { UserConfig } from 'ssr-types'
-import { setStyle } from 'ssr-server-utils'
+import { setStyle } from 'ssr-common-utils'
 
 const userConfig: UserConfig = {
   chainBaseConfig: (chain, isServer) => {
@@ -686,7 +686,7 @@ $ yarn add sass sass-loader@^10.0.0 -D # 必须安装 ^10.0.0 版本的 sass-loa
 ```
 
 ```js
-import { setStyle } from 'ssr-server-utils'
+import { setStyle } from 'ssr-common-utils'
 import type { UserConfig } from 'ssr-types'
 
 const userConfig: UserConfig = {

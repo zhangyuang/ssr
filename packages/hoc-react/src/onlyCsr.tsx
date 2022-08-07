@@ -1,7 +1,7 @@
 // 通过使用该HOC使得组件只在客户端进行渲染
 import * as React from 'react'
 import { useState, useEffect } from 'react'
-import { SProps } from 'ssr-types-react'
+import { SProps } from 'ssr-types'
 
 type FC<T={}, U={}> = (props: Partial<SProps<T>> & Partial<U>) => JSX.Element
 

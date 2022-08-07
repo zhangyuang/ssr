@@ -28,7 +28,7 @@
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
-    "ssr-server-utils": "^6.2.10",
+    "ssr-common-utils": "^6.2.10",
     "webpack": "^4.42.1",
     "webpack-dev-server-ssr": "^3.10.3"
   },

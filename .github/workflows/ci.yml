@@ -26,7 +26,6 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -38,7 +37,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
+          version: 6
 
       - name: Set node version
         uses: actions/setup-node@v3
@@ -85,9 +84,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -101,11 +98,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -144,9 +141,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -158,11 +153,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -200,9 +195,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -214,11 +207,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
           
       - name: Install dependencies
@@ -226,7 +219,7 @@ jobs:
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
-          pnpm build
+            pnpm build
 
       
       - uses: cypress-io/github-action@v2
@@ -257,10 +250,8 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
               C:\Users\runneradmin\.cache
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -272,11 +263,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -313,9 +304,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -327,11 +316,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -368,9 +357,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -382,11 +369,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -422,9 +409,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -436,11 +421,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -478,9 +463,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -492,11 +475,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -534,9 +517,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -549,11 +530,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -590,9 +571,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -605,11 +584,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -657,8 +636,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              .turbo
-              node_modules/.cache/turbo
+              .turbo/turbo
               /Users/runner/Library/Caches/Cypress
           key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -667,11 +645,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -719,8 +697,8 @@ jobs:
   #       with:
   #         path: |
   #             .turbo
-  #             node_modules/.cache/turbo
-  #             node_modules/.pnpm
+  #     /turbo
+  #     
   #             ~/.pnpm-store
   #             ~/Library/pnpm/store
   #             ~/AppData/Local/pnpm/store
@@ -732,11 +710,11 @@ jobs:
   #     - name: Install pnpm
   #       uses: pnpm/action-setup@v2
   #       with:
-  #         version: 6.32.11
-  #     - name: Use Node.js ${{ matrix.node-version }}
+  #         version: 6
+  #     - name: Use Node.js ${{ matrix.node }}
   #       uses: actions/setup-node@v3
   #       with:
-  #         node-version: ${{ matrix.node-version }}
+  #         node-version: ${{ matrix.node }}
   #         cache: "pnpm"
   #     - name: Install dependencies
   #       run: | 
@@ -774,9 +752,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -788,11 +764,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -829,9 +805,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -844,11 +818,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -885,9 +859,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -899,11 +871,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -941,9 +913,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -955,11 +925,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -1014,9 +984,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -1028,11 +996,11 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 6.32.11
-      - name: Use Node.js ${{ matrix.node-version }}
+          version: 6
+      - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
         run: | 

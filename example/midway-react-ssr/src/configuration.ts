@@ -1,7 +1,7 @@
 import { Configuration, App } from '@midwayjs/decorator'
 import * as koa from '@midwayjs/koa'
 import { join } from 'path'
-import { initialSSRDevProxy, getCwd } from 'ssr-server-utils'
+import { initialSSRDevProxy, getCwd } from 'ssr-common-utils'
 
 const koaStatic = require('koa-static-cache')
 const cwd = getCwd()

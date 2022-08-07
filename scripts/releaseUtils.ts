@@ -27,9 +27,9 @@ export const accessFile = async (file: string) => {
 }
 export const packages = [
   'cli', 'plugin-vue3', 'plugin-react',
-  'plugin-vue', 'types', 'server-utils', 'utils',
-  'core-vue', 'hoc-vue3', 'webpack', 'core-react', 'types-react',
-  'client-utils', 'core-vue3', 'plugin-midway', 'plugin-nestjs',
+  'plugin-vue', 'types', 'utils',
+  'core-vue', 'hoc-vue3', 'webpack', 'core-react',
+  'core-vue3', 'plugin-midway', 'plugin-nestjs',
   'hoc-react'
 ]
 

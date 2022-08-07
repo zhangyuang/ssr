@@ -3,7 +3,7 @@ import { resolve } from 'path'
 import { Argv } from 'ssr-types'
 
 export const handleEnv = async (argv: Argv) => {
-  const { loadConfig, getCwd } = await import('ssr-server-utils')
+  const { loadConfig, getCwd } = await import('ssr-common-utils')
   const { https, isDev } = loadConfig()
   const cwd = getCwd()
   process.env.BUILD_TOOL = argv.vite ? 'vite' : 'webpack'

@@ -34,7 +34,7 @@
     "@babel/runtime": "^7.12.13",
     "ssr-deepclone": "^1.0.0",
     "ssr-serialize-javascript": "^6.0.0",
-    "ssr-server-utils": "^6.2.10",
+    "ssr-common-utils": "^6.2.10",
     "vue": "^2.0.0",
     "vue-router": "^3.0.0",
     "vue-server-renderer": "^2.7.8",

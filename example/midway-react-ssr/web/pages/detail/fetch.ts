@@ -1,4 +1,4 @@
-import { ReactMidwayKoaFetch } from 'ssr-types-react'
+import { ReactMidwayKoaFetch } from 'ssr-types'
 import { Ddata } from '~/typings/data'
 
 const fetch: ReactMidwayKoaFetch<{
