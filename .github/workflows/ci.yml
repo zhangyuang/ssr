@@ -26,7 +26,6 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -85,9 +84,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -144,9 +141,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -200,9 +195,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -257,10 +250,8 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
               C:\Users\runneradmin\.cache
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -313,9 +304,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -368,9 +357,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -422,9 +409,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -478,9 +463,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -534,9 +517,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -590,9 +571,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -657,8 +636,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              .turbo
-              node_modules/.cache/turbo
+              .turbo/turbo
               /Users/runner/Library/Caches/Cypress
           key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -719,8 +697,8 @@ jobs:
   #       with:
   #         path: |
   #             .turbo
-  #             node_modules/.cache/turbo
-  #             node_modules/.pnpm
+  #     /turbo
+  #     
   #             ~/.pnpm-store
   #             ~/Library/pnpm/store
   #             ~/AppData/Local/pnpm/store
@@ -774,9 +752,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -829,9 +805,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -885,9 +859,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -941,9 +913,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
@@ -1014,9 +984,7 @@ jobs:
         with:
           path: |
               .turbo
-              node_modules/.cache
               ~/.cache/Cypress
-              node_modules/.pnpm
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store

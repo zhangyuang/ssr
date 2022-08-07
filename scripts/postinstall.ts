@@ -19,7 +19,7 @@ const cwd = process.cwd();
       ln('-s', resolve(path, './node_modules/vue'), resolve(cwd, './node_modules/vue-template-compiler/node_modules/vue'))
       console.log(await accessFile(resolve(path, './node_modules/vue')))
       console.log(await accessFile(resolve(cwd, './node_modules/vue-server-renderer/node_modules/vue')))
-      ls(resolve(path, './node_modules'))
+      console.log(ls('-R', resolve(cwd, './node_modules')))
       ln('-s', resolve(path, './node_modules/vue'), resolve(cwd, './node_modules/vue-server-renderer/node_modules/vue'))
     }
   }
