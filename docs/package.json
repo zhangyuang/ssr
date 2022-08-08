@@ -14,6 +14,7 @@
     "markdown-it-anchor": "^8.0.0",
     "markdown-it-toc-done-right": "^4.2.0",
     "ssr-core-vue3": "^6.0.0",
+    "ssr-common-utils": "^6.0.0",
     "koa-static-cache": "^5.1.4",
     "swiper": "6.7.5",
     "vue": "^3.0.0",
