@@ -2,7 +2,7 @@
   "name": "ssr-common-utils",
   "version": "6.2.32",
   "description": "utils for serverless ssr",
-  "types": "./src/types.d.ts",
+  "types": "./esm/types.d.ts",
   "exports": {
     "node": {
       "import": "./esm/server/index.js",

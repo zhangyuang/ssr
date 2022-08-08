@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import type { Pinia } from 'pinia'
 import type { App } from 'vue'
 import type { Context } from 'react'

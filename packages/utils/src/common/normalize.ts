@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import type { ReactRoutesType } from 'ssr-types'
 
 export const normalizePath = (path: string, prefix: string) => {
