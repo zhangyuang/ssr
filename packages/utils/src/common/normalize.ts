@@ -1,3 +1,4 @@
+// @ts-nocheck
 
 import type { ReactRoutesType } from 'ssr-types'
 
