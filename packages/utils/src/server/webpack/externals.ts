@@ -1,14 +1,12 @@
 // @ts-nocheck
-import { resolve } from 'path'
 import { contains, containsPattern, readFromPackageJson, readDir } from './external-utils'
 import { sync } from 'execa'
-import { getCwd } from '../cwd'
 import { getDependencies } from '../build-utils'
 import { logErr } from '../log'
 
 const scopedModuleRegex = new RegExp('@[a-zA-Z0-9][\\w-.]+\/[a-zA-Z0-9][\\w-.]+([a-zA-Z0-9.\/]+)?', 'g')
 
-function getModuleName(request, includeAbsolutePaths) {
+function getModuleName(request: string, includeAbsolutePaths: boolean) {
   let req = request
   const delimiter = '/'
 
@@ -24,14 +22,12 @@ function getModuleName(request, includeAbsolutePaths) {
   return req.split(delimiter)[0]
 }
 
-function wrap(whitelist) {
-  const map = {}
+function wrap(whitelist: Array<string|RegExp>) {
   const allDependencies = {}
   whitelist.forEach(item => {
     if (typeof item === 'string') {
       try {
-        const start = Date.now()
-        const { stdout } = execa.sync('node', ['-e', `console.log(require.resolve('${item}'))`, '--preserve-symlinks=1'])
+        const { stdout } = sync('node', ['-e', `console.log(require.resolve('${item}'))`, '--preserve-symlinks=1'])
         getDependencies(stdout, allDependencies)
       } catch (error) {
         logErr(`Please check package.json, current program use ${item} but don't specify it in dependencies`)
@@ -42,9 +38,9 @@ function wrap(whitelist) {
 }
 
 
-function nodeExternals(options) {
+function nodeExternals(options: any) {
   options = options || {}
-  let whitelist = [].concat(options.whitelist || []);
+  let whitelist: Array<string|RegExp> = [].concat(options.whitelist || []);
   whitelist = wrap(whitelist)
   const binaryDirs = [].concat(options.binaryDirs || ['.bin'])
   const importType = options.importType || 'commonjs'
