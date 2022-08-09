@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
+    "@types/express": "^4.17.11",
     "ora": "^4.0.4",
     "rimraf": "^3.0.2",
     "ssr-common-utils": "^6.2.10"
