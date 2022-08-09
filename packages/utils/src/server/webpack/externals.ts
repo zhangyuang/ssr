@@ -1,6 +1,7 @@
 // @ts-nocheck
 import { resolve } from 'path'
 import { contains, containsPattern, readFromPackageJson, readDir } from './external-utils'
+import { sync } from 'execa'
 import { getCwd } from '../cwd'
 import { getDependencies } from '../build-utils'
 import { logErr } from '../log'
@@ -29,13 +30,15 @@ function wrap(whitelist) {
   whitelist.forEach(item => {
     if (typeof item === 'string') {
       try {
-        getDependencies(require.resolve(item), allDependencies)
+        const start = Date.now()
+        const { stdout } = execa.sync('node', ['-e', `console.log(require.resolve('${item}'))`, '--preserve-symlinks=1'])
+        getDependencies(stdout, allDependencies)
       } catch (error) {
         logErr(`Please check package.json, current program use ${item} but don't specify it in dependencies`)
       }
     }
   })
-  return whitelist.concat( Object.keys(allDependencies).map(item => new RegExp(item)))
+  return whitelist.concat(Object.keys(allDependencies).map(item => new RegExp(item)))
 }
 
 
