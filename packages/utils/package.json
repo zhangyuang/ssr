@@ -1,6 +1,6 @@
 {
   "name": "ssr-common-utils",
-  "version": "6.2.33",
+  "version": "6.2.34",
   "description": "utils for serverless ssr",
   "types": "./esm/types.d.ts",
   "exports": {
