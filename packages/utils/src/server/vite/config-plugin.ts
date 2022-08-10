@@ -11,6 +11,7 @@ import { getOutputPublicPath } from '../parse'
 import { getCwd, cryptoAsyncChunkName, accessFile, debounce } from '../cwd'
 import { logErr } from '../log'
 import { getDependencies, getPkgName } from '../build-utils'
+import { defaultExternal } from '../static'
 
 const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
 const chunkNameRe = /chunkName=(.*)/
@@ -263,7 +264,7 @@ const commonConfig = (): UserConfig => {
     },
     // @ts-expect-error
     ssr: {
-      external: ['ssr-serialize-javascript', 'ssr-server-utils', 'ssr-deepclone', 'ssr-hoc-react', 'ssr-common-utils'].concat(viteConfig?.()?.server?.externals ?? []),
+      external: defaultExternal.concat(viteConfig?.()?.server?.externals ?? []),
       noExternal: whiteList
     },
     resolve: {

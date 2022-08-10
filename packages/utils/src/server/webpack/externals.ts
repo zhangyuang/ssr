@@ -1,8 +1,8 @@
-// @ts-nocheck
 import { contains, containsPattern, readFromPackageJson, readDir } from './external-utils'
 import { sync } from 'execa'
 import { getDependencies } from '../build-utils'
 import { logErr } from '../log'
+import { defaultExternal } from '../static'
 
 const scopedModuleRegex = new RegExp('@[a-zA-Z0-9][\\w-.]+\/[a-zA-Z0-9][\\w-.]+([a-zA-Z0-9.\/]+)?', 'g')
 
@@ -22,11 +22,12 @@ function getModuleName(request: string, includeAbsolutePaths: boolean) {
   return req.split(delimiter)[0]
 }
 
-function wrap(whitelist: Array<string|RegExp>) {
-  const allDependencies = {}
+function wrap(whitelist: Array<string | RegExp>) {
+  const allDependencies: Record<string, string> = {}
   whitelist.forEach(item => {
     if (typeof item === 'string') {
       try {
+        allDependencies[item] = '1'
         const { stdout } = sync('node', ['-e', `console.log(require.resolve('${item}'))`, '--preserve-symlinks=1'])
         getDependencies(stdout, allDependencies)
       } catch (error) {
@@ -40,20 +41,18 @@ function wrap(whitelist: Array<string|RegExp>) {
 
 function nodeExternals(options: any) {
   options = options || {}
-  let whitelist: Array<string|RegExp> = [].concat(options.whitelist || []);
-  whitelist = wrap(whitelist)
+  const whitelist: Array<string | RegExp> = wrap([].concat(options.whitelist || []))
   const binaryDirs = [].concat(options.binaryDirs || ['.bin'])
   const importType = options.importType || 'commonjs'
   const modulesDir = options.modulesDir || 'node_modules'
   const modulesFromFile = !!options.modulesFromFile
   const includeAbsolutePaths = !!options.includeAbsolutePaths
-  // helper function
-  function isNotBinary(x) {
+  function isNotBinary(x: string) {
     return !contains(binaryDirs, x)
   }
 
   // create the node modules list
-  let nodeModules = []
+  let nodeModules: string[] = []
   if (modulesFromFile) {
     nodeModules = readFromPackageJson(options.modulesFromFile)
   } else {
@@ -65,13 +64,22 @@ function nodeExternals(options: any) {
       nodeModules = readDir(modulesDir).filter(isNotBinary)
     }
   }
+  // nodeModules.forEach(module => {
+  //   try {
+  //     const d = {}
+  //     getDependencies(require.resolve(module), d)
+  //     nodeModules.push(...Object.keys(d))
+  //   } catch (error) {
 
-  // return an externals function
-  return function (context, request, callback) {
+  //   }
+  // })
+  return function (context: any, request: string, callback: (...params: any) => any) {
     const moduleName = getModuleName(request, includeAbsolutePaths)
-    if (contains(nodeModules, moduleName) && !containsPattern(whitelist, request)) {
-      if (typeof importType === 'function') {
-        return callback(null, importType(request))
+    if (contains(nodeModules, moduleName) || defaultExternal.includes(moduleName)) {
+      // 属于第三方模块默认 external
+      if (containsPattern(whitelist, request)) {
+        // 白名单中的需要被处理
+        return callback()
       }
       // mark this module as external
       // https://webpack.js.org/configuration/externals/

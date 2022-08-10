@@ -1,4 +1,4 @@
-import { proxyOptions } from 'ssr-types'
+import type { proxyOptions } from 'ssr-types'
 import { getDevProxyMiddlewaresArr } from './proxy'
 
 const initialSSRDevProxy = async (app: any, options?: proxyOptions) => {

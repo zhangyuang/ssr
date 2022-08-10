@@ -1,5 +1,4 @@
 import { resolve, sep } from 'path'
-import { logErr } from './log'
 
 export const normalizePosixPath = (value: string): string => {
   return sep === '\\'
@@ -30,7 +29,6 @@ export function getPkgName (modulePath: string, packageFolder = 'node_modules') 
 export const getDependencies = (abPath: string, allDependencies: Record<string, string>) => {
   const lastIndex = abPath.lastIndexOf('node_modules')
   if (lastIndex === -1) {
-    logErr(`${abPath} has not third party file, please check it's path correctly`)
     return
   }
   const pkgName = getPkgName(abPath)
