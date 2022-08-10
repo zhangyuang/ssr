@@ -3,6 +3,8 @@
   "version": "6.2.36",
   "description": "utils for serverless ssr",
   "types": "./esm/types.d.ts",
+  "main": "./cjs/server/index.js",
+  "module": "./esm/server/index.js",
   "exports": {
     "node": {
       "import": "./esm/server/index.js",

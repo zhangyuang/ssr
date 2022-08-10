@@ -7,10 +7,19 @@ const instance = axios.create({
 })
 
 const getManifest = async (config: IConfig): Promise<Record<string, string|undefined>> => {
-  const { isDev, fePort, https, manifestPath, isVite, dynamicFile } = config
+  const { isDev, fePort, https, manifestPath, isVite, dynamicFile, whiteList } = config
   let manifest = {}
   if (dynamicFile.configFile ?? !isDev) {
-    manifest = require(dynamicFile.assetManifest)
+    if (isVite) {
+      manifest = require(dynamicFile.assetManifest)
+    } else {
+      // when ssr-common-utils in external whiteList need to be bundle
+      const needBundle = whiteList.find(item => {
+        if (typeof item === 'string') return item === 'ssr-common-utils'
+        return item.test('ssr-common-utils')
+      })
+      manifest = (isVite || !needBundle) ? require(dynamicFile.assetManifest) : __non_webpack_require__(dynamicFile.assetManifest)
+    }
   } else if (isDev && !isVite) {
 
     const res = await instance.get(`${https ? 'https' : 'http'}://0.0.0.0:${fePort}${manifestPath}`)
