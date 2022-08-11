@@ -14,8 +14,8 @@
       <a target="__black" href="https://github.com/zhangyuang/ssr">
         Github
       </a>
-      <a target="__black" href="http://fe.ssr-fc.com/">
-        前端开发手册
+      <a target="__black" href="http://doc.ssr-fc.com/docs/features$sponsor">
+        项目捐赠
       </a>
       <a v-if="!isMobile" href="https://github.com/zhangyuang/ssr" target="_blank"><img
           src="https://img.shields.io/github/stars/zhangyuang/ssr.svg?color=000" alt="Node" style="width:90px"></a>

@@ -22,7 +22,8 @@ const config = [
       { title: '渲染降级', path: 'features$csr' },
       { title: 'FAQ', path: 'features$faq' },
       { title: '开发交流', path: 'features$issue' },
-      { title: '设计思路', path: 'features$thinking' }
+      { title: '设计思路', path: 'features$thinking' },
+      { title: '项目捐赠', path: 'features$sponsor' }
     ]
   },
   {

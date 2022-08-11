@@ -282,6 +282,14 @@ $ yarn start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 <img src="https://res.wx.qq.com/op_res/Nv12X2und927FEOvJ5iflzX-WBW07GSC22kumTCiShZnudKpG0jMuRs70ecHQb3Hy1QjjaASNzyOuMgHr43Wpw" width="300">
 </div>
 
+## 项目捐赠
+
+如果本项目能够对你有所帮助，希望得到来自于你的捐赠 ☕️ 为开源社区做一份贡献
+<div style="display:flex">
+<img src="https://res.wx.qq.com/op_res/iFZOgoe_-KP8Y-EfgfZkEEQ4fU2WcAhMbubL3CFq9VbCktQyiUO5tnJouMfJhvBX4JQ2Wio1Pw04PR68MBjbwQ" width="150">
+<img src="https://res.wx.qq.com/op_res/9jSx7WJn6FBlfQ0ColL4hnvX91D9MlB_XPCgLFM527qknHp0utXZkLah6MYcumdVejK4884dvgkY0NIbBLPrYg" width="150">
+</div>
+
 ## 代码行数
 
 ```bash
