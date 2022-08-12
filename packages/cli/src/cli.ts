@@ -7,6 +7,7 @@ import { generateHtml } from './html'
 import { cleanOutDir } from './clean'
 import { handleEnv } from './preprocess'
 import { onWatcher, createWatcher } from './watcher'
+
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 同步代码 block 导致 loading 暂停
 
 const spinner = {
@@ -154,6 +155,12 @@ yargs
     }
   }), async (argv: Argv) => {
     await deployFunc(argv)
+  })
+  .command('update', 'check dependencies version is latest', {}, async (argv: Argv) => {
+    spinner.start()
+    const { update } = await import ('./update')
+    await update()
+    spinner.stop()
   })
   .demandCommand(1, 'You need at least one command before moving on')
   .option('version', {

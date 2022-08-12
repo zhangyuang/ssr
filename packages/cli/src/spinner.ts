@@ -1,4 +1,4 @@
-const spinner = require('ora')('Start Building')
+const spinner = require('ora')('Starting')
 
 interface Message {
   message: 'start' | 'stop'

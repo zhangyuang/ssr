@@ -336,6 +336,7 @@ importers:
     specifiers:
       '@types/shelljs': ^0.8.7
       '@types/yargs': ^13.0.0
+      axios: ^0.21.1
       chokidar: ^3.5.3
       concurrently: ^5.1.0
       esbuild: 0.14.48
@@ -345,6 +346,7 @@ importers:
       ssr-types: ^6.2.3
       yargs: ^13.2.4
     dependencies:
+      axios: 0.21.4
       chokidar: 3.5.3
       esbuild: 0.14.48
       ora: 4.1.1

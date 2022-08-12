@@ -8,8 +8,17 @@ const remInitial = "var w = document.documentElement.clientWidth / 3.75;document
 
 const defaultExternal = ['ssr-serialize-javascript', 'ssr-server-utils', 'ssr-deepclone', 'ssr-hoc-react', 'ssr-common-utils', 'vite', 'axios']
 
+const ssrPackages = [
+  'ssr', 'ssr-plugin-vue3', 'ssr-plugin-react',
+  'ssr-plugin-vue', 'ssr-types', 'ssr-common-utils',
+  'ssr-core-vue', 'ssr-hoc-vue3', 'ssr-webpack', 'ssr-core-react',
+  'ssr-core-vue3', 'ssr-plugin-midway', 'ssr-plugin-nestjs',
+  'ssr-hoc-react'
+]
+
 export {
   reactRefreshFragment,
   remInitial,
-  defaultExternal
+  defaultExternal,
+  ssrPackages
 }
