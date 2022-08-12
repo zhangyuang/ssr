@@ -100,24 +100,30 @@ class Foo extends React.component {
 在 `Vue` 场景中，我们将会把 `vuex`, `vue-router` 返回的实例作为参数传入。开发者可以在任何时候使用它们。在 `服务端` 环境，我们会额外把当前请求的上下文 `ctx` 传入。开发者可以通过 `ctx` 拿到上面挂载的 `自定义 Service` 或者 `ctx.request` 等对象信息。这取决于服务端代码调用 `core` 模块时的具体入参实现。
 
 ```js
-import { Store } from 'vuex'
-import { RouteLocationNormalizedLoaded } from 'vue-router'
-import { ISSRMidwayContext } from 'ssr-types'
-import { IndexData } from '~/typings/data'
-interface IApiService {
-  index: () => Promise<IndexData>
-}
-interface Params {
-  store: Store<any>
-  router: RouteLocationNormalizedLoaded
-}
+// vue3 fetch.ts
+import { Params } from '~/typings/data'
 
-export default async ({ store, router }: Params, ctx?: ISSRMidwayContext<{
-  apiService?: IApiService
-}>) => {
+export default async ({ store, router, ctx }: Params) => {
   const data = __isBrowser__ ? await (await window.fetch('/api/index')).json() : await ctx?.apiService?.index()
   await store.dispatch('indexStore/initialData', { payload: data })
 }
+
+// typings/data.d.ts
+import type { ParamsNest } from 'ssr-plugin-vue3'
+import { IndexData } from './page-index'
+import { Ddata } from './detail-index'
+
+interface IApiService {
+  index: () => Promise<IndexData>
+}
+interface ApiDeatilservice {
+  index: (id: string) => Promise<Ddata>
+}
+
+export type Params = ParamsNest<any, {
+  apiService: IApiService
+  apiDeatilservice: ApiDeatilservice
+}>
 
 ```
 
@@ -127,23 +133,22 @@ export default async ({ store, router }: Params, ctx?: ISSRMidwayContext<{
 
 
 ```js
-import { ReactMidwayFetch } from 'ssr-types'
-import { IndexData } from '~/typings/data'
+// react fetch.ts
+import { ReactMidwayKoaFetch } from 'ssr-types'
+import { Ddata } from '~/typings/data'
 
-const fetch: ReactMidwayFetch<{
-  apiService: {
-    index: () => Promise<IndexData>
+const fetch: ReactMidwayKoaFetch<{
+  apiDeatilservice: {
+    index: (id: string) => Promise<Ddata>
   }
-}> = async ({ ctx, routerProps }) => {
+}, {id: string}> = async ({ ctx, routerProps }) => {
   // 阅读文档获得更多信息 http://doc.ssr-fc.com/docs/features$fetch#%E5%88%A4%E6%96%AD%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83
-  const data = __isBrowser__ ? await (await window.fetch('/api/index')).json() : await ctx!.apiService?.index()
+  const data = __isBrowser__ ? await (await window.fetch(`/api/detail/${routerProps!.match.params.id}`)).json() : await ctx!.apiDeatilservice.index(ctx!.params.id)
   return {
     // 建议根据模块给数据加上 namespace防止数据覆盖
-    indexData: data
+    detailData: data
   }
 }
-
-export default fetch
 
 ```
 ### 注意
@@ -160,7 +165,7 @@ export default fetch
 
 在 `Vue` 场景，我们会在 `beforeResolve` 钩子调用跳转后的页面组件的 `fetch` 所以我们会在拿到数据后，才能够打开新页面
 
-## 补充内容
+## 补充内容 (todoList)
 
 通过上面的内容开发者可以知道在一个服务端渲染应用中我们应该怎么获取数据了。但是比起纯客户端应用我们还是有一些不足如下
 
