@@ -829,18 +829,11 @@ module.exports = {
        <title>
         {{ pathToTitle(ctx.request.path) }}
       </title>
-      <!-- 初始化移动端 rem 设置，如不需要可自行删除 -->
       <slot name="remInitial" />
-      <!-- 用于通过配置插入自定义的 script 为了避免影响期望功能这块内容不做 escape，为了避免 xss 需要保证插入脚本代码的安全性  -->
-      <slot name="customeHeadScript" />
-      <slot name="cssInject" />
+      <slot name="injectHeader" />
     </head>
-    <body>
-      <div id="app">
-        <slot name="children" />
-      </div>
-      <slot name="initialData" />
-      <slot name="jsInject" />
+   <body>
+      <slot name="content" />
     </body>
   </html>
 </template>
@@ -908,7 +901,9 @@ const Layout = (props: LayoutProps) => {
 
 不建议图片资源放在 `web` 文件夹，对图片资源若非有小文件 `base64` 内联或者 `hash` 缓存的需求是不建议用 `Webpack` 去处理的，这样会使得 `Webpack` 的构建速度变慢。
 
-建议放在默认的静态资源文件夹即 `build` 文件夹，即可通过 `<img src="/foo.jpg">` 即可引入。由于 [egg-static](https://github.com/eggjs/egg-static) 支持数组的形式，也可以自行在根目录下创建 `public` 文件夹用于存放图片等静态资源。但记住这里需要额外将 `public` 文件夹设置为[静态资源文件夹](https://github.com/zhangyuang/ssr/blob/dev/example/midway-vue3-ssr/src/config/config.default.ts#L15)
+建议放在默认的静态资源文件夹即 `build|public` 文件夹，即可通过 `<img src="/foo.jpg">` 即可引入。或者使用单独的 `CDN` 图片服务(推荐)
+
+`注：针对绝对路径开头的图片地址框架底层将不会使用 css-loader 等 loader 进行处理，故若有图片资源的 publicPath 需求请自行通过 webpack-chain 添加额外规则处理`
 
 ### 如何让某个组件只在客户端渲染
 
@@ -1211,6 +1206,42 @@ $ ssr start --port 7001 # 等价于 midway-bin dev --port 7001
 `build` 同理，参考当前服务端框架对应的文档即可。也可以执行 `npx ssr start|build --help` 查看框架支持的其他能力
 
 ## 其他问题
+
+### 动态路由切换组件不重新渲染
+
+针对动态路由例如 `/user/:id` 之类的 `path`, 一些前端框架为了性能考虑，在路由跳转时将会复用组件实例造成组件不重新渲染的现象。
+
+例如在本框架中从 `/user/1` 跳转到 `/user/2` 时，`fetch` 方法被调用但组件并没有更新。解决方案有很多种，下面列出一些方案，根据实际情况选择
+
+#### Vue 场景
+
+通过添加 `router-view` 组件的 `key` 属性来防止组件被缓存
+
+```js
+// layout/App.vue
+<router-view :key="$route.fullPath" />
+```
+
+或者抽象 `fetch` 方法中的逻辑在 `watch route` 改变时调用
+
+或者通过 `fetchData` 的方式。来通过 `props` 获取数据来触发重新渲染
+
+```js
+// fetch.ts
+export default async ({ store, router, ctx }: Params) => {
+  return {
+    data: Math.random()
+  }
+}
+// render.vue
+import { defineProps } from 'vue'
+
+const props = defineProps<{data: string}>()
+```
+
+#### React 场景
+
+`React` 场景使用 `context` 理论上不会出现此问题，若遇到类似问题, 请提 `issue`
 
 ### class IssueWebpackError 报错
 
