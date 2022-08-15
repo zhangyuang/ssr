@@ -45,7 +45,7 @@ export const generateHtml = async (argv: Argv) => {
       }]
     combine[0].arr = combine[0].arr.concat([
       {
-        content: `window.__USE_SSR__=false;window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ;${clientPrefix ? `window.clientPrefix="${clientPrefix};"` : ''}`
+        content: `window.__USE_SSR__=false;window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ;${clientPrefix ? `window.clientPrefix="${clientPrefix}"` : ''}`
       }
     ])
 

@@ -83,7 +83,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
       const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue')
       const initialData = isCsr ? h('script', {
         domProps: {
-          innerHTML: `window.__USE_VITE__=${isVite}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}`
+          innerHTML: `window.__USE_VITE__=${isVite}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}"` : ''}`
         }
       }) : h('script', {
         domProps: {
