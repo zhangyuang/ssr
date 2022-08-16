@@ -45,8 +45,6 @@ const serverConfig: UserConfig = {
     logOverride: { 'this-is-undefined-in-esm': 'silent' }
   },
   optimizeDeps: {
-    include: ['react-router'].concat(...viteConfig?.().client?.otherConfig?.optimizeDeps?.include ?? []),
-    exclude: ['ssr-hoc-react'].concat(...viteConfig?.().client?.otherConfig?.optimizeDeps?.exclude ?? []),
     esbuildOptions: {
       // @ts-expect-error
       bundle: isDev

@@ -1,5 +1,6 @@
 import { createElement } from 'react'
 import * as ReactDOM from 'react-dom'
+import 'react-router' // for vite prebundle list
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { preloadComponent, isMicro, setStoreContext } from 'ssr-common-utils'
 import { wrapComponent } from 'ssr-hoc-react'
