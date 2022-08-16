@@ -11,8 +11,14 @@ const build = (argv: Argv) => {
     singleDash,
     doubleDash
   })
-  exec(`npx nest build ${normalizeArgv}`, () => {
+  const { stdout, stderr } = exec(`npx nest build ${normalizeArgv}`, () => {
     spinner.stop()
+  })
+  stdout?.on('data', function (data) {
+    console.log(data)
+  })
+  stderr?.on('data', function (data) {
+    console.error(`error: ${data}`)
   })
 }
 
