@@ -783,7 +783,7 @@ module.exports = {
   disableClientRender: true,
   chainClientConfig: chain => {
     // 只需要修改入口文件路径，其他配置可以沿用默认配置
-    const { loadConfig, getOutputPublicPath } = require('ssr-server-utils')
+    const { loadConfig, getOutputPublicPath } = require('ssr-common-utils')
     const { chunkName, getOutput, useHash } = loadConfig()
     const publicPath = getOutputPublicPath()
     chain.entry(chunkName)

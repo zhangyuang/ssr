@@ -1,5 +1,5 @@
 const { Bootstrap } = require('@midwayjs/bootstrap')
-const { loadConfig } = require('ssr-server-utils')
+const { loadConfig } = require('ssr-common-utils')
 
 const { serverPort } = loadConfig()
 
