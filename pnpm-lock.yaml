@@ -475,12 +475,14 @@ importers:
       '@types/express': ^4.17.11
       ora: ^4.0.4
       rimraf: ^3.0.2
+      shelljs: ^0.8.5
       ssr-common-utils: ^6.2.10
       ssr-types: ^6.2.3
     dependencies:
       '@types/express': 4.17.13
       ora: 4.1.1
       rimraf: 3.0.2
+      shelljs: 0.8.5
       ssr-common-utils: link:../utils
     devDependencies:
       ssr-types: link:../types

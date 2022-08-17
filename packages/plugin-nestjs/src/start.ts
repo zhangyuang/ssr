@@ -1,5 +1,6 @@
-import { exec } from 'child_process'
-import { logGreen, loadConfig } from 'ssr-common-utils'
+import { resolve } from 'path'
+import { exec } from 'shelljs'
+import { logGreen, loadConfig, getCwd } from 'ssr-common-utils'
 import { Argv } from 'ssr-types'
 import { getNormalizeArgv } from './utils'
 
@@ -8,16 +9,15 @@ const singleDash = ['c', 'p', 'w', 'd', 'e', 'h']
 const doubleDash = ['config', 'path', 'watch', 'watchAssets', 'debug', 'webpack', 'webpackPath', 'tsc', 'exec', 'preserveWatchOutput', 'help']
 
 const start = (argv: Argv) => {
+  const cwd = getCwd()
   const { serverPort, nestStartTips } = loadConfig()
   spinner.start()
   const normalizeArgv = getNormalizeArgv(argv, {
     singleDash,
     doubleDash
   })
+  const { stdout, stderr } = exec(`${resolve(cwd, './node_modules/.bin/nest')} start --watch ${normalizeArgv}`, { async: true, silent: true, env: { ...process.env, FORCE_COLOR: '1' } })
 
-  const { stdout, stderr } = exec(`npx nest start --watch ${normalizeArgv}`, {
-    env: { ...process.env, FORCE_COLOR: '1' }
-  })
   stdout?.on('data', function (data) {
     console.log(data)
     if (data.match('Nest application successfully started')) {
