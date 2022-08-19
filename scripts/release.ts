@@ -81,7 +81,11 @@ async function main (): Promise<void> {
     'angular',
     '-i',
     'CHANGELOG.md',
-    '-s'
+    '-s',
+    '-r',
+    '1',
+    '-l',
+    pkgName
   ]
   await run('npx', changelogArgs, { cwd: pkgDir })
 
