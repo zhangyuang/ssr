@@ -18,10 +18,6 @@ export const webSiteConfig = {
         path: '/docs/changelog$index'
       },
       {
-        label: '依赖升级',
-        path: '/docs/update$index'
-      },
-      {
         label: '依赖版本查询',
         path: '/docs/features$dependencies'
       }
