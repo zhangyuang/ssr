@@ -34,8 +34,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
   const manifest = await getManifest(config)
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
-  const customeHeadScriptArr: VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3')
-  const customeFooterScriptArr: VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue3')
 
   const cssInject = ((isVite && isDev) ? [h('script', {
     type: 'module',
@@ -66,6 +64,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};${commonInject}`
       }) : h('script', { innerHTML: commonInject })
       const children = h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app })
+      const customeHeadScriptArr: VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3')
+      const customeFooterScriptArr: VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue3')
 
       return h(Layout,
         { ctx, config, asyncData, fetchData: layoutFetchData, reactiveFetchData: { value: layoutFetchData } },
