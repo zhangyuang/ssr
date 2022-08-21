@@ -18,7 +18,7 @@
         项目捐赠
       </a>
       <a v-if="!isMobile" href="https://github.com/zhangyuang/ssr" target="_blank"><img
-          src="https://img.shields.io/github/stars/zhangyuang/ssr.svg?color=000" alt="Node" style="width:90px"></a>
+          src="https://img.shields.io/github/stars/zhangyuang/ssr.svg?color=000" alt="Node" style="width:80px"></a>
 
     </div>
   </div>
@@ -41,11 +41,9 @@ export default defineComponent({
     }
   },
   created() {
-    const { ua } = this.asyncData.value
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(ua)
+    const { isMobile } = this.asyncData.value
     this.isMobile = isMobile
   }
-
 })
 </script>
 
