@@ -1,3 +1,12 @@
+## [6.2.40](https://github.com/zhangyuang/ssr/compare/utils@6.2.39...utils@6.2.40) (2022-08-22)
+
+
+### Bug Fixes
+
+* update correct cwd in postinstall ([fff08ef](https://github.com/zhangyuang/ssr/commit/fff08efe37436f96e599f2265b1931c0a1d6df72))
+
+
+
 ## [6.2.39](https://github.com/zhangyuang/ssr/compare/utils@6.2.38...utils@6.2.39) (2022-08-22)
 
 
