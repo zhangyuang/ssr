@@ -19,6 +19,9 @@ const build = (argv: Argv) => {
   stdout?.on('data', function (data) {
     console.log(data)
   })
+  stdout?.on('end', () => {
+    spinner.stop()
+  })
   stderr?.on('data', function (data) {
     console.error(`error: ${data}`)
     spinner.stop()
