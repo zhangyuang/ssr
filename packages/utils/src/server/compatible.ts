@@ -1,15 +1,16 @@
 import { resolve } from 'path'
 import { coerce } from 'semver'
-import { accessFileSync, judgeServerFramework } from './cwd'
+import { accessFileSync, judgeServerFramework, getCwd } from './cwd'
 import { mv } from 'shelljs'
 
 export function checkForkTs () {
   try {
     const framework = judgeServerFramework()
     if (framework === 'ssr-plugin-midway') return
-    const fork = resolve(__dirname, '../../fork-ts-checker-webpack-plugin')
-    const nestCli = resolve(__dirname, '../../@nestjs/cli/node_modules')
-    const forkVersion = require(resolve(fork, './package.json')).version
+    const cwd = getCwd()
+    const fork = resolve(cwd, './node_modules/fork-ts-checker-webpack-plugin/package.json')
+    const nestCli = resolve(cwd, './node_modules/@nestjs/cli/node_modules')
+    const forkVersion = require(fork).version
     if (
       // @ts-expect-error
       coerce(forkVersion)?.major >= 7 &&

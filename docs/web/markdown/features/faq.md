@@ -1254,7 +1254,7 @@ const props = defineProps<{data: string}>()
 ```json
 {
   "scripts": {
-    "postinstall:": "node ./node_modules/server-utils/postinstall.js"
+    "postinstall:": "node ./node_modules/ssr-common-utils/postinstall.js"
   }
 }
 ```
