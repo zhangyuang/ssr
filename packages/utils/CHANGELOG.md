@@ -1,3 +1,12 @@
+## [6.2.41](https://github.com/zhangyuang/ssr/compare/utils@6.2.40...utils@6.2.41) (2022-08-24)
+
+
+### Features
+
+* close default hmr host ([f415d73](https://github.com/zhangyuang/ssr/commit/f415d7363a0a40f36074402eb8db7747538e05a1))
+
+
+
 ## [6.2.40](https://github.com/zhangyuang/ssr/compare/utils@6.2.39...utils@6.2.40) (2022-08-22)
 
 
