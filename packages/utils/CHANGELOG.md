@@ -1,3 +1,13 @@
+## [6.2.42](https://github.com/zhangyuang/ssr/compare/utils@6.2.41...utils@6.2.42) (2022-08-24)
+
+
+### Features
+
+* move nestjs-pinia example in ([d214b2c](https://github.com/zhangyuang/ssr/commit/d214b2ccded3d3dc43092b43c9c69ee2122c9bd5))
+* use esbuild transform manualroutes ([cf77fcd](https://github.com/zhangyuang/ssr/commit/cf77fcd489a02deb49d7c85def240f4f19367ad9))
+
+
+
 ## [6.2.41](https://github.com/zhangyuang/ssr/compare/utils@6.2.40...utils@6.2.41) (2022-08-24)
 
 
