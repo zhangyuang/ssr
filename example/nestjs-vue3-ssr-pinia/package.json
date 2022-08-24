@@ -1,0 +1,43 @@
+{
+  "name": "nestjs-vue3-ssr",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "@nestjs/common": "^8.0.0",
+    "@nestjs/core": "^8.0.0",
+    "@nestjs/platform-express": "^8.0.0",
+    "pm2": "^4.5.4",
+    "ssr-core-vue3": "^6.0.0",
+    "ssr-common-utils": "^6.0.0",
+    "ssr-hoc-vue3": "^6.0.0",
+    "swiper": "6.7.5",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0",
+    "pinia": "^2.0.13",  
+    "vuex": "^4.0.0",
+    "reflect-metadata": "^0.1.13"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^8.0.0",
+    "eslint-config-standard-vue-ts": "^1.0.5",
+    "ssr": "^6.0.0",
+    "ssr-plugin-vue3": "^6.0.0",
+    "ssr-plugin-nestjs": "^6.0.0",
+    "ssr-types": "^6.0.0",
+    "typescript": "^4.0.0",
+    "webpack": "^4.0.0"
+  },
+  "scripts": {
+    "prod": "ssr build && pm2 start pm2.config.js",
+    "prod:vite": "ssr build --vite && pm2 start pm2.config.js",
+    "stop": "pm2 stop pm2.config.js",
+    "start": "ssr start",
+    "start:vite": "ssr start --vite",
+    "build": "ssr build",
+    "build:vite": "ssr build --vite",
+    "deploy": "ssr build && ssr deploy",
+    "deploy:tencent": "ssr build && ssr deploy --tencent",
+    "lint": "eslint . --ext .js,.tsx,.ts,.vue --cache",
+    "lint:fix": "eslint . --ext .js,.tsx,.ts,.vue --cache --fix"
+  }
+}

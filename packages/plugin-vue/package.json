@@ -59,7 +59,7 @@
     "ssr-webpack": "^6.2.10",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "^4.1.1",
-    "vite": "^2.9.13",
+    "vite": "^2.9.15",
     "vite-plugin-vue2": "^1.4.3",
     "vue": "^2.0.0",
     "vue-loader": "^15.0.0",

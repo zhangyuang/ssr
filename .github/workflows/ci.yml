@@ -30,9 +30,9 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               .eslintcache
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -91,9 +91,9 @@ jobs:
               /Users/runner/.cache
               /Users/runner/Library/Caches/Cypress
               
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -146,9 +146,9 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -200,9 +200,9 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -256,9 +256,9 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -309,9 +309,9 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -362,9 +362,9 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -414,9 +414,9 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -468,9 +468,9 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -523,9 +523,9 @@ jobs:
               ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
               
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -577,9 +577,9 @@ jobs:
               ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
               
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -638,9 +638,9 @@ jobs:
           path: |
               .turbo/turbo
               /Users/runner/Library/Caches/Cypress
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -680,17 +680,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
-      - name: Get remote e2e example
-        uses: actions/checkout@master
-        with:
-          repository: zhangyuang/nestjs-vue3-ssr-pinia
-          path: nestjs-vue3-ssr-pinia
-          ref: master
-        
-      - name: Mv e2e example
-        run: |
-          mv nestjs-vue3-ssr-pinia example
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -702,9 +691,9 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -756,9 +745,9 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -810,9 +799,9 @@ jobs:
               ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
               
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -863,9 +852,9 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -917,9 +906,9 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
@@ -988,9 +977,9 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               
-          key: ${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-              ${{ runner.os }}-
+              ${{ runner.os }}-v1.0.0-
           
       - name: Install pnpm
         uses: pnpm/action-setup@v2
