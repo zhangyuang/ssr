@@ -1,7 +1,7 @@
 import { promises as fs } from 'fs'
 import { join } from 'path'
 import { ParseFeRouteItem } from 'ssr-types'
-import { getFeDir, accessFile, writeRoutes, cpManualRoutes, getPagesDir, judgeFramework } from './cwd'
+import { getFeDir, accessFile, writeRoutes, transformManualRoutes, getPagesDir, judgeFramework } from './cwd'
 import { loadConfig } from './loadConfig'
 import { normalizeEndPath } from '../common'
 
@@ -84,7 +84,7 @@ const parseFeRoutes = async () => {
     return `"fetch": () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}')`
   })
   await writeRoutes(routes, 'ssr-declare-routes.js')
-  await cpManualRoutes()
+  await transformManualRoutes()
 }
 
 const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {
