@@ -23,7 +23,9 @@ const build = (argv: Argv) => {
     spinner.stop()
   })
   stderr?.on('data', function (data) {
-    console.error(`error: ${data}`)
+    if (!data.includes('getMutableClone')) {
+      console.error(`error: ${data}`)
+    }
     spinner.stop()
   })
 }
