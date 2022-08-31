@@ -1,7 +1,7 @@
 import { VNode } from 'vue'
 import { Store, StoreOptions } from 'vuex'
 import { RouteLocationNormalizedLoaded } from 'vue-router'
-import { ISSRMidwayKoaContext, ISSRNestContext, ISSRContext, ESMFeRouteItem, ISSRMidwayContext } from 'ssr-types'
+import { ISSRMidwayKoaContext, ISSRNestContext, ISSRContext, ESMFeRouteItem } from 'ssr-types'
 import { Pinia } from 'pinia'
 
 export interface ParamsKoa<T={}, U={}> {
@@ -17,15 +17,15 @@ export interface ParamsNest<T={}, U={}> {
   ctx?: ISSRNestContext<U>
   pinia: Pinia
 }
-export interface ParamsMidway<T={}, U={}> {
+
+export interface Params<T={}, U={}> {
   store: Store<T>
   router: RouteLocationNormalizedLoaded
-  ctx?: ISSRMidwayContext<U>
+  ctx?: ISSRContext<U>
   pinia: Pinia
 }
-
-export type Params = ParamsKoa | ParamsNest | ParamsMidway
 export type Fetch = (params: Params, ctx?: ISSRContext) => Promise<any>
+
 export type ESMFetch = () => Promise<{
   default: Fetch
 }>

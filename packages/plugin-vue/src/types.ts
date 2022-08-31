@@ -23,7 +23,11 @@ export interface ParamsKoa<T={}, U={}> {
   router: Route
   ctx?: ISSRMidwayKoaContext<U>
 }
-export type Params = ParamsKoa | ParamsNest
+export interface Params<T={}, U={}> {
+  store: Store<T>
+  router: Route
+  ctx?: ISSRContext<U>
+}
 
 export interface RoutesType {
   Layout: Component

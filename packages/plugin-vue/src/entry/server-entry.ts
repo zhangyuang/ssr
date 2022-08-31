@@ -34,8 +34,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
   if (!isCsr) {
     router.push(url)
     const currentFetch = fetch ? (await fetch()).default : null
-    const lF = layoutFetch ? layoutFetch({ store, router: router.currentRoute, ctx: ctx as any }, ctx) : Promise.resolve({})
-    const CF = currentFetch ? currentFetch({ store, router: router.currentRoute, ctx: ctx as any }, ctx) : Promise.resolve({});
+    const lF = layoutFetch ? layoutFetch({ store, router: router.currentRoute, ctx }, ctx) : Promise.resolve({})
+    const CF = currentFetch ? currentFetch({ store, router: router.currentRoute, ctx }, ctx) : Promise.resolve({});
     [layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
   } else {
     logGreen(`Current path ${path} use csr render mode`)
