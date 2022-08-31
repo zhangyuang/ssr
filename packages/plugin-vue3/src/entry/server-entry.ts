@@ -106,23 +106,17 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   app.use(store)
   app.use(pinia)
   setApp(app)
-  let layoutFetchData = {}
-  let fetchData = {}
+
+  let [layoutFetchData, fetchData] = [{}, {}]
 
   if (!isCsr) {
     router.push(url)
     await router.isReady()
     const currentFetch = fetch ? (await fetch()).default : null
-    // don't need getData when csr
-    if (parallelFetch) {
-      [layoutFetchData, fetchData] = await Promise.all([
-        layoutFetch ? layoutFetch({ store, router: router.currentRoute.value, ctx, pinia }, ctx) : Promise.resolve({}),
-        currentFetch ? currentFetch({ store, router: router.currentRoute.value, ctx, pinia }, ctx) : Promise.resolve({})
-      ])
-    } else {
-      layoutFetchData = layoutFetch ? await layoutFetch({ store, router: router.currentRoute.value, ctx, pinia }, ctx) : {}
-      fetchData = currentFetch ? await currentFetch({ store, router: router.currentRoute.value, ctx, pinia }, ctx) : {}
-    }
+    const { value } = router.currentRoute
+    const lF = layoutFetch ? layoutFetch({ store, router: value, ctx: ctx as any, pinia }, ctx) : Promise.resolve({})
+    const CF = currentFetch ? currentFetch({ store, router: value, ctx: ctx as any, pinia }, ctx) : Promise.resolve({});
+    [layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
   } else {
     logGreen(`Current path ${path} use csr render mode`)
   }

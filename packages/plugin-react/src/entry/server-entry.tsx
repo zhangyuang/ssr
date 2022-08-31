@@ -55,21 +55,16 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   if (isCsr) {
     logGreen(`Current path ${path} use csr render mode`)
   }
-  let layoutFetchData = {}
-  let fetchData = {}
+
+  let [layoutFetchData, fetchData] = [{}, {}]
+
   if (!isCsr) {
     const currentFetch = fetch ? (await fetch()).default : null
-    // csr 下不需要服务端获取数据
-    if (parallelFetch) {
-      [layoutFetchData, fetchData] = await Promise.all([
-        layoutFetch ? layoutFetch({ ctx }) : Promise.resolve({}),
-        currentFetch ? currentFetch({ ctx }) : Promise.resolve({})
-      ])
-    } else {
-      layoutFetchData = layoutFetch ? await layoutFetch({ ctx }) : {}
-      fetchData = currentFetch ? await currentFetch({ ctx }) : {}
-    }
+    const lF = layoutFetch ? layoutFetch({ ctx }) : Promise.resolve({})
+    const CF = currentFetch ? currentFetch({ ctx }) : Promise.resolve({});
+    [layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
   }
+
   const combineData = isCsr ? null : Object.assign(state ?? {}, layoutFetchData ?? {}, fetchData ?? {})
   const injectState = isCsr ? <script dangerouslySetInnerHTML={{ __html: `window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}` }} /> : <script dangerouslySetInnerHTML={{
     __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}`

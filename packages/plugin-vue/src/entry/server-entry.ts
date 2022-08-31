@@ -29,26 +29,18 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
 
   const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
-  let layoutFetchData = {}
-  let fetchData = {}
+  let [layoutFetchData, fetchData] = [{}, {}]
 
   if (!isCsr) {
-    const currentFetch = fetch ? (await fetch()).default : null
     router.push(url)
-
-    // csr 下不需要服务端获取数据
-    if (parallelFetch) {
-      [layoutFetchData, fetchData] = await Promise.all([
-        layoutFetch ? layoutFetch({ store, router: router.currentRoute, ctx }, ctx) : Promise.resolve({}),
-        currentFetch ? currentFetch({ store, router: router.currentRoute, ctx }, ctx) : Promise.resolve({})
-      ])
-    } else {
-      layoutFetchData = layoutFetch ? await layoutFetch({ store, router: router.currentRoute, ctx }, ctx) : {}
-      fetchData = currentFetch ? await currentFetch({ store, router: router.currentRoute, ctx }, ctx) : {}
-    }
+    const currentFetch = fetch ? (await fetch()).default : null
+    const lF = layoutFetch ? layoutFetch({ store, router: router.currentRoute, ctx: ctx as any }, ctx) : Promise.resolve({})
+    const CF = currentFetch ? currentFetch({ store, router: router.currentRoute, ctx: ctx as any }, ctx) : Promise.resolve({});
+    [layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
   } else {
     logGreen(`Current path ${path} use csr render mode`)
   }
+
   const combineAysncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
   const state = Object.assign({}, store.state ?? {}, combineAysncData)
   // @ts-expect-error

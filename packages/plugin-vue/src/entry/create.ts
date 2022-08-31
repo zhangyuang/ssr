@@ -21,7 +21,7 @@ function createRouter (options: VueRouterOptions = {}) {
 }
 
 function createStore () {
-  return new Vuex.Store(deepClone(store))
+  return new Vuex.Store<any>(deepClone(store))
 }
 
 export {

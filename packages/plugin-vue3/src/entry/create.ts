@@ -15,7 +15,7 @@ function createRouter (options: VueRouterOptions&{hashRouter?: boolean} = {}) {
 }
 
 function createStore () {
-  return createVuexStore(deepClone(store))
+  return createVuexStore<any>(deepClone(store))
 }
 
 export {
