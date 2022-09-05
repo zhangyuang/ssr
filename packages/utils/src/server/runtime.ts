@@ -38,9 +38,7 @@ export const getAsyncCssChunk = async (ctx: ISSRContext, webpackChunkName: strin
 }
 export const getAsyncJsChunk = async (ctx: ISSRContext, webpackChunkName: string, config: IConfig): Promise<string[]> => {
   const { jsOrder, extraJsOrder } = config
-  return jsOrder.concat([...nomalrizeOrder(extraJsOrder, ctx)])
-  // fix for sourcemap
-  // return jsOrder.concat([...nomalrizeOrder(extraJsOrder, ctx), ...await addAsyncChunk(webpackChunkName, config, 'js'), `${webpackChunkName}.js`])
+  return jsOrder.concat([...nomalrizeOrder(extraJsOrder, ctx), ...await addAsyncChunk(webpackChunkName, config, 'js')])
 }
 
 export const getUserScriptVue = (script: UserConfig['customeHeadScript'], ctx: ISSRContext, h: any, type: 'vue3'| 'vue') => {
