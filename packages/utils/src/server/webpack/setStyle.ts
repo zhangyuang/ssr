@@ -13,6 +13,7 @@ const setStyle = (chain: Chain, reg: RegExp, options: StyleOptions) => {
       // 对 .module.xxx 的文件开启 css-modules
       auto: true
     },
+    sourceMap: false,
     url: (url: string) => {
       // 绝对路径开头的静态资源地址不处理
       return !url.startsWith('/')
@@ -69,11 +70,12 @@ const setStyle = (chain: Chain, reg: RegExp, options: StyleOptions) => {
       loader && rule.use(loader)
         .loader(loadModule(loader))
         .when(loader === 'less-loader', rule => {
-          rule.options(css?.().loaderOptions?.less ?? {
+          rule.options(Object.assign({
             lessOptions: {
               javascriptEnabled: true
-            }
-          })
+            },
+            sourceMap: false
+          }, css?.().loaderOptions?.less))
         })
         .when(loader === 'sass-loader', rule => {
           rule.options(css?.().loaderOptions?.sass ?? {})

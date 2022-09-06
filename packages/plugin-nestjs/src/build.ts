@@ -23,7 +23,7 @@ const build = (argv: Argv) => {
     spinner.stop()
   })
   stderr?.on('data', function (data) {
-    if (!data.includes('getMutableClone')) {
+    if (!data.includes('has been deprecated')) {
       console.error(`error: ${data}`)
     }
     spinner.stop()
