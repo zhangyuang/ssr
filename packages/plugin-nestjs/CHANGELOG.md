@@ -1,3 +1,17 @@
+## [6.2.19](https://github.com/zhangyuang/ssr/compare/plugin-nestjs@6.2.18...plugin-nestjs@6.2.19) (2022-09-06)
+
+
+### Bug Fixes
+
+* don't inject dynamic js chunk in html for sourcemap ([7771694](https://github.com/zhangyuang/ssr/commit/7771694d1e34ab2fccf5e411a5b7611047b38a23))
+
+
+### Features
+
+* close css less sourcemap ([7936f71](https://github.com/zhangyuang/ssr/commit/7936f71a5db4faeb6b84a5a15967d19c5d8c606b))
+
+
+
 ## [6.2.18](https://github.com/zhangyuang/ssr/compare/plugin-nestjs@6.2.17...plugin-nestjs@6.2.18) (2022-08-28)
 
 
