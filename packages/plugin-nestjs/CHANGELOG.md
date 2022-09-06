@@ -1,3 +1,12 @@
+## [6.2.20](https://github.com/zhangyuang/ssr/compare/plugin-nestjs@6.2.19...plugin-nestjs@6.2.20) (2022-09-06)
+
+
+### Bug Fixes
+
+* nest start tips ([ac7f0a1](https://github.com/zhangyuang/ssr/commit/ac7f0a1a50b5765fcd00d00195b5a413070ac0b3))
+
+
+
 ## [6.2.19](https://github.com/zhangyuang/ssr/compare/plugin-nestjs@6.2.18...plugin-nestjs@6.2.19) (2022-09-06)
 
 
