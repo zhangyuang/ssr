@@ -1,3 +1,18 @@
+## [6.2.44](https://github.com/zhangyuang/ssr/compare/utils@6.2.42...utils@6.2.44) (2022-09-06)
+
+
+### Bug Fixes
+
+* don't inject dynamic js chunk in html for sourcemap ([7771694](https://github.com/zhangyuang/ssr/commit/7771694d1e34ab2fccf5e411a5b7611047b38a23))
+* hidden nest build warning ([28e809d](https://github.com/zhangyuang/ssr/commit/28e809da607a77e6e0d97075c179d3b0a53a988d))
+
+
+### Features
+
+* close css less sourcemap ([7936f71](https://github.com/zhangyuang/ssr/commit/7936f71a5db4faeb6b84a5a15967d19c5d8c606b))
+
+
+
 ## [6.2.43](https://github.com/zhangyuang/ssr/compare/utils@6.2.42...utils@6.2.43) (2022-09-05)
 
 
