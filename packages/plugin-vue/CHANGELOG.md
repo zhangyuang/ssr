@@ -1,3 +1,19 @@
+## [6.2.42](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.40...plugin-vue@6.2.42) (2022-09-06)
+
+
+### Bug Fixes
+
+* don't inject dynamic js chunk in html for sourcemap ([7771694](https://github.com/zhangyuang/ssr/commit/7771694d1e34ab2fccf5e411a5b7611047b38a23))
+* nest start tips ([ac7f0a1](https://github.com/zhangyuang/ssr/commit/ac7f0a1a50b5765fcd00d00195b5a413070ac0b3))
+
+
+### Features
+
+* close css less sourcemap ([7936f71](https://github.com/zhangyuang/ssr/commit/7936f71a5db4faeb6b84a5a15967d19c5d8c606b))
+* use eval-source-map replace cheap-sourcemap in dev ([1bd615e](https://github.com/zhangyuang/ssr/commit/1bd615e52b24334f727c3c0c13113125670c776f))
+
+
+
 ## [6.2.41](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.40...plugin-vue@6.2.41) (2022-09-06)
 
 
