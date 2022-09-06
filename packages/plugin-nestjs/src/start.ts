@@ -27,7 +27,9 @@ const start = (argv: Argv) => {
     }
   })
   stderr?.on('data', function (data) {
-    console.error(`error: ${data}`)
+    if (!data.includes('has been deprecated')) {
+      console.error(`error: ${data}`)
+    }
   })
 }
 
