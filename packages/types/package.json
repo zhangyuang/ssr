@@ -26,10 +26,8 @@
     "url": "https://github.com/zhangyuang/ssr/issues"
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
-  "peerDependencies": {
-    "@types/node": ">=14.0.0"
-  },
   "devDependencies": {
+    "@types/node": ">=14.0.0",
     "@babel/core": "^7.0.0",
     "@midwayjs/decorator": "^3.0.0",
     "@midwayjs/koa": "^3.0.0",

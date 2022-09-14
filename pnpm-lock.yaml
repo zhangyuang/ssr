@@ -4,6 +4,7 @@ importers:
 
   .:
     specifiers:
+      '@types/node': '>=14.0.0'
       '@types/prompts': ^2.0.14
       '@types/semver': ^7.3.10
       '@types/shelljs': ^0.8.11
@@ -26,6 +27,7 @@ importers:
       turbo: ^1.4.2
       typescript: ^4.7.4
     devDependencies:
+      '@types/node': 18.7.13
       '@types/prompts': 2.0.14
       '@types/semver': 7.3.12
       '@types/shelljs': 0.8.11
@@ -512,7 +514,7 @@ importers:
       ssr-common-utils: ^6.2.10
       ssr-types: ^6.2.3
     dependencies:
-      '@midwayjs/cli': 1.3.11_typescript@4.7.4
+      '@midwayjs/cli': 1.3.11_efe961071de9fd3cd549dd7b2288d771
       ssr-common-utils: link:../utils
     devDependencies:
       ssr-types: link:../types
@@ -846,6 +848,7 @@ importers:
       '@types/estree': ^0.0.51
       '@types/express': ^4.17.11
       '@types/koa-router': ^7.4.4
+      '@types/node': '>=14.0.0'
       '@types/react': ^17.0.0
       '@types/react-dom': ^17.0.0
       '@types/react-router-dom': ^5.1.6
@@ -865,6 +868,7 @@ importers:
       '@types/estree': 0.0.51
       '@types/express': 4.17.13
       '@types/koa-router': 7.4.4
+      '@types/node': 18.7.13
       '@types/react': 17.0.48
       '@types/react-dom': 17.0.17
       '@types/react-router-dom': 5.3.3
@@ -3820,7 +3824,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@midwayjs/cli-plugin-test/1.3.7:
+  /@midwayjs/cli-plugin-test/1.3.7_@types+node@18.7.13:
     resolution: {integrity: sha512-Qke0g6pKESABRtBbbwvP8vRBJYAd8dG/EXE7KNfBHHErGZSatkwAL63CeGalJszQkRq8hxQRfoofF8H+O+Y+MQ==}
     engines: {node: '>= 10'}
     dependencies:
@@ -3828,7 +3832,7 @@ packages:
       globby: 10.0.2
       jest: 26.6.3_ts-node@10.9.1
       ts-jest: 26.5.6_jest@26.6.3+typescript@4.7.4
-      ts-node: 10.9.1_typescript@4.7.4
+      ts-node: 10.9.1_efe961071de9fd3cd549dd7b2288d771
       typescript: 4.7.4
     transitivePeerDependencies:
       - '@swc/core'
@@ -3840,7 +3844,7 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@midwayjs/cli/1.3.11_typescript@4.7.4:
+  /@midwayjs/cli/1.3.11_efe961071de9fd3cd549dd7b2288d771:
     resolution: {integrity: sha512-ZHu1UTcqycQFImV08p15G8ysPHL/pPV2imvHQaMyDbh3ojI/IbJE6rMr6It3L8h3CEbZ+irNum9pO+rDCeAyHA==}
     engines: {node: '>= 10.0.0'}
     hasBin: true
@@ -3850,14 +3854,14 @@ packages:
       '@midwayjs/cli-plugin-check': 1.3.11
       '@midwayjs/cli-plugin-clean': 1.3.11
       '@midwayjs/cli-plugin-dev': 1.3.11
-      '@midwayjs/cli-plugin-test': 1.3.7
+      '@midwayjs/cli-plugin-test': 1.3.7_@types+node@18.7.13
       '@midwayjs/command-core': 1.3.5
       enquirer: 2.3.6
       jest-environment-node: 26.6.2
       minimist: 1.2.6
       mod-info: 1.0.2
       source-map-support: 0.5.21
-      ts-node: 10.9.1_typescript@4.7.4
+      ts-node: 10.9.1_efe961071de9fd3cd549dd7b2288d771
     transitivePeerDependencies:
       - '@midwayjs/mock'
       - '@swc/core'
@@ -10327,7 +10331,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.15.1
+      follow-redirects: 1.15.1_debug@4.3.4
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
@@ -11095,7 +11099,7 @@ packages:
       jest-validate: 26.6.2
       micromatch: 4.0.5
       pretty-format: 26.6.2
-      ts-node: 10.9.1_typescript@4.7.4
+      ts-node: 10.9.1_efe961071de9fd3cd549dd7b2288d771
     transitivePeerDependencies:
       - bufferutil
       - canvas
@@ -16173,7 +16177,7 @@ packages:
       yargs-parser: 20.2.9
     dev: false
 
-  /ts-node/10.9.1_typescript@4.7.4:
+  /ts-node/10.9.1_efe961071de9fd3cd549dd7b2288d771:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -16192,6 +16196,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
+      '@types/node': 18.7.13
       acorn: 8.8.0
       acorn-walk: 8.2.0
       arg: 4.1.3
