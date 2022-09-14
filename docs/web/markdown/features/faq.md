@@ -566,7 +566,9 @@ export default {
 在 `Vite` 场景可直接使用以下 `UI` 框架按需引入语法。若发现问题请及时提 `issue`, 我们将会尽快修复
 
 - `React`: [antd](https://ant.design/)
-- `Vue`: [vant](https://vant-contrib.gitee.io/vant/#/), [ant-design-vue](https://antdv.com/docs/vue/introduce-cn/),[element-plus](https://element-plus.org/zh-CN/)
+- `Vue`: [vant](https://vant-contrib.gitee.io/vant/#/),[element-plus](https://element-plus.org/zh-CN/),[ant-design-vue](https://antdv.com/docs/vue/introduce-cn/)
+
+`注：(暂不推荐 Vue + ant-design-vue，似乎在 SSR 场景会出现样式闪烁问题, 待 antv 官方修复)`
 
 ```js
 // 注意: 使用了按需引入的框架无法再使用全量引入的语法

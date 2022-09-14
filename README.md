@@ -102,6 +102,9 @@
 <td align="center"><a href="https://www.myweimai.com/#sectionOne" target="_blank"><img src="https://img.alicdn.com/tfs/TB16i3VrQT2gK0jSZPcXXcKkpXa-400-400.jpg" width="120" alt="微脉"/><br />
 <a href="https://www.myweimai.com/#sectionOne" target="_bvlank"><sub><b>微脉
 </b></a></td>
+<td align="center"><a href="hhttps://www.xdjy100.com/" target="_blank"><img src="https://res.wx.qq.com/shop/public/4a9526b5-0678-471a-bb98-d8545270f87f.png" width="120" alt="行动教育"/><br />
+<a href="https://www.xdjy100.com/" target="_bvlank"><sub><b>行动教育
+</b></a></td>
 </tr>
 <tr>
 <td align="center" style="height: 100px"><a href="https://www.habisummercamp.com/" target="_blank"><img src="https://res.wx.qq.com/op_res/XXUpF56bDue53vZadoCSPSnqKF3bZqPOQnqsPa_ngEARa0OUIW22pX7eKsftPb6pc5ny62cR_wXM4g5xJ7G3DQ
@@ -129,6 +132,11 @@
 <td align="center"><a href="https://help.seewo.com/" target="_blank"><img src="https://img.alicdn.com/tfs/TB11Xo3q4v1gK0jSZFFXXb0sXXa-350-55.png" width="120" alt="cvte"/><br /><a href="https://help.seewo.com/" target="_blank"><sub><b>希沃帮助中心
 </b></a></td>
 <td align="center"><a href="https://n8n8.cn/" target="_blank"><img src="https://static.jingzhuan.cn/static/portal/logo.png" width="120" alt="经传多赢股票网"/><br /><a href="https://n8n8.cn/" target="_blank"><sub><b>经传多赢股票网
+</b></a></td>
+</tr>
+<tr>
+<td align="center"><a href="https://www.sinovip.cn/home" target="_blank"><img src="https://res.wx.qq.com/shop/public/9e3d374e-5b54-4457-af2f-b457e544adc4.png" width="120" alt="中商全球图书采选平台
+"/><br /><a href="https://www.sinovip.cn/home" target="_blank"><sub><b>中商全球图书采选平台
 </b></a></td>
 </tr>
 </table>
