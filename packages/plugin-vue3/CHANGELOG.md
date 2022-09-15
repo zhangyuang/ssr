@@ -1,3 +1,12 @@
+## [6.2.66](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.65...plugin-vue3@6.2.66) (2022-09-15)
+
+
+### Features
+
+* move render app logic in server-render not in core ([8638ab2](https://github.com/zhangyuang/ssr/commit/8638ab2970bbd9e47598d93e7038f8f599ea82f5))
+
+
+
 ## [6.2.65](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.64...plugin-vue3@6.2.65) (2022-09-06)
 
 
