@@ -1,3 +1,12 @@
+## [6.2.46](https://github.com/zhangyuang/ssr/compare/utils@6.2.45...utils@6.2.46) (2022-09-15)
+
+
+### Features
+
+* move render app logic in server-render not in core ([8638ab2](https://github.com/zhangyuang/ssr/commit/8638ab2970bbd9e47598d93e7038f8f599ea82f5))
+
+
+
 ## [6.2.45](https://github.com/zhangyuang/ssr/compare/utils@6.2.44...utils@6.2.45) (2022-09-06)
 
 
