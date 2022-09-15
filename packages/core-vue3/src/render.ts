@@ -1,8 +1,8 @@
-import { Readable } from 'stream'
+import { Readable, Stream } from 'stream'
 import { loadConfig, StringToStream, mergeStream2, judgeServerFramework } from 'ssr-common-utils'
-import { renderToNodeStream, renderToString } from '@vue/server-renderer'
 import { ISSRContext, UserConfig, ISSRNestContext, IConfig } from 'ssr-types'
 import type { ViteDevServer } from 'vite'
+import type { Vue3RenderRes } from 'ssr-plugin-vue3'
 
 const defaultConfig = loadConfig()
 const serverFrameWork = judgeServerFramework()
@@ -15,7 +15,7 @@ function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
 async function render (ctx: ISSRContext, options?: UserConfig) {
   const extraConfig: UserConfig = options?.dynamicFile?.configFile ? require(options.dynamicFile.configFile).userConfig : {}
   const config: IConfig = Object.assign({}, defaultConfig, options ?? {}, extraConfig)
-  const { stream, isVite, isDev } = config
+  const { isVite, isDev } = config
 
   if (!isDev && options?.dynamicFile?.assetManifest) {
     config.isVite = !!(require(options.dynamicFile.assetManifest).vite)
@@ -27,22 +27,20 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
   }
 
   const serverRes = isVite ? await viteRender(ctx, config) : await commonRender(ctx, config)
-  if (stream) {
-    const stream = mergeStream2(new StringToStream('<!DOCTYPE html>'), renderToNodeStream(serverRes))
+  if (serverRes instanceof Stream) {
+    const stream = mergeStream2(new StringToStream('<!DOCTYPE html>'), serverRes)
     stream.on('error', (e: any) => {
       console.log(e)
     })
     return stream
   } else {
-    const ctx: {
-      teleports?: Record<string, string>
-    } = {}
-    let html = await renderToString(serverRes, ctx)
-    if (ctx.teleports) {
+    let { html, teleportsContext } = serverRes
+    if (teleportsContext.teleports) {
+      const { teleports } = teleportsContext
       const cheerio = require('cheerio')
       const $ = cheerio.load(html)
-      for (const target in ctx.teleports) {
-        const content = ctx.teleports[target]
+      for (const target in teleports) {
+        const content = teleports[target]
         $(target).append(content)
       }
       html = $.html()
@@ -52,7 +50,8 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
 }
 
 let viteServer: ViteDevServer|boolean = false
-async function viteRender (ctx: ISSRContext, config: IConfig) {
+
+async function viteRender (ctx: ISSRContext, config: IConfig): Promise<Vue3RenderRes> {
   const { isDev, vue3ServerEntry, dynamicFile } = config
   let serverRes
   if (isDev) {
@@ -69,7 +68,7 @@ async function viteRender (ctx: ISSRContext, config: IConfig) {
   return serverRes
 }
 
-async function commonRender (ctx: ISSRContext, config: IConfig) {
+async function commonRender (ctx: ISSRContext, config: IConfig): Promise<Vue3RenderRes> {
   const { isDev, dynamicFile } = config
   const serverBundle = dynamicFile.serverBundle
 

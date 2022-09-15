@@ -33,7 +33,8 @@ const loadConfig = (): IConfig => {
     'react-router': loadModuleFromFramework('react-router'),
     'react-router-dom': loadModuleFromFramework('react-router-dom')
   } : {
-    vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
+    vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js',
+    '@vue/server-renderer': loadModuleFromFramework('@vue/server-renderer/index.js') // use commonjs file
   }, userConfig.alias)
 
   type ClientLogLevel = 'error'

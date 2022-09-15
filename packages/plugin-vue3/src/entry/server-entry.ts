@@ -6,6 +6,7 @@ import {
 import { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
 import { serialize } from 'ssr-serialize-javascript'
+import { renderToNodeStream, renderToString } from '@vue/server-renderer'
 import { Routes } from './combine-router'
 import { createRouter, createStore } from './create'
 import { IFeRouteItem } from '../types'
@@ -13,7 +14,7 @@ import { IFeRouteItem } from '../types'
 const { FeRoutes, App, layoutFetch, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix } = config
+  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream } = config
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
@@ -127,8 +128,18 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   const state = Object.assign({}, store.state ?? {}, asyncData.value)
-
-  return app
+  if (stream) {
+    return renderToNodeStream(app)
+  } else {
+    const teleportsContext: {
+      teleports?: Record<string, string>
+    } = {}
+    const html = await renderToString(app, teleportsContext)
+    return {
+      html,
+      teleportsContext
+    }
+  }
 }
 
 export {

@@ -1,8 +1,9 @@
-import { VNode } from 'vue'
-import { Store, StoreOptions } from 'vuex'
-import { RouteLocationNormalizedLoaded } from 'vue-router'
-import { ISSRMidwayKoaContext, ISSRNestContext, ISSRContext, ESMFeRouteItem } from 'ssr-types'
-import { Pinia } from 'pinia'
+import type { VNode } from 'vue'
+import type { Store, StoreOptions } from 'vuex'
+import type { RouteLocationNormalizedLoaded } from 'vue-router'
+import type { ISSRMidwayKoaContext, ISSRNestContext, ISSRContext, ESMFeRouteItem } from 'ssr-types'
+import type { Pinia } from 'pinia'
+import type { Readable } from 'stream'
 
 export interface ParamsKoa<T={}, U={}> {
   store: Store<T>
@@ -44,4 +45,11 @@ export interface RoutesType {
 
 export interface VueRouterOptions {
   base?: string
+}
+
+export type Vue3RenderRes = Readable | {
+  html: string
+  teleportsContext: {
+    teleports?: Record<string, string> | undefined
+  }
 }

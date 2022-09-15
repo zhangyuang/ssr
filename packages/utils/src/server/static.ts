@@ -6,7 +6,7 @@ window.__vite_plugin_react_preamble_installed__ = true`
 
 const remInitial = "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
 
-const defaultExternal = ['ssr-serialize-javascript', 'ssr-server-utils', 'ssr-deepclone', 'ssr-hoc-react', 'ssr-common-utils', 'vite', 'axios']
+const defaultExternal = ['@vue/server-renderer', 'ssr-serialize-javascript', 'ssr-server-utils', 'ssr-deepclone', 'ssr-hoc-react', 'ssr-common-utils', 'vite', 'axios']
 
 const ssrPackages = [
   'ssr', 'ssr-plugin-vue3', 'ssr-plugin-react',
