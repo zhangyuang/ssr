@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { createElement } from 'react'
 import { StaticRouter } from 'react-router-dom'
+import { renderToString, renderToNodeStream } from 'react-dom/server'
 import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, reactRefreshFragment, setStoreContext } from 'ssr-common-utils'
 import { ISSRContext, IConfig, ReactESMPreloadFeRouteItem, DynamicFC, StaticFC } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
@@ -10,7 +11,7 @@ import { Routes } from './create-router'
 const { FeRoutes, layoutFetch, state, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix } = config
+  const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix, stream } = config
   const path = normalizePath(ctx.request.path, prefix)
   const routeItem = findRoute<ReactESMPreloadFeRouteItem>(FeRoutes, path)
   setStoreContext(Context)
@@ -70,7 +71,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}`
   }} />
   // with jsx type error, use createElement here
-  return createElement(StaticRouter, {
+  const ele = createElement(StaticRouter, {
     location: ctx.request.url,
     basename: prefix === '/' ? undefined : prefix
   }, createElement(Context.Provider, {
@@ -83,6 +84,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     staticList: staticList,
     injectState: injectState
   }, createElement(Component, null))))
+  return stream ? renderToNodeStream(ele) : renderToString(ele)
 }
 
 export {

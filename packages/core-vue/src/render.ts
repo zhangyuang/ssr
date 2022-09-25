@@ -1,12 +1,10 @@
 import { resolve } from 'path'
 import { Readable } from 'stream'
 import { loadConfig, getCwd, StringToStream, mergeStream2, judgeServerFramework } from 'ssr-common-utils'
-import { createRenderer } from 'vue-server-renderer'
 import { ISSRContext, UserConfig, ISSRNestContext, IConfig } from 'ssr-types'
 
 const cwd = getCwd()
 const defaultConfig = loadConfig()
-const { renderToStream, renderToString } = createRenderer()
 const serverFrameWork = judgeServerFramework()
 
 function render (ctx: ISSRContext, options?: UserConfig & {stream: true}): Promise<Readable>
@@ -16,7 +14,7 @@ function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
 
 async function render (ctx: ISSRContext, options?: UserConfig) {
   const config = Object.assign({}, defaultConfig, options ?? {})
-  const { stream, isVite } = config
+  const { isVite } = config
 
   if (serverFrameWork === 'ssr-plugin-midway') {
     ctx.response.type = 'text/html;charset=utf-8'
@@ -25,18 +23,18 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
   }
 
   const serverRes = isVite ? await viteRender(ctx, config) : await commonRender(ctx, config)
-  if (stream) {
-    const stream = mergeStream2(new StringToStream('<!DOCTYPE html>'), renderToStream(serverRes))
+  if (serverRes instanceof Readable) {
+    const stream = mergeStream2(new StringToStream('<!DOCTYPE html>'), serverRes)
     stream.on('error', (e: any) => {
       console.log(e)
     })
     return stream
   } else {
-    return `<!DOCTYPE html>${await renderToString(serverRes)}`
+    return `<!DOCTYPE html>${serverRes}`
   }
 }
 
-async function viteRender (ctx: ISSRContext, config: IConfig) {
+async function viteRender (ctx: ISSRContext, config: IConfig): Promise<string|Readable> {
   const { isDev, chunkName, vueServerEntry } = config
   let serverRes
   if (isDev) {
@@ -54,7 +52,7 @@ async function viteRender (ctx: ISSRContext, config: IConfig) {
   return serverRes
 }
 
-async function commonRender (ctx: ISSRContext, config: IConfig) {
+async function commonRender (ctx: ISSRContext, config: IConfig): Promise<string|Readable> {
   const { isDev, chunkName } = config
   const serverFile = resolve(cwd, `./build/server/${chunkName}.server.js`)
 

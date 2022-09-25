@@ -2,14 +2,16 @@ import * as Vue from 'vue'
 import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial, setStore } from 'ssr-common-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
+import { createRenderer } from 'vue-server-renderer'
 import { Routes } from './create-router'
 import { createRouter, createStore } from './create'
 import { IFeRouteItem } from '../types'
 
+const { renderToStream, renderToString } = createRenderer()
 const { FeRoutes, App, layoutFetch, Layout } = Routes
 
-const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Component> => {
-  const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix } = config
+const serverRender = async (ctx: ISSRContext, config: IConfig) => {
+  const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix, stream } = config
   const router = createRouter()
   const store = createStore()
   setStore(store)
@@ -149,7 +151,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
       )
     }
   })
-  return app
+  return stream ? renderToStream(app) : await renderToString(app)
 }
 
 export {
