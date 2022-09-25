@@ -1,3 +1,15 @@
+## [6.2.51](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.50...plugin-react@6.2.51) (2022-09-25)
+
+
+### Features
+
+* move render app logic in server-render not in core ([8638ab2](https://github.com/zhangyuang/ssr/commit/8638ab2970bbd9e47598d93e7038f8f599ea82f5))
+* support ssg ([27e2c7c](https://github.com/zhangyuang/ssr/commit/27e2c7cfb88ce6fa07f393a231d22a1d60b36fd2))
+* update vue2/react logic in plugin ([e2d576b](https://github.com/zhangyuang/ssr/commit/e2d576b92bf8a0e9615480c2d7cccb42ad59635d))
+* 完善 ssg 文档 ([384b85a](https://github.com/zhangyuang/ssr/commit/384b85a820043dc9154677ace66e16568d322aca))
+
+
+
 ## [6.2.50](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.49...plugin-react@6.2.50) (2022-09-06)
 
 
