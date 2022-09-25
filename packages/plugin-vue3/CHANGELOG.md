@@ -1,3 +1,14 @@
+## [6.2.67](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.66...plugin-vue3@6.2.67) (2022-09-25)
+
+
+### Features
+
+* support ssg ([27e2c7c](https://github.com/zhangyuang/ssr/commit/27e2c7cfb88ce6fa07f393a231d22a1d60b36fd2))
+* update vue2/react logic in plugin ([e2d576b](https://github.com/zhangyuang/ssr/commit/e2d576b92bf8a0e9615480c2d7cccb42ad59635d))
+* 完善 ssg 文档 ([384b85a](https://github.com/zhangyuang/ssr/commit/384b85a820043dc9154677ace66e16568d322aca))
+
+
+
 ## [6.2.66](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.65...plugin-vue3@6.2.66) (2022-09-15)
 
 
