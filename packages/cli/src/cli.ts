@@ -142,7 +142,7 @@ yargs
     },
     ...cliDesc
   }), async (argv: Argv) => {
-    const { logWarning, judgeFramework, logInfo } = await import('ssr-common-utils')
+    const { logWarning, judgeFramework } = await import('ssr-common-utils')
     if (argv.vite) {
       logWarning(`ssr build by vite is beta now, if you find some bugs, please submit an issue on https://github.com/zhangyuang/ssr/issues or you can use ssr build --vite --legacy which will close manualChunks
       to get a stable bundle result but maybe some performance loss

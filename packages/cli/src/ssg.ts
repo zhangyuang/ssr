@@ -12,7 +12,6 @@ export const ssg = async (argv: Argv) => {
   const { Routes, serverRender } = require(serverFile)
   for (const item of Routes.FeRoutes) {
     const { path, webpackChunkName } = item
-    console.log(path)
     const mockCtx = {
       request: {
         path: path,
@@ -23,6 +22,6 @@ export const ssg = async (argv: Argv) => {
     const htmlStr: string = res.html || res
     const fileName = `./build/client/${webpackChunkName}.html`
     await promises.writeFile(resolve(cwd, fileName), htmlStr)
-    logGreen(`path ${path} be mapped to ${fileName}`)
+    logGreen(`Component ${path} be mapped to ${fileName}`)
   }
 }
