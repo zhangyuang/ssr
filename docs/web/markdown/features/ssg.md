@@ -10,6 +10,22 @@ $ npx ssr build --ssg
 
 开启后框架将会将每一个前端路由文件渲染为最终一一对应的完整 `html` 文件可直接用于部署。
 
+```bash
+$ tree build/client
+build/client
+├── Page.18a19313.chunk.css
+├── Page.4546aa24.chunk.js
+├── asset-manifest.json
+├── detail-id-fetch.1824d98a.chunk.js
+├── detail-id.f47d5eaa.chunk.js
+├── detail-id.html
+├── index-fetch.6c53d38c.chunk.js
+├── index.d10576be.chunk.js
+├── index.html
+├── runtime~Page.e877f612.js
+└── vendor.93a2efd8.chunk.js
+```
+
 ## 使用细节
 
 由于我们运行时不存在动态环境，所以数据是构建时静态生成的。我们同样通过 `fetch.ts` 来向应用提供数据。但要注意，此时 `fetch.ts` 只能够返回静态内容，同时我们也无法在 `fetch.ts` 中取得任何动态信息。例如传统 `SSR` 场景的 `ctx` 上下文，此时是无法获取的。

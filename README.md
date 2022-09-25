@@ -148,7 +148,7 @@
 - 🧲　插件驱动：基于插件架构，用户更加专注于业务逻辑；
 - 💯　Serverless优先：一键发布到各种Serverless平台，也支持传统Web Server，比如Egg、Midway、Nest等。
 - 🛡　高可用场景，可无缝从SSR降级到CSR，最佳容灾方案。
-- 😄　功能丰富，构建工具支持 Webpack/Vite，全新的 `Vue3 Script Setup` 支持
+- 😄　功能丰富，构建工具同时支持 Webpack/Vite，支持四种渲染模式 `SSR|CSR|SSG|Html`
 
 ## 已实现的功能
 
@@ -159,10 +159,11 @@
 | 支持任意服务端框架与任意前端框架的组合使用。(Serverless/Midway/NestJS) + (React/Vue2/Vue3)                                                                                                                                                      | 🚀    |
 | 最丝滑的 [vite](https://vite-design.surge.sh/) [支持](http://doc.ssr-fc.com/docs/features$vite)                                                                                                                                                 | 🚀    |
 | 最小而美的实现服务端渲染功能                                                                                                                                                                                                                    | 🚀    |
+| 支持[预渲染](http://doc.ssr-fc.com/docs/features$ssg)能力                                                                                                                                                                                                                   | 🚀    |
 | 针对Serverless 场景对代码包的大小的严格限制，将生产环境的代码包大小做到极致                                                                                                                                                                     | 🚀    |
 | 同时支持约定式前端路由和声明式前端路由                                                                                                                                                                                                          | 🚀    |
 | 摒弃传统模版引擎，所有页面元素统一使用前端组件作为 DSL                                                                                                                                                                                          | 🚀    |
-| 同时支持三种渲染模式，提供服务端渲染一键降级为客户端渲染的能力                                                                                                                                                                                  | 🚀    |
+| 同时支持四种渲染模式，提供服务端渲染一键降级为客户端渲染的能力                                                                                                                                                                                  | 🚀    |
 | 统一不同框架服务端客户端的数据获取方式，做到高度复用                                                                                                                                                                                            | 🚀    |
 | 类型友好，全面拥抱 TS                                                                                                                                                                                                                           | 🚀    |
 | 支持无缝接入 [antd](https://github.com/ant-design/ant-design) [vant](https://vant-contrib.gitee.io/vant/#/) 无需修改任何配置                                                                                                                    | 🚀    |
