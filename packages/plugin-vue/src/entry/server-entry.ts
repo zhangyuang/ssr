@@ -153,5 +153,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig): Promise<Vue.Comp
 }
 
 export {
-  serverRender
+  serverRender,
+  Routes
 }

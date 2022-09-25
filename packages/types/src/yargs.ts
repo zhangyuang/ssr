@@ -16,6 +16,7 @@ export type Argv = Arguments<{
   vue3?: boolean
   web?: boolean
   api?: boolean
+  ssg?: boolean
   ssl?: boolean
   optimize?: boolean
 }>

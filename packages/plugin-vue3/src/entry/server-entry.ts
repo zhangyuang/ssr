@@ -22,7 +22,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   setPinia(pinia)
   const [path, url] = [normalizePath(ctx.request.path, prefix), normalizePath(ctx.request.url, prefix)]
   const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
-
   if (!routeItem) {
     throw new Error(`
     With Path: ${path} search component failed
@@ -109,7 +108,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   setApp(app)
 
   let [layoutFetchData, fetchData] = [{}, {}]
-
   if (!isCsr) {
     router.push(url)
     await router.isReady()
@@ -143,5 +141,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 }
 
 export {
-  serverRender
+  serverRender,
+  Routes
 }

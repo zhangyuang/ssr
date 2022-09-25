@@ -7,6 +7,7 @@ import { generateHtml } from './html'
 import { cleanOutDir } from './clean'
 import { handleEnv } from './preprocess'
 import { onWatcher, createWatcher } from './watcher'
+import { ssg } from './ssg'
 
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 同步代码 block 导致 loading 暂停
 
@@ -20,9 +21,12 @@ const spinner = {
 }
 
 const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
-  const { copyReactContext, judgeFramework, judgeServerFramework } = await import('ssr-common-utils')
+  const { copyReactContext, judgeFramework, judgeServerFramework, logGreen } = await import('ssr-common-utils')
   const framework = judgeFramework()
   const serverFramework = judgeServerFramework()
+  if (argv.ssg) {
+    logGreen('Using ssg for generate static html file')
+  }
   if (!argv.api) {
     const { clientPlugin } = await import(framework)
     const client: IPlugin['clientPlugin'] = clientPlugin()
@@ -38,6 +42,7 @@ const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
   }
   if (type === 'build') {
     await generateHtml(argv)
+    await ssg(argv)
   }
 }
 
@@ -143,9 +148,9 @@ yargs
       to get a stable bundle result but maybe some performance loss
       `)
     } else if (!argv.optimize && !argv.vite && judgeFramework() !== 'ssr-plugin-vue') {
-      logInfo(`
-      In Webpack mode, you can use ssr build --optimize for get high performance bundle read http://doc.ssr-fc.com/docs/features$faq#%E9%AB%98%E6%80%A7%E8%83%BD%E4%BA%A7%E7%89%A9%E6%9E%84%E5%BB%BA for more details
-      `)
+      // logInfo(`
+      // In Webpack mode, you can use ssr build --optimize for get high performance bundle read http://doc.ssr-fc.com/docs/features$faq#%E9%AB%98%E6%80%A7%E8%83%BD%E4%BA%A7%E7%89%A9%E6%9E%84%E5%BB%BA for more details
+      // `)
     }
     await buildFunc(argv)
   })

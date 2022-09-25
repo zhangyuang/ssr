@@ -86,5 +86,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 }
 
 export {
-  serverRender
+  serverRender,
+  Routes
 }
