@@ -140,6 +140,9 @@ yargs
     html: {
       desc: 'Build application as a single html'
     },
+    ssg: {
+      desc: 'Build with Static Site Generation (Pre Render)'
+    },
     ...cliDesc
   }), async (argv: Argv) => {
     const { logWarning, judgeFramework } = await import('ssr-common-utils')
