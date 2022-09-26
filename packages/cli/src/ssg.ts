@@ -16,7 +16,8 @@ export const ssg = async (argv: Argv) => {
       request: {
         path: path,
         url: path
-      }
+      },
+      desc: 'It\'s a mock context'
     }
     const res = await serverRender(mockCtx, Object.assign(config, { stream: false }))
     const htmlStr: string = res.html || res
