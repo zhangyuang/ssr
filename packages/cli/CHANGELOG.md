@@ -1,3 +1,12 @@
+## [6.2.37](https://github.com/zhangyuang/ssr/compare/cli@6.2.36...cli@6.2.37) (2022-09-27)
+
+
+### Features
+
+* add env flag when ssg ([32fef6f](https://github.com/zhangyuang/ssr/commit/32fef6f8d43bf2cecb867f6d0e2d9f8e6d113224))
+
+
+
 ## [6.2.36](https://github.com/zhangyuang/ssr/compare/cli@6.2.34...cli@6.2.36) (2022-09-25)
 
 
