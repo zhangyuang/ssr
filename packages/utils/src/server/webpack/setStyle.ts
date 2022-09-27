@@ -4,7 +4,7 @@ import { loadModuleFromFramework } from '../cwd'
 
 const loadModule = loadModuleFromFramework
 const setStyle = (chain: Chain, reg: RegExp, options: StyleOptions) => {
-  const { css, isDev } = loadConfig()
+  const { css } = loadConfig()
   const { include, exclude, importLoaders, loader, isServer } = options
   const userCssloaderOptions = css?.().loaderOptions?.cssOptions ?? {}
   const defaultCssloaderOptions = {
@@ -46,7 +46,7 @@ const setStyle = (chain: Chain, reg: RegExp, options: StyleOptions) => {
       exclude && rule.exclude.add(exclude).end()
     })
     .use('MiniCss')
-    .loader(loadModule('mini-css-extract-plugin/dist/loader'))
+    .loader(loadModule('ssr-mini-css-extract-plugin/dist/loader'))
     .options({
       emit: !isServer
     })

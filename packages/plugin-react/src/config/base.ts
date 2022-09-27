@@ -5,7 +5,7 @@ import { getCwd, loadConfig, setStyle, addImageChain, loadModuleFromFramework } 
 import * as WebpackChain from 'webpack-chain'
 import * as webpack from 'webpack'
 
-const MiniCssExtractPlugin = require(loadModuleFromFramework('mini-css-extract-plugin'))
+const MiniCssExtractPlugin = require(loadModuleFromFramework('ssr-mini-css-extract-plugin'))
 const WebpackBar = require('webpackbar')
 const loadModule = loadModuleFromFramework
 

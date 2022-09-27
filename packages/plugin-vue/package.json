@@ -43,7 +43,7 @@
     "file-loader": "^6.2.0",
     "less": "^4.1.1",
     "less-loader": "^7.3.0",
-    "mini-css-extract-plugin": "^1.0.0",
+    "ssr-mini-css-extract-plugin": "^1.0.0",
     "optimize-css-assets-webpack-plugin": "^6.0.0",
     "postcss": "^8.0.0",
     "postcss-discard-comments": "^5.0.0",
