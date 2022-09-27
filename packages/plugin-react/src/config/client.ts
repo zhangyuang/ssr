@@ -82,7 +82,6 @@ const getClientWebpack = (chain: WebpackChain) => {
   chain.when(generateAnalysis, chain => {
     chain.plugin('analyze').use(BundleAnalyzerPlugin)
   })
-  console.log(host, fePort)
   chain.when(isDev, chain => {
     chain.plugin('fast-refresh').use(new ReactRefreshWebpackPlugin({
       overlay: {

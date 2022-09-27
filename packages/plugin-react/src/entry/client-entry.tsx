@@ -41,6 +41,9 @@ const clientRender = async (): Promise<void> => {
           }))))
     }))
     , document.getElementById('app'))
+  if (!window.__USE_VITE__) {
+    (module as any)?.hot?.accept?.()
+  }
 
 }
 
