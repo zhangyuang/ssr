@@ -8,6 +8,9 @@ export const handleEnv = async (argv: Argv) => {
   const cwd = getCwd()
   process.env.BUILD_TOOL = argv.vite ? 'vite' : 'webpack'
   process.env.OPTIMIZE = (process.env.BUILD_TOOL === 'webpack' && argv.optimize) ? '1' : '0'
+  if (argv.ssg) {
+    process.env.SSG = '1'
+  }
   if (argv.analyze) {
     process.env.GENERATE_ANALYSIS = '1'
   }

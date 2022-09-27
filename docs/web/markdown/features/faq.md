@@ -802,6 +802,18 @@ module.exports = {
 ``` -->
 
 ## 实际业务问题
+
+### 定义环境变量
+
+这里的环境变量我们分为 `Node.js` 环境和 `浏览器` 环境。分别对应着 `src` 和 `web` 目录下的代码
+
+我们可以通过启动或构建时的命令行参数注入环境变量 `MYENV=1 ssr start` 如果是 `Windows` 系统则是 `set MYENV ssr start`。推荐使用[cross-env](https://www.npmjs.com/package/cross-env) 兼容所有系统环境
+
+在 `Node.js` 环境可直接使用读取 `process.env.MYENV` 读取。
+
+在 `浏览器环境` 框架会将环境变量注入构建上下文中，通过 `MYENV` 直接读取。此时效果等同于 `config.define` 配置提供的能力
+
+
 ### 如何自定义页面标题, meta 等信息
 
 开发者需要想清楚修改 `meta` 等 `head` 信息的目的是什么。如果只是单纯的前端页面展示，那么只需要在客户端通过 `document.title = xxx` 形式来修改即可。如果是为了满足 `SEO` 爬虫需求，则需要在服务端支出时渲染正确的信息。

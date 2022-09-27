@@ -34,9 +34,14 @@ build/client
 // fetch.ts
 import { Params } from '~/typings/data'
 
-export default async ({ store, router, ctx }: Params) => {
-  const data = mockData || await axios.get('xxx') // 这里只能获取不依赖任何请求上下文就能够获得的数据
-  await store.dispatch('indexStore/initialData', { payload: data }) // 这里依然 follow 框架定义的 fetch.ts 使用规范，可用任意方式返回数据 vuex/pinia/props
+export default async ({ store, router }: Params) => {
+  if (SSG) {
+    // 根据该常量判断当前是否是 SSG 构建环境，此常量将会在构建时注入可直接使用
+    const data = mockData || await axios.get('xxx') // 这里只能获取不依赖任何请求上下文就能够获得的数据
+    await store.dispatch('indexStore/initialData', { payload: data }) // 这里依然 follow 框架定义的 fetch.ts 使用规范，可用任意方式返回数据 vuex/pinia/props
+  } else {
+    // 是 SSR 环境
+  }
 }
 
 ```
