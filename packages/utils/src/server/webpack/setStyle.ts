@@ -45,11 +45,6 @@ const setStyle = (chain: Chain, reg: RegExp, options: StyleOptions) => {
     .when(Boolean(exclude), rule => {
       exclude && rule.exclude.add(exclude).end()
     })
-    .when(isDev, rule => {
-      rule.use('hmr')
-        .loader(loadModule('css-hot-loader'))
-        .end()
-    })
     .use('MiniCss')
     .loader(loadModule('mini-css-extract-plugin/dist/loader'))
     .options({

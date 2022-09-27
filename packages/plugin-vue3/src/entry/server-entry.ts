@@ -14,7 +14,7 @@ import { IFeRouteItem } from '../types'
 const { FeRoutes, App, layoutFetch, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream } = config
+  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https } = config
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
@@ -59,7 +59,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   const app = createSSRApp({
     render: function () {
-      const commonInject = `window.__USE_VITE__=${isVite}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}"` : ''}`
+      const ssrDevInfo = {
+        manifest,
+        fePort,
+        https
+      }
+      const commonInject = `window.__USE_VITE__=${isVite}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}"` : ''};${isDev ? `window.ssrDevInfo=${JSON.stringify(ssrDevInfo)}` : ''}`
       const initialData = !isCsr ? h('script', {
         innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};${commonInject}`
       }) : h('script', { innerHTML: commonInject })
