@@ -44,7 +44,6 @@ const clientRender = async (): Promise<void> => {
   if (!window.__USE_VITE__) {
     (module as any)?.hot?.accept?.()
   }
-
 }
 
 clientRender()

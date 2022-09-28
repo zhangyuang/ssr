@@ -7,7 +7,7 @@ import Search from '@/components/search'
 import { Ddata, RecommendDataNode, PlayerDataNode, BriefDataNode } from '~/typings/data'
 import { useStoreContext } from 'ssr-common-utils'
 
-export default (props: SProps) => {
+export default function Detail (props: SProps) {
   const { state, dispatch } = useContext<IContext<Ddata>>(useStoreContext())
   return (
     <div>

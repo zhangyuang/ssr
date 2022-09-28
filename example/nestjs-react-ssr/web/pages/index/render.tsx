@@ -6,7 +6,7 @@ import Search from '@/components/search'
 import { IData } from '~/typings/data'
 import { useStoreContext } from 'ssr-common-utils'
 
-export default (props: SProps) => {
+export default function Index (props: SProps) {
   const { state } = useContext<IContext<IData>>(useStoreContext())
   return (
     <div>

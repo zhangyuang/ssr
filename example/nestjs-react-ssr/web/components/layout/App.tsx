@@ -3,6 +3,6 @@
 import React from 'react'
 import { LayoutProps } from 'ssr-types'
 
-export default (props: LayoutProps) => {
+export default function App (props: LayoutProps) {
   return props.children!
 }
