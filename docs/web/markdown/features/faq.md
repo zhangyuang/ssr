@@ -726,10 +726,33 @@ export default {
 }
 ```
 
-### taliwind.css
+### tailwind.css
 
-结合 [taliwind.css](https://tailwindcss.com/) 请参考 [ssr-taliwind](https://github.com/zhangyuang/ssr-taliwindcss)
+使用 `tailwind.css` 与框架无关，具体方案查看对应文档即可。下面贴出一种方案。配套使用 `VSCode` 对应插件一起使用更佳
 
+```js
+// 创建 tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ['./web/**/*.{vue,js,ts}'],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+// 创建 postcss.config.js
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  }
+};
+// web/common.less
+// 引入 tailwind 代码即可在 class 中使用对应类名
+@tailwind components;
+@tailwind utilities;
+
+```
 
 ## 是否考虑支持 SSG 静态渲染
 
