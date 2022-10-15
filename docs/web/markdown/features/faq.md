@@ -734,8 +734,7 @@ export default {
 // 创建 tailwind.config.js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  purge: ['./web/**/*.{vue,js,ts,jsx,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  content: ['./web/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {},
   },
@@ -744,13 +743,27 @@ module.exports = {
   },
   plugins: [],
 }
-// 创建 postcss.config.js
-module.exports = {
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
+// config.ts 加入  postcss 相关配置，vite 场景需要用此方式传入，webpack 场景也可以单独创建 postcss.config.js 加载配置
+import type { UserConfig } from 'ssr-types'
+const userConfig: UserConfig = {
+  css: () => {
+    const tailwindcss = require('tailwindcss')
+    const autoprefixer = require('autoprefixer')
+    return {
+      loaderOptions: {
+        postcss: {
+          plugins: [
+            tailwindcss,
+            autoprefixer
+          ]
+        }
+      }
+    }
   }
-};
+}
+
+export { userConfig }
+
 // web/common.less
 // 引入 tailwind 代码即可在 class 中使用对应类名
 @tailwind components;
