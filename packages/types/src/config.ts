@@ -1,6 +1,7 @@
 import type { Options, RuleSetCondition, compilation } from 'webpack'
 import type WebpackChainConfig from 'webpack-chain'
-import type { PluginOption, ServerOptions, UserConfig as ViteConfig } from 'vite'
+import type { PluginOption, ServerOptions, UserConfig as ViteConfig, CSSOptions } from 'vite'
+import type { Plugin as PostCssPlugin } from 'postcss'
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel'
 import { Argv } from './yargs'
 import { ISSRContext } from './ctx'
@@ -47,9 +48,9 @@ export interface IConfig {
       less?: any // both vite and webpack
       sass?: any // only webpack
       scss?: any // only vite
-      postcss?: { // both vite and webpack
-        options: any
-        plugins: any[]
+      postcss?: {
+        options?: Exclude<CSSOptions['postcss'], string>
+        plugins?: PostCssPlugin[]
       }
     }
   }
