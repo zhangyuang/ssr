@@ -734,12 +734,16 @@ export default {
 // 创建 tailwind.config.js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./web/**/*.{vue,js,ts}'],
+  purge: ['./web/**/*.{vue,js,ts,jsx,tsx}'],
+  darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {},
   },
+  variants: {
+    extend: {},
+  },
   plugins: [],
-};
+}
 // 创建 postcss.config.js
 module.exports = {
   plugins: {
