@@ -1,3 +1,12 @@
+## [6.2.45](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.44...plugin-vue@6.2.45) (2022-10-17)
+
+
+### Features
+
+* support more babelOptions like include exclude ([4a2b254](https://github.com/zhangyuang/ssr/commit/4a2b254f4f6a9996bf3c3f9fea561636d61b85ac))
+
+
+
 ## [6.2.44](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.43...plugin-vue@6.2.44) (2022-09-28)
 
 
