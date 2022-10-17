@@ -48,7 +48,7 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
 }
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, chainBaseConfig, corejsOptions, babelExtraModule, alias, define } = config
+  const { moduleFileExtensions, useHash, chainBaseConfig, corejsOptions, babelExtraModule, alias, define, babelOptions } = config
   const mode = process.env.NODE_ENV as Mode
   const envOptions = {
     modules: false,
@@ -94,12 +94,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .include
     .add([/ssr-plugin-react/, /ssr-client-utils/, /ssr-hoc-react/, /ssr-common-utils/])
 
-  let babelForExtraModule
-  if (babelExtraModule) {
-    babelForExtraModule = module.add(babelExtraModule).end().exclude.add(/core-js/).end()
-  } else {
-    babelForExtraModule = module.end().exclude.add(/core-js/).end()
-  }
+  const babelForExtraModule = module.add(babelExtraModule ?? []).add(babelOptions?.include as Array<string|RegExp> ?? []).end().exclude.add(/core-js/).add(babelOptions?.exclude as Array<string|RegExp> ?? []).end()
 
   addBabelLoader(babelModule, envOptions, isServer)
   addBabelLoader(babelForExtraModule, envOptions, isServer)

@@ -178,6 +178,8 @@ module.exports = {
 
 export {
   babelOptions: {
+    include: [], // 需要额外处理的第三方模块
+    exclude: [], // 业务代码不需要处理的文件，通常用于指定纯 js 已经构建过一次的文件二次使用
     presets: [] // 比较少用
     plugins: [] // 通常使用该配置新增 plugin
   }
@@ -503,7 +505,7 @@ const corejsOptions = userConfig.corejs ? {
 
 该配置用于覆盖默认的 `corejsOptions` 配置
 
-## babelExtraModule🤔
+## babelExtraModule🤔 (建议使用 babelOptions.include 代替)
 
 - 类型: `webpack.RuleSetCondition`
 
