@@ -1,3 +1,17 @@
+## [6.2.69](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.68...plugin-vue3@6.2.69) (2022-10-17)
+
+
+### Bug Fixes
+
+* react hmr ([2c57a6e](https://github.com/zhangyuang/ssr/commit/2c57a6e14d485500a2e8868035d9cb6e1fa883b0))
+
+
+### Features
+
+* support more babelOptions like include exclude ([4a2b254](https://github.com/zhangyuang/ssr/commit/4a2b254f4f6a9996bf3c3f9fea561636d61b85ac))
+
+
+
 ## [6.2.68](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.67...plugin-vue3@6.2.68) (2022-09-27)
 
 

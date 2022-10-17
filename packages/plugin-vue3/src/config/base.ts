@@ -160,6 +160,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .test(/\.(js|mjs|ts|tsx)$/)
     .exclude
     .add(/node_modules|core-js/)
+    .add(babelOptions?.exclude as Array<string|RegExp> ?? [])
     .end()
 
   const module = chain.module
@@ -168,7 +169,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .include
     .add([/ssr-plugin-vue3/, /ssr-client-utils/, /ssr-hoc-vue/, /vue/, /ssr-common-utils/])
 
-  const babelForExtraModule = module.add(babelExtraModule ?? []).add(babelOptions?.include as Array<string|RegExp> ?? []).end().exclude.add(/core-js/).add(babelOptions?.exclude as Array<string|RegExp> ?? []).end()
+  const babelForExtraModule = module.add(babelExtraModule ?? []).add(babelOptions?.include as Array<string|RegExp> ?? []).end().exclude.add(/core-js/).end()
 
   addBabelLoader(babelModule, envOptions)
   addBabelLoader(babelForExtraModule, envOptions)

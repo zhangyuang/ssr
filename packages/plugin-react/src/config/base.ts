@@ -80,6 +80,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
     .exclude
     .add(/node_modules|core-js/)
+    .add(babelOptions?.exclude as Array<string|RegExp> ?? [])
     .end()
 
   chain.module
@@ -94,7 +95,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .include
     .add([/ssr-plugin-react/, /ssr-client-utils/, /ssr-hoc-react/, /ssr-common-utils/])
 
-  const babelForExtraModule = module.add(babelExtraModule ?? []).add(babelOptions?.include as Array<string|RegExp> ?? []).end().exclude.add(/core-js/).add(babelOptions?.exclude as Array<string|RegExp> ?? []).end()
+  const babelForExtraModule = module.add(babelExtraModule ?? []).add(babelOptions?.include as Array<string|RegExp> ?? []).end().exclude.add(/core-js/).end()
 
   addBabelLoader(babelModule, envOptions, isServer)
   addBabelLoader(babelForExtraModule, envOptions, isServer)
