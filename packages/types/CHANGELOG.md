@@ -1,3 +1,13 @@
+## [6.2.29](https://github.com/zhangyuang/ssr/compare/types@6.2.28...types@6.2.29) (2022-10-18)
+
+
+### Features
+
+* customScript support tagName ([91a836f](https://github.com/zhangyuang/ssr/commit/91a836f0b423b46f730a2c893b56f89bddd470c5))
+* support more babelOptions like include exclude ([4a2b254](https://github.com/zhangyuang/ssr/commit/4a2b254f4f6a9996bf3c3f9fea561636d61b85ac))
+
+
+
 ## [6.2.28](https://github.com/zhangyuang/ssr/compare/types@6.2.27...types@6.2.28) (2022-10-15)
 
 
