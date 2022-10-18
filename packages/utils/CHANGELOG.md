@@ -1,3 +1,18 @@
+## [6.2.48](https://github.com/zhangyuang/ssr/compare/utils@6.2.47...utils@6.2.48) (2022-10-18)
+
+
+### Bug Fixes
+
+* react hmr ([2c57a6e](https://github.com/zhangyuang/ssr/commit/2c57a6e14d485500a2e8868035d9cb6e1fa883b0))
+
+
+### Features
+
+* customScript support tagName ([91a836f](https://github.com/zhangyuang/ssr/commit/91a836f0b423b46f730a2c893b56f89bddd470c5))
+* support more babelOptions like include exclude ([4a2b254](https://github.com/zhangyuang/ssr/commit/4a2b254f4f6a9996bf3c3f9fea561636d61b85ac))
+
+
+
 ## [6.2.47](https://github.com/zhangyuang/ssr/compare/utils@6.2.46...utils@6.2.47) (2022-09-27)
 
 
