@@ -315,13 +315,15 @@ const app = await NestFactory.create<NestExpressApplication>(AppModule, isProd ?
 
 ## customeHeadScript🤔
 
-- 类型: `Array<{describe: object, content: string }>|(ctx: ISSRContext) => Array<{describe: object, content: string }>`
+- 类型: `Array<{tagName?: string, describe: object, content: string }>|(ctx: ISSRContext) => Array<{tagName?: string, describe: object, content: string }>`
 - 默认: `[]`
 - 生效场景: `Webpack/Vite` 
 
 仅在 `Vue` 场景下使用, 这里最新版本支持两种类型，可根据当前请求上下文输出不同的脚本内容，常用于动态 [prefix](./features$faq#动态路由前缀) 场景
 
 用于通过配置在页面头部插入自定义的 `script` 为了避免影响期望功能这块内容不做 `escape`，为了避免 `xss` 需要保证插入脚本代码的安全性
+
+`tagName` 自定义需要创建的标签名称，默认为 `script` 标签
 
 `describe` 字段参考 `Vue` [createElement](https://cn.vuejs.org/v2/guide/render-function.html#createElement-%E5%8F%82%E6%95%B0) 用于设置 `script` 标签的 `attribute`
 
@@ -333,6 +335,7 @@ module.exports = {
   customeHeadScript: [
     // Vue3 直接写 attr 属性即可
     {
+      tagName: 'xxx', // 默认值为 script
       describe: {
         type: 'text/javascript',
         src: 'https://res.wx.qq.com/open/js/jweixin-1.2.0.js'

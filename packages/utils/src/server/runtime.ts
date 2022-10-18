@@ -45,7 +45,7 @@ export const getUserScriptVue = (script: UserConfig['customeHeadScript'], ctx: I
   if (!script) {
     return []
   }
-  return (Array.isArray(script) ? script : script(ctx)).map(item => h('script', Object.assign({}, item.describe, type === 'vue' ? {
+  return (Array.isArray(script) ? script : script(ctx)).map(item => h(item.tagName ?? 'script', Object.assign({}, item.describe, type === 'vue' ? {
     domProps: {
       innerHTML: item.content
     }

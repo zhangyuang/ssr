@@ -15,11 +15,13 @@ export interface SSRModule extends compilation.Module {
 export type Chain = WebpackChainConfig
 
 export type Script = Array<{
+  tagName?: string
   describe?: object | {
     attrs: object
   }
   content?: string
 }>
+
 export type Json = string | number | boolean | { [key: string]: Json }
 
 export interface IConfig {
