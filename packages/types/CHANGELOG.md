@@ -1,3 +1,12 @@
+## [6.2.31](https://github.com/zhangyuang/ssr/compare/types@6.2.30...types@6.2.31) (2022-10-19)
+
+
+### Bug Fixes
+
+* types ([2ad371f](https://github.com/zhangyuang/ssr/commit/2ad371fc6c0b27e6e52801048a28a3d8fdcfccf7))
+
+
+
 ## [6.2.30](https://github.com/zhangyuang/ssr/compare/types@6.2.29...types@6.2.30) (2022-10-19)
 
 
