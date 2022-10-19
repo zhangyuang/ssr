@@ -5,7 +5,7 @@ type IProps<T={}> = T & {
   children: ReactChild
 }
 
-type SProps<T={}> = T & RouteComponentProps
+type SProps<T={}> = T & Partial<RouteComponentProps>
 
 interface Action {
   type: string
