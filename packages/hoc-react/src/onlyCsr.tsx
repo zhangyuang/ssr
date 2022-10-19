@@ -12,7 +12,7 @@ function onlyCsr<T={}, U={}> (WrappedComponent: FC<T, U>) {
       setIsClient(true)
     }, [])
     return (
-      isClient ? <WrappedComponent {...props}></WrappedComponent> : React.Fragment
+      isClient ? <WrappedComponent {...props}></WrappedComponent> : <></>
     )
   }
 }

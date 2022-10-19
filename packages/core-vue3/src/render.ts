@@ -14,7 +14,7 @@ function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
 
 async function render (ctx: ISSRContext, options?: UserConfig) {
   const extraConfig: UserConfig = options?.dynamicFile?.configFile ? require(options.dynamicFile.configFile).userConfig : {}
-  const config: IConfig = Object.assign({}, defaultConfig, options ?? {}, extraConfig)
+  const config: IConfig = Object.assign({}, defaultConfig, extraConfig, options ?? {})
   const { isVite, isDev } = config
 
   if (!isDev && options?.dynamicFile?.assetManifest) {
