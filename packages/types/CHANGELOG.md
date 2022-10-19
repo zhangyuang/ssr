@@ -1,3 +1,17 @@
+## [6.2.30](https://github.com/zhangyuang/ssr/compare/types@6.2.29...types@6.2.30) (2022-10-19)
+
+
+### Bug Fixes
+
+* onlyCsr types core-vue3 render logic ([f75929e](https://github.com/zhangyuang/ssr/commit/f75929ef84e564fe7e3d9c5c6d1e56fe70f5629b))
+
+
+### Features
+
+* update sprops types ([9383235](https://github.com/zhangyuang/ssr/commit/9383235321f171b4d5c877d08025e9b9936175d3))
+
+
+
 ## [6.2.29](https://github.com/zhangyuang/ssr/compare/types@6.2.28...types@6.2.29) (2022-10-18)
 
 
