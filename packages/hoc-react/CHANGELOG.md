@@ -1,3 +1,17 @@
+## [6.2.10](https://github.com/zhangyuang/ssr/compare/hoc-react@6.2.9...hoc-react@6.2.10) (2022-10-19)
+
+
+### Bug Fixes
+
+* types ([2ad371f](https://github.com/zhangyuang/ssr/commit/2ad371fc6c0b27e6e52801048a28a3d8fdcfccf7))
+
+
+### Features
+
+* update sprops types ([9383235](https://github.com/zhangyuang/ssr/commit/9383235321f171b4d5c877d08025e9b9936175d3))
+
+
+
 ## [6.2.9](https://github.com/zhangyuang/ssr/compare/hoc-react@6.2.8...hoc-react@6.2.9) (2022-10-19)
 
 
