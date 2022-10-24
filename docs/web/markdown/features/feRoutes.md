@@ -69,7 +69,7 @@ $ tree ./ -I node_modules -L 3
 约定式路由不支持生成嵌套路由也就是 `children` 子结构。虽然支持嵌套路由并不难，但这会让规范变得复杂。特别是获取数据这一块，且嵌套路由用业务代码实现是非常简单的事情。在 `React` 中直接手动引入 `Router` 来实现即可。在 `Vue` 中需要手动填写 `children` 字段。如果不支持嵌套路由的 `fetch`， 那么非常容易实现，但是意义不大开发者直接在业务代码中实现即可，如果要支持嵌套路由的 `fetch` 那么会让规范变得复杂。例如需要在框架层面让 `render$child$foo.vue` 对应 `fetch$child$foo.ts` 文件。这非常的 `dirty`，所以并不打算支持嵌套路由。
 ### 实现代码
 
-具体的实现代码可以查看该[文件](https://github.com/zhangyuang/ssr/blob/dev/packages/server-utils/src/parse.ts#L13)
+具体的实现代码可以查看该[文件](https://github.com/zhangyuang/ssr/blob/dev/packages/utils/server/src/parse.ts#L26)
 
 ## 手动编写路由结构
 
