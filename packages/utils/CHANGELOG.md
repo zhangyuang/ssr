@@ -1,3 +1,19 @@
+## [6.2.49](https://github.com/zhangyuang/ssr/compare/utils@6.2.48...utils@6.2.49) (2022-10-25)
+
+
+### Bug Fixes
+
+* onlyCsr types core-vue3 render logic ([f75929e](https://github.com/zhangyuang/ssr/commit/f75929ef84e564fe7e3d9c5c6d1e56fe70f5629b))
+* types ([2ad371f](https://github.com/zhangyuang/ssr/commit/2ad371fc6c0b27e6e52801048a28a3d8fdcfccf7))
+
+
+### Features
+
+* update sprops types ([9383235](https://github.com/zhangyuang/ssr/commit/9383235321f171b4d5c877d08025e9b9936175d3))
+* use jsx-runtime in react ([ffdd346](https://github.com/zhangyuang/ssr/commit/ffdd34674ff0753e130b6570ab9eef3b1aec5217))
+
+
+
 ## [6.2.48](https://github.com/zhangyuang/ssr/compare/utils@6.2.47...utils@6.2.48) (2022-10-18)
 
 
