@@ -1177,7 +1177,9 @@ export default {
 
 我们会将当前请求对应的 `prefix` 注入到 `window.prefix` 中，框架将会读取这个值并做适配逻辑。
 
-### 如何使用 svg-sprite-loader
+### 如何使用 svg-sprite-loader (不推荐使用)
+
+`注：如果下面的方式直接 Copy 无法正常使用那么请自行查看 svg-sprite-loader 的文档或不推荐使用此 loader`
 
 参考下方代码
 
