@@ -1,3 +1,12 @@
+## [6.2.50](https://github.com/zhangyuang/ssr/compare/utils@6.2.49...utils@6.2.50) (2022-10-25)
+
+
+### Features
+
+* update react alias ([160b991](https://github.com/zhangyuang/ssr/commit/160b9911166172f36db9690be87f35fcbfc747aa))
+
+
+
 ## [6.2.49](https://github.com/zhangyuang/ssr/compare/utils@6.2.48...utils@6.2.49) (2022-10-25)
 
 
