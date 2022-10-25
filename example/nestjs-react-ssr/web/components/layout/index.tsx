@@ -1,5 +1,4 @@
 
-import React from 'react'
 import { LayoutProps } from 'ssr-types'
 import App from './App'
 

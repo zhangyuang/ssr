@@ -22,7 +22,11 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
           loadModule('@babel/preset-env'),
           envOptions
         ],
-        [loadModule('babel-preset-react-app'), { flow: false, typescript: true }],
+        [loadModule('babel-preset-react-app'), {
+          flow: false,
+          typescript: true,
+          runtime: 'automatic'
+        }],
         ...babelOptions?.presets ?? []
       ],
       plugins: [
@@ -72,7 +76,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     chain.resolve.alias
       .set(item, alias[item])
   })
-
   addImageChain(chain, isServer)
 
   const babelModule = chain.module

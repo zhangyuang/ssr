@@ -15,7 +15,7 @@
     "esModuleInterop": true,
     "pretty": true,
     "declaration": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "outDir": "dist",
     "typeRoots": [ "./typings", "./node_modules/@types"],
     "paths": {

@@ -17,13 +17,14 @@ const styleImportConfig = {
     AntdResolve()
   ]
 }
+
 const serverConfig: UserConfig = {
   ...commonConfig(),
   ...viteConfig?.().server?.otherConfig,
   plugins: [
     react({
       ...viteConfig?.()?.server?.defaultPluginOptions,
-      jsxRuntime: 'classic',
+      jsxRuntime: 'automatic',
       babel: {
         ...babelOptions,
         plugins: [
@@ -86,7 +87,7 @@ const clientConfig: UserConfig = {
   plugins: [
     react({
       ...viteConfig?.()?.client?.defaultPluginOptions,
-      jsxRuntime: 'classic',
+      jsxRuntime: 'automatic',
       ...babelOptions
     }),
     viteConfig?.()?.common?.extraPlugin,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { PlayerDataNode } from '~/typings/data'
 import styles from './index.module.less'
 

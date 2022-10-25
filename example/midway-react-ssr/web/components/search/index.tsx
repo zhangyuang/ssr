@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { IContext } from 'ssr-types'
 import { useStoreContext } from 'ssr-common-utils'
 import { IData } from '~/typings/data'

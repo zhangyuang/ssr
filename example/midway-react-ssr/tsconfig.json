@@ -16,7 +16,7 @@
     "pretty": true,
     "declaration": true,
     "outDir": "dist",
-    "jsx": "react",
+    "jsx": "react-jsx",
     "typeRoots": [ "./typings", "./node_modules/@types"],
     "paths": {
       "~/*": ["./*"],

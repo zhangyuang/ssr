@@ -1,4 +1,3 @@
-import React from 'react'
 import { BriefDataNode } from '~/typings/data'
 import styles from './index.module.less'
 
