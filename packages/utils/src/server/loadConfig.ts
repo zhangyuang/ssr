@@ -30,8 +30,11 @@ const loadConfig = (): IConfig => {
     _build: join(cwd, './build')
   }, framework === 'ssr-plugin-react' ? {
     // react: loadModuleFromFramework('react'),
-    // 'react-router': loadModuleFromFramework('react-router'),
-    // 'react-router-dom': loadModuleFromFramework('react-router-dom')
+    'react-dom': loadModuleFromFramework('react-dom'),
+    'react-router': loadModuleFromFramework('react-router'),
+    'react-router-dom': loadModuleFromFramework('react-router-dom'),
+    'react/jsx-runtime': loadModuleFromFramework('react/jsx-runtime'),
+    'react/jsx-dev-runtime': loadModuleFromFramework('react/jsx-dev-runtime')
   } : {
     vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js',
     '@vue/server-renderer': loadModuleFromFramework('@vue/server-renderer/index.js') // use commonjs file
