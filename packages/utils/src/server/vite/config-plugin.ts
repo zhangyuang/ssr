@@ -21,11 +21,11 @@ const cwd = getCwd()
 const dependenciesMap: Record<string, string[]> = {}
 const asyncChunkMapJSON: Record<string, string[]> = {}
 const generateMap: Record<string, string> = {}
-// const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router',
-//   'react-router-dom', 'react-dom', '@vue', 'ssr-hoc-react',
-//   'ssr-client-utils', 'ssr-common-utils', 'pinia', '@babel/runtime',
-//   'ssr-plugin-vue3', 'ssr-plugin-vue', 'ssr-plugin-react'
-// ]
+const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router',
+  'react-router-dom', 'react-dom', '@vue', 'ssr-hoc-react',
+  'ssr-client-utils', 'ssr-common-utils', 'pinia', '@babel/runtime',
+  'ssr-plugin-vue3', 'ssr-plugin-vue', 'ssr-plugin-react', 'react/jsx-runtime'
+]
 
 const chunkNamePlugin = function (): Plugin {
   return {
@@ -227,9 +227,10 @@ const manualChunksFn = (id: string) => {
   }
   if (!process.env.LEGACY_VITE) {
     const sign = id.includes('node_modules') ? getPkgName(id) : id
-    // if (vendorList.includes(sign)) {
-    //   return 'common-vendor'
-    // }
+    if (vendorList.includes(sign)) {
+      // build in Page chunk
+      return
+    }
     const arr = dependenciesMap[sign] ?? []
     if (arr.length === 1) {
       return arr[0]
