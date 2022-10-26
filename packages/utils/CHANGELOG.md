@@ -1,3 +1,12 @@
+## [6.2.51](https://github.com/zhangyuang/ssr/compare/utils@6.2.50...utils@6.2.51) (2022-10-26)
+
+
+### Features
+
+* update vite build logic ([0bf7a28](https://github.com/zhangyuang/ssr/commit/0bf7a28ca38f2cde8501dfb53546f4d3b0c6f51f))
+
+
+
 ## [6.2.50](https://github.com/zhangyuang/ssr/compare/utils@6.2.49...utils@6.2.50) (2022-10-25)
 
 
