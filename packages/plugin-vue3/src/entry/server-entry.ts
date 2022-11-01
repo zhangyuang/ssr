@@ -3,7 +3,7 @@ import {
   findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk,
   getUserScriptVue, remInitial, setStore, setPinia, setApp
 } from 'ssr-common-utils'
-import { ISSRContext, IConfig } from 'ssr-types'
+import type { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
 import { serialize } from 'ssr-serialize-javascript'
 import { renderToNodeStream, renderToString } from '@vue/server-renderer'
@@ -20,7 +20,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const pinia = createPinia()
   setStore(store)
   setPinia(pinia)
-  const [path, url] = [normalizePath(ctx.request.path, prefix), normalizePath(ctx.request.url, prefix)]
+  const rawPath = ctx.request.path ?? ctx.request.routerPath
+  const [path, url] = [normalizePath(rawPath, prefix), normalizePath(ctx.request.url, prefix)]
   const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
   if (!routeItem) {
     throw new Error(`

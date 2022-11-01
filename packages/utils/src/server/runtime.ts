@@ -1,5 +1,20 @@
 import { promises } from 'fs'
-import { UserConfig, ISSRContext, IConfig } from 'ssr-types'
+import type { UserConfig, ISSRContext, IConfig, ISSRNestContext, FastifyContext } from 'ssr-types'
+import { judgeServerFramework } from './cwd'
+
+const serverFrameWork = judgeServerFramework()
+
+export const setHeader = (ctx: ISSRContext) => {
+  if (serverFrameWork === 'ssr-plugin-midway') {
+    ctx.response.type = 'text/html;charset=utf-8'
+  } else if (serverFrameWork === 'ssr-plugin-nestjs') {
+    if ((ctx as ISSRNestContext | FastifyContext).response.setHeader) {
+      (ctx as ISSRNestContext).response.setHeader('Content-type', 'text/html;charset=utf-8')
+    } else {
+      (ctx as FastifyContext).response.header('Content-type', 'text/html;charset=utf-8')
+    }
+  }
+}
 
 const readAsyncChunk = async (config: IConfig): Promise<Record<string, string>> => {
   try {

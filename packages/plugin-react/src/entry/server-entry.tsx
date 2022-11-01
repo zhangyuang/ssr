@@ -12,7 +12,8 @@ const { FeRoutes, layoutFetch, state, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix, stream } = config
-  const path = normalizePath(ctx.request.path, prefix)
+  const rawPath = ctx.request.path ?? ctx.request.routerPath
+  const path = normalizePath(rawPath, prefix)
   const routeItem = findRoute<ReactESMPreloadFeRouteItem>(FeRoutes, path)
   setStoreContext(Context)
 
