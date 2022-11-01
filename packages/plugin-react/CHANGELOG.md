@@ -1,3 +1,14 @@
+## [6.2.55](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.54...plugin-react@6.2.55) (2022-11-01)
+
+
+### Features
+
+* support fastify close [#245](https://github.com/zhangyuang/ssr/issues/245) ([#246](https://github.com/zhangyuang/ssr/issues/246)) ([d9c24c5](https://github.com/zhangyuang/ssr/commit/d9c24c595941447c5e8072c63c1a80cba06689c3))
+* update react alias ([160b991](https://github.com/zhangyuang/ssr/commit/160b9911166172f36db9690be87f35fcbfc747aa))
+* update vite build logic ([0bf7a28](https://github.com/zhangyuang/ssr/commit/0bf7a28ca38f2cde8501dfb53546f4d3b0c6f51f))
+
+
+
 ## [6.2.54](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.53...plugin-react@6.2.54) (2022-10-25)
 
 
