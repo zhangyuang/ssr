@@ -1,3 +1,15 @@
+## [6.2.32](https://github.com/zhangyuang/ssr/compare/types@6.2.31...types@6.2.32) (2022-11-01)
+
+
+### Features
+
+* support fastify close [#245](https://github.com/zhangyuang/ssr/issues/245) ([#246](https://github.com/zhangyuang/ssr/issues/246)) ([d9c24c5](https://github.com/zhangyuang/ssr/commit/d9c24c595941447c5e8072c63c1a80cba06689c3))
+* update react alias ([160b991](https://github.com/zhangyuang/ssr/commit/160b9911166172f36db9690be87f35fcbfc747aa))
+* update vite build logic ([0bf7a28](https://github.com/zhangyuang/ssr/commit/0bf7a28ca38f2cde8501dfb53546f4d3b0c6f51f))
+* use jsx-runtime in react ([ffdd346](https://github.com/zhangyuang/ssr/commit/ffdd34674ff0753e130b6570ab9eef3b1aec5217))
+
+
+
 ## [6.2.31](https://github.com/zhangyuang/ssr/compare/types@6.2.30...types@6.2.31) (2022-10-19)
 
 
