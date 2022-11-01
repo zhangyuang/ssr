@@ -10,8 +10,13 @@ export interface ExpressContext {
 }
 
 export interface FastifyContext {
-  request: FastifyRequest
-  response: FastifyReply
+  request: FastifyRequest & {
+    query: Request['query']
+    path: undefined
+  }
+  response: FastifyReply & {
+    setHeader: undefined
+  }
 }
 
 // compatible with egg types

@@ -1,5 +1,5 @@
 import { promises } from 'fs'
-import type { UserConfig, ISSRContext, IConfig, ISSRNestContext } from 'ssr-types'
+import type { UserConfig, ISSRContext, IConfig, ISSRNestContext, FastifyContext } from 'ssr-types'
 import { judgeServerFramework } from './cwd'
 
 const serverFrameWork = judgeServerFramework()
@@ -8,7 +8,11 @@ export const setHeader = (ctx: ISSRContext) => {
   if (serverFrameWork === 'ssr-plugin-midway') {
     ctx.response.type = 'text/html;charset=utf-8'
   } else if (serverFrameWork === 'ssr-plugin-nestjs') {
-    (ctx as ISSRNestContext).response.setHeader('Content-type', 'text/html;charset=utf-8')
+    if ((ctx as ISSRNestContext | FastifyContext).response.setHeader) {
+      (ctx as ISSRNestContext).response.setHeader('Content-type', 'text/html;charset=utf-8')
+    } else {
+      (ctx as FastifyContext).response.header('Content-type', 'text/html;charset=utf-8')
+    }
   }
 }
 
