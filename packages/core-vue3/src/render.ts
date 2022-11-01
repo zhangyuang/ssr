@@ -1,11 +1,10 @@
 import { Readable, Stream } from 'stream'
-import { loadConfig, StringToStream, mergeStream2, judgeServerFramework } from 'ssr-common-utils'
-import { ISSRContext, UserConfig, ISSRNestContext, IConfig } from 'ssr-types'
+import { loadConfig, StringToStream, mergeStream2, setHeader } from 'ssr-common-utils'
+import { ISSRContext, UserConfig, IConfig } from 'ssr-types'
 import type { ViteDevServer } from 'vite'
 import type { Vue3RenderRes } from 'ssr-plugin-vue3'
 
 const defaultConfig = loadConfig()
-const serverFrameWork = judgeServerFramework()
 
 function render (ctx: ISSRContext, options?: UserConfig & {stream: true}): Promise<Readable>
 function render (ctx: ISSRContext, options?: UserConfig & {stream: false}): Promise<string>
@@ -20,11 +19,7 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
   if (!isDev && options?.dynamicFile?.assetManifest) {
     config.isVite = !!(require(options.dynamicFile.assetManifest).vite)
   }
-  if (serverFrameWork === 'ssr-plugin-midway') {
-    ctx.response.type = 'text/html;charset=utf-8'
-  } else if (serverFrameWork === 'ssr-plugin-nestjs') {
-    (ctx as ISSRNestContext).response.setHeader('Content-type', 'text/html;charset=utf-8')
-  }
+  setHeader(ctx)
 
   const serverRes = isVite ? await viteRender(ctx, config) : await commonRender(ctx, config)
   if (serverRes instanceof Stream) {
