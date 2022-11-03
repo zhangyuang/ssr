@@ -1,3 +1,17 @@
+## [6.2.39](https://github.com/zhangyuang/ssr/compare/cli@6.2.38...cli@6.2.39) (2022-11-03)
+
+
+### Bug Fixes
+
+* gernerate html ([08e5678](https://github.com/zhangyuang/ssr/commit/08e567877e7b6d0b4b3a6fab6ad4ea2546b0c041))
+
+
+### Features
+
+* support fastify close [#245](https://github.com/zhangyuang/ssr/issues/245) ([#246](https://github.com/zhangyuang/ssr/issues/246)) ([d9c24c5](https://github.com/zhangyuang/ssr/commit/d9c24c595941447c5e8072c63c1a80cba06689c3))
+
+
+
 ## [6.2.38](https://github.com/zhangyuang/ssr/compare/cli@6.2.37...cli@6.2.38) (2022-10-27)
 
 
