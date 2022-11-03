@@ -1,10 +1,9 @@
 // @ts-nocheck
 import { promises } from 'fs'
 import { join } from 'path'
-import type { Argv } from 'ssr-types'
 
-export const generateHtml = async (argv: Argv) => {
-  if (!argv.html) return
+export const generateHtml = async () => {
+  if (!process.env.SPA) return
   // spa 模式下生成 html 文件直接部署
   const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework, logGreen } = await import('ssr-common-utils')
   logGreen('Generating html file...')

@@ -41,7 +41,7 @@ const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
     await server?.[type]?.(argv)
   }
   if (type === 'build') {
-    await generateHtml(argv)
+    await generateHtml()
     await ssg(argv)
   }
 }
