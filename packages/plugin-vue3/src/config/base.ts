@@ -117,6 +117,8 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     chain.resolve.alias
       .set(item, alias[item])
   })
+  chain.resolve.alias
+    .set('pinia', loadModuleFromFramework('pinia'))
 
   addImageChain(chain, isServer)
 
