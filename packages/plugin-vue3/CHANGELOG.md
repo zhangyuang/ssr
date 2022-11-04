@@ -1,3 +1,18 @@
+## [6.2.71](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.70...plugin-vue3@6.2.71) (2022-11-04)
+
+
+### Bug Fixes
+
+* gernerate html ([08e5678](https://github.com/zhangyuang/ssr/commit/08e567877e7b6d0b4b3a6fab6ad4ea2546b0c041))
+* pinia alias ([2256194](https://github.com/zhangyuang/ssr/commit/22561948b9d27ea6296b5f60cefb3f42d6c1d4c1))
+
+
+### Features
+
+* update vue alias ([36e15ac](https://github.com/zhangyuang/ssr/commit/36e15ac5d2d1398ced6abef2727970947177e6bc))
+
+
+
 ## [6.2.70](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.68...plugin-vue3@6.2.70) (2022-11-01)
 
 
