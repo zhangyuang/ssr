@@ -1,3 +1,18 @@
+## [6.2.53](https://github.com/zhangyuang/ssr/compare/utils@6.2.51...utils@6.2.53) (2022-11-04)
+
+
+### Bug Fixes
+
+* gernerate html ([08e5678](https://github.com/zhangyuang/ssr/commit/08e567877e7b6d0b4b3a6fab6ad4ea2546b0c041))
+
+
+### Features
+
+* support fastify close [#245](https://github.com/zhangyuang/ssr/issues/245) ([#246](https://github.com/zhangyuang/ssr/issues/246)) ([d9c24c5](https://github.com/zhangyuang/ssr/commit/d9c24c595941447c5e8072c63c1a80cba06689c3))
+* update vue alias ([36e15ac](https://github.com/zhangyuang/ssr/commit/36e15ac5d2d1398ced6abef2727970947177e6bc))
+
+
+
 ## [6.2.52](https://github.com/zhangyuang/ssr/compare/utils@6.2.51...utils@6.2.52) (2022-11-01)
 
 
