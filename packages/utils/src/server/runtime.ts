@@ -1,10 +1,7 @@
 import { promises } from 'fs'
 import type { UserConfig, ISSRContext, IConfig, ISSRNestContext, FastifyContext } from 'ssr-types'
-import { judgeServerFramework } from './cwd'
 
-const serverFrameWork = judgeServerFramework()
-
-export const setHeader = (ctx: ISSRContext) => {
+export const setHeader = (ctx: ISSRContext, serverFrameWork: string) => {
   if (serverFrameWork === 'ssr-plugin-midway') {
     ctx.response.type = 'text/html;charset=utf-8'
   } else if (serverFrameWork === 'ssr-plugin-nestjs') {

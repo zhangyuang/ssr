@@ -1,5 +1,5 @@
 import { Readable, Stream } from 'stream'
-import { loadConfig, StringToStream, mergeStream2, setHeader } from 'ssr-common-utils'
+import { loadConfig, StringToStream, mergeStream2, setHeader, judgeServerFramework } from 'ssr-common-utils'
 import { ISSRContext, UserConfig, IConfig } from 'ssr-types'
 import type { ViteDevServer } from 'vite'
 import type { Vue3RenderRes } from 'ssr-plugin-vue3'
@@ -19,7 +19,7 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
   if (!isDev && options?.dynamicFile?.assetManifest) {
     config.isVite = !!(require(options.dynamicFile.assetManifest).vite)
   }
-  setHeader(ctx)
+  setHeader(ctx, judgeServerFramework())
 
   const serverRes = isVite ? await viteRender(ctx, config) : await commonRender(ctx, config)
   if (serverRes instanceof Stream) {

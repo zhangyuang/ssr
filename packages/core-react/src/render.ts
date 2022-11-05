@@ -1,6 +1,6 @@
 import { resolve } from 'path'
 import { Readable, Stream } from 'stream'
-import { loadConfig, getCwd, StringToStream, mergeStream2, setHeader } from 'ssr-common-utils'
+import { loadConfig, getCwd, StringToStream, mergeStream2, setHeader, judgeServerFramework } from 'ssr-common-utils'
 import type { ISSRContext, UserConfig, IConfig } from 'ssr-types'
 import type { ViteDevServer } from 'vite'
 
@@ -15,7 +15,8 @@ function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
 async function render (ctx: ISSRContext, options?: UserConfig) {
   const config = Object.assign({}, defaultConfig, options ?? {})
   const { isVite } = config
-  setHeader(ctx)
+  setHeader(ctx, judgeServerFramework())
+
   const serverRes = isVite ? await viteRender(ctx, config) : await commonRender(ctx, config)
   if (serverRes instanceof Stream) {
     const stream = mergeStream2(new StringToStream('<!DOCTYPE html>'), serverRes)

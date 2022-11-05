@@ -1,3 +1,13 @@
+## [6.2.54](https://github.com/zhangyuang/ssr/compare/utils@6.2.53...utils@6.2.54) (2022-11-05)
+
+
+### Bug Fixes
+
+* pinia alias ([2256194](https://github.com/zhangyuang/ssr/commit/22561948b9d27ea6296b5f60cefb3f42d6c1d4c1))
+* runtime setheader ([1e452de](https://github.com/zhangyuang/ssr/commit/1e452debb491d01002cfc2109b37e046f23fe334))
+
+
+
 ## [6.2.53](https://github.com/zhangyuang/ssr/compare/utils@6.2.51...utils@6.2.53) (2022-11-04)
 
 
