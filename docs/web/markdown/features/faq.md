@@ -318,7 +318,7 @@ $ yarn build && rm -rf node_modules && yarn --product && npx xxx # 这里为各�
 <script>
 // 在这里可以进行一些全局组件的注册逻辑
 export default {
-
+   props: ['asyncData']
 }
 </script>
 
@@ -330,7 +330,7 @@ export default {
 ```html
 // layout/App.vue
 <template>
-  <router-view :reactiveFetchData="reactiveFetchData" />
+  <router-view :asyncData="asyncData" />
 </template>
 
 <script lang="ts" setup>
@@ -340,7 +340,6 @@ import { Button } from 'vant'
 
 const props = defineProps<{
   ssrApp: App,
-  reactiveFetchData: { value: any },
   asyncData: { value: any }
 }>()
 
@@ -578,7 +577,6 @@ import { Button } from 'vant' // 使用按需引入语法
 // Vue3 场景使用
 const props = defineProps<{
   ssrApp: App,
-  reactiveFetchData: { value: any },
   asyncData: { value: any }
 }>()
 props.ssrApp.use(Button)

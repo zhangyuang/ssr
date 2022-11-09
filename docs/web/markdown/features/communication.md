@@ -92,12 +92,12 @@ export default {
 
 此方案兼容 `Vue2/Vue3`。同样支持在 `layout/index.vue`, `layout/App.vue` 中获取 `fetchData`
 
-`注: 不再建议使用 props.fetchData, 建议统一替换为 reactiveFetchData 或 asyncData`
+`注: 不再建议使用 props.fetchData, 建议统一替换为 props.asyncData`
 
 ```html
 // layout/App.vue
 <template>
-  <router-view :reactiveFetchData="reactiveFetchData" :asyncData="asyncData"  />
+  <router-view :asyncData="asyncData"  />
 </template>
 
 <script lang="ts" setup>
@@ -105,20 +105,11 @@ import { defineProps, App } from 'vue'
 
 const props = defineProps<{
   ssrApp: App,
-  reactiveFetchData: { value:any },
   asyncData: { value: any }
 }>()
 </script>
 
 ```
-
-#### 注意事项
-
-由于历史设计遗留原因 `reactiveFetchData` 与 `asyncData` 功能使用上几乎没有任何区别。
-
-唯一的区别在于前端路由跳转时 `reactiveFetchData.value` 的值是全新的 `fetch` 数据，而 `asyncData.value` 的值将会与 `fetch` 数据进行合并返回。如果你不知道该用什么，就使用 `props.asyncData`
-
-具体组件中接收数据, 通过 `props.reactiveFetchData｜asyncData` 在具体组件中接收 `fetch` 返回的数据。同样在前端路由切换时我们也会自动将将要跳转到的路由页面对应的 `fetch` 数据注入到对应的组件 `props` 中。
 
 ```html
 <template>
@@ -142,7 +133,7 @@ import Rectangle from '@/components/rectangle/index.vue'
 import Search from '@/components/search/index.vue'
 
 export default defineComponent({
-  props: ['reactiveFetchData'] // key 名固定为 reactiveFetchData 不可修改，前端路由跳转时将自动注入，服务端渲染时通过 App.vue 注入
+  props: ['asyncData'] // key 名固定为 asyncData 不可修改，前端路由跳转时将自动注入，服务端渲染时通过 App.vue 注入
   components: {
     Slider,
     Rectangle,

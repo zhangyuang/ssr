@@ -1,5 +1,5 @@
 <template>
-  <router-view :reactiveFetchData="reactiveFetchData" />
+  <router-view :asyncData="asyncData" />
 </template>
 
 <script lang="ts" setup>
@@ -8,7 +8,6 @@
 import { defineProps, App } from 'vue'
 const props = defineProps<{
   ssrApp: App,
-  reactiveFetchData: { value: any },
   asyncData: { value: any }
 }>()
 </script>
