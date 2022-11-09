@@ -8,8 +8,8 @@
 import { defineProps, App } from 'vue'
 const props = defineProps<{
   ssrApp: App,
-  reactiveFetchData: any,
-  asyncData: any
+  reactiveFetchData: { value: any },
+  asyncData: { value: any }
 }>()
 </script>
 

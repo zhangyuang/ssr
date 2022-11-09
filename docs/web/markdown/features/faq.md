@@ -340,8 +340,8 @@ import { Button } from 'vant'
 
 const props = defineProps<{
   ssrApp: App,
-  reactiveFetchData: any,
-  asyncData: any
+  reactiveFetchData: { value: any },
+  asyncData: { value: any }
 }>()
 
 const app = props.ssrApp
@@ -578,8 +578,8 @@ import { Button } from 'vant' // 使用按需引入语法
 // Vue3 场景使用
 const props = defineProps<{
   ssrApp: App,
-  reactiveFetchData: any,
-  asyncData: any
+  reactiveFetchData: { value: any },
+  asyncData: { value: any }
 }>()
 props.ssrApp.use(Button)
 ```

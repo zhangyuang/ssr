@@ -90,12 +90,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
           id: 'app'
         }
       }, [h(App, {
-        props: { ctx, config, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData } }
+        props: { ctx, config, fetchData: combineAysncData, asyncData: { value: combineAysncData }, reactiveFetchData: { value: combineAysncData } }
       })])
       return h(
         Layout,
         {
-          props: { ctx, config, asyncData: combineAysncData, fetchData: layoutFetchData, reactiveFetchData: { value: layoutFetchData } }
+          props: { ctx, config, asyncData: Object.assign(combineAysncData, { value: combineAysncData }), fetchData: layoutFetchData, reactiveFetchData: { value: layoutFetchData } }
         },
         [
           h('template', {

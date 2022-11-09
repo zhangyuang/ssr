@@ -35,6 +35,9 @@ const clientRender = async () => {
   const reactiveFetchData = {
     value: window.__INITIAL_DATA__ ?? {}
   }
+  const asyncData = {
+    value: window.__INITIAL_DATA__ ?? {}
+  }
   const params = {
     render: (h: CreateElement) => h('div', {
       attrs: {
@@ -43,7 +46,8 @@ const clientRender = async () => {
     }, [h(App, {
       props: {
         fetchData,
-        reactiveFetchData
+        reactiveFetchData,
+        asyncData
       }
     })]),
     store,
@@ -63,6 +67,7 @@ const clientRender = async () => {
         })
       })
       reactiveFetchData.value = combineAysncData
+      asyncData.value = Object.assign(asyncData.value, combineAysncData)
     }
     hasRender = true
     next()
