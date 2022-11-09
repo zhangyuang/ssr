@@ -1,3 +1,19 @@
+## [6.2.47](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.46...plugin-vue@6.2.47) (2022-11-09)
+
+
+### Bug Fixes
+
+* call judgeServerFramework in node environment prevent utils be ([47cd81a](https://github.com/zhangyuang/ssr/commit/47cd81a18a85be507c7d43c323c294f2d5b8775d))
+* gernerate html ([08e5678](https://github.com/zhangyuang/ssr/commit/08e567877e7b6d0b4b3a6fab6ad4ea2546b0c041))
+* pinia alias ([2256194](https://github.com/zhangyuang/ssr/commit/22561948b9d27ea6296b5f60cefb3f42d6c1d4c1))
+
+
+### Features
+
+* update vue alias ([36e15ac](https://github.com/zhangyuang/ssr/commit/36e15ac5d2d1398ced6abef2727970947177e6bc))
+
+
+
 ## [6.2.46](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.45...plugin-vue@6.2.46) (2022-11-01)
 
 
