@@ -726,7 +726,11 @@ export default {
 
 ### tailwind.css
 
-使用 `tailwind.css` 与框架无关，具体方案查看对应文档即可。下面贴出一种方案。配套使用 `VSCode` 对应插件一起使用更佳
+使用 `tailwind.css` 与框架无关，具体方案查看对应文档即可。下面贴出一种方案。配套使用 `VSCode Tailwind CSS IntelliSense` 对应插件一起使用更佳
+
+```shell
+$ yarn add tailwindcss@^3.0.0 autoprefixer@latest
+```
 
 ```js
 // 创建 tailwind.config.js
