@@ -1,3 +1,12 @@
+## [6.2.56](https://github.com/zhangyuang/ssr/compare/utils@6.2.55...utils@6.2.56) (2022-11-22)
+
+
+### Features
+
+* support antd5 close [#250](https://github.com/zhangyuang/ssr/issues/250) ([c999536](https://github.com/zhangyuang/ssr/commit/c9995365fbd82faa30a006b51e5cd76ab307bab5))
+
+
+
 ## [6.2.55](https://github.com/zhangyuang/ssr/compare/utils@6.2.53...utils@6.2.55) (2022-11-05)
 
 

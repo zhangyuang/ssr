@@ -58,6 +58,7 @@
     "framework": "@midwayjs/web"
   },
   "resolutions": {
-    "colors": "1.4.0"
+    "colors": "1.4.0",
+    "pinia": "2.0.24"
   }
 }
