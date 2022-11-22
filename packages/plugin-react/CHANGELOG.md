@@ -1,3 +1,20 @@
+## [6.2.56](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.55...plugin-react@6.2.56) (2022-11-22)
+
+
+### Bug Fixes
+
+* call judgeServerFramework in node environment prevent utils be ([47cd81a](https://github.com/zhangyuang/ssr/commit/47cd81a18a85be507c7d43c323c294f2d5b8775d))
+* gernerate html ([08e5678](https://github.com/zhangyuang/ssr/commit/08e567877e7b6d0b4b3a6fab6ad4ea2546b0c041))
+* pinia alias ([2256194](https://github.com/zhangyuang/ssr/commit/22561948b9d27ea6296b5f60cefb3f42d6c1d4c1))
+
+
+### Features
+
+* support antd5 close [#250](https://github.com/zhangyuang/ssr/issues/250) ([c999536](https://github.com/zhangyuang/ssr/commit/c9995365fbd82faa30a006b51e5cd76ab307bab5))
+* update vue alias ([36e15ac](https://github.com/zhangyuang/ssr/commit/36e15ac5d2d1398ced6abef2727970947177e6bc))
+
+
+
 ## [6.2.55](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.54...plugin-react@6.2.55) (2022-11-01)
 
 
