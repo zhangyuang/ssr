@@ -1,16 +1,42 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getCwd, loadConfig, setStyle, addImageChain, loadModuleFromFramework } from 'ssr-common-utils'
+import { getCwd, loadConfig, setStyle, addImageChain, loadModuleFromFramework, getPkgJson } from 'ssr-common-utils'
 import * as WebpackChain from 'webpack-chain'
 import * as webpack from 'webpack'
+import { coerce } from 'semver'
 
 const MiniCssExtractPlugin = require(loadModuleFromFramework('ssr-mini-css-extract-plugin'))
 const WebpackBar = require('webpackbar')
 const loadModule = loadModuleFromFramework
 
+const antdVersion = getPkgJson().dependencies?.['antd'] ?? getPkgJson().devDependencies?.['antd']
+const isAntd4 = coerce(antdVersion)?.major === 4
 const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOptions: any, isServer: boolean) => {
   const { babelOptions, isDev } = loadConfig()
+  const plugins = [
+    [loadModule('@babel/plugin-transform-runtime'), {
+      regenerator: false,
+      corejs: false,
+      helpers: true
+    }],
+    [loadModule('@babel/plugin-proposal-private-methods'), { loose: true }],
+    [loadModule('@babel/plugin-proposal-private-property-in-object'), { loose: true }],
+    ...babelOptions?.plugins ?? []
+  ]
+  if (isAntd4) {
+    plugins.push([
+      loadModule('babel-plugin-import'),
+      {
+        libraryName: 'antd',
+        libraryDirectory: 'lib',
+        style: true
+      }, 'antd'
+    ])
+  }
+  if (!isServer && isDev) {
+    plugins.push(loadModule('react-refresh/babel'))
+  }
   chain.use('babel-loader')
     .loader(loadModule('babel-loader'))
     .options({
@@ -29,24 +55,7 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
         }],
         ...babelOptions?.presets ?? []
       ],
-      plugins: [
-        [loadModule('@babel/plugin-transform-runtime'), {
-          regenerator: false,
-          corejs: false,
-          helpers: true
-        }],
-        [
-          loadModule('babel-plugin-import'),
-          {
-            libraryName: 'antd',
-            libraryDirectory: 'lib',
-            style: true
-          }, 'antd'
-        ],
-        [loadModule('@babel/plugin-proposal-private-methods'), { loose: true }],
-        [loadModule('@babel/plugin-proposal-private-property-in-object'), { loose: true }],
-        ...babelOptions?.plugins ?? []
-      ].concat((!isServer && isDev) ? loadModule('react-refresh/babel') : [])
+      plugins: plugins
     })
     .end()
 }

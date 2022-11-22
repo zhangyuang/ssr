@@ -12,6 +12,13 @@ export interface SSRModule extends compilation.Module {
   nameForCondition?: () => string
 }
 
+export interface PkgJson {
+  name: string
+  version: string
+  dependencies?: Record<string, string>
+  devDependencies?: Record<string, string>
+}
+
 export type Chain = WebpackChainConfig
 
 export type Script = Array<{

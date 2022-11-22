@@ -2,7 +2,7 @@ import { promises, accessSync, realpathSync } from 'fs'
 import { resolve } from 'path'
 import { exec } from 'child_process'
 import { promisify } from 'util'
-import { UserConfig, Json, SSRModule } from 'ssr-types'
+import type { UserConfig, Json, SSRModule, PkgJson } from 'ssr-types'
 import { coerce } from 'semver'
 import { rm } from 'shelljs'
 import { loadConfig } from './loadConfig'
@@ -22,6 +22,8 @@ const getPagesDir = () => {
 const cleanOutClientDir = () => {
   rm('-rf', resolve(getCwd(), './build/client'))
 }
+
+const getPkgJson = (): PkgJson => require(resolve(getCwd(), './package.json'))
 
 const writeRoutes = async (routes: string, name?: string) => {
   const cwd = getCwd()
@@ -314,5 +316,6 @@ export {
   getWebpackSplitCache,
   getSplitChunksOptions,
   cleanOutClientDir,
-  checkContainsRev
+  checkContainsRev,
+  getPkgJson
 }
