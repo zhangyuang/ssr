@@ -32,7 +32,6 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue'
 
 const { fetchData } = defineProps<{ fetchData: { isMobile: boolean } }>()
 

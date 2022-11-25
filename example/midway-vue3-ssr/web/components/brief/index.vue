@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, toRefs } from 'vue'
+import { toRefs } from 'vue'
 import { BriefDataNode } from '~/typings/data'
 
 const props = defineProps<{

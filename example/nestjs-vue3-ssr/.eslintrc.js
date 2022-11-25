@@ -4,6 +4,7 @@ module.exports = {
     'standard-vue-ts'
   ],
   globals: {
-    __isBrowser__: 'readonly'
+    __isBrowser__: 'readonly',
+    defineProps: 'readonly'
   }
 }

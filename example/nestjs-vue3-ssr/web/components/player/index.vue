@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, toRefs, ref } from 'vue'
+import { toRefs, ref } from 'vue'
 import { PlayerDataNode } from '~/typings/data'
 const props = defineProps<{
   data: PlayerDataNode[]
