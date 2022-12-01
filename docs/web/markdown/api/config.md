@@ -170,7 +170,7 @@ module.exports = {
 
 高级用法，用来控制生成的所有 `js chunk` 在页面中的加载优先级顺序处理参数来源是 `JsOrder` 与 `extraJsOrder` 合并后的完整结果。无特殊情况不需要进行改设置。
 
-- 类型: `Record<string, number> | ((params: {webpackChunkName: string}) => Record<string, number>) `
+- 类型: `Record<string, number> | ((params: {chunkName: string}) => Record<string, number>) `
 
 - 默认: `undefined`
 
@@ -203,7 +203,7 @@ module.exports = {
 
 高级用法，用来控制生成的所有 `css chunk` 在页面中的加载优先级顺序处理参数来源是 `cssOrder` 与 `extraCssOrder` 合并后的完整结果。无特殊情况不需要进行改设置。
 
-- 类型: `Record<string, number> | ((params: {webpackChunkName: string}) => Record<string, number>) `
+- 类型: `Record<string, number> | ((params: {chunkName: string}) => Record<string, number>) `
 
 - 默认: `undefined`
 
