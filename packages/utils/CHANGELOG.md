@@ -1,3 +1,12 @@
+## [6.2.57](https://github.com/zhangyuang/ssr/compare/utils@6.2.56...utils@6.2.57) (2022-12-01)
+
+
+### Bug Fixes
+
+* defaultExternals add react-dom close [#253](https://github.com/zhangyuang/ssr/issues/253) ([f748cee](https://github.com/zhangyuang/ssr/commit/f748ceeac2cf3205549b2a818e9cc4e386a5c250))
+
+
+
 ## [6.2.56](https://github.com/zhangyuang/ssr/compare/utils@6.2.55...utils@6.2.56) (2022-11-22)
 
 
