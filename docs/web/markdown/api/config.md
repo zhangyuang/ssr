@@ -192,7 +192,7 @@ module.exports = {
       'vendor.js': 1,
       'common-vendor.js': 2 // 优先级更高
   },
-  jsOrderPriority: ({ webpackChunkName }) => ({
+  jsOrderPriority: ({ chunkName }) => ({
       // 支持传入函数，入参为当前请求的页面 ChunkName 名称，可直接使用
       `runtime~${chunkName}.js`: 1,
       'common-vendor.js': 2 // 优先级更高

@@ -51,8 +51,8 @@ export interface IConfig {
   jsOrder: string[]
   extraJsOrder?: ((ctx: ISSRContext) => string[]) | string[] | undefined
   extraCssOrder?: ((ctx: ISSRContext) => string[]) | string[] | undefined
-  jsOrderPriority?: Record<string, number> | ((params: {webpackChunkName: string}) => Record<string, number>)
-  cssOrderPriority?: Record<string, number> | ((params: {webpackChunkName: string}) => Record<string, number>)
+  jsOrderPriority?: Record<string, number> | ((params: {chunkName: string}) => Record<string, number>)
+  cssOrderPriority?: Record<string, number> | ((params: {chunkName: string}) => Record<string, number>)
   css?: () => {
     loaderOptions?: {
       cssOptions?: any
