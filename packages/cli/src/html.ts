@@ -32,8 +32,8 @@ export const generateHtml = async () => {
   let jsHeaderManifest = ''
   let jsFooterManifest = ''
   const hashRouterScript = hashRouter ? '<script>window.hashRouter=true</script>' : ''
-  const header = customeHeadScript ?? []
-  const footer = customeFooterScript ?? []
+  const header = Array.isArray(customeHeadScript ?? []) ? customeHeadScript : customeHeadScript()
+  const footer = Array.isArray(customeFooterScript ?? []) ? customeFooterScript : customeFooterScript()
   const combine = [
     {
       arr: Array.isArray(header) ? header : header({}),
