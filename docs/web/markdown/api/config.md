@@ -166,6 +166,59 @@ module.exports = {
 }
 ```
 
+## jsOrderPriority🤔
+
+高级用法，用来控制生成的所有 `js chunk` 在页面中的加载优先级顺序处理参数来源是 `JsOrder` 与 `extraJsOrder` 合并后的完整结果。无特殊情况不需要进行改设置。
+
+- 类型: `Record<string, number> | ((params: {webpackChunkName: string}) => Record<string, number>) `
+
+- 默认: `undefined`
+
+- version: `latest`
+
+- 生效场景: `Webpack/Vite` 
+
+默认加载顺序如下，`chunkName` 代表当前请求的路由对应的前端页面级组件被构建出来的 `chunkName.chunk.js` 文件 
+
+```js
+const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', 'common-vendor.js', `${chunkName}.js`, 'layout-app.js']
+```
+
+
+```js
+module.exports = {
+  // 没有设置的统一优先级为0， 优先级越高的越先加载
+  jsOrderPriority: {
+      'vendor.js': 1,
+      'common-vendor.js': 2 // 优先级更高
+  },
+  jsOrderPriority: ({ webpackChunkName }) => ({
+      // 支持传入函数，入参为当前请求的页面 ChunkName 名称，可直接使用
+      `runtime~${chunkName}.js`: 1,
+      'common-vendor.js': 2 // 优先级更高
+  })
+}
+```
+## cssOrderPriority🤔
+
+高级用法，用来控制生成的所有 `css chunk` 在页面中的加载优先级顺序处理参数来源是 `cssOrder` 与 `extraCssOrder` 合并后的完整结果。无特殊情况不需要进行改设置。
+
+- 类型: `Record<string, number> | ((params: {webpackChunkName: string}) => Record<string, number>) `
+
+- 默认: `undefined`
+
+- version: `latest`
+
+- 生效场景: `Webpack/Vite` 
+
+默认加载顺序如下，`chunkName` 代表当前请求的路由对应的前端页面级组件被构建出来的 `chunkName.chunk.css` 文件 
+
+```js
+const cssOrder = ['vendor.css', 'common-vendor.css', `${chunkName}.css`, 'layout-app.css']
+```
+
+具体用法如上参考 `jsOrderPriority`
+
 ## babelOptions🤔
 
 - 类型: `babelCore.transformOptions`

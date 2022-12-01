@@ -45,12 +45,28 @@ export const nomalrizeOrder = (order: UserConfig['extraJsOrder'], ctx: ISSRConte
 }
 
 export const getAsyncCssChunk = async (ctx: ISSRContext, webpackChunkName: string, config: IConfig): Promise<string[]> => {
-  const { cssOrder, extraCssOrder } = config
-  return cssOrder.concat([...nomalrizeOrder(extraCssOrder, ctx), ...await addAsyncChunk(webpackChunkName, config, 'css'), `${webpackChunkName}.css`])
+  const { cssOrder, extraCssOrder, cssOrderPriority } = config
+  const combineOrder = cssOrder.concat([...nomalrizeOrder(extraCssOrder, ctx), ...await addAsyncChunk(webpackChunkName, config, 'css'), `${webpackChunkName}.css`])
+  if (cssOrderPriority) {
+    const priority = typeof cssOrderPriority === 'function' ? cssOrderPriority({ webpackChunkName }) : cssOrderPriority
+    combineOrder.sort((a, b) => {
+      // 没有显示指定的路由优先级统一为 0
+      return (priority[b] || 0) - (priority[a] || 0)
+    })
+  }
+  return combineOrder
 }
 export const getAsyncJsChunk = async (ctx: ISSRContext, webpackChunkName: string, config: IConfig): Promise<string[]> => {
-  const { jsOrder, extraJsOrder } = config
-  return jsOrder.concat([...nomalrizeOrder(extraJsOrder, ctx), ...await addAsyncChunk(webpackChunkName, config, 'js')])
+  const { jsOrder, extraJsOrder, jsOrderPriority } = config
+  const combineOrder = jsOrder.concat([...nomalrizeOrder(extraJsOrder, ctx), ...await addAsyncChunk(webpackChunkName, config, 'js')])
+  if (jsOrderPriority) {
+    const priority = typeof jsOrderPriority === 'function' ? jsOrderPriority({ webpackChunkName }) : jsOrderPriority
+    combineOrder.sort((a, b) => {
+      // 没有显示指定的路由优先级统一为 0
+      return (priority[b] || 0) - (priority[a] || 0)
+    })
+  }
+  return combineOrder
 }
 
 export const getUserScriptVue = (script: UserConfig['customeHeadScript'], ctx: ISSRContext, h: any, type: 'vue3'| 'vue') => {
