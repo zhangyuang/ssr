@@ -64,23 +64,15 @@ function nodeExternals(options: any) {
       nodeModules = readDir(modulesDir).filter(isNotBinary)
     }
   }
-  // nodeModules.forEach(module => {
-  //   try {
-  //     const d = {}
-  //     getDependencies(require.resolve(module), d)
-  //     nodeModules.push(...Object.keys(d))
-  //   } catch (error) {
 
-  //   }
-  // })
   return function (context: any, request: string, callback: (...params: any) => any) {
     const moduleName = getModuleName(request, includeAbsolutePaths)
     if (contains(nodeModules, moduleName) || defaultExternal.includes(moduleName)) {
-      // 属于第三方模块默认 external
-      if (containsPattern(whitelist, request)) {
+      if (containsPattern(whitelist, request) && !defaultExternal.includes(moduleName)) {
         // 白名单中的需要被处理
         return callback()
       }
+      // 否则 被 external
       // mark this module as external
       // https://webpack.js.org/configuration/externals/
       return callback(null, importType + ' ' + request)
