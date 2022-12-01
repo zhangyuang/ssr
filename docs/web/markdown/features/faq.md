@@ -283,7 +283,7 @@ async handler (): Promise<void> {
 
 由于 `ssr` 场景我们需要开启 `external` 选项，我们需要将 `node_modules` 上传到云服务上。但我们在发布时只会安装 `dependencies` 依赖。绝大部分情况下包大小不会超过 `50MB`，如果确实是因为 `dependencies` 依赖大小超出，可以配置 [whiteList](./api$config#whiteList) 来将该依赖与服务端 `bundle` 打在一起。若能正常运行，则可以将该依赖移除 `dependencies` 加入 `devDependencies`，在发布时则不会安装该依赖。
 
-这里有非常重要的一点，记住这里除了依赖本身之外还需要包括依赖的依赖。例如 `antd` 自身的 `dependencies` 里依赖了其他模块，这些模块也需要一并配置到白名单当中。这里为了减少工作量，框架本身增加了一层比较简单的依赖自动遍历收集策略，当 `whiteList` 的值不为 `RegExp` 而是 `string` 的时候，框架会将其当成模块名，并且会深度遍历模块自身的依赖以及依赖的依赖。但这仅局限于这些依赖是安装在 `node_modules` 的第一层中。也就是 `node_modules/${pkg}/package.json` 这样的查找路径。当出现依赖多个版本冲突时，这些依赖可能会出现在 `node_modules/antd/node_modules/${pkg}/package.json` 这样的路径，此时无法自动查找成功需要手动的在 `whiteList` 中添加。
+这里有非常重要的一点，记住这里除了依赖本身之外还需要包括依赖的依赖。例如 `antd` 自身的 `dependencies` 里依赖了其他模块，这些模块也需要一并配置到白名单当中。这里为了减少工作量，框架本身增加了一层比较简单的依赖自动遍历收集策略，当 `whiteList` 的值不为 `RegExp` 而是 `string` 的时候，框架会将其当成模块名，并且会深度遍历模块自身的依赖以及依赖的依赖。
 
 下面附上需要将 `antd` 打包进来的配置作为参考，
 
