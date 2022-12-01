@@ -1,3 +1,12 @@
+## [6.2.41](https://github.com/zhangyuang/ssr/compare/cli@6.2.40...cli@6.2.41) (2022-12-01)
+
+
+### Features
+
+* spa with customeFooterScript is array ([b9508ae](https://github.com/zhangyuang/ssr/commit/b9508aea7e98bbbdaecaa318667d10d04c10aa82))
+
+
+
 ## [6.2.40](https://github.com/zhangyuang/ssr/compare/cli@6.2.39...cli@6.2.40) (2022-12-01)
 
 
