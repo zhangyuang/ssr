@@ -1,3 +1,14 @@
+## [6.2.58](https://github.com/zhangyuang/ssr/compare/utils@6.2.57...utils@6.2.58) (2022-12-01)
+
+
+### Features
+
+* spa support extrajsorder cssorder ([ebc82c5](https://github.com/zhangyuang/ssr/commit/ebc82c52d35502533130fc4d6e551aed0f9d1137))
+* spa with customeFooterScript is array ([b9508ae](https://github.com/zhangyuang/ssr/commit/b9508aea7e98bbbdaecaa318667d10d04c10aa82))
+* support jsOrderPriority🤔 cssOrderPriority🤔 ([9db9a7d](https://github.com/zhangyuang/ssr/commit/9db9a7d03e8c47a93ca459b8b8b3fad571f73960))
+
+
+
 ## [6.2.57](https://github.com/zhangyuang/ssr/compare/utils@6.2.56...utils@6.2.57) (2022-12-01)
 
 
