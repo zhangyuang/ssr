@@ -1,3 +1,13 @@
+## [6.2.42](https://github.com/zhangyuang/ssr/compare/cli@6.2.41...cli@6.2.42) (2022-12-01)
+
+
+### Features
+
+* build spa support priority ([d456969](https://github.com/zhangyuang/ssr/commit/d4569697d00a720c2e820206ebb5df1002c4af8d))
+* support jsOrderPriority🤔 cssOrderPriority🤔 ([9db9a7d](https://github.com/zhangyuang/ssr/commit/9db9a7d03e8c47a93ca459b8b8b3fad571f73960))
+
+
+
 ## [6.2.41](https://github.com/zhangyuang/ssr/compare/cli@6.2.40...cli@6.2.41) (2022-12-01)
 
 
