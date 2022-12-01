@@ -181,7 +181,7 @@ module.exports = {
 默认加载顺序如下，`chunkName` 代表当前请求的路由对应的前端页面级组件被构建出来的 `chunkName.chunk.js` 文件 
 
 ```js
-const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', 'common-vendor.js', `${chunkName}.js`, 'layout-app.js']
+const jsOrder = isVite ? ['Page.js'] : ['runtime~Page.js', 'vendor.js', 'common-vendor.js', 'Page.js', 'layout-app.js']
 ```
 
 
@@ -193,8 +193,9 @@ module.exports = {
       'common-vendor.js': 2 // 优先级更高
   },
   jsOrderPriority: ({ chunkName }) => ({
-      // 支持传入函数，入参为当前请求的页面 ChunkName 名称，可直接使用
-      `runtime~${chunkName}.js`: 1,
+      // 支持传入函数，入参为当前请求的页面 ChunkName 名称，可直接使用，例如 index.chunk.js 中的 index 为首页的 chunkName, detail-id.chunk.js 中的 detail-id 为详情页的 chunkName
+      // 注意 chunkName 的获取依赖服务端运行时逻辑，故 spa build 模式下，不存在 chunkName 入参
+      `${chunkName}.js`: 1,
       'common-vendor.js': 2 // 优先级更高
   })
 }
@@ -214,7 +215,7 @@ module.exports = {
 默认加载顺序如下，`chunkName` 代表当前请求的路由对应的前端页面级组件被构建出来的 `chunkName.chunk.css` 文件 
 
 ```js
-const cssOrder = ['vendor.css', 'common-vendor.css', `${chunkName}.css`, 'layout-app.css']
+const cssOrder = ['vendor.css', 'common-vendor.css', 'Page.css', 'layout-app.css']
 ```
 
 具体用法如上参考 `jsOrderPriority`
