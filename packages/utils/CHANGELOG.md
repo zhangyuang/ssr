@@ -1,3 +1,17 @@
+## [6.2.59](https://github.com/zhangyuang/ssr/compare/utils@6.2.58...utils@6.2.59) (2022-12-01)
+
+
+### Bug Fixes
+
+* types ([7015666](https://github.com/zhangyuang/ssr/commit/70156663c28c87628596a4466cf8c647d18335dd))
+
+
+### Features
+
+* build spa support priority ([d456969](https://github.com/zhangyuang/ssr/commit/d4569697d00a720c2e820206ebb5df1002c4af8d))
+
+
+
 ## [6.2.58](https://github.com/zhangyuang/ssr/compare/utils@6.2.57...utils@6.2.58) (2022-12-01)
 
 
