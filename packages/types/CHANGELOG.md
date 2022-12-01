@@ -1,3 +1,19 @@
+## [6.2.34](https://github.com/zhangyuang/ssr/compare/types@6.2.33...types@6.2.34) (2022-12-01)
+
+
+### Bug Fixes
+
+* defaultExternals add react-dom close [#253](https://github.com/zhangyuang/ssr/issues/253) ([f748cee](https://github.com/zhangyuang/ssr/commit/f748ceeac2cf3205549b2a818e9cc4e386a5c250))
+
+
+### Features
+
+* spa support extrajsorder cssorder ([ebc82c5](https://github.com/zhangyuang/ssr/commit/ebc82c52d35502533130fc4d6e551aed0f9d1137))
+* spa with customeFooterScript is array ([b9508ae](https://github.com/zhangyuang/ssr/commit/b9508aea7e98bbbdaecaa318667d10d04c10aa82))
+* support jsOrderPriority🤔 cssOrderPriority🤔 ([9db9a7d](https://github.com/zhangyuang/ssr/commit/9db9a7d03e8c47a93ca459b8b8b3fad571f73960))
+
+
+
 ## [6.2.33](https://github.com/zhangyuang/ssr/compare/types@6.2.32...types@6.2.33) (2022-11-22)
 
 
