@@ -7,7 +7,7 @@ export const generateHtml = async () => {
   // spa 模式下生成 html 文件直接部署
   const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework, logGreen } = await import('ssr-common-utils')
   logGreen('Generating html file...')
-  const { jsOrder, customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix, clientPrefix, isVite } = loadConfig()
+  const { jsOrder, customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix, clientPrefix, isVite, extraJsOrder, extraCssOrder } = loadConfig()
   const htmlStr = htmlTemplate ?? `
   <!DOCTYPE html>
   <html lang="en">
@@ -80,7 +80,7 @@ export const generateHtml = async () => {
   const cwd = getCwd()
   const manifest: Record<string, string> = require(join(cwd, './build/client/asset-manifest.json'))
   let jsManifest = ''
-  jsOrder.forEach(item => {
+  jsOrder.concat(extraJsOrder).forEach(item => {
     if (manifest[item]) {
       jsManifest += `<script src="${manifest[item]}" ${isVite ? 'type="module"' : ''}></script>`
     }
@@ -88,6 +88,11 @@ export const generateHtml = async () => {
   let cssManifest = ''
   Object.values(manifest).reverse().forEach(item => {
     if (item.endsWith('chunk.css')) {
+      cssManifest += `<link rel='stylesheet' href="${item}" />`
+    }
+  })
+  extraCssOrder.forEach(item => {
+    if (manifest?.[item].endsWith('.css')) {
       cssManifest += `<link rel='stylesheet' href="${item}" />`
     }
   })
