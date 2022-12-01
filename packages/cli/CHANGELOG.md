@@ -1,3 +1,13 @@
+## [6.2.43](https://github.com/zhangyuang/ssr/compare/cli@6.2.42...cli@6.2.43) (2022-12-01)
+
+
+### Bug Fixes
+
+* spa build ([d399bea](https://github.com/zhangyuang/ssr/commit/d399beac0dc3a336194651b3fc05f011a7515ff1))
+* types ([7015666](https://github.com/zhangyuang/ssr/commit/70156663c28c87628596a4466cf8c647d18335dd))
+
+
+
 ## [6.2.42](https://github.com/zhangyuang/ssr/compare/cli@6.2.41...cli@6.2.42) (2022-12-01)
 
 
