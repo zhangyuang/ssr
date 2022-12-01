@@ -5,9 +5,9 @@ import { join } from 'path'
 export const generateHtml = async () => {
   if (!process.env.SPA) return
   // spa 模式下生成 html 文件直接部署
-  const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework, logGreen } = await import('ssr-common-utils')
+  const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework, logGreen, getAsyncJsChunk, cssOrderPriority } = await import('ssr-common-utils')
   logGreen('Generating html file...')
-  const { jsOrder, customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix, clientPrefix, isVite, extraJsOrder, extraCssOrder } = loadConfig()
+  const { customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix, clientPrefix, isVite, extraCssOrder } = loadConfig()
   const htmlStr = htmlTemplate ?? `
   <!DOCTYPE html>
   <html lang="en">
@@ -32,8 +32,8 @@ export const generateHtml = async () => {
   let jsHeaderManifest = ''
   let jsFooterManifest = ''
   const hashRouterScript = hashRouter ? '<script>window.hashRouter=true</script>' : ''
-  const header = Array.isArray(customeHeadScript ?? []) ? customeHeadScript : customeHeadScript()
-  const footer = Array.isArray(customeFooterScript ?? []) ? customeFooterScript : customeFooterScript()
+  const header = customeHeadScript ?? []
+  const footer = customeFooterScript ?? []
   const combine = [
     {
       arr: Array.isArray(header) ? header : header({}),
@@ -80,23 +80,31 @@ export const generateHtml = async () => {
   const cwd = getCwd()
   const manifest: Record<string, string> = require(join(cwd, './build/client/asset-manifest.json'))
   let jsManifest = ''
-  jsOrder.concat(extraJsOrder).forEach(item => {
+  const jsOrder = await getAsyncJsChunk({}, '', loadConfig())
+  jsOrder.forEach(item => {
     if (manifest[item]) {
       jsManifest += `<script src="${manifest[item]}" ${isVite ? 'type="module"' : ''}></script>`
     }
   })
-  let cssManifest = ''
+  const cssManifest = []
   Object.values(manifest).reverse().forEach(item => {
     if (item.endsWith('chunk.css')) {
-      cssManifest += `<link rel='stylesheet' href="${item}" />`
+      cssManifest.push(`<link rel='stylesheet' href="${item}" />`)
     }
-  })
-  extraCssOrder.forEach(item => {
+  });
+  (extraCssOrder ?? []).forEach(item => {
     if (manifest?.[item].endsWith('.css')) {
-      cssManifest += `<link rel='stylesheet' href="${item}" />`
+      cssManifest.push(`<link rel='stylesheet' href="${item}" />`)
     }
   })
-  const generateHtmlStr = htmlStr.replace('cssInject', cssManifest).replace('jsManifest', jsManifest).replace('jsHeaderManifest', jsHeaderManifest)
+  if (cssOrderPriority) {
+    const priority = typeof cssOrderPriority === 'function' ? cssOrderPriority({ webpackChunkName }) : cssOrderPriority
+    cssManifest.sort((a, b) => {
+      // 没有显示指定的路由优先级统一为 0
+      return (priority[b] || 0) - (priority[a] || 0)
+    })
+  }
+  const generateHtmlStr = htmlStr.replace('cssInject', cssManifest.join('')).replace('jsManifest', jsManifest).replace('jsHeaderManifest', jsHeaderManifest)
     .replace('jsFooterManifest', jsFooterManifest)
     .replace('hashRouterScript', hashRouterScript)
   await promises.writeFile(join(cwd, './build/index.html'), generateHtmlStr)
