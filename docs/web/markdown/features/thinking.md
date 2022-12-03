@@ -54,15 +54,3 @@
 ### 有什么优势
 
 ![](/images/chunk4.png)
-
-## 怎么接 Vite
-
-### 分析流程
-
-![](/images/vite1.png)
-
-### 我们是怎么做的
-
-如前面内容提到，当 `vite` 这块成熟后不排除会完全分离 `webpack/vite`
-
-![](/images/vite2.png)

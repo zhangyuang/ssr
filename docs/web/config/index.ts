@@ -18,8 +18,8 @@ export const webSiteConfig = {
         path: '/docs/changelog$index'
       },
       {
-        label: '依赖版本查询',
-        path: '/docs/features$dependencies'
+        label: '内存分析工具',
+        path: '/docs/features$memory'
       }
     ]
   },
@@ -90,6 +90,10 @@ export const webSiteConfig = {
           {
             label: '插件列表',
             path: '/docs/plugin$index'
+          },
+          {
+            label: '内存分析工具',
+            path: 'https://github.com/zhangyuang/v8-profiler-rs'
           },
           {
             label: '前端开发手册',
