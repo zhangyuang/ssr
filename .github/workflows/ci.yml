@@ -59,6 +59,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
+      - name: Check out my other private repo
+        uses: actions/checkout@master
+        with:
+          repository: zhangyuang/v8-profiler-rs
+          path: v8-profiler-rs
+          ref: main
+      - run: cp ./v8-profiler-rs/README.md ./docs/web/markdown/features/memory.md
       - run: cd docs && yarn && npm run deploy
         env:
           SERVERLESS_DEPLOY_AK: ${{ secrets.SERVERLESS_DEPLOY_AK }}
