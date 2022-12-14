@@ -54,7 +54,10 @@ const startFunc = async (argv: Argv) => {
   if (!argv.noclean) {
     await cleanOutDir()
   }
-  const { parseFeRoutes, transformConfig } = await import('ssr-common-utils')
+  const { parseFeRoutes, transformConfig, logInfo } = await import('ssr-common-utils')
+  if (argv.vite) {
+    logInfo('Vite 场景本地开发样式闪烁为正常现象请忽略，生产环境无此问题')
+  }
   const watcher = await createWatcher()
   await transformConfig()
   await handleEnv(argv)
