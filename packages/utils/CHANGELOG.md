@@ -1,3 +1,19 @@
+## [6.2.60](https://github.com/zhangyuang/ssr/compare/utils@6.2.59...utils@6.2.60) (2022-12-29)
+
+
+### Bug Fixes
+
+* external ([005b74a](https://github.com/zhangyuang/ssr/commit/005b74a35bbecfc44a1235b8d256aaf934b595bc))
+* spa build ([d399bea](https://github.com/zhangyuang/ssr/commit/d399beac0dc3a336194651b3fc05f011a7515ff1))
+
+
+### Features
+
+* add vite dev css flicker tips ([1744a72](https://github.com/zhangyuang/ssr/commit/1744a72fbc056532336daef4ee0a439fefe529ff))
+* support element-plus ([e13fed8](https://github.com/zhangyuang/ssr/commit/e13fed826ad634a31f3506afc0a7958340c9dc87))
+
+
+
 ## [6.2.59](https://github.com/zhangyuang/ssr/compare/utils@6.2.58...utils@6.2.59) (2022-12-01)
 
 
