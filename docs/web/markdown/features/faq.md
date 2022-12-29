@@ -634,43 +634,13 @@ export { userConfig }
 
 #### element-plus
 
-```js
-import type { UserConfig } from 'ssr-types'
-import { setStyle } from 'ssr-common-utils'
+- webpack
 
-const userConfig: UserConfig = {
-  chainBaseConfig: (chain, isServer) => {
-    setStyle(chain, /\.s[ac]ss$/i, {
-      rule: 'sass',
-      loader: 'sass-loader',
-      isServer,
-      importLoaders: 2, // 参考 https://www.npmjs.com/package/css-loader#importloaders
-    })
-  },
-  babelOptions: {
-    plugins: [
-      [
-        "import", {
-          "libraryName": "element-plus",
-          "customName": (name: string) => {
-            // 不一定能覆盖所有的组件引入语法，如果出错请自行查看该组件在 element-plus 的导出规则修改此方法
-            const name = name.replace('El', '').toLocaleLowerCase() // change ElButton to Button for setting current component path that `element-plus/lib/components/${name}/index.js`
-            return `element-plus/lib/components/${name}/index.js`
-          },
-          "customStyleName": (name: string) => {
-            const name = name.replace('El', '').toLocaleLowerCase()
-            return `element-plus/lib/components/${name}/style/index.js`
-          }
-        }, 'element-plus']
-    ]
-  },
-  whiteList: [/element-plus.*?style/]
-}
-export { userConfig }
-// 代码使用
-import { ElButton } from 'element-plus'
+`webpack` 场景下支持[按需导入](https://element-plus.gitee.io/zh-CN/guide/quickstart.html#%E6%8C%89%E9%9C%80%E5%AF%BC%E5%85%A5)和[手动导入](https://element-plus.gitee.io/zh-CN/guide/quickstart.html#%E6%89%8B%E5%8A%A8%E5%AF%BC%E5%85%A5)两种方案可直接使用。
 
-```
+- vite
+
+`vite` 场景下支持[手动导入](https://element-plus.gitee.io/zh-CN/guide/quickstart.html#%E6%89%8B%E5%8A%A8%E5%AF%BC%E5%85%A5)方案，按需导入方案由于插件自身的问题暂时无法接入。
 
 ## 引入其他 css 处理器
 

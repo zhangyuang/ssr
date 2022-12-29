@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getCwd, loadConfig, setStyle, addImageChain, loadModuleFromFramework } from 'ssr-common-utils'
+import { getCwd, loadConfig, setStyle, addImageChain, loadModuleFromFramework, logErr } from 'ssr-common-utils'
 import * as webpack from 'webpack'
 import * as WebpackChain from 'webpack-chain'
 
@@ -217,6 +217,30 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     ...(isServer ? define?.server : define?.client),
     ...define?.base
   }])
+  if (loadModuleFromFramework('element-plus')) {
+    const AutoImport = require('unplugin-auto-import/webpack')
+    const Components = require('unplugin-vue-components/webpack')
+    const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
+    const { coerce } = require('semver')
+    if ((coerce(process.version)?.major ?? 0) < 14) {
+      logErr('Use element-plus auto import require Node.js Version >= v14 for optional chaining')
+    } else {
+      chain.plugin('ele').use(AutoImport({
+        resolvers: [ElementPlusResolver({
+          ssr: isServer
+        })]
+      }))
+
+      chain.plugin('ele2').use(Components({
+        resolvers: [ElementPlusResolver({
+          ssr: isServer
+        })]
+      }))
+      chain.plugin('ele3').use(require('unplugin-element-plus/webpack')({
+        lib: isServer
+      }))
+    }
+  }
 
   chainBaseConfig(chain, isServer)
   return config
