@@ -1,3 +1,13 @@
+## [6.2.74](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.73...plugin-vue3@6.2.74) (2022-12-30)
+
+
+### Bug Fixes
+
+* external ([005b74a](https://github.com/zhangyuang/ssr/commit/005b74a35bbecfc44a1235b8d256aaf934b595bc))
+* judge node version ([b6f17b3](https://github.com/zhangyuang/ssr/commit/b6f17b3a04afdcdea936554b60e6db96e2053532))
+
+
+
 ## [6.2.73](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.71...plugin-vue3@6.2.73) (2022-12-29)
 
 
