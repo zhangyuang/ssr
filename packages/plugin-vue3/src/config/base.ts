@@ -218,13 +218,13 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     ...define?.base
   }])
   if (loadModuleFromFramework('element-plus')) {
-    const AutoImport = require('unplugin-auto-import/webpack')
-    const Components = require('unplugin-vue-components/webpack')
-    const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
     const { coerce } = require('semver')
     if ((coerce(process.version)?.major ?? 0) < 14) {
       logErr('Use element-plus auto import require Node.js Version >= v14 for optional chaining')
     } else {
+      const AutoImport = require('unplugin-auto-import/webpack')
+      const Components = require('unplugin-vue-components/webpack')
+      const { ElementPlusResolver } = require('unplugin-vue-components/resolvers')
       chain.plugin('ele').use(AutoImport({
         resolvers: [ElementPlusResolver({
           ssr: isServer
