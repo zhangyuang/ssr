@@ -64,7 +64,7 @@ jobs:
         with:
           repository: zhangyuang/v8-profiler-rs
           path: v8-profiler-rs
-          ref: main
+          ref: public
       - run: cp ./v8-profiler-rs/README.md ./docs/web/markdown/features/memory.md
       - run: cd docs && yarn && npm run deploy
         env:
