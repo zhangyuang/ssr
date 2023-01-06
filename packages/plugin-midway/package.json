@@ -29,6 +29,7 @@
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "@midwayjs/cli": "^1.0.0",
+    "@types/koa": "^2.13.5",
     "ssr-common-utils": "^6.2.10"
   },
   "peerDependencies": {
