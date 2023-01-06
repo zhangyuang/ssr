@@ -1,3 +1,21 @@
+## [6.2.36](https://github.com/zhangyuang/ssr/compare/types@6.2.35...types@6.2.36) (2023-01-06)
+
+
+### Bug Fixes
+
+* external ([005b74a](https://github.com/zhangyuang/ssr/commit/005b74a35bbecfc44a1235b8d256aaf934b595bc))
+* judge node version ([b6f17b3](https://github.com/zhangyuang/ssr/commit/b6f17b3a04afdcdea936554b60e6db96e2053532))
+* spa build ([d399bea](https://github.com/zhangyuang/ssr/commit/d399beac0dc3a336194651b3fc05f011a7515ff1))
+
+
+### Features
+
+* add @types/koa ([0dffea6](https://github.com/zhangyuang/ssr/commit/0dffea66264dafde6ff16fd211a14137fd8b6e5d))
+* add vite dev css flicker tips ([1744a72](https://github.com/zhangyuang/ssr/commit/1744a72fbc056532336daef4ee0a439fefe529ff))
+* support element-plus ([e13fed8](https://github.com/zhangyuang/ssr/commit/e13fed826ad634a31f3506afc0a7958340c9dc87))
+
+
+
 ## [6.2.35](https://github.com/zhangyuang/ssr/compare/types@6.2.34...types@6.2.35) (2022-12-01)
 
 
