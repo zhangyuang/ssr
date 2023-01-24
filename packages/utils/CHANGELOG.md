@@ -1,3 +1,18 @@
+## [6.2.61](https://github.com/zhangyuang/ssr/compare/utils@6.2.60...utils@6.2.61) (2023-01-24)
+
+
+### Bug Fixes
+
+* judge node version ([b6f17b3](https://github.com/zhangyuang/ssr/commit/b6f17b3a04afdcdea936554b60e6db96e2053532))
+
+
+### Features
+
+* add @types/koa ([0dffea6](https://github.com/zhangyuang/ssr/commit/0dffea66264dafde6ff16fd211a14137fd8b6e5d))
+* add path-to-regexp to vite build vendorlist ([8934da5](https://github.com/zhangyuang/ssr/commit/8934da5dca7c709d4cbc0635bb194057b59dc2c0))
+
+
+
 ## [6.2.60](https://github.com/zhangyuang/ssr/compare/utils@6.2.59...utils@6.2.60) (2022-12-29)
 
 
