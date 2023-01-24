@@ -24,7 +24,8 @@ const generateMap: Record<string, string> = {}
 const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router',
   'react-router-dom', 'react-dom', '@vue', 'ssr-hoc-react',
   'ssr-client-utils', 'ssr-common-utils', 'pinia', '@babel/runtime',
-  'ssr-plugin-vue3', 'ssr-plugin-vue', 'ssr-plugin-react', 'react/jsx-runtime'
+  'ssr-plugin-vue3', 'ssr-plugin-vue', 'ssr-plugin-react', 'react/jsx-runtime',
+  'path-to-regexp'
 ]
 
 const chunkNamePlugin = function (): Plugin {
