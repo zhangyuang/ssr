@@ -63,5 +63,10 @@
     "rollup": ">=2.59.0 <2.78.0",
     "ssr-types": "^6.0.0",
     "vue": "^3.0.0"
+  },
+  "peerDependencies": {
+    "ssr-plugin-react": "workspace:^6.0.0",
+    "ssr-plugin-vue": "workspace:^6.2.47",
+    "ssr-plugin-vue3": "workspace:^6.2.74"
   }
 }
