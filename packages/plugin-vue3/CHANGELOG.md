@@ -1,3 +1,18 @@
+## [6.2.75](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.74...plugin-vue3@6.2.75) (2023-01-30)
+
+
+### Bug Fixes
+
+* update vite-vue plugin version ([#261](https://github.com/zhangyuang/ssr/issues/261)) ([31d3844](https://github.com/zhangyuang/ssr/commit/31d38447e49bc8055d59e4452d02fc9825afab64))
+
+
+### Features
+
+* add @types/koa ([0dffea6](https://github.com/zhangyuang/ssr/commit/0dffea66264dafde6ff16fd211a14137fd8b6e5d))
+* add path-to-regexp to vite build vendorlist ([8934da5](https://github.com/zhangyuang/ssr/commit/8934da5dca7c709d4cbc0635bb194057b59dc2c0))
+
+
+
 ## [6.2.74](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.73...plugin-vue3@6.2.74) (2022-12-30)
 
 
