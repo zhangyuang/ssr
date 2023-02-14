@@ -1,3 +1,12 @@
+## [6.2.46](https://github.com/zhangyuang/ssr/compare/cli@6.2.45...cli@6.2.46) (2023-02-14)
+
+
+### Features
+
+* add ssr start --help tips in midway ([f76f0a1](https://github.com/zhangyuang/ssr/commit/f76f0a1a9dc49cb175a800655699a10065571ae2))
+
+
+
 ## [6.2.45](https://github.com/zhangyuang/ssr/compare/cli@6.2.44...cli@6.2.45) (2023-02-11)
 
 
