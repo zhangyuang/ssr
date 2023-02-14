@@ -123,6 +123,10 @@ yargs
       alias: 'o',
       desc: 'Optimize webpack bundle for high performance'
     },
+    help: {
+      alias: 'h',
+      desc: 'In midway, use --help to speed up ts compile'
+    },
     ...cliDesc
   }), async (argv: Argv) => {
     await startFunc(argv)
