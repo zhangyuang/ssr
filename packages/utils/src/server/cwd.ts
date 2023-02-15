@@ -208,6 +208,21 @@ const isFaaS = async (fun?: boolean) => {
   return result
 }
 
+export const checkRoute = ({
+  routeItem,
+  path
+}: {
+  routeItem?: any
+  path: string
+}) => {
+  if (!routeItem) {
+    throw new Error(`
+      With Path: ${path} search component failed
+      If you create new folder or component file, please restart server by npm start
+      `)
+  }
+}
+
 const judgeFramework = () => {
   const cwd = getCwd()
   const packageJSON = require(resolve(cwd, './package.json'))

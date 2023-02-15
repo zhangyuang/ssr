@@ -31,7 +31,6 @@ const getClientWebpack = (chain: WebpackChain) => {
     .chunkFilename(useHash ? '[name].[contenthash:8].chunk.js' : 'static/[name].chunk.js')
     .publicPath(publicPath)
     .end()
-
   chain.optimization
     .runtimeChunk(true)
     .splitChunks(getSplitChunksOptions(asyncChunkMap))
