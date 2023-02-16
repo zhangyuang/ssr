@@ -1,3 +1,18 @@
+## [6.2.76](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.75...plugin-vue3@6.2.76) (2023-02-16)
+
+
+### Bug Fixes
+
+* add NODE_OPTIONS tips when nodejs version > 16 ([3492698](https://github.com/zhangyuang/ssr/commit/34926987bb3f6f7562b87b14289f509cecf2a6fa))
+
+
+### Features
+
+* add ssr start --help tips in midway ([f76f0a1](https://github.com/zhangyuang/ssr/commit/f76f0a1a9dc49cb175a800655699a10065571ae2))
+* use asynclocalstorage for get correct pinia store app context instance ([a38d3e9](https://github.com/zhangyuang/ssr/commit/a38d3e99c2a6aa6a64a20099a59fb06edba1b5ea))
+
+
+
 ## [6.2.75](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.74...plugin-vue3@6.2.75) (2023-01-30)
 
 
