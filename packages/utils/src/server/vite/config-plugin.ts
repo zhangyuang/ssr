@@ -61,7 +61,7 @@ const chunkNamePlugin = function (): Plugin {
 
 const filePathMap: Record<string, string> = {}
 
-const recordInfo = (id: string, chunkName: string|null, defaultChunkName: string|null, parentId: string) => {
+const recordInfo = (id: string, chunkName: string | null, defaultChunkName: string | null, parentId: string) => {
   const sign = id.includes('node_modules') ? getPkgName(id) : id
   if (id.includes('node_modules')) {
     filePathMap[sign] = parentId
@@ -108,13 +108,16 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
         for (const dyImporterId of dynamicallyImportedIds) {
           recordInfo(dyImporterId, chunkName, 'dynamic', id)
         }
-      } else if (dependenciesMap[id]) {
-        const { importedIds, dynamicallyImportedIds } = this.getModuleInfo(id)!
-        for (const importerId of importedIds) {
-          recordInfo(importerId, null, null, id)
-        }
-        for (const dyImporterId of dynamicallyImportedIds) {
-          recordInfo(dyImporterId, null, 'dynamic', id)
+        for (const id in dependenciesMap) {
+          if (!id.includes('chunkName')) {
+            const { importedIds = [], dynamicallyImportedIds = [] } = this.getModuleInfo(id) ?? {}
+            for (const importerId of importedIds) {
+              recordInfo(importerId, null, null, id)
+            }
+            for (const dyImporterId of dynamicallyImportedIds) {
+              recordInfo(dyImporterId, null, 'dynamic', id)
+            }
+          }
         }
       }
     },
