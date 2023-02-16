@@ -1,3 +1,12 @@
+## [6.2.63](https://github.com/zhangyuang/ssr/compare/utils@6.2.62...utils@6.2.63) (2023-02-16)
+
+
+### Bug Fixes
+
+* vite build dependenciesMap logic ([28bee51](https://github.com/zhangyuang/ssr/commit/28bee5102f0f44e0ab1a7d9e16272c27c1fbbe08))
+
+
+
 ## [6.2.62](https://github.com/zhangyuang/ssr/compare/utils@6.2.61...utils@6.2.62) (2023-02-16)
 
 
