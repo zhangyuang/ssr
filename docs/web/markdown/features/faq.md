@@ -1345,3 +1345,77 @@ if (__isBrowser__) {
 在 `Webpack` 模式下，框架提供了 `ssr start|build --optimize` 选项来开启这一构建策略。这个过程中会借助 `Vite|Rollup` 的一些模块依赖分析的能力。所以会增加一些构建时间，开发者可只在构建生产环境产物时使用此配置。如果你使用过程中发现了什么问题，请提 [issue](https://github.com/zhangyuang/ssr/issues)。
 
 为了保证构建的性能最高，分析结果最准确。请尽量使用 `ESM Module(import / export)` 语法而不是 `CommonJS(require / module.exports)` 语法来导入导出模块。
+
+## Vite 生产环境构建样式闪烁
+
+尽管我们已经对 `Vite` 在生产环境的构建体验做了非常多的优化，包括实现了理论上的最佳构建策略来保证构建出来的文件体积最小，每个页面只会加载用到的代码不会加载任何额外内容。但目前发现仍有一些极端场景我们无法覆盖。目前我们只发现在以下场景下可能会出现样式闪烁的问题，如果你在其他场景下也出现了问题欢迎提交 `issue`
+
+### 禁止在 style 里面引用公共样式
+
+如果你有公共页面的样式需要加载，我们推荐你放在 `common.less` 中并在 `App.vue` 中加载。
+
+例如像下面的写法将会产生样式闪烁
+
+```js
+// foo.less
+.foo {
+  color: red
+}
+
+// a.vue
+<template>
+  <div class="foo">a</div> 
+</template>
+
+<script>
+
+</script>
+
+<style>
+@import "./foo.less";
+</style>
+
+// b.vue
+<template>
+  <div class="foo">b</div> 
+</template>
+
+<script>
+
+</script>
+
+<style>
+@import "./foo.less";
+</style>
+
+```
+
+上面的代码中，框架在构建时没有足够多的信息去判断出 `a`, `b` 两个组件引用了同一份样式文件，所以尽量不要用这种写法来实现功能。
+
+- 修改方法1：将公共样式放在 `common.less` 中
+
+- 修改方法2: 使用下面的代码写法, 在 `script` 中引入文件，此时框架可以正确的解析出引用关系。
+
+```js
+// foo.less
+.foo {
+  color: red
+}
+
+// a.vue
+<template>
+  <div class="foo">a</div> 
+</template>
+<script>
+import './foo.less';
+</script>
+
+// b.vue
+<template>
+  <div class="foo">b</div> 
+</template>
+
+<script>
+import './foo.less';
+</script>
+```
