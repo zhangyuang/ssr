@@ -1,3 +1,12 @@
+## [6.2.64](https://github.com/zhangyuang/ssr/compare/utils@6.2.63...utils@6.2.64) (2023-02-17)
+
+
+### Bug Fixes
+
+* confirm all children dependence belong to which chunkName in vite ([1ac15e4](https://github.com/zhangyuang/ssr/commit/1ac15e4f2a664426cc8e4c6ff9afa3620e1411ca))
+
+
+
 ## [6.2.63](https://github.com/zhangyuang/ssr/compare/utils@6.2.62...utils@6.2.63) (2023-02-16)
 
 
