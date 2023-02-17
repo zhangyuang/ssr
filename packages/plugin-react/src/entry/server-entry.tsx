@@ -1,10 +1,8 @@
+import { PassThrough } from 'stream'
 import * as React from 'react'
 import { createElement } from 'react'
 import { StaticRouter } from 'react-router-dom'
-import { renderToString } from 'react-dom/server'
-import type { renderToNodeStream as ReactStreamType } from 'react-dom/server'
-// @ts-expect-error
-import { renderToNodeStream } from 'ssr-react-dom/server'
+import { renderToString, renderToNodeStream } from 'react-dom/server'
 import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, reactRefreshFragment, localStorageWrapper, checkRoute } from 'ssr-common-utils'
 import { ISSRContext, IConfig, ReactESMPreloadFeRouteItem, DynamicFC, StaticFC } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
@@ -82,7 +80,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       staticList: staticList,
       injectState: injectState
     }, createElement(Component, null))))
-    return stream ? (renderToNodeStream as typeof ReactStreamType)(ele) : renderToString(ele)
+    // for ctx.body will loose asynclocalstorage context, consume stream in advance like vue2/3
+    return stream ? renderToNodeStream(ele).pipe(new PassThrough()) : renderToString(ele)
   }
 
   return await localStorageWrapper.run({
