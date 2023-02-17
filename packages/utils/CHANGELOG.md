@@ -1,3 +1,12 @@
+## [6.2.65](https://github.com/zhangyuang/ssr/compare/utils@6.2.64...utils@6.2.65) (2023-02-17)
+
+
+### Features
+
+* ignore node_modules dependencies in vite build ([72a7062](https://github.com/zhangyuang/ssr/commit/72a706283807609576e2de22fb4dcdaa9cc89e54))
+
+
+
 ## [6.2.64](https://github.com/zhangyuang/ssr/compare/utils@6.2.63...utils@6.2.64) (2023-02-17)
 
 
