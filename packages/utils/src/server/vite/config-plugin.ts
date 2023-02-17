@@ -99,6 +99,9 @@ const findChildren = (id: string, getModuleInfo: PluginContext['getModuleInfo'])
   const queue = [id]
   while (queue.length > 0) {
     const id = queue.pop()
+    if (id?.includes('node_modules')) {
+      continue
+    }
     const { importedIds = [], dynamicallyImportedIds = [] } = getModuleInfo(id!) ?? {}
     for (const importerId of importedIds) {
       recordInfo(importerId, null, null, id!)
