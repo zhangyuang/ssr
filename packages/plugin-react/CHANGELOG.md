@@ -1,3 +1,19 @@
+## [6.2.58](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.57...plugin-react@6.2.58) (2023-02-17)
+
+
+### Bug Fixes
+
+* confirm all children dependence belong to which chunkName in vite ([1ac15e4](https://github.com/zhangyuang/ssr/commit/1ac15e4f2a664426cc8e4c6ff9afa3620e1411ca))
+* vite build dependenciesMap logic ([28bee51](https://github.com/zhangyuang/ssr/commit/28bee5102f0f44e0ab1a7d9e16272c27c1fbbe08))
+
+
+### Features
+
+* for ctx.body will loose asynclocalstorage context, consume stream in advance like vue2/3 ([1f0c2ba](https://github.com/zhangyuang/ssr/commit/1f0c2bacd28a7a35af686c98f691a4a0c1ca9693))
+* ignore node_modules dependencies in vite build ([72a7062](https://github.com/zhangyuang/ssr/commit/72a706283807609576e2de22fb4dcdaa9cc89e54))
+
+
+
 ## [6.2.57](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.56...plugin-react@6.2.57) (2023-02-16)
 
 
