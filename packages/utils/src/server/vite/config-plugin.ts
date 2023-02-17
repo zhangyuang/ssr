@@ -4,7 +4,7 @@ import { resolve, isAbsolute } from 'path'
 import type { UserConfig, Plugin } from 'vite'
 import { parse as parseImports } from 'es-module-lexer'
 import MagicString from 'magic-string'
-import type { OutputOptions, PreRenderedChunk } from 'rollup'
+import type { OutputOptions, PreRenderedChunk, PluginContext } from 'rollup'
 import { mkdir } from 'shelljs'
 import { loadConfig } from '../loadConfig'
 import { getOutputPublicPath } from '../parse'
@@ -94,6 +94,23 @@ const fn = () => {
 
 let checkBuildEnd: () => void
 const moduleIds: string[] = []
+
+const findChildren = (id: string, getModuleInfo: PluginContext['getModuleInfo']) => {
+  const queue = [id]
+  while (queue.length > 0) {
+    const id = queue.pop()
+    const { importedIds = [], dynamicallyImportedIds = [] } = getModuleInfo(id!) ?? {}
+    for (const importerId of importedIds) {
+      recordInfo(importerId, null, null, id!)
+      queue.push(importerId)
+    }
+    for (const dyImporterId of dynamicallyImportedIds) {
+      recordInfo(dyImporterId, null, 'dynamic', id!)
+      queue.push(dyImporterId)
+    }
+  }
+}
+
 const asyncOptimizeChunkPlugin = (): Plugin => {
   return {
     name: 'asyncOptimizeChunkPlugin',
@@ -108,17 +125,6 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
         for (const dyImporterId of dynamicallyImportedIds) {
           recordInfo(dyImporterId, chunkName, 'dynamic', id)
         }
-        for (const id in dependenciesMap) {
-          if (!id.includes('chunkName')) {
-            const { importedIds = [], dynamicallyImportedIds = [] } = this.getModuleInfo(id) ?? {}
-            for (const importerId of importedIds) {
-              recordInfo(importerId, null, null, id)
-            }
-            for (const dyImporterId of dynamicallyImportedIds) {
-              recordInfo(dyImporterId, null, 'dynamic', id)
-            }
-          }
-        }
       }
     },
     buildStart () {
@@ -128,7 +134,13 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
       moduleIds.push(id)
       checkBuildEnd()
     },
-    async buildEnd (err) {
+    async buildEnd (this, err) {
+      // after the first layer file can be located in which chunkName
+      // confirm all children dependence belong to which chunkName
+      Object.keys(dependenciesMap).forEach(item => {
+        const id = !isAbsolute(item) ? filePathMap[item] : item
+        findChildren(id, this.getModuleInfo)
+      })
       Object.keys(dependenciesMap).forEach(item => {
         if (!isAbsolute(item)) {
           const abPath = filePathMap[item]
