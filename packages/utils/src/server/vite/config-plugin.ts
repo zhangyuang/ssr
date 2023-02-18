@@ -98,7 +98,7 @@ const moduleIds: string[] = []
 const findChildren = (id: string, getModuleInfo: PluginContext['getModuleInfo']) => {
   const queue = [id]
   while (queue.length > 0) {
-    const id = queue.pop()
+    const id = queue.shift()
     if (id?.includes('node_modules')) {
       continue
     }
