@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import { Readable, Stream } from 'stream'
 import { loadConfig, getCwd, StringToStream, mergeStream2, setHeader, judgeServerFramework, judgeFramework } from 'ssr-common-utils'
-import type { ISSRContext, UserConfig, IConfig, PipeableStream } from 'ssr-types'
+import type { ISSRContext, UserConfig, IConfig } from 'ssr-types'
 import type { ViteDevServer } from 'vite'
 
 const cwd = getCwd()
