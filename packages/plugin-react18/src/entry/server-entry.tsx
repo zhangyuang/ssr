@@ -1,3 +1,4 @@
+import { PassThrough } from 'stream'
 import * as React from 'react'
 import { createElement } from 'react'
 import { StaticRouter } from 'react-router-dom'
@@ -83,7 +84,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     return stream ? renderToPipeableStream(ele, {
       onAllReady: onReady,
       onError
-    }) : renderToString(ele)
+    }).pipe(new PassThrough()) : renderToString(ele)
   }
 
   return await localStorageWrapper.run({

@@ -1,4 +1,3 @@
-import { PassThrough } from 'stream'
 import { Controller, Get, Req, Res } from '@nestjs/common'
 import { Request, Response } from 'express'
 import { render } from 'ssr-core-react'
@@ -16,26 +15,23 @@ export class AppController {
       response: res,
       apiService: this.apiService
     }
-    const passThrough = new PassThrough()
     const stream = await render(ctx, {
       stream: true,
+      mode: 'csr',
       onError: (err) => {
         console.log('ssr error', err)
         render(ctx, {
           stream: true,
           mode: 'csr'
         }).then(csrStream => {
-          const passThrough = new PassThrough()
-          csrStream.pipe(passThrough)
-          passThrough.pipe(res)
+          csrStream.pipe(res)
         })
         return null
       },
       onReady () {
         // for normal ssr end
-        passThrough.pipe(res)
+        stream.pipe(res)
       }
     })
-    stream.pipe(passThrough)
   }
 }
