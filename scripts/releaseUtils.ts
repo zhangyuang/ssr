@@ -4,7 +4,7 @@
 import * as colors from 'picocolors'
 import type { Options as ExecaOptions } from 'execa'
 import execa from 'execa'
-import { readFileSync, writeFileSync, existsSync, promises } from 'fs'
+import { readFileSync, writeFileSync, existsSync, promises, readdirSync } from 'fs'
 import * as path from 'path'
 import { resolve } from 'path'
 import type { ReleaseType } from 'semver'
@@ -25,13 +25,7 @@ export const accessFile = async (file: string) => {
     .catch(() => false)
   return result
 }
-export const packages = [
-  'cli', 'plugin-vue3', 'plugin-react',
-  'plugin-vue', 'types', 'utils',
-  'core-vue', 'hoc-vue3', 'webpack', 'core-react',
-  'core-vue3', 'plugin-midway', 'plugin-nestjs',
-  'hoc-react'
-]
+export const packages = readdirSync(resolve(process.cwd(), './packages')).filter(item => item !== '.DS_Store')
 
 export function getPackageInfo (pkgName: string) {
   const pkgDir = path.resolve(__dirname, '../packages/' + pkgName)

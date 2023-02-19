@@ -24,7 +24,7 @@ const clientRender = async (): Promise<void> => {
       basename: baseName
     }, createElement(AppContext as any, {
       children: createElement(Switch, null,
-        createElement(IApp as any, null, createElement(Switch, null, // 使用高阶组件wrapComponent使得csr首次进入页面以及csr/ssr切换路由时调用getInitialProps
+        createElement(IApp as any, null, createElement(Switch, null,
           routes.map(item => {
             const { fetch, component, path } = item
             component.fetch = fetch

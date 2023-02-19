@@ -103,9 +103,13 @@ export interface IConfig {
   vueClientEntry: string
   reactServerEntry: string
   reactClientEntry: string
+  react18ServerEntry: string
+  react18ClientEntry: string
   isVite: boolean
   optimize: boolean
   supportOptinalChaining: boolean
+  onError?: (e: any) => (null|string)
+  onReady?: () => any
   viteConfig?: () => {
     common?: {
       // 双端通用配置

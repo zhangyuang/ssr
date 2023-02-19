@@ -5,6 +5,7 @@ import type { ISSRContext, UserConfig, IConfig } from 'ssr-types'
 
 const cwd = getCwd()
 const defaultConfig = loadConfig()
+const sf = judgeServerFramework()
 
 function render (ctx: ISSRContext, options?: UserConfig & {stream: true}): Promise<Readable>
 function render (ctx: ISSRContext, options?: UserConfig & {stream: false}): Promise<string>
@@ -14,7 +15,7 @@ function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
 async function render (ctx: ISSRContext, options?: UserConfig) {
   const config = Object.assign({}, defaultConfig, options ?? {})
   const { isVite } = config
-  setHeader(ctx, judgeServerFramework())
+  setHeader(ctx, sf)
 
   const serverRes = isVite ? await viteRender(ctx, config) : await commonRender(ctx, config)
   if (serverRes instanceof Readable) {

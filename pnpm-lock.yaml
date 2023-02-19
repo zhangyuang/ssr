@@ -99,6 +99,53 @@ importers:
       ssr-types: link:../../packages/types
       typescript: 4.7.4
 
+  example/midway-react18-ssr:
+    specifiers:
+      '@midwayjs/bootstrap': ^3.0.0
+      '@midwayjs/core': ^3.0.0
+      '@midwayjs/decorator': ^3.0.0
+      '@midwayjs/koa': ^3.0.0
+      '@midwayjs/mock': ^3.0.0
+      '@types/react': ^18.0.0
+      '@types/react-dom': ^18.0.0
+      '@types/react-router-dom': ^5.1.3
+      eslint-config-standard-react-ts: ^1.0.5
+      koa-static-cache: ^5.1.4
+      pm2: ^4.5.4
+      react: ^18.0.0
+      react-dom: ^18.0.0
+      react-router-dom: ^5.1.2
+      ssr: ^6.0.0
+      ssr-common-utils: ^6.0.0
+      ssr-core-react: ^6.0.0
+      ssr-plugin-midway: ^6.0.0
+      ssr-plugin-react18: ^6.0.0
+      ssr-types: ^6.0.0
+      typescript: ^4.0.0
+    dependencies:
+      '@midwayjs/bootstrap': 3.4.12
+      '@midwayjs/core': 3.4.12_@midwayjs+decorator@3.4.11
+      '@midwayjs/decorator': 3.4.11
+      '@midwayjs/koa': 3.4.12_@midwayjs+decorator@3.4.11
+      koa-static-cache: 5.1.4
+      pm2: 4.5.6
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-router-dom: 5.3.3_react@18.2.0
+      ssr-common-utils: link:../../packages/utils
+      ssr-core-react: link:../../packages/core-react
+    devDependencies:
+      '@midwayjs/mock': 3.4.12
+      '@types/react': 18.0.28
+      '@types/react-dom': 18.0.11
+      '@types/react-router-dom': 5.3.3
+      eslint-config-standard-react-ts: 1.0.16_typescript@4.7.4
+      ssr: link:../../packages/cli
+      ssr-plugin-midway: link:../../packages/plugin-midway
+      ssr-plugin-react18: link:../../packages/plugin-react18
+      ssr-types: link:../../packages/types
+      typescript: 4.7.4
+
   example/midway-vue-ssr:
     specifiers:
       '@midwayjs/bootstrap': ^3.0.0
@@ -240,6 +287,53 @@ importers:
       ssr: link:../../packages/cli
       ssr-plugin-nestjs: link:../../packages/plugin-nestjs
       ssr-plugin-react: link:../../packages/plugin-react
+      ssr-types: link:../../packages/types
+      typescript: 4.7.4
+      webpack: 4.46.0
+
+  example/nestjs-react18-ssr:
+    specifiers:
+      '@nestjs/cli': ^8.0.0
+      '@nestjs/common': ^8.0.0
+      '@nestjs/core': ^8.0.0
+      '@nestjs/platform-express': ^8.0.0
+      '@types/react': ^18.0.0
+      '@types/react-dom': ^18.0.0
+      '@types/react-router-dom': ^5.1.3
+      eslint-config-standard-react-ts: ^1.0.5
+      pm2: ^4.5.4
+      react: ^18.0.0
+      react-dom: ^18.0.0
+      react-router-dom: ^5.1.2
+      reflect-metadata: ^0.1.13
+      ssr: ^6.0.0
+      ssr-common-utils: ^6.0.0
+      ssr-core-react: ^6.0.0
+      ssr-plugin-nestjs: ^6.0.0
+      ssr-plugin-react18: ^6.0.0
+      ssr-types: ^6.0.0
+      typescript: ^4.0.0
+      webpack: ^4.0.0
+    dependencies:
+      '@nestjs/common': 8.4.7_reflect-metadata@0.1.13
+      '@nestjs/core': 8.4.7_fb060a9fb473b26e5f51c625d46d48fe
+      '@nestjs/platform-express': 8.4.7_fce4c3b686c1225eb94686491d30b061
+      pm2: 4.5.6
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-router-dom: 5.3.3_react@18.2.0
+      reflect-metadata: 0.1.13
+      ssr-common-utils: link:../../packages/utils
+      ssr-core-react: link:../../packages/core-react
+    devDependencies:
+      '@nestjs/cli': 8.2.8
+      '@types/react': 18.0.28
+      '@types/react-dom': 18.0.11
+      '@types/react-router-dom': 5.3.3
+      eslint-config-standard-react-ts: 1.0.16_typescript@4.7.4
+      ssr: link:../../packages/cli
+      ssr-plugin-nestjs: link:../../packages/plugin-nestjs
+      ssr-plugin-react18: link:../../packages/plugin-react18
       ssr-types: link:../../packages/types
       typescript: 4.7.4
       webpack: 4.46.0
@@ -410,21 +504,13 @@ importers:
 
   packages/core-react:
     specifiers:
-      '@types/react-dom': ^17.0.0
-      react: ^17.0.0
-      react-dom: ^17.0.0
       ssr-common-utils: ^6.2.10
-      ssr-plugin-react: ^6.0.0
       ssr-serialize-javascript: ^6.0.0
       ssr-types: ^6.0.0
     dependencies:
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
       ssr-common-utils: link:../utils
       ssr-serialize-javascript: 6.0.4
     devDependencies:
-      '@types/react-dom': 17.0.17
-      ssr-plugin-react: link:../plugin-react
       ssr-types: link:../types
 
   packages/core-vue:
@@ -496,6 +582,29 @@ importers:
     devDependencies:
       '@types/react': 17.0.48
       '@types/react-dom': 17.0.17
+      '@types/react-router': 5.1.18
+      '@types/react-router-dom': 5.3.3
+      ssr-types: link:../types
+
+  packages/hoc-react18:
+    specifiers:
+      '@types/react': ^18.0.0
+      '@types/react-dom': ^18.0.0
+      '@types/react-router': ^5.1.18
+      '@types/react-router-dom': ^5.1.3
+      react: ^18.0.1
+      react-dom: ^18.0.0
+      react-router: ^5.2.1
+      react-router-dom: ^5.1.2
+      ssr-types: ^6.2.7
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      react-router: 5.3.3_react@18.2.0
+      react-router-dom: 5.3.3_react@18.2.0
+    devDependencies:
+      '@types/react': 18.0.28
+      '@types/react-dom': 18.0.11
       '@types/react-router': 5.1.18
       '@types/react-router-dom': 5.3.3
       ssr-types: link:../types
@@ -642,6 +751,117 @@ importers:
     devDependencies:
       '@types/react': 17.0.48
       '@types/react-dom': 17.0.17
+      '@types/react-router-dom': 5.3.3
+      '@types/webpack': 4.41.32
+      concurrently: 5.3.0
+      ssr-types: link:../types
+
+  packages/plugin-react18:
+    specifiers:
+      '@babel/core': ^7.0.0
+      '@babel/plugin-proposal-nullish-coalescing-operator': ^7.16.5
+      '@babel/plugin-proposal-optional-chaining': ^7.16.5
+      '@babel/plugin-transform-runtime': ^7.9.6
+      '@babel/preset-env': ^7.5.5
+      '@pmmmwh/react-refresh-webpack-plugin': ^0.5.5
+      '@types/react': ^18.0.0
+      '@types/react-dom': ^18.0.0
+      '@types/react-router': ^5.1.3
+      '@types/react-router-dom': ^5.1.3
+      '@types/semver': ^7.3.13
+      '@types/webpack': ^4.41.10
+      '@vitejs/plugin-react': ^1.3.2
+      babel-loader: ^8.0.4
+      babel-plugin-import: 1.13.3
+      babel-preset-react-app: ^10.0.0
+      concurrently: ^5.1.0
+      core-js: ^3.6.4
+      css-loader: ^5.2.7
+      file-loader: ^6.2.0
+      less: ^4.1.1
+      less-loader: ^7.3.0
+      optimize-css-assets-webpack-plugin: ^6.0.0
+      ora: ^4.0.4
+      postcss: ^8.0.0
+      postcss-discard-comments: ^5.0.0
+      postcss-flexbugs-fixes: ^5.0.0
+      postcss-loader: ^4.0.0
+      postcss-modules: ^4.0.0
+      postcss-preset-env: 7.6.0
+      postcss-safe-parser: ^6.0.0
+      react: ^18.0.1
+      react-dev-utils: ^11.0.4
+      react-dom: ^18.0.0
+      react-refresh: ^0.12.0
+      react-router: ^5.2.1
+      react-router-dom: ^5.1.2
+      semver: ^7.3.8
+      ssr-common-utils: ^6.0.0
+      ssr-hoc-react18: ^6.2.7
+      ssr-mini-css-extract-plugin: ^1.0.0
+      ssr-serialize-javascript: ^6.0.0
+      ssr-types: ^6.2.7
+      ssr-vite-plugin-style-import: ^2.0.1
+      ssr-webpack: ^6.2.10
+      terser-webpack-plugin: ^2.3.5
+      url-loader: ^4.1.1
+      vite: ^2.9.15
+      webpack: ^4.42.1
+      webpack-bundle-analyzer: ^3.6.1
+      webpack-chain: ^6.4.0
+      webpack-manifest-plugin: ^2.2.0
+      webpackbar: ^5.0.0-3
+    dependencies:
+      '@babel/core': 7.18.13
+      '@babel/plugin-proposal-nullish-coalescing-operator': 7.18.6_@babel+core@7.18.13
+      '@babel/plugin-proposal-optional-chaining': 7.18.9_@babel+core@7.18.13
+      '@babel/plugin-transform-runtime': 7.18.10_@babel+core@7.18.13
+      '@babel/preset-env': 7.18.10_@babel+core@7.18.13
+      '@pmmmwh/react-refresh-webpack-plugin': 0.5.7_bb99ef21533932d4008c82feaae48230
+      '@types/semver': 7.3.13
+      '@vitejs/plugin-react': 1.3.2
+      babel-loader: 8.2.5_5a3939cbf202ef6aee21825ae767f3f9
+      babel-plugin-import: 1.13.3
+      babel-preset-react-app: 10.0.1
+      core-js: 3.24.1
+      css-loader: 5.2.7_webpack@4.46.0
+      file-loader: 6.2.0_webpack@4.46.0
+      less: 4.1.3
+      less-loader: 7.3.0_less@4.1.3+webpack@4.46.0
+      optimize-css-assets-webpack-plugin: 6.0.1_webpack@4.46.0
+      ora: 4.1.1
+      postcss: 8.4.16
+      postcss-discard-comments: 5.1.2_postcss@8.4.16
+      postcss-flexbugs-fixes: 5.0.2_postcss@8.4.16
+      postcss-loader: 4.3.0_postcss@8.4.16+webpack@4.46.0
+      postcss-modules: 4.3.1_postcss@8.4.16
+      postcss-preset-env: 7.6.0_postcss@8.4.16
+      postcss-safe-parser: 6.0.0_postcss@8.4.16
+      react: 18.2.0
+      react-dev-utils: 11.0.4_b691702ae69758eb1602053867bd43ff
+      react-dom: 18.2.0_react@18.2.0
+      react-refresh: 0.12.0
+      react-router: 5.3.3_react@18.2.0
+      react-router-dom: 5.3.3_react@18.2.0
+      semver: 7.3.8
+      ssr-common-utils: link:../utils
+      ssr-hoc-react18: link:../hoc-react18
+      ssr-mini-css-extract-plugin: 1.6.2_webpack@4.46.0
+      ssr-serialize-javascript: 6.0.4
+      ssr-vite-plugin-style-import: 2.0.1_vite@2.9.15
+      ssr-webpack: link:../webpack
+      terser-webpack-plugin: 2.3.8_webpack@4.46.0
+      url-loader: 4.1.1_file-loader@6.2.0+webpack@4.46.0
+      vite: 2.9.15_less@4.1.3
+      webpack: 4.46.0
+      webpack-bundle-analyzer: 3.9.0
+      webpack-chain: 6.5.1
+      webpack-manifest-plugin: 2.2.0_webpack@4.46.0
+      webpackbar: 5.0.2_webpack@4.46.0
+    devDependencies:
+      '@types/react': 18.0.28
+      '@types/react-dom': 18.0.11
+      '@types/react-router': 5.1.18
       '@types/react-router-dom': 5.3.3
       '@types/webpack': 4.41.32
       concurrently: 5.3.0
@@ -3839,6 +4059,12 @@ packages:
       '@types/react': 17.0.48
     dev: true
 
+  /@types/react-dom/18.0.11:
+    resolution: {integrity: sha512-O38bPbI2CWtgw/OoQoY+BRelw7uysmXbWvw3nLWO21H1HSh+GOlqPuXshJfjmpNlKiiSDG9cc1JZAaMmVdcTlw==}
+    dependencies:
+      '@types/react': 18.0.28
+    dev: true
+
   /@types/react-router-dom/5.3.3:
     resolution: {integrity: sha512-kpqnYK4wcdm5UaWI3fLcELopqLrHgLqNsdpHauzlQktfkHL3npOSwtj1Uz9oKBAzs7lFtVkV8j83voAz2D8fhw==}
     dependencies:
@@ -3856,6 +4082,14 @@ packages:
 
   /@types/react/17.0.48:
     resolution: {integrity: sha512-zJ6IYlJ8cYYxiJfUaZOQee4lh99mFihBoqkOSEGV+dFi9leROW6+PgstzQ+w3gWTnUfskALtQPGHK6dYmPj+2A==}
+    dependencies:
+      '@types/prop-types': 15.7.5
+      '@types/scheduler': 0.16.2
+      csstype: 3.1.0
+    dev: true
+
+  /@types/react/18.0.28:
+    resolution: {integrity: sha512-RD0ivG1kEztNBdoAK7lekI9M+azSnitIn85h4iOiaLjaTrMjzslhaqCGaI4IyCJ1RljWiLCEu4jyrLLgqxBTew==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
@@ -12370,6 +12604,18 @@ packages:
       tiny-warning: 1.0.3
     dev: false
 
+  /mini-create-react-context/0.4.1_prop-types@15.8.1+react@18.2.0:
+    resolution: {integrity: sha512-YWCYEmd5CQeHGSAKrYvXgmzzkrvssZcuuQDDeqkT+PziKGMgE+0MCCtcKbROzocGBG1meBLl2FotlRwf4gAzbQ==}
+    peerDependencies:
+      prop-types: ^15.0.0
+      react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+    dependencies:
+      '@babel/runtime': 7.18.9
+      prop-types: 15.8.1
+      react: 18.2.0
+      tiny-warning: 1.0.3
+    dev: false
+
   /minimalistic-assert/1.0.1:
     resolution: {integrity: sha512-UtJcAD4yEaGtjPezWuO9wC4nwUnVH/8/Im3yEHQP4b67cXlD/Qr9hdITCU1xDbSEXg2XKNaP8jsReV7vQd00/A==}
 
@@ -14606,6 +14852,16 @@ packages:
       scheduler: 0.20.2
     dev: false
 
+  /react-dom/18.2.0_react@18.2.0:
+    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
+    peerDependencies:
+      react: ^18.2.0
+    dependencies:
+      loose-envify: 1.4.0
+      react: 18.2.0
+      scheduler: 0.23.0
+    dev: false
+
   /react-error-overlay/6.0.11:
     resolution: {integrity: sha512-/6UZ2qgEyH2aqzYZgQPxEnz33NJ2gNsnHA2o5+o4wW9bLM/JYQitNP9xPhsXwC08hMMovfGe/8retsdDsczPRg==}
     dev: false
@@ -14643,6 +14899,21 @@ packages:
       tiny-warning: 1.0.3
     dev: false
 
+  /react-router-dom/5.3.3_react@18.2.0:
+    resolution: {integrity: sha512-Ov0tGPMBgqmbu5CDmN++tv2HQ9HlWDuWIIqn4b88gjlAN5IHI+4ZUZRcpz9Hl0azFIwihbLDYw1OiHGRo7ZIng==}
+    peerDependencies:
+      react: '>=15'
+    dependencies:
+      '@babel/runtime': 7.18.9
+      history: 4.10.1
+      loose-envify: 1.4.0
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-router: 5.3.3_react@18.2.0
+      tiny-invariant: 1.2.0
+      tiny-warning: 1.0.3
+    dev: false
+
   /react-router/5.3.3_react@17.0.2:
     resolution: {integrity: sha512-mzQGUvS3bM84TnbtMYR8ZjKnuPJ71IjSzR+DE6UkUqvN4czWIqEs17yLL8xkAycv4ev0AiN+IGrWu88vJs/p2w==}
     peerDependencies:
@@ -14661,12 +14932,37 @@ packages:
       tiny-warning: 1.0.3
     dev: false
 
+  /react-router/5.3.3_react@18.2.0:
+    resolution: {integrity: sha512-mzQGUvS3bM84TnbtMYR8ZjKnuPJ71IjSzR+DE6UkUqvN4czWIqEs17yLL8xkAycv4ev0AiN+IGrWu88vJs/p2w==}
+    peerDependencies:
+      react: '>=15'
+    dependencies:
+      '@babel/runtime': 7.18.9
+      history: 4.10.1
+      hoist-non-react-statics: 3.3.2
+      loose-envify: 1.4.0
+      mini-create-react-context: 0.4.1_prop-types@15.8.1+react@18.2.0
+      path-to-regexp: 1.8.0
+      prop-types: 15.8.1
+      react: 18.2.0
+      react-is: 16.13.1
+      tiny-invariant: 1.2.0
+      tiny-warning: 1.0.3
+    dev: false
+
   /react/17.0.2:
     resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
+    dev: false
+
+  /react/18.2.0:
+    resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      loose-envify: 1.4.0
     dev: false
 
   /read-pkg-up/3.0.0:
@@ -15142,6 +15438,12 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
+    dev: false
+
+  /scheduler/0.23.0:
+    resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
+    dependencies:
+      loose-envify: 1.4.0
     dev: false
 
   /schema-utils/1.0.0:

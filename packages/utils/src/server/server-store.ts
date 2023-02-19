@@ -3,7 +3,7 @@ import type { Readable } from 'stream'
 import type { Pinia } from 'pinia'
 import type { Context } from 'react'
 import type { App } from 'vue'
-import type { IContext } from 'ssr-types'
+import type { IContext, PipeableStream } from 'ssr-types'
 
 export interface StoreData {
   pinia?: Pinia
@@ -13,7 +13,8 @@ export interface StoreData {
 export interface AppStore {
   app?: App
 }
-type StorageReturnVal= Promise<string | Readable | NodeJS.ReadableStream | {
+
+type StorageReturnVal = Promise<string | Readable | NodeJS.ReadableStream | PipeableStream | {
   html: string
   teleportsContext: any
 }>
