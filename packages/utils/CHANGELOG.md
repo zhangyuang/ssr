@@ -1,3 +1,18 @@
+## [6.2.66](https://github.com/zhangyuang/ssr/compare/utils@6.2.65...utils@6.2.66) (2023-02-19)
+
+
+### Bug Fixes
+
+* use unshift replace pop in queue ([25e9513](https://github.com/zhangyuang/ssr/commit/25e9513ebc744c70e3d3061a6ef92f66436a116a))
+
+
+### Features
+
+* for ctx.body will loose asynclocalstorage context, consume stream in advance like vue2/3 ([1f0c2ba](https://github.com/zhangyuang/ssr/commit/1f0c2bacd28a7a35af686c98f691a4a0c1ca9693))
+* support react18 ([#264](https://github.com/zhangyuang/ssr/issues/264)) ([c992161](https://github.com/zhangyuang/ssr/commit/c992161c8ea0d2f1a9814dd4b30ffa82b1bbbe84))
+
+
+
 ## [6.2.65](https://github.com/zhangyuang/ssr/compare/utils@6.2.64...utils@6.2.65) (2023-02-17)
 
 
