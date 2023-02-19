@@ -95,3 +95,8 @@ export interface IContext<T=any> {
   state?: T
   dispatch?: React.Dispatch<Action>
 }
+
+export interface PipeableStream {
+  abort: () => void
+  pipe: <Writable extends NodeJS.WritableStream>(destination: Writable) => Writable
+}
