@@ -1,5 +1,4 @@
 
-import { PassThrough } from 'stream'
 import { Controller, Get, Provide, Inject } from '@midwayjs/decorator'
 import { Context } from '@midwayjs/koa'
 import { render } from 'ssr-core-react'
@@ -32,12 +31,13 @@ export class Index {
     const stream = await render(ctx, {
       stream: true,
       onError: (err) => {
-        // console.log('ssr error', err)
+        console.log('ssr error', err)
+        stream.destroy()
         render(ctx, {
           stream: false,
           mode: 'csr'
         }).then(csrStr => {
-          ctx.res.end('213123')
+          ctx.res.end(csrStr)
         })
         return null
       }

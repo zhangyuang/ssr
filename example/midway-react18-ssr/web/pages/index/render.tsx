@@ -7,8 +7,6 @@ import { useStoreContext } from 'ssr-common-utils'
 
 export default function Index (props: SProps) {
   const { state, dispatch } = useContext<IContext<IData>>(useStoreContext())
-  console.log(window)
-
   return (
     <div>
       <Search></Search>
