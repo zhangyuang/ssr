@@ -56,6 +56,7 @@ function wrapComponent (WrappedComponent: DynamicFC|StaticFC) {
       hasRender = true
     }
     return (
+      // @ts-expect-error
       ready ? <WrappedComponent {...props}></WrappedComponent> : null
     )
   })
