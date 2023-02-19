@@ -8,7 +8,7 @@ const cwd = getCwd()
 const defaultConfig = loadConfig()
 const f = judgeFramework()
 const sf = judgeServerFramework()
-function render (ctx: ISSRContext, options?: UserConfig & {stream: true}): Promise<Readable|PipeableStream>
+function render (ctx: ISSRContext, options?: UserConfig & {stream: true}): Promise<Readable>
 function render (ctx: ISSRContext, options?: UserConfig & {stream: false}): Promise<string>
 function render (ctx: ISSRContext, options?: UserConfig): Promise<string>
 function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
@@ -35,7 +35,7 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
   }
 }
 let viteServer: ViteDevServer|boolean = false
-async function viteRender (ctx: ISSRContext, config: IConfig): Promise<string|Stream|PipeableStream> {
+async function viteRender (ctx: ISSRContext, config: IConfig): Promise<string|Stream> {
   const { isDev, chunkName, reactServerEntry, react18ServerEntry } = config
   let serverRes
   if (isDev) {
@@ -53,7 +53,7 @@ async function viteRender (ctx: ISSRContext, config: IConfig): Promise<string|St
   return serverRes
 }
 
-async function commonRender (ctx: ISSRContext, config: IConfig): Promise<string|Stream|PipeableStream> {
+async function commonRender (ctx: ISSRContext, config: IConfig): Promise<string|Stream> {
   const { isDev, chunkName } = config
   const serverFile = resolve(cwd, `./build/server/${chunkName}.server.js`)
 
