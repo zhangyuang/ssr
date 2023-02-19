@@ -236,7 +236,7 @@ jobs:
           start: pnpm example:nestjs:react18:prod
           wait-on: 'http://localhost:3000'
           spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/react18-ssr.spec.js  
           browser: chrome
 
   e2e-chrome-nestjs-react-prod-vite:
@@ -346,7 +346,7 @@ jobs:
           start: pnpm example:nestjs:react18:prod:vite
           wait-on: 'http://localhost:3000'
           spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/react18-ssr.spec.js  
           browser: chrome
   e2e-chrome-nestjs-vue3-prod-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -776,7 +776,7 @@ jobs:
           start: pnpm example:nestjs:react18:vite
           wait-on: 'http://localhost:3000'
           spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/react18-ssr.spec.js  
           browser: chrome
           
   e2e-chrome-midway-react-dynamic-router:

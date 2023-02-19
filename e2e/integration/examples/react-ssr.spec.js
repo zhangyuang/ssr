@@ -4,6 +4,7 @@ describe('React SSR', () => {
   it('Context can be shared between different component', () => {
     // context 状态能够被各个组件共享
     const text = 'Hello, World'
+    cy.get('.swiper-slide-active').should('exist')
     cy.visit('http://localhost:3000')
     cy.get('input').type(text, { force: true })
     cy.get('.swiper-slide-active').first().click()
