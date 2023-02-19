@@ -17,7 +17,6 @@ export class DetailController {
     }
     const stream = await render(ctx, {
       stream: true,
-      mode: 'csr',
       onError: (err) => {
         console.log('ssr error', err)
         render(ctx, {
