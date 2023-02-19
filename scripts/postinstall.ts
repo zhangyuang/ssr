@@ -21,9 +21,10 @@ const createSwiper = async (path: string) => {
     } else if (item.includes('midway-vue-ssr')) {
       ln('-s', resolve(path, './node_modules/vue'), resolve(cwd, './node_modules/vue-template-compiler/node_modules/vue'))
       ln('-s', resolve(path, './node_modules/vue'), resolve(cwd, './node_modules/vue-server-renderer/node_modules/vue'))
-    } else if (item.includes('react18')) {
-      const swiperPath = await createSwiper(item)
-      ln('-s', resolve(path, './node_modules/react'), resolve(swiperPath, './react'))
     }
+    //  else if (item.includes('react18')) {
+    //   const swiperPath = await createSwiper(item)
+    //   ln('-s', resolve(path, './node_modules/react'), resolve(swiperPath, './react'))
+    // }
   }
 })()
