@@ -1106,8 +1106,7 @@ jobs:
           start: pnpm example:nestjs:react18
           wait-on: 'http://localhost:3000'
           spec: |
-            e2e/integration/examples/common-ssr.spec.js  
-            e2e/integration/examples/react-ssr.spec.js
+            e2e/integration/examples/react18-ssr.spec.js  
           browser: chrome
   e2e-chrome-nestjs-vue3:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
