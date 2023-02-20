@@ -1,3 +1,12 @@
+## [6.2.38](https://github.com/zhangyuang/ssr/compare/types@6.2.37...types@6.2.38) (2023-02-20)
+
+
+### Features
+
+* move core-react core-vue2/3 to core ([54915f7](https://github.com/zhangyuang/ssr/commit/54915f76524997af61213bf3e95a19858746c776))
+
+
+
 ## [6.2.37](https://github.com/zhangyuang/ssr/compare/types@6.2.36...types@6.2.37) (2023-02-19)
 
 
