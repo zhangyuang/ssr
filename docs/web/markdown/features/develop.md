@@ -22,7 +22,7 @@ $ open http://localhost:3000
 我们的每一个 `http` 请求都会先经过一个 `server` 层，再根据具体的逻辑来决定这个请求到底是返回 `json` 数据，还是 `html` 页面，还是前端静态资源。在我们这个场景，`server` 层就是 Node.js 框架提供的服务。一个服务端渲染页面的请求链路如下。
 
 ```js
-import { render } from 'ssr-core-vue3'
+import { render } from 'ssr-core'
 
 @Get('/')
 @Get('/detail/:id')

@@ -1,6 +1,6 @@
 import { Controller, Get, Req, Res } from '@nestjs/common'
 import { Request, Response } from 'express'
-import { render } from 'ssr-core-vue'
+import { render } from 'ssr-core'
 
 import { ApiDetailService } from './detail.service'
 

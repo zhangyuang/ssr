@@ -15,7 +15,7 @@ const ssrPackages = [
   'ssr-plugin-vue', 'ssr-types', 'ssr-common-utils',
   'ssr-core-vue', 'ssr-hoc-vue3', 'ssr-webpack', 'ssr-core-react',
   'ssr-core-vue3', 'ssr-plugin-midway', 'ssr-plugin-nestjs',
-  'ssr-hoc-react'
+  'ssr-hoc-react', 'ssr-core'
 ]
 
 export {

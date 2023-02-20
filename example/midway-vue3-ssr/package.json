@@ -10,7 +10,7 @@
     "koa-static-cache": "^5.1.4",
     "midway-schedule": "^2.0.0",
     "pm2": "^4.5.4",
-    "ssr-core-vue3": "^6.0.0",
+    "ssr-core": "^6.0.0",
     "ssr-hoc-vue3": "^6.0.0",
     "ssr-common-utils": "^6.0.0",
     "swiper": "6.7.5",

@@ -10,11 +10,12 @@
     "koa-static-cache": "^5.1.4",
     "midway-schedule": "^2.0.0",
     "pm2": "^4.5.4",
-    "ssr-core-vue": "^6.0.0",
+    "ssr-core": "^6.0.0",
     "ssr-common-utils": "^6.0.0",
     "swiper": "^5.2.0",
     "vue": "^2.7.8",
     "vue-awesome-swiper": "^4.1.1",
+    "vue-server-renderer": "^2.7.8",
     "vue-router": "^3.0.0",
     "vuex": "^3.6.2"
   },

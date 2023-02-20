@@ -5,9 +5,9 @@ import { coerce, SemVer } from 'semver'
 import { normalizeStartPath, normalizeEndPath } from '../common'
 
 const loadConfig = (): IConfig => {
+  const cwd = getCwd()
   const framework = judgeFramework()
   const userConfig = getUserConfig()
-  const cwd = getCwd()
   const mode = 'ssr'
   const stream = false
   const isVite = accessFileSync(join(cwd, './build/tag.json'))

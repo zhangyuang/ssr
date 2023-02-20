@@ -158,7 +158,7 @@ class Page {
 开发者或许需要针对某些页面进行服务端渲染，某些页面不需要。得益于 `ssr` 的强大设计，此功能完全不需要框架底层支持，直接在业务代码实现即可。
 
 ```js
-import { render } from 'ssr-core-vue3'
+import { render } from 'ssr-core'
 // 开发者可以在 controller 中根据不同的 path 使用不同的运行配置来决定当前的渲染模式
 
 @Controller('/detail')
@@ -174,12 +174,10 @@ const stream = await render<Readable>(this.ctx, {
 
 #### 通过 core 模块提供的 render 方法降级
 
-`ssr-core-react` 和 `ssr-core-vue` 模块均支持该方式  
-
 在应用执行出错 catch 到 error 的时候降级为客户端渲染。也可根据具体的业务逻辑，在适当的时候通过该方式降级 `csr` 模式
 
 ```js
-import { render } from 'ssr-core-react'
+import { render } from 'ssr-core'
 
 try {
   const htmlStr = await render(this.ctx)

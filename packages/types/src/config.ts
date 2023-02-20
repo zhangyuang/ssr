@@ -177,3 +177,10 @@ export interface IPlugin {
     deploy?: (argv?: Argv) => void
   }
 }
+
+export interface Vue3RenderRes {
+  html: string
+  teleportsContext: {
+    teleports?: Record<string, string> | undefined
+  }
+}

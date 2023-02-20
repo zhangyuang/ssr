@@ -7,13 +7,15 @@
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
     "pm2": "^4.5.4",
-    "ssr-core-vue3": "^6.0.0",
+    "ssr-core": "^6.0.0",
     "ssr-common-utils": "^6.0.0",
     "ssr-hoc-vue3": "^6.0.0",
     "swiper": "6.7.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0",
     "vuex": "^4.0.0",
+    "pinia": "^2.0.13",
+    "@vue/server-renderer": "^3.0.7",
     "reflect-metadata": "^0.1.13"
   },
   "devDependencies": {

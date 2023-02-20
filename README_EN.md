@@ -179,8 +179,7 @@ Use queryParams `csr=true` to degrade from SSR to CSR, also can be configured th
 | Project | Status | Description |
 |---------|--------|-------------|
 | [ssr]          | [![ssr-status]][ssr] | cli for ssr framework |
-| [ssr-core-vue]          | [![ssr-core-vue-status]][ssr-core-vue] | core render for vue |
-| [ssr-core-react]          | [![ssr-core-react-status]][ssr-core-react] | core render for react |
+| [ssr-core]          | [![ssr-core-]][ssr-core] | core render for all framework |
 | [ssr-plugin-midway]          | [![ssr-plugin-midway-status]][ssr-plugin-midway] | provide start and build fetature by [midway@2.0](https://midwayjs.org/) |
 | [ssr-plugin-nestjs]          | [![ssr-plugin-nestjs-status]][ssr-plugin-nestjs] | provide start and build feature by [NestJS](https://docs.nestjs.com/) |
 | [ssr-plugin-react]          | [![ssr-plugin-react-status]][ssr-plugin-react] | develop react application only be used in development |
@@ -196,8 +195,7 @@ Use queryParams `csr=true` to degrade from SSR to CSR, also can be configured th
 
 [ssr-status]: https://img.shields.io/npm/v/ssr.svg
 [ssr-client-utils-status]: https://img.shields.io/npm/v/ssr-client-utils.svg
-[ssr-core-react-status]: https://img.shields.io/npm/v/ssr-core-react.svg
-[ssr-core-vue-status]: https://img.shields.io/npm/v/ssr-core-vue.svg
+[ssr-core-status]: https://img.shields.io/npm/v/ssr-core.svg
 [ssr-hoc-react-status]: https://img.shields.io/npm/v/ssr-hoc-react.svg
 [ssr-hoc-vue3-status]: https://img.shields.io/npm/v/ssr-hoc-vue3.svg
 [ssr-plugin-midway-status]: https://img.shields.io/npm/v/ssr-plugin-midway.svg
@@ -211,8 +209,7 @@ Use queryParams `csr=true` to degrade from SSR to CSR, also can be configured th
 
 [ssr]: https://github.com/zhangyuang/ssr/tree/dev/packages/cli
 [ssr-client-utils]: https://github.com/zhangyuang/ssr/tree/dev/packages/client-utils
-[ssr-core-react]: https://github.com/zhangyuang/ssr/tree/dev/packages/core-react
-[ssr-core-vue]: https://github.com/zhangyuang/ssr/tree/dev/packages/core-vue
+[ssr-core]: https://github.com/zhangyuang/ssr/tree/dev/packages/core
 [ssr-hoc-react]: https://github.com/zhangyuang/ssr/tree/dev/packages/hoc-react
 [ssr-hoc-vue3]: https://github.com/zhangyuang/ssr/tree/dev/packages/hoc-vue3
 [ssr-plugin-midway]: https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-midway

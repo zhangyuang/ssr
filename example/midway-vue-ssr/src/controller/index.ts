@@ -1,6 +1,6 @@
 import { Controller, Get, Provide, Inject } from '@midwayjs/decorator'
 import { Context } from '@midwayjs/koa'
-import { render } from 'ssr-core-vue'
+import { render } from 'ssr-core'
 import { IApiService, IApiDetailService } from '../interface'
 
 interface IKoaContext extends Context {

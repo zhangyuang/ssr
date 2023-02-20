@@ -310,6 +310,12 @@ const stringifyDefine = (obj: {[key: string]: Json}) => {
   }
 }
 
+export const getViteServerEntry = () => {
+  const cwd = getCwd()
+  const framework = judgeFramework()
+  return resolve(cwd, `./node_modules/${framework}/esm/entry/server-entry.js`)
+}
+
 export {
   getCwd,
   getFeDir,

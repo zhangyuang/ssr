@@ -1,7 +1,7 @@
 import { Controller, Get, Req, Res } from '@nestjs/common'
 import { Request, Response } from 'express'
 import { Readable } from 'stream'
-import { render } from 'ssr-core-vue3'
+import { render } from 'ssr-core'
 
 import { ApiService } from './index.service'
 

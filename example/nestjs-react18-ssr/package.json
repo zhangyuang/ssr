@@ -11,7 +11,7 @@
     "react-dom": "^18.0.0",
     "react-router-dom": "^5.1.2",
     "reflect-metadata": "^0.1.13",
-    "ssr-core-react": "^6.0.0",
+    "ssr-core": "^6.0.0",
     "ssr-common-utils": "^6.0.0"
   },
   "devDependencies": {

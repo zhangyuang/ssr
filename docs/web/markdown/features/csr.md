@@ -65,7 +65,7 @@
 字符串的降级处理很简单，我们只需要 `try catch` 到错误后，直接修改渲染模式拿到新的结果即可。因为此时组件的渲染是在 `render` 方法被调用时就被渲染执行了
 
 ```js
-import { render } from 'ssr-core-react'
+import { render } from 'ssr-core'
 
 try {
   const htmlStr = await render(this.ctx)

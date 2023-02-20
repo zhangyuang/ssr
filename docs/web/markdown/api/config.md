@@ -10,7 +10,7 @@
 
 
 ```js
-import { render } from 'ssr-core-vue3'
+import { render } from 'ssr-core'
 
 const stream = await render<Readable>(this.ctx, userConfig)
 ```
