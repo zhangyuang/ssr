@@ -1,3 +1,12 @@
+## [6.2.68](https://github.com/zhangyuang/ssr/compare/utils@6.2.67...utils@6.2.68) (2023-02-21)
+
+
+### Features
+
+* support route.name close [#266](https://github.com/zhangyuang/ssr/issues/266) ([4a4d27c](https://github.com/zhangyuang/ssr/commit/4a4d27ca46856d0a0349d1de599dc10b5ddb6434))
+
+
+
 ## [6.2.67](https://github.com/zhangyuang/ssr/compare/utils@6.2.66...utils@6.2.67) (2023-02-20)
 
 
