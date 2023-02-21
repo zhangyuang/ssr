@@ -8,6 +8,7 @@ export type Mode = 'development' |'production'
 export type ESMFeRouteItem<T={}> = {
   path: string
   webpackChunkName: string
+  name: string
 } & T
 
 export interface ParseFeRouteItem {
@@ -15,4 +16,5 @@ export interface ParseFeRouteItem {
   fetch?: string
   component?: string
   webpackChunkName: string
+  name: string
 }

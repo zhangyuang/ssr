@@ -139,6 +139,7 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
         // 单 fetch 文件的情况 所有类型的 render 都对应该 fetch
         route.fetch = `${aliasPath}/fetch.ts`
       }
+      route.name = route.webpackChunkName
       routeArr.push({ ...route })
     }
   }
