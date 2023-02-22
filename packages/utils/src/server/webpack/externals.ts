@@ -31,7 +31,7 @@ function wrap(whitelist: Array<string | RegExp>) {
         const { stdout } = sync('node', ['-e', `console.log(require.resolve('${item}'))`, '--preserve-symlinks=1'])
         getDependencies(stdout, allDependencies)
       } catch (error) {
-        logErr(`Please check package.json, current program use ${item} but don't specify it in dependencies`)
+        logErr(`Please check package.json, current program use ${item} but don't specify it in dependencies or ${item} has incorrect package.json main fields `)
       }
     }
   })
