@@ -1,3 +1,12 @@
+## [6.2.70](https://github.com/zhangyuang/ssr/compare/utils@6.2.69...utils@6.2.70) (2023-02-24)
+
+
+### Bug Fixes
+
+* vite build ([6ad5079](https://github.com/zhangyuang/ssr/commit/6ad507976f38c5972e9785a0e528314c46a04431))
+
+
+
 ## [6.2.69](https://github.com/zhangyuang/ssr/compare/utils@6.2.68...utils@6.2.69) (2023-02-24)
 
 
