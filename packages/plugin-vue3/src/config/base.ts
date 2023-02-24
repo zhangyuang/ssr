@@ -169,7 +169,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .rule('compileBabelForExtraModule')
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
     .include
-    .add([/ssr-plugin-vue3/, /ssr-client-utils/, /ssr-hoc-vue/, /vue/, /ssr-common-utils/])
 
   const babelForExtraModule = module.add(babelExtraModule ?? []).add(babelOptions?.include as Array<string|RegExp> ?? []).end().exclude.add(/core-js/).end()
 

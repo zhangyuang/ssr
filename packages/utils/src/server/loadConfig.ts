@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { IConfig } from 'ssr-types'
+import { IConfig, UserConfig } from 'ssr-types'
 import { getCwd, getUserConfig, getFeDir, judgeFramework, loadModuleFromFramework, stringifyDefine, accessFileSync } from './cwd'
 import { coerce, SemVer } from 'semver'
 import { normalizeStartPath, normalizeEndPath } from '../common'
@@ -168,6 +168,11 @@ const loadConfig = (): IConfig => {
     assetManifest: join(cwd, './build/client/asset-manifest.json'),
     asyncChunkMap: join(cwd, './build/asyncChunkMap.json')
   }
+  const babelExtraModule: UserConfig['babelExtraModule'] = [
+    /ssr-plugin-vue3/, /ssr-client-utils/, /ssr-hoc-vue/, /vue/, /ssr-common-utils/, /ssr-plugin-vue/, /ssr-plugin-react/,
+    /ssr-hoc-react/, /ssr-hoc-vue3/
+  ]
+
   const config = Object.assign({}, {
     chainBaseConfig,
     chainServerConfig,
@@ -207,7 +212,8 @@ const loadConfig = (): IConfig => {
     prefix,
     optimize,
     writeDebounceTime,
-    dynamicFile
+    dynamicFile,
+    babelExtraModule
   }, userConfig)
   config.alias = alias
   config.prefix = normalizeStartPath(config.prefix ?? '/')

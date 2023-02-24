@@ -1083,6 +1083,7 @@ importers:
 
   packages/utils:
     specifiers:
+      '@rollup/plugin-babel': ^5.3.0
       '@types/react': ^17.0.0
       '@types/semver': ^7.3.9
       '@types/shelljs': ^0.8.7
@@ -1111,6 +1112,7 @@ importers:
       semver: 7.3.7
       shelljs: 0.8.5
     devDependencies:
+      '@rollup/plugin-babel': 5.3.1_rollup@2.77.3
       '@types/react': 17.0.48
       '@types/semver': 7.3.12
       '@types/shelljs': 0.8.11
@@ -3716,6 +3718,22 @@ packages:
       '@rollup/pluginutils': 3.1.0
     dev: false
 
+  /@rollup/plugin-babel/5.3.1_rollup@2.77.3:
+    resolution: {integrity: sha512-WFfdLWU/xVWKeRQnKmIAQULUI7Il0gZnBIH/ZFO069wYIfPu+8zrfp/KMW0atmELoRDq8FbiP3VCss9MhCut7Q==}
+    engines: {node: '>= 10.0.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0
+      '@types/babel__core': ^7.1.9
+      rollup: ^1.20.0||^2.0.0
+    peerDependenciesMeta:
+      '@types/babel__core':
+        optional: true
+    dependencies:
+      '@babel/helper-module-imports': 7.18.6
+      '@rollup/pluginutils': 3.1.0_rollup@2.77.3
+      rollup: 2.77.3
+    dev: true
+
   /@rollup/pluginutils/3.1.0:
     resolution: {integrity: sha512-GksZ6pr6TpIjHm8h9lSQ8pi8BE9VeubNT0OMJ3B5uZJ8pz73NPiqOtCog/x2/QzM1ENChPKxMDhiQuRHsqc+lg==}
     engines: {node: '>= 8.0.0'}
@@ -3725,6 +3743,18 @@ packages:
       '@types/estree': 0.0.39
       estree-walker: 1.0.1
       picomatch: 2.3.1
+
+  /@rollup/pluginutils/3.1.0_rollup@2.77.3:
+    resolution: {integrity: sha512-GksZ6pr6TpIjHm8h9lSQ8pi8BE9VeubNT0OMJ3B5uZJ8pz73NPiqOtCog/x2/QzM1ENChPKxMDhiQuRHsqc+lg==}
+    engines: {node: '>= 8.0.0'}
+    peerDependencies:
+      rollup: ^1.20.0||^2.0.0
+    dependencies:
+      '@types/estree': 0.0.39
+      estree-walker: 1.0.1
+      picomatch: 2.3.1
+      rollup: 2.77.3
+    dev: true
 
   /@rollup/pluginutils/4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}

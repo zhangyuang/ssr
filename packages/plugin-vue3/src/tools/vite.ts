@@ -1,14 +1,14 @@
 import { build, UserConfig } from 'vite'
 import {
   loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin,
-  commonConfig, asyncOptimizeChunkPlugin, getOutputPublicPath
+  commonConfig, asyncOptimizeChunkPlugin, getOutputPublicPath, getBabelOptions
 } from 'ssr-common-utils'
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJSXPlugin from '@vitejs/plugin-vue-jsx'
-import babel from '@rollup/plugin-babel'
+import babel, { getBabelOutputPlugin } from '@rollup/plugin-babel'
 import { createStyleImportPlugin, AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'ssr-vite-plugin-style-import'
 
-const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions, optimize } = loadConfig()
+const { getOutput, vue3ServerEntry, vue3ClientEntry, viteConfig, supportOptinalChaining, isDev, define, optimize } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
 const styleImportConfig = {
@@ -39,9 +39,6 @@ const serverConfig: UserConfig = {
       ],
       exclude: /node_modules|\.(css|less|sass)/,
       extensions: ['.vue', '.ts', '.tsx', '.js']
-    }),
-    babelOptions && babel({
-      ...babelOptions
     })
   ],
   optimizeDeps: {
@@ -80,9 +77,7 @@ const clientConfig: UserConfig = {
     viteConfig?.()?.common?.extraPlugin,
     viteConfig?.()?.client?.extraPlugin,
     createStyleImportPlugin(styleImportConfig),
-    babelOptions && babel({
-      ...babelOptions
-    })
+    getBabelOptions(babel, getBabelOutputPlugin)
   ],
   build: {
     ...viteConfig?.().client?.otherConfig?.build,
