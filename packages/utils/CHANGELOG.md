@@ -1,3 +1,12 @@
+## [6.2.69](https://github.com/zhangyuang/ssr/compare/utils@6.2.68...utils@6.2.69) (2023-02-24)
+
+
+### Features
+
+* improve babel options experience in vue3 vite build ([7f4d34b](https://github.com/zhangyuang/ssr/commit/7f4d34b23c81fbcb665c2f819000468910eb1944))
+
+
+
 ## [6.2.68](https://github.com/zhangyuang/ssr/compare/utils@6.2.67...utils@6.2.68) (2023-02-21)
 
 
