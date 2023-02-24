@@ -76,8 +76,7 @@ const clientConfig: UserConfig = {
     vueJSXPlugin(),
     viteConfig?.()?.common?.extraPlugin,
     viteConfig?.()?.client?.extraPlugin,
-    createStyleImportPlugin(styleImportConfig),
-    getBabelOptions(babel, getBabelOutputPlugin)
+    createStyleImportPlugin(styleImportConfig)
   ],
   build: {
     ...viteConfig?.().client?.otherConfig?.build,
@@ -88,7 +87,7 @@ const clientConfig: UserConfig = {
       ...viteConfig?.().client?.otherConfig?.build?.rollupOptions,
       input: vue3ClientEntry,
       output: rollupOutputOptions,
-      plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), manifestPlugin()]
+      plugins: [...getBabelOptions(babel, getBabelOutputPlugin), chunkNamePlugin(), asyncOptimizeChunkPlugin(), manifestPlugin()]
     }
   },
   define: {
