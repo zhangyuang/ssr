@@ -1,3 +1,13 @@
+## [6.2.78](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.77...plugin-vue3@6.2.78) (2023-02-25)
+
+
+### Bug Fixes
+
+* vite build ([6ad5079](https://github.com/zhangyuang/ssr/commit/6ad507976f38c5972e9785a0e528314c46a04431))
+* vite build with babel ([b924353](https://github.com/zhangyuang/ssr/commit/b9243532cebbbf91fc61cd711f23ced0ef0c82ce))
+
+
+
 ## [6.2.77](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.76...plugin-vue3@6.2.77) (2023-02-24)
 
 
