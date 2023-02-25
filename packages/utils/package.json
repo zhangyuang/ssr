@@ -55,6 +55,7 @@
     "shelljs": "^0.8.3"
   },
   "devDependencies": {
+    "@rollup/plugin-babel": "^5.3.0",
     "@types/react": "^17.0.0",
     "@types/semver": "^7.3.9",
     "@types/shelljs": "^0.8.7",
@@ -62,7 +63,6 @@
     "pinia": "^2.0.13",
     "rollup": ">=2.59.0 <2.78.0",
     "ssr-types": "^6.0.0",
-    "vue": "^3.0.0",
-    "@rollup/plugin-babel": "^5.3.0"
+    "vue": "^3.0.0"
   }
 }

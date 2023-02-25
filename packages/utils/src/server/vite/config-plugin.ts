@@ -32,7 +32,6 @@ const chunkNamePlugin = function (): Plugin {
   return {
     name: 'chunkNamePlugin',
     transform (source, id) {
-
       if (id.includes('ssr-declare-routes') || id.includes('ssr-manual-routes')) {
         let str = new MagicString(source)
         const imports = parseImports(source)[0]

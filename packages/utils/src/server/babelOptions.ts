@@ -1,34 +1,23 @@
-import type { babel as Babel, getBabelOutputPlugin as GetBabelOutputPlugin } from '@rollup/plugin-babel'
-import { loadConfig } from './loadConfig'
+import type { babel as Babel } from '@rollup/plugin-babel'
 import type { Plugin } from 'rollup'
+import { loadConfig } from './loadConfig'
 
-export const getBabelOptions = (babel: typeof Babel, getBabelOutputPlugin: typeof GetBabelOutputPlugin) => {
-  const { babelExtraModule } = loadConfig()
+export const getBabelOptions = ({
+  babel
+}: {
+  babel: typeof Babel
+}
+) => {
+  const { babelExtraModule, corejsOptions } = loadConfig()
   return [
     babel({
       babelHelpers: 'bundled',
       extensions: ['.ts', '.vue', '.tsx', '.js'],
-      exclude: /node_modules|\.(css|less|sass)/
-    }),
-    babel({
-      babelHelpers: 'bundled',
-      extensions: ['.ts', '.vue', '.tsx', '.js'],
       include: babelExtraModule as any,
-      exclude: /node_modules|\.(css|less|sass)/
+      presets: [['@babel/preset-env', {
+        modules: false,
+        ...corejsOptions
+      }]]
     })
-    // getBabelOutputPlugin({
-    //   presets: [['@babel/preset-env', {
-    //     modules: false,
-    //     ...corejsOptions
-    //   }]],
-    //   plugins: [
-    //     [
-    //       '@babel/plugin-transform-runtime',
-    //       {
-    //         corejs: false
-    //       }
-    //     ]
-    //   ]
-    // })
   ] as Plugin[]
 }
