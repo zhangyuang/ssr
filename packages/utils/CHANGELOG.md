@@ -1,3 +1,12 @@
+## [6.2.71](https://github.com/zhangyuang/ssr/compare/utils@6.2.70...utils@6.2.71) (2023-02-25)
+
+
+### Bug Fixes
+
+* vite build with babel ([b924353](https://github.com/zhangyuang/ssr/commit/b9243532cebbbf91fc61cd711f23ced0ef0c82ce))
+
+
+
 ## [6.2.70](https://github.com/zhangyuang/ssr/compare/utils@6.2.69...utils@6.2.70) (2023-02-24)
 
 
