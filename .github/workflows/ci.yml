@@ -892,60 +892,7 @@ jobs:
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
-          
-  e2e-chrome-midway-vue:
-    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: ["12"]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        
-      - name: Turbo Cache
-        id: turbo-cache
-        uses: actions/cache@v3
-        with:
-          path: |
-              .turbo
-              ~/.cache/Cypress
-              ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
-              /Users/runner/Library/Caches/Cypress
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
-          
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 6
-      - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node }}
-          cache: "pnpm"
-      - name: Install dependencies
-        run: | 
-          pnpm i --no-frozen-lockfile
-      - name: Build packages
-        run: |
-          pnpm build
-      
-      - uses: cypress-io/github-action@v2
-        # env:
-        #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
-        with:
-          install: false
-          start: pnpm example:midway:vue
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/common-ssr.spec.js  
-            e2e/integration/examples/vue-ssr.spec.js
-          browser: chrome
+
   e2e-chrome-midway-vue3:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ${{ matrix.os }}
@@ -1169,7 +1116,6 @@ jobs:
       - lint
       - e2e-chrome-midway-react
       - e2e-chrome-midway-react-vite
-      - e2e-chrome-midway-vue
       - e2e-chrome-midway-vue3
       - e2e-chrome-midway-vue3-vite
       - e2e-chrome-midway-react-dynamic-router

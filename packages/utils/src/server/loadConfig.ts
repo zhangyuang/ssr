@@ -127,7 +127,7 @@ const loadConfig = (): IConfig => {
     clientOutPut: join(cwd, './build/client'),
     serverOutPut: join(cwd, './build/server')
   })
-  const writeDebounceTime = 1000
+  const writeDebounceTime = 2000
   const webpackDevServerConfig = Object.assign({
     stats: webpackStatsOption,
     disableInfo: true, // 关闭webpack-dev-server 自带的server Info信息
