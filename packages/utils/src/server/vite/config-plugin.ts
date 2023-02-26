@@ -85,7 +85,7 @@ const fn = () => {
   const { writeDebounceTime } = loadConfig()
   return debounce(() => {
     if (hasWritten) {
-      throw new Error('generateMap has been written over twice, please check your machine performance, or add config.writeDebounceTime that default is 1000ms')
+      throw new Error(`generateMap has been written over twice, please check your machine performance, or add config.writeDebounceTime that default is ${writeDebounceTime}ms`)
     }
     hasWritten = true
     writeEmitter.emit('buildEnd')
