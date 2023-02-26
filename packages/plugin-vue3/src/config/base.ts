@@ -235,9 +235,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
           ssr: isServer
         })]
       }))
-      chain.plugin('ele3').use(require('unplugin-element-plus/webpack')({
-        lib: isServer
-      }))
     }
   }
 

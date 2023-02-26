@@ -302,10 +302,10 @@ module.exports = {
 
 `whiteList` 有 `string[]` 和 `RegExp[]` 两种形式，代表不同的含义请根据实际需求选择
 
-- `RegExp[]`: 只匹配正则能够匹配的依赖
 
 - `string[]`: 当 `whiteList` 的值不为 `RegExp` 而是 `string` 的时候，框架会将其当成模块名，并且会深度遍历模块自身的依赖以及依赖的依赖。例如 `antd` 自身的 `dependencies` 里依赖了其他模块，为了避免重复配置，这些模块也需要一并配置到白名单当中。这里为了减少工作量，框架本身增加了一层比较简单的依赖自动遍历收集策略来自动收集所以需要处理的模块。在 `Serverless` 发布模式下我们通常使用 `string[]` 的形式，因为我们在这种场景只会安装 `production` 环境的 `node_modules`
 
+- `RegExp[]`: 只匹配正则能够匹配的依赖，当应用安装了完整的 `node_modules` 或确定依赖的子依赖无需被处理时可使用正则匹配。会让程序的逻辑变得简单以及更快的构建速度。
 ## prefix🤔 
 
 - 类型: `string|undefined`

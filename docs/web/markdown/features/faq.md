@@ -634,7 +634,7 @@ export { userConfig }
 
 - webpack
 
-`webpack` 场景下支持[按需导入](https://element-plus.gitee.io/zh-CN/guide/quickstart.html#%E6%8C%89%E9%9C%80%E5%AF%BC%E5%85%A5)和[手动导入](https://element-plus.gitee.io/zh-CN/guide/quickstart.html#%E6%89%8B%E5%8A%A8%E5%AF%BC%E5%85%A5)两种方案可直接使用。无需额外配置
+`webpack` 场景下支持[按需导入](https://element-plus.gitee.io/zh-CN/guide/quickstart.html#%E6%8C%89%E9%9C%80%E5%AF%BC%E5%85%A5) `element-plus`，开发者无需手动配置任何插件，也不需要在代码中 `import` 相关代码，可以直接在 `template` 中使用 `el-button` 等组件。
 
 - vite
 

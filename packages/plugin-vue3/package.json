@@ -70,7 +70,6 @@
     "ssr-webpack": "^6.2.10",
     "terser-webpack-plugin": "^2.3.5",
     "unplugin-auto-import": "^0.12.1",
-    "unplugin-element-plus": "^0.4.1",
     "unplugin-vue-components": "^0.22.12",
     "url-loader": "^4.1.1",
     "vite": "^2.9.15",
