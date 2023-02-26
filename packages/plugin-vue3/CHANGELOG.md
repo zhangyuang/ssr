@@ -1,3 +1,12 @@
+## [6.2.80](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.79...plugin-vue3@6.2.80) (2023-02-26)
+
+
+### Features
+
+* remove unplugin-element-plus ([25231dc](https://github.com/zhangyuang/ssr/commit/25231dc2cab3455bb00de61df8306ddab1ac4c6a))
+
+
+
 ## [6.2.79](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.78...plugin-vue3@6.2.79) (2023-02-25)
 
 
