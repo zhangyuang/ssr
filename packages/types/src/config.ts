@@ -1,4 +1,4 @@
-import type { Options, RuleSetCondition, compilation } from 'webpack'
+import type { Options, compilation } from 'webpack'
 import type WebpackChainConfig from 'webpack-chain'
 import type { PluginOption, ServerOptions, UserConfig as ViteConfig, CSSOptions } from 'vite'
 import type { Plugin as PostCssPlugin } from 'postcss'
@@ -87,7 +87,7 @@ export interface IConfig {
   corejs?: boolean
   corejsOptions?: Object
   https: boolean | object
-  babelExtraModule?: RuleSetCondition
+  babelExtraModule?: RegExp[]
   routerPriority?: Record<string, number>
   routerOptimize?: {
     include?: string[]
@@ -137,7 +137,9 @@ export interface IConfig {
     client?: Record<string, string>
     server?: Record<string, string>
   }
-  babelOptions?: RollupBabelInputPluginOptions
+  babelOptions?: RollupBabelInputPluginOptions & {
+    include?: RegExp[]
+  }
   hashRouter?: boolean
   htmlTemplate?: string
   writeDebounceTime: number

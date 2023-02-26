@@ -8,12 +8,12 @@ export const getBabelOptions = ({
   babel: typeof Babel
 }
 ) => {
-  const { babelExtraModule, corejsOptions } = loadConfig()
+  const { babelExtraModule, corejsOptions, babelOptions } = loadConfig()
   return [
     babel({
       babelHelpers: 'bundled',
       extensions: ['.ts', '.vue', '.tsx', '.js'],
-      include: babelExtraModule as any,
+      include: babelExtraModule!.concat(babelOptions?.include ?? []),
       presets: [['@babel/preset-env', {
         modules: false,
         ...corejsOptions

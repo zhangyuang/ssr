@@ -232,8 +232,8 @@ const cssOrder = ['vendor.css', 'common-vendor.css', 'Page.css', 'layout-app.css
 
 export {
   babelOptions: {
-    include: [], // 需要额外处理的第三方模块
-    exclude: [], // 业务代码不需要处理的文件，通常用于指定纯 js 已经构建过一次的文件二次使用
+    include: [] as RegExp[], // 需要额外处理的第三方模块
+    exclude: [] as RegExp[], // 业务代码不需要处理的文件，通常用于指定纯 js 已经构建过一次的文件二次使用
     presets: [] // 比较少用
     plugins: [] // 通常使用该配置新增 plugin
   }
@@ -298,7 +298,13 @@ module.exports = {
 
 新增功能：同时支持 `Vite/Webpack` 模式下设置，等价于 `vite.ssr.noexternal`
 
-处理 `server` 端构建模块时，我们默认会对所有的第三方模块使用 `externals` 模式，即不在构建时用 `Webpack` 处理，运行时直接从 `node_modules` 中加载具体模块，但对于一些只提供了 `esm` 格式的模块，或者是非 `Node.js` 环境能直接执行的文件，例如 `jsx|less|sass|css` 等类型的文件会发生运行错误，针对这种类型的特殊模块我们提供了白名单配置，设置服务端构建配置 `externals` 的白名单，即需要让 `Webpack` 来处理的模块.
+处理 `server` 端构建模块时，我们默认会对所有的第三方模块使用 `externals` 模式，即不在构建时用 `Webpack` 处理，运行时直接从 `node_modules` 中加载具体模块，但对于一些只提供了 `esm` 格式的模块，或者是非 `Node.js` 环境能直接执行的文件，例如 `jsx|less|sass|css` 等类型的文件会发生运行错误，针对这种类型的特殊模块我们提供了白名单配置，设置服务端构建配置 `externals` 的白名单，即需要让 `Webpack` 来处理的模块。
+
+`whiteList` 有 `string[]` 和 `RegExp[]` 两种形式，代表不同的含义请根据实际需求选择
+
+- `RegExp[]`: 只匹配正则能够匹配的依赖
+
+- `string[]`: 当 `whiteList` 的值不为 `RegExp` 而是 `string` 的时候，框架会将其当成模块名，并且会深度遍历模块自身的依赖以及依赖的依赖。例如 `antd` 自身的 `dependencies` 里依赖了其他模块，为了避免重复配置，这些模块也需要一并配置到白名单当中。这里为了减少工作量，框架本身增加了一层比较简单的依赖自动遍历收集策略来自动收集所以需要处理的模块。在 `Serverless` 发布模式下我们通常使用 `string[]` 的形式，因为我们在这种场景只会安装 `production` 环境的 `node_modules`
 
 ## prefix🤔 
 
@@ -564,7 +570,7 @@ const corejsOptions = userConfig.corejs ? {
 
 ## babelExtraModule🤔 (建议使用 babelOptions.include 代替)
 
-- 类型: `webpack.RuleSetCondition`
+- 类型: `RegExp`
 
 - 默认: `undefined`
 
