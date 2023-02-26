@@ -1,3 +1,18 @@
+## [6.2.40](https://github.com/zhangyuang/ssr/compare/types@6.2.39...types@6.2.40) (2023-02-26)
+
+
+### Bug Fixes
+
+* vite build ([6ad5079](https://github.com/zhangyuang/ssr/commit/6ad507976f38c5972e9785a0e528314c46a04431))
+* vite build with babel ([b924353](https://github.com/zhangyuang/ssr/commit/b9243532cebbbf91fc61cd711f23ced0ef0c82ce))
+
+
+### Features
+
+* improve babel options experience in vue3 vite build ([7f4d34b](https://github.com/zhangyuang/ssr/commit/7f4d34b23c81fbcb665c2f819000468910eb1944))
+
+
+
 ## [6.2.39](https://github.com/zhangyuang/ssr/compare/types@6.2.38...types@6.2.39) (2023-02-21)
 
 
