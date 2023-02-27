@@ -1,3 +1,7 @@
+## [6.2.20](https://github.com/zhangyuang/ssr/compare/plugin-midway@6.2.19...plugin-midway@6.2.20) (2023-02-27)
+
+
+
 ## [6.2.19](https://github.com/zhangyuang/ssr/compare/plugin-midway@6.2.18...plugin-midway@6.2.19) (2023-02-27)
 
 
