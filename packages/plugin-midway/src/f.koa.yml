@@ -6,6 +6,8 @@ provider:
   timeout: 20
   initTimeout: 20
   runtime: nodejs12
+  concurrency: 10
+
 
 custom: # 发布后自动生成测试域名
   customDomain:
