@@ -316,6 +316,25 @@ export const getViteServerEntry = () => {
   return resolve(cwd, `./node_modules/${framework}/esm/entry/server-entry.js`)
 }
 
+export const checkTsConfig = async () => {
+  const cwd = getCwd()
+  const { logWarning } = await import('./log')
+  const f = judgeServerFramework()
+  if (f !== 'ssr-plugin-midway') return
+  const tsconfigExist = await accessFile(resolve(cwd, './tsconfig.json'))
+  if (tsconfigExist) {
+    try {
+      const paths = require(resolve(cwd, './tsconfig.json')).compilerOptions.paths
+      if (paths) {
+        logWarning('在 Midway 中不建议使用 tsconfig paths 去引用非类型文件, ref https://midwayjs.org/docs/faq/alias_path')
+      }
+    } catch (error) {
+      // 有可能 json 文件存在注释导致 require 失败，这里 catch 一下
+      console.log('检测到当前目录 tsconfig.json 文件可能存在语法错误，请检查是否存在注释或多余的符号')
+    }
+  }
+}
+
 export {
   getCwd,
   getFeDir,
