@@ -1,3 +1,13 @@
+## [6.2.72](https://github.com/zhangyuang/ssr/compare/utils@6.2.71...utils@6.2.72) (2023-02-27)
+
+
+### Features
+
+* remove unplugin-element-plus ([25231dc](https://github.com/zhangyuang/ssr/commit/25231dc2cab3455bb00de61df8306ddab1ac4c6a))
+* upgrade midway-cli to v2 support deploy concurrency ([13a07f6](https://github.com/zhangyuang/ssr/commit/13a07f696629ebd3fadd366844f888ceaa66247c))
+
+
+
 ## [6.2.71](https://github.com/zhangyuang/ssr/compare/utils@6.2.70...utils@6.2.71) (2023-02-25)
 
 
