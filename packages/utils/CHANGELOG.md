@@ -1,3 +1,17 @@
+## [6.2.73](https://github.com/zhangyuang/ssr/compare/utils@6.2.72...utils@6.2.73) (2023-03-02)
+
+
+### Bug Fixes
+
+* react18 default exclude ([1747419](https://github.com/zhangyuang/ssr/commit/1747419b978d81e7abe5c6975884ca8a87c749de))
+
+
+### Features
+
+* support configuration config.assetDir ([#270](https://github.com/zhangyuang/ssr/issues/270)) ([885716c](https://github.com/zhangyuang/ssr/commit/885716cefa254dc812a5cae36627103fab3c449d))
+
+
+
 ## [6.2.72](https://github.com/zhangyuang/ssr/compare/utils@6.2.71...utils@6.2.72) (2023-02-27)
 
 
