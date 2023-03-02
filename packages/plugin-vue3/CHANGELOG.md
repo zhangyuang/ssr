@@ -1,3 +1,18 @@
+## [6.2.81](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.80...plugin-vue3@6.2.81) (2023-03-02)
+
+
+### Bug Fixes
+
+* react18 default exclude ([1747419](https://github.com/zhangyuang/ssr/commit/1747419b978d81e7abe5c6975884ca8a87c749de))
+
+
+### Features
+
+* support configuration config.assetDir ([#270](https://github.com/zhangyuang/ssr/issues/270)) ([885716c](https://github.com/zhangyuang/ssr/commit/885716cefa254dc812a5cae36627103fab3c449d))
+* upgrade midway-cli to v2 support deploy concurrency ([13a07f6](https://github.com/zhangyuang/ssr/commit/13a07f696629ebd3fadd366844f888ceaa66247c))
+
+
+
 ## [6.2.80](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.79...plugin-vue3@6.2.80) (2023-02-26)
 
 
