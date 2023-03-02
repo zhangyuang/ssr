@@ -189,7 +189,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 
 const manifestPlugin = (): Plugin => {
   const { getOutput, optimize } = loadConfig()
-  const { clientOutPut, assetManifest } = getOutput()
+  const { clientOutPut } = getOutput()
   return {
     name: 'manifestPlugin',
     async generateBundle (_, bundles) {
@@ -205,7 +205,7 @@ const manifestPlugin = (): Plugin => {
         mkdir('-p', resolve(clientOutPut))
       }
       manifest['vite'] = '1'
-      await promises.writeFile(resolve(assetManifest, './asset-manifest.json'), JSON.stringify(manifest, null, 2))
+      await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest, null, 2))
     }
   }
 }

@@ -213,7 +213,6 @@ const loadConfig = (): IConfig => {
   }, userConfig)
 
   config.getOutput = () => ({
-    assetManifest: join(cwd, './build/client'),
     clientOutPut: join(cwd, './build/client'),
     serverOutPut: join(cwd, './build/server')
   })

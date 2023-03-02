@@ -61,7 +61,7 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
 }
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, chainBaseConfig, corejsOptions, babelExtraModule, alias, define, babelOptions } = config
+  const { moduleFileExtensions, chainBaseConfig, corejsOptions, babelExtraModule, alias, define, babelOptions, assetsDir } = config
   const mode = process.env.NODE_ENV as Mode
   const envOptions = {
     modules: false,
@@ -130,7 +130,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .use('file-loader')
     .loader(loadModule('file-loader'))
     .options({
-      name: '[name].[hash:8].[ext]',
+      name: `${assetsDir}/[name].[hash:8].[ext]`,
       esModule: false,
       emitFile: !isServer
     })

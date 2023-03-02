@@ -43,7 +43,6 @@ export interface IConfig {
   serverPort: number
   chunkName: string
   getOutput: () => {
-    assetManifest: string
     clientOutPut: string
     serverOutPut: string
   }
