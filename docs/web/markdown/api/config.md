@@ -48,7 +48,7 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 标志当前运行环境，根据 `NODE_ENV === development` 判断
 
-## assetsDir
+## assetsDir🤔
 
 - 类型: `string`
 - 默认: `static`
