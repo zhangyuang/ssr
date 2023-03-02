@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getCwd, loadConfig, setStyle, addImageChain, loadModuleFromFramework, logErr, cssBuildConfig } from 'ssr-common-utils'
+import { getCwd, loadConfig, setStyle, addImageChain, loadModuleFromFramework, logErr, getBuildConfig } from 'ssr-common-utils'
 import * as webpack from 'webpack'
 import * as WebpackChain from 'webpack-chain'
 
@@ -199,7 +199,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
       emitFile: !isServer
     })
 
-  chain.plugin('minify-css').use(MiniCssExtractPlugin, cssBuildConfig())
+  chain.plugin('minify-css').use(MiniCssExtractPlugin, getBuildConfig().cssBuildConfig)
 
   chain.plugin('webpackBar').use(new WebpackBar({
     name: isServer ? 'server' : 'client',

@@ -1,7 +1,7 @@
 
 import { promises } from 'fs'
 import { resolve } from 'path'
-import { loadConfig, getCwd, cryptoAsyncChunkName, getOutputPublicPath, loadModuleFromFramework } from 'ssr-common-utils'
+import { loadConfig, getCwd, cryptoAsyncChunkName, getOutputPublicPath, loadModuleFromFramework, getBuildConfig } from 'ssr-common-utils'
 import * as WebpackChain from 'webpack-chain'
 import { Compiler } from 'webpack'
 import { getBaseConfig } from './base'
@@ -17,7 +17,8 @@ const asyncChunkMap: {
 }
 
 const getClientWebpack = (chain: WebpackChain) => {
-  const { isDev, chunkName, getOutput, useHash, chainClientConfig } = loadConfig()
+  const { isDev, chunkName, getOutput, chainClientConfig } = loadConfig()
+  const buildConfig = getBuildConfig()
   const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
   const publicPath = getOutputPublicPath()
   getBaseConfig(chain, false)
@@ -27,8 +28,8 @@ const getClientWebpack = (chain: WebpackChain) => {
     .end()
     .output
     .path(getOutput().clientOutPut)
-    .filename(useHash ? '[name].[contenthash:8].js' : '[name].js')
-    .chunkFilename(useHash ? '[name].[contenthash:8].chunk.js' : '[name].chunk.js')
+    .filename(buildConfig.jsBuldConfig.fileName)
+    .chunkFilename(buildConfig.jsBuldConfig.chunkFileName)
     .publicPath(publicPath)
     .end()
 

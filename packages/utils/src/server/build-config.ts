@@ -1,9 +1,15 @@
 import { loadConfig } from './loadConfig'
 
-export const cssBuildConfig = () => {
+export const getBuildConfig = () => {
   const { outputName } = loadConfig()
-  return [{
-    filename: outputName.cssfileName,
-    chunkFilename: outputName.cssChunkFilename
-  }]
+  return {
+    jsBuldConfig: {
+      fileName: outputName.fileName,
+      chunkFileName: outputName.chunkFileName
+    },
+    cssBuildConfig: [{
+      filename: outputName.cssfileName,
+      chunkFilename: outputName.cssChunkFilename
+    }]
+  }
 }
