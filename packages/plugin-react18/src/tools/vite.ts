@@ -1,7 +1,7 @@
 import { build, UserConfig } from 'vite'
 import {
   loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig,
-  asyncOptimizeChunkPlugin, getOutputPublicPathForVite
+  asyncOptimizeChunkPlugin, getOutputPublicPath
 } from 'ssr-common-utils'
 import react from '@vitejs/plugin-react'
 import { createStyleImportPlugin, AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'ssr-vite-plugin-style-import'
@@ -73,7 +73,7 @@ const serverConfig: UserConfig = {
 const clientConfig: UserConfig = {
   ...commonConfig(),
   ...viteConfig?.().client?.otherConfig,
-  base: isDev ? '/' : getOutputPublicPathForVite(),
+  base: isDev ? '/' : getOutputPublicPath(),
   esbuild: {
     ...viteConfig?.().client?.otherConfig?.esbuild,
     keepNames: true,

@@ -7,16 +7,9 @@ import { normalizeEndPath } from '../common'
 
 export const getOutputPublicPath = () => {
   // return /client/
-  const { publicPath, isDev } = loadConfig()
+  const { publicPath, isDev, isVite, assetsDir } = loadConfig()
   const path = normalizeEndPath(publicPath)
-  return isDev ? path : `${path}client/`
-}
-
-export const getOutputPublicPathForVite = () => {
-  // return /client/static/
-  const { publicPath, isDev, assetsDir } = loadConfig()
-  const path = normalizeEndPath(publicPath)
-  return isDev ? path : normalizeEndPath(`${path}client/${assetsDir}`)
+  return isDev ? path : (isVite ? normalizeEndPath(`${path}client/${assetsDir}`) : `${path}client/`)
 }
 
 export const getImageOutputPath = () => {

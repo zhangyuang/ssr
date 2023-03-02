@@ -7,7 +7,7 @@ import MagicString from 'magic-string'
 import type { OutputOptions, PreRenderedChunk, PluginContext } from 'rollup'
 import { mkdir } from 'shelljs'
 import { loadConfig } from '../loadConfig'
-import { getOutputPublicPathForVite } from '../parse'
+import { getOutputPublicPath } from '../parse'
 import { getCwd, cryptoAsyncChunkName, accessFile, debounce } from '../cwd'
 import { logErr } from '../log'
 import { getDependencies, getPkgName } from '../build-utils'
@@ -198,7 +198,7 @@ const manifestPlugin = (): Plugin => {
         const val = bundle
         const arr = bundle.split('.')
         arr.splice(1, 2)
-        manifest[arr.join('.')] = `${getOutputPublicPathForVite()}${val}`
+        manifest[arr.join('.')] = `${getOutputPublicPath()}${val}`
       }
       if (!await accessFile(resolve(clientOutPut))) {
         mkdir('-p', resolve(clientOutPut))
