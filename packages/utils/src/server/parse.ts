@@ -7,9 +7,9 @@ import { normalizeEndPath } from '../common'
 
 export const getOutputPublicPath = () => {
   // return /client/
-  const { publicPath, isDev, isVite, assetsDir } = loadConfig()
+  const { publicPath, isDev } = loadConfig()
   const path = normalizeEndPath(publicPath)
-  return isDev ? path : (isVite ? normalizeEndPath(`${path}client/${assetsDir}`) : `${path}client/`)
+  return isDev ? path : `${path}client/`
 }
 
 export const getImageOutputPath = () => {

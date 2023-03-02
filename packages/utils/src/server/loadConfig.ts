@@ -168,7 +168,6 @@ const loadConfig = (): IConfig => {
     /ssr-plugin-vue3/, /ssr-client-utils/, /ssr-hoc-vue/, /vue/, /ssr-common-utils/, /ssr-plugin-vue/, /ssr-plugin-react/,
     /ssr-hoc-react/, /ssr-hoc-vue3/, /ssr-hoc-react18/
   ]
-  const outputName = {}
   const getOutput = () => {}
   const config = Object.assign({}, {
     chainBaseConfig,
@@ -210,19 +209,12 @@ const loadConfig = (): IConfig => {
     optimize,
     writeDebounceTime,
     dynamicFile,
-    babelExtraModule,
-    outputName
+    babelExtraModule
   }, userConfig)
 
-  config.outputName = {
-    chunkFileName: config.useHash ? `${assetsDir}/[name].[contenthash:8].chunk.js` : `${assetsDir}/[name].chunk.js`,
-    fileName: config.useHash ? `${assetsDir}/[name].[contenthash:8].js` : `${assetsDir}[name].js`,
-    cssfileName: useHash ? `${assetsDir}/[name].[contenthash:8].css` : `${assetsDir}/[name].css`,
-    cssChunkFilename: useHash ? `${assetsDir}/[name].[contenthash:8].chunk.css` : `${assetsDir}/[name].chunk.css`
-  }
   config.getOutput = () => ({
     assetManifest: join(cwd, './build/client'),
-    clientOutPut: isVite ? join(cwd, `./build/client/${assetsDir}`) : join(cwd, './build/client'),
+    clientOutPut: join(cwd, './build/client'),
     serverOutPut: join(cwd, './build/server')
   })
   config.assetsDir = assetsDir

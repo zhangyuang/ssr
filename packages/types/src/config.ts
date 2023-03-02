@@ -48,12 +48,6 @@ export interface IConfig {
     serverOutPut: string
   }
   assetsDir?: string
-  outputName: {
-    chunkFileName: string
-    fileName: string
-    cssfileName: string
-    cssChunkFilename: string
-  }
   proxy?: any
   cssOrder: string[]
   jsOrder: string[]
