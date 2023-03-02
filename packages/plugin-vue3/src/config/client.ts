@@ -1,7 +1,7 @@
 
 import { promises } from 'fs'
 import { resolve } from 'path'
-import { loadConfig, getCwd, getOutputPublicPath, loadModuleFromFramework, getSplitChunksOptions } from 'ssr-common-utils'
+import { loadConfig, getCwd, getOutputPublicPath, loadModuleFromFramework, getSplitChunksOptions, getBuildConfig } from 'ssr-common-utils'
 import * as WebpackChain from 'webpack-chain'
 import { Compiler } from 'webpack'
 import { getBaseConfig } from './base'
@@ -16,21 +16,23 @@ const asyncChunkMap: {
   val: {}
 }
 const getClientWebpack = (chain: WebpackChain) => {
-  const { isDev, chunkName, getOutput, useHash, chainClientConfig, optimize } = loadConfig()
+  const { isDev, chunkName, getOutput, chainClientConfig, optimize } = loadConfig()
   const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
   const publicPath = getOutputPublicPath()
 
   getBaseConfig(chain, false)
+  const buildConfig = getBuildConfig()
   chain.devtool(isDev ? 'eval-source-map' : (shouldUseSourceMap ? 'source-map' : false))
   chain.entry(chunkName)
     .add(require.resolve('../entry/client-entry'))
     .end()
     .output
     .path(getOutput().clientOutPut)
-    .filename(useHash ? '[name].[contenthash:8].js' : 'static/[name].js')
-    .chunkFilename(useHash ? '[name].[contenthash:8].chunk.js' : 'static/[name].chunk.js')
+    .filename(buildConfig.jsBuldConfig.fileName)
+    .chunkFilename(buildConfig.jsBuldConfig.chunkFileName)
     .publicPath(publicPath)
     .end()
+
   chain.optimization
     .runtimeChunk(true)
     .splitChunks(getSplitChunksOptions(asyncChunkMap))

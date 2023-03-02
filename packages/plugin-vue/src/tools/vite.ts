@@ -15,7 +15,8 @@ const serverConfig: UserConfig = {
     outDir: serverOutPut,
     rollupOptions: {
       output: {
-        entryFileNames: 'Page.server.js'
+        entryFileNames: 'Page.server.js',
+        assetFileNames: rollupOutputOptions().assetFileNames
       }
     }
   },
@@ -36,7 +37,7 @@ const clientConfig: UserConfig = {
     outDir: clientOutPut,
     rollupOptions: {
       input: vueClientEntry,
-      output: rollupOutputOptions,
+      output: rollupOutputOptions(),
       plugins: [chunkNamePlugin(), manifestPlugin()]
     }
   },

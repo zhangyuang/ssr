@@ -11,6 +11,7 @@ import { getOutputPublicPath } from '../parse'
 import { getCwd, cryptoAsyncChunkName, accessFile, debounce } from '../cwd'
 import { logErr } from '../log'
 import { getDependencies, getPkgName } from '../build-utils'
+import { getBuildConfig } from '../build-config'
 import { defaultExternal } from '../static'
 
 const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
@@ -22,7 +23,7 @@ const dependenciesMap: Record<string, string[]> = {}
 const asyncChunkMapJSON: Record<string, string[]> = {}
 const generateMap: Record<string, string> = {}
 const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router',
-  'react-router-dom', 'react-dom', '@vue', 'ssr-hoc-react',
+  'react-router-dom', 'react-dom', '@vue', 'ssr-hoc-react', 'ssr-hoc-react18',
   'ssr-client-utils', 'ssr-common-utils', 'pinia', '@babel/runtime',
   'ssr-plugin-vue3', 'ssr-plugin-vue', 'ssr-plugin-react', 'react/jsx-runtime',
   'path-to-regexp'
@@ -196,12 +197,12 @@ const manifestPlugin = (): Plugin => {
       const manifest: Record<string, string> = {}
       for (const bundle in bundles) {
         const val = bundle
-        const arr = bundle.split('.')
+        const arr = bundle.split('/')[1].split('.')
         arr.splice(1, 2)
         manifest[arr.join('.')] = `${getOutputPublicPath()}${val}`
       }
       if (!await accessFile(resolve(clientOutPut))) {
-        mkdir(resolve(clientOutPut))
+        mkdir('-p', resolve(clientOutPut))
       }
       manifest['vite'] = '1'
       await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest, null, 2))
@@ -220,22 +221,25 @@ const setGenerateMap = (id: string) => {
   generateMap[id] = res ?? 'void'
 }
 
-const rollupOutputOptions: OutputOptions = {
-  entryFileNames: (chunkInfo: PreRenderedChunk) => {
-    return 'Page.[hash].chunk.js'
-  },
-  chunkFileNames: '[name].[hash].chunk.js',
-  assetFileNames: (assetInfo) => {
-    if (assetInfo.name?.includes('client-entry')) {
-      return 'Page.[hash].chunk.[ext]'
+const rollupOutputOptions: () => OutputOptions = () => {
+  const buildConfig = getBuildConfig()
+  return {
+    entryFileNames: (chunkInfo: PreRenderedChunk) => {
+      return buildConfig.entryChunk
+    },
+    chunkFileNames: buildConfig.jsBuldConfig.chunkFileName,
+    assetFileNames: (assetInfo) => {
+      if (assetInfo.name?.includes('client-entry')) {
+        return buildConfig.clientEntryChunk
+      }
+      if (assetInfo.name && (imageRegExp.test(assetInfo.name) || fontRegExp.test(assetInfo.name))) {
+        return buildConfig.imagePathForVite
+      }
+      return buildConfig.viteAssetChunk
+    },
+    manualChunks: (id: string) => {
+      return generateMap[id] === 'void' ? undefined : generateMap[id]
     }
-    if (assetInfo.name && (imageRegExp.test(assetInfo.name) || fontRegExp.test(assetInfo.name))) {
-      return 'assets/[name].[hash].[ext]'
-    }
-    return '[name].[hash].chunk.[ext]'
-  },
-  manualChunks: (id: string) => {
-    return generateMap[id] === 'void' ? undefined : generateMap[id]
   }
 }
 

@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getCwd, loadConfig, setStyle, addImageChain, loadModuleFromFramework } from 'ssr-common-utils'
+import { getCwd, loadConfig, setStyle, addImageChain, loadModuleFromFramework, getBuildConfig } from 'ssr-common-utils'
 import * as webpack from 'webpack'
 import * as WebpackChain from 'webpack-chain'
 
@@ -61,7 +61,7 @@ const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOption
 
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, useHash, chainBaseConfig, corejsOptions, ssrVueLoaderOptions, csrVueLoaderOptions, babelExtraModule, alias, define, babelOptions } = config
+  const { moduleFileExtensions, chainBaseConfig, corejsOptions, ssrVueLoaderOptions, csrVueLoaderOptions, babelExtraModule, alias, assetsDir, define, babelOptions } = config
 
   let vueLoaderOptions = {
     babelParserPlugins: ['jsx', 'classProperties', 'decorators-legacy']
@@ -157,15 +157,12 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .use('file-loader')
     .loader(loadModule('file-loader'))
     .options({
-      name: 'static/[name].[hash:8].[ext]',
+      name: `${assetsDir}/[name].[hash:8].[ext]`,
       esModule: false,
       emitFile: !isServer
     })
 
-  chain.plugin('minify-css').use(MiniCssExtractPlugin, [{
-    filename: useHash ? '[name].[contenthash:8].css' : 'static/[name].css',
-    chunkFilename: useHash ? '[name].[contenthash:8].chunk.css' : 'static/[name].chunk.css'
-  }])
+  chain.plugin('minify-css').use(MiniCssExtractPlugin, getBuildConfig().cssBuildConfig)
 
   chain.plugin('webpackBar').use(new WebpackBar({
     name: isServer ? 'server' : 'client',

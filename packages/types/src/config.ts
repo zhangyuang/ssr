@@ -46,6 +46,7 @@ export interface IConfig {
     clientOutPut: string
     serverOutPut: string
   }
+  assetsDir?: string
   proxy?: any
   cssOrder: string[]
   jsOrder: string[]

@@ -59,7 +59,8 @@ const serverConfig: UserConfig = {
       ...viteConfig?.().server?.otherConfig?.build?.rollupOptions,
       input: isDev ? react18ClientEntry : react18ServerEntry, // setting prebundle list by client-entry in dev
       output: {
-        entryFileNames: 'Page.server.js'
+        entryFileNames: 'Page.server.js',
+        assetFileNames: rollupOutputOptions().assetFileNames
       }
     }
   },
@@ -102,7 +103,7 @@ const clientConfig: UserConfig = {
     rollupOptions: {
       ...viteConfig?.().client?.otherConfig?.build?.rollupOptions,
       input: react18ClientEntry,
-      output: rollupOutputOptions,
+      output: rollupOutputOptions(),
       plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), manifestPlugin()]
     }
   },

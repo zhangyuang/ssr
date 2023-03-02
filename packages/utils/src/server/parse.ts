@@ -13,8 +13,8 @@ export const getOutputPublicPath = () => {
 }
 
 export const getImageOutputPath = () => {
-  const { publicPath, isDev } = loadConfig()
-  const imagePath = 'static/images'
+  const { publicPath, isDev, assetsDir } = loadConfig()
+  const imagePath = `${assetsDir}/images`
   const normalizePath = normalizeEndPath(publicPath)
   return {
     publicPath: isDev ? `${normalizePath}${imagePath}` : `${normalizePath}client/${imagePath}`,
