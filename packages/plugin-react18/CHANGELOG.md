@@ -1,3 +1,12 @@
+## [6.2.61](https://github.com/zhangyuang/ssr/compare/plugin-react18@6.2.60...plugin-react18@6.2.61) (2023-03-02)
+
+
+### Features
+
+* support configuration config.assetDir ([#270](https://github.com/zhangyuang/ssr/issues/270)) ([885716c](https://github.com/zhangyuang/ssr/commit/885716cefa254dc812a5cae36627103fab3c449d))
+
+
+
 ## [6.2.60](https://github.com/zhangyuang/ssr/compare/plugin-react18@6.2.59...plugin-react18@6.2.60) (2023-03-02)
 
 
