@@ -123,10 +123,6 @@ const loadConfig = (): IConfig => {
     ...userConfig.corejsOptions
   } : {}
 
-  const getOutput = () => ({
-    clientOutPut: join(cwd, './build/client'),
-    serverOutPut: join(cwd, './build/server')
-  })
   const writeDebounceTime = 2000
   const webpackDevServerConfig = Object.assign({
     stats: webpackStatsOption,
@@ -157,9 +153,9 @@ const loadConfig = (): IConfig => {
   const chainServerConfig = () => {
     // 覆盖默认 server webpack配置
   }
-
+  const assetsDir = userConfig.assetsDir ?? 'static'
   const manifestPath = `${normalizeEndPath(devPublicPath)}asset-manifest.json`
-  const staticPath = `${normalizeEndPath(devPublicPath)}static`
+  const staticPath = `${normalizeEndPath(devPublicPath)}${assetsDir}`
   const hotUpdatePath = `${normalizeEndPath(devPublicPath)}*.hot-update**`
   const proxyKey = [staticPath, hotUpdatePath, manifestPath]
   const prefix = '/'
@@ -170,15 +166,17 @@ const loadConfig = (): IConfig => {
   }
   const babelExtraModule: UserConfig['babelExtraModule'] = [
     /ssr-plugin-vue3/, /ssr-client-utils/, /ssr-hoc-vue/, /vue/, /ssr-common-utils/, /ssr-plugin-vue/, /ssr-plugin-react/,
-    /ssr-hoc-react/, /ssr-hoc-vue3/
+    /ssr-hoc-react/, /ssr-hoc-vue3/, /ssr-hoc-react18/
   ]
-
+  const outputName = {}
+  const getOutput = () => {}
   const config = Object.assign({}, {
     chainBaseConfig,
     chainServerConfig,
     chainClientConfig,
     cwd,
     isDev,
+    getOutput,
     publicPath,
     useHash,
     host,
@@ -188,7 +186,6 @@ const loadConfig = (): IConfig => {
     chunkName,
     jsOrder,
     cssOrder,
-    getOutput,
     webpackStatsOption,
     dynamic,
     mode,
@@ -213,8 +210,22 @@ const loadConfig = (): IConfig => {
     optimize,
     writeDebounceTime,
     dynamicFile,
-    babelExtraModule
+    babelExtraModule,
+    outputName
   }, userConfig)
+
+  config.outputName = {
+    chunkFileName: config.useHash ? `${assetsDir}/[name].[contenthash:8].chunk.js` : `${assetsDir}/[name].chunk.js`,
+    fileName: config.useHash ? `${assetsDir}/[name].[contenthash:8].js` : `${assetsDir}[name].js`,
+    cssfileName: useHash ? `${assetsDir}/[name].[contenthash:8].css` : `${assetsDir}/[name].css`,
+    cssChunkFilename: useHash ? `${assetsDir}/[name].[contenthash:8].chunk.css` : `${assetsDir}/[name].chunk.css`
+  }
+  config.getOutput = () => ({
+    assetManifest: join(cwd, './build/client'),
+    clientOutPut: isVite ? join(cwd, `./build/client/${assetsDir}`) : join(cwd, './build/client'),
+    serverOutPut: join(cwd, './build/server')
+  })
+  config.assetsDir = assetsDir
   config.alias = alias
   config.prefix = normalizeStartPath(config.prefix ?? '/')
   config.corejsOptions = corejsOptions

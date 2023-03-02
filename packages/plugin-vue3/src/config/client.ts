@@ -16,7 +16,7 @@ const asyncChunkMap: {
   val: {}
 }
 const getClientWebpack = (chain: WebpackChain) => {
-  const { isDev, chunkName, getOutput, useHash, chainClientConfig, optimize } = loadConfig()
+  const { isDev, chunkName, getOutput, chainClientConfig, optimize, outputName } = loadConfig()
   const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
   const publicPath = getOutputPublicPath()
 
@@ -27,8 +27,8 @@ const getClientWebpack = (chain: WebpackChain) => {
     .end()
     .output
     .path(getOutput().clientOutPut)
-    .filename(useHash ? '[name].[contenthash:8].js' : 'static/[name].js')
-    .chunkFilename(useHash ? '[name].[contenthash:8].chunk.js' : 'static/[name].chunk.js')
+    .filename(outputName.fileName)
+    .chunkFilename(outputName.chunkFileName)
     .publicPath(publicPath)
     .end()
   chain.optimization

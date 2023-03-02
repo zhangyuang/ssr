@@ -43,8 +43,16 @@ export interface IConfig {
   serverPort: number
   chunkName: string
   getOutput: () => {
+    assetManifest: string
     clientOutPut: string
     serverOutPut: string
+  }
+  assetsDir?: string
+  outputName: {
+    chunkFileName: string
+    fileName: string
+    cssfileName: string
+    cssChunkFilename: string
   }
   proxy?: any
   cssOrder: string[]

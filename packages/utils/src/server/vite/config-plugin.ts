@@ -7,7 +7,7 @@ import MagicString from 'magic-string'
 import type { OutputOptions, PreRenderedChunk, PluginContext } from 'rollup'
 import { mkdir } from 'shelljs'
 import { loadConfig } from '../loadConfig'
-import { getOutputPublicPath } from '../parse'
+import { getOutputPublicPathForVite } from '../parse'
 import { getCwd, cryptoAsyncChunkName, accessFile, debounce } from '../cwd'
 import { logErr } from '../log'
 import { getDependencies, getPkgName } from '../build-utils'
@@ -22,7 +22,7 @@ const dependenciesMap: Record<string, string[]> = {}
 const asyncChunkMapJSON: Record<string, string[]> = {}
 const generateMap: Record<string, string> = {}
 const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router',
-  'react-router-dom', 'react-dom', '@vue', 'ssr-hoc-react',
+  'react-router-dom', 'react-dom', '@vue', 'ssr-hoc-react', 'ssr-hoc-react18',
   'ssr-client-utils', 'ssr-common-utils', 'pinia', '@babel/runtime',
   'ssr-plugin-vue3', 'ssr-plugin-vue', 'ssr-plugin-react', 'react/jsx-runtime',
   'path-to-regexp'
@@ -188,7 +188,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 
 const manifestPlugin = (): Plugin => {
   const { getOutput, optimize } = loadConfig()
-  const { clientOutPut } = getOutput()
+  const { clientOutPut, assetManifest } = getOutput()
   return {
     name: 'manifestPlugin',
     async generateBundle (_, bundles) {
@@ -198,13 +198,13 @@ const manifestPlugin = (): Plugin => {
         const val = bundle
         const arr = bundle.split('.')
         arr.splice(1, 2)
-        manifest[arr.join('.')] = `${getOutputPublicPath()}${val}`
+        manifest[arr.join('.')] = `${getOutputPublicPathForVite()}${val}`
       }
       if (!await accessFile(resolve(clientOutPut))) {
-        mkdir(resolve(clientOutPut))
+        mkdir('-p', resolve(clientOutPut))
       }
       manifest['vite'] = '1'
-      await promises.writeFile(resolve(clientOutPut, './asset-manifest.json'), JSON.stringify(manifest, null, 2))
+      await promises.writeFile(resolve(assetManifest, './asset-manifest.json'), JSON.stringify(manifest, null, 2))
     }
   }
 }

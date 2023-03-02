@@ -12,9 +12,16 @@ export const getOutputPublicPath = () => {
   return isDev ? path : `${path}client/`
 }
 
+export const getOutputPublicPathForVite = () => {
+  // return /client/static/
+  const { publicPath, isDev, assetsDir } = loadConfig()
+  const path = normalizeEndPath(publicPath)
+  return isDev ? path : normalizeEndPath(`${path}client/${assetsDir}`)
+}
+
 export const getImageOutputPath = () => {
-  const { publicPath, isDev } = loadConfig()
-  const imagePath = 'static/images'
+  const { publicPath, isDev, assetsDir } = loadConfig()
+  const imagePath = `${assetsDir}/images`
   const normalizePath = normalizeEndPath(publicPath)
   return {
     publicPath: isDev ? `${normalizePath}${imagePath}` : `${normalizePath}client/${imagePath}`,

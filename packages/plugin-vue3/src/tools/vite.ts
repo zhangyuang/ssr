@@ -1,7 +1,7 @@
 import { build, UserConfig } from 'vite'
 import {
   loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin,
-  commonConfig, asyncOptimizeChunkPlugin, getOutputPublicPath, getBabelOptions
+  commonConfig, asyncOptimizeChunkPlugin, getOutputPublicPathForVite, getBabelOptions
 } from 'ssr-common-utils'
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJSXPlugin from '@vitejs/plugin-vue-jsx'
@@ -71,7 +71,7 @@ const serverConfig: UserConfig = {
 const clientConfig: UserConfig = {
   ...commonConfig(),
   ...viteConfig?.().client?.otherConfig,
-  base: isDev ? '/' : getOutputPublicPath(),
+  base: isDev ? '/' : getOutputPublicPathForVite(),
   plugins: [
     vuePlugin(viteConfig?.()?.client?.defaultPluginOptions),
     vueJSXPlugin(),

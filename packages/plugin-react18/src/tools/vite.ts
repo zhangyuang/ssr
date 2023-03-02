@@ -82,7 +82,7 @@ const clientConfig: UserConfig = {
   optimizeDeps: {
     ...viteConfig?.().client?.otherConfig?.optimizeDeps,
     include: ['react-router'].concat(...viteConfig?.().client?.otherConfig?.optimizeDeps?.include ?? []),
-    exclude: ['ssr-hoc-react'].concat(...viteConfig?.().client?.otherConfig?.optimizeDeps?.exclude ?? [])
+    exclude: ['ssr-hoc-react18'].concat(...viteConfig?.().client?.otherConfig?.optimizeDeps?.exclude ?? [])
   },
   plugins: [
     react({

@@ -157,14 +157,14 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .use('file-loader')
     .loader(loadModule('file-loader'))
     .options({
-      name: 'static/[name].[hash:8].[ext]',
+      name: '[name].[hash:8].[ext]',
       esModule: false,
       emitFile: !isServer
     })
 
   chain.plugin('minify-css').use(MiniCssExtractPlugin, [{
-    filename: useHash ? '[name].[contenthash:8].css' : 'static/[name].css',
-    chunkFilename: useHash ? '[name].[contenthash:8].chunk.css' : 'static/[name].chunk.css'
+    filename: useHash ? '[name].[contenthash:8].css' : '[name].css',
+    chunkFilename: useHash ? '[name].[contenthash:8].chunk.css' : '[name].chunk.css'
   }])
 
   chain.plugin('webpackBar').use(new WebpackBar({
