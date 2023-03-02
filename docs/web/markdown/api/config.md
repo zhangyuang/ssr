@@ -48,6 +48,14 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 标志当前运行环境，根据 `NODE_ENV === development` 判断
 
+## assetsDir
+
+- 类型: `string`
+- 默认: `static`
+- 生效场景: `Webpack/Vite` 
+
+设置静态文件资源(js|css|image)的构建目录，默认为 `build/client/static`, 当设置为 `config.assetsDir = 'assets'` 时，构建目录为 `build/client/assets`
+
 ## publicPath🤔
 
 - 类型: `string`
