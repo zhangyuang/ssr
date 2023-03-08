@@ -1,3 +1,12 @@
+## [6.2.82](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.81...plugin-vue3@6.2.82) (2023-03-08)
+
+
+### Bug Fixes
+
+* fastify req.path ([b563118](https://github.com/zhangyuang/ssr/commit/b5631184d0054ef12c748f538255d00132e99482))
+
+
+
 ## [6.2.81](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.80...plugin-vue3@6.2.81) (2023-03-02)
 
 
