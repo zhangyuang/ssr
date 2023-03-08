@@ -13,7 +13,7 @@ const { FeRoutes, layoutFetch, state, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, onError, onReady } = config
-  const rawPath = ctx.request.path ?? ctx.request.routerPath
+  const rawPath = ctx.request.path ?? ctx.request.url
   const path = normalizePath(rawPath, prefix)
   const routeItem = findRoute<ReactESMPreloadFeRouteItem>(FeRoutes, path)
   checkRoute({ routeItem, path })

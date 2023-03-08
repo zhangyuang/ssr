@@ -19,7 +19,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
-  const rawPath = ctx.request.path ?? ctx.request.routerPath
+  const rawPath = ctx.request.path ?? ctx.request.url
   const [path, url] = [normalizePath(rawPath, prefix), normalizePath(ctx.request.url, prefix)]
   const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
   checkRoute({ routeItem, path })
