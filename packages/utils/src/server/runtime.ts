@@ -1,5 +1,7 @@
 import { promises } from 'fs'
+import { join } from 'path'
 import type { UserConfig, ISSRContext, IConfig, ISSRNestContext, FastifyContext } from 'ssr-types'
+import { getCwd } from './cwd'
 
 export const setHeader = (ctx: ISSRContext, serverFrameWork: string) => {
   if (serverFrameWork === 'ssr-plugin-midway') {
@@ -81,4 +83,38 @@ export const getUserScriptVue = (script: UserConfig['customeHeadScript'], ctx: I
     innerHTML: item.content
   }
   )))
+}
+
+export const getInlineCss = async ({
+  dynamicCssOrder,
+  manifest,
+  h,
+  config,
+  type
+}: {
+  dynamicCssOrder: string[]
+  manifest: Record<string, string|undefined>
+  h: any
+  config: UserConfig
+  type: 'vue3'| 'vue'
+}) => {
+  const { cssInline, isDev } = config
+  if (isDev) return [[], dynamicCssOrder]
+  const cwd = getCwd()
+  const cssOrder = cssInline === 'all' ? dynamicCssOrder : dynamicCssOrder.filter(item => cssInline?.includes(item))
+  const extraInjectCssOrder = cssInline === 'all' ? [] : dynamicCssOrder.filter(item => !cssInline?.includes(item))
+  // eslint-disable-next-line
+  const inlineCssContent = (await Promise.all(cssOrder.map(css => manifest[css]).filter(Boolean).map(css => 
+    promises.readFile(join(cwd, './build', css!)).catch(_ => '')
+  ))).map(item => item.toString())
+
+  return [inlineCssContent.map(item => h('style', type === 'vue' ? {
+    domProps: {
+      innerHTML: item
+    }
+  } : {
+    innerHTML: item
+  })),
+  extraInjectCssOrder
+  ]
 }

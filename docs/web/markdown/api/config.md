@@ -228,6 +228,33 @@ const cssOrder = ['vendor.css', 'common-vendor.css', 'Page.css', 'layout-app.css
 
 具体用法如上参考 `jsOrderPriority`
 
+
+## cssInline
+
+- 类型 `'all'|string[]`
+- 默认 `undefined`
+- 生效场景 `Vue3 + Webpack/Vite`
+
+只在生产环境生效。用于自定义哪些 `cssChunk` 需要被 `style` 标签 `inline`。`cssChunks` 的集合查看 `asset-manifest.json` 获得。需要保证运行时 `path.join(process.cwd(), '${chunkPath}')`的路径存在于本地文件中。当值为 `all` 时，默认所有的 `cssChunk` 都会在运行时內联。
+
+```js
+// asset-manifest.json
+{
+  "index~detail-id.css": "/client/static/index~detail-id.8894e773.chunk.css",
+  "index~detail-id.js": "/client/static/index~detail-id.1fe746c4.chunk.js",
+  "vendor.js": "/client/static/vendor.6bb41bc3.chunk.js",
+  "Page.css": "/client/static/Page.18a19313.chunk.css",
+  "Page.js": "/client/static/Page.13ad4870.chunk.js",
+  "detail-id.css": "/client/static/detail-id.03b9e22b.chunk.css",
+  "detail-id.js": "/client/static/detail-id.e30e8bf6.chunk.js",
+  "detail-id-fetch.js": "/client/static/detail-id-fetch.3af0feb0.chunk.js",
+  "index.css": "/client/static/index.48cc7c95.chunk.css",
+  "index.js": "/client/static/index.71a22404.chunk.js",
+  "index-fetch.js": "/client/static/index-fetch.bf6bd7af.chunk.js",
+  "runtime~Page.js": "/client/static/runtime~Page.e43266a7.js"
+}
+```
+
 ## babelOptions🤔
 
 - 类型: `babelCore.transformOptions`

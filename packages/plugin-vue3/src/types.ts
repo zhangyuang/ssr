@@ -59,4 +59,7 @@ export interface vue3AppParams {
   cssInject: Array<VNode<RendererNode, RendererElement, {
     [key: string]: any
   }>>
+  inlineCss: Array<VNode<RendererNode, RendererElement, {
+    [key: string]: any
+  }>>
 }

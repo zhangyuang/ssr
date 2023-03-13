@@ -2,7 +2,7 @@ import { h, createSSRApp, renderSlot, VNode } from 'vue'
 import {
   findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk,
   getUserScriptVue, remInitial, localStorageWrapper, appLocalStoreageWrapper,
-  checkRoute
+  checkRoute, getInlineCss
 } from 'ssr-common-utils'
 import type { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
@@ -32,7 +32,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     manifest,
     isCsr,
     jsInject,
-    cssInject
+    cssInject,
+    inlineCss
   }: vue3AppParams) => {
     const app = createSSRApp({
       render: function () {
@@ -46,7 +47,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
           innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};${commonInject}`
         }) : h('script', { innerHTML: commonInject })
         const children = h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app })
-        const customeHeadScriptArr: VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3')
+        const customeHeadScriptArr: VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3').concat(inlineCss ?? [])
         const customeFooterScriptArr: VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue3')
 
         return h(Layout,
@@ -91,12 +92,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName, config)
     const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
     const manifest = await getManifest(config)
+    const [inlineCss, extraCssOrder] = await getInlineCss({ dynamicCssOrder, manifest, h, config, type: 'vue3' })
     const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
     const cssInject = ((isVite && isDev) ? [h('script', {
       type: 'module',
       src: '/@vite/client'
-    })] : dynamicCssOrder.map(css => manifest[css]).filter(Boolean).map(css => h('link', {
+    })] : extraCssOrder.map(css => manifest[css]).filter(Boolean).map(css => h('link', {
       rel: 'stylesheet',
       href: css
     }))).concat((isVite && isDev) ? [] : dynamicJsOrder.map(js => manifest[js]).filter(Boolean).map(js => h('link', {
@@ -142,7 +144,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       manifest,
       jsInject,
       cssInject,
-      isCsr
+      isCsr,
+      inlineCss
     })
     app.use(router)
     app.use(store)
