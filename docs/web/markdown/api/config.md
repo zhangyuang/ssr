@@ -235,7 +235,7 @@ const cssOrder = ['vendor.css', 'common-vendor.css', 'Page.css', 'layout-app.css
 - 默认 `undefined`
 - 生效场景 `Vue3 + Webpack/Vite`
 
-只在生产环境生效。用于自定义哪些 `cssChunk` 需要被 `style` 标签 `inline`。`cssChunks` 的集合查看 `asset-manifest.json` 获得。需要保证运行时 `path.join(process.cwd(), '${chunkPath}')`的路径存在于本地文件中。当值为 `all` 时，默认所有的 `cssChunk` 都会在运行时內联。
+只在生产环境生效。用于自定义哪些 `cssChunk` 需要被 `style` 标签 `inline`。`cssChunks` 的集合查看 `asset-manifest.json` 获得。需要保证运行时 `path.join(process.cwd(), './build', '${chunkPath}')`的路径存在于本地文件中。当值为 `all` 时，默认所有的 `cssChunk` 都会在运行时內联。
 
 ```js
 // asset-manifest.json
