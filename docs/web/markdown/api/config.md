@@ -229,7 +229,7 @@ const cssOrder = ['vendor.css', 'common-vendor.css', 'Page.css', 'layout-app.css
 具体用法如上参考 `jsOrderPriority`
 
 
-## cssInline
+## cssInline🤔
 
 - 类型 `'all'|string[]`
 - 默认 `undefined`
