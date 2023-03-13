@@ -1,3 +1,12 @@
+## [6.2.83](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.82...plugin-vue3@6.2.83) (2023-03-13)
+
+
+### Features
+
+* support css inline in vue3 ([e281ddd](https://github.com/zhangyuang/ssr/commit/e281dddf77f12230b7a9e220be0b6fa8129e8c8a))
+
+
+
 ## [6.2.82](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.81...plugin-vue3@6.2.82) (2023-03-08)
 
 
