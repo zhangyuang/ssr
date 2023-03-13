@@ -1,3 +1,17 @@
+## [6.2.74](https://github.com/zhangyuang/ssr/compare/utils@6.2.73...utils@6.2.74) (2023-03-13)
+
+
+### Bug Fixes
+
+* fastify req.path ([b563118](https://github.com/zhangyuang/ssr/commit/b5631184d0054ef12c748f538255d00132e99482))
+
+
+### Features
+
+* support css inline in vue3 ([e281ddd](https://github.com/zhangyuang/ssr/commit/e281dddf77f12230b7a9e220be0b6fa8129e8c8a))
+
+
+
 ## [6.2.73](https://github.com/zhangyuang/ssr/compare/utils@6.2.72...utils@6.2.73) (2023-03-02)
 
 
