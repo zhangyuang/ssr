@@ -1,3 +1,12 @@
+## [6.2.75](https://github.com/zhangyuang/ssr/compare/utils@6.2.74...utils@6.2.75) (2023-03-14)
+
+
+### Features
+
+* support css inline in vue2 ([2bfa82f](https://github.com/zhangyuang/ssr/commit/2bfa82fcb7b5f1183a4479a0d4238f9a8e4fcde5))
+
+
+
 ## [6.2.74](https://github.com/zhangyuang/ssr/compare/utils@6.2.73...utils@6.2.74) (2023-03-13)
 
 
