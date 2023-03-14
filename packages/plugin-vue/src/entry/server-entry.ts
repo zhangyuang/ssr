@@ -1,5 +1,6 @@
 import * as Vue from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial, localStorageWrapper, checkRoute } from 'ssr-common-utils'
+import { h } from 'vue'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial, localStorageWrapper, getInlineCss, checkRoute } from 'ssr-common-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
 import { createRenderer } from 'vue-server-renderer'
@@ -24,7 +25,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName, config)
     const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
     const manifest = await getManifest(config)
-
+    const [inlineCss, extraCssOrder] = await getInlineCss({ dynamicCssOrder, manifest, h, config, type: 'vue' })
     const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
     let [layoutFetchData, fetchData] = [{}, {}]
@@ -51,7 +52,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
             type: 'module',
             src: '/@vite/client'
           }
-        })] : dynamicCssOrder.map(css => manifest[css]).filter(Boolean).map(css => h('link', {
+        })] : extraCssOrder.map(css => manifest[css]).filter(Boolean).map(css => h('link', {
           attrs: {
             rel: 'stylesheet',
             href: css
@@ -69,7 +70,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
           }
         }))
 
-        const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue')
+        const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue').concat(inlineCss)
         const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue')
         const initialData = isCsr ? h('script', {
           domProps: {

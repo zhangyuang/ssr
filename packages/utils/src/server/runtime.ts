@@ -1,5 +1,5 @@
 import { promises } from 'fs'
-import { join } from 'path'
+import { join, isAbsolute } from 'path'
 import type { UserConfig, ISSRContext, IConfig, ISSRNestContext, FastifyContext } from 'ssr-types'
 import { getCwd } from './cwd'
 
@@ -24,7 +24,7 @@ const readAsyncChunk = async (config: IConfig): Promise<Record<string, string>> 
     return {}
   }
 }
-const addAsyncChunk = async (webpackChunkName: string, config: IConfig, type: 'css'|'js') => {
+const addAsyncChunk = async (webpackChunkName: string, config: IConfig, type: 'css' | 'js') => {
   const arr = []
   const asyncChunkMap = await readAsyncChunk(config)
   for (const key in asyncChunkMap) {
@@ -71,7 +71,7 @@ export const getAsyncJsChunk = async (ctx: ISSRContext, webpackChunkName: string
   return combineOrder
 }
 
-export const getUserScriptVue = (script: UserConfig['customeHeadScript'], ctx: ISSRContext, h: any, type: 'vue3'| 'vue') => {
+export const getUserScriptVue = (script: UserConfig['customeHeadScript'], ctx: ISSRContext, h: any, type: 'vue3' | 'vue') => {
   if (!script) {
     return []
   }
@@ -93,10 +93,10 @@ export const getInlineCss = async ({
   type
 }: {
   dynamicCssOrder: string[]
-  manifest: Record<string, string|undefined>
+  manifest: Record<string, string | undefined>
   h: any
   config: UserConfig
-  type: 'vue3'| 'vue'
+  type: 'vue3' | 'vue'
 }) => {
   const { cssInline, isDev } = config
   if (isDev) return [[], dynamicCssOrder]
@@ -104,8 +104,8 @@ export const getInlineCss = async ({
   const cssOrder = cssInline === 'all' ? dynamicCssOrder : dynamicCssOrder.filter(item => cssInline?.includes(item))
   const extraInjectCssOrder = cssInline === 'all' ? [] : dynamicCssOrder.filter(item => !cssInline?.includes(item))
   // eslint-disable-next-line
-  const inlineCssContent = (await Promise.all(cssOrder.map(css => manifest[css]).filter(Boolean).map(css => 
-    promises.readFile(join(cwd, './build', css!)).catch(_ => '')
+  const inlineCssContent = (await Promise.all(cssOrder.map(css => manifest[css]).filter(Boolean).map(css =>
+    promises.readFile(isAbsolute(css!) ? css! : join(cwd, './build', css!)).catch(_ => '')
   ))).map(item => item.toString())
 
   return [inlineCssContent.map(item => h('style', type === 'vue' ? {
