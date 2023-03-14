@@ -1,3 +1,18 @@
+## [6.2.50](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.49...plugin-vue@6.2.50) (2023-03-14)
+
+
+### Bug Fixes
+
+* fastify req.path ([b563118](https://github.com/zhangyuang/ssr/commit/b5631184d0054ef12c748f538255d00132e99482))
+
+
+### Features
+
+* support css inline in vue2 ([2bfa82f](https://github.com/zhangyuang/ssr/commit/2bfa82fcb7b5f1183a4479a0d4238f9a8e4fcde5))
+* support css inline in vue3 ([e281ddd](https://github.com/zhangyuang/ssr/commit/e281dddf77f12230b7a9e220be0b6fa8129e8c8a))
+
+
+
 ## [6.2.49](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.48...plugin-vue@6.2.49) (2023-03-02)
 
 
