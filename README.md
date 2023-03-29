@@ -279,7 +279,7 @@ $ yarn start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
 [ssr-webpack]: https://github.com/zhangyuang/ssr/tree/dev/packages/webpack
 ## CONTRIBUTING
 
-如果你想为本应用贡献代码，请阅读[贡献文档](./CONTRIBUTING.md)，我们为你准备了丰富的脚本用于 bootstrap
+如果你想为本应用贡献代码，请阅读[贡献文档](./CONTRIBUTING.md)，我们为你准备了丰富的脚本用于 bootstrap 
 
 ## License
 
