@@ -67,6 +67,31 @@ $ tree ./ -I node_modules -L 3
 ### 嵌套路由
 
 约定式路由不支持生成嵌套路由也就是 `children` 子结构。虽然支持嵌套路由并不难，但这会让规范变得复杂。特别是获取数据这一块，且嵌套路由用业务代码实现是非常简单的事情。在 `React` 中直接手动引入 `Router` 来实现即可。在 `Vue` 中需要手动填写 `children` 字段。如果不支持嵌套路由的 `fetch`， 那么非常容易实现，但是意义不大开发者直接在业务代码中实现即可，如果要支持嵌套路由的 `fetch` 那么会让规范变得复杂。例如需要在框架层面让 `render$child$foo.vue` 对应 `fetch$child$foo.ts` 文件。这非常的 `dirty`，所以并不打算支持嵌套路由。
+
+### 手动编写嵌套路由
+
+在 `Vue2/3` 场景下由于底层的 `vue-router` 支持了嵌套路由的书写规范。所以在这里 `ssr` 框架层也支持了手动编写嵌套路由并且能够正确的在服务端匹配渲染的能力。这里的 `children` 字段与 `vue-router` 官方的用法保持一致。`webpackChunkName` 的编写规范与下文提到的手动路由编写规范的注意事项保持一致
+
+```js
+// web/route.ts
+export const FeRoutes = [
+  {
+    fetch: async () => await import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch'),
+    path: '/detail',
+    component: async () => await import(/* webpackChunkName: "detail-id" */ '@/pages/detail/detail.vue'),
+    webpackChunkName: 'detail',
+    children: [
+      {
+        path: 'foo', // 将会匹配 /detail/foo 的请求地址
+        fetch: async () => await import(/* webpackChunkName: "detail-foo-fetch" */ '@/pages/detail/detail-fetch'),
+        component: async () => await import(/* webpackChunkName: "detail-foo" */ '@/pages/detail/foo.vue'),
+        webpackChunkName: 'detail-foo'
+      }
+    ]
+  }
+]
+
+```
 ### 实现代码
 
 具体的实现代码可以查看该[文件](https://github.com/zhangyuang/ssr/blob/dev/packages/utils/server/src/parse.ts#L26)
@@ -75,7 +100,10 @@ $ tree ./ -I node_modules -L 3
 
 尽管我们不建议开发者来手动编写路由结构，但如果你一定要这么做的话，我们提供以下示例。
 
-`注: web/route.ts 将会被编译为 build/ssr-manual-route.js 文件，所以不要在路由文件中使用相对路径引入其他模块，否则将会无法正确识别路径`
+注意事项
+
+- `web/route.ts` 将会被编译为 build/ssr-manual-route.js 文件，所以不要在路由文件中使用相对路径引入其他模块，否则将会无法正确识别路径
+- `webpackChunkName` 字段和 `import(/* webpackChunkName: "detail-id" */)` 是 `Webpack/Vite` 构建工具打包时所必须要使用的标识符。所以在手动编写路由结构时请务必正确的填写它们。保证不同页面组件的 `webpackChunkName` 不会重复。
 
 ```js
 // web/route.ts

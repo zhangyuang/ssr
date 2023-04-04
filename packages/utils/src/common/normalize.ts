@@ -43,8 +43,20 @@ export const combineRoutes = (declareRoutes: any, manualRoutes: any): any => {
         combineRoutes.push(route)
       }
     })
+    updateChildPath(combineRoutes, null)
     Routes.FeRoutes = combineRoutes
   }
   return Routes
+}
 
+const updateChildPath = (routes: ReactRoutesType['FeRoutes'], parentpath: string|null) => {
+  routes.forEach(route => {
+    const { path } = route
+    if (parentpath) {
+      route.childPath = path.startsWith('/') ? `${parentpath}${path}` : `${parentpath}/${path}`
+    }
+    if (route.children) {
+      updateChildPath(route.children, path)
+    }
+  })
 }

@@ -28,9 +28,9 @@ function matchPath (pathname, options = {}) {
     options = { path: options }
   }
 
-  const { path, exact = false, strict = false, sensitive = false } = options
+  const { path, exact = false, strict = false, sensitive = false, childPath } = options
 
-  const paths = [].concat(path)
+  const paths = [].concat(childPath || path)
 
   return paths.reduce((matched, path) => {
     if (!path && path !== '') return null
@@ -62,9 +62,11 @@ function matchPath (pathname, options = {}) {
   }, null)
 }
 
-function findRoute<T extends {path: string}> (Routes: T[], path: string): T {
+function findRoute<T extends {path: string, childPath?: string, children?: []}> (Routes: T[], path: string): T {
   // 根据请求的path来匹配到对应的Component
-  const route = Routes.find(route => matchPath(path, route) && matchPath(path, route).isExact)
+  const route = Routes.find(route => {
+    return route.children ? findRoute(route.children, path) : matchPath(path, route)?.isExact
+  })
   return route
 }
 

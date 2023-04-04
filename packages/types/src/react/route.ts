@@ -70,13 +70,16 @@ export interface DynamicFC<T = {}> extends React.FC<T>{
 
 export type ReactESMFeRouteItem<T = {}, U={}> = {
   path: string
+  childPath?: string
   fetch?: ReactESMFetch
   component: DynamicFC<T>
   webpackChunkName: string
+  children?: Array<ReactESMFeRouteItem<T, U>>
 } & U
 
 export type ReactESMPreloadFeRouteItem<T = {}, U={}> = {
   path: string
+  childPath?: string
   fetch?: ReactESMFetch
   component: DynamicFC<T> | StaticFC<T>
   webpackChunkName: string
