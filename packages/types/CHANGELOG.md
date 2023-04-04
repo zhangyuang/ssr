@@ -1,3 +1,13 @@
+## [6.2.43](https://github.com/zhangyuang/ssr/compare/types@6.2.42...types@6.2.43) (2023-04-04)
+
+
+### Features
+
+* support css inline in vue2 ([2bfa82f](https://github.com/zhangyuang/ssr/commit/2bfa82fcb7b5f1183a4479a0d4238f9a8e4fcde5))
+* support nested routes for vue close [#277](https://github.com/zhangyuang/ssr/issues/277) ([5ff584d](https://github.com/zhangyuang/ssr/commit/5ff584d7d6fca15655a8cd32fed8dfd8e206f86a))
+
+
+
 ## [6.2.42](https://github.com/zhangyuang/ssr/compare/types@6.2.41...types@6.2.42) (2023-03-13)
 
 
