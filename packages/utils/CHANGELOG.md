@@ -1,3 +1,12 @@
+## [6.2.76](https://github.com/zhangyuang/ssr/compare/utils@6.2.75...utils@6.2.76) (2023-04-04)
+
+
+### Features
+
+* support nested routes for vue close [#277](https://github.com/zhangyuang/ssr/issues/277) ([5ff584d](https://github.com/zhangyuang/ssr/commit/5ff584d7d6fca15655a8cd32fed8dfd8e206f86a))
+
+
+
 ## [6.2.75](https://github.com/zhangyuang/ssr/compare/utils@6.2.74...utils@6.2.75) (2023-03-14)
 
 
