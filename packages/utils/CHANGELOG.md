@@ -1,3 +1,12 @@
+## [6.2.77](https://github.com/zhangyuang/ssr/compare/utils@6.2.76...utils@6.2.77) (2023-04-09)
+
+
+### Bug Fixes
+
+* development filenamepath ([838d492](https://github.com/zhangyuang/ssr/commit/838d4927afb128dbb2a6057a4b5cc1e16ce031a5))
+
+
+
 ## [6.2.76](https://github.com/zhangyuang/ssr/compare/utils@6.2.75...utils@6.2.76) (2023-04-04)
 
 
