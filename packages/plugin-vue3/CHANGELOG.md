@@ -1,3 +1,19 @@
+## [6.2.84](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.83...plugin-vue3@6.2.84) (2023-04-09)
+
+
+### Bug Fixes
+
+* development filenamepath ([838d492](https://github.com/zhangyuang/ssr/commit/838d4927afb128dbb2a6057a4b5cc1e16ce031a5))
+
+
+### Features
+
+* inject manifest in window when use vue3 ([01937f5](https://github.com/zhangyuang/ssr/commit/01937f5539164635558a2e88534a0eb13f2a4666))
+* support css inline in vue2 ([2bfa82f](https://github.com/zhangyuang/ssr/commit/2bfa82fcb7b5f1183a4479a0d4238f9a8e4fcde5))
+* support nested routes for vue close [#277](https://github.com/zhangyuang/ssr/issues/277) ([5ff584d](https://github.com/zhangyuang/ssr/commit/5ff584d7d6fca15655a8cd32fed8dfd8e206f86a))
+
+
+
 ## [6.2.83](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.82...plugin-vue3@6.2.83) (2023-03-13)
 
 
