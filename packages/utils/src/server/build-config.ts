@@ -4,7 +4,7 @@ export const getBuildConfig = () => {
   const { useHash, assetsDir, isVite } = loadConfig()
   const output = {
     chunkFileName: useHash ? `${assetsDir}/[name].[contenthash:8].chunk.js` : `${assetsDir}/[name].chunk.js`,
-    fileName: useHash ? `${assetsDir}/[name].[contenthash:8].js` : `${assetsDir}[name].js`,
+    fileName: useHash ? `${assetsDir}/[name].[contenthash:8].js` : `${assetsDir}/[name].js`,
     cssfileName: useHash ? `${assetsDir}/[name].[contenthash:8].css` : `${assetsDir}/[name].css`,
     cssChunkFilename: useHash ? `${assetsDir}/[name].[contenthash:8].chunk.css` : `${assetsDir}/[name].chunk.css`
   }
