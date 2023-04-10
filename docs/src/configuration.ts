@@ -16,11 +16,10 @@ export class ContainerLifeCycle {
   @App()
   app: koa.Application
 
-  async onReady () {
-    this.app.use(koaStatic(join(cwd, './build')))
-    this.app.use(koaStatic(join(cwd, './public')))
-    this.app.use(koaStatic(join(cwd, './build/client')))
-
+  async onReady() {
+    this.app.use(koaStatic(join(cwd, './build'), { maxAge: 864000 }))
+    this.app.use(koaStatic(join(cwd, './public'), { maxAge: 864000 }))
+    this.app.use(koaStatic(join(cwd, './build/client'), { maxAge: 864000 }))
     await initialSSRDevProxy(this.app)
   }
 }
