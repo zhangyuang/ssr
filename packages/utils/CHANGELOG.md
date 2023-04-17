@@ -1,3 +1,14 @@
+## [6.2.78](https://github.com/zhangyuang/ssr/compare/utils@6.2.77...utils@6.2.78) (2023-04-17)
+
+
+### Features
+
+* add maxAge in koa-static-cache ([6fb953a](https://github.com/zhangyuang/ssr/commit/6fb953a4acae78c33275004474251427ae3b24c3))
+* inject manifest in window when use vue3 ([01937f5](https://github.com/zhangyuang/ssr/commit/01937f5539164635558a2e88534a0eb13f2a4666))
+* support config.rootId close [#280](https://github.com/zhangyuang/ssr/issues/280) ([107ee58](https://github.com/zhangyuang/ssr/commit/107ee5879ff8313ca890f35012ac3334f7986ba2))
+
+
+
 ## [6.2.77](https://github.com/zhangyuang/ssr/compare/utils@6.2.76...utils@6.2.77) (2023-04-09)
 
 
