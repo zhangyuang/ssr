@@ -169,6 +169,7 @@ const loadConfig = (): IConfig => {
     /ssr-hoc-react/, /ssr-hoc-vue3/, /ssr-hoc-react18/
   ]
   const getOutput = () => {}
+  const rootId = '#app'
   const config = Object.assign({}, {
     chainBaseConfig,
     chainServerConfig,
@@ -209,7 +210,8 @@ const loadConfig = (): IConfig => {
     optimize,
     writeDebounceTime,
     dynamicFile,
-    babelExtraModule
+    babelExtraModule,
+    rootId
   }, userConfig)
 
   config.getOutput = () => ({

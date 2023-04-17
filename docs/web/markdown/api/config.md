@@ -48,6 +48,14 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 标志当前运行环境，根据 `NODE_ENV === development` 判断
 
+## rootId🤔️
+
+- 类型: `string`
+- 默认: `#app`
+- 生效场景: `Webpack/Vite + Vue2/3 + React17/18` 
+
+设置应用的根节点的 `id` 以 `#` 号开头, `React` 场景使用需要额外手动修改 `layout/index.tsx` 中的 `<div id="app">` 修改为指定节点
+ 
 ## assetsDir🤔
 
 - 类型: `string`

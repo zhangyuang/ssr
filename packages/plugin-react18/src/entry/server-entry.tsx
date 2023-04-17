@@ -12,7 +12,7 @@ import { Routes } from './create-router'
 const { FeRoutes, layoutFetch, state, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, onError, onReady } = config
+  const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, onError, onReady, rootId } = config
   const rawPath = ctx.request.path ?? ctx.request.url
   const path = normalizePath(rawPath, prefix)
   const routeItem = findRoute<ReactESMPreloadFeRouteItem>(FeRoutes, path)
@@ -61,10 +61,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       const CF = currentFetch ? currentFetch({ ctx }) : Promise.resolve({});
       [layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
     }
-
+    const ssrDevInfo = { manifest, rootId }
     const combineData = isCsr ? null : Object.assign(state ?? {}, layoutFetchData ?? {}, fetchData ?? {})
-    const injectState = isCsr ? <script dangerouslySetInnerHTML={{ __html: `window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}` }} /> : <script dangerouslySetInnerHTML={{
-      __html: `window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}`
+    const injectState = isCsr ? <script dangerouslySetInnerHTML={{ __html: `window.ssrDevInfo=${JSON.stringify(ssrDevInfo)};window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}` }} /> : <script dangerouslySetInnerHTML={{
+      __html: `window.ssrDevInfo=${JSON.stringify(ssrDevInfo)};window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}`
     }} />
     // with jsx type error, use createElement here
     // @ts-expect-error

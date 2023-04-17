@@ -15,7 +15,7 @@ import { IFeRouteItem, vue3AppParams } from '../types'
 const { FeRoutes, App, layoutFetch, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https } = config
+  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https, rootId } = config
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
@@ -33,11 +33,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     isCsr,
     jsInject,
     cssInject,
-    inlineCss
+    inlineCss,
+    rootId
   }: vue3AppParams) => {
     const app = createSSRApp({
       render: function () {
-        const ssrDevInfo = { manifest, fePort: isDev ? fePort : '', https: isDev ? https : '' }
+        const ssrDevInfo = { manifest, rootId, fePort: isDev ? fePort : '', https: isDev ? https : '' }
         const commonInject = `window.__USE_VITE__=${isVite}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}"` : ''};window.ssrDevInfo=${JSON.stringify(ssrDevInfo)}`
         const initialData = !isCsr ? h('script', {
           innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};${commonInject}`
@@ -70,7 +71,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
             content: () => [
               h('div', {
-                id: 'app'
+                id: rootId.replace('#', '')
               }, renderSlot(this.$slots, 'default', {}, () => [children])),
               initialData,
               customeFooterScriptArr,
@@ -141,7 +142,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       jsInject,
       cssInject,
       isCsr,
-      inlineCss
+      inlineCss,
+      rootId
     })
     app.use(router)
     app.use(store)

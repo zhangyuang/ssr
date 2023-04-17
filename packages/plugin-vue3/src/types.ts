@@ -47,6 +47,7 @@ export interface VueRouterOptions {
 }
 
 export interface vue3AppParams {
+  rootId: string
   combineAysncData: any
   state: any
   layoutFetchData: any

@@ -32,6 +32,7 @@ export type Script = Array<{
 export type Json = string | number | boolean | { [key: string]: Json }
 
 export interface IConfig {
+  rootId: string
   cwd: string
   alias?: Record<string, string>
   isDev: boolean

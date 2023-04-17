@@ -12,7 +12,7 @@ const { renderToStream, renderToString } = createRenderer()
 const { FeRoutes, App, layoutFetch, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix, stream } = config
+  const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix, stream, rootId } = config
   const router = createRouter()
   const store = createStore()
   const fn = async () => {
@@ -42,6 +42,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
     const combineAysncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
     const state = Object.assign({}, store.state ?? {}, combineAysncData)
+    const ssrDevInfo = { manifest, rootId }
     // @ts-expect-error
     const app = new Vue({
       router,
@@ -74,16 +75,16 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue')
         const initialData = isCsr ? h('script', {
           domProps: {
-            innerHTML: `window.__USE_VITE__=${isVite}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}"` : ''}`
+            innerHTML: `window.ssrDevInfo=${JSON.stringify(ssrDevInfo)};window.__USE_VITE__=${isVite}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}"` : ''}`
           }
         }) : h('script', {
           domProps: {
-            innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ;${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}`
+            innerHTML: `window.ssrDevInfo=${JSON.stringify(ssrDevInfo)};window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ;${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}`
           }
         })
         const children = h('div', {
           attrs: {
-            id: 'app'
+            id: rootId.replace('#', '')
           }
         }, [h(App, {
           props: { ctx, config, fetchData: combineAysncData, asyncData: { value: combineAysncData }, reactiveFetchData: { value: combineAysncData } }

@@ -8,6 +8,7 @@ interface IWindow {
   clientPrefix?: string
   microApp?: any
   hashRouter: boolean
+  ssrDevInfo: any
 }
 
 declare global {

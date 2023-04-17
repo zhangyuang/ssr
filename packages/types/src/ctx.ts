@@ -45,4 +45,10 @@ export interface IWindow {
   clientPrefix?: string
   microApp?: any
   hashRouter: boolean
+  ssrDevInfo: {
+    manifest: Record<string, string>
+    rootId: string
+    fePort?: number
+    https?: boolean
+  }
 }
