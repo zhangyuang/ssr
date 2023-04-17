@@ -40,7 +40,7 @@ const clientRender = async (): Promise<void> => {
             })
           }))))
     }))
-    , document.querySelector(window.ssrDevInfo.rootId))
+    , document.querySelector(window.ssrDevInfo.rootId ?? '#app'))
   if (!window.__USE_VITE__) {
     (module as any)?.hot?.accept?.()
   }

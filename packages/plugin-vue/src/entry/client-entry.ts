@@ -74,7 +74,7 @@ const clientRender = async () => {
   })
 
   router.onReady(() => {
-    app.$mount(window.ssrDevInfo.rootId, !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
+    app.$mount(window.ssrDevInfo.rootId ?? '#app', !!window.__USE_SSR__) // 这里需要做判断 ssr/csr 来为 true/false
   })
 }
 

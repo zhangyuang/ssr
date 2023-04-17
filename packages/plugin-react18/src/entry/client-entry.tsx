@@ -19,7 +19,7 @@ const clientRender = async (): Promise<void> => {
   // 客户端渲染||hydrate
   const baseName = isMicro() ? window.clientPrefix : window.prefix
   const routes = await preloadComponent(FeRoutes, baseName)
-  const container = document.querySelector(window.ssrDevInfo.rootId)!
+  const container = document.querySelector(window.ssrDevInfo.rootId ?? '#app')!
   const ele = createElement(BrowserRouter as any, {
     basename: baseName
   }, createElement(AppContext as any, {
