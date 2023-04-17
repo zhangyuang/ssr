@@ -1,3 +1,13 @@
+## [6.2.85](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.84...plugin-vue3@6.2.85) (2023-04-17)
+
+
+### Features
+
+* add maxAge in koa-static-cache ([6fb953a](https://github.com/zhangyuang/ssr/commit/6fb953a4acae78c33275004474251427ae3b24c3))
+* support config.rootId close [#280](https://github.com/zhangyuang/ssr/issues/280) ([107ee58](https://github.com/zhangyuang/ssr/commit/107ee5879ff8313ca890f35012ac3334f7986ba2))
+
+
+
 ## [6.2.84](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.83...plugin-vue3@6.2.84) (2023-04-09)
 
 
