@@ -1,3 +1,12 @@
+## [6.2.86](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.85...plugin-vue3@6.2.86) (2023-04-17)
+
+
+### Features
+
+* compatible with old versions ([0cd8b1c](https://github.com/zhangyuang/ssr/commit/0cd8b1cf0fbcc10a3fc9e54715e25d6ee3fbb174))
+
+
+
 ## [6.2.85](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.84...plugin-vue3@6.2.85) (2023-04-17)
 
 
