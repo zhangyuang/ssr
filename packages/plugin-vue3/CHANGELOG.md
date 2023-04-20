@@ -1,3 +1,12 @@
+## [6.2.87](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.86...plugin-vue3@6.2.87) (2023-04-20)
+
+
+### Features
+
+* support inject process.env.XXX in bundle ([a403a28](https://github.com/zhangyuang/ssr/commit/a403a28b8cc6dbe43d5e9b6c6d34dade5b76803f))
+
+
+
 ## [6.2.86](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.85...plugin-vue3@6.2.86) (2023-04-17)
 
 
