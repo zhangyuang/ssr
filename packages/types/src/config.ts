@@ -29,7 +29,7 @@ export type Script = Array<{
   content?: string
 }>
 
-export type Json = string | number | boolean | { [key: string]: Json }
+export type Json = string | number | boolean | { [key: string]: Json } | undefined
 
 export interface IConfig {
   rootId: string

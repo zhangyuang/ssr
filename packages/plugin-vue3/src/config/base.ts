@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getCwd, loadConfig, setStyle, addImageChain, loadModuleFromFramework, logErr, getBuildConfig } from 'ssr-common-utils'
+import { getCwd, loadConfig, setStyle, addImageChain, loadModuleFromFramework, logErr, getBuildConfig, getDefineEnv } from 'ssr-common-utils'
 import * as webpack from 'webpack'
 import * as WebpackChain from 'webpack-chain'
 
@@ -205,7 +205,9 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     name: isServer ? 'server' : 'client',
     color: isServer ? '#f173ac' : '#45b97c'
   }))
+
   chain.plugin('ssrDefine').use(webpack.DefinePlugin, [{
+    ...getDefineEnv(),
     ...process.env,
     __isBrowser__: !isServer,
     __VUE_OPTIONS_API__: true,

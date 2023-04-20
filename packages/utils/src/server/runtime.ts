@@ -1,7 +1,7 @@
 import { promises } from 'fs'
 import { join, isAbsolute } from 'path'
 import type { UserConfig, ISSRContext, IConfig, ISSRNestContext, FastifyContext } from 'ssr-types'
-import { getCwd } from './cwd'
+import { getCwd, stringifyDefine } from './cwd'
 
 export const setHeader = (ctx: ISSRContext, serverFrameWork: string) => {
   if (serverFrameWork === 'ssr-plugin-midway') {
@@ -44,6 +44,14 @@ export const nomalrizeOrder = (order: UserConfig['extraJsOrder'], ctx: ISSRConte
   } else {
     return order(ctx)
   }
+}
+export const getDefineEnv = () => {
+  const envObject: Record<string, string|undefined> = {}
+  Object.keys(process.env).forEach(key => {
+    envObject[`process.env.${key}`] = process.env[key]
+  })
+  stringifyDefine(envObject)
+  return envObject
 }
 
 export const getAsyncCssChunk = async (ctx: ISSRContext, webpackChunkName: string, config: IConfig): Promise<string[]> => {

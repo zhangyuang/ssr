@@ -1,7 +1,8 @@
 import { build, UserConfig } from 'vite'
 import {
   loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin,
-  commonConfig, asyncOptimizeChunkPlugin, getOutputPublicPath, getBabelOptions
+  commonConfig, asyncOptimizeChunkPlugin, getOutputPublicPath, getBabelOptions,
+  getDefineEnv
 } from 'ssr-common-utils'
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJSXPlugin from '@vitejs/plugin-vue-jsx'
@@ -62,6 +63,7 @@ const serverConfig: UserConfig = {
     }
   },
   define: {
+    ...getDefineEnv(),
     ...viteConfig?.().server?.otherConfig?.define,
     __isBrowser__: false,
     ...define?.base,
@@ -96,6 +98,7 @@ const clientConfig: UserConfig = {
     }
   },
   define: {
+    ...getDefineEnv(),
     ...viteConfig?.().client?.otherConfig?.define,
     __isBrowser__: true,
     ...define?.base,
