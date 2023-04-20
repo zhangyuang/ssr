@@ -1,3 +1,13 @@
+## [6.2.79](https://github.com/zhangyuang/ssr/compare/utils@6.2.78...utils@6.2.79) (2023-04-20)
+
+
+### Features
+
+* compatible with old versions ([0cd8b1c](https://github.com/zhangyuang/ssr/commit/0cd8b1cf0fbcc10a3fc9e54715e25d6ee3fbb174))
+* support inject process.env.XXX in bundle ([a403a28](https://github.com/zhangyuang/ssr/commit/a403a28b8cc6dbe43d5e9b6c6d34dade5b76803f))
+
+
+
 ## [6.2.78](https://github.com/zhangyuang/ssr/compare/utils@6.2.77...utils@6.2.78) (2023-04-17)
 
 
