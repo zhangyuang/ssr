@@ -48,7 +48,9 @@ export const nomalrizeOrder = (order: UserConfig['extraJsOrder'], ctx: ISSRConte
 export const getDefineEnv = () => {
   const envObject: Record<string, string|undefined> = {}
   Object.keys(process.env).forEach(key => {
-    envObject[`process.env.${key}`] = process.env[key]
+    if (!(key.includes('(') || key.includes(')'))) {
+      envObject[`process.env.${key}`] = process.env[key]
+    }
   })
   stringifyDefine(envObject)
   return envObject
