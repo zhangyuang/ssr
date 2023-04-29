@@ -1,3 +1,12 @@
+## [6.2.80](https://github.com/zhangyuang/ssr/compare/utils@6.2.79...utils@6.2.80) (2023-04-29)
+
+
+### Bug Fixes
+
+* define in windows vite ([7ed50d0](https://github.com/zhangyuang/ssr/commit/7ed50d02679d91967459092fc92db64f2db9b446))
+
+
+
 ## [6.2.79](https://github.com/zhangyuang/ssr/compare/utils@6.2.78...utils@6.2.79) (2023-04-20)
 
 
