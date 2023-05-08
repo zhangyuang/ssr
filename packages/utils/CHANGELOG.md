@@ -1,3 +1,12 @@
+## [6.2.81](https://github.com/zhangyuang/ssr/compare/utils@6.2.80...utils@6.2.81) (2023-05-08)
+
+
+### Bug Fixes
+
+* validate process.env ([ec46249](https://github.com/zhangyuang/ssr/commit/ec46249d65133587ec870732613f24fc94e6e683))
+
+
+
 ## [6.2.80](https://github.com/zhangyuang/ssr/compare/utils@6.2.79...utils@6.2.80) (2023-04-29)
 
 
