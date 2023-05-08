@@ -45,10 +45,13 @@ export const nomalrizeOrder = (order: UserConfig['extraJsOrder'], ctx: ISSRConte
     return order(ctx)
   }
 }
+
+const envVarRegex = /^[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*$/
+
 export const getDefineEnv = () => {
   const envObject: Record<string, string|undefined> = {}
   Object.keys(process.env).forEach(key => {
-    if (!(key.includes('(') || key.includes(')'))) {
+    if (envVarRegex.test(key)) {
       envObject[`process.env.${key}`] = process.env[key]
     }
   })
