@@ -2,7 +2,7 @@ import { h, createSSRApp, renderSlot, VNode } from 'vue'
 import {
   findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk,
   getUserScriptVue, remInitial, localStorageWrapper, appLocalStoreageWrapper,
-  checkRoute, getInlineCss, generateHeadHtml
+  checkRoute, getInlineCss
 } from 'ssr-common-utils'
 import type { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
@@ -15,7 +15,7 @@ import { IFeRouteItem, vue3AppParams } from '../types'
 const { FeRoutes, App, layoutFetch, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https, rootId } = config
+  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https, rootId, isHead } = config
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
@@ -54,15 +54,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
             customeHeadScript: () => customeHeadScriptArr,
 
-            customeFooterScript: () => customeFooterScriptArr,
+            customeFooterScript: () => isHead ? [] : customeFooterScriptArr,
 
-            children: () => children,
+            children: () => isHead ? '' : children,
 
-            initialData: () => initialData,
+            initialData: () => isHead ? '' : initialData,
 
             cssInject: () => cssInject,
 
-            jsInject: () => jsInject,
+            jsInject: () => isHead ? '' : jsInject,
 
             injectHeader: () => [
               customeHeadScriptArr,
@@ -117,11 +117,14 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     if (!isCsr) {
       router.push(url)
       await router.isReady()
-      const currentFetch = fetch ? (await fetch()).default : null
-      const { value } = router.currentRoute
-      const lF = layoutFetch ? layoutFetch({ store, router: value, ctx, pinia }, ctx) : Promise.resolve({})
-      const CF = currentFetch ? currentFetch({ store, router: value, ctx, pinia }, ctx) : Promise.resolve({});
-      [layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
+      // not fetch when generate <head>
+      if (!isHead) {
+        const currentFetch = fetch ? (await fetch()).default : null
+        const { value } = router.currentRoute
+        const lF = layoutFetch ? layoutFetch({ store, router: value, ctx, pinia }, ctx) : Promise.resolve({})
+        const CF = currentFetch ? currentFetch({ store, router: value, ctx, pinia }, ctx) : Promise.resolve({});
+        [layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
+      }
     } else {
       logGreen(`Current path ${path} use csr render mode`)
     }
@@ -174,23 +177,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   return res
 }
 
-const headRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { prefix, customeHeadScript } = config
-  const rawPath = ctx.request.path ?? ctx.request.url
-  const path = normalizePath(rawPath, prefix)
-  const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
-  checkRoute({ routeItem, path })
-  const { webpackChunkName } = routeItem
-  const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName, config)
-  const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
-
-  const manifest = await getManifest(config)
-
-  return generateHeadHtml({ ctx, config, manifest, dynamicCssOrder, dynamicJsOrder, customeHeadScript, type: 'vue3' })
-}
-
 export {
   serverRender,
-  Routes,
-  headRender
+  Routes
 }

@@ -1,6 +1,6 @@
 import * as Vue from 'vue'
 import { h } from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial, localStorageWrapper, getInlineCss, checkRoute, generateHeadHtml } from 'ssr-common-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial, localStorageWrapper, getInlineCss, checkRoute } from 'ssr-common-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
 import { createRenderer } from 'vue-server-renderer'
@@ -12,7 +12,7 @@ const { renderToStream, renderToString } = createRenderer()
 const { FeRoutes, App, layoutFetch, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix, stream, rootId } = config
+  const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix, stream, rootId, isHead } = config
   const router = createRouter()
   const store = createStore()
   const fn = async () => {
@@ -32,10 +32,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
     if (!isCsr) {
       router.push(url)
-      const currentFetch = fetch ? (await fetch()).default : null
-      const lF = layoutFetch ? layoutFetch({ store, router: router.currentRoute, ctx }, ctx) : Promise.resolve({})
-      const CF = currentFetch ? currentFetch({ store, router: router.currentRoute, ctx }, ctx) : Promise.resolve({});
-      [layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
+      // not fetch when generate <head>
+      if (!isHead) {
+        const currentFetch = fetch ? (await fetch()).default : null
+        const lF = layoutFetch ? layoutFetch({ store, router: router.currentRoute, ctx }, ctx) : Promise.resolve({})
+        const CF = currentFetch ? currentFetch({ store, router: router.currentRoute, ctx }, ctx) : Promise.resolve({});
+        [layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
+      }
     } else {
       logGreen(`Current path ${path} use csr render mode`)
     }
@@ -108,17 +111,17 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
             }, customeHeadScriptArr),
             h('template', {
               slot: 'customeFooterScript'
-            }, customeFooterScriptArr),
+            }, isHead ? [] : customeFooterScriptArr),
 
             h('template', {
               slot: 'children'
-            }, [
+            }, isHead ? [] : [
               children
             ]),
 
             h('template', {
               slot: 'initialData'
-            }, [
+            }, isHead ? [] : [
               initialData
             ]),
 
@@ -128,7 +131,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
             h('template', {
               slot: 'jsInject'
-            }, injectScript),
+            }, isHead ? '' : injectScript),
 
             h('template', {
               slot: 'injectHeader'
@@ -139,7 +142,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
             h('template', {
               slot: 'content'
-            }, [
+            }, isHead ? [] : [
               children,
               initialData,
               customeFooterScriptArr,
@@ -157,23 +160,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   return res
 }
 
-const headRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { prefix, customeHeadScript } = config
-  const rawPath = ctx.request.path ?? ctx.request.url
-  const path = normalizePath(rawPath, prefix)
-  const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
-  checkRoute({ routeItem, path })
-  const { webpackChunkName } = routeItem
-  const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName, config)
-  const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
-
-  const manifest = await getManifest(config)
-
-  return generateHeadHtml({ ctx, config, manifest, dynamicCssOrder, dynamicJsOrder, customeHeadScript, type: 'vue' })
-}
-
 export {
   serverRender,
-  Routes,
-  headRender
+  Routes
 }

@@ -797,6 +797,13 @@ type viteConfig?: () => {
 
 作为 `ssr build --html` 的构建模版，开发者可自行设置 `title, meta` 等标签信息，其余模版插入内容请不要修改保持不变。
 
+## isHead🤔
+- 类型 `boolean`
+- 默认 `undefined`
+- 生效场景 `Vue2/3 + Webpack/Vite`
+
+配合 `htmlHeadChunked` 使用，render 头部时配置为 `true`，此时不渲染 `<body>` 标签内的 content。
+
 ## htmlHeadChunked🤔
 
 - 类型 `boolean`
@@ -806,38 +813,33 @@ type viteConfig?: () => {
 是否开启 html `<head>` 分块返回模式。
 
 ```js
-import { headRender, render } from 'ssr-core'
+import { render } from 'ssr-core'
 
-const headStr = await headRender(this.ctx, {
+// 渲染头部
+const headHtmlStr = await render<string>(ctx, {
   htmlHeadChunked: true,
-  // 传入 html <head> 字符串
-  htmlTemplate: htmlTemplateStr.split('<body>')[0]
-})
-
-// 提前返回 html 头部
-res.write(headStr)
-
-// layout index.vue 只需要 <body> 标签内容
-const stream = await render<Readable>(this.ctx, {
-  htmlHeadChunked: true
-})
-
-stream.pipe(res, { end: false })
-
-stream.on('end', () => {
-  res.write('</html>');
-  res.end();
+  isHead: true,
+  stream: false,
 });
+
+// 提前返回 html 头部 可提前返回 loading
+res.write(headHtmlStr.split('<body>')[0]);
+res.write('<body><!-- loading -->');
+
+const htmlStr = await render<string>(ctx, {
+  htmlHeadChunked: true,
+  stream: false,
+});
+
+res.write(htmlStr.split('<body>')[1]);
+
+res.end();
+
 ```
 
 直出项目会有较长的服务端处理时间，包括接口请求和渲染耗时等，导致页面白屏时间较长。所以可通过提前返回 html `<head>`，可以先加载 css 和预加载 js，也可以通过分块提前返回 loading 或骨架屏来替代 `<body>` 返回前的白屏。
 
-此配置设置为 `true` 则不拼接 `<!DOCTYPE html>` 和设置响应头部，这两项交由业务方自行处理。如上述 demo，可调用 `ssr-core` 新增的 `headRender` 方法生成头部字符串先返回，响应头部可以由用户自行设置，比如这里需要设置 `Content-Type`。
-
-这里有 2 个注意项：
-1. 由于 `layout/index` 已经没有 `<head>`，所以在其他路由以及 csr 模式下也需要调用 `headRender` 返回。
-2. 模版可由 `htmlTemplate` 配置传入，这里语法与静态生成页面构建保持一致，可复用 `ssr build --html` 的构建模版，分割出 body 前的模版内容。
-
+此配置设置为 `true` 则不设置响应头部，响应头由业务方自行设置，比如这里需要设置 `Content-Type`。这里调用两次 `render`，通过 `isHead` 区分。第一次不渲染 `<body>` 内容，渲染头部输出，业务方获取到 htmlString 可分割头部提前返回；第二次正常渲染，业务方可分割 `body` 返回。
 
 ## 注意事项
 
