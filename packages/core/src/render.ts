@@ -23,12 +23,14 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
     config.isVite = !!(require(options.dynamicFile.assetManifest).vite)
   }
 
-  setHeader(ctx, sf)
+  if (!config.htmlHeadChunked) {
+    setHeader(ctx, sf)
+  }
 
   const serverRes: RenderRes = isVite ? await viteRender(ctx, config) : await commonRender(ctx, config)
   if (serverRes instanceof Stream) {
     if (f !== 'ssr-plugin-react18') {
-      const stream = mergeStream2(new StringToStream('<!DOCTYPE html>'), serverRes)
+      const stream = mergeStream2(new StringToStream(config.htmlHeadChunked ? '' : '<!DOCTYPE html>'), serverRes)
       stream.on('error', (e: any) => {
         console.log(e)
       })
@@ -48,33 +50,51 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
         }
         html = $.html()
       }
-      return `<!DOCTYPE html>${html}`
+      return `${config.htmlHeadChunked ? '' : ' <!DOCTYPE html>'}${html}`
     } else {
-      return `<!DOCTYPE html>${serverRes}`
+      return `${config.htmlHeadChunked ? '' : ' <!DOCTYPE html>'}${serverRes}`
     }
   }
 }
 
+async function headRender (ctx: ISSRContext, options?: UserConfig) {
+  const extraConfig: UserConfig = options?.dynamicFile?.configFile ? require(options.dynamicFile.configFile).userConfig : {}
+  const config: IConfig = Object.assign({}, defaultConfig, extraConfig, options ?? {})
+  const { isVite, isDev } = config
+
+  if (!isDev && options?.dynamicFile?.assetManifest) {
+    config.isVite = !!(require(options.dynamicFile.assetManifest).vite)
+  }
+
+  return isVite ? await viteRender(ctx, config, true) : await commonRender(ctx, config, true)
+}
+
 let viteServer: ViteDevServer | boolean = false
 
-async function viteRender (ctx: ISSRContext, config: IConfig) {
+async function viteRender (ctx: ISSRContext, config: IConfig, isHead?: boolean) {
   const { isDev, dynamicFile } = config
   let serverRes
   if (isDev) {
     const { createServer } = await import('vite')
     const { serverConfig } = await import(f)
     viteServer = !viteServer ? await createServer(serverConfig) : viteServer
-    const { serverRender } = await (viteServer as ViteDevServer).ssrLoadModule(viteServerEntry)
+    const { serverRender, headRender } = await (viteServer as ViteDevServer).ssrLoadModule(viteServerEntry)
+    if (isHead) {
+      return headRender(ctx, config)
+    }
     serverRes = await serverRender(ctx, config)
   } else {
-    const { serverRender } = require(dynamicFile.serverBundle)
+    const { serverRender, headRender } = require(dynamicFile.serverBundle)
+    if (isHead) {
+      return headRender(ctx, config)
+    }
     const serverRes = await serverRender(ctx, config)
     return serverRes
   }
   return serverRes
 }
 
-async function commonRender (ctx: ISSRContext, config: IConfig) {
+async function commonRender (ctx: ISSRContext, config: IConfig, isHead?: boolean) {
   const { isDev, dynamicFile } = config
   const serverBundle = dynamicFile.serverBundle
 
@@ -82,9 +102,15 @@ async function commonRender (ctx: ISSRContext, config: IConfig) {
     delete require.cache[serverBundle]
   }
 
-  const { serverRender } = require(dynamicFile.serverBundle)
+  const { serverRender, headRender } = require(dynamicFile.serverBundle)
+  if (isHead) {
+    return headRender(ctx, config)
+  }
   const serverRes = await serverRender(ctx, config)
   return serverRes
 }
 
-export { render }
+export {
+  render,
+  headRender
+}

@@ -2,7 +2,7 @@ import { h, createSSRApp, renderSlot, VNode } from 'vue'
 import {
   findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk,
   getUserScriptVue, remInitial, localStorageWrapper, appLocalStoreageWrapper,
-  checkRoute, getInlineCss
+  checkRoute, getInlineCss, generateHeadHtml
 } from 'ssr-common-utils'
 import type { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
@@ -174,7 +174,23 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   return res
 }
 
+const headRender = async (ctx: ISSRContext, config: IConfig) => {
+  const { prefix, customeHeadScript } = config
+  const rawPath = ctx.request.path ?? ctx.request.url
+  const path = normalizePath(rawPath, prefix)
+  const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
+  checkRoute({ routeItem, path })
+  const { webpackChunkName } = routeItem
+  const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName, config)
+  const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
+
+  const manifest = await getManifest(config)
+
+  return generateHeadHtml({ ctx, config, manifest, dynamicCssOrder, dynamicJsOrder, customeHeadScript, type: 'vue3' })
+}
+
 export {
   serverRender,
-  Routes
+  Routes,
+  headRender
 }

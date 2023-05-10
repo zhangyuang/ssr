@@ -1,6 +1,6 @@
 import * as Vue from 'vue'
 import { h } from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial, localStorageWrapper, getInlineCss, checkRoute } from 'ssr-common-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial, localStorageWrapper, getInlineCss, checkRoute, generateHeadHtml } from 'ssr-common-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
 import { createRenderer } from 'vue-server-renderer'
@@ -157,7 +157,23 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   return res
 }
 
+const headRender = async (ctx: ISSRContext, config: IConfig) => {
+  const { prefix, customeHeadScript } = config
+  const rawPath = ctx.request.path ?? ctx.request.url
+  const path = normalizePath(rawPath, prefix)
+  const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
+  checkRoute({ routeItem, path })
+  const { webpackChunkName } = routeItem
+  const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName, config)
+  const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
+
+  const manifest = await getManifest(config)
+
+  return generateHeadHtml({ ctx, config, manifest, dynamicCssOrder, dynamicJsOrder, customeHeadScript, type: 'vue' })
+}
+
 export {
   serverRender,
-  Routes
+  Routes,
+  headRender
 }
