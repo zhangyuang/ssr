@@ -851,13 +851,12 @@ res.write('<body><!-- loading -->');
 
 // 第二次调用 render 后返回完整的页面内容
 const bodyhtmlStr = await render(ctx, {
-  bigpipe: false,
-  stream: false,
+  stream: false
 });
 
 // 与首次返回的页面内容进行组装拼接为完整的 html 文档结构
 // 这里也可以根据 html 字符串的大小决定是直接返回字符串给客户端，还是将字符串转换为 stream 后再进行返回
-res.write(htmlStr.split('<body>')[1]);
+res.write(bodyhtmlStr.split('<body>')[1]);
 
 res.end();
 
