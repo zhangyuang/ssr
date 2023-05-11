@@ -1,3 +1,12 @@
+## [6.2.84](https://github.com/zhangyuang/ssr/compare/utils@6.2.83...utils@6.2.84) (2023-05-11)
+
+
+### Features
+
+* update axios version to 1.4.0 ([#286](https://github.com/zhangyuang/ssr/issues/286)) ([37286c7](https://github.com/zhangyuang/ssr/commit/37286c77895e90b3e534bd060fc314f99cf67be1))
+
+
+
 ## [6.2.83](https://github.com/zhangyuang/ssr/compare/utils@6.2.82...utils@6.2.83) (2023-05-11)
 
 
