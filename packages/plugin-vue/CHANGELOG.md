@@ -1,3 +1,18 @@
+## [6.2.52](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.51...plugin-vue@6.2.52) (2023-05-11)
+
+
+### Bug Fixes
+
+* define in windows vite ([7ed50d0](https://github.com/zhangyuang/ssr/commit/7ed50d02679d91967459092fc92db64f2db9b446))
+* validate process.env ([ec46249](https://github.com/zhangyuang/ssr/commit/ec46249d65133587ec870732613f24fc94e6e683))
+
+
+### Features
+
+* support inject process.env.XXX in bundle ([a403a28](https://github.com/zhangyuang/ssr/commit/a403a28b8cc6dbe43d5e9b6c6d34dade5b76803f))
+
+
+
 ## [6.2.51](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.50...plugin-vue@6.2.51) (2023-04-17)
 
 
