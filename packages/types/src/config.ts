@@ -81,7 +81,6 @@ export interface IConfig {
   webpackDevServerConfig?: any
   stream: boolean
   bigpipe?: boolean
-  isHead?: boolean
   customeHeadScript?: ((ctx: ISSRContext) => Script) | Script
   customeFooterScript?: ((ctx: ISSRContext) => Script) | Script
   locale?: {

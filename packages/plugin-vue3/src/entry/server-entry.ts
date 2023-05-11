@@ -60,9 +60,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
             initialData: () => initialData,
 
-            jsInject: () => jsInject,
-
             cssInject: () => cssInject,
+
+            jsInject: () => jsInject,
 
             injectHeader: () => [
               customeHeadScriptArr,
