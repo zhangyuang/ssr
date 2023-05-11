@@ -1,3 +1,12 @@
+## [6.2.83](https://github.com/zhangyuang/ssr/compare/utils@6.2.82...utils@6.2.83) (2023-05-11)
+
+
+### Bug Fixes
+
+* setheader close [#285](https://github.com/zhangyuang/ssr/issues/285) ([af32288](https://github.com/zhangyuang/ssr/commit/af32288ca5f7a99870702cec47d9add025dba93d))
+
+
+
 ## [6.2.82](https://github.com/zhangyuang/ssr/compare/utils@6.2.81...utils@6.2.82) (2023-05-11)
 
 
