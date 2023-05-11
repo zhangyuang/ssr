@@ -1,3 +1,13 @@
+## [6.2.46](https://github.com/zhangyuang/ssr/compare/types@6.2.45...types@6.2.46) (2023-05-11)
+
+
+### Bug Fixes
+
+* define in windows vite ([7ed50d0](https://github.com/zhangyuang/ssr/commit/7ed50d02679d91967459092fc92db64f2db9b446))
+* validate process.env ([ec46249](https://github.com/zhangyuang/ssr/commit/ec46249d65133587ec870732613f24fc94e6e683))
+
+
+
 ## [6.2.45](https://github.com/zhangyuang/ssr/compare/types@6.2.44...types@6.2.45) (2023-04-20)
 
 
