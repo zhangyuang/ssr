@@ -75,7 +75,7 @@ export { userConfig }
 
 ![](http://doc.ssr-fc.com/images/start-vite3.gif)
 
-### 应用结构
+<!-- ### 应用结构
 
 对于应用结构这里简单画了一个示意图如下。
 
@@ -86,14 +86,14 @@ export { userConfig }
 ![](http://doc.ssr-fc.com/images/vite1-3.png)
 
 
-在服务端我们用 `ssrLoadModule` 这个 `API` 来转换模块。客户端以中间件的形式让 `Vite` 接管请求。与 `Webpack SSR` 架构类似。在服务端和客户端我们有两套不同的 `vite.config` 配置，所以我们不会将 `vite.config.js` 直接暴露出来。而是通过框架统一的配置项抛出配置，请查看[viteConfig](./api$config#viteConfig)。
+在服务端我们用 `ssrLoadModule` 这个 `API` 来转换模块。客户端以中间件的形式让 `Vite` 接管请求。与 `Webpack SSR` 架构类似。在服务端和客户端我们有两套不同的 `vite.config` 配置，所以我们不会将 `vite.config.js` 直接暴露出来。而是通过框架统一的配置项抛出配置，请查看[viteConfig](./api$config#viteConfig)。 -->
 ### 开发建议
 
 由于 `Vite/Rollup` 没有 `Webpack-Chain` 这样的模块来生成配置，目前只能用一些比较笨的方式来 `Merge` 用户自定义配置。所以容易造成用户配置覆盖框架默认配置的情况。所以目前框架只会开放少量配置让用户自定义配置。在之后我们会不断完善这一块。
 
 正如上文所说的，开发者有多种开发构建组合方式。只要不使用只能够在特定平台运行的代码例如 `import.meta.env/module.hot` 这些代码，那么你的代码在 `Vite/Webpack` 模式下都能够本地运行，生产环境构建成功。所以不建议开发者使用只能在特定工具下运行成功的代码以及配置。框架将会在之后将不同的工具的配置进行打平，抛出一个共同使用的配置项供开发者使用。
-
-综上所述，我们已经迈出了最困难的一步，接下来的做法就是抹平 `Vite/Webpack` 在本框架中的使用差异，配置差异，构建差异。做到 `Webpack/Vite` 无缝切换
+<!-- 
+综上所述，我们已经迈出了最困难的一步，接下来的做法就是抹平 `Vite/Webpack` 在本框架中的使用差异，配置差异，构建差异。做到 `Webpack/Vite` 无缝切换 -->
 
 <!-- ### 踩坑记录
 
