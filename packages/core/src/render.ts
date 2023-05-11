@@ -7,7 +7,7 @@ const defaultConfig = loadConfig()
 const sf = judgeServerFramework()
 const f = judgeFramework()
 const viteServerEntry = getViteServerEntry()
-type RenderRes = string|Readable|Vue3RenderRes
+type RenderRes = string | Readable | Vue3RenderRes
 
 function render (ctx: ISSRContext, options?: UserConfig & { stream: true }): Promise<Readable>
 function render (ctx: ISSRContext, options?: UserConfig & { stream: false }): Promise<string>
@@ -22,11 +22,7 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
   if (!isDev && options?.dynamicFile?.assetManifest) {
     config.isVite = !!(require(options.dynamicFile.assetManifest).vite)
   }
-
-  if (!config.htmlHeadChunked) {
-    setHeader(ctx, sf)
-  }
-
+  setHeader(ctx, sf)
   const serverRes: RenderRes = isVite ? await viteRender(ctx, config) : await commonRender(ctx, config)
   if (serverRes instanceof Stream) {
     if (f !== 'ssr-plugin-react18') {

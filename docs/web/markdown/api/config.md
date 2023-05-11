@@ -797,49 +797,73 @@ type viteConfig?: () => {
 
 作为 `ssr build --html` 的构建模版，开发者可自行设置 `title, meta` 等标签信息，其余模版插入内容请不要修改保持不变。
 
-## isHead🤔
+## bigpipe🤔
 - 类型 `boolean`
 - 默认 `undefined`
 - 生效场景 `Vue2/3 + Webpack/Vite`
 
-配合 `htmlHeadChunked` 使用，render 头部时配置为 `true`，此时不渲染 `<body>` 标签内的 content。
+高级用法，只在特定场景下适用。
 
-## htmlHeadChunked🤔
+开启 `bigpipe` 配置后，框架将会将完整的 `html` 文档拆分为两部分返回，分别是无实际意义内容的 `layout` 和有实际内容的 `children` 部分。
 
-- 类型 `boolean`
-- 默认 `undefined`
-- 生效场景 `Vue2/3 + Webpack/Vite`
+此功能用于开发者需要提前返回包含页面所需的静态资源文件给浏览器提前加载，而无需等待服务端渲染接口响应和页面完全渲染完毕才返回完整的 `html` 文档。
 
-是否开启 html `<head>` 分块返回模式。
+例如如下的 `layout` 组件
+
+```html
+<template>
+  <!-- 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑，不要删除 rem 初始化以外的任何初始设置 -->
+  <html>
+    <head>
+      <meta charSet="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="theme-color" content="#000000">
+      <title>Serverless Side Render for Vue</title>
+      <slot name="remInitial" />
+      <!-- 包含 css 静态资源文件，以及预请求 js 静态资源文件 -->
+      <slot name="injectHeader" />
+    </head>
+    <!-- -------我是分割线----------- -->
+    <body>
+      <slot name="content" />
+    </body>
+  </html>
+</template>
+```
+
+将会以分割线为结点，分为前后两部分进行内容返回。
 
 ```js
 import { render } from 'ssr-core'
 
-// 渲染头部
-const headHtmlStr = await render<string>(ctx, {
-  htmlHeadChunked: true,
-  isHead: true,
-  stream: false,
+// 此时将不会调用 fetch 返回的内容为不包含实际页面组件内容的 layout 组件
+const headHtmlStr = await render(ctx, {
+  bigpipe: true
+  stream: false, // 注意这里要使用字符串形式的返回数据类型
 });
 
-// 提前返回 html 头部 可提前返回 loading
+// 使用基于 koa 的框架需要手动设置 status
+// ctx.status = 200
+
+// 提前返回包含静态资源文件的 html 头部 也可提前返回 loading
 res.write(headHtmlStr.split('<body>')[0]);
 res.write('<body><!-- loading -->');
 
-const htmlStr = await render<string>(ctx, {
-  htmlHeadChunked: true,
+// 第二次调用 render 后返回完整的页面内容
+const bodyhtmlStr = await render(ctx, {
+  bigpipe: false,
   stream: false,
 });
 
+// 与首次返回的页面内容进行组装拼接为完整的 html 文档结构
+// 这里也可以根据 html 字符串的大小决定是直接返回字符串给客户端，还是将字符串转换为 stream 后再进行返回
 res.write(htmlStr.split('<body>')[1]);
 
 res.end();
 
 ```
 
-直出项目会有较长的服务端处理时间，包括接口请求和渲染耗时等，导致页面白屏时间较长。所以可通过提前返回 html `<head>`，可以先加载 css 和预加载 js，也可以通过分块提前返回 loading 或骨架屏来替代 `<body>` 返回前的白屏。
-
-此配置设置为 `true` 则不设置响应头部，响应头由业务方自行设置，比如这里需要设置 `Content-Type`。这里调用两次 `render`，通过 `isHead` 区分。第一次不渲染 `<body>` 内容，渲染头部输出，业务方获取到 htmlString 可分割头部提前返回；第二次正常渲染，业务方可分割 `body` 返回。
+通常在 `ssr` 过程中接口和页面元素节点过多导致渲染时间过长进而页面白屏时间较长的场景可能会使用到此能力。可通过提前返回 `<head>` 的部分，预加载样式和脚本文件，也可以通过分块提前返回 `loading` 或骨架屏来替代 `<body>` 返回前的白屏。
 
 ## 注意事项
 

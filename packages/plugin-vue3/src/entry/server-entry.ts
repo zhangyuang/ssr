@@ -15,7 +15,7 @@ import { IFeRouteItem, vue3AppParams } from '../types'
 const { FeRoutes, App, layoutFetch, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https, rootId, isHead } = config
+  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https, rootId, bigpipe } = config
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
@@ -43,7 +43,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         const initialData = !isCsr ? h('script', {
           innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};${commonInject}`
         }) : h('script', { innerHTML: commonInject })
-        const children = h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app })
+        const children = bigpipe ? '' : h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app })
         const customeHeadScriptArr: VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3').concat(inlineCss ?? [])
         const customeFooterScriptArr: VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue3')
 
@@ -54,15 +54,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
             customeHeadScript: () => customeHeadScriptArr,
 
-            customeFooterScript: () => isHead ? [] : customeFooterScriptArr,
+            customeFooterScript: () => customeFooterScriptArr,
 
-            children: () => isHead ? '' : children,
+            children: () => children,
 
-            initialData: () => isHead ? '' : initialData,
+            initialData: () => initialData,
+
+            jsInject: () => jsInject,
 
             cssInject: () => cssInject,
-
-            jsInject: () => isHead ? '' : jsInject,
 
             injectHeader: () => [
               customeHeadScriptArr,
@@ -114,17 +114,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       })
     )
     let [layoutFetchData, fetchData] = [{}, {}]
-    if (!isCsr) {
+    if (!isCsr && !bigpipe) {
+      // not fetch when generate <head>
       router.push(url)
       await router.isReady()
-      // not fetch when generate <head>
-      if (!isHead) {
-        const currentFetch = fetch ? (await fetch()).default : null
-        const { value } = router.currentRoute
-        const lF = layoutFetch ? layoutFetch({ store, router: value, ctx, pinia }, ctx) : Promise.resolve({})
-        const CF = currentFetch ? currentFetch({ store, router: value, ctx, pinia }, ctx) : Promise.resolve({});
-        [layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
-      }
+      const currentFetch = fetch ? (await fetch()).default : null
+      const { value } = router.currentRoute
+      const lF = layoutFetch ? layoutFetch({ store, router: value, ctx, pinia }, ctx) : Promise.resolve({})
+      const CF = currentFetch ? currentFetch({ store, router: value, ctx, pinia }, ctx) : Promise.resolve({});
+      [layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
     } else {
       logGreen(`Current path ${path} use csr render mode`)
     }

@@ -80,7 +80,7 @@ export interface IConfig {
   mode: 'ssr' | 'csr'
   webpackDevServerConfig?: any
   stream: boolean
-  htmlHeadChunked?: boolean
+  bigpipe?: boolean
   isHead?: boolean
   customeHeadScript?: ((ctx: ISSRContext) => Script) | Script
   customeFooterScript?: ((ctx: ISSRContext) => Script) | Script

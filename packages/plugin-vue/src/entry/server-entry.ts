@@ -12,7 +12,7 @@ const { renderToStream, renderToString } = createRenderer()
 const { FeRoutes, App, layoutFetch, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix, stream, rootId, isHead } = config
+  const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix, stream, rootId, bigpipe } = config
   const router = createRouter()
   const store = createStore()
   const fn = async () => {
@@ -30,15 +30,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
     let [layoutFetchData, fetchData] = [{}, {}]
 
-    if (!isCsr) {
+    if (!isCsr && !bigpipe) {
       router.push(url)
       // not fetch when generate <head>
-      if (!isHead) {
-        const currentFetch = fetch ? (await fetch()).default : null
-        const lF = layoutFetch ? layoutFetch({ store, router: router.currentRoute, ctx }, ctx) : Promise.resolve({})
-        const CF = currentFetch ? currentFetch({ store, router: router.currentRoute, ctx }, ctx) : Promise.resolve({});
-        [layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
-      }
+      const currentFetch = fetch ? (await fetch()).default : null
+      const lF = layoutFetch ? layoutFetch({ store, router: router.currentRoute, ctx }, ctx) : Promise.resolve({})
+      const CF = currentFetch ? currentFetch({ store, router: router.currentRoute, ctx }, ctx) : Promise.resolve({});
+      [layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
     } else {
       logGreen(`Current path ${path} use csr render mode`)
     }
@@ -89,7 +87,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
           attrs: {
             id: rootId.replace('#', '')
           }
-        }, [h(App, {
+        }, [bigpipe ? '' : h(App, {
           props: { ctx, config, fetchData: combineAysncData, asyncData: { value: combineAysncData }, reactiveFetchData: { value: combineAysncData } }
         })])
         return h(
@@ -111,17 +109,17 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
             }, customeHeadScriptArr),
             h('template', {
               slot: 'customeFooterScript'
-            }, isHead ? [] : customeFooterScriptArr),
+            }, customeFooterScriptArr),
 
             h('template', {
               slot: 'children'
-            }, isHead ? [] : [
+            }, [
               children
             ]),
 
             h('template', {
               slot: 'initialData'
-            }, isHead ? [] : [
+            }, [
               initialData
             ]),
 
@@ -131,7 +129,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
             h('template', {
               slot: 'jsInject'
-            }, isHead ? '' : injectScript),
+            }, injectScript),
 
             h('template', {
               slot: 'injectHeader'
@@ -142,7 +140,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
             h('template', {
               slot: 'content'
-            }, isHead ? [] : [
+            }, [
               children,
               initialData,
               customeFooterScriptArr,
