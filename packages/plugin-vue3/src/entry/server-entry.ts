@@ -15,7 +15,7 @@ import { IFeRouteItem, vue3AppParams } from '../types'
 const { FeRoutes, App, layoutFetch, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https, rootId } = config
+  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https, rootId, bigpipe } = config
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
@@ -43,7 +43,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         const initialData = !isCsr ? h('script', {
           innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};${commonInject}`
         }) : h('script', { innerHTML: commonInject })
-        const children = h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app })
+        const children = bigpipe ? '' : h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app })
         const customeHeadScriptArr: VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3').concat(inlineCss ?? [])
         const customeFooterScriptArr: VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue3')
 
@@ -114,7 +114,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       })
     )
     let [layoutFetchData, fetchData] = [{}, {}]
-    if (!isCsr) {
+    if (!isCsr && !bigpipe) {
+      // not fetch when generate <head>
       router.push(url)
       await router.isReady()
       const currentFetch = fetch ? (await fetch()).default : null

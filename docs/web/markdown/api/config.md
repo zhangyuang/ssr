@@ -796,6 +796,74 @@ type viteConfig?: () => {
 - 生效场景: `Webpack/Vite` 
 
 作为 `ssr build --html` 的构建模版，开发者可自行设置 `title, meta` 等标签信息，其余模版插入内容请不要修改保持不变。
+
+## bigpipe🤔
+- 类型 `boolean`
+- 默认 `undefined`
+- 生效场景 `Vue2/3 + Webpack/Vite`
+
+高级用法，只在特定场景下适用。
+
+开启 `bigpipe` 配置后，框架将会将完整的 `html` 文档拆分为两部分返回，分别是无实际意义内容的 `layout` 和有实际内容的 `children` 部分。
+
+此功能用于开发者需要提前返回包含页面所需的静态资源文件给浏览器提前加载，而无需等待服务端渲染接口响应和页面完全渲染完毕才返回完整的 `html` 文档。
+
+例如如下的 `layout` 组件
+
+```html
+<template>
+  <!-- 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑，不要删除 rem 初始化以外的任何初始设置 -->
+  <html>
+    <head>
+      <meta charSet="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="theme-color" content="#000000">
+      <title>Serverless Side Render for Vue</title>
+      <slot name="remInitial" />
+      <!-- 包含 css 静态资源文件，以及预请求 js 静态资源文件 -->
+      <slot name="injectHeader" />
+    </head>
+    <!-- -------我是分割线----------- -->
+    <body>
+      <slot name="content" />
+    </body>
+  </html>
+</template>
+```
+
+将会以分割线为结点，分为前后两部分进行内容返回。
+
+```js
+import { render } from 'ssr-core'
+
+// 此时将不会调用 fetch 返回的内容为不包含实际页面组件内容的 layout 组件
+const headHtmlStr = await render(ctx, {
+  bigpipe: true
+  stream: false, // 注意这里要使用字符串形式的返回数据类型
+});
+
+// 使用基于 koa 的框架需要手动设置 status
+// ctx.status = 200
+
+// 提前返回包含静态资源文件的 html 头部 也可提前返回 loading
+res.write(headHtmlStr.split('<body>')[0]);
+res.write('<body><!-- loading -->');
+
+// 第二次调用 render 后返回完整的页面内容
+const bodyhtmlStr = await render(ctx, {
+  stream: false
+});
+
+// 与首次返回的页面内容进行组装拼接为完整的 html 文档结构
+// 这里也可以根据 html 字符串的大小决定是直接返回字符串给客户端，还是将字符串转换为 stream 后再进行返回
+res.write(bodyhtmlStr.split('<body>')[1]);
+
+res.end();
+
+```
+
+通常在 `ssr` 过程中接口和页面元素节点过多导致渲染时间过长进而页面白屏时间较长的场景可能会使用到此能力。可通过提前返回 `<head>` 的部分，预加载样式和脚本文件，也可以通过分块提前返回 `loading` 或骨架屏来替代 `<body>` 返回前的白屏。
+
 ## 注意事项
 
 1. 由于 `config.js` 文件在 Node.js 环境也会被加载，如果直接在顶部 `require` 模块可能会导致模块`体积过大`，降低应用启动速度，我们建议在必要的函数当中再 `require` 需要用到的模块。
