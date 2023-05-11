@@ -1,3 +1,13 @@
+## [6.2.88](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.87...plugin-vue3@6.2.88) (2023-05-11)
+
+
+### Bug Fixes
+
+* define in windows vite ([7ed50d0](https://github.com/zhangyuang/ssr/commit/7ed50d02679d91967459092fc92db64f2db9b446))
+* validate process.env ([ec46249](https://github.com/zhangyuang/ssr/commit/ec46249d65133587ec870732613f24fc94e6e683))
+
+
+
 ## [6.2.87](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.86...plugin-vue3@6.2.87) (2023-04-20)
 
 
