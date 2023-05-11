@@ -7,10 +7,8 @@ export const setHeader = (ctx: ISSRContext, serverFrameWork: string) => {
   if (serverFrameWork === 'ssr-plugin-midway') {
     ctx.response.type = 'text/html;charset=utf-8'
   } else if (serverFrameWork === 'ssr-plugin-nestjs') {
-    if ((ctx as ISSRNestContext | FastifyContext).response.setHeader) {
-      if (!(ctx as ISSRNestContext).response.headersSent) {
-        (ctx as ISSRNestContext).response.setHeader('Content-type', 'text/html;charset=utf-8')
-      }
+    if ((ctx as ISSRNestContext | FastifyContext).response.setHeader && !(ctx as ISSRNestContext).response.headersSent) {
+      (ctx as ISSRNestContext).response.setHeader('Content-type', 'text/html;charset=utf-8')
     } else if (!(ctx as FastifyContext).response.raw.headersSent) {
       (ctx as FastifyContext).response.header('Content-type', 'text/html;charset=utf-8')
     }
