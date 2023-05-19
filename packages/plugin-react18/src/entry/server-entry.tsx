@@ -61,7 +61,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       const CF = currentFetch ? currentFetch({ ctx }) : Promise.resolve({});
       [layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
     }
-    const ssrDevInfo = { manifest, rootId }
+    const ssrDevInfo = { manifest: isDev ? manifest : '', rootId }
     const combineData = isCsr ? null : Object.assign(state ?? {}, layoutFetchData ?? {}, fetchData ?? {})
     const injectState = isCsr ? <script dangerouslySetInnerHTML={{ __html: `window.ssrDevInfo=${JSON.stringify(ssrDevInfo)};window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}` }} /> : <script dangerouslySetInnerHTML={{
       __html: `window.ssrDevInfo=${JSON.stringify(ssrDevInfo)};window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}`

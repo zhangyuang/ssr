@@ -63,7 +63,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     }
 
     const combineData = isCsr ? null : Object.assign(state ?? {}, layoutFetchData ?? {}, fetchData ?? {})
-    const ssrDevInfo = { manifest, rootId }
+    const ssrDevInfo = { manifest: isDev ? manifest : '', rootId }
     const injectState = isCsr ? <script dangerouslySetInnerHTML={{ __html: `window.ssrDevInfo=${JSON.stringify(ssrDevInfo)};window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}` }} />
       : <script dangerouslySetInnerHTML={{
         __html: `window.ssrDevInfo=${JSON.stringify(ssrDevInfo)};window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}`

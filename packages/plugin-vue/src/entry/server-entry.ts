@@ -43,7 +43,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
     const combineAysncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
     const state = Object.assign({}, store.state ?? {}, combineAysncData)
-    const ssrDevInfo = { manifest, rootId }
+    const ssrDevInfo = { manifest: isDev ? manifest : '', rootId }
     // @ts-expect-error
     const app = new Vue({
       router,

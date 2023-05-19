@@ -38,7 +38,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }: vue3AppParams) => {
     const app = createSSRApp({
       render: function () {
-        const ssrDevInfo = { manifest, rootId, fePort: isDev ? fePort : '', https: isDev ? https : '' }
+        const ssrDevInfo = { manifest: isDev ? manifest : '', rootId, fePort: isDev ? fePort : '', https: isDev ? https : '' }
         const commonInject = `window.__USE_VITE__=${isVite}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}"` : ''};window.ssrDevInfo=${JSON.stringify(ssrDevInfo)}`
         const initialData = !isCsr ? h('script', {
           innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};${commonInject}`
