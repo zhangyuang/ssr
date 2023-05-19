@@ -1,3 +1,19 @@
+## [6.2.89](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.88...plugin-vue3@6.2.89) (2023-05-19)
+
+
+### Bug Fixes
+
+* remove manifest info in production ([4d341e1](https://github.com/zhangyuang/ssr/commit/4d341e1ae89b47aee943e5f2e21f1cda59a410d1))
+* setheader close [#285](https://github.com/zhangyuang/ssr/issues/285) ([af32288](https://github.com/zhangyuang/ssr/commit/af32288ca5f7a99870702cec47d9add025dba93d))
+
+
+### Features
+
+* remove null string in chunkName ([f56d62e](https://github.com/zhangyuang/ssr/commit/f56d62e4cb57aa9a7628587755bec6d58f98d51d))
+* update axios version to 1.4.0 ([#286](https://github.com/zhangyuang/ssr/issues/286)) ([37286c7](https://github.com/zhangyuang/ssr/commit/37286c77895e90b3e534bd060fc314f99cf67be1))
+
+
+
 ## [6.2.88](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.87...plugin-vue3@6.2.88) (2023-05-11)
 
 
