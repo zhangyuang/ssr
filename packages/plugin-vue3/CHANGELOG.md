@@ -1,3 +1,12 @@
+## [6.2.90](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.89...plugin-vue3@6.2.90) (2023-05-22)
+
+
+### Features
+
+* use splitPageInfo generate page state ([8f51258](https://github.com/zhangyuang/ssr/commit/8f51258af97f99168e16b65b1f886a2bb50bd183))
+
+
+
 ## [6.2.89](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.88...plugin-vue3@6.2.89) (2023-05-19)
 
 
