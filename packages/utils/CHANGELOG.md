@@ -1,3 +1,18 @@
+## [6.2.85](https://github.com/zhangyuang/ssr/compare/utils@6.2.84...utils@6.2.85) (2023-05-22)
+
+
+### Bug Fixes
+
+* remove manifest info in production ([4d341e1](https://github.com/zhangyuang/ssr/commit/4d341e1ae89b47aee943e5f2e21f1cda59a410d1))
+
+
+### Features
+
+* remove null string in chunkName ([f56d62e](https://github.com/zhangyuang/ssr/commit/f56d62e4cb57aa9a7628587755bec6d58f98d51d))
+* use splitPageInfo generate page state ([8f51258](https://github.com/zhangyuang/ssr/commit/8f51258af97f99168e16b65b1f886a2bb50bd183))
+
+
+
 ## [6.2.84](https://github.com/zhangyuang/ssr/compare/utils@6.2.83...utils@6.2.84) (2023-05-11)
 
 
