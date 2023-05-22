@@ -2,7 +2,7 @@ import { h, createSSRApp, renderSlot, VNode } from 'vue'
 import {
   findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk,
   getUserScriptVue, remInitial, localStorageWrapper, appLocalStoreageWrapper,
-  checkRoute, getInlineCss
+  checkRoute, getInlineCss, splitPageInfo
 } from 'ssr-common-utils'
 import type { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
@@ -39,10 +39,16 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     const app = createSSRApp({
       render: function () {
         const ssrDevInfo = { manifest: isDev ? manifest : '', rootId, fePort: isDev ? fePort : '', https: isDev ? https : '' }
-        const commonInject = `window.__USE_VITE__=${isVite}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}"` : ''};window.ssrDevInfo=${JSON.stringify(ssrDevInfo)}`
-        const initialData = !isCsr ? h('script', {
-          innerHTML: `window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__INITIAL_PINIA_DATA__ = ${serialize(pinia.state.value)};${commonInject}`
-        }) : h('script', { innerHTML: commonInject })
+        const innerHTML = splitPageInfo({
+          'window.__USE_SSR__': !isCsr,
+          'window.__INITIAL_DATA__': isCsr ? {} : serialize(state),
+          'window.__INITIAL_PINIA_DATA__': isCsr ? {} : serialize(pinia.state.value),
+          'window.__USE_VITE__': isVite,
+          'window.prefix': `"${prefix}"`,
+          'window.clientPrefix': `"${clientPrefix ?? ''}"`,
+          'window.ssrDevInfo': JSON.stringify(ssrDevInfo)
+        })
+        const initialData = h('script', { innerHTML })
         const children = bigpipe ? '' : h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app })
         const customeHeadScriptArr: VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3').concat(inlineCss ?? [])
         const customeFooterScriptArr: VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue3')

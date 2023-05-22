@@ -3,7 +3,7 @@ import * as React from 'react'
 import { createElement } from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { renderToString, renderToPipeableStream } from 'react-dom/server'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, reactRefreshFragment, localStorageWrapper, checkRoute } from 'ssr-common-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, reactRefreshFragment, localStorageWrapper, checkRoute, splitPageInfo } from 'ssr-common-utils'
 import { ISSRContext, IConfig, ReactESMPreloadFeRouteItem, DynamicFC, StaticFC } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
 import { STORE_CONTEXT as Context } from '_build/create-context'
@@ -35,9 +35,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       ))
 
     const injectScript = [
-      ...(isVite ? [<script key="viteWindowInit" dangerouslySetInnerHTML={{
-        __html: 'window.__USE_VITE__=true'
-      }} />] : []),
       ...((isVite && isDev) ? [<script type="module" src='/node_modules/ssr-plugin-react18/esm/entry/client-entry.js' key="vite-react-entry" />] : []),
       ...dynamicJsOrder.map(js => manifest[js]).filter(Boolean).map(item => <script key={item} src={item} type={isVite ? 'module' : 'text/javascript'} />)
     ]
@@ -63,9 +60,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     }
     const ssrDevInfo = { manifest: isDev ? manifest : '', rootId }
     const combineData = isCsr ? null : Object.assign(state ?? {}, layoutFetchData ?? {}, fetchData ?? {})
-    const injectState = isCsr ? <script dangerouslySetInnerHTML={{ __html: `window.ssrDevInfo=${JSON.stringify(ssrDevInfo)};window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}` }} /> : <script dangerouslySetInnerHTML={{
-      __html: `window.ssrDevInfo=${JSON.stringify(ssrDevInfo)};window.__USE_SSR__=true; window.__INITIAL_DATA__ =${serialize(combineData)}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}`
-    }} />
+    const innerHTML = splitPageInfo({
+      'window.__USE_SSR__': !isCsr,
+      'window.__INITIAL_DATA__': isCsr ? {} : serialize(combineData),
+      'window.__USE_VITE__': isVite,
+      'window.prefix': `"${prefix}"`,
+      'window.clientPrefix': `"${clientPrefix ?? ''}"`,
+      'window.ssrDevInfo': JSON.stringify(ssrDevInfo)
+    })
+    const injectState = <script dangerouslySetInnerHTML={{ __html: innerHTML }} />
     // with jsx type error, use createElement here
     // @ts-expect-error
     const ele = createElement(StaticRouter, {

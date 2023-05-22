@@ -1,6 +1,6 @@
 import * as Vue from 'vue'
 import { h } from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial, localStorageWrapper, getInlineCss, checkRoute } from 'ssr-common-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial, localStorageWrapper, getInlineCss, checkRoute, splitPageInfo } from 'ssr-common-utils'
 import { ISSRContext, IConfig } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
 import { createRenderer } from 'vue-server-renderer'
@@ -71,16 +71,19 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
             type: isVite ? 'module' : 'text/javascript'
           }
         }))
-
+        const innerHTML = splitPageInfo({
+          'window.__USE_SSR__': !isCsr,
+          'window.__INITIAL_DATA__': isCsr ? {} : serialize(state),
+          'window.__USE_VITE__': isVite,
+          'window.prefix': `"${prefix}"`,
+          'window.clientPrefix': `"${clientPrefix ?? ''}"`,
+          'window.ssrDevInfo': JSON.stringify(ssrDevInfo)
+        })
         const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue').concat(inlineCss)
         const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue')
-        const initialData = isCsr ? h('script', {
+        const initialData = h('script', {
           domProps: {
-            innerHTML: `window.ssrDevInfo=${JSON.stringify(ssrDevInfo)};window.__USE_VITE__=${isVite}; window.prefix="${prefix}";${clientPrefix ? `window.clientPrefix="${clientPrefix}"` : ''}`
-          }
-        }) : h('script', {
-          domProps: {
-            innerHTML: `window.ssrDevInfo=${JSON.stringify(ssrDevInfo)};window.__USE_SSR__=true; window.__INITIAL_DATA__ = ${serialize(state)};window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ;${clientPrefix ? `window.clientPrefix="${clientPrefix}";` : ''}`
+            innerHTML
           }
         })
         const children = h('div', {

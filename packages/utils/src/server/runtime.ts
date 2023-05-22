@@ -1,6 +1,7 @@
 import { promises } from 'fs'
 import { join, isAbsolute } from 'path'
 import type { UserConfig, ISSRContext, IConfig, ISSRNestContext, FastifyContext } from 'ssr-types'
+import { stringify } from 'qs'
 import { getCwd, stringifyDefine } from './cwd'
 
 export const setHeader = (ctx: ISSRContext, serverFrameWork: string) => {
@@ -18,6 +19,11 @@ export const setHeader = (ctx: ISSRContext, serverFrameWork: string) => {
     }
   }
 }
+
+export const splitPageInfo = (info: Record<string, string|boolean|object>): string => stringify(info, {
+  encode: false,
+  delimiter: ';'
+})
 
 const readAsyncChunk = async (config: IConfig): Promise<Record<string, string>> => {
   try {

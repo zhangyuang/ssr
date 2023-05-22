@@ -1082,6 +1082,7 @@ importers:
   packages/utils:
     specifiers:
       '@rollup/plugin-babel': ^5.3.0
+      '@types/qs': ^6.9.7
       '@types/react': ^17.0.0
       '@types/semver': ^7.3.9
       '@types/shelljs': ^0.8.7
@@ -1094,6 +1095,7 @@ importers:
       magic-string: ^0.25.7
       path-to-regexp: ^6.2.0
       pinia: ^2.0.13
+      qs: ^6.11.2
       rollup: '>=2.59.0 <2.78.0'
       semver: ^7.3.5
       shelljs: ^0.8.3
@@ -1107,10 +1109,12 @@ importers:
       koa2-connect: 1.0.2
       magic-string: 0.25.9
       path-to-regexp: 6.2.1
+      qs: 6.11.2
       semver: 7.3.7
       shelljs: 0.8.5
     devDependencies:
       '@rollup/plugin-babel': 5.3.1_rollup@2.77.3
+      '@types/qs': 6.9.7
       '@types/react': 17.0.48
       '@types/semver': 7.3.12
       '@types/shelljs': 0.8.11
@@ -13585,6 +13589,13 @@ packages:
     engines: {node: '>=0.6'}
     dependencies:
       side-channel: 1.0.4
+
+  /qs/6.11.2:
+    resolution: {integrity: sha512-tDNIz22aBzCDxLtVH++VnTfzxlfeK5CbqohpSqpJgj1Wg/cQbStNAz3NuqCs5vV+pjBsK4x4pN9HlVh7rcYRiA==}
+    engines: {node: '>=0.6'}
+    dependencies:
+      side-channel: 1.0.4
+    dev: false
 
   /qs/6.5.3:
     resolution: {integrity: sha512-qxXIEh4pCGfHICj1mAJQ2/2XVZkjCDTcEgfoSQxc/fYivUZxTkk7L3bDBJSoNrEzXI17oUO5Dp07ktqE5KzczA==}
