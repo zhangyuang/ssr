@@ -4,7 +4,10 @@ import { join } from 'path'
 export const generateHtml = async () => {
   if (!process.env.SPA) return
   // spa 模式下生成 html 文件直接部署
-  const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework, logGreen, getAsyncJsChunk, logWarning, getAsyncCssChunk } = await import('ssr-common-utils')
+  const {
+    loadConfig, getCwd, judgeFramework, loadModuleFromFramework, logGreen,
+    getAsyncJsChunk, logWarning, getAsyncCssChunk, splitPageInfo
+  } = await import('ssr-common-utils')
   logGreen('Generating html file...')
   const { customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix, clientPrefix, isVite, cssOrderPriority, jsOrderPriority, rootId } = loadConfig()
   const htmlStr = htmlTemplate ?? `
@@ -42,12 +45,19 @@ export const generateHtml = async () => {
       arr: Array.isArray(footer) ? footer : footer(mockCtx),
       flag: 'footer'
     }]
+
+  const content = splitPageInfo({
+    'window.__USE_SSR__': false,
+    'window.__USE_VITE__': isVite,
+    'window.prefix': `"${prefix}"`,
+    'window.clientPrefix': `"${clientPrefix ?? ''}"`,
+    'window.ssrDevInfo': JSON.stringify(ssrDevInfo)
+  })
   combine[0].arr = combine[0].arr.concat([
     {
-      content: `window.__USE_SSR__=false;window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ; window.ssrDevInfo=${JSON.stringify(ssrDevInfo)}; ${clientPrefix ? `window.clientPrefix="${clientPrefix}"` : ''}`
+      content
     }
   ])
-
   if (framework === 'ssr-plugin-vue3') {
     const { h } = await import(loadModuleFromFramework('vue'))
     const { renderToString } = await import('@vue/server-renderer')
