@@ -1,3 +1,20 @@
+## [6.2.48](https://github.com/zhangyuang/ssr/compare/cli@6.2.47...cli@6.2.48) (2023-05-26)
+
+
+### Bug Fixes
+
+* build --html add rootId ([#291](https://github.com/zhangyuang/ssr/issues/291)) ([53e6a36](https://github.com/zhangyuang/ssr/commit/53e6a3690ddf47659b9c0a85f8a98519a37a19d5))
+* remove manifest info in production ([4d341e1](https://github.com/zhangyuang/ssr/commit/4d341e1ae89b47aee943e5f2e21f1cda59a410d1))
+
+
+### Features
+
+* remove null string in chunkName ([f56d62e](https://github.com/zhangyuang/ssr/commit/f56d62e4cb57aa9a7628587755bec6d58f98d51d))
+* use splitPageInfo generate page state ([8f51258](https://github.com/zhangyuang/ssr/commit/8f51258af97f99168e16b65b1f886a2bb50bd183))
+* use splitPageInfo generate page state in build html file ([0bb5107](https://github.com/zhangyuang/ssr/commit/0bb510704fd95372bdeae6fab4970f70b1bf28a0))
+
+
+
 ## [6.2.47](https://github.com/zhangyuang/ssr/compare/cli@6.2.46...cli@6.2.47) (2023-05-11)
 
 
