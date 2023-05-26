@@ -7,7 +7,7 @@
 
 ### 区别
 
-`客户端渲染（client-side Renderingende)`, `HTML` 仅仅作为静态估价，客户端在请求时，服务端不做任何处理，直接以原文件的形式返回给客户端客户端，然后根据 `HTML` 上的 `JavaScript`，生成 `DOM` 插入 HTML
+`客户端渲染（client-side Renderingende)`, `HTML` 仅仅作为静态骨架，客户端在请求时，服务端不做任何处理，直接以原文件的形式返回给客户端客户端，然后根据 `HTML` 上的 `JavaScript`，生成 `DOM` 插入 HTML
 
  `服务端渲染（Server-Side Rendering`）,在浏览器请求页面URL的时候，服务端将我们需要的 `HTML` 文本组装好，并返回给浏览器，这个 `HTML` 文本被浏览器解析之后，不需要经过 `JavaScript` 脚本的执行，即可直接构建出希望的 DOM 树并展示到页面中。
 
