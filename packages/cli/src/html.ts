@@ -6,7 +6,7 @@ export const generateHtml = async () => {
   // spa 模式下生成 html 文件直接部署
   const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework, logGreen, getAsyncJsChunk, logWarning, getAsyncCssChunk } = await import('ssr-common-utils')
   logGreen('Generating html file...')
-  const { customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix, clientPrefix, isVite, cssOrderPriority, jsOrderPriority } = loadConfig()
+  const { customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix, clientPrefix, isVite, cssOrderPriority, jsOrderPriority, rootId } = loadConfig()
   const htmlStr = htmlTemplate ?? `
   <!DOCTYPE html>
   <html lang="en">
@@ -33,6 +33,7 @@ export const generateHtml = async () => {
   const hashRouterScript = hashRouter ? '<script>window.hashRouter=true</script>' : ''
   const header = customeHeadScript ?? []
   const footer = customeFooterScript ?? []
+  const ssrDevInfo = { rootId }
   const combine = [
     {
       arr: Array.isArray(header) ? header : header(mockCtx),
@@ -43,7 +44,7 @@ export const generateHtml = async () => {
     }]
   combine[0].arr = combine[0].arr.concat([
     {
-      content: `window.__USE_SSR__=false;window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ;${clientPrefix ? `window.clientPrefix="${clientPrefix}"` : ''}`
+      content: `window.__USE_SSR__=false;window.__USE_VITE__=${isVite}; window.prefix="${prefix}" ; window.ssrDevInfo=${JSON.stringify(ssrDevInfo)}; ${clientPrefix ? `window.clientPrefix="${clientPrefix}"` : ''}`
     }
   ])
 
