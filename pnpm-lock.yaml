@@ -207,6 +207,7 @@ importers:
       eslint-config-standard-vue-ts: ^1.0.5
       koa-static-cache: ^5.1.4
       midway-schedule: ^2.0.0
+      pinia: ^2.0.13
       pm2: ^4.5.4
       ssr: ^6.0.0
       ssr-common-utils: ^6.0.0
@@ -227,6 +228,7 @@ importers:
       '@midwayjs/koa': 3.4.12_@midwayjs+decorator@3.4.11
       koa-static-cache: 5.1.4
       midway-schedule: 2.14.7
+      pinia: 2.0.20_typescript@4.7.4+vue@3.2.37
       pm2: 4.5.6
       ssr-common-utils: link:../../packages/utils
       ssr-core: link:../../packages/core

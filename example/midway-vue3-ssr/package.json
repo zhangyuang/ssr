@@ -16,7 +16,8 @@
     "swiper": "6.7.5",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0",
-    "vuex": "^4.0.0"
+    "vuex": "^4.0.0",
+    "pinia": "^2.0.13"
   },
   "devDependencies": {
     "@midwayjs/mock": "^3.0.0",
