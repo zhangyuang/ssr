@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getCwd, loadConfig, setStyle, addImageChain, loadModuleFromFramework, logErr, getBuildConfig, getDefineEnv } from 'ssr-common-utils'
+import { getCwd, loadConfig, setStyle, loadModuleFromFramework, logErr, getBuildConfig, getDefineEnv, addCommonChain } from 'ssr-common-utils'
 import * as webpack from 'webpack'
 import * as WebpackChain from 'webpack-chain'
 
@@ -10,62 +10,9 @@ const WebpackBar = require('webpackbar')
 
 const loadModule = loadModuleFromFramework
 
-const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOptions: any) => {
-  const { babelOptions } = loadConfig()
-
-  chain.use('babel-loader')
-    .loader(loadModule('babel-loader'))
-    .options({
-      cacheDirectory: true,
-      cacheCompression: false,
-      sourceType: 'unambiguous',
-      presets: [
-        [
-          loadModule('@babel/preset-typescript'),
-          {
-            isTSX: true,
-            allExtensions: true
-          }
-        ],
-        [
-          loadModule('@babel/preset-env'),
-          envOptions
-        ],
-        ...babelOptions?.presets ?? []
-      ],
-      plugins: [
-        [
-          loadModule('@babel/plugin-transform-runtime'),
-          {
-            corejs: false
-          }
-        ],
-        [
-          loadModule('babel-plugin-import'),
-          {
-            libraryName: 'vant',
-            libraryDirectory: 'lib',
-            style: true
-          }, 'vant'
-        ],
-        [
-          loadModule('babel-plugin-import'),
-          {
-            libraryName: 'ant-design-vue',
-            libraryDirectory: 'lib',
-            style: true
-          }, 'ant-design-vue'
-        ],
-        loadModule('@vue/babel-plugin-jsx'),
-        ...babelOptions?.plugins ?? []
-      ]
-    })
-    .end()
-}
-
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, chainBaseConfig, locale, corejsOptions, ssrVueLoaderOptions, assetsDir, csrVueLoaderOptions, babelExtraModule, alias, define, babelOptions } = config
+  const { moduleFileExtensions, chainBaseConfig, locale, ssrVueLoaderOptions, csrVueLoaderOptions, alias, define } = config
 
   let vueLoaderOptions = {
     babelParserPlugins: ['jsx', 'classProperties', 'decorators-legacy'],
@@ -88,11 +35,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   }
 
   const mode = process.env.NODE_ENV as Mode
-
-  const envOptions = {
-    modules: false,
-    ...corejsOptions
-  }
 
   chain.resolve
     .extensions
@@ -120,8 +62,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   chain.resolve.alias
     .set('pinia', loadModuleFromFramework('pinia'))
 
-  addImageChain(chain, isServer)
-
+  addCommonChain(chain, isServer)
   chain.module
     .rule('vue')
     .test(/\.vue$/)
@@ -132,11 +73,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   chain
     .plugin('vue-loader')
     .use(require(loadModule('vue-loader')).VueLoaderPlugin)
-    .end()
-  chain.module
-    .rule('mjs')
-    .test(/\.mjs/)
-    .type('javascript/auto')
     .end()
 
   locale?.enable && chain.module
@@ -157,24 +93,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     .loader('@intlify/vue-i18n-loader')
     .end()
 
-  const babelModule = chain.module
-    .rule('compile')
-    .test(/\.(js|mjs|ts|tsx)$/)
-    .exclude
-    .add(/node_modules|core-js/)
-    .add(babelOptions?.exclude as Array<string|RegExp> ?? [])
-    .end()
-
-  const module = chain.module
-    .rule('compileBabelForExtraModule')
-    .test(/\.(js|mjs|jsx|ts|tsx)$/)
-    .include
-
-  const babelForExtraModule = module.add(babelExtraModule ?? []).add(babelOptions?.include as Array<string|RegExp> ?? []).end().exclude.add(/core-js/).end()
-
-  addBabelLoader(babelModule, envOptions)
-  addBabelLoader(babelForExtraModule, envOptions)
-
   setStyle(chain, /\.css$/, {
     rule: 'css',
     importLoaders: 1,
@@ -187,17 +105,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     importLoaders: 2,
     isServer
   })
-
-  chain.module
-    .rule('fonts')
-    .test(/\.(eot|woff|woff2|ttf)(\?.*)?$/)
-    .use('file-loader')
-    .loader(loadModule('file-loader'))
-    .options({
-      name: `${assetsDir}/[name].[hash:8].[ext]`,
-      esModule: false,
-      emitFile: !isServer
-    })
 
   chain.plugin('minify-css').use(MiniCssExtractPlugin, getBuildConfig().cssBuildConfig)
 

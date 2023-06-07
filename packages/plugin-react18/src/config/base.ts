@@ -1,72 +1,17 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getCwd, loadConfig, setStyle, addImageChain, loadModuleFromFramework, getPkgJson, getBuildConfig } from 'ssr-common-utils'
+import { getCwd, loadConfig, setStyle, loadModuleFromFramework, getBuildConfig, addCommonChain } from 'ssr-common-utils'
 import * as WebpackChain from 'webpack-chain'
 import * as webpack from 'webpack'
-import { coerce } from 'semver'
 
 const MiniCssExtractPlugin = require(loadModuleFromFramework('ssr-mini-css-extract-plugin'))
 const WebpackBar = require('webpackbar')
-const loadModule = loadModuleFromFramework
 
-const antdVersion = getPkgJson().dependencies?.['antd'] ?? getPkgJson().devDependencies?.['antd']
-const isAntd4 = coerce(antdVersion)?.major === 4
-const addBabelLoader = (chain: WebpackChain.Rule<WebpackChain.Module>, envOptions: any, isServer: boolean) => {
-  const { babelOptions, isDev } = loadConfig()
-  const plugins = [
-    [loadModule('@babel/plugin-transform-runtime'), {
-      regenerator: false,
-      corejs: false,
-      helpers: true
-    }],
-    [loadModule('@babel/plugin-proposal-private-methods'), { loose: true }],
-    [loadModule('@babel/plugin-proposal-private-property-in-object'), { loose: true }],
-    ...babelOptions?.plugins ?? []
-  ]
-  if (isAntd4) {
-    plugins.push([
-      loadModule('babel-plugin-import'),
-      {
-        libraryName: 'antd',
-        libraryDirectory: 'lib',
-        style: true
-      }, 'antd'
-    ])
-  }
-  if (!isServer && isDev) {
-    plugins.push(loadModule('react-refresh/babel'))
-  }
-  chain.use('babel-loader')
-    .loader(loadModule('babel-loader'))
-    .options({
-      cacheDirectory: true,
-      cacheCompression: false,
-      sourceType: 'unambiguous',
-      presets: [
-        [
-          loadModule('@babel/preset-env'),
-          envOptions
-        ],
-        [loadModule('babel-preset-react-app'), {
-          flow: false,
-          typescript: true,
-          runtime: 'automatic'
-        }],
-        ...babelOptions?.presets ?? []
-      ],
-      plugins: plugins
-    })
-    .end()
-}
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
   const config = loadConfig()
-  const { moduleFileExtensions, chainBaseConfig, corejsOptions, babelExtraModule, alias, define, babelOptions, assetsDir } = config
+  const { moduleFileExtensions, chainBaseConfig, alias, define } = config
   const mode = process.env.NODE_ENV as Mode
-  const envOptions = {
-    modules: false,
-    ...corejsOptions
-  }
 
   chain.mode(mode)
   chain.module.strictExportPresence(true)
@@ -85,31 +30,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     chain.resolve.alias
       .set(item, alias[item])
   })
-  addImageChain(chain, isServer)
-
-  const babelModule = chain.module
-    .rule('compileBabel')
-    .test(/\.(js|mjs|jsx|ts|tsx)$/)
-    .exclude
-    .add(/node_modules|core-js/)
-    .add(babelOptions?.exclude as Array<string|RegExp> ?? [])
-    .end()
-
-  chain.module
-    .rule('mjs')
-    .test(/\.mjs/)
-    .type('javascript/auto')
-    .end()
-
-  const module = chain.module
-    .rule('compileBabelForExtraModule')
-    .test(/\.(js|mjs|jsx|ts|tsx)$/)
-    .include
-
-  const babelForExtraModule = module.add(babelExtraModule ?? []).add(babelOptions?.include as Array<string|RegExp> ?? []).end().exclude.add(/core-js/).end()
-
-  addBabelLoader(babelModule, envOptions, isServer)
-  addBabelLoader(babelForExtraModule, envOptions, isServer)
+  addCommonChain(chain, isServer)
 
   setStyle(chain, /\.css$/, {
     rule: 'css',
@@ -123,17 +44,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     isServer,
     importLoaders: 2
   })
-
-  chain.module
-    .rule('fonts')
-    .test(/\.(eot|woff|woff2|ttf)(\?.*)?$/)
-    .use('file-loader')
-    .loader(loadModule('file-loader'))
-    .options({
-      name: `${assetsDir}/[name].[hash:8].[ext]`,
-      esModule: false,
-      emitFile: !isServer
-    })
 
   chain.plugin('minify-css').use(MiniCssExtractPlugin, getBuildConfig().cssBuildConfig)
 

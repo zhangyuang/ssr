@@ -1,4 +1,5 @@
 import { loadConfig } from './loadConfig'
+import { judgeFramework } from './cwd'
 
 export const getBuildConfig = () => {
   const { useHash, assetsDir, isVite } = loadConfig()
@@ -29,6 +30,7 @@ export const terserConfig = () => {
   const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
   return {
     terserOptions: {
+      keep_fnames: judgeFramework().includes('ssr-plugin-react'),
       parse: {
         ecma: 8
       },

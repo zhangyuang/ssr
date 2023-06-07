@@ -3,9 +3,11 @@ import type WebpackChainConfig from 'webpack-chain'
 import type { PluginOption, ServerOptions, UserConfig as ViteConfig, CSSOptions } from 'vite'
 import type { Plugin as PostCssPlugin } from 'postcss'
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel'
+import type { PluginItem as BabelPluginItem } from '@babel/core'
 import { Argv } from './yargs'
 import { ISSRContext } from './ctx'
 
+export type PluginItem = BabelPluginItem
 export interface SSRModule extends compilation.Module {
   resource?: string
   dependencies?: Array<{request: string}>

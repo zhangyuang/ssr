@@ -1103,6 +1103,7 @@ importers:
       shelljs: ^0.8.3
       ssr-types: ^6.0.0
       vue: ^3.0.0
+      webpack-chain: ^6.4.0
     dependencies:
       axios: 1.4.0
       es-module-lexer: 0.9.3
@@ -1125,6 +1126,7 @@ importers:
       rollup: 2.77.3
       ssr-types: link:../types
       vue: 3.2.37
+      webpack-chain: 6.5.1
 
   packages/webpack:
     specifiers:
