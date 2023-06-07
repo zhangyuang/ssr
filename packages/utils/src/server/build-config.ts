@@ -23,3 +23,33 @@ export const getBuildConfig = () => {
     }]
   }
 }
+
+export const terserConfig = () => {
+  const { isDev } = loadConfig()
+  const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
+  return {
+    terserOptions: {
+      parse: {
+        ecma: 8
+      },
+      compress: {
+        ecma: 5,
+        warnings: false,
+        comparisons: false,
+        inline: 2
+      },
+      mangle: {
+        safari10: true
+      },
+      output: {
+        ecma: 5,
+        comments: false,
+        ascii_only: true
+      }
+    },
+    extractComments: false,
+    parallel: true,
+    cache: true,
+    sourceMap: shouldUseSourceMap
+  }
+}

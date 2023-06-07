@@ -1,7 +1,7 @@
 
 import { promises } from 'fs'
 import { resolve } from 'path'
-import { loadConfig, getCwd, cryptoAsyncChunkName, getOutputPublicPath, loadModuleFromFramework, getBuildConfig } from 'ssr-common-utils'
+import { loadConfig, getCwd, cryptoAsyncChunkName, getOutputPublicPath, loadModuleFromFramework, getBuildConfig, terserConfig } from 'ssr-common-utils'
 import * as WebpackChain from 'webpack-chain'
 import { Compiler } from 'webpack'
 import { getBaseConfig } from './base'
@@ -53,31 +53,7 @@ const getClientWebpack = (chain: WebpackChain) => {
     })
     .when(!isDev, optimization => {
       optimization.minimizer('terser')
-        .use(loadModule('terser-webpack-plugin'), [{
-          terserOptions: {
-            parse: {
-              ecma: 8
-            },
-            compress: {
-              ecma: 5,
-              warnings: false,
-              comparisons: false,
-              inline: 2
-            },
-            mangle: {
-              safari10: true
-            },
-            output: {
-              ecma: 5,
-              comments: false,
-              ascii_only: true
-            }
-          },
-          extractComments: false,
-          parallel: true,
-          cache: true,
-          sourceMap: shouldUseSourceMap
-        }])
+        .use(loadModule('terser-webpack-plugin'), [terserConfig()])
       optimization.minimizer('optimize-css').use(loadModule('optimize-css-assets-webpack-plugin'), [{
         cssProcessorOptions: {
           parser: safePostCssParser,
