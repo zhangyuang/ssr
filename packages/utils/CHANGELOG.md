@@ -1,3 +1,12 @@
+## [6.2.87](https://github.com/zhangyuang/ssr/compare/utils@6.2.86...utils@6.2.87) (2023-06-07)
+
+
+### Bug Fixes
+
+* ssr build --optimize clear null string add layout~app ([84f5671](https://github.com/zhangyuang/ssr/commit/84f5671f2c87c251cc9e33ce1b8c7423d33e7845))
+
+
+
 ## [6.2.86](https://github.com/zhangyuang/ssr/compare/utils@6.2.85...utils@6.2.86) (2023-06-07)
 
 
