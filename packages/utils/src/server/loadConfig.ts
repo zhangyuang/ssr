@@ -87,7 +87,7 @@ const loadConfig = (): IConfig => {
   const defaultWhiteList: Array<RegExp|string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/, /\.(vue)$/]
   const whiteList: Array<RegExp|string> = defaultWhiteList.concat(userConfig.whiteList ?? [])
 
-  const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', 'common-vendor.js', `${chunkName}.js`, 'layout-app.js']
+  const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', 'common-vendor.js', 'layout-app~vendor.js', `${chunkName}.js`, 'layout-app.js']
 
   const cssOrder = ['vendor.css', 'common-vendor.css', `${chunkName}.css`, 'layout-app.css']
 

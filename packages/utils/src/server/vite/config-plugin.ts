@@ -77,6 +77,16 @@ const recordInfo = (id: string, chunkName: string | null, defaultChunkName: stri
   if (parentId) {
     dependenciesMap[sign] = dependenciesMap[sign].concat(dependenciesMap[parentId])
   }
+  dependenciesMap[sign] = Array.from(new Set(dependenciesMap[sign].filter(Boolean))).sort(sortByAscii)
+}
+
+const sortByAscii = (a: string, b: string) => {
+  for (let i = 0; i < Math.min(a.length, b.length); i++) {
+    if (a.charCodeAt(i) !== b.charCodeAt(i)) {
+      return a.charCodeAt(i) - b.charCodeAt(i)
+    }
+  }
+  return a.length - b.length
 }
 
 let hasWritten = false

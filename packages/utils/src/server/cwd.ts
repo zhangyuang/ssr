@@ -37,8 +37,9 @@ const getWebpackSplitCache = () => {
     const asyncChunkMap = require(resolve(getCwd(), './build/asyncChunkMap.json'))
     let maxPriority = Object.keys(asyncChunkMap).length + 1
     const splitPriorityMap: Record<string, number|undefined> = {
-      'common-vendor': maxPriority + 1,
-      'layout-app': maxPriority
+      'common-vendor': maxPriority + 2,
+      'layout-app~vendor': maxPriority + 1,
+      'layout-app': maxPriority + 1
     }
     // make priority consistent
     Object.keys(asyncChunkMap).sort((a, b) => {
@@ -50,7 +51,9 @@ const getWebpackSplitCache = () => {
         return a > b ? 1 : -1
       }
     }).forEach(chunkName => {
-      splitPriorityMap[chunkName] = maxPriority - 1
+      if (!splitPriorityMap[chunkName]) {
+        splitPriorityMap[chunkName] = maxPriority - 1
+      }
       maxPriority--
     })
     const webpackMap: Record<string, string[]> = {}
