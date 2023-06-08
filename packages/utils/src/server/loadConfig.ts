@@ -89,7 +89,7 @@ const loadConfig = (): IConfig => {
 
   const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', 'common-vendor.js', 'layout-app~vendor.js', `${chunkName}.js`, 'layout-app.js']
 
-  const cssOrder = ['vendor.css', 'common-vendor.css', `${chunkName}.css`, 'layout-app.css']
+  const cssOrder = ['vendor.css', 'common-vendor.css', 'layout-app~vendor.css', `${chunkName}.css`, 'layout-app.css']
 
   const webpackStatsOption = {
     assets: true, // 添加资源信息
