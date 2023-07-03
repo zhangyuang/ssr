@@ -89,6 +89,8 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
   }
   plugins.push(...babelOptions?.plugins ?? [])
   presets.push(...babelOptions?.presets ?? [])
+  plugins.filter(Boolean)
+  presets.filter(Boolean)
   chain.use('babel-loader')
     .loader(loadModuleFromFramework('babel-loader'))
     .options({
