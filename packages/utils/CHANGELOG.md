@@ -1,3 +1,12 @@
+## [6.2.88](https://github.com/zhangyuang/ssr/compare/utils@6.2.87...utils@6.2.88) (2023-07-03)
+
+
+### Bug Fixes
+
+* filter babel plugins null string ([837d7b6](https://github.com/zhangyuang/ssr/commit/837d7b6eb7bbcd290cc234591975bc2f82695ed8))
+
+
+
 ## [6.2.87](https://github.com/zhangyuang/ssr/compare/utils@6.2.86...utils@6.2.87) (2023-06-07)
 
 
