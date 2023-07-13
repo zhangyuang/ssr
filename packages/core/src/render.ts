@@ -1,7 +1,8 @@
 import { Readable, Stream } from 'stream'
-import { loadConfig, StringToStream, mergeStream2, setHeader, judgeServerFramework, judgeFramework, getViteServerEntry, getCustomScript } from 'ssr-common-utils'
+import { loadConfig, StringToStream, mergeStream2, setHeader, judgeServerFramework, judgeFramework, getViteServerEntry } from 'ssr-common-utils'
 import { ISSRContext, UserConfig, IConfig, Vue3RenderRes } from 'ssr-types'
 import type { ViteDevServer } from 'vite'
+import { getCustomScript } from './utils'
 
 const defaultConfig = loadConfig()
 const sf = judgeServerFramework()

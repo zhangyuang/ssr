@@ -108,10 +108,6 @@ export const getUserScriptVue = (script: UserConfig['customeHeadScript'], ctx: I
   )))
 }
 
-export const getCustomScript = (script: UserConfig['customeHeadScript'], ctx: ISSRContext) => {
-  return Array.isArray(script) ? script : (script?.(ctx) ?? [])
-}
-
 export const getInlineCss = async ({
   dynamicCssOrder,
   manifest,
