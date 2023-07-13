@@ -1,5 +1,5 @@
 import { Readable, Stream } from 'stream'
-import { loadConfig, StringToStream, mergeStream2, setHeader, judgeServerFramework, judgeFramework, getViteServerEntry } from 'ssr-common-utils'
+import { loadConfig, StringToStream, mergeStream2, setHeader, judgeServerFramework, judgeFramework, getViteServerEntry, getCustomScript } from 'ssr-common-utils'
 import { ISSRContext, UserConfig, IConfig, Vue3RenderRes } from 'ssr-types'
 import type { ViteDevServer } from 'vite'
 
@@ -17,8 +17,11 @@ function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
 async function render (ctx: ISSRContext, options?: UserConfig) {
   const extraConfig: UserConfig = options?.dynamicFile?.configFile ? require(options.dynamicFile.configFile).userConfig : {}
   const config: IConfig = Object.assign({}, defaultConfig, extraConfig, options ?? {})
-  const { isVite, isDev } = config
+  // support combine dynamic customeHeadScript when call render
+  config.customeHeadScript = getCustomScript(defaultConfig.customeHeadScript, ctx).concat(getCustomScript(config.customeHeadScript, ctx))
+  config.customeFooterScript = getCustomScript(defaultConfig.customeFooterScript, ctx).concat(getCustomScript(config.customeFooterScript, ctx))
 
+  const { isVite, isDev } = config
   if (!isDev && options?.dynamicFile?.assetManifest) {
     config.isVite = !!(require(options.dynamicFile.assetManifest).vite)
   }
