@@ -1,3 +1,7 @@
+## [6.2.24](https://github.com/zhangyuang/ssr/compare/core@6.2.23...core@6.2.24) (2023-07-13)
+
+
+
 ## [6.2.23](https://github.com/zhangyuang/ssr/compare/core@6.2.22...core@6.2.23) (2023-07-13)
 
 
