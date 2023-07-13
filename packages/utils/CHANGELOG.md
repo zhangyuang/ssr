@@ -1,3 +1,17 @@
+## [6.2.90](https://github.com/zhangyuang/ssr/compare/utils@6.2.89...utils@6.2.90) (2023-07-13)
+
+
+### Bug Fixes
+
+* react plugin add plugin-proposal close [#297](https://github.com/zhangyuang/ssr/issues/297) ([fdd8253](https://github.com/zhangyuang/ssr/commit/fdd82537f33f8284881ba80cacfa12ce756a109b))
+
+
+### Features
+
+* support combine dynamic customeHeadScript when call render ([76dbe1f](https://github.com/zhangyuang/ssr/commit/76dbe1ffa4c603d32487abd0507bc1a3808facfc))
+
+
+
 ## [6.2.89](https://github.com/zhangyuang/ssr/compare/utils@6.2.88...utils@6.2.89) (2023-07-03)
 
 
