@@ -1,3 +1,12 @@
+## [6.2.91](https://github.com/zhangyuang/ssr/compare/utils@6.2.90...utils@6.2.91) (2023-07-25)
+
+
+### Features
+
+* support staticConfigPath ([80a9411](https://github.com/zhangyuang/ssr/commit/80a94117d87d025a3788fbadb6c810ce036de883))
+
+
+
 ## [6.2.90](https://github.com/zhangyuang/ssr/compare/utils@6.2.89...utils@6.2.90) (2023-07-13)
 
 
