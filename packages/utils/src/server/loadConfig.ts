@@ -168,6 +168,7 @@ const loadConfig = (): IConfig => {
     /ssr-plugin-vue3/, /ssr-client-utils/, /ssr-hoc-vue/, /vue/, /ssr-common-utils/, /ssr-plugin-vue/, /ssr-plugin-react/,
     /ssr-hoc-react/, /ssr-hoc-vue3/, /ssr-hoc-react18/
   ]
+  const staticConfigPath = ''
   const getOutput = () => {}
   const rootId = '#app'
   const config = Object.assign({}, {
@@ -211,9 +212,10 @@ const loadConfig = (): IConfig => {
     writeDebounceTime,
     dynamicFile,
     babelExtraModule,
-    rootId
+    rootId,
+    staticConfigPath
   }, userConfig)
-
+  config.staticConfigPath = join(config.cwd, './build/staticConfig.js')
   config.getOutput = () => ({
     clientOutPut: join(cwd, './build/client'),
     serverOutPut: join(cwd, './build/server')

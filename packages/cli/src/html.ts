@@ -1,15 +1,22 @@
 import { promises } from 'fs'
 import { join } from 'path'
+import type { UserConfig } from 'ssr-types'
 
 export const generateHtml = async () => {
   if (!process.env.SPA) return
   // spa 模式下生成 html 文件直接部署
   const {
     loadConfig, getCwd, judgeFramework, loadModuleFromFramework, logGreen,
-    getAsyncJsChunk, logWarning, getAsyncCssChunk, splitPageInfo
+    getAsyncJsChunk, logWarning, getAsyncCssChunk, splitPageInfo, getScriptArr
   } = await import('ssr-common-utils')
   logGreen('Generating html file...')
-  const { customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix, clientPrefix, isVite, cssOrderPriority, jsOrderPriority, rootId } = loadConfig()
+  const cwd = getCwd()
+  const {
+    customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix,
+    clientPrefix, isVite, cssOrderPriority, jsOrderPriority, rootId, staticConfigPath
+  } = loadConfig()
+  const staticConfig: UserConfig = require(staticConfigPath)
+
   const htmlStr = htmlTemplate ?? `
   <!DOCTYPE html>
   <html lang="en">
@@ -39,10 +46,10 @@ export const generateHtml = async () => {
   const ssrDevInfo = { rootId }
   const combine = [
     {
-      arr: Array.isArray(header) ? header : header(mockCtx),
+      arr: getScriptArr(header, mockCtx).concat(getScriptArr(staticConfig.customeHeadScript ?? [], mockCtx)),
       flag: 'header'
     }, {
-      arr: Array.isArray(footer) ? footer : footer(mockCtx),
+      arr: getScriptArr(footer, mockCtx).concat(getScriptArr(staticConfig.customeFooterScript ?? [], mockCtx)),
       flag: 'footer'
     }]
 
@@ -88,7 +95,6 @@ export const generateHtml = async () => {
     }
   }
 
-  const cwd = getCwd()
   const manifest: Record<string, string> = require(join(cwd, './build/client/asset-manifest.json'))
   let jsManifest: string[] = []
   const jsOrder = await getAsyncJsChunk(mockCtx, '', loadConfig())

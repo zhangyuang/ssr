@@ -155,6 +155,7 @@ export interface IConfig {
     assetManifest: string
     configFile?: string
   }
+  staticConfigPath: string
 }
 
 export interface proxyOptions {

@@ -135,7 +135,7 @@ const getSplitChunksOptions = (asyncChunkMap: {
 const transformConfig = async () => {
   // serverless 发布无需安装 shelljs esbuild, 提前本地 build 好
   const { cp, mkdir } = await import('shelljs')
-  const { transform } = await import('esbuild')
+  const { staticConfigPath } = loadConfig()
   const cwd = getCwd()
   if (!await accessFile(resolve(cwd, './build'))) {
     mkdir(resolve(cwd, './build'))
@@ -143,16 +143,23 @@ const transformConfig = async () => {
   if (await accessFile(resolve(cwd, './config.js'))) {
     cp('-r', `${resolve(cwd, './config.js')}`, `${resolve(cwd, './build/config.js')}`)
   }
-  const configWithTs = await accessFile(resolve(cwd, './config.ts'))
-  if (configWithTs) {
-    const fileContent = (await promises.readFile(resolve(cwd, './config.ts'))).toString()
-    const { code } = await transform(fileContent, {
-      loader: 'ts',
-      format: 'cjs',
-      keepNames: true
-    })
-    await promises.writeFile(resolve(cwd, './build/config.js'), code)
+
+  await esbuildTransform(resolve(cwd, './config.ts'), resolve(cwd, './build/config.js'))
+  await esbuildTransform(staticConfigPath, staticConfigPath)
+}
+
+export const esbuildTransform = async (from: string, to: string) => {
+  if (!await accessFile(from)) {
+    await promises.writeFile(from, '')
   }
+  const { transform } = await import('esbuild')
+  const fileContent = (await promises.readFile(from)).toString()
+  const { code } = await transform(fileContent, {
+    loader: 'ts',
+    format: 'cjs',
+    keepNames: true
+  })
+  await promises.writeFile(to, code)
 }
 
 const transformManualRoutes = async () => {

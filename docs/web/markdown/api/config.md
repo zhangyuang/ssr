@@ -864,9 +864,42 @@ res.end();
 
 通常在 `ssr` 过程中接口和页面元素节点过多导致渲染时间过长进而页面白屏时间较长的场景可能会使用到此能力。可通过提前返回 `<head>` 的部分，预加载样式和脚本文件，也可以通过分块提前返回 `loading` 或骨架屏来替代 `<body>` 返回前的白屏。
 
+### staticConfigPath
+
+设置静态构建文件的路径。默认值 `build/staticConfig.js` 不建议修改。
+
+使用场景：针对一些需要在构建时获取生成 `customeHeadScript|customeFooterScript` 的业务场景例如构建时通过接拉取脚本配置信息，减少运行时的性能损耗。开发者可以自定义构建逻辑，在 `ssr build` 执行之前或者之后(如果要兼容 `SPA静态html文件` 场景需要在 `ssr build` 执行之前完成)生成 `build/staticConfig.js` 文件。框架将会在运行时加载此文件读取其中的内容。
+
+```bash
+$ node xxx.js && ssr build
+```
+
+可以在 `ssr build` 执行前通过调用自己编写的脚本来生成此文件，也可以通过 `chainClientWebpack` 等配置在 `ssr build` 时监听 `webpack` 事件来生成。生成 `SPA` 的逻辑将会在 `webpack` 构建结束后再执行。
+
+文件示例如下
+
+```js
+// build/staticConfig.js
+
+export const customeHeadScript= [
+  // 规范与上文的 customeHeadScript 保持完全一致
+  // Vue3 直接写 attr 属性即可
+  {
+    tagName: 'script', // 默认值为 script
+    describe: {
+      type: 'text/javascript',
+      src: 'https://res.wx.qq.com/open/js/jweixin-1.2.0.js'
+    },
+    content: ''
+  }
+]
+```
+
+此文件建议使用 `es6 named export` 语法进行导出。目前支持 `customeHeadScript|customeFooterScript` 的导出逻辑。
+
 ## 注意事项
 
-1. 由于 `config.js` 文件在 Node.js 环境也会被加载，如果直接在顶部 `require` 模块可能会导致模块`体积过大`，降低应用启动速度，我们建议在必要的函数当中再 `require` 需要用到的模块。
+1. 由于 `config.js` 文件在 Node.js 环境也会被加载，如果直接在顶部 `require` 模块可能会导致模块`体积过大`，降低应用启动速度，对于一些只在构建逻辑中才会用到的模块我们建议在必要的函数当中再 `require` 加载。
 以添加 `postcss` 插件为例
 
 ```js

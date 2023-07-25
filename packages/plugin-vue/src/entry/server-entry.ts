@@ -1,15 +1,17 @@
 import * as Vue from 'vue'
 import { h } from 'vue'
 import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, getUserScriptVue, remInitial, localStorageWrapper, getInlineCss, checkRoute, splitPageInfo } from 'ssr-common-utils'
-import { ISSRContext, IConfig } from 'ssr-types'
+import type { ISSRContext, IConfig, UserConfig } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
 import { createRenderer } from 'vue-server-renderer'
+import * as StaticConfig from '_build/staticConfig'
 import { Routes } from './create-router'
 import { createRouter, createStore } from './create'
 import { IFeRouteItem } from '../types'
 
 const { renderToStream, renderToString } = createRenderer()
 const { FeRoutes, App, layoutFetch, Layout } = Routes
+const staticConfig = StaticConfig as UserConfig
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix, stream, rootId, bigpipe } = config
@@ -79,8 +81,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
           'window.clientPrefix': `"${clientPrefix ?? ''}"`,
           'window.ssrDevInfo': JSON.stringify(ssrDevInfo)
         })
-        const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue').concat(inlineCss)
-        const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue')
+        const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue({ script: customeHeadScript, ctx, h, type: 'vue3', position: 'header', staticConfig }).concat(inlineCss ?? [])
+        const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue({ script: customeFooterScript, ctx, h, type: 'vue', position: 'footer', staticConfig })
         const initialData = h('script', {
           domProps: {
             innerHTML

@@ -2,6 +2,7 @@ import { promises } from 'fs'
 import { join, isAbsolute } from 'path'
 import type { UserConfig, ISSRContext, IConfig, ISSRNestContext, FastifyContext } from 'ssr-types'
 import { stringify } from 'qs'
+
 import { getCwd, stringifyDefine } from './cwd'
 
 export const setHeader = (ctx: ISSRContext, serverFrameWork: string) => {
@@ -94,11 +95,19 @@ export const getAsyncJsChunk = async (ctx: ISSRContext, webpackChunkName: string
   return combineOrder
 }
 
-export const getUserScriptVue = (script: UserConfig['customeHeadScript'], ctx: ISSRContext, h: any, type: 'vue3' | 'vue') => {
-  if (!script) {
-    return []
-  }
-  return (Array.isArray(script) ? script : script(ctx)).map(item => h(item.tagName ?? 'script', Object.assign({}, item.describe, type === 'vue' ? {
+export const getUserScriptVue = (options: {
+  script: UserConfig['customeHeadScript']
+  ctx: ISSRContext
+  h: any
+  type: 'vue3' | 'vue'
+  position: 'header'|'footer'
+  staticConfig: UserConfig
+}) => {
+  const { script, ctx, h, type, position, staticConfig } = options
+  const defaultScriptArr = getScriptArr(script, ctx)
+  const staticScript = position === 'header' ? staticConfig.customeHeadScript : staticConfig.customeFooterScript
+  const staticScriptArr = getScriptArr(staticScript, ctx)
+  return defaultScriptArr.concat(staticScriptArr).map(item => h(item.tagName ?? 'script', Object.assign({}, item.describe, type === 'vue' ? {
     domProps: {
       innerHTML: item.content
     }
@@ -108,6 +117,9 @@ export const getUserScriptVue = (script: UserConfig['customeHeadScript'], ctx: I
   )))
 }
 
+export const getScriptArr = (script: UserConfig['customeHeadScript'], ctx: ISSRContext) => {
+  return Array.isArray(script) ? script : (script?.(ctx) ?? [])
+}
 export const getInlineCss = async ({
   dynamicCssOrder,
   manifest,
@@ -126,9 +138,8 @@ export const getInlineCss = async ({
   const cwd = getCwd()
   const cssOrder = cssInline === 'all' ? dynamicCssOrder : dynamicCssOrder.filter(item => cssInline?.includes(item))
   const extraInjectCssOrder = cssInline === 'all' ? [] : dynamicCssOrder.filter(item => !cssInline?.includes(item))
-  // eslint-disable-next-line
-  const inlineCssContent = (await Promise.all(cssOrder.map(css => manifest[css]).filter(Boolean).map(css =>
-    promises.readFile(isAbsolute(css!) ? css! : join(cwd, './build', css!)).catch(_ => '')
+  const inlineCssContent = (await Promise.all(cssOrder.map(css => manifest[css]).filter(Boolean).map(async css =>
+    await promises.readFile(isAbsolute(css!) ? css! : join(cwd, './build', css!)).catch(_ => '')
   ))).map(item => item.toString())
 
   return [inlineCssContent.map(item => h('style', type === 'vue' ? {

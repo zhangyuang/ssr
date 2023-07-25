@@ -4,15 +4,17 @@ import {
   getUserScriptVue, remInitial, localStorageWrapper, appLocalStoreageWrapper,
   checkRoute, getInlineCss, splitPageInfo
 } from 'ssr-common-utils'
-import type { ISSRContext, IConfig } from 'ssr-types'
+import type { ISSRContext, IConfig, UserConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
 import { serialize } from 'ssr-serialize-javascript'
 import { renderToNodeStream, renderToString } from '@vue/server-renderer'
+import * as StaticConfig from '_build/staticConfig'
 import { Routes } from './combine-router'
 import { createRouter, createStore } from './create'
 import { IFeRouteItem, vue3AppParams } from '../types'
 
 const { FeRoutes, App, layoutFetch, Layout } = Routes
+const staticConfig = StaticConfig as UserConfig
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https, rootId, bigpipe } = config
@@ -50,8 +52,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         })
         const initialData = h('script', { innerHTML })
         const children = bigpipe ? '' : h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app })
-        const customeHeadScriptArr: VNode[] = getUserScriptVue(customeHeadScript, ctx, h, 'vue3').concat(inlineCss ?? [])
-        const customeFooterScriptArr: VNode[] = getUserScriptVue(customeFooterScript, ctx, h, 'vue3')
+        const customeHeadScriptArr: VNode[] = getUserScriptVue({ script: customeHeadScript, ctx, h, type: 'vue3', position: 'header', staticConfig }).concat(inlineCss ?? [])
+        const customeFooterScriptArr: VNode[] = getUserScriptVue({ script: customeFooterScript, ctx, h, type: 'vue3', position: 'footer', staticConfig })
 
         return h(Layout,
           { ctx, config, asyncData, fetchData: layoutFetchData, reactiveFetchData: { value: layoutFetchData } },
