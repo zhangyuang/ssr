@@ -864,7 +864,7 @@ res.end();
 
 通常在 `ssr` 过程中接口和页面元素节点过多导致渲染时间过长进而页面白屏时间较长的场景可能会使用到此能力。可通过提前返回 `<head>` 的部分，预加载样式和脚本文件，也可以通过分块提前返回 `loading` 或骨架屏来替代 `<body>` 返回前的白屏。
 
-### staticConfigPath
+## staticConfigPath🤔
 
 设置静态构建文件的路径。默认值 `build/staticConfig.js` 不建议修改。
 
