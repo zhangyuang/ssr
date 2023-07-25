@@ -12,7 +12,6 @@ import { IFeRouteItem } from '../types'
 const { renderToStream, renderToString } = createRenderer()
 const { FeRoutes, App, layoutFetch, Layout } = Routes
 const staticConfig = StaticConfig as UserConfig
-
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix, stream, rootId, bigpipe } = config
   const router = createRouter()
@@ -50,7 +49,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     const app = new Vue({
       router,
       store,
-      render: function (h: Vue.CreateElement) {
+      render: function () {
         const injectCss = (isVite && isDev) ? [h('script', {
           attrs: {
             type: 'module',

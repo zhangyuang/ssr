@@ -65,8 +65,8 @@ export const generateHtml = async () => {
       content
     }
   ])
+  const { h, Fragment } = await import(loadModuleFromFramework('vue'))
   if (framework === 'ssr-plugin-vue3') {
-    const { h } = await import(loadModuleFromFramework('vue'))
     const { renderToString } = await import('@vue/server-renderer')
     for (const item of combine) {
       const { arr, flag } = item
@@ -77,20 +77,35 @@ export const generateHtml = async () => {
         })
       ))
       if (flag === 'header') {
-        jsHeaderManifest = (await renderToString(h('div', {}, scriptArr))).replace('<div>', '').replace('</div>', '')
+        jsHeaderManifest += (await renderToString(h(Fragment, {}, scriptArr)))
       } else {
-        jsFooterManifest = (await renderToString(h('div', {}, scriptArr))).replace('<div>', '').replace('</div>', '')
+        jsFooterManifest += (await renderToString(h(Fragment, {}, scriptArr)))
       }
     }
   } if (framework === 'ssr-plugin-vue') {
+    const Vue = await import(loadModuleFromFramework('vue'))
+    const { createRenderer } = await import('vue-server-renderer')
+    const { renderToString } = createRenderer()
     for (const item of combine) {
       const { arr, flag } = item
-      // @ts-expect-error
-      const scriptArr = arr.map((item) => `<script ${isVite ? 'type="module"' : ''} ${item.describe?.attrs ? `src="${item.describe.attrs.src}" type=text/javascript` : ''}>${item.content} </script>`)
+      const app = new Vue({
+        render: () => {
+          const scriptArr = arr.map((item) => h(
+            'script',
+            Object.assign({}, item.describe ?? {}, {
+              domProps: {
+                innerHTML: item.content
+              }
+            })
+          ))
+          return scriptArr
+        }
+      })
+      const scriptStr = await renderToString(app)
       if (flag === 'header') {
-        jsHeaderManifest = scriptArr.join('')
+        jsHeaderManifest = scriptStr.replace('data-server-rendered="true"', '')
       } else {
-        jsFooterManifest = scriptArr.join('')
+        jsFooterManifest = scriptStr.replace('data-server-rendered="true"', '')
       }
     }
   }
