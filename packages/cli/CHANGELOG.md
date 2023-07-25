@@ -1,3 +1,12 @@
+## [6.2.50](https://github.com/zhangyuang/ssr/compare/cli@6.2.49...cli@6.2.50) (2023-07-25)
+
+
+### Features
+
+* use h function render html in vue2 ([031f59e](https://github.com/zhangyuang/ssr/commit/031f59e0c11973bc2aa569f2b656cd61f5bb8e39))
+
+
+
 ## [6.2.49](https://github.com/zhangyuang/ssr/compare/cli@6.2.48...cli@6.2.49) (2023-07-25)
 
 
