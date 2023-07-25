@@ -1,3 +1,20 @@
+## [6.2.55](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.54...plugin-vue@6.2.55) (2023-07-25)
+
+
+### Bug Fixes
+
+* filter babel plugins null string ([837d7b6](https://github.com/zhangyuang/ssr/commit/837d7b6eb7bbcd290cc234591975bc2f82695ed8))
+* react plugin add plugin-proposal close [#297](https://github.com/zhangyuang/ssr/issues/297) ([fdd8253](https://github.com/zhangyuang/ssr/commit/fdd82537f33f8284881ba80cacfa12ce756a109b))
+* ssr build --optimize clear null string add layout~app ([84f5671](https://github.com/zhangyuang/ssr/commit/84f5671f2c87c251cc9e33ce1b8c7423d33e7845))
+
+
+### Features
+
+* support combine dynamic customeHeadScript when call render ([76dbe1f](https://github.com/zhangyuang/ssr/commit/76dbe1ffa4c603d32487abd0507bc1a3808facfc))
+* support staticConfigPath ([80a9411](https://github.com/zhangyuang/ssr/commit/80a94117d87d025a3788fbadb6c810ce036de883))
+
+
+
 ## [6.2.54](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.53...plugin-vue@6.2.54) (2023-06-07)
 
 
