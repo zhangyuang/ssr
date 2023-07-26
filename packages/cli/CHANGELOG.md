@@ -1,3 +1,13 @@
+## [6.2.51](https://github.com/zhangyuang/ssr/compare/cli@6.2.50...cli@6.2.51) (2023-07-26)
+
+
+### Bug Fixes
+
+* esbuildTransform staticConfig after ssr build finish ([c281b9c](https://github.com/zhangyuang/ssr/commit/c281b9cd2419445c26279a0dace63e0a97318d99))
+* transformConfig ([f44899e](https://github.com/zhangyuang/ssr/commit/f44899e76236aae8ba5dbcbe174238d31a539685))
+
+
+
 ## [6.2.50](https://github.com/zhangyuang/ssr/compare/cli@6.2.49...cli@6.2.50) (2023-07-25)
 
 
