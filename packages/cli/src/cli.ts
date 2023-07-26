@@ -22,8 +22,8 @@ const spinner = {
 }
 
 const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
-  const { copyReactContext, judgeFramework, judgeServerFramework, logGreen, logWarning } = await import('ssr-common-utils')
-
+  const { copyReactContext, judgeFramework, judgeServerFramework, logGreen, logWarning, esbuildTransform, loadConfig } = await import('ssr-common-utils')
+  const { staticConfigPath } = loadConfig()
   if (!argv.vite && coerce(process.version)?.major as number > 16 && !process.env.NODE_OPTIONS?.includes('--openssl-legacy-provider')) {
     logWarning(`crypto.createHash('md4') is not supported when node version > 16,
     Please use NODE_OPTIONS=--openssl-legacy-provider ssr start to start project
@@ -48,6 +48,8 @@ const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
     const server: IPlugin['serverPlugin'] = serverPlugin()
     await server?.[type]?.(argv)
   }
+  await esbuildTransform(staticConfigPath, staticConfigPath)
+
   if (type === 'build') {
     await generateHtml()
     await ssg(argv)
