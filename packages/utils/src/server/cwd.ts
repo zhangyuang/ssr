@@ -142,9 +142,10 @@ const transformConfig = async () => {
   }
   if (await accessFile(resolve(cwd, './config.js'))) {
     cp('-r', `${resolve(cwd, './config.js')}`, `${resolve(cwd, './build/config.js')}`)
+  } else {
+    await esbuildTransform(resolve(cwd, './config.ts'), resolve(cwd, './build/config.js'))
   }
 
-  await esbuildTransform(resolve(cwd, './config.ts'), resolve(cwd, './build/config.js'))
   await esbuildTransform(staticConfigPath, staticConfigPath)
 }
 
