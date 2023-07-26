@@ -1,3 +1,12 @@
+## [6.2.94](https://github.com/zhangyuang/ssr/compare/utils@6.2.93...utils@6.2.94) (2023-07-26)
+
+
+### Bug Fixes
+
+* esbuildTransform staticConfig after ssr build finish ([95a3faa](https://github.com/zhangyuang/ssr/commit/95a3faa4bec57d4d713ca32da4063bf19a0c8cf0))
+
+
+
 ## [6.2.93](https://github.com/zhangyuang/ssr/compare/utils@6.2.92...utils@6.2.93) (2023-07-26)
 
 
