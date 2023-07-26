@@ -1,3 +1,17 @@
+## [6.2.92](https://github.com/zhangyuang/ssr/compare/utils@6.2.91...utils@6.2.92) (2023-07-26)
+
+
+### Bug Fixes
+
+* transformConfig ([f44899e](https://github.com/zhangyuang/ssr/commit/f44899e76236aae8ba5dbcbe174238d31a539685))
+
+
+### Features
+
+* use h function render html in vue2 ([031f59e](https://github.com/zhangyuang/ssr/commit/031f59e0c11973bc2aa569f2b656cd61f5bb8e39))
+
+
+
 ## [6.2.91](https://github.com/zhangyuang/ssr/compare/utils@6.2.90...utils@6.2.91) (2023-07-25)
 
 
