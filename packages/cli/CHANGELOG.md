@@ -1,3 +1,12 @@
+## [6.2.54](https://github.com/zhangyuang/ssr/compare/cli@6.2.53...cli@6.2.54) (2023-07-27)
+
+
+### Bug Fixes
+
+* dynamic require staticConfigPath ([9d426e3](https://github.com/zhangyuang/ssr/commit/9d426e3121603bdb9e133c7d2397b430a82f788d))
+
+
+
 ## [6.2.53](https://github.com/zhangyuang/ssr/compare/cli@6.2.52...cli@6.2.53) (2023-07-27)
 
 
