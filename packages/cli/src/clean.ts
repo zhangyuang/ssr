@@ -1,7 +1,9 @@
 import { resolve } from 'path'
 import { rm } from 'shelljs'
+import type { Argv } from 'ssr-types'
 
-export const cleanOutDir = async () => {
+export const cleanOutDir = async (argv: Argv) => {
+  if (argv.noclean) return
   // 默认清理 dist 文件夹
   const { accessFile, getCwd, loadConfig } = await import('ssr-common-utils')
   const { staticConfigPath } = loadConfig()
