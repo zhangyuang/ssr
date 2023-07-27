@@ -1,13 +1,20 @@
 import { resolve } from 'path'
 import { rm } from 'shelljs'
+import { promises } from 'fs'
 import type { Argv } from 'ssr-types'
 
 export const cleanOutDir = async (argv: Argv) => {
-  if (argv.noclean) return
-  // 默认清理 dist 文件夹
   const { accessFile, getCwd, loadConfig } = await import('ssr-common-utils')
   const { staticConfigPath } = loadConfig()
   const cwd = getCwd()
+  if (!accessFile(staticConfigPath)) {
+    // if check build/staticConfig.js exist, don't delete build folder
+    rm('-rf', resolve(cwd, './build'))
+  } else {
+    await promises.writeFile(staticConfigPath, '')
+  }
+  if (argv.noclean) return
+  // clean dist folder
   const tsconfigExist = await accessFile(resolve(cwd, './tsconfig.json'))
   if (tsconfigExist && process.env.CLEAN !== 'false') {
     try {
@@ -17,9 +24,5 @@ export const cleanOutDir = async (argv: Argv) => {
       // 有可能 json 文件存在注释导致 require 失败，这里 catch 一下
       console.log('检测到当前目录 tsconfig.json 文件可能存在语法错误')
     }
-  }
-  if (!accessFile(staticConfigPath)) {
-    // if check build/static.js exist, don't delete build folder
-    rm('-rf', resolve(cwd, './build'))
   }
 }

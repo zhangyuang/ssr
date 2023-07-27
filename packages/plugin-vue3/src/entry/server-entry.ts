@@ -1,20 +1,23 @@
+import { createRequire } from 'module'
+import { resolve } from 'path'
 import { h, createSSRApp, renderSlot, VNode } from 'vue'
 import {
   findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk,
   getUserScriptVue, remInitial, localStorageWrapper, appLocalStoreageWrapper,
-  checkRoute, getInlineCss, splitPageInfo
+  checkRoute, getInlineCss, splitPageInfo, getCwd
 } from 'ssr-common-utils'
 import type { ISSRContext, IConfig, UserConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
 import { serialize } from 'ssr-serialize-javascript'
 import { renderToNodeStream, renderToString } from '@vue/server-renderer'
-import * as StaticConfig from '_build/staticConfig'
 import { Routes } from './combine-router'
 import { createRouter, createStore } from './create'
 import { IFeRouteItem, vue3AppParams } from '../types'
 
 const { FeRoutes, App, layoutFetch, Layout } = Routes
-const staticConfig = StaticConfig as UserConfig
+const cwd = getCwd()
+const ssrRequire = createRequire(cwd)
+const staticConfig = ssrRequire(resolve(cwd, './build/staticConfig.js')) as UserConfig
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https, rootId, bigpipe } = config

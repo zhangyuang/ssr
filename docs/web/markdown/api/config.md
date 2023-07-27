@@ -880,8 +880,9 @@ $ node xxx.js && ssr build
 
 ```js
 // build/staticConfig.js
+// 只能使用 commonjs 语法兼容 Node.js 环境
 
-export const customeHeadScript= [
+exports.customeHeadScript= [
   // 规范与上文的 customeHeadScript 保持完全一致
   // Vue3 直接写 attr 属性即可
   {
@@ -895,7 +896,7 @@ export const customeHeadScript= [
 ]
 ```
 
-此文件建议使用 `es6 named export` 语法进行导出。目前支持 `customeHeadScript|customeFooterScript` 的导出逻辑。
+此文件建议使用 `exports.xxx` 语法进行导出。目前支持 `customeHeadScript|customeFooterScript` 的导出逻辑。
 
 ## 注意事项
 
