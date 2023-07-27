@@ -1,3 +1,20 @@
+## [6.2.56](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.55...plugin-vue@6.2.56) (2023-07-27)
+
+
+### Bug Fixes
+
+* dynamic require staticConfigPath ([9d426e3](https://github.com/zhangyuang/ssr/commit/9d426e3121603bdb9e133c7d2397b430a82f788d))
+* esbuildTransform staticConfig after ssr build finish ([95a3faa](https://github.com/zhangyuang/ssr/commit/95a3faa4bec57d4d713ca32da4063bf19a0c8cf0))
+* esbuildTransform staticConfig after ssr build finish ([c281b9c](https://github.com/zhangyuang/ssr/commit/c281b9cd2419445c26279a0dace63e0a97318d99))
+* transformConfig ([f44899e](https://github.com/zhangyuang/ssr/commit/f44899e76236aae8ba5dbcbe174238d31a539685))
+
+
+### Features
+
+* use h function render html in vue2 ([031f59e](https://github.com/zhangyuang/ssr/commit/031f59e0c11973bc2aa569f2b656cd61f5bb8e39))
+
+
+
 ## [6.2.55](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.54...plugin-vue@6.2.55) (2023-07-25)
 
 
