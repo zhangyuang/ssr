@@ -1,3 +1,7 @@
+## [6.2.53](https://github.com/zhangyuang/ssr/compare/cli@6.2.52...cli@6.2.53) (2023-07-27)
+
+
+
 ## [6.2.52](https://github.com/zhangyuang/ssr/compare/cli@6.2.51...cli@6.2.52) (2023-07-26)
 
 
