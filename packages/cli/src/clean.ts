@@ -7,13 +7,17 @@ export const cleanOutDir = async (argv: Argv) => {
   const { accessFile, getCwd, loadConfig } = await import('ssr-common-utils')
   const { staticConfigPath } = loadConfig()
   const cwd = getCwd()
+  const buildDir = await promises.readdir(resolve(cwd, './build'))
   if (!accessFile(staticConfigPath)) {
-    // if check build/staticConfig.js exist, don't delete build folder
-    rm('-rf', resolve(cwd, './build'))
-  } else {
     await promises.writeFile(staticConfigPath, '')
   }
   if (argv.noclean) return
+  for (const f of buildDir) {
+    const fpath = resolve(cwd, `./build/${f}`)
+    if (fpath !== staticConfigPath) {
+      rm('-rf', fpath)
+    }
+  }
   // clean dist folder
   const tsconfigExist = await accessFile(resolve(cwd, './tsconfig.json'))
   if (tsconfigExist && process.env.CLEAN !== 'false') {
