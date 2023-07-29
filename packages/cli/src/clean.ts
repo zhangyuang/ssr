@@ -8,7 +8,7 @@ export const cleanOutDir = async (argv: Argv) => {
   const { staticConfigPath } = loadConfig()
   const cwd = getCwd()
   const buildDir = await promises.readdir(resolve(cwd, './build'))
-  if (!accessFile(staticConfigPath)) {
+  if (!await accessFile(staticConfigPath)) {
     await promises.writeFile(staticConfigPath, '')
   }
   if (argv.noclean) return

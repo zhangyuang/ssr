@@ -14,6 +14,7 @@ const start = async (argv: Argv) => {
   argv.ts = true
   argv.port = config.serverPort
   argv.ssl = !!config.https
+  argv.fast = argv.fast || true
   argv.tsConfig = await accessFile(join(cwd, './tsconfig.build.json')) ? join(cwd, './tsconfig.build.json') : join(cwd, './tsconfig.json')
   await cli(argv)
 }
