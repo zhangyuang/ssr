@@ -1,4 +1,6 @@
-import { Argv } from 'ssr-types'
+import type { Argv } from 'ssr-types'
+import { getCwd } from 'ssr-common-utils'
+import { resolve } from 'path'
 
 const getNormalizeArgv = (argv: Argv, options: {
   singleDash?: string[]
@@ -21,6 +23,12 @@ const getNormalizeArgv = (argv: Argv, options: {
   return normalizeArgv
 }
 
+export const getNestjsVersion = () => {
+  const cwd = getCwd()
+  const p = require(resolve(cwd, './package.json'))
+  const v = p['devDependencies']?.['@nestjs/cli']
+  return v
+}
 export {
   getNormalizeArgv
 }
