@@ -1,3 +1,12 @@
+## [6.2.55](https://github.com/zhangyuang/ssr/compare/cli@6.2.54...cli@6.2.55) (2023-07-29)
+
+
+### Features
+
+* upgrade nestjs version to 10 use swc as default compiler ([a85503a](https://github.com/zhangyuang/ssr/commit/a85503a680990c80b3dddedc9971ddaf92ee7f46))
+
+
+
 ## [6.2.54](https://github.com/zhangyuang/ssr/compare/cli@6.2.53...cli@6.2.54) (2023-07-27)
 
 
