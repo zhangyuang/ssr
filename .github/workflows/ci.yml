@@ -80,7 +80,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -137,7 +137,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -192,7 +192,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -245,7 +245,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -300,7 +300,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -354,7 +354,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -408,7 +408,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -461,7 +461,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -513,7 +513,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -567,7 +567,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -621,7 +621,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -675,7 +675,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -730,7 +730,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -785,7 +785,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -846,7 +846,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -899,7 +899,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -953,7 +953,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -1008,7 +1008,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -1061,7 +1061,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -1135,7 +1135,7 @@ jobs:
       - e2e-chrome-nestjs-react18-vite
     strategy:
       matrix:
-        node: ["12"]
+        node: ["16"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3

@@ -54,7 +54,7 @@
     }
   },
   "engines": {
-    "node": ">=12.17.0"
+    "node": ">=14.17.0"
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "devDependencies": {
