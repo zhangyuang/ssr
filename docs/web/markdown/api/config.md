@@ -754,14 +754,15 @@ type viteConfig?: () => {
     client?: {
       // 只在客户端生效的配置
       defaultPluginOptions?: any // 为默认装载的插件定义 options, vue3 场景是 @vitejs/plugin-vue, react 场景是 @vitejs/plugin-react
-      extraPlugin?: PluginOption | PluginOption[]
+      otherConfig?: ViteConfig
+      processPlugin?: (plugins: PluginOption[]) => PluginOption[] // 传入当前使用的插件列表，返回新的插件列表，通过此方法来新增/移除框架默认插件
     }
     server?: {
       // 只在服务端生效的配置
       externals?: string[] // 强制 externals 的第三方依赖
       defaultPluginOptions?: any 
-      extraPlugin?: PluginOption | PluginOption[]
       otherConfig?: ViteConfig
+      processPlugin?: (plugins: PluginOption[]) => PluginOption[]
     }
   }
 ```

@@ -126,12 +126,14 @@ export interface IConfig {
       defaultPluginOptions?: any // 为默认装载的插件定义 options, vue3 场景是 @vitejs/plugin-vue, react 场景是 @vitejs/plugin-react
       extraPlugin?: PluginOption | PluginOption[]
       otherConfig?: ViteConfig
+      processPlugin?: (plugins: PluginOption[]) => PluginOption[]
     }
     server?: {
       externals?: string[]
       defaultPluginOptions?: any
       extraPlugin?: PluginOption | PluginOption[]
       otherConfig?: ViteConfig
+      processPlugin?: (plugins: PluginOption[]) => PluginOption[]
     }
   }
   hmr?: {

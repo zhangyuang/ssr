@@ -17,29 +17,30 @@ const styleImportConfig = {
     AntdResolve()
   ]
 }
+const serverPlugins = [
+  react({
+    ...viteConfig?.()?.server?.defaultPluginOptions,
+    jsxRuntime: 'automatic',
+    babel: {
+      ...babelOptions,
+      plugins: [
+        ...babelOptions?.plugins ?? [],
+        ...!supportOptinalChaining ? [
+          '@babel/plugin-proposal-optional-chaining',
+          '@babel/plugin-proposal-nullish-coalescing-operator'
+        ] : []
+      ]
+    }
+  }),
+  viteConfig?.()?.common?.extraPlugin,
+  viteConfig?.()?.server?.extraPlugin,
+  createStyleImportPlugin(styleImportConfig)
+].filter(Boolean)
 
 const serverConfig: UserConfig = {
   ...commonConfig(),
   ...viteConfig?.().server?.otherConfig,
-  plugins: [
-    react({
-      ...viteConfig?.()?.server?.defaultPluginOptions,
-      jsxRuntime: 'automatic',
-      babel: {
-        ...babelOptions,
-        plugins: [
-          ...babelOptions?.plugins ?? [],
-          ...!supportOptinalChaining ? [
-            '@babel/plugin-proposal-optional-chaining',
-            '@babel/plugin-proposal-nullish-coalescing-operator'
-          ] : []
-        ]
-      }
-    }),
-    viteConfig?.()?.common?.extraPlugin,
-    viteConfig?.()?.server?.extraPlugin,
-    createStyleImportPlugin(styleImportConfig)
-  ],
+  plugins: viteConfig?.()?.server?.processPlugin?.(serverPlugins) ?? serverPlugins,
   esbuild: {
     ...viteConfig?.().server?.otherConfig?.esbuild,
     keepNames: true,
@@ -71,6 +72,17 @@ const serverConfig: UserConfig = {
     ...define?.server
   }
 }
+const clientPlugins = [
+  react({
+    ...viteConfig?.()?.client?.defaultPluginOptions,
+    jsxRuntime: 'automatic',
+    ...babelOptions
+  }),
+  viteConfig?.()?.common?.extraPlugin,
+  viteConfig?.()?.client?.extraPlugin,
+  createStyleImportPlugin(styleImportConfig)
+].filter(Boolean)
+
 const clientConfig: UserConfig = {
   ...commonConfig(),
   ...viteConfig?.().client?.otherConfig,
@@ -85,16 +97,7 @@ const clientConfig: UserConfig = {
     include: ['react-router'].concat(...viteConfig?.().client?.otherConfig?.optimizeDeps?.include ?? []),
     exclude: ['ssr-hoc-react18'].concat(...viteConfig?.().client?.otherConfig?.optimizeDeps?.exclude ?? [])
   },
-  plugins: [
-    react({
-      ...viteConfig?.()?.client?.defaultPluginOptions,
-      jsxRuntime: 'automatic',
-      ...babelOptions
-    }),
-    viteConfig?.()?.common?.extraPlugin,
-    viteConfig?.()?.client?.extraPlugin,
-    createStyleImportPlugin(styleImportConfig)
-  ],
+  plugins: viteConfig?.()?.client?.processPlugin?.(clientPlugins) ?? clientPlugins,
   build: {
     ...viteConfig?.().client?.otherConfig?.build,
     ...(optimize ? { write: false } : {}),

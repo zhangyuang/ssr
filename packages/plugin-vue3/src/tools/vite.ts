@@ -23,26 +23,27 @@ const styleImportConfig = {
     AntdResolve()
   ]
 }
+const serverPlugins = [
+  vuePlugin(viteConfig?.()?.server?.defaultPluginOptions),
+  vueJSXPlugin(),
+  viteConfig?.()?.common?.extraPlugin,
+  viteConfig?.()?.server?.extraPlugin,
+  createStyleImportPlugin(styleImportConfig),
+  !supportOptinalChaining && babel({
+    babelHelpers: 'bundled',
+    plugins: [
+      '@babel/plugin-proposal-optional-chaining',
+      '@babel/plugin-proposal-nullish-coalescing-operator'
+    ],
+    exclude: /node_modules|\.(css|less|sass)/,
+    extensions: ['.vue', '.ts', '.tsx', '.js']
+  })
+].filter(Boolean)
 
 const serverConfig: UserConfig = {
   ...commonConfig(),
   ...viteConfig?.().server?.otherConfig,
-  plugins: [
-    vuePlugin(viteConfig?.()?.server?.defaultPluginOptions),
-    vueJSXPlugin(),
-    viteConfig?.()?.common?.extraPlugin,
-    viteConfig?.()?.server?.extraPlugin,
-    createStyleImportPlugin(styleImportConfig),
-    !supportOptinalChaining && babel({
-      babelHelpers: 'bundled',
-      plugins: [
-        '@babel/plugin-proposal-optional-chaining',
-        '@babel/plugin-proposal-nullish-coalescing-operator'
-      ],
-      exclude: /node_modules|\.(css|less|sass)/,
-      extensions: ['.vue', '.ts', '.tsx', '.js']
-    })
-  ],
+  plugins: viteConfig?.()?.server?.processPlugin?.(serverPlugins) ?? serverPlugins,
   optimizeDeps: {
     esbuildOptions: {
       // @ts-expect-error
@@ -70,18 +71,19 @@ const serverConfig: UserConfig = {
     ...define?.server
   }
 }
+const clientPlugins = [
+  vuePlugin(viteConfig?.()?.client?.defaultPluginOptions),
+  vueJSXPlugin(),
+  viteConfig?.()?.common?.extraPlugin,
+  viteConfig?.()?.client?.extraPlugin,
+  createStyleImportPlugin(styleImportConfig)
+].filter(Boolean)
 
 const clientConfig: UserConfig = {
   ...commonConfig(),
   ...viteConfig?.().client?.otherConfig,
   base: isDev ? '/' : getOutputPublicPath(),
-  plugins: [
-    vuePlugin(viteConfig?.()?.client?.defaultPluginOptions),
-    vueJSXPlugin(),
-    viteConfig?.()?.common?.extraPlugin,
-    viteConfig?.()?.client?.extraPlugin,
-    createStyleImportPlugin(styleImportConfig)
-  ],
+  plugins: viteConfig?.()?.client?.processPlugin?.(clientPlugins) ?? clientPlugins,
   build: {
     ...viteConfig?.().client?.otherConfig?.build,
     ...(optimize ? { write: false } : {}),
