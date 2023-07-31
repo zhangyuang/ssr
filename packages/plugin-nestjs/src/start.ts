@@ -35,7 +35,7 @@ const start = async (argv: Argv) => {
     }
   })
   stderr?.on('data', function (data) {
-    if (!data.includes('has been deprecated') || !data.includes('reflect-metadata doesn\'t appear to be written in CJS')) {
+    if (!data.includes('has been deprecated') && !data.includes('reflect-metadata doesn\'t appear to be written in CJS')) {
       console.error(`error: ${data}`)
     }
   })
