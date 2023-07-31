@@ -1,3 +1,17 @@
+## [6.2.56](https://github.com/zhangyuang/ssr/compare/cli@6.2.54...cli@6.2.56) (2023-07-31)
+
+
+### Bug Fixes
+
+* clean dir ([2081774](https://github.com/zhangyuang/ssr/commit/2081774b6c4b348aa5ba34e258d3774c84c6ed6e))
+
+
+### Features
+
+* upgrade nestjs version to 10 use swc as default compiler ([a85503a](https://github.com/zhangyuang/ssr/commit/a85503a680990c80b3dddedc9971ddaf92ee7f46))
+
+
+
 ## [6.2.55](https://github.com/zhangyuang/ssr/compare/cli@6.2.54...cli@6.2.55) (2023-07-29)
 
 
