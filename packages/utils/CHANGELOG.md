@@ -1,3 +1,20 @@
+## [6.2.95](https://github.com/zhangyuang/ssr/compare/utils@6.2.94...utils@6.2.95) (2023-07-31)
+
+
+### Bug Fixes
+
+* clean dir ([2081774](https://github.com/zhangyuang/ssr/commit/2081774b6c4b348aa5ba34e258d3774c84c6ed6e))
+* dynamic require staticConfigPath ([9d426e3](https://github.com/zhangyuang/ssr/commit/9d426e3121603bdb9e133c7d2397b430a82f788d))
+
+
+### Features
+
+* support config.framework ([cd1abf0](https://github.com/zhangyuang/ssr/commit/cd1abf043cefac658ca265b62028ccf89109cbe3))
+* support vite processPlugin ([1436a85](https://github.com/zhangyuang/ssr/commit/1436a855eb07b753e4baaa4de0c5ecfb2f28e5a9))
+* upgrade nestjs version to 10 use swc as default compiler ([a85503a](https://github.com/zhangyuang/ssr/commit/a85503a680990c80b3dddedc9971ddaf92ee7f46))
+
+
+
 ## [6.2.94](https://github.com/zhangyuang/ssr/compare/utils@6.2.93...utils@6.2.94) (2023-07-26)
 
 
