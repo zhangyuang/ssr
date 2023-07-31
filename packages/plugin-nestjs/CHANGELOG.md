@@ -1,3 +1,7 @@
+## [6.2.22](https://github.com/zhangyuang/ssr/compare/plugin-nestjs@6.2.21...plugin-nestjs@6.2.22) (2023-07-31)
+
+
+
 ## [6.2.21](https://github.com/zhangyuang/ssr/compare/plugin-nestjs@6.2.20...plugin-nestjs@6.2.21) (2023-07-29)
 
 
