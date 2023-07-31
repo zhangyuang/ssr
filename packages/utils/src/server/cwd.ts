@@ -229,6 +229,8 @@ export const checkRoute = ({
 }
 
 const judgeFramework = () => {
+  const { framework } = loadConfig()
+  if (framework) return framework
   const cwd = getCwd()
   const packageJSON = require(resolve(cwd, './package.json'))
   if (packageJSON.dependencies.react || packageJSON.devDependencies.react) {

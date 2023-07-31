@@ -799,6 +799,7 @@ type viteConfig?: () => {
 作为 `ssr build --html` 的构建模版，开发者可自行设置 `title, meta` 等标签信息，其余模版插入内容请不要修改保持不变。
 
 ## bigpipe🤔
+
 - 类型 `boolean`
 - 默认 `undefined`
 - 生效场景 `Vue2/3 + Webpack/Vite`
@@ -867,6 +868,10 @@ res.end();
 
 ## staticConfigPath🤔
 
+- 类型 `string`
+- 默认 `build/staticConfig.js`
+- 生效场景 `Vue2/3 + Webpack/Vite`
+
 设置静态构建文件的路径。默认值 `build/staticConfig.js` 目前不允许修改!!!。
 
 使用场景：针对一些需要在构建时获取生成 `customeHeadScript|customeFooterScript` 的业务场景例如构建时通过接拉取脚本配置信息，减少运行时的性能损耗。开发者可以自定义构建逻辑，在 `ssr build` 执行之前或者之后(如果要兼容 `SPA静态html文件` 场景需要在 `ssr build` 执行之前完成)生成 `build/staticConfig.js` 文件。框架将会在运行时加载此文件读取其中的内容。
@@ -898,6 +903,14 @@ exports.customeHeadScript= [
 ```
 
 此文件建议使用 `exports.xxx` 语法进行导出。目前支持 `customeHeadScript|customeFooterScript` 的导出逻辑。
+
+## framework
+
+- 类型 `string`
+- 默认 `undefined`
+- 生效场景 `all`
+
+自定义前端插件来替换例如 `ssr-plugin-vue3` 的逻辑，常用于在 `ssr-plugin-vue3` 二次开发的情况
 
 ## 注意事项
 

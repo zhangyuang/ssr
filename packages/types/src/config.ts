@@ -158,6 +158,7 @@ export interface IConfig {
     configFile?: string
   }
   staticConfigPath: string
+  framework?: string
 }
 
 export interface proxyOptions {

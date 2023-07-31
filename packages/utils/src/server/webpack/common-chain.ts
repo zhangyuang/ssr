@@ -12,7 +12,7 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
   const { babelOptions, isDev } = loadConfig()
   let plugins: PluginItem[] = []
   let presets: PluginItem[] = []
-  if (framework === 'ssr-plugin-react' || framework === 'ssr-plugin-react18') {
+  if (['ssr-plugin-react18', 'ssr-plugin-react'].includes(framework)) {
     plugins = [
       [loadModuleFromFramework('@babel/plugin-transform-runtime'), {
         regenerator: false,
@@ -47,7 +47,7 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
       }]
     ]
   }
-  if (framework === 'ssr-plugin-vue3' || framework === 'ssr-plugin-vue') {
+  if (['ssr-plugin-vue3', 'ssr-plugin-vue'].includes(framework)) {
     plugins = [
       [
         loadModuleFromFramework('@babel/plugin-transform-runtime'),
