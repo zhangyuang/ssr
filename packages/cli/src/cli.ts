@@ -58,6 +58,7 @@ const startFunc = async (argv: Argv) => {
   if (!argv.vite) {
     spinner.start()
   }
+  await cleanOutDir(argv)
   process.env.NODE_ENV = 'development'
   const { parseFeRoutes, transformConfig, logInfo } = await import('ssr-common-utils')
   await transformConfig()
@@ -65,7 +66,6 @@ const startFunc = async (argv: Argv) => {
     logInfo('Vite 场景本地开发样式闪烁为正常现象请忽略，生产环境无此问题')
   }
   const watcher = await createWatcher()
-  await cleanOutDir(argv)
   await handleEnv(argv)
   await parseFeRoutes()
   spinner.stop()
@@ -75,10 +75,10 @@ const startFunc = async (argv: Argv) => {
 
 const buildFunc = async (argv: Argv) => {
   spinner.start()
+  await cleanOutDir(argv)
   process.env.NODE_ENV = 'production'
   const { parseFeRoutes, transformConfig } = await import('ssr-common-utils')
   await transformConfig()
-  await cleanOutDir(argv)
   await handleEnv(argv)
   await parseFeRoutes()
   spinner.stop()

@@ -866,7 +866,7 @@ res.end();
 
 ## staticConfigPath🤔
 
-设置静态构建文件的路径。默认值 `build/staticConfig.js` 不建议修改。
+设置静态构建文件的路径。默认值 `build/staticConfig.js` 目前不允许修改!!!。
 
 使用场景：针对一些需要在构建时获取生成 `customeHeadScript|customeFooterScript` 的业务场景例如构建时通过接拉取脚本配置信息，减少运行时的性能损耗。开发者可以自定义构建逻辑，在 `ssr build` 执行之前或者之后(如果要兼容 `SPA静态html文件` 场景需要在 `ssr build` 执行之前完成)生成 `build/staticConfig.js` 文件。框架将会在运行时加载此文件读取其中的内容。
 

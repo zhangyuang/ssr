@@ -4,9 +4,9 @@ import { promises } from 'fs'
 import type { Argv } from 'ssr-types'
 
 export const cleanOutDir = async (argv: Argv) => {
-  const { accessFile, getCwd, loadConfig } = await import('ssr-common-utils')
-  const { staticConfigPath } = loadConfig()
+  const { accessFile, getCwd } = await import('ssr-common-utils')
   const cwd = getCwd()
+  const staticConfigPath = resolve(cwd, './build/staticConfig.js')
   const buildDir = await promises.readdir(resolve(cwd, './build'))
   if (!await accessFile(staticConfigPath)) {
     await promises.writeFile(staticConfigPath, '')
