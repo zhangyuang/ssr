@@ -134,11 +134,8 @@ const getSplitChunksOptions = (asyncChunkMap: {
 
 const transformConfig = async () => {
   // serverless 发布无需安装 shelljs esbuild, 提前本地 build 好
-  const { cp, mkdir } = await import('shelljs')
+  const { cp } = await import('shelljs')
   const cwd = getCwd()
-  if (!await accessFile(resolve(cwd, './build'))) {
-    mkdir(resolve(cwd, './build'))
-  }
   if (await accessFile(resolve(cwd, './config.js'))) {
     cp('-r', `${resolve(cwd, './config.js')}`, `${resolve(cwd, './build/config.js')}`)
   } else {

@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { rm } from 'shelljs'
+import { rm, mkdir } from 'shelljs'
 import { promises } from 'fs'
 import type { Argv } from 'ssr-types'
 
@@ -7,6 +7,9 @@ export const cleanOutDir = async (argv: Argv) => {
   const { accessFile, getCwd } = await import('ssr-common-utils')
   const cwd = getCwd()
   const staticConfigPath = resolve(cwd, './build/staticConfig.js')
+  if (!await accessFile(resolve(cwd, './build'))) {
+    mkdir(resolve(cwd, './build'))
+  }
   const buildDir = await promises.readdir(resolve(cwd, './build'))
   if (!await accessFile(staticConfigPath)) {
     await promises.writeFile(staticConfigPath, '')
