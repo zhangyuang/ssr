@@ -72,7 +72,7 @@
     "unplugin-auto-import": "^0.12.1",
     "unplugin-vue-components": "^0.22.12",
     "url-loader": "^4.1.1",
-    "vite": "^2.9.15",
+    "vite": "^2.9.16",
     "vue": "^3.0.0",
     "vue-loader": "^17.0.0",
     "vue-router": "^4.0.0",
