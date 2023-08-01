@@ -1,4 +1,3 @@
-// @ts-nocheck
 /* utils */
 if (!global.__non_webpack_require__) {
   global.__non_webpack_require__ = require

@@ -13,10 +13,9 @@ interface IWindow {
 
 declare global {
   interface Window extends IWindow {}
-  const __non_webpack_require__: NodeRequire
-  const __VUE_PROD_DEVTOOLS__: boolean
-  const __isBrowser__: Boolean
-  const __non_webpack_require__: any|undefined
+  var __non_webpack_require__: NodeRequire
+  var __VUE_PROD_DEVTOOLS__: boolean
+  var __isBrowser__: Boolean
 }
 
 
