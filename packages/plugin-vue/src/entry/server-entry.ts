@@ -1,9 +1,10 @@
-import { createRequire } from 'module'
-import { resolve } from 'path'
 import * as Vue from 'vue'
 import { h } from 'vue'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getCwd, getAsyncJsChunk, getUserScriptVue, remInitial, localStorageWrapper, getInlineCss, checkRoute, splitPageInfo } from 'ssr-common-utils'
-import type { ISSRContext, IConfig, UserConfig } from 'ssr-types'
+import {
+  findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk,
+  getAsyncJsChunk, getUserScriptVue, remInitial, localStorageWrapper, getInlineCss, checkRoute, splitPageInfo, getStaticConfig
+} from 'ssr-common-utils'
+import type { ISSRContext, IConfig } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
 import { createRenderer } from 'vue-server-renderer'
 
@@ -13,9 +14,8 @@ import { IFeRouteItem } from '../types'
 
 const { renderToStream, renderToString } = createRenderer()
 const { FeRoutes, App, layoutFetch, Layout } = Routes
-const cwd = getCwd()
-const ssrRequire = createRequire(cwd)
-const staticConfig = ssrRequire(resolve(cwd, './build/staticConfig.js')) as UserConfig
+
+const staticConfig = getStaticConfig()
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix, stream, rootId, bigpipe } = config

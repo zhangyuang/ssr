@@ -301,6 +301,12 @@ const accessFileSync = (file: string) => {
   return res
 }
 
+export const getStaticConfig = () => {
+  const staticConfigPath = resolve(getCwd(), './build/staticConfig.js')
+  const staticConfig = accessFileSync(staticConfigPath) ? __non_webpack_require__(staticConfigPath) as UserConfig : {}
+  return staticConfig
+}
+
 const copyReactContext = async () => {
   const f = judgeFramework()
   await promises.copyFile(resolve(getCwd(), `./node_modules/${f}/src/entry/create-context.ts`), resolve(getCwd(), './build/create-context.ts'))

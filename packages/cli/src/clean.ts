@@ -11,9 +11,6 @@ export const cleanOutDir = async (argv: Argv) => {
     mkdir(resolve(cwd, './build'))
   }
   const buildDir = await promises.readdir(resolve(cwd, './build'))
-  if (!await accessFile(staticConfigPath)) {
-    await promises.writeFile(staticConfigPath, '')
-  }
   if (argv.noclean) return
   for (const f of buildDir) {
     const fpath = resolve(cwd, `./build/${f}`)
