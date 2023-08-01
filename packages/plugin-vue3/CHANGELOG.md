@@ -1,3 +1,18 @@
+## [6.2.95](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.94...plugin-vue3@6.2.95) (2023-08-01)
+
+
+### Bug Fixes
+
+* bundle common-utils in webpack ([58626c7](https://github.com/zhangyuang/ssr/commit/58626c7f17dfcb34a4b25337e7a90918ae06859c))
+
+
+### Features
+
+* optimize getStaticConfig ([6418eda](https://github.com/zhangyuang/ssr/commit/6418eda03ca6a2798e6128d78017dc97767a968f))
+* support config.framework ([cd1abf0](https://github.com/zhangyuang/ssr/commit/cd1abf043cefac658ca265b62028ccf89109cbe3))
+
+
+
 ## [6.2.94](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.93...plugin-vue3@6.2.94) (2023-07-31)
 
 
