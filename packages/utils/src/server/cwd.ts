@@ -23,7 +23,7 @@ const cleanOutClientDir = () => {
   rm('-rf', resolve(getCwd(), './build/client'))
 }
 
-const getPkgJson = (): PkgJson => require(resolve(getCwd(), './package.json'))
+const getPkgJson = (): PkgJson => __non_webpack_require__(resolve(getCwd(), './package.json'))
 
 const writeRoutes = async (routes: string, name?: string) => {
   const cwd = getCwd()
@@ -179,7 +179,7 @@ const transformManualRoutes = async () => {
 
 const getUserConfig = (): UserConfig => {
   const defaultConfig = resolve(getCwd(), './build/config.js')
-  return accessFileSync(defaultConfig) ? (require(defaultConfig).userConfig ?? require(defaultConfig)) : {} // for dynamic file
+  return accessFileSync(defaultConfig) ? (__non_webpack_require__(defaultConfig).userConfig ?? __non_webpack_require__(defaultConfig)) : {} // for dynamic file
 }
 
 const cyrb53 = function (str: string, seed = 0) {

@@ -1,4 +1,8 @@
+// @ts-nocheck
 /* utils */
+if (!global.__non_webpack_require__) {
+  global.__non_webpack_require__ = require
+}
 export * from './cwd'
 export * from './log'
 export * from './manifest'
