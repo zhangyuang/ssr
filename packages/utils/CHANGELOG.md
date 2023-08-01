@@ -1,3 +1,12 @@
+## [6.2.97](https://github.com/zhangyuang/ssr/compare/utils@6.2.96...utils@6.2.97) (2023-08-01)
+
+
+### Features
+
+* optimize getStaticConfig ([6418eda](https://github.com/zhangyuang/ssr/commit/6418eda03ca6a2798e6128d78017dc97767a968f))
+
+
+
 ## [6.2.96](https://github.com/zhangyuang/ssr/compare/utils@6.2.94...utils@6.2.96) (2023-08-01)
 
 
