@@ -1098,8 +1098,6 @@ jobs:
           pnpm build
       
       - uses: cypress-io/github-action@v2
-        # env:
-        #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
         with:
           install: false
           start: pnpm example:nestjs:vue3
@@ -1108,6 +1106,8 @@ jobs:
             e2e/integration/examples/common-ssr.spec.js  
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
+        env:
+          ssrConfig: '{"whiteList":["ssr-common-utils"]}'
   publish:
     name: Publish
     if: "startsWith(github.event.head_commit.message, 'release')"

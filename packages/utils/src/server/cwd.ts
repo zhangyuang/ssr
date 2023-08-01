@@ -179,7 +179,12 @@ const transformManualRoutes = async () => {
 
 const getUserConfig = (): UserConfig => {
   const defaultConfig = resolve(getCwd(), './build/config.js')
-  return accessFileSync(defaultConfig) ? (__non_webpack_require__(defaultConfig).userConfig ?? __non_webpack_require__(defaultConfig)) : {} // for dynamic file
+  const userConfig = accessFileSync(defaultConfig) ? (__non_webpack_require__(defaultConfig).userConfig ?? __non_webpack_require__(defaultConfig)) : {} // for dynamic file
+  return Object.assign(userConfig, getEnvConfig())
+}
+
+export const getEnvConfig = (): UserConfig => {
+  return process.env.ssrConfig ? JSON.parse(process.env.ssrConfig) : {}
 }
 
 const cyrb53 = function (str: string, seed = 0) {
