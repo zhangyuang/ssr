@@ -1,7 +1,6 @@
 import type { build as BuildType, UserConfig } from 'vite'
 import { loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig } from 'ssr-common-utils'
 import { createVuePlugin } from 'vite-plugin-vue2'
-const build: typeof BuildType = require('vite').build
 const { getOutput, vueServerEntry, vueClientEntry, define } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
@@ -51,6 +50,7 @@ const viteStart = async () => {
   //
 }
 const viteBuild = async () => {
+  const build: typeof BuildType = await import('vite').build
   await build({ ...clientConfig, mode: 'production' })
   await build({ ...serverConfig, mode: 'production' })
 }
