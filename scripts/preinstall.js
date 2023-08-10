@@ -1,7 +1,7 @@
-import { resolve } from 'path'
-import { promises } from 'fs'
+const { resolve } = require('path')
+const { promises } = require('fs')
 
-const accessFile = async (file: string) => {
+const accessFile = async (file) => {
   const result = await promises.access(file)
     .then(() => true)
     .catch(() => false)

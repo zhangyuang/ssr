@@ -9,15 +9,15 @@
     "@midwayjs/koa": "^3.0.0",
     "koa-static-cache": "^5.1.4",
     "midway-schedule": "^2.0.0",
+    "pinia": "^2.0.13",
     "pm2": "^4.5.4",
+    "ssr-common-utils": "^6.0.0",
     "ssr-core": "^6.0.0",
     "ssr-hoc-vue3": "^6.0.0",
-    "ssr-common-utils": "^6.0.0",
     "swiper": "6.7.5",
     "vue": "^3.0.0",
-    "vue-router": "^4.0.0",
-    "vuex": "^4.0.0",
-    "pinia": "^2.0.13"
+    "vue-router": "^4.2.4",
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
     "@midwayjs/mock": "^3.0.0",

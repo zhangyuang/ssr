@@ -75,7 +75,7 @@
     "vite": "^2.9.15",
     "vue": "^3.0.0",
     "vue-loader": "^17.0.0",
-    "vue-router": "^4.0.0",
+    "vue-router": "^4.2.4",
     "vuex": "^4.0.0",
     "webpack": "^4.42.1",
     "webpack-bundle-analyzer": "^3.6.1",
