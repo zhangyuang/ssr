@@ -4,9 +4,13 @@ import { Rule, Module } from 'webpack-chain'
 import { getImageOutputPath } from '../parse'
 import { loadModuleFromFramework, getPkgJson, judgeFramework } from '../cwd'
 import { loadConfig } from '../loadConfig'
+import { logWarning } from '../log'
 
 const antdVersion = getPkgJson().dependencies?.['antd'] ?? getPkgJson().devDependencies?.['antd']
 const isAntd4 = coerce(antdVersion)?.major === 4
+if (coerce(antdVersion)?.major === 5) {
+  logWarning('Check antd@5.x has been installed, antd@4.x is more recommend in ssr environment')
+}
 const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean) => {
   const framework = judgeFramework()
   const { babelOptions, isDev } = loadConfig()
