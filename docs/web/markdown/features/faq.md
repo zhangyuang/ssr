@@ -755,61 +755,16 @@ export { userConfig }
 
 ### 与 qiankun 结合使用
 
-建议使用 `micro-app` 作为微前端方案。与 `qiankun` 集成复杂度过高
+没有尝试过接入 `qiankun` 建议使用 `micro-app` 作为微前端方案。
 
-如果是在 [qiankun](https://qiankun.umijs.org/) 场景下使用，目前看来侵入性略大。
+## 生产环境生成 sourcemap
 
-<!-- 首先开发者需要配置 `disableClientRender`，来禁用框架默认的客户端渲染逻辑的调用 -->
+生产环境默认不开启 `sourcemap` 能力，有源码泄露的风险。可通过环境变量强制开启
 
-<!-- ```js
-module.exports = {
-    disableClientRender: true
-}
+```bash
+$ GENERATE_SOURCEMAP=1 npm run build
 ```
 
-然后开发者可以自行定义客户端入口文件自行决定什么时候调用客户端渲染方法。
-
-```js
-// 在项目根目录创建自己定义的 main.js
-// main.js
-
-import { clientRender } from 'ssr-plugin-vue3/cjs/entry/client-entry'
-
-if (!微前端) {
-  clientRender() // 手动调用客户端渲染方法
-}
-
-export async mount() {
-  // 通常微前端场景需要抛出一个 mount 方法
-  clientRender()
-}
-
-```
-
-修改 `Webpack` 构建配置，入口文件指向新的入口文件
-
-```js
-const { resolve } = require('path')
-
-module.exports = {
-  disableClientRender: true,
-  chainClientConfig: chain => {
-    // 只需要修改入口文件路径，其他配置可以沿用默认配置
-    const { loadConfig, getOutputPublicPath } = require('ssr-common-utils')
-    const { chunkName, getOutput, useHash } = loadConfig()
-    const publicPath = getOutputPublicPath()
-    chain.entry(chunkName)
-      .add(resolve(process.cwd(), './main.js'))
-      .end()
-      .output
-      .path(getOutput().clientOutPut)
-      .filename(useHash ? '[name].[contenthash:8].js' : '[name].js')
-      .chunkFilename(useHash ? '[name].[contenthash:8].chunk.js' : '[name].chunk.js')
-      .publicPath(publicPath)
-      .end()
-  }
-}
-``` -->
 
 ## 实际业务问题
 
