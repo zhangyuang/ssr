@@ -1,3 +1,19 @@
+## [6.2.98](https://github.com/zhangyuang/ssr/compare/utils@6.2.97...utils@6.2.98) (2023-08-17)
+
+
+### Bug Fixes
+
+* type ([15f2224](https://github.com/zhangyuang/ssr/commit/15f2224bc6e632fdea6d2b23b694f643f0ef9e5f))
+
+
+### Features
+
+* add webpack error plugin emit error close [#304](https://github.com/zhangyuang/ssr/issues/304) ([00ad5ea](https://github.com/zhangyuang/ssr/commit/00ad5eabb0384841f45c6dd78c791c8521025694))
+* support set ssrConfig in env ([1c8b6e3](https://github.com/zhangyuang/ssr/commit/1c8b6e36272b9ac9fac5d18ffe8a7b5ca6fe7235))
+* support ssr build --sourcemap ([a6ba95e](https://github.com/zhangyuang/ssr/commit/a6ba95e1f4711c9d7b797687df1d48dcfdf6abe7))
+
+
+
 ## [6.2.97](https://github.com/zhangyuang/ssr/compare/utils@6.2.96...utils@6.2.97) (2023-08-01)
 
 
