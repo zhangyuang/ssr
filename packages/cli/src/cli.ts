@@ -148,6 +148,9 @@ yargs
     ssg: {
       desc: 'Build with Static Site Generation (Pre Render)'
     },
+    sourcemap: {
+      desc: 'Generate sourcemap in production environment'
+    },
     ...cliDesc
   }), async (argv: Argv) => {
     const { logWarning } = await import('ssr-common-utils')

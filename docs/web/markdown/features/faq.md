@@ -759,10 +759,11 @@ export { userConfig }
 
 ## 生产环境生成 sourcemap
 
-生产环境默认不开启 `sourcemap` 能力，有源码泄露的风险。可通过环境变量强制开启
+生产环境默认不开启 `sourcemap` 能力，有源码泄露的风险。可通过下列任意一种方式开启
 
 ```bash
 $ GENERATE_SOURCEMAP=1 npm run build
+$ npx ssr build --sourcemap
 ```
 
 

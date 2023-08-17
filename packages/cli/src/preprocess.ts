@@ -11,6 +11,9 @@ export const handleEnv = async (argv: Argv) => {
   if (argv.ssg) {
     process.env.SSG = '1'
   }
+  if (argv.sourcemap) {
+    process.env.GENERATE_SOURCEMAP = '1'
+  }
   if (argv.analyze) {
     process.env.GENERATE_ANALYSIS = '1'
   }
