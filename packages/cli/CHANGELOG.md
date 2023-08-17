@@ -1,3 +1,12 @@
+## [6.2.58](https://github.com/zhangyuang/ssr/compare/cli@6.2.57...cli@6.2.58) (2023-08-17)
+
+
+### Features
+
+* support ssr build --sourcemap ([a6ba95e](https://github.com/zhangyuang/ssr/commit/a6ba95e1f4711c9d7b797687df1d48dcfdf6abe7))
+
+
+
 ## [6.2.57](https://github.com/zhangyuang/ssr/compare/cli@6.2.54...cli@6.2.57) (2023-08-10)
 
 
