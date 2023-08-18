@@ -21,7 +21,7 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
     ...(options?.dynamicFile?.configFile ? require(options.dynamicFile.configFile).userConfig : {})
   }
 
-  const config: IConfig = Object.assign(mergeConfig, options ?? {})
+  const config: IConfig = Object.assign({}, mergeConfig, options)
   // support combine dynamic customeHeadScript when call render
   const { customeHeadScript, customeFooterScript } = mergeConfig
   config.customeHeadScript = getCustomScript(customeHeadScript, ctx).concat(getCustomScript(config.customeHeadScript, ctx))
