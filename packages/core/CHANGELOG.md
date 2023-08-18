@@ -1,3 +1,17 @@
+## [6.2.26](https://github.com/zhangyuang/ssr/compare/core@6.2.25...core@6.2.26) (2023-08-18)
+
+
+### Bug Fixes
+
+* merge config ([686eedf](https://github.com/zhangyuang/ssr/commit/686eedf8326673649fe0af3af8212589c9329c2c))
+
+
+### Features
+
+* support ssr build --nominify ([fd0b274](https://github.com/zhangyuang/ssr/commit/fd0b274e9e173e6a2e05782ccb2c80b62e165c8f))
+
+
+
 ## [6.2.25](https://github.com/zhangyuang/ssr/compare/core@6.2.24...core@6.2.25) (2023-08-18)
 
 
