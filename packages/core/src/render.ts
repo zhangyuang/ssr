@@ -19,9 +19,9 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
   const extraConfig: IConfig = options?.dynamicFile?.configFile ? require(options.dynamicFile.configFile).userConfig : defaultConfig
   const config: IConfig = Object.assign({}, extraConfig, options ?? {})
   // support combine dynamic customeHeadScript when call render
-  config.customeHeadScript = getCustomScript(defaultConfig.customeHeadScript, ctx).concat(getCustomScript(config.customeHeadScript, ctx))
-  config.customeFooterScript = getCustomScript(defaultConfig.customeFooterScript, ctx).concat(getCustomScript(config.customeFooterScript, ctx))
-
+  const { customeHeadScript, customeFooterScript } = extraConfig
+  config.customeHeadScript = getCustomScript(customeHeadScript, ctx).concat(getCustomScript(config.customeHeadScript, ctx))
+  config.customeFooterScript = getCustomScript(customeFooterScript, ctx).concat(getCustomScript(config.customeFooterScript, ctx))
   const { isVite, isDev } = config
   if (!isDev && options?.dynamicFile?.assetManifest) {
     config.isVite = !!(require(options.dynamicFile.assetManifest).vite)
