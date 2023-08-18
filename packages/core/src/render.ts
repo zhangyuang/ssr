@@ -16,12 +16,17 @@ function render (ctx: ISSRContext, options?: UserConfig): Promise<string>
 function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
 
 async function render (ctx: ISSRContext, options?: UserConfig) {
-  const extraConfig: IConfig = options?.dynamicFile?.configFile ? require(options.dynamicFile.configFile).userConfig : defaultConfig
-  const config: IConfig = Object.assign({}, extraConfig, options ?? {})
+  const mergeConfig: IConfig = {
+    ...defaultConfig,
+    ...(options?.dynamicFile?.configFile ? require(options.dynamicFile.configFile).userConfig : {})
+  }
+
+  const config: IConfig = Object.assign(mergeConfig, options ?? {})
   // support combine dynamic customeHeadScript when call render
-  const { customeHeadScript, customeFooterScript } = extraConfig
+  const { customeHeadScript, customeFooterScript } = mergeConfig
   config.customeHeadScript = getCustomScript(customeHeadScript, ctx).concat(getCustomScript(config.customeHeadScript, ctx))
   config.customeFooterScript = getCustomScript(customeFooterScript, ctx).concat(getCustomScript(config.customeFooterScript, ctx))
+
   const { isVite, isDev } = config
   if (!isDev && options?.dynamicFile?.assetManifest) {
     config.isVite = !!(require(options.dynamicFile.assetManifest).vite)
