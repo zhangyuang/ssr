@@ -1,3 +1,17 @@
+## [6.2.59](https://github.com/zhangyuang/ssr/compare/cli@6.2.58...cli@6.2.59) (2023-08-18)
+
+
+### Bug Fixes
+
+* combine config ([f80f705](https://github.com/zhangyuang/ssr/commit/f80f70549dfa2719033c2be89e71aa435112bbcb))
+
+
+### Features
+
+* support ssr build --nominify ([fd0b274](https://github.com/zhangyuang/ssr/commit/fd0b274e9e173e6a2e05782ccb2c80b62e165c8f))
+
+
+
 ## [6.2.58](https://github.com/zhangyuang/ssr/compare/cli@6.2.57...cli@6.2.58) (2023-08-17)
 
 
