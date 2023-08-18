@@ -123,6 +123,9 @@ yargs
       alias: 'h',
       desc: 'In midway, use --help to speed up ts compile'
     },
+    nominify: {
+      desc: 'Disable minify output file content for debug'
+    },
     ...cliDesc
   }), async (argv: Argv) => {
     await startFunc(argv)
@@ -150,6 +153,9 @@ yargs
     },
     sourcemap: {
       desc: 'Generate sourcemap in production environment'
+    },
+    nominify: {
+      desc: 'Disable minify output file content for debug'
     },
     ...cliDesc
   }), async (argv: Argv) => {

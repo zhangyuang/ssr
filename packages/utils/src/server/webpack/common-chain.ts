@@ -113,6 +113,10 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
     modules: false,
     ...corejsOptions
   }
+  if (process.env.NOMINIFY) {
+    chain.optimization.minimize(false)
+  }
+
   const babelModule = chain.module
     .rule('compileBabel')
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
