@@ -1,3 +1,12 @@
+## [6.2.27](https://github.com/zhangyuang/ssr/compare/core@6.2.26...core@6.2.27) (2023-08-18)
+
+
+### Bug Fixes
+
+* merge config ([2bca435](https://github.com/zhangyuang/ssr/commit/2bca435f864ed658c5376438a237147871e30b0a))
+
+
+
 ## [6.2.26](https://github.com/zhangyuang/ssr/compare/core@6.2.25...core@6.2.26) (2023-08-18)
 
 
