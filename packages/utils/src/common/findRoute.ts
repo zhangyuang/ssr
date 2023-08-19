@@ -64,8 +64,9 @@ function matchPath (pathname, options = {}) {
 
 function findRoute<T extends {path: string, childPath?: string, children?: []}> (Routes: T[], path: string): T {
   // 根据请求的path来匹配到对应的Component
+  const p = path.includes('?') ? path.split('?')[0] : path
   const route = Routes.find(route => {
-    return route.children ? findRoute(route.children, path) : matchPath(path, route)?.isExact
+    return route.children ? findRoute(route.children, p) : matchPath(p, route)?.isExact
   })
   return route
 }
