@@ -1,3 +1,14 @@
+## [6.2.100](https://github.com/zhangyuang/ssr/compare/utils@6.2.99...utils@6.2.100) (2023-08-19)
+
+
+### Bug Fixes
+
+* merge config ([2bca435](https://github.com/zhangyuang/ssr/commit/2bca435f864ed658c5376438a237147871e30b0a))
+* merge config ([686eedf](https://github.com/zhangyuang/ssr/commit/686eedf8326673649fe0af3af8212589c9329c2c))
+* split path for fastify ([90e7fb6](https://github.com/zhangyuang/ssr/commit/90e7fb69abd809638aafdb862444aed34aa4a0ab))
+
+
+
 ## [6.2.99](https://github.com/zhangyuang/ssr/compare/utils@6.2.98...utils@6.2.99) (2023-08-18)
 
 
