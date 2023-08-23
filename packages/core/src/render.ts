@@ -8,14 +8,14 @@ const defaultConfig = loadConfig()
 const sf = judgeServerFramework()
 const f = judgeFramework()
 const viteServerEntry = getViteServerEntry()
-type RenderRes = string|Readable|Vue3RenderRes
+type RenderRes = string | Readable | Vue3RenderRes
 
-function render (ctx: ISSRContext, options?: UserConfig & { stream: true }): Promise<Readable>
-function render (ctx: ISSRContext, options?: UserConfig & { stream: false }): Promise<string>
-function render (ctx: ISSRContext, options?: UserConfig): Promise<string>
-function render<T> (ctx: ISSRContext, options?: UserConfig): Promise<T>
+function render(ctx: ISSRContext, options?: UserConfig & { stream: true }): Promise<Readable>
+function render(ctx: ISSRContext, options?: UserConfig & { stream: false }): Promise<string>
+function render(ctx: ISSRContext, options?: UserConfig): Promise<string>
+function render<T>(ctx: ISSRContext, options?: UserConfig): Promise<T>
 
-async function render (ctx: ISSRContext, options?: UserConfig) {
+async function render(ctx: ISSRContext, options?: UserConfig) {
   const mergeConfig: IConfig = {
     ...defaultConfig,
     ...(options?.dynamicFile?.configFile ? require(options.dynamicFile.configFile).userConfig : {})
@@ -24,8 +24,8 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
   const config: IConfig = Object.assign({}, mergeConfig, options)
   // support combine dynamic customeHeadScript when call render
   const { customeHeadScript, customeFooterScript } = mergeConfig
-  config.customeHeadScript = getCustomScript(customeHeadScript, ctx).concat(getCustomScript(config.customeHeadScript, ctx))
-  config.customeFooterScript = getCustomScript(customeFooterScript, ctx).concat(getCustomScript(config.customeFooterScript, ctx))
+  config.customeHeadScript = getCustomScript(customeHeadScript, ctx).concat(getCustomScript(options?.customeHeadScript, ctx))
+  config.customeFooterScript = getCustomScript(customeFooterScript, ctx).concat(getCustomScript(options?.customeFooterScript, ctx))
 
   const { isVite, isDev } = config
   if (!isDev && options?.dynamicFile?.assetManifest) {
@@ -66,7 +66,7 @@ async function render (ctx: ISSRContext, options?: UserConfig) {
 
 let viteServer: ViteDevServer | boolean = false
 
-async function viteRender (ctx: ISSRContext, config: IConfig) {
+async function viteRender(ctx: ISSRContext, config: IConfig) {
   const { isDev, dynamicFile } = config
   let serverRes
   if (isDev) {
@@ -83,7 +83,7 @@ async function viteRender (ctx: ISSRContext, config: IConfig) {
   return serverRes
 }
 
-async function commonRender (ctx: ISSRContext, config: IConfig) {
+async function commonRender(ctx: ISSRContext, config: IConfig) {
   const { isDev, dynamicFile } = config
   const serverBundle = dynamicFile.serverBundle
 
