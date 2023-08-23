@@ -1,6 +1,6 @@
 {
   "name": "ssr-core",
-  "version": "6.2.27",
+  "version": "6.2.29",
   "description": "core for react/vue2/vue3 ssr deploy on serverless or tradtional web server",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",

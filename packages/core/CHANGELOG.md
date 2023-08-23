@@ -1,3 +1,25 @@
+## [6.2.29](https://github.com/zhangyuang/ssr/compare/core@6.2.27...core@6.2.29) (2023-08-23)
+
+
+### Bug Fixes
+
+* combine config ([3933ce3](https://github.com/zhangyuang/ssr/commit/3933ce3458dd3bc1bf39f497d075513307fcfd68))
+* don't use swc as nest compiler for bug ([f445e57](https://github.com/zhangyuang/ssr/commit/f445e575879729bed41cfdfc071c6fb0f8747b0a))
+* split path for fastify ([90e7fb6](https://github.com/zhangyuang/ssr/commit/90e7fb69abd809638aafdb862444aed34aa4a0ab))
+
+
+
+## [6.2.28](https://github.com/zhangyuang/ssr/compare/core@6.2.27...core@6.2.28) (2023-08-23)
+
+
+### Bug Fixes
+
+* combine config ([3933ce3](https://github.com/zhangyuang/ssr/commit/3933ce3458dd3bc1bf39f497d075513307fcfd68))
+* don't use swc as nest compiler for bug ([f445e57](https://github.com/zhangyuang/ssr/commit/f445e575879729bed41cfdfc071c6fb0f8747b0a))
+* split path for fastify ([90e7fb6](https://github.com/zhangyuang/ssr/commit/90e7fb69abd809638aafdb862444aed34aa4a0ab))
+
+
+
 ## [6.2.27](https://github.com/zhangyuang/ssr/compare/core@6.2.26...core@6.2.27) (2023-08-18)
 
 
