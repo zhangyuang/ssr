@@ -1,6 +1,6 @@
 # 组件通信
 
-数据管理是前端开发中重要的一环知识。在组件层级过多时通过 `props` 传递非常的苦难，我们通常会使用额外的数据管理库来进行数据管理。同样数据管理从最初的 `flux` 架构到现在最新的 `context` 思路经过了无数变迁，在业界也有着非常非常多的方案。本章节将讲述在 `ssr` 框架中我们如何进行数据管理 
+数据管理是前端开发中重要的一环知识。在组件层级过多时通过 `props` 传递非常的苦难，我们通常会使用额外的数据管理库来进行数据管理。同样数据管理从最初的 `flux` 架构到现在最新的 `context` 思路经过了无数变迁，在业界也有着非常非常多的方案。本章节将讲述在 `ssr` 框架中我们如何进行数据管理
 
 > 在阅读本章节之前，请确保你已经阅读并熟悉这两个章节的内容[目录结构](/docs/features$structure)和[数据获取](/docs/features$fetch)。
 
@@ -54,9 +54,9 @@ export default {
 </script>
 ```
 
-便可以在任意组件中通过 `inject` 拿到该数据并且可以修改数据自动触发更新，为了防止应用数据混乱，我们建议为不同的组件返回数据添加不同的 `namespace` 命名空间。同样当路由切换时我们也会自动的将 `fetch.ts` 返回的数据合并进 `asyncData`。  
+便可以在任意组件中通过 `inject` 拿到该数据并且可以修改数据自动触发更新，为了防止应用数据混乱，我们建议为不同的组件返回数据添加不同的 `namespace` 命名空间。同样当路由切换时我们也会自动的将 `fetch.ts` 返回的数据合并进 `asyncData`。
 
-为了防止对象失去响应性，这里我们 follow `ref 对象`的规则。将真正的数据对象存放在 `asyncData.value` 字段中。并且将整个 `asyncData` 转换为响应式。这样我们后续可以直接通过修改 `asyncData.value = obj ` 或者 `asyncData.value.key = obj` 的方式来修改数据仍然可以让对象`保持响应式`。使用这种方式需要注意的是如果在 `template` 中使用的话仍然需要添加 `.value` 取值不会自动展开。  
+为了防止对象失去响应性，这里我们 follow `ref 对象`的规则。将真正的数据对象存放在 `asyncData.value` 字段中。并且将整个 `asyncData` 转换为响应式。这样我们后续可以直接通过修改 `asyncData.value = obj ` 或者 `asyncData.value.key = obj` 的方式来修改数据仍然可以让对象`保持响应式`。使用这种方式需要注意的是如果在 `template` 中使用的话仍然需要添加 `.value` 取值不会自动展开。
 
 ```html
 // 任意组件
@@ -160,7 +160,7 @@ export default defineComponent({
 
 ### 使用 useContext + useReducer
 
-随着 `hooks` 的流行以及 `useContext` 这个 API 的推出, 越来越多的开发者希望用它来代替 `Dva`, `Redux` 这些方案来实现数据管理，因为之前的数据管理方案写起来实在是太累了。  
+随着 `hooks` 的流行以及 `useContext` 这个 API 的推出, 越来越多的开发者希望用它来代替 `Dva`, `Redux` 这些方案来实现数据管理，因为之前的数据管理方案写起来实在是太累了。
 
 先说结论：`useContext + useReducer` 不能完全代替 `Redux` 的功能。但对于大多数应用来说它已足够够用。本框架没有使用 `任何` 基于 hooks 新造的第三方轮子来做数据通信，仅使用 `React` 提供的最原始的 `API` 来实现跨组件通信。如果你只是想进行跨组件通信，以及数据的自动订阅更新能力，你完全不需要 `Redux`。
 
@@ -174,13 +174,14 @@ export default defineComponent({
 ```ts
 import { useContext } from 'react'
 import { IContext } from 'ssr-types'
+import { useStoreContext } from 'ssr-common-utils'
 
 // 通过 IData 指定模块自己的 data interface
 
-const { state, dispatch } = useContext<IContext<IData>>(STORE_CONTEXT)
+const { state, dispatch } = useContext<IContext<IData>>(useStoreContext())
 ```
 
-通过 `dispatch action` 来触发全局 `context` 的更新，并通知到所有的组件。在本地开发环境下我们会在控制台中输出每个修改 context 的 action 的详细信息。 
+通过 `dispatch action` 来触发全局 `context` 的更新，并通知到所有的组件。在本地开发环境下我们会在控制台中输出每个修改 context 的 action 的详细信息。
 
 > 注: dispatch 是异步的只能够在客户端渲染的阶段使用，服务端使用无效。context 更新会导致所有组件重新 render，我们需要使用 React.useMemo 来避免不必要的重新计算，且建议根据不同的模块使用不同的 namespace 防止数据覆盖
 
@@ -301,7 +302,7 @@ function reducer (state: any, action: any) {
   // 调用多个 reducer 并将新的 state 返回
   // 如果你有更好的写法，欢迎与我们讨论
   return countReducer(state, action) || searchReducer(state, action)
-  
+
 }
 
 export {
@@ -313,8 +314,10 @@ export {
 ### 在组件中调用
 
 ```js
+import { useStoreContext } from 'ssr-common-utils'
+
 function Search () {
-  const { state, dispatch } = useContext<IContext<SearchState>>(STORE_CONTEXT)
+  const { state, dispatch } = useContext<IContext<SearchState>>(useStoreContext())
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch?.({
       type: 'updateSearchValue',
