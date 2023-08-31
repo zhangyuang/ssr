@@ -1,3 +1,12 @@
+## [6.2.102](https://github.com/zhangyuang/ssr/compare/utils@6.2.101...utils@6.2.102) (2023-08-31)
+
+
+### Bug Fixes
+
+* use cssInline is dev or prod ([5571c66](https://github.com/zhangyuang/ssr/commit/5571c66f4a9b43517115abb7f99cd141e18e3252))
+
+
+
 ## [6.2.101](https://github.com/zhangyuang/ssr/compare/utils@6.2.100...utils@6.2.101) (2023-08-31)
 
 
