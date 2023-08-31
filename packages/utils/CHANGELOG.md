@@ -1,3 +1,14 @@
+## [6.2.101](https://github.com/zhangyuang/ssr/compare/utils@6.2.100...utils@6.2.101) (2023-08-31)
+
+
+### Bug Fixes
+
+* combine config ([3933ce3](https://github.com/zhangyuang/ssr/commit/3933ce3458dd3bc1bf39f497d075513307fcfd68))
+* cssInline in vue2 ([10df2a8](https://github.com/zhangyuang/ssr/commit/10df2a8a2bd72c3b73680ec3f6c8bda4adef4d37))
+* don't use swc as nest compiler for bug ([f445e57](https://github.com/zhangyuang/ssr/commit/f445e575879729bed41cfdfc071c6fb0f8747b0a))
+
+
+
 ## [6.2.100](https://github.com/zhangyuang/ssr/compare/utils@6.2.99...utils@6.2.100) (2023-08-19)
 
 
