@@ -31,7 +31,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName, config)
     const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
     const manifest = await getManifest(config)
-    const [inlineCss, extraCssOrder] = await getInlineCss({ dynamicCssOrder, manifest, h, config, type: 'vue' })
     const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
     let [layoutFetchData, fetchData] = [{}, {}]
@@ -55,6 +54,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       router,
       store,
       render: function () {
+        const [inlineCss, extraCssOrder] = getInlineCss({ dynamicCssOrder, manifest, h, config, type: 'vue' })
+
         const injectCss = (isVite && isDev) ? [h('script', {
           attrs: {
             type: 'module',

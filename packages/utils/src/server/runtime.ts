@@ -1,4 +1,4 @@
-import { promises } from 'fs'
+import { promises, readFileSync } from 'fs'
 import { join, isAbsolute } from 'path'
 import type { UserConfig, ISSRContext, IConfig, ISSRNestContext, FastifyContext } from 'ssr-types'
 import { stringify } from 'qs'
@@ -120,7 +120,7 @@ export const getUserScriptVue = (options: {
 export const getScriptArr = (script: UserConfig['customeHeadScript'], ctx: ISSRContext) => {
   return Array.isArray(script) ? script : (script?.(ctx) ?? [])
 }
-export const getInlineCss = async ({
+export const getInlineCss = ({
   dynamicCssOrder,
   manifest,
   h,
@@ -133,14 +133,19 @@ export const getInlineCss = async ({
   config: UserConfig
   type: 'vue3' | 'vue'
 }) => {
+
   const { cssInline, isDev } = config
   if (isDev) return [[], dynamicCssOrder]
   const cwd = getCwd()
-  const cssOrder = cssInline === 'all' ? dynamicCssOrder : dynamicCssOrder.filter(item => cssInline?.includes(item))
-  const extraInjectCssOrder = cssInline === 'all' ? [] : dynamicCssOrder.filter(item => !cssInline?.includes(item))
-  const inlineCssContent = (await Promise.all(cssOrder.map(css => manifest[css]).filter(Boolean).map(async css =>
-    await promises.readFile(isAbsolute(css!) ? css! : join(cwd, './build', css!)).catch(_ => '')
-  ))).map(item => item.toString())
+
+  const { cssInlineOrder, cssInjectOrder } = dynamicCssOrder.reduce((pre, curr) => ({
+    cssInlineOrder: cssInline?.includes(curr) ? [...pre.cssInlineOrder, curr] : pre.cssInlineOrder,
+    cssInjectOrder: !cssInline?.includes(curr) ? [...pre.cssInjectOrder, curr] : pre.cssInjectOrder
+  }), { cssInlineOrder: [] as string[], cssInjectOrder: [] as string[] })
+
+  const inlineCssContent = cssInlineOrder.map(css => manifest[css]).filter(Boolean).map(css =>
+    readFileSync(isAbsolute(css!) ? css! : join(cwd, './build', css!))
+  ).map(item => item.toString())
 
   return [inlineCssContent.map(item => h('style', type === 'vue' ? {
     domProps: {
@@ -149,6 +154,6 @@ export const getInlineCss = async ({
   } : {
     innerHTML: item
   })),
-  extraInjectCssOrder
+  cssInjectOrder
   ]
 }
