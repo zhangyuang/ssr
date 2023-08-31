@@ -134,8 +134,7 @@ export const getInlineCss = ({
   type: 'vue3' | 'vue'
 }) => {
 
-  const { cssInline, isDev } = config
-  if (isDev) return [[], dynamicCssOrder]
+  const { cssInline } = config
   const cwd = getCwd()
 
   const { cssInlineOrder, cssInjectOrder } = dynamicCssOrder.reduce((pre, curr) => ({
