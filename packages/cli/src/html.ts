@@ -1,21 +1,20 @@
 import { promises } from 'fs'
 import { join } from 'path'
-import type { UserConfig } from 'ssr-types'
 
 export const generateHtml = async () => {
   if (!process.env.SPA) return
   // spa 模式下生成 html 文件直接部署
   const {
     loadConfig, getCwd, judgeFramework, loadModuleFromFramework, logGreen,
-    getAsyncJsChunk, logWarning, getAsyncCssChunk, splitPageInfo, getScriptArr
+    getAsyncJsChunk, logWarning, getAsyncCssChunk, splitPageInfo, getScriptArr, getStaticConfig
   } = await import('ssr-common-utils')
   logGreen('Generating html file...')
   const cwd = getCwd()
   const {
     customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix,
-    clientPrefix, isVite, cssOrderPriority, jsOrderPriority, rootId, staticConfigPath
+    clientPrefix, isVite, cssOrderPriority, jsOrderPriority, rootId
   } = loadConfig()
-  const staticConfig: UserConfig = require(staticConfigPath)
+  const staticConfig = getStaticConfig()
 
   const htmlStr = htmlTemplate ?? `
   <!DOCTYPE html>
