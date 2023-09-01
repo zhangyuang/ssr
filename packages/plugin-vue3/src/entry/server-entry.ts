@@ -9,7 +9,7 @@ import { createPinia } from 'pinia'
 import { serialize } from 'ssr-serialize-javascript'
 import { renderToNodeStream, renderToString } from '@vue/server-renderer'
 import { Routes } from './combine-router'
-import { createRouter, createStore } from './create'
+import { createRouter, createStore, getInlineCssVNode } from './create'
 import { IFeRouteItem, vue3AppParams } from '../types'
 
 const { FeRoutes, App, layoutFetch, Layout } = Routes
@@ -34,7 +34,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     isCsr,
     jsInject,
     cssInject,
-    inlineCss,
+    inlineCssOrder,
     rootId
   }: vue3AppParams) => {
     const app = createSSRApp({
@@ -51,7 +51,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         })
         const initialData = h('script', { innerHTML })
         const children = bigpipe ? '' : h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app })
-        const customeHeadScriptArr: VNode[] = getUserScriptVue({ script: customeHeadScript, ctx, h, type: 'vue3', position: 'header', staticConfig }).concat(inlineCss ?? [])
+        const customeHeadScriptArr: VNode[] = getUserScriptVue({ script: customeHeadScript, ctx, h, type: 'vue3', position: 'header', staticConfig }).concat(getInlineCssVNode(inlineCssOrder))
         const customeFooterScriptArr: VNode[] = getUserScriptVue({ script: customeFooterScript, ctx, h, type: 'vue3', position: 'footer', staticConfig })
 
         return h(Layout,
@@ -96,7 +96,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName, config)
     const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
     const manifest = await getManifest(config)
-    const [inlineCss, extraCssOrder] = await getInlineCss({ dynamicCssOrder, manifest, h, config, type: 'vue3' })
+    const [inlineCssOrder, extraCssOrder] = await getInlineCss({ dynamicCssOrder, manifest, config, type: 'vue3' })
     const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
     const cssInject = ((isVite && isDev) ? [h('script', {
@@ -150,7 +150,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       jsInject,
       cssInject,
       isCsr,
-      inlineCss,
+      inlineCssOrder,
       rootId
     })
     app.use(router)

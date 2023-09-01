@@ -1,9 +1,11 @@
+import { h } from 'vue'
 import * as Vue from 'vue'
 import * as Vuex from 'vuex'
 import * as Router from 'vue-router'
 import { deepClone } from 'ssr-deepclone'
 import { Routes } from './create-router'
 import { VueRouterOptions } from '../types'
+
 // without tsconfig esModuleInterop options must use the compatible syntax
 const RealVue = Vue.default || Vue
 const RealVuex = Vuex.default || Vuex
@@ -23,6 +25,12 @@ function createRouter (options: VueRouterOptions = {}) {
 function createStore () {
   return new Vuex.Store<any>(deepClone(store))
 }
+
+export const getInlineCssVNode = (arr: string[]) => arr.map(item => h('style', {
+  domProps: {
+    innerHTML: item
+  }
+}))
 
 export {
   createRouter,

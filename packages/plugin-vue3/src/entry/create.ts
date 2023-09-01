@@ -1,3 +1,4 @@
+import { h } from 'vue'
 import { createRouter as create, createWebHistory, createMemoryHistory, createWebHashHistory } from 'vue-router'
 import { createStore as createVuexStore } from 'vuex'
 import { deepClone } from 'ssr-deepclone'
@@ -17,6 +18,10 @@ function createRouter (options: VueRouterOptions&{hashRouter?: boolean} = {}) {
 function createStore () {
   return createVuexStore<any>(deepClone(store))
 }
+
+export const getInlineCssVNode = (arr: string[]) => arr.map(item => h('style', {
+  innerHTML: item
+}))
 
 export {
   createRouter,

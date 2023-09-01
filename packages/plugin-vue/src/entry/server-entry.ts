@@ -9,7 +9,7 @@ import { serialize } from 'ssr-serialize-javascript'
 import { createRenderer } from 'vue-server-renderer'
 
 import { Routes } from './create-router'
-import { createRouter, createStore } from './create'
+import { createRouter, createStore, getInlineCssVNode } from './create'
 import { IFeRouteItem } from '../types'
 
 const { renderToStream, renderToString } = createRenderer()
@@ -31,6 +31,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName, config)
     const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
     const manifest = await getManifest(config)
+    const [inlineCssOrder, extraCssOrder] = await getInlineCss({ dynamicCssOrder, manifest, config, type: 'vue' })
     const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
     let [layoutFetchData, fetchData] = [{}, {}]
@@ -54,7 +55,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       router,
       store,
       render: function () {
-        const [inlineCss, extraCssOrder] = getInlineCss({ dynamicCssOrder, manifest, h, config, type: 'vue' })
 
         const injectCss = (isVite && isDev) ? [h('script', {
           attrs: {
@@ -86,7 +86,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
           'window.clientPrefix': `"${clientPrefix ?? ''}"`,
           'window.ssrDevInfo': JSON.stringify(ssrDevInfo)
         })
-        const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue({ script: customeHeadScript, ctx, h, type: 'vue3', position: 'header', staticConfig }).concat(inlineCss ?? [])
+        const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue({ script: customeHeadScript, ctx, h, type: 'vue3', position: 'header', staticConfig }).concat(getInlineCssVNode(inlineCssOrder))
         const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue({ script: customeFooterScript, ctx, h, type: 'vue', position: 'footer', staticConfig })
         const initialData = h('script', {
           domProps: {

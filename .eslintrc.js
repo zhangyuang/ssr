@@ -21,6 +21,7 @@ module.exports = {
     '@typescript-eslint/restrict-plus-operands': ['off'],
     'react-hooks/rules-of-hooks': ['off'],
     '@typescript-eslint/no-var-requires': ['off'],
-    '@typescript-eslint/no-namespace': ['error', { allowDeclarations: true }]
+    '@typescript-eslint/no-namespace': ['error', { allowDeclarations: true }],
+    '@typescript-eslint/promise-function-async': ['off']
   }
 }

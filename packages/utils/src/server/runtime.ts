@@ -1,4 +1,4 @@
-import { promises, readFileSync } from 'fs'
+import { promises } from 'fs'
 import { join, isAbsolute } from 'path'
 import type { UserConfig, ISSRContext, IConfig, ISSRNestContext, FastifyContext } from 'ssr-types'
 import { stringify } from 'qs'
@@ -120,16 +120,14 @@ export const getUserScriptVue = (options: {
 export const getScriptArr = (script: UserConfig['customeHeadScript'], ctx: ISSRContext) => {
   return Array.isArray(script) ? script : (script?.(ctx) ?? [])
 }
-export const getInlineCss = ({
+export const getInlineCss = async ({
   dynamicCssOrder,
   manifest,
-  h,
   config,
   type
 }: {
   dynamicCssOrder: string[]
   manifest: Record<string, string | undefined>
-  h: any
   config: UserConfig
   type: 'vue3' | 'vue'
 }) => {
@@ -142,17 +140,12 @@ export const getInlineCss = ({
     cssInjectOrder: !cssInline?.includes(curr) ? [...pre.cssInjectOrder, curr] : pre.cssInjectOrder
   }), { cssInlineOrder: [] as string[], cssInjectOrder: [] as string[] })
 
-  const inlineCssContent = cssInlineOrder.map(css => manifest[css]).filter(Boolean).map(css =>
-    readFileSync(isAbsolute(css!) ? css! : join(cwd, './build', css!))
-  ).map(item => item.toString())
+  const inlineCssContent = (await Promise.all(cssInlineOrder.map(css => manifest[css]).filter(Boolean).map(css =>
+    promises.readFile(isAbsolute(css!) ? css! : join(cwd, './build', css!))
+  ))).map(item => item.toString())
 
-  return [inlineCssContent.map(item => h('style', type === 'vue' ? {
-    domProps: {
-      innerHTML: item
-    }
-  } : {
-    innerHTML: item
-  })),
-  cssInjectOrder
+  return [
+    inlineCssContent,
+    cssInjectOrder
   ]
 }
