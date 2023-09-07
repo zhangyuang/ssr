@@ -1,10 +1,14 @@
+import { promises } from 'fs'
 import { coerce } from 'semver'
+import { resolve } from 'path'
 import type { Chain, PluginItem } from 'ssr-types'
-import { Rule, Module } from 'webpack-chain'
+import type { Rule, Module } from 'webpack-chain'
+import type { Compiler } from 'webpack'
 import { getImageOutputPath } from '../parse'
-import { loadModuleFromFramework, getPkgJson, judgeFramework } from '../cwd'
+import { loadModuleFromFramework, getPkgJson, judgeFramework, getCwd } from '../cwd'
 import { loadConfig } from '../loadConfig'
 import { logWarning } from '../log'
+import { asyncChunkMap } from '../build-utils'
 
 const antdVersion = getPkgJson().dependencies?.['antd'] ?? getPkgJson().devDependencies?.['antd']
 const isAntd4 = coerce(antdVersion)?.major === 4
@@ -107,7 +111,7 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
     .end()
 }
 const addCommonChain = (chain: Chain, isServer: boolean) => {
-  const { babelOptions, corejsOptions, babelExtraModule, assetsDir } = loadConfig()
+  const { babelOptions, corejsOptions, babelExtraModule, assetsDir, optimize } = loadConfig()
   const { publicPath, imagePath } = getImageOutputPath()
   const envOptions = {
     modules: false,
@@ -172,6 +176,31 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
       esModule: false,
       emitFile: !isServer
     })
+  const BundleAnalyzerPlugin = require(loadModuleFromFramework('webpack-bundle-analyzer')).BundleAnalyzerPlugin
+  const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
+  chain.when(generateAnalysis, chain => {
+    chain.plugin('analyze').use(BundleAnalyzerPlugin)
+  })
+  chain.plugin('WriteAsyncManifest').use(
+    function () {
+      return {
+        apply (compiler: Compiler) {
+          compiler.hooks.watchRun.tap('ClearLastAsyncChunkMap', async () => {
+            asyncChunkMap.val = {}
+          })
+          compiler.hooks.done.tapAsync(
+            'WriteAsyncChunkManifest',
+            async (params: any, callback: any) => {
+              if (!optimize) {
+                await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap.val))
+              }
+              callback()
+            }
+          )
+        }
+      }
+    }
+  )
 }
 
 export {

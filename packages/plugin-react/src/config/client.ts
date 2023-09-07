@@ -7,9 +7,7 @@ import { getBaseConfig } from './base'
 
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin')
 const safePostCssParser = require('postcss-safe-parser')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
-const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const loadModule = loadModuleFromFramework
 const asyncChunkMap: {
   val: Record<string, string[]>
@@ -56,9 +54,6 @@ const getClientWebpack = (chain: WebpackChain) => {
     fileName: 'asset-manifest.json'
   }])
 
-  chain.when(generateAnalysis, chain => {
-    chain.plugin('analyze').use(BundleAnalyzerPlugin)
-  })
   chain.when(isDev, chain => {
     chain.plugin('fast-refresh').use(new ReactRefreshWebpackPlugin({
       overlay: {

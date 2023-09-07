@@ -1,9 +1,6 @@
 
-import { promises } from 'fs'
-import { resolve } from 'path'
-import { loadConfig, getCwd, cryptoAsyncChunkName, getOutputPublicPath, loadModuleFromFramework, getBuildConfig, terserConfig } from 'ssr-common-utils'
+import { loadConfig, cryptoAsyncChunkName, getOutputPublicPath, loadModuleFromFramework, getBuildConfig, terserConfig } from 'ssr-common-utils'
 import * as WebpackChain from 'webpack-chain'
-import { Compiler } from 'webpack'
 import { getBaseConfig } from './base'
 
 const safePostCssParser = require('postcss-safe-parser')
@@ -72,22 +69,7 @@ const getClientWebpack = (chain: WebpackChain) => {
   chain.when(generateAnalysis, chain => {
     chain.plugin('analyze').use(BundleAnalyzerPlugin)
   })
-  chain.plugin('WriteAsyncManifest').use(
-    class WriteAsyncChunkManifest {
-      apply (compiler: Compiler) {
-        compiler.hooks.watchRun.tap('ClearLastAsyncChunkMap', async () => {
-          asyncChunkMap.val = {}
-        })
-        compiler.hooks.done.tapAsync(
-          'WriteAsyncChunkManifest',
-          async (params: any, callback: any) => {
-            await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap.val))
-            callback()
-          }
-        )
-      }
-    }
-  )
+
   chainClientConfig(chain) // 合并用户自定义配置
 
   return chain.toConfig()

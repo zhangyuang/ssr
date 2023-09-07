@@ -1,10 +1,19 @@
 import { resolve, sep } from 'path'
 
+const asyncChunkMap: {
+  val: Record<string, string[]>
+} = {
+  val: {}
+}
+export {
+  asyncChunkMap
+}
 export const normalizePosixPath = (value: string): string => {
   return sep === '\\'
     ? value.replace(/\\/g, '/')
     : value
 }
+
 export function getPkgName (modulePath: string, packageFolder = 'node_modules') {
   if (typeof modulePath === 'string' && modulePath.includes(packageFolder)) {
     const path = normalizePosixPath(modulePath)

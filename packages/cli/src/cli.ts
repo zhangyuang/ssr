@@ -137,7 +137,7 @@ yargs
     },
     optimize: {
       alias: 'o',
-      desc: 'Optimize webpack bundle for high performance'
+      desc: 'Optimize webpack bundle for high performance except vue2'
     },
     vite: {
       desc: 'Build application by vite'

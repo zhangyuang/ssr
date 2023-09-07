@@ -1,22 +1,13 @@
-
-import { promises } from 'fs'
-import { resolve } from 'path'
-import { loadConfig, getCwd, getOutputPublicPath, loadModuleFromFramework, getSplitChunksOptions, getBuildConfig, terserConfig } from 'ssr-common-utils'
+import { loadConfig, getOutputPublicPath, loadModuleFromFramework, getSplitChunksOptions, getBuildConfig, terserConfig, asyncChunkMap } from 'ssr-common-utils'
 import * as WebpackChain from 'webpack-chain'
-import { Compiler } from 'webpack'
 import { getBaseConfig } from './base'
 
 const safePostCssParser = require('postcss-safe-parser')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
+
 const loadModule = loadModuleFromFramework
-const asyncChunkMap: {
-  val: Record<string, string[]>
-} = {
-  val: {}
-}
+
 const getClientWebpack = (chain: WebpackChain) => {
-  const { isDev, chunkName, getOutput, chainClientConfig, optimize } = loadConfig()
+  const { isDev, chunkName, getOutput, chainClientConfig } = loadConfig()
   const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
   const publicPath = getOutputPublicPath()
 
@@ -54,28 +45,6 @@ const getClientWebpack = (chain: WebpackChain) => {
     fileName: 'asset-manifest.json'
   }])
 
-  chain.when(generateAnalysis, chain => {
-    chain.plugin('analyze').use(BundleAnalyzerPlugin)
-  })
-
-  chain.plugin('WriteAsyncManifest').use(
-    class WriteAsyncChunkManifest {
-      apply (compiler: Compiler) {
-        compiler.hooks.watchRun.tap('ClearLastAsyncChunkMap', async () => {
-          asyncChunkMap.val = {}
-        })
-        compiler.hooks.done.tapAsync(
-          'WriteAsyncChunkManifest',
-          async (params: any, callback: any) => {
-            if (!optimize) {
-              await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap.val))
-            }
-            callback()
-          }
-        )
-      }
-    }
-  )
   chainClientConfig(chain) // 合并用户自定义配置
 
   return chain.toConfig()
