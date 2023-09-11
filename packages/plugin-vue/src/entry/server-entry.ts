@@ -18,7 +18,7 @@ const { FeRoutes, App, layoutFetch, Layout } = Routes
 const staticConfig = getStaticConfig()
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix, stream, rootId, bigpipe } = config
+  const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix, stream, rootId, bigpipe, hashRouter } = config
   const router = createRouter()
   const store = createStore()
   const fn = async () => {
@@ -84,7 +84,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
           'window.__USE_VITE__': isVite,
           'window.prefix': `"${prefix}"`,
           'window.clientPrefix': `"${clientPrefix ?? ''}"`,
-          'window.ssrDevInfo': JSON.stringify(ssrDevInfo)
+          'window.ssrDevInfo': JSON.stringify(ssrDevInfo),
+          'window.hashRouter': Boolean(hashRouter)
         })
         const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue({ script: customeHeadScript, ctx, h, type: 'vue3', position: 'header', staticConfig }).concat(getInlineCssVNode(inlineCssOrder))
         const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue({ script: customeFooterScript, ctx, h, type: 'vue', position: 'footer', staticConfig })

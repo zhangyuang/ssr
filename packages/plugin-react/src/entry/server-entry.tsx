@@ -12,7 +12,7 @@ import { Routes } from './create-router'
 const { FeRoutes, layoutFetch, state, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, rootId } = config
+  const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, rootId, hashRouter } = config
   const rawPath = ctx.request.path ?? ctx.request.url
   const path = normalizePath(rawPath, prefix)
   const routeItem = findRoute<ReactESMPreloadFeRouteItem>(FeRoutes, path)
@@ -70,7 +70,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       'window.__USE_VITE__': isVite,
       'window.prefix': `"${prefix}"`,
       'window.clientPrefix': `"${clientPrefix ?? ''}"`,
-      'window.ssrDevInfo': JSON.stringify(ssrDevInfo)
+      'window.ssrDevInfo': JSON.stringify(ssrDevInfo),
+      'window.hashRouter': Boolean(hashRouter)
     })
     const injectState = <script dangerouslySetInnerHTML={{ __html: innerHTML }} />
     // with jsx type error, use createElement here

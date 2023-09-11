@@ -16,7 +16,7 @@ const { FeRoutes, App, layoutFetch, Layout } = Routes
 const staticConfig = getStaticConfig()
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https, rootId, bigpipe } = config
+  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https, rootId, bigpipe, hashRouter } = config
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
@@ -47,7 +47,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
           'window.__USE_VITE__': isVite,
           'window.prefix': `"${prefix}"`,
           'window.clientPrefix': `"${clientPrefix ?? ''}"`,
-          'window.ssrDevInfo': JSON.stringify(ssrDevInfo)
+          'window.ssrDevInfo': JSON.stringify(ssrDevInfo),
+          'window.hashRouter': Boolean(hashRouter)
         })
         const initialData = h('script', { innerHTML })
         const children = bigpipe ? '' : h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app })
