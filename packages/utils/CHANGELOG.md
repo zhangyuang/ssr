@@ -1,3 +1,12 @@
+## [6.2.104](https://github.com/zhangyuang/ssr/compare/utils@6.2.103...utils@6.2.104) (2023-09-11)
+
+
+### Bug Fixes
+
+* support hashRouter ([e7a3129](https://github.com/zhangyuang/ssr/commit/e7a3129a4dffb9c3f80ec8ed55e77622f0b4a846))
+
+
+
 ## [6.2.103](https://github.com/zhangyuang/ssr/compare/utils@6.2.102...utils@6.2.103) (2023-09-07)
 
 
