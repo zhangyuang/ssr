@@ -1,3 +1,21 @@
+## [6.2.59](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.58...plugin-vue@6.2.59) (2023-09-18)
+
+
+### Bug Fixes
+
+* build html ([4cc7465](https://github.com/zhangyuang/ssr/commit/4cc74656f06509887957faf2951ef8a5ebc8fb43))
+* support hashRouter ([e7a3129](https://github.com/zhangyuang/ssr/commit/e7a3129a4dffb9c3f80ec8ed55e77622f0b4a846))
+* use cssInline is dev or prod ([5571c66](https://github.com/zhangyuang/ssr/commit/5571c66f4a9b43517115abb7f99cd141e18e3252))
+
+
+### Features
+
+* optimize cssinline ([710e6e5](https://github.com/zhangyuang/ssr/commit/710e6e56eb154bc9fff0258bb2f677ae8a923d35))
+* support node18 replace webpack4 with ssr-webpack4 ([1111ae7](https://github.com/zhangyuang/ssr/commit/1111ae7d5c759efeb4dd8bf9fcd599c2d270d930))
+* update types comment and lessOptions ([eba6efb](https://github.com/zhangyuang/ssr/commit/eba6efb13e7c9652722d9bcae7b355e08f16981c))
+
+
+
 ## [6.2.58](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.57...plugin-vue@6.2.58) (2023-08-31)
 
 
