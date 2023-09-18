@@ -1,3 +1,13 @@
+## [6.2.97](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.96...plugin-vue3@6.2.97) (2023-09-18)
+
+
+### Features
+
+* support node18 replace webpack4 with ssr-webpack4 ([1111ae7](https://github.com/zhangyuang/ssr/commit/1111ae7d5c759efeb4dd8bf9fcd599c2d270d930))
+* update types comment and lessOptions ([eba6efb](https://github.com/zhangyuang/ssr/commit/eba6efb13e7c9652722d9bcae7b355e08f16981c))
+
+
+
 ## [6.2.96](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.95...plugin-vue3@6.2.96) (2023-09-11)
 
 
