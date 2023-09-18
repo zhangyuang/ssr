@@ -29,7 +29,7 @@
   "dependencies": {
     "ssr-common-utils": "^6.2.10",
     "ssr-webpack4": "^4.46.2",
-    "webpack-dev-server-ssr": "^3.10.3"
+    "webpack-dev-server-ssr": "^3.10.10"
   },
   "devDependencies": {
     "@types/webpack": "^4.41.8",

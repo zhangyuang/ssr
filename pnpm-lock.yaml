@@ -1146,11 +1146,11 @@ importers:
       ssr-common-utils: ^6.2.10
       ssr-types: ^6.2.3
       ssr-webpack4: ^4.46.2
-      webpack-dev-server-ssr: ^3.10.3
+      webpack-dev-server-ssr: ^3.10.10
     dependencies:
       ssr-common-utils: link:../utils
       ssr-webpack4: 4.46.2
-      webpack-dev-server-ssr: 3.10.8
+      webpack-dev-server-ssr: 3.10.10_ssr-webpack4@4.46.2
     devDependencies:
       '@types/webpack': 4.41.32
       ssr-types: link:../types
@@ -5952,7 +5952,7 @@ packages:
       mississippi: 3.0.0
       mkdirp: 0.5.6
       move-concurrently: 1.0.1
-      promise-inflight: 1.0.1_bluebird@3.7.2
+      promise-inflight: 1.0.1
       rimraf: 2.7.1
       ssri: 6.0.2
       unique-filename: 1.1.1
@@ -5976,7 +5976,7 @@ packages:
       mkdirp: 0.5.6
       move-concurrently: 1.0.1
       p-map: 3.0.0
-      promise-inflight: 1.0.1_bluebird@3.7.2
+      promise-inflight: 1.0.1
       rimraf: 2.7.1
       ssri: 7.1.1
       unique-filename: 1.1.1
@@ -9160,9 +9160,9 @@ packages:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
 
-  /eventsource/1.1.2:
-    resolution: {integrity: sha512-xAH3zWhgO2/3KIniEKYPr8plNSzlGINOUqYj0m0u7AB81iRw8b/3E73W6AuU+6klLbaSFmZnaETQ2lXPfAydrA==}
-    engines: {node: '>=0.12.0'}
+  /eventsource/2.0.2:
+    resolution: {integrity: sha512-IzUmBGPR3+oUG9dUeXynyNmf91/3zUSJg1lCktzKw47OXuhco54U3r9B7O4XX+Rb1Itm9OZ2b0RkTs10bICOxA==}
+    engines: {node: '>=12.0.0'}
     dev: false
 
   /evp_bytestokey/1.0.3:
@@ -9569,13 +9569,6 @@ packages:
     resolution: {integrity: sha512-YpkpUnK8od0o1hmeSc7UUs/eB/vIPWJYjKck2QKIzAf71Vm1AAQ3EbuZB3g2JIy+pg+ERD0vqI79KyZiB2e2Nw==}
     dependencies:
       reusify: 1.0.4
-
-  /faye-websocket/0.10.0:
-    resolution: {integrity: sha512-Xhj93RXbMSq8urNCUq4p9l0P6hnySJ/7YNRhYNug0bLOuii7pKO7xQFb5mx9xZXWCar88pLPb805PvUkwrLZpQ==}
-    engines: {node: '>=0.4.0'}
-    dependencies:
-      websocket-driver: 0.6.5
-    dev: false
 
   /faye-websocket/0.11.4:
     resolution: {integrity: sha512-CzbClwlXAuiRQAlUyfqPgvPoNKTckTPGfwZV4ZdAhVcP2lh9KUxJg2b5GkE7XbjKQ3YJnQ9z6D9ntLAlB+tP8g==}
@@ -11383,10 +11376,6 @@ packages:
   /json-stringify-safe/5.0.1:
     resolution: {integrity: sha512-ZClg6AaYvamvYEE82d3Iyd3vSSIjQ+odgjaTzRuO3s7toCdFKczob2i0zCh7JE8kWn17yvAWhUVxvqGwUalsRA==}
     dev: true
-
-  /json3/3.3.3:
-    resolution: {integrity: sha512-c7/8mbUsKigAbLkD5B010BK4D9LZm7A1pNItkEwiUZRpIN66exu/e7YQWysGun+TRKaJp8MhemM+VkfWv42aCA==}
-    dev: false
 
   /json5/1.0.1:
     resolution: {integrity: sha512-aKS4WQjPenRxiQsC93MNfjx+nbF4PAdYzmd/1JIj8HYzqfbu86beTuNgXDzPknWk0n0uARlyewZo4s++ES36Ow==}
@@ -14181,15 +14170,13 @@ packages:
     resolution: {integrity: sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==}
     engines: {node: '>=0.4.0'}
 
-  /promise-inflight/1.0.1_bluebird@3.7.2:
+  /promise-inflight/1.0.1:
     resolution: {integrity: sha512-6zWPyEOFaQBJYcGMHBKTKJ3u6TBsnMFOIZSa6ce1e/ZrrsOlnHRHbabMjLiBYKp+n44X9eUI6VUPaukCXHuG4g==}
     peerDependencies:
       bluebird: '*'
     peerDependenciesMeta:
       bluebird:
         optional: true
-    dependencies:
-      bluebird: 3.7.2
 
   /promptly/2.2.0:
     resolution: {integrity: sha512-aC9j+BZsRSSzEsXBNBwDnAxujdx19HycZoKgRgzWnS8eOHg1asuf9heuLprfbe739zY3IdUQx+Egv6Jn135WHA==}
@@ -15430,25 +15417,25 @@ packages:
       - supports-color
     dev: false
 
-  /sockjs-client/1.4.0_supports-color@6.1.0:
-    resolution: {integrity: sha512-5zaLyO8/nri5cua0VtOrFXBPK1jbL4+1cebT/mmKA1E1ZXOvJrII75bPu0l0k843G/+iAbhEqzyKr0w/eCCj7g==}
+  /sockjs-client/1.6.1_supports-color@6.1.0:
+    resolution: {integrity: sha512-2g0tjOR+fRs0amxENLi/q5TiJTqY+WXFOzb5UwXndlK6TO3U/mirZznpx6w34HVMoc3g7cY24yC/ZMIYnDlfkw==}
+    engines: {node: '>=12'}
     dependencies:
       debug: 3.2.7_supports-color@6.1.0
-      eventsource: 1.1.2
+      eventsource: 2.0.2
       faye-websocket: 0.11.4
       inherits: 2.0.4
-      json3: 3.3.3
       url-parse: 1.5.10
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /sockjs/0.3.20:
-    resolution: {integrity: sha512-SpmVOVpdq0DJc0qArhF3E5xsxvaiqGNb73XfgBpK1y3UD5gs8DSo8aCTsuT5pX8rssdc2NDIzANwP9eCAiSdTA==}
+  /sockjs/0.3.24:
+    resolution: {integrity: sha512-GJgLTZ7vYb/JtPSSZ10hsOYIvEYsjbNU+zPdIHcUaWVNUEPivzxku31865sSSud0Da0W4lEeOPlmw93zLQchuQ==}
     dependencies:
-      faye-websocket: 0.10.0
-      uuid: 3.4.0
-      websocket-driver: 0.6.5
+      faye-websocket: 0.11.4
+      uuid: 8.3.2
+      websocket-driver: 0.7.4
     dev: false
 
   /socks-proxy-agent/5.0.1:
@@ -16921,7 +16908,6 @@ packages:
   /uuid/8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
     hasBin: true
-    dev: true
 
   /v8-compile-cache-lib/3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
@@ -17402,12 +17388,12 @@ packages:
       webpack-log: 2.0.0
     dev: false
 
-  /webpack-dev-server-ssr/3.10.8:
-    resolution: {integrity: sha512-76WbuMPoXYEo1f91jvtAGtWIXyiWgEbptKdJ2zzcOkNXGJUyA8mvfQODCjxl9S8SnUOR0h/nYpSwLZzaDmweCg==}
+  /webpack-dev-server-ssr/3.10.10_ssr-webpack4@4.46.2:
+    resolution: {integrity: sha512-cPpuXbCFU4MzoXJADBRokMPfmzpTrJdl4kABvGp7ygTxsa+GQdvP3sZhkvibzPm9y3lV2eDrAq1Ob9Y2c30NkQ==}
     engines: {node: '>= 6.11.5'}
     hasBin: true
     peerDependencies:
-      webpack: ^4.0.0 || ^5.0.0
+      ssr-webpack4: ^4.0.0 || ^5.0.0
       webpack-cli: '*'
     peerDependenciesMeta:
       webpack-cli:
@@ -17436,9 +17422,10 @@ packages:
       selfsigned: 1.10.14
       semver: 6.3.0
       serve-index: 1.9.1_supports-color@6.1.0
-      sockjs: 0.3.20
-      sockjs-client: 1.4.0_supports-color@6.1.0
+      sockjs: 0.3.24
+      sockjs-client: 1.6.1_supports-color@6.1.0
       spdy: 4.0.2_supports-color@6.1.0
+      ssr-webpack4: 4.46.2
       strip-ansi: 3.0.1
       supports-color: 6.1.0
       url: 0.11.0
@@ -17449,6 +17436,7 @@ packages:
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
+      - webpack
     dev: false
 
   /webpack-log/2.0.0:
@@ -17580,13 +17568,6 @@ packages:
       consola: 2.15.3
       pretty-time: 1.1.0
       std-env: 3.2.1
-    dev: false
-
-  /websocket-driver/0.6.5:
-    resolution: {integrity: sha512-oBx6ZM1Gs5q2jwZuSN/Qxyy/fbgomV8+vqsmipaPKB/74hjHlKuM07jNmRhn4qa2AdUwsgxrltq+gaPsHgcl0Q==}
-    engines: {node: '>=0.6.0'}
-    dependencies:
-      websocket-extensions: 0.1.4
     dev: false
 
   /websocket-driver/0.7.4:
