@@ -1,3 +1,12 @@
+## [6.2.14](https://github.com/zhangyuang/ssr/compare/webpack@6.2.13...webpack@6.2.14) (2023-09-18)
+
+
+### Features
+
+* upgrade webpack-dev-server-ssr ([a424789](https://github.com/zhangyuang/ssr/commit/a42478931acfb82bcf9b335f9f157528d20b2f44))
+
+
+
 ## [6.2.13](https://github.com/zhangyuang/ssr/compare/webpack@6.2.12...webpack@6.2.13) (2023-09-18)
 
 
