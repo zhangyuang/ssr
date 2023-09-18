@@ -47,7 +47,7 @@
     "vue-loader": "^17.0.0",
     "vue-router": "^4.0.0",
     "vuex": "^4.0.0",
-    "webpack": "^4.42.1",
+    "ssr-webpack4": "^4.42.1",
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-chain": "^6.4.0",
     "webpack-manifest-plugin": "^2.2.0",

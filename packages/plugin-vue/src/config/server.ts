@@ -1,7 +1,8 @@
 import { join } from 'path'
 import { loadConfig, nodeExternals } from 'ssr-common-utils'
 import * as WebpackChain from 'webpack-chain'
-import * as webpack from 'webpack'
+import * as webpack from 'ssr-webpack4'
+
 import { getBaseConfig } from './base'
 
 const getServerWebpack = (chain: WebpackChain) => {

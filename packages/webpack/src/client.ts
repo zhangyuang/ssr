@@ -1,4 +1,5 @@
-import * as webpack from 'webpack'
+import * as webpack from 'ssr-webpack4'
+
 import { loadConfig } from 'ssr-common-utils'
 import { webpackPromisify } from './utils/promisify'
 

@@ -42,7 +42,7 @@ jobs:
       - name: Set node version
         uses: actions/setup-node@v3
         with:
-          node-version: 12
+          node-version: 18
           cache: "pnpm"
       - name: Install dependencies
         run: | 
@@ -245,7 +245,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["16"]
+        node: ["18"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -354,7 +354,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["16"]
+        node: ["18"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -953,7 +953,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["16"]
+        node: ["18"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3

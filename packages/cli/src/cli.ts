@@ -2,7 +2,6 @@
 import { resolve } from 'path'
 import { fork } from 'child_process'
 import * as yargs from 'yargs'
-import { coerce } from 'semver'
 import { Argv, IPlugin } from 'ssr-types'
 import { generateHtml } from './html'
 import { cleanOutDir } from './clean'
@@ -22,14 +21,7 @@ const spinner = {
 }
 
 const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
-  const { copyReactContext, judgeFramework, judgeServerFramework, logGreen, logWarning } = await import('ssr-common-utils')
-  // for ssr generate default staticConfig file
-  if (!argv.vite && coerce(process.version)?.major as number > 16 && !process.env.NODE_OPTIONS?.includes('--openssl-legacy-provider')) {
-    logWarning(`crypto.createHash('md4') is not supported when node version > 16,
-    Please use NODE_OPTIONS=--openssl-legacy-provider ssr start to start project
-    If you are using windows please use set NODE_OPTIONS=--openssl-legacy-provider, ref https://github.com/webpack/webpack/issues/14532
-    `)
-  }
+  const { copyReactContext, judgeFramework, judgeServerFramework, logGreen } = await import('ssr-common-utils')
   const framework = judgeFramework()
   const serverFramework = judgeServerFramework()
   if (argv.ssg) {

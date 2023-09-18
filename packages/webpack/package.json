@@ -7,7 +7,6 @@
   "sideEffects": false,
   "scripts": {
     "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
-   
     "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
   },
   "repository": {
@@ -29,7 +28,7 @@
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "ssr-common-utils": "^6.2.10",
-    "webpack": "^4.42.1",
+    "ssr-webpack4": "^4.46.2",
     "webpack-dev-server-ssr": "^3.10.3"
   },
   "devDependencies": {

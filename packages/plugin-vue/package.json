@@ -7,7 +7,6 @@
   "sideEffects": false,
   "scripts": {
     "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
-   
     "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
   },
   "repository": {
@@ -56,6 +55,7 @@
     "ssr-serialize-javascript": "^6.0.0",
     "ssr-types": "^6.2.3",
     "ssr-webpack": "^6.2.10",
+    "ssr-webpack4": "^4.46.2",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "^4.1.1",
     "vite": "^2.9.15",
@@ -65,7 +65,6 @@
     "vue-router": "^3.6.5",
     "vue-template-compiler": "^2.7.8",
     "vuex": "^3.6.2",
-    "webpack": "^4.42.1",
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-chain": "^6.4.0",
     "webpack-manifest-plugin": "^2.2.0",
