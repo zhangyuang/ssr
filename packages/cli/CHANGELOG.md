@@ -1,3 +1,18 @@
+## [6.2.61](https://github.com/zhangyuang/ssr/compare/cli@6.2.60...cli@6.2.61) (2023-09-18)
+
+
+### Bug Fixes
+
+* support hashRouter ([e7a3129](https://github.com/zhangyuang/ssr/commit/e7a3129a4dffb9c3f80ec8ed55e77622f0b4a846))
+
+
+### Features
+
+* support node18 replace webpack4 with ssr-webpack4 ([1111ae7](https://github.com/zhangyuang/ssr/commit/1111ae7d5c759efeb4dd8bf9fcd599c2d270d930))
+* update types comment and lessOptions ([eba6efb](https://github.com/zhangyuang/ssr/commit/eba6efb13e7c9652722d9bcae7b355e08f16981c))
+
+
+
 ## [6.2.60](https://github.com/zhangyuang/ssr/compare/cli@6.2.59...cli@6.2.60) (2023-09-01)
 
 
