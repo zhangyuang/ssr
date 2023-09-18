@@ -277,6 +277,7 @@ const manualChunksFn = (id: string) => {
 type SSR = 'ssr'
 const commonConfig = (): UserConfig => {
   const { whiteList, alias, css, hmr, viteConfig, optimize } = loadConfig()
+  const lessOptions = css?.().loaderOptions?.less?.lessOptions ? css?.().loaderOptions?.less?.lessOptions : css?.().loaderOptions?.less
   return {
     root: cwd,
     mode: 'development',
@@ -291,7 +292,7 @@ const commonConfig = (): UserConfig => {
       preprocessorOptions: {
         less: {
           javascriptEnabled: true,
-          ...css?.().loaderOptions?.less
+          ...lessOptions
         },
         scss: css?.().loaderOptions?.scss ?? {}
       }

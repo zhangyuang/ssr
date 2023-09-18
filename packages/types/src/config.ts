@@ -61,9 +61,16 @@ export interface IConfig {
   css?: () => {
     loaderOptions?: {
       cssOptions?: any
-      less?: any // both vite and webpack
-      sass?: any // only webpack
-      scss?: any // only vite
+      less?: {
+        lessOptions?: any /*! transfer options to less */
+        /*! The following options  options only take effect in webpack */
+        additionalData?: string| Function
+        sourceMap?: boolean
+        webpackImporter?: Boolean
+        implementation?: Object
+      }
+      sass?: any /*! only webpack */
+      scss?: any /*! only vite */
       postcss?: {
         options?: Exclude<CSSOptions['postcss'], string>
         plugins?: PostCssPlugin[]
@@ -123,7 +130,7 @@ export interface IConfig {
       server?: ServerOptions
     }
     client?: {
-      defaultPluginOptions?: any // 为默认装载的插件定义 options, vue3 场景是 @vitejs/plugin-vue, react 场景是 @vitejs/plugin-react
+      defaultPluginOptions?: any /*! 为默认装载的插件定义 options, vue3 场景是 @vitejs/plugin-vue, react 场景是 @vitejs/plugin-react */
       extraPlugin?: PluginOption | PluginOption[]
       otherConfig?: ViteConfig
       processPlugin?: (plugins: PluginOption[]) => PluginOption[]
