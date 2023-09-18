@@ -1146,11 +1146,13 @@ importers:
       ssr-common-utils: ^6.2.10
       ssr-types: ^6.2.3
       ssr-webpack4: ^4.46.2
+      webpack: ^4.0.0
       webpack-dev-server-ssr: ^3.10.10
     dependencies:
       ssr-common-utils: link:../utils
-      ssr-webpack4: 4.46.2
-      webpack-dev-server-ssr: 3.10.10_ssr-webpack4@4.46.2
+      ssr-webpack4: 4.46.2_webpack@4.46.0
+      webpack: 4.46.0
+      webpack-dev-server-ssr: 3.10.10_957f27bd4b62136be86f481f2e3ce4bb
     devDependencies:
       '@types/webpack': 4.41.32
       ssr-types: link:../types
@@ -11400,7 +11402,7 @@ packages:
   /jsonfile/4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
     optionalDependencies:
-      graceful-fs: 4.2.10
+      graceful-fs: 4.2.11
     dev: false
 
   /jsonfile/6.1.0:
@@ -15704,6 +15706,47 @@ packages:
       - webpack
     dev: false
 
+  /ssr-webpack4/4.46.2_webpack@4.46.0:
+    resolution: {integrity: sha512-on0BBR6fo1+0YhunkDqy0NsQBoALwFoyxEm6agJrH8lo6o9x+/Jqa54a4AzZpcq1O5cDrZxYJNGfPurtoQl0yA==}
+    engines: {node: '>=6.11.5'}
+    hasBin: true
+    peerDependencies:
+      webpack-cli: '*'
+      webpack-command: '*'
+    peerDependenciesMeta:
+      webpack-cli:
+        optional: true
+      webpack-command:
+        optional: true
+    dependencies:
+      '@webassemblyjs/ast': 1.9.0
+      '@webassemblyjs/helper-module-context': 1.9.0
+      '@webassemblyjs/wasm-edit': 1.9.0
+      '@webassemblyjs/wasm-parser': 1.9.0
+      acorn: 6.4.2
+      ajv: 6.12.6
+      ajv-keywords: 3.5.2_ajv@6.12.6
+      chrome-trace-event: 1.0.3
+      enhanced-resolve: 4.5.0
+      eslint-scope: 4.0.3
+      json-parse-better-errors: 1.0.2
+      loader-runner: 2.4.0
+      loader-utils: 1.4.0
+      memory-fs: 0.4.1
+      micromatch: 3.1.10
+      mkdirp: 0.5.6
+      neo-async: 2.6.2
+      node-libs-browser: 2.2.1
+      schema-utils: 1.0.0
+      tapable: 1.1.3
+      terser-webpack-plugin: 1.4.5_webpack@4.46.0
+      watchpack: 1.7.5
+      webpack-sources: 1.4.3
+    transitivePeerDependencies:
+      - supports-color
+      - webpack
+    dev: false
+
   /ssr-window/2.0.0:
     resolution: {integrity: sha512-NXzN+/HPObKAx191H3zKlYomE5WrVIkoCB5IaSdvKokxTpjBdWfr0RaP+1Z5KOfDT0ZVz+2tdtiBkhsEQ9p+0A==}
     dev: false
@@ -16106,7 +16149,6 @@ packages:
       webpack: 4.46.0
       webpack-sources: 1.4.3
       worker-farm: 1.7.0
-    dev: true
 
   /terser-webpack-plugin/2.3.8:
     resolution: {integrity: sha512-/fKw3R+hWyHfYx7Bv6oPqmk4HGQcrWLtV3X6ggvPuwPNHSnzvVV51z6OaaCOus4YLjutYGOz3pEpbhe6Up2s1w==}
@@ -17375,7 +17417,7 @@ packages:
       deepmerge: 1.5.2
       javascript-stringify: 2.1.0
 
-  /webpack-dev-middleware/3.7.3:
+  /webpack-dev-middleware/3.7.3_webpack@4.46.0:
     resolution: {integrity: sha512-djelc/zGiz9nZj/U7PTBi2ViorGJXEWo/3ltkPbDyxCXhhEXkW0ce99falaok4TPj+AsxLiXJR0EBOb0zh9fKQ==}
     engines: {node: '>= 6'}
     peerDependencies:
@@ -17385,10 +17427,11 @@ packages:
       mime: 2.6.0
       mkdirp: 0.5.6
       range-parser: 1.2.1
+      webpack: 4.46.0
       webpack-log: 2.0.0
     dev: false
 
-  /webpack-dev-server-ssr/3.10.10_ssr-webpack4@4.46.2:
+  /webpack-dev-server-ssr/3.10.10_957f27bd4b62136be86f481f2e3ce4bb:
     resolution: {integrity: sha512-cPpuXbCFU4MzoXJADBRokMPfmzpTrJdl4kABvGp7ygTxsa+GQdvP3sZhkvibzPm9y3lV2eDrAq1Ob9Y2c30NkQ==}
     engines: {node: '>= 6.11.5'}
     hasBin: true
@@ -17425,11 +17468,11 @@ packages:
       sockjs: 0.3.24
       sockjs-client: 1.6.1_supports-color@6.1.0
       spdy: 4.0.2_supports-color@6.1.0
-      ssr-webpack4: 4.46.2
+      ssr-webpack4: 4.46.2_webpack@4.46.0
       strip-ansi: 3.0.1
       supports-color: 6.1.0
       url: 0.11.0
-      webpack-dev-middleware: 3.7.3
+      webpack-dev-middleware: 3.7.3_webpack@4.46.0
       webpack-log: 2.0.0
       ws: 6.2.2
       yargs: 12.0.5
@@ -17516,7 +17559,6 @@ packages:
       webpack-sources: 1.4.3
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /webpack/5.88.1:
     resolution: {integrity: sha512-FROX3TxQnC/ox4N+3xQoWZzvGXSuscxR32rbzjpXgEzWudJFEJBpdlkkob2ylrv5yzzufD1zph1OoFsLtm6stQ==}
