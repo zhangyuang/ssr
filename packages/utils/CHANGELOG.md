@@ -1,3 +1,13 @@
+## [6.2.105](https://github.com/zhangyuang/ssr/compare/utils@6.2.104...utils@6.2.105) (2023-09-18)
+
+
+### Features
+
+* support node18 replace webpack4 with ssr-webpack4 ([1111ae7](https://github.com/zhangyuang/ssr/commit/1111ae7d5c759efeb4dd8bf9fcd599c2d270d930))
+* update types comment and lessOptions ([eba6efb](https://github.com/zhangyuang/ssr/commit/eba6efb13e7c9652722d9bcae7b355e08f16981c))
+
+
+
 ## [6.2.104](https://github.com/zhangyuang/ssr/compare/utils@6.2.103...utils@6.2.104) (2023-09-11)
 
 
