@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { loadConfig, nodeExternals } from 'ssr-common-utils'
+import { loadConfig, nodeExternals, loadModuleFromFramework, terserConfig } from 'ssr-common-utils'
 import * as WebpackChain from 'webpack-chain'
 import * as webpack from 'ssr-webpack4'
 
@@ -22,6 +22,10 @@ const getServerWebpack = (chain: WebpackChain) => {
     .end()
 
   const modulesDir = [join(cwd, './node_modules')]
+
+  chain.optimization
+    .minimizer('terser')
+    .use(loadModuleFromFramework('terser-webpack-plugin'), [terserConfig()])
 
   chain.externals(nodeExternals({
     whitelist: whiteList,
