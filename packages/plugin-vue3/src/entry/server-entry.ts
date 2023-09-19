@@ -9,7 +9,7 @@ import { createPinia } from 'pinia'
 import { serialize } from 'ssr-serialize-javascript'
 import { renderToNodeStream, renderToString } from '@vue/server-renderer'
 import { Routes } from './combine-router'
-import { createRouter, createStore, getInlineCssVNode } from './create'
+import { createRouter, createStore, getInlineCssVNode, getVNode } from './create'
 import { IFeRouteItem, vue3AppParams } from '../types'
 
 const { FeRoutes, App, layoutFetch, Layout } = Routes
@@ -52,9 +52,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         })
         const initialData = h('script', { innerHTML })
         const children = bigpipe ? '' : h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app })
-        const customeHeadScriptArr: VNode[] = getUserScriptVue({ script: customeHeadScript, ctx, h, type: 'vue3', position: 'header', staticConfig }).concat(getInlineCssVNode(inlineCssOrder))
-        const customeFooterScriptArr: VNode[] = getUserScriptVue({ script: customeFooterScript, ctx, h, type: 'vue3', position: 'footer', staticConfig })
-
+        const customeHeadScriptArr: VNode[] = getVNode(getUserScriptVue({ script: customeHeadScript, ctx, position: 'header', staticConfig })).concat(getInlineCssVNode(inlineCssOrder))
+        const customeFooterScriptArr: VNode[] = getVNode(getUserScriptVue({ script: customeFooterScript, ctx, position: 'footer', staticConfig }))
         return h(Layout,
           { ctx, config, asyncData, fetchData: layoutFetchData, reactiveFetchData: { value: layoutFetchData } },
           {

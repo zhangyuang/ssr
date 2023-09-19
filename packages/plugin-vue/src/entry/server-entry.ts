@@ -1,5 +1,4 @@
 import * as Vue from 'vue'
-import { h } from 'vue'
 import {
   findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk,
   getAsyncJsChunk, getUserScriptVue, remInitial, localStorageWrapper, getInlineCss, checkRoute, splitPageInfo, getStaticConfig
@@ -9,7 +8,7 @@ import { serialize } from 'ssr-serialize-javascript'
 import { createRenderer } from 'vue-server-renderer'
 
 import { Routes } from './create-router'
-import { createRouter, createStore, getInlineCssVNode } from './create'
+import { createRouter, createStore, getInlineCssVNode, getVNode } from './create'
 import { IFeRouteItem } from '../types'
 
 const { renderToStream, renderToString } = createRenderer()
@@ -54,8 +53,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     const app = new Vue({
       router,
       store,
-      render: function () {
-
+      render: function (h: Vue.CreateElement) {
         const injectCss = (isVite && isDev) ? [h('script', {
           attrs: {
             type: 'module',
@@ -87,8 +85,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
           'window.ssrDevInfo': JSON.stringify(ssrDevInfo),
           'window.hashRouter': Boolean(hashRouter)
         })
-        const customeHeadScriptArr: Vue.VNode[] = getUserScriptVue({ script: customeHeadScript, ctx, h, type: 'vue3', position: 'header', staticConfig }).concat(getInlineCssVNode(inlineCssOrder))
-        const customeFooterScriptArr: Vue.VNode[] = getUserScriptVue({ script: customeFooterScript, ctx, h, type: 'vue', position: 'footer', staticConfig })
+        const customeHeadScriptArr: Vue.VNode[] = getVNode(getUserScriptVue({ script: customeHeadScript, ctx, position: 'header', staticConfig }), h).concat(getInlineCssVNode(inlineCssOrder, h))
+        const customeFooterScriptArr: Vue.VNode[] = getVNode(getUserScriptVue({ script: customeFooterScript, ctx, position: 'footer', staticConfig }), h)
+
         const initialData = h('script', {
           domProps: {
             innerHTML

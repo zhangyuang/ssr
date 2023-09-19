@@ -1,8 +1,9 @@
-import { h } from 'vue'
+import type { CreateElement } from 'vue'
 import * as Vue from 'vue'
 import * as Vuex from 'vuex'
 import * as Router from 'vue-router'
 import { deepClone } from 'ssr-deepclone'
+import type { Script } from 'ssr-types'
 import { Routes } from './create-router'
 import { VueRouterOptions } from '../types'
 
@@ -26,11 +27,17 @@ function createStore () {
   return new Vuex.Store<any>(deepClone(store))
 }
 
-export const getInlineCssVNode = (arr: string[]) => arr.map(item => h('style', {
+export const getInlineCssVNode = (arr: string[], h: CreateElement) => arr.map(item => h('style', {
   domProps: {
     innerHTML: item
   }
 }))
+
+export const getVNode = (arr: Script, h: CreateElement) => arr.map(item => h(item.tagName ?? 'script', Object.assign({}, item.describe, {
+  domProps: {
+    innerHTML: item.content
+  }
+})))
 
 export {
   createRouter,

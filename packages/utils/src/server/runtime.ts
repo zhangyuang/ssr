@@ -98,23 +98,14 @@ export const getAsyncJsChunk = async (ctx: ISSRContext, webpackChunkName: string
 export const getUserScriptVue = (options: {
   script: UserConfig['customeHeadScript']
   ctx: ISSRContext
-  h: any
-  type: 'vue3' | 'vue'
   position: 'header'|'footer'
   staticConfig: UserConfig
 }) => {
-  const { script, ctx, h, type, position, staticConfig } = options
+  const { script, ctx, position, staticConfig } = options
   const defaultScriptArr = getScriptArr(script, ctx)
   const staticScript = position === 'header' ? staticConfig.customeHeadScript : staticConfig.customeFooterScript
   const staticScriptArr = getScriptArr(staticScript, ctx)
-  return defaultScriptArr.concat(staticScriptArr).map(item => h(item.tagName ?? 'script', Object.assign({}, item.describe, type === 'vue' ? {
-    domProps: {
-      innerHTML: item.content
-    }
-  } : {
-    innerHTML: item.content
-  }
-  )))
+  return defaultScriptArr.concat(staticScriptArr)
 }
 
 export const getScriptArr = (script: UserConfig['customeHeadScript'], ctx: ISSRContext) => {

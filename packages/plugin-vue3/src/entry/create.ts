@@ -2,6 +2,7 @@ import { h } from 'vue'
 import { createRouter as create, createWebHistory, createMemoryHistory, createWebHashHistory } from 'vue-router'
 import { createStore as createVuexStore } from 'vuex'
 import { deepClone } from 'ssr-deepclone'
+import type { Script } from 'ssr-types'
 import { Routes } from './combine-router'
 import { RoutesType, VueRouterOptions } from '../types'
 
@@ -22,6 +23,10 @@ function createStore () {
 export const getInlineCssVNode = (arr: string[]) => arr.map(item => h('style', {
   innerHTML: item
 }))
+
+export const getVNode = (arr: Script) => arr.map(item => h(item.tagName ?? 'script', Object.assign({}, item.describe, {
+  innerHTML: item.content
+})))
 
 export {
   createRouter,
