@@ -1,3 +1,13 @@
+## [6.2.60](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.59...plugin-vue@6.2.60) (2023-09-19)
+
+
+### Features
+
+* optimize getVNode for compatible with vue2.6 ([8ebc114](https://github.com/zhangyuang/ssr/commit/8ebc114b817d78638e18fcbb27bbb09e897b9664))
+* upgrade webpack-dev-server-ssr ([a424789](https://github.com/zhangyuang/ssr/commit/a42478931acfb82bcf9b335f9f157528d20b2f44))
+
+
+
 ## [6.2.59](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.58...plugin-vue@6.2.59) (2023-09-18)
 
 
