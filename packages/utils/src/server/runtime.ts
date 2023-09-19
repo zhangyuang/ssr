@@ -21,7 +21,7 @@ export const setHeader = (ctx: ISSRContext, serverFrameWork: string) => {
   }
 }
 
-export const splitPageInfo = (info: Record<string, string|boolean|object>): string => stringify(info, {
+export const splitPageInfo = (info: Record<string, string | boolean | object>): string => stringify(info, {
   encode: false,
   delimiter: ';'
 })
@@ -60,7 +60,7 @@ export const nomalrizeOrder = (order: UserConfig['extraJsOrder'], ctx: ISSRConte
 const envVarRegex = /^[a-zA-Z_][a-zA-Z0-9_]*(\.[a-zA-Z_][a-zA-Z0-9_]*)*$/
 
 export const getDefineEnv = () => {
-  const envObject: Record<string, string|undefined> = {}
+  const envObject: Record<string, string | undefined> = {}
   Object.keys(process.env).forEach(key => {
     if (envVarRegex.test(key)) {
       envObject[`process.env.${key}`] = process.env[key]
@@ -98,7 +98,7 @@ export const getAsyncJsChunk = async (ctx: ISSRContext, webpackChunkName: string
 export const getUserScriptVue = (options: {
   script: UserConfig['customeHeadScript']
   ctx: ISSRContext
-  position: 'header'|'footer'
+  position: 'header' | 'footer'
   staticConfig: UserConfig
 }) => {
   const { script, ctx, position, staticConfig } = options
@@ -126,7 +126,10 @@ export const getInlineCss = async ({
   const { cssInline } = config
   const cwd = getCwd()
 
-  const { cssInlineOrder, cssInjectOrder } = dynamicCssOrder.reduce((pre, curr) => ({
+  const { cssInlineOrder, cssInjectOrder } = cssInline === 'all' ? {
+    cssInlineOrder: dynamicCssOrder,
+    cssInjectOrder: []
+  } : dynamicCssOrder.reduce((pre, curr) => ({
     cssInlineOrder: cssInline?.includes(curr) ? [...pre.cssInlineOrder, curr] : pre.cssInlineOrder,
     cssInjectOrder: !cssInline?.includes(curr) ? [...pre.cssInjectOrder, curr] : pre.cssInjectOrder
   }), { cssInlineOrder: [] as string[], cssInjectOrder: [] as string[] })
