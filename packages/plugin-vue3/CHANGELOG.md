@@ -1,3 +1,17 @@
+## [6.2.99](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.98...plugin-vue3@6.2.99) (2023-09-19)
+
+
+### Bug Fixes
+
+* inlinecss when all mode ([e1be337](https://github.com/zhangyuang/ssr/commit/e1be3378d7d6a857e0690189a7e3ec5e955e624a))
+
+
+### Features
+
+* for node18 use terser minify server bundle ([c47091b](https://github.com/zhangyuang/ssr/commit/c47091b6d27913a527aaccb697db263e4a601aa3))
+
+
+
 ## [6.2.98](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.97...plugin-vue3@6.2.98) (2023-09-19)
 
 
