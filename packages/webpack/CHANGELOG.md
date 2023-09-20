@@ -1,3 +1,18 @@
+## [6.2.15](https://github.com/zhangyuang/ssr/compare/webpack@6.2.14...webpack@6.2.15) (2023-09-20)
+
+
+### Bug Fixes
+
+* inlinecss when all mode ([e1be337](https://github.com/zhangyuang/ssr/commit/e1be3378d7d6a857e0690189a7e3ec5e955e624a))
+
+
+### Features
+
+* for node18 use terser minify server bundle ([c47091b](https://github.com/zhangyuang/ssr/commit/c47091b6d27913a527aaccb697db263e4a601aa3))
+* optimize getVNode for compatible with vue2.6 ([8ebc114](https://github.com/zhangyuang/ssr/commit/8ebc114b817d78638e18fcbb27bbb09e897b9664))
+
+
+
 ## [6.2.14](https://github.com/zhangyuang/ssr/compare/webpack@6.2.13...webpack@6.2.14) (2023-09-18)
 
 
