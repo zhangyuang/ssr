@@ -1147,12 +1147,12 @@ importers:
       ssr-types: ^6.2.3
       ssr-webpack4: ^4.46.2
       webpack: ^4.0.0
-      webpack-dev-server-ssr: ^3.10.10
+      webpack-dev-server-ssr: ^3.10.12
     dependencies:
       ssr-common-utils: link:../utils
       ssr-webpack4: 4.46.2_webpack@4.46.0
       webpack: 4.46.0
-      webpack-dev-server-ssr: 3.10.10_957f27bd4b62136be86f481f2e3ce4bb
+      webpack-dev-server-ssr: 3.10.12_webpack@4.46.0
     devDependencies:
       '@types/webpack': 4.41.32
       ssr-types: link:../types
@@ -4600,7 +4600,7 @@ packages:
       source-map: 0.6.1
       vue-template-es2015-compiler: 1.9.1
     optionalDependencies:
-      prettier: 2.7.1
+      prettier: 2.8.8
     transitivePeerDependencies:
       - arc-templates
       - atpl
@@ -5954,7 +5954,7 @@ packages:
       mississippi: 3.0.0
       mkdirp: 0.5.6
       move-concurrently: 1.0.1
-      promise-inflight: 1.0.1
+      promise-inflight: 1.0.1_bluebird@3.7.2
       rimraf: 2.7.1
       ssri: 6.0.2
       unique-filename: 1.1.1
@@ -11402,7 +11402,7 @@ packages:
   /jsonfile/4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
     optionalDependencies:
-      graceful-fs: 4.2.11
+      graceful-fs: 4.2.10
     dev: false
 
   /jsonfile/6.1.0:
@@ -14147,6 +14147,13 @@ packages:
     hasBin: true
     dev: false
 
+  /prettier/2.8.8:
+    resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: false
+    optional: true
+
   /pretty-bytes/5.6.0:
     resolution: {integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==}
     engines: {node: '>=6'}
@@ -14179,6 +14186,17 @@ packages:
     peerDependenciesMeta:
       bluebird:
         optional: true
+    dev: false
+
+  /promise-inflight/1.0.1_bluebird@3.7.2:
+    resolution: {integrity: sha512-6zWPyEOFaQBJYcGMHBKTKJ3u6TBsnMFOIZSa6ce1e/ZrrsOlnHRHbabMjLiBYKp+n44X9eUI6VUPaukCXHuG4g==}
+    peerDependencies:
+      bluebird: '*'
+    peerDependenciesMeta:
+      bluebird:
+        optional: true
+    dependencies:
+      bluebird: 3.7.2
 
   /promptly/2.2.0:
     resolution: {integrity: sha512-aC9j+BZsRSSzEsXBNBwDnAxujdx19HycZoKgRgzWnS8eOHg1asuf9heuLprfbe739zY3IdUQx+Egv6Jn135WHA==}
@@ -15700,6 +15718,47 @@ packages:
       tapable: 1.1.3
       terser-webpack-plugin: 1.4.5
       watchpack: 1.7.5
+      webpack-sources: 1.4.3
+    transitivePeerDependencies:
+      - supports-color
+      - webpack
+    dev: false
+
+  /ssr-webpack4/4.46.2_3889baa0621ee258dad90a41af9f44c3:
+    resolution: {integrity: sha512-on0BBR6fo1+0YhunkDqy0NsQBoALwFoyxEm6agJrH8lo6o9x+/Jqa54a4AzZpcq1O5cDrZxYJNGfPurtoQl0yA==}
+    engines: {node: '>=6.11.5'}
+    hasBin: true
+    peerDependencies:
+      webpack-cli: '*'
+      webpack-command: '*'
+    peerDependenciesMeta:
+      webpack-cli:
+        optional: true
+      webpack-command:
+        optional: true
+    dependencies:
+      '@webassemblyjs/ast': 1.9.0
+      '@webassemblyjs/helper-module-context': 1.9.0
+      '@webassemblyjs/wasm-edit': 1.9.0
+      '@webassemblyjs/wasm-parser': 1.9.0
+      acorn: 6.4.2
+      ajv: 6.12.6
+      ajv-keywords: 3.5.2_ajv@6.12.6
+      chrome-trace-event: 1.0.3
+      enhanced-resolve: 4.5.0
+      eslint-scope: 4.0.3
+      json-parse-better-errors: 1.0.2
+      loader-runner: 2.4.0
+      loader-utils: 1.4.0
+      memory-fs: 0.4.1
+      micromatch: 3.1.10_supports-color@6.1.0
+      mkdirp: 0.5.6
+      neo-async: 2.6.2
+      node-libs-browser: 2.2.1
+      schema-utils: 1.0.0
+      tapable: 1.1.3
+      terser-webpack-plugin: 1.4.5_webpack@4.46.0
+      watchpack: 1.7.5_supports-color@6.1.0
       webpack-sources: 1.4.3
     transitivePeerDependencies:
       - supports-color
@@ -17352,6 +17411,16 @@ packages:
       - supports-color
     optional: true
 
+  /watchpack-chokidar2/2.0.1_supports-color@6.1.0:
+    resolution: {integrity: sha512-nCFfBIPKr5Sh61s4LPpy1Wtfi0HE8isJ3d2Yb5/Ppw2P2B/3eVSEBjKfN0fmHJSK14+31KwMKmcrzs2GM4P0Ww==}
+    requiresBuild: true
+    dependencies:
+      chokidar: 2.1.8_supports-color@6.1.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+    optional: true
+
   /watchpack/1.7.5:
     resolution: {integrity: sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==}
     dependencies:
@@ -17362,6 +17431,18 @@ packages:
       watchpack-chokidar2: 2.0.1
     transitivePeerDependencies:
       - supports-color
+
+  /watchpack/1.7.5_supports-color@6.1.0:
+    resolution: {integrity: sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==}
+    dependencies:
+      graceful-fs: 4.2.11
+      neo-async: 2.6.2
+    optionalDependencies:
+      chokidar: 3.5.3
+      watchpack-chokidar2: 2.0.1_supports-color@6.1.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
 
   /watchpack/2.4.0:
     resolution: {integrity: sha512-Lcvm7MGST/4fup+ifyKi2hjyIAwcdI4HRgtvTpIUxBRhB+RFtUh8XtDOxUfctVCnhVi+QQj49i91OyvzkJl6cg==}
@@ -17431,12 +17512,11 @@ packages:
       webpack-log: 2.0.0
     dev: false
 
-  /webpack-dev-server-ssr/3.10.10_957f27bd4b62136be86f481f2e3ce4bb:
-    resolution: {integrity: sha512-cPpuXbCFU4MzoXJADBRokMPfmzpTrJdl4kABvGp7ygTxsa+GQdvP3sZhkvibzPm9y3lV2eDrAq1Ob9Y2c30NkQ==}
+  /webpack-dev-server-ssr/3.10.12_webpack@4.46.0:
+    resolution: {integrity: sha512-mY3WxfnpWDESzjyOp4lh1W+1VFlNkLtnCGKQ8FuEkVRCZx5zHqldSErFQFlx/cIJ/J5jIqVm4fpNZJGIngPHdQ==}
     engines: {node: '>= 6.11.5'}
     hasBin: true
     peerDependencies:
-      ssr-webpack4: ^4.0.0 || ^5.0.0
       webpack-cli: '*'
     peerDependenciesMeta:
       webpack-cli:
@@ -17468,7 +17548,7 @@ packages:
       sockjs: 0.3.24
       sockjs-client: 1.6.1_supports-color@6.1.0
       spdy: 4.0.2_supports-color@6.1.0
-      ssr-webpack4: 4.46.2_webpack@4.46.0
+      ssr-webpack4: 4.46.2_3889baa0621ee258dad90a41af9f44c3
       strip-ansi: 3.0.1
       supports-color: 6.1.0
       url: 0.11.0
@@ -17480,6 +17560,7 @@ packages:
       - bufferutil
       - utf-8-validate
       - webpack
+      - webpack-command
     dev: false
 
   /webpack-log/2.0.0:

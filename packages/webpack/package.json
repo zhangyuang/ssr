@@ -30,7 +30,7 @@
     "ssr-common-utils": "^6.2.10",
     "ssr-webpack4": "^4.46.2",
     "webpack": "^4.0.0",
-    "webpack-dev-server-ssr": "^3.10.10"
+    "webpack-dev-server-ssr": "^3.10.12"
   },
   "devDependencies": {
     "@types/webpack": "^4.41.8",
