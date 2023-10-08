@@ -1,5 +1,5 @@
 
-import { loadConfig, cryptoAsyncChunkName, getOutputPublicPath, loadModuleFromFramework, getBuildConfig, terserConfig } from 'ssr-common-utils'
+import { loadConfig, cryptoAsyncChunkName, getOutputPublicPath, loadModuleFromFramework, getBuildConfig, terserConfig, asyncChunkMap } from 'ssr-common-utils'
 import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
 
@@ -7,11 +7,6 @@ const safePostCssParser = require('postcss-safe-parser')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 const loadModule = loadModuleFromFramework
-const asyncChunkMap: {
-  val: Record<string, string[]>
-} = {
-  val: {}
-}
 
 const getClientWebpack = (chain: WebpackChain) => {
   const { isDev, chunkName, getOutput, chainClientConfig } = loadConfig()
