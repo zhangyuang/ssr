@@ -1,3 +1,12 @@
+## [6.2.108](https://github.com/zhangyuang/ssr/compare/utils@6.2.107...utils@6.2.108) (2023-10-08)
+
+
+### Bug Fixes
+
+* use asyncChunkMap only in client ([f3d29e3](https://github.com/zhangyuang/ssr/commit/f3d29e354ee3b86e17a57cb59c0f1b5452e3ff10))
+
+
+
 ## [6.2.107](https://github.com/zhangyuang/ssr/compare/utils@6.2.106...utils@6.2.107) (2023-09-19)
 
 
