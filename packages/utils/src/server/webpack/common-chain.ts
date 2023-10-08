@@ -178,29 +178,31 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
     })
   const BundleAnalyzerPlugin = require(loadModuleFromFramework('webpack-bundle-analyzer')).BundleAnalyzerPlugin
   const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
-  chain.when(generateAnalysis, chain => {
-    chain.plugin('analyze').use(BundleAnalyzerPlugin)
-  })
-  chain.plugin('WriteAsyncManifest').use(
-    function () {
-      return {
-        apply (compiler: Compiler) {
-          compiler.hooks.watchRun.tap('ClearLastAsyncChunkMap', async () => {
-            asyncChunkMap.val = {}
-          })
-          compiler.hooks.done.tapAsync(
-            'WriteAsyncChunkManifest',
-            async (params: any, callback: any) => {
-              if (!optimize) {
-                await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap.val))
+  if (!isServer) {
+    chain.when(generateAnalysis, chain => {
+      chain.plugin('analyze').use(BundleAnalyzerPlugin)
+    })
+    chain.plugin('WriteAsyncManifest').use(
+      function () {
+        return {
+          apply (compiler: Compiler) {
+            compiler.hooks.watchRun.tap('ClearLastAsyncChunkMap', async () => {
+              asyncChunkMap.val = {}
+            })
+            compiler.hooks.done.tapAsync(
+              'WriteAsyncChunkManifest',
+              async (params: any, callback: any) => {
+                if (!optimize) {
+                  await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap.val))
+                }
+                callback()
               }
-              callback()
-            }
-          )
+            )
+          }
         }
       }
-    }
-  )
+    )
+  }
 }
 
 export {
