@@ -15,7 +15,6 @@ import {
 } from './releaseUtils'
 
 async function main (): Promise<void> {
-  let targetVersion: string | undefined
 
   const { pkg: pkgs }: { pkg: string[] } = await prompts({
     name: 'pkg',
@@ -28,26 +27,25 @@ async function main (): Promise<void> {
   const tags = []
   for (const pkg of pkgs) {
     const { currentVersion, pkgName, pkgPath, pkgDir } = getPackageInfo(pkg)
+    let targetVersion
+    const { release }: { release: string } = await prompts({
+      type: 'select',
+      name: 'release',
+      message: 'Select release type',
+      choices: getVersionChoices(currentVersion)
+    })
 
-    if (!targetVersion) {
-      const { release }: { release: string } = await prompts({
-        type: 'select',
-        name: 'release',
-        message: 'Select release type',
-        choices: getVersionChoices(currentVersion)
+    if (release === 'custom') {
+      const res: { version: string } = await prompts({
+        type: 'text',
+        name: 'version',
+        message: 'Input custom version',
+        initial: currentVersion
       })
+      targetVersion = res.version
+    } else {
+      targetVersion = release
 
-      if (release === 'custom') {
-        const res: { version: string } = await prompts({
-          type: 'text',
-          name: 'version',
-          message: 'Input custom version',
-          initial: currentVersion
-        })
-        targetVersion = res.version
-      } else {
-        targetVersion = release
-      }
     }
 
     await logRecentCommits(pkg, targetVersion)

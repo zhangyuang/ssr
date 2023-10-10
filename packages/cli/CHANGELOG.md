@@ -1,3 +1,12 @@
+## [6.2.64](https://github.com/zhangyuang/ssr/compare/cli@6.2.62...cli@6.2.64) (2023-10-10)
+
+
+### Features
+
+* support multiply deploy select ([eeeaba4](https://github.com/zhangyuang/ssr/commit/eeeaba41cf24e4fac5f4fe90a6b36e5a61ef06bd))
+
+
+
 ## [6.2.63](https://github.com/zhangyuang/ssr/compare/cli@6.2.62...cli@6.2.63) (2023-10-10)
 
 
