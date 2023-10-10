@@ -140,7 +140,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     }
 
     const state = Object.assign({}, store.state ?? {}, asyncData.value)
-
+    let err: any = null
     const app = getApp({
       state,
       asyncData,
@@ -153,6 +153,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       inlineCssOrder,
       rootId
     })
+    if (!app.config.errorHandler) {
+      app.config.errorHandler = e => { err = e }
+    }
     app.use(router)
     app.use(store)
     app.use(pinia)
@@ -161,12 +164,19 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       app
     }, async () => {
       if (stream) {
-        return renderToNodeStream(app)
+        const stream = renderToNodeStream(app)
+        if (err) {
+          throw new Error(err)
+        }
+        return stream
       } else {
         const teleportsContext: {
           teleports?: Record<string, string>
         } = {}
         const html = await renderToString(app, teleportsContext)
+        if (err) {
+          throw new Error(err)
+        }
         return ({
           html,
           teleportsContext
