@@ -1,3 +1,23 @@
+## [6.2.68](https://github.com/zhangyuang/ssr/compare/plugin-react18@6.2.67...plugin-react18@6.2.68) (2023-10-10)
+
+
+### Bug Fixes
+
+* inlinecss when all mode ([e1be337](https://github.com/zhangyuang/ssr/commit/e1be3378d7d6a857e0690189a7e3ec5e955e624a))
+* use asyncChunkMap only in client ([f3d29e3](https://github.com/zhangyuang/ssr/commit/f3d29e354ee3b86e17a57cb59c0f1b5452e3ff10))
+
+
+### Features
+
+* add useCtx ([c6d0fbe](https://github.com/zhangyuang/ssr/commit/c6d0fbecef9ef1cb6dafaed7066b25ce4a0fcead))
+* for node18 use terser minify server bundle ([c47091b](https://github.com/zhangyuang/ssr/commit/c47091b6d27913a527aaccb697db263e4a601aa3))
+* optimize getVNode for compatible with vue2.6 ([8ebc114](https://github.com/zhangyuang/ssr/commit/8ebc114b817d78638e18fcbb27bbb09e897b9664))
+* support multiply deploy select ([eeeaba4](https://github.com/zhangyuang/ssr/commit/eeeaba41cf24e4fac5f4fe90a6b36e5a61ef06bd))
+* support throw error during rendering inside vue3 in production ([343a34f](https://github.com/zhangyuang/ssr/commit/343a34f83bdf224a45bb6ef60e26be0addc26bd3))
+* upgrade webpack-dev-server-ssr ([a424789](https://github.com/zhangyuang/ssr/commit/a42478931acfb82bcf9b335f9f157528d20b2f44))
+
+
+
 ## [6.2.67](https://github.com/zhangyuang/ssr/compare/plugin-react18@6.2.66...plugin-react18@6.2.67) (2023-09-18)
 
 

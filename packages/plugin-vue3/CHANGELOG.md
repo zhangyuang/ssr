@@ -1,3 +1,13 @@
+## [6.2.101](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.100...plugin-vue3@6.2.101) (2023-10-10)
+
+
+### Features
+
+* add useCtx ([c6d0fbe](https://github.com/zhangyuang/ssr/commit/c6d0fbecef9ef1cb6dafaed7066b25ce4a0fcead))
+* support multiply deploy select ([eeeaba4](https://github.com/zhangyuang/ssr/commit/eeeaba41cf24e4fac5f4fe90a6b36e5a61ef06bd))
+
+
+
 ## [6.2.100](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.99...plugin-vue3@6.2.100) (2023-10-10)
 
 

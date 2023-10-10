@@ -1,3 +1,19 @@
+## [6.2.62](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.61...plugin-vue@6.2.62) (2023-10-10)
+
+
+### Bug Fixes
+
+* use asyncChunkMap only in client ([f3d29e3](https://github.com/zhangyuang/ssr/commit/f3d29e354ee3b86e17a57cb59c0f1b5452e3ff10))
+
+
+### Features
+
+* add useCtx ([c6d0fbe](https://github.com/zhangyuang/ssr/commit/c6d0fbecef9ef1cb6dafaed7066b25ce4a0fcead))
+* support multiply deploy select ([eeeaba4](https://github.com/zhangyuang/ssr/commit/eeeaba41cf24e4fac5f4fe90a6b36e5a61ef06bd))
+* support throw error during rendering inside vue3 in production ([343a34f](https://github.com/zhangyuang/ssr/commit/343a34f83bdf224a45bb6ef60e26be0addc26bd3))
+
+
+
 ## [6.2.61](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.60...plugin-vue@6.2.61) (2023-09-19)
 
 
