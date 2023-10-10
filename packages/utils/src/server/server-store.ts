@@ -3,12 +3,13 @@ import type { Readable } from 'stream'
 import type { Pinia } from 'pinia'
 import type { Context } from 'react'
 import type { App } from 'vue'
-import type { IContext, PipeableStream } from 'ssr-types'
+import type { IContext, PipeableStream, ISSRContext } from 'ssr-types'
 
 export interface StoreData {
   pinia?: Pinia
   store?: any
   context?: Context<IContext>
+  ctx?: ISSRContext
 }
 export interface AppStore {
   app?: App
@@ -54,3 +55,5 @@ export const useStoreContext = () => {
 }
 
 export const useApp = () => appLocalStoreage.getStore()?.app
+
+export const useCtx = () => localStorage.getStore()?.context

@@ -65,6 +65,11 @@ export const usePinia = () => {
   return piniaCache.get()
 }
 
+export const useCtx = () => {
+  console.warn('useCtx can only be used on the server side')
+  return {}
+}
+
 export const setApp = (app: App) => {
   appCache.set(app)
 }

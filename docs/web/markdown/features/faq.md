@@ -442,6 +442,14 @@ const app = useApp()
 app.use('Plugin')
 ```
 
+### 任意组件获取当前的 Ctx
+
+```js
+import { useCtx } from 'ssr-common-utils'
+
+const ctx = useCtx() // useCtx can only be used on the server side
+
+```
 ### 使用Vue3国际化插件
 
 在 `plugin-vue3` 中，我们已在底层对国际化所需要的 `Webpack-loader` 进行支持。详细见官方文档：https://vue-i18n.intlify.dev/guide/advanced/composition.html

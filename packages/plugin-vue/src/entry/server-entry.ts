@@ -163,7 +163,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     return stream ? renderToStream(app) : await renderToString(app)
   }
   const res = await localStorageWrapper.run({
-    store
+    store,
+    ctx
   }, fn)
   return res
 }

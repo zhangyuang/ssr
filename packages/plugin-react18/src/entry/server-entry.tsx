@@ -92,7 +92,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
 
   return await localStorageWrapper.run({
-    context: Context
+    context: Context,
+    ctx
   }, fn)
 }
 

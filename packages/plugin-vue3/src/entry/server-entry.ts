@@ -187,7 +187,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }
   const res = await localStorageWrapper.run({
     pinia,
-    store
+    store,
+    ctx
   }, fn)
   return res
 }
