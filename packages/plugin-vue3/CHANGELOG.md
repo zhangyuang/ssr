@@ -1,3 +1,17 @@
+## [6.2.100](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.99...plugin-vue3@6.2.100) (2023-10-10)
+
+
+### Bug Fixes
+
+* use asyncChunkMap only in client ([f3d29e3](https://github.com/zhangyuang/ssr/commit/f3d29e354ee3b86e17a57cb59c0f1b5452e3ff10))
+
+
+### Features
+
+* support throw error during rendering inside vue3 in production ([343a34f](https://github.com/zhangyuang/ssr/commit/343a34f83bdf224a45bb6ef60e26be0addc26bd3))
+
+
+
 ## [6.2.99](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.98...plugin-vue3@6.2.99) (2023-09-19)
 
 
