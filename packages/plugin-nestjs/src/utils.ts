@@ -1,6 +1,7 @@
 import type { Argv } from 'ssr-types'
 import { getCwd } from 'ssr-common-utils'
 import { resolve } from 'path'
+import { coerce } from 'semver'
 
 const getNormalizeArgv = (argv: Argv, options: {
   singleDash?: string[]
@@ -29,6 +30,8 @@ export const getNestjsVersion = () => {
   const v = p['devDependencies']?.['@nestjs/cli']
   return v
 }
+const morethan10 = () => (coerce(getNestjsVersion())?.major ?? 8) >= 10
 export {
-  getNormalizeArgv
+  getNormalizeArgv,
+  morethan10
 }

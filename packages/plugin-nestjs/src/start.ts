@@ -2,23 +2,21 @@ import { resolve } from 'path'
 import { exec } from 'shelljs'
 import { logGreen, loadConfig, getCwd } from 'ssr-common-utils'
 import type { Argv } from 'ssr-types'
-import { coerce } from 'semver'
-import { getNormalizeArgv, getNestjsVersion } from './utils'
+import { getNormalizeArgv, morethan10 } from './utils'
 
-const v = getNestjsVersion()
-const morethan10 = (coerce(v)?.major ?? 8) >= 10
+const morethan = morethan10()
 const spinner = require('ora')('starting ')
-const singleDash = ['c', 'p', 'w', 'd', 'e', 'h'].concat(morethan10 ? 'b' : '')
+const singleDash = ['c', 'p', 'w', 'd', 'e', 'h'].concat(morethan ? 'b' : '')
 const doubleDash = ['config', 'path', 'watch', 'watchAssets', 'debug', 'webpack',
-  'webpackPath', 'tsc', 'exec', 'preserveWatchOutput', 'help'].concat(morethan10 ? 'builder' : '')
+  'webpackPath', 'tsc', 'exec', 'preserveWatchOutput', 'help'].concat(morethan ? 'builder' : '')
 
 const start = async (argv: Argv) => {
   const cwd = getCwd()
   const { serverPort, nestStartTips } = loadConfig()
   spinner.start()
-  // if (morethan10) {
-  //   argv.b = argv.b || 'swc'
-  // } // use swc as default compiler when nestjs >=10
+  if (morethan) {
+    argv.b = argv.b || 'swc'
+  } // use swc as default compiler when nestjs >=10
 
   const normalizeArgv = getNormalizeArgv(argv, {
     singleDash,
