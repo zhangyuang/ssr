@@ -1,10 +1,9 @@
-import { useValtio } from 'ssr-common-utils'
+import { useStore } from 'ssr-common-utils'
 import { useSnapshot } from 'valtio'
 import styles from './index.module.less'
 
-// 参考本组件学习如何使用 useContext 来跨组件/页面共享状态
 function Search () {
-  const { searchState } = useValtio<{searchState: {searchText: string} }>()
+  const { searchState } = useStore<{searchState: {searchText: string} }>()
   const snap = useSnapshot(searchState)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     searchState.searchText = e.target.value

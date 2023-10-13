@@ -10,7 +10,6 @@ export interface StoreData {
   store?: any
   context?: Context<IContext>
   ctx?: ISSRContext
-  valtioState?: any
 }
 export interface AppStore {
   app?: App
@@ -47,15 +46,12 @@ export const appLocalStoreageWrapper = {
   getStore: () => appLocalStoreage.getStore()
 }
 
-export const useStore = () => localStorage.getStore()?.store
+export const useStore = <T = any >(): T => localStorage.getStore()?.store
 
 export const usePinia = () => localStorage.getStore()?.pinia
 
 export const useStoreContext = () => {
   return localStorageWrapper.getStore()?.context
-}
-export const useValtio = <T = any>(): T => {
-  return localStorageWrapper.getStore()?.valtioState
 }
 
 export const useApp = () => appLocalStoreage.getStore()?.app

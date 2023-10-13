@@ -4,10 +4,10 @@ import Brief from '@/components/brief'
 import Recommend from '@/components/recommend'
 import Search from '@/components/search'
 import { Ddata, RecommendDataNode, PlayerDataNode, BriefDataNode } from '~/typings/data'
-import { useValtio } from 'ssr-common-utils'
+import { useStore } from 'ssr-common-utils'
 
 export default function Detail (props: SProps) {
-  const { detailState: state } = useValtio<{detailState: Ddata}>()
+  const { detailState: state } = useStore<{detailState: Ddata}>()
   return (
     <div>
       <Search></Search>

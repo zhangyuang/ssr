@@ -3,10 +3,10 @@ import Slider from '@/components/slider'
 import Rectangle from '@/components/rectangle'
 import Search from '@/components/search'
 import { IData } from '~/typings/data'
-import { useValtio } from 'ssr-common-utils'
+import { useStore } from 'ssr-common-utils'
 
 export default function Index (props: SProps) {
-  const { indexState: state } = useValtio<{indexState: IData}>()
+  const { indexState: state } = useStore<{indexState: IData}>()
   return (
     <div>
       <Search></Search>

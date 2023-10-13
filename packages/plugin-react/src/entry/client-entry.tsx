@@ -10,17 +10,17 @@ import { STORE_CONTEXT as Context } from '_build/create-context'
 import { Routes } from './create-router'
 import { AppContext } from './context'
 
-const { FeRoutes, layoutFetch, App, valtioState } = Routes
+const { FeRoutes, layoutFetch, App, store } = Routes
 
 const clientRender = async (): Promise<void> => {
   const IApp = App ?? function (props: LayoutProps) {
     return props.children!
   }
   setStoreContext(Context)
-  for (const key in valtioState) {
-    valtioState[key] = proxy(window.__VALTIO_DATA__?.[key])
+  for (const key in store) {
+    store[key] = proxy(window.__VALTIO_DATA__?.[key])
   }
-  setValtio(valtioState ?? {})
+  setValtio(store ?? {})
   const baseName = isMicro() ? window.clientPrefix : window.prefix
   const routes = await preloadComponent(FeRoutes, baseName)
   ReactDOM[window.__USE_SSR__ ? 'hydrate' : 'render'](

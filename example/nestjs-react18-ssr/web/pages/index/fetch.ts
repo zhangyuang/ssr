@@ -1,16 +1,15 @@
 import { ReactNestFetch } from 'ssr-types'
 import { IndexData } from '~/typings/data'
+import { useStore } from 'ssr-common-utils'
 
 const fetch: ReactNestFetch<{
   apiService: {
     index: () => Promise<IndexData>
   }
 }> = async ({ ctx, routerProps }) => {
+  const { indexState } = useStore()
   const data = __isBrowser__ ? await (await window.fetch('/api/index')).json() : await ctx!.apiService?.index()
-  return {
-    // 建议根据模块给数据加上 namespace防止数据覆盖
-    indexData: data
-  }
+  indexState.indexData = data
 }
 
 export default fetch

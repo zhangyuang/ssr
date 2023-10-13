@@ -5,7 +5,7 @@ import type { IContext } from 'ssr-types'
 
 const storeCache = {
   val: {
-    store: {}
+    store: {} as any
   },
   set: function (store: any) {
     this.val.store = store
@@ -51,22 +51,10 @@ const contextCache = {
   }
 }
 
-const valtioCache = {
-  val: {
-    obj: {} as any
-  },
-  set: function (app: any) {
-    this.val.obj = app
-  },
-  get: function () {
-    return this.val.obj
-  }
-}
-
 export const setStore = (store: any) => {
   storeCache.set(store)
 }
-export const useStore = () => {
+export const useStore = <T = any >(): T => {
   return storeCache.get()
 }
 
@@ -94,11 +82,4 @@ export const setStoreContext = (context: Context<IContext>) => {
 }
 export const useStoreContext = () => {
   return contextCache.get()
-}
-
-export const setValtio = (valtio: any) => {
-  valtioCache.set(valtio)
-}
-export const useValtio = <T = any>(): T => {
-  return valtioCache.get()
 }
