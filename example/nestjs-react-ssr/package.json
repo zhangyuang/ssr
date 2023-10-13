@@ -13,7 +13,8 @@
     "reflect-metadata": "^0.1.13",
     "ssr-common-utils": "^6.0.0",
     "ssr-core": "^6.0.0",
-    "swiper": "6.7.5"
+    "swiper": "6.7.5",
+    "valtio": "^1.11.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.1.18",

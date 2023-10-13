@@ -1,5 +1,6 @@
 import { ReactNestFetch } from 'ssr-types'
 import { IndexData } from '~/typings/data'
+import { useIndexStore } from '@/store'
 
 const fetch: ReactNestFetch<{
   apiService: {
