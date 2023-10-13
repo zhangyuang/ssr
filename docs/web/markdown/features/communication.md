@@ -158,7 +158,9 @@ export default defineComponent({
 在 `React` 场景中，我们没有使用上述的任何一种数据管理方案，我们采用了思想上与 `Provide/Inject` 类似的，同样也是 [react-hooks](https://reactjs.org/docs/hooks-intro.html) 出现后出现在大家视野的 [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext)
 
 
-## valtio (version >= 6.2.69)
+## valtio (推荐使用)
+
+`注: ssr-plugin-react version >= 6.2.69`
 
 最新支持的数据流管理工具。在 `react17|18` 中均支持。使用方式参考最新创建的 [example](https://github.com/zhangyuang/ssr/blob/dev/example/nestjs-react-ssr/web/pages/index/fetch.ts) 以及 [valtio文档](https://github.com/pmndrs/valtio)
 
