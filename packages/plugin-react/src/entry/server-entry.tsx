@@ -3,13 +3,13 @@ import * as React from 'react'
 import { createElement } from 'react'
 import { StaticRouter } from 'react-router-dom'
 import { renderToString, renderToNodeStream } from 'react-dom/server'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, splitPageInfo, reactRefreshFragment, localStorageWrapper, checkRoute } from 'ssr-common-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, splitPageInfo, reactRefreshFragment, localStorageWrapper, checkRoute, useStore } from 'ssr-common-utils'
 import { ISSRContext, IConfig, ReactESMPreloadFeRouteItem, DynamicFC, StaticFC } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
 import { STORE_CONTEXT as Context } from '_build/create-context'
 import { Routes } from './create-router'
 
-const { FeRoutes, layoutFetch, state, Layout } = Routes
+const { FeRoutes, layoutFetch, state, Layout, store } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, rootId, hashRouter } = config
@@ -71,7 +71,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       'window.prefix': `"${prefix}"`,
       'window.clientPrefix': `"${clientPrefix ?? ''}"`,
       'window.ssrDevInfo': JSON.stringify(ssrDevInfo),
-      'window.hashRouter': Boolean(hashRouter)
+      'window.hashRouter': Boolean(hashRouter),
+      'window.__VALTIO_DATA__': isCsr ? {} : serialize(useStore())
     })
     const injectState = <script dangerouslySetInnerHTML={{ __html: innerHTML }} />
     // with jsx type error, use createElement here
@@ -94,7 +95,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
   return await localStorageWrapper.run({
     context: Context,
-    ctx
+    ctx,
+    store
   }, fn)
 }
 

@@ -1,5 +1,5 @@
 {
-  "name": "nestjs-react-ssr",
+  "name": "nestjs-react18-ssr",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -12,14 +12,15 @@
     "react-router-dom": "^5.1.2",
     "reflect-metadata": "^0.1.13",
     "ssr-common-utils": "^6.0.0",
-    "ssr-core": "^6.0.0"
+    "ssr-core": "^6.0.0",
+    "valtio": "^1.11.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.1.18",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "@types/react-router-dom": "^5.1.3",
-    "eslint-config-standard-react-ts": "^1.0.5",
+    "eslint-config-standard-react-ts": "^1.0.18",
     "ssr": "^6.0.0",
     "ssr-plugin-nestjs": "^6.0.0",
     "ssr-plugin-react18": "^6.0.0",

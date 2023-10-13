@@ -92,6 +92,7 @@ export interface ReactRoutesType {
   FeRoutes: ReactESMFeRouteItem[]
   state?: any
   reducer?: any
+  store?: any
 }
 
 export interface IContext<T=any> {

@@ -5,7 +5,7 @@ import type { IContext } from 'ssr-types'
 
 const storeCache = {
   val: {
-    store: {}
+    store: {} as any
   },
   set: function (store: any) {
     this.val.store = store
@@ -54,7 +54,7 @@ const contextCache = {
 export const setStore = (store: any) => {
   storeCache.set(store)
 }
-export const useStore = () => {
+export const useStore = <T = any >(): T => {
   return storeCache.get()
 }
 

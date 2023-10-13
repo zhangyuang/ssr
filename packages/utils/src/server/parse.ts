@@ -57,7 +57,7 @@ const parseFeRoutes = async () => {
   const layoutFetch = await accessFile(join(getFeDir(), './components/layout/fetch.ts'))
   const accessStore = await accessFile(join(getFeDir(), './store/index.ts'))
   const re = /"webpackChunkName":("(.+?)")/g
-  const isReact = framework === 'ssr-plugin-react'
+  const isReact = framework.includes('ssr-plugin-react')
   let routes = `
       // The file is provisional which will be overwritten when restart
       export const FeRoutes = ${JSON.stringify(arr)} 

@@ -46,7 +46,7 @@ export const appLocalStoreageWrapper = {
   getStore: () => appLocalStoreage.getStore()
 }
 
-export const useStore = () => localStorage.getStore()?.store
+export const useStore = <T = any >(): T => localStorage.getStore()?.store
 
 export const usePinia = () => localStorage.getStore()?.pinia
 

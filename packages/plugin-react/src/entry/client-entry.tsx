@@ -1,22 +1,26 @@
 import { createElement } from 'react'
 import * as ReactDOM from 'react-dom'
+import { proxy } from 'valtio'
 import 'react-router' // for vite prebundle list
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { preloadComponent, isMicro, setStoreContext } from 'ssr-common-utils'
+import { preloadComponent, isMicro, setStoreContext, setStore } from 'ssr-common-utils'
 import { wrapComponent } from 'ssr-hoc-react'
 import { LayoutProps } from 'ssr-types'
 import { STORE_CONTEXT as Context } from '_build/create-context'
 import { Routes } from './create-router'
 import { AppContext } from './context'
 
-const { FeRoutes, layoutFetch, App } = Routes
+const { FeRoutes, layoutFetch, App, store } = Routes
 
 const clientRender = async (): Promise<void> => {
   const IApp = App ?? function (props: LayoutProps) {
     return props.children!
   }
   setStoreContext(Context)
-  // 客户端渲染||hydrate
+  for (const key in store) {
+    store[key] = proxy(window.__VALTIO_DATA__?.[key])
+  }
+  setStore(store ?? {})
   const baseName = isMicro() ? window.clientPrefix : window.prefix
   const routes = await preloadComponent(FeRoutes, baseName)
   ReactDOM[window.__USE_SSR__ ? 'hydrate' : 'render'](

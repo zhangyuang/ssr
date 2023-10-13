@@ -1,13 +1,12 @@
-import { useContext } from 'react'
-import { SProps, IContext } from 'ssr-types'
+import { SProps } from 'ssr-types'
 import Slider from '@/components/slider'
 import Rectangle from '@/components/rectangle'
 import Search from '@/components/search'
 import { IData } from '~/typings/data'
-import { useStoreContext } from 'ssr-common-utils'
+import { useStore } from 'ssr-common-utils'
 
 export default function Index (props: SProps) {
-  const { state } = useContext<IContext<IData>>(useStoreContext())
+  const { indexState: state } = useStore<{indexState: IData}>()
   return (
     <div>
       <Search></Search>
