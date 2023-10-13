@@ -92,6 +92,7 @@ export interface ReactRoutesType {
   FeRoutes: ReactESMFeRouteItem[]
   state?: any
   reducer?: any
+  valtioState?: any
 }
 
 export interface IContext<T=any> {

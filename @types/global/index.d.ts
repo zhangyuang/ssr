@@ -9,6 +9,7 @@ interface IWindow {
   microApp?: any
   hashRouter: boolean
   ssrDevInfo: any
+  __VALTIO_DATA__?: any
 }
 
 declare global {

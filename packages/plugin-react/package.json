@@ -73,6 +73,7 @@
     "ssr-webpack4": "^4.46.2",
     "terser-webpack-plugin": "^2.3.5",
     "url-loader": "^4.1.1",
+    "valtio": "^1.11.2",
     "vite": "^2.9.15",
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-chain": "^6.4.0",

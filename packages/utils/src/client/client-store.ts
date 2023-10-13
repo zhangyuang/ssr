@@ -51,6 +51,18 @@ const contextCache = {
   }
 }
 
+const valtioCache = {
+  val: {
+    obj: {} as any
+  },
+  set: function (app: any) {
+    this.val.obj = app
+  },
+  get: function () {
+    return this.val.obj
+  }
+}
+
 export const setStore = (store: any) => {
   storeCache.set(store)
 }
@@ -82,4 +94,11 @@ export const setStoreContext = (context: Context<IContext>) => {
 }
 export const useStoreContext = () => {
   return contextCache.get()
+}
+
+export const setValtio = (valtio: any) => {
+  valtioCache.set(valtio)
+}
+export const useValtio = <T = any>(): T => {
+  return valtioCache.get()
 }

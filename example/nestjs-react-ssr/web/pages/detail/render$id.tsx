@@ -1,14 +1,13 @@
-import { useContext } from 'react'
-import { IContext, SProps } from 'ssr-types'
+import { SProps } from 'ssr-types'
 import Player from '@/components/player'
 import Brief from '@/components/brief'
 import Recommend from '@/components/recommend'
 import Search from '@/components/search'
 import { Ddata, RecommendDataNode, PlayerDataNode, BriefDataNode } from '~/typings/data'
-import { useStoreContext } from 'ssr-common-utils'
+import { useValtio } from 'ssr-common-utils'
 
 export default function Detail (props: SProps) {
-  const { state, dispatch } = useContext<IContext<Ddata>>(useStoreContext())
+  const { detailState: state } = useValtio<{detailState: Ddata}>()
   return (
     <div>
       <Search></Search>
