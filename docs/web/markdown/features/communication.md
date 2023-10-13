@@ -160,7 +160,7 @@ export default defineComponent({
 
 ## valtio (version >= 6.2.69)
 
-最新支持的数据流管理工具。在 `react17|18` 中均支持。使用方式参考最新创建的 [example]() 以及 [valtio文档](https://github.com/pmndrs/valtio)
+最新支持的数据流管理工具。在 `react17|18` 中均支持。使用方式参考最新创建的 [example](https://github.com/zhangyuang/ssr/blob/dev/example/nestjs-react-ssr/web/pages/index/fetch.ts) 以及 [valtio文档](https://github.com/pmndrs/valtio)
 
 ### 使用 useContext + useReducer
 
