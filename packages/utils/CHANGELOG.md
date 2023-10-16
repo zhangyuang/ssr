@@ -1,3 +1,12 @@
+## [6.2.111](https://github.com/zhangyuang/ssr/compare/utils@6.2.110...utils@6.2.111) (2023-10-16)
+
+
+### Bug Fixes
+
+* checkroute close [#312](https://github.com/zhangyuang/ssr/issues/312) ([97d2db7](https://github.com/zhangyuang/ssr/commit/97d2db7af10a31a7ba486fd04990f4ef97363375))
+
+
+
 ## [6.2.110](https://github.com/zhangyuang/ssr/compare/utils@6.2.109...utils@6.2.110) (2023-10-13)
 
 
