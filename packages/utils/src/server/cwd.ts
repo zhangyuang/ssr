@@ -222,10 +222,10 @@ export const checkRoute = ({
   routeItem,
   path
 }: {
-  routeItem?: any
+  routeItem?: { path: string }
   path: string
 }) => {
-  if (!routeItem) {
+  if (!routeItem?.path) {
     throw new Error(`
       With Path: ${path} search component failed
       If you create new folder or component file, please restart server by npm start
