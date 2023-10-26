@@ -1,4 +1,3 @@
-import * as Vue from 'vue'
 import {
   findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk,
   getAsyncJsChunk, getUserScriptVue, remInitial, localStorageWrapper, getInlineCss, checkRoute, splitPageInfo, getStaticConfig
@@ -8,7 +7,7 @@ import { serialize } from 'ssr-serialize-javascript'
 import { createRenderer } from 'vue-server-renderer'
 
 import { Routes } from './create-router'
-import { createRouter, createStore, getInlineCssVNode, getVNode } from './create'
+import { createRouter, createStore, getInlineCssVNode, getVNode, RealVue } from './create'
 import { IFeRouteItem } from '../types'
 
 const { renderToStream, renderToString } = createRenderer()
@@ -49,8 +48,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     const combineAysncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
     const state = Object.assign({}, store.state ?? {}, combineAysncData)
     const ssrDevInfo = { manifest: isDev ? manifest : '', rootId }
-    // @ts-expect-error
-    const app = new Vue({
+    const app = new RealVue({
+      // @ts-expect-error
       router,
       store,
       render: function (h: Vue.CreateElement) {
