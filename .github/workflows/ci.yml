@@ -11,7 +11,7 @@ on:
     branches: [dev, master]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:  
+jobs:
   lint:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
@@ -33,7 +33,7 @@ jobs:
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -45,12 +45,12 @@ jobs:
           node-version: 18
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Lint
         run: pnpm lint
 
-  deploy-doc: 
+  deploy-doc:
     if: ${{ contains(github.actor, 'zhangyuang') && github.ref_name == 'dev'}}
     runs-on: ubuntu-latest
     steps:
@@ -84,7 +84,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -97,11 +97,11 @@ jobs:
               ~/AppData/Local/pnpm/store
               /Users/runner/.cache
               /Users/runner/Library/Caches/Cypress
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -112,7 +112,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
 
       - name: Build packages
@@ -126,8 +126,8 @@ jobs:
           install: false
           start: pnpm example:midway:react
           wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js
             e2e/integration/examples/react-ssr.spec.js
           browser: chrome
 
@@ -141,7 +141,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -152,11 +152,11 @@ jobs:
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -167,21 +167,21 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
 
       - name: Build packages
         run: |
           pnpm build
-          
-      
+
+
       - uses: cypress-io/github-action@v2
         with:
           install: false
           start: pnpm example:nestjs:react:prod
           wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js
             e2e/integration/examples/react-ssr.spec.js
           browser: chrome
 
@@ -196,7 +196,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -207,11 +207,11 @@ jobs:
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -222,21 +222,21 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
 
       - name: Build packages
         run: |
           pnpm build
-          
-      
+
+
       - uses: cypress-io/github-action@v2
         with:
           install: false
           start: pnpm example:nestjs:react18:prod
           wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/react18-ssr.spec.js  
+          spec: |
+            e2e/integration/examples/react18-ssr.spec.js
           browser: chrome
 
   e2e-chrome-nestjs-react-prod-vite:
@@ -249,7 +249,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -260,11 +260,11 @@ jobs:
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -274,15 +274,15 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
-          
+
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
             pnpm build
 
-      
+
       - uses: cypress-io/github-action@v2
         # env:
         #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
@@ -290,8 +290,8 @@ jobs:
           install: false
           start: pnpm example:nestjs:react:prod:vite
           wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js
             e2e/integration/examples/react-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-react18-prod-vite:
@@ -304,7 +304,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -315,11 +315,11 @@ jobs:
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -329,15 +329,15 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
-          
+
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
             pnpm build
 
-      
+
       - uses: cypress-io/github-action@v2
         # env:
         #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
@@ -345,8 +345,8 @@ jobs:
           install: false
           start: pnpm example:nestjs:react18:prod:vite
           wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/react18-ssr.spec.js  
+          spec: |
+            e2e/integration/examples/react18-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-vue3-prod-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -358,7 +358,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -370,11 +370,11 @@ jobs:
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -385,7 +385,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
@@ -398,8 +398,8 @@ jobs:
           install: false
           start: pnpm example:nestjs:vue3:prod:vite
           wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js
             e2e/integration/examples/vue3-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-vue-prod:
@@ -412,7 +412,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -423,11 +423,11 @@ jobs:
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -438,12 +438,12 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
           pnpm build
-      
+
       - uses: cypress-io/github-action@v2
         # env:
         #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
@@ -451,8 +451,8 @@ jobs:
           install: false
           start: pnpm example:nestjs:vue:prod
           wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-vue3-prod:
@@ -465,7 +465,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -476,11 +476,11 @@ jobs:
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -491,20 +491,20 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
           pnpm build
-        
-      
+
+
       - uses: cypress-io/github-action@v2
         with:
           install: false
           start: pnpm example:nestjs:vue3:prod
           wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-vue3-prod-optimize:
@@ -517,7 +517,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -528,11 +528,11 @@ jobs:
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -543,13 +543,13 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
           pnpm build
-        
-      
+
+
       - uses: cypress-io/github-action@v2
         # env:
         #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
@@ -557,8 +557,8 @@ jobs:
           install: false
           start: pnpm example:nestjs:vue3:prod:optimize
           wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-react-prod-optimize:
@@ -571,7 +571,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -582,11 +582,11 @@ jobs:
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -597,13 +597,13 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
           pnpm build
-        
-      
+
+
       - uses: cypress-io/github-action@v2
         # env:
         #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
@@ -611,8 +611,8 @@ jobs:
           install: false
           start: pnpm example:nestjs:react:prod:optimize
           wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js
             e2e/integration/examples/react-ssr.spec.js
           browser: chrome
   e2e-chrome-midway-react-vite:
@@ -625,7 +625,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -637,11 +637,11 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -652,13 +652,13 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
           pnpm build
-        
-      
+
+
       - uses: cypress-io/github-action@v2
         # env:
         #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
@@ -666,8 +666,8 @@ jobs:
           install: false
           start: pnpm example:midway:react:vite
           wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js
           browser: chrome
   e2e-chrome-midway-vue3-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -679,7 +679,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -691,11 +691,11 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -706,13 +706,13 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
           pnpm build
-        
-      
+
+
       - uses: cypress-io/github-action@v2
         # env:
         #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
@@ -720,8 +720,8 @@ jobs:
           install: false
           start: pnpm example:midway:vue3:vite
           wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js
           browser: chrome
 
   e2e-chrome-nestjs-react18-vite:
@@ -734,7 +734,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -746,11 +746,11 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -761,13 +761,13 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
           pnpm build
-        
-      
+
+
       - uses: cypress-io/github-action@v2
         # env:
         #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
@@ -775,71 +775,10 @@ jobs:
           install: false
           start: pnpm example:nestjs:react18:vite
           wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/react18-ssr.spec.js  
+          spec: |
+            e2e/integration/examples/react18-ssr.spec.js
           browser: chrome
-          
-  e2e-chrome-midway-react-dynamic-router:
-    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node: ["16"]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-        
-      - name: Get remote e2e example
-        uses: actions/checkout@master
-        with:
-          repository: zhangyuang/ssr-e2e-example
-          path: ssr-e2e-example
-          ref: master
-        
-      - name: Mv e2e example
-        run: |
-          mv ssr-e2e-example/react-dynamic-router-test example
 
-      - name: Turbo Cache
-        id: turbo-cache
-        uses: actions/cache@v3
-        with:
-          path: |
-              .turbo/turbo
-              /Users/runner/Library/Caches/Cypress
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
-          
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 6
-      - name: Use Node.js ${{ matrix.node }}
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node }}
-          cache: "pnpm"
-      - name: Install dependencies
-        run: | 
-          pnpm i --no-frozen-lockfile
-      - name: Build packages
-        run: |
-            pnpm build
-        
-      - uses: cypress-io/github-action@v2
-        # env:
-        #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
-        with:
-          install: false
-          start: pnpm example:midway:react:dynamic:router
-          wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/dynamic-ssr.spec.js  
-            e2e/integration/examples/common-ssr.spec.js  
-            e2e/integration/examples/react-ssr.spec.js
-          browser: chrome
   e2e-chrome-nestjs-vue3-pinia:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ${{ matrix.os }}
@@ -864,7 +803,7 @@ jobs:
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -875,12 +814,12 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
            pnpm build
-        
+
       - uses: cypress-io/github-action@v2
         # env:
         #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
@@ -888,8 +827,8 @@ jobs:
           install: false
           start: pnpm example:nestjs:vue3:pinia
           wait-on: 'http://localhost:3000'
-          spec: | 
-            e2e/integration/examples/common-ssr.spec.js  
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
 
@@ -903,7 +842,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -915,11 +854,11 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -930,12 +869,12 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
           pnpm build
-        
+
       - uses: cypress-io/github-action@v2
         # env:
         #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
@@ -944,9 +883,9 @@ jobs:
           start: pnpm example:midway:vue3
           wait-on: 'http://localhost:3000'
           spec: |
-            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/common-ssr.spec.js
             e2e/integration/examples/vue-ssr.spec.js
-          browser: chrome 
+          browser: chrome
   e2e-chrome-nestjs-vue:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ${{ matrix.os }}
@@ -957,7 +896,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -968,11 +907,11 @@ jobs:
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -983,13 +922,13 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
           pnpm build
-        
-      
+
+
       - uses: cypress-io/github-action@v2
         # env:
         #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
@@ -998,7 +937,7 @@ jobs:
           start: pnpm example:nestjs:vue
           wait-on: 'http://localhost:3000'
           spec: |
-            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/common-ssr.spec.js
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
 
@@ -1012,7 +951,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -1023,11 +962,11 @@ jobs:
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -1038,13 +977,13 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
           pnpm build
-        
-      
+
+
       - uses: cypress-io/github-action@v2
         # env:
         #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
@@ -1053,7 +992,7 @@ jobs:
           start: pnpm example:nestjs:react18
           wait-on: 'http://localhost:3000'
           spec: |
-            e2e/integration/examples/react18-ssr.spec.js  
+            e2e/integration/examples/react18-ssr.spec.js
           browser: chrome
   e2e-chrome-nestjs-vue3:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -1065,7 +1004,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-        
+
       - name: Turbo Cache
         id: turbo-cache
         uses: actions/cache@v3
@@ -1076,11 +1015,11 @@ jobs:
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -1091,19 +1030,19 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
           pnpm build
-      
+
       - uses: cypress-io/github-action@v2
         with:
           install: false
           start: pnpm example:nestjs:vue3
           wait-on: 'http://localhost:3000'
           spec: |
-            e2e/integration/examples/common-ssr.spec.js  
+            e2e/integration/examples/common-ssr.spec.js
             e2e/integration/examples/vue-ssr.spec.js
           browser: chrome
         env:
@@ -1112,13 +1051,12 @@ jobs:
     name: Publish
     if: "startsWith(github.event.head_commit.message, 'release')"
     runs-on: ubuntu-latest
-    needs:  
+    needs:
       - lint
       - e2e-chrome-midway-react
       - e2e-chrome-midway-react-vite
       - e2e-chrome-midway-vue3
       - e2e-chrome-midway-vue3-vite
-      - e2e-chrome-midway-react-dynamic-router
       - e2e-chrome-nestjs-react-prod
       - e2e-chrome-nestjs-react-prod-vite
       - e2e-chrome-nestjs-vue-prod
@@ -1150,11 +1088,11 @@ jobs:
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
-              
+
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
-          
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -1165,7 +1103,7 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: "pnpm"
       - name: Install dependencies
-        run: | 
+        run: |
           pnpm i --no-frozen-lockfile
       - name: Build packages
         run: |
@@ -1180,4 +1118,4 @@ jobs:
           pnpm run ci-publish -- ${{ github.event.head_commit.message }}
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
