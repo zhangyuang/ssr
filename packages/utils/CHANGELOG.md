@@ -1,3 +1,12 @@
+## [6.2.112](https://github.com/zhangyuang/ssr/compare/utils@6.2.111...utils@6.2.112) (2023-11-08)
+
+
+### Features
+
+* optimize vite build ([d5dbac2](https://github.com/zhangyuang/ssr/commit/d5dbac2ce9d0233a9e7c39975eae025714449205))
+
+
+
 ## [6.2.111](https://github.com/zhangyuang/ssr/compare/utils@6.2.110...utils@6.2.111) (2023-10-16)
 
 
