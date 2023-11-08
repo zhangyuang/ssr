@@ -26,7 +26,7 @@ const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router',
   'react-router-dom', 'react-dom', '@vue', 'ssr-hoc-react', 'ssr-hoc-react18',
   'ssr-client-utils', 'ssr-common-utils', 'pinia', '@babel/runtime',
   'ssr-plugin-vue3', 'ssr-plugin-vue', 'ssr-plugin-react', 'react/jsx-runtime',
-  'path-to-regexp'
+  'path-to-regexp', 'plugin-vue:export-helper', '@vue/devtools-api', 'ssr-hoc-vue3', 'ssr-hoc-vue'
 ]
 
 const chunkNamePlugin = function (): Plugin {
@@ -39,17 +39,17 @@ const chunkNamePlugin = function (): Plugin {
         for (let index = 0; index < imports.length; index++) {
           const { s: start, e: end, se: statementEnd } = imports[index]
           const rawUrl = source.slice(start, end)
+          const chunkName = webpackCommentRegExp.exec(rawUrl)?.[1]
           if (!rawUrl.includes('render')) {
-            if (rawUrl.includes('fetch')) {
-              str = str.appendRight(statementEnd - 1, '?chunkName=void')
-            } else if (rawUrl.includes('layout') || rawUrl.includes('App') || rawUrl.includes('store')) {
-              str = str.appendRight(statementEnd - 1, '?chunkName=layout-app')
+            if (rawUrl.includes('layout') || rawUrl.includes('App') || rawUrl.includes('store')) {
+              str = str.appendRight(statementEnd - 1, '?chunkName=Page')
+            } else if (chunkName) {
+              str = str.appendRight(statementEnd - 1, `?chunkName=${chunkName}`)
             } else {
-              str = str.appendRight(statementEnd - 1, '?chunkName=void')
+              str = str.appendRight(statementEnd - 1, '?chunkName=Page')
             }
             continue
           }
-          const chunkName = webpackCommentRegExp.exec(rawUrl)![1]
           str = str.appendRight(statementEnd - 1, `?chunkName=${chunkName}`)
         }
         return {
@@ -228,7 +228,7 @@ const writeGenerateMap = async () => {
 
 const setGenerateMap = (id: string) => {
   const res = manualChunksFn(id)
-  generateMap[id] = res ?? 'void'
+  generateMap[id] = res ?? 'Page'
 }
 
 const rollupOutputOptions: () => OutputOptions = () => {
@@ -248,7 +248,7 @@ const rollupOutputOptions: () => OutputOptions = () => {
       return buildConfig.viteAssetChunk
     },
     manualChunks: (id: string) => {
-      return generateMap[id] === 'void' ? undefined : generateMap[id]
+      return generateMap[id]
     }
   }
 }
@@ -256,18 +256,21 @@ const rollupOutputOptions: () => OutputOptions = () => {
 const manualChunksFn = (id: string) => {
   if (id.includes('chunkName')) {
     const chunkName = chunkNameRe.exec(id)![1]
-    return chunkName === 'void' ? undefined : chunkName
+    return chunkName
   }
   if (!process.env.LEGACY_VITE) {
     const sign = id.includes('node_modules') ? getPkgName(id) : id
     if (vendorList.includes(sign)) {
       // build in Page chunk
-      return
+      return 'Page'
     }
     const arr = dependenciesMap[sign] ?? []
     if (arr.length === 1) {
       return arr[0]
     } else if (arr.length >= 2) {
+      if (arr.includes('Page')) {
+        return 'Page'
+      }
       const commonChunkName = cryptoAsyncChunkName(arr.map(item => ({ name: item })), asyncChunkMapJSON)
       return commonChunkName === 'vendor~client-entry' ? 'common-vendor' : commonChunkName
     }
