@@ -401,7 +401,6 @@ importers:
       '@nestjs/common': ^10.2.7
       '@nestjs/core': ^10.2.7
       '@nestjs/platform-express': ^10.2.7
-      '@vue/server-renderer': ^3.0.7
       eslint-config-standard-vue-ts: ^1.0.5
       pinia: ^2.0.13
       pm2: ^4.5.4
@@ -423,7 +422,6 @@ importers:
       '@nestjs/common': 10.2.7_reflect-metadata@0.1.13
       '@nestjs/core': 10.2.7_68f63b486ae42c9dbfc0314ba2c354ff
       '@nestjs/platform-express': 10.2.7_7e1a8fdb23a2541ab0a421ae41e76c66
-      '@vue/server-renderer': 3.2.37_vue@3.2.37
       pinia: 2.0.20_typescript@4.7.4+vue@3.2.37
       pm2: 4.5.6
       reflect-metadata: 0.1.13
@@ -450,7 +448,6 @@ importers:
       '@nestjs/common': ^10.2.7
       '@nestjs/core': ^10.2.7
       '@nestjs/platform-express': ^10.2.7
-      '@vue/server-renderer': ^3.0.7
       eslint-config-standard-vue-ts: ^1.0.5
       pinia: ^2.0.13
       pm2: ^4.5.4
@@ -472,7 +469,6 @@ importers:
       '@nestjs/common': 10.2.7_reflect-metadata@0.1.13
       '@nestjs/core': 10.2.7_68f63b486ae42c9dbfc0314ba2c354ff
       '@nestjs/platform-express': 10.2.7_7e1a8fdb23a2541ab0a421ae41e76c66
-      '@vue/server-renderer': 3.2.37_vue@3.2.37
       pinia: 2.0.20_typescript@4.7.4+vue@3.2.37
       pm2: 4.5.6
       reflect-metadata: 0.1.13

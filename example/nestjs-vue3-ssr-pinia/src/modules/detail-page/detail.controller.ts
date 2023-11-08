@@ -1,5 +1,5 @@
 import { Controller, Get, Req, Res } from '@nestjs/common'
-import { Request, Response } from 'express'
+import type { Request, Response } from 'express'
 import { Readable } from 'stream'
 import { render } from 'ssr-core'
 
