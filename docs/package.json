@@ -7,6 +7,7 @@
     "@midwayjs/core": "^3.0.0",
     "@midwayjs/decorator": "^3.0.0",
     "@midwayjs/koa": "^3.0.0",
+    "@midwayjs/logger": "^3.0.0",
     "highlight.js": "^10.7.2",
     "lodash.debounce": "^4.0.8",
     "midway-schedule": "^2.0.0",

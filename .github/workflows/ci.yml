@@ -51,7 +51,7 @@ jobs:
         run: pnpm lint
 
   deploy-doc:
-    if: ${{ contains(github.actor, 'zhangyuang') && github.ref_name == 'dev'}}
+    if: ${{ contains(github.actor, 'zhangyuang') && github.ref_name == 'dev'}} && contains(github.event.head_commit.message, '.md')}}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
