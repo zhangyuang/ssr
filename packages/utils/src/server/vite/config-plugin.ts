@@ -235,15 +235,15 @@ const rollupOutputOptions: () => OutputOptions = () => {
   const buildConfig = getBuildConfig()
   return {
     entryFileNames: (chunkInfo: PreRenderedChunk) => {
-      return buildConfig.entryChunk
+      return buildConfig.viteEntryChunk
     },
     chunkFileNames: buildConfig.jsBuldConfig.chunkFileName,
     assetFileNames: (assetInfo) => {
       if (assetInfo.name?.includes('client-entry')) {
-        return buildConfig.clientEntryChunk
+        return buildConfig.viteClientEntryChunk
       }
       if (assetInfo.name && (imageRegExp.test(assetInfo.name) || fontRegExp.test(assetInfo.name))) {
-        return buildConfig.imagePathForVite
+        return buildConfig.viteImageChunk
       }
       return buildConfig.viteAssetChunk
     },

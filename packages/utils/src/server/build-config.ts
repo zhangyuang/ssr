@@ -10,13 +10,13 @@ export const getBuildConfig = () => {
     cssChunkFilename: useHash ? `${assetsDir}/[name].[contenthash:8].chunk.css` : `${assetsDir}/[name].chunk.css`
   }
   return {
-    imagePathForVite: `${assetsDir}/[name].[hash].[ext]`,
+    viteImageChunk: `${assetsDir}/[name].[hash].[ext]`,
     jsBuldConfig: {
       fileName: isVite ? `${assetsDir}/[name].[hash].chunk.js` : output.fileName,
       chunkFileName: isVite ? `${assetsDir}/[name].[hash].chunk.js` : output.chunkFileName
     },
-    entryChunk: `${assetsDir}/Page.[hash].chunk.js`,
-    clientEntryChunk: `${assetsDir}/Page.[hash].chunk.[ext]`,
+    viteEntryChunk: `${assetsDir}/Page.[hash].chunk.js`,
+    viteClientEntryChunk: `${assetsDir}/Page.[hash].chunk.[ext]`,
     viteAssetChunk: `${assetsDir}/[name].[hash].chunk.[ext]`,
     cssBuildConfig: [{
       filename: output.cssfileName,
