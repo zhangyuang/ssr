@@ -21,6 +21,7 @@
 </div>
 <br />
 
+
 `ssr` 框架是为前端框架在服务端渲染的场景下所打造的开箱即用的服务端渲染框架。了解什么是服务端渲染请查看[文档](http://doc.ssr-fc.com/docs/features$ssr)
 
 此框架脱胎于 [egg-react-ssr](https://github.com/zhangyuang/egg-react-ssr) 项目和 `ssr` v4版本`（midway-faas + react ssr）`，在之前的基础上做了诸多演进，通过插件化的代码组织形式，支持任意服务端框架与任意前端框架的组合使用。开发者可以选择通过 `Serverless` 方式部署或是以传统 `Node.js` 的应用形式部署，并且我们专注于提升 `Serverless` 场景下服务端渲染应用的开发体验，打造了一站式的开发，发布应用服务的功能。最大程度提升开发者的开发体验，将应用的开发，部署成本降到最低。
