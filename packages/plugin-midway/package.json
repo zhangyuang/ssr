@@ -30,11 +30,13 @@
   "dependencies": {
     "@midwayjs/cli": "^2.0.0",
     "@types/koa": "^2.13.5",
+    "@midwayjs/logger": "^3.0.0",
     "ssr-common-utils": "^6.2.10"
   },
   "peerDependencies": {
     "@midwayjs/decorator": ">=2.3.0",
-    "@midwayjs/mock": ">=2.0.0"
+    "@midwayjs/mock": ">=2.0.0",
+    "@midwayjs/logger": "^3.0.0"
   },
   "devDependencies": {
     "ssr-types": "^6.2.3"

@@ -7,6 +7,7 @@
     "@midwayjs/core": "^3.0.0",
     "@midwayjs/decorator": "^3.0.0",
     "@midwayjs/koa": "^3.0.0",
+    "@midwayjs/logger": "^3.0.0",
     "koa-static-cache": "^5.1.4",
     "midway-schedule": "^2.0.0",
     "pinia": "^2.0.13",
