@@ -13,28 +13,27 @@
 <div align="center">
 <a href="https://github.com/zhangyuang/ssr/actions" target="_blank"><img src="https://github.com/zhangyuang/ssr/workflows/CI/badge.svg" alt="githubActions"></a>
 <a href="https://www.cypress.io/" target="_blank"><img src="https://img.shields.io/badge/cypress-dashboard-brightgreen.svg" alt="cypress"></a>
-<a href="https://npmcharts.com/compare/ssr" target="_blank"><img src="https://img.shields.io/npm/dm/ssr" alt="download"></a>
 <a href="https://standardjs.com" target="_blank"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg" alt="standardjs"></a>
 <a href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 <a href="https://github.com/zhangyuang/ssr" target="_blank"><img src="https://img.shields.io/badge/node-%3E=12-green.svg" alt="Node"></a>
 </div>
 <br />
 
-`ssr` is an out-of-the-box server side rendering framework, building for frontend framework in Serverless scene. 
+`ssr` is an out-of-the-box server side rendering framework, building for frontend framework in Serverless scene.
 
 
-This framework originated from [egg-react-ssr](https://github.com/zhangyuang/egg-react-ssr) and `ssr` v4.3( midway-faas + react ssr), making a lot of evolution compared with the previous version. Through plugin-in code components, it supports the combination of any backend framework and any frontend framework. Developers can deploy applications through either  serverless or traditional Node.js. We focus on improving the development experiences of ssr applications and building a one-stop framework for development and deployment, which can also greatly reduce the costs for development and deployment. 
+This framework originated from [egg-react-ssr](https://github.com/zhangyuang/egg-react-ssr) and `ssr` v4.3( midway-faas + react ssr), making a lot of evolution compared with the previous version. Through plugin-in code components, it supports the combination of any backend framework and any frontend framework. Developers can deploy applications through either  serverless or traditional Node.js. We focus on improving the development experiences of ssr applications and building a one-stop framework for development and deployment, which can also greatly reduce the costs for development and deployment.
 
 
-In the latest v5.0, the framkework supports `React` and `Vue2/Vue3` as server side rendering framework and `Vite` to improve the application's startup speed and HMR speed. It also provides one-click deployment to Serverless Cloud Function. With great confidence, we can say that it is the most advanced ssr framework on Earth. If you wish to get an out-of-the-box experience and on-click deployment, please use the `ssr` framework. 
+In the latest v5.0, the framkework supports `React` and `Vue2/Vue3` as server side rendering framework and `Vite` to improve the application's startup speed and HMR speed. It also provides one-click deployment to Serverless Cloud Function. With great confidence, we can say that it is the most advanced ssr framework on Earth. If you wish to get an out-of-the-box experience and on-click deployment, please use the `ssr` framework.
 
-Read out [Document](http://doc.ssr-fc.com/) to get a more detailed understanding. Actually the Document is developed with the `ssr` framework and deployed to AliCloud through `Serverless`. 
+Read out [Document](http://doc.ssr-fc.com/) to get a more detailed understanding. Actually the Document is developed with the `ssr` framework and deployed to AliCloud through `Serverless`.
 
 ![](https://res.wx.qq.com/op_res/B9tJE-lFR3gCif92sM4BeeqAcoJSZbJK-auM7MACgomrWm58C1moA3BfatZ5gS-tgZHYyk57e0JQRtgdcgho-g)
 
 ## Used by
 
-`ssr` is currently used by the following companies(applications). If you are using but not listed below, please have an [issue](https://github.com/zhangyuang/ssr/issues). Welcome to promote this framework, we will provide technical support at any time. 
+`ssr` is currently used by the following companies(applications). If you are using but not listed below, please have an [issue](https://github.com/zhangyuang/ssr/issues). Welcome to promote this framework, we will provide technical support at any time.
 
 <table>
 <tr>
@@ -90,12 +89,12 @@ Read out [Document](http://doc.ssr-fc.com/) to get a more detailed understanding
 
 ## Features
 
-- 🌱　Easy to customize: support modern frontend frameworks such as React/Vue2/Vue3. 
-- 🚀　Out-of-the-box: 10+ built-in cli tools such as AntD、Vant、TS、Hooks. 
-- 🧲　Plug-in components: based on plugin-in architecture, users are more focused on business logic. 
-- 💯　Serverless first: one-click deployment to various Serverless platforms, also support traditional web server like Egg、Midway、Nest. 
-- 🛡　High availability: seamless degradation from SSR to CSR, the best disaster recovery plan. 
-- 😄　Rich functions: support building tools such as Webpack、Vite. 
+- 🌱　Easy to customize: support modern frontend frameworks such as React/Vue2/Vue3.
+- 🚀　Out-of-the-box: 10+ built-in cli tools such as AntD、Vant、TS、Hooks.
+- 🧲　Plug-in components: based on plugin-in architecture, users are more focused on business logic.
+- 💯　Serverless first: one-click deployment to various Serverless platforms, also support traditional web server like Egg、Midway、Nest.
+- 🛡　High availability: seamless degradation from SSR to CSR, the best disaster recovery plan.
+- 😄　Rich functions: support building tools such as Webpack、Vite.
 
 ## Already implemented
 
@@ -124,13 +123,13 @@ Read out [Document](http://doc.ssr-fc.com/) to get a more detailed understanding
 
 ## Quick start
 
-We provide [create-ssr-app](https://github.com/zhangyuang/create-ssr-app) cli. Users can quickly create different types of applications. 
+We provide [create-ssr-app](https://github.com/zhangyuang/create-ssr-app) cli. Users can quickly create different types of applications.
 
-Now we provide the following templates to developers. You choose any one according to your own technology stack. 
+Now we provide the following templates to developers. You choose any one according to your own technology stack.
 
-Although the technologies are different, the development ideas are consistent. In any combination of technology stacks, our development commands, construction commands and rendering principles are completely consistent. 
+Although the technologies are different, the development ideas are consistent. In any combination of technology stacks, our development commands, construction commands and rendering principles are completely consistent.
 
-Note: We provide one-click deployment to `Serverless` platform in both `Midway.js` and `Nest.js` but the underlying implementation is slightly different. For more details please read [Serverless](http://doc.ssr-fc.com/docs/features$serverless). If you need to make extensive use of the capabilities provided by the framework, we recommend creating an application of type 'middle.js'. Reading our [Document](http://doc.ssr-fc.com/) is strongly recommended to get a more detailed understanding. 
+Note: We provide one-click deployment to `Serverless` platform in both `Midway.js` and `Nest.js` but the underlying implementation is slightly different. For more details please read [Serverless](http://doc.ssr-fc.com/docs/features$serverless). If you need to make extensive use of the capabilities provided by the framework, we recommend creating an application of type 'middle.js'. Reading our [Document](http://doc.ssr-fc.com/) is strongly recommended to get a more detailed understanding.
 
 - [nestjs-react-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-react-ssr)
 - [nestjs-react18-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-react18-ssr)
@@ -142,7 +141,7 @@ Note: We provide one-click deployment to `Serverless` platform in both `Midway.j
 - [midway-vue-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue-ssr)
 - [midway-vue3-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue3-ssr)
 
-Developers can create different types of applications according to the actual technology stack to start quickly. 
+Developers can create different types of applications according to the actual technology stack to start quickly.
 
 ### Create project
 
@@ -162,8 +161,8 @@ $ npm run start:vite # Start in Vite mode，equivalent to npx ssr start --vite
 
 ## Online cases
 
-Check the links below to preview Serverless applications which are deployed using this framework to AliCloud/TencentCloud. 
-Use queryParams `csr=true` to degrade from SSR to CSR, also can be configured through `config.js`. 
+Check the links below to preview Serverless applications which are deployed using this framework to AliCloud/TencentCloud.
+Use queryParams `csr=true` to degrade from SSR to CSR, also can be configured through `config.js`.
 
 - http://ssr-fc.com/ React SSR App in AliCloud
 - http://ssr-fc.com?csr=true React SSR App in AliCloud, CSR mode
@@ -223,7 +222,7 @@ Use queryParams `csr=true` to degrade from SSR to CSR, also can be configured th
 
 ## CONTRIBUTING
 
-If you want to contribute code to this project, please read [contributing](./CONTRIBUTING.md), we have rich scripts for you to bootstrap. 
+If you want to contribute code to this project, please read [contributing](./CONTRIBUTING.md), we have rich scripts for you to bootstrap.
 
 ## License
 
@@ -231,7 +230,7 @@ If you want to contribute code to this project, please read [contributing](./CON
 
 ## Q & A group
 
-Although we have tried our best to check the application, there may still be some omissions. If you find any problems or suggestions during use, welcome to give [issue](https://github.com/zhangyuang/ssr/issues) or [PR](https://github.com/zhangyuang/ssr/pulls). 
+Although we have tried our best to check the application, there may still be some omissions. If you find any problems or suggestions during use, welcome to give [issue](https://github.com/zhangyuang/ssr/issues) or [PR](https://github.com/zhangyuang/ssr/pulls).
 Welcome to scan the code to join DingDing group or WeChat group
 
 <div style="display:flex">
