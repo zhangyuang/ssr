@@ -69,6 +69,7 @@
     "eslint-config-standard-react-ts": "^1.0.18",
     "eslint-config-standard-vue-ts": "^1.0.21",
     "esno": "^4.0.0",
+    "esbuild": "0.14.48",
     "execa": "^5.1.1",
     "husky": "^4.3.8",
     "minimist": "^1.2.6",

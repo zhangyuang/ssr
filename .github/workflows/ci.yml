@@ -1109,7 +1109,7 @@ jobs:
         run: |
           pnpm build
       - name: List packages
-        run: ls -R packages
+        run: rm -rf packages/**/src && ls -R packages
         shell: bash
       - name: npm publish
         run: |
