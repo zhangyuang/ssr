@@ -154,7 +154,8 @@ export const esbuildTransform = async (from: string, to: string) => {
       keepNames: true,
       format: 'cjs',
       bundle: !!process.env.BUNDLECONFIG,
-      outfile: to
+      outfile: to,
+      platform: 'node'
     }
   )
 }
