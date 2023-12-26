@@ -299,7 +299,7 @@ importers:
       swiper: 6.7.5
       valtio: 1.11.2_92a0b3c40fe0c12d8b3d0f9101b74b82
     devDependencies:
-      '@nestjs/cli': 10.1.18
+      '@nestjs/cli': 10.1.18_esbuild@0.14.48
       '@types/react': 17.0.48
       '@types/react-dom': 17.0.17
       '@types/react-router-dom': 5.3.3
@@ -348,7 +348,7 @@ importers:
       ssr-core: link:../../packages/core
       valtio: 1.11.2_7b08a519b01d2cb6137dcbdb0391a2df
     devDependencies:
-      '@nestjs/cli': 10.1.18
+      '@nestjs/cli': 10.1.18_esbuild@0.14.48
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11
       '@types/react-router-dom': 5.3.3
@@ -398,7 +398,7 @@ importers:
       vue-server-renderer: 2.7.10
       vuex: 3.6.2_vue@2.7.10
     devDependencies:
-      '@nestjs/cli': 10.1.18
+      '@nestjs/cli': 10.1.18_esbuild@0.14.48
       eslint-config-standard-vue-ts: 1.0.21_typescript@4.7.4
       ssr: link:../../packages/cli
       ssr-plugin-nestjs: link:../../packages/plugin-nestjs
@@ -445,7 +445,7 @@ importers:
       vue-router: 4.2.4_vue@3.2.37
       vuex: 4.0.2_vue@3.2.37
     devDependencies:
-      '@nestjs/cli': 10.1.18
+      '@nestjs/cli': 10.1.18_esbuild@0.14.48
       eslint-config-standard-vue-ts: 1.0.21_typescript@4.7.4
       ssr: link:../../packages/cli
       ssr-plugin-nestjs: link:../../packages/plugin-nestjs
@@ -492,7 +492,7 @@ importers:
       vue-router: 4.2.4_vue@3.2.37
       vuex: 4.0.2_vue@3.2.37
     devDependencies:
-      '@nestjs/cli': 10.1.18
+      '@nestjs/cli': 10.1.18_esbuild@0.14.48
       eslint-config-standard-vue-ts: 1.0.21_typescript@4.7.4
       ssr: link:../../packages/cli
       ssr-plugin-nestjs: link:../../packages/plugin-nestjs
@@ -3604,7 +3604,7 @@ packages:
       os-filter-obj: 2.0.0
     dev: false
 
-  /@nestjs/cli/10.1.18:
+  /@nestjs/cli/10.1.18_esbuild@0.14.48:
     resolution: {integrity: sha512-jQtG47keLsACt7b4YwJbTBYRm90n82gJpMaiR1HGAyQ9pccbctjSYu592eT4bxqkUWxPgBE3mpNynXj7dWAfrw==}
     engines: {node: '>= 16'}
     hasBin: true
@@ -3637,7 +3637,7 @@ packages:
       tsconfig-paths: 4.2.0
       tsconfig-paths-webpack-plugin: 4.1.0
       typescript: 5.2.2
-      webpack: 5.88.2
+      webpack: 5.88.2_esbuild@0.14.48
       webpack-node-externals: 3.0.0
     transitivePeerDependencies:
       - esbuild
@@ -6358,7 +6358,7 @@ packages:
       mississippi: 3.0.0
       mkdirp: 0.5.6
       move-concurrently: 1.0.1
-      promise-inflight: 1.0.1
+      promise-inflight: 1.0.1_bluebird@3.7.2
       rimraf: 2.7.1
       ssri: 6.0.2
       unique-filename: 1.1.1
@@ -10141,7 +10141,7 @@ packages:
       semver: 7.3.8
       tapable: 2.2.1
       typescript: 5.2.2
-      webpack: 5.88.2
+      webpack: 5.88.2_esbuild@0.14.48
     dev: true
 
   /form-data/2.3.3:
@@ -14489,6 +14489,17 @@ packages:
     peerDependenciesMeta:
       bluebird:
         optional: true
+    dev: false
+
+  /promise-inflight/1.0.1_bluebird@3.7.2:
+    resolution: {integrity: sha512-6zWPyEOFaQBJYcGMHBKTKJ3u6TBsnMFOIZSa6ce1e/ZrrsOlnHRHbabMjLiBYKp+n44X9eUI6VUPaukCXHuG4g==}
+    peerDependencies:
+      bluebird: '*'
+    peerDependenciesMeta:
+      bluebird:
+        optional: true
+    dependencies:
+      bluebird: 3.7.2
 
   /promptly/2.2.0:
     resolution: {integrity: sha512-aC9j+BZsRSSzEsXBNBwDnAxujdx19HycZoKgRgzWnS8eOHg1asuf9heuLprfbe739zY3IdUQx+Egv6Jn135WHA==}
@@ -16548,7 +16559,7 @@ packages:
       - bluebird
     dev: false
 
-  /terser-webpack-plugin/5.3.9_webpack@5.88.2:
+  /terser-webpack-plugin/5.3.9_esbuild@0.14.48+webpack@5.88.2:
     resolution: {integrity: sha512-ZuXsqE07EcggTWQjXUj+Aot/OMcD0bMKGgF63f7UxYcu5/AJF53aIpK1YoP5xR9l6s/Hy2b+t1AM0bLNPRuhwA==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -16565,11 +16576,12 @@ packages:
         optional: true
     dependencies:
       '@jridgewell/trace-mapping': 0.3.19
+      esbuild: 0.14.48
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.1
       terser: 5.21.0
-      webpack: 5.88.2
+      webpack: 5.88.2_esbuild@0.14.48
     dev: true
 
   /terser/4.8.1:
@@ -18028,7 +18040,7 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /webpack/5.88.2:
+  /webpack/5.88.2_esbuild@0.14.48:
     resolution: {integrity: sha512-JmcgNZ1iKj+aiR0OvTYtWQqJwq37Pf683dY9bVORwVbUrDhLhdn/PlO2sHsFHPkj7sHNQF3JwaAkp49V+Sq1tQ==}
     engines: {node: '>=10.13.0'}
     hasBin: true
@@ -18059,7 +18071,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.9_webpack@5.88.2
+      terser-webpack-plugin: 5.3.9_esbuild@0.14.48+webpack@5.88.2
       watchpack: 2.4.0
       webpack-sources: 3.2.3
     transitivePeerDependencies:

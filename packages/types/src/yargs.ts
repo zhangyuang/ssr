@@ -19,4 +19,5 @@ export type Argv = Arguments<{
   ssg?: boolean
   ssl?: boolean
   optimize?: boolean
+  bc?: boolean
 }>

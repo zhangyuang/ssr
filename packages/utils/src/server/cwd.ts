@@ -147,14 +147,16 @@ export const esbuildTransform = async (from: string, to: string) => {
   if (!await accessFile(from)) {
     await promises.writeFile(from, '')
   }
-  const { transform } = await import('esbuild')
-  const fileContent = (await promises.readFile(from)).toString()
-  const { code } = await transform(fileContent, {
-    loader: 'ts',
-    format: 'cjs',
-    keepNames: true
-  })
-  await promises.writeFile(to, code)
+  const { build } = await import('esbuild')
+  await build(
+    {
+      entryPoints: [from],
+      keepNames: true,
+      format: 'cjs',
+      bundle: !!process.env.BUNDLECONFIG,
+      outfile: to
+    }
+  )
 }
 
 const transformManualRoutes = async () => {

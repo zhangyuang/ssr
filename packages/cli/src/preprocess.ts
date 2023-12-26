@@ -26,6 +26,7 @@ export const handleEnv = async (argv: Argv) => {
   if (argv.nominify) {
     process.env.NOMINIFY = '1'
   }
+
   process.env.SERVER_PORT = argv.port ? String(argv.port) : '3000'
   if (argv.vite) {
     await promises.writeFile(resolve(cwd, './build/tag.json'), JSON.stringify({
