@@ -1,3 +1,12 @@
+## [6.2.114](https://github.com/zhangyuang/ssr/compare/utils@6.2.113...utils@6.2.114) (2023-12-26)
+
+
+### Bug Fixes
+
+* specify platform as node ([0b6f358](https://github.com/zhangyuang/ssr/commit/0b6f35895c147c01a6dd254d76445b2fd5dabdb2))
+
+
+
 ## [6.2.113](https://github.com/zhangyuang/ssr/compare/utils@6.2.112...utils@6.2.113) (2023-12-26)
 
 
