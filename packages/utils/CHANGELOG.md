@@ -1,3 +1,17 @@
+## [6.2.113](https://github.com/zhangyuang/ssr/compare/utils@6.2.112...utils@6.2.113) (2023-12-26)
+
+
+### Bug Fixes
+
+* add @midwayjs/logger in dependencies ([55584f1](https://github.com/zhangyuang/ssr/commit/55584f19e5eec4f086e490672f5fe00322724e91))
+
+
+### Features
+
+* replace esbuild transform to build ([6f37717](https://github.com/zhangyuang/ssr/commit/6f3771714282e4529b199cffa0c4e3a9ad28dd57))
+
+
+
 ## [6.2.112](https://github.com/zhangyuang/ssr/compare/utils@6.2.111...utils@6.2.112) (2023-11-08)
 
 

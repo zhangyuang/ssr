@@ -1,3 +1,19 @@
+## [6.2.52](https://github.com/zhangyuang/ssr/compare/types@6.2.51...types@6.2.52) (2023-12-26)
+
+
+### Bug Fixes
+
+* add @midwayjs/logger in dependencies ([55584f1](https://github.com/zhangyuang/ssr/commit/55584f19e5eec4f086e490672f5fe00322724e91))
+* checkroute close [#312](https://github.com/zhangyuang/ssr/issues/312) ([97d2db7](https://github.com/zhangyuang/ssr/commit/97d2db7af10a31a7ba486fd04990f4ef97363375))
+
+
+### Features
+
+* optimize vite build ([d5dbac2](https://github.com/zhangyuang/ssr/commit/d5dbac2ce9d0233a9e7c39975eae025714449205))
+* replace esbuild transform to build ([6f37717](https://github.com/zhangyuang/ssr/commit/6f3771714282e4529b199cffa0c4e3a9ad28dd57))
+
+
+
 ## [6.2.51](https://github.com/zhangyuang/ssr/compare/types@6.2.50...types@6.2.51) (2023-10-13)
 
 

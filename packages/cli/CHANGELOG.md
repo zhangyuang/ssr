@@ -1,3 +1,12 @@
+## [6.2.66](https://github.com/zhangyuang/ssr/compare/cli@6.2.65...cli@6.2.66) (2023-12-26)
+
+
+### Features
+
+* replace esbuild transform to build ([6f37717](https://github.com/zhangyuang/ssr/commit/6f3771714282e4529b199cffa0c4e3a9ad28dd57))
+
+
+
 ## [6.2.65](https://github.com/zhangyuang/ssr/compare/cli@6.2.64...cli@6.2.65) (2023-12-21)
 
 
