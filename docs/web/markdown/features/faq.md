@@ -751,7 +751,7 @@ export { userConfig }
 
 ## 是否考虑支持 SSG 静态渲染
 
-参考该 [issue](https://github.com/zhangyuang/ssr/issues/75) 目前没有支持 `SSG` 的打算。个人认为这是一个伪需求。若后来的开发者仍然有支持 `SSG `的需求。可以回复该 `issue`,后续将会根据人数决定是否框架原生支持。
+最新版本已支持 [SSG](https://doc.ssr-fc.com/docs/features$ssg#%E9%A2%84%E6%B8%B2%E6%9F%93)
 
 ## 在微前端场景下使用(Beta)
 
