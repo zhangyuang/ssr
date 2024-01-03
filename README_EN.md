@@ -19,15 +19,15 @@
 </div>
 <br />
 
-`ssr` is an out-of-the-box server side rendering framework, building for frontend framework in Serverless scene.
+`ssr` is an out-of-the-box server side rendering framework, building for frontend framework in a Serverless scene.
 
 
 This framework originated from [egg-react-ssr](https://github.com/zhangyuang/egg-react-ssr) and `ssr` v4.3( midway-faas + react ssr), making a lot of evolution compared with the previous version. Through plugin-in code components, it supports the combination of any backend framework and any frontend framework. Developers can deploy applications through either  serverless or traditional Node.js. We focus on improving the development experiences of ssr applications and building a one-stop framework for development and deployment, which can also greatly reduce the costs for development and deployment.
 
 
-In the latest v5.0, the framkework supports `React` and `Vue2/Vue3` as server side rendering framework and `Vite` to improve the application's startup speed and HMR speed. It also provides one-click deployment to Serverless Cloud Function. With great confidence, we can say that it is the most advanced ssr framework on Earth. If you wish to get an out-of-the-box experience and on-click deployment, please use the `ssr` framework.
+In the latest v5.0, the framework supports `React` and `Vue2/Vue3` as server side rendering frameworks and `Vite` to improve the application's startup speed and HMR speed. It also provides one-click deployment to Serverless Cloud Function. With great confidence, we can say that it is the most advanced ssr framework on Earth. If you wish to get an out-of-the-box experience and on-click deployment, please use the `ssr` framework.
 
-Read out [Document](http://doc.ssr-fc.com/) to get a more detailed understanding. Actually the Document is developed with the `ssr` framework and deployed to AliCloud through `Serverless`.
+Read out [Document](http://doc.ssr-fc.com/) to get a more detailed understanding. Actually, the Document is developed with the `ssr` framework and deployed to AliCloud through `Serverless`.
 
 ![](https://res.wx.qq.com/op_res/B9tJE-lFR3gCif92sM4BeeqAcoJSZbJK-auM7MACgomrWm58C1moA3BfatZ5gS-tgZHYyk57e0JQRtgdcgho-g)
 
@@ -92,7 +92,7 @@ Read out [Document](http://doc.ssr-fc.com/) to get a more detailed understanding
 - 🌱　Easy to customize: support modern frontend frameworks such as React/Vue2/Vue3.
 - 🚀　Out-of-the-box: 10+ built-in cli tools such as AntD、Vant、TS、Hooks.
 - 🧲　Plug-in components: based on plugin-in architecture, users are more focused on business logic.
-- 💯　Serverless first: one-click deployment to various Serverless platforms, also support traditional web server like Egg、Midway、Nest.
+- 💯　Serverless first: one-click deployment to various Serverless platforms, also supports traditional web servers like Egg、Midway、Nest.
 - 🛡　High availability: seamless degradation from SSR to CSR, the best disaster recovery plan.
 - 😄　Rich functions: support building tools such as Webpack、Vite.
 
@@ -104,16 +104,16 @@ Read out [Document](http://doc.ssr-fc.com/) to get a more detailed understanding
 | ---------------------------------------------------------------------- | ---- |
 | Support the combination of any backend and frontend framework. (Serverless/Midway/NestJS) + (React/Vue2/Vue3)             | 🚀   |
 | Support [vite](https://vite-design.surge.sh/) as building tool in SSR scene [how to use](#使用Vite作为构建工具) |  🚀    |
-| Inplement server side rendering function lightly and beautifully                            | 🚀   |
+| Implement server side rendering function lightly and beautifully                            | 🚀   |
 | Restrict code package size in Serverless scene, minimize it of production environment            | 🚀   |
-| support both conventional routing and declarative routing                             | 🚀   |
+| Support both conventional routing and declarative routing                             | 🚀   |
 | React: All in JSX, Vue: All in template. No traditional template engine, All parts(including html layout) are generated using JSX / Vue            | 🚀   |
 | Rendering mode switch: seamless degradation from SSR to CSR                        | 🚀   |
 | Highly reusable: Unify the data acquisition methods of different frameworks                                 | 🚀   |
 | Type friendly: Full use of TypeScript                                | 🚀   |
 | Seamless access to [antd](https://github.com/ant-design/ant-design) [vant](https://vant-contrib.gitee.io/vant/#/) No configuration changes are required                             | 🚀   |
 | Less is supported as CSS preprocessor                                                | 🚀   |
-| Support [Code Segmentation scheme](https://zhuanlan.zhihu.com/p/343743374) in React/Vue SSR. Excellent first page perfomance                |    🚀  |
+| Support [Code Segmentation scheme](https://zhuanlan.zhihu.com/p/343743374) in React/Vue SSR. Excellent first page performance                |    🚀  |
 | Use useContext + useReducer in React to implement minimal [data management](#React跨组件通信), instead of traditional methods like redux/dva                         |    🚀  |
 | Provide [Provide/Inject](#provideinject代替vuex) for cross component communication in Vue3, instead of Vuex                 |    🚀  |
 | Support usage in [AliCloud](https://zhuanlan.zhihu.com/p/139210473)          | 🚀     |
