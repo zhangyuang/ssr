@@ -1,3 +1,12 @@
+## [6.2.115](https://github.com/zhangyuang/ssr/compare/utils@6.2.114...utils@6.2.115) (2024-01-08)
+
+
+### Features
+
+* add optional-chaining in default ([e479496](https://github.com/zhangyuang/ssr/commit/e479496d0571c3fa34277fbb6bc7e10ae980f600))
+
+
+
 ## [6.2.114](https://github.com/zhangyuang/ssr/compare/utils@6.2.113...utils@6.2.114) (2023-12-26)
 
 
