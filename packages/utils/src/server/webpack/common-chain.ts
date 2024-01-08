@@ -95,6 +95,7 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
       ]
     ]
   }
+  plugins.push([loadModuleFromFramework('@babel/plugin-proposal-optional-chaining')])
   plugins.push(...babelOptions?.plugins ?? [])
   presets.push(...babelOptions?.presets ?? [])
   plugins = plugins.filter(Boolean)
