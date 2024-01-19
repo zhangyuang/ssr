@@ -1,3 +1,18 @@
+## [6.2.67](https://github.com/zhangyuang/ssr/compare/cli@6.2.66...cli@6.2.67) (2024-01-19)
+
+
+### Bug Fixes
+
+* specify platform as node ([0b6f358](https://github.com/zhangyuang/ssr/commit/0b6f35895c147c01a6dd254d76445b2fd5dabdb2))
+
+
+### Features
+
+* add optional-chaining in default ([e479496](https://github.com/zhangyuang/ssr/commit/e479496d0571c3fa34277fbb6bc7e10ae980f600))
+* support ssr build --html in react/react18 close [#317](https://github.com/zhangyuang/ssr/issues/317) ([7311f8e](https://github.com/zhangyuang/ssr/commit/7311f8ed6034ad925c642c2682e85ab42872d86c))
+
+
+
 ## [6.2.66](https://github.com/zhangyuang/ssr/compare/cli@6.2.65...cli@6.2.66) (2023-12-26)
 
 
