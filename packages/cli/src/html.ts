@@ -64,8 +64,8 @@ export const generateHtml = async () => {
       content
     }
   ])
-  const { h, Fragment } = await import(loadModuleFromFramework('vue'))
   if (framework === 'ssr-plugin-vue3') {
+    const { h, Fragment } = await import(loadModuleFromFramework('vue'))
     const { renderToString } = await import('@vue/server-renderer')
     for (const item of combine) {
       const { arr, flag } = item
@@ -82,6 +82,7 @@ export const generateHtml = async () => {
       }
     }
   } if (framework === 'ssr-plugin-vue') {
+    const { h } = await import(loadModuleFromFramework('vue'))
     const Vue = await import(loadModuleFromFramework('vue'))
     const { createRenderer } = await import('vue-server-renderer')
     const { renderToString } = createRenderer()
@@ -102,9 +103,29 @@ export const generateHtml = async () => {
       })
       const scriptStr = await renderToString(app)
       if (flag === 'header') {
-        jsHeaderManifest = scriptStr.replace('data-server-rendered="true"', '')
+        jsHeaderManifest += scriptStr.replace('data-server-rendered="true"', '')
       } else {
-        jsFooterManifest = scriptStr.replace('data-server-rendered="true"', '')
+        jsFooterManifest += scriptStr.replace('data-server-rendered="true"', '')
+      }
+    }
+  }
+  if (framework === 'ssr-plugin-react' || framework === 'ssr-plugin-react18') {
+    const { createElement: h, Fragment } = await import (loadModuleFromFramework('react'))
+    const { renderToString } = await import(loadModuleFromFramework('react-dom/server'))
+    for (const item of combine) {
+      const { arr, flag } = item
+      const scriptArr = arr.map((item) => h(
+        'script',
+        Object.assign({}, item.describe ?? {}, {
+          dangerouslySetInnerHTML: {
+            __html: item.content
+          }
+        })
+      ))
+      if (flag === 'header') {
+        jsHeaderManifest += (await renderToString(h(Fragment, {}, scriptArr))).replace('data-reactroot=""', '')
+      } else {
+        jsFooterManifest += (await renderToString(h(Fragment, {}, scriptArr))).replace('data-reactroot=""', '')
       }
     }
   }
