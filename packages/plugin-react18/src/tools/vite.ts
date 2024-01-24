@@ -1,12 +1,15 @@
 import { build, UserConfig } from 'vite'
 import {
   loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig,
-  asyncOptimizeChunkPlugin, getOutputPublicPath
+  asyncOptimizeChunkPlugin, getOutputPublicPath, judgeAntd
 } from 'ssr-common-utils'
 import react from '@vitejs/plugin-react'
 import { createStyleImportPlugin, AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'ssr-vite-plugin-style-import'
 const { getOutput, react18ServerEntry, react18ClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions, optimize } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
+const isAntd5 = judgeAntd() === 5
+const extraInclude = ([] as string[]).concat(isAntd5 ? ['react-is'] : [])
+
 const styleImportConfig = {
   include: ['**/*.vue', '**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx', /chunkName/],
   resolves: [
@@ -47,7 +50,10 @@ const serverConfig: UserConfig = {
     logOverride: { 'this-is-undefined-in-esm': 'silent' }
   },
   optimizeDeps: {
+    ...viteConfig?.().server?.otherConfig?.optimizeDeps,
+    include: extraInclude.concat(...viteConfig?.().server?.otherConfig?.optimizeDeps?.include ?? []),
     esbuildOptions: {
+      ...viteConfig?.().server?.otherConfig?.optimizeDeps?.esbuildOptions,
       // @ts-expect-error
       bundle: isDev
     }
@@ -94,7 +100,7 @@ const clientConfig: UserConfig = {
   },
   optimizeDeps: {
     ...viteConfig?.().client?.otherConfig?.optimizeDeps,
-    include: ['react-router'].concat(...viteConfig?.().client?.otherConfig?.optimizeDeps?.include ?? []),
+    include: ['react-router', ...extraInclude].concat(...viteConfig?.().client?.otherConfig?.optimizeDeps?.include ?? []),
     exclude: ['ssr-hoc-react18'].concat(...viteConfig?.().client?.otherConfig?.optimizeDeps?.exclude ?? [])
   },
   plugins: viteConfig?.()?.client?.processPlugin?.(clientPlugins) ?? clientPlugins,
@@ -126,7 +132,7 @@ const viteBuild = async () => {
 }
 
 const viteBuildClient = async () => {
-  await build({ ...clientConfig, mode: 'production' }).catch(_ => {})
+  await build({ ...clientConfig, mode: 'production' }).catch(_ => { })
 }
 const viteBuildServer = async () => {
   await build({ ...serverConfig, mode: 'production' })

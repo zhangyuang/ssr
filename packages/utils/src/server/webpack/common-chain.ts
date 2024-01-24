@@ -1,18 +1,18 @@
 import { promises } from 'fs'
-import { coerce } from 'semver'
 import { resolve } from 'path'
 import type { Chain, PluginItem } from 'ssr-types'
 import type { Rule, Module } from 'webpack-chain'
 import type { Compiler } from 'webpack'
 import { getImageOutputPath } from '../parse'
-import { loadModuleFromFramework, getPkgJson, judgeFramework, getCwd } from '../cwd'
+import { loadModuleFromFramework, judgeFramework, getCwd } from '../cwd'
 import { loadConfig } from '../loadConfig'
 import { logWarning } from '../log'
+import { judgeAntd } from '../judge'
 import { asyncChunkMap } from '../build-utils'
 
-const antdVersion = getPkgJson().dependencies?.['antd'] ?? getPkgJson().devDependencies?.['antd']
-const isAntd4 = coerce(antdVersion)?.major === 4
-if (coerce(antdVersion)?.major === 5) {
+const antdVersion = judgeAntd()
+const isAntd4 = antdVersion === 4
+if (antdVersion === 5) {
   logWarning('Check antd@5.x has been installed, antd@4.x is more recommend in ssr environment')
 }
 const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean) => {
@@ -127,7 +127,7 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
     .exclude
     .add(/node_modules|core-js/)
-    .add(babelOptions?.exclude as Array<string|RegExp> ?? [])
+    .add(babelOptions?.exclude as Array<string | RegExp> ?? [])
     .end()
 
   chain.module
@@ -141,7 +141,7 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
     .include
 
-  const babelForExtraModule = module.add(babelExtraModule ?? []).add(babelOptions?.include as Array<string|RegExp> ?? []).end().exclude.add(/core-js/).end()
+  const babelForExtraModule = module.add(babelExtraModule ?? []).add(babelOptions?.include as Array<string | RegExp> ?? []).end().exclude.add(/core-js/).end()
 
   addBabelLoader(babelModule, envOptions, isServer)
   addBabelLoader(babelForExtraModule, envOptions, isServer)

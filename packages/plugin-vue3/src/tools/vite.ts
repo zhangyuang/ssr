@@ -45,7 +45,9 @@ const serverConfig: UserConfig = {
   ...viteConfig?.().server?.otherConfig,
   plugins: viteConfig?.()?.server?.processPlugin?.(serverPlugins) ?? serverPlugins,
   optimizeDeps: {
+    ...viteConfig?.().server?.otherConfig?.optimizeDeps,
     esbuildOptions: {
+      ...viteConfig?.().server?.otherConfig?.optimizeDeps?.esbuildOptions,
       // @ts-expect-error
       bundle: isDev
     }
@@ -116,7 +118,7 @@ const viteBuild = async () => {
 }
 
 const viteBuildClient = async () => {
-  await build({ ...clientConfig, mode: 'production' }).catch(_ => {})
+  await build({ ...clientConfig, mode: 'production' }).catch(_ => { })
 }
 const viteBuildServer = async () => {
   await build({ ...serverConfig, mode: 'production' })
