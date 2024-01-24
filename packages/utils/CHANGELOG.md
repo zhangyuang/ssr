@@ -1,3 +1,13 @@
+## [6.2.116](https://github.com/zhangyuang/ssr/compare/utils@6.2.115...utils@6.2.116) (2024-01-24)
+
+
+### Features
+
+* support optimizeDeps in vite, add react-is as deps when use antd5 ([66fa36e](https://github.com/zhangyuang/ssr/commit/66fa36eb94c7b287db68242f8e61f0928dde6356))
+* support ssr build --html in react/react18 close [#317](https://github.com/zhangyuang/ssr/issues/317) ([7311f8e](https://github.com/zhangyuang/ssr/commit/7311f8ed6034ad925c642c2682e85ab42872d86c))
+
+
+
 ## [6.2.115](https://github.com/zhangyuang/ssr/compare/utils@6.2.114...utils@6.2.115) (2024-01-08)
 
 
