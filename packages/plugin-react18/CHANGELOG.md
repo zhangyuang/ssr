@@ -1,3 +1,12 @@
+## [6.2.71](https://github.com/zhangyuang/ssr/compare/plugin-react18@6.2.70...plugin-react18@6.2.71) (2024-01-27)
+
+
+### Bug Fixes
+
+* plugin-react close[#321](https://github.com/zhangyuang/ssr/issues/321) ([a1b69f8](https://github.com/zhangyuang/ssr/commit/a1b69f8ba467b86d3d7fc1fc63d78f97bf3b8afb))
+
+
+
 ## [6.2.70](https://github.com/zhangyuang/ssr/compare/plugin-react18@6.2.69...plugin-react18@6.2.70) (2024-01-24)
 
 
