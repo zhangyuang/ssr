@@ -32,7 +32,6 @@ const loadConfig = (): IConfig => {
     '~/src': join(cwd, './src'),
     _build: join(cwd, './build')
   }, framework === 'ssr-plugin-react' ? {
-    // react: loadModuleFromFramework('react'),
     'react-dom': loadModuleFromFramework('react-dom'),
     'react-router': loadModuleFromFramework('react-router'),
     'react-router-dom': loadModuleFromFramework('react-router-dom'),
@@ -40,7 +39,7 @@ const loadConfig = (): IConfig => {
     'react/jsx-dev-runtime': loadModuleFromFramework('react/jsx-dev-runtime')
   } : {
     vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js',
-    '@vue/server-renderer': loadModuleFromFramework('@vue/server-renderer/index.js') // use commonjs file
+    '@vue/server-renderer': framework === 'ssr-plugin-vue' ? '' : loadModuleFromFramework('@vue/server-renderer/index.js') // use commonjs file
   }, userConfig.alias)
   type ClientLogLevel = 'error'
   const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPath(userConfig.publicPath ?? '/')
@@ -84,8 +83,8 @@ const loadConfig = (): IConfig => {
 
   const clientLogLevel: ClientLogLevel = 'error'
   const useHash = !isDev // 生产环境默认生成hash
-  const defaultWhiteList: Array<RegExp|string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/, /\.(vue)$/]
-  const whiteList: Array<RegExp|string> = defaultWhiteList.concat(userConfig.whiteList ?? [])
+  const defaultWhiteList: Array<RegExp | string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/, /\.(vue)$/]
+  const whiteList: Array<RegExp | string> = defaultWhiteList.concat(userConfig.whiteList ?? [])
 
   const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', 'common-vendor.js', 'layout-app~vendor.js', `${chunkName}.js`, 'layout-app.js']
 
@@ -169,7 +168,7 @@ const loadConfig = (): IConfig => {
     /ssr-hoc-react/, /ssr-hoc-vue3/, /ssr-hoc-react18/
   ]
   const staticConfigPath = ''
-  const getOutput = () => {}
+  const getOutput = () => { }
   const rootId = '#app'
   const config = Object.assign({}, {
     chainBaseConfig,

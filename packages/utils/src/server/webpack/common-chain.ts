@@ -78,9 +78,11 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
           libraryDirectory: 'lib',
           style: true
         }, 'ant-design-vue'
-      ],
-      loadModuleFromFramework('@vue/babel-plugin-jsx')
+      ]
     ]
+    if (framework === 'ssr-plugin-vue3') {
+      plugins.push(loadModuleFromFramework('@vue/babel-plugin-jsx'))
+    }
     presets = [
       [
         loadModuleFromFramework('@babel/preset-typescript'),
