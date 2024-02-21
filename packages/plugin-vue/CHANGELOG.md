@@ -1,3 +1,24 @@
+## [6.2.64](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.63...plugin-vue@6.2.64) (2024-02-21)
+
+
+### Bug Fixes
+
+* add @midwayjs/logger in dependencies ([55584f1](https://github.com/zhangyuang/ssr/commit/55584f19e5eec4f086e490672f5fe00322724e91))
+* add babel-optional-chaining in plugin-vue, use checkModuleExist replace loadModule ([3f6d451](https://github.com/zhangyuang/ssr/commit/3f6d4511eb7b89fd6cdf5962d03dd3a2b23dd35f))
+* plugin-react close [#321](https://github.com/zhangyuang/ssr/issues/321) ([1f0709f](https://github.com/zhangyuang/ssr/commit/1f0709fd7bc5a9633555f33bfe5dc21a7d925028))
+* specify platform as node ([0b6f358](https://github.com/zhangyuang/ssr/commit/0b6f35895c147c01a6dd254d76445b2fd5dabdb2))
+
+
+### Features
+
+* add optional-chaining in default ([e479496](https://github.com/zhangyuang/ssr/commit/e479496d0571c3fa34277fbb6bc7e10ae980f600))
+* optimize vite build ([d5dbac2](https://github.com/zhangyuang/ssr/commit/d5dbac2ce9d0233a9e7c39975eae025714449205))
+* replace esbuild transform to build ([6f37717](https://github.com/zhangyuang/ssr/commit/6f3771714282e4529b199cffa0c4e3a9ad28dd57))
+* support optimizeDeps in vite, add react-is as deps when use antd5 ([66fa36e](https://github.com/zhangyuang/ssr/commit/66fa36eb94c7b287db68242f8e61f0928dde6356))
+* support ssr build --html in react/react18 close [#317](https://github.com/zhangyuang/ssr/issues/317) ([7311f8e](https://github.com/zhangyuang/ssr/commit/7311f8ed6034ad925c642c2682e85ab42872d86c))
+
+
+
 ## [6.2.63](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.62...plugin-vue@6.2.63) (2023-10-26)
 
 

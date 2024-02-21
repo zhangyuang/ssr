@@ -1,3 +1,13 @@
+## [6.2.117](https://github.com/zhangyuang/ssr/compare/utils@6.2.116...utils@6.2.117) (2024-02-21)
+
+
+### Bug Fixes
+
+* add babel-optional-chaining in plugin-vue, use checkModuleExist replace loadModule ([3f6d451](https://github.com/zhangyuang/ssr/commit/3f6d4511eb7b89fd6cdf5962d03dd3a2b23dd35f))
+* plugin-react close [#321](https://github.com/zhangyuang/ssr/issues/321) ([1f0709f](https://github.com/zhangyuang/ssr/commit/1f0709fd7bc5a9633555f33bfe5dc21a7d925028))
+
+
+
 ## [6.2.116](https://github.com/zhangyuang/ssr/compare/utils@6.2.115...utils@6.2.116) (2024-01-24)
 
 
