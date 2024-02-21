@@ -36,7 +36,7 @@ const getWebpackSplitCache = () => {
     const generateMap: Record<string, string> = require(resolve(getCwd(), './build/generateMap.json'))
     const asyncChunkMap = require(resolve(getCwd(), './build/asyncChunkMap.json'))
     let maxPriority = Object.keys(asyncChunkMap).length + 1
-    const splitPriorityMap: Record<string, number|undefined> = {
+    const splitPriorityMap: Record<string, number | undefined> = {
       'common-vendor': maxPriority + 2,
       'layout-app~vendor': maxPriority + 1,
       'layout-app': maxPriority + 1
@@ -204,7 +204,7 @@ const cyrb53 = function (str: string, seed = 0) {
   return 4294967296 * (2097151 & h2) + (h1 >>> 0)
 }
 
-const cryptoAsyncChunkName = (chunks: Array<{name: string}>, asyncChunkMap: Record<string, string[]>) => {
+const cryptoAsyncChunkName = (chunks: Array<{ name: string }>, asyncChunkMap: Record<string, string[]>) => {
   const arr = chunks.filter(Boolean)
   arr.sort((a, b) => a.name > b.name ? -1 : 1) // 保证相同值不同顺序的数组最终的加密结果一致
   const allChunksNames = arr.map(item => item.name).join('~')
@@ -276,16 +276,20 @@ export const debounce = (func: Function, wait: number) => {
     timer = setTimeout(func, wait)
   }
 }
+const checkModuleExist = (name: string) => {
+  try {
+    loadModuleFromFramework(name)
+    return true
+  } catch {
+    return false
+  }
+}
 const loadModuleFromFramework = (path: string) => {
   const framework = judgeFramework()
   const paths = resolve(getCwd(), `./node_modules/${framework}`)
-  try {
-    return require.resolve(path, {
-      paths: [accessFileSync(paths) ? realpathSync(paths) : paths]
-    })
-  } catch (error) {
-    return ''
-  }
+  return require.resolve(path, {
+    paths: [accessFileSync(paths) ? realpathSync(paths) : paths]
+  })
 }
 
 const processError = (err: any) => {
@@ -324,7 +328,7 @@ const copyReactContext = async () => {
 
 const execPromisify = promisify(exec)
 
-const stringifyDefine = (obj: {[key: string]: Json}) => {
+const stringifyDefine = (obj: { [key: string]: Json }) => {
   for (const key in obj) {
     const val = obj[key]
     if (typeof val === 'string' && val.slice(0, 1) !== '"') {
@@ -384,5 +388,6 @@ export {
   getSplitChunksOptions,
   cleanOutClientDir,
   checkContainsRev,
-  getPkgJson
+  getPkgJson,
+  checkModuleExist
 }

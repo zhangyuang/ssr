@@ -1,7 +1,7 @@
 
 import { join } from 'path'
 import { Mode } from 'ssr-types'
-import { getCwd, loadConfig, setStyle, loadModuleFromFramework, logErr, getBuildConfig, getDefineEnv, addCommonChain } from 'ssr-common-utils'
+import { getCwd, loadConfig, setStyle, loadModuleFromFramework, logErr, getBuildConfig, getDefineEnv, addCommonChain, checkModuleExist } from 'ssr-common-utils'
 import * as webpack from 'ssr-webpack4'
 
 import * as WebpackChain from 'webpack-chain'
@@ -122,7 +122,7 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
     ...(isServer ? define?.server : define?.client),
     ...define?.base
   }])
-  if (loadModuleFromFramework('element-plus')) {
+  if (checkModuleExist('element-plus')) {
     const { coerce } = require('semver')
     if ((coerce(process.version)?.major ?? 0) < 14) {
       logErr('Use element-plus auto import require Node.js Version >= v14 for optional chaining')
