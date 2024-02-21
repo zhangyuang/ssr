@@ -1,3 +1,12 @@
+## [6.2.65](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.64...plugin-vue@6.2.65) (2024-02-21)
+
+
+### Bug Fixes
+
+* loadModule in vue2 ([1e8055b](https://github.com/zhangyuang/ssr/commit/1e8055b4218a57c1f07c01f9698d119b47f59824))
+
+
+
 ## [6.2.64](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.63...plugin-vue@6.2.64) (2024-02-21)
 
 
