@@ -1,3 +1,12 @@
+## [6.2.118](https://github.com/zhangyuang/ssr/compare/utils@6.2.117...utils@6.2.118) (2024-02-21)
+
+
+### Bug Fixes
+
+* loadModule in vue2 ([1e8055b](https://github.com/zhangyuang/ssr/commit/1e8055b4218a57c1f07c01f9698d119b47f59824))
+
+
+
 ## [6.2.117](https://github.com/zhangyuang/ssr/compare/utils@6.2.116...utils@6.2.117) (2024-02-21)
 
 
