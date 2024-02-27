@@ -1,14 +1,13 @@
 import * as webpack from 'ssr-webpack4'
+import type { Stats, Configuration, Compiler } from 'webpack'
 
-import { Stats, Configuration, Compiler } from 'webpack'
 const errorEmitPlugin = function (compiler: Compiler) {
   compiler.hooks.done.tapAsync('done', function (stats, callback) {
     if (stats.compilation.errors.length > 0) {
       const isDev = process.env.NODE_ENV !== 'production'
-      if (isDev) {
-        console.error(stats.compilation.errors)
-      } else {
-        throw new Error(stats.compilation.errors[0].stack)
+      console.error(stats.compilation.errors)
+      if (!isDev) {
+        process.exit(1)
       }
     }
     callback()
