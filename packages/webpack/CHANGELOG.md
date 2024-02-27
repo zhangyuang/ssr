@@ -1,3 +1,34 @@
+## [6.2.16](https://github.com/zhangyuang/ssr/compare/webpack@6.2.15...webpack@6.2.16) (2024-02-27)
+
+
+### Bug Fixes
+
+* add @midwayjs/logger in dependencies ([55584f1](https://github.com/zhangyuang/ssr/commit/55584f19e5eec4f086e490672f5fe00322724e91))
+* add babel-optional-chaining in plugin-vue, use checkModuleExist replace loadModule ([3f6d451](https://github.com/zhangyuang/ssr/commit/3f6d4511eb7b89fd6cdf5962d03dd3a2b23dd35f))
+* checkroute close [#312](https://github.com/zhangyuang/ssr/issues/312) ([97d2db7](https://github.com/zhangyuang/ssr/commit/97d2db7af10a31a7ba486fd04990f4ef97363375))
+* loadModule in vue2 ([1e8055b](https://github.com/zhangyuang/ssr/commit/1e8055b4218a57c1f07c01f9698d119b47f59824))
+* pinia example ([ef81d0b](https://github.com/zhangyuang/ssr/commit/ef81d0b4b805f4be49dfd6f69ce016a66a12bc9c))
+* plugin-react close [#321](https://github.com/zhangyuang/ssr/issues/321) ([1f0709f](https://github.com/zhangyuang/ssr/commit/1f0709fd7bc5a9633555f33bfe5dc21a7d925028))
+* specify platform as node ([0b6f358](https://github.com/zhangyuang/ssr/commit/0b6f35895c147c01a6dd254d76445b2fd5dabdb2))
+* use asyncChunkMap only in client ([f3d29e3](https://github.com/zhangyuang/ssr/commit/f3d29e354ee3b86e17a57cb59c0f1b5452e3ff10))
+
+
+### Features
+
+* add optional-chaining in default ([e479496](https://github.com/zhangyuang/ssr/commit/e479496d0571c3fa34277fbb6bc7e10ae980f600))
+* add useCtx ([c6d0fbe](https://github.com/zhangyuang/ssr/commit/c6d0fbecef9ef1cb6dafaed7066b25ce4a0fcead))
+* optimize vite build ([d5dbac2](https://github.com/zhangyuang/ssr/commit/d5dbac2ce9d0233a9e7c39975eae025714449205))
+* replace esbuild transform to build ([6f37717](https://github.com/zhangyuang/ssr/commit/6f3771714282e4529b199cffa0c4e3a9ad28dd57))
+* support multiply deploy select ([eeeaba4](https://github.com/zhangyuang/ssr/commit/eeeaba41cf24e4fac5f4fe90a6b36e5a61ef06bd))
+* support optimizeDeps in vite, add react-is as deps when use antd5 ([66fa36e](https://github.com/zhangyuang/ssr/commit/66fa36eb94c7b287db68242f8e61f0928dde6356))
+* support ssr build --html in react/react18 close [#317](https://github.com/zhangyuang/ssr/issues/317) ([7311f8e](https://github.com/zhangyuang/ssr/commit/7311f8ed6034ad925c642c2682e85ab42872d86c))
+* support throw error during rendering inside vue3 in production ([343a34f](https://github.com/zhangyuang/ssr/commit/343a34f83bdf224a45bb6ef60e26be0addc26bd3))
+* use process.exit(1) replace throw error ([efe5e40](https://github.com/zhangyuang/ssr/commit/efe5e40673c81fa7904fcba7e02cca13506b6627))
+* use swc in nestjs ([29913ea](https://github.com/zhangyuang/ssr/commit/29913ea5fb5cccf4f803edcde01ed9401b54e0e8))
+* valtio ([#311](https://github.com/zhangyuang/ssr/issues/311)) ([6a4e069](https://github.com/zhangyuang/ssr/commit/6a4e0694d812056f8552a12a8dddc998344f58c7))
+
+
+
 ## [6.2.15](https://github.com/zhangyuang/ssr/compare/webpack@6.2.14...webpack@6.2.15) (2023-09-20)
 
 
