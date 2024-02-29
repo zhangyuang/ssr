@@ -27,6 +27,7 @@
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "vue": "^3.0.0",
-    "vuex": "^4.0.0"
+    "vuex": "^4.0.0",
+    "@vue/server-renderer": "^3.0.7"
   }
 }

@@ -217,6 +217,7 @@ importers:
       '@midwayjs/koa': ^3.0.0
       '@midwayjs/logger': ^3.0.0
       '@midwayjs/mock': ^3.0.0
+      '@vue/server-renderer': ^3.0.7
       eslint-config-standard-vue-ts: ^1.0.5
       koa-static-cache: ^5.1.4
       midway-schedule: ^2.0.0
@@ -240,6 +241,7 @@ importers:
       '@midwayjs/decorator': 3.4.11
       '@midwayjs/koa': 3.4.12_@midwayjs+decorator@3.4.11
       '@midwayjs/logger': 3.1.4
+      '@vue/server-renderer': 3.2.37_vue@3.2.37
       koa-static-cache: 5.1.4
       midway-schedule: 2.14.7
       pinia: 2.0.20_typescript@4.7.4+vue@3.2.37
@@ -413,6 +415,7 @@ importers:
       '@nestjs/common': ^10.2.7
       '@nestjs/core': ^10.2.7
       '@nestjs/platform-express': ^10.2.7
+      '@vue/server-renderer': ^3.0.7
       eslint-config-standard-vue-ts: ^1.0.5
       pinia: ^2.0.13
       pm2: ^4.5.4
@@ -434,6 +437,7 @@ importers:
       '@nestjs/common': 10.2.7_reflect-metadata@0.1.13
       '@nestjs/core': 10.2.7_68f63b486ae42c9dbfc0314ba2c354ff
       '@nestjs/platform-express': 10.2.7_7e1a8fdb23a2541ab0a421ae41e76c66
+      '@vue/server-renderer': 3.2.37_vue@3.2.37
       pinia: 2.0.20_typescript@4.7.4+vue@3.2.37
       pm2: 4.5.6
       reflect-metadata: 0.1.13
@@ -460,6 +464,7 @@ importers:
       '@nestjs/common': ^10.2.7
       '@nestjs/core': ^10.2.7
       '@nestjs/platform-express': ^10.2.7
+      '@vue/server-renderer': ^3.0.7
       eslint-config-standard-vue-ts: ^1.0.5
       pinia: ^2.0.13
       pm2: ^4.5.4
@@ -481,6 +486,7 @@ importers:
       '@nestjs/common': 10.2.7_reflect-metadata@0.1.13
       '@nestjs/core': 10.2.7_68f63b486ae42c9dbfc0314ba2c354ff
       '@nestjs/platform-express': 10.2.7_7e1a8fdb23a2541ab0a421ae41e76c66
+      '@vue/server-renderer': 3.2.37_vue@3.2.37
       pinia: 2.0.20_typescript@4.7.4+vue@3.2.37
       pm2: 4.5.6
       reflect-metadata: 0.1.13
@@ -593,9 +599,11 @@ importers:
 
   packages/hoc-vue3:
     specifiers:
+      '@vue/server-renderer': ^3.0.7
       vue: ^3.0.0
       vuex: ^4.0.0
     dependencies:
+      '@vue/server-renderer': 3.2.37_vue@3.2.37
       vue: 3.2.37
       vuex: 4.0.2_vue@3.2.37
 
@@ -1626,7 +1634,6 @@ packages:
   /@babel/helper-string-parser/7.22.5:
     resolution: {integrity: sha512-mM4COjgZox8U+JcXQwPijIZLElkgEpO5rsERVDJTc2qfCDfERyob6k5WegS14SX18IIjv+XD+GrqNumY5JRCDw==}
     engines: {node: '>=6.9.0'}
-    dev: false
 
   /@babel/helper-validator-identifier/7.18.6:
     resolution: {integrity: sha512-MmetCkz9ej86nJQV+sFCxoGGrUbU3q02kgLciwkrt9QqEB7cP39oKEY0PakknEO0Gu20SskMRi+AYZ3b1TpN9g==}
@@ -1691,7 +1698,6 @@ packages:
     hasBin: true
     dependencies:
       '@babel/types': 7.22.5
-    dev: false
 
   /@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression/7.18.6_@babel+core@7.18.13:
     resolution: {integrity: sha512-Dgxsyg54Fx1d4Nge8UnvTrED63vrwOdPmyvPzlNN/boaliRP54pm3pGzZD1SJUwrBA+Cs/xdG8kXX6Mn/RfISQ==}
@@ -2774,7 +2780,6 @@ packages:
       '@babel/helper-string-parser': 7.22.5
       '@babel/helper-validator-identifier': 7.22.5
       to-fast-properties: 2.0.0
-    dev: false
 
   /@colors/colors/1.5.0:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
@@ -4933,7 +4938,7 @@ packages:
   /@vue/compiler-core/3.2.37:
     resolution: {integrity: sha512-81KhEjo7YAOh0vQJoSmAD68wLfYqJvoiD4ulyedzF+OEk/bk6/hx3fTNVfuzugIIaTrOx4PGx6pAiBRe5e9Zmg==}
     dependencies:
-      '@babel/parser': 7.18.13
+      '@babel/parser': 7.22.7
       '@vue/shared': 3.2.37
       estree-walker: 2.0.2
       source-map: 0.6.1

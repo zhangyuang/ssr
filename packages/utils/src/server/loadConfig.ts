@@ -38,9 +38,9 @@ const loadConfig = (): IConfig => {
     'react/jsx-runtime': loadModuleFromFramework('react/jsx-runtime'),
     'react/jsx-dev-runtime': loadModuleFromFramework('react/jsx-dev-runtime')
   } : {
-    vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js',
-    '@vue/server-renderer': framework === 'ssr-plugin-vue' ? '' : loadModuleFromFramework('@vue/server-renderer/index.js') // use commonjs file
+    vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
   }, userConfig.alias)
+
   type ClientLogLevel = 'error'
   const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPath(userConfig.publicPath ?? '/')
 
