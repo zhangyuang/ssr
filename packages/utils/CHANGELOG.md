@@ -1,3 +1,17 @@
+## [6.2.120](https://github.com/zhangyuang/ssr/compare/utils@6.2.119...utils@6.2.120) (2024-02-29)
+
+
+### Bug Fixes
+
+* delete entry name chunk in cacheGroup when build optimize ([c813208](https://github.com/zhangyuang/ssr/commit/c8132083468e0f7c661e1b0aa301c733556b8466))
+
+
+### Features
+
+* add debug when build optimize ([402b3c1](https://github.com/zhangyuang/ssr/commit/402b3c18a33f14ea447fbc96d61648d21213d6fd))
+
+
+
 ## <small>6.2.119 (2024-02-29)</small>
 
 * feat: add error log when build optimize ([8d21bfb](https://github.com/zhangyuang/ssr/commit/8d21bfb))
