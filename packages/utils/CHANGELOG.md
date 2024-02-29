@@ -1,3 +1,13 @@
+## <small>6.2.119 (2024-02-29)</small>
+
+* feat: add error log when build optimize ([8d21bfb](https://github.com/zhangyuang/ssr/commit/8d21bfb))
+* feat: use process.exit(1) replace throw error ([efe5e40](https://github.com/zhangyuang/ssr/commit/efe5e40))
+* fix: add @vue/server-renderer in package.json ([ff2f6de](https://github.com/zhangyuang/ssr/commit/ff2f6de))
+* release: utils@6.2.118 ([be5cd57](https://github.com/zhangyuang/ssr/commit/be5cd57))
+* release: webpack@6.2.16 ([a90682e](https://github.com/zhangyuang/ssr/commit/a90682e))
+
+
+
 ## [6.2.118](https://github.com/zhangyuang/ssr/compare/utils@6.2.117...utils@6.2.118) (2024-02-21)
 
 
