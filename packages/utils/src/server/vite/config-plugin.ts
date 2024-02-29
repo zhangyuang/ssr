@@ -179,6 +179,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
       })
       return await new Promise((resolve) => {
         if (err) {
+          logErr(JSON.stringify(err))
           writeEmitter.on('buildEnd', () => {
             for (const id of moduleIds) {
               setGenerateMap(id)
