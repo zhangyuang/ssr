@@ -34,7 +34,7 @@ const writeRoutes = async (routes: string, name?: string) => {
 }
 
 const getWebpackSplitCache = () => {
-  const { optimize } = loadConfig()
+  const { optimize, chunkName } = loadConfig()
   if (optimize) {
     const generateMap: Record<string, string> = require(resolve(getCwd(), './build/generateMap.json'))
     const asyncChunkMap = require(resolve(getCwd(), './build/asyncChunkMap.json'))
@@ -67,6 +67,7 @@ const getWebpackSplitCache = () => {
       }
       webpackMap[chunkName].push(fileName)
     }
+    delete webpackMap[chunkName]
     const cacheGroups: Record<string, {
       name: string
       test: (module: SSRModule) => boolean | undefined
