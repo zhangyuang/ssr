@@ -1128,12 +1128,14 @@ importers:
   packages/utils:
     specifiers:
       '@rollup/plugin-babel': ^5.3.0
+      '@types/debug': ^4.1.12
       '@types/qs': ^6.9.7
       '@types/react': ^17.0.0
       '@types/semver': ^7.3.9
       '@types/shelljs': ^0.8.7
       axios: ^1.4.0
       concurrently: ^5.1.0
+      debug: ^4.3.4
       es-module-lexer: ^0.9.3
       execa: ^5.1.1
       http-proxy-middleware: ^1.0.6
@@ -1149,10 +1151,11 @@ importers:
       vue: ^3.0.0
       webpack-chain: ^6.4.0
     dependencies:
-      axios: 1.4.0
+      axios: 1.4.0_debug@4.3.4
+      debug: 4.3.4
       es-module-lexer: 0.9.3
       execa: 5.1.1
-      http-proxy-middleware: 1.3.1
+      http-proxy-middleware: 1.3.1_debug@4.3.4
       koa2-connect: 1.0.2
       magic-string: 0.25.9
       path-to-regexp: 6.2.1
@@ -1161,6 +1164,7 @@ importers:
       shelljs: 0.8.5
     devDependencies:
       '@rollup/plugin-babel': 5.3.1_rollup@2.77.3
+      '@types/debug': 4.1.12
       '@types/qs': 6.9.7
       '@types/react': 17.0.48
       '@types/semver': 7.3.12
@@ -4261,6 +4265,12 @@ packages:
       '@types/keygrip': 1.0.2
       '@types/node': 18.7.13
 
+  /@types/debug/4.1.12:
+    resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
+    dependencies:
+      '@types/ms': 0.7.34
+    dev: true
+
   /@types/eslint-scope/3.7.5:
     resolution: {integrity: sha512-JNvhIEyxVW6EoMIFIvj93ZOywYFatlpu9deeH6eSx6PE3WHYvHaQtmHmQeNw7aA81bYGBPPQqdtBm6b1SsQMmA==}
     dependencies:
@@ -4381,6 +4391,10 @@ packages:
 
   /@types/minimist/1.2.2:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
+    dev: true
+
+  /@types/ms/0.7.34:
+    resolution: {integrity: sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==}
     dev: true
 
   /@types/node/12.12.50:
@@ -5828,6 +5842,16 @@ packages:
     dev: false
 
   /axios/1.4.0:
+    resolution: {integrity: sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==}
+    dependencies:
+      follow-redirects: 1.15.1_debug@4.3.4
+      form-data: 4.0.0
+      proxy-from-env: 1.1.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
+  /axios/1.4.0_debug@4.3.4:
     resolution: {integrity: sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==}
     dependencies:
       follow-redirects: 1.15.1_debug@4.3.4
@@ -10912,26 +10936,15 @@ packages:
       - supports-color
     dev: false
 
-  /http-proxy-middleware/1.3.1:
+  /http-proxy-middleware/1.3.1_debug@4.3.4:
     resolution: {integrity: sha512-13eVVDYS4z79w7f1+NPllJtOQFx/FdUW4btIvVRMaRlUY9VGstAbo5MOhLEuUgZFRHn3x50ufn25zkj/boZnEg==}
     engines: {node: '>=8.0.0'}
     dependencies:
       '@types/http-proxy': 1.17.9
-      http-proxy: 1.18.1
+      http-proxy: 1.18.1_debug@4.3.4
       is-glob: 4.0.3
       is-plain-obj: 3.0.0
       micromatch: 4.0.5
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
-  /http-proxy/1.18.1:
-    resolution: {integrity: sha512-7mz/721AbnJwIVbnaSv1Cz3Am0ZLT/UBwkC92VlxhXv/k/BBQfM2fXElQNC27BVGr0uwUpplYPQM9LnaBMR5NQ==}
-    engines: {node: '>=8.0.0'}
-    dependencies:
-      eventemitter3: 4.0.7
-      follow-redirects: 1.15.1_debug@4.3.4
-      requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
     dev: false

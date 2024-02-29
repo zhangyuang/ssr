@@ -5,7 +5,10 @@ import { promisify } from 'util'
 import type { UserConfig, Json, SSRModule, PkgJson } from 'ssr-types'
 import { coerce } from 'semver'
 import { rm } from 'shelljs'
+import debug from 'debug'
 import { loadConfig } from './loadConfig'
+
+export const ssrDebug = debug('ssr')
 
 const getCwd = () => {
   return resolve(process.cwd(), process.env.APP_ROOT ?? '')

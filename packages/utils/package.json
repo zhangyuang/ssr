@@ -44,6 +44,7 @@
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "axios": "^1.4.0",
+    "debug": "^4.3.4",
     "es-module-lexer": "^0.9.3",
     "execa": "^5.1.1",
     "http-proxy-middleware": "^1.0.6",
@@ -56,7 +57,7 @@
   },
   "devDependencies": {
     "@rollup/plugin-babel": "^5.3.0",
-    "webpack-chain": "^6.4.0",
+    "@types/debug": "^4.1.12",
     "@types/qs": "^6.9.7",
     "@types/react": "^17.0.0",
     "@types/semver": "^7.3.9",
@@ -65,6 +66,7 @@
     "pinia": "^2.0.13",
     "rollup": ">=2.59.0 <2.78.0",
     "ssr-types": "^6.0.0",
-    "vue": "^3.0.0"
+    "vue": "^3.0.0",
+    "webpack-chain": "^6.4.0"
   }
 }

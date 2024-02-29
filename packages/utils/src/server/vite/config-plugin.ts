@@ -8,7 +8,7 @@ import type { OutputOptions, PreRenderedChunk, PluginContext } from 'rollup'
 import { mkdir } from 'shelljs'
 import { loadConfig } from '../loadConfig'
 import { getOutputPublicPath } from '../parse'
-import { getCwd, cryptoAsyncChunkName, accessFile, debounce } from '../cwd'
+import { getCwd, cryptoAsyncChunkName, accessFile, debounce, ssrDebug } from '../cwd'
 import { logErr } from '../log'
 import { getDependencies, getPkgName } from '../build-utils'
 import { getBuildConfig } from '../build-config'
@@ -146,6 +146,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
     },
     transform (this, code, id) {
       moduleIds.push(id)
+      ssrDebug(`build optimize process file ${id}`)
       checkBuildEnd()
     },
     async buildEnd (this, err) {
