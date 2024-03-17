@@ -1,3 +1,29 @@
+## [6.2.23](https://github.com/zhangyuang/ssr/compare/plugin-midway@6.2.22...plugin-midway@6.2.23) (2024-03-17)
+
+
+### Bug Fixes
+
+* add @vue/server-renderer in package.json ([ff2f6de](https://github.com/zhangyuang/ssr/commit/ff2f6de84667198a7a99301d1fce7cab40b59abc))
+* add babel-optional-chaining in plugin-vue, use checkModuleExist replace loadModule ([3f6d451](https://github.com/zhangyuang/ssr/commit/3f6d4511eb7b89fd6cdf5962d03dd3a2b23dd35f))
+* delete entry name chunk in cacheGroup when build optimize ([c813208](https://github.com/zhangyuang/ssr/commit/c8132083468e0f7c661e1b0aa301c733556b8466))
+* loadModule in vue2 ([1e8055b](https://github.com/zhangyuang/ssr/commit/1e8055b4218a57c1f07c01f9698d119b47f59824))
+* plugin-react close [#321](https://github.com/zhangyuang/ssr/issues/321) ([1f0709f](https://github.com/zhangyuang/ssr/commit/1f0709fd7bc5a9633555f33bfe5dc21a7d925028))
+* specify platform as node ([0b6f358](https://github.com/zhangyuang/ssr/commit/0b6f35895c147c01a6dd254d76445b2fd5dabdb2))
+
+
+### Features
+
+* add debug when build optimize ([402b3c1](https://github.com/zhangyuang/ssr/commit/402b3c18a33f14ea447fbc96d61648d21213d6fd))
+* add error log when build optimize ([8d21bfb](https://github.com/zhangyuang/ssr/commit/8d21bfb45d522589ca0bb6187ebb1d0205cacd67))
+* add optional-chaining in default ([e479496](https://github.com/zhangyuang/ssr/commit/e479496d0571c3fa34277fbb6bc7e10ae980f600))
+* replace esbuild transform to build ([6f37717](https://github.com/zhangyuang/ssr/commit/6f3771714282e4529b199cffa0c4e3a9ad28dd57))
+* set NPM_CLIENT when midway deploy ([715799f](https://github.com/zhangyuang/ssr/commit/715799f2c87b1671b0d27a9470c5871cee33072b))
+* support optimizeDeps in vite, add react-is as deps when use antd5 ([66fa36e](https://github.com/zhangyuang/ssr/commit/66fa36eb94c7b287db68242f8e61f0928dde6356))
+* support ssr build --html in react/react18 close [#317](https://github.com/zhangyuang/ssr/issues/317) ([7311f8e](https://github.com/zhangyuang/ssr/commit/7311f8ed6034ad925c642c2682e85ab42872d86c))
+* use process.exit(1) replace throw error ([efe5e40](https://github.com/zhangyuang/ssr/commit/efe5e40673c81fa7904fcba7e02cca13506b6627))
+
+
+
 ## [6.2.22](https://github.com/zhangyuang/ssr/compare/plugin-midway@6.2.21...plugin-midway@6.2.22) (2023-12-14)
 
 
