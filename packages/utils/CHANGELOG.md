@@ -1,3 +1,17 @@
+## [6.2.122](https://github.com/zhangyuang/ssr/compare/utils@6.2.121...utils@6.2.122) (2024-03-17)
+
+
+### Bug Fixes
+
+* loadConfig ([a0c2e4a](https://github.com/zhangyuang/ssr/commit/a0c2e4a22b343d77626044eea292f7de2d2e46b7))
+
+
+### Features
+
+* set NPM_CLIENT when midway deploy ([715799f](https://github.com/zhangyuang/ssr/commit/715799f2c87b1671b0d27a9470c5871cee33072b))
+
+
+
 ## [6.2.121](https://github.com/zhangyuang/ssr/compare/utils@6.2.120...utils@6.2.121) (2024-03-01)
 
 
