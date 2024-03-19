@@ -1,3 +1,12 @@
+## [6.2.123](https://github.com/zhangyuang/ssr/compare/utils@6.2.122...utils@6.2.123) (2024-03-19)
+
+
+### Features
+
+* support more sourcemap type ([80571b3](https://github.com/zhangyuang/ssr/commit/80571b3bdd210e7847f9ba7db5e5a52c1453c821))
+
+
+
 ## [6.2.122](https://github.com/zhangyuang/ssr/compare/utils@6.2.121...utils@6.2.122) (2024-03-17)
 
 

@@ -1,3 +1,24 @@
+## [6.2.104](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.103...plugin-vue3@6.2.104) (2024-03-19)
+
+
+### Bug Fixes
+
+* add @vue/server-renderer in package.json ([ff2f6de](https://github.com/zhangyuang/ssr/commit/ff2f6de84667198a7a99301d1fce7cab40b59abc))
+* delete entry name chunk in cacheGroup when build optimize ([c813208](https://github.com/zhangyuang/ssr/commit/c8132083468e0f7c661e1b0aa301c733556b8466))
+* loadConfig ([a0c2e4a](https://github.com/zhangyuang/ssr/commit/a0c2e4a22b343d77626044eea292f7de2d2e46b7))
+* loadModule in vue2 ([1e8055b](https://github.com/zhangyuang/ssr/commit/1e8055b4218a57c1f07c01f9698d119b47f59824))
+
+
+### Features
+
+* add debug when build optimize ([402b3c1](https://github.com/zhangyuang/ssr/commit/402b3c18a33f14ea447fbc96d61648d21213d6fd))
+* add error log when build optimize ([8d21bfb](https://github.com/zhangyuang/ssr/commit/8d21bfb45d522589ca0bb6187ebb1d0205cacd67))
+* set NPM_CLIENT when midway deploy ([715799f](https://github.com/zhangyuang/ssr/commit/715799f2c87b1671b0d27a9470c5871cee33072b))
+* support more sourcemap type ([80571b3](https://github.com/zhangyuang/ssr/commit/80571b3bdd210e7847f9ba7db5e5a52c1453c821))
+* use process.exit(1) replace throw error ([efe5e40](https://github.com/zhangyuang/ssr/commit/efe5e40673c81fa7904fcba7e02cca13506b6627))
+
+
+
 ## [6.2.103](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.102...plugin-vue3@6.2.103) (2024-02-21)
 
 
