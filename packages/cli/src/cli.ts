@@ -155,7 +155,7 @@ yargs
       desc: 'Build with Static Site Generation (Pre Render)'
     },
     sourcemap: {
-      desc: 'Generate sourcemap in production environment'
+      desc: 'Set type of generate sourcemap by build --sourcemap xxx'
     },
     nominify: {
       desc: 'Disable minify output file content for debug'
