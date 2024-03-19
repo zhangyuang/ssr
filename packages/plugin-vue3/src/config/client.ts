@@ -13,7 +13,6 @@ const getClientWebpack = (chain: WebpackChain) => {
 
   getBaseConfig(chain, false)
   const buildConfig = getBuildConfig()
-  chain.devtool(isDev ? 'eval-source-map' : (shouldUseSourceMap ? 'source-map' : false))
   chain.entry(chunkName)
     .add(require.resolve('../entry/client-entry'))
     .end()

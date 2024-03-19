@@ -14,7 +14,6 @@ const getClientWebpack = (chain: WebpackChain) => {
   const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
   const publicPath = getOutputPublicPath()
   getBaseConfig(chain, false)
-  chain.devtool(isDev ? 'eval-source-map' : (shouldUseSourceMap ? 'source-map' : false))
   chain.entry(chunkName)
     .add(require.resolve('../entry/client-entry'))
     .end()

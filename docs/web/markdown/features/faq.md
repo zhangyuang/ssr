@@ -771,7 +771,8 @@ export { userConfig }
 
 ```bash
 $ GENERATE_SOURCEMAP=1 npm run build
-$ npx ssr build --sourcemap
+$ npx ssr build --sourcemap # 默认为 'sourcemap' 类型
+$ npx ssr build --sourcemap hidden-source-map # 设置sourcemap类型为hidden-source-map
 ```
 
 

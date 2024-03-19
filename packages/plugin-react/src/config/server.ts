@@ -10,7 +10,6 @@ const getServerWebpack = (chain: WebpackChain) => {
   const { isDev, cwd, getOutput, chainServerConfig, whiteList, chunkName } = config
   const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
   getBaseConfig(chain, true)
-  chain.devtool(isDev ? 'inline-source-map' : false)
   chain.target('node')
   chain.entry(chunkName)
     .add(require.resolve('../entry/server-entry'))

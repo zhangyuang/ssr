@@ -182,7 +182,7 @@ yargs
   })
   .command('update', 'check dependencies version is latest', {}, async (argv: Argv) => {
     spinner.start()
-    const { update } = await import ('./update')
+    const { update } = await import('./update')
     await update()
     spinner.stop()
   })
