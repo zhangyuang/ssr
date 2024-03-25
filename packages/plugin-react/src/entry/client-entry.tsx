@@ -5,18 +5,16 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { preloadComponent, isMicro, setStoreContext, setStore } from 'ssr-common-utils'
 import { wrapComponent } from 'ssr-hoc-react'
 import { LayoutProps } from 'ssr-types'
-import { STORE_CONTEXT as Context } from '_build/create-context'
-import { Routes } from './create-router'
-import { createStore } from './create-store'
+import { ssrCreateContext, Routes, createStore } from './create'
 import { AppContext } from './context'
 
 const { FeRoutes, layoutFetch, App } = Routes
 
 const clientRender = async (): Promise<void> => {
-  const IApp = App ?? function (props: LayoutProps) {
+  const IApp = App ?? function(props: LayoutProps) {
     return props.children!
   }
-  setStoreContext(Context)
+  setStoreContext(ssrCreateContext() as any)
   const store = createStore(window.__VALTIO_DATA__)
   setStore(store ?? {})
   const baseName = isMicro() ? window.clientPrefix : window.prefix
@@ -24,7 +22,7 @@ const clientRender = async (): Promise<void> => {
   ReactDOM[window.__USE_SSR__ ? 'hydrate' : 'render'](
     createElement(BrowserRouter, {
       basename: baseName
-    }, createElement(AppContext as any, {
+    }, createElement(AppContext, {
       children: createElement(Switch, null,
         createElement(IApp as any, null, createElement(Switch, null,
           routes.map(item => {

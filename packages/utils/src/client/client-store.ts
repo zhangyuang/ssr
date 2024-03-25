@@ -54,7 +54,7 @@ const contextCache = {
 export const setStore = (store: any) => {
   storeCache.set(store)
 }
-export const useStore = <T = any >(): T => {
+export const useStore = <T = any>(): T => {
   return storeCache.get()
 }
 

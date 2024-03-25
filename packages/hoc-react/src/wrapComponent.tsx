@@ -1,9 +1,9 @@
 import * as React from 'react'
 import 'react-router'
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useState, createElement } from 'react'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { DynamicFC, StaticFC, Action, ReactESMFetch, ReactFetch } from 'ssr-types'
-import { STORE_CONTEXT } from '_build/create-context'
+import { useStoreContext } from 'ssr-common-utils'
 
 let hasRender = false
 
@@ -30,10 +30,10 @@ const fetchAndDispatch = async ({ fetch, layoutFetch }: fetchType, dispatch: Rea
     payload: combineData
   })
 }
-function wrapComponent (WrappedComponent: DynamicFC|StaticFC) {
-  return withRouter((props) => {
+function wrapComponent(WrappedComponent: DynamicFC | StaticFC) {
+  return withRouter((props: any) => {
     const [ready, setReady] = useState(WrappedComponent.name !== 'dynamicComponent')
-    const { state, dispatch } = useContext(STORE_CONTEXT)
+    const { state, dispatch } = useContext(useStoreContext() as any)
 
     useEffect(() => {
       didMount()
@@ -55,7 +55,7 @@ function wrapComponent (WrappedComponent: DynamicFC|StaticFC) {
       hasRender = true
     }
     return (
-      ready ? <WrappedComponent {...props}></WrappedComponent> : null
+      ready ? createElement(WrappedComponent, { ...props }) : null
     )
   })
 }

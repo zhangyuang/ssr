@@ -325,11 +325,6 @@ export const getStaticConfig = () => {
   return staticConfig
 }
 
-const copyReactContext = async () => {
-  const f = judgeFramework()
-  await promises.copyFile(resolve(getCwd(), `./node_modules/${f}/src/entry/create-context.ts`), resolve(getCwd(), './build/create-context.ts'))
-}
-
 const execPromisify = promisify(exec)
 
 const stringifyDefine = (obj: { [key: string]: Json }) => {
@@ -378,7 +373,6 @@ export {
   accessFile,
   execPromisify,
   cryptoAsyncChunkName,
-  copyReactContext,
   transformConfig,
   accessFileSync,
   judgeFramework,

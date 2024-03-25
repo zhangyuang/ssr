@@ -6,13 +6,13 @@ import { renderToString, renderToNodeStream } from 'react-dom/server'
 import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, splitPageInfo, reactRefreshFragment, localStorageWrapper, checkRoute, useStore } from 'ssr-common-utils'
 import { ISSRContext, IConfig, ReactESMPreloadFeRouteItem, DynamicFC, StaticFC } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
-import { STORE_CONTEXT as Context } from '_build/create-context'
-import { Routes } from './create-router'
-import { createStore } from './create-store'
+import { AppContext } from './context'
+import { Routes, ssrCreateContext, createStore } from './create'
 
 const { FeRoutes, layoutFetch, state, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
+  const context = ssrCreateContext()
   const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, rootId, hashRouter } = config
   const rawPath = ctx.request.path ?? ctx.request.url
   const path = normalizePath(rawPath, prefix)
@@ -80,22 +80,21 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     const ele = createElement(StaticRouter, {
       location: ctx.request.url,
       basename: prefix === '/' ? undefined : prefix
-    }, createElement(Context.Provider, {
-      value: {
-        state: combineData
-      }
-    }, createElement(Layout, {
-      ctx: ctx,
-      config: config,
-      staticList: staticList,
-      injectState: injectState
-    }, createElement(Component, null))))
+    }, createElement(AppContext, {
+      initialState: combineData,
+      children: createElement(Layout, {
+        ctx: ctx,
+        config: config,
+        staticList: staticList,
+        injectState: injectState
+      }, createElement(Component, null))
+    }))
     // for ctx.body will loose asynclocalstorage context, consume stream in advance like vue2/3
     return stream ? renderToNodeStream(ele).pipe(new PassThrough()) : renderToString(ele)
   }
 
   return await localStorageWrapper.run({
-    context: Context,
+    context: context as any,
     ctx,
     store: createStore()
   }, fn)

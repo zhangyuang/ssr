@@ -561,12 +561,14 @@ importers:
       react-dom: ^17.0.0
       react-router: ^5.2.1
       react-router-dom: ^5.1.2
+      ssr-common-utils: ^6.0.0
       ssr-types: ^6.2.7
     dependencies:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-router: 5.3.3_react@17.0.2
       react-router-dom: 5.3.3_react@17.0.2
+      ssr-common-utils: link:../utils
     devDependencies:
       '@types/react': 17.0.48
       '@types/react-dom': 17.0.17
@@ -584,12 +586,14 @@ importers:
       react-dom: ^18.0.0
       react-router: ^5.2.1
       react-router-dom: ^5.1.2
+      ssr-common-utils: ^6.0.0
       ssr-types: ^6.2.7
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       react-router: 5.3.3_react@18.2.0
       react-router-dom: 5.3.3_react@18.2.0
+      ssr-common-utils: link:../utils
     devDependencies:
       '@types/react': 18.0.28
       '@types/react-dom': 18.0.11

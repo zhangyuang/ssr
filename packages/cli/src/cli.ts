@@ -21,7 +21,7 @@ const spinner = {
 }
 
 const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
-  const { copyReactContext, judgeFramework, judgeServerFramework, logGreen } = await import('ssr-common-utils')
+  const { judgeFramework, judgeServerFramework, logGreen } = await import('ssr-common-utils')
   const framework = judgeFramework()
   const serverFramework = judgeServerFramework()
   if (argv.ssg) {
@@ -30,9 +30,6 @@ const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
   if (!argv.api) {
     const { clientPlugin } = await import(framework)
     const client: IPlugin['clientPlugin'] = clientPlugin()
-    if (client?.name === 'plugin-react') {
-      await copyReactContext()
-    }
     await client?.[type]?.(argv)
   }
   if (!argv.web) {
