@@ -1,3 +1,12 @@
+## [6.2.125](https://github.com/zhangyuang/ssr/compare/utils@6.2.124...utils@6.2.125) (2024-03-25)
+
+
+### Bug Fixes
+
+* optimize react scene use context code ([1d3e885](https://github.com/zhangyuang/ssr/commit/1d3e885d4fd5a8fade6f48438592ae2df16374e1))
+
+
+
 ## [6.2.124](https://github.com/zhangyuang/ssr/compare/utils@6.2.123...utils@6.2.124) (2024-03-25)
 
 

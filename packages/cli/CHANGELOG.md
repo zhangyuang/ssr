@@ -1,3 +1,13 @@
+## [6.2.69](https://github.com/zhangyuang/ssr/compare/cli@6.2.68...cli@6.2.69) (2024-03-25)
+
+
+### Bug Fixes
+
+* optimize react scene use context code ([1d3e885](https://github.com/zhangyuang/ssr/commit/1d3e885d4fd5a8fade6f48438592ae2df16374e1))
+* valtio single instance error ([0474b30](https://github.com/zhangyuang/ssr/commit/0474b302110adc755285fdcefe9d58757e1b200f))
+
+
+
 ## [6.2.68](https://github.com/zhangyuang/ssr/compare/cli@6.2.67...cli@6.2.68) (2024-03-19)
 
 

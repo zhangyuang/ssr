@@ -1,3 +1,12 @@
+## [6.2.74](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.73...plugin-react@6.2.74) (2024-03-25)
+
+
+### Bug Fixes
+
+* optimize react scene use context code ([1d3e885](https://github.com/zhangyuang/ssr/commit/1d3e885d4fd5a8fade6f48438592ae2df16374e1))
+
+
+
 ## [6.2.73](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.72...plugin-react@6.2.73) (2024-03-25)
 
 
