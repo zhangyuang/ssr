@@ -1,3 +1,12 @@
+## [6.2.124](https://github.com/zhangyuang/ssr/compare/utils@6.2.123...utils@6.2.124) (2024-03-25)
+
+
+### Bug Fixes
+
+* valtio single instance error ([0474b30](https://github.com/zhangyuang/ssr/commit/0474b302110adc755285fdcefe9d58757e1b200f))
+
+
+
 ## [6.2.123](https://github.com/zhangyuang/ssr/compare/utils@6.2.122...utils@6.2.123) (2024-03-19)
 
 
