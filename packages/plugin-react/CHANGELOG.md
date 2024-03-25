@@ -1,3 +1,12 @@
+## [6.2.76](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.75...plugin-react@6.2.76) (2024-03-25)
+
+
+### Bug Fixes
+
+* object.assign take effect in initial state ([bf8268f](https://github.com/zhangyuang/ssr/commit/bf8268fc0181e22ace47c13a6cd6239ca89c73c5))
+
+
+
 ## [6.2.75](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.74...plugin-react@6.2.75) (2024-03-25)
 
 
