@@ -1,3 +1,12 @@
+## [6.2.75](https://github.com/zhangyuang/ssr/compare/plugin-react18@6.2.74...plugin-react18@6.2.75) (2024-03-25)
+
+
+### Bug Fixes
+
+* contex single instance ([3ca64cd](https://github.com/zhangyuang/ssr/commit/3ca64cdcd6aa0e556b5131147737b39bcd50902f))
+
+
+
 ## [6.2.74](https://github.com/zhangyuang/ssr/compare/plugin-react18@6.2.73...plugin-react18@6.2.74) (2024-03-25)
 
 

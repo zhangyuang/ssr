@@ -14,7 +14,8 @@ const clientRender = async (): Promise<void> => {
   const IApp = App ?? function(props: LayoutProps) {
     return props.children!
   }
-  setStoreContext(ssrCreateContext() as any)
+  const context = ssrCreateContext() as any
+  setStoreContext(context)
   const store = createStore(window.__VALTIO_DATA__)
   setStore(store ?? {})
   const baseName = isMicro() ? window.clientPrefix : window.prefix
@@ -23,6 +24,7 @@ const clientRender = async (): Promise<void> => {
   const ele = createElement(BrowserRouter as any, {
     basename: baseName
   }, createElement(AppContext as any, {
+    context,
     children: createElement(Switch as any, null,
       createElement(IApp as any, null, createElement(Switch as any, null,
         routes.map(item => {

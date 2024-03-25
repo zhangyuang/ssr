@@ -1,3 +1,12 @@
+## [6.2.55](https://github.com/zhangyuang/ssr/compare/types@6.2.54...types@6.2.55) (2024-03-25)
+
+
+### Bug Fixes
+
+* contex single instance ([3ca64cd](https://github.com/zhangyuang/ssr/commit/3ca64cdcd6aa0e556b5131147737b39bcd50902f))
+
+
+
 ## [6.2.54](https://github.com/zhangyuang/ssr/compare/types@6.2.53...types@6.2.54) (2024-03-25)
 
 
