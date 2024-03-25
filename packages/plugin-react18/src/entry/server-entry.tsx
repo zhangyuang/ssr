@@ -60,7 +60,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       [layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
     }
     const ssrDevInfo = { manifest: isDev ? manifest : '', rootId }
-    const combineData = isCsr ? null : Object.assign(state ?? {}, layoutFetchData ?? {}, fetchData ?? {})
+    const combineData = isCsr ? null : Object.assign({}, state ?? {}, layoutFetchData ?? {}, fetchData ?? {})
     const innerHTML = splitPageInfo({
       'window.__USE_SSR__': !isCsr,
       'window.__INITIAL_DATA__': isCsr ? {} : serialize(combineData),

@@ -1,5 +1,4 @@
 import { createContext } from 'react'
-import type { Context } from 'react'
 import type { IContext } from 'ssr-types'
 import { proxy } from 'valtio'
 import { deepClone } from 'ssr-deepclone'
@@ -11,20 +10,13 @@ import { ReactRoutesType } from 'ssr-types'
 export const Routes = combineRoutes(declareRoutes, ManualRoutes) as ReactRoutesType
 
 export const ssrCreateContext = () => {
-  let STORE_CONTEXT: Context<IContext>
-
+  const context = createContext<IContext>({
+    state: {}
+  })
   if (__isBrowser__) {
-    STORE_CONTEXT = window.STORE_CONTEXT || createContext<IContext>({
-      state: {}
-    })
-    window.STORE_CONTEXT = STORE_CONTEXT
-    return STORE_CONTEXT
-  } else {
-    STORE_CONTEXT = createContext<IContext>({
-      state: {}
-    })
+    window.STORE_CONTEXT = context
   }
-  return STORE_CONTEXT
+  return context
 }
 
 export function createStore (initialData?: any) {
