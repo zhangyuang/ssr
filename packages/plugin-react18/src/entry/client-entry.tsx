@@ -2,24 +2,22 @@ import { createElement } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
 import 'react-router' // for vite prebundle list
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { proxy } from 'valtio'
 import { preloadComponent, isMicro, setStoreContext, setStore } from 'ssr-common-utils'
 import { wrapComponent } from 'ssr-hoc-react18'
 import { LayoutProps } from 'ssr-types'
 import { STORE_CONTEXT as Context } from '_build/create-context'
 import { Routes } from './create-router'
+import { createStore } from './create-store'
 import { AppContext } from './context'
 
-const { FeRoutes, layoutFetch, App, store } = Routes
+const { FeRoutes, layoutFetch, App } = Routes
 
 const clientRender = async (): Promise<void> => {
   const IApp = App ?? function (props: LayoutProps) {
     return props.children!
   }
   setStoreContext(Context)
-  for (const key in store) {
-    store[key] = proxy(window.__VALTIO_DATA__?.[key])
-  }
+  const store = createStore(window.__VALTIO_DATA__)
   setStore(store ?? {})
   const baseName = isMicro() ? window.clientPrefix : window.prefix
   const routes = await preloadComponent(FeRoutes, baseName)

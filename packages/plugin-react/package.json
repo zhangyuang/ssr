@@ -65,6 +65,7 @@
     "react-router-dom": "^5.1.2",
     "semver": "^7.3.8",
     "ssr-common-utils": "^6.0.0",
+    "ssr-deepclone": "^1.0.0",
     "ssr-hoc-react": "^6.2.7",
     "ssr-mini-css-extract-plugin": "^1.0.0",
     "ssr-serialize-javascript": "^6.0.0",

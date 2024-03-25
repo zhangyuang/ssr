@@ -687,6 +687,7 @@ importers:
       react-router-dom: ^5.1.2
       semver: ^7.3.8
       ssr-common-utils: ^6.0.0
+      ssr-deepclone: ^1.0.0
       ssr-hoc-react: ^6.2.7
       ssr-mini-css-extract-plugin: ^1.0.0
       ssr-serialize-javascript: ^6.0.0
@@ -738,6 +739,7 @@ importers:
       react-router-dom: 5.3.3_react@17.0.2
       semver: 7.3.8
       ssr-common-utils: link:../utils
+      ssr-deepclone: 1.0.1
       ssr-hoc-react: link:../hoc-react
       ssr-mini-css-extract-plugin: 1.6.2
       ssr-serialize-javascript: 6.0.4
@@ -803,6 +805,7 @@ importers:
       react-router-dom: ^5.1.2
       semver: ^7.3.8
       ssr-common-utils: ^6.0.0
+      ssr-deepclone: ^1.0.0
       ssr-hoc-react18: ^6.2.7
       ssr-mini-css-extract-plugin: ^1.0.0
       ssr-serialize-javascript: ^6.0.0
@@ -854,6 +857,7 @@ importers:
       react-router-dom: 5.3.3_react@18.2.0
       semver: 7.3.8
       ssr-common-utils: link:../utils
+      ssr-deepclone: 1.0.1
       ssr-hoc-react18: link:../hoc-react18
       ssr-mini-css-extract-plugin: 1.6.2
       ssr-serialize-javascript: 6.0.4
@@ -5844,7 +5848,7 @@ packages:
   /axios/1.4.0:
     resolution: {integrity: sha512-S4XCWMEmzvo64T9GfvQDOXgYRDJ/wsSZc7Jvdgx5u1sd0JwsuPLqb3SYmusag+edF6ziyMensPVqLTSc1PiSEA==}
     dependencies:
-      follow-redirects: 1.15.1_debug@4.3.4
+      follow-redirects: 1.15.1
       form-data: 4.0.0
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
@@ -10097,6 +10101,16 @@ packages:
   /fn.name/1.1.0:
     resolution: {integrity: sha512-GRnmB5gPyJpAhTQdSZTSp9uaPSvl09KoYcMQtsB9rQoOmzs9dH6ffeccH+Z+cv6P68Hu5bC6JjRh4Ah/mHSNRw==}
 
+  /follow-redirects/1.15.1:
+    resolution: {integrity: sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dev: false
+
   /follow-redirects/1.15.1_debug@4.3.4:
     resolution: {integrity: sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==}
     engines: {node: '>=4.0'}
@@ -10299,7 +10313,7 @@ packages:
     resolution: {integrity: sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw==}
     engines: {node: '>= 4.0'}
     os: [darwin]
-    deprecated: fsevents 1 will break on node v14+ and could be using insecure binaries. Upgrade to fsevents 2.
+    deprecated: The v1 package contains DANGEROUS / INSECURE binaries. Upgrade to safe fsevents v2
     requiresBuild: true
     dependencies:
       bindings: 1.5.0
@@ -11064,7 +11078,7 @@ packages:
     dev: true
 
   /image-size/0.5.5:
-    resolution: {integrity: sha1-Cd/Uq50g4p6xw+gLiZA3jfnjy5w=}
+    resolution: {integrity: sha512-6TDAlDPZxUFCv+fuOkIoXT/V/f3Qbq8e37p+YOiYrUv3v9cc3/6x78VdfPgFVaB9dZYeLUfKgHRebpkm/oP2VQ==}
     engines: {node: '>=0.10.0'}
     hasBin: true
     requiresBuild: true

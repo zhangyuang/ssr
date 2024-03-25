@@ -8,8 +8,9 @@ import { ISSRContext, IConfig, ReactESMPreloadFeRouteItem, DynamicFC, StaticFC }
 import { serialize } from 'ssr-serialize-javascript'
 import { STORE_CONTEXT as Context } from '_build/create-context'
 import { Routes } from './create-router'
+import { createStore } from './create-store'
 
-const { FeRoutes, layoutFetch, state, Layout, store } = Routes
+const { FeRoutes, layoutFetch, state, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, onError, onReady, rootId, hashRouter } = config
@@ -94,7 +95,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   return await localStorageWrapper.run({
     context: Context,
     ctx,
-    store
+    store: createStore()
   }, fn)
 }
 
