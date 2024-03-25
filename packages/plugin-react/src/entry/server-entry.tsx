@@ -81,6 +81,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       location: ctx.request.url,
       basename: prefix === '/' ? undefined : prefix
     }, createElement(AppContext, {
+      context: context as any,
       initialState: combineData,
       children: createElement(Layout, {
         ctx: ctx,

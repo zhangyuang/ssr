@@ -1,6 +1,6 @@
 import { useReducer, createElement } from 'react'
 import { IProps, Action, IWindow, ReactRoutesType } from 'ssr-types'
-import { ssrCreateContext, Routes } from './create'
+import { Routes } from './create'
 
 const { reducer, state } = Routes as ReactRoutesType
 
@@ -29,9 +29,8 @@ function combineReducer(state: any, action: any) {
 
 export function AppContext(props: IProps) {
   const initialState = Object.assign({}, userState ?? {}, __isBrowser__ ? window?.__INITIAL_DATA__ : props.initialState)
-  const Context = ssrCreateContext()
   const [state, dispatch] = useReducer(combineReducer, initialState)
-  return createElement(Context.Provider, {
+  return createElement(props.context.Provider, {
     value: {
       state,
       dispatch
