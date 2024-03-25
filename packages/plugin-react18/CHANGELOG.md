@@ -1,3 +1,12 @@
+## [6.2.73](https://github.com/zhangyuang/ssr/compare/plugin-react18@6.2.72...plugin-react18@6.2.73) (2024-03-25)
+
+
+### Bug Fixes
+
+* valtio single instance error ([0474b30](https://github.com/zhangyuang/ssr/commit/0474b302110adc755285fdcefe9d58757e1b200f))
+
+
+
 ## [6.2.72](https://github.com/zhangyuang/ssr/compare/plugin-react18@6.2.70...plugin-react18@6.2.72) (2024-03-19)
 
 
