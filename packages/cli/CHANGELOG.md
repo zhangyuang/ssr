@@ -1,3 +1,18 @@
+## [6.2.70](https://github.com/zhangyuang/ssr/compare/cli@6.2.69...cli@6.2.70) (2024-03-27)
+
+
+### Bug Fixes
+
+* contex single instance ([3ca64cd](https://github.com/zhangyuang/ssr/commit/3ca64cdcd6aa0e556b5131147737b39bcd50902f))
+* object.assign take effect in initial state ([bf8268f](https://github.com/zhangyuang/ssr/commit/bf8268fc0181e22ace47c13a6cd6239ca89c73c5))
+
+
+### Features
+
+* use inline-source-map in dev mode ([e639c67](https://github.com/zhangyuang/ssr/commit/e639c679adaf7eb8aecd4a712abd7df2148202cf))
+
+
+
 ## [6.2.69](https://github.com/zhangyuang/ssr/compare/cli@6.2.68...cli@6.2.69) (2024-03-25)
 
 
