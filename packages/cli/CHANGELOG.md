@@ -1,3 +1,12 @@
+## [6.2.71](https://github.com/zhangyuang/ssr/compare/cli@6.2.70...cli@6.2.71) (2024-03-27)
+
+
+### Features
+
+* use source-map in dev mode ([8041c8d](https://github.com/zhangyuang/ssr/commit/8041c8da0dd0e01b5bc66fa8fa31ccd9fe03b7a5))
+
+
+
 ## [6.2.70](https://github.com/zhangyuang/ssr/compare/cli@6.2.69...cli@6.2.70) (2024-03-27)
 
 
