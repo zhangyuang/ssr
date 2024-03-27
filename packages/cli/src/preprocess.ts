@@ -12,7 +12,7 @@ export const handleEnv = async (argv: Argv) => {
     process.env.SSG = '1'
   }
   if (isDev) {
-    process.env.GENERATE_SOURCEMAP = 'inline-source-map'
+    process.env.GENERATE_SOURCEMAP = 'source-map'
   }
   if (argv.sourcemap) {
     if (argv.sourcemap.includes?.('source-map')) {
