@@ -150,6 +150,7 @@
 - 💯　Serverless优先：一键发布到各种Serverless平台，也支持传统Web Server，比如Egg、Midway、Nest等。
 - 🛡　高可用场景，可无缝从SSR降级到CSR，最佳容灾方案。
 - 😄　功能丰富，构建工具同时支持 Webpack/Vite，支持四种渲染模式 `SSR|CSR|SSG|Html`
+- ✨ 支持 [bun](https://bun.sh/) 作为 js runtime
 
 ## 已实现的功能
 
