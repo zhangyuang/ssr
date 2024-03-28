@@ -31,13 +31,7 @@ const loadConfig = (): IConfig => {
     '~': getCwd(),
     '~/src': join(cwd, './src'),
     _build: join(cwd, './build')
-  }, framework === 'ssr-plugin-react' ? {
-    'react-dom': loadModuleFromFramework('react-dom'),
-    'react-router': loadModuleFromFramework('react-router'),
-    'react-router-dom': loadModuleFromFramework('react-router-dom'),
-    'react/jsx-runtime': loadModuleFromFramework('react/jsx-runtime'),
-    'react/jsx-dev-runtime': loadModuleFromFramework('react/jsx-dev-runtime')
-  } : {
+  }, framework === 'ssr-plugin-react' ? {} : {
     vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
   }, userConfig.alias)
 
