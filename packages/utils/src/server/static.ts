@@ -1,3 +1,5 @@
+const nameSpaceBuiltinModules = ['node:stream']
+
 const reactRefreshFragment = ` import RefreshRuntime from "/@react-refresh"
 RefreshRuntime.injectIntoGlobalHook(window)
 window.$RefreshReg$ = () => {}
@@ -22,5 +24,6 @@ export {
   reactRefreshFragment,
   remInitial,
   defaultExternal,
-  ssrPackages
+  ssrPackages,
+  nameSpaceBuiltinModules
 }

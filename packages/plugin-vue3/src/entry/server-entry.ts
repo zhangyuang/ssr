@@ -38,7 +38,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     rootId
   }: vue3AppParams) => {
     const app = createSSRApp({
-      render: function () {
+      render: function() {
         const ssrDevInfo = { manifest: isDev ? manifest : '', rootId, fePort: isDev ? fePort : '', https: isDev ? https : '' }
         const innerHTML = splitPageInfo({
           'window.__USE_SSR__': !isCsr,

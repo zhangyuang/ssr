@@ -34,6 +34,9 @@ const loadConfig = (): IConfig => {
   }, framework === 'ssr-plugin-react' ? {} : {
     vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
   }, userConfig.alias)
+  if (framework === 'ssr-plugin-vue3') {
+    alias['@vue/server-renderer'] = '@vue/server-renderer/index.js'
+  }
 
   type ClientLogLevel = 'error'
   const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPath(userConfig.publicPath ?? '/')

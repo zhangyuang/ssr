@@ -9,6 +9,7 @@ import { loadConfig } from '../loadConfig'
 import { logWarning } from '../log'
 import { judgeAntd } from '../judge'
 import { asyncChunkMap } from '../build-utils'
+import { nameSpaceBuiltinModules } from '../static'
 
 const antdVersion = judgeAntd()
 const isAntd4 = antdVersion === 4
@@ -183,13 +184,17 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
   const BundleAnalyzerPlugin = require(loadModuleFromFramework('webpack-bundle-analyzer')).BundleAnalyzerPlugin
   const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
   if (!isServer) {
+    nameSpaceBuiltinModules.forEach(moduleName => {
+      chain.node.set(moduleName, 'empty')
+    })
+
     chain.when(generateAnalysis, chain => {
       chain.plugin('analyze').use(BundleAnalyzerPlugin)
     })
     chain.plugin('WriteAsyncManifest').use(
-      function () {
+      function() {
         return {
-          apply (compiler: Compiler) {
+          apply(compiler: Compiler) {
             compiler.hooks.watchRun.tap('ClearLastAsyncChunkMap', async () => {
               asyncChunkMap.val = {}
             })
