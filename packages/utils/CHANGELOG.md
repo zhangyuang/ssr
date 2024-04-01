@@ -1,3 +1,21 @@
+## [6.2.127](https://github.com/zhangyuang/ssr/compare/utils@6.2.125...utils@6.2.127) (2024-04-01)
+
+
+### Bug Fixes
+
+* contex single instance ([3ca64cd](https://github.com/zhangyuang/ssr/commit/3ca64cdcd6aa0e556b5131147737b39bcd50902f))
+* object.assign take effect in initial state ([bf8268f](https://github.com/zhangyuang/ssr/commit/bf8268fc0181e22ace47c13a6cd6239ca89c73c5))
+
+
+### Features
+
+* compatible with bun ([0eeaba7](https://github.com/zhangyuang/ssr/commit/0eeaba777a306443d954dabfc6643ce7bdadc208))
+* support build @vue/server-renderer in server bundle ([df675a9](https://github.com/zhangyuang/ssr/commit/df675a94f642881026899b9ef5c48872f73d07ce))
+* use inline-source-map in dev mode ([e639c67](https://github.com/zhangyuang/ssr/commit/e639c679adaf7eb8aecd4a712abd7df2148202cf))
+* use source-map in dev mode ([8041c8d](https://github.com/zhangyuang/ssr/commit/8041c8da0dd0e01b5bc66fa8fa31ccd9fe03b7a5))
+
+
+
 ## [6.2.126](https://github.com/zhangyuang/ssr/compare/utils@6.2.125...utils@6.2.126) (2024-04-01)
 
 
