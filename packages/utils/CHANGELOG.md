@@ -1,3 +1,12 @@
+## [6.2.128](https://github.com/zhangyuang/ssr/compare/utils@6.2.127...utils@6.2.128) (2024-04-01)
+
+
+### Features
+
+* add nameSpaceBuiltinModules judge in external ([9b0106a](https://github.com/zhangyuang/ssr/commit/9b0106a7781da27271235d6bc68a4da2f1969ef2))
+
+
+
 ## [6.2.127](https://github.com/zhangyuang/ssr/compare/utils@6.2.125...utils@6.2.127) (2024-04-01)
 
 

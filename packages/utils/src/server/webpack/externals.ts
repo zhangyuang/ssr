@@ -2,7 +2,7 @@ import { contains, containsPattern, readFromPackageJson, readDir } from './exter
 import { sync } from 'execa'
 import { getDependencies } from '../build-utils'
 import { logErr } from '../log'
-import { defaultExternal } from '../static'
+import { defaultExternal, nameSpaceBuiltinModules } from '../static'
 
 const scopedModuleRegex = new RegExp('@[a-zA-Z0-9][\\w-.]+\/[a-zA-Z0-9][\\w-.]+([a-zA-Z0-9.\/]+)?', 'g')
 
@@ -67,12 +67,15 @@ function nodeExternals(options: any) {
 
   return function(context: any, request: string, callback: (...params: any) => any) {
     const moduleName = getModuleName(request, includeAbsolutePaths)
+    if (nameSpaceBuiltinModules.includes(moduleName)) {
+      // external node nartive module
+      return callback(null, importType + ' ' + request)
+    }
     if (contains(nodeModules, moduleName) || defaultExternal.includes(moduleName)) {
       if (containsPattern(whitelist, request)) {
         // 白名单中的一定需要被处理
         return callback()
       }
-
       // 否则 被 external
       // mark this module as external
       // https://webpack.js.org/configuration/externals/
