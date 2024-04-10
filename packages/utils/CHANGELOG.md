@@ -1,3 +1,12 @@
+## [6.2.130](https://github.com/zhangyuang/ssr/compare/utils@6.2.129...utils@6.2.130) (2024-04-10)
+
+
+### Features
+
+* babel-plugin-import unsupport vant@v4 ([#325](https://github.com/zhangyuang/ssr/issues/325)) ([68532aa](https://github.com/zhangyuang/ssr/commit/68532aa59a8f0a968c8a92601a069581965cbff9))
+
+
+
 ## [6.2.129](https://github.com/zhangyuang/ssr/compare/utils@6.2.127...utils@6.2.129) (2024-04-01)
 
 
