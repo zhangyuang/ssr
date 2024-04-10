@@ -7,7 +7,7 @@ import { getImageOutputPath } from '../parse'
 import { loadModuleFromFramework, judgeFramework, getCwd } from '../cwd'
 import { loadConfig } from '../loadConfig'
 import { logWarning } from '../log'
-import { judgeAntd } from '../judge'
+import { judgeAntd, judgeVant } from '../judge'
 import { asyncChunkMap } from '../build-utils'
 import { nameSpaceBuiltinModules } from '../static'
 
@@ -67,20 +67,26 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
       [
         loadModuleFromFramework('babel-plugin-import'),
         {
-          libraryName: 'vant',
-          libraryDirectory: 'lib',
-          style: true
-        }, 'vant'
-      ],
-      [
-        loadModuleFromFramework('babel-plugin-import'),
-        {
           libraryName: 'ant-design-vue',
           libraryDirectory: 'lib',
           style: true
         }, 'ant-design-vue'
       ]
     ]
+    const vantVersion = judgeVant()
+    const isVantLessThan4 = vantVersion < 4
+    if (isVantLessThan4) {
+      plugins.push(
+        [
+          loadModuleFromFramework('babel-plugin-import'),
+          {
+            libraryName: 'vant',
+            libraryDirectory: 'lib',
+            style: true
+          }, 'vant'
+        ]
+      )
+    }
     if (framework === 'ssr-plugin-vue3') {
       plugins.push(loadModuleFromFramework('@vue/babel-plugin-jsx'))
     }
