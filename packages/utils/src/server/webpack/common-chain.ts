@@ -7,11 +7,11 @@ import { getImageOutputPath } from '../parse'
 import { loadModuleFromFramework, judgeFramework, getCwd } from '../cwd'
 import { loadConfig } from '../loadConfig'
 import { logWarning } from '../log'
-import { judgeAntd, judgeVant } from '../judge'
+import { getPkgMajorVersion } from '../judge'
 import { asyncChunkMap } from '../build-utils'
 import { nameSpaceBuiltinModules } from '../static'
 
-const antdVersion = judgeAntd()
+const [antdVersion, vantVersion] = [getPkgMajorVersion('antd'), getPkgMajorVersion('vant')]
 const isAntd4 = antdVersion === 4
 if (antdVersion === 5) {
   logWarning('Check antd@5.x has been installed, antd@4.x is more recommend in ssr environment')
@@ -73,9 +73,7 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
         }, 'ant-design-vue'
       ]
     ]
-    const vantVersion = judgeVant()
-    const isVantLessThan4 = vantVersion < 4
-    if (isVantLessThan4) {
+    if (vantVersion && vantVersion < 4) {
       plugins.push(
         [
           loadModuleFromFramework('babel-plugin-import'),
