@@ -1,13 +1,13 @@
 import { build, UserConfig } from 'vite'
 import {
   loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig,
-  asyncOptimizeChunkPlugin, getOutputPublicPath, judgeAntd
+  asyncOptimizeChunkPlugin, getOutputPublicPath, getPkgMajorVersion
 } from 'ssr-common-utils'
 import react from '@vitejs/plugin-react'
 import { createStyleImportPlugin, AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'ssr-vite-plugin-style-import'
 const { getOutput, react18ServerEntry, react18ClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions, optimize } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
-const isAntd5 = judgeAntd() === 5
+const isAntd5 = getPkgMajorVersion('antd') === 5
 const extraInclude = ([] as string[]).concat(isAntd5 ? ['react-is'] : [])
 
 const styleImportConfig = {
