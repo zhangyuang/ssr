@@ -1388,3 +1388,39 @@ import './foo.less';
 import './foo.less';
 </script>
 ```
+
+## vant 4.x版本开始不在默认配置，需要自行配置
+
+由于UI框架一直配置有改动，主动权将交回用户，列如Vant 4.0 版本开始，将不再支持 babel-plugin-import，无法从 vant 中导入除了组件以外的其他内容，[vant4.x的按需引入配置官方文档](https://vant-contrib.gitee.io/vant/#/zh-CN/quickstart)
+
+
+### 对于不懂如何配置的同学，可以参考以下的配置，基于 webpack, vite的原理基本相同
+
+```js
+// config.ts
+import type { UserConfig } from 'ssr-types'
+
+const userConfig: UserConfig = {
+  chainBaseConfig: (chain, isServer) => {
+    const { VantResolver } = require('@vant/auto-import-resolver')
+    const AutoImport = require('unplugin-auto-import/webpack')
+    const Components = require('unplugin-vue-components/webpack')
+    chain.plugin('vant4')
+    .use(AutoImport.default({ resolvers: [VantResolver({ module: isServer ? 'cjs' : 'esm' })] }))
+    .use(Components.default({ resolvers: [VantResolver({ module: isServer ? 'cjs' : 'esm' })] }))
+  }
+}
+
+export { userConfig }
+
+// a.vue
+<template>
+  <van-button type="primary">
+    按钮
+  </van-button>
+</template>
+// 不需要import引入vanButton，否则会丢样式，直接使用就好
+<script lang="ts" setup>
+</script>
+
+```
