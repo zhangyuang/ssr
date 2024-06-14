@@ -1,3 +1,12 @@
+## [6.2.78](https://github.com/zhangyuang/ssr/compare/plugin-react18@6.2.77...plugin-react18@6.2.78) (2024-06-14)
+
+
+### Features
+
+* support set streamHighWaterMark in react ([62421e2](https://github.com/zhangyuang/ssr/commit/62421e23af7d5d9528f3085b6890e850b7d9ff7a))
+
+
+
 ## [6.2.77](https://github.com/zhangyuang/ssr/compare/plugin-react18@6.2.76...plugin-react18@6.2.77) (2024-04-10)
 
 

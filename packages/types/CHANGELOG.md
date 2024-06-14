@@ -1,3 +1,23 @@
+## [6.2.56](https://github.com/zhangyuang/ssr/compare/types@6.2.55...types@6.2.56) (2024-06-14)
+
+
+### Bug Fixes
+
+* object.assign take effect in initial state ([bf8268f](https://github.com/zhangyuang/ssr/commit/bf8268fc0181e22ace47c13a6cd6239ca89c73c5))
+
+
+### Features
+
+* add nameSpaceBuiltinModules judge in external ([47e92be](https://github.com/zhangyuang/ssr/commit/47e92bede76904ed69b2febdd047bd26c06be6a6))
+* babel-plugin-import unsupport vant@v4 ([#325](https://github.com/zhangyuang/ssr/issues/325)) ([68532aa](https://github.com/zhangyuang/ssr/commit/68532aa59a8f0a968c8a92601a069581965cbff9))
+* compatible with bun ([0eeaba7](https://github.com/zhangyuang/ssr/commit/0eeaba777a306443d954dabfc6643ce7bdadc208))
+* support build @vue/server-renderer in server bundle ([df675a9](https://github.com/zhangyuang/ssr/commit/df675a94f642881026899b9ef5c48872f73d07ce))
+* support set streamHighWaterMark in react ([62421e2](https://github.com/zhangyuang/ssr/commit/62421e23af7d5d9528f3085b6890e850b7d9ff7a))
+* use inline-source-map in dev mode ([e639c67](https://github.com/zhangyuang/ssr/commit/e639c679adaf7eb8aecd4a712abd7df2148202cf))
+* use source-map in dev mode ([8041c8d](https://github.com/zhangyuang/ssr/commit/8041c8da0dd0e01b5bc66fa8fa31ccd9fe03b7a5))
+
+
+
 ## [6.2.55](https://github.com/zhangyuang/ssr/compare/types@6.2.54...types@6.2.55) (2024-03-25)
 
 
