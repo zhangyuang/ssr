@@ -13,7 +13,7 @@ const { FeRoutes, layoutFetch, state, Layout } = Routes
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   const context = ssrCreateContext()
-  const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, rootId, hashRouter } = config
+  const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, rootId, hashRouter, streamHighWaterMark } = config
   const rawPath = ctx.request.path ?? ctx.request.url
   const path = normalizePath(rawPath, prefix)
   const routeItem = findRoute<ReactESMPreloadFeRouteItem>(FeRoutes, path)
@@ -91,7 +91,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       }, createElement(Component, null))
     }))
     // for ctx.body will loose asynclocalstorage context, consume stream in advance like vue2/3
-    return stream ? renderToNodeStream(ele).pipe(new PassThrough()) : renderToString(ele)
+    return stream ? renderToNodeStream(ele).pipe(new PassThrough({ highWaterMark: streamHighWaterMark })) : renderToString(ele)
   }
 
   return await localStorageWrapper.run({

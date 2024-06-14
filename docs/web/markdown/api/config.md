@@ -912,6 +912,14 @@ exports.customeHeadScript= [
 
 自定义前端插件来替换例如 `ssr-plugin-vue3` 的逻辑，常用于在 `ssr-plugin-vue3` 二次开发的情况
 
+## streamHighWaterMark
+
+- 类型 `number`
+- 默认 `1024 * 16`
+- 生效场景 `react`
+
+`react` 场景设置默认的`stream`缓冲区大小,默认为`16kb`，当页面体积过大超过限制时会渲染失败,此时需要通过该配置设置默认缓冲区大小，或者修改返回类型为 `sting`，单位byte (1024*1024 = 1mb)
+
 ## 注意事项
 
 1. 由于 `config.js` 文件在 Node.js 环境也会被加载，如果直接在顶部 `require` 模块可能会导致模块`体积过大`，降低应用启动速度，对于一些只在构建逻辑中才会用到的模块我们建议在必要的函数当中再 `require` 加载。

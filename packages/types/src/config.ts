@@ -62,15 +62,26 @@ export interface IConfig {
     loaderOptions?: {
       cssOptions?: any
       less?: {
-        lessOptions?: any /*! transfer options to less */
-        /*! The following options  options only take effect in webpack */
+        /**
+         * transfer options to less
+         */
+        lessOptions?: any
+        /**
+          * The following options  options only take effect in webpack
+        */
         additionalData?: string| Function
         sourceMap?: boolean
         webpackImporter?: Boolean
         implementation?: Object
       }
-      sass?: any /*! only webpack */
-      scss?: any /*! only vite */
+      /**
+       * only take effect in webpack
+       */
+      sass?: any
+      /**
+       * only take effect in vite
+       */
+      scss?: any
       postcss?: {
         options?: Exclude<CSSOptions['postcss'], string>
         plugins?: PostCssPlugin[]
@@ -130,7 +141,10 @@ export interface IConfig {
       server?: ServerOptions
     }
     client?: {
-      defaultPluginOptions?: any /*! 为默认装载的插件定义 options, vue3 场景是 @vitejs/plugin-vue, react 场景是 @vitejs/plugin-react */
+      /**
+       * 默认装载的插件定义 options, vue3 场景是 @vitejs/plugin-vue, react 场景是 @vitejs/plugin-react
+       */
+      defaultPluginOptions?: any
       extraPlugin?: PluginOption | PluginOption[]
       otherConfig?: ViteConfig
       processPlugin?: (plugins: PluginOption[]) => PluginOption[]
@@ -166,6 +180,10 @@ export interface IConfig {
   }
   staticConfigPath: string
   framework?: string
+  /**
+   * react场景设置默认的stream缓冲区大小默认为 16kb，当页面体积过大超过限制时会渲染失败，单位byte,(1024*1024 = 1mb)
+   */
+  streamHighWaterMark?: number
 }
 
 export interface proxyOptions {
