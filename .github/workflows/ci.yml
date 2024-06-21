@@ -46,7 +46,7 @@ jobs:
             CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\.cache
         with:
           install: false
-          start: pnpm example:nestjs:vue3:pinia
+          start: ls
           wait-on: 'http://localhost:3000'
           spec: |
             e2e/integration/examples/common-ssr.spec.js
