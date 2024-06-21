@@ -17,7 +17,16 @@ import Slider from '@/components/slider/index.vue'
 import Rectangle from '@/components/rectangle/index.vue'
 import Search from '@/components/search/index.vue'
 
+import { ref, onMounted } from 'vue'
+
 const indexStore = useIndexStore()
 const indexData = indexStore.data
 
+const arr1 = ref<number[]>([1, 2, 3])
+
+const arr2 = [...arr1.value]
+
+onMounted(() => {
+  console.log('arr2', arr2)
+})
 </script>
