@@ -22,7 +22,7 @@ const cwd = getCwd()
 const dependenciesMap: Record<string, string[]> = {}
 const asyncChunkMapJSON: Record<string, string[]> = {}
 const generateMap: Record<string, string> = {}
-const vendorList = ['vue', 'vuex', 'vue-router', 'react', 'react-router',
+const vendorList = ['vue', 'vuex', 'vue-demi', 'vue-router', 'react', 'react-router',
   'react-router-dom', 'react-dom', '@vue', 'ssr-hoc-react', 'ssr-hoc-react18',
   'ssr-client-utils', 'ssr-common-utils', 'pinia', '@babel/runtime',
   'ssr-plugin-vue3', 'ssr-plugin-vue', 'ssr-plugin-react', 'react/jsx-runtime',
