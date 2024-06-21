@@ -1,3 +1,12 @@
+## [6.2.79](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.78...plugin-react@6.2.79) (2024-06-21)
+
+
+### Features
+
+* support build --nominify in vite ([1dac6eb](https://github.com/zhangyuang/ssr/commit/1dac6eb015b86c1fe4d23242885e939eac051199))
+
+
+
 ## [6.2.78](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.77...plugin-react@6.2.78) (2024-06-14)
 
 

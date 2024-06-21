@@ -1,3 +1,15 @@
+## [6.2.107](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.106...plugin-vue3@6.2.107) (2024-06-21)
+
+
+### Features
+
+* add nameSpaceBuiltinModules judge in external ([47e92be](https://github.com/zhangyuang/ssr/commit/47e92bede76904ed69b2febdd047bd26c06be6a6))
+* babel-plugin-import unsupport vant@v4 ([#325](https://github.com/zhangyuang/ssr/issues/325)) ([68532aa](https://github.com/zhangyuang/ssr/commit/68532aa59a8f0a968c8a92601a069581965cbff9))
+* support build --nominify in vite ([1dac6eb](https://github.com/zhangyuang/ssr/commit/1dac6eb015b86c1fe4d23242885e939eac051199))
+* support set streamHighWaterMark in react ([62421e2](https://github.com/zhangyuang/ssr/commit/62421e23af7d5d9528f3085b6890e850b7d9ff7a))
+
+
+
 ## [6.2.106](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.104...plugin-vue3@6.2.106) (2024-04-01)
 
 
