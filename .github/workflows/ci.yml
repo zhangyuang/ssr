@@ -33,15 +33,17 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - name: Install dependencies
+        env:
+            CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\.cache
         run: |
-          pnpm i --no-frozen-lockfile && ls -R C:\Users\runneradmin\.cache
+          CYPRESS_CACHE_FOLDER=C:\Users\runneradmin\.cache  pnpm i --no-frozen-lockfile && ls -R C:\Users\runneradmin\.cache
       - name: Build packages
         run: |
            pnpm build
 
       - uses: cypress-io/github-action@v2
-        # env:
-        #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
+        env:
+            CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\.cache
         with:
           install: false
           start: pnpm example:nestjs:vue3:pinia
