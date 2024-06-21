@@ -59,6 +59,7 @@ const serverConfig: UserConfig = {
     }
   },
   build: {
+    minify: !process.env.NOMINIFY,
     ...viteConfig?.().server?.otherConfig?.build,
     ssr: reactServerEntry,
     outDir: serverOutPut,
@@ -104,6 +105,7 @@ const clientConfig: UserConfig = {
   },
   plugins: viteConfig?.()?.client?.processPlugin?.(clientPlugins) ?? clientPlugins,
   build: {
+    minify: !process.env.NOMINIFY,
     ...viteConfig?.().client?.otherConfig?.build,
     ...(optimize ? { write: false } : {}),
     ssrManifest: true,

@@ -53,6 +53,7 @@ const serverConfig: UserConfig = {
     }
   },
   build: {
+    minify: !process.env.NOMINIFY,
     ...viteConfig?.().server?.otherConfig?.build,
     ssr: vue3ServerEntry,
     outDir: serverOutPut,
@@ -87,6 +88,7 @@ const clientConfig: UserConfig = {
   base: isDev ? '/' : getOutputPublicPath(),
   plugins: viteConfig?.()?.client?.processPlugin?.(clientPlugins) ?? clientPlugins,
   build: {
+    minify: !process.env.NOMINIFY,
     ...viteConfig?.().client?.otherConfig?.build,
     ...(optimize ? { write: false } : {}),
     ssrManifest: true,
