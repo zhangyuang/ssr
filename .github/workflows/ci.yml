@@ -34,7 +34,7 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && ls -R C:\Users\runneradmin\.cache
       - name: Build packages
         run: |
            pnpm build
