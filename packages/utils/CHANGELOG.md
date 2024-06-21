@@ -1,3 +1,14 @@
+## [6.2.131](https://github.com/zhangyuang/ssr/compare/utils@6.2.130...utils@6.2.131) (2024-06-21)
+
+
+### Features
+
+* add vue-demi in default Page ([2f1bb86](https://github.com/zhangyuang/ssr/commit/2f1bb86ed54b2265521068ffb5a39f6bd92e26da))
+* support build --nominify in vite ([1dac6eb](https://github.com/zhangyuang/ssr/commit/1dac6eb015b86c1fe4d23242885e939eac051199))
+* support set streamHighWaterMark in react ([62421e2](https://github.com/zhangyuang/ssr/commit/62421e23af7d5d9528f3085b6890e850b7d9ff7a))
+
+
+
 ## [6.2.130](https://github.com/zhangyuang/ssr/compare/utils@6.2.129...utils@6.2.130) (2024-04-10)
 
 
