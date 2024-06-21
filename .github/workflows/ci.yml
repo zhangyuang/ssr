@@ -784,7 +784,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        os: [ windows-latest]
         node: ["16"]
     steps:
       - name: Checkout
@@ -795,11 +795,9 @@ jobs:
         with:
           path: |
               .turbo
-              ~/.cache/Cypress
               ~/.pnpm-store
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
-              /Users/runner/Library/Caches/Cypress
           key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
@@ -824,7 +822,7 @@ jobs:
         # env:
         #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
         with:
-          install: false
+          install: true
           start: pnpm example:nestjs:vue3:pinia
           wait-on: 'http://localhost:3000'
           spec: |

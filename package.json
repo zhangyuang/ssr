@@ -36,7 +36,7 @@
     "example:nestjs:react18": "cd example/nestjs-react18-ssr && npm start",
     "example:nestjs:vue3": "cd example/nestjs-vue3-ssr && npm start",
     "example:midway:react:dynamic:router": "cd example/react-dynamic-router-test && npm start",
-    "example:nestjs:vue3:pinia": "cd example/nestjs-vue3-ssr-pinia && npm start"
+    "example:nestjs:vue3:pinia": "cd example/nestjs-vue3-ssr-pinia && npm run prod:vite"
   },
   "repository": {
     "type": "git",
