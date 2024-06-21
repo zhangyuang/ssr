@@ -36,7 +36,7 @@ jobs:
         env:
             CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\.cache
         run: |
-          CYPRESS_CACHE_FOLDER=C:\Users\runneradmin\.cache  pnpm i --no-frozen-lockfile && ls -R C:\Users\runneradmin\.cache
+           pnpm i --no-frozen-lockfile && ls -R C:\Users\runneradmin\.cache
       - name: Build packages
         run: |
            pnpm build
