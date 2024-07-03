@@ -1,3 +1,12 @@
+## [6.2.58](https://github.com/zhangyuang/ssr/compare/types@6.2.57...types@6.2.58) (2024-07-03)
+
+
+### Features
+
+* support ssr build --bundleConfigPlatform ([44f54cd](https://github.com/zhangyuang/ssr/commit/44f54cdc54aadb0a8b1072d280d0efaa61679a32))
+
+
+
 ## [6.2.57](https://github.com/zhangyuang/ssr/compare/types@6.2.56...types@6.2.57) (2024-07-03)
 
 

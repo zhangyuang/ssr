@@ -1,3 +1,13 @@
+## [6.2.132](https://github.com/zhangyuang/ssr/compare/utils@6.2.131...utils@6.2.132) (2024-07-03)
+
+
+### Features
+
+* support config.asyncGlobalData ([b571399](https://github.com/zhangyuang/ssr/commit/b571399887d95d3f1e9de1cb6cf8718c8b6a71f8))
+* support ssr build --bundleConfigPlatform ([44f54cd](https://github.com/zhangyuang/ssr/commit/44f54cdc54aadb0a8b1072d280d0efaa61679a32))
+
+
+
 ## [6.2.131](https://github.com/zhangyuang/ssr/compare/utils@6.2.130...utils@6.2.131) (2024-06-21)
 
 
