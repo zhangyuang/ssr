@@ -16,7 +16,7 @@ const { FeRoutes, App, layoutFetch, Layout } = Routes
 const staticConfig = getStaticConfig()
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https, rootId, bigpipe, hashRouter } = config
+  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https, rootId, bigpipe, hashRouter, asyncGlobalData } = config
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
@@ -185,6 +185,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     })
     return res
   }
+  store.state.asyncGlobalData = asyncGlobalData
   const res = await localStorageWrapper.run({
     pinia,
     store,

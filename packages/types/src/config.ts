@@ -184,6 +184,7 @@ export interface IConfig {
    * react场景设置默认的stream缓冲区大小默认为 16kb，当页面体积过大超过限制时会渲染失败，单位byte,(1024*1024 = 1mb)
    */
   streamHighWaterMark?: number
+  asyncGlobalData?: Record<string, any>
 }
 
 export interface proxyOptions {

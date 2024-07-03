@@ -7,7 +7,8 @@ import { Routes } from './combine-router'
 import { RoutesType, VueRouterOptions } from '../types'
 
 const { store, FeRoutes } = Routes as RoutesType
-function createRouter (options: VueRouterOptions&{hashRouter?: boolean} = {}) {
+
+export function createRouter (options: VueRouterOptions&{hashRouter?: boolean} = {}) {
   const base = options.base ?? '/'
   const { hashRouter } = options
   return create({
@@ -16,7 +17,7 @@ function createRouter (options: VueRouterOptions&{hashRouter?: boolean} = {}) {
   })
 }
 
-function createStore () {
+export function createStore () {
   return createVuexStore<any>(deepClone(store))
 }
 
@@ -27,8 +28,3 @@ export const getInlineCssVNode = (arr: string[]) => arr.map(item => h('style', {
 export const getVNode = (arr: Script) => arr.map(item => h(item.tagName ?? 'script', Object.assign({}, item.describe, {
   innerHTML: item.content
 })))
-
-export {
-  createRouter,
-  createStore
-}
