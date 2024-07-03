@@ -102,6 +102,10 @@ yargs
       alias: 'bc',
       desc: 'bundle config.ts dependencies module by esbuild'
     },
+    bundleConfigPlatform: {
+      alias: 'bcp',
+      desc: 'esbuild bundle platform'
+    },
     vite: {
       desc: 'Start application by vite'
     },
@@ -121,15 +125,16 @@ yargs
     },
     ...cliDesc
   }), async (argv: Argv) => {
-    if (argv.bc) {
-      process.env.BUNDLECONFIG = '1'
-    }
     await startFunc(argv)
   })
   .command('build', 'Build application by webpack or vite', yargs => yargs.options({
     bundleConfig: {
       alias: 'bc',
       desc: 'bundle config.ts dependencies module by esbuild'
+    },
+    bundleConfigPlatform: {
+      alias: 'bcp',
+      desc: 'esbuild bundle platform'
     },
     analyze: {
       alias: 'a',
@@ -159,9 +164,6 @@ yargs
     },
     ...cliDesc
   }), async (argv: Argv) => {
-    if (argv.bc) {
-      process.env.BUNDLECONFIG = '1'
-    }
     const { logWarning } = await import('ssr-common-utils')
     if (argv.vite) {
       logWarning(`ssr build by vite is beta now, if you find some bugs, please submit an issue on https://github.com/zhangyuang/ssr/issues or you can use ssr build --vite --legacy which will close manualChunks

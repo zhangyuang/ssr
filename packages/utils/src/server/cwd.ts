@@ -7,6 +7,7 @@ import { coerce } from 'semver'
 import { rm } from 'shelljs'
 import debug from 'debug'
 import { loadConfig } from './loadConfig'
+import type { Platform } from 'esbuild'
 
 export const ssrDebug = debug('ssr')
 
@@ -159,7 +160,7 @@ export const esbuildTransform = async (from: string, to: string) => {
       format: 'cjs',
       bundle: !!process.env.BUNDLECONFIG,
       outfile: to,
-      platform: 'node',
+      platform: process.env.BUNDLECONFIGPLATFORM as Platform | undefined,
       mainFields: ['module', 'main'],
       treeShaking: true
     }

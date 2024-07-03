@@ -33,6 +33,12 @@ export const handleEnv = async (argv: Argv) => {
   if (argv.nominify) {
     process.env.NOMINIFY = '1'
   }
+  if (argv.bc) {
+    process.env.BUNDLECONFIG = '1'
+  }
+  if (argv.bcp) {
+    process.env.BUNDLECONFIGPLATFORM = argv.bcp
+  }
 
   process.env.SERVER_PORT = argv.port ? String(argv.port) : '3000'
   if (argv.vite) {

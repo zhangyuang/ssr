@@ -20,5 +20,6 @@ export type Argv = Arguments<{
   ssl?: boolean
   optimize?: boolean
   bc?: boolean
+  bcp?: string
   sourcemap?: string
 }>
