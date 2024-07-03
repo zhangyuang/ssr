@@ -1,3 +1,13 @@
+## [6.2.108](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.107...plugin-vue3@6.2.108) (2024-07-03)
+
+
+### Features
+
+* add vue-demi in default Page ([2f1bb86](https://github.com/zhangyuang/ssr/commit/2f1bb86ed54b2265521068ffb5a39f6bd92e26da))
+* support config.asyncGlobalData ([b571399](https://github.com/zhangyuang/ssr/commit/b571399887d95d3f1e9de1cb6cf8718c8b6a71f8))
+
+
+
 ## [6.2.107](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.106...plugin-vue3@6.2.107) (2024-06-21)
 
 
