@@ -35,7 +35,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
 
@@ -103,7 +103,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -158,7 +158,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -213,7 +213,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -266,7 +266,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -321,7 +321,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -376,7 +376,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -429,7 +429,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -482,7 +482,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -534,7 +534,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -588,7 +588,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -643,7 +643,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -697,7 +697,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -752,7 +752,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -805,7 +805,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -860,7 +860,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -913,7 +913,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -968,7 +968,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -1021,7 +1021,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}
@@ -1094,7 +1094,7 @@ jobs:
               ${{ runner.os }}-v1.0.0-
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
+        uses: pnpm/action-setup@v4
         with:
           version: 6
       - name: Use Node.js ${{ matrix.node }}

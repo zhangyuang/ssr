@@ -1,3 +1,12 @@
+## [6.2.134](https://github.com/zhangyuang/ssr/compare/utils@6.2.133...utils@6.2.134) (2024-07-04)
+
+
+### Bug Fixes
+
+* GENERATE_SOURCEMAP ([9feb3d0](https://github.com/zhangyuang/ssr/commit/9feb3d0bf95f4627f03cb6c70309f471c1f6c750))
+
+
+
 ## [6.2.133](https://github.com/zhangyuang/ssr/compare/utils@6.2.132...utils@6.2.133) (2024-07-04)
 
 
