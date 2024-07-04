@@ -125,6 +125,12 @@ yargs
     },
     ...cliDesc
   }), async (argv: Argv) => {
+    if (argv.bc) {
+      process.env.BUNDLECONFIG = '1'
+    }
+    if (argv.bcp) {
+      process.env.BUNDLECONFIGPLATFORM = argv.bcp
+    }
     await startFunc(argv)
   })
   .command('build', 'Build application by webpack or vite', yargs => yargs.options({
@@ -169,6 +175,12 @@ yargs
       logWarning(`ssr build by vite is beta now, if you find some bugs, please submit an issue on https://github.com/zhangyuang/ssr/issues or you can use ssr build --vite --legacy which will close manualChunks
       to get a stable bundle result but maybe some performance loss
       `)
+    }
+    if (argv.bc) {
+      process.env.BUNDLECONFIG = '1'
+    }
+    if (argv.bcp) {
+      process.env.BUNDLECONFIGPLATFORM = argv.bcp
     }
     await buildFunc(argv)
   })
