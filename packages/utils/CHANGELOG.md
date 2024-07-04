@@ -1,3 +1,17 @@
+## [6.2.133](https://github.com/zhangyuang/ssr/compare/utils@6.2.132...utils@6.2.133) (2024-07-04)
+
+
+### Bug Fixes
+
+* set bc env ([bf2dbb5](https://github.com/zhangyuang/ssr/commit/bf2dbb50a4b72f56a85c80679eb06e024cb117d2))
+
+
+### Features
+
+* set inline-source-map when bundle server file ([2400d87](https://github.com/zhangyuang/ssr/commit/2400d879e72171e3756c64de25c817669724333c))
+
+
+
 ## [6.2.132](https://github.com/zhangyuang/ssr/compare/utils@6.2.131...utils@6.2.132) (2024-07-03)
 
 
