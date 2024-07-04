@@ -128,7 +128,7 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
   if (process.env.NOMINIFY) {
     chain.optimization.minimize(false)
   }
-  chain.devtool(process.env.GENERATE_SOURCEMAP ?? '' as any)
+  chain.devtool(isServer ? 'inline-source-map' : process.env.GENERATE_SOURCEMAP ?? '' as any)
 
   const babelModule = chain.module
     .rule('compileBabel')
