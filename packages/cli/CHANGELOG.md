@@ -1,3 +1,12 @@
+## [6.2.73](https://github.com/zhangyuang/ssr/compare/cli@6.2.72...cli@6.2.73) (2024-07-04)
+
+
+### Bug Fixes
+
+* set bc env ([bf2dbb5](https://github.com/zhangyuang/ssr/commit/bf2dbb50a4b72f56a85c80679eb06e024cb117d2))
+
+
+
 ## [6.2.72](https://github.com/zhangyuang/ssr/compare/cli@6.2.71...cli@6.2.72) (2024-07-03)
 
 
