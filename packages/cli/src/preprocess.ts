@@ -33,6 +33,9 @@ export const handleEnv = async (argv: Argv) => {
   if (argv.nominify) {
     process.env.NOMINIFY = '1'
   }
+  if (argv.viteMode) {
+    process.env.VITEMODE = argv.viteMode
+  }
 
   process.env.SERVER_PORT = argv.port ? String(argv.port) : '3000'
   if (argv.vite) {

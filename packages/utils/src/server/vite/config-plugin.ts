@@ -285,7 +285,7 @@ const commonConfig = (): UserConfig => {
   const lessOptions = css?.().loaderOptions?.less?.lessOptions ? css?.().loaderOptions?.less?.lessOptions : css?.().loaderOptions?.less
   return {
     root: cwd,
-    mode: 'development',
+    mode: process.env.VITEMODE ?? 'development',
     ...(optimize ? { logLevel: 'slient' } : {}),
     server: {
       middlewareMode: 'ssr' as SSR,

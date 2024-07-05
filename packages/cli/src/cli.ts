@@ -109,6 +109,9 @@ yargs
     vite: {
       desc: 'Start application by vite'
     },
+    viteMode: {
+      desc: 'same like vite start --mode'
+    },
     port: {
       desc: 'Setting application server port, default is 3000'
     },
@@ -152,6 +155,9 @@ yargs
     },
     vite: {
       desc: 'Build application by vite'
+    },
+    viteMode: {
+      desc: 'same like vite build --mode'
     },
     legacy: {
       desc: 'Close default rollup manulChunks setting in vite mode'

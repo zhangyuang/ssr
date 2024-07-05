@@ -130,14 +130,14 @@ const viteStart = async () => {
 }
 const viteBuild = async () => {
   await build({ ...clientConfig, mode: 'production' })
-  await build({ ...serverConfig, mode: 'production' })
+  await build({ ...serverConfig, mode: process.env.VITEMODE ?? 'production' })
 }
 
 const viteBuildClient = async () => {
-  await build({ ...clientConfig, mode: 'production' }).catch(_ => { })
+  await build({ ...clientConfig, mode: process.env.VITEMODE ?? 'production' }).catch(_ => { })
 }
 const viteBuildServer = async () => {
-  await build({ ...serverConfig, mode: 'production' })
+  await build({ ...serverConfig, mode: process.env.VITEMODE ?? 'production' })
 }
 
 export {

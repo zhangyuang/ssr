@@ -52,7 +52,7 @@ const viteStart = async () => {
 const viteBuild = async () => {
   const build: typeof BuildType = (await import('vite')).build
   await build({ ...clientConfig, mode: 'production' })
-  await build({ ...serverConfig, mode: 'production' })
+  await build({ ...serverConfig, mode: process.env.VITEMODE ?? 'production' })
 }
 
 export {
