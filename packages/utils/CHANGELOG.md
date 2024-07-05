@@ -1,3 +1,12 @@
+## [6.2.135](https://github.com/zhangyuang/ssr/compare/utils@6.2.134...utils@6.2.135) (2024-07-05)
+
+
+### Features
+
+* suuport viteMode close [#332](https://github.com/zhangyuang/ssr/issues/332) ([1bdfff9](https://github.com/zhangyuang/ssr/commit/1bdfff9dec5b2ce1b019be6acc8d612ffbde8c1d))
+
+
+
 ## [6.2.134](https://github.com/zhangyuang/ssr/compare/utils@6.2.133...utils@6.2.134) (2024-07-04)
 
 

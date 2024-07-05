@@ -1,3 +1,34 @@
+## [6.2.67](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.66...plugin-vue@6.2.67) (2024-07-05)
+
+
+### Bug Fixes
+
+* contex single instance ([3ca64cd](https://github.com/zhangyuang/ssr/commit/3ca64cdcd6aa0e556b5131147737b39bcd50902f))
+* GENERATE_SOURCEMAP ([9feb3d0](https://github.com/zhangyuang/ssr/commit/9feb3d0bf95f4627f03cb6c70309f471c1f6c750))
+* object.assign take effect in initial state ([bf8268f](https://github.com/zhangyuang/ssr/commit/bf8268fc0181e22ace47c13a6cd6239ca89c73c5))
+* optimize react scene use context code ([1d3e885](https://github.com/zhangyuang/ssr/commit/1d3e885d4fd5a8fade6f48438592ae2df16374e1))
+* set bc env ([bf2dbb5](https://github.com/zhangyuang/ssr/commit/bf2dbb50a4b72f56a85c80679eb06e024cb117d2))
+* valtio single instance error ([0474b30](https://github.com/zhangyuang/ssr/commit/0474b302110adc755285fdcefe9d58757e1b200f))
+
+
+### Features
+
+* add nameSpaceBuiltinModules judge in external ([47e92be](https://github.com/zhangyuang/ssr/commit/47e92bede76904ed69b2febdd047bd26c06be6a6))
+* add vue-demi in default Page ([2f1bb86](https://github.com/zhangyuang/ssr/commit/2f1bb86ed54b2265521068ffb5a39f6bd92e26da))
+* babel-plugin-import unsupport vant@v4 ([#325](https://github.com/zhangyuang/ssr/issues/325)) ([68532aa](https://github.com/zhangyuang/ssr/commit/68532aa59a8f0a968c8a92601a069581965cbff9))
+* compatible with bun ([0eeaba7](https://github.com/zhangyuang/ssr/commit/0eeaba777a306443d954dabfc6643ce7bdadc208))
+* set inline-source-map when bundle server file ([2400d87](https://github.com/zhangyuang/ssr/commit/2400d879e72171e3756c64de25c817669724333c))
+* support build --nominify in vite ([1dac6eb](https://github.com/zhangyuang/ssr/commit/1dac6eb015b86c1fe4d23242885e939eac051199))
+* support build @vue/server-renderer in server bundle ([df675a9](https://github.com/zhangyuang/ssr/commit/df675a94f642881026899b9ef5c48872f73d07ce))
+* support config.asyncGlobalData ([b571399](https://github.com/zhangyuang/ssr/commit/b571399887d95d3f1e9de1cb6cf8718c8b6a71f8))
+* support set streamHighWaterMark in react ([62421e2](https://github.com/zhangyuang/ssr/commit/62421e23af7d5d9528f3085b6890e850b7d9ff7a))
+* support ssr build --bundleConfigPlatform ([44f54cd](https://github.com/zhangyuang/ssr/commit/44f54cdc54aadb0a8b1072d280d0efaa61679a32))
+* suuport viteMode close [#332](https://github.com/zhangyuang/ssr/issues/332) ([1bdfff9](https://github.com/zhangyuang/ssr/commit/1bdfff9dec5b2ce1b019be6acc8d612ffbde8c1d))
+* use inline-source-map in dev mode ([e639c67](https://github.com/zhangyuang/ssr/commit/e639c679adaf7eb8aecd4a712abd7df2148202cf))
+* use source-map in dev mode ([8041c8d](https://github.com/zhangyuang/ssr/commit/8041c8da0dd0e01b5bc66fa8fa31ccd9fe03b7a5))
+
+
+
 ## [6.2.66](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.65...plugin-vue@6.2.66) (2024-03-19)
 
 

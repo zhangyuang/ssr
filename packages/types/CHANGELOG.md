@@ -1,3 +1,19 @@
+## [6.2.59](https://github.com/zhangyuang/ssr/compare/types@6.2.58...types@6.2.59) (2024-07-05)
+
+
+### Bug Fixes
+
+* GENERATE_SOURCEMAP ([9feb3d0](https://github.com/zhangyuang/ssr/commit/9feb3d0bf95f4627f03cb6c70309f471c1f6c750))
+* set bc env ([bf2dbb5](https://github.com/zhangyuang/ssr/commit/bf2dbb50a4b72f56a85c80679eb06e024cb117d2))
+
+
+### Features
+
+* set inline-source-map when bundle server file ([2400d87](https://github.com/zhangyuang/ssr/commit/2400d879e72171e3756c64de25c817669724333c))
+* suuport viteMode close [#332](https://github.com/zhangyuang/ssr/issues/332) ([1bdfff9](https://github.com/zhangyuang/ssr/commit/1bdfff9dec5b2ce1b019be6acc8d612ffbde8c1d))
+
+
+
 ## [6.2.58](https://github.com/zhangyuang/ssr/compare/types@6.2.57...types@6.2.58) (2024-07-03)
 
 

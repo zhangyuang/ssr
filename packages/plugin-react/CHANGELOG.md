@@ -1,3 +1,22 @@
+## [6.2.80](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.79...plugin-react@6.2.80) (2024-07-05)
+
+
+### Bug Fixes
+
+* GENERATE_SOURCEMAP ([9feb3d0](https://github.com/zhangyuang/ssr/commit/9feb3d0bf95f4627f03cb6c70309f471c1f6c750))
+* set bc env ([bf2dbb5](https://github.com/zhangyuang/ssr/commit/bf2dbb50a4b72f56a85c80679eb06e024cb117d2))
+
+
+### Features
+
+* add vue-demi in default Page ([2f1bb86](https://github.com/zhangyuang/ssr/commit/2f1bb86ed54b2265521068ffb5a39f6bd92e26da))
+* set inline-source-map when bundle server file ([2400d87](https://github.com/zhangyuang/ssr/commit/2400d879e72171e3756c64de25c817669724333c))
+* support config.asyncGlobalData ([b571399](https://github.com/zhangyuang/ssr/commit/b571399887d95d3f1e9de1cb6cf8718c8b6a71f8))
+* support ssr build --bundleConfigPlatform ([44f54cd](https://github.com/zhangyuang/ssr/commit/44f54cdc54aadb0a8b1072d280d0efaa61679a32))
+* suuport viteMode close [#332](https://github.com/zhangyuang/ssr/issues/332) ([1bdfff9](https://github.com/zhangyuang/ssr/commit/1bdfff9dec5b2ce1b019be6acc8d612ffbde8c1d))
+
+
+
 ## [6.2.79](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.78...plugin-react@6.2.79) (2024-06-21)
 
 
