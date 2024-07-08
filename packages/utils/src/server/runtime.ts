@@ -133,9 +133,8 @@ export const getInlineCss = async ({
     cssInlineOrder: cssInline?.includes(curr) ? [...pre.cssInlineOrder, curr] : pre.cssInlineOrder,
     cssInjectOrder: !cssInline?.includes(curr) ? [...pre.cssInjectOrder, curr] : pre.cssInjectOrder
   }), { cssInlineOrder: [] as string[], cssInjectOrder: [] as string[] })
-
   const inlineCssContent = (await Promise.all(cssInlineOrder.map(css => manifest[css]).filter(Boolean).map(css =>
-    promises.readFile(isAbsolute(css!) ? css! : join(cwd, './build', css!))
+    promises.readFile(isAbsolute(css!) && !css!.startsWith('/client') ? css! : join(cwd, './build', css!))
   ))).map(item => item.toString())
 
   return [
