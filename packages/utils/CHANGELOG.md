@@ -1,3 +1,17 @@
+## [6.2.136](https://github.com/zhangyuang/ssr/compare/utils@6.2.135...utils@6.2.136) (2024-07-08)
+
+
+### Bug Fixes
+
+* judge cssInline path ([e214799](https://github.com/zhangyuang/ssr/commit/e21479957e445964f6c2ae8a705348426e0ef3fe))
+
+
+### Features
+
+* add --analyze tips when ssr start ([dcfe3fe](https://github.com/zhangyuang/ssr/commit/dcfe3fea991250027656f9ff660ce96e736dd56d))
+
+
+
 ## [6.2.135](https://github.com/zhangyuang/ssr/compare/utils@6.2.134...utils@6.2.135) (2024-07-05)
 
 
