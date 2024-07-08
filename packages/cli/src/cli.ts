@@ -106,6 +106,10 @@ yargs
       alias: 'bcp',
       desc: 'esbuild bundle platform'
     },
+    analyze: {
+      alias: 'a',
+      desc: 'Analyze bundle result when using webpack for build'
+    },
     vite: {
       desc: 'Start application by vite'
     },
