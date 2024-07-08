@@ -1,3 +1,12 @@
+## [6.2.75](https://github.com/zhangyuang/ssr/compare/cli@6.2.74...cli@6.2.75) (2024-07-08)
+
+
+### Features
+
+* add --analyze tips when ssr start ([dcfe3fe](https://github.com/zhangyuang/ssr/commit/dcfe3fea991250027656f9ff660ce96e736dd56d))
+
+
+
 ## [6.2.74](https://github.com/zhangyuang/ssr/compare/cli@6.2.73...cli@6.2.74) (2024-07-05)
 
 
