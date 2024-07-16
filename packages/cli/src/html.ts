@@ -131,30 +131,12 @@ export const generateHtml = async () => {
   }
 
   const manifest: Record<string, string> = require(join(cwd, './build/client/asset-manifest.json'))
-  let jsManifest: string[] = []
+
   const jsOrder = await getAsyncJsChunk(mockCtx, '', loadConfig())
-  jsOrder.forEach(item => {
-    if (manifest[item]) {
-      jsManifest.push(item)
-    }
-  })
-  jsManifest = jsManifest.map(item => `<script src="${manifest[item]}" ${isVite ? 'type="module"' : ''}></script>`)
-  let cssManifest: string[] = []
+  const jsManifest: string[] = jsOrder.map(item => manifest[item]).filter(Boolean).map(item => `<script src="${item}" ${isVite ? 'type="module"' : ''}></script>`)
 
   const cssOrder = await getAsyncCssChunk(mockCtx, '', loadConfig())
-  // cssOrder 依赖运行时动态注入 page chunkname，故 spa 构建模式为了防止 css 闪烁，所有 css 统一全部放在头部加载
-  for (const item in manifest) {
-    if (item.endsWith('.css') && !cssOrder.includes(item)) {
-      cssOrder.push(item)
-    }
-  }
-
-  cssOrder.forEach(item => {
-    if (manifest[item]) {
-      cssManifest.push(item)
-    }
-  })
-  cssManifest = cssManifest.map(item => `<link rel='stylesheet' href="${manifest[item]}" />`)
+  const cssManifest: string[] = cssOrder.map(item => manifest[item]).filter(Boolean).map(item => `<link rel='stylesheet' href="${item}" />`)
 
   if (typeof cssOrderPriority === 'function' || typeof jsOrderPriority === 'function') {
     logWarning('Notices: orderPriority cannot get chunkName in spa html build, you will get chunkName as undefined')
