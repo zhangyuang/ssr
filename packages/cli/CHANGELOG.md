@@ -1,3 +1,17 @@
+## [6.2.76](https://github.com/zhangyuang/ssr/compare/cli@6.2.75...cli@6.2.76) (2024-07-16)
+
+
+### Bug Fixes
+
+* judge cssInline path ([e214799](https://github.com/zhangyuang/ssr/commit/e21479957e445964f6c2ae8a705348426e0ef3fe))
+
+
+### Features
+
+* reduce generate html css insert ([9315095](https://github.com/zhangyuang/ssr/commit/931509564da42ccdb4ed0afa2ee028ccf859d88f))
+
+
+
 ## [6.2.75](https://github.com/zhangyuang/ssr/compare/cli@6.2.74...cli@6.2.75) (2024-07-08)
 
 
