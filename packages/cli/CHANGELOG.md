@@ -1,3 +1,12 @@
+## [6.2.77](https://github.com/zhangyuang/ssr/compare/cli@6.2.76...cli@6.2.77) (2024-07-26)
+
+
+### Features
+
+* remove bundleConfigPlatform add common-utils to esbuild external ([2705729](https://github.com/zhangyuang/ssr/commit/27057290556a8fd952455a2ceee62b66ffd2d5e9))
+
+
+
 ## [6.2.76](https://github.com/zhangyuang/ssr/compare/cli@6.2.75...cli@6.2.76) (2024-07-16)
 
 
