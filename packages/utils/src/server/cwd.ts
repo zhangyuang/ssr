@@ -160,9 +160,10 @@ export const esbuildTransform = async (from: string, to: string) => {
       format: 'cjs',
       bundle: !!process.env.BUNDLECONFIG,
       outfile: to,
-      platform: process.env.BUNDLECONFIGPLATFORM as Platform | undefined,
+      platform: 'node',
       mainFields: ['module', 'main'],
-      treeShaking: true
+      treeShaking: true,
+      external: ['ssr-common-utils']
     }
   )
 }

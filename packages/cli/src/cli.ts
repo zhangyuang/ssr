@@ -102,10 +102,6 @@ yargs
       alias: 'bc',
       desc: 'bundle config.ts dependencies module by esbuild'
     },
-    bundleConfigPlatform: {
-      alias: 'bcp',
-      desc: 'esbuild bundle platform'
-    },
     analyze: {
       alias: 'a',
       desc: 'Analyze bundle result when using webpack for build'
@@ -135,19 +131,12 @@ yargs
     if (argv.bc) {
       process.env.BUNDLECONFIG = '1'
     }
-    if (argv.bcp) {
-      process.env.BUNDLECONFIGPLATFORM = argv.bcp
-    }
     await startFunc(argv)
   })
   .command('build', 'Build application by webpack or vite', yargs => yargs.options({
     bundleConfig: {
       alias: 'bc',
       desc: 'bundle config.ts dependencies module by esbuild'
-    },
-    bundleConfigPlatform: {
-      alias: 'bcp',
-      desc: 'esbuild bundle platform'
     },
     analyze: {
       alias: 'a',
@@ -188,9 +177,6 @@ yargs
     }
     if (argv.bc) {
       process.env.BUNDLECONFIG = '1'
-    }
-    if (argv.bcp) {
-      process.env.BUNDLECONFIGPLATFORM = argv.bcp
     }
     await buildFunc(argv)
   })
