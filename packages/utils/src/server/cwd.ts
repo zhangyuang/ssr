@@ -162,7 +162,7 @@ export const esbuildTransform = async (from: string, to: string) => {
       platform: 'node',
       mainFields: ['module', 'main'],
       treeShaking: true,
-      external: ['ssr-common-utils']
+      external: process.env.BUNDLECONFIG ? ['ssr-common-utils'] : undefined
     }
   )
 }

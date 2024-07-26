@@ -1,3 +1,13 @@
+## [6.2.138](https://github.com/zhangyuang/ssr/compare/utils@6.2.136...utils@6.2.138) (2024-07-26)
+
+
+### Features
+
+* reduce generate html css insert ([9315095](https://github.com/zhangyuang/ssr/commit/931509564da42ccdb4ed0afa2ee028ccf859d88f))
+* remove bundleConfigPlatform add common-utils to esbuild external ([9322a89](https://github.com/zhangyuang/ssr/commit/9322a8998f339ae9cf1c2107f71dfc91ff75dd0f))
+
+
+
 ## [6.2.137](https://github.com/zhangyuang/ssr/compare/utils@6.2.136...utils@6.2.137) (2024-07-26)
 
 
