@@ -7,6 +7,7 @@ import { coerce } from 'semver'
 import { rm } from 'shelljs'
 import debug from 'debug'
 import { loadConfig } from './loadConfig'
+import { logWarning } from './log'
 
 export const ssrDebug = debug('ssr')
 
@@ -364,6 +365,27 @@ export const checkTsConfig = async () => {
   }
 }
 
+export const requireWithPreserveLinks = (path: string): string|undefined => {
+  const cwd = getCwd()
+  const pkgPath = resolve(cwd, `./node_modules/${path}`)
+  const pkgJsonPath = resolve(pkgPath, './package.json')
+  if (!accessFileSync(pkgJsonPath)) {
+    logWarning(`Please verify the package.json file, current program use ${path} but don't specify it in dependencies`)
+    return
+  }
+  const pkg = require(pkgJsonPath)
+  if (pkg.exports?.node) {
+    const { node } = pkg.exports
+    const target = typeof node === 'string' ? node : node.require || node.default
+    if (target) {
+      return resolve(pkgPath, target)
+    }
+  }
+  if (pkg.main) {
+    return resolve(pkgPath, pkg.main)
+  }
+  logWarning(`Please verify whether ${path} set correct entry file in package.json`)
+}
 export {
   getCwd,
   getFeDir,

@@ -1,8 +1,7 @@
 import { contains, containsPattern, readFromPackageJson, readDir } from './external-utils'
-import { sync } from 'execa'
 import { getDependencies } from '../build-utils'
-import { logErr } from '../log'
 import { defaultExternal, nameSpaceBuiltinModules } from '../static'
+import {requireWithPreserveLinks} from '../cwd'
 
 const scopedModuleRegex = new RegExp('@[a-zA-Z0-9][\\w-.]+\/[a-zA-Z0-9][\\w-.]+([a-zA-Z0-9.\/]+)?', 'g')
 
@@ -22,16 +21,14 @@ function getModuleName(request: string, includeAbsolutePaths: boolean) {
   return req.split(delimiter)[0]
 }
 
+
 function wrap(whitelist: Array<string | RegExp>) {
   const allDependencies: Record<string, string> = {}
   whitelist.forEach(item => {
     if (typeof item === 'string') {
-      try {
-        allDependencies[item] = '1'
-        const { stdout } = sync('node', ['-e', `console.log(require.resolve('${item}'))`, '--preserve-symlinks=1'])
-        getDependencies(stdout, allDependencies)
-      } catch (error) {
-        logErr(`Please check package.json, current program use ${item} but don't specify it in dependencies or ${item} has incorrect package.json main fields `)
+      const entryFile = requireWithPreserveLinks(item)
+      if (entryFile) {
+        getDependencies(entryFile, allDependencies)
       }
     }
   })
