@@ -1,3 +1,12 @@
+## [6.2.139](https://github.com/zhangyuang/ssr/compare/utils@6.2.138...utils@6.2.139) (2024-08-03)
+
+
+### Features
+
+* implement requireWithPreserveLinks replace sync nodee ([cf19c86](https://github.com/zhangyuang/ssr/commit/cf19c861f1372c00b7ac14ad7bc9bda025831d08))
+
+
+
 ## [6.2.138](https://github.com/zhangyuang/ssr/compare/utils@6.2.136...utils@6.2.138) (2024-07-26)
 
 
