@@ -1,9 +1,11 @@
+import { resolve } from 'path'
 import { build, UserConfig } from 'vite'
 import {
   loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin, commonConfig,
-  asyncOptimizeChunkPlugin, getOutputPublicPath, getPkgMajorVersion
+  asyncOptimizeChunkPlugin, getOutputPublicPath, getPkgMajorVersion, getCwd
 } from 'ssr-common-utils'
 import react from '@vitejs/plugin-react'
+import { visualizer } from 'rollup-plugin-visualizer'
 import { createStyleImportPlugin, AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'ssr-vite-plugin-style-import'
 const { getOutput, react18ServerEntry, react18ClientEntry, viteConfig, supportOptinalChaining, isDev, define, babelOptions, optimize } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
@@ -90,6 +92,8 @@ const clientPlugins = [
   createStyleImportPlugin(styleImportConfig)
 ].filter(Boolean)
 
+const analyzePlugin = process.env.GENERATE_ANALYSIS ? visualizer({ filename: resolve(getCwd(), './build/stat.html'), open: true }) : null
+
 const clientConfig: UserConfig = {
   ...commonConfig(),
   ...viteConfig?.().client?.otherConfig,
@@ -115,7 +119,7 @@ const clientConfig: UserConfig = {
       ...viteConfig?.().client?.otherConfig?.build?.rollupOptions,
       input: react18ClientEntry,
       output: rollupOutputOptions(),
-      plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), manifestPlugin()]
+      plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), manifestPlugin(), analyzePlugin]
     }
   },
   define: {

@@ -64,6 +64,7 @@
     "react-refresh": "^0.12.0",
     "react-router": "^5.2.1",
     "react-router-dom": "^5.1.2",
+    "rollup-plugin-visualizer": "^5.12.0",
     "semver": "^7.3.8",
     "ssr-common-utils": "^6.0.0",
     "ssr-deepclone": "^1.0.0",

@@ -1,12 +1,14 @@
+import { resolve } from 'path'
 import { build, UserConfig } from 'vite'
 import {
   loadConfig, chunkNamePlugin, rollupOutputOptions, manifestPlugin,
   commonConfig, asyncOptimizeChunkPlugin, getOutputPublicPath, getBabelOptions,
-  getDefineEnv
+  getDefineEnv, getCwd
 } from 'ssr-common-utils'
 import vuePlugin from '@vitejs/plugin-vue'
 import vueJSXPlugin from '@vitejs/plugin-vue-jsx'
 import babel from '@rollup/plugin-babel'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 import { createStyleImportPlugin, AndDesignVueResolve, VantResolve, ElementPlusResolve, NutuiResolve, AntdResolve } from 'ssr-vite-plugin-style-import'
 
@@ -82,6 +84,7 @@ const clientPlugins = [
   createStyleImportPlugin(styleImportConfig)
 ].filter(Boolean)
 
+const analyzePlugin = process.env.GENERATE_ANALYSIS ? visualizer({ filename: resolve(getCwd(), './build/stat.html'), open: true }) : null
 const clientConfig: UserConfig = {
   ...commonConfig(),
   ...viteConfig?.().client?.otherConfig,
@@ -100,7 +103,7 @@ const clientConfig: UserConfig = {
       plugins: [chunkNamePlugin(), asyncOptimizeChunkPlugin(), manifestPlugin(),
         ...getBabelOptions({
           babel
-        })]
+        }), analyzePlugin]
     }
   },
   define: {
