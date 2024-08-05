@@ -1,4 +1,6 @@
-module.exports = {
+import type {UserConfig} from 'ssr-types'
+
+exports.userConfig = {
   chainBaseConfig: (chain) => {
     chain.module
       .rule('markdown')
@@ -7,6 +9,9 @@ module.exports = {
       .loader(require.resolve('raw-loader'))
       .end()
   },
+  jsInline: 'all',
+  cssInline: 'all',
+  dynamic: false,
   chainClientConfig: chain => {
     chain.optimization
       .splitChunks({
@@ -34,4 +39,4 @@ module.exports = {
       })();`
     }
   ]
-}
+} as UserConfig

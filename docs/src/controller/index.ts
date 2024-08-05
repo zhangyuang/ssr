@@ -16,7 +16,7 @@ export class Index {
   async handler (): Promise<void> {
     try {
       const stream = await render<Readable>(this.ctx, {
-        stream: true
+        stream: false
       })
       this.ctx.body = stream
     } catch (error) {
