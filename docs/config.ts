@@ -9,9 +9,6 @@ exports.userConfig = {
       .loader(require.resolve('raw-loader'))
       .end()
   },
-  jsInline: 'all',
-  cssInline: 'all',
-  dynamic: false,
   chainClientConfig: chain => {
     chain.optimization
       .splitChunks({
