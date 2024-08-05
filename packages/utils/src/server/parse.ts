@@ -69,19 +69,16 @@ const parseFeRoutes = async () => {
       `
   routes = routes.replace(/"component":("(.+?)")/g, (global, m1, m2) => {
     const currentWebpackChunkName = re.exec(routes)![2]
-    if (dynamic) {
-      return `"component": function dynamicComponent () {
+    return dynamic ? `"component": function dynamicComponent () {
           return import(/* webpackChunkName: "${currentWebpackChunkName}" */ '${m2.replace(/\^/g, '"')}')
         }
-        `
-    } else {
-      return `"component": require('${m2.replace(/\^/g, '"')}').default`
-    }
+        ` : `"component": require('${m2.replace(/\^/g, '"')}').default`
   })
   re.lastIndex = 0
   routes = routes.replace(/"fetch":("(.+?)")/g, (global, m1, m2) => {
     const currentWebpackChunkName = re.exec(routes)![2]
-    return `"fetch": () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}')`
+    return dynamic ? `"fetch": () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}')`
+      : `"fetch": () => require('${m2.replace(/\^/g, '"')}')`
   })
   await writeRoutes(routes, 'ssr-declare-routes.js')
   await transformManualRoutes()
