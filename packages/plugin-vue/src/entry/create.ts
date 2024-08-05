@@ -27,7 +27,7 @@ function createStore () {
   return new Vuex.Store<any>(deepClone(store))
 }
 
-export const getInlineCssVNode = (arr: string[], h: CreateElement) => arr.map(item => h('style', {
+export const getInlineVNode = (arr: string[], h: CreateElement, type: 'style'|'script') => arr.map(item => h(type, {
   domProps: {
     innerHTML: item
   }

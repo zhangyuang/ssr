@@ -50,6 +50,7 @@ export interface IConfig {
     serverOutPut: string
   }
   cssInline?: 'all' | string[]
+  jsInline?: 'all' | string[]
   assetsDir?: string
   proxy?: any
   cssOrder: string[]

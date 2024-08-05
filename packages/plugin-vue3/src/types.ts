@@ -61,4 +61,5 @@ export interface vue3AppParams {
     [key: string]: any
   }>>
   inlineCssOrder: string[]
+  inlineJsOrder: string[]
 }

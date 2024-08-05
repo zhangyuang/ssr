@@ -21,8 +21,9 @@ export function createStore () {
   return createVuexStore<any>(deepClone(store))
 }
 
-export const getInlineCssVNode = (arr: string[]) => arr.map(item => h('style', {
-  innerHTML: item
+export const getInlineVNode = (arr: string[], type: 'style'|'script', isVite: boolean) => arr.map(item => h(type, {
+  innerHTML: item,
+  type: isVite ? 'module' : undefined
 }))
 
 export const getVNode = (arr: Script) => arr.map(item => h(item.tagName ?? 'script', Object.assign({}, item.describe, {

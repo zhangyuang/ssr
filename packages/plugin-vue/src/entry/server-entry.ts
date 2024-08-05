@@ -1,13 +1,13 @@
 import {
   findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk,
-  getAsyncJsChunk, getUserScriptVue, remInitial, localStorageWrapper, getInlineCss, checkRoute, splitPageInfo, getStaticConfig
+  getAsyncJsChunk, getUserScriptVue, remInitial, localStorageWrapper, getInlineOrder, checkRoute, splitPageInfo, getStaticConfig
 } from 'ssr-common-utils'
 import type { ISSRContext, IConfig } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
 import { createRenderer } from 'vue-server-renderer'
 
 import { Routes } from './create-router'
-import { createRouter, createStore, getInlineCssVNode, getVNode, RealVue } from './create'
+import { createRouter, createStore, getInlineVNode, getVNode, RealVue } from './create'
 import { IFeRouteItem } from '../types'
 
 const { renderToStream, renderToString } = createRenderer()
@@ -29,7 +29,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName, config)
     const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
     const manifest = await getManifest(config)
-    const [inlineCssOrder, extraCssOrder] = await getInlineCss({ dynamicCssOrder, manifest, config, type: 'vue' })
+    const {
+      inlineCssOrder,
+      extraCssOrder,
+      inlineJsOrder,
+      extraJsOrder
+    } = await getInlineOrder({ dynamicCssOrder, dynamicJsOrder, manifest, config, type: 'vue3' })
     const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
 
     let [layoutFetchData, fetchData] = [{}, {}]
@@ -69,7 +74,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
             type: 'module',
             src: '/node_modules/ssr-plugin-vue/esm/entry/client-entry.js'
           }
-        })] : dynamicJsOrder.map(js => manifest[js]).filter(Boolean).map(js => h('script', {
+        })] : extraJsOrder.map(js => manifest[js]).filter(Boolean).map(js => h('script', {
           attrs: {
             src: js,
             type: isVite ? 'module' : 'text/javascript'
@@ -84,8 +89,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
           'window.ssrDevInfo': JSON.stringify(ssrDevInfo),
           'window.hashRouter': Boolean(hashRouter)
         })
-        const customeHeadScriptArr: Vue.VNode[] = getVNode(getUserScriptVue({ script: customeHeadScript, ctx, position: 'header', staticConfig }), h).concat(getInlineCssVNode(inlineCssOrder, h))
-        const customeFooterScriptArr: Vue.VNode[] = getVNode(getUserScriptVue({ script: customeFooterScript, ctx, position: 'footer', staticConfig }), h)
+        const customeHeadScriptArr: Vue.VNode[] = getVNode(getUserScriptVue({ script: customeHeadScript, ctx, position: 'header', staticConfig }), h).concat(getInlineVNode(inlineCssOrder, h, 'style'))
+        const customeFooterScriptArr: Vue.VNode[] = getVNode(getUserScriptVue({ script: customeFooterScript, ctx, position: 'footer', staticConfig }), h).concat(getInlineVNode(inlineJsOrder, h, 'script'))
 
         const initialData = h('script', {
           domProps: {

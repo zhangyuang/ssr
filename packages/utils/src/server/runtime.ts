@@ -111,34 +111,56 @@ export const getUserScriptVue = (options: {
 export const getScriptArr = (script: UserConfig['customeHeadScript'], ctx: ISSRContext) => {
   return Array.isArray(script) ? script : (script?.(ctx) ?? [])
 }
-export const getInlineCss = async ({
-  dynamicCssOrder,
-  manifest,
-  config,
-  type
-}: {
+const getInlineContent = async (
+  order: string[],
+  inline: 'all' | string[] | undefined,
+  manifest: Record<string, string | undefined>,
+  cwd: string
+) => {
+  const { inlineOrder, injectOrder } = inline === 'all'
+    ? { inlineOrder: order, injectOrder: [] }
+    : order.reduce((acc, curr) => {
+      if (inline?.includes(curr)) {
+        acc.inlineOrder.push(curr)
+      } else {
+        acc.injectOrder.push(curr)
+      }
+      return acc
+    }, { inlineOrder: [] as string[], injectOrder: [] as string[] })
+
+  const inlineContent = await Promise.all(
+    inlineOrder.map(item => manifest[item])
+      .filter(Boolean)
+      .map(item => promises.readFile(isAbsolute(item!) && !item!.startsWith('/client') ? item! : join(cwd, './build', item!)))
+  )
+
+  return {
+    inlineContent: inlineContent.map(item => item.toString()),
+    injectOrder
+  }
+}
+
+interface GetInlineParams {
   dynamicCssOrder: string[]
+  dynamicJsOrder: string[]
   manifest: Record<string, string | undefined>
   config: UserConfig
   type: 'vue3' | 'vue'
-}) => {
-
-  const { cssInline } = config
+}
+export const getInlineOrder = async ({
+  dynamicCssOrder,
+  dynamicJsOrder,
+  manifest,
+  config
+}: GetInlineParams) => {
   const cwd = getCwd()
+  const { inlineContent: inlineCssOrder, injectOrder: extraCssOrder } = await getInlineContent(dynamicCssOrder, config.cssInline, manifest, cwd)
+  const { inlineContent: inlineJsOrder, injectOrder: extraJsOrder } = await getInlineContent(dynamicJsOrder, config.jsInline, manifest, cwd)
 
-  const { cssInlineOrder, cssInjectOrder } = cssInline === 'all' ? {
-    cssInlineOrder: dynamicCssOrder,
-    cssInjectOrder: []
-  } : dynamicCssOrder.reduce((pre, curr) => ({
-    cssInlineOrder: cssInline?.includes(curr) ? [...pre.cssInlineOrder, curr] : pre.cssInlineOrder,
-    cssInjectOrder: !cssInline?.includes(curr) ? [...pre.cssInjectOrder, curr] : pre.cssInjectOrder
-  }), { cssInlineOrder: [] as string[], cssInjectOrder: [] as string[] })
-  const inlineCssContent = (await Promise.all(cssInlineOrder.map(css => manifest[css]).filter(Boolean).map(css =>
-    promises.readFile(isAbsolute(css!) && !css!.startsWith('/client') ? css! : join(cwd, './build', css!))
-  ))).map(item => item.toString())
-
-  return [
-    inlineCssContent,
-    cssInjectOrder
-  ]
+  return {
+    inlineCssOrder,
+    extraCssOrder,
+    inlineJsOrder,
+    extraJsOrder
+  }
 }

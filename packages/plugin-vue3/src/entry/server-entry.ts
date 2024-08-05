@@ -2,14 +2,14 @@ import { h, createSSRApp, renderSlot, VNode } from 'vue'
 import {
   findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk,
   getUserScriptVue, remInitial, localStorageWrapper, appLocalStoreageWrapper,
-  checkRoute, getInlineCss, splitPageInfo, getStaticConfig
+  checkRoute, getInlineOrder, splitPageInfo, getStaticConfig
 } from 'ssr-common-utils'
 import type { ISSRContext, IConfig } from 'ssr-types'
 import { createPinia } from 'pinia'
 import { serialize } from 'ssr-serialize-javascript'
 import { renderToNodeStream, renderToString } from '@vue/server-renderer'
 import { Routes } from './combine-router'
-import { createRouter, createStore, getInlineCssVNode, getVNode } from './create'
+import { createRouter, createStore, getInlineVNode, getVNode } from './create'
 import { IFeRouteItem, vue3AppParams } from '../types'
 
 const { FeRoutes, App, layoutFetch, Layout } = Routes
@@ -35,7 +35,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     jsInject,
     cssInject,
     inlineCssOrder,
-    rootId
+    rootId,
+    inlineJsOrder
   }: vue3AppParams) => {
     const app = createSSRApp({
       render: function () {
@@ -52,8 +53,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         })
         const initialData = h('script', { innerHTML })
         const children = bigpipe ? '' : h(App, { ctx, config, asyncData, fetchData: combineAysncData, reactiveFetchData: { value: combineAysncData }, ssrApp: app })
-        const customeHeadScriptArr: VNode[] = getVNode(getUserScriptVue({ script: customeHeadScript, ctx, position: 'header', staticConfig })).concat(getInlineCssVNode(inlineCssOrder))
-        const customeFooterScriptArr: VNode[] = getVNode(getUserScriptVue({ script: customeFooterScript, ctx, position: 'footer', staticConfig }))
+        const customeHeadScriptArr: VNode[] = getVNode(getUserScriptVue({ script: customeHeadScript, ctx, position: 'header', staticConfig })).concat(getInlineVNode(inlineCssOrder, 'style', isVite))
+        const customeFooterScriptArr: VNode[] = getVNode(getUserScriptVue({ script: customeFooterScript, ctx, position: 'footer', staticConfig })).concat(getInlineVNode(inlineJsOrder, 'script', isVite))
         return h(Layout,
           { ctx, config, asyncData, fetchData: layoutFetchData, reactiveFetchData: { value: layoutFetchData } },
           {
@@ -96,16 +97,20 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName, config)
     const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
     const manifest = await getManifest(config)
-    const [inlineCssOrder, extraCssOrder] = await getInlineCss({ dynamicCssOrder, manifest, config, type: 'vue3' })
+    const {
+      inlineCssOrder,
+      extraCssOrder,
+      inlineJsOrder,
+      extraJsOrder
+    } = await getInlineOrder({ dynamicCssOrder, dynamicJsOrder, manifest, config, type: 'vue3' })
     const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
-
     const cssInject = ((isVite && isDev) ? [h('script', {
       type: 'module',
       src: '/@vite/client'
     })] : extraCssOrder.map(css => manifest[css]).filter(Boolean).map(css => h('link', {
       rel: 'stylesheet',
       href: css
-    }))).concat((isVite && isDev) ? [] : dynamicJsOrder.map(js => manifest[js]).filter(Boolean).map(js => h('link', {
+    }))).concat((isVite && isDev) ? [] : extraJsOrder.map(js => manifest[js]).filter(Boolean).map(js => h('link', {
       href: js,
       as: 'script',
       rel: isVite ? 'modulepreload' : 'preload'
@@ -114,7 +119,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     const jsInject = (isVite && isDev) ? [h('script', {
       type: 'module',
       src: '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'
-    })] : dynamicJsOrder.map(js => manifest[js]).filter(Boolean).map(js =>
+    })] : extraJsOrder.map(js => manifest[js]).filter(Boolean).map(js =>
       h('script', {
         src: js,
         type: isVite ? 'module' : 'text/javascript'
@@ -151,6 +156,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       cssInject,
       isCsr,
       inlineCssOrder,
+      inlineJsOrder,
       rootId
     })
     if (!app.config.errorHandler) {
