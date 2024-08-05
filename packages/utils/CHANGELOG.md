@@ -1,3 +1,12 @@
+## [6.2.141](https://github.com/zhangyuang/ssr/compare/utils@6.2.140...utils@6.2.141) (2024-08-05)
+
+
+### Features
+
+* parse fetch file suppory dynamic option ([fb308ac](https://github.com/zhangyuang/ssr/commit/fb308acacfac116e11ca77e1c9e71e068ea0370e))
+
+
+
 ## [6.2.140](https://github.com/zhangyuang/ssr/compare/utils@6.2.139...utils@6.2.140) (2024-08-05)
 
 
