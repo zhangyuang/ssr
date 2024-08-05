@@ -1,3 +1,22 @@
+## [6.2.60](https://github.com/zhangyuang/ssr/compare/types@6.2.59...types@6.2.60) (2024-08-05)
+
+
+### Bug Fixes
+
+* judge cssInline path ([e214799](https://github.com/zhangyuang/ssr/commit/e21479957e445964f6c2ae8a705348426e0ef3fe))
+
+
+### Features
+
+* add --analyze tips when ssr start ([dcfe3fe](https://github.com/zhangyuang/ssr/commit/dcfe3fea991250027656f9ff660ce96e736dd56d))
+* add rollup-plugin-visualizer in plugin-vue3|react|react18 ([d00db49](https://github.com/zhangyuang/ssr/commit/d00db4988cca864998b334b7ef0010b6721460db))
+* implement requireWithPreserveLinks replace sync nodee ([cf19c86](https://github.com/zhangyuang/ssr/commit/cf19c861f1372c00b7ac14ad7bc9bda025831d08))
+* reduce generate html css insert ([9315095](https://github.com/zhangyuang/ssr/commit/931509564da42ccdb4ed0afa2ee028ccf859d88f))
+* remove bundleConfigPlatform add common-utils to esbuild external ([9322a89](https://github.com/zhangyuang/ssr/commit/9322a8998f339ae9cf1c2107f71dfc91ff75dd0f))
+* support jsInline ([9423667](https://github.com/zhangyuang/ssr/commit/94236670134dab81921ce0c3059e804dbc432f52))
+
+
+
 ## [6.2.59](https://github.com/zhangyuang/ssr/compare/types@6.2.58...types@6.2.59) (2024-07-05)
 
 

@@ -1,3 +1,12 @@
+## [6.2.111](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.110...plugin-vue3@6.2.111) (2024-08-05)
+
+
+### Features
+
+* support jsInline ([9423667](https://github.com/zhangyuang/ssr/commit/94236670134dab81921ce0c3059e804dbc432f52))
+
+
+
 ## [6.2.110](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.109...plugin-vue3@6.2.110) (2024-08-04)
 
 

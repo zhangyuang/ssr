@@ -1,3 +1,13 @@
+## [6.2.140](https://github.com/zhangyuang/ssr/compare/utils@6.2.139...utils@6.2.140) (2024-08-05)
+
+
+### Features
+
+* add rollup-plugin-visualizer in plugin-vue3|react|react18 ([d00db49](https://github.com/zhangyuang/ssr/commit/d00db4988cca864998b334b7ef0010b6721460db))
+* support jsInline ([9423667](https://github.com/zhangyuang/ssr/commit/94236670134dab81921ce0c3059e804dbc432f52))
+
+
+
 ## [6.2.139](https://github.com/zhangyuang/ssr/compare/utils@6.2.138...utils@6.2.139) (2024-08-03)
 
 
