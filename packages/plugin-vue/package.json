@@ -31,8 +31,8 @@
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "@babel/core": "^7.0.0",
-    "@babel/plugin-transform-runtime": "^7.9.6",
     "@babel/plugin-proposal-optional-chaining": "^7.16.5",
+    "@babel/plugin-transform-runtime": "^7.9.6",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.12.13",
     "@babel/runtime": "^7.12.13",
@@ -52,7 +52,7 @@
     "postcss-safe-parser": "^6.0.0",
     "ssr-common-utils": "^6.0.0",
     "ssr-deepclone": "^1.0.0",
-    "ssr-mini-css-extract-plugin": "^1.0.0",
+    "ssr-mini-css-extract-plugin": "^1.6.5",
     "ssr-serialize-javascript": "^6.0.0",
     "ssr-types": "^6.2.3",
     "ssr-webpack": "^6.2.10",

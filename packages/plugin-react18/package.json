@@ -69,7 +69,7 @@
     "ssr-common-utils": "^6.0.0",
     "ssr-deepclone": "^1.0.0",
     "ssr-hoc-react18": "^6.2.7",
-    "ssr-mini-css-extract-plugin": "^1.0.0",
+    "ssr-mini-css-extract-plugin": "^1.6.5",
     "ssr-serialize-javascript": "^6.0.0",
     "ssr-vite-plugin-style-import": "^2.0.1",
     "ssr-webpack": "^6.2.10",

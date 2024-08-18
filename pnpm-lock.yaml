@@ -694,7 +694,7 @@ importers:
       ssr-common-utils: ^6.0.0
       ssr-deepclone: ^1.0.0
       ssr-hoc-react: ^6.2.7
-      ssr-mini-css-extract-plugin: ^1.0.0
+      ssr-mini-css-extract-plugin: ^1.6.5
       ssr-serialize-javascript: ^6.0.0
       ssr-types: ^6.2.7
       ssr-vite-plugin-style-import: ^2.0.1
@@ -747,7 +747,7 @@ importers:
       ssr-common-utils: link:../utils
       ssr-deepclone: 1.0.1
       ssr-hoc-react: link:../hoc-react
-      ssr-mini-css-extract-plugin: 1.6.2
+      ssr-mini-css-extract-plugin: 1.6.5
       ssr-serialize-javascript: 6.0.4
       ssr-vite-plugin-style-import: 2.0.1_vite@2.9.15
       ssr-webpack: link:../webpack
@@ -814,7 +814,7 @@ importers:
       ssr-common-utils: ^6.0.0
       ssr-deepclone: ^1.0.0
       ssr-hoc-react18: ^6.2.7
-      ssr-mini-css-extract-plugin: ^1.0.0
+      ssr-mini-css-extract-plugin: ^1.6.5
       ssr-serialize-javascript: ^6.0.0
       ssr-types: ^6.2.7
       ssr-vite-plugin-style-import: ^2.0.1
@@ -867,7 +867,7 @@ importers:
       ssr-common-utils: link:../utils
       ssr-deepclone: 1.0.1
       ssr-hoc-react18: link:../hoc-react18
-      ssr-mini-css-extract-plugin: 1.6.2
+      ssr-mini-css-extract-plugin: 1.6.5
       ssr-serialize-javascript: 6.0.4
       ssr-vite-plugin-style-import: 2.0.1_vite@2.9.15
       ssr-webpack: link:../webpack
@@ -915,7 +915,7 @@ importers:
       postcss-safe-parser: ^6.0.0
       ssr-common-utils: ^6.0.0
       ssr-deepclone: ^1.0.0
-      ssr-mini-css-extract-plugin: ^1.0.0
+      ssr-mini-css-extract-plugin: ^1.6.5
       ssr-serialize-javascript: ^6.0.0
       ssr-types: ^6.2.3
       ssr-webpack: ^6.2.10
@@ -956,7 +956,7 @@ importers:
       postcss-safe-parser: 6.0.0_postcss@8.4.16
       ssr-common-utils: link:../utils
       ssr-deepclone: 1.0.1
-      ssr-mini-css-extract-plugin: 1.6.2
+      ssr-mini-css-extract-plugin: 1.6.5
       ssr-serialize-javascript: 6.0.4
       ssr-types: link:../types
       ssr-webpack: link:../webpack
@@ -1015,7 +1015,7 @@ importers:
       semver: ^7.3.8
       ssr-common-utils: ^6.0.0
       ssr-deepclone: ^1.0.0
-      ssr-mini-css-extract-plugin: ^1.0.0
+      ssr-mini-css-extract-plugin: ^1.6.5
       ssr-serialize-javascript: ^6.0.0
       ssr-types: ^6.2.3
       ssr-vite-plugin-style-import: ^2.0.1
@@ -1068,7 +1068,7 @@ importers:
       semver: 7.3.8
       ssr-common-utils: link:../utils
       ssr-deepclone: 1.0.1
-      ssr-mini-css-extract-plugin: 1.6.2
+      ssr-mini-css-extract-plugin: 1.6.5
       ssr-serialize-javascript: 6.0.4
       ssr-types: link:../types
       ssr-vite-plugin-style-import: 2.0.1_vite@2.9.15
@@ -5015,7 +5015,7 @@ packages:
       source-map: 0.6.1
       vue-template-es2015-compiler: 1.9.1
     optionalDependencies:
-      prettier: 2.7.1
+      prettier: 2.8.8
     transitivePeerDependencies:
       - arc-templates
       - atpl
@@ -6687,6 +6687,21 @@ packages:
       readdirp: 3.6.0
     optionalDependencies:
       fsevents: 2.3.3
+
+  /chokidar/3.6.0:
+    resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
+    engines: {node: '>= 8.10.0'}
+    dependencies:
+      anymatch: 3.1.2
+      braces: 3.0.2
+      glob-parent: 5.1.2
+      is-binary-path: 2.1.0
+      is-glob: 4.0.3
+      normalize-path: 3.0.0
+      readdirp: 3.6.0
+    optionalDependencies:
+      fsevents: 2.3.3
+    optional: true
 
   /chownr/1.1.4:
     resolution: {integrity: sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg==}
@@ -10313,7 +10328,7 @@ packages:
   /fs-write-stream-atomic/1.0.10:
     resolution: {integrity: sha512-gehEzmPn2nAwr39eay+x3X34Ra+M2QlVUTLhkXPjWdeO8RF9kszk116avgBJM3ZyNHgHXBNx+VmPaFC36k0PzA==}
     dependencies:
-      graceful-fs: 4.2.11
+      graceful-fs: 4.2.10
       iferr: 0.1.5
       imurmurhash: 0.1.4
       readable-stream: 2.3.7
@@ -10695,7 +10710,7 @@ packages:
       source-map: 0.6.1
       wordwrap: 1.0.0
     optionalDependencies:
-      uglify-js: 3.17.4
+      uglify-js: 3.19.2
     dev: true
 
   /hard-rejection/2.1.0:
@@ -11744,7 +11759,7 @@ packages:
     dependencies:
       universalify: 2.0.0
     optionalDependencies:
-      graceful-fs: 4.2.11
+      graceful-fs: 4.2.10
 
   /jsonparse/1.3.1:
     resolution: {integrity: sha512-POQXvpdL69+CluYsillJ7SUhKvytYjW9vG/GKpnf+xP8UWgYEM/RaMzHHofbALDiKbbP1W8UEYmgGl39WkPZsg==}
@@ -11925,10 +11940,8 @@ packages:
       image-size: 0.5.5
       make-dir: 2.1.0
       mime: 1.6.0
-      needle: 3.2.0
+      needle: 3.3.1
       source-map: 0.6.1
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /levn/0.3.0:
@@ -12817,17 +12830,14 @@ packages:
       - supports-color
     dev: false
 
-  /needle/3.2.0:
-    resolution: {integrity: sha512-oUvzXnyLiVyVGoianLijF9O/RecZUf7TkBfimjGrLM4eQhXyeJwM6GeAWccwfQ9aa4gMCZKqhAOuLaMIcQxajQ==}
+  /needle/3.3.1:
+    resolution: {integrity: sha512-6k0YULvhpw+RoLNiQCRKOl09Rv1dPLr8hHnVjHqdolKwDrdNyk+Hmrthi4lIGPPz3r39dLx0hsF5s40sZ3Us4Q==}
     engines: {node: '>= 4.4.x'}
     hasBin: true
     requiresBuild: true
     dependencies:
-      debug: 3.2.7
       iconv-lite: 0.6.3
       sax: 1.2.4
-    transitivePeerDependencies:
-      - supports-color
     dev: false
     optional: true
 
@@ -14512,6 +14522,13 @@ packages:
     hasBin: true
     dev: false
 
+  /prettier/2.8.8:
+    resolution: {integrity: sha512-tdN8qQGvNjw4CHbY+XXk0JgCXn9QiF21a55rBe5LJAU+kDyC4WQn4+awm2Xfk2lQMk5fKup9XgzTZtGkjBdP9Q==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    dev: false
+    optional: true
+
   /pretty-bytes/5.6.0:
     resolution: {integrity: sha512-FFw039TmrBqFK8ma/7OL3sDz/VytdtJr044/QUJtH0wK9lb9jLq9tJyIxUwtQJHwar2BqtiA4iCWSwo9JLkzFg==}
     engines: {node: '>=6'}
@@ -15034,7 +15051,7 @@ packages:
     resolution: {integrity: sha512-1JU/8q+VgFZyxwrJ+SVIOsh+KywWGpds3NTqikiKpDMZWScmAYyKIgqkO+ARvNWJfXeXR1zxz7aHF4u4CyH6vQ==}
     engines: {node: '>=0.10'}
     dependencies:
-      graceful-fs: 4.2.10
+      graceful-fs: 4.2.11
       micromatch: 3.1.10
       readable-stream: 2.3.7
     transitivePeerDependencies:
@@ -16028,8 +16045,8 @@ packages:
     resolution: {integrity: sha512-c2kI7QQsPqZPgX8VY3mgq9tW27O2lGtXTTWrrMN85REWVKRP1jGRAxTdCegwvpxd5DHmvBQdd33PCRhAmf9p0Q==}
     dev: false
 
-  /ssr-mini-css-extract-plugin/1.6.2:
-    resolution: {integrity: sha512-d2IoZ2dmRw1j0t4XHjCG8m/5VfF2bvzxSR3Xo7WwxLXGlfosLPgR8rW3R7PrhcTHV6ePklL9WHHSxrfkLF86Kw==}
+  /ssr-mini-css-extract-plugin/1.6.5:
+    resolution: {integrity: sha512-VCgG2D4lUU74DVa2RsZbbQNrtJVAAz/2rupPl3v/BuzR7Es727rVA8Svek3eKyca9j0G2dFTE4lgXNLbrUEa4A==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
       webpack: ^4.4.0 || ^5.0.0
@@ -17145,8 +17162,8 @@ packages:
     resolution: {integrity: sha512-boAm74ubXHY7KJQZLlXrtMz52qFvpsbOxDcZOnw/Wf+LS4Mmyu7JxmzD4tDLtUQtmZECypJ0FrCz4QIe6dvKRA==}
     dev: false
 
-  /uglify-js/3.17.4:
-    resolution: {integrity: sha512-T9q82TJI9e/C1TAxYvfb16xO120tMVFZrGA3f9/P4424DNu6ypK103y0GPFVa17yotwSyZW5iYXgjYHkGrJW/g==}
+  /uglify-js/3.19.2:
+    resolution: {integrity: sha512-S8KA6DDI47nQXJSi2ctQ629YzwOVs+bQML6DAtvy0wgNdpi+0ySpQK0g2pxBq2xfF2z3YCscu7NNA8nXT9PlIQ==}
     engines: {node: '>=0.8.0'}
     hasBin: true
     requiresBuild: true
@@ -17886,7 +17903,7 @@ packages:
       graceful-fs: 4.2.11
       neo-async: 2.6.2
     optionalDependencies:
-      chokidar: 3.5.3
+      chokidar: 3.6.0
       watchpack-chokidar2: 2.0.1
     transitivePeerDependencies:
       - supports-color

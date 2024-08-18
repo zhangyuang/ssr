@@ -63,7 +63,7 @@
     "semver": "^7.3.8",
     "ssr-common-utils": "^6.0.0",
     "ssr-deepclone": "^1.0.0",
-    "ssr-mini-css-extract-plugin": "^1.0.0",
+    "ssr-mini-css-extract-plugin": "^1.6.5",
     "ssr-serialize-javascript": "^6.0.0",
     "ssr-types": "^6.2.3",
     "ssr-vite-plugin-style-import": "^2.0.1",
