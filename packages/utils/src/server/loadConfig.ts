@@ -151,10 +151,9 @@ const loadConfig = (): IConfig => {
   }
   const assetsDir = userConfig.assetsDir ?? 'static'
   const manifestPath = `${normalizeEndPath(devPublicPath)}asset-manifest.json`
-  const chunkMapPath = `${normalizeEndPath(devPublicPath)}chunkMap.json`
   const staticPath = `${normalizeEndPath(devPublicPath)}${assetsDir}`
   const hotUpdatePath = `${normalizeEndPath(devPublicPath)}*.hot-update**`
-  const proxyKey = [staticPath, hotUpdatePath, manifestPath, chunkMapPath]
+  const proxyKey = [staticPath, hotUpdatePath, manifestPath]
   const prefix = '/'
   const dynamicFile = {
     serverBundle: join(cwd, `./build/server/${chunkName}.server.js`),
