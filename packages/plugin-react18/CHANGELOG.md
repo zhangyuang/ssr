@@ -1,3 +1,15 @@
+## [6.2.82](https://github.com/zhangyuang/ssr/compare/plugin-react18@6.2.81...plugin-react18@6.2.82) (2024-08-18)
+
+
+### Features
+
+* add FileToChunkRelationPlugin ([f2b956e](https://github.com/zhangyuang/ssr/commit/f2b956ed68bdd33f8da3686b74ffab3aa944be00))
+* parse fetch file suppory dynamic option ([fb308ac](https://github.com/zhangyuang/ssr/commit/fb308acacfac116e11ca77e1c9e71e068ea0370e))
+* support jsInline ([9423667](https://github.com/zhangyuang/ssr/commit/94236670134dab81921ce0c3059e804dbc432f52))
+* update ssr-mini-css-extract-plugin ([f56825a](https://github.com/zhangyuang/ssr/commit/f56825a063e4199982faf1fbbd70fd5f6351e3dd))
+
+
+
 ## [6.2.81](https://github.com/zhangyuang/ssr/compare/plugin-react18@6.2.80...plugin-react18@6.2.81) (2024-08-04)
 
 

@@ -1,3 +1,13 @@
+## [6.2.142](https://github.com/zhangyuang/ssr/compare/utils@6.2.141...utils@6.2.142) (2024-08-18)
+
+
+### Features
+
+* add FileToChunkRelationPlugin ([f2b956e](https://github.com/zhangyuang/ssr/commit/f2b956ed68bdd33f8da3686b74ffab3aa944be00))
+* update ssr-mini-css-extract-plugin ([f56825a](https://github.com/zhangyuang/ssr/commit/f56825a063e4199982faf1fbbd70fd5f6351e3dd))
+
+
+
 ## [6.2.141](https://github.com/zhangyuang/ssr/compare/utils@6.2.140...utils@6.2.141) (2024-08-05)
 
 

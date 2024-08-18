@@ -1,3 +1,14 @@
+## [6.2.112](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.111...plugin-vue3@6.2.112) (2024-08-18)
+
+
+### Features
+
+* add FileToChunkRelationPlugin ([f2b956e](https://github.com/zhangyuang/ssr/commit/f2b956ed68bdd33f8da3686b74ffab3aa944be00))
+* parse fetch file suppory dynamic option ([fb308ac](https://github.com/zhangyuang/ssr/commit/fb308acacfac116e11ca77e1c9e71e068ea0370e))
+* update ssr-mini-css-extract-plugin ([f56825a](https://github.com/zhangyuang/ssr/commit/f56825a063e4199982faf1fbbd70fd5f6351e3dd))
+
+
+
 ## [6.2.111](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.110...plugin-vue3@6.2.111) (2024-08-05)
 
 
