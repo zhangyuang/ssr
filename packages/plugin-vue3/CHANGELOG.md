@@ -1,3 +1,12 @@
+## [6.2.113](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.112...plugin-vue3@6.2.113) (2024-08-18)
+
+
+### Bug Fixes
+
+* add fePort https info in ssrDevInfo ([26c9287](https://github.com/zhangyuang/ssr/commit/26c92877c8aa1498a9c85a156c1f218a291dcc8b))
+
+
+
 ## [6.2.112](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.111...plugin-vue3@6.2.112) (2024-08-18)
 
 

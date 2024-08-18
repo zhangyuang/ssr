@@ -1,3 +1,12 @@
+## [6.2.143](https://github.com/zhangyuang/ssr/compare/utils@6.2.142...utils@6.2.143) (2024-08-18)
+
+
+### Bug Fixes
+
+* add fePort https info in ssrDevInfo ([26c9287](https://github.com/zhangyuang/ssr/commit/26c92877c8aa1498a9c85a156c1f218a291dcc8b))
+
+
+
 ## [6.2.142](https://github.com/zhangyuang/ssr/compare/utils@6.2.141...utils@6.2.142) (2024-08-18)
 
 
