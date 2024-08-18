@@ -1,3 +1,13 @@
+## [6.2.144](https://github.com/zhangyuang/ssr/compare/utils@6.2.143...utils@6.2.144) (2024-08-18)
+
+
+### Features
+
+* remove preload tag in microApp ([2532f01](https://github.com/zhangyuang/ssr/commit/2532f014e54aaf5f8733f279f1cd15aec240ede8))
+* update FileToChunkRelationPlugin call condition ([b3989ab](https://github.com/zhangyuang/ssr/commit/b3989aba1fbc393f25a08bd0f0999a37b08599a4))
+
+
+
 ## [6.2.143](https://github.com/zhangyuang/ssr/compare/utils@6.2.142...utils@6.2.143) (2024-08-18)
 
 
