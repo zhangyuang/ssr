@@ -120,7 +120,7 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
     .end()
 }
 const addCommonChain = (chain: Chain, isServer: boolean) => {
-  const { babelOptions, corejsOptions, babelExtraModule, assetsDir, optimize, isDev } = loadConfig()
+  const { babelOptions, corejsOptions, babelExtraModule, assetsDir, optimize, isDev, clientPrefix } = loadConfig()
   const { publicPath, imagePath } = getImageOutputPath()
   const envOptions = {
     modules: false,
@@ -192,7 +192,7 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
     nameSpaceBuiltinModules.forEach(moduleName => {
       chain.node.set(moduleName, 'empty')
     })
-    chain.when(isDev, chain => {
+    chain.when(Boolean(isDev && clientPrefix), chain => {
       chain.plugin('chunkMap').use(FileToChunkRelationPlugin)
     })
     chain.when(generateAnalysis, chain => {
