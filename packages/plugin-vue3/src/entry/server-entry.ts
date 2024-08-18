@@ -16,7 +16,7 @@ const { FeRoutes, App, layoutFetch, Layout } = Routes
 const staticConfig = getStaticConfig()
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, fePort, https, rootId, bigpipe, hashRouter, asyncGlobalData } = config
+  const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, rootId, bigpipe, hashRouter, asyncGlobalData } = config
   const store = createStore()
   const router = createRouter()
   const pinia = createPinia()
@@ -40,7 +40,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
   }: vue3AppParams) => {
     const app = createSSRApp({
       render: function () {
-        const ssrDevInfo = { manifest: isDev ? manifest : '', rootId, fePort: isDev ? fePort : '', https: isDev ? https : '' }
+        const ssrDevInfo = { manifest: isDev ? manifest : '', rootId }
         const innerHTML = splitPageInfo({
           'window.__USE_SSR__': !isCsr,
           'window.__INITIAL_DATA__': isCsr ? {} : serialize(state),

@@ -10,6 +10,7 @@ import { logWarning } from '../log'
 import { getPkgMajorVersion } from '../judge'
 import { asyncChunkMap } from '../build-utils'
 import { nameSpaceBuiltinModules } from '../static'
+import { FileToChunkRelationPlugin } from './plugins'
 
 const [antdVersion, vantVersion] = [getPkgMajorVersion('antd'), getPkgMajorVersion('vant')]
 const isAntd4 = antdVersion === 4
@@ -119,7 +120,7 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
     .end()
 }
 const addCommonChain = (chain: Chain, isServer: boolean) => {
-  const { babelOptions, corejsOptions, babelExtraModule, assetsDir, optimize } = loadConfig()
+  const { babelOptions, corejsOptions, babelExtraModule, assetsDir, optimize, isDev } = loadConfig()
   const { publicPath, imagePath } = getImageOutputPath()
   const envOptions = {
     modules: false,
@@ -191,7 +192,9 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
     nameSpaceBuiltinModules.forEach(moduleName => {
       chain.node.set(moduleName, 'empty')
     })
-
+    chain.when(isDev, chain => {
+      chain.plugin('chunkMap').use(FileToChunkRelationPlugin)
+    })
     chain.when(generateAnalysis, chain => {
       chain.plugin('analyze').use(BundleAnalyzerPlugin)
     })

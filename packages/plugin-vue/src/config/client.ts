@@ -4,8 +4,7 @@ import * as WebpackChain from 'webpack-chain'
 import { getBaseConfig } from './base'
 
 const safePostCssParser = require('postcss-safe-parser')
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
+
 const loadModule = loadModuleFromFramework
 
 const getClientWebpack = (chain: WebpackChain) => {
@@ -59,10 +58,6 @@ const getClientWebpack = (chain: WebpackChain) => {
   chain.plugin('manifest').use(loadModule('webpack-manifest-plugin'), [{
     fileName: 'asset-manifest.json'
   }])
-
-  chain.when(generateAnalysis, chain => {
-    chain.plugin('analyze').use(BundleAnalyzerPlugin)
-  })
 
   chainClientConfig(chain) // 合并用户自定义配置
 
