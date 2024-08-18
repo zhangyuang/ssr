@@ -1,3 +1,12 @@
+## [6.2.114](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.113...plugin-vue3@6.2.114) (2024-08-18)
+
+
+### Features
+
+* remove preload tag in microApp ([2532f01](https://github.com/zhangyuang/ssr/commit/2532f014e54aaf5f8733f279f1cd15aec240ede8))
+
+
+
 ## [6.2.113](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.112...plugin-vue3@6.2.113) (2024-08-18)
 
 
