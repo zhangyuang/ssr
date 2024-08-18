@@ -104,18 +104,20 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       extraJsOrder
     } = await getInlineOrder({ dynamicCssOrder, dynamicJsOrder, manifest, config, type: 'vue3' })
     const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
-    const cssInject = ((isVite && isDev) ? [h('script', {
+    let cssInject = ((isVite && isDev) ? [h('script', {
       type: 'module',
       src: '/@vite/client'
     })] : extraCssOrder.map(css => manifest[css]).filter(Boolean).map(css => h('link', {
       rel: 'stylesheet',
       href: css
-    }))).concat((isVite && isDev) ? [] : extraJsOrder.map(js => manifest[js]).filter(Boolean).map(js => h('link', {
-      href: js,
-      as: 'script',
-      rel: isVite ? 'modulepreload' : 'preload'
     })))
-
+    if (!clientPrefix) {
+      cssInject = cssInject.concat((isVite && isDev) ? [] : extraJsOrder.map(js => manifest[js]).filter(Boolean).map(js => h('link', {
+        href: js,
+        as: 'script',
+        rel: isVite ? 'modulepreload' : 'preload'
+      })))
+    }
     const jsInject = (isVite && isDev) ? [h('script', {
       type: 'module',
       src: '/node_modules/ssr-plugin-vue3/esm/entry/client-entry.js'
