@@ -1,3 +1,12 @@
+## [6.2.145](https://github.com/zhangyuang/ssr/compare/utils@6.2.144...utils@6.2.145) (2024-08-23)
+
+
+### Features
+
+* add 'vite/preload-helper' in Page chunk ([b30d333](https://github.com/zhangyuang/ssr/commit/b30d33321f57b35dd74d4348364eb77981ec93a4))
+
+
+
 ## [6.2.144](https://github.com/zhangyuang/ssr/compare/utils@6.2.143...utils@6.2.144) (2024-08-18)
 
 
