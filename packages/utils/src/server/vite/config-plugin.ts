@@ -26,7 +26,7 @@ const vendorList = ['vue', 'vuex', 'vue-demi', 'vue-router', 'react', 'react-rou
   'react-router-dom', 'react-dom', '@vue', 'ssr-hoc-react', 'ssr-hoc-react18',
   'ssr-client-utils', 'ssr-common-utils', 'pinia', '@babel/runtime',
   'ssr-plugin-vue3', 'ssr-plugin-vue', 'ssr-plugin-react', 'react/jsx-runtime',
-  'path-to-regexp', 'plugin-vue:export-helper', '@vue/devtools-api', 'ssr-hoc-vue3', 'ssr-hoc-vue'
+  'path-to-regexp', 'plugin-vue:export-helper', '@vue/devtools-api', 'ssr-hoc-vue3', 'ssr-hoc-vue', 'vite/preload-helper'
 ]
 
 const chunkNamePlugin = function (): Plugin {
