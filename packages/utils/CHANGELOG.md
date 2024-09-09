@@ -1,3 +1,12 @@
+## [6.2.148](https://github.com/zhangyuang/ssr/compare/utils@6.2.147...utils@6.2.148) (2024-09-09)
+
+
+### Bug Fixes
+
+* webpack plugin call error ([ffc1729](https://github.com/zhangyuang/ssr/commit/ffc17292934aa7c89420daa07b809c7dbe3dbaa3))
+
+
+
 ## [6.2.147](https://github.com/zhangyuang/ssr/compare/utils@6.2.146...utils@6.2.147) (2024-09-09)
 
 
