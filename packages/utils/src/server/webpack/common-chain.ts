@@ -133,14 +133,14 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
   if (isDev && clientPrefix && !isServer) {
     // for micro-app sourcemap
     const SourceMapDevToolPlugin = require(loadModuleFromFramework('ssr-webpack4')).SourceMapDevToolPlugin
-    const BannerPlugin = require(loadModuleFromFramework('ssr-webpack4')).BannerPlugin({
+    const BannerPlugin = require(loadModuleFromFramework('ssr-webpack4')).BannerPlugin
+    chain.devtool(false)
+    chain.plugin('SourceMapDevToolPlugin').use(new SourceMapDevToolPlugin())
+    chain.plugin('BannerPlugin').use(new BannerPlugin({
       banner: () => '//# sourceURL=[file]',
       raw: true,
       include: /\.js$/
-    })
-    chain.devtool(false)
-    chain.plugin('SourceMapDevToolPlugin').use(SourceMapDevToolPlugin)
-    chain.plugin('BannerPlugin').use(BannerPlugin)
+    }))
   }
   const babelModule = chain.module
     .rule('compileBabel')
