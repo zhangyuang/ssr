@@ -1,3 +1,12 @@
+## [6.2.146](https://github.com/zhangyuang/ssr/compare/utils@6.2.145...utils@6.2.146) (2024-09-09)
+
+
+### Features
+
+* use SourceMapDevToolPlugin and BannerPlugin to generate inline-source-map comment for micro-app ([0a2821d](https://github.com/zhangyuang/ssr/commit/0a2821d1f61637772460facdb0852283f48a96cf))
+
+
+
 ## [6.2.145](https://github.com/zhangyuang/ssr/compare/utils@6.2.144...utils@6.2.145) (2024-08-23)
 
 
