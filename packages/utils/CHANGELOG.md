@@ -1,3 +1,12 @@
+## [6.2.147](https://github.com/zhangyuang/ssr/compare/utils@6.2.146...utils@6.2.147) (2024-09-09)
+
+
+### Features
+
+* use loadModuleFromFramework load webpack in utils ([c9973b4](https://github.com/zhangyuang/ssr/commit/c9973b4528049b91a2bd8d454f504fdcc5ea6a9d))
+
+
+
 ## [6.2.146](https://github.com/zhangyuang/ssr/compare/utils@6.2.145...utils@6.2.146) (2024-09-09)
 
 
