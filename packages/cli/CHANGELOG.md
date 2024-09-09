@@ -1,3 +1,29 @@
+## [6.2.79](https://github.com/zhangyuang/ssr/compare/cli@6.2.78...cli@6.2.79) (2024-09-09)
+
+
+### Bug Fixes
+
+* add fePort https info in ssrDevInfo ([26c9287](https://github.com/zhangyuang/ssr/commit/26c92877c8aa1498a9c85a156c1f218a291dcc8b))
+* webpack plugin call error ([ffc1729](https://github.com/zhangyuang/ssr/commit/ffc17292934aa7c89420daa07b809c7dbe3dbaa3))
+
+
+### Features
+
+* add 'vite/preload-helper' in Page chunk ([b30d333](https://github.com/zhangyuang/ssr/commit/b30d33321f57b35dd74d4348364eb77981ec93a4))
+* add FileToChunkRelationPlugin ([f2b956e](https://github.com/zhangyuang/ssr/commit/f2b956ed68bdd33f8da3686b74ffab3aa944be00))
+* add rollup-plugin-visualizer in plugin-vue3|react|react18 ([d00db49](https://github.com/zhangyuang/ssr/commit/d00db4988cca864998b334b7ef0010b6721460db))
+* implement requireWithPreserveLinks replace sync nodee ([cf19c86](https://github.com/zhangyuang/ssr/commit/cf19c861f1372c00b7ac14ad7bc9bda025831d08))
+* parse fetch file suppory dynamic option ([fb308ac](https://github.com/zhangyuang/ssr/commit/fb308acacfac116e11ca77e1c9e71e068ea0370e))
+* remove preload tag in microApp ([2532f01](https://github.com/zhangyuang/ssr/commit/2532f014e54aaf5f8733f279f1cd15aec240ede8))
+* remove sourceMapPlugin, set GENERATE_SOURCEMAP in preprocess ([19b4f8a](https://github.com/zhangyuang/ssr/commit/19b4f8a7fff0372f19dba568072b16980713e0ff))
+* support jsInline ([9423667](https://github.com/zhangyuang/ssr/commit/94236670134dab81921ce0c3059e804dbc432f52))
+* update FileToChunkRelationPlugin call condition ([b3989ab](https://github.com/zhangyuang/ssr/commit/b3989aba1fbc393f25a08bd0f0999a37b08599a4))
+* update ssr-mini-css-extract-plugin ([f56825a](https://github.com/zhangyuang/ssr/commit/f56825a063e4199982faf1fbbd70fd5f6351e3dd))
+* use loadModuleFromFramework load webpack in utils ([c9973b4](https://github.com/zhangyuang/ssr/commit/c9973b4528049b91a2bd8d454f504fdcc5ea6a9d))
+* use SourceMapDevToolPlugin and BannerPlugin to generate inline-source-map comment for micro-app ([0a2821d](https://github.com/zhangyuang/ssr/commit/0a2821d1f61637772460facdb0852283f48a96cf))
+
+
+
 ## [6.2.78](https://github.com/zhangyuang/ssr/compare/cli@6.2.76...cli@6.2.78) (2024-07-26)
 
 
