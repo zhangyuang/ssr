@@ -130,7 +130,17 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
     chain.optimization.minimize(false)
   }
   chain.devtool(isServer ? (process.env.GENERATE_SOURCEMAP ? 'inline-source-map' : '') : process.env.GENERATE_SOURCEMAP ?? '' as any)
-
+  if (isDev && clientPrefix && !isServer) {
+    // for micro-app sourcemap
+    const webpack = require('ssr-webpack4')
+    chain.devtool(false)
+    chain.plugin('SourceMapDevToolPlugin').use(new webpack.SourceMapDevToolPlugin())
+    chain.plugin('BannerPlugin').use(new webpack.BannerPlugin({
+      banner: () => '//# sourceURL=[file]',
+      raw: true,
+      include: /\.js$/
+    }))
+  }
   const babelModule = chain.module
     .rule('compileBabel')
     .test(/\.(js|mjs|jsx|ts|tsx)$/)
