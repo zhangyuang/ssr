@@ -132,10 +132,7 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
   chain.devtool(isServer ? (process.env.GENERATE_SOURCEMAP ? 'inline-source-map' : '') : process.env.GENERATE_SOURCEMAP ?? '' as any)
   if (isDev && clientPrefix && !isServer) {
     // for micro-app sourcemap
-    const SourceMapDevToolPlugin = require(loadModuleFromFramework('ssr-webpack4')).SourceMapDevToolPlugin
     const BannerPlugin = require(loadModuleFromFramework('ssr-webpack4')).BannerPlugin
-    chain.devtool(false)
-    chain.plugin('SourceMapDevToolPlugin').use(new SourceMapDevToolPlugin())
     chain.plugin('BannerPlugin').use(new BannerPlugin({
       banner: () => '//# sourceURL=[file]',
       raw: true,

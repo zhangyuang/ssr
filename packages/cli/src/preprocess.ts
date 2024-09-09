@@ -4,7 +4,7 @@ import { Argv } from 'ssr-types'
 
 export const handleEnv = async (argv: Argv) => {
   const { loadConfig, getCwd } = await import('ssr-common-utils')
-  const { https, isDev } = loadConfig()
+  const { https, isDev, clientPrefix } = loadConfig()
   const cwd = getCwd()
   process.env.BUILD_TOOL = argv.vite ? 'vite' : 'webpack'
   process.env.OPTIMIZE = (process.env.BUILD_TOOL === 'webpack' && argv.optimize) ? '1' : '0'
@@ -12,7 +12,7 @@ export const handleEnv = async (argv: Argv) => {
     process.env.SSG = '1'
   }
   if (isDev) {
-    process.env.GENERATE_SOURCEMAP = 'source-map'
+    process.env.GENERATE_SOURCEMAP = clientPrefix ? 'inline-source-map' : 'source-map'
   }
   if (argv.sourcemap) {
     if (argv.sourcemap.includes?.('source-map')) {
