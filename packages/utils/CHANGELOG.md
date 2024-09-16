@@ -1,3 +1,12 @@
+## [6.2.150](https://github.com/zhangyuang/ssr/compare/utils@6.2.149...utils@6.2.150) (2024-09-16)
+
+
+### Features
+
+* update terser config when use microapp ([5ff8d6a](https://github.com/zhangyuang/ssr/commit/5ff8d6a536b9ddd84ec81edb0856f3bfebdc831c))
+
+
+
 ## [6.2.149](https://github.com/zhangyuang/ssr/compare/utils@6.2.148...utils@6.2.149) (2024-09-09)
 
 
