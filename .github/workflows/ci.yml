@@ -58,7 +58,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: 18
       - name: Check out my other private repo
         uses: actions/checkout@master
         with:
