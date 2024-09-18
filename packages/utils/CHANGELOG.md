@@ -1,3 +1,12 @@
+## [6.2.151](https://github.com/zhangyuang/ssr/compare/utils@6.2.150...utils@6.2.151) (2024-09-18)
+
+
+### Features
+
+* update bannerPlugin insert logic ([d875e6b](https://github.com/zhangyuang/ssr/commit/d875e6bbfda40bf68be1033ff9e76e3e2f0e6a99))
+
+
+
 ## [6.2.150](https://github.com/zhangyuang/ssr/compare/utils@6.2.149...utils@6.2.150) (2024-09-16)
 
 
