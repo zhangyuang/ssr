@@ -25,7 +25,7 @@ export const getBuildConfig = () => {
   }
 }
 
-export const terserConfig = () => {
+export const terserConfig = (isServer: boolean) => {
   const { isDev, clientPrefix } = loadConfig()
   const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
   return {
@@ -45,7 +45,7 @@ export const terserConfig = () => {
       },
       output: {
         ecma: 5,
-        comments: clientPrefix ? /sourceURL/ : false,
+        comments: (clientPrefix && !isServer) ? /sourceURL/ : false,
         ascii_only: true
       }
     },

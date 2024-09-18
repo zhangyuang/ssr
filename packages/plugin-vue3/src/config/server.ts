@@ -24,7 +24,7 @@ const getServerWebpack = (chain: WebpackChain) => {
 
   chain.optimization
     .minimizer('terser')
-    .use(loadModuleFromFramework('terser-webpack-plugin'), [terserConfig()])
+    .use(loadModuleFromFramework('terser-webpack-plugin'), [terserConfig(true)])
 
   chain.externals(nodeExternals({
     whitelist: whiteList,

@@ -29,7 +29,7 @@ const getClientWebpack = (chain: WebpackChain) => {
     .splitChunks(getSplitChunksOptions(asyncChunkMap))
     .when(!isDev, optimization => {
       optimization.minimizer('terser')
-        .use(loadModule('terser-webpack-plugin'), [terserConfig()])
+        .use(loadModule('terser-webpack-plugin'), [terserConfig(false)])
       optimization.minimizer('optimize-css').use(loadModule('optimize-css-assets-webpack-plugin'), [{
         cssProcessorOptions: {
           parser: safePostCssParser,

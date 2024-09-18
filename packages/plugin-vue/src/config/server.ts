@@ -22,7 +22,7 @@ const getServerWebpack = (chain: WebpackChain) => {
   const modulesDir = [join(cwd, './node_modules')]
   chain.optimization
     .minimizer('terser')
-    .use(loadModuleFromFramework('terser-webpack-plugin'), [terserConfig()])
+    .use(loadModuleFromFramework('terser-webpack-plugin'), [terserConfig(true)])
   chain.externals(nodeExternals({
     whitelist: whiteList,
     // externals Dir contains example/xxx/node_modules ssr/node_modules
