@@ -1,3 +1,12 @@
+## [6.2.152](https://github.com/zhangyuang/ssr/compare/utils@6.2.151...utils@6.2.152) (2024-09-19)
+
+
+### Features
+
+* add BatchReplacePlugin for microApp ([c816720](https://github.com/zhangyuang/ssr/commit/c8167206e265802b3c9d7d4fb0f8cdf3cf485f06))
+
+
+
 ## [6.2.151](https://github.com/zhangyuang/ssr/compare/utils@6.2.150...utils@6.2.151) (2024-09-18)
 
 
