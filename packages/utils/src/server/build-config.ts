@@ -44,6 +44,7 @@ export const terserConfig = (isServer: boolean) => {
         safari10: true
       },
       output: {
+        beautify: clientPrefix && !isServer,
         ecma: 5,
         comments: (clientPrefix && !isServer) ? /sourceURL/ : false,
         ascii_only: true
