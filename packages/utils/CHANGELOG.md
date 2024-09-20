@@ -1,3 +1,12 @@
+## [6.2.153](https://github.com/zhangyuang/ssr/compare/utils@6.2.152...utils@6.2.153) (2024-09-20)
+
+
+### Features
+
+* support client and server sourcemap type ([d329fc0](https://github.com/zhangyuang/ssr/commit/d329fc04bd59a652073bc92bc68e65f2fae4ed3b))
+
+
+
 ## [6.2.152](https://github.com/zhangyuang/ssr/compare/utils@6.2.151...utils@6.2.152) (2024-09-19)
 
 

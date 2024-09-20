@@ -1,3 +1,15 @@
+## [6.2.80](https://github.com/zhangyuang/ssr/compare/cli@6.2.79...cli@6.2.80) (2024-09-20)
+
+
+### Features
+
+* add BatchReplacePlugin for microApp ([c816720](https://github.com/zhangyuang/ssr/commit/c8167206e265802b3c9d7d4fb0f8cdf3cf485f06))
+* support client and server sourcemap type ([d329fc0](https://github.com/zhangyuang/ssr/commit/d329fc04bd59a652073bc92bc68e65f2fae4ed3b))
+* update bannerPlugin insert logic ([d875e6b](https://github.com/zhangyuang/ssr/commit/d875e6bbfda40bf68be1033ff9e76e3e2f0e6a99))
+* update terser config when use microapp ([5ff8d6a](https://github.com/zhangyuang/ssr/commit/5ff8d6a536b9ddd84ec81edb0856f3bfebdc831c))
+
+
+
 ## [6.2.79](https://github.com/zhangyuang/ssr/compare/cli@6.2.78...cli@6.2.79) (2024-09-09)
 
 
