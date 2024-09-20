@@ -163,7 +163,18 @@ export const esbuildTransform = async (from: string, to: string) => {
       platform: 'node',
       mainFields: ['module', 'main'],
       treeShaking: true,
-      external: process.env.BUNDLECONFIG ? ['ssr-common-utils'] : undefined
+      external: process.env.BUNDLECONFIG ? ['ssr-common-utils'] : undefined,
+      plugins: [
+        {
+          name: 'external-modules',
+          setup (build) {
+            build.onResolve({ filter: /^@external:/ }, args => ({
+              path: args.path.slice(10),
+              external: true
+            }))
+          }
+        }
+      ]
     }
   )
 }
