@@ -1,3 +1,12 @@
+## [6.2.156](https://github.com/zhangyuang/ssr/compare/utils@6.2.155...utils@6.2.156) (2024-09-20)
+
+
+### Features
+
+* support handle external in server ([a804514](https://github.com/zhangyuang/ssr/commit/a804514371a4ea8a7705fb2785d3ae6d96ac2da2))
+
+
+
 ## [6.2.155](https://github.com/zhangyuang/ssr/compare/utils@6.2.154...utils@6.2.155) (2024-09-20)
 
 
