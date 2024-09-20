@@ -65,12 +65,15 @@ function nodeExternals(options: any) {
   return function (context: any, request: string, callback: (...params: any) => any) {
     if (!options.isServer) {
       if (request.startsWith('@external:')) {
-        // only external in client
+        // set external in client
         return callback(null, importType + ' ' + request.slice(10))
       } else {
         return callback()
       }
-    }
+    } 
+    if (request.startsWith('@external:')) {
+      return callback(null, importType + ' ' + request.slice(10))
+    } 
     const moduleName = getModuleName(request, includeAbsolutePaths)
     if (nameSpaceBuiltinModules.includes(moduleName)) {
       // external node nartive module
