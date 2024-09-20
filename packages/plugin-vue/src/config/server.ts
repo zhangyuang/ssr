@@ -1,5 +1,4 @@
-import { join } from 'path'
-import { loadConfig, nodeExternals, loadModuleFromFramework, terserConfig } from 'ssr-common-utils'
+import { loadConfig, loadModuleFromFramework, terserConfig } from 'ssr-common-utils'
 import * as WebpackChain from 'webpack-chain'
 import * as webpack from 'ssr-webpack4'
 
@@ -7,7 +6,7 @@ import { getBaseConfig } from './base'
 
 const getServerWebpack = (chain: WebpackChain) => {
   const config = loadConfig()
-  const { isDev, cwd, getOutput, chainServerConfig, whiteList, chunkName } = config
+  const { isDev, getOutput, chainServerConfig, chunkName } = config
   getBaseConfig(chain, true)
   chain.target('node')
   chain.entry(chunkName)
@@ -19,15 +18,9 @@ const getServerWebpack = (chain: WebpackChain) => {
     .libraryTarget('commonjs')
     .end()
 
-  const modulesDir = [join(cwd, './node_modules')]
   chain.optimization
     .minimizer('terser')
     .use(loadModuleFromFramework('terser-webpack-plugin'), [terserConfig(true)])
-  chain.externals(nodeExternals({
-    whitelist: whiteList,
-    // externals Dir contains example/xxx/node_modules ssr/node_modules
-    modulesDir
-  }))
 
   chain.when(isDev, () => {
     chain.watch(true)

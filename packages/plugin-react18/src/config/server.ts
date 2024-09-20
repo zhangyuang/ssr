@@ -1,5 +1,4 @@
-import { join } from 'path'
-import { loadConfig, nodeExternals, loadModuleFromFramework } from 'ssr-common-utils'
+import { loadConfig, loadModuleFromFramework } from 'ssr-common-utils'
 import * as WebpackChain from 'webpack-chain'
 import * as webpack from 'ssr-webpack4'
 
@@ -7,7 +6,7 @@ import { getBaseConfig } from './base'
 
 const getServerWebpack = (chain: WebpackChain) => {
   const config = loadConfig()
-  const { isDev, cwd, getOutput, chainServerConfig, whiteList, chunkName } = config
+  const { isDev, getOutput, chainServerConfig, chunkName } = config
   const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
   getBaseConfig(chain, true)
   chain.target('node')
@@ -19,12 +18,6 @@ const getServerWebpack = (chain: WebpackChain) => {
     .filename('[name].server.js')
     .libraryTarget('commonjs')
 
-  const modulesDir = [join(cwd, './node_modules')]
-  chain.externals(nodeExternals({
-    whitelist: whiteList,
-    // externals Dir contains example/xxx/node_modules ssr/node_modules
-    modulesDir
-  }))
   if (!isDev) {
     chain.optimization.minimizer('terser')
       .use(loadModuleFromFramework('terser-webpack-plugin'), [{

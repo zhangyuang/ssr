@@ -1,7 +1,7 @@
 import { contains, containsPattern, readFromPackageJson, readDir } from './external-utils'
 import { getDependencies } from '../build-utils'
 import { defaultExternal, nameSpaceBuiltinModules } from '../static'
-import {requireWithPreserveLinks} from '../cwd'
+import { requireWithPreserveLinks } from '../cwd'
 
 const scopedModuleRegex = new RegExp('@[a-zA-Z0-9][\\w-.]+\/[a-zA-Z0-9][\\w-.]+([a-zA-Z0-9.\/]+)?', 'g')
 
@@ -62,7 +62,15 @@ function nodeExternals(options: any) {
     }
   }
 
-  return function(context: any, request: string, callback: (...params: any) => any) {
+  return function (context: any, request: string, callback: (...params: any) => any) {
+    if (!options.isServer) {
+      if (request.startsWith('@external:')) {
+        // only external in client
+        return callback(null, importType + ' ' + request.slice(10))
+      } else {
+        return callback()
+      }
+    }
     const moduleName = getModuleName(request, includeAbsolutePaths)
     if (nameSpaceBuiltinModules.includes(moduleName)) {
       // external node nartive module
@@ -81,6 +89,9 @@ function nodeExternals(options: any) {
     callback()
   }
 }
+
+
+
 
 export {
   nodeExternals

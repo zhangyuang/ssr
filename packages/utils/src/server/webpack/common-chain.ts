@@ -7,6 +7,7 @@ import { getImageOutputPath } from '../parse'
 import { loadModuleFromFramework, judgeFramework, getCwd } from '../cwd'
 import { loadConfig } from '../loadConfig'
 import { logWarning } from '../log'
+import { nodeExternals } from './externals'
 import { getPkgMajorVersion } from '../judge'
 import { asyncChunkMap } from '../build-utils'
 import { nameSpaceBuiltinModules } from '../static'
@@ -120,7 +121,7 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
     .end()
 }
 const addCommonChain = (chain: Chain, isServer: boolean) => {
-  const { babelOptions, corejsOptions, babelExtraModule, assetsDir, optimize, isDev, clientPrefix } = loadConfig()
+  const { babelOptions, corejsOptions, babelExtraModule, assetsDir, optimize, isDev, clientPrefix, cwd, whiteList } = loadConfig()
   const { publicPath, imagePath } = getImageOutputPath()
   const envOptions = {
     modules: false,
@@ -130,6 +131,19 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
     chain.optimization.minimize(false)
   }
   chain.devtool((isServer ? process.env.SERVER_SOURCEMAP : process.env.CLIENT_SOURCEMAP) as any ?? false)
+  if (!isServer) {
+    chain.externals(nodeExternals({
+      isServer
+    }))
+  } else {
+    const modulesDir = [resolve(cwd, './node_modules')]
+    chain.externals(nodeExternals({
+      isServer,
+      whitelist: whiteList,
+      // externals Dir contains example/xxx/node_modules ssr/node_modules
+      modulesDir
+    }))
+  }
   if (clientPrefix && !isServer) {
     // for micro-app sourcemap
     const BannerPlugin = require(loadModuleFromFramework('ssr-webpack4')).BannerPlugin
