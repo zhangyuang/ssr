@@ -15,15 +15,11 @@ export const handleEnv = async (argv: Argv) => {
     process.env.GENERATE_SOURCEMAP = clientPrefix ? 'inline-source-map' : 'source-map'
   }
   if (argv.sourcemap) {
-    if (argv.sourcemap.includes?.('source-map')) {
-      process.env.GENERATE_SOURCEMAP = argv.sourcemap
-    } else if (!isDev) {
-      process.env.GENERATE_SOURCEMAP = 'source-map'
-    }
+    process.env.GENERATE_SOURCEMAP = argv.sourcemap
   }
-  if (argv.analyze) {
-    process.env.GENERATE_ANALYSIS = '1'
-  }
+  process.env.CLIENT_SOURCEMAP = argv['client-sourcemap'] ?? process.env.GENERATE_SOURCEMAP
+  process.env.SERVER_SOURCEMAP = argv['server-sourcemap'] ?? process.env.GENERATE_SOURCEMAP
+
   if (argv.html) {
     process.env.SPA = '1'
   }

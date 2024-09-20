@@ -129,7 +129,7 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
   if (process.env.NOMINIFY) {
     chain.optimization.minimize(false)
   }
-  chain.devtool(isServer ? (process.env.GENERATE_SOURCEMAP ? 'inline-source-map' : '') : process.env.GENERATE_SOURCEMAP ?? '' as any)
+  chain.devtool((isServer ? process.env.SERVER_SOURCEMAP : process.env.CLIENT_SOURCEMAP) as any ?? false)
   if (clientPrefix && !isServer) {
     // for micro-app sourcemap
     const BannerPlugin = require(loadModuleFromFramework('ssr-webpack4')).BannerPlugin

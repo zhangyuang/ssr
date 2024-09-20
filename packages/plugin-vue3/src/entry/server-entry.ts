@@ -174,7 +174,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
       if (stream) {
         const stream = renderToNodeStream(app)
         if (err) {
-          throw new Error(err)
+          throw err
         }
         return stream
       } else {
@@ -183,7 +183,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
         } = {}
         const html = await renderToString(app, teleportsContext)
         if (err) {
-          throw new Error(err)
+          throw err
         }
         return ({
           html,

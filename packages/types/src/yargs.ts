@@ -22,5 +22,7 @@ export type Argv = Arguments<{
   bc?: boolean
   bcp?: string
   sourcemap?: string
+  'client-sourcemap'?: string
+  'server-sourcemap'?: string
   viteMode?: string
 }>

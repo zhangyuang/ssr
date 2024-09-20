@@ -126,6 +126,15 @@ yargs
     nominify: {
       desc: 'Disable minify output file content for debug'
     },
+    sourcemap: {
+      desc: 'Set type of generate sourcemap by ssr start --sourcemap xxx'
+    },
+    'client-sourcemap': {
+      desc: 'Set type of generate sourcemap for client-side code'
+    },
+    'server-sourcemap': {
+      desc: 'Set type of generate sourcemap for server-side code'
+    },
     ...cliDesc
   }), async (argv: Argv) => {
     if (argv.bc) {
@@ -163,6 +172,12 @@ yargs
     },
     sourcemap: {
       desc: 'Set type of generate sourcemap by build --sourcemap xxx'
+    },
+    'client-sourcemap': {
+      desc: 'Set type of generate sourcemap for client-side code'
+    },
+    'server-sourcemap': {
+      desc: 'Set type of generate sourcemap for server-side code'
     },
     nominify: {
       desc: 'Disable minify output file content for debug'
