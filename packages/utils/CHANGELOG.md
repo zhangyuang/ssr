@@ -1,3 +1,12 @@
+## [6.2.155](https://github.com/zhangyuang/ssr/compare/utils@6.2.154...utils@6.2.155) (2024-09-20)
+
+
+### Features
+
+* support handle external in client ([a666e76](https://github.com/zhangyuang/ssr/commit/a666e76a504468130e59a804a95269490106e5da))
+
+
+
 ## [6.2.154](https://github.com/zhangyuang/ssr/compare/utils@6.2.153...utils@6.2.154) (2024-09-20)
 
 

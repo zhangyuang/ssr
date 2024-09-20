@@ -1,3 +1,15 @@
+## [6.2.116](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.115...plugin-vue3@6.2.116) (2024-09-20)
+
+
+### Features
+
+* add BatchReplacePlugin for microApp ([c816720](https://github.com/zhangyuang/ssr/commit/c8167206e265802b3c9d7d4fb0f8cdf3cf485f06))
+* add esbuild external-modules plugin ([ed206cb](https://github.com/zhangyuang/ssr/commit/ed206cbc4d63ca3029e30b347eb64b6f8d659528))
+* support client and server sourcemap type ([d329fc0](https://github.com/zhangyuang/ssr/commit/d329fc04bd59a652073bc92bc68e65f2fae4ed3b))
+* support handle external in client ([a666e76](https://github.com/zhangyuang/ssr/commit/a666e76a504468130e59a804a95269490106e5da))
+
+
+
 ## [6.2.115](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.114...plugin-vue3@6.2.115) (2024-09-18)
 
 
