@@ -1,3 +1,12 @@
+## [6.2.154](https://github.com/zhangyuang/ssr/compare/utils@6.2.153...utils@6.2.154) (2024-09-20)
+
+
+### Features
+
+* add esbuild external-modules plugin ([ed206cb](https://github.com/zhangyuang/ssr/commit/ed206cbc4d63ca3029e30b347eb64b6f8d659528))
+
+
+
 ## [6.2.153](https://github.com/zhangyuang/ssr/compare/utils@6.2.152...utils@6.2.153) (2024-09-20)
 
 
