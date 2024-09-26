@@ -1,3 +1,19 @@
+## [6.2.81](https://github.com/zhangyuang/ssr/compare/cli@6.2.80...cli@6.2.81) (2024-09-26)
+
+
+### Bug Fixes
+
+* analyze ([2b3879c](https://github.com/zhangyuang/ssr/commit/2b3879cf10009ed7128f7da101518e2bc93abc8a))
+
+
+### Features
+
+* add esbuild external-modules plugin ([ed206cb](https://github.com/zhangyuang/ssr/commit/ed206cbc4d63ca3029e30b347eb64b6f8d659528))
+* support handle external in client ([a666e76](https://github.com/zhangyuang/ssr/commit/a666e76a504468130e59a804a95269490106e5da))
+* support handle external in server ([a804514](https://github.com/zhangyuang/ssr/commit/a804514371a4ea8a7705fb2785d3ae6d96ac2da2))
+
+
+
 ## [6.2.80](https://github.com/zhangyuang/ssr/compare/cli@6.2.79...cli@6.2.80) (2024-09-20)
 
 
