@@ -19,7 +19,9 @@ export const handleEnv = async (argv: Argv) => {
   }
   process.env.CLIENT_SOURCEMAP = argv['client-sourcemap'] ?? process.env.GENERATE_SOURCEMAP
   process.env.SERVER_SOURCEMAP = argv['server-sourcemap'] ?? process.env.GENERATE_SOURCEMAP
-
+  if (argv.analyze) {
+    process.env.GENERATE_ANALYSIS = '1'
+  }
   if (argv.html) {
     process.env.SPA = '1'
   }
