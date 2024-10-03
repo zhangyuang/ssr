@@ -84,7 +84,7 @@ export const getAsyncCssChunk = async (ctx: ISSRContext, webpackChunkName: strin
 }
 export const getAsyncJsChunk = async (ctx: ISSRContext, webpackChunkName: string, config: IConfig): Promise<string[]> => {
   const { jsOrder, extraJsOrder, jsOrderPriority } = config
-  const combineOrder = jsOrder.concat([...nomalrizeOrder(extraJsOrder, ctx), ...await addAsyncChunk(webpackChunkName, config, 'js')])
+  const combineOrder = jsOrder.concat([...nomalrizeOrder(extraJsOrder, ctx)])
   if (jsOrderPriority) {
     const priority = typeof jsOrderPriority === 'function' ? jsOrderPriority({ chunkName: webpackChunkName }) : jsOrderPriority
     combineOrder.sort((a, b) => {
