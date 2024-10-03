@@ -1,3 +1,20 @@
+## [6.2.62](https://github.com/zhangyuang/ssr/compare/types@6.2.61...types@6.2.62) (2024-10-03)
+
+
+### Bug Fixes
+
+* analyze ([2b3879c](https://github.com/zhangyuang/ssr/commit/2b3879cf10009ed7128f7da101518e2bc93abc8a))
+
+
+### Features
+
+* add esbuild external-modules plugin ([ed206cb](https://github.com/zhangyuang/ssr/commit/ed206cbc4d63ca3029e30b347eb64b6f8d659528))
+* add wrap-micro-scope-plugin ([39da637](https://github.com/zhangyuang/ssr/commit/39da63718930490db4f99845d8df20b5636f2c39))
+* support handle external in client ([a666e76](https://github.com/zhangyuang/ssr/commit/a666e76a504468130e59a804a95269490106e5da))
+* support handle external in server ([a804514](https://github.com/zhangyuang/ssr/commit/a804514371a4ea8a7705fb2785d3ae6d96ac2da2))
+
+
+
 ## [6.2.61](https://github.com/zhangyuang/ssr/compare/types@6.2.60...types@6.2.61) (2024-09-20)
 
 

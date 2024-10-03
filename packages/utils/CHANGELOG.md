@@ -1,3 +1,17 @@
+## [6.2.157](https://github.com/zhangyuang/ssr/compare/utils@6.2.156...utils@6.2.157) (2024-10-03)
+
+
+### Bug Fixes
+
+* analyze ([2b3879c](https://github.com/zhangyuang/ssr/commit/2b3879cf10009ed7128f7da101518e2bc93abc8a))
+
+
+### Features
+
+* add wrap-micro-scope-plugin ([39da637](https://github.com/zhangyuang/ssr/commit/39da63718930490db4f99845d8df20b5636f2c39))
+
+
+
 ## [6.2.156](https://github.com/zhangyuang/ssr/compare/utils@6.2.155...utils@6.2.156) (2024-09-20)
 
 
