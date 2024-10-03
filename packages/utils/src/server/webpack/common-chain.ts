@@ -121,7 +121,7 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
     .end()
 }
 const addCommonChain = (chain: Chain, isServer: boolean) => {
-  const { babelOptions, corejsOptions, babelExtraModule, assetsDir, optimize, isDev, clientPrefix, cwd, whiteList } = loadConfig()
+  const { babelOptions, corejsOptions, babelExtraModule, assetsDir, optimize, isDev, clientPrefix, cwd, whiteList, wrapMicroScope } = loadConfig()
   const { publicPath, imagePath } = getImageOutputPath()
   const envOptions = {
     modules: false,
@@ -152,41 +152,71 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
       raw: true,
       include: /\.js$/
     }))
-    const microheader = '(function anonymous(\n) {\n;(function(proxyWindow){with(proxyWindow.__MICRO_APP_WINDOW__){(function(window,self,globalThis,document,Document,Array,Object,String,Boolean,Math,Number,Symbol,Date,Function,Proxy,WeakMap,WeakSet,Set,Map,Reflect,Element,Node,RegExp,Error,TypeError,JSON,isNaN,parseFloat,parseInt,performance,console,decodeURI,encodeURI,decodeURIComponent,encodeURIComponent,navigator,undefined,location,history){})'
-    chain.plugin('BannerMicro').use(BannerPlugin, [{
-      banner: microheader,
-      raw: true,
-      test: /\.js($|\?)/i
-    }])
-    class BatchReplacePlugin {
-      apply (compiler: Compiler) {
-        const { SourceMapSource, RawSource } = require('webpack-sources')
-        compiler.hooks.compilation.tap('BatchReplacePlugin', (compilation) => {
-          compilation.hooks.optimizeChunkAssets.tap('BatchReplacePlugin', (assets) => {
-            assets.forEach((chunk) => {
-              chunk.files.forEach((filename) => {
-                if (filename.includes('.js')) {
-                  const asset = compilation.assets[filename]
-                  const originalSource = asset.source()
-                  const originalSourceMap = asset.map()
-                  const newSource = originalSource.replace(microheader, '')
-                  if (originalSourceMap) {
-                    compilation.updateAsset(
-                      filename,
-                      new SourceMapSource(newSource, filename, originalSourceMap)
-                    )
-                  } else {
-                    compilation.updateAsset(filename, new RawSource(newSource))
+    const { SourceMapSource, RawSource } = require('webpack-sources')
+    if (wrapMicroScope) {
+      const wrap = (code: string) => {
+        const globalKeyToBeCached = 'window,self,globalThis,Array,Object,String,Boolean,Math,Number,Symbol,Date,Promise,Function,Proxy,WeakMap,WeakSet,Set,Map,Reflect,Element,Node,Document,RegExp,Error,TypeError,JSON,isNaN,parseFloat,parseInt,performance,console,decodeURI,encodeURI,decodeURIComponent,encodeURIComponent,location,navigator,undefined'
+        return `;(function(proxyWindow){with(proxyWindow.__MICRO_APP_WINDOW__){(function(${globalKeyToBeCached}){;${code}}).call(proxyWindow,${globalKeyToBeCached})}})(window.__MICRO_APP_PROXY_WINDOW__);`
+      }
+      class wrapMicroScopePlugin {
+        apply (compiler: Compiler) {
+          compiler.hooks.compilation.tap('BatchReplacePlugin', (compilation) => {
+            compilation.hooks.optimizeChunkAssets.tap('BatchReplacePlugin', (assets) => {
+              assets.forEach((chunk) => {
+                chunk.files.forEach((filename) => {
+                  if (filename.includes('.js')) {
+                    const asset = compilation.assets[filename]
+                    const originalSource = asset.source()
+                    const originalSourceMap = asset.map()
+                    const newSource = wrap(originalSource)
+                    if (originalSourceMap) {
+                      compilation.updateAsset(filename, new SourceMapSource(newSource, filename, originalSourceMap))
+                    } else {
+                      compilation.updateAsset(filename, new RawSource(newSource))
+                    }
                   }
-                }
+                })
               })
             })
           })
-        })
+        }
       }
-
+      chain.plugin('wrap-micro-scope-plugin').use(wrapMicroScopePlugin)
+    } else {
+      const microheader = '(function anonymous(\n) {\n;(function(proxyWindow){with(proxyWindow.__MICRO_APP_WINDOW__){(function(window,self,globalThis,document,Document,Array,Object,String,Boolean,Math,Number,Symbol,Date,Function,Proxy,WeakMap,WeakSet,Set,Map,Reflect,Element,Node,RegExp,Error,TypeError,JSON,isNaN,parseFloat,parseInt,performance,console,decodeURI,encodeURI,decodeURIComponent,encodeURIComponent,navigator,undefined,location,history){})'
+      chain.plugin('BannerMicro').use(BannerPlugin, [{
+        banner: microheader,
+        raw: true,
+        test: /\.js($|\?)/i
+      }])
+      class BatchReplacePlugin {
+        apply (compiler: Compiler) {
+          compiler.hooks.compilation.tap('BatchReplacePlugin', (compilation) => {
+            compilation.hooks.optimizeChunkAssets.tap('BatchReplacePlugin', (assets) => {
+              assets.forEach((chunk) => {
+                chunk.files.forEach((filename) => {
+                  if (filename.includes('.js')) {
+                    const asset = compilation.assets[filename]
+                    const originalSource = asset.source()
+                    const originalSourceMap = asset.map()
+                    const newSource = originalSource.replace(microheader, '')
+                    if (originalSourceMap) {
+                      compilation.updateAsset(
+                        filename,
+                        new SourceMapSource(newSource, filename, originalSourceMap)
+                      )
+                    } else {
+                      compilation.updateAsset(filename, new RawSource(newSource))
+                    }
+                  }
+                })
+              })
+            })
+          })
+        }
+      }
+      chain.plugin('BatchReplace').use(BatchReplacePlugin)
     }
-    chain.plugin('BatchReplace').use(BatchReplacePlugin)
   }
   const babelModule = chain.module
     .rule('compileBabel')

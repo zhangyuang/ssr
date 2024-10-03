@@ -186,6 +186,7 @@ export interface IConfig {
    */
   streamHighWaterMark?: number
   asyncGlobalData?: Record<string, any>
+  wrapMicroScope?: boolean
 }
 
 export interface proxyOptions {
