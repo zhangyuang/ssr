@@ -8,6 +8,7 @@
     "@midwayjs/decorator": "^3.0.0",
     "@midwayjs/koa": "^3.0.0",
     "@midwayjs/logger": "^3.0.0",
+    "@vue/server-renderer": "^3.0.7",
     "koa-static-cache": "^5.1.4",
     "midway-schedule": "^2.0.0",
     "pinia": "^2.0.13",
@@ -18,12 +19,11 @@
     "swiper": "6.7.5",
     "vue": "^3.0.0",
     "vue-router": "^4.2.4",
-    "vuex": "^4.0.0",
-    "@vue/server-renderer": "^3.0.7"
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@midwayjs/mock": "^3.0.0",
-    "eslint-config-standard-vue-ts": "^1.0.5",
     "ssr": "^6.0.0",
     "ssr-plugin-midway": "^6.0.0",
     "ssr-plugin-vue3": "^6.0.0",
@@ -40,7 +40,7 @@
     "build:o": "ssr build --optimize",
     "build:vite": "ssr build --vite",
     "deploy": "ssr build && ssr deploy",
-    "lint": "eslint . --ext .js,.tsx,.ts,.vue --cache",
-    "lint:fix": "eslint . --ext .js,.tsx,.ts,.vue --cache --fix"
+    "lint": "biome format --diagnostic-level error",
+    "lint:fix": "biome format --diagnostic-level error --write"
   }
 }

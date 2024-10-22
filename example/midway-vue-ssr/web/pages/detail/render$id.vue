@@ -21,17 +21,17 @@ import Brief from '@/components/brief/index.vue'
 import Recommend from '@/components/recommend/index.vue'
 
 export default {
-  components: {
-    Player,
-    Search,
-    Brief,
-    Recommend
-  },
-  computed: {
-    ...mapState({
-      detailData: state => state.detailStore?.data
-    })
-  }
+	components: {
+		Player,
+		Search,
+		Brief,
+		Recommend
+	},
+	computed: {
+		...mapState({
+			detailData: (state) => state.detailStore?.data
+		})
+	}
 }
 </script>
 

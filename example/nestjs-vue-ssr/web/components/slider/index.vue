@@ -16,43 +16,42 @@
 </template>
 
 <script lang="ts">
-
 import { Swiper, SwiperSlide, directive } from 'vue-awesome-swiper'
 import 'swiper/css/swiper.min.css'
 
 export default {
-  components: {
-    Swiper,
-    SwiperSlide
-  },
-  directives: {
-    swiper: directive
-  },
-  props: ['data'],
-  data () {
-    return {
-      swiperOptions: {
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true,
-          loop: true
-        }
-      }
-    }
-  },
-  computed: {
-    swiper () {
-      return this.$refs.mySwiper.$swiper
-    }
-  },
-  mounted () {
-    this.swiper.slideTo(2, 1000, false)
-  },
-  methods: {
-    toDetail () {
-      this.$router.push('/detail/cbba934b14f747049187')
-    }
-  }
+	components: {
+		Swiper,
+		SwiperSlide
+	},
+	directives: {
+		swiper: directive
+	},
+	props: ['data'],
+	data() {
+		return {
+			swiperOptions: {
+				pagination: {
+					el: '.swiper-pagination',
+					clickable: true,
+					loop: true
+				}
+			}
+		}
+	},
+	computed: {
+		swiper() {
+			return this.$refs.mySwiper.$swiper
+		}
+	},
+	mounted() {
+		this.swiper.slideTo(2, 1000, false)
+	},
+	methods: {
+		toDetail() {
+			this.$router.push('/detail/cbba934b14f747049187')
+		}
+	}
 }
 </script>
 

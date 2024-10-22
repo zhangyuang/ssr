@@ -13,12 +13,12 @@ const store = useSearchStore()
 const { searchText } = storeToRefs(store)
 
 const setText = (e: any) => {
-  store.setData({
-    text: e.target.value
-  })
+	store.setData({
+		text: e.target.value
+	})
 }
 const toSearch = () => {
-  location.href = `https://search.youku.com/search_video?keyword=${searchText.value}`
+	location.href = `https://search.youku.com/search_video?keyword=${searchText.value}`
 }
 </script>
 

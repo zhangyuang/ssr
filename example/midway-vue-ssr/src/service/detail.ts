@@ -4,7 +4,7 @@ import mock from '../mock/detail'
 
 @Provide('ApiDetailService')
 export class ApiDetailService {
-  async index (id): Promise<Ddata> {
-    return await Promise.resolve(mock.data[id])
-  }
+	async index(id): Promise<Ddata> {
+		return await Promise.resolve(mock.data[id])
+	}
 }

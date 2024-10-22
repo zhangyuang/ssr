@@ -1,7 +1,5 @@
 import type { UserConfig } from 'ssr-types'
 
-const userConfig: UserConfig = {
-
-}
+const userConfig: UserConfig = {}
 
 export { userConfig }

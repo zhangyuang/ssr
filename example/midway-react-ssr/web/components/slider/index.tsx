@@ -9,40 +9,35 @@ import styles from './index.module.less'
 React.useLayoutEffect = React.useEffect
 
 interface Props extends SProps {
-  data: ItemMapArr[]
+	data: ItemMapArr[]
 }
 
 const params = {
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-    loop: true
-  }
+	pagination: {
+		el: '.swiper-pagination',
+		clickable: true,
+		loop: true
+	}
 }
 
-function Slider (props: Props) {
-  const data = props.data[0]
-  return (
-    <div className={styles.swiperContainer}>
-      <Swiper {...params}>
-        {
-          data.itemMap.map(val => (
-            <SwiperSlide key={val.img} >
-              <div className={styles.sliderContainer} onClick={() => props.history.push('/detail/cbba934b14f747049187')}>
-                <img src={val.img} className={styles.carouselImg} />
-                <div className={styles.sliderDescContainer}>
-                  <span className={styles.sliderTitle}>
-                    {val.title}
-                  </span>
-                </div>
-              </div>
-            </SwiperSlide>
-          )
-          )
-        }
-      </Swiper>
-    </div>
-  )
+function Slider(props: Props) {
+	const data = props.data[0]
+	return (
+		<div className={styles.swiperContainer}>
+			<Swiper {...params}>
+				{data.itemMap.map((val) => (
+					<SwiperSlide key={val.img}>
+						<div className={styles.sliderContainer} onClick={() => props.history.push('/detail/cbba934b14f747049187')}>
+							<img src={val.img} className={styles.carouselImg} />
+							<div className={styles.sliderDescContainer}>
+								<span className={styles.sliderTitle}>{val.title}</span>
+							</div>
+						</div>
+					</SwiperSlide>
+				))}
+			</Swiper>
+		</div>
+	)
 }
 
 export default Slider

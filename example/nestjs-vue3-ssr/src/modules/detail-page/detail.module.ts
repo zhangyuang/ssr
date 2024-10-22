@@ -4,11 +4,8 @@ import { DetailController } from './detail.controller'
 import { ApiDetailService } from './detail.service'
 
 @Module({
-  imports: [
-
-  ],
-  controllers: [DetailController, ApiController],
-  providers: [ApiDetailService]
+	imports: [],
+	controllers: [DetailController, ApiController],
+	providers: [ApiDetailService]
 })
-
 export class DetailModule {}

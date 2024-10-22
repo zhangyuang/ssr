@@ -31,7 +31,6 @@
     "@vitejs/plugin-vue": "^1.2.1",
     "cross-env": "^7.0.3",
     "darkmode-js": "^1.5.7",
-    "eslint-config-standard-vue-ts": "^1.0.12",
     "raw-loader": "^4.0.2",
     "ssr": "^6.0.0",
     "ssr-plugin-midway": "^6.0.0",

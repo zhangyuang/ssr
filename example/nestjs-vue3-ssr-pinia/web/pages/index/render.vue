@@ -19,5 +19,4 @@ import Search from '@/components/search/index.vue'
 
 const indexStore = useIndexStore()
 const indexData = indexStore.data
-
 </script>

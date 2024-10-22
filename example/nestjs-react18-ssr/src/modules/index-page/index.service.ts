@@ -4,7 +4,7 @@ import mock from './index.mock'
 
 @Injectable()
 export class ApiService {
-  async index (): Promise<IndexData> {
-    return await Promise.resolve(mock)
-  }
+	async index(): Promise<IndexData> {
+		return await Promise.resolve(mock)
+	}
 }

@@ -22,9 +22,8 @@
 import { RecommendDataNode } from '~/typings/data'
 
 defineProps<{
-  data: RecommendDataNode[]
+	data: RecommendDataNode[]
 }>()
-
 </script>
 
 <style lang="less" scoped>

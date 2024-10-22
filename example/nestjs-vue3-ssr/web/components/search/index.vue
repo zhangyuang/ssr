@@ -11,14 +11,14 @@ import { mapState } from 'ssr-hoc-vue3'
 const searchText = mapState().searchStore.value.searchText
 const store = useStore()
 const setText = (e: any) => {
-  store.dispatch('searchStore/setText', {
-    payload: {
-      text: e.target.value
-    }
-  })
+	store.dispatch('searchStore/setText', {
+		payload: {
+			text: e.target.value
+		}
+	})
 }
 const toSearch = () => {
-  location.href = `https://search.youku.com/search_video?keyword=${searchText}`
+	location.href = `https://search.youku.com/search_video?keyword=${searchText}`
 }
 </script>
 

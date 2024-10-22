@@ -20,7 +20,7 @@ import { toRefs } from 'vue'
 import { BriefDataNode } from '~/typings/data'
 
 const props = defineProps<{
-  data: BriefDataNode[]
+	data: BriefDataNode[]
 }>()
 const briefData = toRefs(props.data[0].data)
 </script>

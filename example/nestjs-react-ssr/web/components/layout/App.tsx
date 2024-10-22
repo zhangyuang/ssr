@@ -2,6 +2,6 @@
 // 可通过 __isBrowser__ 或者 useEffect 判断当前在 浏览器环境做一些初始化操作
 import { LayoutProps } from 'ssr-types'
 
-export default function App (props: LayoutProps) {
-  return props.children!
+export default function App(props: LayoutProps) {
+	return props.children!
 }

@@ -1,57 +1,63 @@
-import { AsyncLocalStorage } from 'async_hooks'
 import type { Readable } from 'stream'
+import { AsyncLocalStorage } from 'async_hooks'
 import type { Pinia } from 'pinia'
 import type { Context } from 'react'
+import type { IContext, ISSRContext, PipeableStream } from 'ssr-types'
 import type { App } from 'vue'
-import type { IContext, PipeableStream, ISSRContext } from 'ssr-types'
 
 export interface StoreData {
-  pinia?: Pinia
-  store?: any
-  context?: Context<IContext>
-  ctx?: ISSRContext
+	pinia?: Pinia
+	store?: any
+	context?: Context<IContext>
+	ctx?: ISSRContext
 }
 export interface AppStore {
-  app?: App
+	app?: App
 }
 
-type StorageReturnVal = Promise<string | Readable | NodeJS.ReadableStream | PipeableStream | {
-  html: string
-  teleportsContext: any
-}>
+type StorageReturnVal = Promise<
+	| string
+	| Readable
+	| NodeJS.ReadableStream
+	| PipeableStream
+	| {
+			html: string
+			teleportsContext: any
+	  }
+>
 const localStorage = new AsyncLocalStorage<StoreData>()
 
 export const localStorageWrapper = {
-  run: async function (store: StoreData, callback: (args?: unknown) => StorageReturnVal) {
-    const res = await localStorage.run(store, async function () {
-      const res = await callback()
-      return res
-    })
-    return res
-  },
-  getStore: () => localStorage.getStore()
+	run: async function (store: StoreData, callback: (args?: unknown) => StorageReturnVal) {
+		const res = await localStorage.run(store, async function () {
+			const res = await callback()
+			return res
+		})
+		return res
+	},
+	getStore: () => localStorage.getStore()
 }
 
 const appLocalStoreage = new AsyncLocalStorage<AppStore>()
 
 export const appLocalStoreageWrapper = {
-  run: async function (store: AppStore, callback: (args?: unknown) => StorageReturnVal) {
-    const res = await appLocalStoreage.run(store, async function () {
-      const res = await callback()
-      return res
-    })
-    return res
-  },
+	run: async function (store: AppStore, callback: (args?: unknown) => StorageReturnVal) {
+		const res = await appLocalStoreage.run(store, async function () {
+			const res = await callback()
+			return res
+		})
+		return res
+	},
 
-  getStore: () => appLocalStoreage.getStore()
+	getStore: () => appLocalStoreage.getStore()
 }
 
-export const useStore = <T = any >(): T => localStorage.getStore()?.store
+export const useStore = <T = any>(): T => localStorage.getStore()?.store
 
 export const usePinia = () => localStorage.getStore()?.pinia
 
 export const useStoreContext = () => {
-  return localStorageWrapper.getStore()?.context
+	return localStorageWrapper.getStore()?.context
 }
 
 export const useApp = () => appLocalStoreage.getStore()?.app

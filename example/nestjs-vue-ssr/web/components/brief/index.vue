@@ -16,14 +16,13 @@
 </template>
 
 <script lang="ts">
-
 export default {
-  props: ['data'],
-  data () {
-    return {
-      briefData: this.data[0].data
-    }
-  }
+	props: ['data'],
+	data() {
+		return {
+			briefData: this.data[0].data
+		}
+	}
 }
 </script>
 

@@ -8,8 +8,8 @@
 import { App } from 'vue'
 
 const props = defineProps<{
-  ssrApp: App,
-  asyncData: { value: any }
+	ssrApp: App
+	asyncData: { value: any }
 }>()
 </script>
 

@@ -21,12 +21,11 @@ import { ItemMapArr } from '~/typings/data'
 
 const Router = useRouter()
 defineProps<{
-  data: ItemMapArr[]
+	data: ItemMapArr[]
 }>()
 const toDetail = () => {
-  Router.push('/detail/cbba934b14f747049187')
+	Router.push('/detail/cbba934b14f747049187')
 }
-
 </script>
 
 <style lang="less" scoped>

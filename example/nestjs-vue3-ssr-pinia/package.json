@@ -6,6 +6,7 @@
     "@nestjs/common": "^10.2.7",
     "@nestjs/core": "^10.2.7",
     "@nestjs/platform-express": "^10.2.7",
+    "@vue/server-renderer": "^3.0.7",
     "pinia": "^2.0.13",
     "pm2": "^4.5.4",
     "reflect-metadata": "^0.1.13",
@@ -15,12 +16,11 @@
     "swiper": "6.7.5",
     "vue": "^3.0.0",
     "vue-router": "^4.2.4",
-    "vuex": "^4.0.0",
-    "@vue/server-renderer": "^3.0.7"
+    "vuex": "^4.0.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@nestjs/cli": "^10.1.18",
-    "eslint-config-standard-vue-ts": "^1.0.5",
     "ssr": "^6.0.0",
     "ssr-plugin-nestjs": "^6.0.0",
     "ssr-plugin-vue3": "^6.0.0",
@@ -41,7 +41,7 @@
     "build:vite": "ssr build --vite",
     "deploy": "ssr build && ssr deploy",
     "deploy:tencent": "ssr build && ssr deploy --tencent",
-    "lint": "eslint . --ext .js,.tsx,.ts,.vue --cache",
-    "lint:fix": "eslint . --ext .js,.tsx,.ts,.vue --cache --fix"
+    "lint": "biome format --diagnostic-level error",
+    "lint:fix": "biome format --diagnostic-level error --write"
   }
 }

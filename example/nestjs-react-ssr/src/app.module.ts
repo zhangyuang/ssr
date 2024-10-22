@@ -3,6 +3,6 @@ import { DetailModule } from './modules/detail-page/detail.module'
 import { indexModule } from './modules/index-page/index.module'
 
 @Module({
-  imports: [DetailModule, indexModule]
+	imports: [DetailModule, indexModule]
 })
 export class AppModule {}

@@ -16,14 +16,13 @@
 </template>
 
 <script lang="ts">
-
 export default {
-  props: ['data'],
-  methods: {
-    toDetail () {
-      this.$router.push('/detail/cbba934b14f747049187')
-    }
-  }
+	props: ['data'],
+	methods: {
+		toDetail() {
+			this.$router.push('/detail/cbba934b14f747049187')
+		}
+	}
 }
 </script>
 

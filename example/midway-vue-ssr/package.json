@@ -21,9 +21,9 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@midwayjs/mock": "^3.0.0",
     "cross-env": "^7.0.3",
-    "eslint-config-standard-vue-ts": "^1.0.5",
     "ssr": "^6.0.0",
     "ssr-plugin-midway": "^6.0.0",
     "ssr-plugin-vue": "^6.0.0",
@@ -36,8 +36,8 @@
     "start": "ssr start",
     "build": "ssr build",
     "deploy": "ssr build && ssr deploy",
-    "lint": "eslint . --ext .js,.tsx,.ts,.vue --cache",
-    "lint:fix": "eslint . --ext .js,.tsx,.ts,.vue --cache --fix"
+    "lint": "biome format --diagnostic-level error",
+    "lint:fix": "biome format --diagnostic-level error --write"
   },
   "midway-integration": {
     "tsCodeRoot": "src"

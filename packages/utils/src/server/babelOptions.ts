@@ -3,21 +3,25 @@ import type { Plugin } from 'rollup'
 import { loadConfig } from './loadConfig'
 
 export const getBabelOptions = ({
-  babel
+	babel
 }: {
-  babel: typeof Babel
-}
-) => {
-  const { babelExtraModule, corejsOptions, babelOptions } = loadConfig()
-  return [
-    babel({
-      babelHelpers: 'bundled',
-      extensions: ['.ts', '.vue', '.tsx', '.js'],
-      include: babelExtraModule!.concat(babelOptions?.include ?? []),
-      presets: [['@babel/preset-env', {
-        modules: false,
-        ...corejsOptions
-      }]]
-    })
-  ] as Plugin[]
+	babel: typeof Babel
+}) => {
+	const { babelExtraModule, corejsOptions, babelOptions } = loadConfig()
+	return [
+		babel({
+			babelHelpers: 'bundled',
+			extensions: ['.ts', '.vue', '.tsx', '.js'],
+			include: babelExtraModule!.concat(babelOptions?.include ?? []),
+			presets: [
+				[
+					'@babel/preset-env',
+					{
+						modules: false,
+						...corejsOptions
+					}
+				]
+			]
+		})
+	] as Plugin[]
 }

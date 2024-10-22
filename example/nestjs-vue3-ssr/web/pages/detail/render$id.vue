@@ -21,7 +21,6 @@ import Recommend from '@/components/recommend/index.vue'
 import Search from '@/components/search/index.vue'
 
 const detailData = mapState().detailStore.value.data
-
 </script>
 
 <style>

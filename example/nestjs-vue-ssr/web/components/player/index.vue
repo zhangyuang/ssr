@@ -18,20 +18,19 @@
 </template>
 
 <script lang="ts">
-
 export default {
-  props: ['data'],
-  data () {
-    return {
-      playData: this.data[0].data,
-      play: false
-    }
-  },
-  methods: {
-    playVideo () {
-      this.play = true
-    }
-  }
+	props: ['data'],
+	data() {
+		return {
+			playData: this.data[0].data,
+			play: false
+		}
+	},
+	methods: {
+		playVideo() {
+			this.play = true
+		}
+	}
 }
 </script>
 

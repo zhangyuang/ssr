@@ -18,8 +18,8 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
     "@nestjs/cli": "^10.1.18",
-    "eslint-config-standard-vue-ts": "^1.0.5",
     "ssr": "^6.0.0",
     "ssr-plugin-nestjs": "^6.0.0",
     "ssr-plugin-vue": "^6.0.0",
@@ -38,7 +38,7 @@
     "start": "ssr start",
     "start:vite": "ssr start --vite",
     "build": "ssr build",
-    "lint": "eslint . --ext .js,.tsx,.ts,.vue --cache",
-    "lint:fix": "eslint . --ext .js,.tsx,.ts,.vue --cache --fix"
+    "lint": "biome format --diagnostic-level error",
+    "lint:fix": "biome format --diagnostic-level error --write"
   }
 }

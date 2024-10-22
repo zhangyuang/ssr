@@ -10,24 +10,24 @@
 import { mapState } from 'vuex'
 
 export default {
-  computed: {
-    ...mapState({
-      searchText: state => state.searchStore.searchText
-    })
-  },
+	computed: {
+		...mapState({
+			searchText: (state) => state.searchStore.searchText
+		})
+	},
 
-  methods: {
-    setText (e) {
-      this.$store.dispatch('searchStore/setText', {
-        payload: {
-          text: e.target.value
-        }
-      })
-    },
-    toSearch () {
-      location.href = `https://search.youku.com/search_video?keyword=${this.searchText}`
-    }
-  }
+	methods: {
+		setText(e) {
+			this.$store.dispatch('searchStore/setText', {
+				payload: {
+					text: e.target.value
+				}
+			})
+		},
+		toSearch() {
+			location.href = `https://search.youku.com/search_video?keyword=${this.searchText}`
+		}
+	}
 }
 </script>
 

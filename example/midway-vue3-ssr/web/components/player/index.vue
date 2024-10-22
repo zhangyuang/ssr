@@ -21,14 +21,13 @@
 import { toRefs, ref } from 'vue'
 import { PlayerDataNode } from '~/typings/data'
 const props = defineProps<{
-  data: PlayerDataNode[]
+	data: PlayerDataNode[]
 }>()
 const playData = toRefs(props.data[0].data)
 const play = ref(false)
 const playVideo = () => {
-  play.value = true
+	play.value = true
 }
-
 </script>
 
 <style lang="less" scoped>

@@ -19,16 +19,16 @@ import Rectangle from '@/components/rectangle/index.vue'
 import Search from '@/components/search/index.vue'
 
 export default {
-  components: {
-    Slider,
-    Rectangle,
-    Search
-  },
-  computed: {
-    ...mapState({
-      indexData: state => state.indexStore?.data
-    })
-  }
+	components: {
+		Slider,
+		Rectangle,
+		Search
+	},
+	computed: {
+		...mapState({
+			indexData: (state) => state.indexStore?.data
+		})
+	}
 }
 </script>
 

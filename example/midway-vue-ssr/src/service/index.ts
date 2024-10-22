@@ -4,7 +4,7 @@ import mock from '../mock'
 
 @Provide('ApiService')
 export class ApiIndexService {
-  async index (): Promise<IndexData> {
-    return await Promise.resolve(mock)
-  }
+	async index(): Promise<IndexData> {
+		return await Promise.resolve(mock)
+	}
 }

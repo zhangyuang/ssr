@@ -24,10 +24,10 @@ import 'swiper/components/pagination/pagination.less'
 const Router = useRouter()
 SwiperCore.use([Autoplay, Pagination])
 defineProps<{
-  data: ItemMapArr[]
+	data: ItemMapArr[]
 }>()
 const toDetail = () => {
-  Router.push('/detail/cbba934b14f747049187')
+	Router.push('/detail/cbba934b14f747049187')
 }
 </script>
 
