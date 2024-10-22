@@ -22,31 +22,31 @@ export interface ProvisionalFeRouteItem {
   component?: string
 }
 
-export interface Params<T, U> {
+export interface Params<T, U extends { [K in keyof U]?: string | undefined }> {
   ctx?: ISSRContext<T>
   routerProps?: RouteComponentProps<U>
   state?: any
 }
-export interface ParamsMidway<T, U> {
+export interface ParamsMidway<T, U extends { [K in keyof U]?: string | undefined }> {
   ctx?: ISSRMidwayContext<T>
   routerProps?: RouteComponentProps<U>
   state?: any
 }
-export interface ParamsMidwayKoa<T, U> {
+export interface ParamsMidwayKoa<T, U extends { [K in keyof U]?: string | undefined }> {
   ctx?: ISSRMidwayKoaContext<T>
   routerProps?: RouteComponentProps<U>
   state?: any
 }
-export interface ParamsNest<T, U> {
+export interface ParamsNest<T, U extends { [K in keyof U]?: string | undefined }> {
   ctx?: ISSRNestContext<T>
   routerProps?: RouteComponentProps<U>
   state?: any
 }
 
-export type ReactFetch<T={}, U={}> = (params: Params<T, U>) => Promise<any>
-export type ReactMidwayFetch<T={}, U={}> = (params: ParamsMidway<T, U>) => Promise<any>
-export type ReactMidwayKoaFetch<T={}, U={}> = (params: ParamsMidwayKoa<T, U>) => Promise<any>
-export type ReactNestFetch<T={}, U={}> = (params: ParamsNest<T, U>) => Promise<any>
+export type ReactFetch<T={}, U extends { [K in keyof U]?: string | undefined } = {}> = (params: Params<T, U>) => Promise<any>
+export type ReactMidwayFetch<T={}, U extends { [K in keyof U]?: string | undefined } = {}> = (params: ParamsMidway<T, U>) => Promise<any>
+export type ReactMidwayKoaFetch<T={}, U extends { [K in keyof U]?: string | undefined } = {}> = (params: ParamsMidwayKoa<T, U>) => Promise<any>
+export type ReactNestFetch<T={}, U extends { [K in keyof U]?: string | undefined } = {}> = (params: ParamsNest<T, U>) => Promise<any>
 
 export type ReactESMFetch = () => Promise<{
   default: ReactFetch

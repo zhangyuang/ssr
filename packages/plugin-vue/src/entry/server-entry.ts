@@ -54,7 +54,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
     const state = Object.assign({}, store.state ?? {}, combineAysncData)
     const ssrDevInfo = { manifest: isDev ? manifest : '', rootId }
     const app = new RealVue({
-      // @ts-expect-error
+      // @ts-ignore
       router,
       store,
       render: function (h: Vue.CreateElement) {

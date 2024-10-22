@@ -206,7 +206,7 @@ const __vite_ssr_import_0__ = await __vite_ssr_import__("semver");
   "ssr": "^5.0.0",
   "ssr-plugin-midway": "^5.0.0",
   "ssr-plugin-vue3": "^5.0.0",
-  "typescript": "^4.0.0"
+  "typescript": "^5.0.0"
 },
 ```
 - 删除原有的 `vite.config.js` 文件，如之前没有创建，则不需要删除
