@@ -40,15 +40,14 @@ const parseFeRoutes = async () => {
 	}
 
 	if (routerOptimize) {
-		// 路由过滤
-		if (routerOptimize.include && routerOptimize.exclude) {
-			throw new Error('include and exclude cannot exist synchronal')
+		const { include, exclude } = routerOptimize
+		if (include && exclude) {
+			throw new Error('include and exclude cannot exist at the same time')
 		}
-		if (routerOptimize.include) {
-			arr = arr.filter((route) => routerOptimize?.include?.includes(route.path))
-		}
-		if (routerOptimize.exclude) {
-			arr = arr.filter((route) => !routerOptimize?.exclude?.includes(route.path))
+		if (include) {
+			arr = arr.filter((route) => include.includes(route.path))
+		} else if (exclude) {
+			arr = arr.filter((route) => !exclude.includes(route.path))
 		}
 	}
 
@@ -145,15 +144,9 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
 		}
 	}
 	routeArr.forEach((r) => {
-		if (r.path?.includes('index')) {
-			// /index 映射为 /
-			if (r.path.split('/').length >= 3) {
-				r.path = r.path.replace('/index', '')
-			} else {
-				r.path = r.path.replace('index', '')
-			}
+		if (r.path.endsWith('/index')) {
+			r.path = r.path.slice(0, -5)
 		}
-
 		r.path && arr.push(r)
 	})
 
