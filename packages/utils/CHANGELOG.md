@@ -1,3 +1,16 @@
+## [6.2.159](https://github.com/zhangyuang/ssr/compare/utils@6.2.157...utils@6.2.159) (2024-10-23)
+
+
+### Features
+
+* add biome.json in example ([b474e2b](https://github.com/zhangyuang/ssr/commit/b474e2bce5e31595fd0297786a76c94f0efd8dd6))
+* support clientHistoryRouterMode ([5ce75ac](https://github.com/zhangyuang/ssr/commit/5ce75ac352ede9c9af5461c92491f738af892eda))
+* update default source-map type ([4f0543d](https://github.com/zhangyuang/ssr/commit/4f0543df75611bf5e641943f46e639c4630954a3))
+* upgrade typescript to v5 ([12f3bed](https://github.com/zhangyuang/ssr/commit/12f3bed51cf94274eb050efae9a1994d71a9b095))
+* use biome replace eslint ([8740d4d](https://github.com/zhangyuang/ssr/commit/8740d4dbc66e7f034857f229a04be91ee2aff609))
+
+
+
 ## [6.2.158](https://github.com/zhangyuang/ssr/compare/utils@6.2.157...utils@6.2.158) (2024-10-23)
 
 
