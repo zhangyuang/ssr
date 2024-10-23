@@ -12,7 +12,7 @@ export const handleEnv = async (argv: Argv) => {
 		process.env.SSG = '1'
 	}
 	if (isDev) {
-		process.env.GENERATE_SOURCEMAP = clientPrefix ? 'inline-source-map' : 'source-map'
+		process.env.GENERATE_SOURCEMAP = clientPrefix ? 'inline-cheap-module-source-map' : 'cheap-module-source-map'
 	}
 	if (argv.sourcemap) {
 		process.env.GENERATE_SOURCEMAP = argv.sourcemap

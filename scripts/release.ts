@@ -87,7 +87,9 @@ async function main (): Promise<void> {
       pkgName
     ]
     await run('npx', changelogArgs, { cwd: pkgDir })
-    await runIfNotDry('git', ['tag', tag])
+    await runIfNotDry('git', ['tag', tag]).catch((err) => {
+      console.error(err)
+    })
     tags.push(tag)
   }
 
