@@ -1,3 +1,22 @@
+## [6.2.72](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.71...plugin-vue@6.2.72) (2024-10-23)
+
+
+### Bug Fixes
+
+* analyze ([2b3879c](https://github.com/zhangyuang/ssr/commit/2b3879cf10009ed7128f7da101518e2bc93abc8a))
+
+
+### Features
+
+* add biome.json in example ([b474e2b](https://github.com/zhangyuang/ssr/commit/b474e2bce5e31595fd0297786a76c94f0efd8dd6))
+* add wrap-micro-scope-plugin ([39da637](https://github.com/zhangyuang/ssr/commit/39da63718930490db4f99845d8df20b5636f2c39))
+* support handle external in server ([a804514](https://github.com/zhangyuang/ssr/commit/a804514371a4ea8a7705fb2785d3ae6d96ac2da2))
+* update default source-map type ([4f0543d](https://github.com/zhangyuang/ssr/commit/4f0543df75611bf5e641943f46e639c4630954a3))
+* upgrade typescript to v5 ([12f3bed](https://github.com/zhangyuang/ssr/commit/12f3bed51cf94274eb050efae9a1994d71a9b095))
+* use biome replace eslint ([8740d4d](https://github.com/zhangyuang/ssr/commit/8740d4dbc66e7f034857f229a04be91ee2aff609))
+
+
+
 ## [6.2.71](https://github.com/zhangyuang/ssr/compare/plugin-vue@6.2.70...plugin-vue@6.2.71) (2024-09-20)
 
 

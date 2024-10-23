@@ -1,3 +1,67 @@
+## [6.2.24](https://github.com/zhangyuang/ssr/compare/plugin-midway@6.2.23...plugin-midway@6.2.24) (2024-10-23)
+
+
+### Bug Fixes
+
+* add fePort https info in ssrDevInfo ([26c9287](https://github.com/zhangyuang/ssr/commit/26c92877c8aa1498a9c85a156c1f218a291dcc8b))
+* analyze ([2b3879c](https://github.com/zhangyuang/ssr/commit/2b3879cf10009ed7128f7da101518e2bc93abc8a))
+* contex single instance ([3ca64cd](https://github.com/zhangyuang/ssr/commit/3ca64cdcd6aa0e556b5131147737b39bcd50902f))
+* GENERATE_SOURCEMAP ([9feb3d0](https://github.com/zhangyuang/ssr/commit/9feb3d0bf95f4627f03cb6c70309f471c1f6c750))
+* judge cssInline path ([e214799](https://github.com/zhangyuang/ssr/commit/e21479957e445964f6c2ae8a705348426e0ef3fe))
+* loadConfig ([a0c2e4a](https://github.com/zhangyuang/ssr/commit/a0c2e4a22b343d77626044eea292f7de2d2e46b7))
+* object.assign take effect in initial state ([bf8268f](https://github.com/zhangyuang/ssr/commit/bf8268fc0181e22ace47c13a6cd6239ca89c73c5))
+* optimize react scene use context code ([1d3e885](https://github.com/zhangyuang/ssr/commit/1d3e885d4fd5a8fade6f48438592ae2df16374e1))
+* set bc env ([bf2dbb5](https://github.com/zhangyuang/ssr/commit/bf2dbb50a4b72f56a85c80679eb06e024cb117d2))
+* valtio single instance error ([0474b30](https://github.com/zhangyuang/ssr/commit/0474b302110adc755285fdcefe9d58757e1b200f))
+* webpack plugin call error ([ffc1729](https://github.com/zhangyuang/ssr/commit/ffc17292934aa7c89420daa07b809c7dbe3dbaa3))
+
+
+### Features
+
+* add --analyze tips when ssr start ([dcfe3fe](https://github.com/zhangyuang/ssr/commit/dcfe3fea991250027656f9ff660ce96e736dd56d))
+* add 'vite/preload-helper' in Page chunk ([b30d333](https://github.com/zhangyuang/ssr/commit/b30d33321f57b35dd74d4348364eb77981ec93a4))
+* add BatchReplacePlugin for microApp ([c816720](https://github.com/zhangyuang/ssr/commit/c8167206e265802b3c9d7d4fb0f8cdf3cf485f06))
+* add biome.json in example ([b474e2b](https://github.com/zhangyuang/ssr/commit/b474e2bce5e31595fd0297786a76c94f0efd8dd6))
+* add esbuild external-modules plugin ([ed206cb](https://github.com/zhangyuang/ssr/commit/ed206cbc4d63ca3029e30b347eb64b6f8d659528))
+* add FileToChunkRelationPlugin ([f2b956e](https://github.com/zhangyuang/ssr/commit/f2b956ed68bdd33f8da3686b74ffab3aa944be00))
+* add nameSpaceBuiltinModules judge in external ([47e92be](https://github.com/zhangyuang/ssr/commit/47e92bede76904ed69b2febdd047bd26c06be6a6))
+* add rollup-plugin-visualizer in plugin-vue3|react|react18 ([d00db49](https://github.com/zhangyuang/ssr/commit/d00db4988cca864998b334b7ef0010b6721460db))
+* add vue-demi in default Page ([2f1bb86](https://github.com/zhangyuang/ssr/commit/2f1bb86ed54b2265521068ffb5a39f6bd92e26da))
+* add wrap-micro-scope-plugin ([39da637](https://github.com/zhangyuang/ssr/commit/39da63718930490db4f99845d8df20b5636f2c39))
+* babel-plugin-import unsupport vant@v4 ([#325](https://github.com/zhangyuang/ssr/issues/325)) ([68532aa](https://github.com/zhangyuang/ssr/commit/68532aa59a8f0a968c8a92601a069581965cbff9))
+* compatible with bun ([0eeaba7](https://github.com/zhangyuang/ssr/commit/0eeaba777a306443d954dabfc6643ce7bdadc208))
+* implement requireWithPreserveLinks replace sync nodee ([cf19c86](https://github.com/zhangyuang/ssr/commit/cf19c861f1372c00b7ac14ad7bc9bda025831d08))
+* parse fetch file suppory dynamic option ([fb308ac](https://github.com/zhangyuang/ssr/commit/fb308acacfac116e11ca77e1c9e71e068ea0370e))
+* reduce generate html css insert ([9315095](https://github.com/zhangyuang/ssr/commit/931509564da42ccdb4ed0afa2ee028ccf859d88f))
+* remove bundleConfigPlatform add common-utils to esbuild external ([9322a89](https://github.com/zhangyuang/ssr/commit/9322a8998f339ae9cf1c2107f71dfc91ff75dd0f))
+* remove preload tag in microApp ([2532f01](https://github.com/zhangyuang/ssr/commit/2532f014e54aaf5f8733f279f1cd15aec240ede8))
+* remove sourceMapPlugin, set GENERATE_SOURCEMAP in preprocess ([19b4f8a](https://github.com/zhangyuang/ssr/commit/19b4f8a7fff0372f19dba568072b16980713e0ff))
+* set inline-source-map when bundle server file ([2400d87](https://github.com/zhangyuang/ssr/commit/2400d879e72171e3756c64de25c817669724333c))
+* support build --nominify in vite ([1dac6eb](https://github.com/zhangyuang/ssr/commit/1dac6eb015b86c1fe4d23242885e939eac051199))
+* support build @vue/server-renderer in server bundle ([df675a9](https://github.com/zhangyuang/ssr/commit/df675a94f642881026899b9ef5c48872f73d07ce))
+* support client and server sourcemap type ([d329fc0](https://github.com/zhangyuang/ssr/commit/d329fc04bd59a652073bc92bc68e65f2fae4ed3b))
+* support config.asyncGlobalData ([b571399](https://github.com/zhangyuang/ssr/commit/b571399887d95d3f1e9de1cb6cf8718c8b6a71f8))
+* support handle external in client ([a666e76](https://github.com/zhangyuang/ssr/commit/a666e76a504468130e59a804a95269490106e5da))
+* support handle external in server ([a804514](https://github.com/zhangyuang/ssr/commit/a804514371a4ea8a7705fb2785d3ae6d96ac2da2))
+* support jsInline ([9423667](https://github.com/zhangyuang/ssr/commit/94236670134dab81921ce0c3059e804dbc432f52))
+* support more sourcemap type ([80571b3](https://github.com/zhangyuang/ssr/commit/80571b3bdd210e7847f9ba7db5e5a52c1453c821))
+* support set streamHighWaterMark in react ([62421e2](https://github.com/zhangyuang/ssr/commit/62421e23af7d5d9528f3085b6890e850b7d9ff7a))
+* support ssr build --bundleConfigPlatform ([44f54cd](https://github.com/zhangyuang/ssr/commit/44f54cdc54aadb0a8b1072d280d0efaa61679a32))
+* suuport viteMode close [#332](https://github.com/zhangyuang/ssr/issues/332) ([1bdfff9](https://github.com/zhangyuang/ssr/commit/1bdfff9dec5b2ce1b019be6acc8d612ffbde8c1d))
+* update bannerPlugin insert logic ([d875e6b](https://github.com/zhangyuang/ssr/commit/d875e6bbfda40bf68be1033ff9e76e3e2f0e6a99))
+* update default source-map type ([4f0543d](https://github.com/zhangyuang/ssr/commit/4f0543df75611bf5e641943f46e639c4630954a3))
+* update FileToChunkRelationPlugin call condition ([b3989ab](https://github.com/zhangyuang/ssr/commit/b3989aba1fbc393f25a08bd0f0999a37b08599a4))
+* update ssr-mini-css-extract-plugin ([f56825a](https://github.com/zhangyuang/ssr/commit/f56825a063e4199982faf1fbbd70fd5f6351e3dd))
+* update terser config when use microapp ([5ff8d6a](https://github.com/zhangyuang/ssr/commit/5ff8d6a536b9ddd84ec81edb0856f3bfebdc831c))
+* upgrade typescript to v5 ([12f3bed](https://github.com/zhangyuang/ssr/commit/12f3bed51cf94274eb050efae9a1994d71a9b095))
+* use biome replace eslint ([8740d4d](https://github.com/zhangyuang/ssr/commit/8740d4dbc66e7f034857f229a04be91ee2aff609))
+* use inline-source-map in dev mode ([e639c67](https://github.com/zhangyuang/ssr/commit/e639c679adaf7eb8aecd4a712abd7df2148202cf))
+* use loadModuleFromFramework load webpack in utils ([c9973b4](https://github.com/zhangyuang/ssr/commit/c9973b4528049b91a2bd8d454f504fdcc5ea6a9d))
+* use source-map in dev mode ([8041c8d](https://github.com/zhangyuang/ssr/commit/8041c8da0dd0e01b5bc66fa8fa31ccd9fe03b7a5))
+* use SourceMapDevToolPlugin and BannerPlugin to generate inline-source-map comment for micro-app ([0a2821d](https://github.com/zhangyuang/ssr/commit/0a2821d1f61637772460facdb0852283f48a96cf))
+
+
+
 ## [6.2.23](https://github.com/zhangyuang/ssr/compare/plugin-midway@6.2.22...plugin-midway@6.2.23) (2024-03-17)
 
 

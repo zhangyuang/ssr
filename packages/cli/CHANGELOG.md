@@ -1,3 +1,16 @@
+## [6.2.82](https://github.com/zhangyuang/ssr/compare/cli@6.2.81...cli@6.2.82) (2024-10-23)
+
+
+### Features
+
+* add biome.json in example ([b474e2b](https://github.com/zhangyuang/ssr/commit/b474e2bce5e31595fd0297786a76c94f0efd8dd6))
+* add wrap-micro-scope-plugin ([39da637](https://github.com/zhangyuang/ssr/commit/39da63718930490db4f99845d8df20b5636f2c39))
+* update default source-map type ([4f0543d](https://github.com/zhangyuang/ssr/commit/4f0543df75611bf5e641943f46e639c4630954a3))
+* upgrade typescript to v5 ([12f3bed](https://github.com/zhangyuang/ssr/commit/12f3bed51cf94274eb050efae9a1994d71a9b095))
+* use biome replace eslint ([8740d4d](https://github.com/zhangyuang/ssr/commit/8740d4dbc66e7f034857f229a04be91ee2aff609))
+
+
+
 ## [6.2.81](https://github.com/zhangyuang/ssr/compare/cli@6.2.80...cli@6.2.81) (2024-09-26)
 
 
