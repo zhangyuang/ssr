@@ -8,6 +8,7 @@ interface IWindow {
   clientPrefix?: string
   microApp?: any
   hashRouter: boolean
+  clientHistoryRouterMode: 'webHistory' | 'memoryHistory'
   ssrDevInfo: any
   __VALTIO_DATA__?: any
 }

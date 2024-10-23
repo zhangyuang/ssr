@@ -8,11 +8,11 @@ import { Routes } from './combine-router'
 
 const { store, FeRoutes } = Routes as RoutesType
 
-export function createRouter(options: VueRouterOptions & { hashRouter?: boolean } = {}) {
+export function createRouter(options: VueRouterOptions & { hashRouter?: boolean; clientHistoryRouterMode?: 'webHistory' | 'memoryHistory' } = {}) {
 	const base = options.base ?? '/'
 	const { hashRouter } = options
 	return create({
-		history: __isBrowser__ ? (hashRouter ? createWebHashHistory(base) : createWebHistory(base)) : createMemoryHistory(),
+		history: __isBrowser__ ? (hashRouter ? createWebHashHistory(base) : options.clientHistoryRouterMode === 'webHistory' ? createWebHistory(base) : createMemoryHistory()) : createMemoryHistory(),
 		routes: FeRoutes as any
 	})
 }

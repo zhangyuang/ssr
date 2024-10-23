@@ -189,6 +189,7 @@ export interface IConfig {
 	streamHighWaterMark?: number
 	asyncGlobalData?: Record<string, any>
 	wrapMicroScope?: boolean
+	clientHistoryRouterMode?: 'webHistory' | 'memoryHistory'
 }
 
 export interface proxyOptions {

@@ -52,7 +52,7 @@ const loadConfig = (): IConfig => {
 	const moduleFileExtensions = ['.web.mjs', '.mjs', '.web.js', '.js', '.web.ts', '.ts', '.web.tsx', '.tsx', '.json', '.web.jsx', '.jsx', '.vue', '.css']
 	const isDev = userConfig.isDev ?? process.env.NODE_ENV !== 'production'
 	const fePort = userConfig.fePort ?? 8999
-
+	const clientHistoryRouterMode = 'webHistory'
 	const hmr = Object.assign(
 		{
 			// host: '127.0.0.1',
@@ -208,7 +208,8 @@ const loadConfig = (): IConfig => {
 			dynamicFile,
 			babelExtraModule,
 			rootId,
-			staticConfigPath
+			staticConfigPath,
+			clientHistoryRouterMode
 		},
 		userConfig
 	)

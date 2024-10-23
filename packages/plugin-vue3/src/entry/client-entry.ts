@@ -25,7 +25,8 @@ const clientRender = async () => {
 	const store = createStore()
 	const router = createRouter({
 		base: isMicro() ? window.clientPrefix : window.prefix,
-		hashRouter: window.hashRouter
+		hashRouter: window.hashRouter,
+		clientHistoryRouterMode: window.clientHistoryRouterMode
 	})
 	const pinia = createPinia()
 	setStore(store)
