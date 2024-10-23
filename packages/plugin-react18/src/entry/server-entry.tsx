@@ -91,8 +91,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 		})
 		const injectState = <script dangerouslySetInnerHTML={{ __html: innerHTML }} />
 		// with jsx type error, use createElement here
-		// @ts-expect-error
 		const ele = createElement(
+			// @ts-expect-error
 			StaticRouter,
 			{
 				location: ctx.request.url,
