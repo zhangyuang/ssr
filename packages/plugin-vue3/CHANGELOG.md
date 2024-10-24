@@ -1,3 +1,17 @@
+## [6.2.119](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.118...plugin-vue3@6.2.119) (2024-10-24)
+
+
+### Bug Fixes
+
+* compile error ([6be2a8f](https://github.com/zhangyuang/ssr/commit/6be2a8ffb65edd91ad8bc9b0ef66a338a8de4218))
+
+
+### Features
+
+* adjust history order ([67ea802](https://github.com/zhangyuang/ssr/commit/67ea80211140cb4aa018d04789c0cc006e39e438))
+
+
+
 ## [6.2.118](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.116...plugin-vue3@6.2.118) (2024-10-23)
 
 
