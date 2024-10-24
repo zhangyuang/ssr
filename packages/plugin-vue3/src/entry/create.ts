@@ -12,7 +12,7 @@ export function createRouter(options: VueRouterOptions & { hashRouter?: boolean;
 	const base = options.base ?? '/'
 	const { hashRouter } = options
 	return create({
-		history: __isBrowser__ ? (hashRouter ? createWebHashHistory(base) : options.clientHistoryRouterMode === 'webHistory' ? createWebHistory(base) : createMemoryHistory()) : createMemoryHistory(),
+		history: __isBrowser__ ? (hashRouter ? createWebHashHistory(base) : options.clientHistoryRouterMode === 'memoryHistory' ? createMemoryHistory(base) : createWebHistory(base)) : createMemoryHistory(),
 		routes: FeRoutes as any
 	})
 }
