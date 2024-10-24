@@ -1,3 +1,12 @@
+## [6.2.160](https://github.com/zhangyuang/ssr/compare/utils@6.2.159...utils@6.2.160) (2024-10-24)
+
+
+### Bug Fixes
+
+* compile error ([6be2a8f](https://github.com/zhangyuang/ssr/commit/6be2a8ffb65edd91ad8bc9b0ef66a338a8de4218))
+
+
+
 ## [6.2.159](https://github.com/zhangyuang/ssr/compare/utils@6.2.157...utils@6.2.159) (2024-10-23)
 
 
