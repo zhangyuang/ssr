@@ -160,7 +160,7 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
 				include: /\.js$/
 			})
 		)
-		const { SourceMapSource, RawSource } = require('webpack-sources')
+		const { SourceMapSource, RawSource } = require(loadModuleFromFramework('webpack-sources'))
 		if (wrapMicroScope) {
 			const wrap = (code: string) => {
 				const globalKeyToBeCached =
