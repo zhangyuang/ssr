@@ -1,3 +1,13 @@
+## [6.2.120](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.119...plugin-vue3@6.2.120) (2025-02-13)
+
+
+### Features
+
+* set vue router url with all render modes ([9129c04](https://github.com/zhangyuang/ssr/commit/9129c04077378a617765b184bead62cb29af6891))
+* use micro plugin in dev ([671ba69](https://github.com/zhangyuang/ssr/commit/671ba695747a00297d640869dcf9d3437944dd58))
+
+
+
 ## [6.2.119](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.118...plugin-vue3@6.2.119) (2024-10-24)
 
 
