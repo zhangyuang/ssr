@@ -176,11 +176,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 								type: isVite ? 'module' : 'text/javascript'
 							})
 						)
+
+		router.push(url)
+
 		let [layoutFetchData, fetchData] = [{}, {}]
 		if (!isCsr && !bigpipe) {
-			// not fetch when generate <head>
-			router.push(url)
 			await router.isReady()
+			// not fetch when generate <head>
 			const currentFetch = fetch ? (await fetch()).default : null
 			const { value } = router.currentRoute
 			const lF = layoutFetch ? layoutFetch({ store, router: value, ctx, pinia }, ctx) : Promise.resolve({})
