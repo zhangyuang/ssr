@@ -177,10 +177,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 							})
 						)
 
-		router.push(url)
-
 		let [layoutFetchData, fetchData] = [{}, {}]
 		if (!isCsr && !bigpipe) {
+			await router.push(path)
 			await router.isReady()
 			// not fetch when generate <head>
 			const currentFetch = fetch ? (await fetch()).default : null
@@ -189,6 +188,12 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 			const CF = currentFetch ? currentFetch({ store, router: value, ctx, pinia }, ctx) : Promise.resolve({})
 			;[layoutFetchData, fetchData] = parallelFetch ? await Promise.all([lF, CF]) : [await lF, await CF]
 		} else {
+			router.currentRoute.value.path = path
+			router.currentRoute.value.fullPath = url
+			//@ts-expect-error
+			router.currentRoute.value.query = ctx.request.query
+			//@ts-expect-error
+			router.currentRoute.value.params = ctx.request.params
 			logGreen(`Current path ${path} use csr render mode`)
 		}
 		const combineAysncData = Object.assign({}, layoutFetchData ?? {}, fetchData ?? {})
