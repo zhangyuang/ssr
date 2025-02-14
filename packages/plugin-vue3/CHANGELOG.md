@@ -1,3 +1,14 @@
+## [6.2.121](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.119...plugin-vue3@6.2.121) (2025-02-14)
+
+
+### Features
+
+* set request router info in csr mode for vue3 ([fa7a59d](https://github.com/zhangyuang/ssr/commit/fa7a59dd36ebb69af988832ac373409201f89659))
+* set vue router url with all render modes ([b58f828](https://github.com/zhangyuang/ssr/commit/b58f8281b684f042e0434f87a5d9ce96addfc04a))
+* use micro plugin in dev ([671ba69](https://github.com/zhangyuang/ssr/commit/671ba695747a00297d640869dcf9d3437944dd58))
+
+
+
 ## [6.2.120](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.119...plugin-vue3@6.2.120) (2025-02-13)
 
 
