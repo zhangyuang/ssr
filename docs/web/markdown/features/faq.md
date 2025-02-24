@@ -856,6 +856,93 @@ export default {
 
 ```
 
+也可以像`Nuxt3` 一样使用 [@unhead](https://unhead.unjs.io/usage/composables/use-head) 来定义 `meta` 信息, 配置方式可参考模版[ssr-unhead](https://github.com/Ben-Ben-B/ssr-unhead)或者`@unhead`的配置
+
+在 `controller/index` 中修改
+
+```js
+import { Controller, Get, Provide, Inject } from '@midwayjs/decorator'
+import { Context } from '@midwayjs/koa'
+import { render } from 'ssr-core'
+import { IApiService, IApiDetailService } from '../interface'
+import { renderSSRHead } from '@unhead/ssr'
+import { Readable } from 'stream'
+
+interface IKoaContext extends Context {
+  apiService: IApiService
+  apiDeatilservice: IApiDetailService
+}
+
+@Provide()
+@Controller('/')
+export class Index {
+  @Inject()
+  ctx: IKoaContext
+
+  @Inject('ApiService')
+  apiService: IApiService
+
+  @Inject('ApiDetailService')
+  apiDeatilservice: IApiDetailService
+
+  @Get('/')
+  @Get('/detail/:id')
+  async handler (): Promise<void> {
+    const { ctx } = this
+    try {
+      ctx.apiService = this.apiService
+      ctx.apiDeatilservice = this.apiDeatilservice
+
+      let htmlStr = await render(this.ctx, {
+        stream: false
+      })
+      const { headTags, bodyTags, bodyTagsOpen, htmlAttrs, bodyAttrs } = await renderSSRHead(ctx.head)
+      htmlStr = htmlStr.replace('</head>', `${headTags}</head>`).replace('</body>', `${bodyTags}</body>`).replace('<body>', `<body ${bodyAttrs}>${bodyTagsOpen}`).replace('<html>', `<html ${htmlAttrs}>`)
+      ctx.body = Readable.from(htmlStr)
+    } catch (error) {
+      console.log('ssr error', error)
+      const stream = await render(ctx, {
+        stream: true,
+        mode: 'csr'
+      })
+      ctx.body = stream
+    }
+  }
+}
+
+```
+
+在 `layout/App.vue` 中给ctx回传`head`对象
+
+```html
+<script lang="ts" setup>
+import { App } from 'vue'
+import { createHead } from '@unhead/vue'
+import { useApp } from 'ssr-common-utils'
+const app = useApp()
+const head = createHead()
+app.use(head)
+const props = defineProps<{
+  ctx: any,
+}>()
+if (props.ctx) {
+  props.ctx.head = head
+}
+</script>
+```
+
+在页面中使用
+```html
+
+<script lang="ts" setup>
+import { useHead } from 'unhead'
+
+useHead({
+  title: 'My awesome site'
+})
+</script>
+
+```
 `React` 使用则更简单 
 
 ```js
