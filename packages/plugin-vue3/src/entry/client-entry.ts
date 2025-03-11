@@ -31,7 +31,6 @@ const clientRender = async () => {
 	const pinia = createPinia()
 	setStore(store)
 	setPinia(pinia)
-
 	const create = window.__USE_SSR__ ? createSSRApp : createApp
 
 	if (window.__INITIAL_DATA__) {

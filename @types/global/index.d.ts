@@ -11,6 +11,7 @@ interface IWindow {
   clientHistoryRouterMode: 'webHistory' | 'memoryHistory'
   ssrDevInfo: any
   __VALTIO_DATA__?: any
+  ssrRequestPath?: string
 }
 
 declare global {

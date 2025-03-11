@@ -39,7 +39,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 					'window.clientHistoryRouterMode': `"${clientHistoryRouterMode}"`,
 					'window.clientPrefix': `"${clientPrefix ?? ''}"`,
 					'window.ssrDevInfo': JSON.stringify(ssrDevInfo),
-					'window.hashRouter': Boolean(hashRouter)
+					'window.hashRouter': Boolean(hashRouter),
+					'window.ssrRequestPath': `"${path}"`
 				})
 				const initialData = h('script', { innerHTML })
 				const children = bigpipe
