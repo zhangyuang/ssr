@@ -1,3 +1,12 @@
+## [6.2.122](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.121...plugin-vue3@6.2.122) (2025-03-11)
+
+
+### Features
+
+* support window.ssrRequestPath inject for memoryHistory in vue3 ([ca99c5d](https://github.com/zhangyuang/ssr/commit/ca99c5dd5fed3c1bcd2c440991f7b08bc6f961b3))
+
+
+
 ## [6.2.121](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.119...plugin-vue3@6.2.121) (2025-02-14)
 
 
