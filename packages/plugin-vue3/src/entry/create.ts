@@ -17,6 +17,7 @@ export function createRouter(options: VueRouterOptions & { hashRouter?: boolean;
 	})
 	if (__isBrowser__ && useClientMemoryHistory && window.ssrRequestPath) {
 		routerInstance.push(window.ssrRequestPath)
+		routerInstance.currentRoute.value.path = window.ssrRequestPath
 	}
 	return routerInstance
 }
