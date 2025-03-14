@@ -1,3 +1,12 @@
+## [6.2.123](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.122...plugin-vue3@6.2.123) (2025-03-14)
+
+
+### Bug Fixes
+
+* set currentRouter path when use memoryHistory in client ([df7b040](https://github.com/zhangyuang/ssr/commit/df7b040035e39400e3c6ed8256ab0fb0e08f3c61))
+
+
+
 ## [6.2.122](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.121...plugin-vue3@6.2.122) (2025-03-11)
 
 
