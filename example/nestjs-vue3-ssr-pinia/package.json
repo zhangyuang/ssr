@@ -1,5 +1,5 @@
 {
-  "name": "nestjs-vue3-ssr",
+  "name": "nestjs-vue3-ssr-pinia",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
