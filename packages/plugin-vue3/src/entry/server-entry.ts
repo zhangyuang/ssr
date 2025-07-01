@@ -180,7 +180,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 
 		let [layoutFetchData, fetchData] = [{}, {}]
 		if (!isCsr && !bigpipe) {
-			await router.push(path)
+			await router.push(url)
 			await router.isReady()
 			// not fetch when generate <head>
 			const currentFetch = fetch ? (await fetch()).default : null
