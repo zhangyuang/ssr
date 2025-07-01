@@ -79,5 +79,6 @@
     "shelljs": "^0.8.5",
     "turbo": "^1.4.3",
     "typescript": "^5.0.0"
-  }
+  },
+  "version": "0.0.1"
 }
