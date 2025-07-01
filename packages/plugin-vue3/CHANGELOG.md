@@ -1,3 +1,12 @@
+## [6.2.124](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.123...plugin-vue3@6.2.124) (2025-07-01)
+
+
+### Bug Fixes
+
+* use req.url instead of req.path ([d74b5da](https://github.com/zhangyuang/ssr/commit/d74b5da10e5303f37559a570dbb6701522fbe672))
+
+
+
 ## [6.2.123](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.122...plugin-vue3@6.2.123) (2025-03-14)
 
 
