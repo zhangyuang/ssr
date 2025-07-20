@@ -1,7 +1,7 @@
 import { asyncChunkMap, getBuildConfig, getOutputPublicPath, getSplitChunksOptions, loadConfig, loadModuleFromFramework, terserConfig } from 'ssr-common-utils'
 import WebpackChain from 'webpack-chain'
 
-import { getBaseConfig } from './base'
+import { getBaseConfig } from './base-config'
 
 const safePostCssParser = require('postcss-safe-parser')
 

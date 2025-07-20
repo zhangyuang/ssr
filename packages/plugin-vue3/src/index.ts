@@ -11,18 +11,19 @@ export function clientPlugin() {
 				const { viteStart } = await import('./tools/vite')
 				await viteStart()
 			} else {
+				const { serverConfigChain, clientConfigChain } = await import('./tools/webpack')
 				if (optimize) {
 					spinner.start()
 					const { viteBuildClient } = await import('./tools/vite')
 					await viteBuildClient()
 					process.env.NODE_ENV = 'development'
 					spinner.stop()
-					const { webpackStart } = await import('./tools/webpack')
-					await webpackStart()
-				} else {
-					const { webpackStart } = await import('./tools/webpack')
-					await webpackStart()
 				}
+				const { webpackStart } = await import('ssr-webpack')
+				await webpackStart({
+					serverConfigChain: serverConfigChain(),
+					clientConfigChain: clientConfigChain()
+				})
 			}
 		},
 		build: async () => {
@@ -35,10 +36,10 @@ export function clientPlugin() {
 					const { viteBuildClient } = await import('./tools/vite')
 					await viteBuildClient()
 					spinner.stop()
-					const { webpackBuild } = await import('./tools/webpack')
+					const { webpackBuild } = await import('ssr-webpack')
 					await webpackBuild()
 				} else {
-					const { webpackBuild } = await import('./tools/webpack')
+					const { webpackBuild } = await import('ssr-webpack')
 					await webpackBuild()
 				}
 			}

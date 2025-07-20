@@ -2,7 +2,7 @@ import { loadConfig, loadModuleFromFramework, terserConfig } from 'ssr-common-ut
 import * as webpack from 'ssr-webpack4'
 import WebpackChain from 'webpack-chain'
 
-import { getBaseConfig } from './base'
+import { getBaseConfig } from './base-config'
 
 const getServerWebpack = (chain: WebpackChain) => {
 	const config = loadConfig()
