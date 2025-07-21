@@ -23,7 +23,8 @@
     "@nestjs/cli": "^10.1.18",
     "ssr": "^6.0.0",
     "ssr-plugin-nestjs": "^6.0.0",
-    "ssr-plugin-vue3": "^6.0.0",
+    "ssr-plugin-vue3": "workspace:*",
+    "ssr-webpack": "workspace:*",
     "ssr-types": "^6.0.0",
     "typescript": "^5.0.0",
     "webpack": "^4.0.0"

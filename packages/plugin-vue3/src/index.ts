@@ -1,9 +1,13 @@
-import { loadConfig } from 'ssr-common-utils'
+import { resolve } from 'path'
+import { loadConfig, getCwd } from 'ssr-common-utils'
+import type { webpackStart as webpackStartType } from 'ssr-webpack'
 
 const { isVite, optimize } = loadConfig()
 const spinner = require('ora')('Building')
 
 export function clientPlugin() {
+	const cwd = getCwd()
+	const webpackPath = resolve(cwd, './node_modules/ssr-webpack')
 	return {
 		name: 'plugin-vue3',
 		start: async () => {
@@ -11,7 +15,6 @@ export function clientPlugin() {
 				const { viteStart } = await import('./tools/vite')
 				await viteStart()
 			} else {
-				const { serverConfigChain, clientConfigChain } = await import('./tools/webpack')
 				if (optimize) {
 					spinner.start()
 					const { viteBuildClient } = await import('./tools/vite')
@@ -19,11 +22,8 @@ export function clientPlugin() {
 					process.env.NODE_ENV = 'development'
 					spinner.stop()
 				}
-				const { webpackStart } = await import('ssr-webpack')
-				await webpackStart({
-					serverConfigChain: serverConfigChain(),
-					clientConfigChain: clientConfigChain()
-				})
+				const { webpackStart }: { webpackStart: typeof webpackStartType } = await import(webpackPath) 
+				await webpackStart()
 			}
 		},
 		build: async () => {
@@ -36,10 +36,10 @@ export function clientPlugin() {
 					const { viteBuildClient } = await import('./tools/vite')
 					await viteBuildClient()
 					spinner.stop()
-					const { webpackBuild } = await import('ssr-webpack')
+					const { webpackBuild } = await import(webpackPath)
 					await webpackBuild()
 				} else {
-					const { webpackBuild } = await import('ssr-webpack')
+					const { webpackBuild } = await import(webpackPath)
 					await webpackBuild()
 				}
 			}

@@ -27,8 +27,6 @@
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
-    "ssr-common-utils": "^6.2.10",
-    "ssr-webpack4": "^4.46.2",
     "webpack": "^4.0.0",
     "webpack-dev-server-ssr": "^3.10.12",
     "@babel/core": "^7.0.0",
@@ -64,7 +62,6 @@
     "ssr-serialize-javascript": "^6.0.0",
     "ssr-types": "^6.2.3",
     "ssr-vite-plugin-style-import": "^2.0.1",
-    "ssr-webpack": "^6.2.10",
     "ssr-webpack4": "^4.46.2",
     "terser-webpack-plugin": "^2.3.5",
     "unplugin-auto-import": "^0.12.1",
