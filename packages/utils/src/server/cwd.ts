@@ -314,6 +314,17 @@ const loadModuleFromFramework = (path: string) => {
 	})
 }
 
+export const loadModuleFromCwd = (path: string) => {
+	const cwd = getCwd()
+	return resolve(cwd, `./node_modules/${path}`)
+}
+
+export const loadModuleFromWebpack = (path: string) => {
+	const cwd = getCwd()
+	return resolve(cwd, `./node_modules/ssr-webpack/node_modules/${path}`)
+}
+
+
 const processError = (err: any) => {
 	if (err) {
 		console.log(err)

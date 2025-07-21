@@ -3,7 +3,6 @@ import { startClientServer, startClientBuild } from './client'
 import { startServerBuild } from './server'
 
 export const webpackStart = async () => {
-	console.log('webpackStart') 
 	const serverConfigChain = new WebpackChain()
 	const clientConfigChain = new WebpackChain()
 

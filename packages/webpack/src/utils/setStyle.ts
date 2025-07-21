@@ -1,8 +1,6 @@
 import type { Chain, StyleOptions } from 'ssr-types'
-import { loadModuleFromFramework } from '../cwd'
-import { loadConfig } from '../loadConfig'
+import { loadConfig, loadModuleFromWebpack } from 'ssr-common-utils'
 
-const loadModule = loadModuleFromFramework
 const setStyle = (chain: Chain, reg: RegExp, options: StyleOptions) => {
 	const { css } = loadConfig()
 	const { include, exclude, importLoaders, loader, isServer } = options
@@ -29,10 +27,10 @@ const setStyle = (chain: Chain, reg: RegExp, options: StyleOptions) => {
 			: Object.assign(
 					{
 						plugins: [
-							require(loadModule('postcss-flexbugs-fixes')),
-							require(loadModule('postcss-discard-comments')),
+							require('postcss-flexbugs-fixes'),
+							require('postcss-discard-comments'),
 							[
-								require(loadModule('postcss-preset-env')),
+								require('postcss-preset-env'),
 								{
 									autoprefixer: {
 										flexbox: 'no-2009'
@@ -55,17 +53,17 @@ const setStyle = (chain: Chain, reg: RegExp, options: StyleOptions) => {
 			exclude && rule.exclude.add(exclude).end()
 		})
 		.use('MiniCss')
-		.loader(loadModule('ssr-mini-css-extract-plugin/dist/loader'))
+		.loader('ssr-mini-css-extract-plugin/dist/loader')
 		.options({
 			emit: !isServer
 		})
 		.end()
 		.use('css-loader')
-		.loader(loadModule('css-loader'))
+		.loader(loadModuleFromWebpack('css-loader'))
 		.options(finalCssloaderOptions)
 		.end()
 		.use('postcss-loader')
-		.loader(loadModule('postcss-loader'))
+		.loader(loadModuleFromWebpack('postcss-loader'))
 		.options({
 			postcssOptions: postcssOptions
 		})
@@ -74,7 +72,7 @@ const setStyle = (chain: Chain, reg: RegExp, options: StyleOptions) => {
 			loader &&
 				rule
 					.use(loader)
-					.loader(loadModule(loader))
+					.loader(loadModuleFromWebpack(loader))
 					.when(loader === 'less-loader', (rule) => {
 						rule.options(
 							Object.assign(

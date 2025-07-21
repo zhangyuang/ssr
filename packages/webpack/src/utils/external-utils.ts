@@ -2,7 +2,7 @@
 
 import * as fs from 'fs'
 import * as path from 'path'
-import { getCwd } from '../cwd'
+import { getCwd } from 'ssr-common-utils'
 
 const contains = function contains(arr, val) {
 	return arr && arr.indexOf(val) !== -1

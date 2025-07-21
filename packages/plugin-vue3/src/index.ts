@@ -5,7 +5,7 @@ import type { webpackStart as webpackStartType } from 'ssr-webpack'
 const { isVite, optimize } = loadConfig()
 const spinner = require('ora')('Building')
 
-export function clientPlugin() {
+export function clientPlugin() {	
 	const cwd = getCwd()
 	const webpackPath = resolve(cwd, './node_modules/ssr-webpack')
 	return {

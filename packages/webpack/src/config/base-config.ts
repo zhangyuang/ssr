@@ -1,18 +1,13 @@
 import { join } from 'path'
-import { addCommonChain, checkModuleExist, getBuildConfig, getCwd, getDefineEnv, loadConfig, loadModuleFromFramework, logErr, setStyle } from 'ssr-common-utils'
+import { checkModuleExist, getCwd, loadConfig, logErr, loadModuleFromCwd, loadModuleFromFramework } from 'ssr-common-utils'
 import { Mode } from 'ssr-types'
-import * as webpack from 'ssr-webpack4'
-
 import WebpackChain from 'webpack-chain'
+import { addCommonChain } from '../utils/common-chain'
 
-const MiniCssExtractPlugin = require(loadModuleFromFramework('ssr-mini-css-extract-plugin'))
-const WebpackBar = require('webpackbar')
-
-const loadModule = loadModuleFromFramework
 
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
 	const config = loadConfig()
-	const { moduleFileExtensions, chainBaseConfig, locale, ssrVueLoaderOptions, csrVueLoaderOptions, alias, define } = config
+	const { moduleFileExtensions, chainBaseConfig, locale, ssrVueLoaderOptions, csrVueLoaderOptions, alias } = config
 
 	let vueLoaderOptions = {
 		babelParserPlugins: ['jsx', 'classProperties', 'decorators-legacy'],
@@ -48,21 +43,20 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
 		Object.keys(alias).forEach((item) => {
 			chain.resolve.alias.set(item, alias[item])
 		})
-	chain.resolve.alias.set('pinia', loadModuleFromFramework('pinia'))
+	chain.resolve.alias.set('pinia', loadModuleFromCwd('pinia'))
 
 	addCommonChain(chain, isServer)
 	chain.module
 		.rule('vue')
 		.test(/\.vue$/)
 		.use('vue-loader')
-		.loader(loadModule('vue-loader'))
+		.loader(loadModuleFromFramework('vue-loader'))
 		.options(vueLoaderOptions)
 		.end()
 		
-console.log('xxx', loadModule('vue-loader'))
 	chain
 		.plugin('vue-loader')
-		.use(require(loadModule('vue-loader')).VueLoaderPlugin)
+		.use(require(loadModuleFromFramework('vue-loader')).VueLoaderPlugin)
 		.end()
 
 	locale?.enable &&
@@ -86,39 +80,6 @@ console.log('xxx', loadModule('vue-loader'))
 			.loader('@intlify/vue-i18n-loader')
 			.end()
 
-	setStyle(chain, /\.css$/, {
-		rule: 'css',
-		importLoaders: 1,
-		isServer
-	}) // 设置css
-
-	setStyle(chain, /\.less$/, {
-		rule: 'less',
-		loader: 'less-loader',
-		importLoaders: 2,
-		isServer
-	})
-
-	chain.plugin('minify-css').use(MiniCssExtractPlugin, getBuildConfig().cssBuildConfig)
-
-	chain.plugin('webpackBar').use(
-		new WebpackBar({
-			name: isServer ? 'server' : 'client',
-			color: isServer ? '#f173ac' : '#45b97c'
-		})
-	)
-
-	chain.plugin('ssrDefine').use(webpack.DefinePlugin, [
-		{
-			...getDefineEnv(),
-			...process.env,
-			__isBrowser__: !isServer,
-			__VUE_OPTIONS_API__: true,
-			__VUE_PROD_DEVTOOLS__: false,
-			...(isServer ? define?.server : define?.client),
-			...define?.base
-		}
-	])
 	if (checkModuleExist('element-plus')) {
 		const { coerce } = require('semver')
 		if ((coerce(process.version)?.major ?? 0) < 14) {

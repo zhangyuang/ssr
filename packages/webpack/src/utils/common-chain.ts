@@ -1,17 +1,29 @@
-import { promises } from 'fs'
-import { resolve } from 'path'
 import type { Chain, PluginItem } from 'ssr-types'
 import type { Compiler } from 'webpack'
 import type { Module, Rule } from 'webpack-chain'
-import { asyncChunkMap } from '../build-utils'
-import { getCwd, judgeFramework, loadModuleFromFramework } from '../cwd'
-import { getPkgMajorVersion } from '../judge'
-import { loadConfig } from '../loadConfig'
-import { logWarning } from '../log'
-import { getImageOutputPath } from '../parse'
-import { nameSpaceBuiltinModules } from '../static'
+import { promises } from 'fs'
+import { resolve } from 'path'
+import * as webpack from 'ssr-webpack4'
+import { 
+  asyncChunkMap,
+  getCwd, 
+  judgeFramework, 
+  loadModuleFromFramework,
+  getPkgMajorVersion,
+  loadConfig,
+  logWarning,
+  getImageOutputPath,
+  nameSpaceBuiltinModules,
+	getBuildConfig,
+	getDefineEnv,
+} from 'ssr-common-utils'
 import { nodeExternals } from './externals'
 import { FileToChunkRelationPlugin } from './plugins'
+import { setStyle } from './setStyle'
+
+const MiniCssExtractPlugin = require(loadModuleFromFramework('ssr-mini-css-extract-plugin'))
+const WebpackBar = require('webpackbar')
+
 
 const [antdVersion, vantVersion] = [getPkgMajorVersion('antd'), getPkgMajorVersion('vant')]
 const isAntd4 = antdVersion === 4
@@ -123,7 +135,7 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
 		.end()
 }
 const addCommonChain = (chain: Chain, isServer: boolean) => {
-	const { babelOptions, corejsOptions, babelExtraModule, assetsDir, optimize, isDev, clientPrefix, cwd, whiteList } = loadConfig()
+	const { babelOptions, corejsOptions, babelExtraModule, assetsDir, optimize, isDev, clientPrefix, cwd, whiteList, define } = loadConfig()
 	const { publicPath, imagePath } = getImageOutputPath()
 	const envOptions = {
 		modules: false,
@@ -223,14 +235,14 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
 		.rule('images')
 		.test(/\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/)
 		.use('url-loader')
-		.loader(loadModuleFromFramework('url-loader'))
+		.loader('url-loader')
 		.options({
 			name: '[name].[hash:8].[ext]',
 			// require 图片的时候不用加 .default
 			esModule: false,
 			limit: 4096,
 			fallback: {
-				loader: loadModuleFromFramework('file-loader'),
+				loader: 'file-loader',
 				options: {
 					emitFile: !isServer,
 					publicPath,
@@ -245,14 +257,50 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
 		.rule('fonts')
 		.test(/\.(eot|woff|woff2|ttf)(\?.*)?$/)
 		.use('file-loader')
-		.loader(loadModuleFromFramework('file-loader'))
+		.loader('file-loader')
 		.options({
 			name: `${assetsDir}/[name].[hash:8].[ext]`,
 			esModule: false,
 			emitFile: !isServer
 		})
-	const BundleAnalyzerPlugin = require(loadModuleFromFramework('webpack-bundle-analyzer')).BundleAnalyzerPlugin
+	const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 	const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
+
+
+	setStyle(chain, /\.css$/, {
+		rule: 'css',
+		importLoaders: 1,
+		isServer
+	}) // 设置css
+
+	setStyle(chain, /\.less$/, {
+		rule: 'less',
+		loader: 'less-loader',
+		importLoaders: 2,
+		isServer
+	})
+
+	chain.plugin('minify-css').use(MiniCssExtractPlugin, getBuildConfig().cssBuildConfig)
+
+	chain.plugin('webpackBar').use(
+		new WebpackBar({
+			name: isServer ? 'server' : 'client',
+			color: isServer ? '#f173ac' : '#45b97c'
+		})
+	)
+
+	chain.plugin('ssrDefine').use(webpack.DefinePlugin, [
+		{
+			...getDefineEnv(),
+			...process.env,
+			__isBrowser__: !isServer,
+			__VUE_OPTIONS_API__: true,
+			__VUE_PROD_DEVTOOLS__: false,
+			...(isServer ? define?.server : define?.client),
+			...define?.base
+		}
+	])
+
 	if (!isServer) {
 		nameSpaceBuiltinModules.forEach((moduleName) => {
 			chain.node.set(moduleName, 'empty')

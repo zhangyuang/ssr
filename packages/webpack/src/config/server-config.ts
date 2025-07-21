@@ -1,8 +1,9 @@
-import { loadConfig, loadModuleFromFramework, terserConfig } from 'ssr-common-utils'
+import { loadConfig, terserConfig } from 'ssr-common-utils'
 import * as webpack from 'ssr-webpack4'
 import WebpackChain from 'webpack-chain'
 
 import { getBaseConfig } from './base-config'
+import { getBuildEntry } from '../utils/build-entry'
 
 const getServerWebpack = (chain: WebpackChain) => {
 	const config = loadConfig()
@@ -10,9 +11,13 @@ const getServerWebpack = (chain: WebpackChain) => {
 
 	getBaseConfig(chain, true)
 	chain.target('node')
-	chain.entry(chunkName).add(require.resolve('../entry/server-entry')).end().output.path(getOutput().serverOutPut).filename('[name].server.js').libraryTarget('commonjs').end()
+	chain.entry(chunkName)
+	.add(getBuildEntry().server)
+	.end()
+	.output
+	.path(getOutput().serverOutPut).filename('[name].server.js').libraryTarget('commonjs').end()
 
-	chain.optimization.minimizer('terser').use(loadModuleFromFramework('terser-webpack-plugin'), [terserConfig(true)])
+	chain.optimization.minimizer('terser').use('terser-webpack-plugin', [terserConfig(true)])
 
 	chain.when(isDev, () => {
 		chain.watch(true)

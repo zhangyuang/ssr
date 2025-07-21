@@ -1,6 +1,4 @@
-import { getDependencies } from '../build-utils'
-import { requireWithPreserveLinks } from '../cwd'
-import { defaultExternal, nameSpaceBuiltinModules } from '../static'
+import { getDependencies, requireWithPreserveLinks, defaultExternal, nameSpaceBuiltinModules } from 'ssr-common-utils'
 import { contains, containsPattern, readDir, readFromPackageJson } from './external-utils'
 
 const scopedModuleRegex = new RegExp('@[a-zA-Z0-9][\\w-.]+/[a-zA-Z0-9][\\w-.]+([a-zA-Z0-9./]+)?', 'g')

@@ -1,11 +1,10 @@
-import { asyncChunkMap, getBuildConfig, getOutputPublicPath, getSplitChunksOptions, loadConfig, loadModuleFromFramework, terserConfig } from 'ssr-common-utils'
+import { asyncChunkMap, getBuildConfig, getOutputPublicPath, getSplitChunksOptions, loadConfig, terserConfig } from 'ssr-common-utils'
 import WebpackChain from 'webpack-chain'
 
 import { getBaseConfig } from './base-config'
+import { getBuildEntry } from '../utils/build-entry'
 
 const safePostCssParser = require('postcss-safe-parser')
-
-const loadModule = loadModuleFromFramework
 
 const getClientWebpack = (chain: WebpackChain) => {
 	const { isDev, chunkName, getOutput, chainClientConfig } = loadConfig()
@@ -14,14 +13,14 @@ const getClientWebpack = (chain: WebpackChain) => {
 
 	getBaseConfig(chain, false)
 	const buildConfig = getBuildConfig()
-	chain.entry(chunkName).add(require.resolve('../entry/client-entry')).end().output.path(getOutput().clientOutPut).filename(buildConfig.jsBuldConfig.fileName).chunkFilename(buildConfig.jsBuldConfig.chunkFileName).publicPath(publicPath).end()
+	chain.entry(chunkName).add(getBuildEntry().client).end().output.path(getOutput().clientOutPut).filename(buildConfig.jsBuldConfig.fileName).chunkFilename(buildConfig.jsBuldConfig.chunkFileName).publicPath(publicPath).end()
 
 	chain.optimization
 		.runtimeChunk(true)
 		.splitChunks(getSplitChunksOptions(asyncChunkMap))
 		.when(!isDev, (optimization) => {
-			optimization.minimizer('terser').use(loadModule('terser-webpack-plugin'), [terserConfig(false)])
-			optimization.minimizer('optimize-css').use(loadModule('optimize-css-assets-webpack-plugin'), [
+			optimization.minimizer('terser').use('terser-webpack-plugin', [terserConfig(false)])
+			optimization.minimizer('optimize-css').use('optimize-css-assets-webpack-plugin', [
 				{
 					cssProcessorOptions: {
 						parser: safePostCssParser,
@@ -36,13 +35,13 @@ const getClientWebpack = (chain: WebpackChain) => {
 			])
 		})
 
-	chain.plugin('manifest').use(loadModule('webpack-manifest-plugin'), [
+	chain.plugin('manifest').use('webpack-manifest-plugin', [
 		{
 			fileName: 'asset-manifest.json'
 		}
 	])
 
-	chainClientConfig(chain) // 合并用户自定义配置
+	chainClientConfig(chain) 
 
 	return chain.toConfig()
 }
