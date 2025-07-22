@@ -426,7 +426,6 @@ importers:
 
   packages/utils:
     specifiers:
-      '@rollup/plugin-babel': ^5.3.0
       '@types/debug': ^4.1.12
       '@types/qs': ^6.9.7
       '@types/react': ^17.0.0
@@ -435,14 +434,11 @@ importers:
       axios: ^1.4.0
       concurrently: ^5.1.0
       debug: ^4.3.4
-      es-module-lexer: ^0.9.3
       http-proxy-middleware: ^1.0.6
       koa2-connect: ^1.0.2
-      magic-string: ^0.25.7
       path-to-regexp: ^6.2.0
       pinia: ^2.0.13
       qs: ^6.11.2
-      rollup: '>=2.59.0 <2.78.0'
       semver: ^7.3.5
       shelljs: ^0.8.3
       ssr-types: workspace:*
@@ -451,16 +447,13 @@ importers:
     dependencies:
       axios: 1.10.0_debug@4.4.1
       debug: 4.4.1
-      es-module-lexer: 0.9.3
       http-proxy-middleware: 1.3.1_debug@4.4.1
       koa2-connect: 1.0.2
-      magic-string: 0.25.9
       path-to-regexp: 6.3.0
       qs: 6.14.0
       semver: 7.7.2
       shelljs: 0.8.5
     devDependencies:
-      '@rollup/plugin-babel': 5.3.1_rollup@2.77.3
       '@types/debug': 4.1.12
       '@types/qs': 6.14.0
       '@types/react': 17.0.87
@@ -468,7 +461,6 @@ importers:
       '@types/shelljs': 0.8.17
       concurrently: 5.3.0
       pinia: 2.3.1_typescript@5.8.3+vue@3.5.17
-      rollup: 2.77.3
       ssr-types: link:../types
       vue: 3.5.17_typescript@5.8.3
       webpack-chain: 6.5.1
@@ -476,18 +468,24 @@ importers:
   packages/vite:
     specifiers:
       '@rollup/plugin-babel': ^5.3.0
+      es-module-lexer: ^0.9.3
+      magic-string: ^0.25.7
+      rollup: '>=2.59.0 <2.78.0'
       rollup-plugin-visualizer: ^5.12.0
       ssr-common-utils: workspace:*
       ssr-types: workspace:*
       ssr-vite-plugin-style-import: ^2.0.1
       vite: ^2.9.15
     dependencies:
-      '@rollup/plugin-babel': 5.3.1
-      rollup-plugin-visualizer: 5.14.0
+      '@rollup/plugin-babel': 5.3.1_rollup@2.77.3
+      es-module-lexer: 0.9.3
+      magic-string: 0.25.9
+      rollup-plugin-visualizer: 5.14.0_rollup@2.77.3
       ssr-common-utils: link:../utils
       ssr-vite-plugin-style-import: 2.0.1_vite@2.9.18
       vite: 2.9.18
     devDependencies:
+      rollup: 2.77.3
       ssr-types: link:../types
 
   packages/webpack:
@@ -3188,23 +3186,6 @@ packages:
       source-map: 0.7.4
     dev: false
 
-  /@rollup/plugin-babel/5.3.1:
-    resolution: {integrity: sha512-WFfdLWU/xVWKeRQnKmIAQULUI7Il0gZnBIH/ZFO069wYIfPu+8zrfp/KMW0atmELoRDq8FbiP3VCss9MhCut7Q==}
-    engines: {node: '>= 10.0.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0
-      '@types/babel__core': ^7.1.9
-      rollup: ^1.20.0||^2.0.0
-    peerDependenciesMeta:
-      '@types/babel__core':
-        optional: true
-    dependencies:
-      '@babel/helper-module-imports': 7.27.1
-      '@rollup/pluginutils': 3.1.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
   /@rollup/plugin-babel/5.3.1_@babel+core@7.28.0:
     resolution: {integrity: sha512-WFfdLWU/xVWKeRQnKmIAQULUI7Il0gZnBIH/ZFO069wYIfPu+8zrfp/KMW0atmELoRDq8FbiP3VCss9MhCut7Q==}
     engines: {node: '>= 10.0.0'}
@@ -3258,7 +3239,7 @@ packages:
       rollup: 2.77.3
     transitivePeerDependencies:
       - supports-color
-    dev: true
+    dev: false
 
   /@rollup/pluginutils/3.1.0:
     resolution: {integrity: sha512-GksZ6pr6TpIjHm8h9lSQ8pi8BE9VeubNT0OMJ3B5uZJ8pz73NPiqOtCog/x2/QzM1ENChPKxMDhiQuRHsqc+lg==}
@@ -3280,7 +3261,7 @@ packages:
       estree-walker: 1.0.1
       picomatch: 2.3.1
       rollup: 2.77.3
-    dev: true
+    dev: false
 
   /@rollup/pluginutils/4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
@@ -13447,6 +13428,26 @@ packages:
     dependencies:
       open: 8.4.2
       picomatch: 4.0.3
+      source-map: 0.7.4
+      yargs: 17.7.2
+    dev: false
+
+  /rollup-plugin-visualizer/5.14.0_rollup@2.77.3:
+    resolution: {integrity: sha512-VlDXneTDaKsHIw8yzJAFWtrzguoJ/LnQ+lMpoVfYJ3jJF4Ihe5oYLAqLklIK/35lgUY+1yEzCkHyZ1j4A5w5fA==}
+    engines: {node: '>=18'}
+    hasBin: true
+    peerDependencies:
+      rolldown: 1.x
+      rollup: 2.x || 3.x || 4.x
+    peerDependenciesMeta:
+      rolldown:
+        optional: true
+      rollup:
+        optional: true
+    dependencies:
+      open: 8.4.2
+      picomatch: 4.0.3
+      rollup: 2.77.3
       source-map: 0.7.4
       yargs: 17.7.2
     dev: false

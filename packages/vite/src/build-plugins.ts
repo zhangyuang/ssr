@@ -6,13 +6,8 @@ import MagicString from 'magic-string'
 import type { OutputOptions, PluginContext, PreRenderedChunk } from 'rollup'
 import { mkdir } from 'shelljs'
 import type { Plugin, UserConfig } from 'vite'
-import { getBuildConfig } from '../build-config'
-import { getDependencies, getPkgName } from '../build-utils'
-import { accessFile, cryptoAsyncChunkName, debounce, getCwd, ssrDebug } from '../cwd'
-import { loadConfig } from '../loadConfig'
-import { logErr } from '../log'
-import { getOutputPublicPath } from '../parse'
-import { defaultExternal } from '../static'
+import { getBuildConfig, defaultExternal } from 'ssr-common-utils'
+import { getDependencies, getPkgName, accessFile, cryptoAsyncChunkName, debounce, getCwd, ssrDebug, loadConfig, logErr, getOutputPublicPath } from 'ssr-common-utils'
 
 const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
 const chunkNameRe = /chunkName=(.*)/

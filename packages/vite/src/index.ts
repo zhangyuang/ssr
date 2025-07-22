@@ -1,19 +1,21 @@
-import { resolve } from 'path'
-import babel from '@rollup/plugin-babel'
-import { visualizer } from 'rollup-plugin-visualizer'
-import { asyncOptimizeChunkPlugin, chunkNamePlugin, commonConfig, getBabelOptions, getCwd, getDefineEnv, getOutputPublicPath, loadConfig, manifestPlugin, rollupOutputOptions, loadModuleFromFramework, judgeFramework, getPkgMajorVersion } from 'ssr-common-utils'
-import { UserConfig, build as viteBuild, Plugin, PluginOption } from 'vite'
 import type * as VuePlugin from '@vitejs/plugin-vue'
 import type * as VueJSXPlugin from '@vitejs/plugin-vue-jsx'
 import type * as ReactPlugin from '@vitejs/plugin-react'
+import { resolve } from 'path'
+import babel from '@rollup/plugin-babel'
+import { visualizer } from 'rollup-plugin-visualizer'
+import { getCwd, getDefineEnv, getOutputPublicPath, loadConfig, loadModuleFromFramework, judgeFramework } from 'ssr-common-utils'
+import { UserConfig, build as viteBuild, PluginOption } from 'vite'
 
 import { AndDesignVueResolve, AntdResolve, ElementPlusResolve, NutuiResolve, VantResolve, createStyleImportPlugin } from 'ssr-vite-plugin-style-import'
+import { getBabelOptions } from './babel'
+import { commonConfig, asyncOptimizeChunkPlugin, chunkNamePlugin, manifestPlugin, rollupOutputOptions } from './build-plugins'
 
 const framework = judgeFramework()
 const isReact = framework === 'react'
 const isVue3 = framework === 'vue3'
-const isAntd5 = getPkgMajorVersion('antd') === 5
-const extraInclude = ([] as string[]).concat(isAntd5 ? ['react-is'] : [])
+const extraInclude = ['react-router', 'react-is']
+const extraExclude = ['ssr-hoc-react']
 
 const { getOutput, vue3ServerEntry, vue3ClientEntry, reactServerEntry, reactClientEntry, viteConfig, supportOptinalChaining, isDev, define, optimize, babelOptions, chunkName } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
@@ -75,15 +77,11 @@ export const serverConfig: UserConfig = {
 	...commonConfig(),
 	...viteConfig?.().server?.otherConfig,
 	plugins: viteConfig?.()?.server?.processPlugin?.(serverPlugins) ?? serverPlugins,
-	...(isReact
-		? {
-				esbuild: {
-					...viteConfig?.().server?.otherConfig?.esbuild,
-					keepNames: true,
-					logOverride: { 'this-is-undefined-in-esm': 'silent' }
-				}
-			}
-		: {}),
+	esbuild: {
+		...viteConfig?.().server?.otherConfig?.esbuild,
+		keepNames: true,
+		logOverride: { 'this-is-undefined-in-esm': 'silent' }
+	},
 	optimizeDeps: {
 		...viteConfig?.().server?.otherConfig?.optimizeDeps,
 		include: extraInclude.concat(...(viteConfig?.().server?.otherConfig?.optimizeDeps?.include ?? [])),
@@ -136,20 +134,16 @@ export const clientConfig: UserConfig = {
 	...commonConfig(),
 	...viteConfig?.().client?.otherConfig,
 	base: isDev ? '/' : getOutputPublicPath(),
-	...(isReact
-		? {
-				esbuild: {
-					...viteConfig?.().client?.otherConfig?.esbuild,
-					keepNames: true,
-					logOverride: { 'this-is-undefined-in-esm': 'silent' }
-				},
-				optimizeDeps: {
-					...viteConfig?.().client?.otherConfig?.optimizeDeps,
-					include: ['react-router', ...(getPkgMajorVersion('antd') === 5 ? ['react-is'] : [])].concat(...(viteConfig?.().client?.otherConfig?.optimizeDeps?.include ?? [])),
-					exclude: ['ssr-hoc-react'].concat(...(viteConfig?.().client?.otherConfig?.optimizeDeps?.exclude ?? []))
-				}
-			}
-		: {}),
+	esbuild: {
+		...viteConfig?.().client?.otherConfig?.esbuild,
+		keepNames: true,
+		logOverride: { 'this-is-undefined-in-esm': 'silent' }
+	},
+	optimizeDeps: {
+		...viteConfig?.().client?.otherConfig?.optimizeDeps,
+		include: extraInclude.concat(...(viteConfig?.().client?.otherConfig?.optimizeDeps?.include ?? [])),
+		exclude: extraExclude.concat(...(viteConfig?.().client?.otherConfig?.optimizeDeps?.exclude ?? []))
+	},
 	plugins: viteConfig?.()?.client?.processPlugin?.(clientPlugins) ?? clientPlugins,
 	build: {
 		minify: !process.env.NOMINIFY,
