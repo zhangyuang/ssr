@@ -5,8 +5,8 @@ import type { ViteDevServer } from 'vite'
 import { getCustomScript } from './utils'
 
 const defaultConfig = loadConfig()
-const sf = judgeServerFramework()
-const f = judgeFramework()
+const serverFramework = judgeServerFramework()
+const framework = judgeFramework()
 const viteServerEntry = getViteServerEntry()
 type RenderRes = string | Readable | Vue3RenderRes
 
@@ -32,11 +32,11 @@ async function render(ctx: ISSRContext, options?: UserConfig) {
 		config.isVite = !!require(options.dynamicFile.assetManifest).vite
 	}
 
-	setHeader(ctx, sf)
+	setHeader(ctx, serverFramework)
 
 	const serverRes: RenderRes = isVite ? await viteRender(ctx, config) : await commonRender(ctx, config)
 	if (serverRes instanceof Stream) {
-		if (f !== 'ssr-plugin-react18') {
+		if (framework !== 'ssr-plugin-react18') {
 			const stream = mergeStream2(new StringToStream('<!DOCTYPE html>'), serverRes)
 			stream.on('error', (e: any) => {
 				console.log(e)
@@ -45,7 +45,7 @@ async function render(ctx: ISSRContext, options?: UserConfig) {
 		}
 		return serverRes
 	} else {
-		if (f === 'ssr-plugin-vue3') {
+		if (framework === 'ssr-plugin-vue3') {
 			let { html, teleportsContext } = serverRes as Vue3RenderRes
 			if (teleportsContext.teleports) {
 				const { teleports } = teleportsContext
@@ -71,7 +71,7 @@ async function viteRender(ctx: ISSRContext, config: IConfig) {
 	let serverRes
 	if (isDev) {
 		const { createServer } = await import('vite')
-		const { serverConfig } = await import(f)
+		const { serverConfig } = await import('ssr-vite')
 		viteServer = !viteServer ? await createServer(serverConfig) : viteServer
 		const { serverRender } = await (viteServer as ViteDevServer).ssrLoadModule(viteServerEntry)
 		serverRes = await serverRender(ctx, config)

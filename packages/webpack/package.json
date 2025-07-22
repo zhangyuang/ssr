@@ -61,7 +61,6 @@
     "ssr-mini-css-extract-plugin": "^1.6.5",
     "ssr-serialize-javascript": "^6.0.0",
     "ssr-types": "workspace:*",
-    "ssr-vite-plugin-style-import": "^2.0.1",
     "ssr-webpack4": "^4.46.2",
     "terser-webpack-plugin": "^2.3.5",
     "unplugin-auto-import": "^0.12.1",

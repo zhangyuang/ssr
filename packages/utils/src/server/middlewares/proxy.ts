@@ -35,7 +35,7 @@ const getDevProxyMiddlewaresArr = async () => {
 
 			// 本地开发请求走 vite 接管 前端文件夹请求
 			const { createServer } = require('vite')
-			const { clientConfig } = require(framework)
+			const { clientConfig } = require('ssr-vite')
 			const viteServer = await createServer(clientConfig)
 			proxyMiddlewaresArr.push(isExpress ? viteServer.middlewares : kc(viteServer.middlewares))
 		} else {

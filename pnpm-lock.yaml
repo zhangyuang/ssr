@@ -70,6 +70,7 @@ importers:
       ssr-plugin-nestjs: workspace:*
       ssr-plugin-vue3: workspace:*
       ssr-types: workspace:*
+      ssr-vite: workspace:*
       ssr-webpack: workspace:*
       swiper: 6.7.5
       typescript: ^5.0.0
@@ -99,6 +100,7 @@ importers:
       ssr-plugin-nestjs: link:../../packages/plugin-nestjs
       ssr-plugin-vue3: link:../../packages/plugin-vue3
       ssr-types: link:../../packages/types
+      ssr-vite: link:../../packages/vite
       ssr-webpack: link:../../packages/webpack
       typescript: 5.8.3
       webpack: 4.47.0
@@ -134,18 +136,20 @@ importers:
     specifiers:
       '@babel/runtime': ^7.12.13
       cheerio: ^1.0.0-rc.10
-      ssr-common-utils: ^6.2.10
+      ssr-common-utils: workspace:*
       ssr-deepclone: ^1.0.0
       ssr-serialize-javascript: ^6.0.0
-      ssr-types: ^6.0.0
+      ssr-types: workspace:*
+      ssr-vite: workspace:*
     dependencies:
       '@babel/runtime': 7.27.6
-      cheerio: 1.1.1
-      ssr-common-utils: 6.2.161
+      cheerio: 1.1.2
+      ssr-common-utils: link:../utils
       ssr-deepclone: 1.0.1
       ssr-serialize-javascript: 6.0.4
     devDependencies:
-      ssr-types: 6.2.65
+      ssr-types: link:../types
+      ssr-vite: link:../vite
 
   packages/hoc-react:
     specifiers:
@@ -157,20 +161,20 @@ importers:
       react-dom: ^17.0.0
       react-router: ^5.2.1
       react-router-dom: ^5.1.2
-      ssr-common-utils: ^6.0.0
-      ssr-types: ^6.2.7
+      ssr-common-utils: workspace:*
+      ssr-types: workspace:*
     dependencies:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-router: 5.3.4_react@17.0.2
       react-router-dom: 5.3.4_react@17.0.2
-      ssr-common-utils: 6.2.161
+      ssr-common-utils: link:../utils
     devDependencies:
       '@types/react': 17.0.87
       '@types/react-dom': 17.0.26_@types+react@17.0.87
       '@types/react-router': 5.1.20
       '@types/react-router-dom': 5.3.3
-      ssr-types: 6.2.65
+      ssr-types: link:../types
 
   packages/hoc-react18:
     specifiers:
@@ -212,15 +216,15 @@ importers:
       '@midwayjs/cli': ^2.0.0
       '@midwayjs/logger': ^3.0.0
       '@types/koa': ^2.13.5
-      ssr-common-utils: ^6.2.10
-      ssr-types: ^6.2.3
+      ssr-common-utils: workspace:*
+      ssr-types: workspace:*
     dependencies:
       '@midwayjs/cli': 2.1.1_15898baeb81bd3afd351306492ed7583
       '@midwayjs/logger': 3.4.2
       '@types/koa': 2.15.0
-      ssr-common-utils: 6.2.161
+      ssr-common-utils: link:../utils
     devDependencies:
-      ssr-types: 6.2.65
+      ssr-types: link:../types
 
   packages/plugin-nestjs:
     specifiers:
@@ -231,8 +235,8 @@ importers:
       rimraf: ^3.0.2
       semver: ^7.3.5
       shelljs: ^0.8.5
-      ssr-common-utils: ^6.2.10
-      ssr-types: ^6.2.3
+      ssr-common-utils: workspace:*
+      ssr-types: workspace:*
     dependencies:
       '@swc/cli': 0.1.65_@swc+core@1.13.1
       '@swc/core': 1.13.1
@@ -241,9 +245,9 @@ importers:
       rimraf: 3.0.2
       semver: 7.7.2
       shelljs: 0.8.5
-      ssr-common-utils: 6.2.161
+      ssr-common-utils: link:../utils
     devDependencies:
-      ssr-types: 6.2.65
+      ssr-types: link:../types
 
   packages/plugin-vue3:
     specifiers:
@@ -253,23 +257,19 @@ importers:
       '@vue/babel-plugin-jsx': ^1.0.3
       '@vue/compiler-sfc': ^3.0.7
       concurrently: ^5.1.0
-      rollup-plugin-visualizer: ^5.12.0
       ssr-common-utils: workspace:*
       ssr-types: workspace:*
       ssr-webpack: workspace:*
-      vite: ^2.9.15
       vue: ^3.0.0
       vue-loader: ^17.0.0
       vue-router: ^4.2.4
       vuex: ^4.0.0
     dependencies:
-      '@vitejs/plugin-vue': 2.3.4_vite@2.9.18+vue@3.5.17
+      '@vitejs/plugin-vue': 2.3.4_vue@3.5.17
       '@vitejs/plugin-vue-jsx': 1.3.10
       '@vue/babel-plugin-jsx': 1.4.0
       '@vue/compiler-sfc': 3.5.17
-      rollup-plugin-visualizer: 5.14.0
       ssr-common-utils: link:../utils
-      vite: 2.9.18
       vue: 3.5.17_typescript@5.8.3
       vue-loader: 17.4.2_0dfa563ec1df73f3ab0b2bc567ecaa59
       vue-router: 4.5.1_vue@3.5.17
@@ -349,7 +349,7 @@ importers:
       rollup: '>=2.59.0 <2.78.0'
       semver: ^7.3.5
       shelljs: ^0.8.3
-      ssr-types: ^6.0.0
+      ssr-types: workspace:*
       vue: ^3.0.0
       webpack-chain: ^6.4.0
     dependencies:
@@ -373,9 +373,22 @@ importers:
       concurrently: 5.3.0
       pinia: 2.3.1_typescript@5.8.3+vue@3.5.17
       rollup: 2.77.3
-      ssr-types: 6.2.65
+      ssr-types: link:../types
       vue: 3.5.17_typescript@5.8.3
       webpack-chain: 6.5.1
+
+  packages/vite:
+    specifiers:
+      rollup-plugin-visualizer: ^5.12.0
+      ssr-types: workspace:*
+      ssr-vite-plugin-style-import: ^2.0.1
+      vite: ^2.9.15
+    dependencies:
+      rollup-plugin-visualizer: 5.14.0
+      ssr-vite-plugin-style-import: 2.0.1_vite@2.9.18
+      vite: 2.9.18
+    devDependencies:
+      ssr-types: link:../types
 
   packages/webpack:
     specifiers:
@@ -407,12 +420,11 @@ importers:
       postcss-safe-parser: ^6.0.0
       rollup-plugin-visualizer: ^5.12.0
       semver: ^7.3.8
-      ssr-common-utils: ^6.0.0
+      ssr-common-utils: workspace:*
       ssr-deepclone: ^1.0.0
       ssr-mini-css-extract-plugin: ^1.6.5
       ssr-serialize-javascript: ^6.0.0
-      ssr-types: ^6.2.3
-      ssr-vite-plugin-style-import: ^2.0.1
+      ssr-types: workspace:*
       ssr-webpack4: ^4.46.2
       terser-webpack-plugin: ^2.3.5
       unplugin-auto-import: ^0.12.1
@@ -452,12 +464,11 @@ importers:
       postcss-safe-parser: 6.0.0_postcss@8.5.6
       rollup-plugin-visualizer: 5.14.0
       semver: 7.7.2
-      ssr-common-utils: 6.2.161
+      ssr-common-utils: link:../utils
       ssr-deepclone: 1.0.1
       ssr-mini-css-extract-plugin: 1.6.10_webpack@4.47.0
       ssr-serialize-javascript: 6.0.4
-      ssr-types: 6.2.65
-      ssr-vite-plugin-style-import: 2.0.1
+      ssr-types: link:../types
       ssr-webpack4: 4.46.2_webpack@4.47.0
       terser-webpack-plugin: 2.3.8_webpack@4.47.0
       unplugin-auto-import: 0.12.2
@@ -2414,7 +2425,7 @@ packages:
       '@midwayjs/cli-plugin-dev': 2.1.1
       '@midwayjs/cli-plugin-test': 2.1.0_@types+node@18.19.120
       '@midwayjs/command-core': 2.1.0
-      enquirer: 2.3.6
+      enquirer: 2.4.1
       minimist: 1.2.8
       mod-info: 1.0.2
       source-map-support: 0.5.21
@@ -3391,7 +3402,7 @@ packages:
     resolution: {integrity: sha512-kpqnYK4wcdm5UaWI3fLcELopqLrHgLqNsdpHauzlQktfkHL3npOSwtj1Uz9oKBAzs7lFtVkV8j83voAz2D8fhw==}
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 17.0.87
+      '@types/react': 18.3.23
       '@types/react-router': 5.1.20
     dev: true
 
@@ -3399,7 +3410,7 @@ packages:
     resolution: {integrity: sha512-jGjmu/ZqS7FjSH6owMcD5qpq19+1RS9DeVRqfl1FeBMxTDQAGwlMWOcs52NDoXaNKyG3d1cYQFMs9rCrb88o9Q==}
     dependencies:
       '@types/history': 4.7.11
-      '@types/react': 17.0.87
+      '@types/react': 18.3.23
     dev: true
 
   /@types/react/17.0.87:
@@ -3520,14 +3531,13 @@ packages:
       - supports-color
     dev: false
 
-  /@vitejs/plugin-vue/2.3.4_vite@2.9.18+vue@3.5.17:
+  /@vitejs/plugin-vue/2.3.4_vue@3.5.17:
     resolution: {integrity: sha512-IfFNbtkbIm36O9KB8QodlwwYvTEsJb4Lll4c2IwB3VHc2gie2mSPtSzL0eYay7X2jd/2WX02FjSGTWR6OPr/zg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       vite: ^2.5.10
       vue: ^3.2.25
     dependencies:
-      vite: 2.9.18
       vue: 3.5.17_typescript@5.8.3
     dev: false
 
@@ -4731,7 +4741,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001727
-      electron-to-chromium: 1.5.187
+      electron-to-chromium: 1.5.189
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3_browserslist@4.25.1
 
@@ -5032,8 +5042,8 @@ packages:
       domutils: 3.2.2
     dev: false
 
-  /cheerio/1.1.1:
-    resolution: {integrity: sha512-bTXxVZeOfc3I97S4CSYVjcYvaTp92YOlwEUrVRtYrkuVn7S8/QKnnozVlztPcXlU039S2UxtsjAMyFRbX3V9gQ==}
+  /cheerio/1.1.2:
+    resolution: {integrity: sha512-IkxPpb5rS/d1IiLbHMgfPuS0FgiWTtFIm/Nj+2woXDLTZ7fOT2eqzgYbdMlLweqlHbsZjxEChoVK+7iph7jyQg==}
     engines: {node: '>=20.18.1'}
     dependencies:
       cheerio-select: 2.1.0
@@ -5627,6 +5637,12 @@ packages:
   /cookie/0.7.1:
     resolution: {integrity: sha512-6DnInpx7SJ2AK3+CTUE/ZM0vWTUboZCegxhC2xiIydHR9jNuTAASBrfEpHhiGOZw/nX51bHt6YQl8jsGo4y/0w==}
     engines: {node: '>= 0.6'}
+    dev: false
+
+  /cookie/0.7.2:
+    resolution: {integrity: sha512-yki5XnKuf750l50uGTllt6kKILY4nQ1eNIQatoXEByZ5dWgnKqbnqmTrBE5B4N7lrMJKQ2ytWMiTO2o0v6Ew/w==}
+    engines: {node: '>= 0.6'}
+    dev: true
 
   /cookies/0.9.1:
     resolution: {integrity: sha512-TG2hpqe4ELx54QER/S3HQ9SRVnQnGBtKUz5bLQWtYAQ+o6GpgMs6sYUvaiJjVxb+UXwhRhAEP3m7LbsIZ77Hmw==}
@@ -6527,8 +6543,8 @@ packages:
       jake: 10.9.2
     dev: false
 
-  /electron-to-chromium/1.5.187:
-    resolution: {integrity: sha512-cl5Jc9I0KGUoOoSbxvTywTa40uspGJt/BDBoDLoxJRSBpWh4FFXBsjNRHfQrONsV/OoEjDfHUmZQa2d6Ze4YgA==}
+  /electron-to-chromium/1.5.189:
+    resolution: {integrity: sha512-y9D1ntS1ruO/pZ/V2FtLE+JXLQe28XoRpZ7QCCo0T8LdQladzdcOVQZH/IWLVJvCw12OGMb6hYOeOAjntCmJRQ==}
 
   /elegant-spinner/1.0.1:
     resolution: {integrity: sha512-B+ZM+RXvRqQaAmkMlO/oSe5nMUOaUnyfGYCEHoR8wrXsZR2mA0XVibsxV1bvTwxdRWah1PkQqso2EzhILGHtEQ==}
@@ -6608,6 +6624,14 @@ packages:
     engines: {node: '>=8.6'}
     dependencies:
       ansi-colors: 4.1.3
+    dev: false
+
+  /enquirer/2.4.1:
+    resolution: {integrity: sha512-rRqJg/6gd538VHvR3PSrdRBb/1Vy2YfzHqzvbhGIQpDRKIa4FgV/54b5Q1xYSxOOwKvjXweS26E0Q+nAMwp2pQ==}
+    engines: {node: '>=8.6'}
+    dependencies:
+      ansi-colors: 4.1.3
+      strip-ansi: 6.0.1
     dev: false
 
   /entities/2.2.0:
@@ -7951,7 +7975,6 @@ packages:
 
   /fs-write-stream-atomic/1.0.10:
     resolution: {integrity: sha512-gehEzmPn2nAwr39eay+x3X34Ra+M2QlVUTLhkXPjWdeO8RF9kszk116avgBJM3ZyNHgHXBNx+VmPaFC36k0PzA==}
-    deprecated: This package is no longer supported.
     dependencies:
       graceful-fs: 4.2.11
       iferr: 0.1.5
@@ -8189,7 +8212,6 @@ packages:
 
   /glob/7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
-    deprecated: Glob versions prior to v9 are no longer supported
     dependencies:
       fs.realpath: 1.0.0
       inflight: 1.0.6
@@ -8470,6 +8492,7 @@ packages:
       inherits: 2.0.3
       setprototypeof: 1.1.0
       statuses: 1.5.0
+    dev: false
 
   /http-errors/1.8.1:
     resolution: {integrity: sha512-Kpk9Sm7NmI+RHhnj6OIWDI1d6fIoFAtFt9RLaTMRlg/8w49juAStsrBgp0Dp4OdxdVbRIeKhtCUvoi/RuAhO4g==}
@@ -9321,7 +9344,7 @@ packages:
       escape-html: 1.0.3
       fresh: 0.5.2
       http-assert: 1.5.0
-      http-errors: 1.6.3
+      http-errors: 1.8.1
       is-generator-function: 1.1.0
       koa-compose: 4.1.0
       koa-convert: 2.0.0
@@ -9406,7 +9429,7 @@ packages:
   /light-my-request/5.14.0:
     resolution: {integrity: sha512-aORPWntbpH5esaYpGOOmri0OHDOe3wC5M2MQxZ9dvMLZm6DnaAn0kJlcbU9hwsQgLzmZyReKwFwwPkR+nHu5kA==}
     dependencies:
-      cookie: 0.7.1
+      cookie: 0.7.2
       process-warning: 3.0.0
       set-cookie-parser: 2.7.1
     dev: true
@@ -12004,10 +12027,6 @@ packages:
   /q/1.5.1:
     resolution: {integrity: sha512-kV/CThkXo6xyFEZUugw/+pIOywXcDbFYgSct5cT3gqlbkBE1SJdwy6UQoZvodiWF/ckQLZyDE/Bu1M6gVu5lVw==}
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
-    deprecated: |-
-      You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
-
-      (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
     dev: true
 
   /qs/6.10.4:
@@ -12932,6 +12951,7 @@ packages:
 
   /setprototypeof/1.1.0:
     resolution: {integrity: sha512-BvE/TwpZX4FXExxOxZyRGQQv651MSwmWKZGqvmPcRIjDqWub67kTKuIMx43cZZrS/cBBzwBcNDWoFxt2XEFIpQ==}
+    dev: false
 
   /setprototypeof/1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
@@ -13358,7 +13378,7 @@ packages:
   /ssr-types/6.2.65:
     resolution: {integrity: sha512-nbUwBDGy7lWMd6OqAI+AmPfZ1M7vifWQWSGFXdBmZmwKHzb4qDeh1P5IBdQ4+sOcDFa+2cYr4gLuzIWfvyKv0w==}
 
-  /ssr-vite-plugin-style-import/2.0.1:
+  /ssr-vite-plugin-style-import/2.0.1_vite@2.9.18:
     resolution: {integrity: sha512-7YLzo1n8ezCVUKj+EUPImwrt3waSY8c8L3uc8/6mWy8KfDx77KRgRh437x+pTreLSJz9dYD3HGms8vkK4m4F6A==}
     peerDependencies:
       vite: '>=2.0.0'
@@ -13370,6 +13390,7 @@ packages:
       fs-extra: 10.1.0
       magic-string: 0.25.9
       pathe: 0.2.0
+      vite: 2.9.18
     dev: false
 
   /ssr-webpack4/4.46.2_a79876083ad1284c865ba528b3ca7507:

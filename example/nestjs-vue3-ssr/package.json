@@ -25,9 +25,9 @@
     "ssr-plugin-nestjs": "workspace:*",
     "ssr-plugin-vue3": "workspace:*",
     "ssr-webpack": "workspace:*",
+    "ssr-vite": "workspace:*",
     "ssr-types": "workspace:*",
-    "typescript": "^5.0.0",
-    "webpack": "^4.0.0"
+    "typescript": "^5.0.0"
   },
   "engines": {
     "node": ">=16.20.0"
