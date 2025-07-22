@@ -1,7 +1,7 @@
 packages:
   # - packages/*
   # - 'example/*'
-  # - 'packages/plugin-react'
+  - 'packages/plugin-react'
   # - 'packages/plugin-react18'
   # - 'packages/plugin-vue'
   - packages/plugin-vue3
@@ -17,4 +17,5 @@ packages:
   - packages/vite
   - packages/webpack
   - example/nestjs-vue3-ssr
+  - example/nestjs-react-ssr
 

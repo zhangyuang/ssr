@@ -324,6 +324,10 @@ export const loadModuleFromWebpack = (path: string) => {
 	return resolve(cwd, `./node_modules/ssr-webpack/node_modules/${path}`)
 }
 
+export const loadModuleFromVite = (path: string) => {
+	const cwd = getCwd()
+	return resolve(cwd, `./node_modules/ssr-vite/node_modules/${path}`)
+}
 
 const processError = (err: any) => {
 	if (err) {
