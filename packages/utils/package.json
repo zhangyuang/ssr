@@ -64,7 +64,7 @@
     "concurrently": "^5.1.0",
     "pinia": "^2.0.13",
     "rollup": ">=2.59.0 <2.78.0",
-    "ssr-types": "^6.0.0",
+    "ssr-types": "workspace:*",
     "vue": "^3.0.0",
     "webpack-chain": "^6.4.0"
   }
