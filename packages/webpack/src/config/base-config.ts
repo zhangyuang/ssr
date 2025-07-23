@@ -1,10 +1,11 @@
 import { join } from 'path'
-import { checkModuleExist, getCwd, loadConfig, logErr, loadModuleFromCwd, loadModuleFromFramework } from 'ssr-common-utils'
+import { checkModuleExist, getCwd, loadConfig, logErr, loadModuleFromCwd, loadModuleFromFramework, judgeFramework } from 'ssr-common-utils'
 import { Mode } from 'ssr-types'
 import WebpackChain from 'webpack-chain'
 import { addCommonChain } from '../utils/common-chain'
 
-
+const framework = judgeFramework()
+const isVue3 = framework === 'ssr-plugin-vue3'
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
 	const config = loadConfig()
 	const { moduleFileExtensions, chainBaseConfig, locale, ssrVueLoaderOptions, csrVueLoaderOptions, alias } = config
@@ -46,18 +47,20 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
 	chain.resolve.alias.set('pinia', loadModuleFromCwd('pinia'))
 
 	addCommonChain(chain, isServer)
-	chain.module
-		.rule('vue')
-		.test(/\.vue$/)
-		.use('vue-loader')
-		.loader(loadModuleFromFramework('vue-loader'))
-		.options(vueLoaderOptions)
-		.end()
-		
-	chain
-		.plugin('vue-loader')
-		.use(require(loadModuleFromFramework('vue-loader')).VueLoaderPlugin)
-		.end()
+	if (isVue3) {
+		chain.module
+			.rule('vue')
+			.test(/\.vue$/)
+			.use('vue-loader')
+			.loader(loadModuleFromFramework('vue-loader'))
+			.options(vueLoaderOptions)
+			.end()
+
+		chain
+			.plugin('vue-loader')
+			.use(require(loadModuleFromFramework('vue-loader')).VueLoaderPlugin)
+			.end()
+	}
 
 	locale?.enable &&
 		chain.module

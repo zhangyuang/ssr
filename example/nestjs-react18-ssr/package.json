@@ -23,7 +23,7 @@
     "@types/react-router-dom": "^5.1.3",
     "ssr": "workspace:*",
     "ssr-plugin-nestjs": "workspace:*",
-    "ssr-plugin-react18": "workspace:*",
+    "ssr-plugin-react": "workspace:*",
     "ssr-types": "workspace:*",
     "typescript": "^5.0.0",
     "webpack": "^4.0.0"

@@ -3,18 +3,18 @@ import WebpackChain from 'webpack-chain'
 
 import { getBaseConfig } from './base-config'
 import { getBuildEntry } from '../utils/build-entry'
+import { loadModuleFromFramework } from 'ssr-common-utils'
 
 const safePostCssParser = require('postcss-safe-parser')
 
 const getClientWebpack = (chain: WebpackChain) => {
-	const { isDev, chunkName, getOutput, chainClientConfig } = loadConfig()
+	const { isDev, chunkName, getOutput, chainClientConfig, host, fePort } = loadConfig()
 	const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
 	const publicPath = getOutputPublicPath()
 
 	getBaseConfig(chain, false)
 	const buildConfig = getBuildConfig()
 	chain.entry(chunkName).add(getBuildEntry().client).end().output.path(getOutput().clientOutPut).filename(buildConfig.jsBuldConfig.fileName).chunkFilename(buildConfig.jsBuldConfig.chunkFileName).publicPath(publicPath).end()
-
 	chain.optimization
 		.runtimeChunk(true)
 		.splitChunks(getSplitChunksOptions(asyncChunkMap))
@@ -34,14 +34,24 @@ const getClientWebpack = (chain: WebpackChain) => {
 				}
 			])
 		})
-
+	chain.when(isDev, (chain) => {
+		const ReactRefreshWebpackPlugin = require(loadModuleFromFramework('@pmmmwh/react-refresh-webpack-plugin'))
+		chain.plugin('fast-refresh').use(
+			new ReactRefreshWebpackPlugin({
+				overlay: {
+					sockHost: host,
+					sockPort: fePort
+				}
+			})
+		)
+	})
 	chain.plugin('manifest').use('webpack-manifest-plugin', [
 		{
 			fileName: 'asset-manifest.json'
 		}
 	])
 
-	chainClientConfig(chain) 
+	chainClientConfig(chain)
 
 	return chain.toConfig()
 }

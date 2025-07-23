@@ -35,11 +35,11 @@
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
-    "react": "^17.0.1",
-    "react-dom": "^17.0.0",
-    "react-router": "^5.2.1",
-    "react-router-dom": "^5.1.2",
     "ssr-common-utils": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=17.0.0",
+    "react-dom": ">=17.0.0"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",

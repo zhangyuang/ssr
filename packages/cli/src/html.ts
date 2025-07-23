@@ -114,7 +114,7 @@ export const generateHtml = async () => {
 			}
 		}
 	}
-	if (framework === 'ssr-plugin-react' || framework === 'ssr-plugin-react18') {
+	if (framework === 'ssr-plugin-react') {
 		const { createElement: h, Fragment } = await import(loadModuleFromFramework('react'))
 		const { renderToString } = await import(loadModuleFromFramework('react-dom/server'))
 		for (const item of combine) {

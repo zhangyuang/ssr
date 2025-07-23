@@ -48,9 +48,10 @@ const clientRender = async (): Promise<void> => {
 									exact: true,
 									key: path,
 									path: path,
-									render: () =>
+									render: (props) =>
 										createElement(WrappedComponent, {
-											key: location.pathname
+											...props,
+											key: props.history.location.key
 										})
 								})
 							})

@@ -4,7 +4,7 @@ import type * as ReactPlugin from '@vitejs/plugin-react'
 import { resolve } from 'path'
 import babel from '@rollup/plugin-babel'
 import { visualizer } from 'rollup-plugin-visualizer'
-import { getCwd, getDefineEnv, getOutputPublicPath, loadConfig, loadModuleFromFramework, judgeFramework } from 'ssr-common-utils'
+import { getCwd, getDefineEnv, getOutputPublicPath, loadConfig, loadModuleFromFramework, judgeFramework, accessFileSync } from 'ssr-common-utils'
 import { UserConfig, build as viteBuild, PluginOption } from 'vite'
 
 import { AndDesignVueResolve, AntdResolve, ElementPlusResolve, NutuiResolve, VantResolve, createStyleImportPlugin } from 'ssr-vite-plugin-style-import'
@@ -12,9 +12,10 @@ import { getBabelOptions } from './babel'
 import { commonConfig, asyncOptimizeChunkPlugin, chunkNamePlugin, manifestPlugin, rollupOutputOptions } from './build-plugins'
 
 const framework = judgeFramework()
-const isReact = framework === 'react'
-const isVue3 = framework === 'vue3'
-const extraInclude = ['react-router', 'react-is']
+const isReact = framework === 'ssr-plugin-react'
+const isVue3 = framework === 'ssr-plugin-vue3'
+const hasReactIs = accessFileSync(resolve(getCwd(), './node_modules/react-is'))
+const extraInclude = [''].concat(isReact ? ['react-router', hasReactIs ? 'react-is' : ''] : []).filter(Boolean)
 const extraExclude = ['ssr-hoc-react']
 
 const { getOutput, vue3ServerEntry, vue3ClientEntry, reactServerEntry, reactClientEntry, viteConfig, supportOptinalChaining, isDev, define, optimize, babelOptions, chunkName } = loadConfig()

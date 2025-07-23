@@ -4,26 +4,13 @@ import type { Module, Rule } from 'webpack-chain'
 import { promises } from 'fs'
 import { resolve } from 'path'
 import * as webpack from 'ssr-webpack4'
-import { 
-  asyncChunkMap,
-  getCwd, 
-  judgeFramework, 
-  loadModuleFromFramework,
-  getPkgMajorVersion,
-  loadConfig,
-  logWarning,
-  getImageOutputPath,
-  nameSpaceBuiltinModules,
-	getBuildConfig,
-	getDefineEnv,
-} from 'ssr-common-utils'
+import { asyncChunkMap, getCwd, judgeFramework, loadModuleFromFramework, loadModuleFromWebpack, getPkgMajorVersion, loadConfig, logWarning, getImageOutputPath, nameSpaceBuiltinModules, getBuildConfig, getDefineEnv } from 'ssr-common-utils'
 import { nodeExternals } from './externals'
 import { FileToChunkRelationPlugin } from './plugins'
 import { setStyle } from './setStyle'
 
-const MiniCssExtractPlugin = require(loadModuleFromFramework('ssr-mini-css-extract-plugin'))
+const MiniCssExtractPlugin = require(loadModuleFromWebpack('ssr-mini-css-extract-plugin'))
 const WebpackBar = require('webpackbar')
-
 
 const [antdVersion, vantVersion] = [getPkgMajorVersion('antd'), getPkgMajorVersion('vant')]
 const isAntd4 = antdVersion === 4
@@ -35,22 +22,22 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
 	const { babelOptions, isDev } = loadConfig()
 	let plugins: PluginItem[] = []
 	let presets: PluginItem[] = []
-	if (['ssr-plugin-react18', 'ssr-plugin-react'].includes(framework)) {
+	if (['ssr-plugin-react'].includes(framework)) {
 		plugins = [
 			[
-				loadModuleFromFramework('@babel/plugin-transform-runtime'),
+				loadModuleFromWebpack('@babel/plugin-transform-runtime'),
 				{
 					regenerator: false,
 					corejs: false,
 					helpers: true
 				}
 			],
-			[loadModuleFromFramework('@babel/plugin-proposal-private-methods'), { loose: true }],
-			[loadModuleFromFramework('@babel/plugin-proposal-private-property-in-object'), { loose: true }]
+			[loadModuleFromWebpack('@babel/plugin-proposal-private-methods'), { loose: true }],
+			[loadModuleFromWebpack('@babel/plugin-proposal-private-property-in-object'), { loose: true }]
 		]
 		if (isAntd4) {
 			plugins.push([
-				loadModuleFromFramework('babel-plugin-import'),
+				loadModuleFromWebpack('babel-plugin-import'),
 				{
 					libraryName: 'antd',
 					libraryDirectory: 'lib',
@@ -63,7 +50,7 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
 			plugins.push(loadModuleFromFramework('react-refresh/babel'))
 		}
 		presets = [
-			[loadModuleFromFramework('@babel/preset-env'), envOptions],
+			[loadModuleFromWebpack('@babel/preset-env'), envOptions],
 			[
 				loadModuleFromFramework('babel-preset-react-app'),
 				{
@@ -77,13 +64,13 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
 	if (['ssr-plugin-vue3', 'ssr-plugin-vue'].includes(framework)) {
 		plugins = [
 			[
-				loadModuleFromFramework('@babel/plugin-transform-runtime'),
+				loadModuleFromWebpack('@babel/plugin-transform-runtime'),
 				{
 					corejs: false
 				}
 			],
 			[
-				loadModuleFromFramework('babel-plugin-import'),
+				loadModuleFromWebpack('babel-plugin-import'),
 				{
 					libraryName: 'ant-design-vue',
 					libraryDirectory: 'lib',
@@ -94,7 +81,7 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
 		]
 		if (vantVersion && vantVersion < 4) {
 			plugins.push([
-				loadModuleFromFramework('babel-plugin-import'),
+				loadModuleFromWebpack('babel-plugin-import'),
 				{
 					libraryName: 'vant',
 					libraryDirectory: 'lib',
@@ -108,23 +95,23 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
 		}
 		presets = [
 			[
-				loadModuleFromFramework('@babel/preset-typescript'),
+				loadModuleFromWebpack('@babel/preset-typescript'),
 				{
 					isTSX: true,
 					allExtensions: true
 				}
 			],
-			[loadModuleFromFramework('@babel/preset-env'), envOptions]
+			[loadModuleFromWebpack('@babel/preset-env'), envOptions]
 		]
 	}
-	plugins.push([loadModuleFromFramework('@babel/plugin-proposal-optional-chaining')])
+	plugins.push([loadModuleFromWebpack('@babel/plugin-proposal-optional-chaining')])
 	plugins.push(...(babelOptions?.plugins ?? []))
 	presets.push(...(babelOptions?.presets ?? []))
 	plugins = plugins.filter(Boolean)
 	presets = presets.filter(Boolean)
 	chain
 		.use('babel-loader')
-		.loader(loadModuleFromFramework('babel-loader'))
+		.loader(loadModuleFromWebpack('babel-loader'))
 		.options({
 			cacheDirectory: true,
 			cacheCompression: false,
@@ -222,7 +209,7 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
 
 	const module = chain.module.rule('compileBabelForExtraModule').test(/\.(js|mjs|jsx|ts|tsx)$/).include
 
-	const babelForExtraModule = module
+	const babelExtraModuleChain = module
 		.add(babelExtraModule ?? [])
 		.add((babelOptions?.include as Array<string | RegExp>) ?? [])
 		.end()
@@ -230,7 +217,7 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
 		.end()
 
 	addBabelLoader(babelModule, envOptions, isServer)
-	addBabelLoader(babelForExtraModule, envOptions, isServer)
+	addBabelLoader(babelExtraModuleChain, envOptions, isServer)
 	chain.module
 		.rule('images')
 		.test(/\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/)
@@ -265,7 +252,6 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
 		})
 	const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 	const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
-
 
 	setStyle(chain, /\.css$/, {
 		rule: 'css',

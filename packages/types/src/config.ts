@@ -130,8 +130,6 @@ export interface IConfig {
 	vueClientEntry: string
 	reactServerEntry: string
 	reactClientEntry: string
-	react18ServerEntry: string
-	react18ClientEntry: string
 	isVite: boolean
 	optimize: boolean
 	supportOptinalChaining: boolean

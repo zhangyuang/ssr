@@ -28,7 +28,6 @@ const vendorList = [
 	'react-dom',
 	'@vue',
 	'ssr-hoc-react',
-	'ssr-hoc-react18',
 	'ssr-client-utils',
 	'ssr-common-utils',
 	'pinia',

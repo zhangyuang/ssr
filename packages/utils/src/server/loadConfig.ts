@@ -19,9 +19,6 @@ const loadConfig = (): IConfig => {
 	const vueClientEntry = join(cwd, './node_modules/ssr-plugin-vue/esm/entry/client-entry.js')
 	const reactServerEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/server-entry.js')
 	const reactClientEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/client-entry.js')
-	const react18ServerEntry = join(cwd, './node_modules/ssr-plugin-react18/esm/entry/server-entry.js')
-	const react18ClientEntry = join(cwd, './node_modules/ssr-plugin-react18/esm/entry/client-entry.js')
-
 	const supportOptinalChaining = coerce(process.version)!.major >= 14
 	const define = userConfig.define ?? {}
 	userConfig.define && stringifyDefine(define)
@@ -160,7 +157,7 @@ const loadConfig = (): IConfig => {
 		assetManifest: join(cwd, './build/client/asset-manifest.json'),
 		asyncChunkMap: join(cwd, './build/asyncChunkMap.json')
 	}
-	const babelExtraModule: UserConfig['babelExtraModule'] = [/ssr-plugin-vue3/, /ssr-client-utils/, /ssr-hoc-vue/, /vue/, /ssr-common-utils/, /ssr-plugin-vue/, /ssr-plugin-react/, /ssr-hoc-react/, /ssr-hoc-vue3/, /ssr-hoc-react18/]
+	const babelExtraModule: UserConfig['babelExtraModule'] = [/ssr-plugin-vue3/, /ssr-client-utils/, /ssr-hoc-vue/, /vue/, /ssr-common-utils/, /ssr-plugin-vue/, /ssr-plugin-react/, /ssr-hoc-react/, /ssr-hoc-vue3/]
 	const staticConfigPath = ''
 	const getOutput = () => {}
 	const rootId = '#app'
@@ -195,8 +192,6 @@ const loadConfig = (): IConfig => {
 			vueClientEntry,
 			reactServerEntry,
 			reactClientEntry,
-			react18ServerEntry,
-			react18ClientEntry,
 			isVite,
 			whiteList,
 			isCI,
