@@ -1,5 +1,5 @@
-import * as webpack from 'ssr-webpack4'
-
+import type { Configuration } from 'webpack'
+import * as webpack4 from 'ssr-webpack4'
 import { loadConfig } from 'ssr-common-utils'
 import { webpackPromisify } from './utils/promisify'
 
@@ -7,10 +7,11 @@ import { webpackPromisify } from './utils/promisify'
 const WebpackDevServer = require('webpack-dev-server-ssr')
 const config = loadConfig()
 
-const startClientServer = async (webpackConfig: webpack.Configuration): Promise<void> => {
+const startClientServer = async (webpackConfig: Configuration): Promise<void> => {
 	const { webpackDevServerConfig, fePort, host } = config
 	return await new Promise((resolve) => {
-		const compiler = webpack(webpackConfig)
+		//@ts-expect-error
+		const compiler = webpack4(webpackConfig)
 
 		const server = new WebpackDevServer(compiler, webpackDevServerConfig)
 		compiler.hooks.done.tap('DonePlugin', () => {
@@ -21,7 +22,7 @@ const startClientServer = async (webpackConfig: webpack.Configuration): Promise<
 	})
 }
 
-const startClientBuild = async (webpackConfig: webpack.Configuration) => {
+const startClientBuild = async (webpackConfig: Configuration) => {
 	const { webpackStatsOption } = config
 	const stats = await webpackPromisify(webpackConfig)
 	console.log(stats.toString(webpackStatsOption))

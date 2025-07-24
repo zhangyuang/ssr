@@ -81,23 +81,5 @@
     "typescript": "^5.8.2",
     "ssr-serialize-javascript": "^6.0.0",
     "@vue/server-renderer": "^3.0.7"
-  },
-  "pnpm": {
-    "overrides": {
-      "valtio": "1.13.2"
-    },
-    "peerDependencyRules": {
-      "allowedVersions": {
-        "valtio": "1.13.2"
-      },
-      "ignoreMissing": ["valtio"]
-    },
-    "packageExtensions": {
-      "*": {
-        "peerDependencies": {
-          "valtio": "1.13.2"
-        }
-      }
-    }
   }
 }

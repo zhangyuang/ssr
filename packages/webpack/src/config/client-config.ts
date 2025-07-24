@@ -1,9 +1,8 @@
-import { asyncChunkMap, getBuildConfig, getOutputPublicPath, getSplitChunksOptions, loadConfig, terserConfig } from 'ssr-common-utils'
+import { asyncChunkMap, getBuildConfig, getOutputPublicPath, getSplitChunksOptions, loadConfig, loadModuleFromWebpack, terserConfig } from 'ssr-common-utils'
 import WebpackChain from 'webpack-chain'
 
 import { getBaseConfig } from './base-config'
 import { getBuildEntry } from '../utils/build-entry'
-import { loadModuleFromFramework } from 'ssr-common-utils'
 
 const safePostCssParser = require('postcss-safe-parser')
 
@@ -35,7 +34,7 @@ const getClientWebpack = (chain: WebpackChain) => {
 			])
 		})
 	chain.when(isDev, (chain) => {
-		const ReactRefreshWebpackPlugin = require(loadModuleFromFramework('@pmmmwh/react-refresh-webpack-plugin'))
+		const ReactRefreshWebpackPlugin = require(loadModuleFromWebpack('@pmmmwh/react-refresh-webpack-plugin'))
 		chain.plugin('fast-refresh').use(
 			new ReactRefreshWebpackPlugin({
 				overlay: {

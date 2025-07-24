@@ -16,6 +16,7 @@ const errorEmitPlugin = function (compiler: Compiler) {
 const webpackPromisify = async (config: Configuration): Promise<Stats> => {
 	config.plugins?.push(errorEmitPlugin)
 	return await new Promise((resolve, reject) => {
+		//@ts-expect-error
 		webpack4(config, (err, stats: Stats) => {
 			if (err) {
 				reject(err)

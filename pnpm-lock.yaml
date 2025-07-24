@@ -4,11 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  valtio: 1.13.2
-
-packageExtensionsChecksum: sha256-UcuRFlPudvAJ9oOu1uOdIQ1BkpZD1UARDugpkeHajlk=
-
 importers:
 
   .:
@@ -30,7 +25,7 @@ importers:
         version: 0.8.17
       '@vue/server-renderer':
         specifier: ^3.0.7
-        version: 3.5.18(vue@3.5.18(typescript@5.8.2))
+        version: 3.5.18(vue@3.5.18(typescript@5.8.3))
       concurrently:
         specifier: ^5.3.0
         version: 5.3.0
@@ -78,7 +73,7 @@ importers:
         version: 6.0.4
       typescript:
         specifier: ^5.8.2
-        version: 5.8.2
+        version: 5.8.3
       vue-server-renderer:
         specifier: ^2.7.8
         version: 2.7.16
@@ -119,7 +114,7 @@ importers:
         specifier: 6.7.5
         version: 6.7.5
       valtio:
-        specifier: 1.13.2
+        specifier: ^1.11.2
         version: 1.13.2(@types/react@17.0.87)(react@17.0.2)
     devDependencies:
       '@biomejs/biome':
@@ -157,7 +152,7 @@ importers:
         version: link:../../packages/webpack
       typescript:
         specifier: ^5.8.2
-        version: 5.8.2
+        version: 5.8.3
 
   example/nestjs-react18-ssr:
     dependencies:
@@ -195,7 +190,7 @@ importers:
         specifier: workspace:*
         version: link:../../packages/core
       valtio:
-        specifier: 1.13.2
+        specifier: ^1.11.2
         version: 1.13.2(@types/react@17.0.87)(react@18.3.1)
     devDependencies:
       '@biomejs/biome':
@@ -233,7 +228,7 @@ importers:
         version: link:../../packages/webpack
       typescript:
         specifier: ^5.0.0
-        version: 5.8.2
+        version: 5.8.3
 
   example/nestjs-vue3-ssr:
     dependencies:
@@ -248,10 +243,10 @@ importers:
         version: 10.4.20(@nestjs/common@10.4.20(class-transformer@0.5.1)(reflect-metadata@0.1.14)(rxjs@7.8.2))(@nestjs/core@10.4.20)
       '@vue/server-renderer':
         specifier: ^3.0.7
-        version: 3.5.18(vue@3.5.18(typescript@5.8.2))
+        version: 3.5.18(vue@3.5.18(typescript@5.8.3))
       pinia:
         specifier: ^2.0.13
-        version: 2.3.1(typescript@5.8.2)(vue@3.5.18(typescript@5.8.2))
+        version: 2.3.1(typescript@5.8.3)(vue@3.5.18(typescript@5.8.3))
       pm2:
         specifier: ^4.5.4
         version: 4.5.6
@@ -272,13 +267,13 @@ importers:
         version: 6.7.5
       vue:
         specifier: ^3.0.0
-        version: 3.5.18(typescript@5.8.2)
+        version: 3.5.18(typescript@5.8.3)
       vue-router:
         specifier: ^4.2.4
-        version: 4.5.1(vue@3.5.18(typescript@5.8.2))
+        version: 4.5.1(vue@3.5.18(typescript@5.8.3))
       vuex:
         specifier: ^4.0.0
-        version: 4.1.0(vue@3.5.18(typescript@5.8.2))
+        version: 4.1.0(vue@3.5.18(typescript@5.8.3))
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
@@ -306,7 +301,7 @@ importers:
         version: link:../../packages/webpack
       typescript:
         specifier: ^5.8.2
-        version: 5.8.2
+        version: 5.8.3
 
   packages/cli:
     dependencies:
@@ -402,19 +397,19 @@ importers:
     dependencies:
       '@vue/server-renderer':
         specifier: ^3.0.7
-        version: 3.5.18(vue@3.5.18(typescript@5.8.2))
+        version: 3.5.18(vue@3.5.18(typescript@5.8.3))
       vue:
         specifier: ^3.0.0
-        version: 3.5.18(typescript@5.8.2)
+        version: 3.5.18(typescript@5.8.3)
       vuex:
         specifier: ^4.0.0
-        version: 4.1.0(vue@3.5.18(typescript@5.8.2))
+        version: 4.1.0(vue@3.5.18(typescript@5.8.3))
 
   packages/plugin-midway:
     dependencies:
       '@midwayjs/cli':
         specifier: ^2.0.0
-        version: 2.1.1(@midwayjs/mock@3.20.4)(@swc/core@1.13.2)(@types/node@18.19.120)(typescript@5.8.2)
+        version: 2.1.1(@midwayjs/mock@3.20.4)(@swc/core@1.13.2)(@types/node@18.19.120)(typescript@5.8.3)
       '@midwayjs/decorator':
         specifier: '>=2.3.0'
         version: 3.20.4
@@ -433,7 +428,7 @@ importers:
     devDependencies:
       typescript:
         specifier: ^5.8.2
-        version: 5.8.2
+        version: 5.8.3
 
   packages/plugin-nestjs:
     dependencies:
@@ -486,9 +481,6 @@ importers:
 
   packages/plugin-react:
     dependencies:
-      '@pmmmwh/react-refresh-webpack-plugin':
-        specifier: ^0.5.5
-        version: 0.5.17(@types/webpack@4.41.40)(react-refresh@0.12.0)(sockjs-client@1.6.1)(type-fest@0.21.3)(webpack@5.97.1(esbuild@0.14.48))
       '@vitejs/plugin-react':
         specifier: ^1.3.2
         version: 1.3.2
@@ -517,7 +509,7 @@ importers:
         specifier: workspace:*
         version: link:../hoc-react
       valtio:
-        specifier: 1.13.2
+        specifier: ^1.11.2
         version: 1.13.2(@types/react@17.0.87)(react@18.3.1)
     devDependencies:
       '@types/react':
@@ -555,7 +547,7 @@ importers:
     dependencies:
       '@vitejs/plugin-vue':
         specifier: ^2.3.4
-        version: 2.3.4(vite@2.9.18(less@4.4.0))(vue@3.5.18(typescript@5.8.2))
+        version: 2.3.4(vite@2.9.18(less@4.4.0))(vue@3.5.18(typescript@5.8.3))
       '@vitejs/plugin-vue-jsx':
         specifier: ^1.3.2
         version: 1.3.10
@@ -570,16 +562,16 @@ importers:
         version: link:../utils
       vue:
         specifier: ^3.0.0
-        version: 3.5.18(typescript@5.8.2)
+        version: 3.5.18(typescript@5.8.3)
       vue-loader:
         specifier: ^17.0.0
-        version: 17.4.2(@vue/compiler-sfc@3.5.18)(vue@3.5.18(typescript@5.8.2))(webpack@5.97.1(esbuild@0.14.48))
+        version: 17.4.2(@vue/compiler-sfc@3.5.18)(vue@3.5.18(typescript@5.8.3))(webpack@5.97.1(esbuild@0.14.48))
       vue-router:
         specifier: ^4.2.4
-        version: 4.5.1(vue@3.5.18(typescript@5.8.2))
+        version: 4.5.1(vue@3.5.18(typescript@5.8.3))
       vuex:
         specifier: ^4.0.0
-        version: 4.1.0(vue@3.5.18(typescript@5.8.2))
+        version: 4.1.0(vue@3.5.18(typescript@5.8.3))
     devDependencies:
       '@types/webpack':
         specifier: ^4.41.10
@@ -710,13 +702,13 @@ importers:
         version: 5.3.0
       pinia:
         specifier: ^2.0.13
-        version: 2.3.1(typescript@5.8.2)(vue@3.5.18(typescript@5.8.2))
+        version: 2.3.1(typescript@5.8.3)(vue@3.5.18(typescript@5.8.3))
       ssr-types:
         specifier: workspace:*
         version: link:../types
       vue:
         specifier: ^3.0.0
-        version: 3.5.18(typescript@5.8.2)
+        version: 3.5.18(typescript@5.8.3)
       webpack-chain:
         specifier: ^6.4.0
         version: 6.5.1
@@ -781,12 +773,18 @@ importers:
       '@babel/runtime':
         specifier: ^7.12.13
         version: 7.28.2
+      '@pmmmwh/react-refresh-webpack-plugin':
+        specifier: ^0.5.5
+        version: 0.5.17(@types/webpack@4.41.40)(react-refresh@0.13.0)(sockjs-client@1.6.1)(type-fest@0.21.3)(webpack@4.47.0)
       '@rollup/plugin-babel':
         specifier: ^5.3.0
         version: 5.3.1(@babel/core@7.28.0)(@types/babel__core@7.20.5)(rollup@2.77.3)
       '@types/semver':
         specifier: ^7.3.13
         version: 7.7.0
+      '@types/webpack':
+        specifier: ^4.41.8
+        version: 4.41.40
       babel-loader:
         specifier: ^8.0.4
         version: 8.4.1(@babel/core@7.28.0)(webpack@4.47.0)
@@ -816,7 +814,7 @@ importers:
         version: 4.1.1
       pinia:
         specifier: ^2.0.17
-        version: 2.3.1(typescript@5.8.2)(vue@3.5.18(typescript@5.8.2))
+        version: 2.3.1(typescript@5.8.3)(vue@3.5.18(typescript@5.8.3))
       postcss:
         specifier: ^8.0.0
         version: 8.5.6
@@ -867,7 +865,7 @@ importers:
         version: 0.12.2(rollup@2.77.3)
       unplugin-vue-components:
         specifier: ^0.22.12
-        version: 0.22.12(@babel/parser@7.28.0)(rollup@2.77.3)(vue@3.5.18(typescript@5.8.2))
+        version: 0.22.12(@babel/parser@7.28.0)(rollup@2.77.3)(vue@3.5.18(typescript@5.8.3))
       url-loader:
         specifier: ^4.1.1
         version: 4.1.1(file-loader@6.2.0(webpack@4.47.0))(webpack@4.47.0)
@@ -889,10 +887,6 @@ importers:
       webpackbar:
         specifier: ^5.0.0-3
         version: 5.0.2(webpack@4.47.0)
-    devDependencies:
-      '@types/webpack':
-        specifier: ^4.41.8
-        version: 4.41.40
 
 packages:
 
@@ -3997,7 +3991,7 @@ packages:
   derive-valtio@0.1.0:
     resolution: {integrity: sha512-OCg2UsLbXK7GmmpzMXhYkdO64vhJ1ROUUGaTFyHjVwEdMEcTTRj7W1TxLbSBxdY8QLBPCcp66MTyaSy0RpO17A==}
     peerDependencies:
-      valtio: 1.13.2
+      valtio: '*'
 
   des.js@1.1.0:
     resolution: {integrity: sha512-r17GxjhUCjSRy8aiJpr8/UadFIzMzJGexI3Nmz4ADi9LYSFx4gTBp80+NaX/YsXWWLhpZ7v/v/ubEc/bCNfKwg==}
@@ -8214,8 +8208,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  typescript@5.8.2:
-    resolution: {integrity: sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==}
+  typescript@5.8.3:
+    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -10016,7 +10010,7 @@ snapshots:
       - '@swc/wasm'
       - '@types/node'
 
-  '@midwayjs/cli@2.1.1(@midwayjs/mock@3.20.4)(@swc/core@1.13.2)(@types/node@18.19.120)(typescript@5.8.2)':
+  '@midwayjs/cli@2.1.1(@midwayjs/mock@3.20.4)(@swc/core@1.13.2)(@types/node@18.19.120)(typescript@5.8.3)':
     dependencies:
       '@midwayjs/cli-plugin-build': 2.1.0
       '@midwayjs/cli-plugin-check': 2.1.0
@@ -10028,7 +10022,7 @@ snapshots:
       minimist: 1.2.8
       mod-info: 1.0.2
       source-map-support: 0.5.21
-      ts-node: 10.9.2(@swc/core@1.13.2)(@types/node@18.19.120)(typescript@5.8.2)
+      ts-node: 10.9.2(@swc/core@1.13.2)(@types/node@18.19.120)(typescript@5.8.3)
     transitivePeerDependencies:
       - '@midwayjs/mock'
       - '@swc/core'
@@ -10326,17 +10320,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@pmmmwh/react-refresh-webpack-plugin@0.5.17(@types/webpack@4.41.40)(react-refresh@0.12.0)(sockjs-client@1.6.1)(type-fest@0.21.3)(webpack@5.97.1(esbuild@0.14.48))':
+  '@pmmmwh/react-refresh-webpack-plugin@0.5.17(@types/webpack@4.41.40)(react-refresh@0.13.0)(sockjs-client@1.6.1)(type-fest@0.21.3)(webpack@4.47.0)':
     dependencies:
       ansi-html: 0.0.9
       core-js-pure: 3.44.0
       error-stack-parser: 2.1.4
       html-entities: 2.6.0
       loader-utils: 2.0.4
-      react-refresh: 0.12.0
+      react-refresh: 0.13.0
       schema-utils: 4.3.2
       source-map: 0.7.6
-      webpack: 5.97.1(esbuild@0.14.48)
+      webpack: 4.47.0
     optionalDependencies:
       '@types/webpack': 4.41.40
       sockjs-client: 1.6.1
@@ -10761,10 +10755,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-vue@2.3.4(vite@2.9.18(less@4.4.0))(vue@3.5.18(typescript@5.8.2))':
+  '@vitejs/plugin-vue@2.3.4(vite@2.9.18(less@4.4.0))(vue@3.5.18(typescript@5.8.3))':
     dependencies:
       vite: 2.9.18(less@4.4.0)
-      vue: 3.5.18(typescript@5.8.2)
+      vue: 3.5.18(typescript@5.8.3)
 
   '@vue/babel-helper-vue-transform-on@1.4.0': {}
 
@@ -10843,11 +10837,11 @@ snapshots:
       '@vue/shared': 3.5.18
       csstype: 3.1.3
 
-  '@vue/server-renderer@3.5.18(vue@3.5.18(typescript@5.8.2))':
+  '@vue/server-renderer@3.5.18(vue@3.5.18(typescript@5.8.3))':
     dependencies:
       '@vue/compiler-ssr': 3.5.18
       '@vue/shared': 3.5.18
-      vue: 3.5.18(typescript@5.8.2)
+      vue: 3.5.18(typescript@5.8.3)
 
   '@vue/shared@3.5.18': {}
 
@@ -15507,13 +15501,13 @@ snapshots:
 
   pify@4.0.1: {}
 
-  pinia@2.3.1(typescript@5.8.2)(vue@3.5.18(typescript@5.8.2)):
+  pinia@2.3.1(typescript@5.8.3)(vue@3.5.18(typescript@5.8.3)):
     dependencies:
       '@vue/devtools-api': 6.6.4
-      vue: 3.5.18(typescript@5.8.2)
-      vue-demi: 0.14.10(vue@3.5.18(typescript@5.8.2))
+      vue: 3.5.18(typescript@5.8.3)
+      vue-demi: 0.14.10(vue@3.5.18(typescript@5.8.3))
     optionalDependencies:
-      typescript: 5.8.2
+      typescript: 5.8.3
     transitivePeerDependencies:
       - '@vue/composition-api'
 
@@ -17438,7 +17432,7 @@ snapshots:
     optionalDependencies:
       '@swc/core': 1.13.2
 
-  ts-node@10.9.2(@swc/core@1.13.2)(@types/node@18.19.120)(typescript@5.8.2):
+  ts-node@10.9.2(@swc/core@1.13.2)(@types/node@18.19.120)(typescript@5.8.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
@@ -17452,7 +17446,7 @@ snapshots:
       create-require: 1.1.1
       diff: 4.0.2
       make-error: 1.3.6
-      typescript: 5.8.2
+      typescript: 5.8.3
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     optionalDependencies:
@@ -17532,7 +17526,7 @@ snapshots:
 
   typescript@5.7.2: {}
 
-  typescript@5.8.2: {}
+  typescript@5.8.3: {}
 
   ufo@1.6.1: {}
 
@@ -17610,7 +17604,7 @@ snapshots:
     transitivePeerDependencies:
       - rollup
 
-  unplugin-vue-components@0.22.12(@babel/parser@7.28.0)(rollup@2.77.3)(vue@3.5.18(typescript@5.8.2)):
+  unplugin-vue-components@0.22.12(@babel/parser@7.28.0)(rollup@2.77.3)(vue@3.5.18(typescript@5.8.3)):
     dependencies:
       '@antfu/utils': 0.7.10
       '@rollup/pluginutils': 5.2.0(rollup@2.77.3)
@@ -17622,7 +17616,7 @@ snapshots:
       minimatch: 5.1.6
       resolve: 1.22.10
       unplugin: 1.16.1
-      vue: 3.5.18(typescript@5.8.2)
+      vue: 3.5.18(typescript@5.8.3)
     optionalDependencies:
       '@babel/parser': 7.28.0
     transitivePeerDependencies:
@@ -17762,11 +17756,11 @@ snapshots:
 
   vm-browserify@1.1.2: {}
 
-  vue-demi@0.14.10(vue@3.5.18(typescript@5.8.2)):
+  vue-demi@0.14.10(vue@3.5.18(typescript@5.8.3)):
     dependencies:
-      vue: 3.5.18(typescript@5.8.2)
+      vue: 3.5.18(typescript@5.8.3)
 
-  vue-loader@17.4.2(@vue/compiler-sfc@3.5.18)(vue@3.5.18(typescript@5.8.2))(webpack@5.97.1(esbuild@0.14.48)):
+  vue-loader@17.4.2(@vue/compiler-sfc@3.5.18)(vue@3.5.18(typescript@5.8.3))(webpack@5.97.1(esbuild@0.14.48)):
     dependencies:
       chalk: 4.1.2
       hash-sum: 2.0.0
@@ -17774,12 +17768,12 @@ snapshots:
       webpack: 5.97.1(esbuild@0.14.48)
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.18
-      vue: 3.5.18(typescript@5.8.2)
+      vue: 3.5.18(typescript@5.8.3)
 
-  vue-router@4.5.1(vue@3.5.18(typescript@5.8.2)):
+  vue-router@4.5.1(vue@3.5.18(typescript@5.8.3)):
     dependencies:
       '@vue/devtools-api': 6.6.4
-      vue: 3.5.18(typescript@5.8.2)
+      vue: 3.5.18(typescript@5.8.3)
 
   vue-server-renderer@2.7.16:
     dependencies:
@@ -17792,20 +17786,20 @@ snapshots:
       serialize-javascript: 6.0.2
       source-map: 0.5.6
 
-  vue@3.5.18(typescript@5.8.2):
+  vue@3.5.18(typescript@5.8.3):
     dependencies:
       '@vue/compiler-dom': 3.5.18
       '@vue/compiler-sfc': 3.5.18
       '@vue/runtime-dom': 3.5.18
-      '@vue/server-renderer': 3.5.18(vue@3.5.18(typescript@5.8.2))
+      '@vue/server-renderer': 3.5.18(vue@3.5.18(typescript@5.8.3))
       '@vue/shared': 3.5.18
     optionalDependencies:
-      typescript: 5.8.2
+      typescript: 5.8.3
 
-  vuex@4.1.0(vue@3.5.18(typescript@5.8.2)):
+  vuex@4.1.0(vue@3.5.18(typescript@5.8.3)):
     dependencies:
       '@vue/devtools-api': 6.6.4
-      vue: 3.5.18(typescript@5.8.2)
+      vue: 3.5.18(typescript@5.8.3)
 
   watchpack-chokidar2@2.0.1:
     dependencies:
