@@ -8,7 +8,6 @@ import { ReactRoutesType } from 'ssr-types'
 import { proxy } from 'valtio'
 
 export const Routes = combineRoutes(declareRoutes, ManualRoutes) as ReactRoutesType
-
 export const ssrCreateContext = () => {
 	const STORE_CONTEXT = createContext<IContext>({
 		state: {}

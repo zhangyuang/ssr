@@ -9,7 +9,7 @@ import { UserConfig, build as viteBuild, PluginOption } from 'vite'
 
 import { AndDesignVueResolve, AntdResolve, ElementPlusResolve, NutuiResolve, VantResolve, createStyleImportPlugin } from 'ssr-vite-plugin-style-import'
 import { getBabelOptions } from './babel'
-import { commonConfig, asyncOptimizeChunkPlugin, chunkNamePlugin, manifestPlugin, rollupOutputOptions } from './build-plugins'
+import { commonConfig, asyncOptimizeChunkPlugin, chunkNamePlugin, manifestPlugin, rollupOutputOptions, ssrResolvePlugin } from './build-plugins'
 
 const framework = judgeFramework()
 const isReact = framework === 'ssr-plugin-react'
@@ -68,7 +68,7 @@ if (isVue3) {
 	)
 }
 
-const serverPlugins: PluginOption[] = [...frameworkServerPlugins, ...commonServerPlugins]
+const serverPlugins: PluginOption[] = [...ssrResolvePlugin({}), ...frameworkServerPlugins, ...commonServerPlugins]
 
 // Get framework-specific entries
 const serverEntry = isReact ? reactServerEntry : vue3ServerEntry

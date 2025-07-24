@@ -28,10 +28,10 @@
     "ssr-types": "workspace:*",
     "ssr-vite": "workspace:*",
     "ssr-webpack": "workspace:*",
-    "typescript": "^5.0.0"
+    "typescript": "^5.8.2"
   },
   "engines": {
-    "node": ">=16.20.0"
+    "node": ">=20.0.0"
   },
   "scripts": {
     "prod": "ssr build && pm2 start pm2.config.js",

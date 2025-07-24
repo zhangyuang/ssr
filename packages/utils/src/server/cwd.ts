@@ -268,14 +268,19 @@ const judgeFramework = () => {
 	const cwd = getCwd()
 	const packageJSON = require(resolve(cwd, './package.json'))
 	if (packageJSON.dependencies.react || packageJSON.devDependencies.react) {
-		const version = packageJSON.dependencies.react || packageJSON.devDependencies.react
-		return coerce(version)!.major === 18 ? 'ssr-plugin-react18' : 'ssr-plugin-react'
+		return 'ssr-plugin-react'
 	} else if (packageJSON.dependencies.vue || packageJSON.devDependencies.vue) {
 		const version = packageJSON.dependencies.vue || packageJSON.devDependencies.vue
 		return coerce(version)!.major === 3 ? 'ssr-plugin-vue3' : 'ssr-plugin-vue'
 	} else {
 		throw new Error('get framework failed, please check dependencies')
 	}
+}
+
+export const isReact18 = () => {
+	const cwd = getCwd()
+	const packageJSON = require(resolve(cwd, './package.json'))
+	return packageJSON.dependencies.react && coerce(packageJSON.dependencies.react)?.major === 18
 }
 
 const judgeVersion = (version: string) => {

@@ -1,4 +1,4 @@
-import * as webpack from 'ssr-webpack4'
+import * as webpack4 from 'ssr-webpack4'
 import type { Compiler, Configuration, Stats } from 'webpack'
 
 const errorEmitPlugin = function (compiler: Compiler) {
@@ -16,7 +16,7 @@ const errorEmitPlugin = function (compiler: Compiler) {
 const webpackPromisify = async (config: Configuration): Promise<Stats> => {
 	config.plugins?.push(errorEmitPlugin)
 	return await new Promise((resolve, reject) => {
-		webpack(config, (err, stats: Stats) => {
+		webpack4(config, (err, stats: Stats) => {
 			if (err) {
 				reject(err)
 			}

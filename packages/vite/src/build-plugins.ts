@@ -3,7 +3,7 @@ import { promises } from 'fs'
 import { isAbsolute, resolve } from 'path'
 import { parse as parseImports } from 'es-module-lexer'
 import MagicString from 'magic-string'
-import type { OutputOptions, PluginContext, PreRenderedChunk } from 'rollup'
+import type { OutputOptions, PluginContext, PreRenderedChunk, LoadResult } from 'rollup'
 import { mkdir } from 'shelljs'
 import type { Plugin, UserConfig } from 'vite'
 import { getBuildConfig, defaultExternal } from 'ssr-common-utils'
@@ -335,5 +335,21 @@ const commonConfig = (): UserConfig => {
 			extensions: ['.mjs', '.ts', '.jsx', '.tsx', '.json', '.vue', '.js']
 		}
 	}
+}
+
+interface ResolveOptions {
+	[moduleId: string]: LoadResult | ((id: string, opts?: { ssr?: boolean }) => LoadResult)
+}
+
+export function ssrResolvePlugin(options: ResolveOptions): Plugin[] {
+	return [
+		{
+			name: 'ssr-vite-plugin-resolve:resolveId',
+			enforce: 'pre',
+			resolveId(source) {
+				// continue
+			}
+		}
+	]
 }
 export { chunkNamePlugin, manifestPlugin, rollupOutputOptions, commonConfig, asyncOptimizeChunkPlugin, writeEmitter }

@@ -7,8 +7,8 @@
     "pnpm:devPreinstall": "node scripts/preinstall.js",
     "bootstrap": "pnpm i && pnpm build",
     "clean": "node scripts/scripts.js --clean",
-    "dev": "esno scripts/dev.ts",
-    "build": "pnpm run build --filter ./packages",
+    "dev": "pnpm run -r --parallel --filter './packages/*' --stream watch",
+    "build": "pnpm run -r --filter './packages/*' build",
     "minify": "esno scripts/minify.ts",
     "lint": "biome format --diagnostic-level error",
     "lint:fix": "biome format --diagnostic-level error --write",
@@ -54,7 +54,7 @@
     }
   },
   "engines": {
-    "node": ">=14.17.0"
+    "node": ">=20.0.0"
   },
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "devDependencies": {
@@ -78,8 +78,26 @@
     "semver": "^7.3.7",
     "shelljs": "^0.8.5",
     "vue-server-renderer": "^2.7.8",
-    "typescript": "^5.0.0",
+    "typescript": "^5.8.2",
     "ssr-serialize-javascript": "^6.0.0",
     "@vue/server-renderer": "^3.0.7"
+  },
+  "pnpm": {
+    "overrides": {
+      "valtio": "1.13.2"
+    },
+    "peerDependencyRules": {
+      "allowedVersions": {
+        "valtio": "1.13.2"
+      },
+      "ignoreMissing": ["valtio"]
+    },
+    "packageExtensions": {
+      "*": {
+        "peerDependencies": {
+          "valtio": "1.13.2"
+        }
+      }
+    }
   }
 }

@@ -38,6 +38,6 @@
     "@midwayjs/logger": "^3.0.0"
   },
   "devDependencies": {
-    "ssr-types": "workspace:*"
+    "typescript": "^5.8.2"
   }
 }

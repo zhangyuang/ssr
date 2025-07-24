@@ -1,9 +1,9 @@
 import { execSync } from 'child_process'
 import { join } from 'path'
 import { accessFile, checkTsConfig, getCwd, judgeVersion } from 'ssr-common-utils'
-import { Argv } from 'ssr-types'
+// import type { Argv } from 'ssr-types'
 
-const build = async (argv: Argv) => {
+const build = async (argv: any) => {
 	const { cli } = require('@midwayjs/cli/bin/cli')
 	const cwd = getCwd()
 	if (judgeVersion(require(join(cwd, './package.json')).dependencies['@midwayjs/decorator'])?.major === 2) {

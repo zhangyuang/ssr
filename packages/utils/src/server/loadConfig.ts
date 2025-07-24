@@ -22,7 +22,6 @@ const loadConfig = (): IConfig => {
 	const supportOptinalChaining = coerce(process.version)!.major >= 14
 	const define = userConfig.define ?? {}
 	userConfig.define && stringifyDefine(define)
-
 	const alias = Object.assign(
 		{
 			'@': getFeDir(),
@@ -31,7 +30,13 @@ const loadConfig = (): IConfig => {
 			_build: join(cwd, './build')
 		},
 		framework === 'ssr-plugin-react'
-			? {}
+			? {
+					react: join(cwd, './node_modules/react'),
+					'react-dom': join(cwd, './node_modules/react-dom'),
+					'react-dom/client': join(cwd, './node_modules/react-dom/client.js'),
+					'react-router-dom': join(cwd, './node_modules/react-router-dom'),
+					...(accessFileSync(join(cwd, './node_modules/valtio')) ? { valtio: join(cwd, './node_modules/valtio') } : {})
+				}
 			: {
 					vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
 				},
