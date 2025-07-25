@@ -5,8 +5,6 @@ import { createElement, version } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { preloadComponent, isMicro, setStoreContext, setStore } from 'ssr-common-utils'
 import { wrapComponent } from 'ssr-hoc-react'
-import * as foo from 'valtio'
-console.log(foo)
 import { ssrCreateContext, Routes, createStore } from './create'
 import { AppContext } from './context'
 

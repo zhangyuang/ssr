@@ -73,5 +73,13 @@
   "devDependencies": {
     "@types/webpack": "^4.41.10",
     "concurrently": "^5.1.0"
+  },
+  "peerDependencies": {
+    "webpack": "^4.0.0"
+  },
+  "peerDependenciesMeta": {
+    "webpack": {
+      "optional": true
+    }
   }
 }

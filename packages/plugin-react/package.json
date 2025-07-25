@@ -35,13 +35,15 @@
     "babel-preset-react-app": "^10.0.0",
     "ssr-hoc-react": "workspace:*",
     "react-refresh": "^0.12.0",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
     "valtio": "^1.11.2"
   },
   "peerDependencies": {
     "react": ">=17.0.1",
     "react-dom": ">=17.0.0",
     "react-router": ">=5.2.1",
-    "react-router-dom": ">=5.1.2"
+    "react-router-dom": ">=5.1.2",
+    "webpack": "^4.0.0"
   },
   "devDependencies": {
     "@types/react18": "npm:@types/react@^18.0.0",
@@ -54,6 +56,11 @@
     "ssr-types": "workspace:*",
     "ssr-webpack": "workspace:*",
     "ssr-vite": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "webpack": {
+      "optional": true
+    }
   }
   
 }

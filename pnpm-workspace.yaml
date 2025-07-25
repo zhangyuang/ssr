@@ -15,7 +15,17 @@ packages:
   - packages/vite
   - packages/webpack
   - example/nestjs-vue3-ssr
+  - example/nestjs-vue-ssr
   - example/nestjs-react-ssr
   - example/nestjs-react18-ssr
 
-dedupeInjectedDeps: true
+
+# packageExtensions:
+#   "vue-loader@^17.0.0":
+#     dependencies:
+#       webpack: "4.47.0"
+
+        
+        
+    
+   

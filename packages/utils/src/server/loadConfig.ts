@@ -34,8 +34,7 @@ const loadConfig = (): IConfig => {
 					react: join(cwd, './node_modules/react'),
 					'react-dom': join(cwd, './node_modules/react-dom'),
 					'react-dom/client': join(cwd, './node_modules/react-dom/client.js'),
-					'react-router-dom': join(cwd, './node_modules/react-router-dom'),
-					...(accessFileSync(join(cwd, './node_modules/valtio')) ? { valtio: join(cwd, './node_modules/valtio') } : {})
+					'react-router-dom': join(cwd, './node_modules/react-router-dom')
 				}
 			: {
 					vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'

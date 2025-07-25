@@ -77,9 +77,9 @@
     "prompts": "^2.4.2",
     "semver": "^7.3.7",
     "shelljs": "^0.8.5",
-    "vue-server-renderer": "^2.7.8",
-    "typescript": "^5.8.2",
-    "ssr-serialize-javascript": "^6.0.0",
-    "@vue/server-renderer": "^3.0.7"
+    "typescript": "^5.8.2"
+  },
+  "pnpm": {
+    "dedupeInjectedDeps": false
   }
 }

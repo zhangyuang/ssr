@@ -31,7 +31,6 @@
     "@types/webpack": "^4.41.8",
     "webpack": "^4.0.0",
     "webpack-dev-server-ssr": "^3.10.12",
-    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
     "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.16.5",
     "@babel/plugin-proposal-optional-chaining": "^7.16.5",
