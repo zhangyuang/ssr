@@ -286,13 +286,6 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
 		}
 	])
 
-	if (!isReact18() && judgeFramework() === 'ssr-plugin-react') {
-		chain.plugin('ignore-plugin').use(
-			new webpack.IgnorePlugin({
-				resourceRegExp: /^react-dom\/client$/
-			})
-		)
-	}
 	if (!isServer) {
 		nameSpaceBuiltinModules.forEach((moduleName) => {
 			chain.node.set(moduleName, 'empty')
