@@ -25,7 +25,7 @@ const loadConfig = (): IConfig => {
 	if (framework === 'ssr-plugin-vue3') {
 		define.base = {
 			...define.base,
-			__VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true'
+			__VUE_PROD_HYDRATION_MISMATCH_DETAILS__: process.env.NODE_ENV === 'development' ? 'true' : 'false'
 		}
 	}
 	const alias = Object.assign(
