@@ -13,7 +13,7 @@
     "reflect-metadata": "^0.1.13",
     "ssr-common-utils": "workspace:*",
     "ssr-core": "workspace:*",
-    "valtio": "^1.11.2"
+    "valtio": "^1.13.2"
   },
  "devDependencies": {
     "@biomejs/biome": "^1.9.4",

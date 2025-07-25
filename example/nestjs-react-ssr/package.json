@@ -14,7 +14,7 @@
     "ssr-common-utils": "workspace:*",
     "ssr-core": "workspace:*",
     "swiper": "6.7.5",
-    "valtio": "^1.11.2"
+    "valtio": "^1.13.2"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
