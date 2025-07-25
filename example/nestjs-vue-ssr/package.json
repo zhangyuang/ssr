@@ -20,12 +20,13 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@nestjs/cli": "^10.1.18",
-    "ssr": "^6.0.0",
-    "ssr-plugin-nestjs": "^6.0.0",
-    "ssr-plugin-vue": "^6.0.0",
-    "ssr-types": "^6.0.0",
-    "typescript": "^5.0.0",
-    "webpack": "^4.0.0"
+    "ssr": "workspace:*",
+    "ssr-plugin-nestjs": "workspace:*",
+    "ssr-plugin-vue": "workspace:*",
+    "ssr-webpack": "workspace:*",
+    "ssr-vite": "workspace:*",
+    "ssr-types": "workspace:*",
+    "typescript": "^5.8.2"
   },
   "engines": {
     "node": ">=20.0.0"

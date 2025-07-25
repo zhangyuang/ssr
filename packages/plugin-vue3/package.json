@@ -38,7 +38,8 @@
     "vue": "^3.0.0",
     "vue-loader": "^17.0.0",
     "vue-router": "^4.2.4",
-    "vuex": "^4.0.0"
+    "vuex": "^4.0.0",
+    "@vue/server-renderer": "^3.0.7"
   },
   "devDependencies": {
     "ssr-types": "workspace:*",

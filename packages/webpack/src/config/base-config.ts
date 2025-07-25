@@ -5,6 +5,7 @@ import WebpackChain from 'webpack-chain'
 import { addCommonChain } from '../utils/common-chain'
 
 const framework = judgeFramework()
+const isVue2 = framework === 'ssr-plugin-vue'
 const isVue3 = framework === 'ssr-plugin-vue3'
 const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
 	const config = loadConfig()
@@ -60,6 +61,17 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
 			.plugin('vue-loader')
 			.use(require(loadModuleFromFramework('vue-loader')).VueLoaderPlugin)
 			.end()
+	}
+	if (isVue2) {
+		chain.module
+			.rule('vue')
+			.test(/\.vue$/)
+			.use('vue-loader')
+			.loader(loadModuleFromFramework('vue-loader'))
+			.options(vueLoaderOptions)
+			.end()
+
+		chain.plugin('vue-loader').use(require('vue-loader/lib/plugin')).end()
 	}
 
 	locale?.enable &&

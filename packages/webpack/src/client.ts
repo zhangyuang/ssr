@@ -10,7 +10,7 @@ const config = loadConfig()
 const startClientServer = async (webpackConfig: Configuration): Promise<void> => {
 	const { webpackDevServerConfig, fePort, host } = config
 	return await new Promise((resolve) => {
-		//@ts-expect-error
+		//@ts-ignore
 		const compiler = webpack4(webpackConfig)
 
 		const server = new WebpackDevServer(compiler, webpackDevServerConfig)

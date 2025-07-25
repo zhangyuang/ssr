@@ -3,7 +3,6 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "postinstall": "esno scripts/postinstall.ts",
     "pnpm:devPreinstall": "node scripts/preinstall.js",
     "bootstrap": "pnpm i && pnpm build",
     "clean": "node scripts/scripts.js --clean",
@@ -80,6 +79,18 @@
     "typescript": "^5.8.2"
   },
   "pnpm": {
-    "dedupeInjectedDeps": false
+    "dedupeInjectedDeps": false,
+    "packageExtensions": {
+      "vue-server-renderer": {
+        "dependencies": {
+          "vue": "^2.0.0"
+        }
+      },
+      "@vue/server-renderer": {
+        "dependencies": {
+          "vue": "^3.0.0"
+        }
+      }
+    }
   }
 }

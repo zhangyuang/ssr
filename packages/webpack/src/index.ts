@@ -8,7 +8,7 @@ export const start = async () => {
 
 	const { getServerWebpack } = await import('./config/server-config')
 	const { getClientWebpack } = await import('./config/client-config')
-	//@ts-expect-error
+	//@ts-ignore
 	await Promise.all([startServerBuild(getServerWebpack(serverConfigChain)), startClientServer(getClientWebpack(clientConfigChain))])
 }
 
@@ -17,6 +17,6 @@ export const build = async () => {
 	const { getClientWebpack } = await import('./config/client-config')
 	const serverConfigChain = new WebpackChain()
 	const clientConfigChain = new WebpackChain()
-	//@ts-expect-error
+	//@ts-ignore
 	await Promise.all([startServerBuild(getServerWebpack(serverConfigChain)), startClientBuild(getClientWebpack(clientConfigChain))])
 }
