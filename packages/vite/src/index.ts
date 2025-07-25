@@ -134,6 +134,13 @@ const analyzePlugin = process.env.GENERATE_ANALYSIS ? visualizer({ filename: res
 export const clientConfig: UserConfig = {
 	...commonConfig(),
 	...viteConfig?.().client?.otherConfig,
+	// resolve: {
+	// 	extensions: commonConfig().resolve?.extensions,
+	// 	alias: {
+	// 		...commonConfig().resolve?.alias,
+	// 		'react-dom': 'react-dom/client'
+	// 	}
+	// },
 	base: isDev ? '/' : getOutputPublicPath(),
 	esbuild: {
 		...viteConfig?.().client?.otherConfig?.esbuild,
