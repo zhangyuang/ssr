@@ -22,6 +22,12 @@ const loadConfig = (): IConfig => {
 	const supportOptinalChaining = coerce(process.version)!.major >= 14
 	const define = userConfig.define ?? {}
 	userConfig.define && stringifyDefine(define)
+	if (framework === 'ssr-plugin-vue3') {
+		define.base = {
+			...define.base,
+			__VUE_PROD_HYDRATION_MISMATCH_DETAILS__: 'true'
+		}
+	}
 	const alias = Object.assign(
 		{
 			'@': getFeDir(),
