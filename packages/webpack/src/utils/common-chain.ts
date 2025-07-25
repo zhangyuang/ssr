@@ -285,6 +285,7 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
 			...define?.base
 		}
 	])
+
 	if (!isReact18() && judgeFramework() === 'ssr-plugin-react') {
 		chain.plugin('ignore-plugin').use(
 			new webpack.IgnorePlugin({
