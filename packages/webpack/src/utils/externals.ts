@@ -60,6 +60,10 @@ function nodeExternals(options: any) {
 
 	return function (_context: any, request: string, callback: (...params: any) => any) {
 		if (!options.isServer) {
+			// if (!isReact18() && judgeFramework() === 'ssr-plugin-react' && request.includes('react-dom/client')) {
+			// 	// ignore react-dom/client in react17
+			// 	return callback(null, importType + ' ' + request)
+			// }
 			if (request.startsWith('@external:')) {
 				// set external in client
 				return callback(null, importType + ' ' + request.slice(10))
