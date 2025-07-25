@@ -9,7 +9,6 @@
     "pm2": "^4.5.4",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-router": "5.3.4",
     "react-router-dom": "^5.1.2",
     "reflect-metadata": "^0.1.13",
     "ssr-common-utils": "workspace:*",

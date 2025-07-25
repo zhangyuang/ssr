@@ -27,9 +27,9 @@
     "ssr": "workspace:*",
     "ssr-plugin-midway": "workspace:*",
     "ssr-plugin-vue3": "workspace:*",
-    "ssr-types": "workspace:*",
-    "ssr-vite": "workspace:*",
     "ssr-webpack": "workspace:*",
+    "ssr-vite": "workspace:*",
+    "ssr-types": "workspace:*",
     "typescript": "^5.8.2"
   },
   "scripts": {

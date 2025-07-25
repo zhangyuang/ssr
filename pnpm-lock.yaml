@@ -4,7 +4,7 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-packageExtensionsChecksum: sha256-YcRpiOfrtnOcnZAuuTLhSz6Kjbgl9pLCKMT8UF2oYr4=
+packageExtensionsChecksum: sha256-AN7Bu3XxDuuoyK0PTWTgiHNgTMjuBJf5TH8XpUPpI9s=
 
 importers:
 
@@ -67,6 +67,325 @@ importers:
       shelljs:
         specifier: ^0.8.5
         version: 0.8.5
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.3
+
+  example/midway-react-ssr:
+    dependencies:
+      '@midwayjs/bootstrap':
+        specifier: ^3.0.0
+        version: 3.20.4
+      '@midwayjs/core':
+        specifier: ^3.0.0
+        version: 3.20.4
+      '@midwayjs/decorator':
+        specifier: ^3.0.0
+        version: 3.20.4
+      '@midwayjs/koa':
+        specifier: ^3.0.0
+        version: 3.20.5
+      '@midwayjs/logger':
+        specifier: ^3.0.0
+        version: 3.4.2
+      koa-static-cache:
+        specifier: ^5.1.4
+        version: 5.1.4
+      pm2:
+        specifier: ^4.5.4
+        version: 4.5.6
+      react:
+        specifier: ^17.0.0
+        version: 17.0.2
+      react-dom:
+        specifier: ^17.0.0
+        version: 17.0.2(react@17.0.2)
+      react-router-dom:
+        specifier: ^5.1.2
+        version: 5.3.4(react@17.0.2)
+      ssr-common-utils:
+        specifier: workspace:*
+        version: link:../../packages/utils
+      ssr-core:
+        specifier: workspace:*
+        version: link:../../packages/core
+      swiper:
+        specifier: 6.7.5
+        version: 6.7.5
+      valtio:
+        specifier: ^1.11.2
+        version: 1.13.2(@types/react@17.0.87)(react@17.0.2)
+    devDependencies:
+      '@biomejs/biome':
+        specifier: ^1.9.4
+        version: 1.9.4
+      '@midwayjs/mock':
+        specifier: ^3.0.0
+        version: 3.20.4
+      '@types/react':
+        specifier: ^17.0.0
+        version: 17.0.87
+      '@types/react-dom':
+        specifier: ^17.0.0
+        version: 17.0.26(@types/react@17.0.87)
+      '@types/react-router-dom':
+        specifier: ^5.1.3
+        version: 5.3.3
+      ssr:
+        specifier: workspace:*
+        version: link:../../packages/cli
+      ssr-plugin-midway:
+        specifier: workspace:*
+        version: link:../../packages/plugin-midway
+      ssr-plugin-react:
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      ssr-types:
+        specifier: workspace:*
+        version: link:../../packages/types
+      ssr-vite:
+        specifier: workspace:*
+        version: link:../../packages/vite
+      ssr-webpack:
+        specifier: workspace:*
+        version: link:../../packages/webpack
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.3
+
+  example/midway-react18-ssr:
+    dependencies:
+      '@midwayjs/bootstrap':
+        specifier: ^3.0.0
+        version: 3.20.4
+      '@midwayjs/core':
+        specifier: ^3.0.0
+        version: 3.20.4
+      '@midwayjs/decorator':
+        specifier: ^3.0.0
+        version: 3.20.4
+      '@midwayjs/koa':
+        specifier: ^3.0.0
+        version: 3.20.5
+      '@midwayjs/logger':
+        specifier: ^3.0.0
+        version: 3.4.2
+      koa-static-cache:
+        specifier: ^5.1.4
+        version: 5.1.4
+      pm2:
+        specifier: ^4.5.4
+        version: 4.5.6
+      react:
+        specifier: ^18.0.0
+        version: 18.3.1
+      react-dom:
+        specifier: ^18.0.0
+        version: 18.3.1(react@18.3.1)
+      react-router-dom:
+        specifier: ^5.1.2
+        version: 5.3.4(react@18.3.1)
+      ssr-common-utils:
+        specifier: workspace:*
+        version: link:../../packages/utils
+      ssr-core:
+        specifier: workspace:*
+        version: link:../../packages/core
+      valtio:
+        specifier: ^1.11.2
+        version: 1.13.2(@types/react@18.3.23)(react@18.3.1)
+    devDependencies:
+      '@biomejs/biome':
+        specifier: ^1.9.4
+        version: 1.9.4
+      '@midwayjs/mock':
+        specifier: ^3.0.0
+        version: 3.20.4
+      '@types/react':
+        specifier: ^18.0.0
+        version: 18.3.23
+      '@types/react-dom':
+        specifier: ^18.0.0
+        version: 18.3.7(@types/react@18.3.23)
+      '@types/react-router-dom':
+        specifier: ^5.1.3
+        version: 5.3.3
+      ssr:
+        specifier: workspace:*
+        version: link:../../packages/cli
+      ssr-plugin-midway:
+        specifier: workspace:*
+        version: link:../../packages/plugin-midway
+      ssr-plugin-react:
+        specifier: workspace:*
+        version: link:../../packages/plugin-react
+      ssr-types:
+        specifier: workspace:*
+        version: link:../../packages/types
+      ssr-vite:
+        specifier: workspace:*
+        version: link:../../packages/vite
+      ssr-webpack:
+        specifier: workspace:*
+        version: link:../../packages/webpack
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.3
+
+  example/midway-vue-ssr:
+    dependencies:
+      '@midwayjs/bootstrap':
+        specifier: ^3.0.0
+        version: 3.20.4
+      '@midwayjs/core':
+        specifier: ^3.0.0
+        version: 3.20.4
+      '@midwayjs/decorator':
+        specifier: ^3.0.0
+        version: 3.20.4
+      '@midwayjs/koa':
+        specifier: ^3.0.0
+        version: 3.20.5
+      '@midwayjs/logger':
+        specifier: ^3.0.0
+        version: 3.4.2
+      koa-static-cache:
+        specifier: ^5.1.4
+        version: 5.1.4
+      midway-schedule:
+        specifier: ^2.0.0
+        version: 2.15.0
+      pm2:
+        specifier: ^4.5.4
+        version: 4.5.6
+      ssr-common-utils:
+        specifier: workspace:*
+        version: link:../../packages/utils
+      ssr-core:
+        specifier: workspace:*
+        version: link:../../packages/core
+      swiper:
+        specifier: ^5.2.0
+        version: 5.4.5
+      vue:
+        specifier: ^2.7.8
+        version: 2.7.16
+      vue-awesome-swiper:
+        specifier: ^4.1.1
+        version: 4.1.1(swiper@5.4.5)(vue@2.7.16)
+      vue-router:
+        specifier: ^3.6.5
+        version: 3.6.5(vue@2.7.16)
+      vue-server-renderer:
+        specifier: ^2.7.8
+        version: 2.7.16
+      vuex:
+        specifier: ^3.6.2
+        version: 3.6.2(vue@2.7.16)
+    devDependencies:
+      '@biomejs/biome':
+        specifier: ^1.9.4
+        version: 1.9.4
+      '@midwayjs/mock':
+        specifier: ^3.0.0
+        version: 3.20.4
+      ssr:
+        specifier: workspace:*
+        version: link:../../packages/cli
+      ssr-plugin-midway:
+        specifier: workspace:*
+        version: link:../../packages/plugin-midway
+      ssr-plugin-vue:
+        specifier: workspace:*
+        version: link:../../packages/plugin-vue
+      ssr-types:
+        specifier: workspace:*
+        version: link:../../packages/types
+      ssr-webpack:
+        specifier: workspace:*
+        version: link:../../packages/webpack
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.3
+
+  example/midway-vue3-ssr:
+    dependencies:
+      '@midwayjs/bootstrap':
+        specifier: ^3.0.0
+        version: 3.20.4
+      '@midwayjs/core':
+        specifier: ^3.0.0
+        version: 3.20.4
+      '@midwayjs/decorator':
+        specifier: ^3.0.0
+        version: 3.20.4
+      '@midwayjs/koa':
+        specifier: ^3.0.0
+        version: 3.20.5
+      '@midwayjs/logger':
+        specifier: ^3.0.0
+        version: 3.4.2
+      '@vue/server-renderer':
+        specifier: ^3.0.7
+        version: 3.5.18(vue@3.5.18(typescript@5.8.3))
+      koa-static-cache:
+        specifier: ^5.1.4
+        version: 5.1.4
+      midway-schedule:
+        specifier: ^2.0.0
+        version: 2.15.0
+      pinia:
+        specifier: ^2.0.13
+        version: 2.3.1(typescript@5.8.3)(vue@3.5.18(typescript@5.8.3))
+      pm2:
+        specifier: ^4.5.4
+        version: 4.5.6
+      ssr-common-utils:
+        specifier: workspace:*
+        version: link:../../packages/utils
+      ssr-core:
+        specifier: workspace:*
+        version: link:../../packages/core
+      ssr-hoc-vue3:
+        specifier: workspace:*
+        version: link:../../packages/hoc-vue3
+      swiper:
+        specifier: 6.7.5
+        version: 6.7.5
+      vue:
+        specifier: ^3.0.0
+        version: 3.5.18(typescript@5.8.3)
+      vue-router:
+        specifier: ^4.2.4
+        version: 4.5.1(vue@3.5.18(typescript@5.8.3))
+      vuex:
+        specifier: ^4.0.0
+        version: 4.1.0(vue@3.5.18(typescript@5.8.3))
+    devDependencies:
+      '@biomejs/biome':
+        specifier: ^1.9.4
+        version: 1.9.4
+      '@midwayjs/mock':
+        specifier: ^3.0.0
+        version: 3.20.4
+      ssr:
+        specifier: workspace:*
+        version: link:../../packages/cli
+      ssr-plugin-midway:
+        specifier: workspace:*
+        version: link:../../packages/plugin-midway
+      ssr-plugin-vue3:
+        specifier: workspace:*
+        version: link:../../packages/plugin-vue3
+      ssr-types:
+        specifier: workspace:*
+        version: link:../../packages/types
+      ssr-vite:
+        specifier: workspace:*
+        version: link:../../packages/vite
+      ssr-webpack:
+        specifier: workspace:*
+        version: link:../../packages/webpack
       typescript:
         specifier: ^5.8.2
         version: 5.8.3
@@ -167,9 +486,6 @@ importers:
       react-dom:
         specifier: ^18.0.0
         version: 18.3.1(react@18.3.1)
-      react-router:
-        specifier: 5.3.4
-        version: 5.3.4(react@18.3.1)
       react-router-dom:
         specifier: ^5.1.2
         version: 5.3.4(react@18.3.1)
@@ -283,9 +599,6 @@ importers:
       ssr-types:
         specifier: workspace:*
         version: link:../../packages/types
-      ssr-vite:
-        specifier: workspace:*
-        version: link:../../packages/vite
       ssr-webpack:
         specifier: workspace:*
         version: link:../../packages/webpack
@@ -365,6 +678,76 @@ importers:
       typescript:
         specifier: ^5.8.2
         version: 5.8.3
+
+  example/nestjs-vue3-ssr-pinia:
+    dependencies:
+      '@nestjs/common':
+        specifier: ^10.2.7
+        version: 10.4.20(class-transformer@0.5.1)(reflect-metadata@0.1.14)(rxjs@7.8.2)
+      '@nestjs/core':
+        specifier: ^10.2.7
+        version: 10.4.20(@nestjs/common@10.4.20(class-transformer@0.5.1)(reflect-metadata@0.1.14)(rxjs@7.8.2))(@nestjs/platform-express@10.4.20)(reflect-metadata@0.1.14)(rxjs@7.8.2)
+      '@nestjs/platform-express':
+        specifier: ^10.2.7
+        version: 10.4.20(@nestjs/common@10.4.20(class-transformer@0.5.1)(reflect-metadata@0.1.14)(rxjs@7.8.2))(@nestjs/core@10.4.20)
+      '@vue/server-renderer':
+        specifier: ^3.0.7
+        version: 3.5.18(vue@3.5.18(typescript@5.8.3))
+      pinia:
+        specifier: ^2.0.13
+        version: 2.3.1(typescript@5.8.3)(vue@3.5.18(typescript@5.8.3))
+      pm2:
+        specifier: ^4.5.4
+        version: 4.5.6
+      reflect-metadata:
+        specifier: ^0.1.13
+        version: 0.1.14
+      ssr-common-utils:
+        specifier: ^6.0.0
+        version: 6.2.161
+      ssr-core:
+        specifier: ^6.0.0
+        version: 6.2.30
+      ssr-hoc-vue3:
+        specifier: ^6.0.0
+        version: 6.2.2(typescript@5.8.3)
+      swiper:
+        specifier: 6.7.5
+        version: 6.7.5
+      vue:
+        specifier: ^3.0.0
+        version: 3.5.18(typescript@5.8.3)
+      vue-router:
+        specifier: ^4.2.4
+        version: 4.5.1(vue@3.5.18(typescript@5.8.3))
+      vuex:
+        specifier: ^4.0.0
+        version: 4.1.0(vue@3.5.18(typescript@5.8.3))
+    devDependencies:
+      '@biomejs/biome':
+        specifier: ^1.9.4
+        version: 1.9.4
+      '@nestjs/cli':
+        specifier: ^10.1.18
+        version: 10.4.9(@swc/cli@0.1.65(@swc/core@1.13.2)(chokidar@3.6.0))(@swc/core@1.13.2)(esbuild@0.14.48)
+      ssr:
+        specifier: ^6.0.0
+        version: 6.2.82
+      ssr-plugin-nestjs:
+        specifier: ^6.0.0
+        version: 6.2.26(@nestjs/common@10.4.20(class-transformer@0.5.1)(reflect-metadata@0.1.14)(rxjs@7.8.2))(@nestjs/core@10.4.20)(@types/semver@7.7.0)(@types/shelljs@0.8.17)(chokidar@3.6.0)(reflect-metadata@0.1.14)(rxjs@7.8.2)
+      ssr-plugin-vue3:
+        specifier: ^6.0.0
+        version: 6.2.124(@babel/parser@7.28.0)(@types/babel__core@7.20.5)(rollup@2.77.3)(typescript@5.8.3)(webpack@4.47.0)
+      ssr-types:
+        specifier: ^6.0.0
+        version: 6.2.65
+      typescript:
+        specifier: ^5.0.0
+        version: 5.8.3
+      webpack:
+        specifier: ^4.0.0
+        version: 4.47.0
 
   packages/cli:
     dependencies:
@@ -564,7 +947,7 @@ importers:
         version: 0.12.0
       react-router:
         specifier: '>=5.2.1'
-        version: 5.3.4(react@18.3.1)
+        version: 7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react-router-dom:
         specifier: '>=5.1.2'
         version: 5.3.4(react@18.3.1)
@@ -574,9 +957,6 @@ importers:
       ssr-hoc-react:
         specifier: workspace:*
         version: link:../hoc-react
-      valtio:
-        specifier: ^1.11.2
-        version: 1.13.2(@types/react@17.0.87)(react@18.3.1)
       webpack:
         specifier: ^4.0.0
         version: 4.47.0
@@ -2058,6 +2438,10 @@ packages:
     resolution: {integrity: sha512-t1Jq+Ykjgk6kDHckMAS5XhQ0wp70hN9tkeXLMqIDQxu1cuNTZnZ8j16cFTXuQRcIB0cprCf3fHrsVlHEAYJVEg==}
     engines: {node: '>=12.17.0'}
 
+  '@midwayjs/bootstrap@3.20.4':
+    resolution: {integrity: sha512-3puwSUrIhzBB0Lig5oNcc8rZVSLY+JpoikBHgyv3jpergdLKD1BCU1IREOT6f53mgMQk6Uo9rem9KSNZeb8vVg==}
+    engines: {node: '>=12.11.0'}
+
   '@midwayjs/cli-plugin-build@2.1.0':
     resolution: {integrity: sha512-yV1KyqPaOI/vJ3zpHZQ5wf4DZqhGp46tpqS8EFa3lPCkE+QLI3w4+NlE4WSUH2ZNOJHiXi34sL36pRFViWiazw==}
     engines: {node: '>= 10'}
@@ -2104,6 +2488,10 @@ packages:
   '@midwayjs/decorator@3.20.4':
     resolution: {integrity: sha512-zdq/MxuGjPYJaYj06sEkaaw1DJCb+tt0zLPiX/7lYKltec8rAAlSi1LF7QTprpnJ61u8frk39yZvZZwgWxBOEg==}
     engines: {node: '>=12'}
+
+  '@midwayjs/event-bus@1.11.1':
+    resolution: {integrity: sha512-/dm2SnWfGkR5elEnvVKywx1qJrSd01oCryba/dAaWQsOlTJ1zMjBKRLfIXP3kN/SJO5PPESPITo4stLBp3Kxnw==}
+    engines: {node: '>=12.11.0'}
 
   '@midwayjs/glob@1.1.1':
     resolution: {integrity: sha512-xoNU+JdCxE214KQrB0qgs88+Da7KYVICeuTL9VeKwaxZXj6a/PbpmEaH4+5BHLvZRRe78tHGR19+nKZrmMHBJg==}
@@ -2999,6 +3387,9 @@ packages:
         optional: true
       zenObservable:
         optional: true
+
+  any-promise@1.3.0:
+    resolution: {integrity: sha512-7UvmKalWRt1wgjL1RrGxoSJW/0QZFIegpeGvZG9kjp8vrRu55XTHbwnqq2GpXm9uLbcuhxm3IqX9OB4MZR1b2A==}
 
   anymatch@2.0.0:
     resolution: {integrity: sha512-5teOsQWABXHHBFP9y3skS5P3d/WfWXpv3FUpy+LorMrNYaT9pI4oLMQX7jzQ2KklNpGpWHzdCXTDT2Y3XGlZBw==}
@@ -4386,8 +4777,8 @@ packages:
     engines: {node: '>=0.10.0'}
     hasBin: true
 
-  electron-to-chromium@1.5.190:
-    resolution: {integrity: sha512-k4McmnB2091YIsdCgkS0fMVMPOJgxl93ltFzaryXqwip1AaxeDqKCGLxkXODDA5Ab/D+tV5EL5+aTx76RvLRxw==}
+  electron-to-chromium@1.5.191:
+    resolution: {integrity: sha512-xcwe9ELcuxYLUFqZZxL19Z6HVKcvNkIwhbHUz7L3us6u12yR+7uY89dSl570f/IqNthx8dAw3tojG7i4Ni4tDA==}
 
   elegant-spinner@1.0.1:
     resolution: {integrity: sha512-B+ZM+RXvRqQaAmkMlO/oSe5nMUOaUnyfGYCEHoR8wrXsZR2mA0XVibsxV1bvTwxdRWah1PkQqso2EzhILGHtEQ==}
@@ -5016,6 +5407,9 @@ packages:
   fs-monkey@1.1.0:
     resolution: {integrity: sha512-QMUezzXWII9EV5aTFXW1UBVUO77wYPpjqIF8/AviUCThNeSYZykpoTixUeaNNBwmCev0AMDWMAni+f8Hxb1IFw==}
 
+  fs-readdir-recursive@1.1.0:
+    resolution: {integrity: sha512-GNanXlVr2pf02+sPN40XN8HG+ePaNcvM0q5mZBd668Obwb0yD5GiUbZOFgwn8kGMY6I3mdyDJzieUy3PTYyTRA==}
+
   fs-write-stream-atomic@1.0.10:
     resolution: {integrity: sha512-gehEzmPn2nAwr39eay+x3X34Ra+M2QlVUTLhkXPjWdeO8RF9kszk116avgBJM3ZyNHgHXBNx+VmPaFC36k0PzA==}
     deprecated: This package is no longer supported.
@@ -5508,6 +5902,9 @@ packages:
     resolution: {integrity: sha512-YfJT7rkpQB0updsdHLGWrvhBJfcfzNNawYDNIyQXJz0IViGf75O8EBPKSdvw2rF+LGCsX4FZ8tcr3b19LcZq4w==}
     hasBin: true
 
+  is-class-hotfix@0.0.6:
+    resolution: {integrity: sha512-0n+pzCC6ICtVr/WXnN2f03TK/3BfXY7me4cjCAqT8TYXEl0+JBRoqBo94JJHXcyDSLUeWbNX8Fvy5g5RJdAstQ==}
+
   is-core-module@2.16.1:
     resolution: {integrity: sha512-UfoeMA6fIJ8wTYFEUjelnaGI67v6+N7qXJEvQuIGa99l4xsCruSYOVSQ0uPANn4dAzm8lkYPaKLrrijLq7x23w==}
     engines: {node: '>= 0.4'}
@@ -5639,6 +6036,9 @@ packages:
   is-text-path@1.0.1:
     resolution: {integrity: sha512-xFuJpne9oFz5qDaodwmmG08e3CawH/2ZV8Qqza1Ko7Sk8POWbkRdwIoAWVhqvq0XeUzANEhKo2n0IXUGBm7A/w==}
     engines: {node: '>=0.10.0'}
+
+  is-type-of@1.4.0:
+    resolution: {integrity: sha512-EddYllaovi5ysMLMEN7yzHEKh8A850cZ7pykrY1aNRQGn/CDjRDE9qEWbIdt7xGEVJmjBXzU/fNnC4ABTm8tEQ==}
 
   is-typed-array@1.1.15:
     resolution: {integrity: sha512-p3EcsicXjit7SaskXHs1hA91QxgTw46Fv6EFKKGS5DRFLD8yKnohjF3hxoju94b/OcMZoQukzpPpBE9uLVKzgQ==}
@@ -5835,6 +6235,10 @@ packages:
   koa-convert@2.0.0:
     resolution: {integrity: sha512-asOvN6bFlSnxewce2e/DK3p4tltyfC4VM7ZwuTuepI7dEQVcvpyFuBcEARu1+Hxg8DIwytce2n7jrZtRlPrARA==}
     engines: {node: '>= 10'}
+
+  koa-static-cache@5.1.4:
+    resolution: {integrity: sha512-abVWOHY6z6qSTvNtapWMAnvHS9SUiUCaQQQubClSAT9ybQPsZ6ioKcRarnownS4fMD0sXQgQ5ey8CYEuwoa1Yg==}
+    engines: {node: '>= 7.6.0'}
 
   koa2-connect@1.0.2:
     resolution: {integrity: sha512-Subc/t9vJaMtorZ/Z/yqjRaZZ4RQ8ew+aacQhYXzL6oVuaYaUGqhh3UMRB5gcpu7t9hu1QBwbJezHohLNohr3g==}
@@ -6132,6 +6536,10 @@ packages:
     resolution: {integrity: sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==}
     engines: {node: '>=8.6'}
 
+  midway-schedule@2.15.0:
+    resolution: {integrity: sha512-82e9/BBxSckNjjcUGw/JfSdFe2M5EeofVD5yL088cEps8V3ykKsfcql0W+C/PVQl23PQ74GAAmJmChKIxozPZw==}
+    engines: {node: '>= 8.0.0'}
+
   midway-version@1.4.0:
     resolution: {integrity: sha512-2Z8RFK3VeKVWsyz8vs8hrQr27UYjxKLFpqTiQqWrnDtHrcd8OJoR3x6FxtJHGdNepX4ByVvx5Qx6bEqifQUK4A==}
     hasBin: true
@@ -6296,6 +6704,9 @@ packages:
   mute-stream@1.0.0:
     resolution: {integrity: sha512-avsJQhyd+680gKXyG/sQc0nXaC6rBkPOfyHYcFb9+hdkqQkR9bdnkJ0AMZhke0oesPqIO+mFFJ+IdBc7mst4IA==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+
+  mz@2.7.0:
+    resolution: {integrity: sha512-z81GNO7nnYMEhrGh9LeymoE4+Yr0Wn5McHIZMK5cfQCl+NDX08sCZgUc9/6MHni9IWuFLm1Z3HTCXu2z9fN62Q==}
 
   nan@2.23.0:
     resolution: {integrity: sha512-1UxuyYGdoQHcGg87Lkqm3FzefucTa0NAiOcuRsDmysep3c1LVCRK2krrUDafMWtjSG04htvAmvg96+SDknOmgQ==}
@@ -7432,6 +7843,16 @@ packages:
     peerDependencies:
       react: '>=15'
 
+  react-router@7.7.1:
+    resolution: {integrity: sha512-jVKHXoWRIsD/qS6lvGveckwb862EekvapdHJN/cGmzw40KnJH5gg53ujOJ4qX6EKIK9LSBfFed/xiQ5yeXNrUA==}
+    engines: {node: '>=20.0.0'}
+    peerDependencies:
+      react: '>=18'
+      react-dom: '>=18'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+
   react@17.0.2:
     resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}
     engines: {node: '>=0.10.0'}
@@ -8049,8 +8470,18 @@ packages:
     engines: {node: '>=0.10.0'}
     hasBin: true
 
+  ssr-common-utils@6.2.161:
+    resolution: {integrity: sha512-DJd47IsiXqOUYe8MjDb2yKAEjTTWsGX8Xi+Vs37nzMx7XYdsHQRhUPxF0G7Z1xQVGkfgd0vg9NaSj1QYVoFn7Q==}
+    engines: {node: '>=14.17.0'}
+
+  ssr-core@6.2.30:
+    resolution: {integrity: sha512-1/k/zmgpw7G63zQ3qtNNhsyMoSxCmLS1lPYm+F5YF9DGeJ1v/l93uD4i19qROOfvKcdDQL23Raf0ItrZtZB+qQ==}
+
   ssr-deepclone@1.0.1:
     resolution: {integrity: sha512-c2kI7QQsPqZPgX8VY3mgq9tW27O2lGtXTTWrrMN85REWVKRP1jGRAxTdCegwvpxd5DHmvBQdd33PCRhAmf9p0Q==}
+
+  ssr-hoc-vue3@6.2.2:
+    resolution: {integrity: sha512-4b3Q9+u5zzFxXS2Cdd68rvagEZCl+sZw/aHWbHuo4oJ9NkxFj0C6ZdZwafYNm9x6K+tcKj5JzY2f9mVOHZigWw==}
 
   ssr-mini-css-extract-plugin@1.6.10:
     resolution: {integrity: sha512-a97zjnRpaZrgzKyyJBPabw0+rZPUMDl/sbtBAPC3NnjHpT0xCWwYxc9gpF5Mm2sn2mv+2l3bfjmE8aXxMm52mQ==}
@@ -8058,8 +8489,25 @@ packages:
     peerDependencies:
       webpack: ^4.4.0 || ^5.0.0
 
+  ssr-plugin-nestjs@6.2.26:
+    resolution: {integrity: sha512-NvuXumbUgfE6D4uljouv2AWLe2Ashn8Ha4XfJhMN13qF5hNHtFz5Yy6K+wTGMD3VPgtfMxFqEWRaRVilb2zyLA==}
+    peerDependencies:
+      '@nestjs/common': '>=7.5.1'
+      '@nestjs/core': '>=7.5.1'
+      '@types/semver': ^7.3.9
+      '@types/shelljs': ^0.8.11
+      reflect-metadata: '>=0.1.13'
+      rxjs: '>=6.6.3'
+
+  ssr-plugin-vue3@6.2.124:
+    resolution: {integrity: sha512-pSoIZtg3sWhMAVyu/o6WHkRV7TwS1Jjg/yAvYwK6I6X7ioQt4GYx31X4KfxyHiqQjct4cPSF+Zdfbn9kYnLSoA==}
+    engines: {node: '>=14.17.0'}
+
   ssr-serialize-javascript@6.0.4:
     resolution: {integrity: sha512-i+P/IOzEhWXDV5TSvBvEN3A/7TR5UhePg7DauFFNsrkwdtjqMvZ86E+zj+163fYhBfEVpebiHSetRrBt2w2nDQ==}
+
+  ssr-types@6.2.65:
+    resolution: {integrity: sha512-nbUwBDGy7lWMd6OqAI+AmPfZ1M7vifWQWSGFXdBmZmwKHzb4qDeh1P5IBdQ4+sOcDFa+2cYr4gLuzIWfvyKv0w==}
 
   ssr-vite-plugin-style-import@2.0.1:
     resolution: {integrity: sha512-7YLzo1n8ezCVUKj+EUPImwrt3waSY8c8L3uc8/6mWy8KfDx77KRgRh437x+pTreLSJz9dYD3HGms8vkK4m4F6A==}
@@ -8079,11 +8527,19 @@ packages:
       webpack-command:
         optional: true
 
+  ssr-webpack@6.2.17:
+    resolution: {integrity: sha512-zpuAR4hhbvE0V9h6OzK7j5792g7w7GvML5XtY/Oz87PlmxNTtlDgW/WEfPDr8HeTzdlsg1hburCWq9hGLb3paQ==}
+
   ssr-window@2.0.0:
     resolution: {integrity: sha512-NXzN+/HPObKAx191H3zKlYomE5WrVIkoCB5IaSdvKokxTpjBdWfr0RaP+1Z5KOfDT0ZVz+2tdtiBkhsEQ9p+0A==}
 
   ssr-window@3.0.0:
     resolution: {integrity: sha512-q+8UfWDg9Itrg0yWK7oe5p/XRCJpJF9OBtXfOPgSJl+u3Xd5KI328RUEvUqSMVM9CiQUEf1QdBzJMkYGErj9QA==}
+
+  ssr@6.2.82:
+    resolution: {integrity: sha512-2TEAJSpXgQDo+rn/0NBa+CFl7Nh6fwAqSxxWFgySM3nc/6iCN8y3oc3RvfbHWwPnLrTXXC54bXNqY7zLWtHQug==}
+    engines: {node: '>=12'}
+    hasBin: true
 
   ssri@6.0.2:
     resolution: {integrity: sha512-cepbSq/neFK7xB6A50KHN0xHDotYzq58wWCa5LeWqnPrHG8GzfEjO/4O8kpmcGW+oaxkvhEJCWgbgNk4/ZV93Q==}
@@ -8328,6 +8784,13 @@ packages:
   text-extensions@1.9.0:
     resolution: {integrity: sha512-wiBrwC1EhBelW12Zy26JeOUkQ5mRu+5o8rpsJk5+2t+Y5vE7e842qtZDQ2g1NpX/29HdyFeJ4nSIhI47ENSxlQ==}
     engines: {node: '>=0.10'}
+
+  thenify-all@1.6.0:
+    resolution: {integrity: sha512-RNxQH/qI8/t3thXJDwcstUO4zeqo64+Uy/+sNVRBx4Xn2OX+OZ9oP+iJnNFqplFra2ZUVeKCSa2oVWi3T4uVmA==}
+    engines: {node: '>=0.8'}
+
+  thenify@3.3.1:
+    resolution: {integrity: sha512-RVZSIV5IG10Hk3enotrhvz0T9em6cyHBLkH/YAZuKqd8hRkKhSfCGIcP2KUY0EPxndzANBmNllzWPwak+bheSw==}
 
   thread-stream@3.1.0:
     resolution: {integrity: sha512-OqyPZ9u96VohAyMfJykzmivOrY2wfMSf3C5TtFJVgN+Hm6aj+voFhlK+kZEIv2FBh1X6Xp3DlnCOfEQ3B2J86A==}
@@ -10319,6 +10782,11 @@ snapshots:
 
   '@midwayjs/async-hooks-context-manager@3.20.4': {}
 
+  '@midwayjs/bootstrap@3.20.4':
+    dependencies:
+      '@midwayjs/async-hooks-context-manager': 3.20.4
+      '@midwayjs/event-bus': 1.11.1
+
   '@midwayjs/cli-plugin-build@2.1.0':
     dependencies:
       '@midwayjs/command-core': 2.1.0
@@ -10433,6 +10901,8 @@ snapshots:
   '@midwayjs/decorator@3.20.4':
     dependencies:
       '@midwayjs/core': 3.20.4
+
+  '@midwayjs/event-bus@1.11.1': {}
 
   '@midwayjs/glob@1.1.1':
     dependencies:
@@ -11007,6 +11477,10 @@ snapshots:
   '@types/react-dom@18.3.7(@types/react@17.0.87)':
     dependencies:
       '@types/react': 17.0.87
+
+  '@types/react-dom@18.3.7(@types/react@18.3.23)':
+    dependencies:
+      '@types/react': 18.3.23
 
   '@types/react-router-dom@5.3.3':
     dependencies:
@@ -11593,6 +12067,8 @@ snapshots:
     optionalDependencies:
       rxjs: 6.6.7
 
+  any-promise@1.3.0: {}
+
   anymatch@2.0.0:
     dependencies:
       micromatch: 3.1.10
@@ -12026,7 +12502,7 @@ snapshots:
   browserslist@4.25.1:
     dependencies:
       caniuse-lite: 1.0.30001727
-      electron-to-chromium: 1.5.190
+      electron-to-chromium: 1.5.191
       node-releases: 2.0.19
       update-browserslist-db: 1.1.3(browserslist@4.25.1)
 
@@ -13112,6 +13588,10 @@ snapshots:
     dependencies:
       valtio: 1.13.2(@types/react@17.0.87)(react@18.3.1)
 
+  derive-valtio@0.1.0(valtio@1.13.2(@types/react@18.3.23)(react@18.3.1)):
+    dependencies:
+      valtio: 1.13.2(@types/react@18.3.23)(react@18.3.1)
+
   des.js@1.1.0:
     dependencies:
       inherits: 2.0.4
@@ -13239,7 +13719,7 @@ snapshots:
     dependencies:
       jake: 10.9.2
 
-  electron-to-chromium@1.5.190: {}
+  electron-to-chromium@1.5.191: {}
 
   elegant-spinner@1.0.1: {}
 
@@ -14045,6 +14525,8 @@ snapshots:
 
   fs-monkey@1.1.0: {}
 
+  fs-readdir-recursive@1.1.0: {}
+
   fs-write-stream-atomic@1.0.10:
     dependencies:
       graceful-fs: 4.2.11
@@ -14634,6 +15116,8 @@ snapshots:
     dependencies:
       ci-info: 2.0.0
 
+  is-class-hotfix@0.0.6: {}
+
   is-core-module@2.16.1:
     dependencies:
       hasown: 2.0.2
@@ -14745,6 +15229,12 @@ snapshots:
   is-text-path@1.0.1:
     dependencies:
       text-extensions: 1.9.0
+
+  is-type-of@1.4.0:
+    dependencies:
+      core-util-is: 1.0.3
+      is-class-hotfix: 0.0.6
+      isstream: 0.1.2
 
   is-typed-array@1.1.15:
     dependencies:
@@ -14916,6 +15406,16 @@ snapshots:
     dependencies:
       co: 4.6.0
       koa-compose: 4.1.0
+
+  koa-static-cache@5.1.4:
+    dependencies:
+      compressible: 2.0.18
+      debug: 3.2.7(supports-color@7.2.0)
+      fs-readdir-recursive: 1.1.0
+      mime-types: 2.1.35
+      mz: 2.7.0
+    transitivePeerDependencies:
+      - supports-color
 
   koa2-connect@1.0.2: {}
 
@@ -15297,6 +15797,10 @@ snapshots:
       braces: 3.0.3
       picomatch: 2.3.1
 
+  midway-schedule@2.15.0:
+    dependencies:
+      is-type-of: 1.4.0
+
   midway-version@1.4.0:
     dependencies:
       '@midwayjs/version': 3.20.9
@@ -15453,6 +15957,12 @@ snapshots:
   mute-stream@0.0.8: {}
 
   mute-stream@1.0.0: {}
+
+  mz@2.7.0:
+    dependencies:
+      any-promise: 1.3.0
+      object-assign: 4.1.1
+      thenify-all: 1.6.0
 
   nan@2.23.0:
     optional: true
@@ -16706,6 +17216,14 @@ snapshots:
       tiny-invariant: 1.3.3
       tiny-warning: 1.0.3
 
+  react-router@7.7.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+    dependencies:
+      cookie: 1.0.2
+      react: 18.3.1
+      set-cookie-parser: 2.7.1
+    optionalDependencies:
+      react-dom: 18.3.1(react@18.3.1)
+
   react@17.0.2:
     dependencies:
       loose-envify: 1.4.0
@@ -17462,7 +17980,40 @@ snapshots:
       safer-buffer: 2.1.2
       tweetnacl: 0.14.5
 
+  ssr-common-utils@6.2.161:
+    dependencies:
+      axios: 1.11.0(debug@4.4.1)
+      debug: 4.4.1(supports-color@6.1.0)
+      es-module-lexer: 0.9.3
+      http-proxy-middleware: 1.3.1(debug@4.4.1)
+      koa2-connect: 1.0.2
+      magic-string: 0.25.9
+      path-to-regexp: 6.3.0
+      qs: 6.14.0
+      semver: 7.7.2
+      shelljs: 0.8.5
+    transitivePeerDependencies:
+      - supports-color
+
+  ssr-core@6.2.30:
+    dependencies:
+      '@babel/runtime': 7.28.2
+      cheerio: 1.1.2
+      ssr-common-utils: 6.2.161
+      ssr-deepclone: 1.0.1
+      ssr-serialize-javascript: 6.0.4
+    transitivePeerDependencies:
+      - supports-color
+
   ssr-deepclone@1.0.1: {}
+
+  ssr-hoc-vue3@6.2.2(typescript@5.8.3):
+    dependencies:
+      '@vue/server-renderer': 3.5.18(vue@3.5.18(typescript@5.8.3))
+      vue: 3.5.18(typescript@5.8.3)
+      vuex: 4.1.0(vue@3.5.18(typescript@5.8.3))
+    transitivePeerDependencies:
+      - typescript
 
   ssr-mini-css-extract-plugin@1.6.10(webpack@4.47.0):
     dependencies:
@@ -17471,7 +18022,102 @@ snapshots:
       webpack: 4.47.0
       webpack-sources: 1.4.3
 
+  ssr-plugin-nestjs@6.2.26(@nestjs/common@10.4.20(class-transformer@0.5.1)(reflect-metadata@0.1.14)(rxjs@7.8.2))(@nestjs/core@10.4.20)(@types/semver@7.7.0)(@types/shelljs@0.8.17)(chokidar@3.6.0)(reflect-metadata@0.1.14)(rxjs@7.8.2):
+    dependencies:
+      '@nestjs/common': 10.4.20(class-transformer@0.5.1)(reflect-metadata@0.1.14)(rxjs@7.8.2)
+      '@nestjs/core': 10.4.20(@nestjs/common@10.4.20(class-transformer@0.5.1)(reflect-metadata@0.1.14)(rxjs@7.8.2))(@nestjs/platform-express@10.4.20)(reflect-metadata@0.1.14)(rxjs@7.8.2)
+      '@swc/cli': 0.1.65(@swc/core@1.13.2)(chokidar@3.6.0)
+      '@swc/core': 1.13.2
+      '@types/express': 4.17.23
+      '@types/semver': 7.7.0
+      '@types/shelljs': 0.8.17
+      ora: 4.1.1
+      reflect-metadata: 0.1.14
+      rimraf: 3.0.2
+      rxjs: 7.8.2
+      semver: 7.7.2
+      shelljs: 0.8.5
+      ssr-common-utils: 6.2.161
+    transitivePeerDependencies:
+      - '@swc/helpers'
+      - chokidar
+      - supports-color
+
+  ssr-plugin-vue3@6.2.124(@babel/parser@7.28.0)(@types/babel__core@7.20.5)(rollup@2.77.3)(typescript@5.8.3)(webpack@4.47.0):
+    dependencies:
+      '@babel/core': 7.28.0
+      '@babel/plugin-proposal-nullish-coalescing-operator': 7.18.6(@babel/core@7.28.0)
+      '@babel/plugin-proposal-optional-chaining': 7.21.0(@babel/core@7.28.0)
+      '@babel/plugin-transform-runtime': 7.28.0(@babel/core@7.28.0)
+      '@babel/preset-env': 7.28.0(@babel/core@7.28.0)
+      '@babel/preset-typescript': 7.27.1(@babel/core@7.28.0)
+      '@babel/runtime': 7.28.2
+      '@rollup/plugin-babel': 5.3.1(@babel/core@7.28.0)(@types/babel__core@7.20.5)(rollup@2.77.3)
+      '@types/semver': 7.7.0
+      '@vitejs/plugin-vue': 2.3.4(vite@2.9.18(less@4.4.0))(vue@3.5.18(typescript@5.8.3))
+      '@vitejs/plugin-vue-jsx': 1.3.10
+      '@vue/babel-plugin-jsx': 1.4.0(@babel/core@7.28.0)
+      '@vue/compiler-sfc': 3.5.18
+      babel-loader: 8.4.1(@babel/core@7.28.0)(webpack@4.47.0)
+      babel-plugin-import: 1.13.3
+      core-js: 3.44.0
+      css-loader: 5.2.7(webpack@4.47.0)
+      file-loader: 6.2.0(webpack@4.47.0)
+      less: 4.4.0
+      less-loader: 7.3.0(less@4.4.0)(webpack@4.47.0)
+      optimize-css-assets-webpack-plugin: 6.0.1(webpack@4.47.0)
+      ora: 4.1.1
+      pinia: 2.3.1(typescript@5.8.3)(vue@3.5.18(typescript@5.8.3))
+      postcss: 8.5.6
+      postcss-discard-comments: 5.1.2(postcss@8.5.6)
+      postcss-flexbugs-fixes: 5.0.2(postcss@8.5.6)
+      postcss-loader: 4.3.0(postcss@8.5.6)(webpack@4.47.0)
+      postcss-preset-env: 7.6.0(postcss@8.5.6)
+      postcss-safe-parser: 6.0.0(postcss@8.5.6)
+      rollup-plugin-visualizer: 5.14.0(rollup@2.77.3)
+      semver: 7.7.2
+      ssr-common-utils: 6.2.161
+      ssr-deepclone: 1.0.1
+      ssr-mini-css-extract-plugin: 1.6.10(webpack@4.47.0)
+      ssr-serialize-javascript: 6.0.4
+      ssr-types: 6.2.65
+      ssr-vite-plugin-style-import: 2.0.1(vite@2.9.18(less@4.4.0))
+      ssr-webpack: 6.2.17
+      ssr-webpack4: 4.46.2(webpack@4.47.0)
+      terser-webpack-plugin: 2.3.8(webpack@4.47.0)
+      unplugin-auto-import: 0.12.2(rollup@2.77.3)
+      unplugin-vue-components: 0.22.12(@babel/parser@7.28.0)(rollup@2.77.3)(vue@3.5.18(typescript@5.8.3))
+      url-loader: 4.1.1(file-loader@6.2.0(webpack@4.47.0))(webpack@4.47.0)
+      vite: 2.9.18(less@4.4.0)
+      vue: 3.5.18(typescript@5.8.3)
+      vue-loader: 17.4.2(@vue/compiler-sfc@3.5.18)(vue@3.5.18(typescript@5.8.3))(webpack@4.47.0)
+      vue-router: 4.5.1(vue@3.5.18(typescript@5.8.3))
+      vuex: 4.1.0(vue@3.5.18(typescript@5.8.3))
+      webpack-bundle-analyzer: 3.9.0
+      webpack-chain: 6.5.1
+      webpack-manifest-plugin: 2.2.0(webpack@4.47.0)
+      webpackbar: 5.0.2(webpack@4.47.0)
+    transitivePeerDependencies:
+      - '@babel/parser'
+      - '@types/babel__core'
+      - '@vue/composition-api'
+      - '@vueuse/core'
+      - bluebird
+      - bufferutil
+      - rolldown
+      - rollup
+      - sass
+      - stylus
+      - supports-color
+      - typescript
+      - utf-8-validate
+      - webpack
+      - webpack-cli
+      - webpack-command
+
   ssr-serialize-javascript@6.0.4: {}
+
+  ssr-types@6.2.65: {}
 
   ssr-vite-plugin-style-import@2.0.1(vite@2.9.18(less@4.4.0)):
     dependencies:
@@ -17513,9 +18159,36 @@ snapshots:
       - supports-color
       - webpack
 
+  ssr-webpack@6.2.17:
+    dependencies:
+      ssr-common-utils: 6.2.161
+      ssr-webpack4: 4.46.2(webpack@4.47.0)
+      webpack: 4.47.0
+      webpack-dev-server-ssr: 3.10.14(ssr-webpack4@4.46.2(webpack@4.47.0))(webpack@4.47.0)
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+      - webpack-cli
+      - webpack-command
+
   ssr-window@2.0.0: {}
 
   ssr-window@3.0.0: {}
+
+  ssr@6.2.82:
+    dependencies:
+      axios: 1.11.0
+      chokidar: 3.6.0
+      esbuild: 0.14.48
+      ora: 4.1.1
+      shelljs: 0.8.5
+      ssr-common-utils: 6.2.161
+      ssr-types: 6.2.65
+      yargs: 13.3.2
+    transitivePeerDependencies:
+      - debug
+      - supports-color
 
   ssri@6.0.2:
     dependencies:
@@ -17785,6 +18458,14 @@ snapshots:
       source-map-support: 0.5.21
 
   text-extensions@1.9.0: {}
+
+  thenify-all@1.6.0:
+    dependencies:
+      thenify: 3.3.1
+
+  thenify@3.3.1:
+    dependencies:
+      any-promise: 1.3.0
 
   thread-stream@3.1.0:
     dependencies:
@@ -18193,6 +18874,15 @@ snapshots:
       use-sync-external-store: 1.2.0(react@18.3.1)
     optionalDependencies:
       '@types/react': 17.0.87
+      react: 18.3.1
+
+  valtio@1.13.2(@types/react@18.3.23)(react@18.3.1):
+    dependencies:
+      derive-valtio: 0.1.0(valtio@1.13.2(@types/react@18.3.23)(react@18.3.1))
+      proxy-compare: 2.6.0
+      use-sync-external-store: 1.2.0(react@18.3.1)
+    optionalDependencies:
+      '@types/react': 18.3.23
       react: 18.3.1
 
   value-equal@1.0.1: {}

@@ -62,7 +62,7 @@ const clientRender = async (): Promise<void> => {
 		})
 	)
 	if (isReact18) {
-		//@ts-expect-error
+		//@ts-ignore
 		const ReactDOM = await import('react-dom/client')
 		if (window.__USE_SSR__) {
 			;(ReactDOM as typeof ReactDOM18Type).hydrateRoot(container, ele)

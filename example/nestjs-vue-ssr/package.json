@@ -24,7 +24,6 @@
     "ssr-plugin-nestjs": "workspace:*",
     "ssr-plugin-vue": "workspace:*",
     "ssr-webpack": "workspace:*",
-    "ssr-vite": "workspace:*",
     "ssr-types": "workspace:*",
     "typescript": "^5.8.2"
   },
@@ -33,11 +32,9 @@
   },
   "scripts": {
     "prod": "ssr build && pm2 start pm2.config.js",
-    "prod:vite": "ssr build --vite && pm2 start pm2.config.js",
     "stop": "pm2 stop pm2.config.js",
     "deploy": "ssr build && ssr deploy",
     "start": "ssr start",
-    "start:vite": "ssr start --vite",
     "build": "ssr build",
     "lint": "biome format --diagnostic-level error",
     "lint:fix": "biome format --diagnostic-level error --write"

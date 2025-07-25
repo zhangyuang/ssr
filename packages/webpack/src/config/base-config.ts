@@ -62,6 +62,9 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
 			.use(require(loadModuleFromFramework('vue-loader')).VueLoaderPlugin)
 			.end()
 	}
+	// if (framework === 'ssr-plugin-react') {
+	// 	chain.resolve.alias.set('react-dom/client', join(getCwd(), './node_modules/react-dom'))
+	// }
 	if (isVue2) {
 		chain.module
 			.rule('vue')

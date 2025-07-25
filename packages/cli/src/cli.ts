@@ -57,8 +57,8 @@ const startFunc = async (argv: Argv) => {
 	if (argv.vite) {
 		logInfo('Vite 场景本地开发样式闪烁为正常现象请忽略，生产环境无此问题')
 	}
-	const watcher = await createWatcher()
 	await handleEnv(argv)
+	const watcher = await createWatcher()
 	await parseFeRoutes()
 	spinner.stop()
 	await startOrBuild(argv, 'start')

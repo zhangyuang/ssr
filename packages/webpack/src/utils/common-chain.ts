@@ -4,7 +4,7 @@ import type { Module, Rule } from 'webpack-chain'
 import { promises } from 'fs'
 import { resolve } from 'path'
 import * as webpack from 'ssr-webpack4'
-import { asyncChunkMap, getCwd, judgeFramework, loadModuleFromFramework, loadModuleFromWebpack, getPkgMajorVersion, loadConfig, logWarning, getImageOutputPath, nameSpaceBuiltinModules, getBuildConfig, getDefineEnv } from 'ssr-common-utils'
+import { asyncChunkMap, getCwd, judgeFramework, loadModuleFromFramework, loadModuleFromWebpack, getPkgMajorVersion, loadConfig, logWarning, getImageOutputPath, nameSpaceBuiltinModules, getBuildConfig, getDefineEnv, isReact18 } from 'ssr-common-utils'
 import { nodeExternals } from './externals'
 import { FileToChunkRelationPlugin } from './plugins'
 import { setStyle } from './setStyle'
@@ -274,7 +274,6 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
 			color: isServer ? '#f173ac' : '#45b97c'
 		})
 	)
-
 	chain.plugin('ssrDefine').use(webpack.DefinePlugin, [
 		{
 			...getDefineEnv(),
@@ -286,7 +285,13 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
 			...define?.base
 		}
 	])
-
+	if (!isReact18() && judgeFramework() === 'ssr-plugin-react') {
+		chain.plugin('ignore-plugin').use(
+			new webpack.IgnorePlugin({
+				resourceRegExp: /^react-dom\/client$/
+			})
+		)
+	}
 	if (!isServer) {
 		nameSpaceBuiltinModules.forEach((moduleName) => {
 			chain.node.set(moduleName, 'empty')

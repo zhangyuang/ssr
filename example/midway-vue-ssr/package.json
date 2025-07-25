@@ -23,10 +23,10 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@midwayjs/mock": "^3.0.0",
-    "cross-env": "^7.0.3",
     "ssr": "workspace:*",
     "ssr-plugin-midway": "workspace:*",
     "ssr-plugin-vue": "workspace:*",
+    "ssr-webpack": "workspace:*",
     "ssr-types": "workspace:*",
     "typescript": "^5.8.2"
   },

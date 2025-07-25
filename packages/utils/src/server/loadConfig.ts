@@ -10,7 +10,7 @@ const loadConfig = (): IConfig => {
 	const userConfig = getUserConfig()
 	const mode = 'ssr'
 	const stream = false
-	const isVite = accessFileSync(join(cwd, './build/tag.json'))
+	const isVite = process.env.VITE === '1' || accessFileSync(join(cwd, './build/tag.json'))
 	const optimize = process.env.OPTIMIZE === '1'
 	const isCI = !!process.env.CI_TEST
 	const vue3ServerEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js')
@@ -33,7 +33,6 @@ const loadConfig = (): IConfig => {
 			? {
 					react: join(cwd, './node_modules/react'),
 					'react-dom': join(cwd, './node_modules/react-dom'),
-					'react-dom/client': join(cwd, './node_modules/react-dom/client.js'),
 					'react-router-dom': join(cwd, './node_modules/react-router-dom')
 				}
 			: {
@@ -41,6 +40,7 @@ const loadConfig = (): IConfig => {
 				},
 		userConfig.alias
 	)
+
 	if (framework === 'ssr-plugin-vue3') {
 		alias['@vue/server-renderer'] = '@vue/server-renderer/index.js'
 	}
@@ -218,6 +218,9 @@ const loadConfig = (): IConfig => {
 		serverOutPut: join(cwd, './build/server')
 	})
 	config.assetsDir = assetsDir
+	if (!config.isVite) {
+		alias['valtio'] = join(cwd, './node_modules/valtio')
+	}
 	config.alias = alias
 	config.prefix = normalizeStartPath(config.prefix ?? '/')
 	config.corejsOptions = corejsOptions
