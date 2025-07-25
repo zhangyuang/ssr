@@ -121,7 +121,7 @@ jobs:
         # env:
         #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
         with:
-          install: true
+          install: false
           start: pnpm example:midway:react
           wait-on: 'http://localhost:3000'
           spec: |
@@ -174,7 +174,7 @@ jobs:
 
       - uses: cypress-io/github-action@v6
         with:
-          install: true
+          install: false
           start: pnpm example:nestjs:react:prod
           wait-on: 'http://localhost:3000'
           spec: |
@@ -228,7 +228,7 @@ jobs:
 
       - uses: cypress-io/github-action@v6
         with:
-          install: true
+          install: false
           start: pnpm example:nestjs:react18:prod
           wait-on: 'http://localhost:3000'
           spec: |
@@ -282,7 +282,7 @@ jobs:
         # env:
         #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
         with:
-          install: true
+          install: false
           start: pnpm example:nestjs:react:prod:vite
           wait-on: 'http://localhost:3000'
           spec: |
@@ -336,7 +336,7 @@ jobs:
         # env:
         #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
         with:
-          install: true
+          install: false
           start: pnpm example:nestjs:react18:prod:vite
           wait-on: 'http://localhost:3000'
           spec: |
@@ -388,7 +388,7 @@ jobs:
         # env:
         #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
         with:
-          install: true
+          install: false
           start: pnpm example:nestjs:vue3:prod:vite
           wait-on: 'http://localhost:3000'
           spec: |
@@ -440,7 +440,7 @@ jobs:
         # env:
         #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
         with:
-          install: true
+          install: false
           start: pnpm example:nestjs:vue:prod
           wait-on: 'http://localhost:3000'
           spec: |
@@ -491,7 +491,7 @@ jobs:
 
       - uses: cypress-io/github-action@v6
         with:
-          install: true
+          install: false
           start: pnpm example:nestjs:vue3:prod
           wait-on: 'http://localhost:3000'
           spec: |
@@ -544,7 +544,7 @@ jobs:
         # env:
         #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
         with:
-          install: true
+          install: false
           start: pnpm example:nestjs:vue3:prod:optimize
           wait-on: 'http://localhost:3000'
           spec: |
@@ -597,7 +597,7 @@ jobs:
         # env:
         #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
         with:
-          install: true
+          install: false
           start: pnpm example:nestjs:react:prod:optimize
           wait-on: 'http://localhost:3000'
           spec: |
@@ -651,7 +651,7 @@ jobs:
         # env:
         #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
         with:
-          install: true
+          install: false
           start: pnpm example:midway:react:vite
           wait-on: 'http://localhost:3000'
           spec: |
@@ -704,7 +704,7 @@ jobs:
         # env:
         #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
         with:
-          install: true
+          install: false
           start: pnpm example:midway:vue3:vite
           wait-on: 'http://localhost:3000'
           spec: |
@@ -758,7 +758,7 @@ jobs:
         # env:
         #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
         with:
-          install: true
+          install: false
           start: pnpm example:nestjs:react18:vite
           wait-on: 'http://localhost:3000'
           spec: |
@@ -809,7 +809,7 @@ jobs:
         # env:
         #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
         with:
-          install: true
+          install: false
           start: pnpm example:nestjs:vue3:pinia
           wait-on: 'http://localhost:3000'
           spec: |
@@ -863,7 +863,7 @@ jobs:
         # env:
         #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
         with:
-          install: true
+          install: false
           start: pnpm example:midway:vue3
           wait-on: 'http://localhost:3000'
           spec: |
@@ -916,7 +916,7 @@ jobs:
         # env:
         #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
         with:
-          install: true
+          install: false
           start: pnpm example:nestjs:vue
           wait-on: 'http://localhost:3000'
           spec: |
@@ -970,7 +970,7 @@ jobs:
         # env:
         #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
         with:
-          install: true
+          install: false
           start: pnpm example:nestjs:react18
           wait-on: 'http://localhost:3000'
           spec: |
@@ -1019,7 +1019,7 @@ jobs:
 
       - uses: cypress-io/github-action@v6
         with:
-          install: true
+          install: false
           start: pnpm example:nestjs:vue3
           wait-on: 'http://localhost:3000'
           spec: |
