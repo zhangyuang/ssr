@@ -30,7 +30,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               .eslintcache
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -96,7 +96,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -150,7 +150,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -204,7 +204,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -256,7 +256,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -310,7 +310,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -364,7 +364,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -416,7 +416,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -468,7 +468,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -519,7 +519,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -572,7 +572,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -626,7 +626,7 @@ jobs:
               ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -679,7 +679,7 @@ jobs:
               ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -733,7 +733,7 @@ jobs:
               ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -785,7 +785,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -839,7 +839,7 @@ jobs:
               ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -891,7 +891,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -945,7 +945,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -997,7 +997,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
@@ -1069,7 +1069,7 @@ jobs:
               ~/Library/pnpm/store
               ~/AppData/Local/pnpm/store
 
-          key: ${{ runner.os }}-v1.0.0-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-v1.1.0-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
 
