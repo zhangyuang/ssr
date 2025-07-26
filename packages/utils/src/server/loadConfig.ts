@@ -2,7 +2,7 @@ import { join } from 'path'
 import { SemVer, coerce } from 'semver'
 import { IConfig, UserConfig } from 'ssr-types'
 import { normalizeEndPath, normalizeStartPath } from '../common'
-import { accessFileSync, checkModuleExist, getCwd, getFeDir, getUserConfig, judgeFramework, loadModuleFromFramework, stringifyDefine } from './cwd'
+import { accessFileSync, checkModuleExist, getCwd, getFeDir, isReact18, getUserConfig, judgeFramework, loadModuleFromFramework, stringifyDefine } from './cwd'
 
 const loadConfig = (): IConfig => {
 	const cwd = getCwd()
@@ -39,18 +39,20 @@ const loadConfig = (): IConfig => {
 			? {
 					react: join(cwd, './node_modules/react'),
 					'react-dom': join(cwd, './node_modules/react-dom'),
-					'react-router-dom': join(cwd, './node_modules/react-router-dom')
+					'react-router-dom': join(cwd, './node_modules/react-router-dom'),
+					valtio: join(cwd, './node_modules/valtio')
 				}
 			: {
 					vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
 				},
 		userConfig.alias
 	)
-
+	if (isReact18()) {
+		alias['react-dom/client'] = join(cwd, './node_modules/react-dom/client')
+	}
 	if (framework === 'ssr-plugin-vue3') {
 		alias['@vue/server-renderer'] = '@vue/server-renderer/index.js'
 	}
-
 	type ClientLogLevel = 'error'
 	const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPath(userConfig.publicPath ?? '/')
 
@@ -84,7 +86,6 @@ const loadConfig = (): IConfig => {
 	const useHash = !isDev // 生产环境默认生成hash
 	const defaultWhiteList: Array<RegExp | string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/, /\.(vue)$/]
 	const whiteList: Array<RegExp | string> = defaultWhiteList.concat(userConfig.whiteList ?? [])
-
 	const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', 'common-vendor.js', 'layout-app~vendor.js', `${chunkName}.js`, 'layout-app.js']
 
 	const cssOrder = ['vendor.css', 'common-vendor.css', 'layout-app~vendor.css', `${chunkName}.css`, 'layout-app.css']

@@ -16,26 +16,26 @@
     "e2e": "cypress run --browser chrome",
     "release": "esno scripts/release.ts",
     "ci-publish": "esno scripts/publishCI.ts",
+    "example:midway:react": "EXAMPLE=midway-react-ssr esno scripts/prelink.ts && cd example/midway-react-ssr && npm start",
+    "example:midway:react:vite": "EXAMPLE=midway-react-ssr esno scripts/prelink.ts && cd example/midway-react-ssr && npm run start:vite",
+    "example:nestjs:react18:prod": "EXAMPLE=nestjs-react18-ssr esno scripts/prelink.ts && cd example/nestjs-react18-ssr && npm run prod",
+    "example:nestjs:react:prod": "EXAMPLE=nestjs-react-ssr esno scripts/prelink.ts && cd example/nestjs-react-ssr && npm run prod",
+    "example:nestjs:react:prod:optimize": "EXAMPLE=nestjs-react-ssr esno scripts/prelink.ts && cd example/nestjs-react-ssr && npx ssr start -o",
+    "example:nestjs:react18:prod:vite": "EXAMPLE=nestjs-react18-ssr esno scripts/prelink.ts && cd example/nestjs-react18-ssr && npm run prod:vite",
+    "example:nestjs:react": "EXAMPLE=nestjs-react-ssr esno scripts/prelink.ts && cd example/nestjs-react-ssr && npm start",
+    "example:nestjs:react18:vite": "EXAMPLE=nestjs-react18-ssr esno scripts/prelink.ts && cd example/nestjs-react18-ssr && npm run start:vite",
+    "example:nestjs:react18": "EXAMPLE=nestjs-react18-ssr esno scripts/prelink.ts && cd example/nestjs-react18-ssr && npm start",
+    "example:midway:react:dynamic:router": "cd example/react-dynamic-router-test && npm start",
     "example:midway:vue": "cd example/midway-vue-ssr && npm start",
-    "example:midway:react": "cd example/midway-react-ssr && npm start",
     "example:midway:vue3": "cd example/midway-vue3-ssr && npm start",
     "example:midway:vue3:vite": "cd example/midway-vue3-ssr && npm run start:vite",
-    "example:midway:react:vite": "cd example/midway-react-ssr && npm run start:vite",
-    "example:nestjs:react:prod": "cd example/nestjs-react-ssr && npm run prod",
     "example:nestjs:vue3:prod": "cd example/nestjs-vue3-ssr && npm run prod",
     "example:nestjs:vue3:prod:optimize": "cd example/nestjs-vue3-ssr && npx ssr build -o && npx pm2 start pm2.config.js",
-    "example:nestjs:react:prod:optimize": "cd example/nestjs-react-ssr && npx ssr start -o",
     "example:nestjs:vue:prod": "cd example/nestjs-vue-ssr && npm run prod",
-    "example:nestjs:react18:prod": "cd example/nestjs-react18-ssr && npm run prod",
     "example:nestjs:react:prod:vite": "cd example/nestjs-react-ssr && npm run prod:vite",
     "example:nestjs:vue3:prod:vite": "cd example/nestjs-vue3-ssr && npm run prod:vite",
-    "example:nestjs:react18:prod:vite": "cd example/nestjs-react18-ssr && npm run prod:vite",
-    "example:nestjs:react": "cd example/nestjs-react-ssr && npm start",
     "example:nestjs:vue": "cd example/nestjs-vue-ssr && npm start",
-    "example:nestjs:react18:vite": "cd example/nestjs-react18-ssr && npm run start:vite",
-    "example:nestjs:react18": "cd example/nestjs-react18-ssr && npm start",
     "example:nestjs:vue3": "cd example/nestjs-vue3-ssr && npm start",
-    "example:midway:react:dynamic:router": "cd example/react-dynamic-router-test && npm start",
     "example:nestjs:vue3:pinia": "cd example/nestjs-vue3-ssr-pinia && npm start"
   },
   "repository": {
@@ -80,7 +80,7 @@
     "typescript": "^5.8.2"
   },
   "pnpm": {
-    "dedupeInjectedDeps": false,
+    "dedupeInjectedDeps": true,
     "packageExtensions": {
       "vue-server-renderer": {
         "dependencies": {
