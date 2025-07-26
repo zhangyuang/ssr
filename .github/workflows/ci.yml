@@ -241,7 +241,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["18"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -348,7 +348,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["18"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -401,7 +401,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["18"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -453,7 +453,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["18"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -876,7 +876,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["18"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
