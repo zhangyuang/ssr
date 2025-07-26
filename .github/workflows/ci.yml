@@ -42,7 +42,7 @@ jobs:
       - name: Set node version
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: 20
           cache: "pnpm"
       - name: Install dependencies
         run: |
@@ -58,7 +58,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 24
+          node-version: 20
       - name: Check out my other private repo
         uses: actions/checkout@master
         with:
@@ -80,7 +80,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["24"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -135,7 +135,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["24"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -189,7 +189,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["24"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -295,7 +295,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["24"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -504,7 +504,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["24"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -557,7 +557,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["24"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -610,7 +610,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["24"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -663,7 +663,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["24"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -717,7 +717,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["24"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -771,7 +771,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["24"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -823,7 +823,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["24"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -930,7 +930,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["24"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -982,7 +982,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node: ["24"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -1054,7 +1054,7 @@ jobs:
       - e2e-chrome-nestjs-react18-vite
     strategy:
       matrix:
-        node: ["24"]
+        node: ["20"]
     steps:
       - name: Checkout
         uses: actions/checkout@v3
