@@ -6,7 +6,6 @@
     "@nestjs/common": "^10.2.7",
     "@nestjs/core": "^10.2.7",
     "@nestjs/platform-express": "^10.2.7",
-    "pm2": "^4.5.4",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-router-dom": "^5.1.2",
@@ -34,9 +33,8 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "prod": "ssr build && pm2 start pm2.config.js",
-    "prod:vite": "ssr build --vite && pm2 start pm2.config.js",
-    "stop": "pm2 stop pm2.config.js",
+    "prod": "ssr build && NODE_ENV=production node dist/main.js",
+    "prod:vite": "ssr build --vite && NODE_ENV=production node dist/main.js",
     "start": "ssr start",
     "start:vite": "ssr start --vite",
     "build": "ssr build",

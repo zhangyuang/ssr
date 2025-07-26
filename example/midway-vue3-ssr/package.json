@@ -12,7 +12,6 @@
     "koa-static-cache": "^5.1.4",
     "midway-schedule": "^2.0.0",
     "pinia": "^2.0.13",
-    "pm2": "^4.5.4",
     "ssr-common-utils": "workspace:*",
     "ssr-core": "workspace:*",
     "ssr-hoc-vue3": "workspace:*",
@@ -33,9 +32,8 @@
     "typescript": "^5.8.2"
   },
   "scripts": {
-    "prod": "ssr build && pm2 start pm2.config.js",
-    "prod:vite": "ssr build --vite && pm2 start pm2.config.js",
-    "stop": "pm2 stop pm2.config.js",
+    "prod": "ssr build && NODE_ENV=production node bootstrap.js",
+    "prod:vite": "ssr build --vite && NODE_ENV=production node bootstrap.js",
     "start": "ssr start",
     "start:vite": "ssr start --vite",
     "build": "ssr build",

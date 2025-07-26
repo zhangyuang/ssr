@@ -6,7 +6,7 @@
     "@nestjs/common": "^10.2.7",
     "@nestjs/core": "^10.2.7",
     "@nestjs/platform-express": "^10.2.7",
-    "pm2": "^4.5.4",
+
     "reflect-metadata": "^0.1.13",
     "ssr-common-utils": "workspace:*",
     "ssr-core": "workspace:*",
@@ -31,8 +31,7 @@
     "node": ">=20.0.0"
   },
   "scripts": {
-    "prod": "ssr build && pm2 start pm2.config.js",
-    "stop": "pm2 stop pm2.config.js",
+    "prod": "ssr build && NODE_ENV=production node dist/main.js",
     "deploy": "ssr build && ssr deploy",
     "start": "ssr start",
     "build": "ssr build",
