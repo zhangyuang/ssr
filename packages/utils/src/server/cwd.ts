@@ -376,6 +376,14 @@ const stringifyDefine = (obj: { [key: string]: Json }) => {
 		}
 	}
 }
+export const getClientEntry = () => {
+	const framework = judgeFramework()
+	let defaultClientEntry = 'client-entry'
+	if (framework === 'ssr-plugin-react') {
+		defaultClientEntry = isReact18() ? 'react18-client-entry' : 'react17-client-entry'
+	}
+	return defaultClientEntry
+}
 
 export const getViteServerEntry = () => {
 	const cwd = getCwd()

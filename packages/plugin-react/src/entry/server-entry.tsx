@@ -4,7 +4,7 @@ import * as React from 'react'
 import { createElement } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, splitPageInfo, reactRefreshFragment, localStorageWrapper, checkRoute, useStore, isReact18 } from 'ssr-common-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, splitPageInfo, reactRefreshFragment, localStorageWrapper, checkRoute, useStore, isReact18, getClientEntry } from 'ssr-common-utils'
 import { ISSRContext, IConfig, ReactESMPreloadFeRouteItem, DynamicFC, StaticFC } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
 import { AppContext } from './context'
@@ -65,7 +65,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 						/>
 					]
 				: []),
-			...(isVite && isDev ? [<script type="module" src="/node_modules/ssr-plugin-react/esm/entry/client-entry.js" key="vite-react-entry" />] : []),
+			...(isVite && isDev ? [<script type="module" src={`/node_modules/ssr-plugin-react/esm/entry/${getClientEntry()}.js`} key="vite-react-entry" />] : []),
 			...dynamicJsOrder
 				.map((js) => manifest[js])
 				.filter(Boolean)

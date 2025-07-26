@@ -1,7 +1,9 @@
-import type * as ReactDOM18Type from 'react-dom18/client'
-import type * as ReactDOMType from 'react-dom'
+import type { hydrateRoot as HydrateRoot, createRoot as CreateRoot } from 'react-dom18/client'
 import type { LayoutProps } from 'ssr-types'
-import { createElement, version } from 'react'
+
+//@ts-ignore
+import { hydrateRoot, createRoot } from 'react-dom/client'
+import { createElement } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import { preloadComponent, isMicro, setStoreContext, setStore } from 'ssr-common-utils'
 import { wrapComponent } from 'ssr-hoc-react'
@@ -10,7 +12,6 @@ import { AppContext } from './context'
 
 const { FeRoutes, layoutFetch, App } = Routes
 
-const isReact18 = version.startsWith('18')
 const clientRender = async (): Promise<void> => {
 	const IApp =
 		App ??
@@ -61,18 +62,11 @@ const clientRender = async (): Promise<void> => {
 			)
 		})
 	)
-	if (isReact18) {
-		//@ts-ignore
-		const ReactDOM = await import('react-dom/client')
-		if (window.__USE_SSR__) {
-			;(ReactDOM as typeof ReactDOM18Type).hydrateRoot(container, ele)
-		} else {
-			const root = (ReactDOM as typeof ReactDOM18Type).createRoot(container)
-			root.render(ele)
-		}
+	if (window.__USE_SSR__) {
+		;(hydrateRoot as typeof HydrateRoot)(container, ele)
 	} else {
-		const ReactDOM = await import('react-dom')
-		;(ReactDOM as typeof ReactDOMType)[window.__USE_SSR__ ? 'hydrate' : 'render'](ele, container)
+		const root = (createRoot as typeof CreateRoot)(container)
+		root.render(ele)
 	}
 
 	if (!window.__USE_VITE__) {
