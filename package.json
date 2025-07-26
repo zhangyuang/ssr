@@ -3,7 +3,6 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "postinstall": "esno scripts/postinstall.ts",
     "pnpm:devPreinstall": "node scripts/preinstall.js",
     "bootstrap": "pnpm i && pnpm build",
     "clean": "node scripts/scripts.js --clean",
