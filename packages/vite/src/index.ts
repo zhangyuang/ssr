@@ -15,7 +15,7 @@ const framework = judgeFramework()
 const isReact = framework === 'ssr-plugin-react'
 const isVue3 = framework === 'ssr-plugin-vue3'
 const hasReactIs = accessFileSync(resolve(getCwd(), './node_modules/react-is'))
-const extraInclude = [''].concat(isReact ? ['react-router', hasReactIs ? 'react-is' : ''] : []).filter(Boolean)
+const extraInclude = [''].concat(isReact ? ['react', 'react-dom/client', 'react-dom', 'react-router', 'react-router-dom', hasReactIs ? 'react-is' : ''] : []).filter(Boolean)
 const extraExclude = ['ssr-hoc-react']
 
 const { getOutput, viteConfig, supportOptinalChaining, isDev, define, optimize, babelOptions, chunkName } = loadConfig()
