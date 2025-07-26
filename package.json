@@ -79,6 +79,22 @@
     "typescript": "^5.8.2"
   },
   "pnpm": {
+    "overrides": {
+      "ssr": "workspace:*",
+      "ssr-core": "workspace:*",
+      "ssr-common-utils": "workspace:*",
+      "ssr-hoc-react": "workspace:*",
+      "ssr-hoc-react18": "workspace:*",
+      "ssr-hoc-vue3": "workspace:*",
+      "ssr-plugin-midway": "workspace:*",
+      "ssr-plugin-nestjs": "workspace:*",
+      "ssr-plugin-react": "workspace:*",
+      "ssr-plugin-vue": "workspace:*",
+      "ssr-plugin-vue3": "workspace:*",
+      "ssr-types": "workspace:*",
+      "ssr-vite": "workspace:*",
+      "ssr-webpack": "workspace:*"
+    },
     "dedupeInjectedDeps": true,
     "packageExtensions": {
       "vue-server-renderer": {

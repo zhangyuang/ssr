@@ -10,9 +10,9 @@
     "pinia": "^2.0.13",
 
     "reflect-metadata": "^0.1.13",
-    "ssr-common-utils": "workspace:*",
-    "ssr-core": "workspace:*",
-    "ssr-hoc-vue3": "workspace:*",
+    "ssr-common-utils": "^7.0.0",
+    "ssr-core": "^7.0.0",
+    "ssr-hoc-vue3": "^7.0.0",
     "swiper": "6.7.5",
     "vue": "^3.0.0",
     "vue-router": "^4.2.4",
@@ -21,12 +21,12 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@nestjs/cli": "^10.1.18",
-    "ssr": "workspace:*",
-    "ssr-plugin-nestjs": "workspace:*",
-    "ssr-plugin-vue3": "workspace:*",
-    "ssr-types": "workspace:*",
-    "ssr-webpack": "workspace:*",
-    "ssr-vite": "workspace:*",
+    "ssr": "^7.0.0",
+    "ssr-plugin-nestjs": "^7.0.0",
+    "ssr-plugin-vue3": "^7.0.0",
+    "ssr-types": "^7.0.0",
+    "ssr-webpack": "^7.0.0",
+    "ssr-vite": "^7.0.0",
     "typescript": "^5.0.0"
   },
   "engines": {

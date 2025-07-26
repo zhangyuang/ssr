@@ -8,8 +8,8 @@
     "@nestjs/platform-express": "^10.2.7",
 
     "reflect-metadata": "^0.1.13",
-    "ssr-common-utils": "workspace:*",
-    "ssr-core": "workspace:*",
+    "ssr-common-utils": "^7.0.0",
+    "ssr-core": "^7.0.0",
     "swiper": "^5.2.0",
     "vue": "^2.7.8",
     "vue-awesome-swiper": "^4.1.1",
@@ -20,11 +20,11 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@nestjs/cli": "^10.1.18",
-    "ssr": "workspace:*",
-    "ssr-plugin-nestjs": "workspace:*",
-    "ssr-plugin-vue": "workspace:*",
-    "ssr-webpack": "workspace:*",
-    "ssr-types": "workspace:*",
+    "ssr": "^7.0.0",
+    "ssr-plugin-nestjs": "^7.0.0",
+    "ssr-plugin-vue": "^7.0.0",
+    "ssr-webpack": "^7.0.0",
+    "ssr-types": "^7.0.0",
     "typescript": "^5.8.2"
   },
   "engines": {

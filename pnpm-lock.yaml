@@ -4,10 +4,25 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  ssr: workspace:*
+  ssr-core: workspace:*
+  ssr-common-utils: workspace:*
+  ssr-hoc-react: workspace:*
+  ssr-hoc-react18: workspace:*
+  ssr-hoc-vue3: workspace:*
+  ssr-plugin-midway: workspace:*
+  ssr-plugin-nestjs: workspace:*
+  ssr-plugin-react: workspace:*
+  ssr-plugin-vue: workspace:*
+  ssr-plugin-vue3: workspace:*
+  ssr-types: workspace:*
+  ssr-vite: workspace:*
+  ssr-webpack: workspace:*
+
 packageExtensionsChecksum: sha256-ejsITzwqSGgfPJMaJgeFwENu9WLRO9iHJw10m60sCqc=
 
 importers:
-
 
   .:
     devDependencies:
@@ -730,7 +745,7 @@ importers:
     dependencies:
       axios:
         specifier: ^1.4.0
-        version: 1.11.0
+        version: 1.11.0(debug@4.4.1)
       chokidar:
         specifier: ^3.5.3
         version: 3.6.0
@@ -11682,14 +11697,6 @@ snapshots:
   aws-sign2@0.7.0: {}
 
   aws4@1.13.2: {}
-
-  axios@1.11.0:
-    dependencies:
-      follow-redirects: 1.15.9(debug@4.4.1(supports-color@6.1.0))
-      form-data: 4.0.4
-      proxy-from-env: 1.1.0
-    transitivePeerDependencies:
-      - debug
 
   axios@1.11.0(debug@4.4.1):
     dependencies:
