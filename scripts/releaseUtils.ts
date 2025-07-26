@@ -143,7 +143,7 @@ export async function publishPackage (
   pkdDir: string,
   tag?: string
 ): Promise<void> {
-  const publicArgs = ['publish', '--access', 'public']
+  const publicArgs = ['publish', '--access', 'public', '--no-git-checks']
   if (tag) {
     publicArgs.push('--tag', tag)
   }
