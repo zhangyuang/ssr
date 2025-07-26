@@ -11,10 +11,20 @@ function createReactSymlink() {
     path.resolve(examplePath, 'node_modules/valtio'),
     path.resolve(pluginReactPath, 'node_modules/valtio')
   )
+
+  shell.ln('-s', 
+    path.resolve(examplePath, 'node_modules/valtio'),
+    path.resolve(process.cwd(), 'node_modules/valtio')
+  )
   
   shell.ln('-s',
     path.resolve(examplePath, 'node_modules/react'), 
     path.resolve(pluginReactPath, 'node_modules/react')
+  )
+
+  shell.ln('-s',
+    path.resolve(examplePath, 'node_modules/react'), 
+    path.resolve(process.cwd(), 'node_modules/react')
   )
 }
 
