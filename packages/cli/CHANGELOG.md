@@ -1,3 +1,7 @@
+## [7.0.1-beta.1](https://github.com/zhangyuang/ssr/compare/cli@7.0.1-beta.1...cli@7.0.1-beta.1) (2025-07-26)
+
+
+
 ## [7.0.1-beta.0](https://github.com/zhangyuang/ssr/compare/cli@6.2.81...cli@7.0.1-beta.0) (2025-07-26)
 
 

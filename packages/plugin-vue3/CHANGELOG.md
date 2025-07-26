@@ -1,3 +1,29 @@
+## [7.0.1-beta.0](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.123...plugin-vue3@7.0.1-beta.0) (2025-07-26)
+
+
+### Bug Fixes
+
+* dependencies manage skip ci ([dae88a8](https://github.com/zhangyuang/ssr/commit/dae88a875967a73586e1745ba1e605702eadd0d3))
+* webpack type skip ci ([30f00f9](https://github.com/zhangyuang/ssr/commit/30f00f908d8d30039de8fc45d1a638b470763ffd))
+
+
+### Features
+
+* add link-workspace-packages ([de2ba17](https://github.com/zhangyuang/ssr/commit/de2ba171579cfaa1f8c73c35c7de84d51abd4a84))
+* change dependencies in pkg to workspace ([f5320eb](https://github.com/zhangyuang/ssr/commit/f5320eb06f73f0410b27248dcb622ce793de740c))
+* change version to 7.0.0 set dependencies to workspace skip ci ([152af0b](https://github.com/zhangyuang/ssr/commit/152af0b9f87db08769a1ec62a59cce4eb6276779))
+* remove plugin-react18 hoc-react18 update plugin-react skip ci ([f6968f7](https://github.com/zhangyuang/ssr/commit/f6968f78c4aa4b350a4bc272089c53bbb4aabe1e))
+* split client-entry to 17 and 18 ([3f0d6df](https://github.com/zhangyuang/ssr/commit/3f0d6dfba7fbd36a9969bfba37e8f086e4d72917))
+* update plugin-react skip ci ([205baed](https://github.com/zhangyuang/ssr/commit/205baed3093185e2cc928392a378a221f01912f9))
+* update plugin-react skip ci ([a481d83](https://github.com/zhangyuang/ssr/commit/a481d83dd43498265eb3d1b7814902ce59bceac0))
+* update plugin-vue skip ci ([17824e0](https://github.com/zhangyuang/ssr/commit/17824e0008e2737fe381d46b030543f4aec185ad))
+* update ssr-vite skip ci ([4b1e435](https://github.com/zhangyuang/ssr/commit/4b1e435c92c68099902cb06ea5673e46912d48a0))
+* update vite logic skip ci ([33944e6](https://github.com/zhangyuang/ssr/commit/33944e64c70200dcaf77ce67012ff8b086e78318))
+* update vite logic skip ci ([9425ef9](https://github.com/zhangyuang/ssr/commit/9425ef989afaabb995c8daf4a95b4c6ff8fa5138))
+* use pnpm10 skip ci ([0975924](https://github.com/zhangyuang/ssr/commit/0975924a662f72cc8590bbe723851471c2e91253))
+
+
+
 ## [6.2.123](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.122...plugin-vue3@6.2.123) (2025-03-14)
 
 

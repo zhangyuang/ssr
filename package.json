@@ -84,7 +84,6 @@
       "ssr-core": "workspace:*",
       "ssr-common-utils": "workspace:*",
       "ssr-hoc-react": "workspace:*",
-      "ssr-hoc-react18": "workspace:*",
       "ssr-hoc-vue3": "workspace:*",
       "ssr-plugin-midway": "workspace:*",
       "ssr-plugin-nestjs": "workspace:*",

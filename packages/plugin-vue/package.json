@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-vue",
-  "version": "7.0.0",
+  "version": "7.0.1-beta.0",
   "description": "plugin-vue for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -40,7 +40,7 @@
     "vuex": "^3.6.2",
     "vue-server-renderer": "^2.7.8"
   },
- "devDependencies": {
+  "devDependencies": {
     "ssr-types": "workspace:*",
     "ssr-webpack": "workspace:*",
     "@types/webpack": "^4.41.10",

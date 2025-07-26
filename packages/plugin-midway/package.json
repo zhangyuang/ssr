@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-midway",
-  "version": "7.0.0",
+  "version": "7.0.1-beta.0",
   "description": "plugin-midway for ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",

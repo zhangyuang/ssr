@@ -1,3 +1,7 @@
+## [7.0.1-beta.0](https://github.com/zhangyuang/ssr/compare/core@7.0.1-beta.0...core@7.0.1-beta.0) (2025-07-26)
+
+
+
 ## [6.2.30](https://github.com/zhangyuang/ssr/compare/core@6.2.29...core@6.2.30) (2024-10-23)
 
 
