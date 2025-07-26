@@ -1,3 +1,42 @@
+## [7.0.1-beta.0](https://github.com/zhangyuang/ssr/compare/cli@6.2.81...cli@7.0.1-beta.0) (2025-07-26)
+
+
+### Bug Fixes
+
+* compile error ([6be2a8f](https://github.com/zhangyuang/ssr/commit/6be2a8ffb65edd91ad8bc9b0ef66a338a8de4218))
+* dependencies manage skip ci ([dae88a8](https://github.com/zhangyuang/ssr/commit/dae88a875967a73586e1745ba1e605702eadd0d3))
+* set currentRouter path when use memoryHistory in client ([df7b040](https://github.com/zhangyuang/ssr/commit/df7b040035e39400e3c6ed8256ab0fb0e08f3c61))
+* webpack type skip ci ([30f00f9](https://github.com/zhangyuang/ssr/commit/30f00f908d8d30039de8fc45d1a638b470763ffd))
+
+
+### Features
+
+* add biome.json in example ([b474e2b](https://github.com/zhangyuang/ssr/commit/b474e2bce5e31595fd0297786a76c94f0efd8dd6))
+* add link-workspace-packages ([de2ba17](https://github.com/zhangyuang/ssr/commit/de2ba171579cfaa1f8c73c35c7de84d51abd4a84))
+* add wrap-micro-scope-plugin ([39da637](https://github.com/zhangyuang/ssr/commit/39da63718930490db4f99845d8df20b5636f2c39))
+* adjust history order ([67ea802](https://github.com/zhangyuang/ssr/commit/67ea80211140cb4aa018d04789c0cc006e39e438))
+* change dependencies in pkg to workspace ([f5320eb](https://github.com/zhangyuang/ssr/commit/f5320eb06f73f0410b27248dcb622ce793de740c))
+* change version to 7.0.0 set dependencies to workspace skip ci ([152af0b](https://github.com/zhangyuang/ssr/commit/152af0b9f87db08769a1ec62a59cce4eb6276779))
+* remove plugin-react18 hoc-react18 update plugin-react skip ci ([f6968f7](https://github.com/zhangyuang/ssr/commit/f6968f78c4aa4b350a4bc272089c53bbb4aabe1e))
+* set request router info in csr mode for vue3 ([fa7a59d](https://github.com/zhangyuang/ssr/commit/fa7a59dd36ebb69af988832ac373409201f89659))
+* set vue router url with all render modes ([b58f828](https://github.com/zhangyuang/ssr/commit/b58f8281b684f042e0434f87a5d9ce96addfc04a))
+* split client-entry to 17 and 18 ([3f0d6df](https://github.com/zhangyuang/ssr/commit/3f0d6dfba7fbd36a9969bfba37e8f086e4d72917))
+* support clientHistoryRouterMode ([5ce75ac](https://github.com/zhangyuang/ssr/commit/5ce75ac352ede9c9af5461c92491f738af892eda))
+* support window.ssrRequestPath inject for memoryHistory in vue3 ([ca99c5d](https://github.com/zhangyuang/ssr/commit/ca99c5dd5fed3c1bcd2c440991f7b08bc6f961b3))
+* update default source-map type ([4f0543d](https://github.com/zhangyuang/ssr/commit/4f0543df75611bf5e641943f46e639c4630954a3))
+* update plugin-react skip ci ([205baed](https://github.com/zhangyuang/ssr/commit/205baed3093185e2cc928392a378a221f01912f9))
+* update plugin-react skip ci ([a481d83](https://github.com/zhangyuang/ssr/commit/a481d83dd43498265eb3d1b7814902ce59bceac0))
+* update plugin-vue skip ci ([17824e0](https://github.com/zhangyuang/ssr/commit/17824e0008e2737fe381d46b030543f4aec185ad))
+* update ssr-vite skip ci ([4b1e435](https://github.com/zhangyuang/ssr/commit/4b1e435c92c68099902cb06ea5673e46912d48a0))
+* update vite logic skip ci ([33944e6](https://github.com/zhangyuang/ssr/commit/33944e64c70200dcaf77ce67012ff8b086e78318))
+* update vite logic skip ci ([9425ef9](https://github.com/zhangyuang/ssr/commit/9425ef989afaabb995c8daf4a95b4c6ff8fa5138))
+* upgrade typescript to v5 ([12f3bed](https://github.com/zhangyuang/ssr/commit/12f3bed51cf94274eb050efae9a1994d71a9b095))
+* use biome replace eslint ([8740d4d](https://github.com/zhangyuang/ssr/commit/8740d4dbc66e7f034857f229a04be91ee2aff609))
+* use micro plugin in dev ([671ba69](https://github.com/zhangyuang/ssr/commit/671ba695747a00297d640869dcf9d3437944dd58))
+* use pnpm10 skip ci ([0975924](https://github.com/zhangyuang/ssr/commit/0975924a662f72cc8590bbe723851471c2e91253))
+
+
+
 ## [6.2.82](https://github.com/zhangyuang/ssr/compare/cli@6.2.81...cli@6.2.82) (2024-10-23)
 
 
