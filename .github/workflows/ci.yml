@@ -1091,7 +1091,7 @@ jobs:
       - name: List packages
         run: ls -R packages
         shell: bash
-      - name: npm publish
+      - name: pnpm publish
         run: |
           find ./packages/ -type d -maxdepth 1 -exec cp LICENSE {} \;
           echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> ~/.npmrc
