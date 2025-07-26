@@ -4,7 +4,7 @@ import type * as ReactPlugin from '@vitejs/plugin-react'
 import { resolve } from 'path'
 import babel from '@rollup/plugin-babel'
 import { visualizer } from 'rollup-plugin-visualizer'
-import { getCwd, getDefineEnv, getOutputPublicPath, loadConfig, loadModuleFromFramework, judgeFramework, accessFileSync } from 'ssr-common-utils'
+import { getCwd, getDefineEnv, getOutputPublicPath, loadConfig, loadModuleFromFramework, judgeFramework, accessFileSync, getBuildEntry } from 'ssr-common-utils'
 import { UserConfig, build as viteBuild, PluginOption } from 'vite'
 
 import { AndDesignVueResolve, AntdResolve, ElementPlusResolve, NutuiResolve, VantResolve, createStyleImportPlugin } from 'ssr-vite-plugin-style-import'
@@ -18,7 +18,7 @@ const hasReactIs = accessFileSync(resolve(getCwd(), './node_modules/react-is'))
 const extraInclude = [''].concat(isReact ? ['react-router', hasReactIs ? 'react-is' : ''] : []).filter(Boolean)
 const extraExclude = ['ssr-hoc-react']
 
-const { getOutput, vue3ServerEntry, vue3ClientEntry, reactServerEntry, reactClientEntry, viteConfig, supportOptinalChaining, isDev, define, optimize, babelOptions, chunkName } = loadConfig()
+const { getOutput, viteConfig, supportOptinalChaining, isDev, define, optimize, babelOptions, chunkName } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
 let vuePlugin: typeof VuePlugin.default | undefined
@@ -70,9 +70,7 @@ if (isVue3) {
 
 const serverPlugins: PluginOption[] = [...ssrResolvePlugin({}), ...frameworkServerPlugins, ...commonServerPlugins]
 
-// Get framework-specific entries
-const serverEntry = isReact ? reactServerEntry : vue3ServerEntry
-const clientEntry = isReact ? reactClientEntry : vue3ClientEntry
+const { server: serverEntry, client: clientEntry } = getBuildEntry()
 
 export const serverConfig: UserConfig = {
 	...commonConfig(),

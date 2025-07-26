@@ -384,6 +384,14 @@ export const getClientEntry = () => {
 	}
 	return defaultClientEntry
 }
+export const getBuildEntry = () => {
+	const framework = judgeFramework()
+	const defaultClientEntry = getClientEntry()
+	return {
+		server: resolve(getCwd(), './node_modules', framework, './esm/entry/server-entry'),
+		client: resolve(getCwd(), './node_modules', framework, `./esm/entry/${defaultClientEntry}`)
+	}
+}
 
 export const getViteServerEntry = () => {
 	const cwd = getCwd()

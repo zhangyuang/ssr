@@ -13,12 +13,6 @@ const loadConfig = (): IConfig => {
 	const isVite = process.env.VITE === '1' || accessFileSync(join(cwd, './build/tag.json'))
 	const optimize = process.env.OPTIMIZE === '1'
 	const isCI = !!process.env.CI_TEST
-	const vue3ServerEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js')
-	const vue3ClientEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
-	const vueServerEntry = join(cwd, './node_modules/ssr-plugin-vue/esm/entry/server-entry.js')
-	const vueClientEntry = join(cwd, './node_modules/ssr-plugin-vue/esm/entry/client-entry.js')
-	const reactServerEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/server-entry.js')
-	const reactClientEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/client-entry.js')
 	const supportOptinalChaining = coerce(process.version)!.major >= 14
 	const define = userConfig.define ?? {}
 	userConfig.define && stringifyDefine(define)
@@ -196,12 +190,6 @@ const loadConfig = (): IConfig => {
 			https,
 			manifestPath,
 			proxyKey,
-			vue3ServerEntry,
-			vue3ClientEntry,
-			vueServerEntry,
-			vueClientEntry,
-			reactServerEntry,
-			reactClientEntry,
 			isVite,
 			whiteList,
 			isCI,

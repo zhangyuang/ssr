@@ -1,9 +1,8 @@
-import { loadConfig, terserConfig } from 'ssr-common-utils'
+import { loadConfig, terserConfig, getBuildEntry } from 'ssr-common-utils'
 import * as webpack from 'ssr-webpack4'
 import WebpackChain from 'webpack-chain'
 
 import { getBaseConfig } from './base-config'
-import { getBuildEntry } from '../utils/build-entry'
 
 const getServerWebpack = (chain: WebpackChain) => {
 	const config = loadConfig()
