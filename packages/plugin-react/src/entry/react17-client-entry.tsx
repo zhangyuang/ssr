@@ -23,6 +23,7 @@ const clientRender = async (): Promise<void> => {
 	const routes = await preloadComponent(FeRoutes, baseName)
 	const container = document.querySelector(window.ssrDevInfo.rootId ?? '#app')!
 	const ele = createElement(
+		//@ts-ignore
 		BrowserRouter,
 		{
 			basename: baseName
