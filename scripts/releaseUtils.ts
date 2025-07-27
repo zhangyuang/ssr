@@ -147,7 +147,12 @@ export async function publishPackage (
   if (tag) {
     publicArgs.push('--tag', tag)
   }
-  // await promises.writeFile(resolve(pkdDir, './.npmignore'), '**/*.map')
+  const pkg = require(resolve(pkdDir, './package.json'))
+  Object.keys(pkg.dependencies).forEach(key => {
+    if (pkg.dependencies[key] === 'workspace:*') {
+      pkg.dependencies[key] = '^7.0.0'
+    }
+  })
   cp(resolve(process.cwd(), './README.md'), resolve(pkdDir, './README.md'))
   await runIfNotDry('npm', publicArgs, {
     cwd: pkdDir

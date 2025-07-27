@@ -1,9 +1,10 @@
+import type { renderToPipeableStream } from 'react-dom18/server'
 import { PassThrough } from 'stream'
 import * as React from 'react'
 import { createElement } from 'react'
+import * as ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
-import { renderToString, renderToNodeStream } from 'react-dom/server'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, splitPageInfo, reactRefreshFragment, localStorageWrapper, checkRoute, useStore } from 'ssr-common-utils'
+import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, splitPageInfo, reactRefreshFragment, localStorageWrapper, checkRoute, useStore, isReact18, getClientEntry } from 'ssr-common-utils'
 import { ISSRContext, IConfig, ReactESMPreloadFeRouteItem, DynamicFC, StaticFC } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
 import { AppContext } from './context'
@@ -11,9 +12,12 @@ import { Routes, ssrCreateContext, createStore } from './create'
 
 const { FeRoutes, layoutFetch, state, Layout } = Routes
 
+type ReactDOMServerType = typeof ReactDOMServer & {
+	renderToPipeableStream: typeof renderToPipeableStream
+}
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 	const context = ssrCreateContext()
-	const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix, stream, rootId, hashRouter, streamHighWaterMark } = config
+	const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix, onReady, onError, stream, rootId, hashRouter, streamHighWaterMark } = config
 	const rawPath = ctx.request.path ?? ctx.request.url
 	const path = normalizePath(rawPath, prefix)
 	const routeItem = findRoute<ReactESMPreloadFeRouteItem>(FeRoutes, path)
@@ -61,7 +65,7 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 						/>
 					]
 				: []),
-			...(isVite && isDev ? [<script type="module" src="/node_modules/ssr-plugin-react/esm/entry/client-entry.js" key="vite-react-entry" />] : []),
+			...(isVite && isDev ? [<script type="module" src={`/node_modules/ssr-plugin-react/esm/entry/${getClientEntry()}.js`} key="vite-react-entry" />] : []),
 			...dynamicJsOrder
 				.map((js) => manifest[js])
 				.filter(Boolean)
@@ -124,7 +128,18 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 			})
 		)
 		// for ctx.body will loose asynclocalstorage context, consume stream in advance like vue2/3
-		return stream ? renderToNodeStream(ele).pipe(new PassThrough({ highWaterMark: streamHighWaterMark })) : renderToString(ele)
+		if (isReact18()) {
+			return stream
+				? (ReactDOMServer as ReactDOMServerType)
+						.renderToPipeableStream(ele, {
+							onAllReady: onReady,
+							onError: onError as any
+						})
+						.pipe(new PassThrough({ highWaterMark: streamHighWaterMark }))
+				: ReactDOMServer.renderToString(ele)
+		} else {
+			return stream ? ReactDOMServer.renderToNodeStream(ele).pipe(new PassThrough({ highWaterMark: streamHighWaterMark })) : ReactDOMServer.renderToString(ele)
+		}
 	}
 
 	return await localStorageWrapper.run(

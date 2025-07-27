@@ -1,3 +1,7 @@
+## [7.0.1-beta.0](https://github.com/zhangyuang/ssr/compare/hoc-react@7.0.1-beta.0...hoc-react@7.0.1-beta.0) (2025-07-26)
+
+
+
 ## [6.2.12](https://github.com/zhangyuang/ssr/compare/hoc-react@6.2.11...hoc-react@6.2.12) (2024-10-23)
 
 

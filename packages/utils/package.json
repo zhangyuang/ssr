@@ -1,6 +1,6 @@
 {
   "name": "ssr-common-utils",
-  "version": "6.2.161",
+  "version": "7.0.1-beta.0",
   "description": "utils for serverless ssr",
   "types": "./esm/types.d.ts",
   "main": "./cjs/server/index.js",
@@ -45,17 +45,14 @@
   "dependencies": {
     "axios": "^1.4.0",
     "debug": "^4.3.4",
-    "es-module-lexer": "^0.9.3",
     "http-proxy-middleware": "^1.0.6",
     "koa2-connect": "^1.0.2",
-    "magic-string": "^0.25.7",
     "path-to-regexp": "^6.2.0",
     "qs": "^6.11.2",
     "semver": "^7.3.5",
     "shelljs": "^0.8.3"
   },
   "devDependencies": {
-    "@rollup/plugin-babel": "^5.3.0",
     "@types/debug": "^4.1.12",
     "@types/qs": "^6.9.7",
     "@types/react": "^17.0.0",
@@ -63,8 +60,7 @@
     "@types/shelljs": "^0.8.7",
     "concurrently": "^5.1.0",
     "pinia": "^2.0.13",
-    "rollup": ">=2.59.0 <2.78.0",
-    "ssr-types": "^6.0.0",
+    "ssr-types": "workspace:*",
     "vue": "^3.0.0",
     "webpack-chain": "^6.4.0"
   }

@@ -1,0 +1,43 @@
+{
+  "name": "ssr-vite",
+  "version": "7.0.1-beta.0",
+  "description": "vite config for serverless ssr",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
+    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangyuang/ssr.git"
+  },
+  "keywords": [
+    "vite",
+    "serverless",
+    "ssr",
+    "react",
+    "vue"
+  ],
+  "author": "zhangyuang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhangyuang/ssr/issues"
+  },
+  "homepage": "https://github.com/zhangyuang/ssr#readme",
+  "dependencies": {
+    "vite": "^2.9.15",
+    "rollup-plugin-visualizer": "^5.12.0",
+    "ssr-vite-plugin-style-import": "^2.0.1",
+    "@rollup/plugin-babel": "^5.3.0",
+    "magic-string": "^0.25.7",
+    "es-module-lexer": "^0.9.3",
+    "ssr-common-utils": "workspace:*"
+  },
+  "devDependencies": {
+    "ssr-types": "workspace:*",
+    "@rollup/plugin-babel": "^5.3.0",
+    "rollup": ">=2.59.0 <2.78.0"
+  }
+}

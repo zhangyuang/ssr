@@ -19,5 +19,9 @@
   "[jsonc]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-
+  "files.exclude": {
+   "**/cjs": true,
+   "**/esm": true,
+   "**/dist": true,
+  }
 }

@@ -268,14 +268,19 @@ const judgeFramework = () => {
 	const cwd = getCwd()
 	const packageJSON = require(resolve(cwd, './package.json'))
 	if (packageJSON.dependencies.react || packageJSON.devDependencies.react) {
-		const version = packageJSON.dependencies.react || packageJSON.devDependencies.react
-		return coerce(version)!.major === 18 ? 'ssr-plugin-react18' : 'ssr-plugin-react'
+		return 'ssr-plugin-react'
 	} else if (packageJSON.dependencies.vue || packageJSON.devDependencies.vue) {
 		const version = packageJSON.dependencies.vue || packageJSON.devDependencies.vue
 		return coerce(version)!.major === 3 ? 'ssr-plugin-vue3' : 'ssr-plugin-vue'
 	} else {
 		throw new Error('get framework failed, please check dependencies')
 	}
+}
+
+export const isReact18 = () => {
+	const cwd = getCwd()
+	const packageJSON = require(resolve(cwd, './package.json'))
+	return packageJSON.dependencies.react && coerce(packageJSON.dependencies.react)?.major === 18
 }
 
 const judgeVersion = (version: string) => {
@@ -311,6 +316,25 @@ const loadModuleFromFramework = (path: string) => {
 	const paths = resolve(getCwd(), `./node_modules/${framework}`)
 	return require.resolve(path, {
 		paths: [accessFileSync(paths) ? realpathSync(paths) : paths]
+	})
+}
+
+export const loadModuleFromCwd = (path: string) => {
+	const cwd = getCwd()
+	return resolve(cwd, `./node_modules/${path}`)
+}
+
+export const loadModuleFromWebpack = (path: string) => {
+	const cwd = getCwd()
+	return require.resolve(path, {
+		paths: [resolve(cwd, './node_modules/ssr-webpack')]
+	})
+}
+
+export const loadModuleFromVite = (path: string) => {
+	const cwd = getCwd()
+	return require.resolve(path, {
+		paths: [resolve(cwd, './node_modules/ssr-vite')]
 	})
 }
 
@@ -354,6 +378,22 @@ const stringifyDefine = (obj: { [key: string]: Json }) => {
 		} else if (typeof val === 'object') {
 			stringifyDefine(val)
 		}
+	}
+}
+export const getClientEntry = () => {
+	const framework = judgeFramework()
+	let defaultClientEntry = 'client-entry'
+	if (framework === 'ssr-plugin-react') {
+		defaultClientEntry = isReact18() ? 'react18-client-entry' : 'react17-client-entry'
+	}
+	return defaultClientEntry
+}
+export const getBuildEntry = () => {
+	const framework = judgeFramework()
+	const defaultClientEntry = getClientEntry()
+	return {
+		server: resolve(getCwd(), './node_modules', framework, './esm/entry/server-entry'),
+		client: resolve(getCwd(), './node_modules', framework, `./esm/entry/${defaultClientEntry}`)
 	}
 }
 

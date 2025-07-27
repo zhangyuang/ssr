@@ -124,14 +124,6 @@ export interface IConfig {
 	nestStartTips?: string
 	manifestPath: string
 	proxyKey: string[]
-	vue3ServerEntry: string
-	vue3ClientEntry: string
-	vueServerEntry: string
-	vueClientEntry: string
-	reactServerEntry: string
-	reactClientEntry: string
-	react18ServerEntry: string
-	react18ClientEntry: string
 	isVite: boolean
 	optimize: boolean
 	supportOptinalChaining: boolean

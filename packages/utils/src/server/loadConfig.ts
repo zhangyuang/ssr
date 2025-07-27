@@ -2,7 +2,7 @@ import { join } from 'path'
 import { SemVer, coerce } from 'semver'
 import { IConfig, UserConfig } from 'ssr-types'
 import { normalizeEndPath, normalizeStartPath } from '../common'
-import { accessFileSync, checkModuleExist, getCwd, getFeDir, getUserConfig, judgeFramework, loadModuleFromFramework, stringifyDefine } from './cwd'
+import { accessFileSync, checkModuleExist, getCwd, getFeDir, isReact18, getUserConfig, judgeFramework, loadModuleFromFramework, stringifyDefine } from './cwd'
 
 const loadConfig = (): IConfig => {
 	const cwd = getCwd()
@@ -10,22 +10,18 @@ const loadConfig = (): IConfig => {
 	const userConfig = getUserConfig()
 	const mode = 'ssr'
 	const stream = false
-	const isVite = accessFileSync(join(cwd, './build/tag.json'))
+	const isVite = process.env.VITE === '1' || accessFileSync(join(cwd, './build/tag.json'))
 	const optimize = process.env.OPTIMIZE === '1'
 	const isCI = !!process.env.CI_TEST
-	const vue3ServerEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/server-entry.js')
-	const vue3ClientEntry = join(cwd, './node_modules/ssr-plugin-vue3/esm/entry/client-entry.js')
-	const vueServerEntry = join(cwd, './node_modules/ssr-plugin-vue/esm/entry/server-entry.js')
-	const vueClientEntry = join(cwd, './node_modules/ssr-plugin-vue/esm/entry/client-entry.js')
-	const reactServerEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/server-entry.js')
-	const reactClientEntry = join(cwd, './node_modules/ssr-plugin-react/esm/entry/client-entry.js')
-	const react18ServerEntry = join(cwd, './node_modules/ssr-plugin-react18/esm/entry/server-entry.js')
-	const react18ClientEntry = join(cwd, './node_modules/ssr-plugin-react18/esm/entry/client-entry.js')
-
 	const supportOptinalChaining = coerce(process.version)!.major >= 14
 	const define = userConfig.define ?? {}
 	userConfig.define && stringifyDefine(define)
-
+	if (framework === 'ssr-plugin-vue3') {
+		define.base = {
+			...define.base,
+			__VUE_PROD_HYDRATION_MISMATCH_DETAILS__: process.env.NODE_ENV === 'development' ? 'true' : 'false'
+		}
+	}
 	const alias = Object.assign(
 		{
 			'@': getFeDir(),
@@ -34,16 +30,22 @@ const loadConfig = (): IConfig => {
 			_build: join(cwd, './build')
 		},
 		framework === 'ssr-plugin-react'
-			? {}
+			? {
+					react: join(cwd, './node_modules/react'),
+					'react-dom': join(cwd, './node_modules/react-dom'),
+					'react-router-dom': join(cwd, './node_modules/react-router-dom')
+				}
 			: {
 					vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
 				},
 		userConfig.alias
 	)
+	if (isReact18()) {
+		alias['react-dom/client'] = join(cwd, './node_modules/react-dom/client')
+	}
 	if (framework === 'ssr-plugin-vue3') {
 		alias['@vue/server-renderer'] = '@vue/server-renderer/index.js'
 	}
-
 	type ClientLogLevel = 'error'
 	const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPath(userConfig.publicPath ?? '/')
 
@@ -77,7 +79,6 @@ const loadConfig = (): IConfig => {
 	const useHash = !isDev // 生产环境默认生成hash
 	const defaultWhiteList: Array<RegExp | string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/, /\.(vue)$/]
 	const whiteList: Array<RegExp | string> = defaultWhiteList.concat(userConfig.whiteList ?? [])
-
 	const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', 'common-vendor.js', 'layout-app~vendor.js', `${chunkName}.js`, 'layout-app.js']
 
 	const cssOrder = ['vendor.css', 'common-vendor.css', 'layout-app~vendor.css', `${chunkName}.css`, 'layout-app.css']
@@ -160,7 +161,7 @@ const loadConfig = (): IConfig => {
 		assetManifest: join(cwd, './build/client/asset-manifest.json'),
 		asyncChunkMap: join(cwd, './build/asyncChunkMap.json')
 	}
-	const babelExtraModule: UserConfig['babelExtraModule'] = [/ssr-plugin-vue3/, /ssr-client-utils/, /ssr-hoc-vue/, /vue/, /ssr-common-utils/, /ssr-plugin-vue/, /ssr-plugin-react/, /ssr-hoc-react/, /ssr-hoc-vue3/, /ssr-hoc-react18/]
+	const babelExtraModule: UserConfig['babelExtraModule'] = [/ssr-plugin-vue3/, /ssr-client-utils/, /ssr-hoc-vue/, /vue/, /ssr-common-utils/, /ssr-plugin-vue/, /ssr-plugin-react/, /ssr-hoc-react/, /ssr-hoc-vue3/]
 	const staticConfigPath = ''
 	const getOutput = () => {}
 	const rootId = '#app'
@@ -189,14 +190,6 @@ const loadConfig = (): IConfig => {
 			https,
 			manifestPath,
 			proxyKey,
-			vue3ServerEntry,
-			vue3ClientEntry,
-			vueServerEntry,
-			vueClientEntry,
-			reactServerEntry,
-			reactClientEntry,
-			react18ServerEntry,
-			react18ClientEntry,
 			isVite,
 			whiteList,
 			isCI,
@@ -219,6 +212,9 @@ const loadConfig = (): IConfig => {
 		serverOutPut: join(cwd, './build/server')
 	})
 	config.assetsDir = assetsDir
+	if (!config.isVite) {
+		alias['valtio'] = join(cwd, './node_modules/valtio')
+	}
 	config.alias = alias
 	config.prefix = normalizeStartPath(config.prefix ?? '/')
 	config.corejsOptions = corejsOptions

@@ -23,19 +23,20 @@ const spinner = {
 }
 
 const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
-	const { judgeFramework, judgeServerFramework, logGreen } = await import('ssr-common-utils')
+	const { judgeFramework, judgeServerFramework, logGreen, getCwd } = await import('ssr-common-utils')
+	const cwd = getCwd()
 	const framework = judgeFramework()
 	const serverFramework = judgeServerFramework()
 	if (argv.ssg) {
 		logGreen('Using ssg for generate static html file')
 	}
 	if (!argv.api) {
-		const { clientPlugin } = await import(framework)
+		const { clientPlugin } = await import(resolve(cwd, './node_modules', framework))
 		const client: IPlugin['clientPlugin'] = clientPlugin()
 		await client?.[type]?.(argv)
 	}
 	if (!argv.web) {
-		const { serverPlugin } = await import(serverFramework)
+		const { serverPlugin } = await import(resolve(cwd, './node_modules', serverFramework))
 		const server: IPlugin['serverPlugin'] = serverPlugin()
 		await server?.[type]?.(argv)
 	}
@@ -56,8 +57,8 @@ const startFunc = async (argv: Argv) => {
 	if (argv.vite) {
 		logInfo('Vite 场景本地开发样式闪烁为正常现象请忽略，生产环境无此问题')
 	}
-	const watcher = await createWatcher()
 	await handleEnv(argv)
+	const watcher = await createWatcher()
 	await parseFeRoutes()
 	spinner.stop()
 	await startOrBuild(argv, 'start')

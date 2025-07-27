@@ -1,4 +1,20 @@
 packages:
-  - 'packages/*'
+  - packages/*
   - 'example/*'
-
+  # - 'packages/plugin-react'
+  # - 'packages/plugin-vue'
+  # - packages/plugin-vue3
+  # - packages/core
+  # - packages/cli
+  # - packages/hoc-react
+  # - packages/hoc-vue3
+  # - packages/plugin-midway
+  # - packages/plugin-nestjs
+  # - packages/types
+  # - packages/utils
+  # - packages/vite
+  # - packages/webpack
+  # - example/nestjs-vue3-ssr
+  # - example/nestjs-vue-ssr
+  # - example/nestjs-react-ssr
+  # - example/nestjs-react18-ssr

@@ -9,14 +9,14 @@
     "@midwayjs/koa": "^3.0.0",
     "@midwayjs/logger": "^3.0.0",
     "koa-static-cache": "^5.1.4",
-    "pm2": "^4.5.4",
+
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-router-dom": "^5.1.2",
-    "ssr-common-utils": "^6.0.0",
-    "ssr-core": "^6.0.0",
+    "ssr-common-utils": "^7.0.0",
+    "ssr-core": "^7.0.0",
     "swiper": "6.7.5",
-    "valtio": "^1.11.2"
+    "valtio": "^1.13.2"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
@@ -24,16 +24,17 @@
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
     "@types/react-router-dom": "^5.1.3",
-    "ssr": "^6.0.0",
-    "ssr-plugin-midway": "^6.0.0",
-    "ssr-plugin-react": "^6.0.0",
-    "ssr-types": "^6.0.0",
-    "typescript": "^5.0.0"
+    "ssr": "^7.0.0",
+    "ssr-plugin-midway": "^7.0.0",
+    "ssr-plugin-react": "^7.0.0",
+    "ssr-types": "^7.0.0",
+    "ssr-vite": "^7.0.0",
+    "ssr-webpack": "^7.0.0",
+    "typescript": "^5.8.2"
   },
   "scripts": {
-    "prod": "ssr build && pm2 start pm2.config.js",
-    "prod:vite": "ssr build --vite && pm2 start pm2.config.js",
-    "stop": "pm2 stop pm2.config.js",
+    "prod": "ssr build && NODE_ENV=production node bootstrap.js",
+    "prod:vite": "ssr build --vite && NODE_ENV=production node bootstrap.js",
     "start": "ssr start",
     "start:vite": "ssr start --vite",
     "build": "ssr build",

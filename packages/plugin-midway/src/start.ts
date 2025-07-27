@@ -1,9 +1,9 @@
 import { execSync } from 'child_process'
 import { join } from 'path'
 import { accessFile, getCwd, judgeVersion, loadConfig } from 'ssr-common-utils'
-import { Argv } from 'ssr-types'
+// import type { Argv } from 'ssr-types'
 
-const start = async (argv: Argv) => {
+const start = async (argv: any) => {
 	const { cli } = require('@midwayjs/cli/bin/cli')
 	const cwd = getCwd()
 	const config = loadConfig()

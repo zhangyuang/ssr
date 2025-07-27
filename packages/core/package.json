@@ -1,6 +1,6 @@
 {
   "name": "ssr-core",
-  "version": "6.2.30",
+  "version": "7.0.1-beta.0",
   "description": "core for react/vue2/vue3 ssr deploy on serverless or tradtional web server",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
@@ -31,9 +31,10 @@
     "cheerio": "^1.0.0-rc.10",
     "ssr-serialize-javascript": "^6.0.0",
     "ssr-deepclone": "^1.0.0",
-    "ssr-common-utils": "^6.2.10"
+    "ssr-common-utils": "workspace:*"
   },
   "devDependencies": {
-    "ssr-types": "^6.0.0"
+    "ssr-types": "workspace:*",
+    "ssr-vite": "workspace:*"
   }
 }

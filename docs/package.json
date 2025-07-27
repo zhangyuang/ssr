@@ -36,7 +36,7 @@
     "ssr-plugin-midway": "^6.0.0",
     "ssr-plugin-vue3": "^6.0.0",
     "ssr-types": "^6.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.8.2"
   },
   "scripts": {
     "stop": "egg-scripts stop --title=midway-server-my_midway_project",

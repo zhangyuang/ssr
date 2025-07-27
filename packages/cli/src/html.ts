@@ -6,7 +6,7 @@ export const generateHtml = async () => {
 		return
 	}
 	// spa 模式下生成 html 文件直接部署
-	const { loadConfig, getCwd, judgeFramework, loadModuleFromFramework, logGreen, getAsyncJsChunk, logWarning, getAsyncCssChunk, splitPageInfo, getScriptArr, getStaticConfig } = await import('ssr-common-utils')
+	const { loadConfig, getCwd, judgeFramework, loadModuleFromCwd, loadModuleFromFramework, logGreen, getAsyncJsChunk, logWarning, getAsyncCssChunk, splitPageInfo, getScriptArr, getStaticConfig } = await import('ssr-common-utils')
 	logGreen('Generating html file...')
 	const cwd = getCwd()
 	const { customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix, clientPrefix, isVite, cssOrderPriority, jsOrderPriority, rootId } = loadConfig()
@@ -66,7 +66,7 @@ export const generateHtml = async () => {
 	])
 	if (framework === 'ssr-plugin-vue3') {
 		const { h, Fragment } = await import(loadModuleFromFramework('vue'))
-		const { renderToString } = await import('@vue/server-renderer')
+		const { renderToString } = await import(loadModuleFromCwd('@vue/server-renderer'))
 		for (const item of combine) {
 			const { arr, flag } = item
 			const scriptArr = arr.map((item) =>
@@ -87,7 +87,7 @@ export const generateHtml = async () => {
 	if (framework === 'ssr-plugin-vue') {
 		const { h } = await import(loadModuleFromFramework('vue'))
 		const Vue = await import(loadModuleFromFramework('vue'))
-		const { createRenderer } = await import('vue-server-renderer')
+		const { createRenderer } = await import(loadModuleFromCwd('vue-server-renderer'))
 		const { renderToString } = createRenderer()
 		for (const item of combine) {
 			const { arr, flag } = item
@@ -114,7 +114,7 @@ export const generateHtml = async () => {
 			}
 		}
 	}
-	if (framework === 'ssr-plugin-react' || framework === 'ssr-plugin-react18') {
+	if (framework === 'ssr-plugin-react') {
 		const { createElement: h, Fragment } = await import(loadModuleFromFramework('react'))
 		const { renderToString } = await import(loadModuleFromFramework('react-dom/server'))
 		for (const item of combine) {

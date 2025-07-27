@@ -1,11 +1,11 @@
 import { promises as fs } from 'fs'
 import { join } from 'path'
 import { accessFile, getCwd, isFaaS, judgeVersion, logGreen } from 'ssr-common-utils'
-import { Argv } from 'ssr-types'
+// import type { Argv } from 'ssr-types'
 
 const cwd = getCwd()
 
-const deploy = async (argv: Argv) => {
+const deploy = async (argv: any) => {
 	if (!(await isFaaS())) {
 		logGreen('f.yml is not found, create default template')
 		let ymlContent: Buffer

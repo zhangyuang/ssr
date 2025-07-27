@@ -15,6 +15,8 @@ if (args.a || args.all) {
   path = './packages'
 }
 
-execa('pnpm', ['--filter', path, 'watch', '--parallel'], {
+
+
+execa('pnpm', ['-r', '--filter', path, 'watch'], {
   stdio: 'inherit'
 })
