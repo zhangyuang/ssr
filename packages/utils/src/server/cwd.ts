@@ -326,12 +326,16 @@ export const loadModuleFromCwd = (path: string) => {
 
 export const loadModuleFromWebpack = (path: string) => {
 	const cwd = getCwd()
-	return resolve(cwd, `./node_modules/ssr-webpack/node_modules/${path}`)
+	return require.resolve(path, {
+		paths: [resolve(cwd, './node_modules/ssr-webpack')]
+	})
 }
 
 export const loadModuleFromVite = (path: string) => {
 	const cwd = getCwd()
-	return resolve(cwd, `./node_modules/ssr-vite/node_modules/${path}`)
+	return require.resolve(path, {
+		paths: [resolve(cwd, './node_modules/ssr-vite')]
+	})
 }
 
 const processError = (err: any) => {
