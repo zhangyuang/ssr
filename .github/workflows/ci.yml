@@ -43,7 +43,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Lint
         run: pnpm lint
 
@@ -156,7 +156,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
 
       - name: Build packages
         run: |
@@ -206,7 +206,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
 
       - name: Build packages
         run: |
@@ -257,7 +257,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
             pnpm build
@@ -309,7 +309,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
             pnpm build
@@ -359,7 +359,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -409,7 +409,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -459,7 +459,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -508,7 +508,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -559,7 +559,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -610,7 +610,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -659,7 +659,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -709,7 +709,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -757,7 +757,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
            pnpm build
@@ -807,7 +807,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -856,7 +856,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -908,7 +908,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -958,7 +958,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -1028,7 +1028,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && npx cypress install
       - name: Build packages
         run: |
           pnpm build
