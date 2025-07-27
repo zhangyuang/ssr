@@ -153,6 +153,7 @@ export async function publishPackage (
       pkg.dependencies[key] = '^7.0.0'
     }
   })
+  writeFileSync(resolve(pkdDir, './package.json'), JSON.stringify(pkg, null, 2) + '\n')
   cp(resolve(process.cwd(), './README.md'), resolve(pkdDir, './README.md'))
   await runIfNotDry('npm', publicArgs, {
     cwd: pkdDir
