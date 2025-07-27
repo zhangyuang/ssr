@@ -26,7 +26,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.pnpm-store
+              ~/Library/pnpm/store
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
@@ -88,7 +88,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -105,7 +105,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && ls /home/runner/.cache
+          pnpm i --no-frozen-lockfile && ls /home/runner/.cache && echo success
 
       - name: Build packages
         run: |
@@ -139,7 +139,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -191,7 +191,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -241,7 +241,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -293,7 +293,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -344,7 +344,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -394,7 +394,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -444,7 +444,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -493,7 +493,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -544,7 +544,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -595,7 +595,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
               /Users/runner/Library/Caches/Cypress
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -645,7 +645,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
               /Users/runner/Library/Caches/Cypress
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -696,7 +696,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
               /Users/runner/Library/Caches/Cypress
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -746,7 +746,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
               /Users/runner/Library/Caches/Cypress
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -796,7 +796,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
               /Users/runner/Library/Caches/Cypress
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -846,7 +846,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -898,7 +898,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -948,7 +948,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -1018,7 +1018,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.pnpm-store
+              ~/Library/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
