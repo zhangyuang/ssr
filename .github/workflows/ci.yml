@@ -105,7 +105,7 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile
+          pnpm i --no-frozen-lockfile && ls /home/runner/.cache
 
       - name: Build packages
         run: |
