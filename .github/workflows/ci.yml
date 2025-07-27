@@ -27,9 +27,6 @@ jobs:
         with:
           path: |
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
-              .eslintcache
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
               ${{ runner.os }}-v1.0.0-
@@ -91,10 +88,7 @@ jobs:
         with:
           path: |
               /home/runner/.cache/Cypress
-              ~/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -118,8 +112,7 @@ jobs:
           pnpm build
 
       - uses: cypress-io/github-action@v6
-        # env:
-        #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
+        
         with:
           install: false
           start: pnpm example:midway:react
@@ -145,10 +138,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -199,10 +190,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -251,10 +240,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -305,10 +292,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -358,11 +343,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
-              C:\Users\runneradmin\.cache
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -411,10 +393,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -463,10 +443,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -514,10 +492,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -567,10 +543,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -620,10 +594,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -648,8 +620,7 @@ jobs:
 
 
       - uses: cypress-io/github-action@v6
-        # env:
-        #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
+        
         with:
           install: false
           start: pnpm example:midway:react:vite
@@ -673,10 +644,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -701,8 +670,7 @@ jobs:
 
 
       - uses: cypress-io/github-action@v6
-        # env:
-        #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
+        
         with:
           install: false
           start: pnpm example:midway:vue3:vite
@@ -727,10 +695,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -755,8 +721,7 @@ jobs:
 
 
       - uses: cypress-io/github-action@v6
-        # env:
-        #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
+        
         with:
           install: false
           start: pnpm example:nestjs:react18:vite
@@ -780,10 +745,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -806,8 +769,7 @@ jobs:
            pnpm build
 
       - uses: cypress-io/github-action@v6
-        # env:
-        #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
+        
         with:
           install: false
           start: pnpm example:nestjs:vue3:pinia
@@ -833,10 +795,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
               /Users/runner/Library/Caches/Cypress
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -860,8 +820,7 @@ jobs:
           pnpm build
 
       - uses: cypress-io/github-action@v6
-        # env:
-        #     CYPRESS_CACHE_FOLDER: /Users/runner/Library/Caches/Cypress
+        
         with:
           install: false
           start: pnpm example:midway:vue3
@@ -886,10 +845,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -940,10 +897,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -992,10 +947,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
@@ -1064,10 +1017,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-              ~/.cache/Cypress
+              /home/runner/.cache/Cypress
               ~/.pnpm-store
-              ~/Library/pnpm/store
-              ~/AppData/Local/pnpm/store
 
           key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
