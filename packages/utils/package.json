@@ -7,7 +7,7 @@
   "module": "./esm/server/index.js",
   "exports": {
     "node": {
-      "import": "./esm/server/index.js",
+      "import": "./cjs/server/index.js",
       "require": "./cjs/server/index.js"
     },
     "default": {
@@ -62,6 +62,7 @@
     "pinia": "^2.0.13",
     "ssr-types": "workspace:*",
     "vue": "^3.0.0",
-    "webpack-chain": "^6.4.0"
+    "webpack-chain": "^6.4.0",
+    "vite": "npm:rolldown-vite@latest"
   }
 }

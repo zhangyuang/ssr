@@ -15,7 +15,6 @@
     "ssr-common-utils": "^7.0.0",
     "ssr-core": "^7.0.0",
     "ssr-hoc-vue3": "^7.0.0",
-    "swiper": "6.7.5",
     "vue": "^3.0.0",
     "vue-router": "^4.2.4",
     "vuex": "^4.0.0"

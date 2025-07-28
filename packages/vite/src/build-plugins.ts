@@ -3,11 +3,11 @@ import { promises } from 'fs'
 import { isAbsolute, resolve } from 'path'
 import { parse as parseImports } from 'es-module-lexer'
 import MagicString from 'magic-string'
-import type { OutputOptions, PluginContext, PreRenderedChunk, LoadResult } from 'rollup'
 import { mkdir } from 'shelljs'
-import type { Plugin, UserConfig } from 'vite'
-import { getBuildConfig, defaultExternal } from 'ssr-common-utils'
-import { getDependencies, getPkgName, accessFile, cryptoAsyncChunkName, debounce, getCwd, ssrDebug, loadConfig, logErr, getOutputPublicPath } from 'ssr-common-utils'
+import type { Plugin, UserConfig, LogType } from 'vite'
+import type { OutputOptions, PluginContext, PreRenderedChunk, LoadResult } from 'rolldown'
+import { getBuildConfig } from 'ssr-common-utils'
+import { getDependencies, getPkgName, accessFile, cryptoAsyncChunkName, debounce, getCwd, ssrDebug, loadConfig, logErr, getOutputPublicPath, defaultExternal, judgeFramework } from 'ssr-common-utils'
 
 const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
 const chunkNameRe = /chunkName=(.*)/
@@ -168,7 +168,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 			// after the first layer file can be located in which chunkName
 			// confirm all children dependence belong to which chunkName
 			Object.keys(dependenciesMap).forEach((item) => {
-				const id = !isAbsolute(item) ? filePathMap[item] : item
+				const id = !isAbsolute(item) && filePathMap[item] ? filePathMap[item] : item
 				findChildren(id, this.getModuleInfo)
 			})
 			Object.keys(dependenciesMap).forEach((item) => {
@@ -260,11 +260,13 @@ const rollupOutputOptions: () => OutputOptions = () => {
 			return buildConfig.viteEntryChunk
 		},
 		chunkFileNames: buildConfig.jsBuldConfig.chunkFileName,
-		assetFileNames: (assetInfo) => {
-			if (assetInfo.name?.includes('client-entry')) {
+		assetFileNames: (chunkInfo) => {
+			const { originalFileNames } = chunkInfo
+			const name = originalFileNames[0]
+			if (name?.includes('client-entry')) {
 				return buildConfig.viteClientEntryChunk
 			}
-			if (assetInfo.name && (imageRegExp.test(assetInfo.name) || fontRegExp.test(assetInfo.name))) {
+			if (name && (imageRegExp.test(name) || fontRegExp.test(name))) {
 				return buildConfig.viteImageChunk
 			}
 			return buildConfig.viteAssetChunk
@@ -301,20 +303,21 @@ const manualChunksFn = (id: string) => {
 		}
 	}
 }
-
-type SSR = 'ssr'
-const commonConfig = (): UserConfig => {
-	const { whiteList, alias, css, hmr, viteConfig, optimize } = loadConfig()
+const commonConfig = (_env: 'server' | 'client'): UserConfig => {
+	const { whiteList, alias, css, viteConfig, optimize, hmr, isDev } = loadConfig()
+	const framework = judgeFramework()
+	const isProdBuildingModeAndIsClient = _env === 'client' && framework === 'ssr-plugin-react' && !isDev
 	const lessOptions = css?.().loaderOptions?.less?.lessOptions ? css?.().loaderOptions?.less?.lessOptions : css?.().loaderOptions?.less
 	return {
 		root: cwd,
 		mode: process.env.VITEMODE ?? 'development',
-		...(optimize ? { logLevel: 'slient' } : {}),
+		...(optimize ? { logLevel: 'slient' as LogType } : {}),
 		server: {
-			middlewareMode: 'ssr' as SSR,
+			middlewareMode: true,
 			hmr,
 			...viteConfig?.().common?.server
 		},
+		appType: 'custom',
 		css: {
 			postcss: css?.().loaderOptions?.postcss ?? {},
 			preprocessorOptions: {
@@ -325,13 +328,19 @@ const commonConfig = (): UserConfig => {
 				scss: css?.().loaderOptions?.scss ?? {}
 			}
 		},
-		// @ts-expect-error
 		ssr: {
 			external: defaultExternal.concat(viteConfig?.()?.server?.externals ?? []),
 			noExternal: whiteList
 		},
 		resolve: {
-			alias: alias,
+			alias: {
+				...alias,
+				...(isProdBuildingModeAndIsClient
+					? {
+							valtio: resolve(cwd, './node_modules/valtio')
+						}
+					: {})
+			},
 			extensions: ['.mjs', '.ts', '.jsx', '.tsx', '.json', '.vue', '.js']
 		}
 	}

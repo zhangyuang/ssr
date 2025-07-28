@@ -22,30 +22,13 @@ const loadConfig = (): IConfig => {
 			__VUE_PROD_HYDRATION_MISMATCH_DETAILS__: process.env.NODE_ENV === 'development' ? 'true' : 'false'
 		}
 	}
-	const alias = Object.assign(
-		{
-			'@': getFeDir(),
-			'~': getCwd(),
-			'~/src': join(cwd, './src'),
-			_build: join(cwd, './build')
-		},
-		framework === 'ssr-plugin-react'
-			? {
-					react: join(cwd, './node_modules/react'),
-					'react-dom': join(cwd, './node_modules/react-dom'),
-					'react-router-dom': join(cwd, './node_modules/react-router-dom')
-				}
-			: {
-					vue$: framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
-				},
-		userConfig.alias
-	)
-	if (isReact18()) {
-		alias['react-dom/client'] = join(cwd, './node_modules/react-dom/client')
+	const alias: Record<string, string> = {
+		'@': getFeDir(),
+		'~': getCwd(),
+		'~/src': join(cwd, './src'),
+		_build: join(cwd, './build')
 	}
-	if (framework === 'ssr-plugin-vue3') {
-		alias['@vue/server-renderer'] = '@vue/server-renderer/index.js'
-	}
+
 	type ClientLogLevel = 'error'
 	const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPath(userConfig.publicPath ?? '/')
 
@@ -79,7 +62,7 @@ const loadConfig = (): IConfig => {
 	const useHash = !isDev // 生产环境默认生成hash
 	const defaultWhiteList: Array<RegExp | string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/, /\.(vue)$/]
 	const whiteList: Array<RegExp | string> = defaultWhiteList.concat(userConfig.whiteList ?? [])
-	const jsOrder = isVite ? [`${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', 'common-vendor.js', 'layout-app~vendor.js', `${chunkName}.js`, 'layout-app.js']
+	const jsOrder = isVite ? [`rolldown-runtime.js`, `${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', 'common-vendor.js', 'layout-app~vendor.js', `${chunkName}.js`, 'layout-app.js']
 
 	const cssOrder = ['vendor.css', 'common-vendor.css', 'layout-app~vendor.css', `${chunkName}.css`, 'layout-app.css']
 
@@ -212,7 +195,22 @@ const loadConfig = (): IConfig => {
 		serverOutPut: join(cwd, './build/server')
 	})
 	config.assetsDir = assetsDir
+
 	if (!config.isVite) {
+		// only set alias in webpack mode
+		if (framework === 'ssr-plugin-react') {
+			alias['react'] = join(cwd, './node_modules/react')
+			alias['react-dom'] = join(cwd, './node_modules/react-dom')
+			alias['react-router-dom'] = join(cwd, './node_modules/react-router-dom')
+		} else {
+			alias['vue$'] = framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
+		}
+		if (isReact18()) {
+			alias['react-dom/client'] = join(cwd, './node_modules/react-dom/client')
+		}
+		if (framework === 'ssr-plugin-vue3') {
+			alias['@vue/server-renderer'] = '@vue/server-renderer/index.js'
+		}
 		alias['valtio'] = join(cwd, './node_modules/valtio')
 	}
 	config.alias = alias

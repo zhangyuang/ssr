@@ -1,6 +1,7 @@
 import prompts from 'prompts'
 import * as semver from 'semver'
 import * as colors from 'picocolors'
+import 'rolldown'
 import {
   args,
   getPackageInfo,

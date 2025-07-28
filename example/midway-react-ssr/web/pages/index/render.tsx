@@ -1,5 +1,4 @@
 import { SProps } from 'ssr-types'
-import Slider from '@/components/slider'
 import Rectangle from '@/components/rectangle'
 import Search from '@/components/search'
 import { IData } from '~/typings/data'
@@ -12,7 +11,6 @@ export default function Index(props: SProps) {
 			<Search></Search>
 			{state?.indexData?.data?.[0]?.components ? (
 				<div>
-					<Slider {...props} data={state.indexData.data[0].components} />
 					<Rectangle {...props} data={state.indexData.data[1].components} />
 				</div>
 			) : (

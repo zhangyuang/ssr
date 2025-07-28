@@ -76,7 +76,8 @@
     "prompts": "^2.4.2",
     "semver": "^7.3.7",
     "shelljs": "^0.8.5",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.2",
+    "vite": "npm:rolldown-vite@latest"
   },
   "pnpm": {
     "overrides": {
@@ -92,7 +93,8 @@
       "ssr-plugin-vue3": "workspace:*",
       "ssr-types": "workspace:*",
       "ssr-vite": "workspace:*",
-      "ssr-webpack": "workspace:*"
+      "ssr-webpack": "workspace:*",
+      "vite": "npm:rolldown-vite@latest"
     },
     "dedupeInjectedDeps": true,
     "packageExtensions": {

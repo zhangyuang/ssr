@@ -2,7 +2,6 @@
   <div>
     <Search />
     <template v-if="indexData">
-      <Slider :data="indexData[0].components" />
       <Rectangle :data="indexData[1].components" />
     </template>
     <template v-else>
@@ -13,7 +12,6 @@
 
 <script lang="ts" setup>
 import { useIndexStore } from '@/pinia-store'
-import Slider from '@/components/slider/index.vue'
 import Rectangle from '@/components/rectangle/index.vue'
 import Search from '@/components/search/index.vue'
 

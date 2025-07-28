@@ -1,5 +1,5 @@
 import type { babel as Babel } from '@rollup/plugin-babel'
-import type { Plugin } from 'rollup'
+import type { Plugin } from 'rolldown'
 import { loadConfig } from 'ssr-common-utils'
 
 export const getBabelOptions = ({

@@ -3,10 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@nestjs/common": "^10.2.7",
-    "@nestjs/core": "^10.2.7",
-    "@nestjs/platform-express": "^10.2.7",
-
+    "@nestjs/common": "^11.0.0",
+    "@nestjs/core": "^11.0.0",
+    "@nestjs/platform-express": "^11.0.0",
     "reflect-metadata": "^0.1.13",
     "ssr-common-utils": "^7.0.0",
     "ssr-core": "^7.0.0",
@@ -19,7 +18,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@nestjs/cli": "^10.1.18",
+    "@nestjs/cli": "^11.0.0",
     "ssr": "^7.0.0",
     "ssr-plugin-nestjs": "^7.0.0",
     "ssr-plugin-vue": "^7.0.0",

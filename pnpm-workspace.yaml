@@ -1,6 +1,6 @@
 packages:
   - packages/*
-  - 'example/*'
+  - example/*
   # - 'packages/plugin-react'
   # - 'packages/plugin-vue'
   # - packages/plugin-vue3
