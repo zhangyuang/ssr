@@ -2,7 +2,7 @@ import { judgeFramework } from './cwd'
 import { loadConfig } from './loadConfig'
 
 export const getBuildConfig = () => {
-	const { useHash, assetsDir, isVite } = loadConfig()
+	const { useHash, assetsDir, isVite, chunkName } = loadConfig()
 	const output = {
 		chunkFileName: useHash ? `${assetsDir}/[name].[contenthash:8].chunk.js` : `${assetsDir}/[name].chunk.js`,
 		fileName: useHash ? `${assetsDir}/[name].[contenthash:8].js` : `${assetsDir}/[name].js`,
@@ -15,8 +15,7 @@ export const getBuildConfig = () => {
 			fileName: isVite ? `${assetsDir}/[name].[hash].chunk.js` : output.fileName,
 			chunkFileName: isVite ? `${assetsDir}/[name].[hash].chunk.js` : output.chunkFileName
 		},
-		viteEntryChunk: `${assetsDir}/Page.[hash].chunk.js`,
-		viteClientEntryChunk: `${assetsDir}/Page.[hash].chunk.[ext]`,
+		viteEntryChunk: `${assetsDir}/${chunkName}.[hash].chunk.js`,
 		viteAssetChunk: `${assetsDir}/[name].[hash].chunk.[ext]`,
 		cssBuildConfig: [
 			{

@@ -1,7 +1,7 @@
 import type * as VuePlugin from '@vitejs/plugin-vue/dist'
 import type * as VueJSXPlugin from '@vitejs/plugin-vue-jsx/dist'
-// import type * as ReactPlugin from '@vitejs/plugin-react-oxc'
-import type * as ReactPlugin from '@vitejs/plugin-react'
+import type * as ReactOXCPlugin from '@vitejs/plugin-react-oxc'
+// import type * as ReactPlugin from '@vitejs/plugin-react'
 import { resolve } from 'path'
 import babel from '@rollup/plugin-babel'
 import { visualizer } from 'rollup-plugin-visualizer'
@@ -19,19 +19,20 @@ const hasReactIs = accessFileSync(resolve(getCwd(), './node_modules/react-is'))
 const extraInclude = [''].concat(isReact ? ['react', 'ssr-deepclone', 'valtio', isReact18() ? 'react-dom/client' : 'react-dom', 'react-router', 'react-router-dom', hasReactIs ? 'react-is' : ''] : []).filter(Boolean)
 const extraExclude = ['ssr-hoc-react', 'ssr-common-utils']
 
-const { getOutput, viteConfig, supportOptinalChaining, isDev, define, optimize, babelOptions, chunkName, whiteList } = loadConfig()
+const { getOutput, viteConfig, supportOptinalChaining, isDev, define, optimize, chunkName, whiteList } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
 let vuePlugin: typeof VuePlugin.default | undefined
 let vueJSXPlugin: typeof VueJSXPlugin.default | undefined
-let reactPlugin: typeof ReactPlugin.default | undefined
-
+// let reactPlugin: typeof ReactPlugin.default | undefined
+let reactOXCPlugin: typeof ReactOXCPlugin.default | undefined
 if (isVue3) {
 	vuePlugin = require(loadModuleFromFramework('@vitejs/plugin-vue'))
 	vueJSXPlugin = require(loadModuleFromFramework('@vitejs/plugin-vue-jsx'))
 }
 if (isReact) {
-	reactPlugin = require(loadModuleFromFramework('@vitejs/plugin-react'))
+	// reactPlugin = require(loadModuleFromFramework('@vitejs/plugin-react'))
+	reactOXCPlugin = require(loadModuleFromFramework('@vitejs/plugin-react-oxc')).default
 }
 const styleImportConfig = {
 	include: ['**/*.vue', '**/*.ts', '**/*.js', '**/*.tsx', '**/*.jsx', /chunkName/],
@@ -57,10 +58,13 @@ if (isVue3) {
 	)
 } else if (isReact) {
 	frameworkServerPlugins = frameworkServerPlugins.concat(
-		reactPlugin!({
-			...viteConfig?.()?.server?.defaultPluginOptions,
-			jsxRuntime: 'automatic',
-			...babelOptions
+		// reactPlugin!({
+		// 	...viteConfig?.()?.server?.defaultPluginOptions,
+		// 	jsxRuntime: 'automatic',
+		// 	...babelOptions
+		// })
+		reactOXCPlugin!({
+			...viteConfig?.()?.server?.defaultPluginOptions
 		})
 	)
 }
@@ -86,8 +90,7 @@ export const serverConfig: InlineConfig = {
 			...viteConfig?.().server?.otherConfig?.build?.rollupOptions,
 			input: isDev ? clientEntry : serverEntry, // setting prebundle list by client-entry in dev
 			output: {
-				entryFileNames: `${chunkName}.server.js`,
-				assetFileNames: rollupOutputOptions().assetFileNames
+				entryFileNames: `${chunkName}.server.js`
 			}
 		}
 	},
@@ -106,10 +109,13 @@ if (isVue3) {
 	frameworkClientPlugins = [vuePlugin!(viteConfig?.()?.client?.defaultPluginOptions), vueJSXPlugin!()]
 } else if (isReact) {
 	frameworkClientPlugins = [
-		reactPlugin!({
-			...viteConfig?.()?.client?.defaultPluginOptions,
-			jsxRuntime: 'automatic',
-			...babelOptions
+		// reactPlugin!({
+		// 	...viteConfig?.()?.client?.defaultPluginOptions,
+		// 	jsxRuntime: 'automatic',
+		// 	...babelOptions
+		// })
+		reactOXCPlugin!({
+			...viteConfig?.()?.client?.defaultPluginOptions
 		})
 	]
 }
@@ -174,6 +180,6 @@ export const start = async () => {
 }
 
 export const build = async () => {
-	await viteBuild({ ...clientConfig, mode: 'production' })
+	await viteBuild({ ...clientConfig, mode: process.env.VITEMODE ?? 'production' })
 	await viteBuild({ ...serverConfig, mode: process.env.VITEMODE ?? 'production' })
 }

@@ -6,7 +6,7 @@ import MagicString from 'magic-string'
 import { mkdir } from 'shelljs'
 import type { Plugin, UserConfig, LogType } from 'vite'
 import type { OutputOptions, PluginContext, PreRenderedChunk, LoadResult } from 'rolldown'
-import { getBuildConfig } from 'ssr-common-utils'
+import { getBuildConfig, addDefaultAlias } from 'ssr-common-utils'
 import { getDependencies, getPkgName, accessFile, cryptoAsyncChunkName, debounce, getCwd, ssrDebug, loadConfig, logErr, getOutputPublicPath, defaultExternal, judgeFramework } from 'ssr-common-utils'
 
 const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
@@ -55,17 +55,13 @@ const chunkNamePlugin = function (): Plugin {
 					const { s: start, e: end, se: statementEnd } = imports[index]
 					const rawUrl = source.slice(start, end)
 					const chunkName = webpackCommentRegExp.exec(rawUrl)?.[1]
-					if (!rawUrl.includes('render')) {
-						if (rawUrl.includes('layout') || rawUrl.includes('App') || rawUrl.includes('store')) {
-							str = str.appendRight(statementEnd - 1, '?chunkName=Page')
-						} else if (chunkName) {
-							str = str.appendRight(statementEnd - 1, `?chunkName=${chunkName}`)
-						} else {
-							str = str.appendRight(statementEnd - 1, '?chunkName=Page')
-						}
-						continue
+					if (rawUrl.includes('layout') || rawUrl.includes('App') || rawUrl.includes('store')) {
+						str = str.appendRight(statementEnd - 1, '?chunkName=Page')
+					} else if (chunkName) {
+						str = str.appendRight(statementEnd - (rawUrl.includes('\n') ? 2 : 1), `?chunkName=${chunkName}`)
+					} else {
+						str = str.appendRight(statementEnd - 1, '?chunkName=Page')
 					}
-					str = str.appendRight(statementEnd - 1, `?chunkName=${chunkName}`)
 				}
 				return {
 					code: str.toString()
@@ -263,9 +259,6 @@ const rollupOutputOptions: () => OutputOptions = () => {
 		assetFileNames: (chunkInfo) => {
 			const { originalFileNames } = chunkInfo
 			const name = originalFileNames[0]
-			if (name?.includes('client-entry')) {
-				return buildConfig.viteClientEntryChunk
-			}
 			if (name && (imageRegExp.test(name) || fontRegExp.test(name))) {
 				return buildConfig.viteImageChunk
 			}
@@ -335,11 +328,7 @@ const commonConfig = (_env: 'server' | 'client'): UserConfig => {
 		resolve: {
 			alias: {
 				...alias,
-				...(isProdBuildingModeAndIsClient
-					? {
-							valtio: resolve(cwd, './node_modules/valtio')
-						}
-					: {})
+				...(isProdBuildingModeAndIsClient ? addDefaultAlias({}) : {})
 			},
 			extensions: ['.mjs', '.ts', '.jsx', '.tsx', '.json', '.vue', '.js']
 		}

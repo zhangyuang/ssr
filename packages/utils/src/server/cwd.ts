@@ -282,7 +282,25 @@ export const isReact18 = () => {
 	const packageJSON = require(resolve(cwd, './package.json'))
 	return packageJSON.dependencies.react && coerce(packageJSON.dependencies.react)?.major === 18
 }
-
+export const addDefaultAlias = (alias: Record<string, string>) => {
+	const cwd = getCwd()
+	const framework = judgeFramework()
+	if (framework === 'ssr-plugin-react') {
+		alias['react'] = resolve(cwd, './node_modules/react')
+		alias['react-dom'] = resolve(cwd, './node_modules/react-dom')
+		alias['react-router-dom'] = resolve(cwd, './node_modules/react-router-dom')
+	} else {
+		alias['vue$'] = framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
+	}
+	if (isReact18()) {
+		alias['react-dom/client'] = resolve(cwd, './node_modules/react-dom/client')
+	}
+	if (framework === 'ssr-plugin-vue3') {
+		alias['@vue/server-renderer'] = '@vue/server-renderer/index.js'
+	}
+	alias['valtio'] = resolve(cwd, './node_modules/valtio')
+	return alias
+}
 const judgeVersion = (version: string) => {
 	return coerce(version)
 }

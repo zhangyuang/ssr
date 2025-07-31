@@ -2,7 +2,7 @@ import { join } from 'path'
 import { SemVer, coerce } from 'semver'
 import { IConfig, UserConfig } from 'ssr-types'
 import { normalizeEndPath, normalizeStartPath } from '../common'
-import { accessFileSync, checkModuleExist, getCwd, getFeDir, isReact18, getUserConfig, judgeFramework, loadModuleFromFramework, stringifyDefine } from './cwd'
+import { accessFileSync, checkModuleExist, getCwd, getFeDir, getUserConfig, addDefaultAlias, judgeFramework, loadModuleFromFramework, stringifyDefine } from './cwd'
 
 const loadConfig = (): IConfig => {
 	const cwd = getCwd()
@@ -197,21 +197,7 @@ const loadConfig = (): IConfig => {
 	config.assetsDir = assetsDir
 
 	if (!config.isVite) {
-		// only set alias in webpack mode
-		if (framework === 'ssr-plugin-react') {
-			alias['react'] = join(cwd, './node_modules/react')
-			alias['react-dom'] = join(cwd, './node_modules/react-dom')
-			alias['react-router-dom'] = join(cwd, './node_modules/react-router-dom')
-		} else {
-			alias['vue$'] = framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
-		}
-		if (isReact18()) {
-			alias['react-dom/client'] = join(cwd, './node_modules/react-dom/client')
-		}
-		if (framework === 'ssr-plugin-vue3') {
-			alias['@vue/server-renderer'] = '@vue/server-renderer/index.js'
-		}
-		alias['valtio'] = join(cwd, './node_modules/valtio')
+		addDefaultAlias(alias)
 	}
 	config.alias = alias
 	config.prefix = normalizeStartPath(config.prefix ?? '/')

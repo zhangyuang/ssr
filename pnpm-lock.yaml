@@ -22,7 +22,7 @@ overrides:
 
 packageExtensionsChecksum: sha256-ejsITzwqSGgfPJMaJgeFwENu9WLRO9iHJw10m60sCqc=
 
-pnpmfileChecksum: sha256-8T02uLMeKnb7Xn1Nwy621K4vyoWjveYPQHmbCxyYs50=
+pnpmfileChecksum: sha256-ysETAfTqB+8mHnbpyE4NlBF6xFdOV8W3i9uodv8PacU=
 
 importers:
 
@@ -7872,12 +7872,12 @@ packages:
   react-dom@17.0.2:
     resolution: {integrity: sha512-s4h96KtLDUQlsENhMn1ar8t2bEa+q/YAtj8pPPdIjPDGBDIVNsrD9aXNWqspUe6AzKCIG0C1HZZLqLV7qpOBGA==}
     peerDependencies:
-      react: 17.0.2
+      react: ^17.0.0
 
   react-dom@18.3.1:
     resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
     peerDependencies:
-      react: ^18.3.1
+      react: ^17.0.0
 
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
