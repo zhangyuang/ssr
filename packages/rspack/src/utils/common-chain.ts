@@ -1,15 +1,12 @@
-// import type { PluginItem } from 'ssr-types'
-// import type { Module, Rule } from 'rspack-chain'
 import type { Compiler } from '@rspack/core'
 import type * as RspackChain from 'rspack-chain'
 import { promises } from 'fs'
 import { resolve } from 'path'
 import { rspack } from '@rspack/core'
-import { asyncChunkMap, getCwd, getPkgMajorVersion, loadConfig, logWarning, getImageOutputPath, nameSpaceBuiltinModules, getBuildConfig, getDefineEnv } from 'ssr-common-utils'
+import { asyncChunkMap, getCwd, getPkgMajorVersion, loadConfig, logWarning, getBuildConfig, getDefineEnv } from 'ssr-common-utils'
 import { nodeExternals } from './externals'
 import { setStyle } from './setStyle'
 
-// const MiniCssExtractPlugin = require(loadModuleFromRspack('ssr-mini-css-extract-plugin'))
 const WebpackBar = require('webpackbar')
 
 const [antdVersion] = [getPkgMajorVersion('antd'), getPkgMajorVersion('vant')]
@@ -18,8 +15,7 @@ if (antdVersion === 5) {
 }
 
 const addCommonChain = (chain: RspackChain, isServer: boolean) => {
-	const { assetsDir, optimize, cwd, whiteList, define, defaultBrowserTarget } = loadConfig()
-	const { publicPath, imagePath } = getImageOutputPath()
+	const { optimize, cwd, whiteList, define, defaultBrowserTarget, isDev } = loadConfig()
 
 	if (process.env.NOMINIFY) {
 		chain.optimization.minimize(false)
@@ -46,13 +42,21 @@ const addCommonChain = (chain: RspackChain, isServer: boolean) => {
 	chain.module.rule('mjs').test(/\.mjs/).type('javascript/auto').end()
 	chain.module
 		.rule('js')
-		.test(/\.(js|ts)$/)
+		.test(/\.(jsx?|tsx?)$/)
 		.use('swc-loader')
 		.loader('builtin:swc-loader')
 		.options({
 			jsc: {
 				parser: {
-					syntax: 'typescript'
+					syntax: 'typescript',
+					tsx: true
+				},
+				transform: {
+					react: {
+						runtime: 'automatic',
+						development: isDev,
+						refresh: isDev && !isServer
+					}
 				}
 			},
 			env: { targets: defaultBrowserTarget }
@@ -85,7 +89,7 @@ const addCommonChain = (chain: RspackChain, isServer: boolean) => {
 		isServer
 	})
 
-	// chain.plugin('minify-css').use(MiniCssExtractPlugin, getBuildConfig().cssBuildConfig)
+	chain.plugin('minify-css').use(rspack.CssExtractRspackPlugin, [getBuildConfig().cssBuildConfig[0]])
 
 	chain.plugin('webpackBar').use(
 		new WebpackBar({
@@ -106,10 +110,6 @@ const addCommonChain = (chain: RspackChain, isServer: boolean) => {
 	])
 
 	if (!isServer) {
-		nameSpaceBuiltinModules.forEach((moduleName) => {
-			chain.node.set(moduleName, 'empty')
-		})
-
 		chain.when(generateAnalysis, (chain) => {
 			chain.plugin('analyze').use(BundleAnalyzerPlugin)
 		})

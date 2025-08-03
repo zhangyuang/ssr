@@ -1,7 +1,7 @@
 import { resolve } from 'path'
 import { loadConfig, getCwd } from 'ssr-common-utils'
 
-const { isVite, optimize, isRspack } = loadConfig()
+const { tool, optimize } = loadConfig()
 const spinner = require('ora')('Building')
 
 export function clientPlugin() {
@@ -12,7 +12,7 @@ export function clientPlugin() {
 	return {
 		name: 'plugin-vue3',
 		start: async () => {
-			if (isVite) {
+			if (tool === 'vite') {
 				const { start } = await import(vitePath)
 				await start()
 			} else {
@@ -23,7 +23,7 @@ export function clientPlugin() {
 					process.env.NODE_ENV = 'development'
 					spinner.stop()
 				}
-				if (isRspack) {
+				if (tool === 'rspack') {
 					const { start } = await import(rspackPath)
 					await start()
 					return
@@ -33,7 +33,7 @@ export function clientPlugin() {
 			}
 		},
 		build: async () => {
-			if (isVite) {
+			if (tool === 'vite') {
 				const { build } = await import(vitePath)
 				await build()
 			} else {
@@ -43,9 +43,9 @@ export function clientPlugin() {
 					await build()
 					spinner.stop()
 				}
-				if (isRspack) {
-					const { start } = await import(rspackPath)
-					await start()
+				if (tool === 'rspack') {
+					const { build } = await import(rspackPath)
+					await build()
 					return
 				}
 				const { build } = await import(webpackPath)
@@ -54,5 +54,3 @@ export function clientPlugin() {
 		}
 	}
 }
-
-export * from './types'

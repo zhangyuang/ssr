@@ -23,7 +23,7 @@
     "ssr-plugin-nestjs": "^7.0.0",
     "ssr-plugin-vue": "^7.0.0",
     "ssr-webpack": "^7.0.0",
-    "ssr-types": "^7.0.0",
+    "ssr-rspack": "^7.0.0",
     "typescript": "^5.8.2"
   },
   "engines": {

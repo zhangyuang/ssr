@@ -1,9 +1,7 @@
 {
   "extends": "../../tsconfig.cjs.json",
   "compilerOptions": {
-    "outDir": "./cjs",
-    "noUnusedLocals": false,
-    "noUnusedParameters": false
+    "outDir": "./cjs"
   },
   "include": [
     "src"

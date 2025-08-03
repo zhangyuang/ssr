@@ -1,13 +1,14 @@
-import { asyncChunkMap, getBuildConfig, getOutputPublicPath, getSplitChunksOptions, loadConfig, loadModuleFromFramework, terserConfig, getBuildEntry } from 'ssr-common-utils'
+import { asyncChunkMap, getBuildConfig, getOutputPublicPath, loadConfig, getBuildEntry, judgeFramework } from 'ssr-common-utils'
 import type * as RspackChain from 'rspack-chain'
-
+import { SwcJsMinimizerRspackPlugin, LightningCssMinimizerRspackPlugin } from '@rspack/core'
+import { RspackManifestPlugin } from 'rspack-manifest-plugin'
+//@ts-ignore
+import { ReactRefreshRspackPlugin } from '@rspack/plugin-react-refresh'
+import { getSplitChunksOptions } from '../utils/split-chunk'
 import { getBaseConfig } from './base-config'
 
-const safePostCssParser = require('postcss-safe-parser')
-
-const getClientWebpack = (chain: RspackChain) => {
-	const { isDev, chunkName, getOutput, chainClientConfig, host, fePort } = loadConfig()
-	const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
+export const getClientRspack = (chain: RspackChain) => {
+	const { isDev, chunkName, getOutput, chainClientConfig, defaultBrowserTarget } = loadConfig()
 	const publicPath = getOutputPublicPath()
 
 	getBaseConfig(chain, false)
@@ -15,36 +16,27 @@ const getClientWebpack = (chain: RspackChain) => {
 	chain.entry(chunkName).add(getBuildEntry().client).end().output.path(getOutput().clientOutPut).filename(buildConfig.jsBuldConfig.fileName).chunkFilename(buildConfig.jsBuldConfig.chunkFileName).publicPath(publicPath).end()
 	chain.optimization
 		.runtimeChunk(true)
-		//@ts-expect-error
 		.splitChunks(getSplitChunksOptions(asyncChunkMap))
 		.when(!isDev, (optimization) => {
-			optimization.minimizer('terser').use('terser-webpack-plugin', [terserConfig(false)])
-			optimization.minimizer('optimize-css').use('optimize-css-assets-webpack-plugin', [
+			optimization.minimizer('swcMinimizer').use(SwcJsMinimizerRspackPlugin, [
 				{
-					cssProcessorOptions: {
-						parser: safePostCssParser,
-						map: shouldUseSourceMap
-							? {
-									inline: false,
-									annotation: true
-								}
-							: false
+					minimizerOptions: {
+						compress: {
+							keep_fnames: judgeFramework().includes('ssr-plugin-react')
+						},
+						mangle: {
+							keep_fnames: judgeFramework().includes('ssr-plugin-react')
+						}
 					}
 				}
 			])
+			optimization.minimizer('lightningCssMinimizer').use(LightningCssMinimizerRspackPlugin, [defaultBrowserTarget])
 		})
+		.end()
 	chain.when(isDev, (chain) => {
-		const ReactRefreshWebpackPlugin = require(loadModuleFromFramework('@pmmmwh/react-refresh-webpack-plugin'))
-		chain.plugin('fast-refresh').use(
-			new ReactRefreshWebpackPlugin({
-				overlay: {
-					sockHost: host,
-					sockPort: fePort
-				}
-			})
-		)
+		chain.plugin('fast-refresh').use(ReactRefreshRspackPlugin)
 	})
-	chain.plugin('manifest').use('webpack-manifest-plugin', [
+	chain.plugin('manifest').use(RspackManifestPlugin, [
 		{
 			fileName: 'asset-manifest.json'
 		}
@@ -54,5 +46,3 @@ const getClientWebpack = (chain: RspackChain) => {
 
 	return chain.toConfig()
 }
-
-export { getClientWebpack }

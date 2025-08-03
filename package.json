@@ -26,6 +26,8 @@
     "example:nestjs:react18": "EXAMPLE=nestjs-react18-ssr esno scripts/prelink.ts && cd example/nestjs-react18-ssr && npm start",
     "example:midway:react:dynamic:router": "EXAMPLE=react-dynamic-router-test esno scripts/prelink.ts && cd example/react-dynamic-router-test && npm start",
     "example:nestjs:react:prod:vite": "EXAMPLE=nestjs-react-ssr esno scripts/prelink.ts && cd example/nestjs-react-ssr && npm run prod:vite",
+    "example:nestjs:react:prod:rspack": "EXAMPLE=nestjs-react-ssr esno scripts/prelink.ts && cd example/nestjs-react-ssr && npm run prod:rspack",
+    "example:nestjs:react18:prod:rspack": "EXAMPLE=nestjs-react18-ssr esno scripts/prelink.ts && cd example/nestjs-react18-ssr && npm run prod:rspack",
     "example:midway:vue": "cd example/midway-vue-ssr && npm start",
     "example:midway:vue3": "cd example/midway-vue3-ssr && npm start",
     "example:midway:vue3:vite": "cd example/midway-vue3-ssr && npm run start:vite",
@@ -107,6 +109,11 @@
       "@vue/server-renderer": {
         "dependencies": {
           "vue": "^3.0.0"
+        }
+      },
+      "vue-loader": {
+        "peerDependencies": {
+          "webpack": "^5.0.0"
         }
       },
       "swiper@6": {

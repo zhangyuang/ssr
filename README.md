@@ -20,9 +20,10 @@
 </div>
 <br />
  
+
 ## 7.x 版本
 
-`ssr` 框架 `7.x` 版本正在紧密开发中，在 `7.x` 版本中我们将会同时支持 `Webpack`, `Rspack`, `Rollup-Vite` 三种构建工具来极大的加快构建性能。同时在使用方式上和 `6.x` 版本保持一致，用户可以无缝的从 `6.x` 版本迁移到 `7.x` 版本。
+`ssr` 框架 `7.x` 版本正在紧密开发中，在 `7.x` 版本中我们将会同时支持 `Webpack` , `Rspack` , `Rolldown-Vite` 三种构建工具来极大的加快构建性能。同时在使用方式上和 `6.x` 版本保持一致，用户可以无缝的从 `6.x` 版本迁移到 `7.x` 版本。
 
 同时在 `7.x` 版本我们设计精简了依赖项，开发者可以只安装当前使用的前端框架和构建工具的依赖项。未使用到的构建工具的相关依赖将不会被安装。
 
@@ -225,7 +226,7 @@ $ yarn # 建议使用 yarn, 也可以 npm install
 $ yarn start
 $ open http://localhost:3000 # 访问应用
 $ yarn build # 资源构建，等价于 npx ssr build
-$ yarn start:vite # 以 vite 模式启动，等价于 npx ssr start --vite
+$ yarn start:vite # 以 vite 模式启动，等价于 npx ssr start --tools vite
 ```
 
 ![](images/start-vite3.gif)

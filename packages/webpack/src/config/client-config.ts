@@ -1,5 +1,6 @@
-import { asyncChunkMap, getBuildConfig, getOutputPublicPath, getSplitChunksOptions, loadConfig, loadModuleFromFramework, terserConfig, getBuildEntry } from 'ssr-common-utils'
+import { asyncChunkMap, getBuildConfig, getOutputPublicPath, loadConfig, loadModuleFromFramework, terserConfig, getBuildEntry } from 'ssr-common-utils'
 import WebpackChain from 'webpack-chain'
+import { getSplitChunksOptions } from '../utils/split-chunk'
 
 import { getBaseConfig } from './base-config'
 

@@ -2,8 +2,8 @@ import type { PluginItem as BabelPluginItem } from '@babel/core'
 import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel'
 import type { Plugin as PostCssPlugin } from 'postcss'
 import type { CSSOptions, PluginOption, ServerOptions, UserConfig as ViteConfig } from 'vite'
-import type { Options, compilation } from 'webpack'
-import type { StatsOptions } from '@rspack/core'
+import type { Options } from 'webpack'
+import type { StatsOptions, DevServer } from '@rspack/core'
 import type WebpackChainConfig from 'webpack-chain'
 import type * as RspackChain from 'rspack-chain'
 import { ISSRContext } from './ctx'
@@ -11,11 +11,6 @@ import { Argv } from './yargs'
 
 // Instantiate the configuration with a new API
 export type PluginItem = BabelPluginItem
-export interface SSRModule extends compilation.Module {
-	resource?: string
-	dependencies?: Array<{ request: string }>
-	nameForCondition?: () => string
-}
 
 export interface PkgJson {
 	name: string
@@ -104,6 +99,7 @@ export interface IConfig {
 	clientPrefix?: string
 	mode: 'ssr' | 'csr'
 	webpackDevServerConfig?: any
+	rspackDevServerConfig?: DevServer
 	stream: boolean
 	bigpipe?: boolean
 	customeHeadScript?: ((ctx: ISSRContext) => Script) | Script
@@ -126,8 +122,8 @@ export interface IConfig {
 	nestStartTips?: string
 	manifestPath: string
 	proxyKey: string[]
+	tool?: 'webpack' | 'vite' | 'rspack'
 	isVite: boolean
-	isRspack: boolean
 	optimize: boolean
 	supportOptinalChaining: boolean
 	onError?: (e: any) => null | string

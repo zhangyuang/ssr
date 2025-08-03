@@ -1,6 +1,5 @@
 ## [7.0.1-beta.0](https://github.com/zhangyuang/ssr/compare/hoc-vue3@6.2.1...hoc-vue3@7.0.1-beta.0) (2025-07-26)
 
-
 ### Bug Fixes
 
 * add fePort https info in ssrDevInfo ([26c9287](https://github.com/zhangyuang/ssr/commit/26c92877c8aa1498a9c85a156c1f218a291dcc8b))
@@ -19,7 +18,6 @@
 * valtio single instance error ([0474b30](https://github.com/zhangyuang/ssr/commit/0474b302110adc755285fdcefe9d58757e1b200f))
 * webpack plugin call error ([ffc1729](https://github.com/zhangyuang/ssr/commit/ffc17292934aa7c89420daa07b809c7dbe3dbaa3))
 * webpack type skip ci ([30f00f9](https://github.com/zhangyuang/ssr/commit/30f00f908d8d30039de8fc45d1a638b470763ffd))
-
 
 ### Features
 
@@ -85,10 +83,7 @@
 * use source-map in dev mode ([8041c8d](https://github.com/zhangyuang/ssr/commit/8041c8da0dd0e01b5bc66fa8fa31ccd9fe03b7a5))
 * use SourceMapDevToolPlugin and BannerPlugin to generate inline-source-map comment for micro-app ([0a2821d](https://github.com/zhangyuang/ssr/commit/0a2821d1f61637772460facdb0852283f48a96cf))
 
-
-
 ## [6.2.2](https://github.com/zhangyuang/ssr/compare/hoc-vue3@6.2.1...hoc-vue3@6.2.2) (2024-10-23)
-
 
 ### Bug Fixes
 
@@ -104,7 +99,6 @@
 * set bc env ([bf2dbb5](https://github.com/zhangyuang/ssr/commit/bf2dbb50a4b72f56a85c80679eb06e024cb117d2))
 * valtio single instance error ([0474b30](https://github.com/zhangyuang/ssr/commit/0474b302110adc755285fdcefe9d58757e1b200f))
 * webpack plugin call error ([ffc1729](https://github.com/zhangyuang/ssr/commit/ffc17292934aa7c89420daa07b809c7dbe3dbaa3))
-
 
 ### Features
 
@@ -151,8 +145,6 @@
 * use loadModuleFromFramework load webpack in utils ([c9973b4](https://github.com/zhangyuang/ssr/commit/c9973b4528049b91a2bd8d454f504fdcc5ea6a9d))
 * use source-map in dev mode ([8041c8d](https://github.com/zhangyuang/ssr/commit/8041c8da0dd0e01b5bc66fa8fa31ccd9fe03b7a5))
 * use SourceMapDevToolPlugin and BannerPlugin to generate inline-source-map comment for micro-app ([0a2821d](https://github.com/zhangyuang/ssr/commit/0a2821d1f61637772460facdb0852283f48a96cf))
-
-
 
 ## <small>6.2.1 (2024-02-29)</small>
 
@@ -291,7 +283,7 @@
 * feat: render head script after fetch in vue3 ([edb2ac7](https://github.com/zhangyuang/ssr/commit/edb2ac7))
 * feat: replace esbuild transform to build ([6f37717](https://github.com/zhangyuang/ssr/commit/6f37717))
 * feat: rerender App.tsx when router change ([7df174e](https://github.com/zhangyuang/ssr/commit/7df174e))
-* feat: restore ssr build --vite --legacy ([b6eea72](https://github.com/zhangyuang/ssr/commit/b6eea72))
+* feat: restore ssr build --tools vite --legacy ([b6eea72](https://github.com/zhangyuang/ssr/commit/b6eea72))
 * feat: set argv.ssl for plugin-midway (#213) ([65c1cb9](https://github.com/zhangyuang/ssr/commit/65c1cb9)), closes [#213](https://github.com/zhangyuang/ssr/issues/213)
 * feat: set sockHost in webpack-dev server ([a5df84c](https://github.com/zhangyuang/ssr/commit/a5df84c))
 * feat: setStyle 优化 文档添加如何支持 Sass ([7dbfc5f](https://github.com/zhangyuang/ssr/commit/7dbfc5f))
@@ -326,7 +318,7 @@
 * feat: support element-plus ([e13fed8](https://github.com/zhangyuang/ssr/commit/e13fed8))
 * feat: support fastify close #245 (#246) ([d9c24c5](https://github.com/zhangyuang/ssr/commit/d9c24c5)), closes [#245](https://github.com/zhangyuang/ssr/issues/245) [#246](https://github.com/zhangyuang/ssr/issues/246)
 * feat: support htmlTemplate ([b240811](https://github.com/zhangyuang/ssr/commit/b240811))
-* feat: support inject process.env.XXX in bundle ([a403a28](https://github.com/zhangyuang/ssr/commit/a403a28))
+* feat: support inject process.env. XXX in bundle ([a403a28](https://github.com/zhangyuang/ssr/commit/a403a28))
 * feat: support jsOrderPriority🤔 cssOrderPriority🤔 ([9db9a7d](https://github.com/zhangyuang/ssr/commit/9db9a7d))
 * feat: support link preload ([9a6abf3](https://github.com/zhangyuang/ssr/commit/9a6abf3))
 * feat: support micro-app ([e91c2ee](https://github.com/zhangyuang/ssr/commit/e91c2ee))
@@ -350,7 +342,7 @@
 * feat: support ssr build --html in react/react18 close #317 ([7311f8e](https://github.com/zhangyuang/ssr/commit/7311f8e)), closes [#317](https://github.com/zhangyuang/ssr/issues/317)
 * feat: support ssr build --nominify ([fd0b274](https://github.com/zhangyuang/ssr/commit/fd0b274))
 * feat: support ssr build --sourcemap ([a6ba95e](https://github.com/zhangyuang/ssr/commit/a6ba95e))
-* feat: support ssr build --vite --legacy ([2f0afb0](https://github.com/zhangyuang/ssr/commit/2f0afb0))
+* feat: support ssr build --tools vite --legacy ([2f0afb0](https://github.com/zhangyuang/ssr/commit/2f0afb0))
 * feat: support static file import in vite production environment ([a7d6202](https://github.com/zhangyuang/ssr/commit/a7d6202))
 * feat: support staticConfigPath ([80a9411](https://github.com/zhangyuang/ssr/commit/80a9411))
 * feat: support throw error during rendering inside vue3 in production ([343a34f](https://github.com/zhangyuang/ssr/commit/343a34f))
@@ -625,7 +617,7 @@
 * fix: remove dependencies vue-template-compiler ([495c56c](https://github.com/zhangyuang/ssr/commit/495c56c))
 * fix: remove manifest info in production ([4d341e1](https://github.com/zhangyuang/ssr/commit/4d341e1))
 * fix: remove manifest plugin publicPath ([f4f3e0a](https://github.com/zhangyuang/ssr/commit/f4f3e0a))
-* fix: remove NodeJS.Global ([ee545d5](https://github.com/zhangyuang/ssr/commit/ee545d5))
+* fix: remove NodeJS. Global ([ee545d5](https://github.com/zhangyuang/ssr/commit/ee545d5))
 * fix: remove window.__VUE_APP__ ([95208e3](https://github.com/zhangyuang/ssr/commit/95208e3))
 * fix: remove writeEmitter ([77a5ac8](https://github.com/zhangyuang/ssr/commit/77a5ac8))
 * fix: rename mergeStream to mergeStream2 ([a51e097](https://github.com/zhangyuang/ssr/commit/a51e097))
@@ -788,9 +780,9 @@
 * release: cli@6.2.59 ([3610625](https://github.com/zhangyuang/ssr/commit/3610625))
 * release: cli@6.2.60 ([210a14e](https://github.com/zhangyuang/ssr/commit/210a14e))
 * release: cli@6.2.61 ([ff8e1da](https://github.com/zhangyuang/ssr/commit/ff8e1da))
-* release: cli@6.2.64,types@6.2.50 ([ae6952e](https://github.com/zhangyuang/ssr/commit/ae6952e))
+* release: cli@6.2.64, types@6.2.50 ([ae6952e](https://github.com/zhangyuang/ssr/commit/ae6952e))
 * release: cli@6.2.65 ([ee731c0](https://github.com/zhangyuang/ssr/commit/ee731c0))
-* release: cli@6.2.66,types@6.2.52,utils@6.2.113 ([56b389f](https://github.com/zhangyuang/ssr/commit/56b389f))
+* release: cli@6.2.66, types@6.2.52, utils@6.2.113 ([56b389f](https://github.com/zhangyuang/ssr/commit/56b389f))
 * release: cli@6.2.67 ([3f660a6](https://github.com/zhangyuang/ssr/commit/3f660a6))
 * release: client-utils@6.2.8 ([273e676](https://github.com/zhangyuang/ssr/commit/273e676))
 * release: client-utils@6.2.9 ([3202122](https://github.com/zhangyuang/ssr/commit/3202122))
@@ -910,10 +902,10 @@
 * release: plugin-react@6.2.65 ([b6d5066](https://github.com/zhangyuang/ssr/commit/b6d5066))
 * release: plugin-react@6.2.66 ([94613f7](https://github.com/zhangyuang/ssr/commit/94613f7))
 * release: plugin-react@6.2.67 ([2c727d6](https://github.com/zhangyuang/ssr/commit/2c727d6))
-* release: plugin-react@6.2.68,plugin-react18@6.2.68,plugin-vue@6.2.62,plugin-vue3@6.2.101,utils@6.2.1 ([0c328c6](https://github.com/zhangyuang/ssr/commit/0c328c6))
-* release: plugin-react@6.2.69,plugin-react18@6.2.69,types@6.2.51,utils@6.2.110 ([d4959b2](https://github.com/zhangyuang/ssr/commit/d4959b2))
-* release: plugin-react@6.2.70,plugin-react18@6.2.70,plugin-vue3@6.2.102,utils@6.2.116 ([1c27717](https://github.com/zhangyuang/ssr/commit/1c27717))
-* release: plugin-react@6.2.71,plugin-react18@6.2.71 ([cdbbeae](https://github.com/zhangyuang/ssr/commit/cdbbeae))
+* release: plugin-react@6.2.68, plugin-react18@6.2.68, plugin-vue@6.2.62, plugin-vue3@6.2.101, utils@6.2.1 ([0c328c6](https://github.com/zhangyuang/ssr/commit/0c328c6))
+* release: plugin-react@6.2.69, plugin-react18@6.2.69, types@6.2.51, utils@6.2.110 ([d4959b2](https://github.com/zhangyuang/ssr/commit/d4959b2))
+* release: plugin-react@6.2.70, plugin-react18@6.2.70, plugin-vue3@6.2.102, utils@6.2.116 ([1c27717](https://github.com/zhangyuang/ssr/commit/1c27717))
+* release: plugin-react@6.2.71, plugin-react18@6.2.71 ([cdbbeae](https://github.com/zhangyuang/ssr/commit/cdbbeae))
 * release: plugin-react18@6.2.59 ([730c489](https://github.com/zhangyuang/ssr/commit/730c489))
 * release: plugin-react18@6.2.60 ([a4fdb30](https://github.com/zhangyuang/ssr/commit/a4fdb30))
 * release: plugin-react18@6.2.61 ([9902f36](https://github.com/zhangyuang/ssr/commit/9902f36))
@@ -974,7 +966,7 @@
 * release: plugin-vue@6.2.60 ([874986e](https://github.com/zhangyuang/ssr/commit/874986e))
 * release: plugin-vue@6.2.61 ([368bec5](https://github.com/zhangyuang/ssr/commit/368bec5))
 * release: plugin-vue@6.2.63 ([ee0a543](https://github.com/zhangyuang/ssr/commit/ee0a543))
-* release: plugin-vue@6.2.64,plugin-vue3@6.2.103,utils@6.2.117 ([9355290](https://github.com/zhangyuang/ssr/commit/9355290))
+* release: plugin-vue@6.2.64, plugin-vue3@6.2.103, utils@6.2.117 ([9355290](https://github.com/zhangyuang/ssr/commit/9355290))
 * release: plugin-vue@6.2.65 ([9abb1e8](https://github.com/zhangyuang/ssr/commit/9abb1e8))
 * release: plugin-vue3@6.2.100 ([3ea3d12](https://github.com/zhangyuang/ssr/commit/3ea3d12))
 * release: plugin-vue3@6.2.11 ([ff8657e](https://github.com/zhangyuang/ssr/commit/ff8657e))
@@ -1898,7 +1890,7 @@
 * docs: add build.md ([e199ba2](https://github.com/zhangyuang/ssr/commit/e199ba2))
 * docs: add comments (skip ci) ([e7cc480](https://github.com/zhangyuang/ssr/commit/e7cc480))
 * docs: add cypress badge (skip ci) ([1c868f3](https://github.com/zhangyuang/ssr/commit/1c868f3))
-* docs: add RAEDME.EN.md (#67) ([b9baf12](https://github.com/zhangyuang/ssr/commit/b9baf12)), closes [#67](https://github.com/zhangyuang/ssr/issues/67)
+* docs: add RAEDME. EN.md (#67) ([b9baf12](https://github.com/zhangyuang/ssr/commit/b9baf12)), closes [#67](https://github.com/zhangyuang/ssr/issues/67)
 * docs: add thinking.md ([2594b7d](https://github.com/zhangyuang/ssr/commit/2594b7d))
 * docs: fix ci.md ([733fcd5](https://github.com/zhangyuang/ssr/commit/733fcd5))
 * docs: fix docs.md ([1733303](https://github.com/zhangyuang/ssr/commit/1733303))
@@ -2287,21 +2279,17 @@
 * types: update ([49e883e](https://github.com/zhangyuang/ssr/commit/49e883e))
 * types: use partial replace optional ([d711633](https://github.com/zhangyuang/ssr/commit/d711633))
 * refactor: remove window.__VUE_ROUTER__ add warning for remove window.__VUE_APP__ ([7a6bff6](https://github.com/zhangyuang/ssr/commit/7a6bff6))
-* refactor: remove window.STORE_CONTEXT in plugin-react ([e5c960d](https://github.com/zhangyuang/ssr/commit/e5c960d))
+* refactor: remove window. STORE_CONTEXT in plugin-react ([e5c960d](https://github.com/zhangyuang/ssr/commit/e5c960d))
 * refactor(cli): ts类型增强, 使用 await import 替换 require (#38) ([7195255](https://github.com/zhangyuang/ssr/commit/7195255)), closes [#38](https://github.com/zhangyuang/ssr/issues/38)
 * refactor(server-utils): 使用 resolve 替换 join (#41) ([5f87cb5](https://github.com/zhangyuang/ssr/commit/5f87cb5)), closes [#41](https://github.com/zhangyuang/ssr/issues/41)
 * test: e2e (#113) ([ac89b8b](https://github.com/zhangyuang/ssr/commit/ac89b8b)), closes [#113](https://github.com/zhangyuang/ssr/issues/113)
 * test: update e2e spec ([17196a7](https://github.com/zhangyuang/ssr/commit/17196a7))
 * style: update doc styles ([761a41c](https://github.com/zhangyuang/ssr/commit/761a41c))
 
-
-
 ## <small>1.0.1 (2020-12-28)</small>
 
 * chore(release): publish ([33af4a4](https://github.com/zhangyuang/ssr/commit/33af4a4))
 * fix: csr mode use context ([724b97b](https://github.com/zhangyuang/ssr/commit/724b97b))
-
-
 
 ## 1.0.0 (2020-12-28)
 
@@ -2601,6 +2589,3 @@
 * style: code format ([7715f5f](https://github.com/zhangyuang/ssr/commit/7715f5f))
 * style: code format ([6c9891f](https://github.com/zhangyuang/ssr/commit/6c9891f))
 * test: init jest config ([79bd07c](https://github.com/zhangyuang/ssr/commit/79bd07c))
-
-
-

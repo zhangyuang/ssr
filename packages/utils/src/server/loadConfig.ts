@@ -1,7 +1,7 @@
 import { join } from 'path'
 import { SemVer, coerce } from 'semver'
 import type { IConfig, UserConfig } from 'ssr-types'
-import type { StatsOptions } from '@rspack/core'
+import type { StatsOptions, DevServer } from '@rspack/core'
 import { normalizeEndPath, normalizeStartPath } from '../common'
 import { accessFileSync, checkModuleExist, getCwd, getFeDir, getUserConfig, addDefaultAlias, judgeFramework, loadModuleFromFramework, stringifyDefine } from './cwd'
 
@@ -11,8 +11,7 @@ const loadConfig = (): IConfig => {
 	const userConfig = getUserConfig()
 	const mode = 'ssr'
 	const stream = false
-	const isVite = process.env.VITE === '1' || accessFileSync(join(cwd, './build/tag.json'))
-	const isRspack = process.env.RSPACK === '1'
+	const tool = userConfig.tool || process.env.BUILD_TOOL || (accessFileSync(join(cwd, './build/tag.json')) ? 'vite' : undefined)
 	const optimize = process.env.OPTIMIZE === '1'
 	const isCI = !!process.env.CI_TEST
 	const supportOptinalChaining = coerce(process.version)!.major >= 14
@@ -49,7 +48,6 @@ const loadConfig = (): IConfig => {
 	const clientHistoryRouterMode = 'webHistory'
 	const hmr = Object.assign(
 		{
-			// host: '127.0.0.1',
 			protocol: 'ws'
 		},
 		userConfig.hmr
@@ -71,7 +69,7 @@ const loadConfig = (): IConfig => {
 	const useHash = !isDev // 生产环境默认生成hash
 	const defaultWhiteList: Array<RegExp | string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/, /\.(vue)$/]
 	const whiteList: Array<RegExp | string> = defaultWhiteList.concat(userConfig.whiteList ?? [])
-	const jsOrder = isVite ? [`rolldown-runtime.js`, `${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', 'common-vendor.js', 'layout-app~vendor.js', `${chunkName}.js`, 'layout-app.js']
+	const jsOrder = tool === 'vite' ? [`rolldown-runtime.js`, `${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', 'common-vendor.js', 'layout-app~vendor.js', `${chunkName}.js`, 'layout-app.js']
 
 	const cssOrder = ['vendor.css', 'common-vendor.css', 'layout-app~vendor.css', `${chunkName}.css`, 'layout-app.css']
 
@@ -104,6 +102,7 @@ const loadConfig = (): IConfig => {
 		: {}
 
 	const writeDebounceTime = 2000
+	const allowedHosts = ['127.0.0.1', 'localhost', '0.0.0.0']
 	const webpackDevServerConfig = Object.assign(
 		{
 			stats: webpackStatsOption,
@@ -117,6 +116,7 @@ const loadConfig = (): IConfig => {
 			hot: true,
 			port: hmr?.port ?? fePort,
 			https,
+			allowedHosts,
 			clientLogLevel: clientLogLevel,
 			headers: {
 				'Access-Control-Allow-Origin': '*',
@@ -127,6 +127,21 @@ const loadConfig = (): IConfig => {
 		userConfig.webpackDevServerConfig
 	)
 
+	const rspackDevServerConfig: DevServer = {
+		host,
+		devMiddleware: {
+			publicPath: devPublicPath,
+			stats: webpackStatsOption
+		},
+		allowedHosts,
+		hot: true,
+		port: hmr?.port ?? fePort,
+		headers: {
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+			'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
+		}
+	}
 	const chainBaseConfig = () => {
 		// 覆盖默认webpack配置
 	}
@@ -151,6 +166,7 @@ const loadConfig = (): IConfig => {
 	const staticConfigPath = ''
 	const getOutput = () => {}
 	const rootId = '#app'
+	const isVite = tool === 'vite'
 	const config = Object.assign(
 		{},
 		{
@@ -177,9 +193,9 @@ const loadConfig = (): IConfig => {
 			manifestPath,
 			proxyKey,
 			isVite,
-			isRspack,
 			whiteList,
 			isCI,
+			tool,
 			supportOptinalChaining,
 			define,
 			prefix,
@@ -201,7 +217,7 @@ const loadConfig = (): IConfig => {
 	})
 	config.assetsDir = assetsDir
 
-	if (!config.isVite) {
+	if (config.tool !== 'vite') {
 		addDefaultAlias(alias)
 	}
 	config.alias = alias
@@ -210,6 +226,7 @@ const loadConfig = (): IConfig => {
 	config.whiteList = whiteList
 	config.hmr = hmr
 	config.webpackDevServerConfig = webpackDevServerConfig // 防止把整个 webpackDevServerConfig 全量覆盖了
+	config.rspackDevServerConfig = rspackDevServerConfig
 	config.babelOptions = userConfig.babelOptions
 		? {
 				...{

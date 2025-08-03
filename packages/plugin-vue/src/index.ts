@@ -1,26 +1,39 @@
 import { resolve } from 'path'
 import { loadConfig, getCwd } from 'ssr-common-utils'
 
-const { isVite } = loadConfig()
+const { tool } = loadConfig()
 
 export function clientPlugin() {
-	if (isVite) {
-		console.log('vite ssr is not supported vue2 ref https://github.com/underfin/vite-plugin-vue2/issues/31')
-		return
-	}
 	const cwd = getCwd()
 	const webpackPath = resolve(cwd, './node_modules/ssr-webpack')
+	const rspackPath = resolve(cwd, './node_modules/ssr-rspack')
 	return {
 		name: 'plugin-vue',
 		start: async () => {
-			const { start } = await import(webpackPath)
-			await start()
+			if (tool === 'vite') {
+				throw new Error('use vite in vue2 is not supported')
+			} else {
+				if (tool === 'rspack') {
+					const { start } = await import(rspackPath)
+					await start()
+					return
+				}
+				const { start } = await import(webpackPath)
+				await start()
+			}
 		},
 		build: async () => {
-			const { build } = await import(webpackPath)
-			await build()
+			if (tool === 'vite') {
+				throw new Error('use vite in vue2 is not supported')
+			} else {
+				if (tool === 'rspack') {
+					const { build } = await import(rspackPath)
+					await build()
+					return
+				}
+				const { build } = await import(webpackPath)
+				await build()
+			}
 		}
 	}
 }
-
-export * from './types'

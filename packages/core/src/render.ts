@@ -1,3 +1,5 @@
+import { readdir } from 'fs/promises'
+import { resolve } from 'path'
 import { Readable, Stream } from 'stream'
 import { StringToStream, getViteServerEntry, judgeFramework, judgeServerFramework, loadConfig, mergeStream2, setHeader } from 'ssr-common-utils'
 import { IConfig, ISSRContext, UserConfig, Vue3RenderRes } from 'ssr-types'
@@ -84,10 +86,16 @@ async function viteRender(ctx: ISSRContext, config: IConfig) {
 }
 
 async function commonRender(ctx: ISSRContext, config: IConfig) {
-	const { isDev, dynamicFile } = config
+	const { isDev, dynamicFile, cwd } = config
 	const serverBundle = dynamicFile.serverBundle
 
 	if (isDev) {
+		const files = await readdir(resolve(cwd, './build/server'))
+		for (const file of files) {
+			if (file.endsWith('.server.js')) {
+				delete require.cache[resolve(cwd, './build/server', file)]
+			}
+		}
 		delete require.cache[serverBundle]
 	}
 

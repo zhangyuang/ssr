@@ -1,9 +1,6 @@
 ## [7.0.1-beta.0](https://github.com/zhangyuang/ssr/compare/core@7.0.1-beta.0...core@7.0.1-beta.0) (2025-07-26)
 
-
-
 ## [6.2.30](https://github.com/zhangyuang/ssr/compare/core@6.2.29...core@6.2.30) (2024-10-23)
-
 
 ### Bug Fixes
 
@@ -33,7 +30,6 @@
 * use cssInline is dev or prod ([5571c66](https://github.com/zhangyuang/ssr/commit/5571c66f4a9b43517115abb7f99cd141e18e3252))
 * valtio single instance error ([0474b30](https://github.com/zhangyuang/ssr/commit/0474b302110adc755285fdcefe9d58757e1b200f))
 * webpack plugin call error ([ffc1729](https://github.com/zhangyuang/ssr/commit/ffc17292934aa7c89420daa07b809c7dbe3dbaa3))
-
 
 ### Features
 
@@ -99,55 +95,39 @@
 * use swc in nestjs ([29913ea](https://github.com/zhangyuang/ssr/commit/29913ea5fb5cccf4f803edcde01ed9401b54e0e8))
 * valtio ([#311](https://github.com/zhangyuang/ssr/issues/311)) ([6a4e069](https://github.com/zhangyuang/ssr/commit/6a4e0694d812056f8552a12a8dddc998344f58c7))
 
-
-
 ## [6.2.29](https://github.com/zhangyuang/ssr/compare/core@6.2.27...core@6.2.29) (2023-08-23)
-
 
 ### Bug Fixes
 
 * combine config ([3933ce3](https://github.com/zhangyuang/ssr/commit/3933ce3458dd3bc1bf39f497d075513307fcfd68))
 * don't use swc as nest compiler for bug ([f445e57](https://github.com/zhangyuang/ssr/commit/f445e575879729bed41cfdfc071c6fb0f8747b0a))
 * split path for fastify ([90e7fb6](https://github.com/zhangyuang/ssr/commit/90e7fb69abd809638aafdb862444aed34aa4a0ab))
-
-
 
 ## [6.2.28](https://github.com/zhangyuang/ssr/compare/core@6.2.27...core@6.2.28) (2023-08-23)
 
-
 ### Bug Fixes
 
 * combine config ([3933ce3](https://github.com/zhangyuang/ssr/commit/3933ce3458dd3bc1bf39f497d075513307fcfd68))
 * don't use swc as nest compiler for bug ([f445e57](https://github.com/zhangyuang/ssr/commit/f445e575879729bed41cfdfc071c6fb0f8747b0a))
 * split path for fastify ([90e7fb6](https://github.com/zhangyuang/ssr/commit/90e7fb69abd809638aafdb862444aed34aa4a0ab))
 
-
-
 ## [6.2.27](https://github.com/zhangyuang/ssr/compare/core@6.2.26...core@6.2.27) (2023-08-18)
-
 
 ### Bug Fixes
 
 * merge config ([2bca435](https://github.com/zhangyuang/ssr/commit/2bca435f864ed658c5376438a237147871e30b0a))
 
-
-
 ## [6.2.26](https://github.com/zhangyuang/ssr/compare/core@6.2.25...core@6.2.26) (2023-08-18)
-
 
 ### Bug Fixes
 
 * merge config ([686eedf](https://github.com/zhangyuang/ssr/commit/686eedf8326673649fe0af3af8212589c9329c2c))
 
-
 ### Features
 
 * support ssr build --nominify ([fd0b274](https://github.com/zhangyuang/ssr/commit/fd0b274e9e173e6a2e05782ccb2c80b62e165c8f))
 
-
-
 ## [6.2.25](https://github.com/zhangyuang/ssr/compare/core@6.2.24...core@6.2.25) (2023-08-18)
-
 
 ### Bug Fixes
 
@@ -159,7 +139,6 @@
 * esbuildTransform staticConfig after ssr build finish ([c281b9c](https://github.com/zhangyuang/ssr/commit/c281b9cd2419445c26279a0dace63e0a97318d99))
 * transformConfig ([f44899e](https://github.com/zhangyuang/ssr/commit/f44899e76236aae8ba5dbcbe174238d31a539685))
 * type ([15f2224](https://github.com/zhangyuang/ssr/commit/15f2224bc6e632fdea6d2b23b694f643f0ef9e5f))
-
 
 ### Features
 
@@ -173,14 +152,9 @@
 * upgrade nestjs version to 10 use swc as default compiler ([a85503a](https://github.com/zhangyuang/ssr/commit/a85503a680990c80b3dddedc9971ddaf92ee7f46))
 * use h function render html in vue2 ([031f59e](https://github.com/zhangyuang/ssr/commit/031f59e0c11973bc2aa569f2b656cd61f5bb8e39))
 
-
-
 ## [6.2.24](https://github.com/zhangyuang/ssr/compare/core@6.2.23...core@6.2.24) (2023-07-13)
 
-
-
 ## [6.2.23](https://github.com/zhangyuang/ssr/compare/core@6.2.22...core@6.2.23) (2023-07-13)
-
 
 ### Bug Fixes
 
@@ -198,7 +172,6 @@
 * vite build ([6ad5079](https://github.com/zhangyuang/ssr/commit/6ad507976f38c5972e9785a0e528314c46a04431))
 * vite build with babel ([b924353](https://github.com/zhangyuang/ssr/commit/b9243532cebbbf91fc61cd711f23ced0ef0c82ce))
 
-
 ### Features
 
 * add addCommonChain for babel in vue3/react ([568a3ed](https://github.com/zhangyuang/ssr/commit/568a3edde7b432d8e78881eb77491bf484c82e20))
@@ -215,7 +188,7 @@
 * support configuration config.assetDir ([#270](https://github.com/zhangyuang/ssr/issues/270)) ([885716c](https://github.com/zhangyuang/ssr/commit/885716cefa254dc812a5cae36627103fab3c449d))
 * support css inline in vue2 ([2bfa82f](https://github.com/zhangyuang/ssr/commit/2bfa82fcb7b5f1183a4479a0d4238f9a8e4fcde5))
 * support css inline in vue3 ([e281ddd](https://github.com/zhangyuang/ssr/commit/e281dddf77f12230b7a9e220be0b6fa8129e8c8a))
-* support inject process.env.XXX in bundle ([a403a28](https://github.com/zhangyuang/ssr/commit/a403a28b8cc6dbe43d5e9b6c6d34dade5b76803f))
+* support inject process.env. XXX in bundle ([a403a28](https://github.com/zhangyuang/ssr/commit/a403a28b8cc6dbe43d5e9b6c6d34dade5b76803f))
 * support nested routes for vue close [#277](https://github.com/zhangyuang/ssr/issues/277) ([5ff584d](https://github.com/zhangyuang/ssr/commit/5ff584d7d6fca15655a8cd32fed8dfd8e206f86a))
 * support route.name close [#266](https://github.com/zhangyuang/ssr/issues/266) ([4a4d27c](https://github.com/zhangyuang/ssr/commit/4a4d27ca46856d0a0349d1de599dc10b5ddb6434))
 * update axios version to 1.4.0 ([#286](https://github.com/zhangyuang/ssr/issues/286)) ([37286c7](https://github.com/zhangyuang/ssr/commit/37286c77895e90b3e534bd060fc314f99cf67be1))
@@ -223,10 +196,7 @@
 * use splitPageInfo generate page state ([8f51258](https://github.com/zhangyuang/ssr/commit/8f51258af97f99168e16b65b1f886a2bb50bd183))
 * use splitPageInfo generate page state in build html file ([0bb5107](https://github.com/zhangyuang/ssr/commit/0bb510704fd95372bdeae6fab4970f70b1bf28a0))
 
-
-
 ## 6.2.22 (2023-02-20)
-
 
 ### Bug Fixes
 
@@ -386,7 +356,7 @@
 * remove @types/react in ssr-types ([de24c71](https://github.com/zhangyuang/ssr/commit/de24c71be48728465c30efde89bd5f68a76fe08b))
 * remove dependencies vue-template-compiler ([495c56c](https://github.com/zhangyuang/ssr/commit/495c56cf241c25423977307cde5dfccbc636eb4f))
 * remove manifest plugin publicPath ([f4f3e0a](https://github.com/zhangyuang/ssr/commit/f4f3e0a74bbaaa0967c62d81d15d66f99ad66a1d))
-* remove NodeJS.Global ([ee545d5](https://github.com/zhangyuang/ssr/commit/ee545d5e2c7e522f0f6aec64b6d95b395c4d1091))
+* remove NodeJS. Global ([ee545d5](https://github.com/zhangyuang/ssr/commit/ee545d5e2c7e522f0f6aec64b6d95b395c4d1091))
 * remove window.__VUE_APP__ ([95208e3](https://github.com/zhangyuang/ssr/commit/95208e3de87e090c1e2b4415c94d2060f10f5cc7))
 * remove writeEmitter ([77a5ac8](https://github.com/zhangyuang/ssr/commit/77a5ac8e9338424fbca77a5560c4c91ed405ac09))
 * rename mergeStream to mergeStream2 ([a51e097](https://github.com/zhangyuang/ssr/commit/a51e097bf9d87a75b236620d3e9812a0f4d09406))
@@ -488,7 +458,6 @@
 * window.prefix ([c4634ef](https://github.com/zhangyuang/ssr/commit/c4634efa399057f0cd7041a58e6e8813b631f986))
 * wrapComponent ([5099eaf](https://github.com/zhangyuang/ssr/commit/5099eafc651b3e937018a68c73e1cece6ba0a4eb))
 * wrapComponent types ([2a41ee3](https://github.com/zhangyuang/ssr/commit/2a41ee3d8874f583440f4bef6a4632b984c2fad2))
-
 
 ### Features
 
@@ -608,7 +577,7 @@
 * render add generic function overloading ([f03897f](https://github.com/zhangyuang/ssr/commit/f03897f07844d8fd5f9d2cf3eeef1a726da794bf))
 * render head script after fetch in vue3 ([edb2ac7](https://github.com/zhangyuang/ssr/commit/edb2ac7051fe12bbda7d13a84870a427fa71bc68))
 * rerender App.tsx when router change ([7df174e](https://github.com/zhangyuang/ssr/commit/7df174e8af15134033e63ae489b8109c211ed9c7))
-* restore ssr build --vite --legacy ([b6eea72](https://github.com/zhangyuang/ssr/commit/b6eea729ccdae9281ef0c00034870fabe01dd9d1))
+* restore ssr build --tools vite --legacy ([b6eea72](https://github.com/zhangyuang/ssr/commit/b6eea729ccdae9281ef0c00034870fabe01dd9d1))
 * set argv.ssl for plugin-midway ([#213](https://github.com/zhangyuang/ssr/issues/213)) ([65c1cb9](https://github.com/zhangyuang/ssr/commit/65c1cb9da0772e915162dcd9b03fad2fada22b40))
 * set sockHost in webpack-dev server ([a5df84c](https://github.com/zhangyuang/ssr/commit/a5df84c1d3a621109b44ad428828e2d95e54f62a))
 * setStyle 优化 文档添加如何支持 Sass ([7dbfc5f](https://github.com/zhangyuang/ssr/commit/7dbfc5ff2913c3c0a9150720c40230f1956e62bb))
@@ -651,7 +620,7 @@
 * support routerOptimize ([d54e739](https://github.com/zhangyuang/ssr/commit/d54e739ff28592387ff6d4be024736dceeb9c18c))
 * support routerPriority ([385c07e](https://github.com/zhangyuang/ssr/commit/385c07efd19897ce67ddbc436dca4a3bb438b62a))
 * support ssg ([27e2c7c](https://github.com/zhangyuang/ssr/commit/27e2c7cfb88ce6fa07f393a231d22a1d60b36fd2))
-* support ssr build --vite --legacy ([2f0afb0](https://github.com/zhangyuang/ssr/commit/2f0afb01511ba4c76debe631fa6bb8a031eac38a))
+* support ssr build --tools vite --legacy ([2f0afb0](https://github.com/zhangyuang/ssr/commit/2f0afb01511ba4c76debe631fa6bb8a031eac38a))
 * support static file import in vite production environment ([a7d6202](https://github.com/zhangyuang/ssr/commit/a7d62023816a4e954544b0873636290a5c7882aa))
 * support vite + wasm vite otherConfig ([7e65899](https://github.com/zhangyuang/ssr/commit/7e658998bc404c28374645c3a8a433a3db171f36))
 * support vite-style-import ([62d936b](https://github.com/zhangyuang/ssr/commit/62d936b62dd47365be8eb27564628adc139b619d))
@@ -730,25 +699,17 @@
 * vue3 vue2 react scene add asyncChunks logic ([d872fe3](https://github.com/zhangyuang/ssr/commit/d872fe3d3da27531d0ae16e595beeb91fa24a71d))
 * webpack build optimize ([#222](https://github.com/zhangyuang/ssr/issues/222)) ([217dd38](https://github.com/zhangyuang/ssr/commit/217dd388c70d2a7d93d8eeec64a3d26136afe51b))
 
-
 ### Reverts
 
 * Revert "feat: add create in Hoc-vue3  (#131)" (#132) ([de7e825](https://github.com/zhangyuang/ssr/commit/de7e825fa6264605060c0a821c5293253372e7d4)), closes [#131](https://github.com/zhangyuang/ssr/issues/131) [#132](https://github.com/zhangyuang/ssr/issues/132)
 * Revert "chore: modify to concurrent fetch. (#81)" (#82) ([31380a8](https://github.com/zhangyuang/ssr/commit/31380a82ab7d0fd3e341ede18f218c00950ec484)), closes [#81](https://github.com/zhangyuang/ssr/issues/81) [#82](https://github.com/zhangyuang/ssr/issues/82)
 
-
-
 ## 1.0.1 (2020-12-28)
-
 
 ### Bug Fixes
 
 * csr mode use context ([724b97b](https://github.com/zhangyuang/ssr/commit/724b97b3a45b558732dee16606c1f1eea77e6b05))
-
-
-
 # 1.0.0 (2020-12-28)
-
 
 ### Bug Fixes
 
@@ -786,7 +747,6 @@
 * webpack dev server header ([415bc8f](https://github.com/zhangyuang/ssr/commit/415bc8ffb086993199bb8beae3da91b5359ebc55))
 * wrapComponent ([118eddb](https://github.com/zhangyuang/ssr/commit/118eddbbbddc73111235f044cbb7f745e664e87d))
 
-
 ### Features
 
 * 支持发布到腾讯云 ([d932ffa](https://github.com/zhangyuang/ssr/commit/d932ffa52307d969193d1106f8833088340ca103))
@@ -798,10 +758,7 @@
 * test succeed publish v1.0 ([5f54e2c](https://github.com/zhangyuang/ssr/commit/5f54e2c82c927377ea40c955b71d924d653f9ca0))
 * update react to v17.0.0 ([40b087d](https://github.com/zhangyuang/ssr/commit/40b087d66824c97f928fff4abe82a09e22dc5b40))
 
-
-
 ## [6.2.21](https://github.com/zhangyuang/ssr/compare/core-vue3@6.2.20...core-vue3@6.2.21) (2022-11-09)
-
 
 ### Bug Fixes
 
@@ -809,20 +766,15 @@
 * gernerate html ([08e5678](https://github.com/zhangyuang/ssr/commit/08e567877e7b6d0b4b3a6fab6ad4ea2546b0c041))
 * pinia alias ([2256194](https://github.com/zhangyuang/ssr/commit/22561948b9d27ea6296b5f60cefb3f42d6c1d4c1))
 
-
 ### Features
 
 * update vue alias ([36e15ac](https://github.com/zhangyuang/ssr/commit/36e15ac5d2d1398ced6abef2727970947177e6bc))
 
-
-
 ## [6.2.20](https://github.com/zhangyuang/ssr/compare/core-vue3@6.2.19...core-vue3@6.2.20) (2022-11-01)
-
 
 ### Bug Fixes
 
 * types ([2ad371f](https://github.com/zhangyuang/ssr/commit/2ad371fc6c0b27e6e52801048a28a3d8fdcfccf7))
-
 
 ### Features
 
@@ -832,16 +784,12 @@
 * update vite build logic ([0bf7a28](https://github.com/zhangyuang/ssr/commit/0bf7a28ca38f2cde8501dfb53546f4d3b0c6f51f))
 * use jsx-runtime in react ([ffdd346](https://github.com/zhangyuang/ssr/commit/ffdd34674ff0753e130b6570ab9eef3b1aec5217))
 
-
-
 ## [6.2.19](https://github.com/zhangyuang/ssr/compare/core-vue3@6.2.18...core-vue3@6.2.19) (2022-10-19)
-
 
 ### Bug Fixes
 
 * onlyCsr types core-vue3 render logic ([f75929e](https://github.com/zhangyuang/ssr/commit/f75929ef84e564fe7e3d9c5c6d1e56fe70f5629b))
 * react hmr ([2c57a6e](https://github.com/zhangyuang/ssr/commit/2c57a6e14d485500a2e8868035d9cb6e1fa883b0))
-
 
 ### Features
 
@@ -854,10 +802,7 @@
 * update vue2/react logic in plugin ([e2d576b](https://github.com/zhangyuang/ssr/commit/e2d576b92bf8a0e9615480c2d7cccb42ad59635d))
 * use ssr-mini-css-extra-plugin for micro ([fa1c025](https://github.com/zhangyuang/ssr/commit/fa1c025b19b38733c20b11a40860b7eb648387e6))
 
-
-
 ## [6.2.18](https://github.com/zhangyuang/ssr/compare/core-vue3@6.2.17...core-vue3@6.2.18) (2022-09-15)
-
 
 ### Bug Fixes
 
@@ -874,7 +819,6 @@
 * update example ([185219c](https://github.com/zhangyuang/ssr/commit/185219cee04d55d347b8dc6511798430a5f19c73))
 * update postinstall ([1078a50](https://github.com/zhangyuang/ssr/commit/1078a50254f27de58525ffec4f7c92a60e4dc03c))
 * utils types ([39575be](https://github.com/zhangyuang/ssr/commit/39575be39b5238c555899111ecee83627e131aba))
-
 
 ### Features
 
@@ -893,6 +837,3 @@
 * use esbuild transform manualroutes ([cf77fcd](https://github.com/zhangyuang/ssr/commit/cf77fcd489a02deb49d7c85def240f4f19367ad9))
 * use eval-source-map replace cheap-sourcemap in dev ([1bd615e](https://github.com/zhangyuang/ssr/commit/1bd615e52b24334f727c3c0c13113125670c776f))
 * use exec run shell rather than npx in plugin-nest ([e644937](https://github.com/zhangyuang/ssr/commit/e644937959742144ffaf909ea3271dda093da221))
-
-
-

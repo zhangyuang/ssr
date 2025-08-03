@@ -1,6 +1,7 @@
 import type { StyleOptions } from 'ssr-types'
-import { loadConfig, loadModuleFromWebpack } from 'ssr-common-utils'
 import type * as RspackChain from 'rspack-chain'
+import { loadConfig, loadModuleFromWebpack } from 'ssr-common-utils'
+import { rspack } from '@rspack/core'
 
 const setStyle = (chain: RspackChain, reg: RegExp, options: StyleOptions) => {
 	const { css } = loadConfig()
@@ -53,12 +54,12 @@ const setStyle = (chain: RspackChain, reg: RegExp, options: StyleOptions) => {
 		.when(Boolean(exclude), (rule) => {
 			exclude && rule.exclude.add(exclude).end()
 		})
-		// .use('MiniCss')
-		// .loader('ssr-mini-css-extract-plugin/dist/loader')
-		// .options({
-		// 	emit: !isServer
-		// })
-		// .end()
+		.use('MiniCss')
+		.loader(rspack.CssExtractRspackPlugin.loader)
+		.options({
+			emit: !isServer
+		})
+		.end()
 		.use('css-loader')
 		.loader(loadModuleFromWebpack('css-loader'))
 		.options(finalCssloaderOptions)

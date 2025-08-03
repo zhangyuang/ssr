@@ -3,7 +3,6 @@ import { fork } from 'child_process'
 import { resolve } from 'path'
 import { Argv, IPlugin } from 'ssr-types'
 import * as yargs from 'yargs'
-import { cleanOutDir } from './clean'
 import { generateHtml } from './html'
 import { handleEnv } from './preprocess'
 import { ssg } from './ssg'
@@ -47,17 +46,16 @@ const startOrBuild = async (argv: Argv, type: 'start' | 'build') => {
 }
 
 const startFunc = async (argv: Argv) => {
-	if (!argv.vite) {
+	await handleEnv(argv)
+	if (argv.tool !== 'vite') {
 		spinner.start()
 	}
-	await cleanOutDir(argv)
 	process.env.NODE_ENV = 'development'
 	const { parseFeRoutes, transformConfig, logInfo } = await import('ssr-common-utils')
 	await transformConfig()
-	if (argv.vite) {
+	if (argv.tool === 'vite') {
 		logInfo('Vite 场景本地开发样式闪烁为正常现象请忽略，生产环境无此问题')
 	}
-	await handleEnv(argv)
 	const watcher = await createWatcher()
 	await parseFeRoutes()
 	spinner.stop()
@@ -66,12 +64,11 @@ const startFunc = async (argv: Argv) => {
 }
 
 const buildFunc = async (argv: Argv) => {
+	await handleEnv(argv)
 	spinner.start()
-	await cleanOutDir(argv)
 	process.env.NODE_ENV = 'production'
 	const { parseFeRoutes, transformConfig } = await import('ssr-common-utils')
 	await transformConfig()
-	await handleEnv(argv)
 	await parseFeRoutes()
 	spinner.stop()
 	await startOrBuild(argv, 'build')
@@ -113,8 +110,10 @@ yargs
 					alias: 'a',
 					desc: 'Analyze bundle result when using webpack for build'
 				},
-				vite: {
-					desc: 'Start application by vite'
+				tool: {
+					desc: 'Start application by vite or rspack',
+					choices: ['webpack', 'vite', 'rspack'],
+					default: 'webpack'
 				},
 				viteMode: {
 					desc: 'same like vite start --mode'
@@ -199,8 +198,8 @@ yargs
 			}),
 		async (argv: Argv) => {
 			const { logWarning } = await import('ssr-common-utils')
-			if (argv.vite) {
-				logWarning(`ssr build by vite is beta now, if you find some bugs, please submit an issue on https://github.com/zhangyuang/ssr/issues or you can use ssr build --vite --legacy which will close manualChunks
+			if (argv.tool === 'vite') {
+				logWarning(`ssr build by vite is beta now, if you find some bugs, please submit an issue on https://github.com/zhangyuang/ssr/issues or you can use ssr build --tools vite --legacy which will close manualChunks
       to get a stable bundle result but maybe some performance loss
       `)
 			}

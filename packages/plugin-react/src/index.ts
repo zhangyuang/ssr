@@ -1,17 +1,18 @@
 import { resolve } from 'path'
 import { loadConfig, getCwd } from 'ssr-common-utils'
 
-const { isVite, optimize } = loadConfig()
+const { tool, optimize } = loadConfig()
 const spinner = require('ora')('Building')
 
 export function clientPlugin() {
 	const cwd = getCwd()
 	const webpackPath = resolve(cwd, './node_modules/ssr-webpack')
 	const vitePath = resolve(cwd, './node_modules/ssr-vite')
+	const rspackPath = resolve(cwd, './node_modules/ssr-rspack')
 	return {
 		name: 'plugin-react',
 		start: async () => {
-			if (isVite) {
+			if (tool === 'vite') {
 				const { start } = await import(vitePath)
 				await start()
 			} else {
@@ -22,12 +23,17 @@ export function clientPlugin() {
 					process.env.NODE_ENV = 'development'
 					spinner.stop()
 				}
+				if (tool === 'rspack') {
+					const { start } = await import(rspackPath)
+					await start()
+					return
+				}
 				const { start } = await import(webpackPath)
 				await start()
 			}
 		},
 		build: async () => {
-			if (isVite) {
+			if (tool === 'vite') {
 				const { build } = await import(vitePath)
 				await build()
 			} else {
@@ -36,6 +42,11 @@ export function clientPlugin() {
 					const { build } = await import(vitePath)
 					await build()
 					spinner.stop()
+				}
+				if (tool === 'rspack') {
+					const { build } = await import(rspackPath)
+					await build()
+					return
 				}
 				const { build } = await import(webpackPath)
 				await build()

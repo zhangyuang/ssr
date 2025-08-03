@@ -288,10 +288,7 @@ const manualChunksFn = (id: string) => {
 			if (arr.includes('Page')) {
 				return 'Page'
 			}
-			const commonChunkName = cryptoAsyncChunkName(
-				arr.map((item) => ({ name: item })),
-				asyncChunkMapJSON
-			)
+			const commonChunkName = cryptoAsyncChunkName(arr.map((item) => ({ name: item })) as any, asyncChunkMapJSON)
 			return commonChunkName === 'vendor~client-entry' ? 'common-vendor' : commonChunkName
 		}
 	}

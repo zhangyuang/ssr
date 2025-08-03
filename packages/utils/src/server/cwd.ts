@@ -5,8 +5,8 @@ import { promisify } from 'util'
 import debug from 'debug'
 import { coerce } from 'semver'
 import { rm } from 'shelljs'
-import type { Json, PkgJson, SSRModule, UserConfig } from 'ssr-types'
-import { loadConfig } from './loadConfig'
+import type { Json, PkgJson, UserConfig } from 'ssr-types'
+import type { Chunk } from '@rspack/core'
 import { logWarning } from './log'
 
 export const ssrDebug = debug('ssr')
@@ -34,89 +34,6 @@ const writeRoutes = async (routes: string, name?: string) => {
 	await promises.writeFile(resolve(cwd, `./build/${name ?? 'ssr-declare-routes'}`), routes)
 }
 
-const getWebpackSplitCache = () => {
-	const { optimize, chunkName } = loadConfig()
-	if (optimize) {
-		const generateMap: Record<string, string> = require(resolve(getCwd(), './build/generateMap.json'))
-		const asyncChunkMap = require(resolve(getCwd(), './build/asyncChunkMap.json'))
-		let maxPriority = Object.keys(asyncChunkMap).length + 1
-		const splitPriorityMap: Record<string, number | undefined> = {
-			'common-vendor': maxPriority + 2,
-			'layout-app~vendor': maxPriority + 1,
-			'layout-app': maxPriority + 1
-		}
-		// make priority consistent
-		Object.keys(asyncChunkMap)
-			.sort((a, b) => {
-				const lenA = asyncChunkMap[a]
-				const lenB = asyncChunkMap[b]
-				if (lenA !== lenB) {
-					return asyncChunkMap[b].length - asyncChunkMap[a].length
-				} else {
-					return a > b ? 1 : -1
-				}
-			})
-			.forEach((chunkName) => {
-				if (!splitPriorityMap[chunkName]) {
-					splitPriorityMap[chunkName] = maxPriority - 1
-				}
-				maxPriority--
-			})
-		const webpackMap: Record<string, string[]> = {}
-		for (const fileName in generateMap) {
-			const chunkName = generateMap[fileName]
-			if (!webpackMap[chunkName]) {
-				webpackMap[chunkName] = []
-			}
-			webpackMap[chunkName].push(fileName)
-		}
-		delete webpackMap[chunkName]
-		const cacheGroups: Record<
-			string,
-			{
-				name: string
-				test: (module: SSRModule) => boolean | undefined
-				priority: number
-			}
-		> = {}
-		for (const chunkName in webpackMap) {
-			const arr = webpackMap[chunkName]
-			if (!cacheGroups[chunkName]) {
-				cacheGroups[chunkName] = {
-					name: chunkName,
-					test: (module) => {
-						if (chunkName === 'void' || !module.nameForCondition?.()) {
-							return
-						}
-						const nameForCondition = module.nameForCondition()
-						return checkContains(arr, nameForCondition)
-					},
-					priority: splitPriorityMap[chunkName] ?? 0
-				}
-			}
-		}
-		return cacheGroups
-	} else {
-		return {
-			vendors: {
-				test: (module: SSRModule) => {
-					return module.resource && /\.js$/.test(module.resource) && module.resource.match('node_modules')
-				},
-				name: 'vendor'
-			}
-		}
-	}
-}
-
-const checkContains = (arr: string[], name: string) => {
-	for (const val of arr) {
-		if (val.includes(name)) {
-			return true
-		}
-	}
-	return false
-}
-
 const checkContainsRev = (arr: string[], name: string) => {
 	for (const val of arr) {
 		if (name.includes(val)) {
@@ -124,22 +41,6 @@ const checkContainsRev = (arr: string[], name: string) => {
 		}
 	}
 	return false
-}
-
-const getSplitChunksOptions = (asyncChunkMap: {
-	val: Record<string, string[]>
-}) => {
-	const { optimize } = loadConfig()
-	return {
-		minSize: optimize ? 0 : 2000,
-		maxAsyncRequests: 5,
-		maxInitialRequests: 3,
-		chunks: 'all',
-		name(_module: SSRModule, chunks: any, _cacheGroupKey: string) {
-			return cryptoAsyncChunkName(chunks, asyncChunkMap.val)
-		},
-		cacheGroups: getWebpackSplitCache()
-	}
 }
 
 const transformConfig = async () => {
@@ -225,9 +126,9 @@ const cyrb53 = function (str: string, seed = 0) {
 	return 4294967296 * (2097151 & h2) + (h1 >>> 0)
 }
 
-const cryptoAsyncChunkName = (chunks: Array<{ name: string }>, asyncChunkMap: Record<string, string[]>) => {
+export const cryptoAsyncChunkName = (chunks: Chunk[], asyncChunkMap: Record<string, string[]>) => {
 	const arr = chunks.filter(Boolean)
-	arr.sort((a, b) => (a.name > b.name ? -1 : 1)) // 保证相同值不同顺序的数组最终的加密结果一致
+	arr.sort((a, b) => (a.name! > b.name! ? -1 : 1)) // 保证相同值不同顺序的数组最终的加密结果一致
 	const allChunksNames = arr.map((item) => item.name).join('~')
 	const allChunksNamesArr = allChunksNames.split('~')
 	const cryptoAllChunksNames = String(arr.length > 3 ? cyrb53(allChunksNames) : allChunksNames)
@@ -479,7 +380,6 @@ export {
 	processError,
 	accessFile,
 	execPromisify,
-	cryptoAsyncChunkName,
 	transformConfig,
 	accessFileSync,
 	judgeFramework,
@@ -489,8 +389,6 @@ export {
 	stringifyDefine,
 	judgeServerFramework,
 	judgeVersion,
-	getWebpackSplitCache,
-	getSplitChunksOptions,
 	cleanOutClientDir,
 	checkContainsRev,
 	getPkgJson,
