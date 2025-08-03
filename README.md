@@ -20,14 +20,25 @@
 </div>
 <br />
  
+## 7.x 版本
+
+`ssr` 框架 `7.x` 版本正在紧密开发中，在 `7.x` 版本中我们将会同时支持 `Webpack`, `Rspack`, `Rollup-Vite` 三种构建工具来极大的加快构建性能。同时在使用方式上和 `6.x` 版本保持一致，用户可以无缝的从 `6.x` 版本迁移到 `7.x` 版本。
+
+同时在 `7.x` 版本我们设计精简了依赖项，开发者可以只安装当前使用的前端框架和构建工具的依赖项。未使用到的构建工具的相关依赖将不会被安装。
+
+## 简介
 
 `ssr` 框架是为前端框架在服务端渲染的场景下所打造的开箱即用的服务端渲染框架。了解什么是服务端渲染请查看[文档](http://doc.ssr-fc.com/docs/features$ssr)
 
 此框架脱胎于 [egg-react-ssr](https://github.com/zhangyuang/egg-react-ssr) 项目和 `ssr` v4版本 `（midway-faas + react ssr）` ，在之前的基础上做了诸多演进，通过插件化的代码组织形式，支持任意服务端框架与任意前端框架的组合使用。开发者可以选择通过 `Serverless` 方式部署或是以传统 `Node.js` 的应用形式部署，并且我们专注于提升 `Serverless` 场景下服务端渲染应用的开发体验，打造了一站式的开发，发布应用服务的功能。最大程度提升开发者的开发体验，将应用的开发，部署成本降到最低。
 
-在最新的版本中，同时支持 `React17/18` 和 `Vue2/Vue3` 作为服务端渲染框架且开发工具侧我们同样支持了最流行的 `Vite` 来提升应用的启动速度和 HMR 速度，且提供一键以 `Serverless` 的形式发布上云的功能。我们可以非常有自信说它是地球上最先进的 `ssr` 框架。如果你希望获得开箱即用的体验且能够一键部署上云，请选择 `ssr` 框架。
+在最新的版本中，同时支持 `React17/18/19` 和 `Vue2/Vue3` 作为服务端渲染的前端框架，开发工具侧我们同时支持了 `Vite|Webpack|Rspack` 来提升应用的启动速度，构建速度和 HMR 速度。
 
-阅读我们的 [官方文档](http://doc.ssr-fc.com/) 获得更加详细的了解。事实上文档本身便是用 `ssr` 框架开发并通过 `Serverless` 部署到阿里云服务
+在 `Node.js` 框架中，官方默认的 `example` 提供了基于 `Nest.js` 和 `Midway.js` 这两个流行的 `Node.js` 框架与 `ssr` 框架集成示例。当然 `ssr` 框架在设计上不与任何 `Node.js` 框架耦合，开发者可以自由选择使用任何 `Node.js` 框架。
+
+如果你选择的是 `Midway.js` 作为 `Node.js` 框架，那么可以直接使用内置的 `ssr deploy` 命令来一键部署应用到 `阿里云` 或 `腾讯云` 平台。
+
+阅读我们的 [官方文档](http://doc.ssr-fc.com/) 获得更加详细的了解。事实上文档本身便是用 `ssr` 框架开发并部署到阿里云 `Serverless` 服务。
 
 ![](https://res.wx.qq.com/op_res/B9tJE-lFR3gCif92sM4BeeqAcoJSZbJK-auM7MACgomrWm58C1moA3BfatZ5gS-tgZHYyk57e0JQRtgdcgho-g)
 
