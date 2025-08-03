@@ -3,10 +3,13 @@ import type { RollupBabelInputPluginOptions } from '@rollup/plugin-babel'
 import type { Plugin as PostCssPlugin } from 'postcss'
 import type { CSSOptions, PluginOption, ServerOptions, UserConfig as ViteConfig } from 'vite'
 import type { Options, compilation } from 'webpack'
+import type { StatsOptions } from '@rspack/core'
 import type WebpackChainConfig from 'webpack-chain'
+import type * as RspackChain from 'rspack-chain'
 import { ISSRContext } from './ctx'
 import { Argv } from './yargs'
 
+// Instantiate the configuration with a new API
 export type PluginItem = BabelPluginItem
 export interface SSRModule extends compilation.Module {
 	resource?: string
@@ -22,7 +25,6 @@ export interface PkgJson {
 }
 
 export type Chain = WebpackChainConfig
-
 export type Script = Array<{
 	tagName?: string
 	describe?:
@@ -91,10 +93,10 @@ export interface IConfig {
 			}
 		}
 	}
-	chainBaseConfig: (config: Chain, isServer: boolean) => void
-	chainServerConfig: (config: Chain) => void
-	chainClientConfig: (config: Chain) => void
-	webpackStatsOption: Options.Stats
+	chainBaseConfig: (config: Chain | RspackChain, isServer: boolean) => void
+	chainServerConfig: (config: Chain | RspackChain) => void
+	chainClientConfig: (config: Chain | RspackChain) => void
+	webpackStatsOption: Options.Stats | StatsOptions
 	moduleFileExtensions: string[]
 	whiteList: Array<RegExp | string>
 	cloudIDE?: boolean
@@ -125,6 +127,7 @@ export interface IConfig {
 	manifestPath: string
 	proxyKey: string[]
 	isVite: boolean
+	isRspack: boolean
 	optimize: boolean
 	supportOptinalChaining: boolean
 	onError?: (e: any) => null | string
@@ -181,6 +184,7 @@ export interface IConfig {
 	streamHighWaterMark?: number
 	asyncGlobalData?: Record<string, any>
 	clientHistoryRouterMode?: 'webHistory' | 'memoryHistory'
+	defaultBrowserTarget?: Record<string, string>
 }
 
 export interface proxyOptions {

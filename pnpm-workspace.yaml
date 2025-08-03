@@ -1,8 +1,9 @@
 packages:
   - packages/*
   - example/*
-  # - 'packages/plugin-react'
-  # - 'packages/plugin-vue'
+  # - '!packages/rspack'
+  # - packages/plugin-react
+  # - packages/plugin-vue
   # - packages/plugin-vue3
   # - packages/core
   # - packages/cli

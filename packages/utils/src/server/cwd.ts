@@ -349,6 +349,13 @@ export const loadModuleFromWebpack = (path: string) => {
 	})
 }
 
+export const loadModuleFromRspack = (path: string) => {
+	const cwd = getCwd()
+	return require.resolve(path, {
+		paths: [resolve(cwd, './node_modules/ssr-rspack')]
+	})
+}
+
 export const loadModuleFromVite = (path: string) => {
 	const cwd = getCwd()
 	return require.resolve(path, {

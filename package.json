@@ -7,7 +7,7 @@
     "bootstrap": "pnpm i && pnpm build",
     "clean": "node scripts/scripts.js --clean",
     "dev": "pnpm run -r --parallel --filter './packages/*' --stream watch",
-    "build": "pnpm run -r --filter './packages/*' build",
+    "build": "pnpm run -r --filter './packages/*' --stream build",
     "minify": "esno scripts/minify.ts",
     "lint": "biome format --diagnostic-level error",
     "lint:fix": "biome format --diagnostic-level error --write",
@@ -94,6 +94,7 @@
       "ssr-types": "workspace:*",
       "ssr-vite": "workspace:*",
       "ssr-webpack": "workspace:*",
+      "ssr-rspack": "workspace:*",
       "vite": "npm:rolldown-vite@latest"
     },
     "dedupeInjectedDeps": true,

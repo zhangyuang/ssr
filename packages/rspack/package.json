@@ -1,0 +1,58 @@
+{
+  "name": "ssr-rspack",
+  "version": "7.0.1-beta.0",
+  "description": "rspack config for serverless ssr",
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "sideEffects": false,
+  "scripts": {
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
+    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangyuang/ssr.git"
+  },
+  "keywords": [
+    "rspack",
+    "serverless",
+    "ssr",
+    "react",
+    "vue"
+  ],
+  "author": "zhangyuang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhangyuang/ssr/issues"
+  },
+  "homepage": "https://github.com/zhangyuang/ssr#readme",
+  "dependencies": {
+    "@rspack/cli": "^1.4.11",
+    "@rspack/core": "^1.4.11",
+    "@rspack/dev-server": "^1.0.0",
+    "@types/semver": "^7.3.13",
+    "@rspack/plugin-react-refresh": "^1.0.0",
+    "core-js": "^3.6.4",
+    "less": "^4.1.1",
+    "less-loader": "^7.3.0",
+    "ora": "^4.0.4",
+    "postcss": "^8.0.0",
+    "postcss-discard-comments": "^5.0.0",
+    "postcss-flexbugs-fixes": "^5.0.0",
+    "postcss-preset-env": "7.6.0",
+    "postcss-safe-parser": "^6.0.0",
+    "semver": "^7.3.8",
+    "ssr-common-utils": "workspace:*",
+    "ssr-deepclone": "^1.0.0",
+    "ssr-serialize-javascript": "^6.0.0",
+    "ssr-types": "workspace:*",
+    "unplugin-auto-import": "^0.12.1",
+    "unplugin-vue-components": "^0.22.12",
+    "webpack": "^5.0.0",
+    "rspack-chain": "^1.0.0",
+    "webpackbar": "^5.0.0-3"
+  },
+  "devDependencies": {
+    "ssr-types": "workspace:*"
+  }
+}

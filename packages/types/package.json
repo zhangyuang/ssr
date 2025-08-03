@@ -47,6 +47,7 @@
     "fastify": "^5.0.0",
     "postcss": "^8.0.0",
     "vite": "npm:rolldown-vite@latest",
-    "webpack-chain": "^6.4.0"
+    "webpack-chain": "^6.4.0",
+    "rspack-chain": "^1.0.0"
   }
 }

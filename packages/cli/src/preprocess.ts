@@ -6,6 +6,9 @@ export const handleEnv = async (argv: Argv) => {
 	if (argv.vite) {
 		process.env.VITE = '1'
 	}
+	if (argv.rspack) {
+		process.env.RSPACK = '1'
+	}
 	const { loadConfig, getCwd } = await import('ssr-common-utils')
 	const { https, isDev, clientPrefix } = loadConfig()
 	const cwd = getCwd()

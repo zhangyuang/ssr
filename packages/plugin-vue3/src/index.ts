@@ -1,13 +1,14 @@
 import { resolve } from 'path'
 import { loadConfig, getCwd } from 'ssr-common-utils'
 
-const { isVite, optimize } = loadConfig()
+const { isVite, optimize, isRspack } = loadConfig()
 const spinner = require('ora')('Building')
 
 export function clientPlugin() {
 	const cwd = getCwd()
 	const webpackPath = resolve(cwd, './node_modules/ssr-webpack')
 	const vitePath = resolve(cwd, './node_modules/ssr-vite')
+	const rspackPath = resolve(cwd, './node_modules/ssr-rspack')
 	return {
 		name: 'plugin-vue3',
 		start: async () => {
@@ -21,6 +22,11 @@ export function clientPlugin() {
 					await viteBuildClient()
 					process.env.NODE_ENV = 'development'
 					spinner.stop()
+				}
+				if (isRspack) {
+					const { start } = await import(rspackPath)
+					await start()
+					return
 				}
 				const { start } = await import(webpackPath)
 				await start()
@@ -36,6 +42,11 @@ export function clientPlugin() {
 					const { build } = await import(vitePath)
 					await build()
 					spinner.stop()
+				}
+				if (isRspack) {
+					const { start } = await import(rspackPath)
+					await start()
+					return
 				}
 				const { build } = await import(webpackPath)
 				await build()

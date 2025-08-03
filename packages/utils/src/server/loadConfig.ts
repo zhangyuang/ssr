@@ -1,6 +1,7 @@
 import { join } from 'path'
 import { SemVer, coerce } from 'semver'
-import { IConfig, UserConfig } from 'ssr-types'
+import type { IConfig, UserConfig } from 'ssr-types'
+import type { StatsOptions } from '@rspack/core'
 import { normalizeEndPath, normalizeStartPath } from '../common'
 import { accessFileSync, checkModuleExist, getCwd, getFeDir, getUserConfig, addDefaultAlias, judgeFramework, loadModuleFromFramework, stringifyDefine } from './cwd'
 
@@ -11,10 +12,18 @@ const loadConfig = (): IConfig => {
 	const mode = 'ssr'
 	const stream = false
 	const isVite = process.env.VITE === '1' || accessFileSync(join(cwd, './build/tag.json'))
+	const isRspack = process.env.RSPACK === '1'
 	const optimize = process.env.OPTIMIZE === '1'
 	const isCI = !!process.env.CI_TEST
 	const supportOptinalChaining = coerce(process.version)!.major >= 14
 	const define = userConfig.define ?? {}
+	const defaultBrowserTarget = {
+		chrome: '60',
+		firefox: '60',
+		ie: '9',
+		safari: '10',
+		edge: '17'
+	}
 	userConfig.define && stringifyDefine(define)
 	if (framework === 'ssr-plugin-vue3') {
 		define.base = {
@@ -66,7 +75,7 @@ const loadConfig = (): IConfig => {
 
 	const cssOrder = ['vendor.css', 'common-vendor.css', 'layout-app~vendor.css', `${chunkName}.css`, 'layout-app.css']
 
-	const webpackStatsOption = {
+	const webpackStatsOption: StatsOptions = {
 		assets: true, // 添加资源信息
 		cachedAssets: false, // 显示缓存的资源（将其设置为 `false` 则仅显示输出的文件）
 		children: false, // 添加 children 信息
@@ -87,13 +96,7 @@ const loadConfig = (): IConfig => {
 					version: `${major}.${minor}`,
 					proposals: major === 3
 				},
-				targets: {
-					chrome: '60',
-					firefox: '60',
-					ie: '9',
-					safari: '10',
-					edge: '17'
-				},
+				targets: defaultBrowserTarget,
 				useBuiltIns: 'usage',
 				shippedProposals: major === 2,
 				...userConfig.corejsOptions
@@ -174,6 +177,7 @@ const loadConfig = (): IConfig => {
 			manifestPath,
 			proxyKey,
 			isVite,
+			isRspack,
 			whiteList,
 			isCI,
 			supportOptinalChaining,
@@ -185,7 +189,8 @@ const loadConfig = (): IConfig => {
 			babelExtraModule,
 			rootId,
 			staticConfigPath,
-			clientHistoryRouterMode
+			clientHistoryRouterMode,
+			defaultBrowserTarget
 		},
 		userConfig
 	)

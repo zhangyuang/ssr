@@ -95,6 +95,6 @@
 		"parser": {
 			"unsafeParameterDecoratorsEnabled": true
 		},
-		"globals": ["cy", "expect", "it", "context", "beforeEach", "afterEach", "describe", "Cypress", "navigator", "window", "document", "__isBrowser__", "JSX", "Vue", "React", "__non_webpack_require__"]
+		"globals": ["cy", "RspackChain", "expect", "it", "context", "beforeEach", "afterEach", "describe", "Cypress", "navigator", "window", "document", "__isBrowser__", "JSX", "Vue", "React", "__non_webpack_require__"]
 	}
 }
