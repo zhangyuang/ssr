@@ -1,3 +1,25 @@
+## [7.0.1](https://github.com/zhangyuang/ssr/compare/types@6.2.65...types@7.0.1) (2025-08-04)
+
+
+### Bug Fixes
+
+* set currentRouter path when use memoryHistory in client ([df7b040](https://github.com/zhangyuang/ssr/commit/df7b040035e39400e3c6ed8256ab0fb0e08f3c61))
+* use req.url instead of req.path ([b3e9729](https://github.com/zhangyuang/ssr/commit/b3e972964de7191f2cfb6aa3852a7de8c2fe2b99))
+
+
+### Features
+
+* add plugin-react-oxc ([80ae3bc](https://github.com/zhangyuang/ssr/commit/80ae3bc4c6d39075bb8554822350d5e45f4a8b65))
+* add rspack ([f3e4216](https://github.com/zhangyuang/ssr/commit/f3e42167db9ab0b1152ca978f5d7391d6de6c0cf))
+* add rspack skip ci ([62d49ca](https://github.com/zhangyuang/ssr/commit/62d49caa0694899930747c60ad1f8cc168f2efba))
+* add vite rolldown ([2f348cf](https://github.com/zhangyuang/ssr/commit/2f348cf0ee9ab923b476e284d77c804d4341f9c5))
+* set asset emit to false in rspack server side ([112bc07](https://github.com/zhangyuang/ssr/commit/112bc07775f60c6c82a5c121e7e1efbe592e5712))
+* set request router info in csr mode for vue3 ([fa7a59d](https://github.com/zhangyuang/ssr/commit/fa7a59dd36ebb69af988832ac373409201f89659))
+* set vue router url with all render modes ([b58f828](https://github.com/zhangyuang/ssr/commit/b58f8281b684f042e0434f87a5d9ce96addfc04a))
+* support window.ssrRequestPath inject for memoryHistory in vue3 ([ca99c5d](https://github.com/zhangyuang/ssr/commit/ca99c5dd5fed3c1bcd2c440991f7b08bc6f961b3))
+
+
+
 ## [7.0.1-beta.2](https://github.com/zhangyuang/ssr/compare/types@7.0.1-beta.1...types@7.0.1-beta.2) (2025-07-26)
 
 

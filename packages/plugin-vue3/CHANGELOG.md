@@ -1,3 +1,21 @@
+## [7.0.1](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.123...plugin-vue3@7.0.1) (2025-08-04)
+
+
+### Bug Fixes
+
+* use req.url instead of req.path ([b3e9729](https://github.com/zhangyuang/ssr/commit/b3e972964de7191f2cfb6aa3852a7de8c2fe2b99))
+
+
+### Features
+
+* add plugin-react-oxc ([80ae3bc](https://github.com/zhangyuang/ssr/commit/80ae3bc4c6d39075bb8554822350d5e45f4a8b65))
+* add rspack ([f3e4216](https://github.com/zhangyuang/ssr/commit/f3e42167db9ab0b1152ca978f5d7391d6de6c0cf))
+* add rspack skip ci ([62d49ca](https://github.com/zhangyuang/ssr/commit/62d49caa0694899930747c60ad1f8cc168f2efba))
+* add vite rolldown ([2f348cf](https://github.com/zhangyuang/ssr/commit/2f348cf0ee9ab923b476e284d77c804d4341f9c5))
+* set asset emit to false in rspack server side ([112bc07](https://github.com/zhangyuang/ssr/commit/112bc07775f60c6c82a5c121e7e1efbe592e5712))
+
+
+
 ## [7.0.1-beta.0](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.123...plugin-vue3@7.0.1-beta.0) (2025-07-26)
 
 ### Bug Fixes
