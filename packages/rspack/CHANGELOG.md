@@ -1,3 +1,12 @@
+## [7.0.5](https://github.com/zhangyuang/ssr/compare/rspack@7.0.4...rspack@7.0.5) (2025-08-04)
+
+
+### Features
+
+* remobe css-loader postcss-loader in rspack ([54038c2](https://github.com/zhangyuang/ssr/commit/54038c22c0db7b525680faf4b2ba6ee75c99db4c))
+
+
+
 ## [7.0.4](https://github.com/zhangyuang/ssr/compare/rspack@7.0.3...rspack@7.0.4) (2025-08-04)
 
 
