@@ -27,7 +27,10 @@
     "example:midway:react:dynamic:router": "EXAMPLE=react-dynamic-router-test esno scripts/prelink.ts && cd example/react-dynamic-router-test && npm start",
     "example:nestjs:react:prod:vite": "EXAMPLE=nestjs-react-ssr esno scripts/prelink.ts && cd example/nestjs-react-ssr && npm run prod:vite",
     "example:nestjs:react:prod:rspack": "EXAMPLE=nestjs-react-ssr esno scripts/prelink.ts && cd example/nestjs-react-ssr && npm run prod:rspack",
+    "example:nestjs:react:rspack": "EXAMPLE=nestjs-react-ssr esno scripts/prelink.ts && cd example/nestjs-react-ssr && npm run start:rspack",
     "example:nestjs:react18:prod:rspack": "EXAMPLE=nestjs-react18-ssr esno scripts/prelink.ts && cd example/nestjs-react18-ssr && npm run prod:rspack",
+    "example:nestjs:react18:rspack": "EXAMPLE=nestjs-react18-ssr esno scripts/prelink.ts && cd example/nestjs-react18-ssr && npm run start:rspack",
+
     "example:midway:vue": "cd example/midway-vue-ssr && npm start",
     "example:midway:vue3": "cd example/midway-vue3-ssr && npm start",
     "example:midway:vue3:vite": "cd example/midway-vue3-ssr && npm run start:vite",
@@ -37,7 +40,11 @@
     "example:nestjs:vue3:prod:vite": "cd example/nestjs-vue3-ssr && npm run prod:vite",
     "example:nestjs:vue": "cd example/nestjs-vue-ssr && npm start",
     "example:nestjs:vue3": "cd example/nestjs-vue3-ssr && npm start",
-    "example:nestjs:vue3:pinia": "cd example/nestjs-vue3-ssr-pinia && npm start"
+    "example:nestjs:vue3:pinia": "cd example/nestjs-vue3-ssr-pinia && npm start",
+    "example:nestjs:vue3:rspack": "cd example/nestjs-vue3-ssr && npm run start:rspack",
+    "example:nestjs:vue3:prod:rspack": "cd example/nestjs-vue3-ssr && npm run prod:rspack",
+    "example:nestjs:vue:rspack": "cd example/nestjs-vue-ssr && npm run start:rspack",
+    "example:nestjs:vue:prod:rspack": "cd example/nestjs-vue-ssr && npm run prod:rspack"
   },
   "repository": {
     "type": "git",

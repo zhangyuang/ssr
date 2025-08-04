@@ -36,9 +36,9 @@
     "start": "ssr start",
     "start:vite": "ssr start --tool vite",
     "start:rspack": "ssr start --tool rspack",
-    "prod": "ssr build && NODE_ENV=production node dist/main.js",
-    "prod:vite": "ssr build --tool vite && NODE_ENV=production node dist/main.js",
-    "prod:rspack": "ssr build --tool rspack && NODE_ENV=production node dist/main.js",
+    "prod": "ssr build && NODE_ENV=production node bootstrap.js",
+    "prod:vite": "ssr build --tool vite && NODE_ENV=production node bootstrap.js",
+    "prod:rspack": "ssr build --tool rspack && NODE_ENV=production node bootstrap.js",
     "lint": "biome format --diagnostic-level error",
     "lint:fix": "biome format --diagnostic-level error --write"
   }

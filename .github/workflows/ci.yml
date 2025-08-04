@@ -721,6 +721,150 @@ jobs:
             e2e/integration/examples/noswiper.spec.js
           browser: chrome
 
+  e2e-chrome-nestjs-react-rspack:
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: ["20"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Turbo Cache
+        id: turbo-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+             /home/runner/.cache/Cypress
+             /home/runner/setup-pnpm/node_modules/.bin/store/v10
+
+          key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+              ${{ runner.os }}-v1.0.0-
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: |
+          pnpm i --no-frozen-lockfile && npx cypress install
+      - name: Build packages
+        run: |
+          pnpm build
+
+      - uses: cypress-io/github-action@v6
+        with:
+          install: false
+          start: pnpm example:nestjs:react:rspack
+          wait-on: 'http://localhost:3000'
+          spec: |
+            e2e/integration/examples/noswiper.spec.js
+          browser: chrome
+
+  e2e-chrome-nestjs-react18-rspack:
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: ["20"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Turbo Cache
+        id: turbo-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+             /home/runner/.cache/Cypress
+             /home/runner/setup-pnpm/node_modules/.bin/store/v10
+
+          key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+              ${{ runner.os }}-v1.0.0-
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: |
+          pnpm i --no-frozen-lockfile && npx cypress install
+      - name: Build packages
+        run: |
+          pnpm build
+
+      - uses: cypress-io/github-action@v6
+        with:
+          install: false
+          start: pnpm example:nestjs:react18:rspack
+          wait-on: 'http://localhost:3000'
+          spec: |
+            e2e/integration/examples/noswiper.spec.js
+          browser: chrome
+
+  e2e-chrome-nestjs-react-prod-rspack:
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: ["20"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Turbo Cache
+        id: turbo-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+             /home/runner/.cache/Cypress
+             /home/runner/setup-pnpm/node_modules/.bin/store/v10
+
+          key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+              ${{ runner.os }}-v1.0.0-
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: |
+          pnpm i --no-frozen-lockfile && npx cypress install
+      - name: Build packages
+        run: |
+          pnpm build
+
+      - uses: cypress-io/github-action@v6
+        with:
+          install: false
+          start: pnpm example:nestjs:react:prod:rspack
+          wait-on: 'http://localhost:3000'
+          spec: |
+            e2e/integration/examples/noswiper.spec.js
+          browser: chrome
+
   e2e-chrome-nestjs-vue3-pinia:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ${{ matrix.os }}
@@ -967,6 +1111,202 @@ jobs:
           browser: chrome
         env:
           ssrConfig: '{"whiteList":["ssr-common-utils"]}'
+
+  e2e-chrome-nestjs-vue3-rspack:
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: ["20"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Turbo Cache
+        id: turbo-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+             /home/runner/.cache/Cypress
+             /home/runner/setup-pnpm/node_modules/.bin/store/v10
+
+          key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+              ${{ runner.os }}-v1.0.0-
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: |
+          pnpm i --no-frozen-lockfile && npx cypress install
+      - name: Build packages
+        run: |
+          pnpm build
+
+      - uses: cypress-io/github-action@v6
+        with:
+          install: false
+          start: pnpm example:nestjs:vue3:rspack
+          wait-on: 'http://localhost:3000'
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js
+            e2e/integration/examples/vue-ssr.spec.js
+          browser: chrome
+
+  e2e-chrome-nestjs-vue3-prod-rspack:
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: ["20"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Turbo Cache
+        id: turbo-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+             /home/runner/.cache/Cypress
+             /home/runner/setup-pnpm/node_modules/.bin/store/v10
+
+          key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+              ${{ runner.os }}-v1.0.0-
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: |
+          pnpm i --no-frozen-lockfile && npx cypress install
+      - name: Build packages
+        run: |
+          pnpm build
+
+      - uses: cypress-io/github-action@v6
+        with:
+          install: false
+          start: pnpm example:nestjs:vue3:prod:rspack
+          wait-on: 'http://localhost:3000'
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js
+            e2e/integration/examples/vue-ssr.spec.js
+          browser: chrome
+
+  e2e-chrome-nestjs-vue-rspack:
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: ["20"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Turbo Cache
+        id: turbo-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+             /home/runner/.cache/Cypress
+             /home/runner/setup-pnpm/node_modules/.bin/store/v10
+
+          key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+              ${{ runner.os }}-v1.0.0-
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: |
+          pnpm i --no-frozen-lockfile && npx cypress install
+      - name: Build packages
+        run: |
+          pnpm build
+
+      - uses: cypress-io/github-action@v6
+        with:
+          install: false
+          start: pnpm example:nestjs:vue:rspack
+          wait-on: 'http://localhost:3000'
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js
+            e2e/integration/examples/vue-ssr.spec.js
+          browser: chrome
+
+  e2e-chrome-nestjs-vue-prod-rspack:
+    if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node: ["20"]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Turbo Cache
+        id: turbo-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+             /home/runner/.cache/Cypress
+             /home/runner/setup-pnpm/node_modules/.bin/store/v10
+
+          key: ${{ runner.os }}-v1.1.1-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+              ${{ runner.os }}-v1.0.0-
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: |
+          pnpm i --no-frozen-lockfile && npx cypress install
+      - name: Build packages
+        run: |
+          pnpm build
+
+      - uses: cypress-io/github-action@v6
+        with:
+          install: false
+          start: pnpm example:nestjs:vue:prod:rspack
+          wait-on: 'http://localhost:3000'
+          spec: |
+            e2e/integration/examples/common-ssr.spec.js
+            e2e/integration/examples/vue-ssr.spec.js
+          browser: chrome
   publish:
     name: Publish
     if: "startsWith(github.event.head_commit.message, 'release')"
@@ -991,6 +1331,13 @@ jobs:
       - e2e-chrome-nestjs-react-prod-optimize
       - e2e-chrome-nestjs-vue3-prod-optimize
       - e2e-chrome-nestjs-react18-vite
+      - e2e-chrome-nestjs-react-rspack
+      - e2e-chrome-nestjs-react18-rspack
+      - e2e-chrome-nestjs-react-prod-rspack
+      - e2e-chrome-nestjs-vue3-rspack
+      - e2e-chrome-nestjs-vue3-prod-rspack
+      - e2e-chrome-nestjs-vue-rspack
+      - e2e-chrome-nestjs-vue-prod-rspack
     strategy:
       matrix:
         node: ["20"]

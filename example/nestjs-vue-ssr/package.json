@@ -30,10 +30,10 @@
     "node": ">=20.0.0"
   },
   "scripts": {
+   "start": "ssr start",
+    "start:rspack": "ssr start --tool rspack",
     "prod": "ssr build && NODE_ENV=production node dist/main.js",
-    "deploy": "ssr build && ssr deploy",
-    "start": "ssr start",
-    "build": "ssr build",
+    "prod:rspack": "ssr build --tool rspack && NODE_ENV=production node dist/main.js",
     "lint": "biome format --diagnostic-level error",
     "lint:fix": "biome format --diagnostic-level error --write"
   }
