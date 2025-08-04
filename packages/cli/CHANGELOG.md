@@ -1,3 +1,12 @@
+## [7.0.3](https://github.com/zhangyuang/ssr/compare/cli@7.0.2...cli@7.0.3) (2025-08-04)
+
+
+### Bug Fixes
+
+* release bug ([a2169d2](https://github.com/zhangyuang/ssr/commit/a2169d2964fe6dbb86cda608646a4cc0238486bf))
+
+
+
 ## [7.0.2](https://github.com/zhangyuang/ssr/compare/cli@7.0.1...cli@7.0.2) (2025-08-04)
 
 
