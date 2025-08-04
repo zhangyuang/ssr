@@ -1,3 +1,7 @@
+## [7.0.2](https://github.com/zhangyuang/ssr/compare/cli@7.0.1...cli@7.0.2) (2025-08-04)
+
+
+
 ## [7.0.1](https://github.com/zhangyuang/ssr/compare/cli@6.2.81...cli@7.0.1) (2025-08-04)
 
 

@@ -1,3 +1,7 @@
+## [7.0.2](https://github.com/zhangyuang/ssr/compare/plugin-react@7.0.1...plugin-react@7.0.2) (2025-08-04)
+
+
+
 ## [7.0.1](https://github.com/zhangyuang/ssr/compare/plugin-react@6.2.84...plugin-react@7.0.1) (2025-08-04)
 
 

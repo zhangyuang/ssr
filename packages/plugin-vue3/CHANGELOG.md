@@ -1,3 +1,7 @@
+## [7.0.2](https://github.com/zhangyuang/ssr/compare/plugin-vue3@7.0.1...plugin-vue3@7.0.2) (2025-08-04)
+
+
+
 ## [7.0.1](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.123...plugin-vue3@7.0.1) (2025-08-04)
 
 

@@ -129,7 +129,6 @@ export function getVersionChoices (currentVersion: string) {
     i.title = `${i.title} (${i.value})`
     return i
   })
-
   return versionChoices
 }
 
@@ -148,16 +147,19 @@ export async function publishPackage (
     publicArgs.push('--tag', tag)
   }
   const pkg = require(resolve(pkdDir, './package.json'))
-  Object.keys(pkg.dependencies).forEach(key => {
+  Object.keys(pkg.dependencies ?? {}).forEach(key => {
     if (pkg.dependencies[key] === 'workspace:*') {
       pkg.dependencies[key] = '^7.0.0'
     }
   })
   writeFileSync(resolve(pkdDir, './package.json'), JSON.stringify(pkg, null, 2) + '\n')
   cp(resolve(process.cwd(), './README.md'), resolve(pkdDir, './README.md'))
-  await runIfNotDry('npm', publicArgs, {
+  await runIfNotDry('npm', ['pkg', 'fix'], {
     cwd: pkdDir
   })
+  // await runIfNotDry('npm', publicArgs, {
+  //   cwd: pkdDir
+  // })
 }
 
 export async function getLatestTag (pkgName: string, version: string) {
