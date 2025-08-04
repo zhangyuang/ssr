@@ -16,6 +16,5 @@ import Rectangle from '@/components/rectangle/index.vue'
 import Search from '@/components/search/index.vue'
 import { mapState } from 'ssr-hoc-vue3'
 import { IndexData } from '~/typings/data'
-
 const indexData = mapState<IndexData>().indexStore.value.data
 </script>

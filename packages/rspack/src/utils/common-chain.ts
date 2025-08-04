@@ -73,6 +73,15 @@ const addCommonChain = (chain: RspackChain, isServer: boolean) => {
 		.type('asset/resource')
 		.end()
 
+	if (isServer) {
+		chain.module.generator.set('asset/resource', {
+			emit: false
+		})
+		chain.module.generator.set('asset', {
+			emit: false
+		})
+	}
+
 	const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 	const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
 

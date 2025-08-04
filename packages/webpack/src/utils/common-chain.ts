@@ -222,7 +222,7 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
 		.rule('images')
 		.test(/\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/)
 		.use('url-loader')
-		.loader('url-loader')
+		.loader(loadModuleFromWebpack('url-loader'))
 		.options({
 			name: '[name].[hash:8].[ext]',
 			// require 图片的时候不用加 .default
@@ -244,7 +244,7 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
 		.rule('fonts')
 		.test(/\.(eot|woff|woff2|ttf)(\?.*)?$/)
 		.use('file-loader')
-		.loader('file-loader')
+		.loader(loadModuleFromWebpack('file-loader'))
 		.options({
 			name: `${assetsDir}/[name].[hash:8].[ext]`,
 			esModule: false,
