@@ -154,12 +154,12 @@ export async function publishPackage (
   })
   writeFileSync(resolve(pkdDir, './package.json'), JSON.stringify(pkg, null, 2) + '\n')
   cp(resolve(process.cwd(), './README.md'), resolve(pkdDir, './README.md'))
-  await runIfNotDry('npm', ['pkg', 'fix'], {
-    cwd: pkdDir
-  })
-  // await runIfNotDry('npm', publicArgs, {
+  // await runIfNotDry('npm', ['pkg', 'fix'], {
   //   cwd: pkdDir
   // })
+  await runIfNotDry('npm', publicArgs, {
+    cwd: pkdDir
+  })
 }
 
 export async function getLatestTag (pkgName: string, version: string) {
