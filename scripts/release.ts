@@ -60,15 +60,17 @@ async function main (): Promise<void> {
       args.tag = 'beta'
     }
 
-    const { yes }: { yes: boolean } = await prompts({
-      type: 'confirm',
-      name: 'yes',
-      message: `Releasing ${colors.yellow(tag)} Confirm?`
-    })
-
-    if (!yes) {
-      return
+    if (!process.env.CONFIRM_RELEASE) {
+      const { yes }: { yes: boolean } = await prompts({
+        type: 'confirm',
+        name: 'yes',
+        message: `Releasing ${colors.yellow(tag)} Confirm?`
+      })
+      if (!yes) {
+        return
+      }
     }
+
 
     step('\nUpdating package version...')
     updateVersion(pkgPath, targetVersion)
