@@ -3,9 +3,8 @@ import type * as RspackChain from 'rspack-chain'
 import { promises } from 'fs'
 import { resolve } from 'path'
 import { rspack } from '@rspack/core'
-import { asyncChunkMap, getCwd, getPkgMajorVersion, loadConfig, logWarning, getBuildConfig, getDefineEnv } from 'ssr-common-utils'
+import { asyncChunkMap, getCwd, getPkgMajorVersion, loadConfig, logWarning, getBuildConfig, getDefineEnv, loadModuleFromRspack } from 'ssr-common-utils'
 import { nodeExternals } from './externals'
-import { setStyle } from './setStyle'
 
 const WebpackBar = require('webpackbar')
 
@@ -15,7 +14,7 @@ if (antdVersion === 5) {
 }
 
 const addCommonChain = (chain: RspackChain, isServer: boolean) => {
-	const { optimize, cwd, whiteList, define, defaultBrowserTarget, isDev } = loadConfig()
+	const { optimize, cwd, whiteList, define, defaultBrowserTarget, isDev, css } = loadConfig()
 
 	if (process.env.NOMINIFY) {
 		chain.optimization.minimize(false)
@@ -84,19 +83,29 @@ const addCommonChain = (chain: RspackChain, isServer: boolean) => {
 
 	const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 	const generateAnalysis = Boolean(process.env.GENERATE_ANALYSIS)
-
-	setStyle(chain, /\.css$/, {
-		rule: 'css',
-		importLoaders: 1,
-		isServer
-	}) // 设置css
-
-	setStyle(chain, /\.less$/, {
-		rule: 'less',
-		loader: 'less-loader',
-		importLoaders: 2,
-		isServer
+	chain.experiments({
+		css: true
 	})
+	chain.module.parser.set('css/auto', {
+		namedExports: false
+	})
+	chain.module
+		.rule('less')
+		.test(/\.less/)
+		.type('css/auto')
+		.use('less-loader')
+		.loader(loadModuleFromRspack('less-loader'))
+		.options({
+			lessOptions: Object.assign(
+				{
+					lessOptions: {
+						javascriptEnabled: true
+					}
+				},
+				css?.().loaderOptions?.less
+			)
+		})
+		.end()
 
 	chain.plugin('minify-css').use(rspack.CssExtractRspackPlugin, [getBuildConfig().cssBuildConfig[0]])
 

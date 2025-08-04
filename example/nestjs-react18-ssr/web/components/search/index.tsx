@@ -1,7 +1,6 @@
 import { useStore } from 'ssr-common-utils'
 import { useSnapshot } from 'valtio'
 import styles from './index.module.less'
-
 function Search() {
 	const { searchState } = useStore<{ searchState: { searchText: string } }>()
 	const snap = useSnapshot(searchState)
