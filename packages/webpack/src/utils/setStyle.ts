@@ -53,7 +53,7 @@ const setStyle = (chain: Chain, reg: RegExp, options: StyleOptions) => {
 			exclude && rule.exclude.add(exclude).end()
 		})
 		.use('MiniCss')
-		.loader('ssr-mini-css-extract-plugin/dist/loader')
+		.loader(loadModuleFromWebpack('ssr-mini-css-extract-plugin/dist/loader'))
 		.options({
 			emit: !isServer
 		})
