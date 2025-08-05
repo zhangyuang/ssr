@@ -8,21 +8,15 @@
         <h2 class="desc">
           {{ firstFloor.desc }}
         </h2>
-         <h4 class="desc" >
+        <h4 class="desc">
           {{ firstFloor.subtitle }}
         </h4>
         <div class="media-wrapper weui-flex justify-align">
           <div class="button-wrapper weui-flex justify-align">
-            <router-link
-              class="link start-button weui-flex__item"
-              :to="firstFloor.startButton.path"
-            >
+            <router-link class="link start-button weui-flex__item" :to="firstFloor.startButton.path">
               {{ firstFloor.startButton.label }}
             </router-link>
-            <router-link
-              class="link docs-button weui-flex__item"
-              :to="firstFloor.docsButton.path"
-            >
+            <router-link class="link docs-button weui-flex__item" :to="firstFloor.docsButton.path">
               {{ firstFloor.docsButton.label }}
             </router-link>
             <div class="license">
@@ -50,11 +44,7 @@
             <p>{{ secondFloor.content }}</p>
           </div>
           <div class="content weui-flex justify-align">
-            <div
-              v-for="item in secondFloor.items"
-              :key="item.title"
-              class="weui-flex__item content-item"
-            >
+            <div v-for="item in secondFloor.items" :key="item.title" class="weui-flex__item content-item">
               <div class="content__top weui-flex justify-align">
                 <div class="content-wrapper weui-flex__item">
                   <h3 class="title">
@@ -66,11 +56,8 @@
                 </div>
               </div>
               <div class="content__bottom">
-                <div
-                  v-for="(childContent, index) in item.children"
-                  :key="`${childContent + index}`"
-                  class="weui-flex__item"
-                >
+                <div v-for="(childContent, index) in item.children" :key="`${childContent + index}`"
+                  class="weui-flex__item">
                   {{ childContent }}
                 </div>
               </div>
@@ -97,7 +84,7 @@ export default defineComponent({
   components: {
     BaseLayout
   },
-  data () {
+  data() {
     return {
       firstFloor: webSiteConfig.home.firstFloor,
       secondFloor: webSiteConfig.home.secondFloor
@@ -109,7 +96,7 @@ export default defineComponent({
     })
   },
 
-  mounted () {
+  mounted() {
     // eslint-disable-next-line
     const swiper = new Swiper('.mySwiper', {
       navigation: {
@@ -144,26 +131,31 @@ export default defineComponent({
     flex-direction: column;
     flex-wrap: nowrap;
     box-sizing: border-box;
+
     .title {
       font-size: 100px;
       line-height: 1;
       font-weight: 800;
       letter-spacing: -0.05em;
     }
+
     .desc {
       font-size: 20px;
       letter-spacing: -0.02em;
     }
+
     .media-wrapper {
       // flex-direction: column;
       margin-top: 45px;
       text-align: center;
       z-index: 200;
       position: relative;
+
       .button-wrapper {
         flex-direction: row;
         position: relative;
         padding-bottom: 60px;
+
         .link {
           display: flex;
           height: 56px;
@@ -179,13 +171,13 @@ export default defineComponent({
           font-weight: 700;
           font-size: 16px;
           line-height: 56px;
-          transition: background-color 0.3s cubic-bezier(0.6, 0.41, 0.47, 1.18)
-              0s,
+          transition: background-color 0.3s cubic-bezier(0.6, 0.41, 0.47, 1.18) 0s,
             border-color 0.3s cubic-bezier(0.6, 0.41, 0.47, 1.18) 0s,
             color 0.3s cubic-bezier(0.6, 0.41, 0.47, 1.18) 0s;
           max-width: 100%;
           outline: none !important;
           box-sizing: border-box;
+
           &:hover {
             background-color: rgba(1, 1, 1, 0.9);
             color: rgb(255, 255, 255);
@@ -193,6 +185,7 @@ export default defineComponent({
             text-decoration: none;
           }
         }
+
         .docs-button {
           margin-left: 28px;
           background: #fff;
@@ -205,10 +198,12 @@ export default defineComponent({
             box-shadow: 0 6px 20px rgba(93, 93, 93, 0.23);
           }
         }
+
         .license {
           position: absolute;
           bottom: 0px;
           font-size: 16px;
+
           a {
             color: rgb(144, 195, 234);
             text-decoration-color: rgb(144, 195, 234);
@@ -231,6 +226,7 @@ export default defineComponent({
       //   overflow: hidden;
       // }
     }
+
     &::before {
       content: "";
       position: absolute;
@@ -240,13 +236,15 @@ export default defineComponent({
       left: 0;
       background-color: #1b293c;
       z-index: -100;
-      background-image: url("/images/header-bg.png");
+      background-image: url("https://doc.ssr-fc.com/images/header-bg.png");
       opacity: 1;
     }
   }
+
   .floor-container {
     background-color: #f5f6f7;
   }
+
   .second-floor {
     position: relative;
     flex-direction: column;
@@ -255,6 +253,7 @@ export default defineComponent({
     min-height: 780px;
     background-color: rgb(245, 246, 247);
     color: #000;
+
     &:before {
       content: "";
       position: absolute;
@@ -266,11 +265,14 @@ export default defineComponent({
       z-index: -100;
       opacity: 1;
     }
+
     .tip {
       height: 93px;
+
       p {
         position: relative;
         margin-bottom: 98px;
+
         &::before {
           content: "";
           position: absolute;
@@ -281,12 +283,14 @@ export default defineComponent({
         }
       }
     }
+
     .content {
       display: flex;
       flex-direction: row;
       justify-content: center;
       width: 100%;
       min-height: 418px;
+
       .content-item {
         max-width: 358px;
         background-color: #fff;
@@ -295,6 +299,7 @@ export default defineComponent({
         margin-top: 10px;
         flex-wrap: wrap;
       }
+
       &__top {
         display: flex;
         justify-content: space-between;
@@ -302,6 +307,7 @@ export default defineComponent({
         border-bottom: 2px solid rgb(124, 134, 142);
 
         .icon {
+
           // flex-basis: 33%;
           // max-width: 33%;
           img {
@@ -310,11 +316,13 @@ export default defineComponent({
             border-radius: 50%;
           }
         }
+
         .content-wrapper {
           .title {
             font-weight: 700;
             line-height: 1;
           }
+
           .desc {
             font-size: 13px;
           }
@@ -325,6 +333,7 @@ export default defineComponent({
         padding: 20px 25px;
         font-size: 14px;
         min-height: 180px;
+
         .weui-flex__item {
           text-align: left;
           margin-top: 18px;
@@ -341,32 +350,40 @@ export default defineComponent({
       padding: 20px;
       padding-top: 100px;
       height: auto;
+
       .title {
         line-height: 1;
         font-size: 48px;
       }
+
       .desc {
         font-size: 16px;
         font-weight: 400;
       }
+
       .media-wrapper {
         .button-wrapper {
           flex-direction: column;
+
           .docs-button {
             margin-left: 0;
             margin-top: 16px;
           }
         }
+
         .img {
           width: 80%;
         }
       }
     }
+
     .second-floor {
       padding: 100px 5px 120px !important;
+
       .content {
         flex-direction: column;
         flex-wrap: wrap;
+
         &__bottom {
           min-height: auto;
         }
@@ -379,13 +396,15 @@ export default defineComponent({
   .page-container .second-floor .content {
     flex-direction: column;
     flex-wrap: wrap;
-     &__bottom {
-       min-height: 180px;
+
+    &__bottom {
+      min-height: 180px;
     }
   }
 }
 
 @media screen and (min-width: 768px) {
+
   .first-floor,
   .second-floor {
     width: 750px;
@@ -394,20 +413,24 @@ export default defineComponent({
   .page-container .second-floor .content {
     flex-direction: column;
     flex-wrap: wrap;
-     &__bottom {
-       min-height: 180px;
+
+    &__bottom {
+      min-height: 180px;
     }
   }
 }
 
 @media screen and (min-width: 991px) {
+
   .first-floor,
   .second-floor {
     width: 970px;
   }
+
   .page-container .second-floor .content {
     flex-direction: row;
     flex-wrap: nowrap;
+
     &__top {
       min-height: 170px;
     }
@@ -416,6 +439,7 @@ export default defineComponent({
 
 @media screen and (min-width: 1200px) {
   .page-container {
+
     .first-floor,
     .second-floor {
       width: 1100px;

@@ -1,0 +1,100 @@
+{
+	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"vcs": { "enabled": false, "clientKind": "git", "useIgnoreFile": false },
+	"files": {
+		"ignoreUnknown": false,
+		"ignore": ["**/*.d.ts"],
+		"include": ["src/**/*.ts", "web/**/*.ts", "web/**/*.tsx", "web/**/*.vue"]
+	},
+	"formatter": { "enabled": true, "indentStyle": "tab", "lineWidth": 320, "attributePosition": "auto" },
+	"organizeImports": { "enabled": true },
+	"linter": {
+		"enabled": true,
+		"rules": {
+			"recommended": false,
+			"complexity": {
+				"noExtraBooleanCast": "error",
+				"noMultipleSpacesInRegularExpressionLiterals": "error",
+				"noUselessCatch": "error",
+				"noUselessConstructor": "error",
+				"noUselessLoneBlockStatements": "error",
+				"noUselessRename": "error",
+				"noUselessTernary": "error",
+				"noUselessUndefinedInitialization": "error",
+				"noVoid": "error",
+				"noWith": "error",
+				"useLiteralKeys": "off"
+			},
+			"correctness": {
+				"noConstAssign": "error",
+				"noConstantCondition": "error",
+				"noEmptyCharacterClassInRegex": "error",
+				"noEmptyPattern": "error",
+				"noGlobalObjectCalls": "error",
+				"noInnerDeclarations": "error",
+				"noInvalidConstructorSuper": "error",
+				"noInvalidUseBeforeDeclaration": "error",
+				"noNewSymbol": "error",
+				"noSelfAssign": "error",
+				"noSwitchDeclarations": "error",
+				"noUndeclaredVariables": "error",
+				"noUnreachable": "error",
+				"noUnreachableSuper": "error",
+				"noUnsafeFinally": "error",
+				"noUnusedVariables": "warn",
+				"useArrayLiterals": "error",
+				"useExhaustiveDependencies": "warn",
+				"useHookAtTopLevel": "off",
+				"useIsNan": "error"
+			},
+			"security": { "noGlobalEval": "error" },
+			"style": {
+				"noCommaOperator": "error",
+				"noNamespace": "error",
+				"noNonNullAssertion": "off",
+				"noYodaExpression": "error",
+				"useBlockStatements": "error",
+				"useConsistentBuiltinInstantiation": "error",
+				"useConst": "error",
+				"useSingleVarDeclarator": "error"
+			},
+			"suspicious": {
+				"noAsyncPromiseExecutor": "error",
+				"noCatchAssign": "error",
+				"noClassAssign": "error",
+				"noCompareNegZero": "error",
+				"noControlCharactersInRegex": "error",
+				"noDebugger": "error",
+				"noDoubleEquals": "error",
+				"noDuplicateCase": "error",
+				"noDuplicateClassMembers": "error",
+				"noDuplicateObjectKeys": "error",
+				"noDuplicateParameters": "error",
+				"noFallthroughSwitchClause": "error",
+				"noFunctionAssign": "error",
+				"noGlobalAssign": "error",
+				"noMisleadingCharacterClass": "error",
+				"noPrototypeBuiltins": "error",
+				"noRedeclare": "error",
+				"noSelfCompare": "error",
+				"noShadowRestrictedNames": "error",
+				"noSparseArray": "error",
+				"noUnsafeNegation": "error",
+				"useValidTypeof": "error"
+			}
+		}
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "single",
+			"semicolons": "asNeeded",
+			"trailingCommas": "none",
+			"lineWidth": 320,
+			"attributePosition": "auto"
+		},
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": true
+		},
+		"globals": ["cy", "expect", "it", "context", "beforeEach", "afterEach", "describe", "Cypress", "navigator", "window", "document", "__isBrowser__", "JSX", "Vue", "React"]
+	}
+}

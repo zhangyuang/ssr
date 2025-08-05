@@ -17,6 +17,7 @@
     "declaration": true,
     "jsx": "react-jsx",
     "outDir": "dist",
+    "types": ["node"],
     "typeRoots": [ "./typings", "./node_modules/@types"],
     "paths": {
       "~/*": ["./*"],

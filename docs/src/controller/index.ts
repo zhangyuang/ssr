@@ -1,7 +1,7 @@
 import { Readable } from 'stream'
 import { Controller, Get, Provide, Inject } from '@midwayjs/decorator'
 import { Context } from '@midwayjs/koa'
-import { render } from 'ssr-core-vue3'
+import { render } from 'ssr-core'
 
 @Provide()
 @Controller('/')

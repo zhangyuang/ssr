@@ -16,6 +16,7 @@
     "declaration": true,
     "outDir": "dist",
     "jsx": "preserve",
+    "types": ["node"],
     "typeRoots": [ "./typings", "./node_modules/@types"],
     "paths": {
       "~/*": ["./*"],

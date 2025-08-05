@@ -5,26 +5,25 @@ exports.userConfig = {
     chain.module
       .rule('markdown')
       .test(/\.md$/)
-      .use('raw-loader')
-      .loader(require.resolve('raw-loader'))
+      .type('asset/source')
       .end()
   },
-  chainClientConfig: chain => {
-    chain.optimization
-      .splitChunks({
-        chunks: 'async',
-        cacheGroups: {
-          vendors: {
-            test: (module) => {
-              return module.resource &&
-            /\.md$/.test(module.resource)
-            },
-            name: 'md-vendor'
-          }
-        }
-      })
-      .end()
-  },
+  // chainClientConfig: chain => {
+  //   chain.optimization
+  //     .splitChunks({
+  //       chunks: 'async',
+  //       cacheGroups: {
+  //         vendors: {
+  //           test: (module) => {
+  //             return module.resource &&
+  //           /\.md$/.test(module.resource)
+  //           },
+  //           name: 'md-vendor'
+  //         }
+  //       }
+  //     })
+  //     .end()
+  // },
   customeHeadScript: [
     {
       content: `var _hmt = _hmt || [];
