@@ -1059,6 +1059,9 @@ importers:
       '@vue/server-renderer':
         specifier: ^3.0.7
         version: 3.5.18(vue@3.5.18(typescript@5.9.2))
+      pinia:
+        specifier: ^2.0.13
+        version: 2.3.1(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
       ssr-common-utils:
         specifier: workspace:*
         version: link:../utils
@@ -1383,9 +1386,6 @@ importers:
       ora:
         specifier: ^4.0.4
         version: 4.1.1
-      pinia:
-        specifier: ^2.0.17
-        version: 2.3.1(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
       postcss:
         specifier: ^8.0.0
         version: 8.5.6

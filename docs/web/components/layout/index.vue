@@ -9,6 +9,7 @@
     <meta name="theme-color" content="#000000">
     <meta name="description" content="server side render, 最小而美的服务端渲染应用骨架, Vue SSR, React SSR, 服务端渲染">
     <link rel="icon" href="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg">
+    <meta property="og:image" content="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg">
     <meta name="keywords" itemprop="keywords"
       content="server side render, 服务端渲染, React, Egg, Midway, Nestjs, Vue, VueSSR, SSR, ReactSSR">
     <meta property="og:title" content="server side render, Vue, React, SSR 服务端渲染">

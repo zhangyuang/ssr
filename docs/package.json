@@ -15,7 +15,6 @@
     "markdown-it-anchor": "^8.0.0",
     "markdown-it-toc-done-right": "^4.2.0",
     "midway-schedule": "^2.0.0",
-    "pinia": "^3.0.3",
     "ssr-common-utils": "^7.0.0",
     "ssr-core": "^7.0.0",
     "swiper": "6.7.5",
