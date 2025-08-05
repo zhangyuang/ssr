@@ -28,7 +28,7 @@
     "@midwayjs/fcli-plugin-fc": "^1.0.0",
     "@midwayjs/mock": "^3.0.0",
     "@types/markdown-it": "^12.0.1",
-    "@types/node": "^18.0.0",
+    "@types/node": "^24.0.0",
     "darkmode-js": "^1.5.7",
     "raw-loader": "^4.0.2",
     "ssr": "^7.0.0",
@@ -41,13 +41,14 @@
   "scripts": {
     "start": "ssr start --tool=rspack",
     "build": "ssr build --tool=rspack",
-    "deploy": "rm -rf build && ssr build && ssr deploy",
-    "deploy:tencent": "rm -rf build && ssr build && ssr deploy --tencent",
+    "deploy": "rm -rf build && npm run build && ssr deploy",
+    "deploy:tencent": "rm -rf build && npm run build && ssr deploy --tencent",
     "lint": "biome format --diagnostic-level error",
     "lint:fix": "biome format --diagnostic-level error --write"
   },
   "resolutions": {
     "colors": "1.4.0",
-    "pinia": "2.0.24"
+    "pinia": "2.0.24",
+    "typescript": "5.8.2"
   }
 }

@@ -1,6 +1,7 @@
 import type {UserConfig} from 'ssr-types'
 
 exports.userConfig = {
+  // mode: 'csr',
   chainBaseConfig: (chain) => {
     chain.module
       .rule('markdown')

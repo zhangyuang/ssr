@@ -8,6 +8,7 @@ const config = [
     routes: [
       { title: '什么是服务端渲染', path: 'features$ssr' },
       { title: '快速开始', path: 'features$started' },
+      { title: 'v7升级指南', path: 'features$v7' },
       { title: '在线案例', path: 'features$demo' },
       { title: '技术选型', path: 'features$technology' },
       { title: '目录结构', path: 'features$structure' },

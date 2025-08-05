@@ -23,9 +23,20 @@
 
 ## 7.x 版本
 
-`ssr` 框架 `7.x` 版本正在紧密开发中，在 `7.x` 版本中我们将会同时支持 `Webpack` , `Rspack` , `Rolldown-Vite` 三种构建工具来极大的加快构建性能。同时在使用方式上和 `6.x` 版本保持一致，用户可以无缝的从 `6.x` 版本迁移到 `7.x` 版本。
+`ssr` 框架 `7.x` 版本已发布，阅读[文档](http://doc.ssr-fc.com/docs/features$v7)获取更详细的介绍和升级指南。v7版本带来以下新的features
 
-同时在 `7.x` 版本我们设计精简了依赖项，开发者可以只安装当前使用的前端框架和构建工具的依赖项。未使用到的构建工具的相关依赖将不会被安装。
+* 同时支持 [Rspack](https://rspack.rs) , [Rolldown-Vite](https://vite.dev/guide/rolldown),  `Webpack` , 三种构建工具来极大的加快构建性能。
+* 支持任意前端框架与任意构建工具结合使用
+* 全新的依赖设计，精简初始化安装需要的依赖项
+* 渐进式升级，几乎没有 breaking change, v6项目可平滑过渡到v7
+
+v7 版本实测构建速度可提升5-10倍。依赖体积缩小2/3(使用 Rspack|Rolldown-Vite 的场景)。
+
+使用最新的 `create-ssr-app` 来根据提示初始化v7(推荐)或v6的项目模版。
+
+```bash
+$ npm init ssr-app@^2.0.4 my-ssr-project # 添加版本号，保证走到最新的初始化脚本
+```
 
 ## 简介
 
