@@ -240,8 +240,7 @@ const loadModuleFromFramework = (path: string) => {
 		return require.resolve(path, {
 			paths: [accessFileSync(paths) ? realpathSync(paths) : paths]
 		})
-	} catch (error) {
-		console.log('loadModuleFromFramework error:', error)
+	} catch (_) {
 		return ''
 	}
 }
