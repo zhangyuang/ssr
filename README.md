@@ -35,7 +35,7 @@ v7 版本实测构建速度可提升5-10倍。依赖体积缩小2/3(使用 Rspac
 使用最新的 `create-ssr-app` 来根据提示初始化v7(推荐)或v6的项目模版。
 
 ```bash
-$ npm init ssr-app@^2.0.4 my-ssr-project # 添加版本号，保证走到最新的初始化脚本
+$ npm init ssr-app@latest my-ssr-project
 ```
 
 ## 简介
