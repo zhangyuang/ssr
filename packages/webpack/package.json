@@ -70,6 +70,7 @@
     "url-loader": "^4.1.1",
     "webpack-bundle-analyzer": "^3.6.1",
     "webpack-chain": "^6.4.0",
+    "rspack-chain": "^1.0.0",
     "webpack-manifest-plugin": "^2.2.0",
     "webpackbar": "^5.0.0-3"
   },

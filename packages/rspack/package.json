@@ -46,6 +46,7 @@
     "unplugin-auto-import": "^0.12.1",
     "unplugin-vue-components": "^0.22.12",
     "webpack": "^5.0.0",
+    "webpack-chain": "^6.4.0",
     "rspack-chain": "^1.0.0",
     "webpackbar": "^5.0.0-3"
   },

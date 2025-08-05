@@ -1153,6 +1153,9 @@ importers:
       webpack:
         specifier: ^5.0.0
         version: 5.101.0(esbuild@0.14.48)
+      webpack-chain:
+        specifier: ^6.4.0
+        version: 6.5.1
       webpackbar:
         specifier: ^5.0.0-3
         version: 5.0.2(webpack@5.101.0(esbuild@0.14.48))
@@ -1407,6 +1410,9 @@ importers:
       rollup-plugin-visualizer:
         specifier: ^5.12.0
         version: 5.14.0(rollup@2.79.2)
+      rspack-chain:
+        specifier: ^1.0.0
+        version: 1.3.1
       semver:
         specifier: ^7.3.8
         version: 7.7.2
