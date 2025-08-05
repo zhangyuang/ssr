@@ -22,10 +22,10 @@ export const getClientRspack = (chain: RspackChain) => {
 				{
 					minimizerOptions: {
 						compress: {
-							keep_fnames: judgeFramework().includes('ssr-plugin-react')
+							keep_fnames: judgeFramework() === 'ssr-plugin-react'
 						},
 						mangle: {
-							keep_fnames: judgeFramework().includes('ssr-plugin-react')
+							keep_fnames: judgeFramework() === 'ssr-plugin-react'
 						}
 					}
 				}
@@ -33,9 +33,11 @@ export const getClientRspack = (chain: RspackChain) => {
 			optimization.minimizer('lightningCssMinimizer').use(LightningCssMinimizerRspackPlugin, [defaultBrowserTarget])
 		})
 		.end()
-	chain.when(isDev, (chain) => {
-		chain.plugin('fast-refresh').use(ReactRefreshRspackPlugin)
-	})
+	if (judgeFramework() === 'ssr-plugin-react') {
+		chain.when(isDev, (chain) => {
+			chain.plugin('fast-refresh').use(ReactRefreshRspackPlugin)
+		})
+	}
 	chain.plugin('manifest').use(RspackManifestPlugin, [
 		{
 			fileName: 'asset-manifest.json'

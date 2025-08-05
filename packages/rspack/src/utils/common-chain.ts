@@ -3,7 +3,7 @@ import type * as RspackChain from 'rspack-chain'
 import { promises } from 'fs'
 import { resolve } from 'path'
 import { rspack } from '@rspack/core'
-import { asyncChunkMap, getCwd, getPkgMajorVersion, loadConfig, logWarning, getBuildConfig, getDefineEnv, loadModuleFromRspack } from 'ssr-common-utils'
+import { asyncChunkMap, getCwd, getPkgMajorVersion, loadConfig, logWarning, judgeFramework, getBuildConfig, getDefineEnv, loadModuleFromRspack } from 'ssr-common-utils'
 import { nodeExternals } from './externals'
 
 const WebpackBar = require('webpackbar')
@@ -50,13 +50,17 @@ const addCommonChain = (chain: RspackChain, isServer: boolean) => {
 					syntax: 'typescript',
 					tsx: true
 				},
-				transform: {
-					react: {
-						runtime: 'automatic',
-						development: isDev,
-						refresh: isDev && !isServer
-					}
-				}
+				...(judgeFramework() === 'ssr-plugin-react'
+					? {
+							transform: {
+								react: {
+									runtime: 'automatic',
+									development: isDev,
+									refresh: isDev && !isServer
+								}
+							}
+						}
+					: {})
 			},
 			env: { targets: defaultBrowserTarget }
 		})

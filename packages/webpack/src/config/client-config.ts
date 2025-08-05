@@ -1,4 +1,4 @@
-import { asyncChunkMap, getBuildConfig, getOutputPublicPath, loadConfig, loadModuleFromFramework, terserConfig, getBuildEntry } from 'ssr-common-utils'
+import { asyncChunkMap, getBuildConfig, getOutputPublicPath, loadConfig, judgeFramework, loadModuleFromFramework, terserConfig, getBuildEntry } from 'ssr-common-utils'
 import WebpackChain from 'webpack-chain'
 import { getSplitChunksOptions } from '../utils/split-chunk'
 
@@ -33,17 +33,19 @@ const getClientWebpack = (chain: WebpackChain) => {
 				}
 			])
 		})
-	chain.when(isDev, (chain) => {
-		const ReactRefreshWebpackPlugin = require(loadModuleFromFramework('@pmmmwh/react-refresh-webpack-plugin'))
-		chain.plugin('fast-refresh').use(
-			new ReactRefreshWebpackPlugin({
-				overlay: {
-					sockHost: host,
-					sockPort: fePort
-				}
-			})
-		)
-	})
+	if (judgeFramework() === 'ssr-plugin-react') {
+		chain.when(isDev, (chain) => {
+			const ReactRefreshWebpackPlugin = require(loadModuleFromFramework('@pmmmwh/react-refresh-webpack-plugin'))
+			chain.plugin('fast-refresh').use(
+				new ReactRefreshWebpackPlugin({
+					overlay: {
+						sockHost: host,
+						sockPort: fePort
+					}
+				})
+			)
+		})
+	}
 	chain.plugin('manifest').use('webpack-manifest-plugin', [
 		{
 			fileName: 'asset-manifest.json'
