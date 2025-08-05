@@ -133,6 +133,7 @@ export interface IConfig {
 			// 双端通用配置
 			extraPlugin?: PluginOption | PluginOption[]
 			server?: ServerOptions
+			otherConfig?: ViteConfig
 		}
 		client?: {
 			/**

@@ -5,7 +5,7 @@ import type * as ReactOXCPlugin from '@vitejs/plugin-react-oxc'
 import { resolve } from 'path'
 import babel from '@rollup/plugin-babel'
 import { visualizer } from 'rollup-plugin-visualizer'
-import { getCwd, getDefineEnv, getOutputPublicPath, loadConfig, defaultExternal, loadModuleFromFramework, judgeFramework, accessFileSync, getBuildEntry, isReact18 } from 'ssr-common-utils'
+import { getCwd, getDefineEnv, getOutputPublicPath, loadConfig, defaultExternal, loadModuleFromFramework, judgeFramework, getBuildEntry } from 'ssr-common-utils'
 import { build as viteBuild, type PluginOption, type InlineConfig } from 'vite'
 
 import { AndDesignVueResolve, AntdResolve, ElementPlusResolve, NutuiResolve, VantResolve, createStyleImportPlugin } from 'ssr-vite-plugin-style-import'
@@ -15,9 +15,6 @@ import { commonConfig, asyncOptimizeChunkPlugin, chunkNamePlugin, manifestPlugin
 const framework = judgeFramework()
 const isReact = framework === 'ssr-plugin-react'
 const isVue3 = framework === 'ssr-plugin-vue3'
-const hasReactIs = accessFileSync(resolve(getCwd(), './node_modules/react-is'))
-const extraInclude = [''].concat(isReact ? ['react', 'ssr-deepclone', 'valtio', isReact18() ? 'react-dom/client' : 'react-dom', 'react-router', 'react-router-dom', hasReactIs ? 'react-is' : ''] : []).filter(Boolean)
-const extraExclude = ['ssr-hoc-react', 'ssr-common-utils']
 
 const { getOutput, viteConfig, supportOptinalChaining, isDev, define, optimize, chunkName, whiteList } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
@@ -126,11 +123,6 @@ export const clientConfig: InlineConfig = {
 	...commonConfig('client'),
 	...viteConfig?.().client?.otherConfig,
 	base: isDev ? '/' : getOutputPublicPath(),
-	optimizeDeps: {
-		...viteConfig?.().client?.otherConfig?.optimizeDeps,
-		include: extraInclude.concat(...(viteConfig?.().client?.otherConfig?.optimizeDeps?.include ?? [])),
-		exclude: extraExclude.concat(...(viteConfig?.().client?.otherConfig?.optimizeDeps?.exclude ?? []))
-	},
 	plugins: viteConfig?.()?.client?.processPlugin?.(clientPlugins) ?? clientPlugins,
 	build: {
 		minify: !process.env.NOMINIFY,

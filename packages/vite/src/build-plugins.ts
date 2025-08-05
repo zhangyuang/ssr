@@ -7,8 +7,13 @@ import { mkdir } from 'shelljs'
 import type { Plugin, UserConfig, LogType } from 'vite'
 import type { OutputOptions, PluginContext, PreRenderedChunk, LoadResult } from 'rolldown'
 import { getBuildConfig, addDefaultAlias } from 'ssr-common-utils'
-import { getDependencies, getPkgName, accessFile, cryptoAsyncChunkName, debounce, getCwd, ssrDebug, loadConfig, logErr, getOutputPublicPath, defaultExternal, judgeFramework } from 'ssr-common-utils'
+import { getDependencies, getPkgName, accessFile, cryptoAsyncChunkName, debounce, getCwd, isReact18, accessFileSync, ssrDebug, loadConfig, logErr, getOutputPublicPath, defaultExternal, judgeFramework } from 'ssr-common-utils'
 
+const hasReactIs = accessFileSync(resolve(getCwd(), './node_modules/react-is'))
+const framework = judgeFramework()
+const isReact = framework === 'ssr-plugin-react'
+const extraInclude = [''].concat(isReact ? ['react', 'ssr-deepclone', 'valtio', isReact18() ? 'react-dom/client' : 'react-dom', 'react-router', 'react-router-dom', hasReactIs ? 'react-is' : ''] : []).filter(Boolean)
+const extraExclude = ['ssr-hoc-react', 'ssr-common-utils']
 const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
 const chunkNameRe = /chunkName=(.*)/
 const imageRegExp = /\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/
@@ -306,6 +311,11 @@ const commonConfig = (_env: 'server' | 'client'): UserConfig => {
 			middlewareMode: true,
 			hmr,
 			...viteConfig?.().common?.server
+		},
+		optimizeDeps: {
+			...viteConfig?.().common?.otherConfig?.optimizeDeps,
+			include: extraInclude.concat(...(viteConfig?.().common?.otherConfig?.optimizeDeps?.include ?? [])),
+			exclude: extraExclude.concat(...(viteConfig?.().common?.otherConfig?.optimizeDeps?.exclude ?? []))
 		},
 		appType: 'custom',
 		css: {
