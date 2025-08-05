@@ -7,6 +7,9 @@
   "[javascript]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
+  "[markdown]": {
+    "editor.formatOnSave": false,
+  },
   "[javascriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
   },

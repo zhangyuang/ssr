@@ -45,7 +45,6 @@ const getBaseConfig = (chain: WebpackChain, isServer: boolean) => {
 		Object.keys(alias).forEach((item) => {
 			chain.resolve.alias.set(item, alias[item])
 		})
-	chain.resolve.alias.set('pinia', loadModuleFromCwd('pinia'))
 
 	addCommonChain(chain, isServer)
 	if (isVue3) {

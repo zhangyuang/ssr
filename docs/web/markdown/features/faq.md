@@ -704,6 +704,8 @@ export default {
 
 使用 `tailwind.css` 与框架无关，具体方案查看对应文档即可。下面贴出一种方案。配套使用 `VSCode Tailwind CSS IntelliSense` 对应插件一起使用更佳
 
+#### webpack 场景
+
 ```shell
 $ yarn add tailwindcss@^3.0.0 autoprefixer@latest
 ```
@@ -747,6 +749,36 @@ export { userConfig }
 @tailwind components;
 @tailwind utilities;
 
+```
+#### Rspack 场景
+
+`Rspack` 场景集成 `tailwindcss` 可以按照[官方文档](https://tailwindcss.com/docs/installation/framework-guides/rspack/react)的步骤。由于 `Rspack` 构建逻辑默认不集成 `postcss` 和 `css-loader`。所以我们需要手动添加 `postcss-loader` 的注册逻辑。
+
+由于 `ssr` 框架内置了 `less-loader` 的处理逻辑，所以不建议开发者覆盖 `ssr` 框架的 `less`配置。开发者可以手动创建一个`css`文件来引入 `tailwindcss`的指令，或者 `vue` 场景不设置 `style` 的 `lang` 属性。
+
+```js
+// test.css
+@import "tailwindcss";
+// test.vue
+<style>
+@import "tailwindcss";
+</style>
+```
+
+```js
+import type { UserConfig } from 'ssr-types'
+
+const userConfig: UserConfig = {
+  chainBaseConfig: (chain) => {
+		  chain.module
+        .rule('css')
+        .test(/\.css/)
+        .type('css')
+        .use('postcss-loader')
+        .loader('postcss-loader')
+        .end()
+  }
+}
 ```
 
 ## 是否考虑支持 SSG 静态渲染
