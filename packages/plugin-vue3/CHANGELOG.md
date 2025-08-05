@@ -1,3 +1,26 @@
+## [7.0.4](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.123...plugin-vue3@7.0.4) (2025-08-05)
+
+
+### Bug Fixes
+
+* add pinia in plugin-vue3 ([ae2bb9a](https://github.com/zhangyuang/ssr/commit/ae2bb9a074102f035f92cd8d58fb17d789735f54))
+* release bug ([a2169d2](https://github.com/zhangyuang/ssr/commit/a2169d2964fe6dbb86cda608646a4cc0238486bf))
+* use req.url instead of req.path ([b3e9729](https://github.com/zhangyuang/ssr/commit/b3e972964de7191f2cfb6aa3852a7de8c2fe2b99))
+
+
+### Features
+
+* add plugin-react-oxc ([80ae3bc](https://github.com/zhangyuang/ssr/commit/80ae3bc4c6d39075bb8554822350d5e45f4a8b65))
+* add rspack ([f3e4216](https://github.com/zhangyuang/ssr/commit/f3e42167db9ab0b1152ca978f5d7391d6de6c0cf))
+* add rspack skip ci ([62d49ca](https://github.com/zhangyuang/ssr/commit/62d49caa0694899930747c60ad1f8cc168f2efba))
+* add vite rolldown ([2f348cf](https://github.com/zhangyuang/ssr/commit/2f348cf0ee9ab923b476e284d77c804d4341f9c5))
+* remobe css-loader postcss-loader in rspack ([54038c2](https://github.com/zhangyuang/ssr/commit/54038c22c0db7b525680faf4b2ba6ee75c99db4c))
+* set asset emit to false in rspack server side ([112bc07](https://github.com/zhangyuang/ssr/commit/112bc07775f60c6c82a5c121e7e1efbe592e5712))
+* set optimizeDeps in vite common -n ([9de421a](https://github.com/zhangyuang/ssr/commit/9de421a696b156ce36076db47ce72b04e54237dd))
+* update docs to v7 use rspack, add types:node in tsconfig ([d359a55](https://github.com/zhangyuang/ssr/commit/d359a55f2b5e1d8d76520f723db0fad20f8d7c55))
+
+
+
 ## [7.0.3](https://github.com/zhangyuang/ssr/compare/plugin-vue3@7.0.2...plugin-vue3@7.0.3) (2025-08-04)
 
 
