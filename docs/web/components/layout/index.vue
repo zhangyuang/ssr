@@ -12,9 +12,11 @@
     <meta property="og:image" content="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg">
     <meta name="keywords" itemprop="keywords"
       content="server side render, 服务端渲染, React, Egg, Midway, Nestjs, Vue, VueSSR, SSR, ReactSSR">
+    <meta property="og:type" content="website" />
     <meta property="og:title" content="server side render, Vue, React, SSR 服务端渲染">
     <meta property="og:description" content="server side render, Vue, React, SSR 服务端渲染">
-    <title>ssr 框架官方文档</title>
+    <title>{{ route.path === '/docs/features$v7' ? 'ssr框架v7发布，全网首个同时支持Rspack,Rolldown-Vite,Webpack的ssr框架' : 'ssr 框架官方文档'
+      }}</title>
     <!-- 用于通过配置插入自定义的 script 为了避免影响期望功能这块内容不做 escape，为了避免 xss 需要保证插入脚本代码的安全性  -->
     <slot name="customeHeadScript" />
     <slot name="cssInject" />
@@ -33,7 +35,8 @@
 </template>
 
 <script lang="ts" setup>
-
+import { useRoute } from 'vue-router'
+const route = useRoute()
 const { fetchData } = defineProps<{ fetchData: { isMobile: boolean } }>()
 
 

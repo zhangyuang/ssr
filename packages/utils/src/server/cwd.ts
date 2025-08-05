@@ -192,6 +192,9 @@ export const addDefaultAlias = (alias: Record<string, string>) => {
 		alias['react-router-dom'] = resolve(cwd, './node_modules/react-router-dom')
 	} else {
 		alias['vue$'] = framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
+		if (loadModuleFromFramework('pinia')) {
+			alias['pinia'] = loadModuleFromFramework('pinia')
+		}
 	}
 	if (isReact18()) {
 		alias['react-dom/client'] = resolve(cwd, './node_modules/react-dom/client')
@@ -231,11 +234,16 @@ const checkModuleExist = (name: string) => {
 	}
 }
 const loadModuleFromFramework = (path: string) => {
-	const framework = judgeFramework()
-	const paths = resolve(getCwd(), `./node_modules/${framework}`)
-	return require.resolve(path, {
-		paths: [accessFileSync(paths) ? realpathSync(paths) : paths]
-	})
+	try {
+		const framework = judgeFramework()
+		const paths = resolve(getCwd(), `./node_modules/${framework}`)
+		return require.resolve(path, {
+			paths: [accessFileSync(paths) ? realpathSync(paths) : paths]
+		})
+	} catch (error) {
+		console.log('loadModuleFromFramework error:', error)
+		return ''
+	}
 }
 
 export const loadModuleFromCwd = (path: string) => {

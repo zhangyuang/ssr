@@ -1,5 +1,5 @@
 import { join } from 'path'
-import { checkModuleExist, getCwd, loadConfig, logErr, loadModuleFromCwd, loadModuleFromFramework, judgeFramework } from 'ssr-common-utils'
+import { checkModuleExist, getCwd, loadConfig, logErr, loadModuleFromFramework, judgeFramework } from 'ssr-common-utils'
 import type { Mode } from 'ssr-types'
 import type * as RspackChain from 'rspack-chain'
 import { addCommonChain } from '../utils/common-chain'
@@ -45,7 +45,6 @@ const getBaseConfig = (chain: RspackChain, isServer: boolean) => {
 		Object.keys(alias).forEach((item) => {
 			chain.resolve.alias.set(item, alias[item])
 		})
-	chain.resolve.alias.set('pinia', loadModuleFromCwd('pinia'))
 
 	addCommonChain(chain, isServer)
 	if (isVue3) {
