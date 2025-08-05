@@ -44,5 +44,6 @@ const { fetchData } = defineProps<{ fetchData: { isMobile: boolean } }>()
 
 .mobileApp {
   overflow-x: hidden;
+
 }
 </style>
