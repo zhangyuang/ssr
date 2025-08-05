@@ -1,3 +1,17 @@
+## [7.0.7](https://github.com/zhangyuang/ssr/compare/rspack@7.0.6...rspack@7.0.7) (2025-08-05)
+
+
+### Bug Fixes
+
+* webpack dependencies ([2c6aef8](https://github.com/zhangyuang/ssr/commit/2c6aef8b54fee40b9aa0f1bce9f92a8f64dcc3d0))
+
+
+### Features
+
+* add chain in tools ([350b294](https://github.com/zhangyuang/ssr/commit/350b2944a14276fcae3e82331ca59cf04276c538))
+
+
+
 ## 7.0.6 (2025-08-05)
 
 
