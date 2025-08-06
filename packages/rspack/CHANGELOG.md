@@ -1,3 +1,12 @@
+## [7.0.9](https://github.com/zhangyuang/ssr/compare/rspack@7.0.8...rspack@7.0.9) (2025-08-06)
+
+
+### Features
+
+* add postcss-loader to default dependencies in rspack deploy.md ([47f2d09](https://github.com/zhangyuang/ssr/commit/47f2d09a6719245cf0b25481940521cce85901ba))
+
+
+
 ## [7.0.8](https://github.com/zhangyuang/ssr/compare/rspack@7.0.7...rspack@7.0.8) (2025-08-06)
 
 
