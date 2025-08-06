@@ -37,6 +37,8 @@
     "core-js": "^3.6.4",
     "less": "^4.1.1",
     "less-loader": "^7.3.0",
+    "postcss": "^8.0.0",
+    "postcss-loader": "^8.0.0",
     "ora": "^4.0.4",
     "semver": "^7.3.8",
     "ssr-common-utils": "workspace:*",

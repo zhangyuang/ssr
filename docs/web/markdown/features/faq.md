@@ -712,8 +712,7 @@ export default {
 
 ```shell
 $ yarn add tailwindcss@^3.0.0 autoprefixer@latest # 安装v3版本
-$ yarn add postcss -D # rspack|vite 场景才需要额外安装postcss依赖
-$ yarn add postcss-loader -D # rspack 场景才需要额外安装postcss-loader依赖
+$ yarn add postcss -D # vite 场景才需要额外安装postcss依赖
 ```
 
 ```js
