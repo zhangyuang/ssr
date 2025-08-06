@@ -5,6 +5,7 @@ import { resolve } from 'path'
 import { rspack } from '@rspack/core'
 import { asyncChunkMap, getCwd, getPkgMajorVersion, loadConfig, logWarning, judgeFramework, getBuildConfig, getDefineEnv, loadModuleFromRspack } from 'ssr-common-utils'
 import { nodeExternals } from './externals'
+import type { Plugin as PostCssPlugin } from 'postcss'
 
 const WebpackBar = require('webpackbar')
 
@@ -93,8 +94,17 @@ const addCommonChain = (chain: RspackChain, isServer: boolean) => {
 	chain.module.parser.set('css/auto', {
 		namedExports: false
 	})
+	const postCssPlugins = css?.().loaderOptions?.postcss?.plugins ?? [] // 用户自定义 postcss 插件
 	const userPostcssOptions = css?.().loaderOptions?.postcss?.options
-
+	const postcssOptions =
+		typeof userPostcssOptions === 'function'
+			? userPostcssOptions
+			: Object.assign(
+					{
+						plugins: ([] as PostCssPlugin[]).concat(postCssPlugins)
+					},
+					userPostcssOptions ?? {}
+				) // 合并用户自定义 postcss options
 	const lessChain = chain.module
 		.rule('less')
 		.test(/\.less/)
@@ -105,7 +115,7 @@ const addCommonChain = (chain: RspackChain, isServer: boolean) => {
 			.use('post-css')
 			.loader(loadModuleFromRspack('postcss-loader'))
 			.options({
-				postcssOptions: userPostcssOptions
+				postcssOptions: postcssOptions
 			})
 			.end()
 	}
