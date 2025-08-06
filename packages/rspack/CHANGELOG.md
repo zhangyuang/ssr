@@ -1,3 +1,12 @@
+## [7.0.11](https://github.com/zhangyuang/ssr/compare/rspack@7.0.10...rspack@7.0.11) (2025-08-06)
+
+
+### Bug Fixes
+
+* judge logic in postcss rspack ([cf2a774](https://github.com/zhangyuang/ssr/commit/cf2a774c2660c8b8b4a7837d63a1322295ccbf71))
+
+
+
 ## [7.0.10](https://github.com/zhangyuang/ssr/compare/rspack@7.0.9...rspack@7.0.10) (2025-08-06)
 
 
