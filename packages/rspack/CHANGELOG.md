@@ -1,3 +1,12 @@
+## [7.0.10](https://github.com/zhangyuang/ssr/compare/rspack@7.0.9...rspack@7.0.10) (2025-08-06)
+
+
+### Bug Fixes
+
+* set postcss options in rspack ([e8e4ff6](https://github.com/zhangyuang/ssr/commit/e8e4ff6a0080e80ba203f9f95f8a5b355aa01c88))
+
+
+
 ## [7.0.9](https://github.com/zhangyuang/ssr/compare/rspack@7.0.8...rspack@7.0.9) (2025-08-06)
 
 
