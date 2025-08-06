@@ -93,10 +93,24 @@ const addCommonChain = (chain: RspackChain, isServer: boolean) => {
 	chain.module.parser.set('css/auto', {
 		namedExports: false
 	})
-	chain.module
+	const userPostcssOptions = css?.().loaderOptions?.postcss?.options
+
+	const lessChain = chain.module
 		.rule('less')
 		.test(/\.less/)
 		.type('css/auto')
+
+	if (Object.keys(userPostcssOptions ?? {}).length) {
+		lessChain
+			.use('post-css')
+			.loader(loadModuleFromRspack('postcss-loader'))
+			.options({
+				postcssOptions: userPostcssOptions
+			})
+			.end()
+	}
+
+	lessChain
 		.use('less-loader')
 		.loader(loadModuleFromRspack('less-loader'))
 		.options({

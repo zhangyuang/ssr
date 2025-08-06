@@ -704,10 +704,16 @@ export default {
 
 使用 `tailwind.css` 与框架无关，具体方案查看对应文档即可。下面贴出一种方案。配套使用 `VSCode Tailwind CSS IntelliSense` 对应插件一起使用更佳
 
-#### webpack 场景
+下列教程是针对 `tailwindcss` 的 `v3` 版本的配置。实测可以成功，`v4` 版本的 `tailwindcss` 配置变动较大，请参考 `v4`最新的文档和下面 `v3` 场景的配置文档进配置。
+
+以下配置适用于各种构建工具。`webpack|rspack|vite`。在 `ssr` 框架层面进行了 `postcss` 的统一适配。
+
+`rspack` 默认情况下不会启用 `postcss`，只有开发者配置了 `postcss` 的配置才会启用
 
 ```shell
-$ yarn add tailwindcss@^3.0.0 autoprefixer@latest
+$ yarn add tailwindcss@^3.0.0 autoprefixer@latest # 安装v3版本
+$ yarn add postcss -D # rspack|vite 场景才需要额外安装postcss依赖
+$ yarn add postcss-loader -D # rspack 场景才需要额外安装postcss-loader依赖
 ```
 
 ```js
@@ -725,16 +731,15 @@ module.exports = {
 }
 // config.ts 加入  postcss 相关配置，vite 场景需要用此方式传入，webpack 场景也可以单独创建 postcss.config.js 加载配置
 import type { UserConfig } from 'ssr-types'
+
 const userConfig: UserConfig = {
   css: () => {
     const tailwindcss = require('tailwindcss')
-    const autoprefixer = require('autoprefixer')
     return {
       loaderOptions: {
         postcss: {
           plugins: [
-            tailwindcss,
-            autoprefixer
+            tailwindcss
           ]
         }
       }
@@ -744,41 +749,10 @@ const userConfig: UserConfig = {
 
 export { userConfig }
 
-// web/common.less
-// 引入 tailwind 代码即可在 class 中使用对应类名
+// 引入 tailwind 指令即可在 class 中使用对应类名
 @tailwind components;
 @tailwind utilities;
 
-```
-#### Rspack 场景
-
-`Rspack` 场景集成 `tailwindcss` 可以按照[官方文档](https://tailwindcss.com/docs/installation/framework-guides/rspack/react)的步骤。由于 `Rspack` 构建逻辑默认不集成 `postcss` 和 `css-loader`。所以我们需要手动添加 `postcss-loader` 的注册逻辑。
-
-由于 `ssr` 框架内置了 `less-loader` 的处理逻辑，所以不建议开发者覆盖 `ssr` 框架的 `less`配置。开发者可以手动创建一个`css`文件来引入 `tailwindcss`的指令，或者 `vue` 场景不设置 `style` 的 `lang` 属性。
-
-```js
-// test.css
-@import "tailwindcss";
-// test.vue
-<style>
-@import "tailwindcss";
-</style>
-```
-
-```js
-import type { UserConfig } from 'ssr-types'
-
-const userConfig: UserConfig = {
-  chainBaseConfig: (chain) => {
-		  chain.module
-        .rule('css')
-        .test(/\.css/)
-        .type('css')
-        .use('postcss-loader')
-        .loader('postcss-loader')
-        .end()
-  }
-}
 ```
 
 ## 是否考虑支持 SSG 静态渲染
