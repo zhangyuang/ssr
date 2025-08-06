@@ -1,3 +1,12 @@
+## [7.0.8](https://github.com/zhangyuang/ssr/compare/rspack@7.0.7...rspack@7.0.8) (2025-08-06)
+
+
+### Features
+
+* handle postcss in rspack ([62618e9](https://github.com/zhangyuang/ssr/commit/62618e966062cfdc88111abbd97c9edf316fd2a1))
+
+
+
 ## [7.0.7](https://github.com/zhangyuang/ssr/compare/rspack@7.0.6...rspack@7.0.7) (2025-08-05)
 
 
