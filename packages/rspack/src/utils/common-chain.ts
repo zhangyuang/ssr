@@ -104,13 +104,13 @@ const addCommonChain = (chain: RspackChain, isServer: boolean) => {
 						plugins: ([] as PostCssPlugin[]).concat(postCssPlugins)
 					},
 					userPostcssOptions ?? {}
-				) // 合并用户自定义 postcss options
+				)
 	const lessChain = chain.module
 		.rule('less')
 		.test(/\.less/)
 		.type('css/auto')
 
-	if (Object.keys(userPostcssOptions ?? {}).length) {
+	if (css?.().loaderOptions?.postcss) {
 		lessChain
 			.use('post-css')
 			.loader(loadModuleFromRspack('postcss-loader'))
