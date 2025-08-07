@@ -11,6 +11,28 @@ import { Argv } from './yargs'
 
 // Instantiate the configuration with a new API
 export type PluginItem = BabelPluginItem
+type ToolType = 'webpack' | 'vite' | 'rspack'
+type ChainType<T extends ToolType> = T extends 'rspack' ? RspackChain : WebpackChainConfig
+type SSRViteConfig = () => {
+	common?: {
+		extraPlugin?: PluginOption | PluginOption[]
+		server?: ServerOptions
+		otherConfig?: ViteConfig
+	}
+	client?: {
+		defaultPluginOptions?: any
+		extraPlugin?: PluginOption | PluginOption[]
+		otherConfig?: ViteConfig
+		processPlugin?: (plugins: PluginOption[]) => PluginOption[]
+	}
+	server?: {
+		externals?: string[]
+		defaultPluginOptions?: any
+		extraPlugin?: PluginOption | PluginOption[]
+		otherConfig?: ViteConfig
+		processPlugin?: (plugins: PluginOption[]) => PluginOption[]
+	}
+}
 
 export interface PkgJson {
 	name: string
@@ -32,7 +54,7 @@ export type Script = Array<{
 
 export type Json = string | number | boolean | { [key: string]: Json } | undefined
 
-export interface IConfig {
+export type IConfig<T extends ToolType = ToolType> = {
 	rootId: string
 	cwd: string
 	alias?: Record<string, string>
@@ -88,9 +110,9 @@ export interface IConfig {
 			}
 		}
 	}
-	chainBaseConfig: (config: Chain | RspackChain, isServer: boolean) => void
-	chainServerConfig: (config: Chain | RspackChain) => void
-	chainClientConfig: (config: Chain | RspackChain) => void
+	chainBaseConfig: (config: ChainType<T>, isServer: boolean) => void
+	chainServerConfig: (config: ChainType<T>) => void
+	chainClientConfig: (config: ChainType<T>) => void
 	webpackStatsOption: Options.Stats | StatsOptions
 	moduleFileExtensions: string[]
 	whiteList: Array<RegExp | string>
@@ -98,8 +120,6 @@ export interface IConfig {
 	prefix: string
 	clientPrefix?: string
 	mode: 'ssr' | 'csr'
-	webpackDevServerConfig?: any
-	rspackDevServerConfig?: DevServer
 	stream: boolean
 	bigpipe?: boolean
 	customeHeadScript?: ((ctx: ISSRContext) => Script) | Script
@@ -128,30 +148,6 @@ export interface IConfig {
 	supportOptinalChaining: boolean
 	onError?: (e: any) => null | string
 	onReady?: () => any
-	viteConfig?: () => {
-		common?: {
-			// 双端通用配置
-			extraPlugin?: PluginOption | PluginOption[]
-			server?: ServerOptions
-			otherConfig?: ViteConfig
-		}
-		client?: {
-			/**
-			 * 默认装载的插件定义 options, vue3 场景是 @vitejs/plugin-vue, react 场景是 @vitejs/plugin-react-oxc
-			 */
-			defaultPluginOptions?: any
-			extraPlugin?: PluginOption | PluginOption[]
-			otherConfig?: ViteConfig
-			processPlugin?: (plugins: PluginOption[]) => PluginOption[]
-		}
-		server?: {
-			externals?: string[]
-			defaultPluginOptions?: any
-			extraPlugin?: PluginOption | PluginOption[]
-			otherConfig?: ViteConfig
-			processPlugin?: (plugins: PluginOption[]) => PluginOption[]
-		}
-	}
 	hmr?: {
 		host?: string
 		port?: number
@@ -182,12 +178,30 @@ export interface IConfig {
 	asyncGlobalData?: Record<string, any>
 	clientHistoryRouterMode?: 'webHistory' | 'memoryHistory'
 	defaultBrowserTarget?: Record<string, string>
-}
+} & (T extends ToolType
+	? {
+			viteConfig?: SSRViteConfig
+			webpackDevServerConfig?: any
+			rspackDevServerConfig?: DevServer
+		}
+	: T extends 'vite'
+		? {
+				viteConfig?: ViteConfig
+			}
+		: T extends 'webpack'
+			? {
+					webpackDevServerConfig?: any
+				}
+			: T extends 'rspack'
+				? {
+						rspackDevServerConfig?: DevServer
+					}
+				: {})
 
 export interface proxyOptions {
 	express?: boolean
 }
-export type UserConfig = Partial<IConfig>
+export type UserConfig<T extends ToolType = ToolType> = Partial<IConfig<T>>
 
 export interface StyleOptions {
 	rule: string
