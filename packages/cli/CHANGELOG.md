@@ -1,3 +1,28 @@
+## [7.0.4](https://github.com/zhangyuang/ssr/compare/cli@7.0.3...cli@7.0.4) (2025-08-07)
+
+
+### Bug Fixes
+
+* add pinia in plugin-vue3 ([ae2bb9a](https://github.com/zhangyuang/ssr/commit/ae2bb9a074102f035f92cd8d58fb17d789735f54))
+* judge logic in postcss rspack ([cf2a774](https://github.com/zhangyuang/ssr/commit/cf2a774c2660c8b8b4a7837d63a1322295ccbf71))
+* judge react-fresh in client-config ([a2d1bee](https://github.com/zhangyuang/ssr/commit/a2d1bee55a4eda24af47505c0cb7d8e64de7d214))
+* set postcss options in rspack ([e8e4ff6](https://github.com/zhangyuang/ssr/commit/e8e4ff6a0080e80ba203f9f95f8a5b355aa01c88))
+* webpack dependencies ([2c6aef8](https://github.com/zhangyuang/ssr/commit/2c6aef8b54fee40b9aa0f1bce9f92a8f64dcc3d0))
+
+
+### Features
+
+* add chain in tools ([350b294](https://github.com/zhangyuang/ssr/commit/350b2944a14276fcae3e82331ca59cf04276c538))
+* add postcss-loader to default dependencies in rspack deploy.md ([47f2d09](https://github.com/zhangyuang/ssr/commit/47f2d09a6719245cf0b25481940521cce85901ba))
+* alias add pinia judge ([9d41ec9](https://github.com/zhangyuang/ssr/commit/9d41ec9b61c8428ac53f6c30b9b543eaaa4b4a40))
+* handle postcss in rspack ([62618e9](https://github.com/zhangyuang/ssr/commit/62618e966062cfdc88111abbd97c9edf316fd2a1))
+* remobe css-loader postcss-loader in rspack ([54038c2](https://github.com/zhangyuang/ssr/commit/54038c22c0db7b525680faf4b2ba6ee75c99db4c))
+* set optimizeDeps in vite common -n ([9de421a](https://github.com/zhangyuang/ssr/commit/9de421a696b156ce36076db47ce72b04e54237dd))
+* support generic in UserConfig for chain ([0deeaa2](https://github.com/zhangyuang/ssr/commit/0deeaa27b0477db1b42f2112c9298856aa1381d8))
+* update docs to v7 use rspack, add types:node in tsconfig ([d359a55](https://github.com/zhangyuang/ssr/commit/d359a55f2b5e1d8d76520f723db0fad20f8d7c55))
+
+
+
 ## [7.0.3](https://github.com/zhangyuang/ssr/compare/cli@7.0.2...cli@7.0.3) (2025-08-04)
 
 
