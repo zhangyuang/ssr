@@ -47,12 +47,6 @@
   "bugs": {
     "url": "https://github.com/zhangyuang/ssr/issues"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pnpm lint",
-      "commit-msg": "node scripts/verifyCommit.js"
-    }
-  },
   "engines": {
     "node": ">=14.17.0"
   },

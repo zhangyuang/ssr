@@ -1,3 +1,31 @@
+## [6.2.83](https://github.com/zhangyuang/ssr/compare/cli@6.2.81...cli@6.2.83) (2025-08-07)
+
+
+### Bug Fixes
+
+* compile error ([6be2a8f](https://github.com/zhangyuang/ssr/commit/6be2a8ffb65edd91ad8bc9b0ef66a338a8de4218))
+* set currentRouter path when use memoryHistory in client ([df7b040](https://github.com/zhangyuang/ssr/commit/df7b040035e39400e3c6ed8256ab0fb0e08f3c61))
+* use req.url instead of req.path ([b3e9729](https://github.com/zhangyuang/ssr/commit/b3e972964de7191f2cfb6aa3852a7de8c2fe2b99))
+* useCtx ([3006225](https://github.com/zhangyuang/ssr/commit/3006225527f4ddcbf17b8a0a644857791365522a))
+
+
+### Features
+
+* add biome.json in example ([b474e2b](https://github.com/zhangyuang/ssr/commit/b474e2bce5e31595fd0297786a76c94f0efd8dd6))
+* add wrap-micro-scope-plugin ([39da637](https://github.com/zhangyuang/ssr/commit/39da63718930490db4f99845d8df20b5636f2c39))
+* adjust history order ([67ea802](https://github.com/zhangyuang/ssr/commit/67ea80211140cb4aa018d04789c0cc006e39e438))
+* load framwork from cwd ([b753e65](https://github.com/zhangyuang/ssr/commit/b753e65a4828f6292512d790b7e7022f901fbd68))
+* set request router info in csr mode for vue3 ([fa7a59d](https://github.com/zhangyuang/ssr/commit/fa7a59dd36ebb69af988832ac373409201f89659))
+* set vue router url with all render modes ([b58f828](https://github.com/zhangyuang/ssr/commit/b58f8281b684f042e0434f87a5d9ce96addfc04a))
+* support clientHistoryRouterMode ([5ce75ac](https://github.com/zhangyuang/ssr/commit/5ce75ac352ede9c9af5461c92491f738af892eda))
+* support window.ssrRequestPath inject for memoryHistory in vue3 ([ca99c5d](https://github.com/zhangyuang/ssr/commit/ca99c5dd5fed3c1bcd2c440991f7b08bc6f961b3))
+* update default source-map type ([4f0543d](https://github.com/zhangyuang/ssr/commit/4f0543df75611bf5e641943f46e639c4630954a3))
+* upgrade typescript to v5 ([12f3bed](https://github.com/zhangyuang/ssr/commit/12f3bed51cf94274eb050efae9a1994d71a9b095))
+* use biome replace eslint ([8740d4d](https://github.com/zhangyuang/ssr/commit/8740d4dbc66e7f034857f229a04be91ee2aff609))
+* use micro plugin in dev ([671ba69](https://github.com/zhangyuang/ssr/commit/671ba695747a00297d640869dcf9d3437944dd58))
+
+
+
 ## [6.2.82](https://github.com/zhangyuang/ssr/compare/cli@6.2.81...cli@6.2.82) (2024-10-23)
 
 
