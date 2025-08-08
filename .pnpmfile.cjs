@@ -2,8 +2,8 @@ function readPackage(pkg, context) {
   if (pkg.name.includes('@vitejs')) {
     pkg.peerDependencies.vite = 'npm:rolldown-vite@latest'
   }
-  const vuePkgs = ['vue-loader', 'ssr-plugin-vue3', 'ssr-plugin-vue', 'ssr-plugin-react']
-  if (vuePkgs.includes(pkg.name) && process.env.GITHUB_JOB) {
+  const pkgs = ['vue-loader', 'ssr-plugin-vue3', 'ssr-plugin-vue', 'ssr-plugin-react', '@rspack/core']
+  if (pkgs.includes(pkg.name) && process.env.GITHUB_JOB) {
     const webpackVersion = process.env.GITHUB_JOB.includes('rspack') ? '^5.0.0' : '^4.0.0'
     pkg.dependencies.webpack = webpackVersion
     pkg.peerDependencies.webpack = webpackVersion

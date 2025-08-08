@@ -21,14 +21,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Turbo Cache
-        id: turbo-cache
-        uses: actions/cache@v3
-        with:
-          path: |
-              ~/Library/pnpm/store
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -39,10 +32,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Lint
         run: pnpm lint
 
@@ -81,17 +75,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -100,10 +91,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
 
       - name: Build packages
         run: |
@@ -130,17 +122,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -149,10 +138,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
 
       - name: Build packages
         run: |
@@ -178,17 +168,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -197,10 +184,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
 
       - name: Build packages
         run: |
@@ -227,17 +215,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -246,11 +231,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
 
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
             pnpm build
@@ -277,17 +263,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -296,11 +279,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
 
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
             pnpm build
@@ -327,17 +311,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -346,10 +327,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -376,17 +358,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -395,10 +374,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -425,17 +405,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -444,10 +421,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -473,17 +451,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -492,10 +467,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -523,17 +499,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -542,10 +515,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -572,17 +546,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -591,10 +562,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -620,17 +592,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -639,10 +608,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -669,17 +639,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -688,10 +655,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -718,17 +686,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -737,10 +702,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -765,17 +731,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -784,10 +747,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -812,17 +776,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -831,10 +792,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -858,16 +820,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Turbo Cache
-        id: turbo-cache
+
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -876,10 +837,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
            pnpm build
@@ -905,17 +867,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -924,10 +883,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -952,17 +912,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -971,10 +928,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -1003,17 +961,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -1022,10 +977,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -1052,17 +1008,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -1071,10 +1024,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -1101,17 +1055,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -1120,10 +1071,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -1149,17 +1101,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -1168,10 +1117,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -1197,17 +1147,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -1216,10 +1163,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -1245,17 +1193,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -1264,10 +1209,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force && npx cypress install
       - name: Build packages
         run: |
           pnpm build
@@ -1319,17 +1265,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Turbo Cache
-        id: turbo-cache
+      - name: Cypress Cache
+        id: cypress-cache
         uses: actions/cache@v3
         with:
           path: |
              /home/runner/.cache/Cypress
-             /home/runner/setup-pnpm/node_modules/.bin/store/v10
-
-          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -1338,10 +1281,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: "pnpm"
       - name: Install dependencies
         run: |
-          pnpm i --no-frozen-lockfile && npx cypress install
+          rm -rf node_modules
+          
+          pnpm install --no-frozen-lockfile --force
       - name: Build packages
         run: |
           pnpm build

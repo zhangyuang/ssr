@@ -7,8 +7,6 @@ import { asyncChunkMap, getCwd, getPkgMajorVersion, loadConfig, logWarning, judg
 import { nodeExternals } from './externals'
 import type { Plugin as PostCssPlugin } from 'postcss'
 
-const WebpackBar = require('webpackbar')
-
 const [antdVersion] = [getPkgMajorVersion('antd'), getPkgMajorVersion('vant')]
 if (antdVersion === 5) {
 	logWarning('Check antd@5.x has been installed, antd@4.x is more recommend in ssr environment')
@@ -137,12 +135,6 @@ const addCommonChain = (chain: RspackChain, isServer: boolean) => {
 
 	chain.plugin('minify-css').use(rspack.CssExtractRspackPlugin, [getBuildConfig().cssBuildConfig[0]])
 
-	chain.plugin('webpackBar').use(
-		new WebpackBar({
-			name: isServer ? 'server' : 'client',
-			color: isServer ? '#f173ac' : '#45b97c'
-		})
-	)
 	chain.plugin('ssrDefine').use(rspack.DefinePlugin, [
 		{
 			...getDefineEnv(),
