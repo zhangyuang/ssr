@@ -28,6 +28,9 @@ const getWebpackSplitCache = (): OptimizationSplitChunksOptions['cacheGroups'] =
 					const normalModule = module as NormalModule
 					for (const file in generateMap) {
 						const chunkName = generateMap[file]
+						if (!normalModule.resource) {
+							return false
+						}
 						if (file.split('?')[0] === normalModule.resource.split('?')[0]) {
 							return chunkName !== defaultEntryChunkName
 						}

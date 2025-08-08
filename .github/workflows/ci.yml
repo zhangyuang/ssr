@@ -27,9 +27,8 @@ jobs:
         with:
           path: |
               ~/Library/pnpm/store
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -90,9 +89,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -140,9 +138,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -189,9 +186,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -239,9 +235,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -290,9 +285,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -341,9 +335,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -391,9 +384,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -441,9 +433,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -490,9 +481,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -541,9 +531,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -591,9 +580,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -640,9 +628,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -690,9 +677,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -740,9 +726,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -788,9 +773,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -836,9 +820,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -882,9 +865,8 @@ jobs:
           path: |
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -931,9 +913,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -979,9 +960,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -1031,9 +1011,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -1081,9 +1060,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -1131,9 +1109,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -1180,9 +1157,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -1229,9 +1205,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -1278,9 +1253,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -1353,9 +1327,8 @@ jobs:
              /home/runner/.cache/Cypress
              /home/runner/setup-pnpm/node_modules/.bin/store/v10
 
-          key: ${{ runner.os }}-v1.1.2-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-              ${{ runner.os }}-v1.0.0-
+          key: ${{ runner.os }}-v1.1.2-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4

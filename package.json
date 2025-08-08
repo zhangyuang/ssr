@@ -119,16 +119,6 @@
           "vue": "^3.0.0"
         }
       },
-      "vue-loader@^17": {
-        "peerDependencies": {
-          "webpack": "^5.0.0"
-        }
-      },
-      "vue-loader@^15": {
-        "peerDependencies": {
-          "webpack": "^4.0.0"
-        }
-      },
       "swiper@6": {
         "dependencies": {
           "vue": "^3.0.0"

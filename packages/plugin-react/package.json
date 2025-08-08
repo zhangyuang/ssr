@@ -42,8 +42,7 @@
     "react": ">=17.0.1",
     "react-dom": ">=17.0.0",
     "react-router": "^5.1.8",
-    "react-router-dom": "^5.0.0",
-    "webpack": "^4.0.0"
+    "react-router-dom": "^5.0.0"
   },
   "devDependencies": {
     "@types/react18": "npm:@types/react@^18.0.0",
@@ -56,10 +55,5 @@
     "ssr-types": "workspace:*",
     "ssr-webpack": "workspace:*",
     "ssr-vite": "workspace:*"
-  },
-  "peerDependenciesMeta": {
-    "webpack": {
-      "optional": true
-    }
   }
 }
