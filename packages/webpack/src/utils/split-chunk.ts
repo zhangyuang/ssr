@@ -1,6 +1,6 @@
 import { loadConfig, getCwd, cryptoAsyncChunkName } from 'ssr-common-utils'
 import { resolve } from 'path'
-import type { OptimizationSplitChunksOptions } from '@rspack/core'
+import type { OptimizationSplitChunksOptions, NormalModule } from '@rspack/core'
 
 export const getSplitChunksOptions = (asyncChunkMap: {
 	val: Record<string, string[]>
@@ -19,56 +19,29 @@ export const getSplitChunksOptions = (asyncChunkMap: {
 }
 
 const getWebpackSplitCache = (): OptimizationSplitChunksOptions['cacheGroups'] => {
-	const { optimize, chunkName } = loadConfig()
+	const { optimize, chunkName: defaultEntryChunkName } = loadConfig()
 	if (optimize) {
 		const generateMap: Record<string, string> = require(resolve(getCwd(), './build/generateMap.json'))
-		const asyncChunkMap = require(resolve(getCwd(), './build/asyncChunkMap.json'))
-		let maxPriority = Object.keys(asyncChunkMap).length + 1
-		const splitPriorityMap: Record<string, number | undefined> = {
-			'common-vendor': maxPriority + 2,
-			'layout-app~vendor': maxPriority + 1,
-			'layout-app': maxPriority + 1
-		}
-		// make priority consistent
-		Object.keys(asyncChunkMap)
-			.sort((a, b) => {
-				const lenA = asyncChunkMap[a]
-				const lenB = asyncChunkMap[b]
-				if (lenA !== lenB) {
-					return asyncChunkMap[b].length - asyncChunkMap[a].length
-				} else {
-					return a > b ? 1 : -1
-				}
-			})
-			.forEach((chunkName) => {
-				if (!splitPriorityMap[chunkName]) {
-					splitPriorityMap[chunkName] = maxPriority - 1
-				}
-				maxPriority--
-			})
-		const webpackMap: Record<string, string[]> = {}
-		for (const fileName in generateMap) {
-			const chunkName = generateMap[fileName]
-			if (!webpackMap[chunkName]) {
-				webpackMap[chunkName] = []
-			}
-			webpackMap[chunkName].push(fileName)
-		}
-		delete webpackMap[chunkName]
-		const cacheGroups: OptimizationSplitChunksOptions['cacheGroups'] = {}
-		for (const chunkName in webpackMap) {
-			const arr = webpackMap[chunkName]
-			if (!cacheGroups[chunkName]) {
-				cacheGroups[chunkName] = {
-					name: chunkName,
-					test: (module, ctx) => {
-						if (chunkName === 'void' || !module.nameForCondition?.()) {
-							return false
+		const cacheGroups: OptimizationSplitChunksOptions['cacheGroups'] = {
+			dynamicChunks: {
+				test: (module, _) => {
+					const normalModule = module as NormalModule
+					for (const file in generateMap) {
+						const chunkName = generateMap[file]
+						if (file.split('?')[0] === normalModule.resource.split('?')[0]) {
+							return chunkName !== defaultEntryChunkName
 						}
-						const nameForCondition = module.nameForCondition()
-						return checkContains(arr, nameForCondition!)
-					},
-					priority: splitPriorityMap[chunkName] ?? 0
+					}
+					return false
+				},
+				name: (module, _) => {
+					const normalModule = module as NormalModule
+					for (const file in generateMap) {
+						const chunkName = generateMap[file]
+						if (file.split('?')[0] === normalModule.resource.split('?')[0]) {
+							return chunkName
+						}
+					}
 				}
 			}
 		}
@@ -84,13 +57,4 @@ const getWebpackSplitCache = (): OptimizationSplitChunksOptions['cacheGroups'] =
 			}
 		} as OptimizationSplitChunksOptions['cacheGroups']
 	}
-}
-
-const checkContains = (arr: string[], name: string) => {
-	for (const val of arr) {
-		if (val.includes(name)) {
-			return true
-		}
-	}
-	return false
 }
