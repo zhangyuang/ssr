@@ -10,6 +10,7 @@
     "noUnusedLocals": true,
     "stripInternal": true,
     "pretty": true,
+    "target": "ES2018",
     "declaration": true,
     "strict": true,
     "jsx": "react",
