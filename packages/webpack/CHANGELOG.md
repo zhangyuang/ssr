@@ -1,3 +1,24 @@
+## [7.0.6](https://github.com/zhangyuang/ssr/compare/webpack@7.0.5...webpack@7.0.6) (2025-08-08)
+
+
+### Bug Fixes
+
+* judge logic in postcss rspack ([cf2a774](https://github.com/zhangyuang/ssr/commit/cf2a774c2660c8b8b4a7837d63a1322295ccbf71))
+* remove restore-keys in ci ([b4708d6](https://github.com/zhangyuang/ssr/commit/b4708d6b28a3a999ea45b340b92016b470a25596))
+* set postcss options in rspack ([e8e4ff6](https://github.com/zhangyuang/ssr/commit/e8e4ff6a0080e80ba203f9f95f8a5b355aa01c88))
+* set vue-loader dependencies of webpack to 4.0 ([91b190c](https://github.com/zhangyuang/ssr/commit/91b190c0f28e5e4946dc81eb98316a069d550c13))
+
+
+### Features
+
+* add postcss-loader to default dependencies in rspack deploy.md ([47f2d09](https://github.com/zhangyuang/ssr/commit/47f2d09a6719245cf0b25481940521cce85901ba))
+* handle postcss in rspack ([62618e9](https://github.com/zhangyuang/ssr/commit/62618e966062cfdc88111abbd97c9edf316fd2a1))
+* support generic in UserConfig for chain ([0deeaa2](https://github.com/zhangyuang/ssr/commit/0deeaa27b0477db1b42f2112c9298856aa1381d8))
+* update rspack build --optimize to dynamicChunkName ([90958c8](https://github.com/zhangyuang/ssr/commit/90958c82f884376fcc130a0c639abfc0bf978a43))
+* update webpack build --optimize to dynamicChunkName ([55f9df1](https://github.com/zhangyuang/ssr/commit/55f9df189a6df9bdcfff621fa4dcec0057a90d5f))
+
+
+
 ## [7.0.5](https://github.com/zhangyuang/ssr/compare/webpack@7.0.4...webpack@7.0.5) (2025-08-05)
 
 
