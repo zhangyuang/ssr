@@ -1,4 +1,3 @@
-import { EventEmitter } from 'events'
 import { promises } from 'fs'
 import { isAbsolute, resolve } from 'path'
 import { parse as parseImports } from 'es-module-lexer'
@@ -7,7 +6,7 @@ import { mkdir } from 'shelljs'
 import type { Plugin, UserConfig, LogType } from 'vite'
 import type { OutputOptions, PluginContext, PreRenderedChunk, LoadResult } from 'rolldown'
 import { getBuildConfig, addDefaultAlias } from 'ssr-common-utils'
-import { getDependencies, getPkgName, accessFile, cryptoAsyncChunkName, debounce, getCwd, isReact18, accessFileSync, ssrDebug, loadConfig, logErr, getOutputPublicPath, defaultExternal, judgeFramework } from 'ssr-common-utils'
+import { getDependencies, getPkgName, accessFile, cryptoAsyncChunkName, getCwd, isReact18, accessFileSync, ssrDebug, loadConfig, logErr, getOutputPublicPath, defaultExternal, judgeFramework } from 'ssr-common-utils'
 
 const hasReactIs = accessFileSync(resolve(getCwd(), './node_modules/react-is'))
 const framework = judgeFramework()
@@ -76,12 +75,12 @@ const chunkNamePlugin = function (): Plugin {
 	}
 }
 
-const filePathMap: Record<string, string> = {}
+const thirdPartyModulesMap: Record<string, string> = {}
 
 const recordInfo = (id: string, chunkName: string | null, defaultChunkName: string | null, parentId: string) => {
 	const sign = id.includes('node_modules') ? getPkgName(id) : id
 	if (id.includes('node_modules')) {
-		filePathMap[sign] = parentId
+		thirdPartyModulesMap[sign] = parentId
 	}
 	if (!dependenciesMap[sign]) {
 		dependenciesMap[sign] = defaultChunkName ? [defaultChunkName] : []
@@ -105,21 +104,6 @@ const sortByAscii = (a: string, b: string) => {
 	return a.length - b.length
 }
 
-let hasWritten = false
-const writeEmitter = new EventEmitter()
-
-const fn = () => {
-	const { writeDebounceTime } = loadConfig()
-	return debounce(() => {
-		if (hasWritten) {
-			throw new Error(`generateMap has been written over twice, please check your machine performance, or add config.writeDebounceTime that default is ${writeDebounceTime}ms`)
-		}
-		hasWritten = true
-		writeEmitter.emit('buildEnd')
-	}, writeDebounceTime)
-}
-
-let checkBuildEnd: () => void
 const moduleIds: string[] = []
 
 const findChildren = (id: string, getModuleInfo: PluginContext['getModuleInfo']) => {
@@ -157,31 +141,28 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 				}
 			}
 		},
-		buildStart() {
-			checkBuildEnd = fn()
-		},
 		transform(this, _code, id) {
 			moduleIds.push(id)
 			ssrDebug(`build optimize process file ${id}`)
-			checkBuildEnd()
 		},
 		async buildEnd(this, err) {
 			// after the first layer file can be located in which chunkName
 			// confirm all children dependence belong to which chunkName
 			Object.keys(dependenciesMap).forEach((item) => {
-				const id = !isAbsolute(item) && filePathMap[item] ? filePathMap[item] : item
+				const id = !isAbsolute(item) && thirdPartyModulesMap[item] ? thirdPartyModulesMap[item] : item
 				findChildren(id, this.getModuleInfo)
 			})
 			Object.keys(dependenciesMap).forEach((item) => {
+				// allocate all dependencies of third party module to correct chunkName
 				if (!isAbsolute(item)) {
-					const abPath = filePathMap[item]
-					if (abPath) {
+					const thirdPartyModulePath = thirdPartyModulesMap[item]
+					if (thirdPartyModulePath) {
 						try {
 							const allDependencies = {}
 							// find absolute dependencies path from business file
 							getDependencies(
 								require.resolve(item, {
-									paths: [abPath]
+									paths: [thirdPartyModulePath]
 								}),
 								allDependencies
 							)
@@ -189,7 +170,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 								dependenciesMap[d] = (dependenciesMap[d] ?? []).concat(dependenciesMap[item])
 							})
 						} catch (_error) {
-							logErr(`Please check ${getPkgName(abPath)}/package.json ${abPath} use ${item} but don't specify it in dependencies`)
+							logErr(`Please check ${getPkgName(thirdPartyModulePath)}/package.json ${thirdPartyModulePath} use ${item} but don't specify it in dependencies`)
 						}
 					}
 				}
@@ -197,23 +178,10 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 			Object.keys(dependenciesMap).forEach((item) => {
 				dependenciesMap[item] = Array.from(new Set(dependenciesMap[item].filter(Boolean)))
 			})
-			return await new Promise((resolve) => {
-				if (err) {
-					logErr(JSON.stringify(err))
-					writeEmitter.on('buildEnd', () => {
-						for (const id of moduleIds) {
-							setGenerateMap(id)
-						}
-						writeEmitter.removeAllListeners()
-						writeGenerateMap().then(() => resolve())
-					})
-				} else {
-					for (const id of moduleIds) {
-						setGenerateMap(id)
-					}
-					writeGenerateMap().then(() => resolve())
-				}
-			})
+			for (const id of moduleIds) {
+				setGenerateMap(id)
+			}
+			writeGenerateMap()
 		}
 	}
 }
@@ -306,7 +274,7 @@ const commonConfig = (_env: 'server' | 'client'): UserConfig => {
 	return {
 		root: cwd,
 		mode: process.env.VITEMODE ?? 'development',
-		...(optimize ? { logLevel: 'slient' as LogType } : {}),
+		...(optimize ? { logLevel: 'error' as LogType } : {}),
 		server: {
 			middlewareMode: true,
 			hmr,
@@ -357,4 +325,4 @@ export function ssrResolvePlugin(options: ResolveOptions): Plugin[] {
 		}
 	]
 }
-export { chunkNamePlugin, manifestPlugin, rollupOutputOptions, commonConfig, asyncOptimizeChunkPlugin, writeEmitter }
+export { chunkNamePlugin, manifestPlugin, rollupOutputOptions, commonConfig, asyncOptimizeChunkPlugin }

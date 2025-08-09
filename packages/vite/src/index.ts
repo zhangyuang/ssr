@@ -80,6 +80,7 @@ export const serverConfig: InlineConfig = {
 	plugins: viteConfig?.()?.server?.processPlugin?.(serverPlugins) ?? serverPlugins,
 	build: {
 		minify: false,
+		...(optimize ? { write: false } : {}),
 		...viteConfig?.().server?.otherConfig?.build,
 		ssr: serverEntry,
 		outDir: serverOutPut,

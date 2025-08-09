@@ -162,7 +162,6 @@ export type IConfig<T extends ToolType = ToolType> = {
 	}
 	hashRouter?: boolean
 	htmlTemplate?: string
-	writeDebounceTime: number
 	dynamicFile: {
 		serverBundle: string
 		asyncChunkMap: string
