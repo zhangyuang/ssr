@@ -35,7 +35,9 @@ export const combineRoutes = (declareRoutes: any, manualRoutes: any): any => {
 	}
 	if (manualRoutesType.FeRoutes) {
 		// 声明式路由覆盖约定式路由同名path
-		const combineRoutes = declareRoutesType.FeRoutes.map((route) => manualRoutesType.FeRoutes.find((e) => e.path === route.path) ?? route)
+		const combineRoutes = declareRoutesType.FeRoutes.map(
+			(route) => manualRoutesType.FeRoutes.find((e) => e.path === route.path) ?? route
+		)
 		manualRoutesType.FeRoutes.forEach((route) => {
 			// 补充声明式路由新增的配置
 			const found = combineRoutes.find((e) => e.path === route.path)

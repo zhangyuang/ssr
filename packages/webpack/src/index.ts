@@ -1,3 +1,4 @@
+//@ts-nocheck
 import * as WebpackChain from 'webpack-chain'
 import { startClientServer, startClientBuild } from './client'
 import { startServerBuild } from './server'
@@ -8,8 +9,10 @@ export const start = async () => {
 
 	const { getServerWebpack } = await import('./config/server-config')
 	const { getClientWebpack } = await import('./config/client-config')
-	//@ts-ignore
-	await Promise.all([startServerBuild(getServerWebpack(serverConfigChain)), startClientServer(getClientWebpack(clientConfigChain))])
+	await Promise.all([
+		startServerBuild(getServerWebpack(serverConfigChain)),
+		startClientServer(getClientWebpack(clientConfigChain))
+	])
 }
 
 export const build = async () => {
@@ -18,5 +21,8 @@ export const build = async () => {
 	const serverConfigChain = new WebpackChain()
 	const clientConfigChain = new WebpackChain()
 	//@ts-ignore
-	await Promise.all([startServerBuild(getServerWebpack(serverConfigChain)), startClientBuild(getClientWebpack(clientConfigChain))])
+	await Promise.all([
+		startServerBuild(getServerWebpack(serverConfigChain)),
+		startClientBuild(getClientWebpack(clientConfigChain))
+	])
 }

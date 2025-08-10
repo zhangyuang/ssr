@@ -13,7 +13,12 @@ const Layout = (props: LayoutProps) => {
 				<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 				<meta name="theme-color" content="#000000" />
 				<title>Serverless Side Render</title>
-				<script dangerouslySetInnerHTML={{ __html: "var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'" }} />
+				<script
+					dangerouslySetInnerHTML={{
+						__html:
+							"var w = document.documentElement.clientWidth / 3.75;document.getElementsByTagName('html')[0].style['font-size'] = w + 'px'"
+					}}
+				/>
 				{injectCss}
 			</head>
 			<body>

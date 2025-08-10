@@ -1,4 +1,18 @@
-import { checkRoute, findRoute, getAsyncCssChunk, getAsyncJsChunk, getInlineOrder, getManifest, getStaticConfig, getUserScriptVue, localStorageWrapper, logGreen, normalizePath, remInitial, splitPageInfo } from 'ssr-common-utils'
+import {
+	checkRoute,
+	findRoute,
+	getAsyncCssChunk,
+	getAsyncJsChunk,
+	getInlineOrder,
+	getManifest,
+	getStaticConfig,
+	getUserScriptVue,
+	localStorageWrapper,
+	logGreen,
+	normalizePath,
+	remInitial,
+	splitPageInfo
+} from 'ssr-common-utils'
 import { serialize } from 'ssr-serialize-javascript'
 import type { IConfig, ISSRContext } from 'ssr-types'
 import type { CreateElement, VNode } from 'vue'
@@ -14,7 +28,20 @@ const { FeRoutes, App, layoutFetch, Layout } = Routes
 const staticConfig = getStaticConfig()
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-	const { mode, customeHeadScript, customeFooterScript, isDev, parallelFetch, prefix, isVite, clientPrefix, stream, rootId, bigpipe, hashRouter } = config
+	const {
+		mode,
+		customeHeadScript,
+		customeFooterScript,
+		isDev,
+		parallelFetch,
+		prefix,
+		isVite,
+		clientPrefix,
+		stream,
+		rootId,
+		bigpipe,
+		hashRouter
+	} = config
 	const router = createRouter()
 	const store = createStore()
 	const fn = async () => {
@@ -118,7 +145,10 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 					}),
 					h
 				).concat(getInlineVNode(inlineCssOrder, h, 'style'))
-				const customeFooterScriptArr: VNode[] = getVNode(getUserScriptVue({ script: customeFooterScript, ctx, position: 'footer', staticConfig }), h).concat(getInlineVNode(inlineJsOrder, h, 'script'))
+				const customeFooterScriptArr: VNode[] = getVNode(
+					getUserScriptVue({ script: customeFooterScript, ctx, position: 'footer', staticConfig }),
+					h
+				).concat(getInlineVNode(inlineJsOrder, h, 'script'))
 
 				const initialData = h('script', {
 					domProps: {
@@ -136,7 +166,13 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 						bigpipe
 							? ''
 							: h(App, {
-									props: { ctx, config, fetchData: combineAysncData, asyncData: { value: combineAysncData }, reactiveFetchData: { value: combineAysncData } }
+									props: {
+										ctx,
+										config,
+										fetchData: combineAysncData,
+										asyncData: { value: combineAysncData },
+										reactiveFetchData: { value: combineAysncData }
+									}
 								})
 					]
 				)

@@ -74,11 +74,20 @@ export const getDefineEnv = () => {
 	return envObject
 }
 
-export const getAsyncCssChunk = async (ctx: ISSRContext, webpackChunkName: string, config: IConfig): Promise<string[]> => {
+export const getAsyncCssChunk = async (
+	ctx: ISSRContext,
+	webpackChunkName: string,
+	config: IConfig
+): Promise<string[]> => {
 	const { cssOrder, extraCssOrder, cssOrderPriority } = config
-	const combineOrder = cssOrder.concat([...nomalrizeOrder(extraCssOrder, ctx), ...(await addAsyncChunk(webpackChunkName, config, 'css')), `${webpackChunkName}.css`])
+	const combineOrder = cssOrder.concat([
+		...nomalrizeOrder(extraCssOrder, ctx),
+		...(await addAsyncChunk(webpackChunkName, config, 'css')),
+		`${webpackChunkName}.css`
+	])
 	if (cssOrderPriority) {
-		const priority = typeof cssOrderPriority === 'function' ? cssOrderPriority({ chunkName: webpackChunkName }) : cssOrderPriority
+		const priority =
+			typeof cssOrderPriority === 'function' ? cssOrderPriority({ chunkName: webpackChunkName }) : cssOrderPriority
 		combineOrder.sort((a, b) => {
 			// 没有显示指定的路由优先级统一为 0
 			return (priority[b] || 0) - (priority[a] || 0)
@@ -86,11 +95,20 @@ export const getAsyncCssChunk = async (ctx: ISSRContext, webpackChunkName: strin
 	}
 	return combineOrder
 }
-export const getAsyncJsChunk = async (ctx: ISSRContext, webpackChunkName: string, config: IConfig): Promise<string[]> => {
+export const getAsyncJsChunk = async (
+	ctx: ISSRContext,
+	webpackChunkName: string,
+	config: IConfig
+): Promise<string[]> => {
 	const { jsOrder, extraJsOrder, jsOrderPriority } = config
-	const combineOrder = jsOrder.concat([...nomalrizeOrder(extraJsOrder, ctx), ...(await addAsyncChunk(webpackChunkName, config, 'js')), `${webpackChunkName}.js`])
+	const combineOrder = jsOrder.concat([
+		...nomalrizeOrder(extraJsOrder, ctx),
+		...(await addAsyncChunk(webpackChunkName, config, 'js')),
+		`${webpackChunkName}.js`
+	])
 	if (jsOrderPriority) {
-		const priority = typeof jsOrderPriority === 'function' ? jsOrderPriority({ chunkName: webpackChunkName }) : jsOrderPriority
+		const priority =
+			typeof jsOrderPriority === 'function' ? jsOrderPriority({ chunkName: webpackChunkName }) : jsOrderPriority
 		combineOrder.sort((a, b) => {
 			// 没有显示指定的路由优先级统一为 0
 			return (priority[b] || 0) - (priority[a] || 0)
@@ -115,7 +133,12 @@ export const getUserScriptVue = (options: {
 export const getScriptArr = (script: UserConfig['customeHeadScript'], ctx: ISSRContext) => {
 	return Array.isArray(script) ? script : (script?.(ctx) ?? [])
 }
-const getInlineContent = async (order: string[], inline: 'all' | string[] | undefined, manifest: Record<string, string | undefined>, cwd: string) => {
+const getInlineContent = async (
+	order: string[],
+	inline: 'all' | string[] | undefined,
+	manifest: Record<string, string | undefined>,
+	cwd: string
+) => {
 	const { inlineOrder, injectOrder } =
 		inline === 'all'
 			? { inlineOrder: order, injectOrder: [] }
@@ -135,7 +158,9 @@ const getInlineContent = async (order: string[], inline: 'all' | string[] | unde
 		inlineOrder
 			.map((item) => manifest[item])
 			.filter(Boolean)
-			.map((item) => promises.readFile(isAbsolute(item!) && !item!.startsWith('/client') ? item! : join(cwd, './build', item!)))
+			.map((item) =>
+				promises.readFile(isAbsolute(item!) && !item!.startsWith('/client') ? item! : join(cwd, './build', item!))
+			)
 	)
 
 	return {
@@ -153,8 +178,18 @@ interface GetInlineParams {
 }
 export const getInlineOrder = async ({ dynamicCssOrder, dynamicJsOrder, manifest, config }: GetInlineParams) => {
 	const cwd = getCwd()
-	const { inlineContent: inlineCssOrder, injectOrder: extraCssOrder } = await getInlineContent(dynamicCssOrder, config.cssInline, manifest, cwd)
-	const { inlineContent: inlineJsOrder, injectOrder: extraJsOrder } = await getInlineContent(dynamicJsOrder, config.jsInline, manifest, cwd)
+	const { inlineContent: inlineCssOrder, injectOrder: extraCssOrder } = await getInlineContent(
+		dynamicCssOrder,
+		config.cssInline,
+		manifest,
+		cwd
+	)
+	const { inlineContent: inlineJsOrder, injectOrder: extraJsOrder } = await getInlineContent(
+		dynamicJsOrder,
+		config.jsInline,
+		manifest,
+		cwd
+	)
 
 	return {
 		inlineCssOrder,

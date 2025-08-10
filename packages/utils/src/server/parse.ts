@@ -78,13 +78,19 @@ const parseFeRoutes = async () => {
 	re.lastIndex = 0
 	routes = routes.replace(/"fetch":("(.+?)")/g, (_global, _m1, m2) => {
 		const currentWebpackChunkName = re.exec(routes)![2]
-		return dynamic ? `"fetch": () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}')` : `"fetch": () => require('${m2.replace(/\^/g, '"')}')`
+		return dynamic
+			? `"fetch": () => import(/* webpackChunkName: "${currentWebpackChunkName}-fetch" */ '${m2.replace(/\^/g, '"')}')`
+			: `"fetch": () => require('${m2.replace(/\^/g, '"')}')`
 	})
 	await writeRoutes(routes, 'ssr-declare-routes.js')
 	await transformManualRoutes()
 }
 
-const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseFeRouteItem): Promise<ParseFeRouteItem[]> => {
+const renderRoutes = async (
+	pageDir: string,
+	pathRecord: string[],
+	route: ParseFeRouteItem
+): Promise<ParseFeRouteItem[]> => {
 	let arr: ParseFeRouteItem[] = []
 	const pagesFolders = await fs.readdir(pageDir)
 	const prefixPath = pathRecord.join('/')
@@ -102,7 +108,14 @@ const renderRoutes = async (pageDir: string, pathRecord: string[], route: ParseF
 			arr = arr.concat(childArr)
 		} else {
 			// 遍历一个文件夹下面的所有文件
-			if (!pageFiles.includes('render') || (!pageFiles.endsWith('.vue') && !pageFiles.endsWith('.tsx') && !pageFiles.endsWith('.ts') && !pageFiles.endsWith('.js') && !pageFiles.endsWith('.jsx'))) {
+			if (
+				!pageFiles.includes('render') ||
+				(!pageFiles.endsWith('.vue') &&
+					!pageFiles.endsWith('.tsx') &&
+					!pageFiles.endsWith('.ts') &&
+					!pageFiles.endsWith('.js') &&
+					!pageFiles.endsWith('.jsx'))
+			) {
 				continue
 			}
 			// 拿到具体的文件

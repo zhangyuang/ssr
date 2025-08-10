@@ -6,10 +6,34 @@ export const generateHtml = async () => {
 		return
 	}
 	// spa 模式下生成 html 文件直接部署
-	const { loadConfig, getCwd, judgeFramework, loadModuleFromCwd, loadModuleFromFramework, logGreen, getAsyncJsChunk, logWarning, getAsyncCssChunk, splitPageInfo, getScriptArr, getStaticConfig } = await import('ssr-common-utils')
+	const {
+		loadConfig,
+		getCwd,
+		judgeFramework,
+		loadModuleFromCwd,
+		loadModuleFromFramework,
+		logGreen,
+		getAsyncJsChunk,
+		logWarning,
+		getAsyncCssChunk,
+		splitPageInfo,
+		getScriptArr,
+		getStaticConfig
+	} = await import('ssr-common-utils')
 	logGreen('Generating html file...')
 	const cwd = getCwd()
-	const { customeHeadScript, customeFooterScript, hashRouter, htmlTemplate, prefix, clientPrefix, isVite, cssOrderPriority, jsOrderPriority, rootId } = loadConfig()
+	const {
+		customeHeadScript,
+		customeFooterScript,
+		hashRouter,
+		htmlTemplate,
+		prefix,
+		clientPrefix,
+		isVite,
+		cssOrderPriority,
+		jsOrderPriority,
+		rootId
+	} = loadConfig()
 	const staticConfig = getStaticConfig()
 
 	const htmlStr =
@@ -155,6 +179,11 @@ export const generateHtml = async () => {
 		logWarning('Notices: orderPriority cannot get chunkName in spa html build, you will get chunkName as undefined')
 	}
 
-	const generateHtmlStr = htmlStr.replace('cssInject', cssManifest.join('')).replace('jsManifest', jsManifest.join('')).replace('jsHeaderManifest', jsHeaderManifest).replace('jsFooterManifest', jsFooterManifest).replace('hashRouterScript', hashRouterScript)
+	const generateHtmlStr = htmlStr
+		.replace('cssInject', cssManifest.join(''))
+		.replace('jsManifest', jsManifest.join(''))
+		.replace('jsHeaderManifest', jsHeaderManifest)
+		.replace('jsFooterManifest', jsFooterManifest)
+		.replace('hashRouterScript', hashRouterScript)
 	await promises.writeFile(join(cwd, './build/index.html'), generateHtmlStr)
 }

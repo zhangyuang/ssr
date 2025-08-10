@@ -1,4 +1,12 @@
-import { getBuildConfig, getOutputPublicPath, loadConfig, judgeFramework, loadModuleFromFramework, terserConfig, getBuildEntry } from 'ssr-common-utils'
+import {
+	getBuildConfig,
+	getOutputPublicPath,
+	loadConfig,
+	judgeFramework,
+	loadModuleFromFramework,
+	terserConfig,
+	getBuildEntry
+} from 'ssr-common-utils'
 import WebpackChain from 'webpack-chain'
 import { getSplitChunksOptions, splitChunkPlugin } from '../utils/split-chunk'
 
@@ -13,7 +21,15 @@ const getClientWebpack = (chain: WebpackChain) => {
 
 	getBaseConfig(chain, false)
 	const buildConfig = getBuildConfig()
-	chain.entry(chunkName).add(getBuildEntry().client).end().output.path(getOutput().clientOutPut).filename(buildConfig.jsBuldConfig.fileName).chunkFilename(buildConfig.jsBuldConfig.chunkFileName).publicPath(publicPath).end()
+	chain
+		.entry(chunkName)
+		.add(getBuildEntry().client)
+		.end()
+		.output.path(getOutput().clientOutPut)
+		.filename(buildConfig.jsBuldConfig.fileName)
+		.chunkFilename(buildConfig.jsBuldConfig.chunkFileName)
+		.publicPath(publicPath)
+		.end()
 	chain.optimization
 		.runtimeChunk(true)
 		.splitChunks(getSplitChunksOptions())

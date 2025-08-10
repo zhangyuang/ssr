@@ -13,7 +13,15 @@ export const getClientRspack = (chain: RspackChain) => {
 
 	getBaseConfig(chain, false)
 	const buildConfig = getBuildConfig()
-	chain.entry(chunkName).add(getBuildEntry().client).end().output.path(getOutput().clientOutPut).filename(buildConfig.jsBuldConfig.fileName).chunkFilename(buildConfig.jsBuldConfig.chunkFileName).publicPath(publicPath).end()
+	chain
+		.entry(chunkName)
+		.add(getBuildEntry().client)
+		.end()
+		.output.path(getOutput().clientOutPut)
+		.filename(buildConfig.jsBuldConfig.fileName)
+		.chunkFilename(buildConfig.jsBuldConfig.chunkFileName)
+		.publicPath(publicPath)
+		.end()
 	chain.optimization
 		.runtimeChunk(true)
 		.splitChunks(getSplitChunksOptions())

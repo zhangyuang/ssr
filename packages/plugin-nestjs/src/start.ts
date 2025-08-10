@@ -7,7 +7,19 @@ import { getNormalizeArgv, morethan10 } from './utils'
 const morethan = morethan10()
 const spinner = require('ora')('starting ')
 const singleDash = ['c', 'p', 'w', 'd', 'e', 'h'].concat(morethan ? 'b' : '')
-const doubleDash = ['config', 'path', 'watch', 'watchAssets', 'debug', 'webpack', 'webpackPath', 'tsc', 'exec', 'preserveWatchOutput', 'help'].concat(morethan ? 'builder' : '')
+const doubleDash = [
+	'config',
+	'path',
+	'watch',
+	'watchAssets',
+	'debug',
+	'webpack',
+	'webpackPath',
+	'tsc',
+	'exec',
+	'preserveWatchOutput',
+	'help'
+].concat(morethan ? 'builder' : '')
 
 const start = async (argv: Argv) => {
 	const cwd = getCwd()
@@ -37,7 +49,11 @@ const start = async (argv: Argv) => {
 		}
 	})
 	stderr?.on('data', function (data) {
-		if (!data.includes('DeprecationWarning') && !data.includes('has been deprecated') && !data.includes("reflect-metadata doesn't appear to be written in CJS")) {
+		if (
+			!data.includes('DeprecationWarning') &&
+			!data.includes('has been deprecated') &&
+			!data.includes("reflect-metadata doesn't appear to be written in CJS")
+		) {
 			console.error(`error: ${data}`)
 		}
 	})

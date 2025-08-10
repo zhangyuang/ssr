@@ -13,8 +13,19 @@ function Search() {
 	}
 	return (
 		<div className={styles.searchContainer}>
-			<input type="text" className={styles.input} value={snap.searchText ?? ''} onChange={handleChange} placeholder="该搜索框内容会在所有页面共享" />
-			<img src="https://img.alicdn.com/tfs/TB15zSoX21TBuNjy0FjXXajyXXa-48-48.png" alt="" className={styles.searchImg} onClick={toSearch} />
+			<input
+				type="text"
+				className={styles.input}
+				value={snap.searchText ?? ''}
+				onChange={handleChange}
+				placeholder="该搜索框内容会在所有页面共享"
+			/>
+			<img
+				src="https://img.alicdn.com/tfs/TB15zSoX21TBuNjy0FjXXajyXXa-48-48.png"
+				alt=""
+				className={styles.searchImg}
+				onClick={toSearch}
+			/>
 		</div>
 	)
 }

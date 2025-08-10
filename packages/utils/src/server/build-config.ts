@@ -28,7 +28,8 @@ export const getBuildConfig = () => {
 
 export const terserConfig = (isServer: boolean) => {
 	const { isDev, clientPrefix } = loadConfig()
-	const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP ?? process.env.SERVER_SOURCEMAP ?? process.env.CLIENT_SOURCEMAP)
+	const shouldUseSourceMap =
+		isDev || Boolean(process.env.GENERATE_SOURCEMAP ?? process.env.SERVER_SOURCEMAP ?? process.env.CLIENT_SOURCEMAP)
 	return {
 		terserOptions: {
 			keep_fnames: judgeFramework().includes('ssr-plugin-react'),

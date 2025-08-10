@@ -9,7 +9,9 @@ const build = async (argv: any) => {
 	if (judgeVersion(require(join(cwd, './package.json')).dependencies['@midwayjs/decorator'])?.major === 2) {
 		execSync('npx cross-env ets')
 	}
-	argv.tsConfig = (await accessFile(join(cwd, './tsconfig.build.json'))) ? join(cwd, './tsconfig.build.json') : join(cwd, './tsconfig.json')
+	argv.tsConfig = (await accessFile(join(cwd, './tsconfig.build.json')))
+		? join(cwd, './tsconfig.build.json')
+		: join(cwd, './tsconfig.json')
 	argv.c = true
 	await checkTsConfig()
 	await cli(argv)

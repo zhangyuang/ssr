@@ -10,7 +10,12 @@ import { createRouter, createStore } from './create'
 const { FeRoutes, App, layoutFetch } = Routes
 
 let hasRender = false
-async function getAsyncCombineData(fetch: ESMFetch | undefined, store: Store<any>, router: RouteLocationNormalizedLoaded, pinia: Pinia) {
+async function getAsyncCombineData(
+	fetch: ESMFetch | undefined,
+	store: Store<any>,
+	router: RouteLocationNormalizedLoaded,
+	pinia: Pinia
+) {
 	const layoutFetchData = layoutFetch ? await layoutFetch({ store, router, pinia }) : {}
 	let fetchData = {}
 

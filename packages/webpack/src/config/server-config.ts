@@ -9,7 +9,14 @@ const getServerWebpack = (chain: WebpackChain) => {
 
 	getBaseConfig(chain, true)
 	chain.target('node')
-	chain.entry(chunkName).add(getBuildEntry().server).end().output.path(getOutput().serverOutPut).filename('[name].server.js').libraryTarget('commonjs').end()
+	chain
+		.entry(chunkName)
+		.add(getBuildEntry().server)
+		.end()
+		.output.path(getOutput().serverOutPut)
+		.filename('[name].server.js')
+		.libraryTarget('commonjs')
+		.end()
 
 	chain.optimization.minimize(false)
 

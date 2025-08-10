@@ -4,7 +4,21 @@ import * as React from 'react'
 import { createElement } from 'react'
 import * as ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router-dom'
-import { findRoute, getManifest, logGreen, normalizePath, getAsyncCssChunk, getAsyncJsChunk, splitPageInfo, reactRefreshFragment, localStorageWrapper, checkRoute, useStore, isReact18, getClientEntry } from 'ssr-common-utils'
+import {
+	findRoute,
+	getManifest,
+	logGreen,
+	normalizePath,
+	getAsyncCssChunk,
+	getAsyncJsChunk,
+	splitPageInfo,
+	reactRefreshFragment,
+	localStorageWrapper,
+	checkRoute,
+	useStore,
+	isReact18,
+	getClientEntry
+} from 'ssr-common-utils'
 import { ISSRContext, IConfig, ReactESMPreloadFeRouteItem, DynamicFC, StaticFC } from 'ssr-types'
 import { serialize } from 'ssr-serialize-javascript'
 import { AppContext } from './context'
@@ -17,7 +31,20 @@ type ReactDOMServerType = typeof ReactDOMServer & {
 }
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 	const context = ssrCreateContext()
-	const { mode, parallelFetch, prefix, isVite, isDev, clientPrefix, onReady, onError, stream, rootId, hashRouter, streamHighWaterMark } = config
+	const {
+		mode,
+		parallelFetch,
+		prefix,
+		isVite,
+		isDev,
+		clientPrefix,
+		onReady,
+		onError,
+		stream,
+		rootId,
+		hashRouter,
+		streamHighWaterMark
+	} = config
 	const rawPath = ctx.request.path ?? ctx.request.url
 	const path = normalizePath(rawPath, prefix)
 	const routeItem = findRoute<ReactESMPreloadFeRouteItem>(FeRoutes, path)
@@ -64,7 +91,15 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 						/>
 					]
 				: []),
-			...(isVite && isDev ? [<script type="module" src={`/node_modules/ssr-plugin-react/esm/entry/${getClientEntry()}.js`} key="vite-react-entry" />] : []),
+			...(isVite && isDev
+				? [
+						<script
+							type="module"
+							src={`/node_modules/ssr-plugin-react/esm/entry/${getClientEntry()}.js`}
+							key="vite-react-entry"
+						/>
+					]
+				: []),
 			...dynamicJsOrder
 				.map((js) => manifest[js])
 				.filter(Boolean)
@@ -76,7 +111,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 		}
 
 		const isCsr = !!(mode === 'csr' || ctx.request.query?.csr)
-		const Component = isCsr ? React.Fragment : component.name === 'dynamicComponent' ? (await (component as DynamicFC)()).default : (component as StaticFC)
+		const Component = isCsr
+			? React.Fragment
+			: component.name === 'dynamicComponent'
+				? (await (component as DynamicFC)()).default
+				: (component as StaticFC)
 
 		if (isCsr) {
 			logGreen(`Current path ${path} use csr render mode`)
@@ -137,7 +176,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 						.pipe(new PassThrough({ highWaterMark: streamHighWaterMark }))
 				: ReactDOMServer.renderToString(ele)
 		} else {
-			return stream ? ReactDOMServer.renderToNodeStream(ele).pipe(new PassThrough({ highWaterMark: streamHighWaterMark })) : ReactDOMServer.renderToString(ele)
+			return stream
+				? ReactDOMServer.renderToNodeStream(ele).pipe(new PassThrough({ highWaterMark: streamHighWaterMark }))
+				: ReactDOMServer.renderToString(ele)
 		}
 	}
 

@@ -39,7 +39,12 @@ const getBaseConfig = (chain: RspackChain, isServer: boolean) => {
 
 	chain.mode(mode)
 
-	chain.resolve.modules.add('node_modules').add(join(getCwd(), './node_modules')).end().extensions.merge(moduleFileExtensions).end()
+	chain.resolve.modules
+		.add('node_modules')
+		.add(join(getCwd(), './node_modules'))
+		.end()
+		.extensions.merge(moduleFileExtensions)
+		.end()
 
 	alias &&
 		Object.keys(alias).forEach((item) => {

@@ -945,7 +945,7 @@ importers:
     dependencies:
       '@pmmmwh/react-refresh-webpack-plugin':
         specifier: ^0.5.5
-        version: 0.5.17(@types/webpack@4.41.40)(react-refresh@0.17.0)(sockjs-client@1.6.1)(type-fest@0.21.3)(webpack-dev-server@5.2.2(webpack@4.47.0))(webpack@4.47.0)
+        version: 0.5.17(@types/webpack@4.41.40)(react-refresh@0.17.0)(sockjs-client@1.6.1)(type-fest@0.21.3)(webpack-dev-server@5.2.2(webpack@5.101.0(esbuild@0.14.48)))(webpack@5.101.0(esbuild@0.14.48))
       '@vitejs/plugin-react':
         specifier: ^4.0.0
         version: 4.7.0(rolldown-vite@7.1.0(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3))
@@ -976,9 +976,6 @@ importers:
       valtio:
         specifier: ^1.13.2
         version: 1.13.2(@types/react@17.0.87)(react@18.3.1)
-      webpack:
-        specifier: ^4.0.0
-        version: 4.47.0
     devDependencies:
       '@types/react':
         specifier: ^17.0.0
@@ -1027,7 +1024,7 @@ importers:
         version: 2.7.16
       vue-loader:
         specifier: ^15.0.0
-        version: 15.11.1(@vue/compiler-sfc@3.5.18)(css-loader@5.2.7(webpack@4.47.0))(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(vue-template-compiler@2.7.16)(webpack@4.47.0)
+        version: 15.11.1(@vue/compiler-sfc@3.5.18)(css-loader@5.2.7(webpack@5.101.0(esbuild@0.14.48)))(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(vue-template-compiler@2.7.16)(webpack@5.101.0(esbuild@0.14.48))
       vue-router:
         specifier: ^3.6.5
         version: 3.6.5(vue@2.7.16)
@@ -1040,9 +1037,6 @@ importers:
       vuex:
         specifier: ^3.6.2
         version: 3.6.2(vue@2.7.16)
-      webpack:
-        specifier: ^4.0.0
-        version: 4.47.0
     devDependencies:
       '@types/webpack':
         specifier: ^4.41.10
@@ -1079,16 +1073,13 @@ importers:
         version: 3.5.18(typescript@5.9.2)
       vue-loader:
         specifier: ^17.0.0
-        version: 17.4.2(@vue/compiler-sfc@3.5.18)(vue@3.5.18(typescript@5.9.2))(webpack@4.47.0)
+        version: 17.4.2(@vue/compiler-sfc@3.5.18)(vue@3.5.18(typescript@5.9.2))(webpack@5.101.0(esbuild@0.14.48))
       vue-router:
         specifier: ^4.2.4
         version: 4.5.1(vue@3.5.18(typescript@5.9.2))
       vuex:
         specifier: ^4.0.0
         version: 4.1.0(vue@3.5.18(typescript@5.9.2))
-      webpack:
-        specifier: ^4.0.0
-        version: 4.47.0
     devDependencies:
       '@types/webpack':
         specifier: ^4.41.10
@@ -1107,13 +1098,13 @@ importers:
     dependencies:
       '@rspack/cli':
         specifier: ^1.4.11
-        version: 1.4.11(@rspack/core@1.4.11(webpack@5.101.0(esbuild@0.14.48)))(@types/express@4.17.23)(webpack@5.101.0(esbuild@0.14.48))
+        version: 1.4.11(@rspack/core@1.4.11)(@types/express@4.17.23)(webpack@5.101.0(esbuild@0.14.48))
       '@rspack/core':
         specifier: ^1.4.11
-        version: 1.4.11(webpack@5.101.0(esbuild@0.14.48))
+        version: 1.4.11
       '@rspack/dev-server':
         specifier: ^1.0.0
-        version: 1.1.4(@rspack/core@1.4.11(webpack@5.101.0(esbuild@0.14.48)))(@types/express@4.17.23)(webpack@5.101.0(esbuild@0.14.48))
+        version: 1.1.4(@rspack/core@1.4.11)(@types/express@4.17.23)(webpack@5.101.0(esbuild@0.14.48))
       '@rspack/plugin-react-refresh':
         specifier: ^1.0.0
         version: 1.4.3(react-refresh@0.17.0)
@@ -1137,7 +1128,7 @@ importers:
         version: 8.5.6
       postcss-loader:
         specifier: ^8.0.0
-        version: 8.1.1(@rspack/core@1.4.11(webpack@5.101.0(esbuild@0.14.48)))(postcss@8.5.6)(typescript@5.9.2)(webpack@5.101.0(esbuild@0.14.48))
+        version: 8.1.1(@rspack/core@1.4.11)(postcss@8.5.6)(typescript@5.9.2)(webpack@5.101.0(esbuild@0.14.48))
       react-refresh:
         specifier: ^0.17.0
         version: 0.17.0
@@ -1146,7 +1137,7 @@ importers:
         version: 1.3.2
       rspack-manifest-plugin:
         specifier: ^5.0.0
-        version: 5.0.3(@rspack/core@1.4.11(webpack@5.101.0(esbuild@0.14.48)))
+        version: 5.0.3(@rspack/core@1.4.11)
       semver:
         specifier: ^7.3.8
         version: 7.7.2
@@ -3110,7 +3101,6 @@ packages:
     engines: {node: '>=16.0.0'}
     peerDependencies:
       '@swc/helpers': '>=0.5.1'
-      webpack: ^4.0.0
     peerDependenciesMeta:
       '@swc/helpers':
         optional: true
@@ -9680,7 +9670,7 @@ packages:
       css-loader: '*'
       prettier: '*'
       vue-template-compiler: '*'
-      webpack: ^4.0.0
+      webpack: ^3.0.0 || ^4.1.0 || ^5.0.0-0
     peerDependenciesMeta:
       '@vue/compiler-sfc':
         optional: true
@@ -9696,7 +9686,7 @@ packages:
     peerDependencies:
       '@vue/compiler-sfc': '*'
       vue: '*'
-      webpack: ^4.0.0
+      webpack: ^4.1.0 || ^5.0.0-0
     peerDependenciesMeta:
       '@vue/compiler-sfc':
         optional: true
@@ -11791,7 +11781,7 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@pmmmwh/react-refresh-webpack-plugin@0.5.17(@types/webpack@4.41.40)(react-refresh@0.17.0)(sockjs-client@1.6.1)(type-fest@0.21.3)(webpack-dev-server@5.2.2(webpack@4.47.0))(webpack@4.47.0)':
+  '@pmmmwh/react-refresh-webpack-plugin@0.5.17(@types/webpack@4.41.40)(react-refresh@0.17.0)(sockjs-client@1.6.1)(type-fest@0.21.3)(webpack-dev-server@5.2.2(webpack@5.101.0(esbuild@0.14.48)))(webpack@5.101.0(esbuild@0.14.48))':
     dependencies:
       ansi-html: 0.0.9
       core-js-pure: 3.45.0
@@ -11801,12 +11791,12 @@ snapshots:
       react-refresh: 0.17.0
       schema-utils: 4.3.2
       source-map: 0.7.6
-      webpack: 4.47.0
+      webpack: 5.101.0(esbuild@0.14.48)
     optionalDependencies:
       '@types/webpack': 4.41.40
       sockjs-client: 1.6.1
       type-fest: 0.21.3
-      webpack-dev-server: 5.2.2(webpack@4.47.0)
+      webpack-dev-server: 5.2.2(webpack@5.101.0(esbuild@0.14.48))
 
   '@polka/url@1.0.0-next.29': {}
 
@@ -11936,11 +11926,11 @@ snapshots:
       '@rspack/binding-win32-ia32-msvc': 1.4.11
       '@rspack/binding-win32-x64-msvc': 1.4.11
 
-  '@rspack/cli@1.4.11(@rspack/core@1.4.11(webpack@5.101.0(esbuild@0.14.48)))(@types/express@4.17.23)(webpack@5.101.0(esbuild@0.14.48))':
+  '@rspack/cli@1.4.11(@rspack/core@1.4.11)(@types/express@4.17.23)(webpack@5.101.0(esbuild@0.14.48))':
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
-      '@rspack/core': 1.4.11(webpack@5.101.0(esbuild@0.14.48))
-      '@rspack/dev-server': 1.1.4(@rspack/core@1.4.11(webpack@5.101.0(esbuild@0.14.48)))(@types/express@4.17.23)(webpack@5.101.0(esbuild@0.14.48))
+      '@rspack/core': 1.4.11
+      '@rspack/dev-server': 1.1.4(@rspack/core@1.4.11)(@types/express@4.17.23)(webpack@5.101.0(esbuild@0.14.48))
       colorette: 2.0.20
       exit-hook: 4.0.0
       interpret: 3.1.1
@@ -11956,16 +11946,15 @@ snapshots:
       - webpack
       - webpack-cli
 
-  '@rspack/core@1.4.11(webpack@5.101.0(esbuild@0.14.48))':
+  '@rspack/core@1.4.11':
     dependencies:
       '@module-federation/runtime-tools': 0.17.1
       '@rspack/binding': 1.4.11
       '@rspack/lite-tapable': 1.0.1
-      webpack: 5.101.0(esbuild@0.14.48)
 
-  '@rspack/dev-server@1.1.4(@rspack/core@1.4.11(webpack@5.101.0(esbuild@0.14.48)))(@types/express@4.17.23)(webpack@5.101.0(esbuild@0.14.48))':
+  '@rspack/dev-server@1.1.4(@rspack/core@1.4.11)(@types/express@4.17.23)(webpack@5.101.0(esbuild@0.14.48))':
     dependencies:
-      '@rspack/core': 1.4.11(webpack@5.101.0(esbuild@0.14.48))
+      '@rspack/core': 1.4.11
       chokidar: 3.6.0
       http-proxy-middleware: 2.0.9(@types/express@4.17.23)
       p-retry: 6.2.1
@@ -14127,6 +14116,20 @@ snapshots:
       schema-utils: 3.3.0
       semver: 7.7.2
       webpack: 4.47.0
+
+  css-loader@5.2.7(webpack@5.101.0(esbuild@0.14.48)):
+    dependencies:
+      icss-utils: 5.1.0(postcss@8.5.6)
+      loader-utils: 2.0.4
+      postcss: 8.5.6
+      postcss-modules-extract-imports: 3.1.0(postcss@8.5.6)
+      postcss-modules-local-by-default: 4.2.0(postcss@8.5.6)
+      postcss-modules-scope: 3.2.1(postcss@8.5.6)
+      postcss-modules-values: 4.0.0(postcss@8.5.6)
+      postcss-value-parser: 4.2.0
+      schema-utils: 3.3.0
+      semver: 7.7.2
+      webpack: 5.101.0(esbuild@0.14.48)
 
   css-prefers-color-scheme@6.0.3(postcss@8.5.6):
     dependencies:
@@ -17471,14 +17474,14 @@ snapshots:
       semver: 7.7.2
       webpack: 4.47.0
 
-  postcss-loader@8.1.1(@rspack/core@1.4.11(webpack@5.101.0(esbuild@0.14.48)))(postcss@8.5.6)(typescript@5.9.2)(webpack@5.101.0(esbuild@0.14.48)):
+  postcss-loader@8.1.1(@rspack/core@1.4.11)(postcss@8.5.6)(typescript@5.9.2)(webpack@5.101.0(esbuild@0.14.48)):
     dependencies:
       cosmiconfig: 9.0.0(typescript@5.9.2)
       jiti: 1.21.7
       postcss: 8.5.6
       semver: 7.7.2
     optionalDependencies:
-      '@rspack/core': 1.4.11(webpack@5.101.0(esbuild@0.14.48))
+      '@rspack/core': 1.4.11
       webpack: 5.101.0(esbuild@0.14.48)
     transitivePeerDependencies:
       - typescript
@@ -18256,11 +18259,11 @@ snapshots:
       deepmerge: 4.3.1
       javascript-stringify: 2.1.0
 
-  rspack-manifest-plugin@5.0.3(@rspack/core@1.4.11(webpack@5.101.0(esbuild@0.14.48))):
+  rspack-manifest-plugin@5.0.3(@rspack/core@1.4.11):
     dependencies:
       '@rspack/lite-tapable': 1.0.1
     optionalDependencies:
-      '@rspack/core': 1.4.11(webpack@5.101.0(esbuild@0.14.48))
+      '@rspack/core': 1.4.11
 
   run-applescript@7.0.0: {}
 
@@ -19559,15 +19562,15 @@ snapshots:
 
   vue-hot-reload-api@2.3.4: {}
 
-  vue-loader@15.11.1(@vue/compiler-sfc@3.5.18)(css-loader@5.2.7(webpack@4.47.0))(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(vue-template-compiler@2.7.16)(webpack@4.47.0):
+  vue-loader@15.11.1(@vue/compiler-sfc@3.5.18)(css-loader@5.2.7(webpack@5.101.0(esbuild@0.14.48)))(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)(vue-template-compiler@2.7.16)(webpack@5.101.0(esbuild@0.14.48)):
     dependencies:
       '@vue/component-compiler-utils': 3.3.0(ejs@3.1.10)(handlebars@4.7.8)(lodash@4.17.21)
-      css-loader: 5.2.7(webpack@4.47.0)
+      css-loader: 5.2.7(webpack@5.101.0(esbuild@0.14.48))
       hash-sum: 1.0.2
       loader-utils: 1.4.2
       vue-hot-reload-api: 2.3.4
       vue-style-loader: 4.1.3
-      webpack: 4.47.0
+      webpack: 5.101.0(esbuild@0.14.48)
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.18
       vue-template-compiler: 2.7.16
@@ -19626,12 +19629,12 @@ snapshots:
       - walrus
       - whiskers
 
-  vue-loader@17.4.2(@vue/compiler-sfc@3.5.18)(vue@3.5.18(typescript@5.9.2))(webpack@4.47.0):
+  vue-loader@17.4.2(@vue/compiler-sfc@3.5.18)(vue@3.5.18(typescript@5.9.2))(webpack@5.101.0(esbuild@0.14.48)):
     dependencies:
       chalk: 4.1.2
       hash-sum: 2.0.0
       watchpack: 2.4.4
-      webpack: 4.47.0
+      webpack: 5.101.0(esbuild@0.14.48)
     optionalDependencies:
       '@vue/compiler-sfc': 3.5.18
       vue: 3.5.18(typescript@5.9.2)
@@ -19777,18 +19780,6 @@ snapshots:
       webpack: 4.47.0
       webpack-log: 2.0.0
 
-  webpack-dev-middleware@7.4.2(webpack@4.47.0):
-    dependencies:
-      colorette: 2.0.20
-      memfs: 4.36.0
-      mime-types: 2.1.35
-      on-finished: 2.4.1
-      range-parser: 1.2.1
-      schema-utils: 4.3.2
-    optionalDependencies:
-      webpack: 4.47.0
-    optional: true
-
   webpack-dev-middleware@7.4.2(webpack@5.101.0(esbuild@0.14.48)):
     dependencies:
       colorette: 2.0.20
@@ -19840,45 +19831,6 @@ snapshots:
       - bufferutil
       - utf-8-validate
       - webpack
-
-  webpack-dev-server@5.2.2(webpack@4.47.0):
-    dependencies:
-      '@types/bonjour': 3.5.13
-      '@types/connect-history-api-fallback': 1.5.4
-      '@types/express': 4.17.23
-      '@types/express-serve-static-core': 4.19.6
-      '@types/serve-index': 1.9.4
-      '@types/serve-static': 1.15.8
-      '@types/sockjs': 0.3.36
-      '@types/ws': 8.18.1
-      ansi-html-community: 0.0.8
-      bonjour-service: 1.3.0
-      chokidar: 3.6.0
-      colorette: 2.0.20
-      compression: 1.8.1
-      connect-history-api-fallback: 2.0.0
-      express: 4.21.2
-      graceful-fs: 4.2.11
-      http-proxy-middleware: 2.0.9(@types/express@4.17.23)
-      ipaddr.js: 2.2.0
-      launch-editor: 2.11.1
-      open: 10.2.0
-      p-retry: 6.2.1
-      schema-utils: 4.3.2
-      selfsigned: 2.4.1
-      serve-index: 1.9.1
-      sockjs: 0.3.24
-      spdy: 4.0.2(supports-color@6.1.0)
-      webpack-dev-middleware: 7.4.2(webpack@4.47.0)
-      ws: 8.18.3
-    optionalDependencies:
-      webpack: 4.47.0
-    transitivePeerDependencies:
-      - bufferutil
-      - debug
-      - supports-color
-      - utf-8-validate
-    optional: true
 
   webpack-dev-server@5.2.2(webpack@5.101.0(esbuild@0.14.48)):
     dependencies:

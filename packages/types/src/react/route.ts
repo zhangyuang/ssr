@@ -43,10 +43,18 @@ export interface ParamsNest<T, U extends { [K in keyof U]?: string | undefined }
 	state?: any
 }
 
-export type ReactFetch<T = {}, U extends { [K in keyof U]?: string | undefined } = {}> = (params: Params<T, U>) => Promise<any>
-export type ReactMidwayFetch<T = {}, U extends { [K in keyof U]?: string | undefined } = {}> = (params: ParamsMidway<T, U>) => Promise<any>
-export type ReactMidwayKoaFetch<T = {}, U extends { [K in keyof U]?: string | undefined } = {}> = (params: ParamsMidwayKoa<T, U>) => Promise<any>
-export type ReactNestFetch<T = {}, U extends { [K in keyof U]?: string | undefined } = {}> = (params: ParamsNest<T, U>) => Promise<any>
+export type ReactFetch<T = {}, U extends { [K in keyof U]?: string | undefined } = {}> = (
+	params: Params<T, U>
+) => Promise<any>
+export type ReactMidwayFetch<T = {}, U extends { [K in keyof U]?: string | undefined } = {}> = (
+	params: ParamsMidway<T, U>
+) => Promise<any>
+export type ReactMidwayKoaFetch<T = {}, U extends { [K in keyof U]?: string | undefined } = {}> = (
+	params: ParamsMidwayKoa<T, U>
+) => Promise<any>
+export type ReactNestFetch<T = {}, U extends { [K in keyof U]?: string | undefined } = {}> = (
+	params: ParamsNest<T, U>
+) => Promise<any>
 
 export type ReactESMFetch = () => Promise<{
 	default: ReactFetch

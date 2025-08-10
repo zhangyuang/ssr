@@ -11,7 +11,12 @@ interface fetchType {
 	layoutFetch?: ReactFetch
 }
 
-const fetchAndDispatch = async ({ fetch, layoutFetch }: fetchType, dispatch: React.Dispatch<Action>, routerProps: RouteComponentProps, state: any) => {
+const fetchAndDispatch = async (
+	{ fetch, layoutFetch }: fetchType,
+	dispatch: React.Dispatch<Action>,
+	routerProps: RouteComponentProps,
+	state: any
+) => {
 	let asyncLayoutData = {}
 	let asyncData = {}
 	if (layoutFetch) {

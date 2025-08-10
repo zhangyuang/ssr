@@ -8,7 +8,9 @@ import { getNormalizeArgv, morethan10 } from './utils'
 const morethan = morethan10()
 const spinner = require('ora')('Building')
 const singleDash = ['c', 'p', 'w', 'h'].concat(morethan ? 'b' : '')
-const doubleDash = ['config', 'path', 'watch', 'watchAssets', 'webpack', 'webpackPath', 'tsc', 'help'].concat(morethan ? 'builder' : '')
+const doubleDash = ['config', 'path', 'watch', 'watchAssets', 'webpack', 'webpackPath', 'tsc', 'help'].concat(
+	morethan ? 'builder' : ''
+)
 const build = (argv: Argv) => {
 	const cwd = getCwd()
 	spinner.start()

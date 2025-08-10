@@ -3,7 +3,18 @@ import type { Compiler } from 'webpack'
 import type { Module, Rule } from 'webpack-chain'
 import { resolve } from 'path'
 import * as webpack from 'ssr-webpack4'
-import { judgeFramework, loadModuleFromFramework, loadModuleFromWebpack, getPkgMajorVersion, loadConfig, logWarning, getImageOutputPath, nameSpaceBuiltinModules, getBuildConfig, getDefineEnv } from 'ssr-common-utils'
+import {
+	judgeFramework,
+	loadModuleFromFramework,
+	loadModuleFromWebpack,
+	getPkgMajorVersion,
+	loadConfig,
+	logWarning,
+	getImageOutputPath,
+	nameSpaceBuiltinModules,
+	getBuildConfig,
+	getDefineEnv
+} from 'ssr-common-utils'
 import { nodeExternals } from './externals'
 import { FileToChunkRelationPlugin } from './plugins'
 import { setStyle } from './setStyle'
@@ -121,7 +132,8 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
 		.end()
 }
 const addCommonChain = (chain: Chain, isServer: boolean) => {
-	const { babelOptions, corejsOptions, babelExtraModule, assetsDir, isDev, clientPrefix, cwd, whiteList, define } = loadConfig()
+	const { babelOptions, corejsOptions, babelExtraModule, assetsDir, isDev, clientPrefix, cwd, whiteList, define } =
+		loadConfig()
 	const { publicPath, imagePath } = getImageOutputPath()
 	const envOptions = {
 		modules: false,

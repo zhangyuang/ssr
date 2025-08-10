@@ -17,7 +17,9 @@ const deploy = async (argv: any) => {
 		await fs.writeFile(join(cwd, './f.yml'), ymlContent)
 	}
 
-	logGreen('If you find some problems when deploy, see http://doc.ssr-fc.com/docs/features$faq#Serverless%20%E5%8F%91%E5%B8%83%E5%A4%B1%E8%B4%A5')
+	logGreen(
+		'If you find some problems when deploy, see http://doc.ssr-fc.com/docs/features$faq#Serverless%20%E5%8F%91%E5%B8%83%E5%A4%B1%E8%B4%A5'
+	)
 	const { cli } = require('@midwayjs/cli/bin/cli')
 	if (await accessFile(join(cwd, './package-lock.json'))) {
 		argv.npm = 'npm'

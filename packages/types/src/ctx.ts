@@ -30,7 +30,11 @@ export type ISSRNestContext<T = {}> = ExpressContext & T
 export type ISSRFastifyContext<T = {}> = FastifyContext & T
 export type ISSRMidwayContext<T = {}> = IKoaContext & T
 export type ISSRMidwayKoaContext<T = {}> = Context & T // for midway3.0
-export type ISSRContext<T = {}> = ISSRMidwayKoaContext<T> | ISSRNestContext<T> | ISSRMidwayContext<T> | ISSRFastifyContext<T>
+export type ISSRContext<T = {}> =
+	| ISSRMidwayKoaContext<T>
+	| ISSRNestContext<T>
+	| ISSRMidwayContext<T>
+	| ISSRFastifyContext<T>
 
 export interface Options {
 	mode?: string

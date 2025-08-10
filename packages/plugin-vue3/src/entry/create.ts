@@ -8,11 +8,19 @@ import { Routes } from './combine-router'
 
 const { store, FeRoutes } = Routes as RoutesType
 
-export function createRouter(options: VueRouterOptions & { hashRouter?: boolean; clientHistoryRouterMode?: 'webHistory' | 'memoryHistory' } = {}) {
+export function createRouter(
+	options: VueRouterOptions & { hashRouter?: boolean; clientHistoryRouterMode?: 'webHistory' | 'memoryHistory' } = {}
+) {
 	const { clientHistoryRouterMode, hashRouter, base = '/' } = options
 	const useClientMemoryHistory = clientHistoryRouterMode === 'memoryHistory'
 	const routerInstance = create({
-		history: __isBrowser__ ? (hashRouter ? createWebHashHistory(base) : useClientMemoryHistory ? createMemoryHistory(base) : createWebHistory(base)) : createMemoryHistory(),
+		history: __isBrowser__
+			? hashRouter
+				? createWebHashHistory(base)
+				: useClientMemoryHistory
+					? createMemoryHistory(base)
+					: createWebHistory(base)
+			: createMemoryHistory(),
 		routes: FeRoutes as any
 	})
 	if (__isBrowser__ && useClientMemoryHistory && window.ssrRequestPath) {

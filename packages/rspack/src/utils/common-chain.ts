@@ -1,7 +1,15 @@
 import type * as RspackChain from 'rspack-chain'
 import { resolve } from 'path'
 import { rspack } from '@rspack/core'
-import { getPkgMajorVersion, loadConfig, logWarning, judgeFramework, getBuildConfig, getDefineEnv, loadModuleFromRspack } from 'ssr-common-utils'
+import {
+	getPkgMajorVersion,
+	loadConfig,
+	logWarning,
+	judgeFramework,
+	getBuildConfig,
+	getDefineEnv,
+	loadModuleFromRspack
+} from 'ssr-common-utils'
 import { nodeExternals } from './externals'
 import type { Plugin as PostCssPlugin } from 'postcss'
 

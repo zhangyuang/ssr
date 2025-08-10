@@ -11,7 +11,9 @@ const fetch: ReactNestFetch<
 	{ id: string }
 > = async ({ ctx, routerProps }) => {
 	const { detailState } = useStore()
-	const data = __isBrowser__ ? await (await window.fetch(`/api/detail/${routerProps!.match.params.id}`)).json() : await ctx!.apiDeatilservice.index(ctx!.request.params.id)
+	const data = __isBrowser__
+		? await (await window.fetch(`/api/detail/${routerProps!.match.params.id}`)).json()
+		: await ctx!.apiDeatilservice.index(ctx!.request.params.id)
 	detailState.detailData = data
 }
 export default fetch

@@ -6,7 +6,9 @@ const mapState = <T = any>() => {
 }
 const mapGetters = <T = any>() => {
 	const store = useStore()
-	return Object.fromEntries(Object.keys(store.getters).map((getter) => [getter, computed(() => store.getters[getter] as T)]))
+	return Object.fromEntries(
+		Object.keys(store.getters).map((getter) => [getter, computed(() => store.getters[getter] as T)])
+	)
 }
 const mapMutations = () => {
 	const store = useStore()

@@ -24,7 +24,11 @@ function Player(props: Props) {
 					}}
 				>
 					<div className={styles.title}>{data.title}</div>
-					<img className={styles.ico} src="https://gw.alicdn.com/tfs/TB1eA6FEW61gK0jSZFlXXXDKFXa-135-135.png" onClick={() => setPlay(true)} />
+					<img
+						className={styles.ico}
+						src="https://gw.alicdn.com/tfs/TB1eA6FEW61gK0jSZFlXXXDKFXa-135-135.png"
+						onClick={() => setPlay(true)}
+					/>
 					<div className={styles.layer} />
 				</div>
 			)}
