@@ -1,3 +1,20 @@
+## [7.0.5](https://github.com/zhangyuang/ssr/compare/cli@7.0.4...cli@7.0.5) (2025-08-10)
+
+
+### Bug Fixes
+
+* remove restore-keys in ci ([b4708d6](https://github.com/zhangyuang/ssr/commit/b4708d6b28a3a999ea45b340b92016b470a25596))
+* set vue-loader dependencies of webpack to 4.0 ([91b190c](https://github.com/zhangyuang/ssr/commit/91b190c0f28e5e4946dc81eb98316a069d550c13))
+
+
+### Features
+
+* update build --optimize logic ([dec88d6](https://github.com/zhangyuang/ssr/commit/dec88d6ed3b836f5c059f6596e38bd5b263dc681))
+* update rspack build --optimize to dynamicChunkName ([90958c8](https://github.com/zhangyuang/ssr/commit/90958c82f884376fcc130a0c639abfc0bf978a43))
+* update webpack build --optimize to dynamicChunkName ([55f9df1](https://github.com/zhangyuang/ssr/commit/55f9df189a6df9bdcfff621fa4dcec0057a90d5f))
+
+
+
 ## [7.0.4](https://github.com/zhangyuang/ssr/compare/cli@7.0.3...cli@7.0.4) (2025-08-07)
 
 

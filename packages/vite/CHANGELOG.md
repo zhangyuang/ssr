@@ -1,3 +1,7 @@
+## [7.0.5](https://github.com/zhangyuang/ssr/compare/vite@7.0.4...vite@7.0.5) (2025-08-10)
+
+
+
 ## [7.0.4](https://github.com/zhangyuang/ssr/compare/vite@7.0.3...vite@7.0.4) (2025-08-09)
 
 

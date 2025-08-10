@@ -1,3 +1,12 @@
+## [7.0.7](https://github.com/zhangyuang/ssr/compare/webpack@7.0.6...webpack@7.0.7) (2025-08-10)
+
+
+### Features
+
+* update build --optimize logic ([dec88d6](https://github.com/zhangyuang/ssr/commit/dec88d6ed3b836f5c059f6596e38bd5b263dc681))
+
+
+
 ## [7.0.6](https://github.com/zhangyuang/ssr/compare/webpack@7.0.5...webpack@7.0.6) (2025-08-08)
 
 

@@ -1,3 +1,12 @@
+## [7.0.13](https://github.com/zhangyuang/ssr/compare/rspack@7.0.12...rspack@7.0.13) (2025-08-10)
+
+
+### Features
+
+* update build --optimize logic ([dec88d6](https://github.com/zhangyuang/ssr/commit/dec88d6ed3b836f5c059f6596e38bd5b263dc681))
+
+
+
 ## [7.0.12](https://github.com/zhangyuang/ssr/compare/rspack@7.0.11...rspack@7.0.12) (2025-08-08)
 
 

@@ -1,3 +1,12 @@
+## [7.0.5](https://github.com/zhangyuang/ssr/compare/plugin-react@7.0.4...plugin-react@7.0.5) (2025-08-10)
+
+
+### Features
+
+* update build --optimize logic ([dec88d6](https://github.com/zhangyuang/ssr/commit/dec88d6ed3b836f5c059f6596e38bd5b263dc681))
+
+
+
 ## [7.0.4](https://github.com/zhangyuang/ssr/compare/plugin-react@7.0.3...plugin-react@7.0.4) (2025-08-08)
 
 

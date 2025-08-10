@@ -1,3 +1,7 @@
+## [7.0.6](https://github.com/zhangyuang/ssr/compare/types@7.0.5...types@7.0.6) (2025-08-10)
+
+
+
 ## [7.0.5](https://github.com/zhangyuang/ssr/compare/types@7.0.4...types@7.0.5) (2025-08-09)
 
 
