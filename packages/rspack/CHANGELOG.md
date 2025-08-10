@@ -1,3 +1,13 @@
+## [7.0.14](https://github.com/zhangyuang/ssr/compare/rspack@7.0.13...rspack@7.0.14) (2025-08-10)
+
+
+### Features
+
+* use incoming replace outcoming to find correct chunkName ([20f4769](https://github.com/zhangyuang/ssr/commit/20f4769a6f6bc47cb7ccbb8891295ec600124642))
+* **vite:** use incoming replace outcoming to find correct chunkName ([505763c](https://github.com/zhangyuang/ssr/commit/505763cf423a341795d30fc7dd0b52eadb1f3c82))
+
+
+
 ## [7.0.13](https://github.com/zhangyuang/ssr/compare/rspack@7.0.12...rspack@7.0.13) (2025-08-10)
 
 

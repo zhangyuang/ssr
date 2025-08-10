@@ -1,3 +1,13 @@
+## [7.0.6](https://github.com/zhangyuang/ssr/compare/utils@7.0.5...utils@7.0.6) (2025-08-10)
+
+
+### Features
+
+* use incoming replace outcoming to find correct chunkName ([20f4769](https://github.com/zhangyuang/ssr/commit/20f4769a6f6bc47cb7ccbb8891295ec600124642))
+* **vite:** use incoming replace outcoming to find correct chunkName ([505763c](https://github.com/zhangyuang/ssr/commit/505763cf423a341795d30fc7dd0b52eadb1f3c82))
+
+
+
 ## [7.0.5](https://github.com/zhangyuang/ssr/compare/utils@7.0.4...utils@7.0.5) (2025-08-10)
 
 
