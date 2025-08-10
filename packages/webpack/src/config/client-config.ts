@@ -1,6 +1,6 @@
-import { asyncChunkMap, getBuildConfig, getOutputPublicPath, loadConfig, judgeFramework, loadModuleFromFramework, terserConfig, getBuildEntry } from 'ssr-common-utils'
+import { getBuildConfig, getOutputPublicPath, loadConfig, judgeFramework, loadModuleFromFramework, terserConfig, getBuildEntry } from 'ssr-common-utils'
 import WebpackChain from 'webpack-chain'
-import { getSplitChunksOptions } from '../utils/split-chunk'
+import { getSplitChunksOptions, splitChunkPlugin } from '../utils/split-chunk'
 
 import { getBaseConfig } from './base-config'
 
@@ -16,7 +16,7 @@ const getClientWebpack = (chain: WebpackChain) => {
 	chain.entry(chunkName).add(getBuildEntry().client).end().output.path(getOutput().clientOutPut).filename(buildConfig.jsBuldConfig.fileName).chunkFilename(buildConfig.jsBuldConfig.chunkFileName).publicPath(publicPath).end()
 	chain.optimization
 		.runtimeChunk(true)
-		.splitChunks(getSplitChunksOptions(asyncChunkMap))
+		.splitChunks(getSplitChunksOptions())
 		.when(!isDev, (optimization) => {
 			optimization.minimizer('terser').use('terser-webpack-plugin', [terserConfig(false)])
 			optimization.minimizer('optimize-css').use('optimize-css-assets-webpack-plugin', [
@@ -46,6 +46,7 @@ const getClientWebpack = (chain: WebpackChain) => {
 			)
 		})
 	}
+	chain.plugin('splitChunkPlugin').use(splitChunkPlugin)
 	chain.plugin('manifest').use('webpack-manifest-plugin', [
 		{
 			fileName: 'asset-manifest.json'

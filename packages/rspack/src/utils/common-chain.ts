@@ -1,9 +1,7 @@
-import type { Compiler } from '@rspack/core'
 import type * as RspackChain from 'rspack-chain'
-import { promises } from 'fs'
 import { resolve } from 'path'
 import { rspack } from '@rspack/core'
-import { asyncChunkMap, getCwd, getPkgMajorVersion, loadConfig, logWarning, judgeFramework, getBuildConfig, getDefineEnv, loadModuleFromRspack } from 'ssr-common-utils'
+import { getPkgMajorVersion, loadConfig, logWarning, judgeFramework, getBuildConfig, getDefineEnv, loadModuleFromRspack } from 'ssr-common-utils'
 import { nodeExternals } from './externals'
 import type { Plugin as PostCssPlugin } from 'postcss'
 
@@ -13,7 +11,7 @@ if (antdVersion === 5) {
 }
 
 const addCommonChain = (chain: RspackChain, isServer: boolean) => {
-	const { optimize, cwd, whiteList, define, defaultBrowserTarget, isDev, css } = loadConfig()
+	const { cwd, whiteList, define, defaultBrowserTarget, isDev, css } = loadConfig()
 
 	if (process.env.NOMINIFY) {
 		chain.optimization.minimize(false)
@@ -150,21 +148,6 @@ const addCommonChain = (chain: RspackChain, isServer: boolean) => {
 	if (!isServer) {
 		chain.when(generateAnalysis, (chain) => {
 			chain.plugin('analyze').use(BundleAnalyzerPlugin)
-		})
-		chain.plugin('WriteAsyncManifest').use(function () {
-			return {
-				apply(compiler: Compiler) {
-					compiler.hooks.watchRun.tap('ClearLastAsyncChunkMap', async () => {
-						asyncChunkMap.val = {}
-					})
-					compiler.hooks.done.tapAsync('WriteAsyncChunkManifest', async (_params: any, callback: any) => {
-						if (!optimize) {
-							await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap.val))
-						}
-						callback()
-					})
-				}
-			}
 		})
 	}
 }

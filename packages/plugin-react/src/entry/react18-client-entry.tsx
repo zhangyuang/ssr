@@ -9,9 +9,7 @@ import { preloadComponent, isMicro, setStoreContext, setStore } from 'ssr-common
 import { wrapComponent } from 'ssr-hoc-react'
 import { ssrCreateContext, Routes, createStore } from './create'
 import { AppContext } from './context'
-
 const { FeRoutes, layoutFetch, App } = Routes
-
 const clientRender = async (): Promise<void> => {
 	const IApp =
 		App ??

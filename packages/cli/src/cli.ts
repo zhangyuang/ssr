@@ -7,6 +7,7 @@ import { generateHtml } from './html'
 import { handleEnv } from './preprocess'
 import { ssg } from './ssg'
 import { createWatcher, onWatcher } from './watcher'
+import { addChunkNameInRoutes } from './add-chunk-name'
 
 const spinnerProcess = fork(resolve(__dirname, './spinner')) // 单独创建子进程跑 spinner 否则会被后续的 同步代码 block 导致 loading 暂停
 
@@ -58,6 +59,7 @@ const startFunc = async (argv: Argv) => {
 	}
 	const watcher = await createWatcher()
 	await parseFeRoutes()
+	await addChunkNameInRoutes()
 	spinner.stop()
 	await startOrBuild(argv, 'start')
 	await onWatcher(watcher)
@@ -70,6 +72,7 @@ const buildFunc = async (argv: Argv) => {
 	const { parseFeRoutes, transformConfig } = await import('ssr-common-utils')
 	await transformConfig()
 	await parseFeRoutes()
+	await addChunkNameInRoutes()
 	spinner.stop()
 	await startOrBuild(argv, 'build')
 }
@@ -121,10 +124,6 @@ yargs
 				port: {
 					desc: 'Setting application server port, default is 3000'
 				},
-				optimize: {
-					alias: 'o',
-					desc: 'Optimize webpack bundle for high performance'
-				},
 				help: {
 					alias: 'h',
 					desc: 'In midway, use --help to speed up ts compile'
@@ -162,10 +161,6 @@ yargs
 				analyze: {
 					alias: 'a',
 					desc: 'Analyze bundle result when using webpack for build'
-				},
-				optimize: {
-					alias: 'o',
-					desc: 'Optimize webpack bundle for high performance except vue2'
 				},
 				vite: {
 					desc: 'Build application by vite'

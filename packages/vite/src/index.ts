@@ -10,13 +10,13 @@ import { build as viteBuild, type PluginOption, type InlineConfig } from 'vite'
 
 import { AndDesignVueResolve, AntdResolve, ElementPlusResolve, NutuiResolve, VantResolve, createStyleImportPlugin } from 'ssr-vite-plugin-style-import'
 import { getBabelOptions } from './babel'
-import { commonConfig, asyncOptimizeChunkPlugin, chunkNamePlugin, manifestPlugin, rollupOutputOptions, ssrResolvePlugin } from './build-plugins'
+import { commonConfig, asyncOptimizeChunkPlugin, manifestPlugin, rollupOutputOptions, ssrResolvePlugin } from './build-plugins'
 
 const framework = judgeFramework()
 const isReact = framework === 'ssr-plugin-react'
 const isVue3 = framework === 'ssr-plugin-vue3'
 
-const { getOutput, viteConfig, supportOptinalChaining, isDev, define, optimize, chunkName, whiteList } = loadConfig()
+const { getOutput, viteConfig, supportOptinalChaining, isDev, define, chunkName, whiteList } = loadConfig()
 const { clientOutPut, serverOutPut } = getOutput()
 
 let vuePlugin: typeof VuePlugin.default | undefined
@@ -80,7 +80,6 @@ export const serverConfig: InlineConfig = {
 	plugins: viteConfig?.()?.server?.processPlugin?.(serverPlugins) ?? serverPlugins,
 	build: {
 		minify: false,
-		...(optimize ? { write: false } : {}),
 		...viteConfig?.().server?.otherConfig?.build,
 		ssr: serverEntry,
 		outDir: serverOutPut,
@@ -128,7 +127,6 @@ export const clientConfig: InlineConfig = {
 	build: {
 		minify: !process.env.NOMINIFY,
 		...viteConfig?.().client?.otherConfig?.build,
-		...(optimize ? { write: false } : {}),
 		ssrManifest: true,
 		outDir: clientOutPut,
 		rollupOptions: {
@@ -137,7 +135,6 @@ export const clientConfig: InlineConfig = {
 			input: clientEntry,
 			output: rollupOutputOptions(),
 			plugins: [
-				chunkNamePlugin(),
 				asyncOptimizeChunkPlugin(),
 				manifestPlugin(),
 				...(isVue3

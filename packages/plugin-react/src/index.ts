@@ -1,8 +1,7 @@
 import { resolve } from 'path'
 import { loadConfig, getCwd } from 'ssr-common-utils'
 
-const { tool, optimize } = loadConfig()
-const spinner = require('ora')('Building')
+const { tool } = loadConfig()
 
 export function clientPlugin() {
 	const cwd = getCwd()
@@ -16,13 +15,6 @@ export function clientPlugin() {
 				const { start } = await import(vitePath)
 				await start()
 			} else {
-				if (optimize) {
-					spinner.start()
-					const { viteBuildClient } = await import(vitePath)
-					await viteBuildClient()
-					process.env.NODE_ENV = 'development'
-					spinner.stop()
-				}
 				if (tool === 'rspack') {
 					const { start } = await import(rspackPath)
 					await start()
@@ -37,12 +29,6 @@ export function clientPlugin() {
 				const { build } = await import(vitePath)
 				await build()
 			} else {
-				if (optimize) {
-					spinner.start()
-					const { build } = await import(vitePath)
-					await build()
-					spinner.stop()
-				}
 				if (tool === 'rspack') {
 					const { build } = await import(rspackPath)
 					await build()

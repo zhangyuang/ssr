@@ -29,7 +29,10 @@ export const splitPageInfo = (info: Record<string, string | boolean | object>): 
 
 const readAsyncChunk = async (config: IConfig): Promise<Record<string, string>> => {
 	try {
-		const { dynamicFile } = config
+		const { dynamicFile, isDev } = config
+		if (isDev) {
+			delete require.cache[dynamicFile?.asyncChunkMap]
+		}
 		const str = (await promises.readFile(dynamicFile?.asyncChunkMap)).toString()
 		return JSON.parse(str)
 	} catch (_error) {
@@ -85,7 +88,7 @@ export const getAsyncCssChunk = async (ctx: ISSRContext, webpackChunkName: strin
 }
 export const getAsyncJsChunk = async (ctx: ISSRContext, webpackChunkName: string, config: IConfig): Promise<string[]> => {
 	const { jsOrder, extraJsOrder, jsOrderPriority } = config
-	const combineOrder = jsOrder.concat([...nomalrizeOrder(extraJsOrder, ctx), ...(await addAsyncChunk(webpackChunkName, config, 'js'))])
+	const combineOrder = jsOrder.concat([...nomalrizeOrder(extraJsOrder, ctx), ...(await addAsyncChunk(webpackChunkName, config, 'js')), `${webpackChunkName}.js`])
 	if (jsOrderPriority) {
 		const priority = typeof jsOrderPriority === 'function' ? jsOrderPriority({ chunkName: webpackChunkName }) : jsOrderPriority
 		combineOrder.sort((a, b) => {

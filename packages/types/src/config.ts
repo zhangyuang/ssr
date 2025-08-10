@@ -144,7 +144,6 @@ export type IConfig<T extends ToolType = ToolType> = {
 	proxyKey: string[]
 	tool?: 'webpack' | 'vite' | 'rspack'
 	isVite: boolean
-	optimize: boolean
 	supportOptinalChaining: boolean
 	onError?: (e: any) => null | string
 	onReady?: () => any

@@ -26,7 +26,6 @@ export const handleEnv = async (argv: Argv) => {
 		)
 	}
 	const { https, isDev, clientPrefix } = loadConfig()
-	process.env.OPTIMIZE = process.env.BUILD_TOOL !== 'vite' && argv.optimize ? '1' : '0'
 	if (argv.ssg) {
 		process.env.SSG = '1'
 	}

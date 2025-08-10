@@ -1,63 +1,110 @@
-import { loadConfig, getCwd, cryptoAsyncChunkName } from 'ssr-common-utils'
-import { resolve } from 'path'
 import type { OptimizationSplitChunksOptions, NormalModule } from '@rspack/core'
+import { getCwd, cryptoAsyncChunkName, sortByAscii } from 'ssr-common-utils'
+import type Webpack from 'webpack'
+import { resolve } from 'path'
+import { writeFileSync } from 'fs'
+const dependenciesMap: Record<string, string[]> = {}
+const generateMap: Record<string, string> = {}
+const chunkNameRe = /chunkName=(.*)/
+const asyncChunkMap: Record<string, string[]> = {}
 
-export const getSplitChunksOptions = (asyncChunkMap: {
-	val: Record<string, string[]>
-}) => {
-	const { optimize } = loadConfig()
+export const getSplitChunksOptions = () => {
 	return {
-		minSize: optimize ? 0 : 2000,
+		minSize: 0,
 		maxAsyncRequests: 5,
 		maxInitialRequests: 3,
 		chunks: 'all',
-		name(module, chunks, _cacheGroupKey) {
-			return cryptoAsyncChunkName(chunks, asyncChunkMap.val)
+		name(_, chunks, _cacheGroupKey) {
+			return cryptoAsyncChunkName(chunks, asyncChunkMap)
 		},
 		cacheGroups: getWebpackSplitCache()
 	} as OptimizationSplitChunksOptions
 }
 
-const getWebpackSplitCache = (): OptimizationSplitChunksOptions['cacheGroups'] => {
-	const { optimize, chunkName: defaultEntryChunkName } = loadConfig()
-	if (optimize) {
-		const generateMap: Record<string, string> = require(resolve(getCwd(), './build/generateMap.json'))
-		const cacheGroups: OptimizationSplitChunksOptions['cacheGroups'] = {
-			dynamicChunks: {
-				test: (module, _) => {
-					const normalModule = module as NormalModule
-					for (const file in generateMap) {
-						const chunkName = generateMap[file]
-						if (!normalModule.resource) {
-							return false
-						}
-						if (file.split('?')[0] === normalModule.resource.split('?')[0]) {
-							return chunkName !== defaultEntryChunkName
-						}
+const getModuleName = (module: NormalModule) => {
+	return module.resource?.split('?')[0] || ''
+}
+
+const recordInfo = (module: Webpack.compilation.Module, parentModuleName: string | null, visited: string[]) => {
+	const moduleName = getModuleName(module as any)
+	if (!moduleName) {
+		return
+	}
+	if (visited.includes(moduleName)) {
+		return
+	}
+	visited.push(moduleName)
+
+	if (!dependenciesMap[moduleName]) {
+		dependenciesMap[moduleName] = []
+	}
+	if (parentModuleName) {
+		dependenciesMap[moduleName] = dependenciesMap[moduleName].concat(dependenciesMap[parentModuleName] ?? [])
+	}
+	const conns = (module as any).dependencies
+	if (conns) {
+		for (const c of conns) {
+			if (!c.module || getModuleName(c.module) === moduleName) {
+				continue
+			}
+			const child = c.module as Webpack.compilation.Module
+			recordInfo(child, moduleName, visited)
+		}
+	}
+}
+
+export class splitChunkPlugin {
+	apply(compiler: Webpack.Compiler) {
+		compiler.hooks.compilation.tap('splitChunkPlugin', (compilation) => {
+			compilation.hooks.finishModules.tap('splitChunkPlugin', (normalModules) => {
+				for (const module of normalModules) {
+					const normalModule = module as unknown as NormalModule
+					//@ts-ignore
+					if (!normalModule.resource) {
+						continue
 					}
-					return false
-				},
-				name: (module, _) => {
-					const normalModule = module as NormalModule
-					for (const file in generateMap) {
-						const chunkName = generateMap[file]
-						if (file.split('?')[0] === normalModule.resource.split('?')[0]) {
-							return chunkName
-						}
+					if (!normalModule.resource.includes('chunkName')) {
+						continue
 					}
+					const chunkName = chunkNameRe.exec(normalModule.resource)?.[1]
+					const visited: string[] = []
+					const moduleName = getModuleName(normalModule)
+					dependenciesMap[moduleName!] = [chunkName!]
+					recordInfo(module, moduleName ?? null, visited)
 				}
+				for (const fileName in dependenciesMap) {
+					let chunkNames = dependenciesMap[fileName]
+					if (fileName.includes('node_modules')) {
+						chunkNames.push('vendor')
+					}
+					chunkNames = Array.from(new Set(chunkNames)).sort(sortByAscii)
+					if (chunkNames.includes('Page')) {
+						chunkNames = chunkNames.includes('vendor') ? ['Page', 'vendor'] : ['Page']
+					}
+					dependenciesMap[fileName] = chunkNames
+					generateMap[fileName] = dependenciesMap[fileName].join('~')
+					asyncChunkMap[generateMap[fileName]] = chunkNames
+					writeFileSync(resolve(getCwd(), `./build/generateMap.json`), JSON.stringify(generateMap, null, 2))
+					writeFileSync(resolve(getCwd(), `./build/dependenciesMap.json`), JSON.stringify(dependenciesMap, null, 2))
+					writeFileSync(resolve(getCwd(), `./build/asyncChunkMap.json`), JSON.stringify(asyncChunkMap, null, 2))
+				}
+			})
+		})
+	}
+}
+const getWebpackSplitCache = (): OptimizationSplitChunksOptions['cacheGroups'] => {
+	return {
+		dynamicChunks: {
+			test: (module) => {
+				const normalModule = module as NormalModule
+				const moduleName = normalModule.resource?.split('?')?.[0]
+				return !!generateMap[moduleName ?? '']
+			},
+			name: (module) => {
+				const normalModule = module as NormalModule
+				const moduleName = normalModule.resource?.split('?')[0]
+				return generateMap[moduleName ?? ''] ?? 'Page'
 			}
 		}
-		return cacheGroups
-	} else {
-		return {
-			vendors: {
-				test: (module) => {
-					//@ts-ignore
-					return !!(module.resource && /\.js$/.test(module.resource) && module.resource.match('node_modules'))
-				},
-				name: 'vendor'
-			}
-		} as OptimizationSplitChunksOptions['cacheGroups']
-	}
+	} as OptimizationSplitChunksOptions['cacheGroups']
 }

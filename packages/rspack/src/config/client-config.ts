@@ -1,10 +1,10 @@
-import { asyncChunkMap, getBuildConfig, getOutputPublicPath, loadConfig, getBuildEntry, judgeFramework } from 'ssr-common-utils'
 import type * as RspackChain from 'rspack-chain'
+import { getBuildConfig, getOutputPublicPath, loadConfig, getBuildEntry, judgeFramework } from 'ssr-common-utils'
 import { SwcJsMinimizerRspackPlugin, LightningCssMinimizerRspackPlugin } from '@rspack/core'
 import { RspackManifestPlugin } from 'rspack-manifest-plugin'
 //@ts-ignore
 import { ReactRefreshRspackPlugin } from '@rspack/plugin-react-refresh'
-import { getSplitChunksOptions } from '../utils/split-chunk'
+import { getSplitChunksOptions, splitChunkPlugin } from '../utils/split-chunk'
 import { getBaseConfig } from './base-config'
 
 export const getClientRspack = (chain: RspackChain) => {
@@ -16,7 +16,7 @@ export const getClientRspack = (chain: RspackChain) => {
 	chain.entry(chunkName).add(getBuildEntry().client).end().output.path(getOutput().clientOutPut).filename(buildConfig.jsBuldConfig.fileName).chunkFilename(buildConfig.jsBuldConfig.chunkFileName).publicPath(publicPath).end()
 	chain.optimization
 		.runtimeChunk(true)
-		.splitChunks(getSplitChunksOptions(asyncChunkMap))
+		.splitChunks(getSplitChunksOptions())
 		.when(!isDev, (optimization) => {
 			optimization.minimizer('swcMinimizer').use(SwcJsMinimizerRspackPlugin, [
 				{
@@ -33,6 +33,8 @@ export const getClientRspack = (chain: RspackChain) => {
 			optimization.minimizer('lightningCssMinimizer').use(LightningCssMinimizerRspackPlugin, [defaultBrowserTarget])
 		})
 		.end()
+
+	chain.plugin('splitChunkPlugin').use(splitChunkPlugin)
 	if (judgeFramework() === 'ssr-plugin-react') {
 		chain.when(isDev, (chain) => {
 			chain.plugin('fast-refresh').use(ReactRefreshRspackPlugin)

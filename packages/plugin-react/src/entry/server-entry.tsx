@@ -28,7 +28,6 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 		const dynamicCssOrder = await getAsyncCssChunk(ctx, webpackChunkName, config)
 		const dynamicJsOrder = await getAsyncJsChunk(ctx, webpackChunkName, config)
 		const manifest = await getManifest(config)
-
 		const injectCss = (
 			isVite && isDev
 				? [

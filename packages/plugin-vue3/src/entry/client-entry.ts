@@ -81,7 +81,6 @@ const clientRender = async () => {
 		next()
 	})
 	await router.isReady()
-
 	app.mount(window.ssrDevInfo.rootId ?? '#app', !!window.__USE_SSR__) // judge ssr/csr
 	if (!window.__USE_VITE__) {
 		;(module as any)?.hot?.accept?.() // webpack hmr for vue jsx

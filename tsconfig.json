@@ -5,6 +5,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "sourceMap": true,
+    "module": "ESNext",
     "declarationMap": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,

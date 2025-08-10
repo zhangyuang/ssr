@@ -37,7 +37,9 @@
     "shelljs": "^0.8.3",
     "ssr-common-utils": "workspace:*",
     "ssr-types": "workspace:*",
-    "yargs": "^13.2.4"
+    "yargs": "^13.2.4",
+    "magic-string": "^0.25.7",
+    "es-module-lexer": "^0.9.3"
   },
   "engines": {
     "node": ">=12"

@@ -125,10 +125,18 @@ const cyrb53 = function (str: string, seed = 0) {
 	h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909)
 	return 4294967296 * (2097151 & h2) + (h1 >>> 0)
 }
+export const sortByAscii = (a: string, b: string) => {
+	for (let i = 0; i < Math.min(a.length, b.length); i++) {
+		if (a.charCodeAt(i) !== b.charCodeAt(i)) {
+			return a.charCodeAt(i) - b.charCodeAt(i)
+		}
+	}
+	return a.length - b.length
+}
 
 export const cryptoAsyncChunkName = (chunks: Chunk[], asyncChunkMap: Record<string, string[]>) => {
 	const arr = chunks.filter(Boolean)
-	arr.sort((a, b) => (a.name! > b.name! ? -1 : 1)) // 保证相同值不同顺序的数组最终的加密结果一致
+	arr.sort((a, b) => sortByAscii(a.name!, b.name!)) // keep the same order of chunks
 	const allChunksNames = arr.map((item) => item.name).join('~')
 	const allChunksNamesArr = allChunksNames.split('~')
 	const cryptoAllChunksNames = String(arr.length > 3 ? cyrb53(allChunksNames) : allChunksNames)

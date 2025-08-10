@@ -1,11 +1,5 @@
 import { resolve, sep } from 'path'
 
-const asyncChunkMap: {
-	val: Record<string, string[]>
-} = {
-	val: {}
-}
-export { asyncChunkMap }
 export const normalizePosixPath = (value: string): string => {
 	return sep === '\\' ? value.replace(/\\/g, '/') : value
 }

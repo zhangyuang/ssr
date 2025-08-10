@@ -1,19 +1,16 @@
 import { promises } from 'fs'
 import { isAbsolute, resolve } from 'path'
-import { parse as parseImports } from 'es-module-lexer'
-import MagicString from 'magic-string'
 import { mkdir } from 'shelljs'
-import type { Plugin, UserConfig, LogType } from 'vite'
+import type { Plugin, UserConfig } from 'vite'
 import type { OutputOptions, PluginContext, PreRenderedChunk, LoadResult } from 'rolldown'
 import { getBuildConfig, addDefaultAlias } from 'ssr-common-utils'
-import { getDependencies, getPkgName, accessFile, cryptoAsyncChunkName, getCwd, isReact18, accessFileSync, ssrDebug, loadConfig, logErr, getOutputPublicPath, defaultExternal, judgeFramework } from 'ssr-common-utils'
+import { getDependencies, getPkgName, accessFile, cryptoAsyncChunkName, getCwd, isReact18, accessFileSync, ssrDebug, loadConfig, logErr, getOutputPublicPath, defaultExternal, judgeFramework, sortByAscii } from 'ssr-common-utils'
 
 const hasReactIs = accessFileSync(resolve(getCwd(), './node_modules/react-is'))
 const framework = judgeFramework()
 const isReact = framework === 'ssr-plugin-react'
 const extraInclude = [''].concat(isReact ? ['react', 'ssr-deepclone', 'valtio', isReact18() ? 'react-dom/client' : 'react-dom', 'react-router', 'react-router-dom', hasReactIs ? 'react-is' : ''] : []).filter(Boolean)
 const extraExclude = ['ssr-hoc-react', 'ssr-common-utils']
-const webpackCommentRegExp = /webpackChunkName:\s?"(.*)?"\s?\*/
 const chunkNameRe = /chunkName=(.*)/
 const imageRegExp = /\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/
 const fontRegExp = /\.(eot|woff|woff2|ttf)(\?.*)?$/
@@ -48,33 +45,6 @@ const vendorList = [
 	'vite/preload-helper'
 ]
 
-const chunkNamePlugin = function (): Plugin {
-	return {
-		name: 'chunkNamePlugin',
-		transform(source, id) {
-			if (id.includes('ssr-declare-routes') || id.includes('ssr-manual-routes')) {
-				let str = new MagicString(source)
-				const imports = parseImports(source)[0]
-				for (let index = 0; index < imports.length; index++) {
-					const { s: start, e: end, se: statementEnd } = imports[index]
-					const rawUrl = source.slice(start, end)
-					const chunkName = webpackCommentRegExp.exec(rawUrl)?.[1]
-					if (rawUrl.includes('layout') || rawUrl.includes('App') || rawUrl.includes('store')) {
-						str = str.appendRight(statementEnd - 1, '?chunkName=Page')
-					} else if (chunkName) {
-						str = str.appendRight(statementEnd - (rawUrl.includes('\n') ? 2 : 1), `?chunkName=${chunkName}`)
-					} else {
-						str = str.appendRight(statementEnd - 1, '?chunkName=Page')
-					}
-				}
-				return {
-					code: str.toString()
-				}
-			}
-		}
-	}
-}
-
 const thirdPartyModulesMap: Record<string, string> = {}
 
 const recordInfo = (id: string, chunkName: string | null, defaultChunkName: string | null, parentId: string) => {
@@ -92,16 +62,6 @@ const recordInfo = (id: string, chunkName: string | null, defaultChunkName: stri
 	if (parentId) {
 		dependenciesMap[sign] = dependenciesMap[sign].concat(dependenciesMap[parentId])
 	}
-	dependenciesMap[sign] = Array.from(new Set(dependenciesMap[sign].filter(Boolean))).sort(sortByAscii)
-}
-
-const sortByAscii = (a: string, b: string) => {
-	for (let i = 0; i < Math.min(a.length, b.length); i++) {
-		if (a.charCodeAt(i) !== b.charCodeAt(i)) {
-			return a.charCodeAt(i) - b.charCodeAt(i)
-		}
-	}
-	return a.length - b.length
 }
 
 const moduleIds: string[] = []
@@ -176,7 +136,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 				}
 			})
 			Object.keys(dependenciesMap).forEach((item) => {
-				dependenciesMap[item] = Array.from(new Set(dependenciesMap[item].filter(Boolean)))
+				dependenciesMap[item] = Array.from(new Set(dependenciesMap[item].filter(Boolean))).sort(sortByAscii)
 			})
 			for (const id of moduleIds) {
 				setGenerateMap(id)
@@ -187,14 +147,11 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 }
 
 const manifestPlugin = (): Plugin => {
-	const { getOutput, optimize } = loadConfig()
+	const { getOutput } = loadConfig()
 	const { clientOutPut } = getOutput()
 	return {
 		name: 'manifestPlugin',
 		async generateBundle(_, bundles) {
-			if (optimize) {
-				return
-			}
 			const manifest: Record<string, string> = {}
 			for (const bundle in bundles) {
 				const val = bundle
@@ -267,14 +224,13 @@ const manualChunksFn = (id: string) => {
 	}
 }
 const commonConfig = (_env: 'server' | 'client'): UserConfig => {
-	const { whiteList, alias, css, viteConfig, optimize, hmr, isDev } = loadConfig()
+	const { whiteList, alias, css, viteConfig, hmr, isDev } = loadConfig()
 	const framework = judgeFramework()
 	const isProdBuildingModeAndIsClient = _env === 'client' && framework === 'ssr-plugin-react' && !isDev
 	const lessOptions = css?.().loaderOptions?.less?.lessOptions ? css?.().loaderOptions?.less?.lessOptions : css?.().loaderOptions?.less
 	return {
 		root: cwd,
 		mode: process.env.VITEMODE ?? 'development',
-		...(optimize ? { logLevel: 'error' as LogType } : {}),
 		server: {
 			middlewareMode: true,
 			hmr,
@@ -325,4 +281,4 @@ export function ssrResolvePlugin(options: ResolveOptions): Plugin[] {
 		}
 	]
 }
-export { chunkNamePlugin, manifestPlugin, rollupOutputOptions, commonConfig, asyncOptimizeChunkPlugin }
+export { manifestPlugin, rollupOutputOptions, commonConfig, asyncOptimizeChunkPlugin }

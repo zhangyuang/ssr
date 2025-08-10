@@ -1,10 +1,9 @@
 import type { Chain, PluginItem } from 'ssr-types'
 import type { Compiler } from 'webpack'
 import type { Module, Rule } from 'webpack-chain'
-import { promises } from 'fs'
 import { resolve } from 'path'
 import * as webpack from 'ssr-webpack4'
-import { asyncChunkMap, getCwd, judgeFramework, loadModuleFromFramework, loadModuleFromWebpack, getPkgMajorVersion, loadConfig, logWarning, getImageOutputPath, nameSpaceBuiltinModules, getBuildConfig, getDefineEnv } from 'ssr-common-utils'
+import { judgeFramework, loadModuleFromFramework, loadModuleFromWebpack, getPkgMajorVersion, loadConfig, logWarning, getImageOutputPath, nameSpaceBuiltinModules, getBuildConfig, getDefineEnv } from 'ssr-common-utils'
 import { nodeExternals } from './externals'
 import { FileToChunkRelationPlugin } from './plugins'
 import { setStyle } from './setStyle'
@@ -122,7 +121,7 @@ const addBabelLoader = (chain: Rule<Module>, envOptions: any, isServer: boolean)
 		.end()
 }
 const addCommonChain = (chain: Chain, isServer: boolean) => {
-	const { babelOptions, corejsOptions, babelExtraModule, assetsDir, optimize, isDev, clientPrefix, cwd, whiteList, define } = loadConfig()
+	const { babelOptions, corejsOptions, babelExtraModule, assetsDir, isDev, clientPrefix, cwd, whiteList, define } = loadConfig()
 	const { publicPath, imagePath } = getImageOutputPath()
 	const envOptions = {
 		modules: false,
@@ -295,21 +294,6 @@ const addCommonChain = (chain: Chain, isServer: boolean) => {
 		})
 		chain.when(generateAnalysis, (chain) => {
 			chain.plugin('analyze').use(BundleAnalyzerPlugin)
-		})
-		chain.plugin('WriteAsyncManifest').use(function () {
-			return {
-				apply(compiler: Compiler) {
-					compiler.hooks.watchRun.tap('ClearLastAsyncChunkMap', async () => {
-						asyncChunkMap.val = {}
-					})
-					compiler.hooks.done.tapAsync('WriteAsyncChunkManifest', async (_params: any, callback: any) => {
-						if (!optimize) {
-							await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMap.val))
-						}
-						callback()
-					})
-				}
-			}
 		})
 	}
 }

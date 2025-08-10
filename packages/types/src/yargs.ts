@@ -13,7 +13,6 @@ export type Argv = Arguments<{
 	api?: boolean
 	ssg?: boolean
 	ssl?: boolean
-	optimize?: boolean
 	bc?: boolean
 	bcp?: string
 	sourcemap?: string

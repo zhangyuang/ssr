@@ -12,7 +12,6 @@ const loadConfig = (): IConfig => {
 	const mode = 'ssr'
 	const stream = false
 	const tool = userConfig.tool || process.env.BUILD_TOOL || (accessFileSync(join(cwd, './build/tag.json')) ? 'vite' : undefined)
-	const optimize = process.env.OPTIMIZE === '1'
 	const isCI = !!process.env.CI_TEST
 	const supportOptinalChaining = coerce(process.version)!.major >= 14
 	const define = userConfig.define ?? {}
@@ -69,7 +68,7 @@ const loadConfig = (): IConfig => {
 	const useHash = !isDev // 生产环境默认生成hash
 	const defaultWhiteList: Array<RegExp | string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/, /\.(vue)$/]
 	const whiteList: Array<RegExp | string> = defaultWhiteList.concat(userConfig.whiteList ?? [])
-	const jsOrder = tool === 'vite' ? [`rolldown-runtime.js`, `${chunkName}.js`] : [`runtime~${chunkName}.js`, 'vendor.js', 'common-vendor.js', 'layout-app~vendor.js', `${chunkName}.js`, 'layout-app.js']
+	const jsOrder = tool === 'vite' ? [`rolldown-runtime.js`, `${chunkName}.js`] : [`runtime~${chunkName}.js`, `${chunkName}~vendor.js`, `${chunkName}.js`]
 
 	const cssOrder = ['vendor.css', 'common-vendor.css', 'layout-app~vendor.css', `${chunkName}.css`, 'layout-app.css']
 
@@ -199,7 +198,6 @@ const loadConfig = (): IConfig => {
 			supportOptinalChaining,
 			define,
 			prefix,
-			optimize,
 			writeDebounceTime,
 			dynamicFile,
 			babelExtraModule,
