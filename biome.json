@@ -89,7 +89,7 @@
 			"quoteStyle": "single",
 			"semicolons": "asNeeded",
 			"trailingCommas": "none",
-			"lineWidth": 320,
+			"lineWidth": 120,
 			"attributePosition": "auto"
 		},
 		"parser": {

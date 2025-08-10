@@ -3,7 +3,17 @@ import { SemVer, coerce } from 'semver'
 import type { IConfig, UserConfig } from 'ssr-types'
 import type { StatsOptions, DevServer } from '@rspack/core'
 import { normalizeEndPath, normalizeStartPath } from '../common'
-import { accessFileSync, checkModuleExist, getCwd, getFeDir, getUserConfig, addDefaultAlias, judgeFramework, loadModuleFromFramework, stringifyDefine } from './cwd'
+import {
+	accessFileSync,
+	checkModuleExist,
+	getCwd,
+	getFeDir,
+	getUserConfig,
+	addDefaultAlias,
+	judgeFramework,
+	loadModuleFromFramework,
+	stringifyDefine
+} from './cwd'
 
 const loadConfig = (): IConfig => {
 	const cwd = getCwd()
@@ -11,7 +21,8 @@ const loadConfig = (): IConfig => {
 	const userConfig = getUserConfig()
 	const mode = 'ssr'
 	const stream = false
-	const tool = userConfig.tool || process.env.BUILD_TOOL || (accessFileSync(join(cwd, './build/tag.json')) ? 'vite' : undefined)
+	const tool =
+		userConfig.tool || process.env.BUILD_TOOL || (accessFileSync(join(cwd, './build/tag.json')) ? 'vite' : undefined)
 	const isCI = !!process.env.CI_TEST
 	const supportOptinalChaining = coerce(process.version)!.major >= 14
 	const define = userConfig.define ?? {}
@@ -37,11 +48,27 @@ const loadConfig = (): IConfig => {
 	}
 
 	type ClientLogLevel = 'error'
-	const publicPath = userConfig.publicPath?.startsWith('http') ? userConfig.publicPath : normalizeStartPath(userConfig.publicPath ?? '/')
+	const publicPath = userConfig.publicPath?.startsWith('http')
+		? userConfig.publicPath
+		: normalizeStartPath(userConfig.publicPath ?? '/')
 
 	const devPublicPath = publicPath.startsWith('http') ? publicPath.replace(/^http(s)?:\/\/(.*)?\d/, '') : publicPath // 本地开发不使用 http://localhost:3000 这样的 path 赋值给 webpack-dev-server 会很难处理
 
-	const moduleFileExtensions = ['.web.mjs', '.mjs', '.web.js', '.js', '.web.ts', '.ts', '.web.tsx', '.tsx', '.json', '.web.jsx', '.jsx', '.vue', '.css']
+	const moduleFileExtensions = [
+		'.web.mjs',
+		'.mjs',
+		'.web.js',
+		'.js',
+		'.web.ts',
+		'.ts',
+		'.web.tsx',
+		'.tsx',
+		'.json',
+		'.web.jsx',
+		'.jsx',
+		'.vue',
+		'.css'
+	]
 	const isDev = userConfig.isDev ?? process.env.NODE_ENV !== 'production'
 	const fePort = userConfig.fePort ?? 8999
 	const clientHistoryRouterMode = 'webHistory'
@@ -66,9 +93,19 @@ const loadConfig = (): IConfig => {
 
 	const clientLogLevel: ClientLogLevel = 'error'
 	const useHash = !isDev // 生产环境默认生成hash
-	const defaultWhiteList: Array<RegExp | string> = [/\.(css|less|sass|scss)$/, /vant.*?style/, /antd.*?(style)/, /ant-design-vue.*?(style)/, /store$/, /\.(vue)$/]
+	const defaultWhiteList: Array<RegExp | string> = [
+		/\.(css|less|sass|scss)$/,
+		/vant.*?style/,
+		/antd.*?(style)/,
+		/ant-design-vue.*?(style)/,
+		/store$/,
+		/\.(vue)$/
+	]
 	const whiteList: Array<RegExp | string> = defaultWhiteList.concat(userConfig.whiteList ?? [])
-	const jsOrder = tool === 'vite' ? [`rolldown-runtime.js`, `${chunkName}.js`] : [`runtime~${chunkName}.js`, `${chunkName}~vendor.js`, `${chunkName}.js`]
+	const jsOrder =
+		tool === 'vite'
+			? [`rolldown-runtime.js`, `${chunkName}.js`]
+			: [`runtime~${chunkName}.js`, `vendor.js`, `${chunkName}~vendor.js`, `${chunkName}.js`]
 
 	const cssOrder = ['vendor.css', 'common-vendor.css', 'layout-app~vendor.css', `${chunkName}.css`, 'layout-app.css']
 
@@ -84,7 +121,9 @@ const loadConfig = (): IConfig => {
 	}
 	const dynamic = true
 	// ref https://www.babeljs.cn/docs/babel-preset-env#corejs
-	const corejsVersion = checkModuleExist('core-js/package.json') ? coerce(require(loadModuleFromFramework('core-js/package.json')).version) : {}
+	const corejsVersion = checkModuleExist('core-js/package.json')
+		? coerce(require(loadModuleFromFramework('core-js/package.json')).version)
+		: {}
 	const { major, minor } = corejsVersion as SemVer
 
 	const corejsOptions = userConfig.corejs
@@ -161,7 +200,17 @@ const loadConfig = (): IConfig => {
 		assetManifest: join(cwd, './build/client/asset-manifest.json'),
 		asyncChunkMap: join(cwd, './build/asyncChunkMap.json')
 	}
-	const babelExtraModule: UserConfig['babelExtraModule'] = [/ssr-plugin-vue3/, /ssr-client-utils/, /ssr-hoc-vue/, /vue/, /ssr-common-utils/, /ssr-plugin-vue/, /ssr-plugin-react/, /ssr-hoc-react/, /ssr-hoc-vue3/]
+	const babelExtraModule: UserConfig['babelExtraModule'] = [
+		/ssr-plugin-vue3/,
+		/ssr-client-utils/,
+		/ssr-hoc-vue/,
+		/vue/,
+		/ssr-common-utils/,
+		/ssr-plugin-vue/,
+		/ssr-plugin-react/,
+		/ssr-hoc-react/,
+		/ssr-hoc-vue3/
+	]
 	const staticConfigPath = ''
 	const getOutput = () => {}
 	const rootId = '#app'

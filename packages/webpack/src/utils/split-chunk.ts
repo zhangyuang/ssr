@@ -25,52 +25,25 @@ const getModuleName = (module: NormalModule) => {
 	return module.resource?.split('?')[0] || ''
 }
 
-const recordInfo = (module: Webpack.compilation.Module, parentModuleName: string | null, visited: string[]) => {
-	const moduleName = getModuleName(module as any)
-	if (!moduleName) {
-		return
-	}
-	if (visited.includes(moduleName)) {
-		return
-	}
-	visited.push(moduleName)
-
-	if (!dependenciesMap[moduleName]) {
-		dependenciesMap[moduleName] = []
-	}
-	if (parentModuleName) {
-		dependenciesMap[moduleName] = dependenciesMap[moduleName].concat(dependenciesMap[parentModuleName] ?? [])
-	}
-	const conns = (module as any).dependencies
-	if (conns) {
-		for (const c of conns) {
-			if (!c.module || getModuleName(c.module) === moduleName) {
-				continue
-			}
-			const child = c.module as Webpack.compilation.Module
-			recordInfo(child, moduleName, visited)
-		}
-	}
-}
-
 export class splitChunkPlugin {
 	apply(compiler: Webpack.Compiler) {
 		compiler.hooks.compilation.tap('splitChunkPlugin', (compilation) => {
 			compilation.hooks.finishModules.tap('splitChunkPlugin', (normalModules) => {
 				for (const module of normalModules) {
-					const normalModule = module as unknown as NormalModule
-					//@ts-ignore
-					if (!normalModule.resource) {
+					const modulePath = getModuleName(module as unknown as NormalModule)
+					if (!modulePath) {
 						continue
 					}
-					if (!normalModule.resource.includes('chunkName')) {
+					const incomings = module.reasons.map((r) => r.module as NormalModule).filter(Boolean)
+					if (!incomings.length) {
 						continue
 					}
-					const chunkName = chunkNameRe.exec(normalModule.resource)?.[1]
-					const visited: string[] = []
-					const moduleName = getModuleName(normalModule)
-					dependenciesMap[moduleName!] = [chunkName!]
-					recordInfo(module, moduleName ?? null, visited)
+					const chunkNames = incomings
+						.map((c) => (c.resource?.includes('chunkName') ? chunkNameRe.exec(c.resource ?? '')?.[1] : null))
+						.filter(Boolean)
+					dependenciesMap[modulePath] = dependenciesMap[modulePath]
+						? dependenciesMap[modulePath].concat(chunkNames as string[])
+						: (chunkNames as string[])
 				}
 				for (const fileName in dependenciesMap) {
 					let chunkNames = dependenciesMap[fileName]

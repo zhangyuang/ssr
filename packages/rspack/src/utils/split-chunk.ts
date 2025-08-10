@@ -1,4 +1,4 @@
-import type { OptimizationSplitChunksOptions, NormalModule, ModuleGraph, Compiler } from '@rspack/core'
+import type { OptimizationSplitChunksOptions, NormalModule, Compiler } from '@rspack/core'
 import { getCwd, cryptoAsyncChunkName, sortByAscii } from 'ssr-common-utils'
 import { resolve } from 'path'
 import { writeFileSync } from 'fs'
@@ -21,30 +21,6 @@ export const getSplitChunksOptions = () => {
 	} as OptimizationSplitChunksOptions
 }
 
-const recordInfo = (module: NormalModule, parentModuleName: string | null, moduleGraph: ModuleGraph, visited: string[]) => {
-	const modulePath = module.resourceResolveData?.path!
-	if (!modulePath || visited.includes(modulePath)) {
-		return
-	}
-	visited.push(modulePath)
-	if (!dependenciesMap[modulePath]) {
-		dependenciesMap[modulePath] = []
-	}
-	if (parentModuleName && dependenciesMap[parentModuleName]) {
-		dependenciesMap[modulePath] = [...new Set([...dependenciesMap[modulePath], ...dependenciesMap[parentModuleName]])]
-	}
-
-	const conns = moduleGraph.getOutgoingConnections(module)
-	for (const c of conns) {
-		const child = c.module as NormalModule
-		const childPath = child?.resourceResolveData?.path
-		if (!childPath || childPath === modulePath) {
-			continue
-		}
-		recordInfo(child, modulePath, moduleGraph, visited)
-	}
-}
-
 export class splitChunkPlugin {
 	apply(compiler: Compiler) {
 		compiler.hooks.compilation.tap('splitChunkPlugin', (compilation) => {
@@ -52,13 +28,18 @@ export class splitChunkPlugin {
 			compilation.hooks.afterOptimizeModules.tap('splitChunkPlugin', (modules) => {
 				const normalModules = Array.from(modules) as NormalModule[]
 				for (const module of normalModules) {
-					if (!module.resourceResolveData?.query?.includes('chunkName')) {
-						continue
-					}
-					const chunkName = chunkNameRe.exec(module.resourceResolveData?.query)?.[1]
-					const visited: string[] = []
-					dependenciesMap[module.resourceResolveData?.path!] = [chunkName!]
-					recordInfo(module, module.resourceResolveData?.path ?? null, moduleGraph, visited)
+					const modulePath = module.resourceResolveData?.path!
+					const incomings = moduleGraph.getIncomingConnections(module)
+					const chunkNames = incomings
+						.map((c) =>
+							(c.originModule as NormalModule)?.resourceResolveData?.query?.includes('chunkName')
+								? chunkNameRe.exec((c.originModule as NormalModule)?.resourceResolveData?.query ?? '')?.[1]
+								: null
+						)
+						.filter(Boolean)
+					dependenciesMap[modulePath] = dependenciesMap[modulePath]
+						? dependenciesMap[modulePath].concat(chunkNames as string[])
+						: (chunkNames as string[])
 				}
 				for (const fileName in dependenciesMap) {
 					let chunkNames = dependenciesMap[fileName]
@@ -69,7 +50,7 @@ export class splitChunkPlugin {
 					if (chunkNames.includes('Page')) {
 						chunkNames = chunkNames.includes('vendor') ? ['Page', 'vendor'] : ['Page']
 					}
-					dependenciesMap[fileName] = chunkNames
+					dependenciesMap[fileName] = chunkNames.length === 0 ? ['Page'] : chunkNames
 					generateMap[fileName] = dependenciesMap[fileName].join('~')
 					asyncChunkMap[generateMap[fileName]] = chunkNames
 				}
@@ -86,7 +67,7 @@ const getWebpackSplitCache = (): OptimizationSplitChunksOptions['cacheGroups'] =
 		dynamicChunks: {
 			test: (module) => {
 				const normalModule = module as NormalModule
-				const moduleName = normalModule.resourceResolveData?.path?.split('?')?.[0]
+				const moduleName = normalModule.resourceResolveData?.path
 				return !!generateMap[moduleName ?? '']
 			},
 			name: (module) => {
