@@ -1,22 +1,46 @@
-import { promises } from 'fs'
-import { isAbsolute, resolve } from 'path'
+import { promises, writeFileSync } from 'fs'
+import { resolve } from 'path'
 import { mkdir } from 'shelljs'
 import type { Plugin, UserConfig } from 'vite'
-import type { OutputOptions, PluginContext, PreRenderedChunk, LoadResult } from 'rolldown'
-import { getBuildConfig, addDefaultAlias } from 'ssr-common-utils'
-import { getDependencies, getPkgName, accessFile, cryptoAsyncChunkName, getCwd, isReact18, accessFileSync, ssrDebug, loadConfig, logErr, getOutputPublicPath, defaultExternal, judgeFramework, sortByAscii } from 'ssr-common-utils'
+import type { OutputOptions, PreRenderedChunk, LoadResult } from 'rolldown'
+import { getBuildConfig, addDefaultAlias, getPkgName } from 'ssr-common-utils'
+import {
+	accessFile,
+	getCwd,
+	isReact18,
+	accessFileSync,
+	loadConfig,
+	getOutputPublicPath,
+	defaultExternal,
+	judgeFramework,
+	sortByAscii
+} from 'ssr-common-utils'
 
 const hasReactIs = accessFileSync(resolve(getCwd(), './node_modules/react-is'))
 const framework = judgeFramework()
 const isReact = framework === 'ssr-plugin-react'
-const extraInclude = [''].concat(isReact ? ['react', 'ssr-deepclone', 'valtio', isReact18() ? 'react-dom/client' : 'react-dom', 'react-router', 'react-router-dom', hasReactIs ? 'react-is' : ''] : []).filter(Boolean)
+const extraInclude = ['']
+	.concat(
+		isReact
+			? [
+					'react',
+					'ssr-deepclone',
+					'valtio',
+					isReact18() ? 'react-dom/client' : 'react-dom',
+					'react-router',
+					'react-router-dom',
+					hasReactIs ? 'react-is' : ''
+				]
+			: []
+	)
+	.filter(Boolean)
 const extraExclude = ['ssr-hoc-react', 'ssr-common-utils']
 const chunkNameRe = /chunkName=(.*)/
 const imageRegExp = /\.(jpe?g|png|svg|gif)(\?[a-z0-9=.]+)?$/
 const fontRegExp = /\.(eot|woff|woff2|ttf)(\?.*)?$/
 const cwd = getCwd()
 const dependenciesMap: Record<string, string[]> = {}
-const asyncChunkMapJSON: Record<string, string[]> = {}
+const asyncChunkMap: Record<string, string[]> = {}
 const generateMap: Record<string, string> = {}
 const vendorList = [
 	'vue',
@@ -42,106 +66,63 @@ const vendorList = [
 	'@vue/devtools-api',
 	'ssr-hoc-vue3',
 	'ssr-hoc-vue',
-	'vite/preload-helper'
+	'vite/preload-helper',
+	'hoc-vue3'
 ]
 
-const thirdPartyModulesMap: Record<string, string> = {}
-
-const recordInfo = (id: string, chunkName: string | null, defaultChunkName: string | null, parentId: string) => {
-	const sign = id.includes('node_modules') ? getPkgName(id) : id
-	if (id.includes('node_modules')) {
-		thirdPartyModulesMap[sign] = parentId
-	}
-	if (!dependenciesMap[sign]) {
-		dependenciesMap[sign] = defaultChunkName ? [defaultChunkName] : []
-	}
-	chunkName && dependenciesMap[sign].push(chunkName)
-	if (id.includes('node_modules')) {
-		dependenciesMap[sign].push('vendor')
-	}
-	if (parentId) {
-		dependenciesMap[sign] = dependenciesMap[sign].concat(dependenciesMap[parentId])
-	}
+const getModuleName = (id: string) => {
+	return id.split('?')[0]
 }
-
-const moduleIds: string[] = []
-
-const findChildren = (id: string, getModuleInfo: PluginContext['getModuleInfo']) => {
-	const queue = [id]
-	while (queue.length > 0) {
-		const id = queue.shift()
-		if (id?.includes('node_modules')) {
-			continue
-		}
-		const { importedIds = [], dynamicallyImportedIds = [] } = getModuleInfo(id!) ?? {}
-		for (const importerId of importedIds) {
-			recordInfo(importerId, null, null, id!)
-			queue.push(importerId)
-		}
-		for (const dyImporterId of dynamicallyImportedIds) {
-			recordInfo(dyImporterId, null, 'dynamic', id!)
-			queue.push(dyImporterId)
-		}
-	}
-}
-
 const asyncOptimizeChunkPlugin = (): Plugin => {
 	return {
 		name: 'asyncOptimizeChunkPlugin',
 		moduleParsed(this, info) {
 			const { id } = info
 			if (id.includes('chunkName')) {
-				const { importedIds, dynamicallyImportedIds } = info
-				const chunkName = id.includes('client-entry') ? 'client-entry' : chunkNameRe.exec(id)![1]
-				for (const importerId of importedIds) {
-					recordInfo(importerId, chunkName, null, id)
-				}
-				for (const dyImporterId of dynamicallyImportedIds) {
-					recordInfo(dyImporterId, chunkName, 'dynamic', id)
-				}
+				const chunkName = chunkNameRe.exec(id)![1]
+				dependenciesMap[getModuleName(id)] = [chunkName]
 			}
 		},
-		transform(this, _code, id) {
-			moduleIds.push(id)
-			ssrDebug(`build optimize process file ${id}`)
-		},
+
 		async buildEnd(this, err) {
-			// after the first layer file can be located in which chunkName
-			// confirm all children dependence belong to which chunkName
-			Object.keys(dependenciesMap).forEach((item) => {
-				const id = !isAbsolute(item) && thirdPartyModulesMap[item] ? thirdPartyModulesMap[item] : item
-				findChildren(id, this.getModuleInfo)
-			})
-			Object.keys(dependenciesMap).forEach((item) => {
-				// allocate all dependencies of third party module to correct chunkName
-				if (!isAbsolute(item)) {
-					const thirdPartyModulePath = thirdPartyModulesMap[item]
-					if (thirdPartyModulePath) {
-						try {
-							const allDependencies = {}
-							// find absolute dependencies path from business file
-							getDependencies(
-								require.resolve(item, {
-									paths: [thirdPartyModulePath]
-								}),
-								allDependencies
-							)
-							Object.keys(allDependencies).forEach((d) => {
-								dependenciesMap[d] = (dependenciesMap[d] ?? []).concat(dependenciesMap[item])
-							})
-						} catch (_error) {
-							logErr(`Please check ${getPkgName(thirdPartyModulePath)}/package.json ${thirdPartyModulePath} use ${item} but don't specify it in dependencies`)
-						}
-					}
-				}
-			})
-			Object.keys(dependenciesMap).forEach((item) => {
-				dependenciesMap[item] = Array.from(new Set(dependenciesMap[item].filter(Boolean))).sort(sortByAscii)
-			})
+			const moduleIds = this.getModuleIds()
 			for (const id of moduleIds) {
-				setGenerateMap(id)
+				const moduleInfo = this.getModuleInfo(id)
+				const chunkNames = moduleInfo?.importers
+					.map((importer) => {
+						const importerName = getModuleName(importer)
+						return dependenciesMap[importerName]
+					})
+					.flat()
+					.filter(Boolean)
+				dependenciesMap[getModuleName(id)] = dependenciesMap[getModuleName(id)]
+					? dependenciesMap[getModuleName(id)].concat(chunkNames as string[])
+					: (chunkNames as string[])
 			}
-			writeGenerateMap()
+			for (const fileName in dependenciesMap) {
+				const sign = getPkgName(fileName)
+				let chunkNames = dependenciesMap[fileName]
+				if (fileName.includes('node_modules')) {
+					chunkNames.push('vendor')
+				}
+				chunkNames = Array.from(new Set(chunkNames)).sort(sortByAscii)
+				if (chunkNames.includes('Page')) {
+					chunkNames = chunkNames.includes('vendor') ? ['Page', 'vendor'] : ['Page']
+				}
+				if (
+					vendorList.includes(sign) ||
+					fileName.includes('rollupPluginBabelHelpers.js') ||
+					fileName.includes('plugin-vue:export-helper')
+				) {
+					chunkNames = ['vendor']
+				}
+				dependenciesMap[fileName] = chunkNames.length === 0 ? ['Page'] : chunkNames
+				generateMap[fileName] = dependenciesMap[fileName].join('~')
+				asyncChunkMap[generateMap[fileName]] = chunkNames
+			}
+			writeFileSync(resolve(getCwd(), `./build/generateMap.json`), JSON.stringify(generateMap, null, 2))
+			writeFileSync(resolve(getCwd(), `./build/dependenciesMap.json`), JSON.stringify(dependenciesMap, null, 2))
+			writeFileSync(resolve(getCwd(), `./build/asyncChunkMap.json`), JSON.stringify(asyncChunkMap, null, 2))
 		}
 	}
 }
@@ -168,17 +149,6 @@ const manifestPlugin = (): Plugin => {
 	}
 }
 
-const writeGenerateMap = async () => {
-	await promises.writeFile(resolve(getCwd(), './build/asyncChunkMap.json'), JSON.stringify(asyncChunkMapJSON, null, 2))
-	await promises.writeFile(resolve(getCwd(), './build/generateMap.json'), JSON.stringify(generateMap, null, 2))
-	await promises.writeFile(resolve(getCwd(), './build/dependenciesMap.json'), JSON.stringify(dependenciesMap, null, 2))
-}
-
-const setGenerateMap = (id: string) => {
-	const res = manualChunksFn(id)
-	generateMap[id] = res ?? 'Page'
-}
-
 const rollupOutputOptions: () => OutputOptions = () => {
 	const buildConfig = getBuildConfig()
 	return {
@@ -195,39 +165,19 @@ const rollupOutputOptions: () => OutputOptions = () => {
 			return buildConfig.viteAssetChunk
 		},
 		manualChunks: (id: string) => {
-			return generateMap[id]
+			const moduleName = getModuleName(id)
+			return generateMap[moduleName] ?? 'Page'
 		}
 	}
 }
 
-const manualChunksFn = (id: string) => {
-	if (id.includes('chunkName')) {
-		const chunkName = chunkNameRe.exec(id)![1]
-		return chunkName
-	}
-	if (!process.env.LEGACY_VITE) {
-		const sign = id.includes('node_modules') ? getPkgName(id) : id
-		if (vendorList.includes(sign)) {
-			// build in Page chunk
-			return 'Page'
-		}
-		const arr = dependenciesMap[sign] ?? []
-		if (arr.length === 1) {
-			return arr[0]
-		} else if (arr.length >= 2) {
-			if (arr.includes('Page')) {
-				return 'Page'
-			}
-			const commonChunkName = cryptoAsyncChunkName(arr.map((item) => ({ name: item })) as any, asyncChunkMapJSON)
-			return commonChunkName === 'vendor~client-entry' ? 'common-vendor' : commonChunkName
-		}
-	}
-}
 const commonConfig = (_env: 'server' | 'client'): UserConfig => {
 	const { whiteList, alias, css, viteConfig, hmr, isDev } = loadConfig()
 	const framework = judgeFramework()
 	const isProdBuildingModeAndIsClient = _env === 'client' && framework === 'ssr-plugin-react' && !isDev
-	const lessOptions = css?.().loaderOptions?.less?.lessOptions ? css?.().loaderOptions?.less?.lessOptions : css?.().loaderOptions?.less
+	const lessOptions = css?.().loaderOptions?.less?.lessOptions
+		? css?.().loaderOptions?.less?.lessOptions
+		: css?.().loaderOptions?.less
 	return {
 		root: cwd,
 		mode: process.env.VITEMODE ?? 'development',

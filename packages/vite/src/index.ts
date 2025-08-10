@@ -5,12 +5,34 @@ import type * as ReactOXCPlugin from '@vitejs/plugin-react-oxc'
 import { resolve } from 'path'
 import babel from '@rollup/plugin-babel'
 import { visualizer } from 'rollup-plugin-visualizer'
-import { getCwd, getDefineEnv, getOutputPublicPath, loadConfig, defaultExternal, loadModuleFromFramework, judgeFramework, getBuildEntry } from 'ssr-common-utils'
+import {
+	getCwd,
+	getDefineEnv,
+	getOutputPublicPath,
+	loadConfig,
+	defaultExternal,
+	loadModuleFromFramework,
+	judgeFramework,
+	getBuildEntry
+} from 'ssr-common-utils'
 import { build as viteBuild, type PluginOption, type InlineConfig } from 'vite'
 
-import { AndDesignVueResolve, AntdResolve, ElementPlusResolve, NutuiResolve, VantResolve, createStyleImportPlugin } from 'ssr-vite-plugin-style-import'
+import {
+	AndDesignVueResolve,
+	AntdResolve,
+	ElementPlusResolve,
+	NutuiResolve,
+	VantResolve,
+	createStyleImportPlugin
+} from 'ssr-vite-plugin-style-import'
 import { getBabelOptions } from './babel'
-import { commonConfig, asyncOptimizeChunkPlugin, manifestPlugin, rollupOutputOptions, ssrResolvePlugin } from './build-plugins'
+import {
+	commonConfig,
+	asyncOptimizeChunkPlugin,
+	manifestPlugin,
+	rollupOutputOptions,
+	ssrResolvePlugin
+} from './build-plugins'
 
 const framework = judgeFramework()
 const isReact = framework === 'ssr-plugin-react'
@@ -39,10 +61,17 @@ const styleImportConfig = {
 // Framework-specific server plugins
 let frameworkServerPlugins: PluginOption[] = []
 
-const commonServerPlugins = [createStyleImportPlugin(styleImportConfig), viteConfig?.()?.common?.extraPlugin, viteConfig?.()?.server?.extraPlugin]
+const commonServerPlugins = [
+	createStyleImportPlugin(styleImportConfig),
+	viteConfig?.()?.common?.extraPlugin,
+	viteConfig?.()?.server?.extraPlugin
+]
 
 if (isVue3) {
-	frameworkServerPlugins = frameworkServerPlugins.concat(vuePlugin!(viteConfig?.()?.server?.defaultPluginOptions), vueJSXPlugin!())
+	frameworkServerPlugins = frameworkServerPlugins.concat(
+		vuePlugin!(viteConfig?.()?.server?.defaultPluginOptions),
+		vueJSXPlugin!()
+	)
 	frameworkServerPlugins = frameworkServerPlugins.concat(
 		createStyleImportPlugin(styleImportConfig),
 		!supportOptinalChaining &&
@@ -101,7 +130,11 @@ export const serverConfig: InlineConfig = {
 }
 // Framework-specific client plugins
 let frameworkClientPlugins: PluginOption[] = []
-const commonClientPlugins = [createStyleImportPlugin(styleImportConfig), viteConfig?.()?.common?.extraPlugin, viteConfig?.()?.client?.extraPlugin]
+const commonClientPlugins = [
+	createStyleImportPlugin(styleImportConfig),
+	viteConfig?.()?.common?.extraPlugin,
+	viteConfig?.()?.client?.extraPlugin
+]
 if (isVue3) {
 	frameworkClientPlugins = [vuePlugin!(viteConfig?.()?.client?.defaultPluginOptions), vueJSXPlugin!()]
 } else if (isReact) {
@@ -118,7 +151,9 @@ if (isVue3) {
 }
 
 const clientPlugins: PluginOption[] = [...frameworkClientPlugins, ...commonClientPlugins]
-const analyzePlugin = process.env.GENERATE_ANALYSIS ? visualizer({ filename: resolve(getCwd(), './build/stat.html'), open: true }) : null
+const analyzePlugin = process.env.GENERATE_ANALYSIS
+	? visualizer({ filename: resolve(getCwd(), './build/stat.html'), open: true })
+	: null
 export const clientConfig: InlineConfig = {
 	...commonConfig('client'),
 	...viteConfig?.().client?.otherConfig,

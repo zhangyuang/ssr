@@ -104,7 +104,7 @@ const loadConfig = (): IConfig => {
 	const whiteList: Array<RegExp | string> = defaultWhiteList.concat(userConfig.whiteList ?? [])
 	const jsOrder =
 		tool === 'vite'
-			? [`rolldown-runtime.js`, `${chunkName}.js`]
+			? [`rolldown-runtime.js`, `vendor.js`, `${chunkName}~vendor.js`, `${chunkName}.js`]
 			: [`runtime~${chunkName}.js`, `vendor.js`, `${chunkName}~vendor.js`, `${chunkName}.js`]
 
 	const cssOrder = ['vendor.css', 'common-vendor.css', 'layout-app~vendor.css', `${chunkName}.css`, 'layout-app.css']

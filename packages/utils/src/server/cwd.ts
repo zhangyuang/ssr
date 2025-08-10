@@ -105,7 +105,9 @@ const transformManualRoutes = async () => {
 
 const getUserConfig = (): UserConfig => {
 	const defaultConfig = resolve(getCwd(), './build/config.js')
-	const userConfig = accessFileSync(defaultConfig) ? (__non_webpack_require__(defaultConfig).userConfig ?? __non_webpack_require__(defaultConfig)) : {} // for dynamic file
+	const userConfig = accessFileSync(defaultConfig)
+		? (__non_webpack_require__(defaultConfig).userConfig ?? __non_webpack_require__(defaultConfig))
+		: {} // for dynamic file
 	return Object.assign(userConfig, getEnvConfig())
 }
 
@@ -199,7 +201,8 @@ export const addDefaultAlias = (alias: Record<string, string>) => {
 		alias['react-dom'] = resolve(cwd, './node_modules/react-dom')
 		alias['react-router-dom'] = resolve(cwd, './node_modules/react-router-dom')
 	} else {
-		alias['vue$'] = framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
+		alias['vue$'] =
+			framework === 'ssr-plugin-vue' ? 'vue/dist/vue.runtime.esm.js' : 'vue/dist/vue.runtime.esm-bundler.js'
 		if (loadModuleFromFramework('pinia')) {
 			alias['pinia'] = loadModuleFromFramework('pinia')
 		}
@@ -228,12 +231,7 @@ const judgeServerFramework = () => {
 }
 
 const checkModuleExist = (name: string) => {
-	try {
-		loadModuleFromFramework(name)
-		return true
-	} catch {
-		return false
-	}
+	return loadModuleFromFramework(name) !== ''
 }
 const loadModuleFromFramework = (path: string) => {
 	try {
@@ -350,7 +348,9 @@ export const checkTsConfig = async () => {
 		try {
 			const paths = require(resolve(cwd, './tsconfig.json')).compilerOptions.paths
 			if (paths) {
-				logWarning('在 Midway 中不建议使用 tsconfig paths 去引用非类型文件, ref https://midwayjs.org/docs/faq/alias_path')
+				logWarning(
+					'在 Midway 中不建议使用 tsconfig paths 去引用非类型文件, ref https://midwayjs.org/docs/faq/alias_path'
+				)
 			}
 		} catch (_error) {
 			// 有可能 json 文件存在注释导致 require 失败，这里 catch 一下

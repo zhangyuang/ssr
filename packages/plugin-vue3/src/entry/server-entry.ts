@@ -1,6 +1,21 @@
 import { renderToNodeStream, renderToString } from '@vue/server-renderer'
 import { createPinia } from 'pinia'
-import { appLocalStoreageWrapper, checkRoute, findRoute, getAsyncCssChunk, getAsyncJsChunk, getInlineOrder, getManifest, getStaticConfig, getUserScriptVue, localStorageWrapper, logGreen, normalizePath, remInitial, splitPageInfo } from 'ssr-common-utils'
+import {
+	appLocalStoreageWrapper,
+	checkRoute,
+	findRoute,
+	getAsyncCssChunk,
+	getAsyncJsChunk,
+	getInlineOrder,
+	getManifest,
+	getStaticConfig,
+	getUserScriptVue,
+	localStorageWrapper,
+	logGreen,
+	normalizePath,
+	remInitial,
+	splitPageInfo
+} from 'ssr-common-utils'
 import { serialize } from 'ssr-serialize-javascript'
 import type { IConfig, ISSRContext } from 'ssr-types'
 import { VNode, createSSRApp, h, renderSlot } from 'vue'
@@ -12,7 +27,24 @@ const { FeRoutes, App, layoutFetch, Layout } = Routes
 const staticConfig = getStaticConfig()
 
 const serverRender = async (ctx: ISSRContext, config: IConfig) => {
-	const { mode, customeHeadScript, customeFooterScript, parallelFetch, prefix, isVite, isDev, fePort, https, clientPrefix, stream, rootId, bigpipe, hashRouter, clientHistoryRouterMode, asyncGlobalData } = config
+	const {
+		mode,
+		customeHeadScript,
+		customeFooterScript,
+		parallelFetch,
+		prefix,
+		isVite,
+		isDev,
+		fePort,
+		https,
+		clientPrefix,
+		stream,
+		rootId,
+		bigpipe,
+		hashRouter,
+		clientHistoryRouterMode,
+		asyncGlobalData
+	} = config
 	const store = createStore()
 	const router = createRouter()
 	const pinia = createPinia()
@@ -21,7 +53,19 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 	const routeItem = findRoute<IFeRouteItem>(FeRoutes, path)
 	checkRoute({ routeItem, path })
 
-	const getApp = ({ combineAysncData, state, layoutFetchData, asyncData, manifest, isCsr, jsInject, cssInject, inlineCssOrder, rootId, inlineJsOrder }: vue3AppParams) => {
+	const getApp = ({
+		combineAysncData,
+		state,
+		layoutFetchData,
+		asyncData,
+		manifest,
+		isCsr,
+		jsInject,
+		cssInject,
+		inlineCssOrder,
+		rootId,
+		inlineJsOrder
+	}: vue3AppParams) => {
 		const app = createSSRApp({
 			render: function () {
 				const ssrDevInfo = {
