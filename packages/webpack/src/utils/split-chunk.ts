@@ -39,18 +39,24 @@ export class splitChunkPlugin {
 						continue
 					}
 					const chunkNames = incomings
-						.map((c) => (c.resource?.includes('chunkName') ? chunkNameRe.exec(c.resource ?? '')?.[1] : null))
+						.map((c) => {
+							return c.resource?.includes('chunkName')
+								? chunkNameRe.exec(c.resource ?? '')?.[1]
+								: dependenciesMap[c.resource?.split('?')[0] ?? '']
+						})
+						.flat()
 						.filter(Boolean)
 					dependenciesMap[modulePath] = dependenciesMap[modulePath]
 						? dependenciesMap[modulePath].concat(chunkNames as string[])
 						: (chunkNames as string[])
+					dependenciesMap[modulePath] = Array.from(new Set(dependenciesMap[modulePath]))
 				}
 				for (const fileName in dependenciesMap) {
 					let chunkNames = dependenciesMap[fileName]
 					if (fileName.includes('node_modules')) {
 						chunkNames.push('vendor')
 					}
-					chunkNames = Array.from(new Set(chunkNames)).sort(sortByAscii)
+					chunkNames = chunkNames.sort(sortByAscii)
 					if (chunkNames.includes('Page')) {
 						chunkNames = chunkNames.includes('vendor') ? ['Page', 'vendor'] : ['Page']
 					}

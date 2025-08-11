@@ -25,28 +25,33 @@ export class splitChunkPlugin {
 	apply(compiler: Compiler) {
 		compiler.hooks.compilation.tap('splitChunkPlugin', (compilation) => {
 			const moduleGraph = compilation.moduleGraph
-			compilation.hooks.afterOptimizeModules.tap('splitChunkPlugin', (modules) => {
-				const normalModules = Array.from(modules) as NormalModule[]
-				for (const module of normalModules) {
+			const modules = new Set<NormalModule>()
+			compilation.hooks.succeedModule.tap('splitChunkPlugin', (module) => {
+				// keep the order of modules
+				modules.add(module as NormalModule)
+			})
+			compilation.hooks.afterOptimizeModules.tap('splitChunkPlugin', () => {
+				for (const module of modules) {
 					const modulePath = module.resourceResolveData?.path!
 					const incomings = moduleGraph.getIncomingConnections(module)
 					const chunkNames = incomings
-						.map((c) =>
-							(c.originModule as NormalModule)?.resourceResolveData?.query?.includes('chunkName')
-								? chunkNameRe.exec((c.originModule as NormalModule)?.resourceResolveData?.query ?? '')?.[1]
-								: null
-						)
+						.map((c) => {
+							const { query, path } = (c.originModule as NormalModule)?.resourceResolveData ?? {}
+							return query?.includes('chunkName') ? chunkNameRe.exec(query ?? '')?.[1] : dependenciesMap[path ?? '']
+						})
+						.flat()
 						.filter(Boolean)
 					dependenciesMap[modulePath] = dependenciesMap[modulePath]
 						? dependenciesMap[modulePath].concat(chunkNames as string[])
 						: (chunkNames as string[])
+					dependenciesMap[modulePath] = Array.from(new Set(dependenciesMap[modulePath]))
 				}
 				for (const fileName in dependenciesMap) {
 					let chunkNames = dependenciesMap[fileName]
 					if (fileName.includes('node_modules')) {
 						chunkNames.push('vendor')
 					}
-					chunkNames = Array.from(new Set(chunkNames)).sort(sortByAscii)
+					chunkNames = chunkNames.sort(sortByAscii)
 					if (chunkNames.includes('Page')) {
 						chunkNames = chunkNames.includes('vendor') ? ['Page', 'vendor'] : ['Page']
 					}

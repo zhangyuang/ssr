@@ -73,11 +73,14 @@ const vendorList = [
 const getModuleName = (id: string) => {
 	return id.split('?')[0]
 }
+const moduleIds = new Set<string>()
 const asyncOptimizeChunkPlugin = (): Plugin => {
 	return {
 		name: 'asyncOptimizeChunkPlugin',
 		moduleParsed(this, info) {
 			const { id } = info
+			// keep the order of modules
+			moduleIds.add(id)
 			if (id.includes('chunkName')) {
 				const chunkName = chunkNameRe.exec(id)![1]
 				dependenciesMap[getModuleName(id)] = [chunkName]
@@ -85,7 +88,6 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 		},
 
 		async buildEnd(this, err) {
-			const moduleIds = this.getModuleIds()
 			for (const id of moduleIds) {
 				const moduleInfo = this.getModuleInfo(id)
 				const chunkNames = moduleInfo?.importers
@@ -98,6 +100,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 				dependenciesMap[getModuleName(id)] = dependenciesMap[getModuleName(id)]
 					? dependenciesMap[getModuleName(id)].concat(chunkNames as string[])
 					: (chunkNames as string[])
+				dependenciesMap[getModuleName(id)] = Array.from(new Set(dependenciesMap[getModuleName(id)]))
 			}
 			for (const fileName in dependenciesMap) {
 				const sign = getPkgName(fileName)
@@ -105,7 +108,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 				if (fileName.includes('node_modules')) {
 					chunkNames.push('vendor')
 				}
-				chunkNames = Array.from(new Set(chunkNames)).sort(sortByAscii)
+				chunkNames = chunkNames.sort(sortByAscii)
 				if (chunkNames.includes('Page')) {
 					chunkNames = chunkNames.includes('vendor') ? ['Page', 'vendor'] : ['Page']
 				}
