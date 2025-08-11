@@ -1,3 +1,12 @@
+## [7.0.9](https://github.com/zhangyuang/ssr/compare/webpack@7.0.8...webpack@7.0.9) (2025-08-11)
+
+
+### Bug Fixes
+
+* find module chunk name deep search ([7d7453b](https://github.com/zhangyuang/ssr/commit/7d7453b16d65cdd6304478ea4ec0cab274e4c461))
+
+
+
 ## [7.0.8](https://github.com/zhangyuang/ssr/compare/webpack@7.0.7...webpack@7.0.8) (2025-08-10)
 
 

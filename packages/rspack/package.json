@@ -1,6 +1,6 @@
 {
   "name": "ssr-rspack",
-  "version": "7.0.14",
+  "version": "7.0.15",
   "description": "rspack config for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",

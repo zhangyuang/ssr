@@ -1,6 +1,6 @@
 {
   "name": "ssr-vite",
-  "version": "7.0.6",
+  "version": "7.0.7",
   "description": "vite config for serverless ssr",
   "main": "./cjs/index.js",
   "module": "./esm/index.js",
