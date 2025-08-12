@@ -1,3 +1,12 @@
+## [7.0.10](https://github.com/zhangyuang/ssr/compare/webpack@7.0.9...webpack@7.0.10) (2025-08-12)
+
+
+### Bug Fixes
+
+* **rspack|webpack:** collect top-level chunkName correct ([1620d90](https://github.com/zhangyuang/ssr/commit/1620d90bf02a796f2567e2a7a55ddd20c70f433b))
+
+
+
 ## [7.0.9](https://github.com/zhangyuang/ssr/compare/webpack@7.0.8...webpack@7.0.9) (2025-08-11)
 
 
