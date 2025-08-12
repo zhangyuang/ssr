@@ -21,11 +21,11 @@ export const getSplitChunksOptions = () => {
 	} as OptimizationSplitChunksOptions
 }
 
+const modules = new Set<NormalModule>()
 export class splitChunkPlugin {
 	apply(compiler: Compiler) {
 		compiler.hooks.compilation.tap('splitChunkPlugin', (compilation) => {
 			const moduleGraph = compilation.moduleGraph
-			const modules = new Set<NormalModule>()
 			compilation.hooks.succeedModule.tap('splitChunkPlugin', (module) => {
 				// keep the order of modules
 				modules.add(module as NormalModule)

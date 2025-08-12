@@ -138,7 +138,7 @@ export const sortByAscii = (a: string, b: string) => {
 
 export const cryptoAsyncChunkName = (chunks: Chunk[], asyncChunkMap: Record<string, string[]>) => {
 	const arr = chunks.filter(Boolean)
-	arr.sort((a, b) => sortByAscii(a.name!, b.name!)) // keep the same order of chunks
+	arr.sort((a, b) => sortByAscii(a.name ?? 'default', b.name ?? 'default')) // keep the same order of chunks
 	const allChunksNames = arr.map((item) => item.name).join('~')
 	const allChunksNamesArr = allChunksNames.split('~')
 	const cryptoAllChunksNames = String(arr.length > 3 ? cyrb53(allChunksNames) : allChunksNames)
