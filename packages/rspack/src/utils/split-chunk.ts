@@ -32,15 +32,21 @@ export class splitChunkPlugin {
 			})
 			compilation.hooks.afterOptimizeModules.tap('splitChunkPlugin', () => {
 				for (const module of modules) {
-					const modulePath = module.resourceResolveData?.path!
+					const { path: modulePath, query } = module.resourceResolveData!
+					if (!modulePath) {
+						continue
+					}
 					const incomings = moduleGraph.getIncomingConnections(module)
-					const chunkNames = incomings
-						.map((c) => {
-							const { query, path } = (c.originModule as NormalModule)?.resourceResolveData ?? {}
-							return query?.includes('chunkName') ? chunkNameRe.exec(query ?? '')?.[1] : dependenciesMap[path ?? '']
-						})
-						.flat()
-						.filter(Boolean)
+					const chunkNames = query?.includes('chunkName')
+						? [chunkNameRe.exec(query ?? '')?.[1]]
+						: incomings
+								.map((c) => {
+									const { query, path } = (c.originModule as NormalModule)?.resourceResolveData ?? {}
+									return query?.includes('chunkName') ? chunkNameRe.exec(query ?? '')?.[1] : dependenciesMap[path ?? '']
+								})
+								.flat()
+								.filter(Boolean)
+
 					dependenciesMap[modulePath] = dependenciesMap[modulePath]
 						? dependenciesMap[modulePath].concat(chunkNames as string[])
 						: (chunkNames as string[])

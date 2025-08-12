@@ -30,22 +30,23 @@ export class splitChunkPlugin {
 		compiler.hooks.compilation.tap('splitChunkPlugin', (compilation) => {
 			compilation.hooks.finishModules.tap('splitChunkPlugin', (normalModules) => {
 				for (const module of normalModules) {
-					const modulePath = getModuleName(module as unknown as NormalModule)
+					const normalModule = module as unknown as NormalModule
+					const modulePath = getModuleName(normalModule)
 					if (!modulePath) {
 						continue
 					}
+
 					const incomings = module.reasons.map((r) => r.module as NormalModule).filter(Boolean)
-					if (!incomings.length) {
-						continue
-					}
-					const chunkNames = incomings
-						.map((c) => {
-							return c.resource?.includes('chunkName')
-								? chunkNameRe.exec(c.resource ?? '')?.[1]
-								: dependenciesMap[c.resource?.split('?')[0] ?? '']
-						})
-						.flat()
-						.filter(Boolean)
+					const chunkNames = normalModule.resource?.includes('chunkName')
+						? [chunkNameRe.exec(normalModule.resource ?? '')?.[1]]
+						: incomings
+								.map((c) => {
+									return c.resource?.includes('chunkName')
+										? chunkNameRe.exec(c.resource ?? '')?.[1]
+										: dependenciesMap[c.resource?.split('?')[0] ?? '']
+								})
+								.flat()
+								.filter(Boolean)
 					dependenciesMap[modulePath] = dependenciesMap[modulePath]
 						? dependenciesMap[modulePath].concat(chunkNames as string[])
 						: (chunkNames as string[])
