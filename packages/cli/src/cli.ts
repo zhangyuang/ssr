@@ -170,9 +170,6 @@ yargs
 				viteMode: {
 					desc: 'same like vite build --mode'
 				},
-				legacy: {
-					desc: 'Close default rollup manulChunks setting in vite mode'
-				},
 				html: {
 					desc: 'Build application as a single html'
 				},
@@ -194,12 +191,6 @@ yargs
 				...cliDesc
 			}),
 		async (argv: Argv) => {
-			const { logWarning } = await import('ssr-common-utils')
-			if (argv.tool === 'vite') {
-				logWarning(`ssr build by vite is beta now, if you find some bugs, please submit an issue on https://github.com/zhangyuang/ssr/issues or you can use ssr build --tools vite --legacy which will close manualChunks
-      to get a stable bundle result but maybe some performance loss
-      `)
-			}
 			if (argv.bc) {
 				process.env.BUNDLECONFIG = '1'
 			}

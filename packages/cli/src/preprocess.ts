@@ -43,9 +43,6 @@ export const handleEnv = async (argv: Argv) => {
 	if (argv.html) {
 		process.env.SPA = '1'
 	}
-	if (argv.legacy) {
-		process.env.LEGACY_VITE = '1'
-	}
 	if (argv.nominify) {
 		process.env.NOMINIFY = '1'
 	}
