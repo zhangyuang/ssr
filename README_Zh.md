@@ -1,5 +1,5 @@
 <div>
-<a href="./README_Zh.md">简体中文</a> ｜ English
+简体中文 ｜ <a href="./README.md">English</a>
 </div>
 
 <h1 align="center"> SSR </h1>
@@ -21,54 +21,54 @@
 <br />
  
 
-## Version 7.x
+## 7.x 版本
 
-The `ssr` framework version `7.x` has been released. Read the [documentation](http://doc.ssr-fc.com/docs/features$v7) for more detailed introduction and upgrade guide. Version 7 brings the following new features:
+`ssr` 框架 `7.x` 版本已发布，阅读[文档](http://doc.ssr-fc.com/docs/features$v7)获取更详细的介绍和升级指南。v7版本带来以下新的features
 
-* Supports [Rspack](https://rspack.rs), [Rolldown-Vite](https://vite.dev/guide/rolldown), and `Webpack` build tools to greatly improve build performance.
-* Supports any frontend framework combined with any build tool
-* Brand new dependency design, streamlined dependencies required for initialization
-* Progressive upgrade with almost no breaking changes, v6 projects can smoothly transition to v7
+* 同时支持 [Rspack](https://rspack.rs) , [Rolldown-Vite](https://vite.dev/guide/rolldown),  `Webpack` , 三种构建工具来极大的加快构建性能。
+* 支持任意前端框架与任意构建工具结合使用
+* 全新的依赖设计，精简初始化安装需要的依赖项
+* 渐进式升级，几乎没有 breaking change, v6项目可平滑过渡到v7
 
-Version 7 has been tested to improve build speed by 5-10 times. Dependency size reduced by 2/3 (when using Rspack|Rolldown-Vite scenarios).
+v7 版本实测构建速度可提升5-10倍。依赖体积缩小2/3(使用 Rspack|Rolldown-Vite 的场景)。
 
-Use the latest `create-ssr-app` to initialize v7 (recommended) or v6 project templates according to prompts.
+使用最新的 `create-ssr-app` 来根据提示初始化v7(推荐)或v6的项目模版。
 
 ```bash
 $ npm init ssr-app@latest my-ssr-project
 ```
 
-## Introduction
+## 简介
 
-The `ssr` framework is an out-of-the-box server-side rendering framework built for frontend frameworks in server-side rendering scenarios. To understand what server-side rendering is, please check the [documentation](http://doc.ssr-fc.com/docs/features$ssr).
+`ssr` 框架是为前端框架在服务端渲染的场景下所打造的开箱即用的服务端渲染框架。了解什么是服务端渲染请查看[文档](http://doc.ssr-fc.com/docs/features$ssr)
 
-This framework evolved from the [egg-react-ssr](https://github.com/zhangyuang/egg-react-ssr) project and `ssr` v4 version `(midway-faas + react ssr)`. Based on previous foundations, it has made many improvements through plugin-based code organization, supporting the combination of any server-side framework with any frontend framework. Developers can choose to deploy via `Serverless` or deploy as traditional `Node.js` applications. We focus on improving the development experience of server-side rendering applications in `Serverless` scenarios, creating one-stop development and application deployment services. This maximizes developer experience while minimizing application development and deployment costs.
+此框架脱胎于 [egg-react-ssr](https://github.com/zhangyuang/egg-react-ssr) 项目和 `ssr` v4版本 `（midway-faas + react ssr）` ，在之前的基础上做了诸多演进，通过插件化的代码组织形式，支持任意服务端框架与任意前端框架的组合使用。开发者可以选择通过 `Serverless` 方式部署或是以传统 `Node.js` 的应用形式部署，并且我们专注于提升 `Serverless` 场景下服务端渲染应用的开发体验，打造了一站式的开发，发布应用服务的功能。最大程度提升开发者的开发体验，将应用的开发，部署成本降到最低。
 
-In the latest version, it supports `React17/18/19` and `Vue2/Vue3` as frontend frameworks for server-side rendering. For development tools, we support both `Vite|Webpack|Rspack` to improve application startup speed, build speed, and HMR speed.
+在最新的版本中，同时支持 `React17/18/19` 和 `Vue2/Vue3` 作为服务端渲染的前端框架，开发工具侧我们同时支持了 `Vite|Webpack|Rspack` 来提升应用的启动速度，构建速度和 HMR 速度。
 
-In the `Node.js` framework, the official default `example` provides integration examples based on `Nest.js` and `Midway.js`, two popular `Node.js` frameworks with the `ssr` framework. Of course, the `ssr` framework is designed not to be coupled with any `Node.js` framework, and developers can freely choose to use any `Node.js` framework.
+在 `Node.js` 框架中，官方默认的 `example` 提供了基于 `Nest.js` 和 `Midway.js` 这两个流行的 `Node.js` 框架与 `ssr` 框架集成示例。当然 `ssr` 框架在设计上不与任何 `Node.js` 框架耦合，开发者可以自由选择使用任何 `Node.js` 框架。
 
-If you choose `Midway.js` as your `Node.js` framework, you can directly use the built-in `ssr deploy` command to deploy applications to `Alibaba Cloud` or `Tencent Cloud` platforms with one click.
+如果你选择的是 `Midway.js` 作为 `Node.js` 框架，那么可以直接使用内置的 `ssr deploy` 命令来一键部署应用到 `阿里云` 或 `腾讯云` 平台。
 
-Read our [official documentation](http://doc.ssr-fc.com/) for more detailed understanding. In fact, the documentation itself is developed using the `ssr` framework and deployed to Alibaba Cloud `Serverless` service.
+阅读我们的 [官方文档](http://doc.ssr-fc.com/) 获得更加详细的了解。事实上文档本身便是用 `ssr` 框架开发并部署到阿里云 `Serverless` 服务。
 
 ![](https://res.wx.qq.com/op_res/B9tJE-lFR3gCif92sM4BeeqAcoJSZbJK-auM7MACgomrWm58C1moA3BfatZ5gS-tgZHYyk57e0JQRtgdcgho-g)
 
-## When Should You Choose the SSR Framework
+## 什么情况下你应该选择 ssr 框架
 
-* Need to use in scenarios combining `Node.js` with frontend frameworks. Unlike other pure frontend frameworks, the `ssr` framework is specifically built for server-side rendering scenarios or scenarios combining `Node.js` with frontend.
-* Need an out-of-the-box server-side rendering capability without manually combining different frontend frameworks with server-side frameworks.
-* Need framework-level rendering degradation capability that automatically degrades to client-side rendering when server-side rendering fails.
-* Need a framework with simple configuration and clear logic. The `ssr` framework has the clearest rendering logic and application build logic among similar frameworks.
-* May change technology stacks, such as upgrading from `Vue2` to `Vue3`, downgrading from `Vue3` to `Vue2`, or switching between `React/Vue`.
-* Need out-of-the-box support for popular UI libraries like `antd` and `vant` in server-side rendering scenarios.
-* Need to support both `Webpack` and `Vite` development tools to get fast startup speed, HMR speed, and stable production code.
-* Need to use [pinia](https://pinia.vuejs.org/) as data management solution in `Vue3 SSR`.
-* Simply need a faster and better `cra` or `vue-cli`. The `ssr` framework also provides excellent support in pure `csr` scenarios.
+* 需要在 `Node.js` 与前端框架结合的场景使用，与其他纯前端的框架不同 `ssr` 框架是专为服务端渲染场景或者 `Node.js` 与前端结合的场景打造的框架
+* 需要一个开箱即用的服务端渲染能力，不需要手动去组合不同的前端框架与服务端框架之间的联系
+* 需要框架层面的渲染降级能力，在服务端渲染出错时自动降级到客户端渲染
+* 需要一个配置简单逻辑清晰的框架， `ssr` 框架的渲染逻辑和应用构建逻辑是同类型框架中最清晰的
+* 可能会改动技术栈，如从 `Vue2` 升级为 `Vue3`，从 `Vue3` 降级为 `Vue2` 或 `React/Vue` 互相切换
+* 需要在服务端渲染场景下开箱即用使用 `antd` `vant` 等流行 `ui` 库
+* 需要能够同时支持 `Webpack`,  `Vite` 两种开发工具，以便同时得到快速的启动速度 `HMR` 速度以及稳定的生产环境代码
+* 需要在 `Vue3 SSR` 使用 [pinia](https://pinia.vuejs.org/) 作为数据管理方案
+* 只是单纯的需要一个更快更好用的 `cra` 或 `vue-cli`,  `ssr` 框架在纯 `csr` 场景的支持也十分优秀
 
-## Who's Using
+## 哪些应用在使用
 
-Companies (applications) currently using this project. If you are using it but not listed, please raise an [issue](https://github.com/zhangyuang/ssr/issues). We welcome promotion and sharing, and will provide technical support at any time.
+正在使用这个项目的公司(应用), 如果您正在使用但名单中没有列出来的话请提 [issue](https://github.com/zhangyuang/ssr/issues)，欢迎推广分享，我们将随时提供技术支持
 
 <table>
 <tr>
@@ -167,52 +167,52 @@ Companies (applications) currently using this project. If you are using it but n
 
 ## Features
 
-* 🌱　Extremely customizable: Frontend supports modern Web frameworks like React17/React18/Vue2/Vue3;
-* 🚀　Ready to use: Built-in 10+ scaffold extensions like [Pinia](https://pinia.vuejs.org/introduction.html#basic-example), [antd](https://ant.design/components/overview-cn/), [vant](https://github.com/youzan/vant), TypeScript, Hooks, etc.;
-* 🧲　Plugin-driven: Based on plugin architecture, users focus more on business logic;
-* 💯　Serverless-first: One-click deployment to various Serverless platforms, also supports traditional Web Servers like Egg, Midway, Nest, etc.
-* 🛡　High availability scenarios, seamless degradation from SSR to CSR, best disaster recovery solution.
-* 😄　Feature-rich, build tools support both Webpack/Vite, supports four rendering modes `SSR|CSR|SSG|Html`
-* ✨ Supports [bun](https://bun.sh/) as js runtime
+* 🌱　极易定制：前端支持 React17/React18/Vue2/Vue3 等现代Web框架；
+* 🚀　开箱即用：内置 10+ 脚手架配套扩展，如 [Pinia](https://pinia.vuejs.org/introduction.html#basic-example)、[antd](https://ant.design/components/overview-cn/)、[vant](https://github.com/youzan/vant)、TypeScript、Hooks等；
+* 🧲　插件驱动：基于插件架构，用户更加专注于业务逻辑；
+* 💯　Serverless优先：一键发布到各种Serverless平台，也支持传统Web Server，比如Egg、Midway、Nest等。
+* 🛡　高可用场景，可无缝从SSR降级到CSR，最佳容灾方案。
+* 😄　功能丰富，构建工具同时支持 Webpack/Vite，支持四种渲染模式 `SSR|CSR|SSG|Html`
+* ✨ 支持 [bun](https://bun.sh/) 作为 js runtime
 
-## Implemented Features
+## 已实现的功能
 
-🚀 indicates implemented features
+🚀 表示已经实现的功能
 
-| Milestone                                                                                                                                                                                                                                          | Status |
+| 里程碑                                                                                                                                                                                                                                          | 状态 |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| Support combination of any server-side framework with any frontend framework. (Serverless/Midway/NestJS) + (React17/React18/Vue2/Vue3)                                                                                                                                                      | 🚀    |
-| Smoothest [vite](https://vite-design.surge.sh/) [support](http://doc.ssr-fc.com/docs/features$vite)                                                                                                                                                 | 🚀    |
-| Minimal and elegant server-side rendering implementation                                                                                                                                                                                                                    | 🚀    |
-| Support [pre-rendering](http://doc.ssr-fc.com/docs/features$ssg) capability                                                                                                                                                                                                                   | 🚀    |
-| Optimized production code bundle size for Serverless scenarios with strict code package size limitations                                                                                                                                                                     | 🚀    |
-| Support both conventional frontend routing and declarative frontend routing                                                                                                                                                                                                          | 🚀    |
-| Abandon traditional template engines, all page elements unified using frontend components as DSL                                                                                                                                                                                          | 🚀    |
-| Support four rendering modes simultaneously, providing one-click degradation from server-side rendering to client-side rendering                                                                                                                                                                                  | 🚀    |
-| Unify data fetching methods for different frameworks on server and client sides, achieving high reusability                                                                                                                                                                            | 🚀    |
-| Type-friendly, fully embrace TypeScript                                                                                                                                                                                                                           | 🚀    |
-| Support seamless integration with [antd](https://github.com/ant-design/ant-design) [vant](https://vant-contrib.gitee.io/vant/#/) without modifying any configuration                                                                                                                    | 🚀    |
-| Support using less as CSS preprocessor                                                                                                                                                                                                                 | 🚀    |
-| Seamless [usage](http://doc.ssr-fc.com/docs/features$faq#%E4%B8%8E%20micro-app%20%E7%BB%93%E5%90%88%E4%BD%BF%E7%94%A8) in micro-frontend scenarios                                                                                                                    | 🚀    |
-| Support using context or [valtio](https://github.com/pmndrs/valtio) for minimalist [data management](http://doc.ssr-fc.com/docs/features$communication#React%20%E5%9C%BA%E6%99%AF) solutions, abandoning traditional redux/dva data management solutions                                                                                         | 🚀    |
-| Vue3 scenarios provide [Pinia](https://pinia.vuejs.org/introduction.html#basic-example) and [Provide/Inject](http://doc.ssr-fc.com/docs/features$communication#Vue%20%E5%9C%BA%E6%99%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88) to replace `Vuex` for cross-component communication | 🚀    |
-| Support creation and usage on Alibaba Cloud [platform](https://zhuanlan.zhihu.com/p/139210473)                                                                                                                                                                           | 🚀    |
-| ssr deploy one-click deployment to [Alibaba Cloud](https://www.aliyun.com/) platform                                                                                                                                                                                      | 🚀    |
-| ssr deploy --tencent one-click deployment to [Tencent Cloud](https://cloud.tencent.com/) platform without modifying any configuration                                                                                                                                                         | 🚀    |
+| 支持任意服务端框架与任意前端框架的组合使用。(Serverless/Midway/NestJS) + (React17/React18/Vue2/Vue3)                                                                                                                                                      | 🚀    |
+| 最丝滑的 [vite](https://vite-design.surge.sh/) [支持](http://doc.ssr-fc.com/docs/features$vite)                                                                                                                                                 | 🚀    |
+| 最小而美的实现服务端渲染功能                                                                                                                                                                                                                    | 🚀    |
+| 支持[预渲染](http://doc.ssr-fc.com/docs/features$ssg)能力                                                                                                                                                                                                                   | 🚀    |
+| 针对Serverless 场景对代码包的大小的严格限制，将生产环境的代码包大小做到极致                                                                                                                                                                     | 🚀    |
+| 同时支持约定式前端路由和声明式前端路由                                                                                                                                                                                                          | 🚀    |
+| 摒弃传统模版引擎，所有页面元素统一使用前端组件作为 DSL                                                                                                                                                                                          | 🚀    |
+| 同时支持四种渲染模式，提供服务端渲染一键降级为客户端渲染的能力                                                                                                                                                                                  | 🚀    |
+| 统一不同框架服务端客户端的数据获取方式，做到高度复用                                                                                                                                                                                            | 🚀    |
+| 类型友好，全面拥抱 TS                                                                                                                                                                                                                           | 🚀    |
+| 支持无缝接入 [antd](https://github.com/ant-design/ant-design) [vant](https://vant-contrib.gitee.io/vant/#/) 无需修改任何配置                                                                                                                    | 🚀    |
+| 支持使用 less 作为 css 预处理器                                                                                                                                                                                                                 | 🚀    |
+| 微前端场景下无缝[使用](http://doc.ssr-fc.com/docs/features$faq#%E4%B8%8E%20micro-app%20%E7%BB%93%E5%90%88%E4%BD%BF%E7%94%A8)                                                                                                                    | 🚀    |
+| 支持使用 context 或 [valtio](https://github.com/pmndrs/valtio) 实现极简的[数据管理](http://doc.ssr-fc.com/docs/features$communication#React%20%E5%9C%BA%E6%99%AF)方案，摒弃传统的 redux/dva 等数据管理方案                                                                                         | 🚀    |
+| Vue3 场景提供 [Pinia](https://pinia.vuejs.org/introduction.html#basic-example) 以及 [Provide/Inject](http://doc.ssr-fc.com/docs/features$communication#Vue%20%E5%9C%BA%E6%99%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88) 代替 `Vuex` 进行跨组件通信 | 🚀    |
+| 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用                                                                                                                                                                           | 🚀    |
+| ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台                                                                                                                                                                                      | 🚀    |
+| ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                                                                                                                                         | 🚀    |
 
-## Solution Comparison
+## 方案对比
 
-Why choose the `ssr` framework and comparison with similar frameworks, please check the [documentation](http://doc.ssr-fc.com/docs/why)
+为什么要选择 `ssr` 框架以及与同类型框架的方案对比请查看[文档](http://doc.ssr-fc.com/docs/why)
 
-## Quick Start
+## 快速开始
 
-We provide the [create-ssr-app](https://github.com/zhangyuang/create-ssr-app) scaffold to let users quickly create different types of applications.
+我们提供了 [create-ssr-app](https://github.com/zhangyuang/create-ssr-app) 脚手架来让用户可以迅速的创建不同类型的应用。
 
-Currently, the official provides the following types of templates for developers to use directly. Users can choose different templates for development based on their actual technology stack.
+目前官方提供了以下类型的模版给开发者直接使用。用户可根据自己的实际技术栈选择不同的模版进行开发。
 
-Although the technology stacks are different, the development philosophy is consistent. In any technology stack combination, our development commands, build commands, and rendering principles are completely consistent.
+虽然技术栈不同但开发思想是一致的，在任何技术栈的组合中我们的开发命令, 构建命令以及渲染原理都是完全一致的
 
-Note: In `Midway.js` and `Nest.js` scenarios, we have implemented one-click deployment to `Serverless` platforms. However, the underlying implementations differ slightly. For more detailed introduction, please read the [Serverless](http://doc.ssr-fc.com/docs/features$serverless) chapter. If you need to extensively use capabilities provided by `Serverless` platforms, we recommend creating `Midway.js` type applications. We strongly recommend reading our [official documentation](http://doc.ssr-fc.com/) for more detailed understanding.
+注意: 在 `Midway.js`  `Nest.js` 场景下我们都已实现了一键部署到 `Serverless` 平台的能力。但底层实现略有差异。更加详细的介绍可以阅读 [Serverless](http://doc.ssr-fc.com/docs/features$serverless) 章节。如需要大量使用 `Serverless` 平台提供的能力，我们建议创建 `Midway.js` 类型的应用。强烈建议阅读我们的 [官方文档](http://doc.ssr-fc.com/) 来获得更加详细的了解
 
 * [nestjs-react-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-react-ssr)
 * [nestjs-react18-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-react18-ssr)
@@ -224,39 +224,39 @@ Note: In `Midway.js` and `Nest.js` scenarios, we have implemented one-click depl
 * [midway-vue-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue-ssr)
 * [midway-vue3-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue3-ssr)
 
-Developers can create different types of applications according to their actual technology stack needs to get started quickly.
+开发者可根据实际技术栈需要创建不同类型的应用快速开始
 
-### Create Project
+### 创建项目
 
-Through the `npm init` command, we can create any of the above templates:
+通过 `npm init` 命令我们可以创建上述的任意模版
 
 ```bash
 $ npm init ssr-app my-ssr-project
 $ cd my-ssr-project
-$ yarn # recommend using yarn, can also use npm install
+$ yarn # 建议使用 yarn, 也可以 npm install
 $ yarn start
-$ open http://localhost:3000 # access the application
-$ yarn build # resource build, equivalent to npx ssr build
-$ yarn start:vite # start in vite mode, equivalent to npx ssr start --tools vite
+$ open http://localhost:3000 # 访问应用
+$ yarn build # 资源构建，等价于 npx ssr build
+$ yarn start:vite # 以 vite 模式启动，等价于 npx ssr start --tools vite
 ```
 
 ![](images/start-vite3.gif)
 
-## Live Examples
+## 线上案例
 
-Preview application details deployed to Alibaba Cloud/Tencent Cloud services through Serverless one-click deployment by visiting the following links.
-Use queryParams `csr=true` to degrade SSR server-side rendering mode to CSR client-side rendering mode with one click, or configure through `config.js`.
+通过访问以下链接来预览该框架通过 Serverless 一键部署到阿里云/腾讯云服务的应用详情。
+通过使用 queryParams `csr=true` 来让 SSR 服务端渲染模式一键降级为 CSR 客户端渲染模式，也可以通过 `config.js` 来进行配置。
 
-* http://ssr-fc.com/ React SSR application deployed to Alibaba Cloud
-* http://ssr-fc.com?csr=true React SSR application deployed to Alibaba Cloud, accessed in CSR mode
-* http://tx.ssr-fc.com React SSR application deployed to Tencent Cloud
-* http://tx.ssr-fc.com?csr=true React SSR application deployed to Tencent Cloud, accessed in CSR mode
-* http://vue.ssr-fc.com Vue SSR application deployed to Alibaba Cloud
-* http://vue3.ssr-fc.com Vue3 SSR application deployed to Alibaba Cloud
-* http://vue.ssr-fc.com?csr=true Vue SSR application deployed to Alibaba Cloud, accessed in CSR mode
-* http://vue3.ssr-fc.com?csr=true Vue3 SSR application deployed to Alibaba Cloud, accessed in CSR mode
+* http://ssr-fc.com/ 部署到阿里云的 React SSR 应用
+* http://ssr-fc.com?csr=true 部署到阿里云的 React SSR 应用, 以 CSR 模式访问
+* http://tx.ssr-fc.com 部署到腾讯云的 React SSR 应用
+* http://tx.ssr-fc.com?csr=true 部署到腾讯云的 React SSR 应用, 以 CSR 模式访问
+* http://vue.ssr-fc.com 部署到阿里云的 Vue SSR 应用
+* http://vue3.ssr-fc.com 部署到阿里云的 Vue3 SSR 应用
+* http://vue.ssr-fc.com?csr=true 部署到阿里云的 Vue SSR 应用, 以 CSR 模式访问
+* http://vue3.ssr-fc.com?csr=true 部署到阿里云的 Vue3 SSR 应用, 以 CSR 模式访问
 
-## Ecosystem
+## 生态系统
 
 | Project             | Status                                           | Description                                                             |
 | ------------------- | ------------------------------------------------ | ----------------------------------------------------------------------- |
@@ -301,32 +301,32 @@ Use queryParams `csr=true` to degrade SSR server-side rendering mode to CSR clie
 
 ## CONTRIBUTING
 
-If you want to contribute code to this application, please read the [contributing documentation](./CONTRIBUTING.md). We have prepared rich scripts for bootstrapping.
+如果你想为本应用贡献代码，请阅读[贡献文档](./CONTRIBUTING.md)，我们为你准备了丰富的脚本用于 bootstrap
 
 ## License
 
 [MIT](LICENSE)
 
-## Q&A Group
+## 答疑群
 
-Although we have tried our best to check the application, there may still be omissions. If you find any problems or suggestions during use, welcome to raise [issues](https://github.com/zhangyuang/ssr/issues) or [PRs](https://github.com/zhangyuang/ssr/pulls).
+虽然我们已经尽力检查了一遍应用，但仍有可能有疏漏的地方，如果你在使用过程中发现任何问题或者建议，欢迎提[issue](https://github.com/zhangyuang/ssr/issues)或者[PR](https://github.com/zhangyuang/ssr/pulls)
 
-`Note: Due to WeChat group size limitations, to join the group please add the personal QR code and note "join ssr communication group". Since it's a personal WeChat, friends will be deleted after being added to the group, please understand. We encourage communication through issues and discussions more.`
+ `注: 由于微信交流群人数限制，进群请添加私人二维码并备注进入 ssr 交流群，由于是私人微信，拉群后将会自行删除好友，敬请谅解。我们更加鼓励通过 issue 和 discussion 来交流问题`
 
 <div style="display:flex">
 <!-- <img src="https://res.wx.qq.com/op_res/7F1t4Z8yCHWilehbcFGjAj0yVn0URMiWBGVJa-TVu_eqw5IwUXA2kPYBnfX6YRHy0FVBB-yC6l0IEL02QTJkLg" width="300"> -->
 <img src="https://res.wx.qq.com/op_res/Nv12X2und927FEOvJ5iflzX-WBW07GSC22kumTCiShZnudKpG0jMuRs70ecHQb3Hy1QjjaASNzyOuMgHr43Wpw" width="300">
 </div>
 
-## Project Donation
+## 项目捐赠
 
-If this project can help you, we hope to receive your donation ☕️ to contribute to the open source community.
+如果本项目能够对你有所帮助，希望得到来自于你的捐赠 ☕️ 为开源社区做一份贡献
 <div style="display:flex">
 <img src="https://doc.ssr-fc.com/images/wepay.jpg" width="150">
 <img src="https://doc.ssr-fc.com/images/alipay.jpg" width="150">
 </div>
 
-## Lines of Code
+## 代码行数
 
 ```bash
 $ cloc packages --include-ext=ts
@@ -344,10 +344,10 @@ SUM:                           164            471            195           4927
 -------------------------------------------------------------------------------
 ```
 
-## Frontend Development Manual
+## 前端开发手册
 
-[How to Build a Comfortable and Efficient Frontend Development Environment](http://fe.ssr-fc.com/) 
+[如何打造舒适高效的前端开发环境](http://fe.ssr-fc.com/) 
 
-## Project Star Growth Trend
+## 项目 Star 数增长趋势
 
 [![Stargazers over time](https://starchart.cc/zhangyuang/ssr.svg)](https://starchart.cc/zhangyuang/ssr)
