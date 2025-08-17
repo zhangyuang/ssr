@@ -1,3 +1,12 @@
+## [7.0.19](https://github.com/zhangyuang/ssr/compare/rspack@7.0.18...rspack@7.0.19) (2025-08-17)
+
+
+### Bug Fixes
+
+* add default vendorlist ([ee5eb02](https://github.com/zhangyuang/ssr/commit/ee5eb02b2db8230a7c49c70557060382ba5ecf25))
+
+
+
 ## [7.0.18](https://github.com/zhangyuang/ssr/compare/rspack@7.0.17...rspack@7.0.18) (2025-08-17)
 
 

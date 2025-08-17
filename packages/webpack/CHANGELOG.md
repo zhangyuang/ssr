@@ -1,3 +1,20 @@
+## [7.0.11](https://github.com/zhangyuang/ssr/compare/webpack@7.0.10...webpack@7.0.11) (2025-08-17)
+
+
+### Bug Fixes
+
+* add default vendorlist ([ee5eb02](https://github.com/zhangyuang/ssr/commit/ee5eb02b2db8230a7c49c70557060382ba5ecf25))
+* collect modules in rspack ([e5e3d7d](https://github.com/zhangyuang/ssr/commit/e5e3d7d576269fe237165937e2354ad8f425a035))
+* set base in ssr-plugin-vue3 server-entry ([a615504](https://github.com/zhangyuang/ssr/commit/a615504cb0c94a4011e3821143a768d7dc13c442))
+
+
+### Features
+
+* preload fetch chunk ([cbd05b2](https://github.com/zhangyuang/ssr/commit/cbd05b231deac7b4072b071d6c6a0b25dc99ca92))
+* watch node_modules/ssr-plugin in rspack watch mode ([f8ce633](https://github.com/zhangyuang/ssr/commit/f8ce6337eb8254b867706f2c64b3bbe9e86445b1))
+
+
+
 ## [7.0.10](https://github.com/zhangyuang/ssr/compare/webpack@7.0.9...webpack@7.0.10) (2025-08-12)
 
 
