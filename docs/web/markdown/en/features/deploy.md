@@ -1,52 +1,52 @@
-# 应用部署
+# Application Deployment
 
-本篇章将会介绍在 `ssr` 框架的场景下，如何以传统 `Node.js Server` 的方式以及 `Serverless` 的形式进行部署
+This chapter will introduce how to deploy in the form of traditional `Node.js Server` and `Serverless` under the `ssr` framework scenario.
 
 ## Serverless for Frontend
 
-> Serverless 解放了端开发者（不仅仅是 Web 开发者）的生产力，让端开发者可以更快、更好、更灵活地开发各种端上应用，不需要投入太多精力关注于后端服务的实现。”
+> Serverless liberates the productivity of frontend developers (not just Web developers), allowing frontend developers to develop various frontend applications faster, better, and more flexibly, without investing too much energy in focusing on backend service implementation."
 
-传统应用开发流程
+Traditional Application Development Process
 
 ![](https://img.alicdn.com/tfs/TB1CE7FB5_1gK0jSZFqXXcpaXXa-1402-150.png)
 
-Serverless 应用开发流程
+Serverless Application Development Process
 
 ![](https://img.alicdn.com/tfs/TB1hZgHB7T2gK0jSZPcXXcKkpXa-1136-174.png)
 
-使用本框架开发 Serverless SSR 应用开发流程
+Serverless SSR Application Development Process Using This Framework
 
 ![](https://img.alicdn.com/tfs/TB1wzqpCkP2gK0jSZPxXXacQpXa-1880-256.jpg)
 
-相比于传统服务端应用开发，我们将细节在底层统一抹平。前端开发者只需要关注业务逻辑，无需感知服务器的运行状况。成本和心智负担大大降低，只需要申请一个域名即可将应用发布到公网让所有用户可以访问。了解更多的部署细节，请阅读[应用部署](./features$deploy)章节
+Compared to traditional server-side application development, we smooth out the details uniformly at the underlying layer. Frontend developers only need to focus on business logic without needing to perceive the server's operational status. Costs and mental burden are greatly reduced - you only need to apply for a domain name to publish the application to the public network for all users to access. For more deployment details, please read the [Application Deployment](./features$deploy) chapter.
 
-## Midway Serverless 形式部署
+## Midway Serverless Deployment
 
-如果你选择了 `Midway.js` 作为服务端框架，那么你的应用便具备了一站式的发布能力。这里我们在 `deploy` 方法的底层封装了 [Midway.js@2.0](https://www.yuque.com/midwayjs/midway_v2/introduction) 的发布能力。
+If you choose `Midway.js` as the server-side framework, your application will have one-stop publishing capabilities. Here we encapsulate the publishing capabilities of [Midway.js@2.0](https://www.yuque.com/midwayjs/midway_v2/introduction) at the underlying layer of the `deploy` method.
 
-当开发者执行 `npm run deloy` 命令时，会自动执行构建命令以及发布命令。同样在发布代码时，我们只会安装生产环境的依赖来保证代码包的体积最小。用户可以注意到在生产环境我们只会安装 `ssr-core-xxx` 模块，而我们的插件依赖只会在本地开发时进行安装。在生产环境发布时并不需要
+When developers execute the `npm run deploy` command, build commands and publish commands will be automatically executed. Similarly, when publishing code, we only install production environment dependencies to ensure minimum code package size. Users can notice that in production environments we only install `ssr-core-xxx` modules, while our plugin dependencies are only installed during local development. They are not needed when publishing to production environments.
 
-### 在阿里云使用
+### Using on Alibaba Cloud
 
-我们默认发布到阿里云，同样也可以支持发布到腾讯云。由于 `Midway` 官方的侧重性，我们更推荐部署到阿里云来享受更加稳定的服务
+We deploy to Alibaba Cloud by default, and also support deployment to Tencent Cloud. Due to `Midway`'s official focus, we more recommend deploying to Alibaba Cloud to enjoy more stable services.
 
 ```shell
-$ npm run deploy # 支持发布多个平台默认发布到阿里云 等价于 ssr deploy
+$ npm run deploy # Supports publishing to multiple platforms, deploys to Alibaba Cloud by default, equivalent to ssr deploy
 ```
 
-首次发布需要输入阿里云账户信息，并且在阿里云控制台开通函数计算服务。账户信息在函数计算[控制台](https://fc.console.aliyun.com/fc)查看。
+First-time publishing requires inputting Alibaba Cloud account information and enabling Function Compute service in the Alibaba Cloud console. Account information can be viewed in the Function Compute [console](https://fc.console.aliyun.com/fc).
 
 ![](https://img.alicdn.com/tfs/TB1fZzQB.z1gK0jSZLeXXb9kVXa-1446-1262.jpg)
 
-将 AccountId 以及 Key Secret 在下面输入，只需要输入一次信息会储存在本地的 `~/.fcli/config.yaml` 文件当中同样我们发布的超时时间限制也可以在该文件进行配置，之后再次 `deploy` 无需做该操作。
+Enter the AccountId and Key Secret below. You only need to input the information once - it will be stored in the local `~/.fcli/config.yaml` file. Similarly, our publishing timeout limits can also be configured in this file. No need to do this operation again for subsequent `deploy`s.
 
 ![](https://img.alicdn.com/tfs/TB10vYVBYY1gK0jSZTEXXXDQVXa-2044-528.jpg)
 
-#### 阿里云配置域名
+#### Alibaba Cloud Domain Configuration
 
-发布成功后得到一个临时的 http 地址`http://xxxx.test.functioncompute.com`。可以暂时用来预览服务。
+After successful publishing, you get a temporary http address `http://xxxx.test.functioncompute.com`. This can be used temporarily to preview the service.
 
-之后我们需要配置自己的域名通过 `CNAME` 的形式转发到该服务。接着在阿里云函数计算控制台设置域名对应的函数即可在公网通过域名来访问该函数。`阿里云控制台域名服务` -> `域名解析设置` -> `函数计算控制台` -> `自定义域名`。之后打开[域名](http://ssr-fc.com)便能够访问发布的函数。
+After that, we need to configure our own domain to forward to this service through `CNAME` form. Then set the function corresponding to the domain in the Alibaba Cloud Function Compute console to access this function through the domain on the public network. `Alibaba Cloud Console Domain Service` -> `Domain Resolution Settings` -> `Function Compute Console` -> `Custom Domain`. After that, opening the [domain](http://ssr-fc.com) will be able to access the published function.
 
 ![](https://res.wx.qq.com/op_res/GDCAu3r8xuYV5Bgvw8zZO5rzihDpXqBL-SpfARK_fo4iB3tzatF1vHJak0QCiNcRZpeggLEDlnhgzywCx2FxMQ)
 
@@ -54,19 +54,19 @@ $ npm run deploy # 支持发布多个平台默认发布到阿里云 等价于 ss
 
 ![](https://gw.alicdn.com/tfs/TB1JZGyB1H2gK0jSZFEXXcqMpXa-1468-1012.jpg)
 
-### 在腾讯云使用
+### Using on Tencent Cloud
 
-参考 [midawy3.0](https://www.midwayjs.org/docs/serverless/serverless_yml) 文档，修改 `provider`
+Refer to the [midway3.0](https://www.midwayjs.org/docs/serverless/serverless_yml) documentation to modify the `provider`
 
-发布命令
+Publish command:
 
 ```shell
 $ npm run deploy
 ```
 
-首次发布时需要使用微信扫终端展示的二维码注册/登陆腾讯云服务。如果想详细的了解腾讯云发布功能可参考[文档](https://www.yuque.com/midwayjs/faas/deploy_tencent_faq)
+First-time publishing requires using WeChat to scan the QR code displayed in the terminal to register/login to Tencent Cloud services. If you want to understand Tencent Cloud publishing functionality in detail, you can refer to the [documentation](https://www.yuque.com/midwayjs/faas/deploy_tencent_faq).
 
-发布后同样我们可以得到平台返回的一个地址, 需要绑定域名后才能正确的访问页面渲染服务。否则默认的发布环境腾讯云会在后面加上 `/test` `/pre` 的 `path` 来代表当前的函数环境。但这些 `path` 可能会造成服务端路由和客户端路由不一致会导致页面内容闪现后白屏。例如我们需要部署在 `/test` 路径时需要额外在 `config.js` 文件配置
+After publishing, we can also get an address returned by the platform. You need to bind a domain name to correctly access the page rendering service. Otherwise, the default publishing environment of Tencent Cloud will add `/test` `/pre` paths at the end to represent the current function environment. But these `paths` may cause server-side routes and client-side routes to be inconsistent, which will cause page content to flash and then go white screen. For example, when we need to deploy on the `/test` path, we need to additionally configure in the `config.js` file:
 
 ```js
 module.exports = {
@@ -77,72 +77,72 @@ module.exports = {
 
 ![](https://res.wx.qq.com/op_res/mbNMsqF_px3tS0x_x1fryyR3Z5RipX3Lo8PIzvcAVxyXwoQyvQz0lQev-W2io3AP)
 
-默认发布到测试环境, 这里建议在第一次发布后显示在 `yml` 中指定要发布的[serviceID](https://www.yuque.com/midwayjs/faas/deploy_tencent_faq), 否则每次发布将会创建一个新的 server 实例。
+It deploys to the test environment by default. It's recommended to explicitly specify the [serviceID](https://www.yuque.com/midwayjs/faas/deploy_tencent_faq) to be published in the `yml` after the first publication, otherwise each publication will create a new server instance.
 
-在腾讯云[API](https://console.cloud.tencent.com/apigateway/service-detail)网关平台进行域名的绑定以及函数发布到正式环境的操作
+Perform domain binding and function publishing to production environment operations on Tencent Cloud [API](https://console.cloud.tencent.com/apigateway/service-detail) Gateway platform.
 
-在腾讯云[SCF](https://console.cloud.tencent.com/scf)平台可以进行函数的管理调试以及日志查看
-如何复用 serviceId 如下
+Function management, debugging, and log viewing can be performed on the Tencent Cloud [SCF](https://console.cloud.tencent.com/scf) platform.
+How to reuse serviceId is as follows:
 
 ```yml
 service:
   name: serverless-ssr-spa
 provider:
-  name: aliyun # 无需修改 name 通过 ssr deploy --tencent 指定腾讯云即可
-  region: ap-hongkong # 部署在香港 region，无需域名备案，方便测试
+  name: aliyun # No need to modify name, specify Tencent Cloud through ssr deploy --tencent
+  region: ap-hongkong # Deploy in Hong Kong region, no need for domain filing, convenient for testing
   serviceId: service-xxx
 ```
-#### 腾讯云配置域名
+#### Tencent Cloud Domain Configuration
 
-在发布到腾讯云时 midway-faas 支持通过 [provider.region](https://www.yuque.com/midwayjs/faas/serverless_yml) 来设置发布的服务器区域。
+When publishing to Tencent Cloud, midway-faas supports setting the published server region through [provider.region](https://www.yuque.com/midwayjs/faas/serverless_yml).
 
-如果发布的区域是国内则绑定的域名需要在腾讯云进行备案服务，如果是香港则无需备案。开发者可以选择香港的 `region` 来迅速测试应用是否发布成功
+If the published region is domestic, the bound domain needs to be filed with Tencent Cloud. If it's Hong Kong, no filing is required. Developers can choose Hong Kong `region` to quickly test whether the application is successfully published.
 
-默认绑定域名后需要通过 [tx.ssr-fc.com/release](http://tx.ssr-fc.com) 来访问具体的环境。
+After binding the domain by default, you need to access the specific environment through [tx.ssr-fc.com/release](http://tx.ssr-fc.com).
 
-也可以通过自定义路径映射使得不需要添加 `/release` 也可以访问到具体的环境。
+You can also use custom path mapping so that you don't need to add `/release` to access the specific environment.
 
 ![](https://res.wx.qq.com/op_res/Ln1MuNWmmfNDyTuJlooXiGdhwtCtz_4rVDi_qvmuUEoL_mo6PNsd3z4d7z9RBj17)
 
-若函数访问过慢可通过平台调整函数运行内存来尝试优化性能
+If function access is too slow, you can try to optimize performance by adjusting function runtime memory through the platform.
 
-## Nest.js Serverless 形式部署
+## Nest.js Serverless Deployment
 
-与 `Midway.js` 不同， `Nest.js` 场景下调用 `deploy` 命令我们会直接使用底层的阿里云提供的 [fun](https://github.com/alibaba/funcraft) 工具进行部署。在 `template.yml` 的可读性上比起 `Midway.js` 的 `f.yml` 文件有一定差异。部署成功后的域名配置方式与 `Midway.js` 一致
+Unlike `Midway.js`, in `Nest.js` scenarios, when calling the `deploy` command, we directly use the underlying [fun](https://github.com/alibaba/funcraft) tool provided by Alibaba Cloud for deployment. In terms of readability of `template.yml`, there are some differences compared to `Midway.js`'s `f.yml` file. The domain configuration method after successful deployment is the same as `Midway.js`.
 
-## 传统 Node.js 形式部署
+## Traditional Node.js Deployment
 
-如果你不需要使用 Serverless 的能力进行部署，有一套自己的部署方案。常见于公司内部应用部署。我们同样提供了以传统 Node.js 形式部署的脚本
+If you don't need to use Serverless capabilities for deployment and have your own deployment solution, this is common in internal company application deployments. We also provide scripts for deploying in traditional Node.js form.
 
-### 两种部署方式
+### Two Deployment Methods
 
-- ci 构建，服务器安装所有依赖 + 执行 `npm run prod`, 这种模式几乎不会出任何问题，唯一的缺点是安装的依赖较多
-- 本地构建，本地执行 `ssr build` 将 `build/dist` 目录提交到 `git` 仓库。服务器安装生产环境依赖 `npm i --production`, 然后把 `script prod` 脚本里面的 `ssr build` 这一段干掉，然后执行 `npm run prod`
+- CI build, server installs all dependencies + executes `npm run prod`. This mode will hardly have any problems, the only disadvantage is installing more dependencies.
+- Local build, locally execute `ssr build` and commit the `build/dist` directory to the `git` repository. Server installs production environment dependencies `npm i --production`, then remove the `ssr build` part from the `script prod` script, then execute `npm run prod`.
 
-### Midway 应用部署
+### Midway Application Deployment
 
-在 `Midway.js` 类型的应用中，我们提供了 `npm run prod` 命令。该命令将会直接调用 [egg-script](https://eggjs.org/zh-cn/core/deployment.html) 进行生产环境多进程模式部署。
+In `Midway.js` type applications, we provide the `npm run prod` command. This command will directly call [egg-script](https://eggjs.org/zh-cn/core/deployment.html) for production environment multi-process mode deployment.
 
-### Nest.js 应用部署
+### Nest.js Application Deployment
 
-在 `Nest.js` 类型的应用中，我们提供了 `npm run prod` 命令。该命令将会直接调用 [pm2](https://pm2.keymetrics.io/) 进行生产环境多进程模式部署。使用 `pm2` 部署时需要注意 `NODE_ENV` 需要设置为 `production`
+In `Nest.js` type applications, we provide the `npm run prod` command. This command will directly call [pm2](https://pm2.keymetrics.io/) for production environment multi-process mode deployment. When using `pm2` for deployment, note that `NODE_ENV` needs to be set to `production`.
 
 
-## 与传统 SPA 应用部署的区别 (重点！！！)
+## Differences from Traditional SPA Application Deployment (Important!!!)
 
-不要用传统 `SPA` 应用的部署思路来部署 `ssr` 应用或者说是 `Node.js` 应用
+Don't use traditional `SPA` application deployment thinking to deploy `ssr` applications or `Node.js` applications
 
-不要用传统 `SPA` 应用的部署思路来部署 `ssr` 应用或者说是 `Node.js` 应用
+Don't use traditional `SPA` application deployment thinking to deploy `ssr` applications or `Node.js` applications
 
-不要用传统 `SPA` 应用的部署思路来部署 `ssr` 应用或者说是 `Node.js` 应用
+Don't use traditional `SPA` application deployment thinking to deploy `ssr` applications or `Node.js` applications
 
-重要的事情说三遍！！！比起丢一个 `html` 文件来部署的模式，`Node.js` 应用的部署要稍微复杂一点
+Important things need to be said three times!!! Compared to the mode of deploying by dropping an `html` file, `Node.js` application deployment is slightly more complex.
 
-如果你是小白什么都不懂，那么你部署的时候要么用 `ssr deploy` 来部署到阿里云或者腾讯云。
+If you're a newbie who doesn't understand anything, then when deploying, either use `ssr deploy` to deploy to Alibaba Cloud or Tencent Cloud.
 
-如果你一定要部署在自建服务上，如果你什么都不懂，那你就把本地运行成功的整个项目 `repo` 扔到服务器上去执行 `npm run prod` 命令。必须确保存在的文件夹是 
+If you must deploy on self-built servers, and if you don't understand anything, then just put the entire locally successful project `repo` on the server and execute the `npm run prod` command. Must ensure the following folders exist:
 
-- `node_modules` 你可以在服务器上去 `npm i` 或者本地 `npm i` 之后扔上去
-- `build` 前端静态资源文件夹，你可以本地构建完扔上去。也可以在服务器执行 `ssr build`，当然这一步必须要在 `npm i` 之后执行
-- `dist` 服务端 `Node.js` 部署文件。你可以本地构建完扔上去。也可以在服务器执行 `ssr build`，当然这一步必须要在 `npm i` 之后执行
-- `config.js` 应用配置文件，必须存在
+- `node_modules` You can do `npm i` on the server or do `npm i` locally and then upload it
+- `build` Frontend static resource folder, you can build locally and upload it. You can also execute `ssr build` on the server, but this step must be executed after `npm i`
+- `dist` Server-side `Node.js` deployment files. You can build locally and upload them. You can also execute `ssr build` on the server, but this step must be executed after `npm i`
+- `config.js` Application configuration file, must exist

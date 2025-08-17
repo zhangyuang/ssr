@@ -1,57 +1,57 @@
-# 什么是服务端渲染
+# What is Server-Side Rendering
 
-尽管我相信选择 `ssr` 框架的开发者对什么是服务端渲染已经有了一个大概的了解。在这里仍需要详细的介绍一下什么是服务端渲染。以及什么是同构的服务端渲染。
+Although I believe developers who choose the `ssr` framework already have a general understanding of what server-side rendering is, it's still necessary to provide a detailed introduction to server-side rendering and what isomorphic server-side rendering is.
 
-`注：本框架同时支持服务端渲染/客户端渲染两种模式，若开发者不需要使用服务端渲染模式，可随时切换渲染模式`
+`Note: This framework supports both server-side rendering and client-side rendering modes. If developers don't need to use server-side rendering mode, they can switch rendering modes at any time.`
 
-## 同构开发
+## Isomorphic Development
 
-同构开发在大前端中指的是使用相同的代码支持同时运行于服务端和客户端。区别于传统的 `JSP/ASP` 以及 `template + data` `=>` `html` + 前端 `jQuery`, 原生 `JS` 获取 `DOM` 绑定事件的服务端渲染方式我们称之为前后端异构，同构渲染指的是组件可以在服务端运行，生成 `html`，再由客户端 `Vue/React` 接管从服务端吐出的 html，使其变为由客户端 Vue/React 管理的动态 `DOM` 的生成过程。
+Isomorphic development in the frontend context refers to using the same code to support running on both server-side and client-side simultaneously. Different from traditional `JSP/ASP` and `template + data` => `html` + frontend `jQuery`, native `JS` DOM manipulation and event binding server-side rendering methods, which we call frontend-backend heterogeneous, isomorphic rendering refers to the process where components can run on the server-side to generate `html`, which is then taken over by client-side `Vue/React` from the server-rendered html, transforming it into dynamic `DOM` managed by client-side Vue/React.
 
-### 演变过程
+### Evolution Process
 
-下面看一下前端的演变过程：
+Let's look at the evolution process of frontend development:
 
-1. 最初的 Java、PHP 时代的纯服务端渲染时代
-2. 前后端分离，即使用 JavaScript 运行在客户端，通过请求获取服务端接口数据，借助如 jQuery、Angular、React、Vue 等前端框架操作或生成页面 `DOM`，充分利用客户端资源，减少服务端压力，前后端分工明确，一直到现在仍是最常用的开发方式。
-3. 同构开发，如 `Next.js`、`Nuxt.js` 等框架以及本文档介绍的 `ssr` 框架，都提供了不同的适用场景和开发方式，但目的都是为了同一套代码能同时应用于服务端和客户端。
+1. The initial era of pure server-side rendering in Java and PHP times
+2. Frontend-backend separation, using JavaScript running on the client-side, obtaining server-side interface data through requests, leveraging frontend frameworks like jQuery, Angular, React, Vue to manipulate or generate page `DOM`, fully utilizing client-side resources, reducing server-side pressure, with clear frontend-backend division of responsibilities, which remains the most commonly used development approach today.
+3. Isomorphic development, such as `Next.js`, `Nuxt.js` frameworks and the `ssr` framework introduced in this documentation, all provide different applicable scenarios and development approaches, but the goal is to enable the same codebase to be applied to both server-side and client-side.
 
-SSR 演变过程：
+SSR Evolution Process:
 
-1. JSP/ASP/Smarty 都算，当然 Node 渲染模板也算，Node 世界模板最为丰富
+1. JSP/ASP/Smarty all count, and of course Node template rendering also counts. The Node world has the richest templates
 
-2. bigpipe，虽然很老了，但分块传输优点是非常明显的，且浏览器友好。fb和微博，qunar都是受益者。Node天然支持，res.write 很友好
+2. bigpipe, although old, the advantages of chunked transmission are very obvious and browser-friendly. Facebook, Weibo, and Qunar are all beneficiaries. Node natively supports it, res.write is very friendly
 
-3. 基于组件写法的SSR，比如 `React SSR`, `Vue SSR`。时代变了，`SSR`也要跟上。`vdom + hydrate` 可以非常舒适的结合
+3. Component-based SSR writing, such as `React SSR`, `Vue SSR`. Times have changed, `SSR` must keep up. `vdom + hydrate` can be combined very comfortably
 
-4. 真正的同构，即 CSR 和 SSR 写法一致，未来不再区分概念，在 `serverless` 里，api和渲染都是函数。
+4. True isomorphism, where CSR and SSR writing is consistent, no longer distinguishing concepts in the future. In `serverless`, both API and rendering are functions.
 
-近几年前端技术的变化可谓翻天覆地，在选择技术栈之前应该看清自己的应用场景，没有最好的框架，只有最适合应用场景的框架，同构开发方式也不例外，下面介绍一下使用同构开发的优点和需要注意的问题：
+The changes in frontend technology in recent years have been earth-shaking. Before choosing a technology stack, you should clearly see your application scenarios. There is no best framework, only the framework most suitable for application scenarios. Isomorphic development is no exception. Let's introduce the advantages of using isomorphic development and issues that need attention:
 
-### 同构开发的需要考量的点
+### Considerations for Isomorphic Development
 
-前后端同构的服务端渲染对前端开发者的心智要求更高。开发者不能够再以传统的 `spa` 应用的开发思想来开发服务端渲染应用。但是无论你是否使用服务端渲染，知道它们之间的差异能够帮助你变的更加专业。不要让自己仅仅是一个页面工程师
+Frontend-backend isomorphic server-side rendering requires higher mental demands from frontend developers. Developers can no longer develop server-side rendering applications with traditional `spa` application development thinking. But whether you use server-side rendering or not, knowing the differences between them can help you become more professional. Don't let yourself be just a page engineer.
 
-- 代码或框架层面需要兼容 server/client 的 runtime
+- Code or framework level needs to be compatible with server/client runtime
 
-比较直接的一个就是 `fetch` 数据操作，如果服务端数据源有 `rpc` 协议或请求的服务存在环境/网络隔离，此时运行在客户端就获取不到数据，`需要把 rpc 或存在环境/网络隔离的请求封装成通用的 http 接口`，或者一些前端使用的库无法在后端运行，这些问题需要都进行特殊处理。
+A more direct example is `fetch` data operations. If the server-side data source has `rpc` protocol or the requested service has environment/network isolation, the client-side cannot obtain data at this time. `You need to encapsulate rpc or requests with environment/network isolation into general http interfaces`, or some frontend libraries cannot run on the backend. These issues need special handling.
 
-- 更复杂的部署和打包构建
+- More complex deployment and packaging builds
 
-部署和打包构建过程加倍，简单的理解就是单独的 server 和单独的 client 的工作总和。但是这个问题在 `ssr` 框架中已基本抹平，对开发者暴露的配置更加简单、可定制程度更高，同时提供了一键打包和构建发布命令。
+Deployment and packaging build processes are doubled. Simply understood, it's the sum of separate server and separate client work. However, this problem has been largely smoothed out in the `ssr` framework, exposing simpler configurations to developers with higher customizability, while providing one-click packaging and build deployment commands.
 
-- 增加服务端负载
+- Increased server-side load
 
-这个“缺点”严格上是传统 SSR 的通病，但使用同构开发方式后完全可以变成了一个可优化的点。在使用同构方式时，可以针对服务端资源负载做监控，如果遇到有服务端负载过大或高峰时段，可以将渲染方式无缝切换成 CSR，待服务端负载正常或流量回落时再切换为 SSR。
+This "disadvantage" is strictly a common problem of traditional SSR, but after using isomorphic development methods, it can completely become an optimizable point. When using isomorphic methods, you can monitor server-side resource load. If you encounter excessive server-side load or peak periods, you can seamlessly switch the rendering method to CSR, and switch back to SSR when server-side load returns to normal or traffic subsides.
 
-### 同构开发的优点
+### Advantages of Isomorphic Development
 
-- 服务端和客户端共用代码
+- Server-side and client-side share code
 
-- 更快的页面内容到达时间
+- Faster page content arrival time
 
-- 更友好的 SEO
+- More SEO-friendly
 
-- 更优雅的降级方式，更健壮的应用
+- More elegant degradation methods, more robust applications
 
-以上优点集成了 SSR 和 CSR 两种渲染方式的优点。开发者在选择该解决方案时还是要考虑清楚是否一定需要使用这种方式，并权衡此解决方案的优缺点。评估 SEO 和内容到达时间是否对应用至关重要。
+The above advantages integrate the advantages of both SSR and CSR rendering methods. When developers choose this solution, they should still consider clearly whether they definitely need to use this method and weigh the pros and cons of this solution. Evaluate whether SEO and content arrival time are crucial to the application.

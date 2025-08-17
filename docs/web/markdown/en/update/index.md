@@ -1,32 +1,32 @@
-# 升级步骤
+# Upgrade Steps
 
-按照本篇描述进行 `plugin-react` 从 `v5.x` 到 `v6.x` 的升级。 `v5.x` 版本仍可正常运行，但有一些不优雅的写法在 `v6.x` 版本中统一进行了完善。后续新的 `feature` 将会在 `v6.x` 版本进行更新
+Follow this description to upgrade `plugin-react` from `v5.x` to `v6.x`. The `v5.x` version can still run normally, but some inelegant writing methods have been unified and improved in the `v6.x` version. Subsequent new `features` will be updated in the `v6.x` version.
 
-## 最新 example
+## Latest Example
 
-可以通过 `npm init` 命令创建最新的 `react` 类型的 `example` 来获取最新代码。
+You can create the latest `react` type `example` through the `npm init` command to get the latest code.
 
 ```shell
 $ npm init ssr-app my-ssr-project
 $ cd my-ssr-project
-$ npm install # 可以使用 yarn 不要使用 cnpm
+$ npm install # You can use yarn, don't use cnpm
 $ npm start
-$ open http://localhost:3000 # 访问应用
-$ npm run build # 资源构建，等价于 npx ssr build
-$ npm run start:vite # 以 vite 模式启动，等价于 npx ssr start --tools vite
+$ open http://localhost:3000 # Access the application
+$ npm run build # Resource building, equivalent to npx ssr build
+$ npm run start:vite # Start in vite mode, equivalent to npx ssr start --tools vite
 ```
 
-## 改动详情
+## Change Details
 
-从老版本升级的用户具体需要改动代码如下
+Users upgrading from old versions need to make the following code changes:
 
-### 修改依赖版本号
+### Modify Dependency Version Numbers
 
 `ssr-plugin-react@^5.0.0` => `ssr-plugin-react@^6.0.0`
 
-### 修改 context 获取方式
+### Modify Context Acquisition Method
 
-在老版本中我们通过将 `STORE_CONTEXT` 挂在了 `window` 上可以在任何地方使用，但这种方式很不优雅。在新版本中我们按照如下方式进行 `context` 获取
+In the old version, we mounted `STORE_CONTEXT` on `window` so it could be used anywhere, but this method is very inelegant. In the new version, we acquire `context` as follows:
 
 ```js
 import {
@@ -66,25 +66,25 @@ export default function Index(props: SProps) {
 }
 ```
 
-### 修改 web/tsconfig.json
+### Modify web/tsconfig.json
 
-修改 `web/tsconfig.json` 获得正确的类型提示
+Modify `web/tsconfig.json` to get correct type hints:
 
 ```js
 "paths": {
     "@/*": ["./*"],
     "~/*": ["../*"],
-    "_build/*": ["../build/*"] // 这里新增一行
+    "_build/*": ["../build/*"] // Add this line here
 }
 ```
 
-### 移动类型声明
+### Move Type Declarations
 
-建议把公共类型全部放在根目录下的 `typings` 文件夹并以 `d.ts` 为文件后缀名结尾
+It's recommended to put all common types in the `typings` folder under the root directory with file suffix ending in `d.ts`.
 
-### 修改 fetch 方法入参
+### Modify fetch Method Parameters
 
-为了更好的得到类型提示，在新版本中我们 `fetch` 方法的入参形式改为如下代码
+For better type hints, in the new version we changed the parameter form of the `fetch` method to the following code:
 
 ```js
 import {
@@ -102,10 +102,10 @@ const fetch: ReactMidwayFetch < {
     ctx,
     routerProps
 }) => {
-    // 阅读文档获得更多信息 http://doc.ssr-fc.com/docs/features$fetch#%E5%88%A4%E6%96%AD%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83
+    // Read documentation for more information http://doc.ssr-fc.com/docs/features$fetch#%E5%88%A4%E6%96%AD%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83
     const data = __isBrowser__ ? await (await window.fetch('/api/index')).json() : await ctx!.apiService?.index()
     return {
-        // 建议根据模块给数据加上 namespace防止数据覆盖
+        // It's recommended to add namespace to data based on modules to prevent data overwriting
         indexData: data
     }
 }
@@ -113,7 +113,7 @@ const fetch: ReactMidwayFetch < {
 export default fetch
 ```
 
-当需要获取动态参数时
+When you need to get dynamic parameters:
 
 ```js
 import {
@@ -133,10 +133,10 @@ const fetch: ReactMidwayFetch < {
     ctx,
     routerProps
 }) => {
-    // 阅读文档获得更多信息 http://doc.ssr-fc.com/docs/features$fetch#%E5%88%A4%E6%96%AD%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83
+    // Read documentation for more information http://doc.ssr-fc.com/docs/features$fetch#%E5%88%A4%E6%96%AD%E5%BD%93%E5%89%8D%E7%8E%AF%E5%A2%83
     const data = __isBrowser__ ? await (await window.fetch(`/api/detail/${routerProps!.match.params.id}`)).json() : await ctx!.apiDeatilservice.index(ctx!.params.id)
     return {
-        // 建议根据模块给数据加上 namespace防止数据覆盖
+        // It's recommended to add namespace to data based on modules to prevent data overwriting
         detailData: data
     }
 }

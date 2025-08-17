@@ -1,14 +1,14 @@
-# 预渲染
+# Pre-rendering
 
-`SSG (Static Site Generation)` 是指在应用编译构建时预先渲染页面，并生成静态的 HTML。把生成的 HTML 静态资源部署到服务器后，浏览器不仅首次能请求到带页面内容的 HTML ，而且不需要服务器实时渲染和响应，大大节约了服务器运维成本和资源。此方案适用于不依赖动态数据的静态站点，例如官网，博客，文档等。
+`SSG (Static Site Generation)` refers to pre-rendering pages during application compilation and build time, generating static HTML. After deploying the generated HTML static resources to the server, browsers can not only request HTML with page content on the first visit, but also don't need real-time server rendering and response, greatly saving server operation and maintenance costs and resources. This solution is suitable for static sites that don't depend on dynamic data, such as official websites, blogs, documentation, etc.
 
-## 如何开启
+## How to Enable
 
 ```bash
 $ npx ssr build --ssg
 ```
 
-开启后框架将会将每一个前端路由文件渲染为最终一一对应的完整 `html` 文件可直接用于部署。
+After enabling, the framework will render each frontend route file into corresponding complete `html` files that can be directly deployed.
 
 ```bash
 $ tree build/client
@@ -26,9 +26,9 @@ build/client
 └── vendor.93a2efd8.chunk.js
 ```
 
-## 使用细节
+## Usage Details
 
-由于我们运行时不存在动态环境，所以数据是构建时静态生成的。我们同样通过 `fetch.ts` 来向应用提供数据。但要注意，此时 `fetch.ts` 只能够返回静态内容，同时我们也无法在 `fetch.ts` 中取得任何动态信息。例如传统 `SSR` 场景的 `ctx` 上下文，此时是无法获取的。
+Since there's no dynamic environment at runtime, data is statically generated at build time. We still provide data to the application through `fetch.ts`. However, note that `fetch.ts` can only return static content at this time, and we cannot obtain any dynamic information in `fetch.ts`. For example, the `ctx` context from traditional `SSR` scenarios cannot be obtained at this time.
 
 ```js
 // fetch.ts
@@ -36,23 +36,23 @@ import { Params } from '~/typings/data'
 
 export default async ({ store, router }: Params) => {
   if (SSG) {
-    // 根据该常量判断当前是否是 SSG 构建环境，此常量将会在构建时注入可直接使用
-    const data = mockData || await axios.get('xxx') // 这里只能获取不依赖任何请求上下文就能够获得的数据
-    await store.dispatch('indexStore/initialData', { payload: data }) // 这里依然 follow 框架定义的 fetch.ts 使用规范，可用任意方式返回数据 vuex/pinia/props
+    // Judge whether current is SSG build environment based on this constant, this constant will be injected at build time and can be used directly
+    const data = mockData || await axios.get('xxx') // Here you can only get data that doesn't depend on any request context
+    await store.dispatch('indexStore/initialData', { payload: data }) // This still follows the framework-defined fetch.ts usage specification, data can be returned in any way vuex/pinia/props
   } else {
-    // 是 SSR 环境
+    // It's SSR environment
   }
 }
 
 ```
 
-## 注意
+## Notes
 
-这里相当于我们在构建时模拟了一个请求上下文去渲染页面。得到的最终结果虽然是 `html` 文件，但在运行时仍然要 `follow` 前端路由的规范。
+Here, it's equivalent to us simulating a request context to render pages at build time. Although the final result is an `html` file, it still needs to `follow` frontend routing specifications at runtime.
 
-例如我们的前端文件 `detail/render$id.vue` 渲染成 `detail-id.html`, 此时它对应前端路由是 `detail/:id` 这意味着我们在浏览器打开该 `html` 文件时浏览器 `url` 需要保持与前端路由匹配
+For example, our frontend file `detail/render$id.vue` is rendered into `detail-id.html`. At this time, its corresponding frontend route is `detail/:id`, which means when we open this `html` file in the browser, the browser `url` needs to match the frontend route.
 
-也就是如下规则
+That is, the following rules:
 
 - `http://localhost:3000/detail-id.html` ❌
 - `http://localhost:3000/detail/detail-id.html` ☑️

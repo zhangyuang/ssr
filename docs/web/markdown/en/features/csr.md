@@ -1,68 +1,70 @@
-# 渲染降级
+# Render Degradation
  
-相比于其他框架的功能。本框架还额外具备一键从 `服务端渲染` 降级为 `客户端渲染` 的功能
-## 服务端和客户端渲染
+Compared to other framework features, this framework additionally has the capability to degrade from `Server-Side Rendering` to `Client-Side Rendering` with one click.
 
-下面让我们来看看  `服务端渲染` 和 `客户端渲染` 有什么区别
+## Server-Side and Client-Side Rendering
 
-### 区别
+Let's see what the differences are between `Server-Side Rendering` and `Client-Side Rendering`.
 
-`客户端渲染（client-side Renderingende)`, `HTML` 仅仅作为静态骨架，客户端在请求时，服务端不做任何处理，直接以原文件的形式返回给客户端客户端，然后根据 `HTML` 上的 `JavaScript`，生成 `DOM` 插入 HTML
+### Differences
 
- `服务端渲染（Server-Side Rendering`）,在浏览器请求页面URL的时候，服务端将我们需要的 `HTML` 文本组装好，并返回给浏览器，这个 `HTML` 文本被浏览器解析之后，不需要经过 `JavaScript` 脚本的执行，即可直接构建出希望的 DOM 树并展示到页面中。
+`Client-Side Rendering`, `HTML` serves merely as a static skeleton. When the client makes a request, the server does no processing and returns the original file directly to the client. Then, based on the `JavaScript` in the `HTML`, DOM is generated and inserted into the HTML.
 
-客户端渲染和服务器端渲染的最重要的区别就是究竟是谁来完成 `HTML` 文件的完整拼接，如果是在服务器端完成的，然后返回给客户端，就是服务器端渲染，而如果是客户端端做了更多的工作完成了 `HTML` 的拼接，则就是客户端渲染。
+`Server-Side Rendering (SSR)`: When the browser requests a page URL, the server assembles the `HTML` text we need and returns it to the browser. After this `HTML` text is parsed by the browser, it can directly build the desired DOM tree and display it on the page without executing `JavaScript` scripts.
+
+The most important difference between client-side rendering and server-side rendering is who completes the complete assembly of the `HTML` file. If it's completed on the server side and then returned to the client, it's server-side rendering. If the client does more work to complete the `HTML` assembly, then it's client-side rendering.
 
 ![](/images/ssr&csr.png)
 
-> 注: 在不同的多渲染模式下本框架的渲染方式获取数据的时机不同，具体可查看 [数据获取](./docs/features$fetch)
+> Note: In different multi-rendering modes, the timing of data acquisition by this framework's rendering methods is different. For details, see [Data Fetching](./docs/features$fetch)
 
-### 服务端渲染优势
+### Server-Side Rendering Advantages
 
 - SEO
 
-有利于爬虫来爬你的页面，然后在搜索引擎搜索相关的内容时，你的网页排行能靠得更前，这样你的流量就有越高
+It's beneficial for crawlers to crawl your pages. When searching for related content on search engines, your web pages can rank higher, thus increasing your traffic.
 
-- 白屏时间更短
+- Shorter White Screen Time
 
-相对于客户端渲染，服务端渲染在浏览器请求 URL 之后已经得到了一个带有数据的 HTML 文本，浏览器只需要解析 HTML，直接构建 DOM 树就可以。而客户端渲染，需要先得到一个空的 HTML 页面，这个时候页面已经进入白屏，之后还需要经过加载并执行 JavaScript、请求后端服务器获取数据、JavaScript 渲染页面几个过程才可以看到最后的页面。特别是在复杂应用中，由于需要加载 JavaScript 脚本，越是复杂的应用，需要加载的 JavaScript 脚本就越多、越大，这会导致应用的首屏加载时间非常长，进而降低了体验感。
+Compared to client-side rendering, server-side rendering has already obtained an HTML text with data after the browser requests the URL. The browser only needs to parse the HTML and directly build the DOM tree. With client-side rendering, you need to first get an empty HTML page, at which point the page has already entered a white screen state. Then it needs to go through several processes including loading and executing JavaScript, requesting the backend server for data, and JavaScript rendering the page before the final page can be seen. Especially in complex applications, because JavaScript scripts need to be loaded, the more complex the application, the more and larger JavaScript scripts need to be loaded, which can cause the application's first screen loading time to be very long, thereby reducing the user experience.
 
-### 客户端渲染优势
+### Client-Side Rendering Advantages
 
-- 更少的服务器负载
+- Less Server Load
 
-由于服务端只需要返回最简单的页面骨架，故服务端的压力会更小，可以承担更多的 `QPS`
+Since the server only needs to return the simplest page skeleton, the server pressure will be smaller and can handle more `QPS`.
 
-- 更少的心智负担
+- Less Mental Burden
 
-编写一个成熟的服务端渲染应用对开发者的心智要求以及能力要求无疑是更高的
+Writing a mature server-side rendering application undoubtedly requires higher mental and capability requirements from developers.
 
-## 如何降级为客户端渲染
+## How to Degrade to Client-Side Rendering
 
-在 `ssr` 框架中我们提供了多种降级到客户端渲染的方案
-### URL Query 参数
+In the `ssr` framework, we provide multiple solutions for degrading to client-side rendering.
 
-框架启动的时候默认使用服务端渲染方式，如果想要启用渲染降级，只需要在请求 `URL` 后面添加 `query` 参数 `?csr=xxx` 
+### URL Query Parameters
+
+The framework uses server-side rendering by default when started. If you want to enable render degradation, simply add the `query` parameter `?csr=xxx` after the request `URL`.
  
-举个栗子， [http://ssr-fc.com](http://ssr-fc.com/) 网站默认启用了服务端渲染,可以明显感受到页面秒开，没有白屏等待时间，而添加参数后 [http://ssr-fc.com?csr=true](http://ssr-fc.com?csr=true)，也就是启动客户端渲染之后再打开网站，可以明显感受到有一定的白屏时间，具体表现为有一个页面闪烁的过程。
+For example, the [http://ssr-fc.com](http://ssr-fc.com/) website has server-side rendering enabled by default. You can clearly feel that the page opens instantly with no white screen waiting time. After adding the parameter [http://ssr-fc.com?csr=true](http://ssr-fc.com?csr=true), which is enabling client-side rendering and then opening the website, you can clearly feel there's a certain amount of white screen time, specifically manifested as a page flickering process.
 
-此方案适用于开发者本地进行测试
+This solution is suitable for developers to test locally.
 
-### config.js 配置
+### config.js Configuration
 
-服务发布的时候支持两种模式，默认是 `mode: 'ssr'` 模式，你也可以通过 [应用配置](./api$config#mode) 中的 `mode: 'csr'` 将 `csr` 设置默认渲染模式。
+When publishing services, two modes are supported. The default is `mode: 'ssr'` mode. You can also set `csr` as the default rendering mode through `mode: 'csr'` in [Application Configuration](./api$config#mode).
 
-### 通过 core 模块提供的 render 方法降级
+### Degradation Through the render Method Provided by the core Module
 
-[ssr-core-react](https://github.com/zhangyuang/ssr/blob/dev/packages/core-react/src/render.ts) 和 [ssr-core-vue](https://github.com/zhangyuang/ssr/blob/dev/packages/core-vue3/src/index.ts) (vue3)模块均支持该方式
+Both [ssr-core-react](https://github.com/zhangyuang/ssr/blob/dev/packages/core-react/src/render.ts) and [ssr-core-vue](https://github.com/zhangyuang/ssr/blob/dev/packages/core-vue3/src/index.ts) (vue3) modules support this method.
 
-在应用执行出错 `catch` 到 `error` 的时候降级为客户端渲染。也可根据具体的业务逻辑，由开发者自行决定在适当的时候通过该方式降级 `csr` 模式。也可以通过接入发布订阅机制，通过发布平台来实时设置当前的渲染模式。
+Degrade to client-side rendering when the application execution encounters an error and `catches` the `error`. You can also decide to degrade to `csr` mode at appropriate times based on specific business logic. You can also integrate with a publish-subscribe mechanism to set the current rendering mode in real-time through a publishing platform.
 
-下面可以看到 `ssr-core-react` 模块的例子，如果你有更好的写法欢迎向我们反馈。
+Below you can see an example of the `ssr-core-react` module. If you have better approaches, welcome to give us feedback.
 
-#### 处理 字符串 返回形式的降级
+#### Handling String Return Form Degradation
 
-字符串的降级处理很简单，我们只需要 `try catch` 到错误后，直接修改渲染模式拿到新的结果即可。因为此时组件的渲染是在 `render` 方法被调用时就被渲染执行了
+String degradation handling is simple. We only need to `try catch` the error and then directly modify the rendering mode to get new results. Because at this time, component rendering is executed when the `render` method is called.
 
 ```js
 import { render } from 'ssr-core'
@@ -78,16 +80,16 @@ try {
 }
 ```
 
-当 `server` 出现问题的时候，这样的容灾做法是比较好的。更好的做法是网关层面，配置容灾，将请求打到 `cdn` 上。
+When the `server` has problems, this disaster recovery approach is better. An even better approach is to configure disaster recovery at the gateway level and redirect requests to `cdn`.
 
 
-#### 处理 流 返回形式的降级
+#### Handling Stream Return Form Degradation
 
-流返回形式的降级处理略麻烦。在 `Nest.js` 或者 `express` 系的框架中我们可以用以下写法进行降级。
+Stream return form degradation handling is slightly more complicated. In `Nest.js` or `express`-based frameworks, we can use the following approach for degradation.
 
-这里又额外分为 `Vue3` 与非 `Vue3` 的情况。
+Here we additionally divide into `Vue3` and non-`Vue3` cases.
 
-在 `Vue3` 的 `renderToNodeStream` 方法中，当渲染出错时会同步的将错误抛出。开发者可以在上层直接使用 `try catch` 捕获
+In `Vue3`'s `renderToNodeStream` method, when rendering errors occur, errors are thrown synchronously. Developers can directly use `try catch` at the upper level to capture them.
 
 ```js
  try {
@@ -111,7 +113,7 @@ try {
 
 ```
 
-在 `Vue2/React` 中，它们会在底层通过 `stream.emit` 来触发 `error`, 这种情况需要开发者手动监听事件
+In `Vue2/React`, they trigger `error` through `stream.emit` at the underlying level. In this case, developers need to manually listen to events.
 
 ```js
 const stream = await render<Readable>(ctx, {
@@ -119,7 +121,7 @@ const stream = await render<Readable>(ctx, {
 })
 stream.pipe(res, { end: false })
 stream.on('error', async () => {
-  stream.destroy() // 销毁旧的错误流
+  stream.destroy() // Destroy the old error stream
   const newStream = await render<Readable>(ctx, {
     stream: true,
     mode: 'csr'
@@ -134,7 +136,7 @@ stream.on('end', () => {
 })
 ```
 
-在 `Midway.js/Koa` 系框架中采用如下写法
+In `Midway.js/Koa`-based frameworks, use the following approach:
 
 ```js
 const stream = await render<Readable>(this.ctx, {
@@ -144,7 +146,7 @@ const stream = await render<Readable>(this.ctx, {
 stream.on('error', async () => {
   stream.destroy()
   const newStream = await render<string>(ctx, {
-    stream: false, // 这里只能用 string 形式来渲染 koa 无法二次赋值 stream 给 body
+    stream: false, // Here we can only use string form to render, koa cannot reassign stream to body
     mode: 'csr'
   })
   this.ctx.res.end(newStream)
@@ -152,11 +154,11 @@ stream.on('error', async () => {
 this.ctx.body = stream
 ```
 
-## 实现机制
+## Implementation Mechanism
 
-在 `ssr` 框架中实现渲染降级这个功能的原理是十分简单的。如果你已经使用本框架进行了项目开发，那么你应该会发现我们没有传统的 `index.html` 文件，也没有任何模版引擎。我们的 `html` 页面布局完全是通过 `JSX` 或是 `Vue SFC` 来渲染出来的。
+The principle of implementing render degradation functionality in the `ssr` framework is very simple. If you have already used this framework for project development, you should have noticed that we don't have traditional `index.html` files, nor any template engines. Our `html` page layout is completely rendered through `JSX` or `Vue SFC`.
 
-在看完上述的 `服务端渲染` 应用和 `客户端渲染` 应用的区别后，我们可以发现在降级为客户端渲染后，我们无需在服务端渲染页面组件以及数据的获取。而仅仅渲染一个空的 `html` 骨架即可。`React` 场景通过代码来表示如下
+After reading about the differences between `Server-Side Rendering` applications and `Client-Side Rendering` applications above, we can see that after degrading to client-side rendering, we don't need to render page components and data fetching on the server side. We only need to render an empty `html` skeleton. In `React` scenarios, this is represented by code as follows:
 
 ```js
 const layoutFetchData = (!isCsr && layoutFetch) ? await layoutFetch(ctx) : null
@@ -169,43 +171,43 @@ return (
 )
 ```
 
-可以非常轻易的看出实现原理。同样在 `Vue` 场景我们通过 `slot` 实现了类似的功能
+The implementation principle can be seen very easily. Similarly, in `Vue` scenarios, we implement similar functionality through `slot`.
 
-## 注意事项(必看)
+## Notes (Must Read)
 
-出现错误时进行降级，这里的错误我们归类为两种 `实际运行时错误`, `资源加载时错误`
+When errors occur, degradation is performed. We categorize errors into two types: `Actual Runtime Errors` and `Resource Loading Errors`.
 
-### 错误分类
+### Error Classification
 
-对于 `实际运行时错误` 错误，常发生于具体的生命周期执行时，或者是组件 `render` 时，对于这种错误，我们可以通过框架提供的降级能力来避免。
+For `Actual Runtime Errors`, these commonly occur during specific lifecycle execution or when components `render`. For this type of error, we can avoid them through the degradation capabilities provided by the framework.
 
-而对于 `资源加载时错误` 错误，也就是我们写在文件顶层的代码，例如我们在组件顶层 `import` 的文件中绑定了浏览器对象，那么无论我们是哪种渲染模式这种错误都将出现。因为我们在初始化路由结构的时候就会将组件 `import` 的逻辑执行一遍。对于这种错误只能手动编写代码来兼容解决。参考[文档](http://doc.ssr-fc.com/docs/features$faq#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AE%BF%E9%97%AE%E4%B8%8D%E5%8F%AF%E8%AE%BF%E9%97%AE%E7%9A%84%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%97%AE%E9%A2%98)
+For `Resource Loading Errors`, which are code we write at the top level of files, for example, if we bind browser objects in files `import`ed at the component top level, then regardless of which rendering mode we use, this type of error will appear. Because when we initialize the route structure, we execute the component `import` logic once. For this type of error, we can only manually write code to be compatible and solve it. Reference [documentation](http://doc.ssr-fc.com/docs/features$faq#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E6%9C%8D%E5%8A%A1%E7%AB%AF%E8%AE%BF%E9%97%AE%E4%B8%8D%E5%8F%AF%E8%AE%BF%E9%97%AE%E7%9A%84%E5%AF%B9%E8%B1%A1%E7%9A%84%E9%97%AE%E9%A2%98).
 
-### 组件分类
+### Component Classification
 
-在本框架中渲染降级在大部分场景下是针对 `pages` 类型的具体页面组件而言的。而对于 `layout` 组件以及 `App` 组件。无论是哪种渲染模式都会进行渲染。所以我们建议在这两种组件中不要进行与业务逻辑相关的代码编写，尽量存放 `no logic` 类型的代码。
+In this framework, render degradation in most scenarios is for specific page components of the `pages` type. For `layout` components and `App` components, rendering will be performed regardless of which rendering mode is used. Therefore, we recommend not writing business logic-related code in these two types of components, and try to store `no logic` type code.
 
-### 当心 xss
+### Beware of XSS
 
-通过前端框架来渲染 `html` 标签并不是这些框架所推荐的。我们可以看到代码中使用了诸如 `dangerouslySetInnerHTML` 这样的写法，来提醒我们不要这么做。因为这样很容易被恶意脚本注入导致 [xss](https://developer.mozilla.org/zh-CN/docs/Glossary/Cross-site_scripting)。所以我们必须严格把控这一部分的渲染内容，绝不能出现用户可以控制的部分。
+Rendering `html` tags through frontend frameworks is not recommended by these frameworks. We can see that code uses approaches like `dangerouslySetInnerHTML` to remind us not to do this. Because it's very easy to be injected with malicious scripts leading to [xss](https://developer.mozilla.org/zh-CN/docs/Glossary/Cross-site_scripting). So we must strictly control this part of rendered content and absolutely cannot have parts that users can control.
 
-在注入页面数据时，我们会使用 [serialize-javascript](https://www.npmjs.com/package/serialize-javascript) 来将 `window.__INITIAL_DATA__` 序列化。但是在 `html` 头部的其他部分内容注入，特别是 `script` 标签相关内容需要开发者密切注意。
+When injecting page data, we use [serialize-javascript](https://www.npmjs.com/package/serialize-javascript) to serialize `window.__INITIAL_DATA__`. However, for other content injection in the `html` head, especially `script` tag-related content, developers need to pay close attention.
 
-## 如何使用独立 html 文件部署
+## How to Deploy Using Independent HTML Files
 
-此功能几乎不会用到。除非开发者的部署环境不存在 Node.js 服务或者需要对核心应用做容灾 CDN 降级时才可能需要用到。
+This feature is rarely used. It may only be needed unless the developer's deployment environment doesn't have Node.js services or needs disaster recovery CDN degradation for core applications.
 
-此功能我们将会生成一个 `html` 文件用于直接部署。效果跟传统 `SPA` 应用一样。若开发者一开始就打算使用 `html` 的形式部署。不建议使用本框架，请使用 `vue-cli`, `create-react-app` 等脚手架。
+With this feature, we will generate an `html` file for direct deployment. The effect is the same as traditional `SPA` applications. If developers intend to deploy in `html` form from the beginning, we don't recommend using this framework. Please use scaffolding like `vue-cli`, `create-react-app`, etc.
 
-### 使用方式
+### Usage Method
 
-需要依赖版本 `>=5.5.62`
+Requires version `>=5.5.62`
 
 ```shell
 $ npx ssr build --html
 ```
 
-构建后我们将会生成 `build/index.html` 文件可直接用于部署。但选择此方案便意味着
+After building, we will generate a `build/index.html` file that can be directly used for deployment. But choosing this solution means:
 
-- 无法使用服务端渲染功能
-- 无法直接使用当前应用的 Node.js 编写的接口服务
+- Cannot use server-side rendering functionality
+- Cannot directly use API services written in Node.js for the current application

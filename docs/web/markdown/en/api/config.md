@@ -1,12 +1,12 @@
-# 应用配置
+# Application Configuration
 
-注: 在最新的 `example` 中我们支持 `ts` 文件来编写 `config` 以便获取更加完善的类型支持。同时结合本文档一起使用，减少出错的可能性。如果你发现文档滞后或是已有配置无法满足需求。请提 `issue`
+Note: In the latest `example`, we support using `ts` files to write `config` for better type support. Use this in combination with this documentation to reduce the possibility of errors. If you find the documentation lagging behind or existing configurations cannot meet your needs, please submit an `issue`.
 
-本章节将介绍 `config.ts|js` 支持的一些配置。了解详细的配置可以直接查看该[文件](https://github.com/zhangyuang/ssr/blob/dev/packages/types/src/config.ts)
+This chapter will introduce some configurations supported by `config.ts|js`. For detailed configuration, you can directly check this [file](https://github.com/zhangyuang/ssr/blob/dev/packages/types/src/config.ts).
 
-配置文件可通过 `config.ts|js` 文件定义以及调用 `core.render` 方法时实时传入。会将两者配置进行合并
+Configuration files can be defined through `config.ts|js` files and passed in real-time when calling the `core.render` method. The two configurations will be merged.
 
-注：`config.ts|js` 文件将会在编译后统一放置于 `build/config.js` 路径，所以当你在配置文件中使用相对路径引用外部文件时请使用 `require cwd` 类似的语法。目前不支持引入外部 `ts` 文件。由于文档更新不一定及时，建议以最新的 `ssr-types` 类型为主要参考
+Note: The `config.ts|js` file will be uniformly placed in the `build/config.js` path after compilation, so when you use relative paths to reference external files in the configuration file, please use syntax like `require cwd`. Currently, importing external `ts` files is not supported. Since documentation updates may not be timely, it is recommended to use the latest `ssr-types` types as the main reference.
 
 
 ```js
@@ -17,121 +17,121 @@ const stream = await render<Readable>(this.ctx, userConfig)
 
 ## mode🤔
 
-渲染模式
+Rendering mode
 
-- 类型: `string`
-- 默认: `ssr`
-- 生效场景: `Webpack/Vite` 
+- Type: `string`
+- Default: `ssr`
+- Applicable scenarios: `Webpack/Vite` 
 
-通过渲染模式来决定当前应用采用服务端渲染还是客户端渲染
+Determines whether the current application uses server-side rendering or client-side rendering through the rendering mode
 
 ## stream🤔
 
-- 类型: `boolean`
-- 默认: `false`
-- 生效场景: `Webpack/Vite` 
+- Type: `boolean`
+- Default: `false`
+- Applicable scenarios: `Webpack/Vite` 
 
-是否将组件编译为 `stream` 进行返回来加快展现速度。默认为 `false`, 即返回普通 `html` 字符串
+Whether to compile components as `stream` for return to accelerate display speed. Default is `false`, i.e., return normal `html` strings
 
 ## alias🤔
 
-- 类型: `Record<string, string>`
-- 默认: `undefined`
-- 生效场景: `Webpack/Vite` 
+- Type: `Record<string, string>`
+- Default: `undefined`
+- Applicable scenarios: `Webpack/Vite` 
 
-配置 `alias` 别名
+Configure `alias` aliases
 ## isDev🤔
 
-- 类型: `boolean`
-- 默认: `false`
-- 生效场景: `Webpack/Vite` 
+- Type: `boolean`
+- Default: `false`
+- Applicable scenarios: `Webpack/Vite` 
 
-标志当前运行环境，根据 `NODE_ENV === development` 判断
+Flag for current runtime environment, determined by `NODE_ENV === development`
 
 ## rootId🤔️
 
-- 类型: `string`
-- 默认: `#app`
-- 生效场景: `Webpack/Vite + Vue2/3 + React17/18` 
+- Type: `string`
+- Default: `#app`
+- Applicable scenarios: `Webpack/Vite + Vue2/3 + React17/18` 
 
-设置应用的根节点的 `id` 以 `#` 号开头, `React` 场景使用需要额外手动修改 `layout/index.tsx` 中的 `<div id="app">` 修改为指定节点
+Set the application's root node `id` starting with `#`. For `React` scenarios, you need to manually modify `<div id="app">` in `layout/index.tsx` to the specified node
  
 ## assetsDir🤔
 
-- 类型: `string`
-- 默认: `static`
-- 生效场景: `Webpack/Vite` 
+- Type: `string`
+- Default: `static`
+- Applicable scenarios: `Webpack/Vite` 
 
-设置静态文件资源(js|css|image)的构建目录，默认为 `build/client/static`, 当设置为 `config.assetsDir = 'assets'` 时，构建目录为 `build/client/assets`
+Set the build directory for static file resources (js|css|image), default is `build/client/static`. When set to `config.assetsDir = 'assets'`, the build directory becomes `build/client/assets`
 
 ## publicPath🤔
 
-- 类型: `string`
-- 默认: `/`
-- 生效场景: `Webpack/Vite` 
+- Type: `string`
+- Default: `/`
+- Applicable scenarios: `Webpack/Vite` 
 
-静态资源的 `publicPath`, 本地开发环境一般无需配置。生产环境若走本地静态资源目录也无需配置。若需要走单独的 `CDN` 服务部署可配置为具体的 `CDN` 地址例如 `https://g.alicdn.com/path/xxx`
+The `publicPath` for static resources. Generally no configuration needed for local development environment. No configuration needed for production environment if using local static resource directory. If you need to deploy through separate `CDN` service, configure to specific `CDN` address like `https://g.alicdn.com/path/xxx`
 
 ## useHash🤔
 
-- 类型: `boolean`
-- 默认: `true`
-- 生效场景: `Webpack` 
+- Type: `boolean`
+- Default: `true`
+- Applicable scenarios: `Webpack` 
 
-构建产物是否带有 `hash`，默认生产环境开启，不建议关闭
+Whether build artifacts have `hash`, enabled by default in production environment, not recommended to disable
 
 ## serverPort🤔
 
-- 类型: `number`
-- 默认: `3000`
-- 生效场景: `Webpack/Vite` 
+- Type: `number`
+- Default: `3000`
+- Applicable scenarios: `Webpack/Vite` 
 
-本地开发时 `Node.js` 服务启动监听的端口, 也可以通过环境变量指定 `SERVER_PORT=9000 ssr start`
+The port that the `Node.js` service listens on during local development. Can also be specified through environment variables `SERVER_PORT=9000 ssr start`
 
 ## fePort🤔
 
-- 类型: `number`
-- 默认: `8999`
-- 生效场景: `Webpack` 
+- Type: `number`
+- Default: `8999`
+- Applicable scenarios: `Webpack` 
 
-本地开发时 `webpack-dev-server` 托管前端静态资源的端口，`Node.js Server` 会自动 `proxy` 静态资源, 无特殊需求不需要修改
+The port for `webpack-dev-server` to host frontend static resources during local development. The `Node.js Server` will automatically `proxy` static resources. No modification needed unless there are special requirements
 
 <!-- ## chunkName
 
-- 类型: `string`
-- 默认: `Page`
-- 生效场景: `Webpack` 
+- Type: `string`
+- Default: `Page`
+- Applicable scenarios: `Webpack` 
 
-静态资源构建时默认的 `entry` 名, 默认为 `Page`。无特殊需求不需要修改 -->
+Default `entry` name when building static resources, defaults to `Page`. No modification needed unless there are special requirements -->
 
 ## define🤔
 
-- 类型: `{define?: {
+- Type: `{define?: {
     base?: Record<string, string>
     client?: Record<string, string>
     server?: Record<string, string>
   }}`
-- 默认: `{}`
-- 生效场景: `Webpack/Vite` 
+- Default: `{}`
+- Applicable scenarios: `Webpack/Vite` 
 
-添加通用 `definePlugin` 配置，在双端皆可生效。兼容 `Webpack/Vite` 场景
+Add universal `definePlugin` configuration that works on both client and server sides. Compatible with `Webpack/Vite` scenarios
 
 ## extraJsOrder🤔
 
-- 类型: `((ctx: ISSRContext) => string[]) | string[]`
-- 默认: `[]`
-- 生效场景: `Webpack/Vite` 
+- Type: `((ctx: ISSRContext) => string[]) | string[]`
+- Default: `[]`
+- Applicable scenarios: `Webpack/Vite` 
 
-需要额外初始化加载的 `js chunk name`，通常配合 `splitChunks` 配置一起使用, 若生成其他 `name` 的 `chunk` 开发者可通过 `http://localhost:3000/asset-manifest.json` 文件查看具体的 `chunkName`
+Additional `js chunk name` that needs to be loaded during initialization, usually used together with `splitChunks` configuration. If other `name` chunks are generated, developers can view specific `chunkName` through the `http://localhost:3000/asset-manifest.json` file
 
 ```js
 module.exports = {
-  extraJsOrder: ['styles.js'], // 在页面底部额外加载 styles.chunk.js 文件，生产环境自动获取正确的 hash 文件
-  extraCssOrder: ['styles.css'] // 在页面头部额外加载 styles.chunk.css 文件，生产环境自动获取正确的 hash 文件
+  extraJsOrder: ['styles.js'], // Load additional styles.chunk.js file at the bottom of the page, production environment automatically gets the correct hash file
+  extraCssOrder: ['styles.css'] // Load additional styles.chunk.css file at the head of the page, production environment automatically gets the correct hash file
 }
 ```
 
-高级用法，按需加载切割出来的 `vendor`
+Advanced usage, load split `vendor` on demand
 
 ```js
 import type { UserConfig, ISSRMidwayKoaContext } from 'ssr-types'
@@ -156,7 +156,7 @@ const userConfig: UserConfig = {
   },
   extraJsOrder: (ctx) => {
     const ctxWithType = ctx as ISSRMidwayKoaContext
-    // 只有访问首页的时候加载 vendor-swiper
+    // Only load vendor-swiper when accessing the homepage
     if (ctxWithType.path === '/') {
       return ['vendor-swiper.js']
     }
@@ -169,11 +169,11 @@ export { userConfig }
 
 ## extraCssOrder🤔
 
-- 类型: `((ctx: ISSRContext) => string[]) | string[]`
-- 默认: `[]`
-- 生效场景: `Webpack/Vite` 
+- Type: `((ctx: ISSRContext) => string[]) | string[]`
+- Default: `[]`
+- Applicable scenarios: `Webpack/Vite` 
 
-需要额外初始化加载的 `css chunk name`，通常配合 `splitChunks` 配置一起使用。用法与 `extraJsOrder` 一样
+Additional `css chunk name` that needs to be loaded during initialization, usually used together with `splitChunks` configuration. Usage is the same as `extraJsOrder`
 
 ```js
 module.exports = {
@@ -184,17 +184,17 @@ module.exports = {
 
 ## jsOrderPriority🤔
 
-高级用法，用来控制生成的所有 `js chunk` 在页面中的加载优先级顺序处理参数来源是 `JsOrder` 与 `extraJsOrder` 合并后的完整结果。无特殊情况不需要进行改设置。
+Advanced usage to control the loading priority order of all generated `js chunks` in the page. The processed parameters come from the complete result of merging `JsOrder` and `extraJsOrder`. No modification needed unless there are special circumstances.
 
-- 类型: `Record<string, number> | ((params: {chunkName: string}) => Record<string, number>) `
+- Type: `Record<string, number> | ((params: {chunkName: string}) => Record<string, number>) `
 
-- 默认: `undefined`
+- Default: `undefined`
 
 - version: `latest`
 
-- 生效场景: `Webpack/Vite` 
+- Applicable scenarios: `Webpack/Vite` 
 
-默认加载顺序如下，`chunkName` 代表当前请求的路由对应的前端页面级组件被构建出来的 `chunkName.chunk.js` 文件 
+Default loading order is as follows, where `chunkName` represents the `chunkName.chunk.js` file built from the frontend page-level component corresponding to the current request route 
 
 ```js
 const jsOrder = isVite ? ['Page.js'] : ['runtime~Page.js', 'vendor.js', 'common-vendor.js', 'Page.js', 'layout-app.js']
@@ -203,47 +203,47 @@ const jsOrder = isVite ? ['Page.js'] : ['runtime~Page.js', 'vendor.js', 'common-
 
 ```js
 module.exports = {
-  // 没有设置的统一优先级为0， 优先级越高的越先加载
+  // Unset items have a unified priority of 0, higher priority loads first
   jsOrderPriority: {
       'vendor.js': 1,
-      'common-vendor.js': 2 // 优先级更高
+      'common-vendor.js': 2 // Higher priority
   },
   jsOrderPriority: ({ chunkName }) => ({
-      // 支持传入函数，入参为当前请求的页面 ChunkName 名称，可直接使用，例如 index.chunk.js 中的 index 为首页的 chunkName, detail-id.chunk.js 中的 detail-id 为详情页的 chunkName
-      // 注意 chunkName 的获取依赖服务端运行时逻辑，故 spa build 模式下，不存在 chunkName 入参
+      // Supports passing in a function, with the parameter being the ChunkName of the current request page, can be used directly. For example, 'index' in index.chunk.js is the chunkName for the homepage, 'detail-id' in detail-id.chunk.js is the chunkName for the detail page
+      // Note that chunkName acquisition depends on server-side runtime logic, so in spa build mode, there is no chunkName parameter
       `${chunkName}.js`: 1,
-      'common-vendor.js': 2 // 优先级更高
+      'common-vendor.js': 2 // Higher priority
   })
 }
 ```
 ## cssOrderPriority🤔
 
-高级用法，用来控制生成的所有 `css chunk` 在页面中的加载优先级顺序处理参数来源是 `cssOrder` 与 `extraCssOrder` 合并后的完整结果。无特殊情况不需要进行改设置。
+Advanced usage to control the loading priority order of all generated `css chunks` in the page. The processed parameters come from the complete result of merging `cssOrder` and `extraCssOrder`. No modification needed unless there are special circumstances.
 
-- 类型: `Record<string, number> | ((params: {chunkName: string}) => Record<string, number>) `
+- Type: `Record<string, number> | ((params: {chunkName: string}) => Record<string, number>) `
 
-- 默认: `undefined`
+- Default: `undefined`
 
 - version: `latest`
 
-- 生效场景: `Webpack/Vite` 
+- Applicable scenarios: `Webpack/Vite` 
 
-默认加载顺序如下，`chunkName` 代表当前请求的路由对应的前端页面级组件被构建出来的 `chunkName.chunk.css` 文件 
+Default loading order is as follows, where `chunkName` represents the `chunkName.chunk.css` file built from the frontend page-level component corresponding to the current request route 
 
 ```js
 const cssOrder = ['vendor.css', 'common-vendor.css', 'Page.css', 'layout-app.css']
 ```
 
-具体用法如上参考 `jsOrderPriority`
+Specific usage is the same as `jsOrderPriority` above
 
 
 ## cssInline🤔
 
-- 类型 `'all'|string[]`
-- 默认 `undefined`
-- 生效场景 `Vue2/3 + Webpack/Vite`
+- Type `'all'|string[]`
+- Default `undefined`
+- Applicable scenarios `Vue2/3 + Webpack/Vite`
 
-只在生产环境生效。用于自定义哪些 `cssChunk` 需要被 `style` 标签 `inline`。`cssChunks` 的集合查看 `asset-manifest.json` 获得。需要保证运行时 `path.join(process.cwd(), './build', '${chunkPath}')`的路径存在于本地文件中。当值为 `all` 时，默认所有的 `cssChunk` 都会在运行时內联。
+Only effective in production environment. Used to customize which `cssChunk` needs to be `inline` with `style` tags. The collection of `cssChunks` can be viewed in `asset-manifest.json`. Need to ensure that the path `path.join(process.cwd(), './build', '${chunkPath}')` exists in local files at runtime. When the value is `all`, all `cssChunk` will be inlined at runtime by default.
 
 ```js
 // asset-manifest.json
@@ -263,24 +263,24 @@ const cssOrder = ['vendor.css', 'common-vendor.css', 'Page.css', 'layout-app.css
 }
 ```
 
-这里也可以自行覆盖本地的 `asset-manifest.json` 为绝对路径例如 `Page.js: /User/xxxx/Page.js`来自定义控制。框架检测到绝对路径将会直接使用该路径
+You can also override the local `asset-manifest.json` with absolute paths, for example `Page.js: /User/xxxx/Page.js` for custom control. The framework will directly use that path when it detects an absolute path
 
 ## babelOptions🤔
 
-- 类型: `babelCore.transformOptions`
-- 默认: `undefined`
-- 生效场景: `Webpack/Vite` 
+- Type: `babelCore.transformOptions`
+- Default: `undefined`
+- Applicable scenarios: `Webpack/Vite` 
 
-建议使用该配置来修改默认的 `babel` 配置，兼容 `Webpack/Vite` 场景
+Recommended to use this configuration to modify the default `babel` configuration, compatible with `Webpack/Vite` scenarios
 
 ```js
 
 export {
   babelOptions: {
-    include: [] as RegExp[], // 需要额外处理的第三方模块
-    exclude: [] as RegExp[], // 业务代码不需要处理的文件，通常用于指定纯 js 已经构建过一次的文件二次使用
-    presets: [] // 比较少用
-    plugins: [] // 通常使用该配置新增 plugin
+    include: [] as RegExp[], // Third-party modules that need additional processing
+    exclude: [] as RegExp[], // Business code files that don't need processing, usually used to specify pure JS files that have already been built once for reuse
+    presets: [] // Less commonly used
+    plugins: [] // Usually use this configuration to add plugins
   }
 }
 ```
@@ -288,23 +288,23 @@ export {
 
 ## webpackDevServerConfig🤔
 
-- 类型: `webpackDevServer.Configuration`
-- 默认: `见文章上方具体配置文件`
-- 生效场景: `Webpack` 
+- Type: `webpackDevServer.Configuration`
+- Default: `See specific configuration file above in the article`
+- Applicable scenarios: `Webpack` 
 
-`webpack-dev-server` 启动配置
+`webpack-dev-server` startup configuration
 
 ## chainBaseConfig🤔
 
-- 类型: `(config: WebpackChain) => void`
-- 默认: [React](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-react/src/config/base.ts) [Vue](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue/src/config/base.ts) [Vue3](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/config/base.ts)
-- 生效场景: `Webpack` 
+- Type: `(config: WebpackChain) => void`
+- Default: [React](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-react/src/config/base.ts) [Vue](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue/src/config/base.ts) [Vue3](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/config/base.ts)
+- Applicable scenarios: `Webpack` 
 
-使用 [webpack-chain](https://github.com/neutrinojs/webpack-chain) 来修改 `服务端/客户端` 公共的 `Webpack` 构建配置。
+Use [webpack-chain](https://github.com/neutrinojs/webpack-chain) to modify the common `Webpack` build configuration for `server/client`.
 
-注意：开发者的大部分需求都应该修改 `baseConfig` 而不是独立的 `serverConfig` 或 `clientConfig`
+Note: Most developer needs should modify `baseConfig` rather than independent `serverConfig` or `clientConfig`
 
-例如为 `markdown` 文件添加 `raw-loader` 进行解析 
+For example, to add `raw-loader` for parsing `markdown` files 
 
 ```js
 module.exports = {
@@ -321,52 +321,52 @@ module.exports = {
 
 ## chainServerConfig🤔
 
-- 类型: `(config: WebpackChain) => void`
-- 默认: [React](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-react/src/config/server.ts) [Vue](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue/src/config/server.ts) [Vue3](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/config/server.ts)
-- 生效场景: `Webpack` 
+- Type: `(config: WebpackChain) => void`
+- Default: [React](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-react/src/config/server.ts) [Vue](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue/src/config/server.ts) [Vue3](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/config/server.ts)
+- Applicable scenarios: `Webpack` 
 
-使用 [webpack-chain](https://github.com/neutrinojs/webpack-chain) 来修改 `服务端` 公共的 `Webpack` 构建配置
+Use [webpack-chain](https://github.com/neutrinojs/webpack-chain) to modify the common `Webpack` build configuration for `server`
 
 ## chainClientConfig🤔
 
-- 类型: `(config: WebpackChain) => void`
-- 默认: [React](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-react/src/config/client.ts) [Vue](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue/src/config/client.ts) [Vue3](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/config/client.ts)
-- 生效场景: `Webpack` 
+- Type: `(config: WebpackChain) => void`
+- Default: [React](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-react/src/config/client.ts) [Vue](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue/src/config/client.ts) [Vue3](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/config/client.ts)
+- Applicable scenarios: `Webpack` 
 
-使用 [webpack-chain](https://github.com/neutrinojs/webpack-chain) 来修改 `客户端` 公共的 `Webpack` 构建配置
+Use [webpack-chain](https://github.com/neutrinojs/webpack-chain) to modify the common `Webpack` build configuration for `client`
 
 ## whiteList🤔
 
-- 类型: `RegExp[]|string[]`
-- 默认: `[/\.(css|less|sass|scss)$/]`
-- 生效场景: `Webpack/Vite` 
+- Type: `RegExp[]|string[]`
+- Default: `[/\.(css|less|sass|scss)$/]`
+- Applicable scenarios: `Webpack/Vite` 
 
-新增功能：同时支持 `Vite/Webpack` 模式下设置，等价于 `vite.ssr.noexternal`
+New feature: Supports settings in both `Vite/Webpack` modes, equivalent to `vite.ssr.noexternal`
 
-处理 `server` 端构建模块时，我们默认会对所有的第三方模块使用 `externals` 模式，即不在构建时用 `Webpack` 处理，运行时直接从 `node_modules` 中加载具体模块，但对于一些只提供了 `esm` 格式的模块，或者是非 `Node.js` 环境能直接执行的文件，例如 `jsx|less|sass|css` 等类型的文件会发生运行错误，针对这种类型的特殊模块我们提供了白名单配置，设置服务端构建配置 `externals` 的白名单，即需要让 `Webpack` 来处理的模块。
+When processing `server` side build modules, we default to using `externals` mode for all third-party modules, i.e., not processed by `Webpack` during build, directly loaded from `node_modules` at runtime. However, for some modules that only provide `esm` format, or files that cannot be directly executed in non-`Node.js` environments, such as `jsx|less|sass|css` type files, runtime errors will occur. For this type of special module, we provide whitelist configuration to set the server-side build configuration `externals` whitelist, i.e., modules that need to be processed by `Webpack`.
 
-`whiteList` 有 `string[]` 和 `RegExp[]` 两种形式，代表不同的含义请根据实际需求选择
+`whiteList` has two forms: `string[]` and `RegExp[]`, representing different meanings. Please choose according to actual needs
 
 
-- `string[]`: 当 `whiteList` 的值不为 `RegExp` 而是 `string` 的时候，框架会将其当成模块名，并且会深度遍历模块自身的依赖以及依赖的依赖。例如 `antd` 自身的 `dependencies` 里依赖了其他模块，为了避免重复配置，这些模块也需要一并配置到白名单当中。这里为了减少工作量，框架本身增加了一层比较简单的依赖自动遍历收集策略来自动收集所以需要处理的模块。在 `Serverless` 发布模式下我们通常使用 `string[]` 的形式，因为我们在这种场景只会安装 `production` 环境的 `node_modules`
+- `string[]`: When the value of `whiteList` is `string` instead of `RegExp`, the framework will treat it as a module name and deeply traverse the module's own dependencies and dependencies of dependencies. For example, `antd`'s own `dependencies` depend on other modules. To avoid duplicate configuration, these modules also need to be configured in the whitelist together. To reduce workload, the framework itself adds a relatively simple dependency automatic traversal collection strategy to automatically collect all modules that need to be processed. In `Serverless` deployment mode, we usually use the `string[]` form because we only install `production` environment `node_modules` in this scenario
 
-- `RegExp[]`: 只匹配正则能够匹配的依赖，当应用安装了完整的 `node_modules` 或确定依赖的子依赖无需被处理时可使用正则匹配。会让程序的逻辑变得简单以及更快的构建速度。
+- `RegExp[]`: Only matches dependencies that the regular expression can match. Can be used when the application has installed complete `node_modules` or when it's certain that sub-dependencies of dependencies don't need to be processed. This makes the program logic simpler and provides faster build speed.
 ## prefix🤔 
 
-- 类型: `string|undefined`
-- 默认: `undefined`
-- 生效场景: `Webpack/Vite`
+- Type: `string|undefined`
+- Default: `undefined`
+- Applicable scenarios: `Webpack/Vite`
 
-为前端路由添加统一的 `prefix`, 如 `/${prefix}/`, `/${prefix}/detail/:id`。在功能上等价于 `React-Router` 提供的 `basename` 以及 `Vue-Router` 提供的 `base` 选项。  
-同样在设置完该参数后，前端路由的跳转操作都会添加该前缀
+Add a unified `prefix` to frontend routes, such as `/${prefix}/`, `/${prefix}/detail/:id`. Functionally equivalent to the `basename` option provided by `React-Router` and the `base` option provided by `Vue-Router`.  
+Similarly, after setting this parameter, all frontend route navigation operations will add this prefix
 
 ## proxy🤔
 
-- 类型: `object`
-- 默认: `{}`
-- 生效场景: `Webpack/Vite` 
+- Type: `object`
+- Default: `{}`
+- Applicable scenarios: `Webpack/Vite` 
 
-底层使用 [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware) 来进行代理，框架只是单纯透传参数， 具体配置查看 `http-proxy-middleware` 文档即可
+Uses [http-proxy-middleware](https://github.com/chimurai/http-proxy-middleware) at the underlying layer for proxying. The framework simply passes through parameters. See `http-proxy-middleware` documentation for specific configuration
 
 ```js
 module.exports = {
@@ -381,27 +381,27 @@ module.exports = {
 
 ## https🤔
 
-- 类型: `boolean`
-- 默认: `userConfig.https ? userConfig.https : !!process.env.HTTPS`
-- 生效场景: `Webpack/Vite` 
+- Type: `boolean`
+- Default: `userConfig.https ? userConfig.https : !!process.env.HTTPS`
+- Applicable scenarios: `Webpack/Vite` 
 
-是否开启底层 `webpack-dev-server` 的 `https` 模式，需配合 `3000` 端口的 `Node.js` 的 `https` 服务同步使用。设置为 `true` 将使用默认的自签名证书。当此证书无法被信任时，也可以自行传递与 `Node.js` 服务端一致的证书配置。
+Whether to enable the underlying `webpack-dev-server`'s `https` mode, needs to be used synchronously with the `Node.js` `https` service on port `3000`. Setting to `true` will use the default self-signed certificate. When this certificate cannot be trusted, you can also pass certificate configuration consistent with the `Node.js` server side.
 
-注：更加推荐本地开发时使用 [whistle](https://wproxy.org/whistle/) 启动 `https` 代理服务
+Note: It is more recommended to use [whistle](https://wproxy.org/whistle/) to start `https` proxy service during local development
 
 ```js
 const fs = require('fs')
 const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
-  // 可以通过 ssr-server-utils 的 loadConfig api 在服务端代码中读取配置，传递给对应的服务端框架设置证书
+  // Can read configuration in server-side code through ssr-server-utils loadConfig api, pass to corresponding server-side framework to set certificate
   https: isProd ? {} : {
     key: fs.readFileSync('./scripts/https/https.key'),
     cert: fs.readFileSync('./scripts/https/https.crt')
   }
 }
 
-// server 端如何读取, 以 nest.js 为例
+// How to read on server side, using nest.js as example
 // main.ts
 import { loadConfig } from 'ssr-common-utils'
 
@@ -412,42 +412,42 @@ const app = await NestFactory.create<NestExpressApplication>(AppModule, isProd ?
 ```
 ## dynamic🤔
 
-- 类型: `boolean`
-- 默认: `true`
-- 生效场景: `Webpack` 
+- Type: `boolean`
+- Default: `true`
+- Applicable scenarios: `Webpack` 
 
-是否开启代码分割，默认开启, Vite 模式下必须开启
+Whether to enable code splitting, enabled by default. Must be enabled in Vite mode
 
 ## customeHeadScript🤔
 
-- 类型: `Array<{tagName?: string, describe: object, content: string }>|(ctx: ISSRContext) => Array<{tagName?: string, describe: object, content: string }>`
-- 默认: `[]`
-- 生效场景: `Webpack/Vite` 
+- Type: `Array<{tagName?: string, describe: object, content: string }>|(ctx: ISSRContext) => Array<{tagName?: string, describe: object, content: string }>`
+- Default: `[]`
+- Applicable scenarios: `Webpack/Vite` 
 
-仅在 `Vue` 场景下使用, 这里最新版本支持两种类型，可根据当前请求上下文输出不同的脚本内容，常用于动态 [prefix](./features$faq#动态路由前缀) 场景
+Only used in `Vue` scenarios. The latest version supports two types, allowing different script content output based on the current request context, commonly used in dynamic [prefix](./features$faq#dynamic-route-prefix) scenarios
 
-用于通过配置在页面头部插入自定义的 `script` 为了避免影响期望功能这块内容不做 `escape`，为了避免 `xss` 需要保证插入脚本代码的安全性
+Used to insert custom `script` in the page header through configuration. To avoid affecting expected functionality, this content is not `escaped`. To avoid `xss`, ensure the security of inserted script code
 
-`tagName` 自定义需要创建的标签名称，默认为 `script` 标签
+`tagName` customizes the tag name to be created, defaults to `script` tag
 
-`describe` 字段参考 `Vue` [createElement](https://cn.vuejs.org/v2/guide/render-function.html#createElement-%E5%8F%82%E6%95%B0) 用于设置 `script` 标签的 `attribute`
+`describe` field references Vue [createElement](https://cn.vuejs.org/v2/guide/render-function.html#createElement-%E5%8F%82%E6%95%B0) for setting `script` tag `attribute`
 
-`content` 为 `script` 的内容
+`content` is the content of the `script`
 
 
 ```js
 module.exports = {
   customeHeadScript: [
-    // Vue3 直接写 attr 属性即可
+    // Vue3 directly write attr properties
     {
-      tagName: 'xxx', // 默认值为 script
+      tagName: 'xxx', // Default value is script
       describe: {
         type: 'text/javascript',
         src: 'https://res.wx.qq.com/open/js/jweixin-1.2.0.js'
       },
       content: ''
     },
-    // Vue2 需要包裹在 attrs 属性中，具体详情查看对应版本的 Vue 文档即可
+    // Vue2 needs to be wrapped in attrs property, see corresponding Vue version documentation for details
     {
       describe: {
         attrs: {
@@ -457,7 +457,7 @@ module.exports = {
       },
       content: ''
     },
-    // 直接插入 script 内容
+    // Directly insert script content
     {
       content: `var _hmt = _hmt || [];
       (function() {
@@ -473,19 +473,19 @@ module.exports = {
 
 ## customeFooterScript🤔
 
-- 类型: `Array<{describe: object, content: string }>|(ctx: ISSRContext) => Array<{describe: object, content: string }>`
-- 默认: `[]`
-- 生效场景: `Webpack/Vite` 
+- Type: `Array<{describe: object, content: string }>|(ctx: ISSRContext) => Array<{describe: object, content: string }>`
+- Default: `[]`
+- Applicable scenarios: `Webpack/Vite` 
 
-仅在 `Vue` 场景下使用, 意义同上。在页面底部加载的静态资源文件。需要配合 `<slot name="customeFooterScript" />` 使用。若当前 `example` 是之前创建的 `layout/index.vue` 不存在该 `slot` 的话需要手动添加
+Only used in `Vue` scenarios, same meaning as above. Static resource files loaded at the bottom of the page. Needs to be used with `<slot name="customeFooterScript" />`. If the current `example` was created previously and `layout/index.vue` doesn't have this `slot`, you need to manually add it
 
 ## css
 
-- 示例: 
+- Example: 
 
 ```js
 module.exports = {
-  // 这里需要查看框架使用的版本 loader 的文档
+  // Here you need to check the documentation of the loader version used by the framework
   css: () => { 
     return {
       loaderOptions: {
@@ -493,7 +493,7 @@ module.exports = {
         less?: any // less-loader options see https://www.npmjs.com/package/less-loader/v/7.3.0
         sass?: any // sass-loader options see https://www.npmjs.com/package/sass-loader/v/10.2.0
         postcss: {
-          options: Object|Function // 推荐使用 object see https://www.npmjs.com/package/postcss-loader/v/4.3.0
+          options: Object|Function // Recommended to use object see https://www.npmjs.com/package/postcss-loader/v/4.3.0
           plugins: any[]
         }
       }}
@@ -501,32 +501,32 @@ module.exports = {
 }
 ```
 
-- 默认: `() => {}`
+- Default: `() => {}`
 
-- 生效场景: `Webpack/Vite` 
+- Applicable scenarios: `Webpack/Vite` 
 
-用于添加用户自定义配置 `css-loader` `less-loader` 以及 `postcss-loader` 的配置，需要用 `函数 return` 的形式
+Used to add user-defined configurations for `css-loader`, `less-loader`, and `postcss-loader`. Needs to be in `function return` form
 
 ## parallelFetch🤔
 
-- 类型: `boolean`
-- 默认: `undefined`
-- 生效场景: `Webpack/Vite` 
+- Type: `boolean`
+- Default: `undefined`
+- Applicable scenarios: `Webpack/Vite` 
 
-开启后在服务端获取数据时会并行请求 `layout fetch` 与 `page fetch`。若 `page fetch` 的请求依赖 `layout fetch` 的返回。请不要使用该选项
+When enabled, server-side data fetching will make parallel requests to `layout fetch` and `page fetch`. If `page fetch` requests depend on the return of `layout fetch`, please do not use this option
 
-### antd 定制主题🤔
+### antd Custom Themes🤔
 
-- 生效场景: `Webpack/Vite` 
+- Applicable scenarios: `Webpack/Vite` 
 
-参考 `antd` 官方[文档](https://ant.design/docs/react/customize-theme-cn#%E5%AE%9A%E5%88%B6%E6%96%B9%E5%BC%8F), 在 `ssr` 框架中默认使用 `less-loader@^7.0.0` 采用如下配置, 需要 `ssr` 框架 `version >=5.5.21`
+Refer to the `antd` official [documentation](https://ant.design/docs/react/customize-theme-cn#%E5%AE%9A%E5%88%B6%E6%96%B9%E5%BC%8F). In the `ssr` framework, `less-loader@^7.0.0` is used by default with the following configuration. Requires `ssr` framework `version >=5.5.21`
 
 ```js
 css: () => {
   return {
     loaderOptions: {
       less: {
-        // 透传参数给 less-loader
+        // Pass parameters to less-loader
         lessOptions: {
           modifyVars: {
             'primary-color': '#fff',
@@ -542,48 +542,48 @@ css: () => {
 ```
 ## ssrVueLoaderOptions🤔
 
-- 类型: `Object`
+- Type: `Object`
 
-- 默认: `{}`
+- Default: `{}`
 
 - version: `>=5.5.23`
 
-- 生效场景: `Webpack/Vite` 
+- Applicable scenarios: `Webpack/Vite` 
 
-构建服务端 `bundle` 时的 [vue-loader](https://vue-loader.vuejs.org/options.html) 选项
+[vue-loader](https://vue-loader.vuejs.org/options.html) options when building server-side `bundle`
 ## csrVueLoaderOptions🤔
 
-- 类型: `Object`
+- Type: `Object`
 
-- 默认: `{}`
+- Default: `{}`
 
 - version: `>=5.5.23`
 
-- 生效场景: `Webpack/Vite` 
+- Applicable scenarios: `Webpack/Vite` 
 
-构建客户端 `bundle` 时的 [vue-loader](https://vue-loader.vuejs.org/options.html) 选项
+[vue-loader](https://vue-loader.vuejs.org/options.html) options when building client-side `bundle`
 
 ## locale🤔
 
-- 类型: `{ enable: boolean }`
+- Type: `{ enable: boolean }`
 
-- 默认: `{ enable: false }`
+- Default: `{ enable: false }`
 
-- 生效场景: `Vue3 + Webpack` 
+- Applicable scenarios: `Vue3 + Webpack` 
 
-是否启用 `vue-i18n` 国际化插件
+Whether to enable `vue-i18n` internationalization plugin
 
 ## corejs🤔
 
-- 类型: `boolean`
+- Type: `boolean`
 
-- 默认: `false`
+- Default: `false`
 
-- 生效场景: `Webpack` 
+- Applicable scenarios: `Webpack` 
 
 - Ref: https://www.babeljs.cn/docs/babel-preset-env#corejs
 
-通常与下面的 `corejsOptions` 配合使用，开启后我们将会在 [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env#corejs) 中追加如下配置。会自动根据当前代码的使用情况注入对应的 `polyfill` 具体表现请查看 `@babel/preset-env` 中相关说明。此选项用于兼容低端浏览器
+Usually used in conjunction with `corejsOptions` below. After enabling, we will append the following configuration in [@babel/preset-env](https://babeljs.io/docs/en/babel-preset-env#corejs). It will automatically inject corresponding `polyfill` based on the usage of current code. For specific behavior, please check the relevant instructions in `@babel/preset-env`. This option is used to be compatible with low-end browsers.
 
 ```js
 const corejsVersion = coerce(require('core-js/package.json').version).major
