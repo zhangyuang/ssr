@@ -43,7 +43,7 @@ const addAsyncChunk = async (webpackChunkName: string, config: IConfig, type: 'c
 	const arr = []
 	const asyncChunkMap = await readAsyncChunk(config)
 	for (const key in asyncChunkMap) {
-		if (asyncChunkMap[key].includes(webpackChunkName) || asyncChunkMap[key].includes(webpackChunkName + '-fetch')) {
+		if (asyncChunkMap[key].includes(webpackChunkName)) {
 			arr.push(`${key}.${type}`)
 		}
 	}

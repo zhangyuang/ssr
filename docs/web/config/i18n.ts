@@ -165,17 +165,14 @@ export function getCurrentLanguage(router?: any): string {
     if (langMatch) {
       return langMatch[1]
     }
-    
-    // Check localStorage
-    const savedLang = localStorage.getItem('ssr-docs-lang')
-    if (savedLang && ['en', 'zh'].includes(savedLang)) {
-      return savedLang
-    }
+  
     
     // Check browser language
     const browserLang = navigator.language.toLowerCase()
     if (browserLang.startsWith('zh')) {
       return 'zh'
+    } else {
+      return 'en'
     }
   }
   
@@ -190,9 +187,7 @@ export function t(key: string, lang?: string): string {
 
 // Helper function to switch language
 export function switchLanguage(newLang: string): void {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('ssr-docs-lang', newLang)
-    
+  if (typeof window !== 'undefined') {    
     // Update URL path
     const currentPath = window.location.pathname
     const currentLang = getCurrentLanguage()
