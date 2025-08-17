@@ -3,7 +3,7 @@ import { resolve } from 'path'
 import { mkdir } from 'shelljs'
 import type { Plugin, UserConfig } from 'vite'
 import type { OutputOptions, PreRenderedChunk, LoadResult } from 'rolldown'
-import { getBuildConfig, addDefaultAlias, getPkgName } from 'ssr-common-utils'
+import { getBuildConfig, addDefaultAlias, getPkgName, vendorList } from 'ssr-common-utils'
 import {
 	accessFile,
 	getCwd,
@@ -42,33 +42,6 @@ const cwd = getCwd()
 const dependenciesMap: Record<string, string[]> = {}
 const asyncChunkMap: Record<string, string[]> = {}
 const generateMap: Record<string, string> = {}
-const vendorList = [
-	'vue',
-	'vuex',
-	'vue-demi',
-	'vue-router',
-	'react',
-	'react-router',
-	'react-router-dom',
-	'react-dom',
-	'@vue',
-	'ssr-hoc-react',
-	'ssr-client-utils',
-	'ssr-common-utils',
-	'pinia',
-	'@babel/runtime',
-	'ssr-plugin-vue3',
-	'ssr-plugin-vue',
-	'ssr-plugin-react',
-	'react/jsx-runtime',
-	'path-to-regexp',
-	'plugin-vue:export-helper',
-	'@vue/devtools-api',
-	'ssr-hoc-vue3',
-	'ssr-hoc-vue',
-	'vite/preload-helper',
-	'hoc-vue3'
-]
 
 const getModuleName = (id: string) => {
 	return id.split('?')[0]

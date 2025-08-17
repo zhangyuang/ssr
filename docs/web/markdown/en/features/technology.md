@@ -1,42 +1,42 @@
-# 技术选型
+# Technology Choices
 
-本章将介绍 `ssr` 框架在不同场景的一些技术选型, 建议各位阅读 [蚂蚁前端研发最佳实践](https://github.com/sorrycc/blog/issues/90)。我们始终认为，固定一套最佳的技术选型方案远比支持多种多样的技术方案要优秀的多。
+This chapter will introduce some technology choices of the `ssr` framework in different scenarios. We recommend reading [Ant Frontend Development Best Practices](https://github.com/sorrycc/blog/issues/90). We always believe that fixing a set of optimal technology choice solutions is far better than supporting diverse technology solutions.
 
-## 服务端框架技术选型
+## Server-Side Framework Technology Choices
 
-由于我们是通过插件的机制来进行扩展。所以理论上我们可以支持任何服务端框架。目前官方提供了 `Midway.js` `Nest.js` 的实现方案可以直接使用。如果你想基于其他的 Node.js 框架封装一个插件也是非常容易的。详见 [插件机制](./features$plugin)
+Since we extend through plugin mechanisms, theoretically we can support any server-side framework. Currently, the official provides `Midway.js` and `Nest.js` implementation solutions that can be used directly. If you want to encapsulate a plugin based on other Node.js frameworks, it's also very easy. See [Plugin Mechanism](./features$plugin) for details.
 
-## 前端框架技术选型
+## Frontend Framework Technology Choices
 
-这里我们支持常见的流行前端框架 `React` `Vue2` `Vue3`。用户可直接使用
+Here we support common popular frontend frameworks `React`, `Vue2`, `Vue3`. Users can use them directly.
 
-### React 技术选型
+### React Technology Choices
 
-- 前端框架: React v17, 实时跟进 React17的新特性
-- 开发语言: TypeScript
-- 代码风格(可选): 默认[eslint-config-standard-react-ts](https://github.com/zhangyuang/standardjs-react)
-- 样式处理: less + css modules(根据后缀名自动识别 .module.less 文件使用 css-modules)
-- UI 组件: 默认已对 `antd` 的使用做打包配置无需额外配置
-- 前端路由: 约定式路由/声明式路由
-- 数据管理: 使用 Hooks 提供的 `useContext` 实现极简的跨组件通信方案, 摒弃传统的 redux/dva 等数据管理方案, 详见 [组件通信](./features$communication)
-- 构建工具: [Webpack](https://webpack.docschina.org/)/[Vite](http://vitejs.dev/)
+- Frontend Framework: React v17, keeping up with React17's new features in real-time
+- Development Language: TypeScript
+- Code Style (optional): Default [eslint-config-standard-react-ts](https://github.com/zhangyuang/standardjs-react)
+- Style Processing: less + css modules (automatically recognizes .module.less files using css-modules based on file extensions)
+- UI Components: Default packaging configuration for `antd` usage, no additional configuration needed
+- Frontend Routing: Conventional routing/Declarative routing
+- Data Management: Using Hooks' `useContext` to implement minimal cross-component communication solutions, abandoning traditional redux/dva and other data management solutions. See [Component Communication](./features$communication) for details
+- Build Tools: [Webpack](https://webpack.docschina.org/)/[Vite](http://vitejs.dev/)
 
-### Vue 技术选型
+### Vue Technology Choices
 
-- 前端框架: Vue2.0, Vue3.0
-- 开发语言: TypeScript
-- 代码风格(可选): [eslint-config-standard-vue-ts](https://github.com/zhangyuang/standardjs-vue)
-- 样式处理: less + vue scoped
-- UI 组件: 默认已对 `vant` 的使用做打包配置无需额外配置
-- 前端路由: 约定式路由/声明式路由
-- 数据管理: [Vuex](https://vuex.vuejs.org/)/[Provide/Inject](./features$communication#Provide/Inject)
-- 构建工具: [Webpack](https://webpack.docschina.org/)/[Vite](http://vitejs.dev/)
+- Frontend Framework: Vue2.0, Vue3.0
+- Development Language: TypeScript
+- Code Style (optional): [eslint-config-standard-vue-ts](https://github.com/zhangyuang/standardjs-vue)
+- Style Processing: less + vue scoped
+- UI Components: Default packaging configuration for `vant` usage, no additional configuration needed
+- Frontend Routing: Conventional routing/Declarative routing
+- Data Management: [Vuex](https://vuex.vuejs.org/)/[Provide/Inject](./features$communication#Provide/Inject)
+- Build Tools: [Webpack](https://webpack.docschina.org/)/[Vite](http://vitejs.dev/)
 
-#### Vue3 + TSX(可选)
+#### Vue3 + TSX (Optional)
 
-在 Vue3 场景下我们默认在底层已加载 [@vue/babel-plugin-jsx](https://github.com/vuejs/jsx-next#installation) 插件，开发者可根据个人喜好决定使用 template 的方式抑或是 tsx 的方式进行开发。例如想使用 tsx 的话，只需要将 .vue 文件改为 .tsx 文件即可。
+In Vue3 scenarios, we default to loading the [@vue/babel-plugin-jsx](https://github.com/vuejs/jsx-next#installation) plugin at the underlying level. Developers can decide whether to use template or tsx approaches for development based on personal preferences. For example, if you want to use tsx, you just need to change .vue files to .tsx files.
 
-`注：Vue3 + volar(VSCode插件) + Pinia 的 ts 支持已经十分优秀，不推荐用 Vue3 + TSX 的组合。由于 babel 插件自身的问题，在该场景下 Webpack HMR 热更新能力存在一定问题，若一定要使用建议配合 Vite 一起使用`
+`Note: Vue3 + volar (VSCode plugin) + Pinia's ts support is already excellent, not recommended to use Vue3 + TSX combination. Due to the babel plugin's own issues, Webpack HMR hot update capabilities have certain problems in this scenario. If you must use it, it's recommended to use it together with Vite.`
 
 ```html
 <template>
@@ -74,7 +74,7 @@ export default {
 
 ```
 
-对应的 tsx 写法为
+The corresponding tsx writing method is:
 
 ```jsx
 // render.tsx
@@ -106,10 +106,10 @@ export default {
 
 ```
 
-## 注意
+## Notes
 
-上述选型是我们经过深思熟虑后总结出来的一套优秀方案。如果开发者一定要用其他方案，例如下面介绍的
+The above choices are an excellent solution we've summarized after careful consideration. If developers must use other solutions, such as those introduced below:
 
-- `sass` ，参考[文档](./features$faq#)可通过 `chainBaseConfig` 的方式来修改默认的 `Webpack` 配置支持。但我们不推荐这么做。 `90%` 框架的 `issue` 类型都是由于使用者修改了默认的配置引起的。
-- `koa` ，开发一个 `ssr` 框架的 `koa` 插件只需要两分钟，但我们仍然不推荐这么做。如果你一定需要选择其他的服务端 Node.js 框架，请选择相对成熟的
-- `redux`， 默认不支持 `redux` 作为数据管理，同样在未来也并不打算支持。`redux-saga`, `dva` 同理，未来也并不打算支持。 `useContext` 已足够优秀，若一定要选择其他的数据管理方案，在未来我们或许会考虑框架层提供 `MobX` 或 `redux-toolkit` 来作为相对复杂的数据管理方案
+- `sass`, refer to [documentation](./features$faq#) can modify default `Webpack` configuration support through `chainBaseConfig` approach. But we don't recommend doing this. `90%` of framework `issue` types are caused by users modifying default configurations.
+- `koa`, developing an `ssr` framework `koa` plugin only takes two minutes, but we still don't recommend doing this. If you must choose other server-side Node.js frameworks, please choose relatively mature ones.
+- `redux`, by default doesn't support `redux` as data management, and we don't plan to support it in the future either. `redux-saga`, `dva` are the same, we don't plan to support them in the future either. `useContext` is already excellent enough. If you must choose other data management solutions, in the future we might consider the framework layer providing `MobX` or `redux-toolkit` as relatively complex data management solutions.

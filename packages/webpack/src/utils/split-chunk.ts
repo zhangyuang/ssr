@@ -1,5 +1,5 @@
 import type { OptimizationSplitChunksOptions, NormalModule } from '@rspack/core'
-import { getCwd, cryptoAsyncChunkName, sortByAscii } from 'ssr-common-utils'
+import { getCwd, cryptoAsyncChunkName, sortByAscii, vendorList, getPkgName } from 'ssr-common-utils'
 import type Webpack from 'webpack'
 import { resolve } from 'path'
 import { writeFileSync } from 'fs'
@@ -57,10 +57,15 @@ export class splitChunkPlugin {
 					if (fileName.includes('node_modules')) {
 						chunkNames.push('vendor')
 					}
+					const pkgName = getPkgName(fileName)
+					if (vendorList.includes(pkgName)) {
+						chunkNames = ['vendor']
+					}
 					chunkNames = chunkNames.sort(sortByAscii)
 					if (chunkNames.includes('Page')) {
 						chunkNames = chunkNames.includes('vendor') ? ['Page', 'vendor'] : ['Page']
 					}
+					chunkNames = Array.from(new Set(chunkNames))
 					dependenciesMap[fileName] = chunkNames
 					generateMap[fileName] = dependenciesMap[fileName].join('~')
 					asyncChunkMap[generateMap[fileName]] = chunkNames

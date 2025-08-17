@@ -1,8 +1,8 @@
 # Vite
 
-本章介绍如何在 `ssr` 框架中使用 `Vite` 作为开发工具 
+This chapter introduces how to use `Vite` as a development tool in the `ssr` framework. 
 
-## 5 分钟了解 Vite
+## 5 Minutes to Understand Vite
 
 > Vite (法语意为 "快速的"，发音  /vit/) 是一种新型前端构建工具，能够显著提升前端开发体验。它主要由两部分组成：
 >

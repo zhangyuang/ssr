@@ -49,4 +49,31 @@ const ssrPackages = [
 	'ssr-core'
 ]
 
-export { reactRefreshFragment, remInitial, defaultExternal, ssrPackages, nameSpaceBuiltinModules }
+const vendorList = [
+	'vue',
+	'vuex',
+	'vue-demi',
+	'vue-router',
+	'react',
+	'react-router',
+	'react-router-dom',
+	'react-dom',
+	'@vue',
+	'ssr-hoc-react',
+	'ssr-client-utils',
+	'ssr-common-utils',
+	'pinia',
+	'@babel/runtime',
+	'ssr-plugin-vue3',
+	'ssr-plugin-vue',
+	'ssr-plugin-react',
+	'react/jsx-runtime',
+	'path-to-regexp',
+	'plugin-vue:export-helper',
+	'@vue/devtools-api',
+	'ssr-hoc-vue3',
+	'ssr-hoc-vue',
+	'vite/preload-helper',
+	'hoc-vue3'
+]
+export { reactRefreshFragment, vendorList, remInitial, defaultExternal, ssrPackages, nameSpaceBuiltinModules }

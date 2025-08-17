@@ -22,7 +22,6 @@ const getConfig = (lang?: string) => {
         { title: t('menu.dataFetch', currentLang), path: 'features$fetch' },
         { title: t('menu.communication', currentLang), path: 'features$communication' },
         { title: t('menu.usingVite', currentLang), path: 'features$vite' },
-        { title: t('menu.plugin', currentLang), path: 'features$plugin' },
         { title: t('menu.build', currentLang), path: 'features$build' },
         { title: t('menu.deploy', currentLang), path: 'features$deploy' },
         { title: t('menu.csr', currentLang), path: 'features$csr' },
@@ -40,12 +39,6 @@ const getConfig = (lang?: string) => {
         { title: t('menu.appConfig', currentLang), path: 'api$config' }
       ]
     },
-    {
-      title: t('menu.plugins', currentLang),
-      routes: [
-        { title: t('menu.officialPlugins', currentLang), path: 'plugin$index' }
-      ]
-    }
   ]
 }
 

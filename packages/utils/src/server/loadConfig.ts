@@ -107,7 +107,14 @@ const loadConfig = (): IConfig => {
 			? [`rolldown-runtime.js`, `vendor.js`, `${chunkName}~vendor.js`, `${chunkName}.js`]
 			: [`runtime~${chunkName}.js`, `vendor.js`, `${chunkName}~vendor.js`, `${chunkName}.js`]
 
-	const cssOrder = ['vendor.css', 'common-vendor.css', 'layout-app~vendor.css', `${chunkName}.css`, 'layout-app.css']
+	const cssOrder = [
+		'vendor.css',
+		`${chunkName}~vendor.css`,
+		'common-vendor.css',
+		'layout-app~vendor.css',
+		`${chunkName}.css`,
+		'layout-app.css'
+	]
 
 	const webpackStatsOption: StatsOptions = {
 		assets: true, // 添加资源信息

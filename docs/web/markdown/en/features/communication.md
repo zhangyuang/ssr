@@ -1,39 +1,40 @@
-# 组件通信
+# Component Communication
 
-数据管理是前端开发中重要的一环知识。在组件层级过多时通过 `props` 传递非常的苦难，我们通常会使用额外的数据管理库来进行数据管理。同样数据管理从最初的 `flux` 架构到现在最新的 `context` 思路经过了无数变迁，在业界也有着非常非常多的方案。本章节将讲述在 `ssr` 框架中我们如何进行数据管理
+Data management is an important piece of knowledge in frontend development. When there are too many component levels, passing through `props` becomes very difficult, so we usually use additional data management libraries for data management. Similarly, data management has gone through countless changes from the initial `flux` architecture to the latest `context` thinking, and there are many, many solutions in the industry. This chapter will explain how we perform data management in the `ssr` framework.
 
-> 在阅读本章节之前，请确保你已经阅读并熟悉这两个章节的内容[目录结构](/docs/features$structure)和[数据获取](/docs/features$fetch)。
+> Before reading this chapter, please ensure you have read and are familiar with these two chapters: [Directory Structure](/docs/features$structure) and [Data Fetching](/docs/features$fetch).
 
-## 发展历史
+## Development History
 
-数据管理方案从最早的 `flux` 架构提出，即 `视图层组件不允许直接修改应用状态，只能触发 action。应用的状态必须独立出来放到 store 里面统一管理，通过侦听 action 来执行具体的状态操作`。也就是大家熟知的 `单向数据流`。当然真实应用中，我们不可能所有的状态都放在 `store` 中，组件仍然可以拥有并且直接修改自己的 `私有状态`。
+Data management solutions were proposed from the earliest `flux` architecture, which means `view layer components are not allowed to directly modify application state, they can only trigger actions. Application state must be separated and placed in store for unified management, executing specific state operations by listening to actions`. This is the well-known `unidirectional data flow`. Of course, in real applications, we can't put all states in `store`, components can still own and directly modify their own `private state`.
 
-实现 `单向数据流` 又分为两大派系。
+Implementing `unidirectional data flow` is divided into two major schools.
 
-分别是 `immutable` 思想的 `react-redux`, `redux-(thunk|sage)`, `dva`, `redux-toolkit` 等等
+One is the `immutable` thinking: `react-redux`, `redux-(thunk|sage)`, `dva`, `redux-toolkit`, etc.
 
-以及基于 `observer` 思想的 `mobx`, `vuex` 等等
+And the other is based on `observer` thinking: `mobx`, `vuex`, etc.
 
-也有些开发者认为 `React+MobX`，就是类型友好的干净版 `Vue`, 虽然上述方案没有绝对的优劣之分。但从开发者体验的角度来看基于 `observer` 思想实现的方案在编写舒适度上是要更优的。
+Some developers also think that `React+MobX` is a type-friendly clean version of `Vue`. Although the above solutions don't have absolute advantages or disadvantages, from the perspective of developer experience, solutions implemented based on `observer` thinking are superior in writing comfort.
 
-由于数据管理没有唯一答案，所以在 `ssr` 框架中我们`可能`会在框架层面提供多种方案让用户进行选择。但我们始终建议使用框架默认支持的方案，不要自行引入外部方案。我们也会不断的完善这一块的内容。
+Since data management doesn't have a single answer, in the `ssr` framework, we `may` provide multiple solutions at the framework level for users to choose from. But we always recommend using the framework's default supported solutions and not introducing external solutions on your own. We will also continuously improve this area.
 
-## Vue 场景解决方案
+## Vue Scenario Solutions
 
-在 `Vue` 场景中，我们提供了多种数据管理方案，包括大家熟知的 [Vuex](https://vuex.vuejs.org/) 。另外，在 `Vue3` 场景中，我们额外提供了 [Provide/Inject](https://v3.cn.vuejs.org/guide/composition-api-provide-inject.html#%E4%BF%AE%E6%94%B9%E5%93%8D%E5%BA%94%E5%BC%8F-property) 方案来帮助各位简化这一功能。如果你仍然觉得前面两种方案过于复杂，我们还提供了最简单的 `props` 直出数据方案。
+In `Vue` scenarios, we provide multiple data management solutions, including the well-known [Vuex](https://vuex.vuejs.org/). Additionally, in `Vue3` scenarios, we provide an extra [Provide/Inject](https://v3.cn.vuejs.org/guide/composition-api-provide-inject.html#%E4%BF%AE%E6%94%B9%E5%93%8D%E5%BA%94%E5%BC%8F-property) solution to help simplify this functionality. If you still think the previous two solutions are too complex, we also provide the simplest `props` direct data output solution.
 
 ### Vuex
 
-`Vuex` 的具体使用方案，开发者可以查看它的官方文档。这里不进行赘述。在[数据获取](/docs/features$fetch)章节中，我们提出了用 `fetch.ts` 来进行数据的获取。在 `fetch.ts` 中我们可以拿到 `vuex` 的实例来进行相关操作
+For specific usage of `Vuex`, developers can refer to its official documentation. We won't elaborate here. In the [Data Fetching](/docs/features$fetch) chapter, we proposed using `fetch.ts` for data fetching. In `fetch.ts`, we can get the `vuex` instance to perform related operations.
+
 ### Provide/Inject
 
-在 `Vue3` 中我们提供了另一种更加轻量级的跨组件数据共享的方式，也就是 `Provide/Inject` ， `Vuex` 和 `Provide/Inject` 主要的区别在于， `Vuex` 中的全局状态的每次修改是可以追踪回溯的，而 `provide/inject` 中变量的修改是无法控制的，换句话说，你不知道是哪个组件修改了这个全局状态。
+In `Vue3`, we provide another more lightweight way for cross-component data sharing, which is `Provide/Inject`. The main difference between `Vuex` and `Provide/Inject` is that every modification of global state in `Vuex` can be traced back, while variable modifications in `provide/inject` are uncontrollable. In other words, you don't know which component modified this global state.
 
-在中小型应用中，若你完全不考虑使用 `Vuex` 来做数据管理的话，那么你可以删除默认的示例 `Vuex` 全部有关代码以及 `store` 的定义文件夹。
+In small to medium applications, if you completely don't consider using `Vuex` for data management, you can delete all the default example `Vuex` related code and the `store` definition folder.
 
-在渲染的过程中，我们会将 `layout fetch` 与 `page fetch` 的 `返回数据` 组合后以 `props` 的形式注入到 `layout/index.vue` 以及 `layout/App.vue` 当中，开发者可以在该文件当中 `provide` 如下所示。
+During the rendering process, we will combine the `return data` from `layout fetch` and `page fetch`, then inject it into `layout/index.vue` and `layout/App.vue` in the form of `props`. Developers can `provide` in these files as shown below.
 
-`注: Vue2 场景也提供该属性，仅用于在 layout 组件中通过 props.asyncData 拿到合并后的 fetch 数据做一些逻辑处理，不包含数据管理功能`
+`Note: Vue2 scenarios also provide this property, only used in layout components to get merged fetch data through props.asyncData for some logical processing, not including data management functionality.`
 
 ```html
 // layout/App.vue
@@ -54,9 +55,9 @@ export default {
 </script>
 ```
 
-便可以在任意组件中通过 `inject` 拿到该数据并且可以修改数据自动触发更新，为了防止应用数据混乱，我们建议为不同的组件返回数据添加不同的 `namespace` 命名空间。同样当路由切换时我们也会自动的将 `fetch.ts` 返回的数据合并进 `asyncData`。
+Then you can get this data through `inject` in any component and can modify the data to automatically trigger updates. To prevent application data confusion, we recommend adding different `namespace` naming spaces for different components' return data. Similarly, when routes switch, we will automatically merge the data returned by `fetch.ts` into `asyncData`.
 
-为了防止对象失去响应性，这里我们 follow `ref 对象`的规则。将真正的数据对象存放在 `asyncData.value` 字段中。并且将整个 `asyncData` 转换为响应式。这样我们后续可以直接通过修改 `asyncData.value = obj ` 或者 `asyncData.value.key = obj` 的方式来修改数据仍然可以让对象`保持响应式`。使用这种方式需要注意的是如果在 `template` 中使用的话仍然需要添加 `.value` 取值不会自动展开。
+To prevent objects from losing reactivity, here we follow the rules of `ref objects`. We store the real data object in the `asyncData.value` field. And convert the entire `asyncData` to reactive. This way, we can later directly modify data through `asyncData.value = obj` or `asyncData.value.key = obj` and still keep the object `reactive`. When using this method, note that if used in `template`, you still need to add `.value` as the value won't automatically expand.
 
 ```html
 // 任意组件
@@ -84,15 +85,15 @@ export default {
 </script>
 ```
 
-### props 直出数据
+### props Direct Data Output
 
-此功能需要依赖版本 `>5.5.43`
+This functionality requires dependency version `>5.5.43`.
 
-在 `provide/inject` 的方案中，我们为了不丢失响应性需要使用 `.value` 的形式来取值具体的数据，并且我们需要为不同页面的 `fetch` 返回数据添加不同的 `namespace` 来防止属性冲突。这些都是非常有必要的事情。如果开发者认为当前应用不需要任何数据管理方案，我们提供了最简单的 `props 直出数据` 的方案来使得组件能够拿到 `fetch` 返回的数据。
+In the `provide/inject` solution, to avoid losing reactivity, we need to use `.value` form to get specific data values, and we need to add different `namespace` for different pages' `fetch` return data to prevent property conflicts. These are all very necessary things. If developers think the current application doesn't need any data management solution, we provide the simplest `props direct data output` solution to allow components to get the data returned by `fetch`.
 
-此方案兼容 `Vue2/Vue3`。同样支持在 `layout/index.vue`, `layout/App.vue` 中获取 `fetchData`
+This solution is compatible with `Vue2/Vue3`. It also supports getting `fetchData` in `layout/index.vue`, `layout/App.vue`.
 
-`注: 不再建议使用 props.fetchData, 建议统一替换为 props.asyncData`
+`Note: No longer recommend using props.fetchData, suggest uniformly replacing with props.asyncData.`
 
 ```html
 // layout/App.vue

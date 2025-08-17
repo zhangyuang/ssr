@@ -1,56 +1,57 @@
-# 设计思路
+# Design Philosophy
 
-本章节分享本框架在设计时候的一些思路来帮助开发者更好的理解设计目的以及原理。由于代码是不断的变化的，若本章节图片内容不是最新的，可提 `issue` 进行反馈更新。我们欢迎其他框架参考我们的思路，但请注明来源。如果你觉得设计有改进的地方在不影响已有功能和上层业务代码的前提下，请提 `issue` 讨论
+This chapter shares some of the design thinking of this framework to help developers better understand the design purpose and principles. Since code is constantly changing, if the image content in this chapter is not the latest, you can submit an `issue` for feedback and updates. We welcome other frameworks to reference our thinking, but please indicate the source. If you think there are areas for design improvement without affecting existing functionality and upper-level business code, please submit an `issue` for discussion.
 
-## 插件化设计
+## Plugin-Based Design
 
-插件分为前端插件和服务端插件，主要逻辑都在前端插件当中
+Plugins are divided into frontend plugins and server-side plugins, with the main logic in frontend plugins.
 
-### 前端插件
+### Frontend Plugins
 
 ![](/images/plugin1.png)
 
-### 总体设计
+### Overall Design
 
 ![](/images/plugin2.png)
 
-## 渲染降级
+## Render Degradation
 
-怎么实现一个成熟的降级功能
-### 什么情况下进行降级
+How to implement a mature degradation functionality.
+
+### When to Perform Degradation
 
 ![](/images/csr1.png)
 
 ![](/images/csr2.png)
 
-### 业界普遍方案是怎么做的
+### How Industry Common Solutions Work
 
-通常是错误时把请求打到一个静态 `html` 文件来实现
+Usually, when errors occur, requests are routed to a static `html` file to achieve this.
 
 ![](/images/csr3.png)
 
 ![](/images/csr4.png)
 
-### 我们是怎么做的
+### How We Do It
 
 ![](/images/csr5.png)
 
 ![](/images/csr6.png)
 
-## 异步 chunk 如何收集并预加载
+## How Asynchronous Chunks Are Collected and Preloaded
 
-### 为什么会有异步 chunk
+### Why There Are Asynchronous Chunks
 
 ![](/images/chunk1.png)
 
-### vue-renderer 怎么做的
+### How vue-renderer Does It
 
 ![](/images/chunk2.png)
 
-### 我们是怎么做的
+### How We Do It
 
 ![](/images/chunk3.png)
 
-### 有什么优势
+### What Are the Advantages
 
 ![](/images/chunk4.png)
