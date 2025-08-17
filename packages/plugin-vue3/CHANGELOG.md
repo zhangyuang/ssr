@@ -1,3 +1,21 @@
+## [7.0.7](https://github.com/zhangyuang/ssr/compare/plugin-vue3@7.0.6...plugin-vue3@7.0.7) (2025-08-17)
+
+
+### Bug Fixes
+
+* collect modules in rspack ([e5e3d7d](https://github.com/zhangyuang/ssr/commit/e5e3d7d576269fe237165937e2354ad8f425a035))
+* find module chunk name deep search ([7d7453b](https://github.com/zhangyuang/ssr/commit/7d7453b16d65cdd6304478ea4ec0cab274e4c461))
+* **rspack|webpack:** collect top-level chunkName correct ([1620d90](https://github.com/zhangyuang/ssr/commit/1620d90bf02a796f2567e2a7a55ddd20c70f433b))
+* set base in ssr-plugin-vue3 server-entry ([a615504](https://github.com/zhangyuang/ssr/commit/a615504cb0c94a4011e3821143a768d7dc13c442))
+
+
+### Features
+
+* use incoming replace outcoming to find correct chunkName ([20f4769](https://github.com/zhangyuang/ssr/commit/20f4769a6f6bc47cb7ccbb8891295ec600124642))
+* **vite:** use incoming replace outcoming to find correct chunkName ([505763c](https://github.com/zhangyuang/ssr/commit/505763cf423a341795d30fc7dd0b52eadb1f3c82))
+
+
+
 ## [7.0.6](https://github.com/zhangyuang/ssr/compare/plugin-vue3@7.0.5...plugin-vue3@7.0.6) (2025-08-10)
 
 

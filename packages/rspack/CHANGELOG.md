@@ -1,3 +1,13 @@
+## [7.0.17](https://github.com/zhangyuang/ssr/compare/rspack@7.0.16...rspack@7.0.17) (2025-08-17)
+
+
+### Bug Fixes
+
+* collect modules in rspack ([e5e3d7d](https://github.com/zhangyuang/ssr/commit/e5e3d7d576269fe237165937e2354ad8f425a035))
+* set base in ssr-plugin-vue3 server-entry ([a615504](https://github.com/zhangyuang/ssr/commit/a615504cb0c94a4011e3821143a768d7dc13c442))
+
+
+
 ## [7.0.16](https://github.com/zhangyuang/ssr/compare/rspack@7.0.15...rspack@7.0.16) (2025-08-12)
 
 
