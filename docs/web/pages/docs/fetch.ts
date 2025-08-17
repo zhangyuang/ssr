@@ -5,8 +5,7 @@ import { getConfig } from './config'
 export default async ({ router }, ctx?: ISSRContext) => {
  
   const page = router.params.page
-  const language = __isBrowser__ ? navigator.language : ctx?.request.headers['accept-language']
-  const lang = getCurrentLanguage(language)
+  const lang = getCurrentLanguage()
   const data = (await import(`@/markdown/${lang}/${page.replace(/\$/g, '/')}.md`)).default
   if (__isBrowser__) {
     if (page === 'features/v7') {

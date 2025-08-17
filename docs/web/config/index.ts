@@ -1,9 +1,7 @@
-import { useCtx } from 'ssr-common-utils'
 import { t, getCurrentLanguage } from './i18n'
 
 export const getWebSiteConfig = (lang?: string) => {
-  const language = __isBrowser__ ? navigator.language : (useCtx() as any)?.request.headers['accept-language']
-  const currentLang = lang || getCurrentLanguage(language)
+  const currentLang = lang || getCurrentLanguage()
   return {
     header: {
       items: [

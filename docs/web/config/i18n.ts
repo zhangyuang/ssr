@@ -1,3 +1,4 @@
+import { useCtx } from 'ssr-common-utils'
 export interface I18nConfig {
   defaultLanguage: string
   languages: Language[]
@@ -151,7 +152,32 @@ export const i18nConfig: I18nConfig = {
 }
 
 // Helper function to get current language from URL or localStorage
-export function getCurrentLanguage(language?: string): string {
+export function getCurrentLanguage(): string {
+  let language: string | undefined
+
+  if (__isBrowser__) {
+    // 优先从 URL 路径中获取语言
+    const pathMatch = window.location.pathname.match(/^\/(zh|en)(\/|$)/)
+    if (pathMatch) {
+      language = pathMatch[1]
+    } else if (location.href.includes('zh')) {
+      language = 'zh'
+    } else if (location.href.includes('en')) {
+      language = 'en'
+    } else {
+      language = navigator.language
+    }
+  } else {
+    const ctx = useCtx() as any
+    const reqPath = ctx?.request?.path || ''
+    if (reqPath.includes('zh')) {
+      language = 'zh'
+    } else if (reqPath.includes('en')) {
+      language = 'en'
+    } else {
+      language = ctx?.request?.headers['accept-language']
+    }
+  }
   if (language?.includes('zh')) {
     return 'zh'
   }
