@@ -1,3 +1,12 @@
+## [7.0.8](https://github.com/zhangyuang/ssr/compare/utils@7.0.7...utils@7.0.8) (2025-08-17)
+
+
+### Bug Fixes
+
+* add default vendorlist ([ee5eb02](https://github.com/zhangyuang/ssr/commit/ee5eb02b2db8230a7c49c70557060382ba5ecf25))
+
+
+
 ## [7.0.7](https://github.com/zhangyuang/ssr/compare/utils@7.0.6...utils@7.0.7) (2025-08-17)
 
 

@@ -1,6 +1,6 @@
 {
   "name": "ssr-common-utils",
-  "version": "7.0.7",
+  "version": "7.0.8",
   "description": "utils for serverless ssr",
   "types": "./esm/types.d.ts",
   "main": "./cjs/server/index.js",
