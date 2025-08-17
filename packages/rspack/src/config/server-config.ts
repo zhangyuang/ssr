@@ -6,6 +6,9 @@ import { getBaseConfig } from './base-config'
 export const getServerRspack = (chain: RspackChain) => {
 	const { isDev, getOutput, chainServerConfig, chunkName } = loadConfig()
 	getBaseConfig(chain, true)
+	chain.watchOptions({
+		ignored: /node_modules\/(?!.*ssr-plugin.*)/
+	})
 	chain.target('node')
 	chain
 		.entry(chunkName)
