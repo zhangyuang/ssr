@@ -59,12 +59,12 @@ const parseFeRoutes = async () => {
 	const isReact = framework.includes('ssr-plugin-react')
 	let routes = `
       // The file is provisional which will be overwritten when restart
-      export const FeRoutes = ${JSON.stringify(arr)} 
       export { default as Layout } from "${layoutPath}"
       export { default as App } from "${AppPath}"
       ${layoutFetch ? 'export { default as layoutFetch } from "@/components/layout/fetch"' : ''}
       ${accessStore && !isReact ? 'export * as store from "@/store/index"' : ''}
       ${accessStore && isReact ? 'export * from "@/store/index"' : ''}
+    	export const FeRoutes = ${JSON.stringify(arr)} 
       `
 	routes = routes.replace(/"component":("(.+?)")/g, (_global, _m1, m2) => {
 		const currentWebpackChunkName = re.exec(routes)![2]

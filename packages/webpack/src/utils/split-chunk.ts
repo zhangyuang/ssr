@@ -41,6 +41,9 @@ export class splitChunkPlugin {
 						? [chunkNameRe.exec(normalModule.resource ?? '')?.[1]]
 						: incomings
 								.map((c) => {
+									if (c.resource?.includes('ssr-plugin') || c.resource?.includes('packages/plugin')) {
+										return 'Page'
+									}
 									return c.resource?.includes('chunkName')
 										? chunkNameRe.exec(c.resource ?? '')?.[1]
 										: dependenciesMap[c.resource?.split('?')[0] ?? '']

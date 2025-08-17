@@ -58,6 +58,9 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 				const chunkName = chunkNameRe.exec(id)![1]
 				dependenciesMap[getModuleName(id)] = [chunkName]
 			}
+			if (id.includes('client-entry')) {
+				dependenciesMap[getModuleName(id)] = ['Page']
+			}
 		},
 
 		async buildEnd(this, err) {
