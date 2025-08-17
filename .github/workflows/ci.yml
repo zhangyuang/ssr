@@ -55,7 +55,9 @@ jobs:
           repository: zhangyuang/v8-profiler-rs
           path: v8-profiler-rs
           ref: public
-      - run: cp ./v8-profiler-rs/README.md ./docs/web/markdown/features/memory.md
+      - run: |
+          cp ./v8-profiler-rs/README.md ./docs/web/markdown/en/features/memory.md
+          cp ./v8-profiler-rs/README.md ./docs/web/markdown/zh/features/memory.md
       - run: cd docs && yarn && npm run deploy
         env:
           SERVERLESS_DEPLOY_AK: ${{ secrets.SERVERLESS_DEPLOY_AK }}

@@ -1,8 +1,8 @@
-# 在线案例
+# Online Examples
 
-本篇章将会展示使用本框架开发并部署的应用。包含传统 Node.js 形式部署的应用以及 Serverless 形式部署的应用。
+This chapter will showcase applications developed and deployed using this framework. It includes applications deployed in traditional Node.js form as well as applications deployed in Serverless form.
 
-如果你发现你的应用也是以本框架进行开发，但这里没有列出来，欢迎提 [issue](https://github.com/zhangyuang/ssr/issues) 向我们反馈，我们会及时加入。
+If you find that your application is also developed with this framework but not listed here, welcome to submit an [issue](https://github.com/zhangyuang/ssr/issues) to give us feedback, and we will add it promptly.
 
 <table>
 <tr>
@@ -89,15 +89,15 @@
 </tr>
 </table>
 
-## 默认示例
+## Default Examples
 
-事实上本文档即是用本框架进行开发以及 Serverless 的能力进行部署。下面展示默认创建的示例通过 Serverless 部署的在线链接，支持 `服务端渲染/客户端渲染` 两种访问模式
+In fact, this documentation is developed using this framework and deployed using Serverless capabilities. Below are online links of default created examples deployed through Serverless, supporting both `Server-Side Rendering/Client-Side Rendering` access modes.
 
-- http://ssr-fc.com/ 部署到阿里云的 React SSR 应用
-- http://ssr-fc.com?csr=true 部署到阿里云的 React SSR 应用, 以 CSR 模式访问
-- http://tx.ssr-fc.com 部署到腾讯云的 React SSR 应用
-- http://tx.ssr-fc.com?csr=true 部署到腾讯云的 React SSR 应用, 以 CSR 模式访问
-- http://vue.ssr-fc.com 部署到阿里云的 Vue SSR 应用
-- http://vue3.ssr-fc.com 部署到阿里云的 Vue3 SSR 应用
-- http://vue.ssr-fc.com?csr=true 部署到阿里云的 Vue SSR 应用, 以 CSR 模式访问
-- http://vue3.ssr-fc.com?csr=true 部署到阿里云的 Vue3 SSR 应用, 以 CSR 模式访问
+- http://ssr-fc.com/ React SSR application deployed to Alibaba Cloud
+- http://ssr-fc.com?csr=true React SSR application deployed to Alibaba Cloud, accessed in CSR mode
+- http://tx.ssr-fc.com React SSR application deployed to Tencent Cloud
+- http://tx.ssr-fc.com?csr=true React SSR application deployed to Tencent Cloud, accessed in CSR mode
+- http://vue.ssr-fc.com Vue SSR application deployed to Alibaba Cloud
+- http://vue3.ssr-fc.com Vue3 SSR application deployed to Alibaba Cloud
+- http://vue.ssr-fc.com?csr=true Vue SSR application deployed to Alibaba Cloud, accessed in CSR mode
+- http://vue3.ssr-fc.com?csr=true Vue3 SSR application deployed to Alibaba Cloud, accessed in CSR mode

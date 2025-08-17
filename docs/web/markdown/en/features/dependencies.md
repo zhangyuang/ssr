@@ -1,6 +1,6 @@
-# 底层依赖模块版本
+# Underlying Dependency Module Versions
 
-在这里可以查看到框架底层依赖的第三方包版本，方便查看对应版本的文档
+Here you can view the versions of third-party packages that the framework depends on at the underlying level, making it convenient to view the corresponding version documentation.
 
 ```js
   "dependencies": {

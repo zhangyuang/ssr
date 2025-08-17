@@ -1,25 +1,25 @@
-# 本地开发
+# Local Development
 
-在 `ssr` 框架中无论你是使用哪些插件进行组合，我们的本地开发命令都是一致的，即 `ssr start` 命令。本篇文章将会讲述执行 `ssr start` 命令后到底发生了什么
+In the `ssr` framework, regardless of which plugins you use for combination, our local development commands are consistent, which is the `ssr start` command. This article will explain what actually happens after executing the `ssr start` command.
 
-## 启动服务
+## Starting the Service
 
 ```shell
-$ npm init ssr-app my-ssr-project --template=midway-vue3-ssr # 这里可以选择上述任意模版
-$ cd my-ssr-project && npm i # 可以使用 yarn 不要使用 cnpm
-$ npm start # 启动服务，等价于 npx ssr start
+$ npm init ssr-app my-ssr-project --template=midway-vue3-ssr # You can choose any of the above templates here
+$ cd my-ssr-project && npm i # You can use yarn, don't use cnpm
+$ npm start # Start the service, equivalent to npx ssr start
 $ open http://localhost:3000
 ```
 
-执行 `ssr start` 命令后我们将会启动默认监听的 `3000` 端口来提供对外的服务
+After executing the `ssr start` command, we will start the default listening port `3000` to provide external services.
 
 ## ssr start
 
-由于我们的设计是基于插件架构的，在执行 `ssr start` 命令时，其实我们本质是依次调用了服务端插件和客户端插件暴露的 `start` 方法，来分别启动本地 Node.js Server 服务，这里的服务提供者可以是 `Midway.js`, `Nest.js` 或者开发者另外开发的其他服务端插件。以及客户端插件提供的前端静态资源文件的构建托管以及 `HMR` 能力。关于这部分内容更加详细的了解可以阅读[插件机制](./features$plugin)章节。
+Since our design is based on a plugin architecture, when executing the `ssr start` command, we essentially call the `start` methods exposed by server-side plugins and client-side plugins in sequence to start local Node.js Server services respectively. The service providers here can be `Midway.js`, `Nest.js`, or other server-side plugins developed by developers. As well as the build hosting of frontend static resource files and `HMR` capabilities provided by client-side plugins. For more detailed understanding of this part, you can read the [Plugin Mechanism](./features$plugin) chapter.
 
-## 请求链路
+## Request Flow
 
-我们的每一个 `http` 请求都会先经过一个 `server` 层，再根据具体的逻辑来决定这个请求到底是返回 `json` 数据，还是 `html` 页面，还是前端静态资源。在我们这个场景，`server` 层就是 Node.js 框架提供的服务。一个服务端渲染页面的请求链路如下。
+Each of our `http` requests will first go through a `server` layer, and then decide whether this request returns `json` data, `html` pages, or frontend static resources based on specific logic. In our scenario, the `server` layer is the service provided by the Node.js framework. The request flow for a server-side rendered page is as follows.
 
 ```js
 import { render } from 'ssr-core'

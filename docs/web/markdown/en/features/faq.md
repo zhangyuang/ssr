@@ -1,14 +1,14 @@
 # FAQ
 
-本章节记录开发者可能会遇到的常见问题。如果你的问题在这里没有描述，你可以直接去仓库地址提 [issue](https://github.com/zhangyuang/ssr/issues)
+This chapter records common problems that developers may encounter. If your problem is not described here, you can directly go to the repository address to submit an [issue](https://github.com/zhangyuang/ssr/issues).
 
-## 异常处理问题
+## Exception Handling Issues
 
-### 404 500 异常处理
+### 404 500 Exception Handling
 
-本章节讲述如何特殊自定义处理 `404`, `500` 等异常情况。
+This chapter explains how to specially customize the handling of `404`, `500` and other exception situations.
 
-以 `404` 为例，我们在中间件中处理异常情况，以下代码以服务端使用 [Midway.js](https://midwayjs.org/en/docs/middleware#%E7%BC%96%E5%86%99%E4%B8%AD%E9%97%B4%E4%BB%B6) 为例讲述如何使用
+Taking `404` as an example, we handle exception situations in middleware. The following code uses [Midway.js](https://midwayjs.org/en/docs/middleware#%E7%BC%96%E5%86%99%E4%B8%AD%E9%97%B4%E4%BB%B6) on the server side as an example to explain how to use it.
 
 ```js
 // /src/middleware/NotFound.ts

@@ -1,12 +1,12 @@
-# 数据获取
+# Data Fetching
 
-数据获取是服务端渲染应用中非常重要的一个环节。通过本章节的内容，读者可以了解服务端渲染应用的一些深层次的知识
+Data fetching is a very important part of server-side rendering applications. Through the content of this chapter, readers can understand some deep-level knowledge of server-side rendering applications.
 
-## 静态方法获取数据
+## Static Method Data Fetching
 
-`ssr` 框架提出定义 `fetch.ts` 文件用于获取数据，本质上与 `Vue` 提出的 `asyncData`, `Next.js` 提出的 `getInitialProps` 意义一致，都属于一个静态方法。
+The `ssr` framework proposes defining `fetch.ts` files for data fetching, which is essentially the same as `asyncData` proposed by `Vue` and `getInitialProps` proposed by `Next.js` - they all belong to static methods.
 
-关于什么是 `static method`, 即不需要将类实例化便可以拿到的方法。例如下面的代码
+About what `static method` is: methods that can be obtained without instantiating the class. For example, the following code:
 
 ```js
 class Foo {}
@@ -16,9 +16,9 @@ Foo.bar = () => {}
 
 此时的 `bar` 函数即为 `static method`, 我们可以直接通过 `Foo.bar()` 来调用它，而不需要 `new Foo()`。这里大部分用户可能会有疑惑，为什么要使用一个静态方法来进行数据的获取，而不是像传统 SPA 应用一样直接写在组件的生命周期当中呢。
 
-对服务端渲染有一定了解的同学会知道，在服务端会执行的生命周期只有 `created/componentWillMount`，而像 `mounted/componentDidMount` 这样的生命周期是不会被执行的。那么我们将获取数据的逻辑写在 `created` 当中是否可行呢。答案也是否定的
+Students who have some understanding of server-side rendering will know that in the server, only lifecycles like `created/componentWillMount` will be executed, while lifecycles like `mounted/componentDidMount` won't be executed. So is it feasible to write data fetching logic in `created`? The answer is also no.
 
-由于我们获取数据的逻辑一般都是异步的。在服务端渲染的过程中，并不会像客户端应用那样，当 `props/state` 改变时组件重新 `render`。举个例子，下面的代码是无法拿到正确的渲染结果的
+Since our data fetching logic is generally asynchronous, during the server-side rendering process, components won't re-render when `props/state` changes like in client-side applications. For example, the following code cannot get correct rendering results:
 
 ```js
 class Foo extends React.component {
@@ -42,62 +42,62 @@ class Foo extends React.component {
 }
 ```
 
-上述代码我们期望的渲染结果是 `value=bar` 但是实际的结果却并不是这样。有兴趣的同学可以实际运行一下上述代码来观察一下具体的现象。同理在 `Vue` 当中我们也不能够拿到正确的数据。所以我们需要定义一个静态方法来获取数据
+In the above code, we expect the rendering result to be `value=bar`, but the actual result is not like this. Interested students can actually run the above code to observe the specific phenomenon. Similarly, in `Vue`, we also cannot get correct data. So we need to define a static method to fetch data.
 
-## fetch.ts 规范
+## fetch.ts Specification
 
-我们在静态方法的基础上抽象出 `fetch.ts` 文件规范来作为获取数据的入口文件。因为对一些大团队来说，我们在服务端通常可以采用 `rpc` 类型的调用，或是直接调用 `Node Service` 的代码来获取数据，无需通过 `http` 请求，所以在 `fetch.ts` 中，我们可能会编写服务端相关代码，故独立出一个文件来进行维护。
+We abstract the `fetch.ts` file specification on the basis of static methods as the entry file for data fetching. Because for some large teams, we can usually use `rpc` type calls on the server side, or directly call `Node Service` code to get data without going through `http` requests. So in `fetch.ts`, we might write server-side related code, hence we separate it into a file for maintenance.
 
-`fetch.ts` 的定义是页面级别的组件进行数据获取的入口文件，不包括子组件。由于在服务端一个组件被真正的 `render` 之前，我们并不知道它依赖哪些子组件。所以我们没有办法调用子组件的 `fetch`, 当然也有其他方式可以解决这个问题。见本文最后的补充内容。在 `Vue` 场景这个问题很容易解决，我们将会在之后的版本在 `Vue` 场景加入对子组件数据获取的支持。
+The definition of `fetch.ts` is that it's the entry file for page-level components to fetch data, not including child components. Since on the server side, before a component is truly `render`ed, we don't know which child components it depends on. So we can't call child components' `fetch`. Of course, there are other ways to solve this problem. See the supplementary content at the end of this article. In `Vue` scenarios, this problem is easy to solve, and we will add support for child component data fetching in `Vue` scenarios in future versions.
 
-`fetch.ts` 的文件类型分为两种
+`fetch.ts` files are divided into two types:
 
 ### Layout fetch
 
-`Layout` 级别的 `fetch` (可选)，定义在 `web/components/layout/fetch.ts` 路径
+`Layout` level `fetch` (optional), defined at `web/components/layout/fetch.ts` path.
 
-意义: `Layout` 级别的 `fetch` 用于初始化一些所有页面都会用到的一些公共数据，若该文件存在则调用。将会把返回的数据与页面级别的 `fetch` 合并返回给开发者。`Layout` 场景只允许存在一个 `fetch` 文件
+Meaning: `Layout` level `fetch` is used to initialize some common data that all pages will use. If this file exists, it will be called. The returned data will be merged with page-level `fetch` and returned to developers. `Layout` scenarios only allow one `fetch` file to exist.
 
-### 页面级 fetch
+### Page-level fetch
 
-页面级别的 `fetch` (可选, 可以存在多个)，定义在 `web/pages/xxx/fetch.ts` 路径
+Page-level `fetch` (optional, can exist multiple), defined at `web/pages/xxx/fetch.ts` path.
 
-意义: 页面级别的 `fetch` 将会在当前访问该前端页面组件对应的 `path` 时被调用
+Meaning: Page-level `fetch` will be called when currently accessing the `path` corresponding to the frontend page component.
 
-#### fetch 与 render 对应关系
+#### fetch and render Correspondence
 
-`fetch` 文件与 `render` 对应关系如下
+The correspondence between `fetch` files and `render` is as follows:
 
-- 当只有一个 `fetch` 文件时，当前文件夹所有的 `render` 文件都对应这个 `fetch` 文件
-- `fetch` 文件存在多个时，`render` 文件与 `fetch` 文件名一一对应，例如 `render.vue` => `fetch.ts`, `render$id.vue` => `fetch$id.ts`
+- When there's only one `fetch` file, all `render` files in the current folder correspond to this `fetch` file
+- When multiple `fetch` files exist, `render` files correspond one-to-one with `fetch` filenames, for example `render.vue` => `fetch.ts`, `render$id.vue` => `fetch$id.ts`
 
-### fetch 调用时机
+### fetch Call Timing
 
-这里我们将其分为`服务端渲染模式`和`客户端渲染模式`两种情况
+Here we divide it into two cases: `Server-Side Rendering Mode` and `Client-Side Rendering Mode`.
 
-#### 服务端渲染模式
+#### Server-Side Rendering Mode
 
-将会在服务端渲染执行的过程中被调用。在客户端激活的过程中会复用服务端获取并注入到 `window` 中的数据来进行初始化。不会在客户端再次获取。当客户端进行前端路由切换时会调用将要前往的页面对应的 `fetch`。下图中的 `fetch` 代表 `layout fetch` + `page fetch`。有则调用。
+Will be called during the server-side rendering execution process. During the client activation process, it will reuse the data obtained by the server and injected into `window` for initialization. It won't fetch again on the client side. When the client performs frontend route switching, it will call the `fetch` corresponding to the page it's going to. The `fetch` in the figure below represents `layout fetch` + `page fetch`. If they exist, they will be called.
 
 ![](/images/ssr-fetch.png)
 
-#### 客户端渲染模式
+#### Client-Side Rendering Mode
 
-此时服务端不会进行任何的数据获取操作, 仅渲染一个空的 `html` 骨架，实际的数据获取以及 DOM 渲染的操作都会在客户端执行。也就跟大家熟悉的传统客户端 SPA 应用的行为一致了
+At this time, the server won't perform any data fetching operations, only rendering an empty `html` skeleton. The actual data fetching and DOM rendering operations will all be executed on the client side. This is consistent with the behavior of traditional client-side SPA applications that everyone is familiar with.
 
 ![](/images/csr-fetch.png)
 
-#### 判断当前环境
+#### Judging Current Environment
 
-在默认的示例中，我们会通过 `__isBrowser__` 变量来标志当前环境是为了让开发者了解该文件可能会在 `服务端`，`客户端` 两种不同的环境中执行。该变量构建过程中会自动注入无需开发者关注。而真实应用中，除了基础建设成熟的公司或部门会在 `Node.js` 层通过 `RPC` 的方式去调用其他语言的接口之外，大部分公司还是使用 `HTTP` 的形式来请求服务。这种情况不需要通过 `__isBrowser__` 判断环境。可直接用 [axios](https://github.com/axios/axios) 发起 `HTTP` 请求, `axios` 会自动根据当前环境判断是客户端则使用 `xhr` 对象发起请求服务端则使用 `http` 模块发起请求。
+In the default examples, we use the `__isBrowser__` variable to mark the current environment to let developers understand that this file might be executed in two different environments: `server-side` and `client-side`. This variable is automatically injected during the build process without developers needing to pay attention. In real applications, except for companies or departments with mature infrastructure that call interfaces in other languages through `RPC` at the `Node.js` layer, most companies still use `HTTP` form to request services. In this case, there's no need to judge the environment through `__isBrowser__`. You can directly use [axios](https://github.com/axios/axios) to initiate `HTTP` requests. `axios` will automatically judge the current environment - if it's client-side, it uses `xhr` objects to initiate requests; if it's server-side, it uses the `http` module to initiate requests.
 
-### 方法入参
+### Method Parameters
 
-在 `Vue`, `React` 场景以及 `服务端`，`客户端` 环境我们的 `fetch.ts` 的入参会有稍许不同
+In `Vue`, `React` scenarios and `server-side`, `client-side` environments, our `fetch.ts` parameters will be slightly different.
 
-#### Vue 场景
+#### Vue Scenarios
 
-在 `Vue` 场景中，我们将会把 `vuex`, `vue-router` 返回的实例作为参数传入。开发者可以在任何时候使用它们。在 `服务端` 环境，我们会额外把当前请求的上下文 `ctx` 传入。开发者可以通过 `ctx` 拿到上面挂载的 `自定义 Service` 或者 `ctx.request` 等对象信息。这取决于服务端代码调用 `core` 模块时的具体入参实现。
+In `Vue` scenarios, we will pass the instances returned by `vuex`, `vue-router` as parameters. Developers can use them at any time. In `server-side` environments, we will additionally pass the current request context `ctx`. Developers can get the mounted `Custom Service` or `ctx.request` and other object information through `ctx`. This depends on the specific parameter implementation when server-side code calls the `core` module.
 
 ```js
 // vue3 fetch.ts

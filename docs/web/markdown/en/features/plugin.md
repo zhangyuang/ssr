@@ -1,28 +1,28 @@
-# 插件机制
+# Plugin Mechanism
 
-插件机制是一种可以扩展框架能力的优秀机制。许多开发者在一些知名项目中都会看到它们各自的插件机制例如 `Webpack`, `Rollup`, `Vite`, `umi.js` 中。同样本框架之所以能够同时支持 `React`, `Vue2`, `Vue3` 同样也是基于插件机制扩展的
+The plugin mechanism is an excellent mechanism that can extend framework capabilities. Many developers will see their respective plugin mechanisms in some well-known projects such as `Webpack`, `Rollup`, `Vite`, `umi.js`. Similarly, the reason why this framework can simultaneously support `React`, `Vue2`, `Vue3` is also based on plugin mechanism extensions.
 
-本框架的插件机制不像大家熟悉的 `Webpack` 插件。通常我们基于 `Webpack `开发一个大型应用需要组合十多个 `Webpack Plugin` 才能够正常工作。它将每一个插件的功能粒度分的很细。大概原理就是在 `compile code` 的每个阶段，通过抛出对应的钩子来使得插件可以修改该阶段的 `code` 代码来组合成一个完整的应用。
+This framework's plugin mechanism is not like the familiar `Webpack` plugins. Usually, when we develop a large application based on `Webpack`, we need to combine more than ten `Webpack Plugin`s to work properly. It divides the functionality granularity of each plugin very finely. The general principle is that at each stage of `compile code`, by throwing corresponding hooks, plugins can modify the `code` at that stage to combine into a complete application.
 
-本框架的插件机制有点类似于 `Vite Plugin`, 目前我们提供了客户端插件 [plugin-react](https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-react) [plugin-vue](https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-vue) [plugin-vue3](https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-vue3) 以及服务端插件 [plugin-midway](https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-midway) [plugin-nestjs](https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-nestjs)。它们所代表的含义是一个框架场景下的解决方案。
+This framework's plugin mechanism is somewhat similar to `Vite Plugin`. Currently, we provide client-side plugins [plugin-react](https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-react) [plugin-vue](https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-vue) [plugin-vue3](https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-vue3) and server-side plugins [plugin-midway](https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-midway) [plugin-nestjs](https://github.com/zhangyuang/ssr/tree/dev/packages/plugin-nestjs). What they represent is a solution for a framework scenario.
 
-相比于 `Webpack Plugin` 我们的粒度要更大一些。开发者可以在客户端插件与服务端插件之间进行任意的组合。但是无法将多个客户端插件进行组合。那么下面我们来看看如何编写一个 `ssr` 框架需要的插件吧
+Compared to `Webpack Plugin`, our granularity is larger. Developers can combine client-side plugins and server-side plugins arbitrarily. However, multiple client-side plugins cannot be combined. So let's see how to write a plugin needed by the `ssr` framework.
 
-## 插件类型
+## Plugin Types
 
-我们定义服务端插件与客户端插件各自的职责如下
+We define the respective responsibilities of server-side plugins and client-side plugins as follows:
 
-- 服务端插件，负责本地开发时提供 `Node.js Server` 服务，提供服务端代码的构建功能例如 `ts -> js`。以及 `deploy` 发布功能 (可选)
+- Server-side plugins are responsible for providing `Node.js Server` services during local development, providing server-side code build functionality such as `ts -> js`, and `deploy` publishing functionality (optional).
 
-- 客户端插件，负责提供前端组件静态资源的打包构建功能以及本地开发的 `HMR` 能力
+- Client-side plugins are responsible for providing frontend component static resource packaging and build functionality, as well as local development `HMR` capabilities.
 
-注意：我们的插件只会在本地开发时使用。在生产环境我们不会使用到插件提供的功能，也不需要安装相关依赖。以此保证我们生产环境的 `node_modules` 文件夹的最小化
+Note: Our plugins are only used during local development. In production environments, we don't use the functionality provided by plugins, nor do we need to install related dependencies. This ensures the minimization of our production environment's `node_modules` folder.
 
-## 服务端插件
+## Server-Side Plugins
 
-相比于客户端插件。其实一个服务端插件的开发是非常容易的。几乎十几行代码就可以完成。因为这一部分的功能，我们完全没有做任何的包装和附加。都是各自 Node.js 框架本身所提供的功能。
+Compared to client-side plugins, developing a server-side plugin is actually very easy. It can be completed in just a dozen lines of code. Because for this part of functionality, we haven't done any packaging or additions. They are all functionalities provided by the respective Node.js frameworks themselves.
 
-在 `package.json` 中我们提供了 `start` `build` `deploy(可选)` 命令供开发者在本地开发时使用。在执行 `ssr start` 命令时，我们本质上是调用了服务端插件和客户端插件提供的 `start` 方法。也就是说一个服务端插件的代码如下。
+In `package.json`, we provide `start`, `build`, `deploy(optional)` commands for developers to use during local development. When executing the `ssr start` command, we essentially call the `start` methods provided by server-side plugins and client-side plugins. That is to say, a server-side plugin's code is as follows.
 
 ```js
 // plugin-midway

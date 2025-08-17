@@ -1,13 +1,13 @@
-# 约定式路由
+# Conventional Routing
 
-约定式路由即根据前端文件夹结构来自动的生成前端路由配置。  
+Conventional routing automatically generates frontend routing configuration based on the frontend folder structure.
 
-本框架同时支持约定式路由和声明式路由，当检测到 `web/route.ts` 文件存在时会使用该文件来作为前端路由结构, 但我们不支持你这么做。因为框架会根据你当前的不同配置来生成不同的路由结构，并且也不保证这些结构在之后的版本中是一成不变的。如果手动编写工作量过大且容易出错。在没有特殊需求的情况下建议直接使用约定式路由。
+This framework supports both conventional routing and declarative routing. When a `web/route.ts` file is detected, it will be used as the frontend routing structure, but we don't recommend you do this. Because the framework will generate different routing structures based on your current different configurations, and it also doesn't guarantee that these structures will remain unchanged in future versions. Manual writing is too much work and error-prone. In the absence of special requirements, it's recommended to directly use conventional routing.
 
-`注：在最新的版本中我们支持约定式路由和声明式路由同时存在，并以声明式路由为更高优先级`
-## 路由规则
+`Note: In the latest version, we support the coexistence of conventional routing and declarative routing, with declarative routing having higher priority.`
+## Routing Rules
 
-下面来介绍我们详细的路由映射规则, 以下为一个基础的 `web` 文件夹的结构，我们主要关注 `web/pages` 文件夹，根据该文件夹来 `parse` 前端路由结构
+Below we introduce our detailed routing mapping rules. The following is a basic `web` folder structure. We mainly focus on the `web/pages` folder and parse the frontend routing structure based on this folder.
 
 ```shell
 $ tree ./ -I node_modules -L 3
@@ -20,57 +20,57 @@ $ tree ./ -I node_modules -L 3
 │       └── render.vue
 ```
 
-### 页面组件
+### Page Components
 
-`pages` 文件夹下的每个文件夹，我们都会认为它是一个页面。上述结构包含 `index`, `detail` 两个页面。
+Each folder under the `pages` folder, we consider it a page. The above structure contains two pages: `index` and `detail`.
 
-同样我们定义 `render` 文件代表一个页面的渲染组件。`render` 文件支持多种格式来应对不同类型的前端路由
+Similarly, we define `render` files to represent a page's rendering component. `render` files support multiple formats to handle different types of frontend routes.
 
-### 普通路由
+### Normal Routes
 
-最常见的普通路由即 `/`, `/detail`, `/user` 这种我们只需要创建同名文件夹即可。这里我们特殊针对根路由，来将 `index` 文件夹进行映射
+The most common normal routes are `/`, `/detail`, `/user` - we just need to create folders with the same names. Here we specially handle the root route by mapping the `index` folder.
 
-- `/index/render.vue` 映射为 `/`
-- `/detail/render.vue` 映射为 `/detail`
-- `/user/render.vue` 映射为 `/user`
+- `/index/render.vue` maps to `/`
+- `/detail/render.vue` maps to `/detail`
+- `/user/render.vue` maps to `/user`
 
-### 动态路由
+### Dynamic Routes
 
-动态路由即携带参数的路由，例如 `/user/:id` 这种
+Dynamic routes are routes with parameters, such as `/user/:id`.
 
-- `/user/render$id.vue` 映射为 `/user/:id`
-- `/user/render$foo$bar.vue` 多参数的情况下映射为 `/user/:foo/:bar`
+- `/user/render$id.vue` maps to `/user/:id`
+- `/user/render$foo$bar.vue` maps to `/user/:foo/:bar` in multi-parameter cases
 
-### 可选参数路由
+### Optional Parameter Routes
 
-在 `React|Vue` 场景下均可使用。由于 `?` 符号无法作为文件名使用，所以这里我们需要用 `#` 号代替
+Can be used in both `React|Vue` scenarios. Since the `?` symbol cannot be used as a filename, we need to use the `#` symbol instead.
 
-- `/index/render$id#.vue` 映射为 `/:id?`
+- `/index/render$id#.vue` maps to `/:id?`
 
-### 通配符路由
+### Wildcard Routes
 
-用来匹配所有符合要求的文件, 综合考虑 [path-to-regexp](https://www.npmjs.com/package/path-to-regexp) 和 [vue-router](https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html#%E6%8D%95%E8%8E%B7%E6%89%80%E6%9C%89%E8%B7%AF%E7%94%B1%E6%88%96-404-not-found-%E8%B7%AF%E7%94%B1) 文档，使用如下结构
+Used to match all files that meet the requirements. Considering both [path-to-regexp](https://www.npmjs.com/package/path-to-regexp) and [vue-router](https://router.vuejs.org/zh/guide/essentials/dynamic-matching.html#%E6%8D%95%E8%8E%B7%E6%89%80%E6%9C%89%E8%B7%AF%E7%94%B1%E6%88%96-404-not-found-%E8%B7%AF%E7%94%B1) documentation, we use the following structure.
 
-由于 `*` 符号在 `Windows` 下无法作为文件名使用，所以这里我们需要用 `&` 号代替
+Since the `*` symbol cannot be used as a filename in `Windows`, we need to use the `&` symbol instead.
 
-- `/detail/render$params&.vue` 映射为 `/detail/:params*`，本质上对应所有来自 `/detail/*` 的请求
+- `/detail/render$params&.vue` maps to `/detail/:params*`, essentially corresponding to all requests from `/detail/*`.
 
-`React` 场景同理生效
+`React` scenarios work the same way.
 
-### 多级路由
+### Multi-level Routes
 
-尽管在大多数情况下我们用不到多级路由，但这里我们仍然提供了对应的解析策略。如果你的应用所有路由 `path` 前面都需要加上一个统一的前缀，那么你应该通过 `config.prefix` 来实现，而不是多级路由。参考[应用配置](./api$config#prefix)
+Although we don't use multi-level routes in most cases, we still provide corresponding parsing strategies here. If all your application routes need a unified prefix before the `path`, you should implement it through `config.prefix` rather than multi-level routes. Reference [Application Configuration](./api$config#prefix).
 
-- `/user/detail/render$id` 映射为 `/user/detail/:id`
-- `/user/detail/render$foo$bar` 映射为 `/user/detail/:foo/:bar`
+- `/user/detail/render$id` maps to `/user/detail/:id`
+- `/user/detail/render$foo$bar` maps to `/user/detail/:foo/:bar`
 
-### 嵌套路由
+### Nested Routes
 
-约定式路由不支持生成嵌套路由也就是 `children` 子结构。虽然支持嵌套路由并不难，但这会让规范变得复杂。特别是获取数据这一块，且嵌套路由用业务代码实现是非常简单的事情。在 `React` 中直接手动引入 `Router` 来实现即可。在 `Vue` 中需要手动填写 `children` 字段。如果不支持嵌套路由的 `fetch`， 那么非常容易实现，但是意义不大开发者直接在业务代码中实现即可，如果要支持嵌套路由的 `fetch` 那么会让规范变得复杂。例如需要在框架层面让 `render$child$foo.vue` 对应 `fetch$child$foo.ts` 文件。这非常的 `dirty`，所以并不打算支持嵌套路由。
+Conventional routing doesn't support generating nested routes, which are `children` sub-structures. Although supporting nested routes isn't difficult, it would make the specification complex. Especially for data fetching, implementing nested routes with business code is very simple. In `React`, you can directly manually import `Router` to implement it. In `Vue`, you need to manually fill in the `children` field. If nested route `fetch` isn't supported, it's very easy to implement, but it's not meaningful - developers can implement it directly in business code. If nested route `fetch` is supported, it would make the specification complex. For example, at the framework level, `render$child$foo.vue` would correspond to `fetch$child$foo.ts` files. This is very `dirty`, so we don't plan to support nested routes.
 
-### 手动编写嵌套路由
+### Manually Writing Nested Routes
 
-在 `Vue2/3` 场景下由于底层的 `vue-router` 支持了嵌套路由的书写规范。所以在这里 `ssr` 框架层也支持了手动编写嵌套路由并且能够正确的在服务端匹配渲染的能力。这里的 `children` 字段与 `vue-router` 官方的用法保持一致。`webpackChunkName` 的编写规范与下文提到的手动路由编写规范的注意事项保持一致
+In `Vue2/3` scenarios, since the underlying `vue-router` supports nested route writing specifications, the `ssr` framework layer here also supports manually writing nested routes and can correctly match and render on the server side. The `children` field here is consistent with the official `vue-router` usage. The `webpackChunkName` writing specification is consistent with the manual route writing specification notes mentioned below.
 
 ```js
 // web/route.ts
@@ -82,7 +82,7 @@ export const FeRoutes = [
     webpackChunkName: 'detail',
     children: [
       {
-        path: 'foo', // 将会匹配 /detail/foo 的请求地址
+        path: 'foo', // Will match requests to /detail/foo
         fetch: async () => await import(/* webpackChunkName: "detail-foo-fetch" */ '@/pages/detail/detail-fetch'),
         component: async () => await import(/* webpackChunkName: "detail-foo" */ '@/pages/detail/foo.vue'),
         webpackChunkName: 'detail-foo'
@@ -92,18 +92,18 @@ export const FeRoutes = [
 ]
 
 ```
-### 实现代码
+### Implementation Code
 
-具体的实现代码可以查看该[文件](https://github.com/zhangyuang/ssr/blob/dev/packages/utils/server/src/parse.ts#L26)
+For specific implementation code, you can view this [file](https://github.com/zhangyuang/ssr/blob/dev/packages/utils/server/src/parse.ts#L26).
 
-## 手动编写路由结构
+## Manually Writing Route Structure
 
-尽管我们不建议开发者来手动编写路由结构，但如果你一定要这么做的话，我们提供以下示例。
+Although we don't recommend developers to manually write route structures, if you must do so, we provide the following examples.
 
-注意事项
+Notes
 
-- `web/route.ts` 将会被编译为 build/ssr-manual-route.js 文件，所以不要在路由文件中使用相对路径引入其他模块，否则将会无法正确识别路径
-- `webpackChunkName` 字段和 `import(/* webpackChunkName: "detail-id" */)` 是 `Webpack/Vite` 构建工具打包时所必须要使用的标识符。所以在手动编写路由结构时请务必正确的填写它们。保证不同页面组件的 `webpackChunkName` 不会重复。
+- `web/route.ts` will be compiled to the build/ssr-manual-route.js file, so don't use relative paths to import other modules in route files, otherwise the paths won't be correctly recognized.
+- The `webpackChunkName` field and `import(/* webpackChunkName: "detail-id" */)` are identifiers that must be used when `Webpack/Vite` build tools package. So when manually writing route structures, please make sure to fill them in correctly. Ensure that different page components' `webpackChunkName` don't duplicate.
 
 ```js
 // web/route.ts
@@ -125,8 +125,8 @@ export const FeRoutes = [
 ]
 ```
 
-### 优先级覆盖
+### Priority Override
 
-覆盖规则如下
+The override rules are as follows:
 
-- `FeRoutes` 在声明式路由存在于约定式路由相同的 `path` 时，取声明式路由文件为最高优先级覆盖默认的约定式路由规则，并且会额外添加声明式路由新增的路由配置
+- When `FeRoutes` has declarative routes with the same `path` as conventional routes, declarative route files take the highest priority to override default conventional route rules, and will additionally add new route configurations from declarative routes.

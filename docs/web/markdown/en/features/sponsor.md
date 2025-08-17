@@ -1,6 +1,6 @@
-# 项目捐赠
+# Project Sponsorship
 
-如果本项目能够对你有所帮助，希望得到来自于你的捐赠☕️为开源社区做一份贡献
+If this project has been helpful to you, we hope to receive your sponsorship ☕️ to make a contribution to the open source community
 
 <div style="display:flex">
 <img src="https://doc.ssr-fc.com/images/wepay.jpg" style="width:150px">
