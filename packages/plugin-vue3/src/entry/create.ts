@@ -20,7 +20,7 @@ export function createRouter(
 				: useClientMemoryHistory
 					? createMemoryHistory(base)
 					: createWebHistory(base)
-			: createMemoryHistory(),
+			: createMemoryHistory(base),
 		routes: FeRoutes as any
 	})
 	if (__isBrowser__ && useClientMemoryHistory && window.ssrRequestPath) {

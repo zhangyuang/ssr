@@ -46,7 +46,9 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 		asyncGlobalData
 	} = config
 	const store = createStore()
-	const router = createRouter()
+	const router = createRouter({
+		base: prefix
+	})
 	const pinia = createPinia()
 	const rawPath = ctx.request.path ?? ctx.request.url
 	const [path, url] = [normalizePath(rawPath, prefix), normalizePath(ctx.request.url, prefix)]

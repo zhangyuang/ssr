@@ -32,7 +32,7 @@ export class splitChunkPlugin {
 			})
 			compilation.hooks.afterOptimizeModules.tap('splitChunkPlugin', () => {
 				for (const module of modules) {
-					const { path: modulePath, query } = module.resourceResolveData!
+					const { path: modulePath, query } = module.resourceResolveData ?? {}
 					if (!modulePath) {
 						continue
 					}
