@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="header__left">
-      <router-link class="logo" :to="`/${currentLanguage}/`">
+      <router-link class="logo" :to="`/`">
         <img src="/images/logo.jpeg" alt="">
       </router-link>
     </div>

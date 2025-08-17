@@ -1,8 +1,9 @@
+import { useCtx } from 'ssr-common-utils'
 import { t, getCurrentLanguage } from './i18n'
 
 export const getWebSiteConfig = (lang?: string) => {
-  const currentLang = lang || getCurrentLanguage()
-  
+  const language = __isBrowser__ ? navigator.language : (useCtx() as any)?.request.headers['accept-language']
+  const currentLang = lang || getCurrentLanguage(language)
   return {
     header: {
       items: [
@@ -140,5 +141,3 @@ export const getWebSiteConfig = (lang?: string) => {
   }
 }
 
-// Export legacy config for backward compatibility
-export const webSiteConfig = getWebSiteConfig()

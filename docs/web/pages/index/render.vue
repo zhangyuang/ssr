@@ -75,7 +75,7 @@ import { mapState } from 'vuex'
 import Swiper, { Navigation, Pagination, Autoplay } from 'swiper'
 import 'swiper/swiper-bundle.min.css'
 import BaseLayout from '@/layout/baseLayout/index.vue'
-import { webSiteConfig } from '@/config/index'
+import { getWebSiteConfig } from '@/config/index'
 
 // configure Swiper to use modules
 Swiper.use([Navigation, Pagination, Autoplay])
@@ -85,6 +85,7 @@ export default defineComponent({
     BaseLayout
   },
   data() {
+    const webSiteConfig = getWebSiteConfig()
     return {
       firstFloor: webSiteConfig.home.firstFloor,
       secondFloor: webSiteConfig.home.secondFloor

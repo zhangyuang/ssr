@@ -151,11 +151,11 @@ export const i18nConfig: I18nConfig = {
 }
 
 // Helper function to get current language from URL or localStorage
-export function getCurrentLanguage(router?: any): string {
-  if (router?.href.includes('zh')) {
+export function getCurrentLanguage(language?: string): string {
+  if (language?.includes('zh')) {
     return 'zh'
   }
-  if (router?.href.includes('en')) {
+  if (language?.includes('en')) {
     return 'en'
   }
   if (typeof window !== 'undefined') {
@@ -166,17 +166,8 @@ export function getCurrentLanguage(router?: any): string {
       return langMatch[1]
     }
     
-    // Check localStorage
-    const savedLang = localStorage.getItem('ssr-docs-lang')
-    if (savedLang && ['en', 'zh'].includes(savedLang)) {
-      return savedLang
-    }
-    
-    // Check browser language
-    const browserLang = navigator.language.toLowerCase()
-    if (browserLang.startsWith('zh')) {
-      return 'zh'
-    }
+   
+    return navigator.language.toLowerCase().startsWith('zh') ? 'zh' : 'en'
   }
   
   return i18nConfig.defaultLanguage
@@ -191,7 +182,6 @@ export function t(key: string, lang?: string): string {
 // Helper function to switch language
 export function switchLanguage(newLang: string): void {
   if (typeof window !== 'undefined') {
-    localStorage.setItem('ssr-docs-lang', newLang)
     
     // Update URL path
     const currentPath = window.location.pathname

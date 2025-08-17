@@ -52,6 +52,7 @@ const asyncOptimizeChunkPlugin = (): Plugin => {
 		name: 'asyncOptimizeChunkPlugin',
 		moduleParsed(this, info) {
 			const { id } = info
+			console.log('id', id)
 			// keep the order of modules
 			moduleIds.add(id)
 			if (id.includes('chunkName')) {
