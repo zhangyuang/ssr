@@ -42,7 +42,7 @@ export class splitChunkPlugin {
 						: incomings
 								.map((c) => {
 									const { query, path } = (c.originModule as NormalModule)?.resourceResolveData ?? {}
-									if (path?.includes('ssr-plugin') || path?.includes('packages/plugin')) {
+									if (path?.includes('client-entry')) {
 										return 'Page'
 									}
 									return query?.includes('chunkName') ? chunkNameRe.exec(query ?? '')?.[1] : dependenciesMap[path ?? '']

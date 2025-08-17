@@ -41,7 +41,7 @@ export class splitChunkPlugin {
 						? [chunkNameRe.exec(normalModule.resource ?? '')?.[1]]
 						: incomings
 								.map((c) => {
-									if (c.resource?.includes('ssr-plugin') || c.resource?.includes('packages/plugin')) {
+									if (c.resource?.includes('client-entry')) {
 										return 'Page'
 									}
 									return c.resource?.includes('chunkName')

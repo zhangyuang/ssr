@@ -1,3 +1,12 @@
+## [7.0.20](https://github.com/zhangyuang/ssr/compare/rspack@7.0.19...rspack@7.0.20) (2025-08-17)
+
+
+### Bug Fixes
+
+* collect Page chunk modules in entry file ([b5e4d12](https://github.com/zhangyuang/ssr/commit/b5e4d128b7c2d4032e26a18a9e084e07539f5d20))
+
+
+
 ## [7.0.19](https://github.com/zhangyuang/ssr/compare/rspack@7.0.18...rspack@7.0.19) (2025-08-17)
 
 

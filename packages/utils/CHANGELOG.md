@@ -1,3 +1,12 @@
+## [7.0.9](https://github.com/zhangyuang/ssr/compare/utils@7.0.8...utils@7.0.9) (2025-08-17)
+
+
+### Bug Fixes
+
+* collect Page chunk modules in entry file ([b5e4d12](https://github.com/zhangyuang/ssr/commit/b5e4d128b7c2d4032e26a18a9e084e07539f5d20))
+
+
+
 ## [7.0.8](https://github.com/zhangyuang/ssr/compare/utils@7.0.7...utils@7.0.8) (2025-08-17)
 
 
