@@ -151,7 +151,13 @@ export const i18nConfig: I18nConfig = {
 }
 
 // Helper function to get current language from URL or localStorage
-export function getCurrentLanguage(): string {
+export function getCurrentLanguage(router?: any): string {
+  if (router?.href.includes('zh')) {
+    return 'zh'
+  }
+  if (router?.href.includes('en')) {
+    return 'en'
+  }
   if (typeof window !== 'undefined') {
     // Check URL path first
     const path = window.location.pathname
