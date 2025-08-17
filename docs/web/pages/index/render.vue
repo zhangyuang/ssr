@@ -162,6 +162,7 @@ export default defineComponent({
           border-radius: 8px;
           padding: 0px 56px;
           font-size: 1.7rem;
+          white-space: nowrap;
           background-color: #010101;
           color: rgb(255, 255, 255);
           text-decoration: none;

@@ -27,6 +27,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { getCurrentLanguage } from '@/config/i18n'
 
 export default defineComponent({
   inject: ['asyncData'],
@@ -37,7 +38,8 @@ export default defineComponent({
   },
   watch: {
     $route (val) {
-      const path = val.path.replace('/docs/', '').replace('$', '/')
+      const lang = getCurrentLanguage()
+      const path = val.path.replace(`/${lang}/docs/`, '').replace(/\$/g, '/')
       this.createMenu({
         config: this.asyncData.value.config,
         pagePath: path

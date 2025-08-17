@@ -1,48 +1,58 @@
-const config = [
-  {
-    title: '为什么要选择 SSR',
-    path: 'why'
-  },
-  {
-    title: '指引',
-    routes: [
-      { title: '什么是服务端渲染', path: 'features$ssr' },
-      { title: '快速开始', path: 'features$started' },
-      { title: 'v7升级指南', path: 'features$v7' },
-      { title: '在线案例', path: 'features$demo' },
-      { title: '技术选型', path: 'features$technology' },
-      { title: '目录结构', path: 'features$structure' },
-      { title: '前端路由', path: 'features$feRoutes' },
-      { title: '本地开发', path: 'features$develop' },
-      { title: '数据获取', path: 'features$fetch' },
-      { title: '组件通信', path: 'features$communication' },
-      { title: '使用 vite', path: 'features$vite' },
-      { title: '插件机制', path: 'features$plugin' },
-      { title: '构建产物', path: 'features$build' },
-      { title: '应用部署', path: 'features$deploy' },
-      { title: '渲染降级', path: 'features$csr' },
-      { title: '预渲染', path: 'features$ssg' },
-      { title: 'FAQ', path: 'features$faq' },
-      { title: '内存分析', path: 'features$memory' },
-      { title: '开发交流', path: 'features$issue' },
-      { title: '设计思路', path: 'features$thinking' },
-      { title: '项目捐赠', path: 'features$sponsor' }
-    ]
-  },
-  {
-    title: 'API',
-    routes: [
-      { title: '应用配置', path: 'api$config' }
-    ]
-  },
-  {
-    title: '插件列表',
-    routes: [
-      { title: '官方插件', path: 'plugin$index' }
-    ]
-  }
-]
+import { getCurrentLanguage, t } from '@/config/i18n'
+
+const getConfig = (lang?: string) => {
+  const currentLang = lang || getCurrentLanguage()
+  
+  return [
+    {
+      title: t('menu.whySSR', currentLang),
+      path: 'why'
+    },
+    {
+      title: t('menu.guide', currentLang),
+      routes: [
+        { title: t('menu.whatIsSSR', currentLang), path: 'features$ssr' },
+        { title: t('menu.quickStart', currentLang), path: 'features$started' },
+        { title: t('menu.v7Guide', currentLang), path: 'features$v7' },
+        { title: t('menu.onlineDemo', currentLang), path: 'features$demo' },
+        { title: t('menu.techStack', currentLang), path: 'features$technology' },
+        { title: t('menu.structure', currentLang), path: 'features$structure' },
+        { title: t('menu.frontendRoutes', currentLang), path: 'features$feRoutes' },
+        { title: t('menu.localDev', currentLang), path: 'features$develop' },
+        { title: t('menu.dataFetch', currentLang), path: 'features$fetch' },
+        { title: t('menu.communication', currentLang), path: 'features$communication' },
+        { title: t('menu.usingVite', currentLang), path: 'features$vite' },
+        { title: t('menu.plugin', currentLang), path: 'features$plugin' },
+        { title: t('menu.build', currentLang), path: 'features$build' },
+        { title: t('menu.deploy', currentLang), path: 'features$deploy' },
+        { title: t('menu.csr', currentLang), path: 'features$csr' },
+        { title: t('menu.ssg', currentLang), path: 'features$ssg' },
+        { title: t('menu.faq', currentLang), path: 'features$faq' },
+        { title: t('menu.memory', currentLang), path: 'features$memory' },
+        { title: t('menu.issue', currentLang), path: 'features$issue' },
+        { title: t('menu.thinking', currentLang), path: 'features$thinking' },
+        { title: t('menu.sponsor', currentLang), path: 'features$sponsor' }
+      ]
+    },
+    {
+      title: t('menu.api', currentLang),
+      routes: [
+        { title: t('menu.appConfig', currentLang), path: 'api$config' }
+      ]
+    },
+    {
+      title: t('menu.plugins', currentLang),
+      routes: [
+        { title: t('menu.officialPlugins', currentLang), path: 'plugin$index' }
+      ]
+    }
+  ]
+}
+
+// Legacy export for backward compatibility
+const config = getConfig()
 
 export {
-  config
+  config,
+  getConfig
 }

@@ -24,4 +24,31 @@ export class Index {
       this.ctx.body = error
     }
   }
+  
+  @Get('/zh/*')
+  async handlerZh (): Promise<void> {
+    try {
+      const stream = await render<Readable>(this.ctx, {
+        stream: false,
+        prefix: '/zh'
+      })
+      this.ctx.body = stream
+    } catch (error) {
+      console.log(error)
+      this.ctx.body = error
+    }
+  }
+  @Get('/en/*')
+  async handlerEn (): Promise<void> {
+    try {
+      const stream = await render<Readable>(this.ctx, {
+        stream: false,
+        prefix: '/en'
+      })
+      this.ctx.body = stream
+    } catch (error) {
+      console.log(error)
+      this.ctx.body = error
+    }
+  }
 }

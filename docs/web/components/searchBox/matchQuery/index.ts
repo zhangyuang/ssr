@@ -1,4 +1,5 @@
 import { config } from '@/pages/docs/config'
+import { getCurrentLanguage } from '~/web/config/i18n'
 import { handleMarkdown } from './markdownUtils'
 
 interface ISearchItem {
@@ -27,7 +28,7 @@ const standardConfig: IFileConfig[] = []
 // 读取文件内容
 const readFile = async (path: string) => {
   try {
-    return (await import(`../../../markdown/${path}.md`)).default
+    return (await import(`@/markdown/${getCurrentLanguage()}/${path}.md`)).default
   } catch (e) {
     console.log('readFile error:', e, '.path:', path)
     return ''

@@ -1,20 +1,23 @@
 import { ISSRContext } from 'ssr-types'
-import { config } from './config'
+import { getCurrentLanguage } from '@/config/i18n'
+import { getConfig } from './config'
 
 export default async ({ router }, ctx?: ISSRContext) => {
-  const path = router.path.replace(/\$/g, '/').replace('/docs/', '')
-  const data = (await import(`@/markdown/${path}.md`)).default
-  
+  const page = router.params.page
+  const lang = getCurrentLanguage()
+  const data = (await import(`@/markdown/${lang}/${page.replace(/\$/g, '/')}.md`)).default
   if (__isBrowser__) {
-    if (path === 'features/v7') {
-      document.title = 'ssr框架v7发布，全网首个同时支持Rspack,Rolldown-Vite,Webpack的ssr框架'
+    if (page === 'features/v7') {
+      document.title = lang === 'zh' 
+        ? 'ssr框架v7发布，全网首个同时支持Rspack,Rolldown-Vite,Webpack的ssr框架'
+        : 'SSR Framework v7 Released - First Framework Supporting Rspack, Rolldown-Vite, Webpack'
     } else {
-      document.title = 'ssr 框架官方文档'
+      document.title = lang === 'zh' ? 'ssr 框架官方文档' : 'SSR Framework Official Documentation'
     }
   }
   return {
     docsContent: data,
-    pagePath: path,
-    config
+    pagePath: page,
+    config: getConfig(lang)
   }
 }

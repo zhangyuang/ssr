@@ -26,15 +26,26 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { webSiteConfig } from '../../config/index'
+import { getWebSiteConfig } from '../../config/index'
+import { getCurrentLanguage } from '../../config/i18n'
+
 export default defineComponent({
   props: ['data'],
   data () {
     return {
-      footerItems: webSiteConfig.footer.items
+      currentLanguage: getCurrentLanguage(),
+      footerItems: [] as any[]
     }
   },
-  methods: {}
+  created() {
+    this.updateConfig()
+  },
+  methods: {
+    updateConfig() {
+      const config = getWebSiteConfig(this.currentLanguage)
+      this.footerItems = config.footer.items
+    }
+  }
 })
 </script>
 
