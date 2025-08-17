@@ -1,3 +1,13 @@
+## [7.0.18](https://github.com/zhangyuang/ssr/compare/rspack@7.0.17...rspack@7.0.18) (2025-08-17)
+
+
+### Features
+
+* preload fetch chunk ([cbd05b2](https://github.com/zhangyuang/ssr/commit/cbd05b231deac7b4072b071d6c6a0b25dc99ca92))
+* watch node_modules/ssr-plugin in rspack watch mode ([f8ce633](https://github.com/zhangyuang/ssr/commit/f8ce6337eb8254b867706f2c64b3bbe9e86445b1))
+
+
+
 ## [7.0.17](https://github.com/zhangyuang/ssr/compare/rspack@7.0.16...rspack@7.0.17) (2025-08-17)
 
 
