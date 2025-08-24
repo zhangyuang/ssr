@@ -23,7 +23,7 @@ overrides:
 
 packageExtensionsChecksum: sha256-ejsITzwqSGgfPJMaJgeFwENu9WLRO9iHJw10m60sCqc=
 
-pnpmfileChecksum: sha256-SoSZAmTjWPviDHi09Ewo485uWhZWETLfCVtflBdwFlQ=
+pnpmfileChecksum: sha256-xogfwzKB25QY5bq3cUlL1CK1N4yzKu2VBby8yU1cqhU=
 
 importers:
 
@@ -6217,7 +6217,7 @@ packages:
     engines: {node: '>= 4'}
 
   image-size@0.5.5:
-    resolution: {integrity: sha512-6TDAlDPZxUFCv+fuOkIoXT/V/f3Qbq8e37p+YOiYrUv3v9cc3/6x78VdfPgFVaB9dZYeLUfKgHRebpkm/oP2VQ==}
+    resolution: {integrity: sha1-Cd/Uq50g4p6xw+gLiZA3jfnjy5w=}
     engines: {node: '>=0.10.0'}
     hasBin: true
 
