@@ -1,3 +1,7 @@
+## [7.0.13](https://github.com/zhangyuang/ssr/compare/webpack@7.0.12...webpack@7.0.13) (2025-08-24)
+
+
+
 ## [7.0.12](https://github.com/zhangyuang/ssr/compare/webpack@7.0.11...webpack@7.0.12) (2025-08-17)
 
 

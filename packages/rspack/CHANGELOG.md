@@ -1,3 +1,7 @@
+## [7.0.21](https://github.com/zhangyuang/ssr/compare/rspack@7.0.20...rspack@7.0.21) (2025-08-24)
+
+
+
 ## [7.0.20](https://github.com/zhangyuang/ssr/compare/rspack@7.0.19...rspack@7.0.20) (2025-08-17)
 
 

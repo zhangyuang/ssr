@@ -83,7 +83,7 @@ export class splitChunkPlugin {
 const getWebpackSplitCache = (): OptimizationSplitChunksOptions['cacheGroups'] => {
 	return {
 		dynamicChunks: {
-			test: (module) => true,
+			test: (module) => !!(module as NormalModule).resource,
 			name: (module) => {
 				const normalModule = module as NormalModule
 				const moduleName = normalModule.resource?.split('?')?.[0]
