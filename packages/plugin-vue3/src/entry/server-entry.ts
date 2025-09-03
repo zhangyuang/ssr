@@ -217,11 +217,11 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 				: extraJsOrder
 						.map((js) => manifest[js])
 						.filter(Boolean)
-						.map((js) =>
+						.map((js) => 
 							h('script', {
 								src: js,
 								type: isVite ? 'module' : 'text/javascript',
-								...(config.defaultScriptProps ?? {})
+								...(typeof config.defaultScriptProps === 'function' ? config.defaultScriptProps(js) : config.defaultScriptProps ?? {})
 							})
 						)
 

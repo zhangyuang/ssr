@@ -124,7 +124,7 @@ export type IConfig<T extends ToolType = ToolType> = {
 	bigpipe?: boolean
 	customeHeadScript?: ((ctx: ISSRContext) => Script) | Script
 	customeFooterScript?: ((ctx: ISSRContext) => Script) | Script
-	defaultScriptProps?: Record<string, string>
+	defaultScriptProps?: Record<string, string> | ((src: string) => Record<string, string>)
 	locale?: {
 		enable: boolean
 	}
