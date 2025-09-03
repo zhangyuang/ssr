@@ -47,54 +47,66 @@ const getModuleName = (id: string) => {
 	return id.split('?')[0]
 }
 const moduleIds = new Set<string>()
+const directChunkModules: string[] = []
+
 const asyncOptimizeChunkPlugin = (): Plugin => {
 	return {
 		name: 'asyncOptimizeChunkPlugin',
 		moduleParsed(this, info) {
 			const { id } = info
-			console.log('id', id)
 			// keep the order of modules
 			moduleIds.add(id)
-			if (id.includes('chunkName')) {
-				const chunkName = chunkNameRe.exec(id)![1]
-				dependenciesMap[getModuleName(id)] = [chunkName]
-			}
-			if (id.includes('client-entry')) {
-				dependenciesMap[getModuleName(id)] = ['Page']
+			if (id.includes('chunkName') || id.includes('client-entry')) {
+				directChunkModules.push(id)
 			}
 		},
 
 		async buildEnd(this, err) {
-			for (const id of moduleIds) {
-				const moduleInfo = this.getModuleInfo(id)
-				const chunkNames = moduleInfo?.importers
-					.map((importer) => {
-						const importerName = getModuleName(importer)
-						return dependenciesMap[importerName]
-					})
-					.flat()
-					.filter(Boolean)
-				dependenciesMap[getModuleName(id)] = dependenciesMap[getModuleName(id)]
-					? dependenciesMap[getModuleName(id)].concat(chunkNames as string[])
-					: (chunkNames as string[])
-				dependenciesMap[getModuleName(id)] = Array.from(new Set(dependenciesMap[getModuleName(id)]))
+			// Process direct chunk modules using BFS traversal like rspack
+			for (const directChunkModule of directChunkModules) {
+				const queue = [directChunkModule]
+				const visited = new Set<string>()
+				const moduleChunkName = chunkNameRe.exec(directChunkModule)?.[1] || 'Page'
+
+				while (queue.length > 0) {
+					const currentModuleId = queue.shift()!
+					const currentModuleName = getModuleName(currentModuleId)
+
+					// Update dependencies map for current module
+					dependenciesMap[currentModuleName] = dependenciesMap[currentModuleName]
+						? dependenciesMap[currentModuleName].concat(moduleChunkName)
+						: [moduleChunkName]
+
+					const moduleInfo = this.getModuleInfo(currentModuleId)
+					if (moduleInfo?.importedIds) {
+						for (const importedId of moduleInfo.importedIds) {
+							const importedModuleName = getModuleName(importedId)
+							if (!visited.has(importedModuleName)) {
+								visited.add(importedModuleName)
+								queue.push(importedId)
+							}
+						}
+					}
+				}
 			}
+
+			// Post-process dependencies like rspack
 			for (const fileName in dependenciesMap) {
-				const sign = getPkgName(fileName)
-				let chunkNames = dependenciesMap[fileName]
+				let chunkNames = Array.from(new Set(dependenciesMap[fileName]))
 				if (fileName.includes('node_modules')) {
 					chunkNames.push('vendor')
 				}
-				chunkNames = chunkNames.sort(sortByAscii)
-				if (chunkNames.includes('Page')) {
-					chunkNames = chunkNames.includes('vendor') ? ['Page', 'vendor'] : ['Page']
-				}
+				const pkgName = getPkgName(fileName)
 				if (
-					vendorList.includes(sign) ||
+					vendorList.includes(pkgName) ||
 					fileName.includes('rollupPluginBabelHelpers.js') ||
 					fileName.includes('plugin-vue:export-helper')
 				) {
 					chunkNames = ['vendor']
+				}
+				chunkNames = chunkNames.sort(sortByAscii)
+				if (chunkNames.includes('Page')) {
+					chunkNames = chunkNames.includes('vendor') ? ['Page', 'vendor'] : ['Page']
 				}
 				dependenciesMap[fileName] = chunkNames.length === 0 ? ['Page'] : chunkNames
 				generateMap[fileName] = dependenciesMap[fileName].join('~')
