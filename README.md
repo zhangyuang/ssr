@@ -20,7 +20,7 @@
 </div>
 <br />
  
-
+ 
 ## Version 7.x
 
 The `ssr` framework version `7.x` has been released. Read the [documentation](http://doc.ssr-fc.com/docs/features$v7) for more detailed introduction and upgrade guide. Version 7 brings the following new features:
