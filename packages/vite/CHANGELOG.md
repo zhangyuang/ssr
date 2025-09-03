@@ -1,3 +1,15 @@
+## [7.0.11](https://github.com/zhangyuang/ssr/compare/vite@7.0.10...vite@7.0.11) (2025-09-03)
+
+
+### Features
+
+* support config defaultScriptProps ([0b8de7c](https://github.com/zhangyuang/ssr/commit/0b8de7c750d2700152483794cccffc2205a47992))
+* update rspack split-chunk ([16e4134](https://github.com/zhangyuang/ssr/commit/16e413402a0ef5957caeff6ea9384cba2c894dd0))
+* update vite split-chunk ([baf33d2](https://github.com/zhangyuang/ssr/commit/baf33d2a1ae9eab09d5df093bf2f749625bd3cdd))
+* update webpack split-chunk ([f9ac566](https://github.com/zhangyuang/ssr/commit/f9ac5662e138e9d8e6e537e69ccb45d736d66870))
+
+
+
 ## [7.0.10](https://github.com/zhangyuang/ssr/compare/vite@7.0.9...vite@7.0.10) (2025-08-17)
 
 
