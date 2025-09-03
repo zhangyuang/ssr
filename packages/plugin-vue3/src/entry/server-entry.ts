@@ -174,7 +174,8 @@ const serverRender = async (ctx: ISSRContext, config: IConfig) => {
 						.map((js) =>
 							h('script', {
 								src: js,
-								type: isVite ? 'module' : 'text/javascript'
+								type: isVite ? 'module' : 'text/javascript',
+								...(config.defaultScriptProps ?? {})
 							})
 						)
 

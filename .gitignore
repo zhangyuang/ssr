@@ -110,3 +110,6 @@ e2e/screenshots
 e2e/videos
 
 .turbo
+
+**/components.d.ts
+**/auto-imports.d.ts
