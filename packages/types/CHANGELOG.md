@@ -1,3 +1,23 @@
+## [6.2.66](https://github.com/zhangyuang/ssr/compare/types@6.2.65...types@6.2.66) (2025-09-03)
+
+
+### Bug Fixes
+
+* set currentRouter path when use memoryHistory in client ([df7b040](https://github.com/zhangyuang/ssr/commit/df7b040035e39400e3c6ed8256ab0fb0e08f3c61))
+* use req.url instead of req.path ([b3e9729](https://github.com/zhangyuang/ssr/commit/b3e972964de7191f2cfb6aa3852a7de8c2fe2b99))
+* useCtx ([3006225](https://github.com/zhangyuang/ssr/commit/3006225527f4ddcbf17b8a0a644857791365522a))
+
+
+### Features
+
+* load framwork from cwd ([b753e65](https://github.com/zhangyuang/ssr/commit/b753e65a4828f6292512d790b7e7022f901fbd68))
+* set request router info in csr mode for vue3 ([fa7a59d](https://github.com/zhangyuang/ssr/commit/fa7a59dd36ebb69af988832ac373409201f89659))
+* set vue router url with all render modes ([b58f828](https://github.com/zhangyuang/ssr/commit/b58f8281b684f042e0434f87a5d9ce96addfc04a))
+* support config defaultScriptProps ([7490158](https://github.com/zhangyuang/ssr/commit/749015832eab178c117fda33ef783b020c8960e0))
+* support window.ssrRequestPath inject for memoryHistory in vue3 ([ca99c5d](https://github.com/zhangyuang/ssr/commit/ca99c5dd5fed3c1bcd2c440991f7b08bc6f961b3))
+
+
+
 ## [6.2.65](https://github.com/zhangyuang/ssr/compare/types@6.2.64...types@6.2.65) (2024-11-14)
 
 

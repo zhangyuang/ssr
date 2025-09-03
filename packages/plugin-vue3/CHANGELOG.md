@@ -1,3 +1,19 @@
+## [6.2.125](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.123...plugin-vue3@6.2.125) (2025-09-03)
+
+
+### Bug Fixes
+
+* use req.url instead of req.path ([b3e9729](https://github.com/zhangyuang/ssr/commit/b3e972964de7191f2cfb6aa3852a7de8c2fe2b99))
+* useCtx ([3006225](https://github.com/zhangyuang/ssr/commit/3006225527f4ddcbf17b8a0a644857791365522a))
+
+
+### Features
+
+* load framwork from cwd ([b753e65](https://github.com/zhangyuang/ssr/commit/b753e65a4828f6292512d790b7e7022f901fbd68))
+* support config defaultScriptProps ([7490158](https://github.com/zhangyuang/ssr/commit/749015832eab178c117fda33ef783b020c8960e0))
+
+
+
 ## [6.2.124](https://github.com/zhangyuang/ssr/compare/plugin-vue3@6.2.123...plugin-vue3@6.2.124) (2025-07-01)
 
 
