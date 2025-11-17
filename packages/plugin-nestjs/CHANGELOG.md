@@ -1,3 +1,48 @@
+## [7.0.4](https://github.com/zhangyuang/ssr/compare/plugin-nestjs@7.0.3...plugin-nestjs@7.0.4) (2025-11-17)
+
+
+### Bug Fixes
+
+* add default vendorlist ([ee5eb02](https://github.com/zhangyuang/ssr/commit/ee5eb02b2db8230a7c49c70557060382ba5ecf25))
+* add pinia in plugin-vue3 ([ae2bb9a](https://github.com/zhangyuang/ssr/commit/ae2bb9a074102f035f92cd8d58fb17d789735f54))
+* collect modules in rspack ([e5e3d7d](https://github.com/zhangyuang/ssr/commit/e5e3d7d576269fe237165937e2354ad8f425a035))
+* collect Page chunk modules in entry file ([b5e4d12](https://github.com/zhangyuang/ssr/commit/b5e4d128b7c2d4032e26a18a9e084e07539f5d20))
+* find module chunk name deep search ([7d7453b](https://github.com/zhangyuang/ssr/commit/7d7453b16d65cdd6304478ea4ec0cab274e4c461))
+* judge logic in postcss rspack ([cf2a774](https://github.com/zhangyuang/ssr/commit/cf2a774c2660c8b8b4a7837d63a1322295ccbf71))
+* judge react-fresh in client-config ([a2d1bee](https://github.com/zhangyuang/ssr/commit/a2d1bee55a4eda24af47505c0cb7d8e64de7d214))
+* remove restore-keys in ci ([b4708d6](https://github.com/zhangyuang/ssr/commit/b4708d6b28a3a999ea45b340b92016b470a25596))
+* **rspack|webpack:** collect top-level chunkName correct ([1620d90](https://github.com/zhangyuang/ssr/commit/1620d90bf02a796f2567e2a7a55ddd20c70f433b))
+* set base in ssr-plugin-vue3 server-entry ([a615504](https://github.com/zhangyuang/ssr/commit/a615504cb0c94a4011e3821143a768d7dc13c442))
+* set postcss options in rspack ([e8e4ff6](https://github.com/zhangyuang/ssr/commit/e8e4ff6a0080e80ba203f9f95f8a5b355aa01c88))
+* set vue-loader dependencies of webpack to 4.0 ([91b190c](https://github.com/zhangyuang/ssr/commit/91b190c0f28e5e4946dc81eb98316a069d550c13))
+* webpack dependencies ([2c6aef8](https://github.com/zhangyuang/ssr/commit/2c6aef8b54fee40b9aa0f1bce9f92a8f64dcc3d0))
+
+
+### Features
+
+* add chain in tools ([350b294](https://github.com/zhangyuang/ssr/commit/350b2944a14276fcae3e82331ca59cf04276c538))
+* add postcss-loader to default dependencies in rspack deploy.md ([47f2d09](https://github.com/zhangyuang/ssr/commit/47f2d09a6719245cf0b25481940521cce85901ba))
+* alias add pinia judge ([9d41ec9](https://github.com/zhangyuang/ssr/commit/9d41ec9b61c8428ac53f6c30b9b543eaaa4b4a40))
+* handle postcss in rspack ([62618e9](https://github.com/zhangyuang/ssr/commit/62618e966062cfdc88111abbd97c9edf316fd2a1))
+* preload fetch chunk ([cbd05b2](https://github.com/zhangyuang/ssr/commit/cbd05b231deac7b4072b071d6c6a0b25dc99ca92))
+* remobe css-loader postcss-loader in rspack ([54038c2](https://github.com/zhangyuang/ssr/commit/54038c22c0db7b525680faf4b2ba6ee75c99db4c))
+* set optimizeDeps in vite common -n ([9de421a](https://github.com/zhangyuang/ssr/commit/9de421a696b156ce36076db47ce72b04e54237dd))
+* support config defaultScriptProps ([0b8de7c](https://github.com/zhangyuang/ssr/commit/0b8de7c750d2700152483794cccffc2205a47992))
+* support generic in UserConfig for chain ([0deeaa2](https://github.com/zhangyuang/ssr/commit/0deeaa27b0477db1b42f2112c9298856aa1381d8))
+* update build --optimize logic ([dec88d6](https://github.com/zhangyuang/ssr/commit/dec88d6ed3b836f5c059f6596e38bd5b263dc681))
+* update docs to v7 use rspack, add types:node in tsconfig ([d359a55](https://github.com/zhangyuang/ssr/commit/d359a55f2b5e1d8d76520f723db0fad20f8d7c55))
+* update rspack build --optimize to dynamicChunkName ([90958c8](https://github.com/zhangyuang/ssr/commit/90958c82f884376fcc130a0c639abfc0bf978a43))
+* update rspack split-chunk ([16e4134](https://github.com/zhangyuang/ssr/commit/16e413402a0ef5957caeff6ea9384cba2c894dd0))
+* update start tips for local area network in nestjs close [#355](https://github.com/zhangyuang/ssr/issues/355) ([f846e71](https://github.com/zhangyuang/ssr/commit/f846e7107c366e95305573e2045cc0b21201012f))
+* update vite split-chunk ([baf33d2](https://github.com/zhangyuang/ssr/commit/baf33d2a1ae9eab09d5df093bf2f749625bd3cdd))
+* update webpack build --optimize to dynamicChunkName ([55f9df1](https://github.com/zhangyuang/ssr/commit/55f9df189a6df9bdcfff621fa4dcec0057a90d5f))
+* update webpack split-chunk ([f9ac566](https://github.com/zhangyuang/ssr/commit/f9ac5662e138e9d8e6e537e69ccb45d736d66870))
+* use incoming replace outcoming to find correct chunkName ([20f4769](https://github.com/zhangyuang/ssr/commit/20f4769a6f6bc47cb7ccbb8891295ec600124642))
+* **vite:** use incoming replace outcoming to find correct chunkName ([505763c](https://github.com/zhangyuang/ssr/commit/505763cf423a341795d30fc7dd0b52eadb1f3c82))
+* watch node_modules/ssr-plugin in rspack watch mode ([f8ce633](https://github.com/zhangyuang/ssr/commit/f8ce6337eb8254b867706f2c64b3bbe9e86445b1))
+
+
+
 ## [7.0.3](https://github.com/zhangyuang/ssr/compare/plugin-nestjs@7.0.2...plugin-nestjs@7.0.3) (2025-08-04)
 
 

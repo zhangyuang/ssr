@@ -63,7 +63,7 @@ const start = async (argv: Argv) => {
 			const https = process.env.HTTPS
 			const protocol = https ? 'https' : 'http'
 			const networkAddress = getLocalNetworkAddress()
-			
+
 			if (nestStartTips) {
 				logGreen(nestStartTips)
 			} else {
