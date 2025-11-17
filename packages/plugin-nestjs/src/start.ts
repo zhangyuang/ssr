@@ -1,5 +1,6 @@
 import { resolve } from 'path'
 import { exec } from 'shelljs'
+import { networkInterfaces } from 'os'
 import { getCwd, loadConfig, logGreen } from 'ssr-common-utils'
 import type { Argv } from 'ssr-types'
 import { getNormalizeArgv, morethan10 } from './utils'
@@ -20,6 +21,21 @@ const doubleDash = [
 	'preserveWatchOutput',
 	'help'
 ].concat(morethan ? 'builder' : '')
+
+const getLocalNetworkAddress = () => {
+	const nets = networkInterfaces()
+	for (const name of Object.keys(nets)) {
+		const netInterface = nets[name]
+		if (netInterface) {
+			for (const net of netInterface) {
+				if (net.family === 'IPv4' && !net.internal) {
+					return net.address
+				}
+			}
+		}
+	}
+	return null
+}
 
 const start = async (argv: Argv) => {
 	const cwd = getCwd()
@@ -45,7 +61,19 @@ const start = async (argv: Argv) => {
 		if (data.match('Nest application successfully started')) {
 			spinner.stop()
 			const https = process.env.HTTPS
-			logGreen(nestStartTips ?? `Server is listening on ${https ? 'https' : 'http'}://127.0.0.1:${serverPort}`)
+			const protocol = https ? 'https' : 'http'
+			const networkAddress = getLocalNetworkAddress()
+			
+			if (nestStartTips) {
+				logGreen(nestStartTips)
+			} else {
+				logGreen(`Server is listening on:`)
+				logGreen(`  ➜  Local:   ${protocol}://127.0.0.1:${serverPort}`)
+				logGreen(`  ➜  Local:   ${protocol}://localhost:${serverPort}`)
+				if (networkAddress) {
+					logGreen(`  ➜  Network: ${protocol}://${networkAddress}:${serverPort}`)
+				}
+			}
 		}
 	})
 	stderr?.on('data', function (data) {
