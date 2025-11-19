@@ -704,7 +704,9 @@ export default {
 
 使用 `tailwind.css` 与框架无关，具体方案查看对应文档即可。下面贴出一种方案。配套使用 `VSCode Tailwind CSS IntelliSense` 对应插件一起使用更佳
 
-下列教程是针对 `tailwindcss` 的 `v3` 版本的配置。实测可以成功，`v4` 版本的 `tailwindcss` 配置变动较大，请参考 `v4`最新的文档和下面 `v3` 场景的配置文档进配置。
+#### tailwindcss v3
+
+下列教程是针对 `tailwindcss` 的 `v3` 版本的配置。
 
 以下配置适用于各种构建工具。`webpack|rspack|vite`。在 `ssr` 框架层面进行了 `postcss` 的统一适配。
 
@@ -751,6 +753,42 @@ export { userConfig }
 // 引入 tailwind 指令即可在 class 中使用对应类名
 @tailwind components;
 @tailwind utilities;
+
+```
+
+#### tailwindcss v4
+
+下列教程是针对 `tailwindcss` 的 `v4` 版本的配置。
+
+```shell
+$ yarn add tailwindcss @tailwindcss/postcss # install tailwindcss v4
+```
+
+```js
+// create styles.css file
+@import "tailwindcss";
+
+// import styles.css file in common.less
+@import './style.css'
+```
+
+```js
+// config.ts
+import type { UserConfig } from "ssr-types";
+
+const userConfig: UserConfig = {
+  css: () => {
+    return {
+      loaderOptions: {
+        postcss: {
+          plugins: [require("@tailwindcss/postcss")],
+        },
+      },
+    };
+  },
+};
+
+export { userConfig };
 
 ```
 
