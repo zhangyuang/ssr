@@ -115,6 +115,17 @@ const addCommonChain = (chain: RspackChain, isServer: boolean) => {
 		.type('css/auto')
 
 	if (css?.().loaderOptions?.postcss) {
+		chain.module
+			.rule('css-postcss')
+			.test(/\.css/)
+			.type('css/auto')
+			.use('postcss-loader')
+			.loader(loadModuleFromRspack('postcss-loader'))
+			.options({
+				postcssOptions: postcssOptions
+			})
+			.end()
+
 		lessChain
 			.use('post-css')
 			.loader(loadModuleFromRspack('postcss-loader'))
