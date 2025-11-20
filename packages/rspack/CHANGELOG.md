@@ -1,3 +1,13 @@
+## [7.0.23](https://github.com/zhangyuang/ssr/compare/rspack@7.0.22...rspack@7.0.23) (2025-11-20)
+
+
+### Features
+
+* register postcss-loader with css file when configure postcss ([976eb91](https://github.com/zhangyuang/ssr/commit/976eb913b9ade28643e246b1276afcb87645b11a))
+* update start tips for local area network in nestjs close [#355](https://github.com/zhangyuang/ssr/issues/355) ([f846e71](https://github.com/zhangyuang/ssr/commit/f846e7107c366e95305573e2045cc0b21201012f))
+
+
+
 ## [7.0.22](https://github.com/zhangyuang/ssr/compare/rspack@7.0.21...rspack@7.0.22) (2025-09-03)
 
 
