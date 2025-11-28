@@ -12,7 +12,9 @@
     "lint": "biome format --diagnostic-level error",
     "lint:fix": "biome format --diagnostic-level error --write",
     "sync": "node scripts/scripts.js --sync",
-    "e2e": "cypress run --browser chrome",
+    "e2e": "playwright test",
+    "e2e:headed": "playwright test --headed",
+    "e2e:ui": "playwright test --ui",
     "release": "esno scripts/release.ts",
     "ci-publish": "esno scripts/publishCI.ts",
     "example:midway:react": "EXAMPLE=midway-react-ssr esno scripts/prelink.ts && cd example/midway-react-ssr && npm start",
@@ -29,7 +31,6 @@
     "example:nestjs:react:rspack": "EXAMPLE=nestjs-react-ssr esno scripts/prelink.ts && cd example/nestjs-react-ssr && npm run start:rspack",
     "example:nestjs:react18:prod:rspack": "EXAMPLE=nestjs-react18-ssr esno scripts/prelink.ts && cd example/nestjs-react18-ssr && npm run prod:rspack",
     "example:nestjs:react18:rspack": "EXAMPLE=nestjs-react18-ssr esno scripts/prelink.ts && cd example/nestjs-react18-ssr && npm run start:rspack",
-
     "example:midway:vue": "cd example/midway-vue-ssr && npm start",
     "example:midway:vue3": "cd example/midway-vue3-ssr && npm start",
     "example:midway:vue3:vite": "cd example/midway-vue3-ssr && npm run start:vite",
@@ -65,6 +66,7 @@
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
+    "@playwright/test": "^1.57.0",
     "@types/node": "^18.7.13",
     "@types/prompts": "^2.0.14",
     "@types/semver": "^7.3.12",
@@ -72,7 +74,6 @@
     "concurrently": "^5.3.0",
     "conventional-changelog-cli": "^2.2.2",
     "cross-env": "^7.0.3",
-    "cypress": "^6.0.0",
     "esbuild": "0.14.48",
     "esno": "^4.0.0",
     "execa": "^5.1.1",
@@ -86,7 +87,6 @@
     "typescript": "^5.8.2",
     "vite": "npm:rolldown-vite@latest"
   },
-  
   "pnpm": {
     "overrides": {
       "ssr": "workspace:*",
@@ -129,7 +129,7 @@
       }
     },
     "onlyBuiltDependencies": [
-      "cypress"
+      "@playwright/test"
     ]
   }
 }

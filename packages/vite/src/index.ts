@@ -26,13 +26,7 @@ import {
 	createStyleImportPlugin
 } from 'ssr-vite-plugin-style-import'
 import { getBabelOptions } from './babel'
-import {
-	commonConfig,
-	asyncOptimizeChunkPlugin,
-	manifestPlugin,
-	rollupOutputOptions,
-	ssrResolvePlugin
-} from './build-plugins'
+import { commonConfig, asyncOptimizeChunkPlugin, manifestPlugin, rollupOutputOptions } from './build-plugins'
 
 const framework = judgeFramework()
 const isReact = framework === 'ssr-plugin-react'
@@ -95,7 +89,7 @@ if (isVue3) {
 	)
 }
 
-const serverPlugins: PluginOption[] = [...ssrResolvePlugin({}), ...frameworkServerPlugins, ...commonServerPlugins]
+const serverPlugins: PluginOption[] = [...frameworkServerPlugins, ...commonServerPlugins]
 
 const { server: serverEntry, client: clientEntry } = getBuildEntry()
 
@@ -165,7 +159,6 @@ export const clientConfig: InlineConfig = {
 		ssrManifest: true,
 		outDir: clientOutPut,
 		rollupOptions: {
-			keepNames: framework === 'ssr-plugin-react',
 			...viteConfig?.().client?.otherConfig?.build?.rollupOptions,
 			input: clientEntry,
 			output: rollupOutputOptions(),

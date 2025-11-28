@@ -1,6 +1,0 @@
-# ssr framework fules
-
-## load module rules
-
-* use `loadModuleFromFramework` to load specific framework dependencies in `ssr-webpack` and `ssr-vite`
-* use `loadModuleFromWebpack` to load `ssr-webpack` common dependencies

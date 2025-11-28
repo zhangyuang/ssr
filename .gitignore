@@ -114,3 +114,7 @@ e2e/videos
 
 **/auto-imports.d.ts
 **/components.d.ts
+
+playwright-report
+
+test-results

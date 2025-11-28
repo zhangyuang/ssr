@@ -2,7 +2,7 @@ import { promises, writeFileSync } from 'fs'
 import { resolve } from 'path'
 import { mkdir } from 'shelljs'
 import type { Plugin, UserConfig } from 'vite'
-import type { OutputOptions, PreRenderedChunk, LoadResult } from 'rolldown'
+import type { OutputOptions, PreRenderedChunk } from 'rolldown'
 import { getBuildConfig, addDefaultAlias, getPkgName, vendorList } from 'ssr-common-utils'
 import {
 	accessFile,
@@ -144,6 +144,7 @@ const manifestPlugin = (): Plugin => {
 const rollupOutputOptions: () => OutputOptions = () => {
 	const buildConfig = getBuildConfig()
 	return {
+		keepNames: framework === 'ssr-plugin-react',
 		entryFileNames: (_chunkInfo: PreRenderedChunk) => {
 			return buildConfig.viteEntryChunk
 		},
@@ -208,19 +209,4 @@ const commonConfig = (_env: 'server' | 'client'): UserConfig => {
 	}
 }
 
-interface ResolveOptions {
-	[moduleId: string]: LoadResult | ((id: string, opts?: { ssr?: boolean }) => LoadResult)
-}
-
-export function ssrResolvePlugin(options: ResolveOptions): Plugin[] {
-	return [
-		{
-			name: 'ssr-vite-plugin-resolve:resolveId',
-			enforce: 'pre',
-			resolveId(source) {
-				// continue
-			}
-		}
-	]
-}
 export { manifestPlugin, rollupOutputOptions, commonConfig, asyncOptimizeChunkPlugin }

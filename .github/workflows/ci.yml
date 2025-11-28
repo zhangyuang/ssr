@@ -36,7 +36,7 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Lint
         run: pnpm lint
 
@@ -77,13 +77,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -97,21 +97,17 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
 
       - name: Build packages
         run: |
           pnpm build
 
-      - uses: cypress-io/github-action@v6
-        
-        with:
-          install: false
-          start: pnpm example:midway:react
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/noswiper.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:midway:react &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/noswiper.spec.ts --project=chromium
 
   e2e-chrome-nestjs-react-prod:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -124,13 +120,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -144,19 +140,16 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
 
       - name: Build packages
         run: |
           pnpm build
-      - uses: cypress-io/github-action@v6
-        with:
-          install: false
-          start: pnpm example:nestjs:react:prod
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/noswiper.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:react:prod &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/noswiper.spec.ts --project=chromium
 
 
   e2e-chrome-nestjs-react18-prod:
@@ -170,13 +163,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -190,21 +183,18 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
 
       - name: Build packages
         run: |
           pnpm build
 
 
-      - uses: cypress-io/github-action@v6
-        with:
-          install: false
-          start: pnpm example:nestjs:react18:prod
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/noswiper.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:react18:prod &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/noswiper.spec.ts --project=chromium
 
   e2e-chrome-nestjs-react-prod-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -217,13 +207,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -238,22 +228,17 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
             pnpm build
 
 
-      - uses: cypress-io/github-action@v6
-        # env:
-        #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
-        with:
-          install: false
-          start: pnpm example:nestjs:react:prod:vite
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/noswiper.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:react:prod:vite &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/noswiper.spec.ts --project=chromium
   e2e-chrome-nestjs-react18-prod-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ${{ matrix.os }}
@@ -265,13 +250,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -286,22 +271,17 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
             pnpm build
 
 
-      - uses: cypress-io/github-action@v6
-        # env:
-        #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
-        with:
-          install: false
-          start: pnpm example:nestjs:react18:prod:vite
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/noswiper.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:react18:prod:vite &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/noswiper.spec.ts --project=chromium
   e2e-chrome-nestjs-vue3-prod-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ${{ matrix.os }}
@@ -313,13 +293,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -333,22 +313,16 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
-      - uses: cypress-io/github-action@v6
-        # env:
-        #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
-        with:
-          install: false
-          start: pnpm example:nestjs:vue3:prod:vite
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/common-ssr.spec.js
-            e2e/integration/examples/vue3-ssr.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:vue3:prod:vite &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/common-ssr.spec.ts tests/vue-ssr.spec.ts --project=chromium
   e2e-chrome-nestjs-vue-prod:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ${{ matrix.os }}
@@ -360,13 +334,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -380,22 +354,16 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
-      - uses: cypress-io/github-action@v6
-        # env:
-        #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
-        with:
-          install: false
-          start: pnpm example:nestjs:vue:prod
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/common-ssr.spec.js
-            e2e/integration/examples/vue-ssr.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:vue:prod &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/common-ssr.spec.ts tests/vue-ssr.spec.ts --project=chromium
   e2e-chrome-nestjs-vue3-prod:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ${{ matrix.os }}
@@ -407,13 +375,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -427,21 +395,17 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
 
-      - uses: cypress-io/github-action@v6
-        with:
-          install: false
-          start: pnpm example:nestjs:vue3:prod
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/common-ssr.spec.js
-            e2e/integration/examples/vue-ssr.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:vue3:prod &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/common-ssr.spec.ts tests/vue-ssr.spec.ts --project=chromium
 
   e2e-chrome-midway-react-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -454,13 +418,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -474,21 +438,17 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
 
-      - uses: cypress-io/github-action@v6
-        
-        with:
-          install: false
-          start: pnpm example:midway:react:vite
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/noswiper.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:midway:react:vite &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/noswiper.spec.ts --project=chromium
   e2e-chrome-midway-vue3-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ${{ matrix.os }}
@@ -500,13 +460,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -520,21 +480,17 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
 
-      - uses: cypress-io/github-action@v6
-        
-        with:
-          install: false
-          start: pnpm example:midway:vue3:vite
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/common-ssr.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:midway:vue3:vite &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/common-ssr.spec.ts --project=chromium
 
   e2e-chrome-nestjs-react18-vite:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -547,13 +503,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -567,21 +523,17 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
 
-      - uses: cypress-io/github-action@v6
-        
-        with:
-          install: false
-          start: pnpm example:nestjs:react18:vite
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/noswiper.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:react18:vite &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/noswiper.spec.ts --project=chromium
 
   e2e-chrome-nestjs-react-rspack:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -594,13 +546,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -614,19 +566,16 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
-      - uses: cypress-io/github-action@v6
-        with:
-          install: false
-          start: pnpm example:nestjs:react:rspack
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/noswiper.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:react:rspack &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/noswiper.spec.ts --project=chromium
 
   e2e-chrome-nestjs-react18-rspack:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -639,13 +588,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -659,19 +608,16 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
-      - uses: cypress-io/github-action@v6
-        with:
-          install: false
-          start: pnpm example:nestjs:react18:rspack
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/noswiper.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:react18:rspack &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/noswiper.spec.ts --project=chromium
 
   e2e-chrome-nestjs-react-prod-rspack:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -684,13 +630,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -704,19 +650,16 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
-      - uses: cypress-io/github-action@v6
-        with:
-          install: false
-          start: pnpm example:nestjs:react:prod:rspack
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/noswiper.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:react:prod:rspack &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/noswiper.spec.ts --project=chromium
 
   e2e-chrome-nestjs-vue3-pinia:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -729,13 +672,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -749,20 +692,16 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
            pnpm build
 
-      - uses: cypress-io/github-action@v6
-        
-        with:
-          install: false
-          start: pnpm example:nestjs:vue3:pinia
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/noswiper.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:vue3:pinia &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/noswiper.spec.ts --project=chromium
 
   e2e-chrome-midway-vue3:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -775,13 +714,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -795,20 +734,16 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
-      - uses: cypress-io/github-action@v6
-        
-        with:
-          install: false
-          start: pnpm example:midway:vue3
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/noswiper.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:midway:vue3 &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/noswiper.spec.ts --project=chromium
   e2e-chrome-nestjs-vue:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ${{ matrix.os }}
@@ -820,13 +755,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -840,23 +775,17 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
 
-      - uses: cypress-io/github-action@v6
-        # env:
-        #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
-        with:
-          install: false
-          start: pnpm example:nestjs:vue
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/common-ssr.spec.js
-            e2e/integration/examples/vue-ssr.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:vue &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/common-ssr.spec.ts tests/vue-ssr.spec.ts --project=chromium
 
   e2e-chrome-nestjs-react18:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -869,13 +798,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -889,22 +818,17 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
 
-      - uses: cypress-io/github-action@v6
-        # env:
-        #     CYPRESS_CACHE_FOLDER: C:\Users\runneradmin\AppData\Local\Cypress\Cache
-        with:
-          install: false
-          start: pnpm example:nestjs:react18
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/noswiper.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:react18 &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/noswiper.spec.ts --project=chromium
   e2e-chrome-nestjs-vue3:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
     runs-on: ${{ matrix.os }}
@@ -916,13 +840,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -936,19 +860,16 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
-      - uses: cypress-io/github-action@v6
-        with:
-          install: false
-          start: pnpm example:nestjs:vue3
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/noswiper.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:vue3 &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/noswiper.spec.ts --project=chromium
         env:
           ssrConfig: '{"whiteList":["ssr-common-utils"]}'
 
@@ -963,13 +884,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -983,20 +904,16 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
-      - uses: cypress-io/github-action@v6
-        with:
-          install: false
-          start: pnpm example:nestjs:vue3:rspack
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/common-ssr.spec.js
-            e2e/integration/examples/vue-ssr.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:vue3:rspack &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/common-ssr.spec.ts tests/vue-ssr.spec.ts --project=chromium
 
   e2e-chrome-nestjs-vue3-prod-rspack:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -1009,13 +926,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -1029,20 +946,16 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
-      - uses: cypress-io/github-action@v6
-        with:
-          install: false
-          start: pnpm example:nestjs:vue3:prod:rspack
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/common-ssr.spec.js
-            e2e/integration/examples/vue-ssr.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:vue3:prod:rspack &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/common-ssr.spec.ts tests/vue-ssr.spec.ts --project=chromium
 
   e2e-chrome-nestjs-vue-rspack:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -1055,13 +968,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -1075,20 +988,16 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
-      - uses: cypress-io/github-action@v6
-        with:
-          install: false
-          start: pnpm example:nestjs:vue:rspack
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/common-ssr.spec.js
-            e2e/integration/examples/vue-ssr.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:vue:rspack &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/common-ssr.spec.ts tests/vue-ssr.spec.ts --project=chromium
 
   e2e-chrome-nestjs-vue-prod-rspack:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -1101,13 +1010,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
@@ -1121,20 +1030,16 @@ jobs:
         run: |
           rm -rf node_modules
           
-          pnpm install --no-frozen-lockfile --force && npx cypress install
+          pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
           pnpm build
 
-      - uses: cypress-io/github-action@v6
-        with:
-          install: false
-          start: pnpm example:nestjs:vue:prod:rspack
-          wait-on: 'http://localhost:3000'
-          spec: |
-            e2e/integration/examples/common-ssr.spec.js
-            e2e/integration/examples/vue-ssr.spec.js
-          browser: chrome
+      - name: Start server and run Playwright tests
+        run: |
+          pnpm example:nestjs:vue:prod:rspack &
+          npx wait-on http://localhost:3000
+          pnpm e2e tests/common-ssr.spec.ts tests/vue-ssr.spec.ts --project=chromium
   publish:
     name: Publish
     if: "startsWith(github.event.head_commit.message, 'release')"
@@ -1171,13 +1076,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Cypress Cache
-        id: cypress-cache
+      - name: Playwright Cache
+        id: playwright-cache
         uses: actions/cache@v3
         with:
           path: |
-             /home/runner/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+             ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
       - name: Install pnpm
         uses: pnpm/action-setup@v4
