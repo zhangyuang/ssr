@@ -1,3 +1,14 @@
+## [7.0.12](https://github.com/zhangyuang/ssr/compare/vite@7.0.11...vite@7.0.12) (2025-11-28)
+
+
+### Features
+
+* register postcss-loader with css file when configure postcss ([976eb91](https://github.com/zhangyuang/ssr/commit/976eb913b9ade28643e246b1276afcb87645b11a))
+* update start tips for local area network in nestjs close [#355](https://github.com/zhangyuang/ssr/issues/355) ([f846e71](https://github.com/zhangyuang/ssr/commit/f846e7107c366e95305573e2045cc0b21201012f))
+* use playwright replace cypress ([5fbd540](https://github.com/zhangyuang/ssr/commit/5fbd54019e7fed89a2cfa54f222f76fe21241d63))
+
+
+
 ## [7.0.11](https://github.com/zhangyuang/ssr/compare/vite@7.0.10...vite@7.0.11) (2025-09-03)
 
 
