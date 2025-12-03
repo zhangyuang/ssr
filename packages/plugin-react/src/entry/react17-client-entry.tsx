@@ -17,7 +17,7 @@ const clientRender = async (): Promise<void> => {
 		}
 	const context = ssrCreateContext() as any
 	setStoreContext(context)
-	const store = createStore(window.__VALTIO_DATA__)
+	const store = createStore()
 	setStore(store ?? {})
 	const baseName = isMicro() ? window.clientPrefix : window.prefix
 	const routes = await preloadComponent(FeRoutes, baseName)

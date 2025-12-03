@@ -3,9 +3,8 @@ import * as ManualRoutes from '_build/ssr-manual-routes'
 import { createContext } from 'react'
 import { combineRoutes } from 'ssr-common-utils'
 import { deepClone } from 'ssr-deepclone'
-import type { IContext } from 'ssr-types'
-import { ReactRoutesType } from 'ssr-types'
 import { proxy } from 'valtio'
+import type { IContext, ReactRoutesType } from 'ssr-types'
 
 export const Routes = combineRoutes(declareRoutes, ManualRoutes) as ReactRoutesType
 export const ssrCreateContext = () => {
@@ -18,11 +17,15 @@ export const ssrCreateContext = () => {
 	return STORE_CONTEXT
 }
 
-export function createStore(initialData?: any) {
+export function createStore() {
 	const { store } = Routes
-	const storeInstance = initialData ? store : deepClone(store)
-	for (const key in storeInstance) {
-		storeInstance[key] = initialData ? proxy(initialData[key]) : proxy(storeInstance[key])
+	const storeInstance = __isBrowser__ ? store : proxy(deepClone(store))
+	if (__isBrowser__) {
+		for (const key in storeInstance) {
+			if (__isBrowser__ && window.__VALTIO_DATA__?.[key]) {
+				Object.assign(storeInstance[key], window.__VALTIO_DATA__[key])
+			}
+		}
 	}
 	return storeInstance
 }
