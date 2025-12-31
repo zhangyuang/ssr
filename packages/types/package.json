@@ -46,8 +46,8 @@
     "concurrently": "^5.1.0",
     "fastify": "^5.0.0",
     "postcss": "^8.0.0",
+    "rspack-chain": "^1.4.3",
     "vite": "npm:rolldown-vite@latest",
-    "webpack-chain": "^6.4.0",
-    "rspack-chain": "^1.0.0"
+    "webpack-chain": "^6.4.0"
   }
 }

@@ -1,4 +1,4 @@
-import type * as RspackChain from 'rspack-chain'
+import type { default as RspackChain } from 'rspack-chain'
 import { getBuildConfig, getOutputPublicPath, loadConfig, getBuildEntry, judgeFramework } from 'ssr-common-utils'
 import { SwcJsMinimizerRspackPlugin, LightningCssMinimizerRspackPlugin } from '@rspack/core'
 import { RspackManifestPlugin } from 'rspack-manifest-plugin'

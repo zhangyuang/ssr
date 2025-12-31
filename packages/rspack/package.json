@@ -30,16 +30,17 @@
     "@rspack/cli": "^1.4.11",
     "@rspack/core": "^1.4.11",
     "@rspack/dev-server": "^1.0.0",
-    "@types/semver": "^7.3.13",
-    "rspack-manifest-plugin": "^5.0.0",
-    "react-refresh": "^0.17.0",
     "@rspack/plugin-react-refresh": "^1.0.0",
+    "@types/semver": "^7.3.13",
     "core-js": "^3.6.4",
     "less": "^4.1.1",
     "less-loader": "^7.3.0",
+    "ora": "^4.0.4",
     "postcss": "^8.0.0",
     "postcss-loader": "^8.0.0",
-    "ora": "^4.0.4",
+    "react-refresh": "^0.17.0",
+    "rspack-chain": "^1.4.3",
+    "rspack-manifest-plugin": "^5.0.0",
     "semver": "^7.3.8",
     "ssr-common-utils": "workspace:*",
     "ssr-deepclone": "^1.0.0",
@@ -48,8 +49,7 @@
     "unplugin-auto-import": "^0.12.1",
     "unplugin-vue-components": "^0.22.12",
     "webpack": "^5.0.0",
-    "webpack-chain": "^6.4.0",
-    "rspack-chain": "^1.0.0"
+    "webpack-chain": "^6.4.0"
   },
   "devDependencies": {
     "ssr-types": "workspace:*"

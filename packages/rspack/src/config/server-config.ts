@@ -1,5 +1,5 @@
 import { loadConfig, getBuildEntry } from 'ssr-common-utils'
-import type * as RspackChain from 'rspack-chain'
+import type { default as RspackChain } from 'rspack-chain'
 
 import { getBaseConfig } from './base-config'
 

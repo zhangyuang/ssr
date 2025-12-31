@@ -103,6 +103,10 @@ jobs:
         run: |
           pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
+
       - name: Start server and run Playwright tests
         run: |
           pnpm example:midway:react &
@@ -145,6 +149,11 @@ jobs:
       - name: Build packages
         run: |
           pnpm build
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
+
       - name: Start server and run Playwright tests
         run: |
           pnpm example:nestjs:react:prod &
@@ -189,6 +198,9 @@ jobs:
         run: |
           pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
 
       - name: Start server and run Playwright tests
         run: |
@@ -233,6 +245,9 @@ jobs:
         run: |
             pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
 
       - name: Start server and run Playwright tests
         run: |
@@ -276,6 +291,9 @@ jobs:
         run: |
             pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
 
       - name: Start server and run Playwright tests
         run: |
@@ -318,6 +336,10 @@ jobs:
         run: |
           pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
+
       - name: Start server and run Playwright tests
         run: |
           pnpm example:nestjs:vue3:prod:vite &
@@ -358,6 +380,10 @@ jobs:
       - name: Build packages
         run: |
           pnpm build
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
 
       - name: Start server and run Playwright tests
         run: |
@@ -400,6 +426,9 @@ jobs:
         run: |
           pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
 
       - name: Start server and run Playwright tests
         run: |
@@ -443,6 +472,9 @@ jobs:
         run: |
           pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
 
       - name: Start server and run Playwright tests
         run: |
@@ -485,6 +517,9 @@ jobs:
         run: |
           pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
 
       - name: Start server and run Playwright tests
         run: |
@@ -528,6 +563,9 @@ jobs:
         run: |
           pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
 
       - name: Start server and run Playwright tests
         run: |
@@ -571,6 +609,10 @@ jobs:
         run: |
           pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
+
       - name: Start server and run Playwright tests
         run: |
           pnpm example:nestjs:react:rspack &
@@ -612,6 +654,10 @@ jobs:
       - name: Build packages
         run: |
           pnpm build
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
 
       - name: Start server and run Playwright tests
         run: |
@@ -655,6 +701,10 @@ jobs:
         run: |
           pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
+
       - name: Start server and run Playwright tests
         run: |
           pnpm example:nestjs:react:prod:rspack &
@@ -696,6 +746,10 @@ jobs:
       - name: Build packages
         run: |
            pnpm build
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
 
       - name: Start server and run Playwright tests
         run: |
@@ -739,6 +793,10 @@ jobs:
         run: |
           pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
+
       - name: Start server and run Playwright tests
         run: |
           pnpm example:midway:vue3 &
@@ -780,6 +838,9 @@ jobs:
         run: |
           pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
 
       - name: Start server and run Playwright tests
         run: |
@@ -823,6 +884,9 @@ jobs:
         run: |
           pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
 
       - name: Start server and run Playwright tests
         run: |
@@ -864,6 +928,10 @@ jobs:
       - name: Build packages
         run: |
           pnpm build
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
 
       - name: Start server and run Playwright tests
         run: |
@@ -909,6 +977,10 @@ jobs:
         run: |
           pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
+
       - name: Start server and run Playwright tests
         run: |
           pnpm example:nestjs:vue3:rspack &
@@ -950,6 +1022,10 @@ jobs:
       - name: Build packages
         run: |
           pnpm build
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
 
       - name: Start server and run Playwright tests
         run: |
@@ -993,6 +1069,10 @@ jobs:
         run: |
           pnpm build
 
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
+
       - name: Start server and run Playwright tests
         run: |
           pnpm example:nestjs:vue:rspack &
@@ -1034,6 +1114,10 @@ jobs:
       - name: Build packages
         run: |
           pnpm build
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
 
       - name: Start server and run Playwright tests
         run: |
@@ -1100,6 +1184,11 @@ jobs:
       - name: Build packages
         run: |
           pnpm build
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm exec playwright install chromium
+
       - name: List packages
         run: ls -R packages
         shell: bash

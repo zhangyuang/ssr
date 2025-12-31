@@ -2,7 +2,6 @@ import { startClientServer, startClientBuild } from './client'
 import { startServerBuild } from './server'
 import { getServerRspack } from './config/server-config'
 import { getClientRspack } from './config/client-config'
-//@ts-ignore
 import { default as RspackChain } from 'rspack-chain'
 
 export const start = async () => {

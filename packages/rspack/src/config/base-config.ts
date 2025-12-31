@@ -1,7 +1,7 @@
 import { join } from 'path'
 import { checkModuleExist, getCwd, loadConfig, logErr, loadModuleFromFramework, judgeFramework } from 'ssr-common-utils'
 import type { Mode } from 'ssr-types'
-import type * as RspackChain from 'rspack-chain'
+import type { default as RspackChain } from 'rspack-chain'
 import { addCommonChain } from '../utils/common-chain'
 
 const framework = judgeFramework()

@@ -5,7 +5,7 @@ import type { CSSOptions, PluginOption, ServerOptions, UserConfig as ViteConfig 
 import type { Options } from 'webpack'
 import type { StatsOptions, DevServer } from '@rspack/core'
 import type WebpackChainConfig from 'webpack-chain'
-import type * as RspackChain from 'rspack-chain'
+import type { default as RspackChain } from 'rspack-chain'
 import { ISSRContext } from './ctx'
 import { Argv } from './yargs'
 

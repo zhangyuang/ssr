@@ -1,4 +1,4 @@
-import type * as RspackChain from 'rspack-chain'
+import type { default as RspackChain } from 'rspack-chain'
 import { resolve } from 'path'
 import { rspack } from '@rspack/core'
 import {
