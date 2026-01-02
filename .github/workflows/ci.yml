@@ -23,10 +23,15 @@ jobs:
 
 
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
 
       - name: Set node version
         uses: actions/setup-node@v4
@@ -85,10 +90,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -132,10 +141,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -180,10 +193,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -227,10 +244,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -273,10 +294,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -319,10 +344,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -364,10 +393,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -409,10 +442,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -455,10 +492,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -500,10 +541,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -546,10 +591,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -592,10 +641,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -638,10 +691,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -684,10 +741,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -730,10 +791,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -776,10 +841,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -821,10 +890,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -867,10 +940,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -912,10 +989,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -960,10 +1041,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -1006,10 +1091,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -1052,10 +1141,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -1098,10 +1191,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
@@ -1168,10 +1265,14 @@ jobs:
              ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
+      - name: Enable corepack
+        run: corepack enable
+      - name: Setup pnpm
+        run: |
+          pnpm setup
+          echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+          echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
       - name: Use Node.js ${{ matrix.node }}
         uses: actions/setup-node@v4
         with:
