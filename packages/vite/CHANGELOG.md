@@ -1,3 +1,17 @@
+## [7.0.13](https://github.com/zhangyuang/ssr/compare/vite@7.0.12...vite@7.0.13) (2026-01-16)
+
+
+### Bug Fixes
+
+* use origin proxy object in react valtio ([fb37083](https://github.com/zhangyuang/ssr/commit/fb37083fa0041142dfc69389a01eb998666c7590))
+
+
+### Features
+
+* upgrade rolldown-vite, set server.ws option avoid socket conflict error ([f5d9676](https://github.com/zhangyuang/ssr/commit/f5d96762485d2086070680f236bc809b819d1f74))
+
+
+
 ## [7.0.12](https://github.com/zhangyuang/ssr/compare/vite@7.0.11...vite@7.0.12) (2025-11-28)
 
 
