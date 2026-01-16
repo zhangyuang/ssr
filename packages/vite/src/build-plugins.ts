@@ -1,7 +1,7 @@
 import { promises, writeFileSync } from 'fs'
 import { resolve } from 'path'
 import { mkdir } from 'shelljs'
-import type { Plugin, UserConfig } from 'vite'
+import type { Plugin, UserConfig } from 'rolldown-vite'
 import type { OutputOptions, PreRenderedChunk } from 'rolldown'
 import { getBuildConfig, addDefaultAlias, getPkgName, vendorList } from 'ssr-common-utils'
 import {

@@ -1,6 +1,6 @@
 import { createProxyMiddleware } from 'http-proxy-middleware'
 import * as koaConnect from 'koa2-connect'
-import type { ViteDevServer } from 'vite'
+import type { ViteDevServer } from 'rolldown-vite'
 import { judgeServerFramework } from '../cwd'
 import { loadConfig } from '../loadConfig'
 
@@ -30,7 +30,7 @@ const getDevProxyMiddlewaresArr = async () => {
 	if (isDev) {
 		if (isVite) {
 			// 本地开发请求走 vite 接管 前端文件夹请求
-			const { createServer } = require('vite')
+			const { createServer } = require('rolldown-vite')
 			const { clientConfig } = require('ssr-vite')
 			const viteServer: ViteDevServer = await createServer(clientConfig)
 			proxyMiddlewaresArr.push(isExpress ? viteServer.middlewares : kc(viteServer.middlewares))

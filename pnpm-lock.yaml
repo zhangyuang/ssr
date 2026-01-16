@@ -90,7 +90,7 @@ importers:
         specifier: ^5.8.2
         version: 5.9.2
       vite:
-        specifier: npm:rolldown-vite@^7.3.1
+        specifier: npm:rolldown-vite@latest
         version: rolldown-vite@7.3.1(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3)
 
   example/midway-react-ssr:
@@ -1286,12 +1286,12 @@ importers:
       pinia:
         specifier: ^2.0.13
         version: 2.3.1(typescript@5.9.2)(vue@3.5.18(typescript@5.9.2))
+      rolldown-vite:
+        specifier: ^7.3.0
+        version: 7.3.1(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3)
       ssr-types:
         specifier: workspace:*
         version: link:../types
-      vite:
-        specifier: npm:rolldown-vite@latest
-        version: rolldown-vite@7.3.1(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3)
       vue:
         specifier: ^3.0.0
         version: 3.5.18(typescript@5.9.2)
@@ -1307,6 +1307,9 @@ importers:
       less:
         specifier: ^4.1.1
         version: 4.4.0
+      rolldown-vite:
+        specifier: ^7.3.0
+        version: 7.3.1(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3)
       rollup-plugin-visualizer:
         specifier: ^5.12.0
         version: 5.14.0(rollup@2.79.2)
@@ -1316,9 +1319,6 @@ importers:
       ssr-vite-plugin-style-import:
         specifier: ^2.0.1
         version: 2.0.1(rolldown-vite@7.3.1(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3))
-      vite:
-        specifier: npm:rolldown-vite@latest
-        version: rolldown-vite@7.3.1(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3)
     devDependencies:
       ssr-types:
         specifier: workspace:*
@@ -6043,7 +6043,7 @@ packages:
     engines: {node: '>= 4'}
 
   image-size@0.5.5:
-    resolution: {integrity: sha1-Cd/Uq50g4p6xw+gLiZA3jfnjy5w=}
+    resolution: {integrity: sha512-6TDAlDPZxUFCv+fuOkIoXT/V/f3Qbq8e37p+YOiYrUv3v9cc3/6x78VdfPgFVaB9dZYeLUfKgHRebpkm/oP2VQ==}
     engines: {node: '>=0.10.0'}
     hasBin: true
 

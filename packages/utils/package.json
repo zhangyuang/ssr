@@ -63,6 +63,6 @@
     "ssr-types": "workspace:*",
     "vue": "^3.0.0",
     "webpack-chain": "^6.4.0",
-    "vite": "npm:rolldown-vite@latest"
+    "rolldown-vite": "^7.3.0"
   }
 }

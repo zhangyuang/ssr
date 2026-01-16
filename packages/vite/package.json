@@ -28,7 +28,7 @@
   "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "less": "^4.1.1",
-    "vite": "npm:rolldown-vite@latest",
+    "rolldown-vite": "^7.3.0",
     "rollup-plugin-visualizer": "^5.12.0",
     "ssr-vite-plugin-style-import": "^2.0.1",
     "@rollup/plugin-babel": "^5.3.0",
