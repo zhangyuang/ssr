@@ -16,7 +16,6 @@ import {
 	getBuildEntry
 } from 'ssr-common-utils'
 import { build as viteBuild, type PluginOption, type InlineConfig } from 'vite'
-
 import {
 	AndDesignVueResolve,
 	AntdResolve,
@@ -106,7 +105,7 @@ export const serverConfig: InlineConfig = {
 		...viteConfig?.().server?.otherConfig?.build,
 		ssr: serverEntry,
 		outDir: serverOutPut,
-		rollupOptions: {
+		rolldownOptions: {
 			...viteConfig?.().server?.otherConfig?.build?.rollupOptions,
 			input: isDev ? clientEntry : serverEntry, // setting prebundle list by client-entry in dev
 			output: {
@@ -158,7 +157,7 @@ export const clientConfig: InlineConfig = {
 		...viteConfig?.().client?.otherConfig?.build,
 		ssrManifest: true,
 		outDir: clientOutPut,
-		rollupOptions: {
+		rolldownOptions: {
 			...viteConfig?.().client?.otherConfig?.build?.rollupOptions,
 			input: clientEntry,
 			output: rollupOutputOptions(),

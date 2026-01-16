@@ -177,6 +177,8 @@ const commonConfig = (_env: 'server' | 'client'): UserConfig => {
 		server: {
 			middlewareMode: true,
 			hmr,
+			//@ts-expect-error
+			ws: _env === 'client',
 			...viteConfig?.().common?.server
 		},
 		optimizeDeps: {
