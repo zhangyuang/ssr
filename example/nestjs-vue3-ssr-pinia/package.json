@@ -2,6 +2,18 @@
   "name": "nestjs-vue3-ssr-pinia",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "prod": "ssr build && NODE_ENV=production node dist/main.js",
+    "prod:vite": "ssr build --tool vite && NODE_ENV=production node dist/main.js",
+    "start": "ssr start",
+    "start:vite": "ssr start --tool vite",
+    "build": "ssr build",
+    "build:vite": "ssr build --tool vite",
+    "deploy": "ssr build && ssr deploy",
+    "deploy:tencent": "ssr build && ssr deploy --tencent",
+    "lint": "oxfmt --check .",
+    "lint:fix": "oxfmt ."
+  },
   "dependencies": {
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
@@ -17,30 +29,18 @@
     "vuex": "^4.0.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
     "@nestjs/cli": "^11.0.0",
+    "oxfmt": "latest",
     "ssr": "^7.0.0",
     "ssr-plugin-nestjs": "^7.0.0",
     "ssr-plugin-vue3": "^7.0.0",
-    "ssr-types": "^7.0.0",
-    "ssr-webpack": "^7.0.0",
     "ssr-rspack": "^7.0.0",
+    "ssr-types": "^7.0.0",
     "ssr-vite": "^7.0.0",
+    "ssr-webpack": "^7.0.0",
     "typescript": "^5.0.0"
   },
   "engines": {
     "node": ">=20.0.0"
-  },
-  "scripts": {
-    "prod": "ssr build && NODE_ENV=production node dist/main.js",
-    "prod:vite": "ssr build --tool vite && NODE_ENV=production node dist/main.js",
-    "start": "ssr start",
-    "start:vite": "ssr start --tool vite",
-    "build": "ssr build",
-    "build:vite": "ssr build --tool vite",
-    "deploy": "ssr build && ssr deploy",
-    "deploy:tencent": "ssr build && ssr deploy --tencent",
-    "lint": "biome format --diagnostic-level error",
-    "lint:fix": "biome format --diagnostic-level error --write"
   }
 }

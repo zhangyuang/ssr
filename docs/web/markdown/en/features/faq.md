@@ -24,7 +24,7 @@ export class NotFoundMiddleware implements IMiddleware<Context, NextFunction> {
         await next()
       } catch (error) {
         if (ctx.status === 404) {
-          // 手动建立 /web/pages/404 相关文件 
+          // 手动建立 /web/pages/404 相关文件
           ctx.redirect('/404')
         }
       }
@@ -50,7 +50,7 @@ export class ContainerLifeCycle {
 
 ```js
 if (ctx.status === 404) {
-  ctx.body = "404 Not Found"
+  ctx.body = "404 Not Found";
 }
 ```
 
@@ -93,16 +93,16 @@ async handler (): Promise<void> {
 
 `SSR` 是近几年才火热的话题，如果是新的项目且开发人员对 `SSR` 有较深的认知，那么在设计应用的过程中就会有意识的去避免在服务端访问客户端对象的情况。但在老项目或者老的第三方库/框架，或者是开发人员对SSR理解不深刻的情况下，会出现很多类似 `window is not defined` 的错误。
 
-先说前言，个人是不推荐用 `jsdom` 来在服务端模拟客户端环境，这样最多只能模拟最外层的对象例如 `window document` 但如果要访问更深层次的对象例如 `document.getElementById` 则还是会报错。且这种方式新增了一堆很 `dirty` 的代码且不利于 debug 容易造成未知的问题。  
+先说前言，个人是不推荐用 `jsdom` 来在服务端模拟客户端环境，这样最多只能模拟最外层的对象例如 `window document` 但如果要访问更深层次的对象例如 `document.getElementById` 则还是会报错。且这种方式新增了一堆很 `dirty` 的代码且不利于 debug 容易造成未知的问题。
 
 自己的代码我们可以控制，那么如果有第三方模块犯了这种问题应该如何解决呢。在有能力给第三方模块提PR的时候还是建议以PR的形式进行修复。否则情况基本无解，只能够将这部分代码降级到客户端去运行。例如 `antd-pro` 的代码中就存在非常多的这种问题导致无法在服务端运行
 
-比较好的做法，`axios` 就会根据你当前的环境来决定到底是用 `xhr` 对象还是用 `http` 模块来发起请求。如果没办法改动第三方模块，我们可以在代码中延迟加载这些模块，让它在客户端执行的时候被调用。  
+比较好的做法，`axios` 就会根据你当前的环境来决定到底是用 `xhr` 对象还是用 `http` 模块来发起请求。如果没办法改动第三方模块，我们可以在代码中延迟加载这些模块，让它在客户端执行的时候被调用。
 
 #### 解决方式
 
-1. 使用本应用提供的 `__isBrowser__` 常量来判断，一些模块直接在顶层就使用浏览器元素直接 `import` 就会出错，例如引入 `jquery` 可以使用以下引入方式  
-   
+1. 使用本应用提供的 `__isBrowser__` 常量来判断，一些模块直接在顶层就使用浏览器元素直接 `import` 就会出错，例如引入 `jquery` 可以使用以下引入方式
+
 ```js
 import $ from 'jquery' // error
 const $ = __isBrowser__ ? require('jquery') : {} // true
@@ -142,17 +142,16 @@ class Page {
 
 3. 如果某个组件调用的方法一定要使用浏览器对象才能得到结果，那么只能将该组件放到客户端进行render了，参考下文的 `onlyCsr`
 
-`__isBrowser__` 结合 `onlyCsr` 可以解决所有遇到的问题  
+`__isBrowser__` 结合 `onlyCsr` 可以解决所有遇到的问题
 
 `注: 不要想着在服务端去访问客户端对象，这意味着你 or 开发第三方模块的人对React SSR的理解不够, 虽然这一开始会导致一定的错误，但对于你去理解SSR的执行机制以及分清楚Server/Client两端的区别帮助很大`
-
-
 
 ### 如何降级为客户端渲染
 
 在本地开发测试时我们可以通过在请求 `url` 的 `query` 后面添加 `?csr=true` 来以客户端渲染模式进行渲染。
 
 在正式的线上应用执行阶段。我们有多种降级方式。参考 [渲染降级](./features$csr) 章节。
+
 #### 指定页面 ssr
 
 开发者或许需要针对某些页面进行服务端渲染，某些页面不需要。得益于 `ssr` 的强大设计，此功能完全不需要框架底层支持，直接在业务代码实现即可。
@@ -177,16 +176,16 @@ const stream = await render<Readable>(this.ctx, {
 在应用执行出错 catch 到 error 的时候降级为客户端渲染。也可根据具体的业务逻辑，在适当的时候通过该方式降级 `csr` 模式
 
 ```js
-import { render } from 'ssr-core'
+import { render } from "ssr-core";
 
 try {
-  const htmlStr = await render(this.ctx)
-  return htmlStr
+  const htmlStr = await render(this.ctx);
+  return htmlStr;
 } catch (error) {
   const htmlStr = await render(this.ctx, {
-    mode: 'csr'
-  })
-  return htmlStr
+    mode: "csr",
+  });
+  return htmlStr;
 }
 ```
 
@@ -197,8 +196,8 @@ try {
 代码修改很简单。
 
 ```js
-const config = await http.get('xxx') // 通过接口|消息中间件拿到实时的config，可以做到应用不发版更新渲染模式
-const htmlStr = await render(this.ctx, config)
+const config = await http.get("xxx"); // 通过接口|消息中间件拿到实时的config，可以做到应用不发版更新渲染模式
+const htmlStr = await render(this.ctx, config);
 ```
 
 此种场景多用于应急预案处理。
@@ -220,25 +219,27 @@ Ref [#5126](https://github.com/vuejs/vue-next/issues/5126) 在 Vue3 SSR 场景�
 // config.default.ts
 
 config.bodyParser = {
-  enable: false
-}
+  enable: false,
+};
 ```
 
 2. 发起请求时指定正确的 `content-type`。以 `axios` 为例子
 
 ```js
 axios({
-  url: 'xxx',
-  method: 'POST',
-  headers: { 'content-type': 'text/json' },
+  url: "xxx",
+  method: "POST",
+  headers: { "content-type": "text/json" },
   data: {
-    foo: 'bar'
-  }
-}).then(res => {
-  console.log(res)
-}).catch(err => {
-  console.log(err)
+    foo: "bar",
+  },
 })
+  .then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 ```
 
 ### 页面刷新 404 问题
@@ -287,8 +288,8 @@ async handler (): Promise<void> {
 
 ```js
 module.exports = {
-  whiteList: ['antd'] // 这里会自动的进行依赖遍历收集
-}
+  whiteList: ["antd"], // 这里会自动的进行依赖遍历收集
+};
 ```
 
 #### 如何验证本地依赖移动到 dev 后能正常运行
@@ -296,7 +297,6 @@ module.exports = {
 ```shell
 $ yarn build && rm -rf node_modules && yarn --product && npx xxx # 这里为各自框架的生产环境服务端启动脚本参考 run prod
 ```
-
 
 ## Vue 场景使用问题
 
@@ -314,13 +314,13 @@ $ yarn build && rm -rf node_modules && yarn --product && npx xxx # 这里为各�
 </template>
 
 <script>
-// 在这里可以进行一些全局组件的注册逻辑
-export default {
-   props: ['asyncData']
-}
+  // 在这里可以进行一些全局组件的注册逻辑
+  export default {
+    props: ["asyncData"],
+  };
 </script>
-
 ```
+
 ### Vue3 全局注册组件
 
 最新更新： 在之后的版本中我们将移除 `window.__VUE_APP__` 的挂载逻辑，请使用旧写法的开发者按照下面的写法改造。
@@ -333,21 +333,20 @@ export default {
 
 <script lang="ts" setup>
   // 在这里我们可以通过 props.ssrApp 获取 Vue3 App 实例，也可以通过 getCurrentInstance(不建议) 来获取
-import { defineProps, App, getCurrentInstance } from 'vue'
-import { Button } from 'vant'
+  import { defineProps, App, getCurrentInstance } from "vue";
+  import { Button } from "vant";
 
-const props = defineProps<{
-  ssrApp: App,
-  asyncData: { value: any }
-}>()
+  const props = defineProps<{
+    ssrApp: App;
+    asyncData: { value: any };
+  }>();
 
-const app = props.ssrApp
+  const app = props.ssrApp;
 
-// const app = getCurrentInstance()?.appContext.app 写法 2
-app?.use(Button)
-app?.component('xxx')
+  // const app = getCurrentInstance()?.appContext.app 写法 2
+  app?.use(Button);
+  app?.component("xxx");
 </script>
-
 ```
 
 ### Vue 场景使用自定义指令
@@ -372,19 +371,19 @@ app?.component('xxx')
 const ssrTransformCustomDir = (dir, node, context) => {
   return {
     // do nothing
-    props: []
-  }
-}
+    props: [],
+  };
+};
 
 module.exports = {
   ssrVueLoaderOptions: {
     compilerOptions: {
       directiveTransforms: {
-        focus: ssrTransformCustomDir
-      }
-    }
-  }
-}
+        focus: ssrTransformCustomDir,
+      },
+    },
+  },
+};
 ```
 
 #### 方案二
@@ -411,45 +410,43 @@ this.$router.options.scrollBehavior = (to, from, savedPosition) {
 为了方便开发者在任意地方都能够使用 `Vuex` 实例，这里框架提供了 `useStore` api 可以在任意文件调用
 
 ```js
-import { useStore } from 'ssr-common-utils'
+import { useStore } from "ssr-common-utils";
 
-const store = useStore()
-
+const store = useStore();
 ```
 
 ### Vue3 任意文件获取 Pinia 实例
 
 在服务端渲染过程中，当我们在非 `setup` 环境调用 `Pinia` 时，其自身并不一定能够准确的判断出当前的实例。在高并发场景可能会导致数据混乱，所以针对这种情况，我们需要手动调用 `api` 时传入当前正确的 `Pinia Instance` ，为了方便开发者在任意地方都能够使用 `Pinia` 实例，这里框架提供了 `usePinia` api 可以在任意文件调用
 
-
 ```js
-import { usePinia } from 'ssr-common-utils'
+import { usePinia } from "ssr-common-utils";
 
-const pinia = usePinia()
+const pinia = usePinia();
 
-const data = usePiniaStore(pinia) // 非 setup 上下文调用时需要手动传入实例
-
+const data = usePiniaStore(pinia); // 非 setup 上下文调用时需要手动传入实例
 ```
+
 ### Vue3 任意文件获取 App 实例
 
 为了方便开发者获取 `App` 实例，这里框架提供了 `useApp` api 可以在任意前端组件作用域范围内文件调用(不包括 fetch.ts 的作用域范围内)
 
 ```js
-import { useApp } from 'ssr-common-utils'
+import { useApp } from "ssr-common-utils";
 
-const app = useApp()
+const app = useApp();
 
-app.use('Plugin')
+app.use("Plugin");
 ```
 
 ### 任意组件获取当前的 Ctx
 
 ```js
-import { useCtx } from 'ssr-common-utils'
+import { useCtx } from "ssr-common-utils";
 
-const ctx = useCtx() // useCtx can only be used on the server side
-
+const ctx = useCtx(); // useCtx can only be used on the server side
 ```
+
 ### 使用Vue3国际化插件
 
 在 `plugin-vue3` 中，我们已在底层对国际化所需要的 `Webpack-loader` 进行支持。详细见官方文档：https://vue-i18n.intlify.dev/guide/advanced/composition.html
@@ -468,47 +465,42 @@ $ npm i @intlify/vue-i18n-loader@^2.0.3 --save-dev
 // 启用后构建时会使用相应 loader 进行构建
 module.exports = {
   locale: {
-    enable: true
-  }
-}
+    enable: true,
+  },
+};
 ```
 
 在 `layout/App.vue` 做配置初始化
 
 ```js
-import { getCurrentInstance } from 'vue'
-import { createI18n } from 'vue-i18n'
+import { getCurrentInstance } from "vue";
+import { createI18n } from "vue-i18n";
 
 const i18n = createI18n({
   // 默认配置
-  locale: 'en',
+  locale: "en",
   messages: {},
   globalInjection: true,
   // 模式锁定，传统模式SSR有bug
-  legacy: false
-})
+  legacy: false,
+});
 
 export default {
-  created () {
-    const app = getCurrentInstance()?.appContext.app
-    app.use(i18n)
-  }
-}
+  created() {
+    const app = getCurrentInstance()?.appContext.app;
+    app.use(i18n);
+  },
+};
 ```
 
 组件中使用
 
 ```html
-
 <template>
   <div>
     <select v-model="$i18n.locale">
-      <option value="en">
-        en
-      </option>
-      <option value="ja">
-        ja
-      </option>
+      <option value="en">en</option>
+      <option value="ja">ja</option>
     </select>
     <p>{{ t('named', { msg }) }}</p>
     <p>{{ t('list', [msg]) }}</p>
@@ -518,45 +510,42 @@ export default {
 </template>
 
 <script>
-import { computed } from 'vue'
-import { useI18n } from 'vue-i18n'
-export default {
-  setup () {
-    const { t } = useI18n({
-      messages: {
-        useScope: 'local',
-        en: {
-          msg: 'hello',
-          named: '{msg} world!',
-          list: '{0} world!',
-          literal: "{'hello'} world!",
-          the_world: 'the world',
-          dio: 'DIO:',
-          linked: '@:dio @:the_world !!!!'
+  import { computed } from "vue";
+  import { useI18n } from "vue-i18n";
+  export default {
+    setup() {
+      const { t } = useI18n({
+        messages: {
+          useScope: "local",
+          en: {
+            msg: "hello",
+            named: "{msg} world!",
+            list: "{0} world!",
+            literal: "{'hello'} world!",
+            the_world: "the world",
+            dio: "DIO:",
+            linked: "@:dio @:the_world !!!!",
+          },
+          ja: {
+            msg: "こんにちは",
+            named: "{msg} 世界！",
+            list: "{0} 世界！",
+            literal: "{'こんにちは'} 世界！",
+            the_world: "ザ・ワールド！",
+            dio: "ディオ:",
+            linked: "@:dio @:the_world ！！！！",
+          },
         },
-        ja: {
-          msg: 'こんにちは',
-          named: '{msg} 世界！',
-          list: '{0} 世界！',
-          literal: "{'こんにちは'} 世界！",
-          the_world: 'ザ・ワールド！',
-          dio: 'ディオ:',
-          linked: '@:dio @:the_world ！！！！'
-        }
-      }
-    })
+      });
 
-    const msg = computed(() => t('msg'))
+      const msg = computed(() => t("msg"));
 
-    return { t, msg }
-  }
-}
+      return { t, msg };
+    },
+  };
 </script>
 
-<style>
-
-</style>
-
+<style></style>
 ```
 
 ## 使用 UI 框架
@@ -592,6 +581,7 @@ props.ssrApp.use(Button)
 
 下面讲述如何按需引入的语法接入其他未默认集成的 `UI` 框架。若使用全量引入的语法，在大部分情况下无需做任何配置即可使用。  
 下方讲述的解决方案在 `Webpack` 场景下适用。`Vite` 场景请参考 [vite-plugin-style-import](https://www.npmjs.com/package/vite-plugin-style-import)
+
 #### antd-mobile
 
 ```js
@@ -617,25 +607,25 @@ render () {
   return <Button>btn<Button>
 }
 ```
-#### element-ui
 
+#### element-ui
 
 ```js
 // config.ts
 const userConfig = {
   babelOptions: {
-   plugins: [
-        [
-            "import",
-            {
-               "libraryName": "element-ui",
-              "styleLibraryDirectory": "lib/theme-chalk",
-            }
-        ]
-    ]
-  }
-}
-export { userConfig }
+    plugins: [
+      [
+        "import",
+        {
+          libraryName: "element-ui",
+          styleLibraryDirectory: "lib/theme-chalk",
+        },
+      ],
+    ],
+  },
+};
+export { userConfig };
 ```
 
 #### element-plus
@@ -649,7 +639,6 @@ export { userConfig }
 `vite` 场景下支持[手动导入](https://element-plus.gitee.io/zh-CN/guide/quickstart.html#%E6%89%8B%E5%8A%A8%E5%AF%BC%E5%85%A5)方案，按需导入方案由于插件自身的问题暂时无法接入。
 
 ## 引入其他 css 处理器
-
 
 ### 如何支持 Sass|SCSS
 
@@ -681,7 +670,7 @@ export { userConfig }
 
 ```
 
-如何配置 `sass-loader` 请参考[文档](./api$config#css) 
+如何配置 `sass-loader` 请参考[文档](./api$config#css)
 
 ### Sass 场景使用 Vite 构建报错
 
@@ -691,13 +680,13 @@ export { userConfig }
 
 ```js
 export default {
-  props: ['ctx'],
-  created () {
+  props: ["ctx"],
+  created() {
     global.location = {
-      href: this.ctx.request.url
-    }
-  }
-}
+      href: this.ctx.request.url,
+    };
+  },
+};
 ```
 
 ### tailwind.css
@@ -818,7 +807,6 @@ $ npx ssr build --sourcemap # 默认为 'sourcemap' 类型
 $ npx ssr build --sourcemap hidden-source-map # 设置sourcemap类型为hidden-source-map
 ```
 
-
 ## 实际业务问题
 
 ### 定义环境变量
@@ -831,12 +819,11 @@ $ npx ssr build --sourcemap hidden-source-map # 设置sourcemap类型为hidden-s
 
 在 `浏览器环境` 框架会将环境变量注入构建上下文中，通过 `MYENV` 直接读取。此时效果等同于 `config.define` 配置提供的能力
 
-
 ### 如何自定义页面标题, meta 等信息
 
 开发者需要想清楚修改 `meta` 等 `head` 信息的目的是什么。如果只是单纯的前端页面展示，那么只需要在客户端通过 `document.title = xxx` 形式来修改即可。如果是为了满足 `SEO` 爬虫需求，则需要在服务端支出时渲染正确的信息。
 
-本框架不需要也不会提供类似 `next/head`, `react-helment` 之类的解决方案，这是完全没有必要的。 
+本框架不需要也不会提供类似 `next/head`, `react-helment` 之类的解决方案，这是完全没有必要的。
 
 由于我们 `All in jsx/Vue SFC`, 这块的实现也是非常简单的。`layout` 在服务端被渲染时可以拿到请求的 `ctx`，根据 `ctx` 上的信息来 `render` 不同的生成结果
 
@@ -845,61 +832,54 @@ $ npx ssr build --sourcemap hidden-source-map # 设置sourcemap类型为hidden-s
 ```html
 <template>
   <!-- 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑 -->
- 
+
   <html>
     <head>
-      <meta charSet="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <meta name="theme-color" content="#000000">
-      <title v-if="ctx.request.path === '/'">
-        首页
-      </title>
-      <title v-if="ctx.request.path.match('/detail')">
-        详情页
-      </title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <meta name="theme-color" content="#000000" />
+      <title v-if="ctx.request.path === '/'">首页</title>
+      <title v-if="ctx.request.path.match('/detail')">详情页</title>
       <!-- 这里可以用 map 来简化代码 -->
-       <title>
-        {{ pathToTitle(ctx.request.path) }}
-      </title>
+      <title>{{ pathToTitle(ctx.request.path) }}</title>
       <slot name="remInitial" />
       <slot name="injectHeader" />
     </head>
-   <body>
+    <body>
       <slot name="content" />
     </body>
   </html>
 </template>
 
 <script>
-export default {
-  props: ['ctx', 'config'],
-  data() {
-    return {
-      pathMap: {
-        '/': "首页",
-        '/detail': "详情页",
-      }
-    }
-  },
-  created () {
-    console.log(this.ctx.request.path)
-  },
-  methods: {
-    pathToTitle(path) {
-      // 需要模糊匹配的话可以采用 path-to-regexp 之类的方式
-      return this.pathMap[path]
-    }
-  }
-}
+  export default {
+    props: ["ctx", "config"],
+    data() {
+      return {
+        pathMap: {
+          "/": "首页",
+          "/detail": "详情页",
+        },
+      };
+    },
+    created() {
+      console.log(this.ctx.request.path);
+    },
+    methods: {
+      pathToTitle(path) {
+        // 需要模糊匹配的话可以采用 path-to-regexp 之类的方式
+        return this.pathMap[path];
+      },
+    },
+  };
 </script>
 
 <style lang="less">
-@import './index.less';
+  @import "./index.less";
 </style>
-
 ```
 
-`React` 使用则更简单 
+`React` 使用则更简单
 
 ```js
 const Layout = (props: LayoutProps) => {
@@ -939,7 +919,7 @@ const Layout = (props: LayoutProps) => {
 
 ### 如何让某个组件只在客户端渲染
 
-我们有时候会遇到某个组件强依赖了浏览器元素导致无法在服务端渲染，这时候需要针对该组件让其只在客户端进行渲染。  
+我们有时候会遇到某个组件强依赖了浏览器元素导致无法在服务端渲染，这时候需要针对该组件让其只在客户端进行渲染。
 
 `React` 场景下只需要用 `onlyCsr` 高阶组件包裹一下即可
 
@@ -948,16 +928,16 @@ $ yarn add ssr-hoc-react
 ```
 
 ```js
-import { onlyCsr } from 'ssr-hoc-react'
+import { onlyCsr } from "ssr-hoc-react";
 
-export default onlyCsr(myComponent)
+export default onlyCsr(myComponent);
 ```
 
 由于 `Vue2` 对 `HOC` 的支持不友好写起来比较麻烦，这里建议有需要用户手动来实现该功能
 
-1. 组件新增 `data` 选项 `isClient`  
-2. 在 `mounted` 生命周期设置 `isClient` 为 `true`  
-3. 当 `isClient` 为 `true` 时，渲染真正的组件内容，否则只需要渲染一个空的 div  
+1. 组件新增 `data` 选项 `isClient`
+2. 在 `mounted` 生命周期设置 `isClient` 为 `true`
+3. 当 `isClient` 为 `true` 时，渲染真正的组件内容，否则只需要渲染一个空的 div
 
 ```js
 <template>
@@ -979,7 +959,7 @@ export default {
 
 ### Vue3 只在客户端渲染
 
-在 `Vue3` 中我们可以通过 `setup` 来方便的编写一个 `onlyCsr` 
+在 `Vue3` 中我们可以通过 `setup` 来方便的编写一个 `onlyCsr`
 
 ```js
 import { onlyCsr } from 'ssr-hoc-vue3'
@@ -1003,18 +983,17 @@ export default {
 `onlyCsr` 的实现原理同样很简单如下
 
 ```js
-import { ref, onMounted, defineComponent } from 'vue'
+import { ref, onMounted, defineComponent } from "vue";
 
 export const onlyCsr = defineComponent({
-  setup (_, { slots }) {
-    const show = ref(false)
+  setup(_, { slots }) {
+    const show = ref(false);
     onMounted(() => {
-      show.value = true
-    })
-    return () => (show.value && slots.default ? slots.default() : null)
-  }
-})
-
+      show.value = true;
+    });
+    return () => (show.value && slots.default ? slots.default() : null);
+  },
+});
 ```
 
 ### 如何添加前端文件类型检查
@@ -1030,17 +1009,18 @@ export const onlyCsr = defineComponent({
 
 ```js
 module.exports = {
-  chainClientConfig: chain => {
-    const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin') // npm i fork-ts-checker-webpack-plugin -D
-    chain.plugin('typecheck').use(new ForkTsCheckerWebpackPlugin({
-      typescript: {
-        configFile: './web/tsconfig.json' // 指定 tsconfig 文件
-      }
-    }))
-  }
-}
+  chainClientConfig: (chain) => {
+    const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin"); // npm i fork-ts-checker-webpack-plugin -D
+    chain.plugin("typecheck").use(
+      new ForkTsCheckerWebpackPlugin({
+        typescript: {
+          configFile: "./web/tsconfig.json", // 指定 tsconfig 文件
+        },
+      }),
+    );
+  },
+};
 ```
-
 
 ### 如何对所有类型的文件使用 css modules
 
@@ -1054,15 +1034,14 @@ module.exports = {
         cssOptions: {
           modules: {
             auto: (resourcePath) => {
-              return !/node_modules/.test(resourcePath) // 这里要排除第三方模块，不要用 css modules 处理它
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
+              return !/node_modules/.test(resourcePath); // 这里要排除第三方模块，不要用 css modules 处理它
+            },
+          },
+        },
+      },
+    };
+  },
+};
 ```
 
 ### 不同页面使用不同的 Layout
@@ -1071,7 +1050,7 @@ module.exports = {
 
 ```js
 // 需依赖版本 >= 5.6.21, 注意如果 example 是之前创建的不是最新的，layout/index.tsx 的这块内容需改为 <div id="app"><App {...props} /></div>
-// App.tsx 
+// App.tsx
 import React from 'react'
 
 export default (props: LayoutProps) => {
@@ -1098,20 +1077,19 @@ export default (props: LayoutProps) => {
 </template>
 
 <script lang="ts">
-export default {
-  data() {
-    return {
-      showDetailLayout: /detail/.test(this.$route.path),
-    };
-  },
-  watch: {
-    "$route.path": function (newVal, oldVal) {
-      this.showDetailLayout = /detail/.test(newVal);
-    }
-  }
-};
+  export default {
+    data() {
+      return {
+        showDetailLayout: /detail/.test(this.$route.path),
+      };
+    },
+    watch: {
+      "$route.path": function (newVal, oldVal) {
+        this.showDetailLayout = /detail/.test(newVal);
+      },
+    },
+  };
 </script>
-
 ```
 
 ### 动态路由前缀
@@ -1162,28 +1140,21 @@ export default {
 参考下方代码
 
 ```js
-
-const { resolve } = require('path')
+const { resolve } = require("path");
 module.exports = {
-  chainBaseConfig: chain => {
-    chain.module
-      .rule('images')
-      .exclude
-      .add(resolve(process.cwd(), './web/assets/icon'))
-      .end()
+  chainBaseConfig: (chain) => {
+    chain.module.rule("images").exclude.add(resolve(process.cwd(), "./web/assets/icon")).end();
 
     chain.module
-      .rule('svg')
+      .rule("svg")
       .test(/\.(svg)(\?.*)?$/)
-      .include
-      .add(resolve(process.cwd(), './web/assets/icon'))
+      .include.add(resolve(process.cwd(), "./web/assets/icon"))
       .end()
-      .use('svg-sprite-loader')
-      .loader('svg-sprite-loader')
-      .options({ symbolId: '[name]' })
-  }
-}
-
+      .use("svg-sprite-loader")
+      .loader("svg-sprite-loader")
+      .options({ symbolId: "[name]" });
+  },
+};
 ```
 
 ## 兼容低端浏览器
@@ -1217,6 +1188,7 @@ module.exports = {
 ### 样式迁移
 
 框架默认支持 `less` 作为样式预处理器，若需要使用 `sass` 参考[文档](./features$faq#如何支持%20Sass|SCSS)。`React` 场景只支持 `css modules` 的形式，若需要使用全局样式，则需要使用 `:global` 的语法
+
 ### 封装双端通用的请求
 
 推荐用 [axios](https://www.npmjs.com/package/axios) 来发起 `http` 请求会自动根据当前环境判断应该使用 `xhr` 还是 `http` 模块发起。针对 `cookie` 的携带，客户端请求时同源请求会自动带上 `cookie` 当跨域请求时需要通过 `withCredentials` 配置来带上 `cookie`。服务端请求时可以通过 `ctx.req.cookies` 具体查看对应服务端框架文档拿到当前请求 `cookie`
@@ -1224,10 +1196,11 @@ module.exports = {
 ## 如何自定义启动逻辑，构建逻辑
 
 ```js
-import { startFunc, buildFunc, deployFunc } from 'ssr'
+import { startFunc, buildFunc, deployFunc } from "ssr";
 
-await startFunc(options)
+await startFunc(options);
 ```
+
 ## 启动参数透传
 
 `ssr start|build` 命令将会透传所有参数到底层的 `nest-cli`, `midway-bin`
@@ -1300,14 +1273,15 @@ const props = defineProps<{data: string}>()
 这里讲述的是在浏览器中调用 `wasm`, 如果是在 `Node.js` 环境中调用则更加的简单
 
 `In Webpack`
+
 ```bash
 $ yarn add color-thief-wasm-bundler
 ```
 
 ```js
 if (__isBrowser__) {
-  const foo = require('color-thief-wasm-bundler')
-  console.log(foo.get_color_thief([1,2,3,4], 64*64, 9,5))
+  const foo = require("color-thief-wasm-bundler");
+  console.log(foo.get_color_thief([1, 2, 3, 4], 64 * 64, 9, 5));
 }
 ```
 
@@ -1326,21 +1300,21 @@ export const userConfig = {
     clientConfig: {
       otherConfig: {
         optimizeDeps: {
-          exclude: ['color-thief-wasm-web']
-        }
-      }
-    }
-  })
-}
+          exclude: ["color-thief-wasm-web"],
+        },
+      },
+    },
+  }),
+};
 
 // render.vue
 
-import init, { get_color_thief } from 'color-thief-wasm-web'
+import init, { get_color_thief } from "color-thief-wasm-web";
 
 if (__isBrowser__) {
   init().then(() => {
-    console.log(get_color_thief([1,2,3,4], 64*64, 9,5))
-  })
+    console.log(get_color_thief([1, 2, 3, 4], 64 * 64, 9, 5));
+  });
 }
 ```
 
@@ -1376,7 +1350,7 @@ if (__isBrowser__) {
 
 // a.vue
 <template>
-  <div class="foo">a</div> 
+  <div class="foo">a</div>
 </template>
 
 <script>
@@ -1389,7 +1363,7 @@ if (__isBrowser__) {
 
 // b.vue
 <template>
-  <div class="foo">b</div> 
+  <div class="foo">b</div>
 </template>
 
 <script>
@@ -1416,7 +1390,7 @@ if (__isBrowser__) {
 
 // a.vue
 <template>
-  <div class="foo">a</div> 
+  <div class="foo">a</div>
 </template>
 <script>
 import './foo.less';
@@ -1424,7 +1398,7 @@ import './foo.less';
 
 // b.vue
 <template>
-  <div class="foo">b</div> 
+  <div class="foo">b</div>
 </template>
 
 <script>
@@ -1435,7 +1409,6 @@ import './foo.less';
 ## vant 4.x版本开始不在默认配置，需要自行配置
 
 由于UI框架一直配置有改动，主动权将交回用户，列如Vant 4.0 版本开始，将不再支持 babel-plugin-import，无法从 vant 中导入除了组件以外的其他内容，[vant4.x的按需引入配置官方文档](https://vant-contrib.gitee.io/vant/#/zh-CN/quickstart)
-
 
 ### 对于不懂如何配置的同学，可以参考以下的配置，基于 webpack, vite的原理基本相同
 

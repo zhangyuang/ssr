@@ -22,7 +22,6 @@ package:
   artifact: code.zip
 
 deployType:
-  type: koa                    ## 部署的应用类型
+  type: koa ## 部署的应用类型
   version: 3.0.0
   name: ssr
-  

@@ -26,17 +26,17 @@
 
 ```js
 // plugin-midway
-import { start } from './start'
-import { build } from './build'
-import { deploy } from './deploy'
+import { start } from "./start";
+import { build } from "./build";
+import { deploy } from "./deploy";
 
-export function midwayPlugin () {
+export function midwayPlugin() {
   return {
-    name: 'plugin-midway',
+    name: "plugin-midway",
     start,
     build,
-    deploy
-  }
+    deploy,
+  };
 }
 ```
 
@@ -74,28 +74,28 @@ export {
 同样在 `Nest.js` 场景我们调用的也是 `Nest.js` 本身脚手架提供的命令
 
 ```js
-const spinner = require('ora')('starting ')
+const spinner = require("ora")("starting ");
 
 const start = () => {
-  const config = loadConfig()
-  spinner.start()
-  const { stdout, stderr } = exec('npx nest start --watch', {} /* options, [optional] */)
-  stdout?.on('data', function (data) {
-    console.log(data)
-    if (data.match('Nest application successfully started')) {
-      spinner.stop()
-      const https = process.env.HTTPS
-      logGreen(`Server is listening on ${https ? 'https' : 'http'}://localhost:${config.serverPort}`)
+  const config = loadConfig();
+  spinner.start();
+  const { stdout, stderr } = exec("npx nest start --watch", {} /* options, [optional] */);
+  stdout?.on("data", function (data) {
+    console.log(data);
+    if (data.match("Nest application successfully started")) {
+      spinner.stop();
+      const https = process.env.HTTPS;
+      logGreen(
+        `Server is listening on ${https ? "https" : "http"}://localhost:${config.serverPort}`,
+      );
     }
-  })
-  stderr?.on('data', function (data) {
-    console.error(`error: ${data}`)
-  })
-}
+  });
+  stderr?.on("data", function (data) {
+    console.error(`error: ${data}`);
+  });
+};
 
-export {
-  start
-}
+export { start };
 ```
 
 ## 客户端插件
@@ -136,37 +136,35 @@ $ tree ./ -I node_modules -L 2
 同样在 `index.ts` 中，我们也是暴露 `start` `build` 方法让上层调用
 
 ```js
-import { loadConfig } from 'ssr-common-utils'
+import { loadConfig } from "ssr-common-utils";
 
-const { isVite } = loadConfig()
+const { isVite } = loadConfig();
 
-export function vuePlugin () {
+export function vuePlugin() {
   return {
-    name: 'plugin-vue',
+    name: "plugin-vue",
     start: async () => {
       if (isVite) {
-        const { viteStart } = await import('./tools/vite')
-        await viteStart()
+        const { viteStart } = await import("./tools/vite");
+        await viteStart();
       } else {
-        const { webpackStart } = await import('./tools/webpack')
-        await webpackStart()
+        const { webpackStart } = await import("./tools/webpack");
+        await webpackStart();
       }
     },
     build: async () => {
       if (isVite) {
-        const { viteBuild } = await import('./tools/vite')
-        await viteBuild()
+        const { viteBuild } = await import("./tools/vite");
+        await viteBuild();
       } else {
-        const { webpackBuild } = await import('./tools/webpack')
-        await webpackBuild()
+        const { webpackBuild } = await import("./tools/webpack");
+        await webpackBuild();
       }
-    }
-  }
+    },
+  };
 }
 
-export * from './tools/vite'
-
-
+export * from "./tools/vite";
 ```
 
 上面的代码可能无法直观的看出具体的作用，下面让我们来慢慢分析客户端插件干了什么

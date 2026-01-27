@@ -2,53 +2,68 @@
   <!-- 注：Layout 只会在服务端被渲染，不要在此运行客户端有关逻辑 -->
 
   <html>
+    <head>
+      <meta charSet="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+      <meta name="theme-color" content="#000000" />
+      <meta
+        name="description"
+        content="server side render, 最小而美的服务端渲染应用骨架, Vue SSR, React SSR, 服务端渲染"
+      />
+      <link rel="icon" href="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg" />
+      <link
+        rel="shortcut icon"
+        href="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg"
+      />
+      <link
+        rel="apple-touch-icon"
+        href="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg"
+      />
+      <meta
+        property="og:image"
+        content="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg"
+      />
+      <meta
+        name="keywords"
+        itemprop="keywords"
+        content="server side render, 服务端渲染, React, Egg, Midway, Nestjs, Vue, VueSSR, SSR, ReactSSR"
+      />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="server side render, Vue, React, SSR 服务端渲染" />
+      <meta property="og:description" content="server side render, Vue, React, SSR 服务端渲染" />
+      <title>
+        {{
+          route.path === "/docs/features$v7"
+            ? "ssr框架v7发布，全网首个同时支持Rspack,Rolldown-Vite,Webpack的ssr框架"
+            : "ssr 框架官方文档"
+        }}
+      </title>
+      <!-- 用于通过配置插入自定义的 script 为了避免影响期望功能这块内容不做 escape，为了避免 xss 需要保证插入脚本代码的安全性  -->
+      <slot name="customeHeadScript" />
+      <slot name="cssInject" />
+    </head>
 
-  <head>
-    <meta charSet="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#000000">
-    <meta name="description" content="server side render, 最小而美的服务端渲染应用骨架, Vue SSR, React SSR, 服务端渲染">
-    <link rel="icon" href="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg">
-    <link rel="shortcut icon" href="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg">
-    <link rel="apple-touch-icon" href="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg">
-    <meta property="og:image" content="https://gw.alicdn.com/tfs/TB1ckATCGL7gK0jSZFBXXXZZpXa-540-540.jpg">
-    <meta name="keywords" itemprop="keywords"
-      content="server side render, 服务端渲染, React, Egg, Midway, Nestjs, Vue, VueSSR, SSR, ReactSSR">
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="server side render, Vue, React, SSR 服务端渲染">
-    <meta property="og:description" content="server side render, Vue, React, SSR 服务端渲染">
-    <title>{{ route.path === '/docs/features$v7' ? 'ssr框架v7发布，全网首个同时支持Rspack,Rolldown-Vite,Webpack的ssr框架' : 'ssr 框架官方文档'
-      }}</title>
-    <!-- 用于通过配置插入自定义的 script 为了避免影响期望功能这块内容不做 escape，为了避免 xss 需要保证插入脚本代码的安全性  -->
-    <slot name="customeHeadScript" />
-    <slot name="cssInject" />
-  </head>
-
-  <body class="lei-md">
-    <div id="app" :class="fetchData.isMobile ? 'mobileApp' : ''">
-      <slot name="children" />
-    </div>
-    <slot name="initialData" />
-    <slot name="customeFooterScript" />
-    <slot name="jsInject" />
-  </body>
-
+    <body class="lei-md">
+      <div id="app" :class="fetchData.isMobile ? 'mobileApp' : ''">
+        <slot name="children" />
+      </div>
+      <slot name="initialData" />
+      <slot name="customeFooterScript" />
+      <slot name="jsInject" />
+    </body>
   </html>
 </template>
 
 <script lang="ts" setup>
-import { useRoute } from 'vue-router'
-const route = useRoute()
-const { fetchData } = defineProps<{ fetchData: { isMobile: boolean } }>()
-
-
+import { useRoute } from "vue-router";
+const route = useRoute();
+const { fetchData } = defineProps<{ fetchData: { isMobile: boolean } }>();
 </script>
 <style lang="less">
-@import './index.less';
-@import './drake.less';
+@import "./index.less";
+@import "./drake.less";
 
 .mobileApp {
   overflow-x: hidden;
-
 }
 </style>

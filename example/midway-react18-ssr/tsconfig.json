@@ -7,7 +7,7 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "inlineSourceMap":true,
+    "inlineSourceMap": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "esModuleInterop": true,
@@ -18,7 +18,7 @@
     "outDir": "dist",
     "jsx": "react-jsx",
     "types": ["node"],
-    "typeRoots": [ "./typings", "./node_modules/@types"],
+    "typeRoots": ["./typings", "./node_modules/@types"],
     "paths": {
       "~/*": ["./*"],
       "@/*": ["./web/*"],
@@ -26,9 +26,5 @@
       "_build/*": ["./build/*"]
     }
   },
-  "include": [
-    "src",
-    "web"
-  ]
+  "include": ["src", "web"]
 }
-

@@ -3,7 +3,5 @@
   "compilerOptions": {
     "outDir": "./esm"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

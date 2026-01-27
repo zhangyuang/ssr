@@ -1,22 +1,20 @@
 // npx esno scripts/dev.ts --a
 // npx esno scripts/dev.ts plugin-vue3
 
-import execa from 'execa'
+import execa from "execa";
 
-const args = require('minimist')(process.argv.slice(2))
+const args = require("minimist")(process.argv.slice(2));
 
-let path = './packages'
+let path = "./packages";
 
 if (args._[0]) {
-  path = args._[0] === 'cli' ? '...ssr' : `...ssr-${args._[0]}`
+  path = args._[0] === "cli" ? "...ssr" : `...ssr-${args._[0]}`;
 }
 
 if (args.a || args.all) {
-  path = './packages'
+  path = "./packages";
 }
 
-
-
-execa('pnpm', ['-r', '--filter', path, 'watch'], {
-  stdio: 'inherit'
-})
+execa("pnpm", ["-r", "--filter", path, "watch"], {
+  stdio: "inherit",
+});

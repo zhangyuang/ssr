@@ -40,7 +40,7 @@ build
 
 ## 服务产物端类型分析详解
 
-这里我们着重提一下服务端构建产物中的 `Page.server.js` 
+这里我们着重提一下服务端构建产物中的 `Page.server.js`
 
 该文件为 `commonjs` 格式在 `Node.js` 环境中被调用。由框架源码中的 [server-entry](https://github.com/zhangyuang/ssr/blob/dev/packages/plugin-vue3/src/entry/server-entry.ts) 文件构建而得到。该文件只会包含业务代码，也就是前端组件。由于 `Node.js` 环境无法直接使用 `ESM` 语法或识别 `JSX` 语法以及样式文件，所以我们需要做一层构建处理，保证构建后的产物能够在 `Node.js` 环境成功执行。
 
@@ -48,10 +48,10 @@ build
 
 ```js
 // 源码
-import React from 'react'
+import React from "react";
 
 // 构建后
-const React = require('react')
+const React = require("react");
 ```
 
 在构建时并不会将 `react` 的源码一起打包进来，而是运行时动态的从 `node_modules` 文件夹中加载模块。这样保证了我们服务端构建产物的体积，只包含纯业务代码也能够让我们在出错时能够迅速定位问题。但这样的方式要求我们在部署环境需要存在 `node_modules` 文件夹并且包含生产环境中会动态加载的所有模块。

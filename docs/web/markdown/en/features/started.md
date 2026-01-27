@@ -14,19 +14,19 @@ Although the technology stacks are different, the development philosophy is cons
 
 Note: In `Midway.js` and `Nest.js` scenarios, we have implemented one-click deployment to `Serverless` platforms. However, the underlying implementations are slightly different. For more detailed introduction, please read the [Deployment](./features$deploy) chapter. If you need to use a lot of `Serverless` platform capabilities, we recommend creating `Midway.js` type applications.
 
-* [nestjs-react-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-react-ssr)
-* [nestjs-react18-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-react18-ssr)
-* [nestjs-vue-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-vue-ssr)
-* [nestjs-vue3-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-vue3-ssr)
-* [nestjs-vue3-ssr-pinia](https://github.com/zhangyuang/nestjs-vue3-ssr-pinia)
-* [midway-react-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-react-ssr)
-* [midway-react18-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-react18-ssr)
-* [midway-vue-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue-ssr)
-* [midway-vue3-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue3-ssr)
+- [nestjs-react-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-react-ssr)
+- [nestjs-react18-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-react18-ssr)
+- [nestjs-vue-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-vue-ssr)
+- [nestjs-vue3-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-vue3-ssr)
+- [nestjs-vue3-ssr-pinia](https://github.com/zhangyuang/nestjs-vue3-ssr-pinia)
+- [midway-react-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-react-ssr)
+- [midway-react18-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-react18-ssr)
+- [midway-vue-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue-ssr)
+- [midway-vue3-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue3-ssr)
 
 Developers can create different types of applications according to their actual technology stack needs to get started quickly.
 
-### Creating Projects via Command Line 
+### Creating Projects via Command Line
 
 Through the `npm init` command, we can create any of the above templates
 
@@ -121,5 +121,5 @@ In `Midway.js` scenarios, we use [egg-scripts](https://eggjs.org/zh-cn/core/depl
 In `Nest.js` scenarios, we use [pm2](https://pm2.keymetrics.io/) for deployment
 
 ```shell
-$ npm run prod 
+$ npm run prod
 ```

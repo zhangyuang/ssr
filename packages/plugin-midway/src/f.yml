@@ -16,7 +16,7 @@ aggregation: # 聚合成一个函数发布
   ssr: # 聚合函数的名称
     deployOrigin: false
     functionsPattern:
-      - '*'
+      - "*"
 
 package:
   include:
@@ -26,4 +26,4 @@ package:
     - package-lock.json
   artifact: code.zip
 
-deployType: egg       ## 部署的应用类型
+deployType: egg ## 部署的应用类型

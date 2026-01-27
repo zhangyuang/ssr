@@ -1,22 +1,22 @@
-import { join } from 'path'
-import { NestFactory } from '@nestjs/core'
-import { NestExpressApplication } from '@nestjs/platform-express'
-import { getCwd, initialSSRDevProxy, loadConfig } from 'ssr-common-utils'
+import { join } from "path";
+import { NestFactory } from "@nestjs/core";
+import { NestExpressApplication } from "@nestjs/platform-express";
+import { getCwd, initialSSRDevProxy, loadConfig } from "ssr-common-utils";
 
-import { AppModule } from './app.module'
+import { AppModule } from "./app.module";
 
 async function bootstrap(): Promise<void> {
-	const app = await NestFactory.create<NestExpressApplication>(AppModule)
-	await initialSSRDevProxy(app)
-	app.useStaticAssets(join(getCwd(), './build'))
-	app.useStaticAssets(join(getCwd(), './public'))
-	app.useStaticAssets(join(getCwd(), './build/client'))
-	app.useStaticAssets(join(getCwd(), './public'))
-	const { serverPort } = loadConfig()
-	await app.listen(serverPort)
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  await initialSSRDevProxy(app);
+  app.useStaticAssets(join(getCwd(), "./build"));
+  app.useStaticAssets(join(getCwd(), "./public"));
+  app.useStaticAssets(join(getCwd(), "./build/client"));
+  app.useStaticAssets(join(getCwd(), "./public"));
+  const { serverPort } = loadConfig();
+  await app.listen(serverPort);
 }
 
 bootstrap().catch((err) => {
-	console.log(err)
-	process.exit(1)
-})
+  console.log(err);
+  process.exit(1);
+});

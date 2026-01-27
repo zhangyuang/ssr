@@ -51,7 +51,6 @@ async handler (): Promise<void> {
 
 前端路由是目前很流行的一些前端框架提供的一些能力。例如 [vue-router](https://router.vuejs.org/zh/installation.html), [react-router](https://github.com/ReactTraining/react-router) 等。一般都会提供 `hash`, `history` 两种路由模式。大部分开发者都会选择 `history` 模式，这样会让你的 `url` 看起来非常舒服例如 `http://yoursite.com/user/id`。
 
-
 但是要弄清楚，前端路由只是假的路由！在实际的服务器资源上，并没有对应的真实资源存在。这也就是经典的问题，为什么前端 SPA 应用部署后，刷新访问会 404。因为每一个请求会首先经过服务端 `Server` 的逻辑分发再来决定这个请求的具体行为。在本地开发时之所以不会 404，是因为这些框架本地提供的小型 Node.js Server 添加了重定向到 `index.html` 的[逻辑](https://router.vuejs.org/zh/guide/essentials/history-mode.html#%E5%90%8E%E7%AB%AF%E9%85%8D%E7%BD%AE%E4%BE%8B%E5%AD%90)。
 
 如果在本框架中你出现了刷新 404 的问题，很明显你只写了前端路由没有服务端路由对应。解决方式: `controller` 中添加对应的服务端路由解析规则
@@ -97,12 +96,12 @@ async handler (): Promise<void> {
 
 ```js
 const proxyPathMap = {
-  '/static': remoteStaticServerOptions,
-  '/sockjs-node': remoteStaticServerOptions,
-  '/*.hot-update.js(on)?': remoteStaticServerOptions,
-  '/__webpack_dev_server__': remoteStaticServerOptions,
-  '/asset-manifest': remoteStaticServerOptions
-}
+  "/static": remoteStaticServerOptions,
+  "/sockjs-node": remoteStaticServerOptions,
+  "/*.hot-update.js(on)?": remoteStaticServerOptions,
+  "/__webpack_dev_server__": remoteStaticServerOptions,
+  "/asset-manifest": remoteStaticServerOptions,
+};
 ```
 
 也就是说，在实际的页面当中，我们加载的是 `http://127.0.0.1:3000/static/js/Page.chunk.js` 其实在底层会自动 `proxy` 到 `http://127.0.0.1:8999/static/js/Page.chunk.js`

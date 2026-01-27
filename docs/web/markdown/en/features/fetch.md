@@ -11,7 +11,7 @@ About what `static method` is: methods that can be obtained without instantiatin
 ```js
 class Foo {}
 
-Foo.bar = () => {}
+Foo.bar = () => {};
 ```
 
 此时的 `bar` 函数即为 `static method`, 我们可以直接通过 `Foo.bar()` 来调用它，而不需要 `new Foo()`。这里大部分用户可能会有疑惑，为什么要使用一个静态方法来进行数据的获取，而不是像传统 SPA 应用一样直接写在组件的生命周期当中呢。
@@ -131,7 +131,6 @@ export type Params = ParamsNest<any, {
 
 在 `React` 场景，我们在 `服务端` 会将当前请求的上下文 `ctx` 作为参数传入。开发者可以通过 `ctx` 拿到上面挂载的 `自定义 Service` 或者 `ctx.request` 等对象信息。这取决于服务端代码调用 `core` 模块时的具体入参实现。在前端路由切换时，也就是客户端 `fetch` 数据场景。我们会将 `react-router` 提供的[路由元信息](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/d90beb2f67881d54384c0f9b42a03233aaba1ca1/types/react-router/index.d.ts#L69)作为参数传入。
 
-
 ```js
 // react fetch.ts
 import { ReactMidwayKoaFetch } from 'ssr-types'
@@ -151,6 +150,7 @@ const fetch: ReactMidwayKoaFetch<{
 }
 
 ```
+
 ### 注意
 
 上述图片指的是用 `前端路由` 进行跳转的情况。此时的跳转并不会真正的向服务端发起请求。所以数据的获取是在客户端完成的。
@@ -204,7 +204,7 @@ function ProfileTimeline() {
   const posts = resource.posts.read();
   return (
     <ul>
-      {posts.map(post => (
+      {posts.map((post) => (
         <li key={post.id}>{post.text}</li>
       ))}
     </ul>

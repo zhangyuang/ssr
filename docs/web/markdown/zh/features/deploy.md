@@ -70,9 +70,9 @@ $ npm run deploy
 
 ```js
 module.exports = {
-  publicPath: '/test',
-  prefix: '/test'
-}
+  publicPath: "/test",
+  prefix: "/test",
+};
 ```
 
 ![](https://res.wx.qq.com/op_res/mbNMsqF_px3tS0x_x1fryyR3Z5RipX3Lo8PIzvcAVxyXwoQyvQz0lQev-W2io3AP)
@@ -92,6 +92,7 @@ provider:
   region: ap-hongkong # 部署在香港 region，无需域名备案，方便测试
   serviceId: service-xxx
 ```
+
 #### 腾讯云配置域名
 
 在发布到腾讯云时 midway-faas 支持通过 [provider.region](https://www.yuque.com/midwayjs/faas/serverless_yml) 来设置发布的服务器区域。
@@ -127,7 +128,6 @@ provider:
 
 在 `Nest.js` 类型的应用中，我们提供了 `npm run prod` 命令。该命令将会直接调用 [pm2](https://pm2.keymetrics.io/) 进行生产环境多进程模式部署。使用 `pm2` 部署时需要注意 `NODE_ENV` 需要设置为 `production`
 
-
 ## 与传统 SPA 应用部署的区别 (重点！！！)
 
 不要用传统 `SPA` 应用的部署思路来部署 `ssr` 应用或者说是 `Node.js` 应用
@@ -140,7 +140,7 @@ provider:
 
 如果你是小白什么都不懂，那么你部署的时候要么用 `ssr deploy` 来部署到阿里云或者腾讯云。
 
-如果你一定要部署在自建服务上，如果你什么都不懂，那你就把本地运行成功的整个项目 `repo` 扔到服务器上去执行 `npm run prod` 命令。必须确保存在的文件夹是 
+如果你一定要部署在自建服务上，如果你什么都不懂，那你就把本地运行成功的整个项目 `repo` 扔到服务器上去执行 `npm run prod` 命令。必须确保存在的文件夹是
 
 - `node_modules` 你可以在服务器上去 `npm i` 或者本地 `npm i` 之后扔上去
 - `build` 前端静态资源文件夹，你可以本地构建完扔上去。也可以在服务器执行 `ssr build`，当然这一步必须要在 `npm i` 之后执行

@@ -25,10 +25,10 @@
 
 The `ssr` framework version `7.x` has been released. Read the [documentation](http://doc.ssr-fc.com/docs/features$v7) for more detailed introduction and upgrade guide. Version 7 brings the following new features:
 
-* Supports [Rspack](https://rspack.rs), [Rolldown-Vite](https://vite.dev/guide/rolldown), and `Webpack` build tools to greatly improve build performance.
-* Supports any frontend framework combined with any build tool
-* Brand new dependency design, streamlined dependencies required for initialization
-* Progressive upgrade with almost no breaking changes, v6 projects can smoothly transition to v7
+- Supports [Rspack](https://rspack.rs), [Rolldown-Vite](https://vite.dev/guide/rolldown), and `Webpack` build tools to greatly improve build performance.
+- Supports any frontend framework combined with any build tool
+- Brand new dependency design, streamlined dependencies required for initialization
+- Progressive upgrade with almost no breaking changes, v6 projects can smoothly transition to v7
 
 Version 7 has been tested to improve build speed by 5-10 times. Dependency size reduced by 2/3 (when using Rspack|Rolldown-Vite scenarios).
 
@@ -56,15 +56,15 @@ Read our [official documentation](http://doc.ssr-fc.com/) for more detailed unde
 
 ## When Should You Choose the SSR Framework
 
-* Need to use in scenarios combining `Node.js` with frontend frameworks. Unlike other pure frontend frameworks, the `ssr` framework is specifically built for server-side rendering scenarios or scenarios combining `Node.js` with frontend.
-* Need an out-of-the-box server-side rendering capability without manually combining different frontend frameworks with server-side frameworks.
-* Need framework-level rendering degradation capability that automatically degrades to client-side rendering when server-side rendering fails.
-* Need a framework with simple configuration and clear logic. The `ssr` framework has the clearest rendering logic and application build logic among similar frameworks.
-* May change technology stacks, such as upgrading from `Vue2` to `Vue3`, downgrading from `Vue3` to `Vue2`, or switching between `React/Vue`.
-* Need out-of-the-box support for popular UI libraries like `antd` and `vant` in server-side rendering scenarios.
-* Need to support both `Webpack` and `Vite` development tools to get fast startup speed, HMR speed, and stable production code.
-* Need to use [pinia](https://pinia.vuejs.org/) as data management solution in `Vue3 SSR`.
-* Simply need a faster and better `cra` or `vue-cli`. The `ssr` framework also provides excellent support in pure `csr` scenarios.
+- Need to use in scenarios combining `Node.js` with frontend frameworks. Unlike other pure frontend frameworks, the `ssr` framework is specifically built for server-side rendering scenarios or scenarios combining `Node.js` with frontend.
+- Need an out-of-the-box server-side rendering capability without manually combining different frontend frameworks with server-side frameworks.
+- Need framework-level rendering degradation capability that automatically degrades to client-side rendering when server-side rendering fails.
+- Need a framework with simple configuration and clear logic. The `ssr` framework has the clearest rendering logic and application build logic among similar frameworks.
+- May change technology stacks, such as upgrading from `Vue2` to `Vue3`, downgrading from `Vue3` to `Vue2`, or switching between `React/Vue`.
+- Need out-of-the-box support for popular UI libraries like `antd` and `vant` in server-side rendering scenarios.
+- Need to support both `Webpack` and `Vite` development tools to get fast startup speed, HMR speed, and stable production code.
+- Need to use [pinia](https://pinia.vuejs.org/) as data management solution in `Vue3 SSR`.
+- Simply need a faster and better `cra` or `vue-cli`. The `ssr` framework also provides excellent support in pure `csr` scenarios.
 
 ## Who's Using
 
@@ -167,38 +167,38 @@ Companies (applications) currently using this project. If you are using it but n
 
 ## Features
 
-* 🌱　Extremely customizable: Frontend supports modern Web frameworks like React17/React18/Vue2/Vue3;
-* 🚀　Ready to use: Built-in 10+ scaffold extensions like [Pinia](https://pinia.vuejs.org/introduction.html#basic-example), [antd](https://ant.design/components/overview-cn/), [vant](https://github.com/youzan/vant), TypeScript, Hooks, etc.;
-* 🧲　Plugin-driven: Based on plugin architecture, users focus more on business logic;
-* 💯　Serverless-first: One-click deployment to various Serverless platforms, also supports traditional Web Servers like Egg, Midway, Nest, etc.
-* 🛡　High availability scenarios, seamless degradation from SSR to CSR, best disaster recovery solution.
-* 😄　Feature-rich, build tools support both Webpack/Vite, supports four rendering modes `SSR|CSR|SSG|Html`
-* ✨ Supports [bun](https://bun.sh/) as js runtime
+- 🌱　Extremely customizable: Frontend supports modern Web frameworks like React17/React18/Vue2/Vue3;
+- 🚀　Ready to use: Built-in 10+ scaffold extensions like [Pinia](https://pinia.vuejs.org/introduction.html#basic-example), [antd](https://ant.design/components/overview-cn/), [vant](https://github.com/youzan/vant), TypeScript, Hooks, etc.;
+- 🧲　Plugin-driven: Based on plugin architecture, users focus more on business logic;
+- 💯　Serverless-first: One-click deployment to various Serverless platforms, also supports traditional Web Servers like Egg, Midway, Nest, etc.
+- 🛡　High availability scenarios, seamless degradation from SSR to CSR, best disaster recovery solution.
+- 😄　Feature-rich, build tools support both Webpack/Vite, supports four rendering modes `SSR|CSR|SSG|Html`
+- ✨ Supports [bun](https://bun.sh/) as js runtime
 
 ## Implemented Features
 
 🚀 indicates implemented features
 
-| Milestone                                                                                                                                                                                                                                          | Status |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
-| Support combination of any server-side framework with any frontend framework. (Serverless/Midway/NestJS) + (React17/React18/Vue2/Vue3)                                                                                                                                                      | 🚀    |
-| Smoothest [vite](https://vite-design.surge.sh/) [support](http://doc.ssr-fc.com/docs/features$vite)                                                                                                                                                 | 🚀    |
-| Minimal and elegant server-side rendering implementation                                                                                                                                                                                                                    | 🚀    |
-| Support [pre-rendering](http://doc.ssr-fc.com/docs/features$ssg) capability                                                                                                                                                                                                                   | 🚀    |
-| Optimized production code bundle size for Serverless scenarios with strict code package size limitations                                                                                                                                                                     | 🚀    |
-| Support both conventional frontend routing and declarative frontend routing                                                                                                                                                                                                          | 🚀    |
-| Abandon traditional template engines, all page elements unified using frontend components as DSL                                                                                                                                                                                          | 🚀    |
-| Support four rendering modes simultaneously, providing one-click degradation from server-side rendering to client-side rendering                                                                                                                                                                                  | 🚀    |
-| Unify data fetching methods for different frameworks on server and client sides, achieving high reusability                                                                                                                                                                            | 🚀    |
-| Type-friendly, fully embrace TypeScript                                                                                                                                                                                                                           | 🚀    |
-| Support seamless integration with [antd](https://github.com/ant-design/ant-design) [vant](https://vant-contrib.gitee.io/vant/#/) without modifying any configuration                                                                                                                    | 🚀    |
-| Support using less as CSS preprocessor                                                                                                                                                                                                                 | 🚀    |
-| Seamless [usage](http://doc.ssr-fc.com/docs/features$faq#%E4%B8%8E%20micro-app%20%E7%BB%93%E5%90%88%E4%BD%BF%E7%94%A8) in micro-frontend scenarios                                                                                                                    | 🚀    |
-| Support using context or [valtio](https://github.com/pmndrs/valtio) for minimalist [data management](http://doc.ssr-fc.com/docs/features$communication#React%20%E5%9C%BA%E6%99%AF) solutions, abandoning traditional redux/dva data management solutions                                                                                         | 🚀    |
-| Vue3 scenarios provide [Pinia](https://pinia.vuejs.org/introduction.html#basic-example) and [Provide/Inject](http://doc.ssr-fc.com/docs/features$communication#Vue%20%E5%9C%BA%E6%99%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88) to replace `Vuex` for cross-component communication | 🚀    |
-| Support creation and usage on Alibaba Cloud [platform](https://zhuanlan.zhihu.com/p/139210473)                                                                                                                                                                           | 🚀    |
-| ssr deploy one-click deployment to [Alibaba Cloud](https://www.aliyun.com/) platform                                                                                                                                                                                      | 🚀    |
-| ssr deploy --tencent one-click deployment to [Tencent Cloud](https://cloud.tencent.com/) platform without modifying any configuration                                                                                                                                                         | 🚀    |
+| Milestone                                                                                                                                                                                                                                                                        | Status |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ |
+| Support combination of any server-side framework with any frontend framework. (Serverless/Midway/NestJS) + (React17/React18/Vue2/Vue3)                                                                                                                                           | 🚀     |
+| Smoothest [vite](https://vite-design.surge.sh/) [support](http://doc.ssr-fc.com/docs/features$vite)                                                                                                                                                                              | 🚀     |
+| Minimal and elegant server-side rendering implementation                                                                                                                                                                                                                         | 🚀     |
+| Support [pre-rendering](http://doc.ssr-fc.com/docs/features$ssg) capability                                                                                                                                                                                                      | 🚀     |
+| Optimized production code bundle size for Serverless scenarios with strict code package size limitations                                                                                                                                                                         | 🚀     |
+| Support both conventional frontend routing and declarative frontend routing                                                                                                                                                                                                      | 🚀     |
+| Abandon traditional template engines, all page elements unified using frontend components as DSL                                                                                                                                                                                 | 🚀     |
+| Support four rendering modes simultaneously, providing one-click degradation from server-side rendering to client-side rendering                                                                                                                                                 | 🚀     |
+| Unify data fetching methods for different frameworks on server and client sides, achieving high reusability                                                                                                                                                                      | 🚀     |
+| Type-friendly, fully embrace TypeScript                                                                                                                                                                                                                                          | 🚀     |
+| Support seamless integration with [antd](https://github.com/ant-design/ant-design) [vant](https://vant-contrib.gitee.io/vant/#/) without modifying any configuration                                                                                                             | 🚀     |
+| Support using less as CSS preprocessor                                                                                                                                                                                                                                           | 🚀     |
+| Seamless [usage](http://doc.ssr-fc.com/docs/features$faq#%E4%B8%8E%20micro-app%20%E7%BB%93%E5%90%88%E4%BD%BF%E7%94%A8) in micro-frontend scenarios                                                                                                                               | 🚀     |
+| Support using context or [valtio](https://github.com/pmndrs/valtio) for minimalist [data management](http://doc.ssr-fc.com/docs/features$communication#React%20%E5%9C%BA%E6%99%AF) solutions, abandoning traditional redux/dva data management solutions                         | 🚀     |
+| Vue3 scenarios provide [Pinia](https://pinia.vuejs.org/introduction.html#basic-example) and [Provide/Inject](http://doc.ssr-fc.com/docs/features$communication#Vue%20%E5%9C%BA%E6%99%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88) to replace `Vuex` for cross-component communication | 🚀     |
+| Support creation and usage on Alibaba Cloud [platform](https://zhuanlan.zhihu.com/p/139210473)                                                                                                                                                                                   | 🚀     |
+| ssr deploy one-click deployment to [Alibaba Cloud](https://www.aliyun.com/) platform                                                                                                                                                                                             | 🚀     |
+| ssr deploy --tencent one-click deployment to [Tencent Cloud](https://cloud.tencent.com/) platform without modifying any configuration                                                                                                                                            | 🚀     |
 
 ## Solution Comparison
 
@@ -214,15 +214,15 @@ Although the technology stacks are different, the development philosophy is cons
 
 Note: In `Midway.js` and `Nest.js` scenarios, we have implemented one-click deployment to `Serverless` platforms. However, the underlying implementations differ slightly. For more detailed introduction, please read the [Serverless](http://doc.ssr-fc.com/docs/features$serverless) chapter. If you need to extensively use capabilities provided by `Serverless` platforms, we recommend creating `Midway.js` type applications. We strongly recommend reading our [official documentation](http://doc.ssr-fc.com/) for more detailed understanding.
 
-* [nestjs-react-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-react-ssr)
-* [nestjs-react18-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-react18-ssr)
-* [nestjs-vue-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-vue-ssr)
-* [nestjs-vue3-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-vue3-ssr)
-* [nestjs-vue3-ssr-pinia](https://github.com/zhangyuang/nestjs-vue3-ssr-pinia)
-* [midway-react-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-react-ssr)
-* [midway-react18-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-react18-ssr)
-* [midway-vue-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue-ssr)
-* [midway-vue3-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue3-ssr)
+- [nestjs-react-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-react-ssr)
+- [nestjs-react18-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-react18-ssr)
+- [nestjs-vue-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-vue-ssr)
+- [nestjs-vue3-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/nestjs-vue3-ssr)
+- [nestjs-vue3-ssr-pinia](https://github.com/zhangyuang/nestjs-vue3-ssr-pinia)
+- [midway-react-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-react-ssr)
+- [midway-react18-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-react18-ssr)
+- [midway-vue-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue-ssr)
+- [midway-vue3-ssr](https://github.com/zhangyuang/ssr/tree/dev/example/midway-vue3-ssr)
 
 Developers can create different types of applications according to their actual technology stack needs to get started quickly.
 
@@ -247,21 +247,21 @@ $ yarn start:vite # start in vite mode, equivalent to npx ssr start --tools vite
 Preview application details deployed to Alibaba Cloud/Tencent Cloud services through Serverless one-click deployment by visiting the following links.
 Use queryParams `csr=true` to degrade SSR server-side rendering mode to CSR client-side rendering mode with one click, or configure through `config.js`.
 
-* http://ssr-fc.com/ React SSR application deployed to Alibaba Cloud
-* http://ssr-fc.com?csr=true React SSR application deployed to Alibaba Cloud, accessed in CSR mode
-* http://tx.ssr-fc.com React SSR application deployed to Tencent Cloud
-* http://tx.ssr-fc.com?csr=true React SSR application deployed to Tencent Cloud, accessed in CSR mode
-* http://vue.ssr-fc.com Vue SSR application deployed to Alibaba Cloud
-* http://vue3.ssr-fc.com Vue3 SSR application deployed to Alibaba Cloud
-* http://vue.ssr-fc.com?csr=true Vue SSR application deployed to Alibaba Cloud, accessed in CSR mode
-* http://vue3.ssr-fc.com?csr=true Vue3 SSR application deployed to Alibaba Cloud, accessed in CSR mode
+- http://ssr-fc.com/ React SSR application deployed to Alibaba Cloud
+- http://ssr-fc.com?csr=true React SSR application deployed to Alibaba Cloud, accessed in CSR mode
+- http://tx.ssr-fc.com React SSR application deployed to Tencent Cloud
+- http://tx.ssr-fc.com?csr=true React SSR application deployed to Tencent Cloud, accessed in CSR mode
+- http://vue.ssr-fc.com Vue SSR application deployed to Alibaba Cloud
+- http://vue3.ssr-fc.com Vue3 SSR application deployed to Alibaba Cloud
+- http://vue.ssr-fc.com?csr=true Vue SSR application deployed to Alibaba Cloud, accessed in CSR mode
+- http://vue3.ssr-fc.com?csr=true Vue3 SSR application deployed to Alibaba Cloud, accessed in CSR mode
 
 ## Ecosystem
 
 | Project             | Status                                           | Description                                                             |
 | ------------------- | ------------------------------------------------ | ----------------------------------------------------------------------- |
 | [ssr]               | [![ssr-status]][ssr]                             | cli for ssr framework                                                   |
-| [ssr-core]      | [![ssr-core-status]][ssr-core]           | core render for all framwork                                                     |
+| [ssr-core]          | [![ssr-core-status]][ssr-core]                   | core render for all framwork                                            |
 | [ssr-plugin-midway] | [![ssr-plugin-midway-status]][ssr-plugin-midway] | provide start and build fetature by [midway@2.0](https://midwayjs.org/) |
 | [ssr-plugin-nestjs] | [![ssr-plugin-nestjs-status]][ssr-plugin-nestjs] | provide start and build feature by [NestJS](https://docs.nestjs.com/)   |
 | [ssr-plugin-react]  | [![ssr-plugin-react-status]][ssr-plugin-react]   | develop react application only be used in development                   |
@@ -285,7 +285,6 @@ Use queryParams `csr=true` to degrade SSR server-side rendering mode to CSR clie
 [ssr-plugin-vue3-status]: https://img.shields.io/npm/v/ssr-plugin-vue3.svg
 [ssr-webpack-status]: https://img.shields.io/npm/v/ssr-webpack.svg
 [ssr-types-status]: https://img.shields.io/npm/v/ssr-types.svg
-
 [ssr]: https://github.com/zhangyuang/ssr/tree/dev/packages/cli
 [ssr-core]: https://github.com/zhangyuang/ssr/tree/dev/packages/core
 [ssr-hoc-react]: https://github.com/zhangyuang/ssr/tree/dev/packages/hoc-react
@@ -319,8 +318,9 @@ Although we have tried our best to check the application, there may still be omi
 </div>
 
 ## Project Donation
- 
+
 If this project can help you, we hope to receive your donation ☕️ to contribute to the open source community.
+
 <div style="display:flex">
 <img src="https://doc.ssr-fc.com/images/wepay.jpg" width="150">
 <img src="https://doc.ssr-fc.com/images/alipay.jpg" width="150">
@@ -346,7 +346,7 @@ SUM:                           164            471            195           4927
 
 ## Frontend Development Manual
 
-[How to Build a Comfortable and Efficient Frontend Development Environment](http://fe.ssr-fc.com/) 
+[How to Build a Comfortable and Efficient Frontend Development Environment](http://fe.ssr-fc.com/)
 
 ## Project Star Growth Trend
 

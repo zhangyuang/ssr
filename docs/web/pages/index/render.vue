@@ -13,7 +13,10 @@
         </h4>
         <div class="media-wrapper weui-flex justify-align">
           <div class="button-wrapper weui-flex justify-align">
-            <router-link class="link start-button weui-flex__item" :to="firstFloor.startButton.path">
+            <router-link
+              class="link start-button weui-flex__item"
+              :to="firstFloor.startButton.path"
+            >
               {{ firstFloor.startButton.label }}
             </router-link>
             <router-link class="link docs-button weui-flex__item" :to="firstFloor.docsButton.path">
@@ -27,9 +30,9 @@
         </div>
         <div class="swiper-container mySwiper">
           <div class="swiper-wrapper">
-            <img class="swiper-slide" src="/images/resume3.svg" type="image/svg+xml">
-            <img class="swiper-slide" src="/images/start-webpack2.gif">
-            <img class="swiper-slide" src="/images/start-vite3.gif">
+            <img class="swiper-slide" src="/images/resume3.svg" type="image/svg+xml" />
+            <img class="swiper-slide" src="/images/start-webpack2.gif" />
+            <img class="swiper-slide" src="/images/start-vite3.gif" />
           </div>
           <div class="swiper-button-next" />
           <div class="swiper-button-prev" />
@@ -44,7 +47,11 @@
             <p>{{ secondFloor.content }}</p>
           </div>
           <div class="content weui-flex justify-align">
-            <div v-for="item in secondFloor.items" :key="item.title" class="weui-flex__item content-item">
+            <div
+              v-for="item in secondFloor.items"
+              :key="item.title"
+              class="weui-flex__item content-item"
+            >
               <div class="content__top weui-flex justify-align">
                 <div class="content-wrapper weui-flex__item">
                   <h3 class="title">
@@ -56,8 +63,11 @@
                 </div>
               </div>
               <div class="content__bottom">
-                <div v-for="(childContent, index) in item.children" :key="`${childContent + index}`"
-                  class="weui-flex__item">
+                <div
+                  v-for="(childContent, index) in item.children"
+                  :key="`${childContent + index}`"
+                  class="weui-flex__item"
+                >
                   {{ childContent }}
                 </div>
               </div>
@@ -70,46 +80,46 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { mapState } from 'vuex'
-import Swiper, { Navigation, Pagination, Autoplay } from 'swiper'
-import 'swiper/swiper-bundle.min.css'
-import BaseLayout from '@/layout/baseLayout/index.vue'
-import { getWebSiteConfig } from '@/config/index'
+import { defineComponent } from "vue";
+import { mapState } from "vuex";
+import Swiper, { Navigation, Pagination, Autoplay } from "swiper";
+import "swiper/swiper-bundle.min.css";
+import BaseLayout from "@/layout/baseLayout/index.vue";
+import { getWebSiteConfig } from "@/config/index";
 
 // configure Swiper to use modules
-Swiper.use([Navigation, Pagination, Autoplay])
+Swiper.use([Navigation, Pagination, Autoplay]);
 
 export default defineComponent({
   components: {
-    BaseLayout
+    BaseLayout,
   },
   data() {
-    const webSiteConfig = getWebSiteConfig()
+    const webSiteConfig = getWebSiteConfig();
     return {
       firstFloor: webSiteConfig.home.firstFloor,
-      secondFloor: webSiteConfig.home.secondFloor
-    }
+      secondFloor: webSiteConfig.home.secondFloor,
+    };
   },
   computed: {
     ...mapState({
-      indexData: (state) => state.indexStore?.data
-    })
+      indexData: (state) => state.indexStore?.data,
+    }),
   },
 
   mounted() {
     // eslint-disable-next-line
-    const swiper = new Swiper('.mySwiper', {
+    const swiper = new Swiper(".mySwiper", {
       navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev'
-      }
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
       // autoplay: {
       //   delay: 2500
       // }
-    })
-  }
-})
+    });
+  },
+});
 </script>
 
 <style scope lang="less">
@@ -173,7 +183,8 @@ export default defineComponent({
           font-weight: 700;
           font-size: 16px;
           line-height: 56px;
-          transition: background-color 0.3s cubic-bezier(0.6, 0.41, 0.47, 1.18) 0s,
+          transition:
+            background-color 0.3s cubic-bezier(0.6, 0.41, 0.47, 1.18) 0s,
             border-color 0.3s cubic-bezier(0.6, 0.41, 0.47, 1.18) 0s,
             color 0.3s cubic-bezier(0.6, 0.41, 0.47, 1.18) 0s;
           max-width: 100%;
@@ -309,7 +320,6 @@ export default defineComponent({
         border-bottom: 2px solid rgb(124, 134, 142);
 
         .icon {
-
           // flex-basis: 33%;
           // max-width: 33%;
           img {
@@ -406,7 +416,6 @@ export default defineComponent({
 }
 
 @media screen and (min-width: 768px) {
-
   .first-floor,
   .second-floor {
     width: 750px;
@@ -423,7 +432,6 @@ export default defineComponent({
 }
 
 @media screen and (min-width: 991px) {
-
   .first-floor,
   .second-floor {
     width: 970px;
@@ -441,7 +449,6 @@ export default defineComponent({
 
 @media screen and (min-width: 1200px) {
   .page-container {
-
     .first-floor,
     .second-floor {
       width: 1100px;

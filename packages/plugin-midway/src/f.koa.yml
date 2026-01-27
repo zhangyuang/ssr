@@ -8,7 +8,6 @@ provider:
   runtime: nodejs12
   concurrency: 10
 
-
 custom: # 发布后自动生成测试域名
   customDomain:
     domainName: auto
@@ -22,6 +21,6 @@ package:
   artifact: code.zip
 
 deployType:
-  type: koa                    ## 部署的应用类型
+  type: koa ## 部署的应用类型
   version: 3.0.0
   name: ssr

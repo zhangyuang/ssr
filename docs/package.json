@@ -2,6 +2,14 @@
   "name": "midway-react-ssr",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "start": "ssr start --tool=rspack",
+    "build": "ssr build --tool=rspack",
+    "deploy": "rm -rf build && npm run build && ssr deploy",
+    "deploy:tencent": "rm -rf build && npm run build && ssr deploy --tencent",
+    "lint": "biome format --diagnostic-level error",
+    "lint:fix": "biome format --diagnostic-level error --write"
+  },
   "dependencies": {
     "@midwayjs/bootstrap": "^3.0.0",
     "@midwayjs/core": "^3.0.0",
@@ -37,14 +45,6 @@
     "ssr-rspack": "^7.0.0",
     "ssr-types": "^7.0.0",
     "typescript": "^5.8.2"
-  },
-  "scripts": {
-    "start": "ssr start --tool=rspack",
-    "build": "ssr build --tool=rspack",
-    "deploy": "rm -rf build && npm run build && ssr deploy",
-    "deploy:tencent": "rm -rf build && npm run build && ssr deploy --tencent",
-    "lint": "biome format --diagnostic-level error",
-    "lint:fix": "biome format --diagnostic-level error --write"
   },
   "resolutions": {
     "colors": "1.4.0",

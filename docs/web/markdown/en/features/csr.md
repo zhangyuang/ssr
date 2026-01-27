@@ -1,5 +1,5 @@
 # Render Degradation
- 
+
 Compared to other framework features, this framework additionally has the capability to degrade from `Server-Side Rendering` to `Client-Side Rendering` with one click.
 
 ## Server-Side and Client-Side Rendering
@@ -45,7 +45,7 @@ In the `ssr` framework, we provide multiple solutions for degrading to client-si
 ### URL Query Parameters
 
 The framework uses server-side rendering by default when started. If you want to enable render degradation, simply add the `query` parameter `?csr=xxx` after the request `URL`.
- 
+
 For example, the [http://ssr-fc.com](http://ssr-fc.com/) website has server-side rendering enabled by default. You can clearly feel that the page opens instantly with no white screen waiting time. After adding the parameter [http://ssr-fc.com?csr=true](http://ssr-fc.com?csr=true), which is enabling client-side rendering and then opening the website, you can clearly feel there's a certain amount of white screen time, specifically manifested as a page flickering process.
 
 This solution is suitable for developers to test locally.
@@ -67,21 +67,20 @@ Below you can see an example of the `ssr-core-react` module. If you have better 
 String degradation handling is simple. We only need to `try catch` the error and then directly modify the rendering mode to get new results. Because at this time, component rendering is executed when the `render` method is called.
 
 ```js
-import { render } from 'ssr-core'
+import { render } from "ssr-core";
 
 try {
-  const htmlStr = await render(this.ctx)
-  return htmlStr
+  const htmlStr = await render(this.ctx);
+  return htmlStr;
 } catch (error) {
   const htmlStr = await render(this.ctx, {
-    mode: 'csr'
-  })
-  return htmlStr
+    mode: "csr",
+  });
+  return htmlStr;
 }
 ```
 
 When the `server` has problems, this disaster recovery approach is better. An even better approach is to configure disaster recovery at the gateway level and redirect requests to `cdn`.
-
 
 #### Handling Stream Return Form Degradation
 
@@ -92,66 +91,89 @@ Here we additionally divide into `Vue3` and non-`Vue3` cases.
 In `Vue3`'s `renderToNodeStream` method, when rendering errors occur, errors are thrown synchronously. Developers can directly use `try catch` at the upper level to capture them.
 
 ```js
- try {
-    const stream = await render<Readable>(ctx, {
-      stream: true
-    })
-    stream.pipe(res, { end: false })
-    stream.on('end', () => {
-      res.end()
-    })
-  } catch (error) {
-    const stream = await render<Readable>(ctx, {
+try {
+  const stream =
+    (await render) <
+    Readable >
+    (ctx,
+    {
       stream: true,
-      mode: 'csr'
-    })
-    stream.pipe(res, { end: false })
-    stream.on('end', () => {
-      res.end()
-    })
-  }
-
+    });
+  stream.pipe(res, { end: false });
+  stream.on("end", () => {
+    res.end();
+  });
+} catch (error) {
+  const stream =
+    (await render) <
+    Readable >
+    (ctx,
+    {
+      stream: true,
+      mode: "csr",
+    });
+  stream.pipe(res, { end: false });
+  stream.on("end", () => {
+    res.end();
+  });
+}
 ```
 
 In `Vue2/React`, they trigger `error` through `stream.emit` at the underlying level. In this case, developers need to manually listen to events.
 
 ```js
-const stream = await render<Readable>(ctx, {
-  stream: true
-})
-stream.pipe(res, { end: false })
-stream.on('error', async () => {
-  stream.destroy() // Destroy the old error stream
-  const newStream = await render<Readable>(ctx, {
+const stream =
+  (await render) <
+  Readable >
+  (ctx,
+  {
     stream: true,
-    mode: 'csr'
-  })
-  newStream.pipe(res, { end: false })
-  newStream.on('end', () => {
-    res.end()
-  })
-})
-stream.on('end', () => {
-  res.end()
-})
+  });
+stream.pipe(res, { end: false });
+stream.on("error", async () => {
+  stream.destroy(); // Destroy the old error stream
+  const newStream =
+    (await render) <
+    Readable >
+    (ctx,
+    {
+      stream: true,
+      mode: "csr",
+    });
+  newStream.pipe(res, { end: false });
+  newStream.on("end", () => {
+    res.end();
+  });
+});
+stream.on("end", () => {
+  res.end();
+});
 ```
 
 In `Midway.js/Koa`-based frameworks, use the following approach:
 
 ```js
-const stream = await render<Readable>(this.ctx, {
-  stream: true,
-  mode: 'ssr'
-})
-stream.on('error', async () => {
-  stream.destroy()
-  const newStream = await render<string>(ctx, {
-    stream: false, // Here we can only use string form to render, koa cannot reassign stream to body
-    mode: 'csr'
-  })
-  this.ctx.res.end(newStream)
-})
-this.ctx.body = stream
+const stream =
+  (await render) <
+  Readable >
+  (this.ctx,
+  {
+    stream: true,
+    mode: "ssr",
+  });
+stream.on("error", async () => {
+  stream.destroy();
+  const newStream =
+    (await render) <
+    string >
+    (ctx,
+    {
+      stream: false, // Here we can only use string form to render, koa cannot reassign stream to body
+      mode: "csr",
+    });
+  this.ctx.res.end(newStream);
+});
+this.ctx.body = stream;
 ```
 
 ## Implementation Mechanism
@@ -161,14 +183,14 @@ The principle of implementing render degradation functionality in the `ssr` fram
 After reading about the differences between `Server-Side Rendering` applications and `Client-Side Rendering` applications above, we can see that after degrading to client-side rendering, we don't need to render page components and data fetching on the server side. We only need to render an empty `html` skeleton. In `React` scenarios, this is represented by code as follows:
 
 ```js
-const layoutFetchData = (!isCsr && layoutFetch) ? await layoutFetch(ctx) : null
-const fetchData = (!isCsr && routeItem.fetch) ? await routeItem.fetch(ctx) : null
+const layoutFetchData = !isCsr && layoutFetch ? await layoutFetch(ctx) : null;
+const fetchData = !isCsr && routeItem.fetch ? await routeItem.fetch(ctx) : null;
 
 return (
   <Layout ctx={ctx} config={config} staticList={staticList} viteReactScript={viteReactScript}>
     {isCsr ? <></> : <Component />}
   </Layout>
-)
+);
 ```
 
 The implementation principle can be seen very easily. Similarly, in `Vue` scenarios, we implement similar functionality through `slot`.

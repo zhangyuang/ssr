@@ -18,9 +18,6 @@
     "allowSyntheticDefaultImports": true,
     "lib": ["ES2020", "DOM"],
     "skipLibCheck": true,
-    "typeRoots": [
-      "./@types",
-      "./node_modules/@types"
-    ]
+    "typeRoots": ["./@types", "./node_modules/@types"]
   }
 }

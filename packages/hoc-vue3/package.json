@@ -2,32 +2,32 @@
   "name": "ssr-hoc-vue3",
   "version": "7.0.3",
   "description": "hoc for vue ssr",
-  "main": "./cjs/index.js",
-  "module": "./esm/index.js",
-  "sideEffects": false,
-  "scripts": {
-    "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
-    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zhangyuang/ssr.git"
-  },
   "keywords": [
     "cli",
     "serverless",
     "ssr",
     "vue"
   ],
-  "author": "zhangyuang",
-  "license": "MIT",
+  "homepage": "https://github.com/zhangyuang/ssr#readme",
   "bugs": {
     "url": "https://github.com/zhangyuang/ssr/issues"
   },
-  "homepage": "https://github.com/zhangyuang/ssr#readme",
+  "license": "MIT",
+  "author": "zhangyuang",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangyuang/ssr.git"
+  },
+  "sideEffects": false,
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "scripts": {
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
+    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
+  },
   "dependencies": {
+    "@vue/server-renderer": "^3.0.7",
     "vue": "^3.0.0",
-    "vuex": "^4.0.0",
-    "@vue/server-renderer": "^3.0.7"
+    "vuex": "^4.0.0"
   }
 }

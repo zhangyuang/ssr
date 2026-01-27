@@ -41,69 +41,77 @@ In Vue3 scenarios, we default to loading the [@vue/babel-plugin-jsx](https://git
 ```html
 <template>
   <div>
-    <Search />
+    <search />
     <template v-if="indexData">
       <Slider :data="indexData[0].components" />
       <Rectangle :data="indexData[1].components" />
     </template>
     <template v-else>
-      <img src="https://gw.alicdn.com/tfs/TB1v.zIE7T2gK0jSZPcXXcKkpXa-128-128.gif" class="loading">
+      <img
+        src="https://gw.alicdn.com/tfs/TB1v.zIE7T2gK0jSZPcXXcKkpXa-128-128.gif"
+        class="loading"
+      />
     </template>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import Slider from '@/components/slider'
-import Rectangle from '@/components/rectangle'
-import Search from '@/components/search'
+  import { mapState } from "vuex";
+  import Slider from "@/components/slider";
+  import Rectangle from "@/components/rectangle";
+  import Search from "@/components/search";
 
-export default {
-  components: {
-    Slider,
-    Rectangle,
-    Search
-  },
-  computed: {
-    ...mapState({
-      indexData: state => state.indexStore?.data
-    })
-  }
-}
+  export default {
+    components: {
+      Slider,
+      Rectangle,
+      Search,
+    },
+    computed: {
+      ...mapState({
+        indexData: (state) => state.indexStore?.data,
+      }),
+    },
+  };
 </script>
-
 ```
 
 The corresponding tsx writing method is:
 
 ```jsx
 // render.tsx
-import { mapState } from 'vuex'
-import Slider from '@/components/slider'
-import Rectangle from '@/components/rectangle'
-import Search from '@/components/search'
+import { mapState } from "vuex";
+import Slider from "@/components/slider";
+import Rectangle from "@/components/rectangle";
+import Search from "@/components/search";
 
 export default {
   computed: {
     ...mapState({
-      indexData: state => state.indexStore?.data
-    })
+      indexData: (state) => state.indexStore?.data,
+    }),
   },
 
-  render () {
-    const { indexData } = this
-    return <div>
-      <Search />
-      {
-        indexData ? <div>
-          <Slider data={indexData[0].components} />
-          <Rectangle data={indexData[1].components} />
-        </div> : <img src="https://gw.alicdn.com/tfs/TB1v.zIE7T2gK0jSZPcXXcKkpXa-128-128.gif" className="loading"/>
-      }
-    </div>
-  }
-}
-
+  render() {
+    const { indexData } = this;
+    return (
+      <div>
+        <Search />
+        {indexData ? (
+          <div>
+            <Slider data={indexData[0].components} />
+            <Rectangle data={indexData[1].components} />
+          </div>
+        ) : (
+          <img
+            src="https://gw.alicdn.com/tfs/TB1v.zIE7T2gK0jSZPcXXcKkpXa-128-128.gif"
+            className="loading"
+          />
+        )}
+      </div>
+    );
+  },
+};
 ```
 
 ## Notes

@@ -1,10 +1,11 @@
 # 约定式路由
 
-约定式路由即根据前端文件夹结构来自动的生成前端路由配置。  
+约定式路由即根据前端文件夹结构来自动的生成前端路由配置。
 
 本框架同时支持约定式路由和声明式路由，当检测到 `web/route.ts` 文件存在时会使用该文件来作为前端路由结构, 但我们不支持你这么做。因为框架会根据你当前的不同配置来生成不同的路由结构，并且也不保证这些结构在之后的版本中是一成不变的。如果手动编写工作量过大且容易出错。在没有特殊需求的情况下建议直接使用约定式路由。
 
 `注：在最新的版本中我们支持约定式路由和声明式路由同时存在，并以声明式路由为更高优先级`
+
 ## 路由规则
 
 下面来介绍我们详细的路由映射规则, 以下为一个基础的 `web` 文件夹的结构，我们主要关注 `web/pages` 文件夹，根据该文件夹来 `parse` 前端路由结构
@@ -76,22 +77,26 @@ $ tree ./ -I node_modules -L 3
 // web/route.ts
 export const FeRoutes = [
   {
-    fetch: async () => await import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch'),
-    path: '/detail',
-    component: async () => await import(/* webpackChunkName: "detail-id" */ '@/pages/detail/detail.vue'),
-    webpackChunkName: 'detail',
+    fetch: async () =>
+      await import(/* webpackChunkName: "detail-id-fetch" */ "@/pages/detail/fetch"),
+    path: "/detail",
+    component: async () =>
+      await import(/* webpackChunkName: "detail-id" */ "@/pages/detail/detail.vue"),
+    webpackChunkName: "detail",
     children: [
       {
-        path: 'foo', // 将会匹配 /detail/foo 的请求地址
-        fetch: async () => await import(/* webpackChunkName: "detail-foo-fetch" */ '@/pages/detail/detail-fetch'),
-        component: async () => await import(/* webpackChunkName: "detail-foo" */ '@/pages/detail/foo.vue'),
-        webpackChunkName: 'detail-foo'
-      }
-    ]
-  }
-]
-
+        path: "foo", // 将会匹配 /detail/foo 的请求地址
+        fetch: async () =>
+          await import(/* webpackChunkName: "detail-foo-fetch" */ "@/pages/detail/detail-fetch"),
+        component: async () =>
+          await import(/* webpackChunkName: "detail-foo" */ "@/pages/detail/foo.vue"),
+        webpackChunkName: "detail-foo",
+      },
+    ],
+  },
+];
 ```
+
 ### 实现代码
 
 具体的实现代码可以查看该[文件](https://github.com/zhangyuang/ssr/blob/dev/packages/utils/server/src/parse.ts#L26)
@@ -108,21 +113,25 @@ export const FeRoutes = [
 ```js
 // web/route.ts
 export const FeRoutes = [
-    {   
-        "fetch": () => import(/* webpackChunkName: "detail-id-fetch" */ '@/pages/detail/fetch'),
-        "path": "/detail/:id",
-        "component": () => import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id'), // vue 场景用此写法
-        "component": async function dynamicComponent () { return await import(/* webpackChunkName: "detail-id" */ '@/pages/detail/render$id') }, // react 场景需要固定函数名称为 dynamicComponent
-        "webpackChunkName": "detail-id"
-    },
-    {
-        "fetch": () => import(/* webpackChunkName: "index-fetch" */ '@/pages/index/fetch'),
-        "path": "/",
-        "component": () => import(/* webpackChunkName: "index" */ '@/pages/index/render'), // vue 场景用此写法
-        "component": async function dynamicComponent () { return await import(/* webpackChunkName: "index" */ '@/pages/index/render') }, // react 场景需要固定函数名称为 dynamicComponent
-        "webpackChunkName": "index"
-    }
-]
+  {
+    fetch: () => import(/* webpackChunkName: "detail-id-fetch" */ "@/pages/detail/fetch"),
+    path: "/detail/:id",
+    component: () => import(/* webpackChunkName: "detail-id" */ "@/pages/detail/render$id"), // vue 场景用此写法
+    component: async function dynamicComponent() {
+      return await import(/* webpackChunkName: "detail-id" */ "@/pages/detail/render$id");
+    }, // react 场景需要固定函数名称为 dynamicComponent
+    webpackChunkName: "detail-id",
+  },
+  {
+    fetch: () => import(/* webpackChunkName: "index-fetch" */ "@/pages/index/fetch"),
+    path: "/",
+    component: () => import(/* webpackChunkName: "index" */ "@/pages/index/render"), // vue 场景用此写法
+    component: async function dynamicComponent() {
+      return await import(/* webpackChunkName: "index" */ "@/pages/index/render");
+    }, // react 场景需要固定函数名称为 dynamicComponent
+    webpackChunkName: "index",
+  },
+];
 ```
 
 ### 优先级覆盖

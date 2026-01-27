@@ -70,9 +70,9 @@ After publishing, we can also get an address returned by the platform. You need 
 
 ```js
 module.exports = {
-  publicPath: '/test',
-  prefix: '/test'
-}
+  publicPath: "/test",
+  prefix: "/test",
+};
 ```
 
 ![](https://res.wx.qq.com/op_res/mbNMsqF_px3tS0x_x1fryyR3Z5RipX3Lo8PIzvcAVxyXwoQyvQz0lQev-W2io3AP)
@@ -92,6 +92,7 @@ provider:
   region: ap-hongkong # Deploy in Hong Kong region, no need for domain filing, convenient for testing
   serviceId: service-xxx
 ```
+
 #### Tencent Cloud Domain Configuration
 
 When publishing to Tencent Cloud, midway-faas supports setting the published server region through [provider.region](https://www.yuque.com/midwayjs/faas/serverless_yml).
@@ -126,7 +127,6 @@ In `Midway.js` type applications, we provide the `npm run prod` command. This co
 ### Nest.js Application Deployment
 
 In `Nest.js` type applications, we provide the `npm run prod` command. This command will directly call [pm2](https://pm2.keymetrics.io/) for production environment multi-process mode deployment. When using `pm2` for deployment, note that `NODE_ENV` needs to be set to `production`.
-
 
 ## Differences from Traditional SPA Application Deployment (Important!!!)
 

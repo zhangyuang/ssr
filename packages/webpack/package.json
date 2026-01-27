@@ -2,30 +2,30 @@
   "name": "ssr-webpack",
   "version": "7.0.14",
   "description": "webpack config for serverless ssr",
-  "main": "./cjs/index.js",
-  "module": "./esm/index.js",
-  "sideEffects": false,
-  "scripts": {
-    "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
-    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
+  "keywords": [
+    "react",
+    "serverless",
+    "ssr",
+    "vue",
+    "webpack"
+  ],
+  "homepage": "https://github.com/zhangyuang/ssr#readme",
+  "bugs": {
+    "url": "https://github.com/zhangyuang/ssr/issues"
   },
+  "license": "MIT",
+  "author": "zhangyuang",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zhangyuang/ssr.git"
   },
-  "keywords": [
-    "webpack",
-    "serverless",
-    "ssr",
-    "react",
-    "vue"
-  ],
-  "author": "zhangyuang",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/zhangyuang/ssr/issues"
+  "sideEffects": false,
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "scripts": {
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
+    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
   },
-  "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "@babel/core": "^7.0.0",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.16.5",

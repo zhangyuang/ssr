@@ -3,7 +3,5 @@
   "compilerOptions": {
     "outDir": "./cjs"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

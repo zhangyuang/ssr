@@ -1,14 +1,12 @@
-const { Bootstrap } = require('@midwayjs/bootstrap')
-const { loadConfig } = require('ssr-common-utils')
+const { Bootstrap } = require("@midwayjs/bootstrap");
+const { loadConfig } = require("ssr-common-utils");
 
-const { serverPort } = loadConfig()
+const { serverPort } = loadConfig();
 
-Bootstrap
-  .configure({
-    globalConfig: {
-      koa: {
-        port: serverPort
-      }
-    }
-  })
-  .run()
+Bootstrap.configure({
+  globalConfig: {
+    koa: {
+      port: serverPort,
+    },
+  },
+}).run();

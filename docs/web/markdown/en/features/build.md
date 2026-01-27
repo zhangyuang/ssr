@@ -48,10 +48,10 @@ For server-side file builds, we usually enable the `externals` option, which mea
 
 ```js
 // Source code
-import React from 'react'
+import React from "react";
 
 // After build
-const React = require('react')
+const React = require("react");
 ```
 
 During build time, the source code of `react` is not packaged together, but modules are dynamically loaded from the `node_modules` folder at runtime. This ensures the size of our server-side build artifacts, containing only pure business code and allowing us to quickly locate problems when errors occur. However, this approach requires the deployment environment to have a `node_modules` folder and contain all modules that will be dynamically loaded in the production environment.

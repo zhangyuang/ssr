@@ -1,2 +1,2 @@
-export * from './onlyCsr'
-export * from './vuex'
+export * from "./onlyCsr";
+export * from "./vuex";

@@ -62,7 +62,7 @@
       height: 100%;
       padding-top: 5px;
       text-align: right;
-      white-space: nowrap;    
+      white-space: nowrap;
       word-break: break-all;
       border-bottom: 5px solid transparent;
       box-sizing: border-box;
@@ -108,7 +108,7 @@
 .language-switcher {
   position: relative;
   display: inline-block;
-  
+
   .language-current {
     padding: 3px 15px;
     font-size: 14px;
@@ -118,22 +118,22 @@
     display: flex;
     align-items: center;
     user-select: none;
-    
+
     &:hover {
       color: rgb(4, 195, 142);
     }
-    
+
     .language-arrow {
       margin-left: 5px;
       font-size: 10px;
       transition: transform 0.3s;
     }
-    
+
     &:hover .language-arrow {
       transform: rotate(180deg);
     }
   }
-  
+
   .language-menu {
     position: absolute;
     top: 100%;
@@ -144,29 +144,29 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     min-width: 120px;
     z-index: 1000;
-    
+
     .language-option {
       padding: 8px 15px;
       font-size: 14px;
       color: #000;
       cursor: pointer;
       white-space: nowrap;
-      
+
       &:hover {
         background-color: #f5f5f5;
         color: rgb(4, 195, 142);
       }
-      
+
       &.active {
         background-color: rgb(4, 195, 142);
         color: white;
       }
-      
+
       &:first-child {
         border-top-left-radius: 4px;
         border-top-right-radius: 4px;
       }
-      
+
       &:last-child {
         border-bottom-left-radius: 4px;
         border-bottom-right-radius: 4px;
@@ -179,7 +179,6 @@
 }
 
 @media screen and (max-width: 414px) {
-
   .nav_left {
     display: none;
   }

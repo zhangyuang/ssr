@@ -25,6 +25,7 @@
 ### Vuex
 
 `Vuex` 的具体使用方案，开发者可以查看它的官方文档。这里不进行赘述。在[数据获取](/docs/features$fetch)章节中，我们提出了用 `fetch.ts` 来进行数据的获取。在 `fetch.ts` 中我们可以拿到 `vuex` 的实例来进行相关操作
+
 ### Provide/Inject
 
 在 `Vue3` 中我们提供了另一种更加轻量级的跨组件数据共享的方式，也就是 `Provide/Inject` ， `Vuex` 和 `Provide/Inject` 主要的区别在于， `Vuex` 中的全局状态的每次修改是可以追踪回溯的，而 `provide/inject` 中变量的修改是无法控制的，换句话说，你不知道是哪个组件修改了这个全局状态。
@@ -38,19 +39,18 @@
 ```html
 // layout/App.vue
 <script>
-import { reactive, provide } from 'vue'
-export default {
-  props: ['asyncData'],
-  setup (props) {
-    const reactiveAsyncData = reactive(props.asyncData) // asyncData.value 是 fetch.ts 的返回值，将 provide 的数据变为响应式
-    const changeAsyncData = (data) => {
-      reactiveAsyncData.value = data
-    }
-    provide('asyncData', reactiveAsyncData)
-    provide('changeAsyncData', changeAsyncData)
-  }
-
-}
+  import { reactive, provide } from "vue";
+  export default {
+    props: ["asyncData"],
+    setup(props) {
+      const reactiveAsyncData = reactive(props.asyncData); // asyncData.value 是 fetch.ts 的返回值，将 provide 的数据变为响应式
+      const changeAsyncData = (data) => {
+        reactiveAsyncData.value = data;
+      };
+      provide("asyncData", reactiveAsyncData);
+      provide("changeAsyncData", changeAsyncData);
+    },
+  };
 </script>
 ```
 
@@ -60,27 +60,25 @@ export default {
 
 ```html
 // 任意组件
-<template>
-  {{ asyncData.value }}
-</template>
+<template> {{ asyncData.value }} </template>
 
 <script>
-export default {
- setup () {
-    const asyncData = inject('asyncData')
-    const changeAsyncData = inject('changeAsyncData')
-    return {
-      asyncData,
-      changeAsyncData
-    }
-  },
-  mounted () {
-    // 通过 changeAsyncData 修改响应式数据
-    this.changeAsyncData({
-      namespace: 'foo'
-    })
-  }
-}
+  export default {
+    setup() {
+      const asyncData = inject("asyncData");
+      const changeAsyncData = inject("changeAsyncData");
+      return {
+        asyncData,
+        changeAsyncData,
+      };
+    },
+    mounted() {
+      // 通过 changeAsyncData 修改响应式数据
+      this.changeAsyncData({
+        namespace: "foo",
+      });
+    },
+  };
 </script>
 ```
 
@@ -97,66 +95,64 @@ export default {
 ```html
 // layout/App.vue
 <template>
-  <router-view :asyncData="asyncData"  />
+  <router-view :asyncData="asyncData" />
 </template>
 
 <script lang="ts" setup>
-import { defineProps, App } from 'vue'
+  import { defineProps, App } from "vue";
 
-const props = defineProps<{
-  ssrApp: App,
-  asyncData: { value: any }
-}>()
+  const props = defineProps<{
+    ssrApp: App;
+    asyncData: { value: any };
+  }>();
 </script>
-
 ```
 
 ```html
 <template>
   <div>
-    <Search />
+    <search />
     <template v-if="indexData">
       <Slider :data="indexData[0].components" />
       <Rectangle :data="indexData[1].components" />
     </template>
     <template v-else>
-      <img src="https://gw.alicdn.com/tfs/TB1v.zIE7T2gK0jSZPcXXcKkpXa-128-128.gif" class="loading">
+      <img
+        src="https://gw.alicdn.com/tfs/TB1v.zIE7T2gK0jSZPcXXcKkpXa-128-128.gif"
+        class="loading"
+      />
     </template>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { mapState } from 'vuex'
-import Slider from '@/components/slider/index.vue'
-import Rectangle from '@/components/rectangle/index.vue'
-import Search from '@/components/search/index.vue'
+  import { defineComponent } from 'vue'
+  import { mapState } from 'vuex'
+  import Slider from '@/components/slider/index.vue'
+  import Rectangle from '@/components/rectangle/index.vue'
+  import Search from '@/components/search/index.vue'
 
-export default defineComponent({
-  props: ['asyncData'] // key 名固定为 asyncData 不可修改，前端路由跳转时将自动注入，服务端渲染时通过 App.vue 注入
-  components: {
-    Slider,
-    Rectangle,
-    Search
-  },
-  computed: {
-    ...mapState({
-      indexData: state => state.indexStore?.data
-    })
-  }
-})
+  export default defineComponent({
+    props: ['asyncData'] // key 名固定为 asyncData 不可修改，前端路由跳转时将自动注入，服务端渲染时通过 App.vue 注入
+    components: {
+      Slider,
+      Rectangle,
+      Search
+    },
+    computed: {
+      ...mapState({
+        indexData: state => state.indexStore?.data
+      })
+    }
+  })
 </script>
 
-<style>
-</style>
-
+<style></style>
 ```
-
 
 ## React 场景
 
 在 `React` 场景中，我们没有使用上述的任何一种数据管理方案，我们采用了思想上与 `Provide/Inject` 类似的，同样也是 [react-hooks](https://reactjs.org/docs/hooks-intro.html) 出现后出现在大家视野的 [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext)
-
 
 ## valtio (推荐使用)
 
@@ -178,13 +174,13 @@ export default defineComponent({
 > 注: hooks 只能够在函数组件内部使用
 
 ```ts
-import { useContext } from 'react'
-import { IContext } from 'ssr-types'
-import { useStoreContext } from 'ssr-common-utils'
+import { useContext } from "react";
+import { IContext } from "ssr-types";
+import { useStoreContext } from "ssr-common-utils";
 
 // 通过 IData 指定模块自己的 data interface
 
-const { state, dispatch } = useContext<IContext<IData>>(useStoreContext())
+const { state, dispatch } = useContext<IContext<IData>>(useStoreContext());
 ```
 
 通过 `dispatch action` 来触发全局 `context` 的更新，并通知到所有的组件。在本地开发环境下我们会在控制台中输出每个修改 context 的 action 的详细信息。
@@ -192,33 +188,43 @@ const { state, dispatch } = useContext<IContext<IData>>(useStoreContext())
 > 注: dispatch 是异步的只能够在客户端渲染的阶段使用，服务端使用无效。context 更新会导致所有组件重新 render，我们需要使用 React.useMemo 来避免不必要的重新计算，且建议根据不同的模块使用不同的 namespace 防止数据覆盖
 
 ```js
-import React, { useContext } from 'react'
-import styles from './index.less'
-import { useStoreContext } from 'ssr-common-utils'
+import React, { useContext } from "react";
+import styles from "./index.less";
+import { useStoreContext } from "ssr-common-utils";
 
-function Search (props) {
-  const { state, dispatch } = useContext<IContext<SearchState>>(useStoreContext())
-  const handleChange = e => {
+function Search(props) {
+  const { state, dispatch } = useContext < IContext < SearchState >> useStoreContext();
+  const handleChange = (e) => {
     dispatch({
-      type: 'updateContext',
+      type: "updateContext",
       payload: {
         search: {
           // 搜索框模块的 namespace 为 search
-          text: e.target.value
-        }
-      }
-    })
-  }
-   return (
+          text: e.target.value,
+        },
+      },
+    });
+  };
+  return (
     <div className={styles.searchContainer}>
-      <input type="text" className={styles.input} value={state.search?.text ?? ''} onChange={handleChange} placeholder="该搜索框内容会在所有页面共享"/>
-      <img src="https://img.alicdn.com/tfs/TB15zSoX21TBuNjy0FjXXajyXXa-48-48.png" alt="" className={styles.searchImg} onClick={toSearch}/>
-    </div >
-  )
+      <input
+        type="text"
+        className={styles.input}
+        value={state.search?.text ?? ""}
+        onChange={handleChange}
+        placeholder="该搜索框内容会在所有页面共享"
+      />
+      <img
+        src="https://img.alicdn.com/tfs/TB15zSoX21TBuNjy0FjXXajyXXa-48-48.png"
+        alt=""
+        className={styles.searchImg}
+        onClick={toSearch}
+      />
+    </div>
+  );
 }
 
-export default Search
-
+export default Search;
 ```
 
 > 注: 以上只为示例，实际开发中我们只推荐在跨组件通信时使用 dispatch，局部状态应该使用 useState 来实现，否则会导致函数内部状态过于复杂，难以追踪。
@@ -255,6 +261,7 @@ export {
 ```
 
 框架监测到这一文件后，便会将用户自定义的 `store` 与默认的 `store` 进行组合。
+
 #### 创建多个 store
 
 开发者可以组合多个自定义的 `store`

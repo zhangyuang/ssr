@@ -29,15 +29,15 @@ For example, a common `utils` contains files that can only run on the server sid
 
 ```js
 // utils/foo.ts
-import * as fs from 'fs'
+import * as fs from "fs";
 
 // utils/bar.ts
-const bar = window.bar
-export default bar
+const bar = window.bar;
+export default bar;
 
 // utils/index.ts
-export * from './foo'
-export * from './bar'
+export * from "./foo";
+export * from "./bar";
 ```
 
 But this approach is a future development trend. We will also consider how to better organize directory structure to enable frontend-backend to share environment-independent code.
@@ -82,7 +82,7 @@ The following is the application directory structure created by the `ssr` framew
 │   │   │        ├── fetch.ts
 │   │   │        └── render$id.tsx # multi-level routes map to /detail/user/:id according to rules
 │   │   │        └── render$user$id.tsx # multi-parameter routes map to /detail/user/:user/:id
-│   │   ├── bar 
+│   │   ├── bar
 │   │   │   ├── fetch.ts
 │   │   │   └── render.tsx
 │   │   │   ├── fetch$id.ts
@@ -95,4 +95,3 @@ For more detailed understanding of `frontend route mapping`, you can read the [C
 For more detailed understanding of `fetch.ts` files, you can read the [Data Fetching](./features$fetch) chapter.
 
 For more detailed understanding of `config.js` files, you can read the [Application Configuration](./api$config) chapter.
-

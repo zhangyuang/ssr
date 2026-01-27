@@ -8,7 +8,7 @@
     "editor.defaultFormatter": "biomejs.biome"
   },
   "[markdown]": {
-    "editor.formatOnSave": false,
+    "editor.formatOnSave": false
   },
   "[javascriptreact]": {
     "editor.defaultFormatter": "biomejs.biome"
@@ -23,8 +23,8 @@
     "editor.defaultFormatter": "biomejs.biome"
   },
   "files.exclude": {
-   "**/cjs": true,
-   "**/esm": true,
-   "**/dist": true,
+    "**/cjs": true,
+    "**/esm": true,
+    "**/dist": true
   }
 }

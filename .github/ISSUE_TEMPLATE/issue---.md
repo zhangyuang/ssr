@@ -1,10 +1,9 @@
 ---
 name: issue 模版
 about: 请提供足够的信息来描述你的问题
-title: ''
-labels: ''
-assignees: ''
-
+title: ""
+labels: ""
+assignees: ""
 ---
 
 提问前请确认以下几点信息，否则你的问题将不会被解答
@@ -17,9 +16,7 @@ assignees: ''
 
 ## 详细描述你的问题
 
-
 ## 期望的结果
-
 
 ## 当前使用的版本
 

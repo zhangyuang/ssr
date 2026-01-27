@@ -1,6 +1,6 @@
 # Vite
 
-This chapter introduces how to use `Vite` as a development tool in the `ssr` framework. 
+This chapter introduces how to use `Vite` as a development tool in the `ssr` framework.
 
 ## 5 Minutes to Understand Vite
 
@@ -21,7 +21,7 @@ This chapter introduces how to use `Vite` as a development tool in the `ssr` fra
 
 本章介绍 `ssr` 框架 `6.0` 版本全新的 `Vite SSR` 体验
 
-### 快速开始 
+### 快速开始
 
 在 `React/Vue3` 场景中我们都已经以最小化成本的方式接入 `Vite` 。在 `Vue2` 场景中，由于 [vite-plugin-vue2](https://github.com/underfin/vite-plugin-vue2/issues/31) 的限制，我们暂时无法使用 `vite ssr` 。
 
@@ -97,7 +97,8 @@ export {
 由于 `Vite/Rollup` 没有 `Webpack-Chain` 这样的模块来生成配置，目前只能用一些比较笨的方式来 `Merge` 用户自定义配置。所以容易造成用户配置覆盖框架默认配置的情况。所以目前框架只会开放少量配置让用户自定义配置。在之后我们会不断完善这一块。
 
 正如上文所说的，开发者有多种开发构建组合方式。只要不使用只能够在特定平台运行的代码例如 `import.meta.env/module.hot` 这些代码，那么你的代码在 `Vite/Webpack` 模式下都能够本地运行，生产环境构建成功。所以不建议开发者使用只能在特定工具下运行成功的代码以及配置。框架将会在之后将不同的工具的配置进行打平，抛出一个共同使用的配置项供开发者使用。
-<!-- 
+
+<!--
 综上所述，我们已经迈出了最困难的一步，接下来的做法就是抹平 `Vite/Webpack` 在本框架中的使用差异，配置差异，构建差异。做到 `Webpack/Vite` 无缝切换 -->
 
 <!-- ### 踩坑记录
@@ -296,10 +297,10 @@ const render = (await vite.ssrLoadModule('/src/entry-server.js')).render
 
 首先在 Vite 出现大部分类似的框架都是使用 `Webpack` 来作为构建工具，如果全量切换成 `Vite` 或者将 `Webpack` 与 `Vite` 完全隔离以插件的形式来让用户决定到底是用 `Webpack` 还是 `Vite` 进行构建，那么改动量我认为前者会非常大，后者的工作量也不小。但是其实在我们的框架完全分离其实也不难，因为我们的核心源码也就几千行，不像 Next, Nuxt 这种代码巨无霸级别的项目就算支持了 `Vite` 我认为 Bug 也会非常多。但是即使是这样，在这个版本中，我们仍没有打算完全的分离 `Webpack` 与 `Vite` ，理由如下
 
-* 本框架原 `Webpack` 构建逻辑非常成熟，包括 `externals` 逻辑以及接入第三方 UI 库 如 `antd`,  `vant` 样式处理，以及各种 `loader` 逻辑。如果完全迁移成 `Vite + Rollup` 的形式在稳定性和一致性上需要花较多功夫调试。  
+* 本框架原 `Webpack` 构建逻辑非常成熟，包括 `externals` 逻辑以及接入第三方 UI 库 如 `antd`,  `vant` 样式处理，以及各种 `loader` 逻辑。如果完全迁移成 `Vite + Rollup` 的形式在稳定性和一致性上需要花较多功夫调试。
 
 * 我们认为 `Vite` 最大的发挥场景还是在浏览器当中，`vite.ssrLoadModule` 方法虽然能够让我们在本地开发时 `Node.js` 环境中直接使用 `ESM` 模块，但该方法目前还不够完善，使用起来会有很多问题。例如在使用`antd/vant`这样的依赖时，由于 `antd/vant` 在使用 `babel-plugin-import` 导入时会在一个 js 文件中去 require 样式文件。由于缺少了 `bundle` 的这个过程，对于 服务端入口这一块的处理会非常麻烦。但就算不使用 `babel-plugin-import` 直接去 `import` 具体的文件也会遇到一些问题。不过在生产环境并不会使用该方法
-* 开发环境下首屏样式闪烁。由于 `Vite` `nobundle` 的特性，只有在文件请求到达浏览器的时候，我们才知道该请求的依赖。所以就导致我们只有在加载完 `entry-client` 文件后再依次加载首屏需要用的文件，包括样式文件。这之后样式才能够正常展示，目前官方的 [playground demo](https://github.com/vitejs/vite/tree/main/packages/playground/ssr-vue) 就存在这个问题。Webpack 场景下的常规的解决方案是在构建时我们能够知道首屏需要依赖的 `css` 文件，提前打包成独立文件或者 `style` 标签的形式在服务端注入到页面头部。不过由于 `Vite` 存在 `optimize` 预优化这个过程，这个过程中会分析文件的依赖链，所以我们认为要解决的话在 `ssrLoadModule` 中做一些逻辑应该也有对应的解决方案。  
+* 开发环境下首屏样式闪烁。由于 `Vite` `nobundle` 的特性，只有在文件请求到达浏览器的时候，我们才知道该请求的依赖。所以就导致我们只有在加载完 `entry-client` 文件后再依次加载首屏需要用的文件，包括样式文件。这之后样式才能够正常展示，目前官方的 [playground demo](https://github.com/vitejs/vite/tree/main/packages/playground/ssr-vue) 就存在这个问题。Webpack 场景下的常规的解决方案是在构建时我们能够知道首屏需要依赖的 `css` 文件，提前打包成独立文件或者 `style` 标签的形式在服务端注入到页面头部。不过由于 `Vite` 存在 `optimize` 预优化这个过程，这个过程中会分析文件的依赖链，所以我们认为要解决的话在 `ssrLoadModule` 中做一些逻辑应该也有对应的解决方案。
 
 由于上述原因，在这个版本中我定下的接入 `Vite` 方案如下
 

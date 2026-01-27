@@ -14,15 +14,15 @@
 </template>
 
 <script lang="ts">
-import Menu from '@/components/menu/index.vue'
-import MarkdownRender from '@/components/markdownRender/index.vue'
+import Menu from "@/components/menu/index.vue";
+import MarkdownRender from "@/components/markdownRender/index.vue";
 
 export default {
   components: {
     Menu,
-    MarkdownRender
-  }
-}
+    MarkdownRender,
+  },
+};
 </script>
 
 <style lang="less" scoped>

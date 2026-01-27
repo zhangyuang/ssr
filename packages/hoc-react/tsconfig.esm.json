@@ -3,7 +3,5 @@
   "compilerOptions": {
     "outDir": "./esm"
   },
-  "include": [
-    "src/*.ts"
-  ]
+  "include": ["src/*.ts"]
 }

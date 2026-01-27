@@ -1,6 +1,16 @@
 {
   "name": "ssr",
   "private": true,
+  "homepage": "https://github.com/zhangyuang/ssr#readme",
+  "bugs": {
+    "url": "https://github.com/zhangyuang/ssr/issues"
+  },
+  "license": "MIT",
+  "author": "zhangyuang",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhangyuang/ssr.git"
+  },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "pnpm:devPreinstall": "node scripts/preinstall.js",
@@ -9,8 +19,8 @@
     "dev": "pnpm run -r --parallel --filter './packages/*' --stream watch",
     "build": "pnpm run -r --filter './packages/*' --stream build",
     "minify": "esno scripts/minify.ts",
-    "lint": "biome format --diagnostic-level error",
-    "lint:fix": "biome format --diagnostic-level error --write",
+    "lint": "oxfmt --check .",
+    "lint:fix": "oxfmt --write .",
     "sync": "node scripts/scripts.js --sync",
     "e2e": "playwright test",
     "e2e:headed": "playwright test --headed",
@@ -45,32 +55,13 @@
     "example:nestjs:vue:rspack": "cd example/nestjs-vue-ssr && npm run start:rspack",
     "example:nestjs:vue:prod:rspack": "cd example/nestjs-vue-ssr && npm run prod:rspack"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/zhangyuang/ssr.git"
-  },
-  "author": "zhangyuang",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/zhangyuang/ssr/issues"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pnpm lint",
-      "commit-msg": "node scripts/verifyCommit.js"
-    }
-  },
-  "engines": {
-    "node": ">=20.0.0"
-  },
-  "homepage": "https://github.com/zhangyuang/ssr#readme",
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
     "@playwright/test": "^1.57.0",
     "@types/node": "^18.7.13",
     "@types/prompts": "^2.0.14",
     "@types/semver": "^7.3.12",
     "@types/shelljs": "^0.8.11",
+    "chalk": "^4.1.2",
     "concurrently": "^5.3.0",
     "conventional-changelog-cli": "^2.2.2",
     "cross-env": "^7.0.3",
@@ -80,6 +71,7 @@
     "glob": "^10.3.10",
     "husky": "^9.1.7",
     "minimist": "^1.2.6",
+    "oxfmt": "latest",
     "picocolors": "^1.0.0",
     "prompts": "^2.4.2",
     "semver": "^7.3.7",
@@ -87,6 +79,10 @@
     "typescript": "^5.8.2",
     "vite": "npm:rolldown-vite@^7.3.1"
   },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "pnpm@10.27.0+sha512.72d699da16b1179c14ba9e64dc71c9a40988cbdc65c264cb0e489db7de917f20dcf4d64d8723625f2969ba52d4b7e2a1170682d9ac2a5dcaeaab732b7e16f04a",
   "pnpm": {
     "overrides": {
       "ssr": "workspace:*",
@@ -131,6 +127,5 @@
     "onlyBuiltDependencies": [
       "@playwright/test"
     ]
-  },
-  "packageManager": "pnpm@10.27.0+sha512.72d699da16b1179c14ba9e64dc71c9a40988cbdc65c264cb0e489db7de917f20dcf4d64d8723625f2969ba52d4b7e2a1170682d9ac2a5dcaeaab732b7e16f04a"
+  }
 }

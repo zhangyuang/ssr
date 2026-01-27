@@ -2,36 +2,36 @@
   "name": "ssr-core",
   "version": "7.0.3",
   "description": "core for react/vue2/vue3 ssr deploy on serverless or tradtional web server",
-  "main": "./cjs/index.js",
-  "module": "./esm/index.js",
-  "sideEffects": false,
-  "scripts": {
-    "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
-    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
+  "keywords": [
+    "cli",
+    "react",
+    "serverless",
+    "ssr",
+    "vue"
+  ],
+  "homepage": "https://github.com/zhangyuang/ssr#readme",
+  "bugs": {
+    "url": "https://github.com/zhangyuang/ssr/issues"
   },
+  "license": "MIT",
+  "author": "zhangyuang",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zhangyuang/ssr.git"
   },
-  "keywords": [
-    "cli",
-    "serverless",
-    "ssr",
-    "vue",
-    "react"
-  ],
-  "author": "zhangyuang",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/zhangyuang/ssr/issues"
+  "sideEffects": false,
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "scripts": {
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
+    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
   },
-  "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "@babel/runtime": "^7.12.13",
     "cheerio": "^1.0.0-rc.10",
-    "ssr-serialize-javascript": "^6.0.0",
+    "ssr-common-utils": "workspace:*",
     "ssr-deepclone": "^1.0.0",
-    "ssr-common-utils": "workspace:*"
+    "ssr-serialize-javascript": "^6.0.0"
   },
   "devDependencies": {
     "ssr-types": "workspace:*",

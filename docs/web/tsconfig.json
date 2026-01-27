@@ -7,7 +7,7 @@
     "moduleResolution": "node",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "inlineSourceMap":true,
+    "inlineSourceMap": true,
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "stripInternal": true,
@@ -24,8 +24,5 @@
       "~/*": ["../*"]
     }
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
-

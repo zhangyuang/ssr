@@ -1,20 +1,23 @@
 // 深度优先遍历，数据扁平化
-export const flatArray: (data: any[], childrenName: string) => any[] = (data = [], childrenName = 'children') => {
-  const result: any[] = []
+export const flatArray: (data: any[], childrenName: string) => any[] = (
+  data = [],
+  childrenName = "children",
+) => {
+  const result: any[] = [];
   const loop = (array: any[]) => {
-    array.forEach(item => {
+    array.forEach((item) => {
       if (item[childrenName]) {
-        const newItem = { ...item }
+        const newItem = { ...item };
         // delete newItem[childrenName];
-        result.push(newItem)
+        result.push(newItem);
         if (item[childrenName].length > 0) {
-          loop(item[childrenName])
+          loop(item[childrenName]);
         }
       } else {
-        result.push(item)
+        result.push(item);
       }
-    })
-  }
-  loop(data)
-  return result
-}
+    });
+  };
+  loop(data);
+  return result;
+};

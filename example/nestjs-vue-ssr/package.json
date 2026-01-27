@@ -2,6 +2,14 @@
   "name": "nestjs-vue-ssr",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "start": "ssr start",
+    "start:rspack": "ssr start --tool rspack",
+    "prod": "ssr build && NODE_ENV=production node dist/main.js",
+    "prod:rspack": "ssr build --tool rspack && NODE_ENV=production node dist/main.js",
+    "lint": "oxfmt --check .",
+    "lint:fix": "oxfmt ."
+  },
   "dependencies": {
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
@@ -17,24 +25,16 @@
     "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
     "@nestjs/cli": "^11.0.0",
+    "oxfmt": "latest",
     "ssr": "^7.0.0",
     "ssr-plugin-nestjs": "^7.0.0",
     "ssr-plugin-vue": "^7.0.0",
-    "ssr-webpack": "^7.0.0",
     "ssr-rspack": "^7.0.0",
+    "ssr-webpack": "^7.0.0",
     "typescript": "^5.8.2"
   },
   "engines": {
     "node": ">=20.0.0"
-  },
-  "scripts": {
-   "start": "ssr start",
-    "start:rspack": "ssr start --tool rspack",
-    "prod": "ssr build && NODE_ENV=production node dist/main.js",
-    "prod:rspack": "ssr build --tool rspack && NODE_ENV=production node dist/main.js",
-    "lint": "biome format --diagnostic-level error",
-    "lint:fix": "biome format --diagnostic-level error --write"
   }
 }

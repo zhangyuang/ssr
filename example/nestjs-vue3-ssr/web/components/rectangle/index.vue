@@ -1,9 +1,12 @@
-
 <template>
   <div class="pbbContainer">
     <div v-for="val in data[0].itemMap" :key="val.img" class="pbbItemContainer">
       <div class="pbbDescContainer">
-        <div class="defaultItemBg" :style="{background: `url(${val.img}) 0 0 /cover`}" @click="toDetail" />
+        <div
+          class="defaultItemBg"
+          :style="{ background: `url(${val.img}) 0 0 /cover` }"
+          @click="toDetail"
+        />
         <div class="pName pbbName">
           {{ val.title }}
         </div>
@@ -16,16 +19,16 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from 'vue-router'
-import { ItemMapArr } from '~/typings/data'
+import { useRouter } from "vue-router";
+import { ItemMapArr } from "~/typings/data";
 
-const Router = useRouter()
+const Router = useRouter();
 defineProps<{
-	data: ItemMapArr[]
-}>()
+  data: ItemMapArr[];
+}>();
 const toDetail = () => {
-	Router.push('/detail/cbba934b14f747049187')
-}
+  Router.push("/detail/cbba934b14f747049187");
+};
 </script>
 
 <style lang="less" scoped>

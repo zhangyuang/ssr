@@ -1,4 +1,4 @@
-# 为什么要选择 SSR 
+# 为什么要选择 SSR
 
 <div align="center">
   <strong>A most advanced ssr framework on Earth that implemented serverless-side render specification for faas and traditional web server.</strong>
@@ -19,7 +19,7 @@
 
 此框架脱胎于 [egg-react-ssr](https://github.com/zhangyuang/egg-react-ssr) 项目和 `ssr` v4.3版本（midway-faas + react ssr），在之前的基础上做了诸多演进，通过插件化的代码组织形式，支持任意服务端框架与任意前端框架的组合使用。开发者可以选择通过 Serverless 方式部署或是以传统 Node.js 的应用形式部署，并且我们专注于提升 Serverless 场景下服务端渲染应用的开发体验，打造了一站式的开发，发布应用服务的功能。最大程度提升开发者的开发体验，将应用的开发，部署成本降到最低。
 
-在最新的 v5.0 版本中，同时支持 `React` 以及 `Vue2`, `Vue3` 作为服务端渲染框架。在构建工具方面我们同样支持了最流行的 [Vite](https://cn.vitejs.dev/guide/why.html) 来提升应用的启动速度和 HMR 速度，且提供一键以 Serverless 的形式发布上云的功能。  
+在最新的 v5.0 版本中，同时支持 `React` 以及 `Vue2`, `Vue3` 作为服务端渲染框架。在构建工具方面我们同样支持了最流行的 [Vite](https://cn.vitejs.dev/guide/why.html) 来提升应用的启动速度和 HMR 速度，且提供一键以 Serverless 的形式发布上云的功能。
 
 我们可以非常有自信说它是`地球上最先进的ssr框架`。如果你希望获得开箱即用的体验且能够一键部署上云，请选择 `ssr` 框架。
 
@@ -48,25 +48,25 @@
 
 🚀 表示已经实现的功能
 
-| 里程碑                                                                 | 状态 |
-| ---------------------------------------------------------------------- | ---- |
-| 支持任意服务端框架与任意前端框架的组合使用。(Serverless/Midway/NestJS) + (React/Vue2/Vue3)             | 🚀   |
-| 支持 [vite](https://vite-design.surge.sh/) 作为构建工具在 SSR 场景下的组合[使用](http://doc.ssr-fc.com/docs/features$vite) |  🚀    |
-| 最小而美的实现服务端渲染功能                           | 🚀   |
-| 针对Serverless 场景对代码包的大小的严格限制，将生产环境的代码包大小做到极致            | 🚀   |
-| 同时支持约定式前端路由和声明式前端路由                            | 🚀   |
-| 摒弃传统模版引擎，所有页面元素统一使用前端组件作为 DSL          | 🚀   |
-| 同时支持四种渲染模式，提供服务端渲染一键降级为客户端渲染的能力                           | 🚀   |
-| 统一不同框架服务端客户端的数据获取方式，做到高度复用                                 | 🚀   |
-| 类型友好，全面拥抱 TS                                | 🚀   |
-| 支持无缝接入 [antd](https://github.com/ant-design/ant-design) [vant](https://vant-contrib.gitee.io/vant/#/) 无需修改任何配置                             | 🚀   |
-| 支持使用 less 作为 css 预处理器                                                | 🚀   |
-| 微前端场景下无缝[使用](http://doc.ssr-fc.com/docs/features$faq#%E4%B8%8E%20micro-app%20%E7%BB%93%E5%90%88%E4%BD%BF%E7%94%A8)              | 🚀   |
-| React Hooks 实现极简的[数据管理](http://doc.ssr-fc.com/docs/features$communication#React%20%E5%9C%BA%E6%99%AF)方案，摒弃传统的 redux/dva 等数据管理方案                         |    🚀  |
-| Vue3 场景提供 [Provide/Inject](http://doc.ssr-fc.com/docs/features$communication#Vue%20%E5%9C%BA%E6%99%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88) 代替 Vuex 进行跨组件通信                     |    🚀  |
-| 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用          | 🚀     |
-| ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台           | 🚀   |
-| ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                   | 🚀                               |
+| 里程碑                                                                                                                                                                  | 状态 |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---- |
+| 支持任意服务端框架与任意前端框架的组合使用。(Serverless/Midway/NestJS) + (React/Vue2/Vue3)                                                                              | 🚀   |
+| 支持 [vite](https://vite-design.surge.sh/) 作为构建工具在 SSR 场景下的组合[使用](http://doc.ssr-fc.com/docs/features$vite)                                              | 🚀   |
+| 最小而美的实现服务端渲染功能                                                                                                                                            | 🚀   |
+| 针对Serverless 场景对代码包的大小的严格限制，将生产环境的代码包大小做到极致                                                                                             | 🚀   |
+| 同时支持约定式前端路由和声明式前端路由                                                                                                                                  | 🚀   |
+| 摒弃传统模版引擎，所有页面元素统一使用前端组件作为 DSL                                                                                                                  | 🚀   |
+| 同时支持四种渲染模式，提供服务端渲染一键降级为客户端渲染的能力                                                                                                          | 🚀   |
+| 统一不同框架服务端客户端的数据获取方式，做到高度复用                                                                                                                    | 🚀   |
+| 类型友好，全面拥抱 TS                                                                                                                                                   | 🚀   |
+| 支持无缝接入 [antd](https://github.com/ant-design/ant-design) [vant](https://vant-contrib.gitee.io/vant/#/) 无需修改任何配置                                            | 🚀   |
+| 支持使用 less 作为 css 预处理器                                                                                                                                         | 🚀   |
+| 微前端场景下无缝[使用](http://doc.ssr-fc.com/docs/features$faq#%E4%B8%8E%20micro-app%20%E7%BB%93%E5%90%88%E4%BD%BF%E7%94%A8)                                            | 🚀   |
+| React Hooks 实现极简的[数据管理](http://doc.ssr-fc.com/docs/features$communication#React%20%E5%9C%BA%E6%99%AF)方案，摒弃传统的 redux/dva 等数据管理方案                 | 🚀   |
+| Vue3 场景提供 [Provide/Inject](http://doc.ssr-fc.com/docs/features$communication#Vue%20%E5%9C%BA%E6%99%AF%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88) 代替 Vuex 进行跨组件通信 | 🚀   |
+| 支持在阿里云 [云平台](https://zhuanlan.zhihu.com/p/139210473)创建使用                                                                                                   | 🚀   |
+| ssr deploy 一键部署到[阿里云](https://www.aliyun.com/)平台                                                                                                              | 🚀   |
+| ssr deploy --tencent 无需修改任何配置一键部署到[腾讯云](https://cloud.tencent.com/)平台                                                                                 | 🚀   |
 
 ## 哪些应用在使用
 
@@ -200,6 +200,7 @@
 ### 支持多种前端路由模式
 
 我们同时支持约定式路由和声明式路由两种模式，可以任意选择
+
 ### 内置常见流行 UI 框架构建配置
 
 接地气，`ssr` 框架契合实际业务开发。在服务端渲染场景使用 `UI 框架`是一件非常不简单的事情，我们内置对流行的 UI 框架 `ant-design` `vant` 的配置支持。无需用户做额外配置可直接安装使用
@@ -219,6 +220,7 @@
 ### 功能丰富
 
 功能丰富，UI 框架、代码分割、HMR、TS、Serverless、SSR 降级 CSR 开发所需要的功能应有尽有
+
 ### 默认示例丰富
 
 我们不提供 `hello world` 级别的示例。这对开发者没有任何帮助。默认创建的示例 cover 大多数真实线上应用场景，包含 服务端框架选择、前端调用 Node.js 接口的方式、前端页面路由跳转的数据获取，应用部署等所有功能用例在 `example` 中都有体现。我们拥有丰富的线上大规模 SSR 应用开发经验，用户使用过程中遇到的任何问题都有策略解决。

@@ -13,7 +13,12 @@
         </div>
         <!-- 文章内容（右）-循环 -->
         <div class="search_page_content_out">
-          <div v-for="(content, indexContent) in page.list" :key="indexContent" class="search_page_content" @click="handleClick(content)">
+          <div
+            v-for="(content, indexContent) in page.list"
+            :key="indexContent"
+            class="search_page_content"
+            @click="handleClick(content)"
+          >
             <div class="search_page_content_item">
               <div class="search_page_content_title">
                 {{ content.title }}
@@ -30,37 +35,34 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent } from "vue";
 
 export default defineComponent({
-  inject: ['asyncData'],
+  inject: ["asyncData"],
   props: {
     list: {
       type: Array,
-      default: []
-    }
+      default: [],
+    },
   },
-  data () {
-    return {
-    }
+  data() {
+    return {};
   },
-  computed: {
-  },
-  mounted () {
-  },
+  computed: {},
+  mounted() {},
   methods: {
-    handleClick (content) {
+    handleClick(content) {
       if (content.path) {
-        const path = `/docs/${content.path}#${encodeURIComponent(content.title)}`
-        window.open(path, '_self')
+        const path = `/docs/${content.path}#${encodeURIComponent(content.title)}`;
+        window.open(path, "_self");
       }
-    }
-  }
-})
+    },
+  },
+});
 </script>
 
-<style  lang="less">
-.matchTextHighlight{
+<style lang="less">
+.matchTextHighlight {
   font-weight: bold;
   color: var(--drake-code-single);
   background-color: var(--drake-code-single-bg);

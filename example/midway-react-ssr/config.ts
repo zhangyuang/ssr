@@ -1,5 +1,5 @@
-import type { UserConfig } from 'ssr-types'
+import type { UserConfig } from "ssr-types";
 
-const userConfig: UserConfig = {}
+const userConfig: UserConfig = {};
 
-export { userConfig }
+export { userConfig };

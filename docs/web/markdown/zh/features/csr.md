@@ -1,15 +1,16 @@
 # 渲染降级
- 
+
 相比于其他框架的功能。本框架还额外具备一键从 `服务端渲染` 降级为 `客户端渲染` 的功能
+
 ## 服务端和客户端渲染
 
-下面让我们来看看  `服务端渲染` 和 `客户端渲染` 有什么区别
+下面让我们来看看 `服务端渲染` 和 `客户端渲染` 有什么区别
 
 ### 区别
 
 `客户端渲染（client-side Renderingende)`, `HTML` 仅仅作为静态骨架，客户端在请求时，服务端不做任何处理，直接以原文件的形式返回给客户端客户端，然后根据 `HTML` 上的 `JavaScript`，生成 `DOM` 插入 HTML
 
- `服务端渲染（Server-Side Rendering`）,在浏览器请求页面URL的时候，服务端将我们需要的 `HTML` 文本组装好，并返回给浏览器，这个 `HTML` 文本被浏览器解析之后，不需要经过 `JavaScript` 脚本的执行，即可直接构建出希望的 DOM 树并展示到页面中。
+`服务端渲染（Server-Side Rendering`）,在浏览器请求页面URL的时候，服务端将我们需要的 `HTML` 文本组装好，并返回给浏览器，这个 `HTML` 文本被浏览器解析之后，不需要经过 `JavaScript` 脚本的执行，即可直接构建出希望的 DOM 树并展示到页面中。
 
 客户端渲染和服务器端渲染的最重要的区别就是究竟是谁来完成 `HTML` 文件的完整拼接，如果是在服务器端完成的，然后返回给客户端，就是服务器端渲染，而如果是客户端端做了更多的工作完成了 `HTML` 的拼接，则就是客户端渲染。
 
@@ -40,10 +41,11 @@
 ## 如何降级为客户端渲染
 
 在 `ssr` 框架中我们提供了多种降级到客户端渲染的方案
+
 ### URL Query 参数
 
-框架启动的时候默认使用服务端渲染方式，如果想要启用渲染降级，只需要在请求 `URL` 后面添加 `query` 参数 `?csr=xxx` 
- 
+框架启动的时候默认使用服务端渲染方式，如果想要启用渲染降级，只需要在请求 `URL` 后面添加 `query` 参数 `?csr=xxx`
+
 举个栗子， [http://ssr-fc.com](http://ssr-fc.com/) 网站默认启用了服务端渲染,可以明显感受到页面秒开，没有白屏等待时间，而添加参数后 [http://ssr-fc.com?csr=true](http://ssr-fc.com?csr=true)，也就是启动客户端渲染之后再打开网站，可以明显感受到有一定的白屏时间，具体表现为有一个页面闪烁的过程。
 
 此方案适用于开发者本地进行测试
@@ -65,21 +67,20 @@
 字符串的降级处理很简单，我们只需要 `try catch` 到错误后，直接修改渲染模式拿到新的结果即可。因为此时组件的渲染是在 `render` 方法被调用时就被渲染执行了
 
 ```js
-import { render } from 'ssr-core'
+import { render } from "ssr-core";
 
 try {
-  const htmlStr = await render(this.ctx)
-  return htmlStr
+  const htmlStr = await render(this.ctx);
+  return htmlStr;
 } catch (error) {
   const htmlStr = await render(this.ctx, {
-    mode: 'csr'
-  })
-  return htmlStr
+    mode: "csr",
+  });
+  return htmlStr;
 }
 ```
 
 当 `server` 出现问题的时候，这样的容灾做法是比较好的。更好的做法是网关层面，配置容灾，将请求打到 `cdn` 上。
-
 
 #### 处理 流 返回形式的降级
 
@@ -90,66 +91,89 @@ try {
 在 `Vue3` 的 `renderToNodeStream` 方法中，当渲染出错时会同步的将错误抛出。开发者可以在上层直接使用 `try catch` 捕获
 
 ```js
- try {
-    const stream = await render<Readable>(ctx, {
-      stream: true
-    })
-    stream.pipe(res, { end: false })
-    stream.on('end', () => {
-      res.end()
-    })
-  } catch (error) {
-    const stream = await render<Readable>(ctx, {
+try {
+  const stream =
+    (await render) <
+    Readable >
+    (ctx,
+    {
       stream: true,
-      mode: 'csr'
-    })
-    stream.pipe(res, { end: false })
-    stream.on('end', () => {
-      res.end()
-    })
-  }
-
+    });
+  stream.pipe(res, { end: false });
+  stream.on("end", () => {
+    res.end();
+  });
+} catch (error) {
+  const stream =
+    (await render) <
+    Readable >
+    (ctx,
+    {
+      stream: true,
+      mode: "csr",
+    });
+  stream.pipe(res, { end: false });
+  stream.on("end", () => {
+    res.end();
+  });
+}
 ```
 
 在 `Vue2/React` 中，它们会在底层通过 `stream.emit` 来触发 `error`, 这种情况需要开发者手动监听事件
 
 ```js
-const stream = await render<Readable>(ctx, {
-  stream: true
-})
-stream.pipe(res, { end: false })
-stream.on('error', async () => {
-  stream.destroy() // 销毁旧的错误流
-  const newStream = await render<Readable>(ctx, {
+const stream =
+  (await render) <
+  Readable >
+  (ctx,
+  {
     stream: true,
-    mode: 'csr'
-  })
-  newStream.pipe(res, { end: false })
-  newStream.on('end', () => {
-    res.end()
-  })
-})
-stream.on('end', () => {
-  res.end()
-})
+  });
+stream.pipe(res, { end: false });
+stream.on("error", async () => {
+  stream.destroy(); // 销毁旧的错误流
+  const newStream =
+    (await render) <
+    Readable >
+    (ctx,
+    {
+      stream: true,
+      mode: "csr",
+    });
+  newStream.pipe(res, { end: false });
+  newStream.on("end", () => {
+    res.end();
+  });
+});
+stream.on("end", () => {
+  res.end();
+});
 ```
 
 在 `Midway.js/Koa` 系框架中采用如下写法
 
 ```js
-const stream = await render<Readable>(this.ctx, {
-  stream: true,
-  mode: 'ssr'
-})
-stream.on('error', async () => {
-  stream.destroy()
-  const newStream = await render<string>(ctx, {
-    stream: false, // 这里只能用 string 形式来渲染 koa 无法二次赋值 stream 给 body
-    mode: 'csr'
-  })
-  this.ctx.res.end(newStream)
-})
-this.ctx.body = stream
+const stream =
+  (await render) <
+  Readable >
+  (this.ctx,
+  {
+    stream: true,
+    mode: "ssr",
+  });
+stream.on("error", async () => {
+  stream.destroy();
+  const newStream =
+    (await render) <
+    string >
+    (ctx,
+    {
+      stream: false, // 这里只能用 string 形式来渲染 koa 无法二次赋值 stream 给 body
+      mode: "csr",
+    });
+  this.ctx.res.end(newStream);
+});
+this.ctx.body = stream;
 ```
 
 ## 实现机制
@@ -159,14 +183,14 @@ this.ctx.body = stream
 在看完上述的 `服务端渲染` 应用和 `客户端渲染` 应用的区别后，我们可以发现在降级为客户端渲染后，我们无需在服务端渲染页面组件以及数据的获取。而仅仅渲染一个空的 `html` 骨架即可。`React` 场景通过代码来表示如下
 
 ```js
-const layoutFetchData = (!isCsr && layoutFetch) ? await layoutFetch(ctx) : null
-const fetchData = (!isCsr && routeItem.fetch) ? await routeItem.fetch(ctx) : null
+const layoutFetchData = !isCsr && layoutFetch ? await layoutFetch(ctx) : null;
+const fetchData = !isCsr && routeItem.fetch ? await routeItem.fetch(ctx) : null;
 
 return (
   <Layout ctx={ctx} config={config} staticList={staticList} viteReactScript={viteReactScript}>
     {isCsr ? <></> : <Component />}
   </Layout>
-)
+);
 ```
 
 可以非常轻易的看出实现原理。同样在 `Vue` 场景我们通过 `slot` 实现了类似的功能

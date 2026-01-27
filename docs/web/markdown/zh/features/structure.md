@@ -29,15 +29,15 @@
 
 ```js
 // utils/foo.ts
-import * as fs from 'fs'
+import * as fs from "fs";
 
 // utils/bar.ts
-const bar = window.bar
-export default bar
+const bar = window.bar;
+export default bar;
 
 // utils/index.ts
-export * from './foo'
-export * from './bar'
+export * from "./foo";
+export * from "./bar";
 ```
 
 但是这种思路是未来的发展趋势。我们后续也会考虑如何更好的组织目录结构以便于前后端能够共享环境无关的代码
@@ -82,7 +82,7 @@ export * from './bar'
 │   │   │        ├── fetch.ts
 │   │   │        └── render$id.tsx # 多级路由按照规则映射为 /detail/user/:id
 │   │   │        └── render$user$id.tsx # 多参数路由映射为 /detail/user/:user/:id
-│   │   ├── bar 
+│   │   ├── bar
 │   │   │   ├── fetch.ts
 │   │   │   └── render.tsx
 │   │   │   ├── fetch$id.ts
@@ -95,4 +95,3 @@ export * from './bar'
 关于 `fetch.ts` 文件更加详细的了解可以阅读[数据获取](./features$fetch)章节
 
 关于 `config.js` 文件更加详细的了解可以阅读[应用配置](./api$config)章节
-

@@ -1,16 +1,16 @@
-const { accessSync } = require('fs')
-const { resolve } = require('path')
+const { accessSync } = require("fs");
+const { resolve } = require("path");
 
 const accessFileSync = (file) => {
-  let res = true
+  let res = true;
   try {
-    accessSync(file)
+    accessSync(file);
   } catch (error) {
-    res = false
+    res = false;
   }
-  return res
-}
-const compatible = resolve(__dirname, './cjs/server/compatible.js')
+  return res;
+};
+const compatible = resolve(__dirname, "./cjs/server/compatible.js");
 if (accessFileSync(compatible)) {
-  require(compatible)
+  require(compatible);
 }

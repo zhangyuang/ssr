@@ -15,40 +15,40 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import markdownIt from 'markdown-it'
-import markdownItAnchor from 'markdown-it-anchor'
-import markdownItTocDoneRight from 'markdown-it-toc-done-right'
-import SideMenu from './components/sideMenu/index.vue'
-import bottomNav from './components/bottomNav/index.vue'
-import hljs from 'highlight.js'
-import 'highlight.js/styles/atom-one-dark.css'
+import { defineComponent } from "vue";
+import markdownIt from "markdown-it";
+import markdownItAnchor from "markdown-it-anchor";
+import markdownItTocDoneRight from "markdown-it-toc-done-right";
+import SideMenu from "./components/sideMenu/index.vue";
+import bottomNav from "./components/bottomNav/index.vue";
+import hljs from "highlight.js";
+import "highlight.js/styles/atom-one-dark.css";
 
 export default defineComponent({
   components: {
     SideMenu,
-    bottomNav
+    bottomNav,
   },
-  inject: ['asyncData'],
-  data () {
+  inject: ["asyncData"],
+  data() {
     return {
-      html: '' as string,
-      sideMenuList: []
-    }
+      html: "" as string,
+      sideMenuList: [],
+    };
   },
   watch: {
     asyncData: {
-      handler (val) {
-        this.renderHtml(val.value.docsContent)
+      handler(val) {
+        this.renderHtml(val.value.docsContent);
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
-  created () {
-    this.renderHtml(this.asyncData.value.docsContent)
+  created() {
+    this.renderHtml(this.asyncData.value.docsContent);
   },
   methods: {
-    renderHtml (content) {
+    renderHtml(content) {
       const md = markdownIt({
         html: true,
         linkify: true,
@@ -56,30 +56,30 @@ export default defineComponent({
         highlight: function (str, lang) {
           if (lang && hljs.getLanguage(lang)) {
             try {
-              return `<pre><code class="hljs">${hljs.highlight(str, {
-                language: lang
-              }).value}</code></pre>`
+              return `<pre><code class="hljs">${
+                hljs.highlight(str, {
+                  language: lang,
+                }).value
+              }</code></pre>`;
             } catch (__) {}
           }
-          return '<pre><code class="hljs">' + md.utils.escapeHtml(str) + '</code></pre>'
-        }
-      })
-      md.enable(['link'])
-        .enable('image')
-        .enable('table')
+          return '<pre><code class="hljs">' + md.utils.escapeHtml(str) + "</code></pre>";
+        },
+      });
+      md.enable(["link"]).enable("image").enable("table");
 
       md.use(markdownItAnchor, {
-        slugify: (s) => s
-      })
+        slugify: (s) => s,
+      });
       md.use(markdownItTocDoneRight, {
         callback: (_, ast) => {
-          this.sideMenuList = ast.c
-        }
-      })
-      this.html = md.render(content)
-    }
-  }
-})
+          this.sideMenuList = ast.c;
+        },
+      });
+      this.html = md.render(content);
+    },
+  },
+});
 </script>
 
 <style lang="less" scoped>
@@ -87,9 +87,8 @@ export default defineComponent({
 </style>
 
 <style lang="less">
-
 .hljs {
-  border-radius: .25rem;
+  border-radius: 0.25rem;
 
   code {
     color: initial;
@@ -111,7 +110,7 @@ pre {
 code {
   background-color: var(--drake-code-single-bg);
   color: var(--drake-code-single);
-  padding: .25rem;
+  padding: 0.25rem;
   font-style: normal;
 }
 </style>

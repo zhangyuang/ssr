@@ -1,77 +1,79 @@
 import {
-	getBuildConfig,
-	getOutputPublicPath,
-	loadConfig,
-	judgeFramework,
-	loadModuleFromFramework,
-	terserConfig,
-	getBuildEntry
-} from 'ssr-common-utils'
-import WebpackChain from 'webpack-chain'
-import { getSplitChunksOptions, splitChunkPlugin } from '../utils/split-chunk'
+  getBuildConfig,
+  getOutputPublicPath,
+  loadConfig,
+  judgeFramework,
+  loadModuleFromFramework,
+  terserConfig,
+  getBuildEntry,
+} from "ssr-common-utils";
+import WebpackChain from "webpack-chain";
+import { getSplitChunksOptions, splitChunkPlugin } from "../utils/split-chunk";
 
-import { getBaseConfig } from './base-config'
+import { getBaseConfig } from "./base-config";
 
-const safePostCssParser = require('postcss-safe-parser')
+const safePostCssParser = require("postcss-safe-parser");
 
 const getClientWebpack = (chain: WebpackChain) => {
-	const { isDev, chunkName, getOutput, chainClientConfig, host, fePort } = loadConfig()
-	const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP)
-	const publicPath = getOutputPublicPath()
+  const { isDev, chunkName, getOutput, chainClientConfig, host, fePort } = loadConfig();
+  const shouldUseSourceMap = isDev || Boolean(process.env.GENERATE_SOURCEMAP);
+  const publicPath = getOutputPublicPath();
 
-	getBaseConfig(chain, false)
-	const buildConfig = getBuildConfig()
-	chain
-		.entry(chunkName)
-		.add(getBuildEntry().client)
-		.end()
-		.output.path(getOutput().clientOutPut)
-		.filename(buildConfig.jsBuldConfig.fileName)
-		.chunkFilename(buildConfig.jsBuldConfig.chunkFileName)
-		.publicPath(publicPath)
-		.end()
-	chain.optimization
-		.runtimeChunk(true)
-		.splitChunks(getSplitChunksOptions())
-		.when(!isDev, (optimization) => {
-			optimization.minimizer('terser').use('terser-webpack-plugin', [terserConfig(false)])
-			optimization.minimizer('optimize-css').use('optimize-css-assets-webpack-plugin', [
-				{
-					cssProcessorOptions: {
-						parser: safePostCssParser,
-						map: shouldUseSourceMap
-							? {
-									inline: false,
-									annotation: true
-								}
-							: false
-					}
-				}
-			])
-		})
-	if (judgeFramework() === 'ssr-plugin-react') {
-		chain.when(isDev, (chain) => {
-			const ReactRefreshWebpackPlugin = require(loadModuleFromFramework('@pmmmwh/react-refresh-webpack-plugin'))
-			chain.plugin('fast-refresh').use(
-				new ReactRefreshWebpackPlugin({
-					overlay: {
-						sockHost: host,
-						sockPort: fePort
-					}
-				})
-			)
-		})
-	}
-	chain.plugin('splitChunkPlugin').use(splitChunkPlugin)
-	chain.plugin('manifest').use('webpack-manifest-plugin', [
-		{
-			fileName: 'asset-manifest.json'
-		}
-	])
+  getBaseConfig(chain, false);
+  const buildConfig = getBuildConfig();
+  chain
+    .entry(chunkName)
+    .add(getBuildEntry().client)
+    .end()
+    .output.path(getOutput().clientOutPut)
+    .filename(buildConfig.jsBuldConfig.fileName)
+    .chunkFilename(buildConfig.jsBuldConfig.chunkFileName)
+    .publicPath(publicPath)
+    .end();
+  chain.optimization
+    .runtimeChunk(true)
+    .splitChunks(getSplitChunksOptions())
+    .when(!isDev, (optimization) => {
+      optimization.minimizer("terser").use("terser-webpack-plugin", [terserConfig(false)]);
+      optimization.minimizer("optimize-css").use("optimize-css-assets-webpack-plugin", [
+        {
+          cssProcessorOptions: {
+            parser: safePostCssParser,
+            map: shouldUseSourceMap
+              ? {
+                  inline: false,
+                  annotation: true,
+                }
+              : false,
+          },
+        },
+      ]);
+    });
+  if (judgeFramework() === "ssr-plugin-react") {
+    chain.when(isDev, (chain) => {
+      const ReactRefreshWebpackPlugin = require(
+        loadModuleFromFramework("@pmmmwh/react-refresh-webpack-plugin"),
+      );
+      chain.plugin("fast-refresh").use(
+        new ReactRefreshWebpackPlugin({
+          overlay: {
+            sockHost: host,
+            sockPort: fePort,
+          },
+        }),
+      );
+    });
+  }
+  chain.plugin("splitChunkPlugin").use(splitChunkPlugin);
+  chain.plugin("manifest").use("webpack-manifest-plugin", [
+    {
+      fileName: "asset-manifest.json",
+    },
+  ]);
 
-	chainClientConfig(chain)
+  chainClientConfig(chain);
 
-	return chain.toConfig()
-}
+  return chain.toConfig();
+};
 
-export { getClientWebpack }
+export { getClientWebpack };

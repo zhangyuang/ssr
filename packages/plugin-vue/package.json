@@ -2,33 +2,30 @@
   "name": "ssr-plugin-vue",
   "version": "7.0.4",
   "description": "plugin-vue for ssr",
-  "main": "./cjs/index.js",
-  "module": "./esm/index.js",
-  "sideEffects": false,
-  "scripts": {
-    "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
-    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
+  "keywords": [
+    "cli",
+    "react",
+    "serverless",
+    "ssr",
+    "vue"
+  ],
+  "homepage": "https://github.com/zhangyuang/ssr#readme",
+  "bugs": {
+    "url": "https://github.com/zhangyuang/ssr/issues"
   },
+  "license": "MIT",
+  "author": "zhangyuang",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zhangyuang/ssr.git"
   },
-  "keywords": [
-    "cli",
-    "serverless",
-    "ssr",
-    "vue",
-    "react"
-  ],
-  "author": "zhangyuang",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/zhangyuang/ssr/issues"
+  "sideEffects": false,
+  "main": "./cjs/index.js",
+  "module": "./esm/index.js",
+  "scripts": {
+    "build": "concurrently \"tsc -p ./tsconfig.cjs.json \" \" tsc -p ./tsconfig.esm.json\"",
+    "watch": "concurrently \"tsc -w -p ./tsconfig.cjs.json \" \"tsc -w -p ./tsconfig.esm.json \""
   },
-  "engines": {
-    "node": ">=14.17.0"
-  },
-  "homepage": "https://github.com/zhangyuang/ssr#readme",
   "dependencies": {
     "ssr-common-utils": "workspace:*",
     "ssr-types": "workspace:*",
@@ -36,14 +33,17 @@
     "vue": "^2.0.0",
     "vue-loader": "^15.0.0",
     "vue-router": "^3.6.5",
+    "vue-server-renderer": "^2.7.8",
     "vue-template-compiler": "^2.7.8",
-    "vuex": "^3.6.2",
-    "vue-server-renderer": "^2.7.8"
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "ssr-types": "workspace:*",
-    "ssr-webpack": "workspace:*",
     "@types/webpack": "^4.41.10",
-    "concurrently": "^5.1.0"
+    "concurrently": "^5.1.0",
+    "ssr-types": "workspace:*",
+    "ssr-webpack": "workspace:*"
+  },
+  "engines": {
+    "node": ">=14.17.0"
   }
 }

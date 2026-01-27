@@ -21,8 +21,6 @@ jobs:
         with:
           fetch-depth: 0
 
-
-
       - name: Enable corepack
         run: corepack enable
 
@@ -32,7 +30,6 @@ jobs:
           echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
           echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
 
-
       - name: Set node version
         uses: actions/setup-node@v4
         with:
@@ -40,7 +37,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Lint
         run: pnpm lint
@@ -87,9 +84,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -105,7 +102,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
 
       - name: Build packages
@@ -138,9 +135,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -156,7 +153,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
 
       - name: Build packages
@@ -172,7 +169,6 @@ jobs:
           pnpm example:nestjs:react:prod &
           npx wait-on http://localhost:3000
           pnpm e2e tests/noswiper.spec.ts --project=chromium
-
 
   e2e-chrome-nestjs-react18-prod:
     if: ${{ !contains(github.event.head_commit.message, 'skip ci') && !contains(github.event.head_commit.message, '.md')}}
@@ -190,9 +186,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -208,7 +204,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
 
       - name: Build packages
@@ -241,9 +237,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -260,11 +256,11 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
-            pnpm build
+          pnpm build
 
       - name: Install Playwright browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
@@ -291,9 +287,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -310,11 +306,11 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
-            pnpm build
+          pnpm build
 
       - name: Install Playwright browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
@@ -341,9 +337,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -359,7 +355,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -390,9 +386,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -408,7 +404,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -439,9 +435,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -457,7 +453,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -489,9 +485,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -507,7 +503,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -538,9 +534,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -556,7 +552,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -588,9 +584,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -606,7 +602,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -638,9 +634,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -656,7 +652,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -688,9 +684,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -706,7 +702,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -738,9 +734,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -756,7 +752,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -788,9 +784,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -806,11 +802,11 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
-           pnpm build
+          pnpm build
 
       - name: Install Playwright browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
@@ -838,9 +834,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -856,7 +852,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -887,9 +883,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -905,7 +901,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -937,9 +933,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -955,7 +951,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -986,9 +982,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -1004,7 +1000,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -1038,9 +1034,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -1056,7 +1052,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -1088,9 +1084,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -1106,7 +1102,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -1138,9 +1134,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -1156,7 +1152,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -1188,9 +1184,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -1206,7 +1202,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force && pnpm add -g wait-on
       - name: Build packages
         run: |
@@ -1262,9 +1258,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-             ~/.cache/ms-playwright
+            ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-          
+
       - name: Enable corepack
         run: corepack enable
       - name: Setup pnpm
@@ -1280,7 +1276,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf node_modules
-          
+
           pnpm install --no-frozen-lockfile --force
       - name: Build packages
         run: |
