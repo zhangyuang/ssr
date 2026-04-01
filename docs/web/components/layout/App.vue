@@ -10,6 +10,8 @@
 import { defineComponent, reactive, provide } from "vue";
 import Header from "@/components/header/index.vue";
 import Footer from "@/components/footer/index.vue";
+import { getWebSiteConfig } from "@/config/index";
+console.log(getWebSiteConfig);
 
 export default defineComponent({
   components: {
