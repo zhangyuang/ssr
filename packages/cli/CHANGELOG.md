@@ -1,3 +1,32 @@
+## [7.0.6](https://github.com/zhangyuang/ssr/compare/cli@7.0.5...cli@7.0.6) (2026-04-08)
+
+### Bug Fixes
+
+- add default vendorlist ([ee5eb02](https://github.com/zhangyuang/ssr/commit/ee5eb02b2db8230a7c49c70557060382ba5ecf25))
+- collect modules in rspack ([e5e3d7d](https://github.com/zhangyuang/ssr/commit/e5e3d7d576269fe237165937e2354ad8f425a035))
+- collect Page chunk modules in entry file ([b5e4d12](https://github.com/zhangyuang/ssr/commit/b5e4d128b7c2d4032e26a18a9e084e07539f5d20))
+- docs dependencies split chunk bug .md ([082fd21](https://github.com/zhangyuang/ssr/commit/082fd212716b72445aaeb7c97310ad99ae75ba1c))
+- find module chunk name deep search ([7d7453b](https://github.com/zhangyuang/ssr/commit/7d7453b16d65cdd6304478ea4ec0cab274e4c461))
+- **rspack|webpack:** collect top-level chunkName correct ([1620d90](https://github.com/zhangyuang/ssr/commit/1620d90bf02a796f2567e2a7a55ddd20c70f433b))
+- set base in ssr-plugin-vue3 server-entry ([a615504](https://github.com/zhangyuang/ssr/commit/a615504cb0c94a4011e3821143a768d7dc13c442))
+- use origin proxy object in react valtio ([fb37083](https://github.com/zhangyuang/ssr/commit/fb37083fa0041142dfc69389a01eb998666c7590))
+
+### Features
+
+- preload fetch chunk ([cbd05b2](https://github.com/zhangyuang/ssr/commit/cbd05b231deac7b4072b071d6c6a0b25dc99ca92))
+- register postcss-loader with css file when configure postcss ([976eb91](https://github.com/zhangyuang/ssr/commit/976eb913b9ade28643e246b1276afcb87645b11a))
+- support config defaultScriptProps ([0b8de7c](https://github.com/zhangyuang/ssr/commit/0b8de7c750d2700152483794cccffc2205a47992))
+- update route parse logic, use () to mark optional params ([b9e9a90](https://github.com/zhangyuang/ssr/commit/b9e9a90752763e006024735e97de038eecf3e169))
+- update rspack split-chunk ([16e4134](https://github.com/zhangyuang/ssr/commit/16e413402a0ef5957caeff6ea9384cba2c894dd0))
+- update start tips for local area network in nestjs close [#355](https://github.com/zhangyuang/ssr/issues/355) ([f846e71](https://github.com/zhangyuang/ssr/commit/f846e7107c366e95305573e2045cc0b21201012f))
+- update vite split-chunk ([baf33d2](https://github.com/zhangyuang/ssr/commit/baf33d2a1ae9eab09d5df093bf2f749625bd3cdd))
+- update webpack split-chunk ([f9ac566](https://github.com/zhangyuang/ssr/commit/f9ac5662e138e9d8e6e537e69ccb45d736d66870))
+- upgrade rolldown-vite, set server.ws option avoid socket conflict error ([f5d9676](https://github.com/zhangyuang/ssr/commit/f5d96762485d2086070680f236bc809b819d1f74))
+- use incoming replace outcoming to find correct chunkName ([20f4769](https://github.com/zhangyuang/ssr/commit/20f4769a6f6bc47cb7ccbb8891295ec600124642))
+- use playwright replace cypress ([5fbd540](https://github.com/zhangyuang/ssr/commit/5fbd54019e7fed89a2cfa54f222f76fe21241d63))
+- **vite:** use incoming replace outcoming to find correct chunkName ([505763c](https://github.com/zhangyuang/ssr/commit/505763cf423a341795d30fc7dd0b52eadb1f3c82))
+- watch node_modules/ssr-plugin in rspack watch mode ([f8ce633](https://github.com/zhangyuang/ssr/commit/f8ce6337eb8254b867706f2c64b3bbe9e86445b1))
+
 ## [7.0.5](https://github.com/zhangyuang/ssr/compare/cli@7.0.4...cli@7.0.5) (2025-08-10)
 
 ### Bug Fixes

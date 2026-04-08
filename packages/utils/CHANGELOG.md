@@ -1,3 +1,22 @@
+## [7.0.12](https://github.com/zhangyuang/ssr/compare/utils@7.0.11...utils@7.0.12) (2026-04-08)
+
+### Bug Fixes
+
+- docs dependencies split chunk bug .md ([082fd21](https://github.com/zhangyuang/ssr/commit/082fd212716b72445aaeb7c97310ad99ae75ba1c))
+- use origin proxy object in react valtio ([fb37083](https://github.com/zhangyuang/ssr/commit/fb37083fa0041142dfc69389a01eb998666c7590))
+
+### Features
+
+- register postcss-loader with css file when configure postcss ([976eb91](https://github.com/zhangyuang/ssr/commit/976eb913b9ade28643e246b1276afcb87645b11a))
+- support config defaultScriptProps ([0b8de7c](https://github.com/zhangyuang/ssr/commit/0b8de7c750d2700152483794cccffc2205a47992))
+- update route parse logic, use () to mark optional params ([b9e9a90](https://github.com/zhangyuang/ssr/commit/b9e9a90752763e006024735e97de038eecf3e169))
+- update rspack split-chunk ([16e4134](https://github.com/zhangyuang/ssr/commit/16e413402a0ef5957caeff6ea9384cba2c894dd0))
+- update start tips for local area network in nestjs close [#355](https://github.com/zhangyuang/ssr/issues/355) ([f846e71](https://github.com/zhangyuang/ssr/commit/f846e7107c366e95305573e2045cc0b21201012f))
+- update vite split-chunk ([baf33d2](https://github.com/zhangyuang/ssr/commit/baf33d2a1ae9eab09d5df093bf2f749625bd3cdd))
+- update webpack split-chunk ([f9ac566](https://github.com/zhangyuang/ssr/commit/f9ac5662e138e9d8e6e537e69ccb45d736d66870))
+- upgrade rolldown-vite, set server.ws option avoid socket conflict error ([f5d9676](https://github.com/zhangyuang/ssr/commit/f5d96762485d2086070680f236bc809b819d1f74))
+- use playwright replace cypress ([5fbd540](https://github.com/zhangyuang/ssr/commit/5fbd54019e7fed89a2cfa54f222f76fe21241d63))
+
 ## [7.0.11](https://github.com/zhangyuang/ssr/compare/utils@7.0.9...utils@7.0.11) (2025-08-17)
 
 ## [7.0.10](https://github.com/zhangyuang/ssr/compare/utils@7.0.9...utils@7.0.10) (2025-08-17)

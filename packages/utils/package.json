@@ -1,6 +1,6 @@
 {
   "name": "ssr-common-utils",
-  "version": "7.0.11",
+  "version": "7.0.12",
   "description": "utils for serverless ssr",
   "keywords": [
     "cli",

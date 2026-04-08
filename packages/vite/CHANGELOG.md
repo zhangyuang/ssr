@@ -1,3 +1,13 @@
+## [7.0.14](https://github.com/zhangyuang/ssr/compare/vite@7.0.13...vite@7.0.14) (2026-04-08)
+
+### Bug Fixes
+
+- docs dependencies split chunk bug .md ([082fd21](https://github.com/zhangyuang/ssr/commit/082fd212716b72445aaeb7c97310ad99ae75ba1c))
+
+### Features
+
+- update route parse logic, use () to mark optional params ([b9e9a90](https://github.com/zhangyuang/ssr/commit/b9e9a90752763e006024735e97de038eecf3e169))
+
 ## [7.0.13](https://github.com/zhangyuang/ssr/compare/vite@7.0.12...vite@7.0.13) (2026-01-16)
 
 ### Bug Fixes
