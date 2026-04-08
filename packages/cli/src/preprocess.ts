@@ -13,6 +13,16 @@ export const handleEnv = async (argv: Argv) => {
     throw new Error(`ssr-${process.env.BUILD_TOOL} is not installed`);
   }
   if (process.env.BUILD_TOOL === "vite") {
+    const pkg = require(resolve(cwd, "./package.json"));
+    const allDeps = { ...pkg.dependencies, ...pkg.devDependencies };
+    if (!allDeps.vite || !allDeps.vite.includes("rolldown-vite")) {
+      console.warn(
+        '\x1b[33m[ssr-vite] Warning: "vite" is not aliased to "rolldown-vite" in your package.json.\n' +
+          "Please add the following to your package.json dependencies or devDependencies:\n\n" +
+          '  "vite": "npm:rolldown-vite@latest"\n\n' +
+          "Then run `yarn install` to install it. We recommend using yarn as the package manager.\x1b[0m\n",
+      );
+    }
     mkdir("-p", resolve(cwd, "./build"));
     await promises.writeFile(
       resolve(cwd, "./build/tag.json"),

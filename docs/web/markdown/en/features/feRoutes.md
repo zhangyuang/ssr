@@ -44,9 +44,15 @@ Dynamic routes are routes with parameters, such as `/user/:id`.
 
 ### Optional Parameter Routes
 
-Can be used in both `React|Vue` scenarios. Since the `?` symbol cannot be used as a filename, we need to use the `#` symbol instead.
+Can be used in both `React|Vue` scenarios. Since the `?` symbol cannot be used as a filename, we use `()` to wrap the parameter name to indicate optional parameters (following the `Remix` convention).
+
+- `/index/render$(id).vue` maps to `/:id?`
+
+The legacy `#` syntax is still supported for backward compatibility:
 
 - `/index/render$id#.vue` maps to `/:id?`
+
+`Note: The # character in filenames is not recognized correctly by rspack. Please use the new () syntax instead.`
 
 ### Wildcard Routes
 

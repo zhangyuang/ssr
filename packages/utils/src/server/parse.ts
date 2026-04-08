@@ -180,6 +180,7 @@ const getDynamicParam = (url: string) => {
     .map((r) =>
       r
         .replace(/\.[\s\S]+/, "")
+        .replace(/^\((.+)\)$/, "$1?")
         .replace("#", "?")
         .replace("&", "*"),
     )
