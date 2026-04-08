@@ -37,7 +37,7 @@ Use the latest `create-ssr-app` to initialize v7 (recommended) or v6 project tem
 ```bash
 $ npm init ssr-app@latest my-ssr-project
 ```
- 
+
 ## Introduction
 
 The `ssr` framework is an out-of-the-box server-side rendering framework built for frontend frameworks in server-side rendering scenarios. To understand what server-side rendering is, please check the [documentation](http://doc.ssr-fc.com/docs/features$ssr).

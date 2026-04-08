@@ -1,6 +1,6 @@
 {
   "name": "ssr-vite",
-  "version": "7.0.14",
+  "version": "7.0.15",
   "description": "vite config for serverless ssr",
   "keywords": [
     "react",

@@ -1,3 +1,9 @@
+## [7.0.15](https://github.com/zhangyuang/ssr/compare/vite@7.0.14...vite@7.0.15) (2026-04-08)
+
+### Features
+
+- use @vitejs/plugin-react replace @vitejs/plugin-react-oxc ([c053ef7](https://github.com/zhangyuang/ssr/commit/c053ef711dc5884e9a7056d7d111fe200b08aaf0))
+
 ## [7.0.14](https://github.com/zhangyuang/ssr/compare/vite@7.0.13...vite@7.0.14) (2026-04-08)
 
 ### Bug Fixes

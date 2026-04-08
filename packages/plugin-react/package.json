@@ -1,6 +1,6 @@
 {
   "name": "ssr-plugin-react",
-  "version": "7.0.6",
+  "version": "7.0.7",
   "description": "plugin-react for ssr",
   "keywords": [
     "cli",

@@ -1,3 +1,15 @@
+## [7.0.7](https://github.com/zhangyuang/ssr/compare/plugin-react@7.0.6...plugin-react@7.0.7) (2026-04-08)
+
+### Bug Fixes
+
+- docs dependencies split chunk bug .md ([082fd21](https://github.com/zhangyuang/ssr/commit/082fd212716b72445aaeb7c97310ad99ae75ba1c))
+
+### Features
+
+- update route parse logic, use () to mark optional params ([b9e9a90](https://github.com/zhangyuang/ssr/commit/b9e9a90752763e006024735e97de038eecf3e169))
+- upgrade rolldown-vite, set server.ws option avoid socket conflict error ([f5d9676](https://github.com/zhangyuang/ssr/commit/f5d96762485d2086070680f236bc809b819d1f74))
+- use @vitejs/plugin-react replace @vitejs/plugin-react-oxc ([c053ef7](https://github.com/zhangyuang/ssr/commit/c053ef711dc5884e9a7056d7d111fe200b08aaf0))
+
 ## [7.0.6](https://github.com/zhangyuang/ssr/compare/plugin-react@7.0.5...plugin-react@7.0.6) (2025-12-03)
 
 ### Bug Fixes
