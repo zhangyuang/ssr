@@ -950,11 +950,8 @@ importers:
         specifier: ^0.5.5
         version: 0.5.17(@types/webpack@4.41.40)(react-refresh@0.17.0)(sockjs-client@1.6.1)(type-fest@0.21.3)(webpack-dev-server@5.2.2(webpack@5.101.0(esbuild@0.14.48)))(webpack@5.101.0(esbuild@0.14.48))
       '@vitejs/plugin-react':
-        specifier: ^4.0.0
-        version: 4.7.0(rolldown-vite@7.3.1(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3))
-      '@vitejs/plugin-react-oxc':
-        specifier: ^0.3.0
-        version: 0.3.0(rolldown-vite@7.3.1(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3))
+        specifier: ^6.0.1
+        version: 6.0.1(rolldown-vite@7.3.1(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3))
       babel-preset-react-app:
         specifier: ^10.0.0
         version: 10.1.0
@@ -2005,18 +2002,6 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@babel/plugin-transform-react-jsx-self@7.27.1':
-    resolution: {integrity: sha512-6UzkCs+ejGdZ5mFFC/OCUrv028ab2fp1znZmCZjAOBKiBK2jXD1O+BPSfX8X2qjJ75fZBMSnQn3Rq2mrBJK2mw==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-
-  '@babel/plugin-transform-react-jsx-source@7.27.1':
-    resolution: {integrity: sha512-zbwoTsBruTeKB9hSq73ha66iFeJHuaFkUbwvqElnygoNbj/jHRsSeokowZFN3CZ64IvEqcmmkVe89OPXc7ldAw==}
-    engines: {node: '>=6.9.0'}
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-
   '@babel/plugin-transform-react-jsx@7.27.1':
     resolution: {integrity: sha512-2KH4LWGSrJIkVf5tSiBFYuXDAoWRq2MMwgivCf+93dd0GQi8RXLjKA/0EvRnVV5G0hrHczsquXuD01L8s6dmBw==}
     engines: {node: '>=6.9.0'}
@@ -3005,9 +2990,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@rolldown/pluginutils@1.0.0-beta.27':
-    resolution: {integrity: sha512-+d0F4MKMCbeVUJwG96uQ4SgAznZNSq93I3V+9NHA4OpvqG8mRCpGdKmK8l/dl02h2CCDHwW2FqilnTyDcAnqjA==}
-
   '@rolldown/pluginutils@1.0.0-beta.29':
     resolution: {integrity: sha512-NIJgOsMjbxAXvoGq/X0gD7VPMQ8j9g0BiDaNjVNVjvl+iKXxL3Jre0v31RmBYeLEmkbj2s02v8vFTbUXi5XS2Q==}
 
@@ -3016,6 +2998,9 @@ packages:
 
   '@rolldown/pluginutils@1.0.0-beta.53':
     resolution: {integrity: sha512-vENRlFU4YbrwVqNDZ7fLvy+JR1CRkyr01jhSiDpE1u6py3OMzQfztQU2jxykW3ALNxO4kSlqIDeYyD0Y9RcQeQ==}
+
+  '@rolldown/pluginutils@1.0.0-rc.7':
+    resolution: {integrity: sha512-qujRfC8sFVInYSPPMLQByRh7zhwkGFS4+tyMQ83srV1qrxL4g8E2tyxVVyxd0+8QeBM1mIk9KbWxkegRr76XzA==}
 
   '@rollup/plugin-babel@5.3.1':
     resolution: {integrity: sha512-WFfdLWU/xVWKeRQnKmIAQULUI7Il0gZnBIH/ZFO069wYIfPu+8zrfp/KMW0atmELoRDq8FbiP3VCss9MhCut7Q==}
@@ -3484,17 +3469,18 @@ packages:
     resolution: {integrity: sha512-16ePj2GkwjomvE0HLL5ny+d+sudOwvZNYW8vjpMh3cyWdFxoMI8KSQiolVxeHBULbU1C5mVxLK5nL9NtnnpIew==}
     hasBin: true
 
-  '@vitejs/plugin-react-oxc@0.3.0':
-    resolution: {integrity: sha512-OaqaDIc74NNuqH1xKGbGoErpKP8L1XlxBQsfWvIUfpQaDCe5El9Ac5mPrvn/Dg0pv3xKB/PNm4Wirxr6hnKu/A==}
-    engines: {node: '>=20.0.0'}
+  '@vitejs/plugin-react@6.0.1':
+    resolution: {integrity: sha512-l9X/E3cDb+xY3SWzlG1MOGt2usfEHGMNIaegaUGFsLkb3RCn/k8/TOXBcab+OndDI4TBtktT8/9BwwW8Vi9KUQ==}
+    engines: {node: ^20.19.0 || >=22.12.0}
     peerDependencies:
+      '@rolldown/plugin-babel': ^0.1.7 || ^0.2.0
+      babel-plugin-react-compiler: ^1.0.0
       vite: npm:rolldown-vite@latest
-
-  '@vitejs/plugin-react@4.7.0':
-    resolution: {integrity: sha512-gUu9hwfWvvEDBBmgtAowQCojwZmJ5mcLn3aufeCsitijs3+f2NsrPtlAWIR6OPiqljl96GVCUbLe0HyqIpVaoA==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    peerDependencies:
-      vite: npm:rolldown-vite@latest
+    peerDependenciesMeta:
+      '@rolldown/plugin-babel':
+        optional: true
+      babel-plugin-react-compiler:
+        optional: true
 
   '@vitejs/plugin-vue-jsx@5.0.1':
     resolution: {integrity: sha512-X7qmQMXbdDh+sfHUttXokPD0cjPkMFoae7SgbkF9vi3idGUKmxLcnU2Ug49FHwiKXebfzQRIm5yK3sfCJzNBbg==}
@@ -10362,16 +10348,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-transform-react-jsx-self@7.27.1(@babel/core@7.28.0)':
-    dependencies:
-      '@babel/core': 7.28.0
-      '@babel/helper-plugin-utils': 7.27.1
-
-  '@babel/plugin-transform-react-jsx-source@7.27.1(@babel/core@7.28.0)':
-    dependencies:
-      '@babel/core': 7.28.0
-      '@babel/helper-plugin-utils': 7.27.1
-
   '@babel/plugin-transform-react-jsx@7.27.1(@babel/core@7.28.0)':
     dependencies:
       '@babel/core': 7.28.0
@@ -11498,13 +11474,13 @@ snapshots:
   '@rolldown/binding-win32-x64-msvc@1.0.0-beta.53':
     optional: true
 
-  '@rolldown/pluginutils@1.0.0-beta.27': {}
-
   '@rolldown/pluginutils@1.0.0-beta.29': {}
 
   '@rolldown/pluginutils@1.0.0-beta.31': {}
 
   '@rolldown/pluginutils@1.0.0-beta.53': {}
+
+  '@rolldown/pluginutils@1.0.0-rc.7': {}
 
   '@rollup/plugin-babel@5.3.1(@babel/core@7.28.0)(@types/babel__core@7.20.5)(rollup@2.79.2)':
     dependencies:
@@ -12040,22 +12016,10 @@ snapshots:
 
   '@vercel/ncc@0.30.0': {}
 
-  '@vitejs/plugin-react-oxc@0.3.0(rolldown-vite@7.3.1(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3))':
+  '@vitejs/plugin-react@6.0.1(rolldown-vite@7.3.1(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3))':
     dependencies:
-      '@rolldown/pluginutils': 1.0.0-beta.27
+      '@rolldown/pluginutils': 1.0.0-rc.7
       vite: rolldown-vite@7.3.1(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3)
-
-  '@vitejs/plugin-react@4.7.0(rolldown-vite@7.3.1(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3))':
-    dependencies:
-      '@babel/core': 7.28.0
-      '@babel/plugin-transform-react-jsx-self': 7.27.1(@babel/core@7.28.0)
-      '@babel/plugin-transform-react-jsx-source': 7.27.1(@babel/core@7.28.0)
-      '@rolldown/pluginutils': 1.0.0-beta.27
-      '@types/babel__core': 7.20.5
-      react-refresh: 0.17.0
-      vite: rolldown-vite@7.3.1(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3)
-    transitivePeerDependencies:
-      - supports-color
 
   '@vitejs/plugin-vue-jsx@5.0.1(rolldown-vite@7.3.1(@types/node@18.19.121)(esbuild@0.14.48)(jiti@1.21.7)(less@4.4.0)(terser@5.43.1)(tsx@4.20.3))(vue@3.5.18(typescript@5.9.2))':
     dependencies:

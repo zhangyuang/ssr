@@ -1,7 +1,6 @@
 import type * as VuePlugin from "@vitejs/plugin-vue/dist";
 import type * as VueJSXPlugin from "@vitejs/plugin-vue-jsx/dist";
-import type * as ReactOXCPlugin from "@vitejs/plugin-react-oxc";
-// import type * as ReactPlugin from '@vitejs/plugin-react'
+import type * as ReactPlugin from "@vitejs/plugin-react/dist";
 import { resolve } from "path";
 import babel from "@rollup/plugin-babel";
 import { visualizer } from "rollup-plugin-visualizer";
@@ -42,15 +41,13 @@ const { clientOutPut, serverOutPut } = getOutput();
 
 let vuePlugin: typeof VuePlugin.default | undefined;
 let vueJSXPlugin: typeof VueJSXPlugin.default | undefined;
-// let reactPlugin: typeof ReactPlugin.default | undefined
-let reactOXCPlugin: typeof ReactOXCPlugin.default | undefined;
+let reactPlugin: typeof ReactPlugin.default | undefined;
 if (isVue3) {
   vuePlugin = require(loadModuleFromFramework("@vitejs/plugin-vue"));
   vueJSXPlugin = require(loadModuleFromFramework("@vitejs/plugin-vue-jsx"));
 }
 if (isReact) {
-  // reactPlugin = require(loadModuleFromFramework('@vitejs/plugin-react'))
-  reactOXCPlugin = require(loadModuleFromFramework("@vitejs/plugin-react-oxc")).default;
+  reactPlugin = require(loadModuleFromFramework("@vitejs/plugin-react")).default;
 }
 const styleImportConfig = {
   include: ["**/*.vue", "**/*.ts", "**/*.js", "**/*.tsx", "**/*.jsx", /chunkName/],
@@ -92,12 +89,7 @@ if (isVue3) {
   );
 } else if (isReact) {
   frameworkServerPlugins = frameworkServerPlugins.concat(
-    // reactPlugin!({
-    // 	...viteConfig?.()?.server?.defaultPluginOptions,
-    // 	jsxRuntime: 'automatic',
-    // 	...babelOptions
-    // })
-    reactOXCPlugin!({
+    reactPlugin!({
       ...viteConfig?.()?.server?.defaultPluginOptions,
     }),
   );
@@ -150,12 +142,7 @@ if (isVue3) {
   ];
 } else if (isReact) {
   frameworkClientPlugins = [
-    // reactPlugin!({
-    // 	...viteConfig?.()?.client?.defaultPluginOptions,
-    // 	jsxRuntime: 'automatic',
-    // 	...babelOptions
-    // })
-    reactOXCPlugin!({
+    reactPlugin!({
       ...viteConfig?.()?.client?.defaultPluginOptions,
     }),
   ];

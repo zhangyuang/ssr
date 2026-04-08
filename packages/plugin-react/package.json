@@ -28,8 +28,7 @@
   },
   "dependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.5",
-    "@vitejs/plugin-react": "^4.0.0",
-    "@vitejs/plugin-react-oxc": "^0.3.0",
+    "@vitejs/plugin-react": "^6.0.1",
     "babel-preset-react-app": "^10.0.0",
     "ssr-common-utils": "workspace:*",
     "ssr-hoc-react": "workspace:*",
