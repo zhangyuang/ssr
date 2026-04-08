@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { computed } from "vue";
 import { useStore } from "vuex";
 const mapState = <T = any>() => {
@@ -18,7 +19,6 @@ const mapGetters = <T = any>() => {
 const mapMutations = () => {
   const store = useStore();
   return Object.fromEntries(
-    // @ts-expect-error
     Object.keys(store._mutations).map(
       // @ts-expect-error
       (mutation) => [mutation, (value) => store.commit(mutation, value)],
@@ -28,7 +28,6 @@ const mapMutations = () => {
 const mapActions = <T = any>() => {
   const store = useStore();
   return Object.fromEntries(
-    // @ts-expect-error
     Object.keys(store._actions).map(
       // @ts-expect-error
       (action) => [action, async (value) => await (store.dispatch(action, value) as Promise<T>)],

@@ -11,7 +11,7 @@ import {
   setHeader,
 } from "ssr-common-utils";
 import { IConfig, ISSRContext, UserConfig, Vue3RenderRes } from "ssr-types";
-import type { ViteDevServer } from "vite";
+import type { ViteDevServer } from "vite/dist/node/index.js";
 import { getCustomScript } from "./utils";
 
 const defaultConfig = loadConfig();
@@ -86,7 +86,7 @@ async function viteRender(ctx: ISSRContext, config: IConfig) {
   const { isDev, dynamicFile } = config;
   let serverRes;
   if (isDev) {
-    const { createServer } = await import("vite");
+    const { createServer } = await import("vite/dist/node/index.js");
     const { serverConfig } = await import("ssr-vite");
     viteServer = !viteServer ? await createServer(serverConfig) : viteServer;
     const { serverRender } = await (viteServer as ViteDevServer).ssrLoadModule(viteServerEntry);

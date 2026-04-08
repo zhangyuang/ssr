@@ -36,6 +36,6 @@
   "devDependencies": {
     "ssr-types": "workspace:*",
     "ssr-vite": "workspace:*",
-    "vite": "npm:rolldown-vite@latest"
+    "vite": "^8.0.0"
   }
 }

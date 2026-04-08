@@ -76,8 +76,7 @@
     "prompts": "^2.4.2",
     "semver": "^7.3.7",
     "shelljs": "^0.8.5",
-    "typescript": "^5.8.2",
-    "vite": "npm:rolldown-vite@^7.3.1"
+    "typescript": "^5.8.2"
   },
   "engines": {
     "node": ">=20.0.0"
@@ -98,8 +97,7 @@
       "ssr-types": "workspace:*",
       "ssr-vite": "workspace:*",
       "ssr-webpack": "workspace:*",
-      "ssr-rspack": "workspace:*",
-      "vite": "npm:rolldown-vite@latest"
+      "ssr-rspack": "workspace:*"
     },
     "dedupeInjectedDeps": true,
     "packageExtensions": {

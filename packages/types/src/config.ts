@@ -1,7 +1,7 @@
 import type { PluginItem as BabelPluginItem } from "@babel/core";
 import type { RollupBabelInputPluginOptions } from "@rollup/plugin-babel";
 import type { Plugin as PostCssPlugin } from "postcss";
-import type { CSSOptions, PluginOption, ServerOptions, UserConfig as ViteConfig } from "vite";
+import type { CSSOptions, PluginOption, ServerOptions, UserConfig as ViteConfig } from "vite/dist/node/index.js";
 import type { Options } from "webpack";
 import type { StatsOptions, DevServer } from "@rspack/core";
 import type WebpackChainConfig from "webpack-chain";

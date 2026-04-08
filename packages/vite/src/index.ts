@@ -15,7 +15,7 @@ import {
   judgeFramework,
   getBuildEntry,
 } from "ssr-common-utils";
-import { build as viteBuild, type PluginOption, type InlineConfig } from "rolldown-vite";
+import { build as viteBuild, type PluginOption, type InlineConfig } from "vite/dist/node/index.js";
 import {
   AndDesignVueResolve,
   AntdResolve,

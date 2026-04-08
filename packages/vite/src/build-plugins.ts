@@ -1,7 +1,7 @@
 import { promises, writeFileSync } from "fs";
 import { resolve } from "path";
 import { mkdir } from "shelljs";
-import type { Plugin, UserConfig } from "rolldown-vite";
+import type { Plugin, UserConfig } from "vite/dist/node/index.js";
 import type { OutputOptions, PreRenderedChunk } from "rolldown";
 import { getBuildConfig, addDefaultAlias, getPkgName, vendorList } from "ssr-common-utils";
 import {
@@ -205,7 +205,7 @@ const commonConfig = (_env: "server" | "client"): UserConfig => {
     },
     appType: "custom",
     css: {
-      postcss: css?.().loaderOptions?.postcss ?? {},
+      postcss: (css?.().loaderOptions?.postcss ?? {}) as any,
       preprocessorOptions: {
         less: {
           javascriptEnabled: true,
