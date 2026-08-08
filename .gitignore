@@ -118,3 +118,8 @@ e2e/videos
 playwright-report
 
 test-results
+
+.agents
+
+.claude
+*.html

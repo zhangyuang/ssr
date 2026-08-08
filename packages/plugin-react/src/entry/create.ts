@@ -1,8 +1,7 @@
 import * as declareRoutes from "_build/ssr-declare-routes";
 import * as ManualRoutes from "_build/ssr-manual-routes";
 import { createContext } from "react";
-import { combineRoutes } from "ssr-common-utils";
-import { deepClone } from "ssr-deepclone";
+import { combineRoutes, deepClone } from "ssr-common-utils";
 import { proxy } from "valtio";
 import type { IContext, ReactRoutesType } from "ssr-types";
 
