@@ -86,6 +86,9 @@ async function main(): Promise<void> {
       pkgName,
     ];
     await run("npx", changelogArgs, { cwd: pkgDir });
+    // conventional-changelog prepends blank lines, which makes `pnpm lint`
+    // (oxfmt --check) fail inside the pre-commit hook and abort the release.
+    await run("npx", ["oxfmt", "--write", "CHANGELOG.md"], { cwd: pkgDir });
     await runIfNotDry("git", ["tag", tag]).catch((err) => {
       console.error(err);
     });
