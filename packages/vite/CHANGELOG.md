@@ -1,3 +1,11 @@
+## [7.0.16](https://github.com/zhangyuang/ssr/compare/vite@7.0.16...vite@7.0.16) (2026-08-17)
+
+## [7.0.16](https://github.com/zhangyuang/ssr/compare/vite@7.0.15...vite@7.0.16) (2026-08-17)
+
+### Bug Fixes
+
+- **vite:** preserve scoped CSS for Vue SFCs loaded with ?chunkName query close [#363](https://github.com/zhangyuang/ssr/issues/363) ([#364](https://github.com/zhangyuang/ssr/issues/364)) ([0d04d86](https://github.com/zhangyuang/ssr/commit/0d04d862b0ac9863fa72e8e286139ee4ab677a10))
+
 ## [7.0.15](https://github.com/zhangyuang/ssr/compare/vite@7.0.14...vite@7.0.15) (2026-04-08)
 
 ### Features
