@@ -49,6 +49,53 @@ const getModuleName = (id: string) => {
 const moduleIds = new Set<string>();
 const directChunkModules: string[] = [];
 
+/**
+ * Fix: rolldown-vite drops scoped CSS for Vue SFCs loaded with ?chunkName query.
+ *
+ * Root cause: @vitejs/plugin-vue sets cssScopeTo: [descriptor.filename, "default"]
+ * where descriptor.filename is the bare file path (no query). But rolldown-vite's
+ * isCssScopeToRendered looks up renderedModules[importerId], and the module is
+ * registered with its full ID including ?chunkName=xxx. The mismatch causes the
+ * scoped CSS to be incorrectly tree-shaken.
+ *
+ * Fix: patch cssScopeTo[0] to use the full module ID (with ?chunkName query) so
+ * that the lookup in renderedModules succeeds.
+ */
+const fixVueScopedCssPlugin = (): Plugin => {
+  const vueChunkNameMap = new Map<string, string>();
+
+  return {
+    name: "ssr:fix-vue-scoped-css",
+    enforce: "post",
+
+    transform(code, id) {
+      // Track .vue files loaded with ?chunkName query
+      if (id.includes(".vue") && id.includes("chunkName=") && !id.includes("type=style")) {
+        const filename = id.split("?")[0];
+        vueChunkNameMap.set(filename, id);
+      }
+
+      // For scoped style sub-modules, patch cssScopeTo to use the full parent ID
+      if (id.includes("?vue") && id.includes("type=style") && id.includes("scoped=")) {
+        const filename = id.split("?")[0];
+        const parentFullId = vueChunkNameMap.get(filename);
+        if (parentFullId) {
+          return {
+            code,
+            meta: {
+              vite: {
+                cssScopeTo: [parentFullId, "default"],
+              },
+            },
+          };
+        }
+      }
+
+      return null;
+    },
+  };
+};
+
 const asyncOptimizeChunkPlugin = (): Plugin => {
   return {
     name: "asyncOptimizeChunkPlugin",
@@ -228,4 +275,10 @@ const commonConfig = (_env: "server" | "client"): UserConfig => {
   };
 };
 
-export { manifestPlugin, rollupOutputOptions, commonConfig, asyncOptimizeChunkPlugin };
+export {
+  manifestPlugin,
+  rollupOutputOptions,
+  commonConfig,
+  asyncOptimizeChunkPlugin,
+  fixVueScopedCssPlugin,
+};
