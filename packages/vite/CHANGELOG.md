@@ -1,5 +1,7 @@
 ## [7.0.16](https://github.com/zhangyuang/ssr/compare/vite@7.0.16...vite@7.0.16) (2026-08-17)
 
+## [7.0.16](https://github.com/zhangyuang/ssr/compare/vite@7.0.16...vite@7.0.16) (2026-08-17)
+
 ## [7.0.16](https://github.com/zhangyuang/ssr/compare/vite@7.0.15...vite@7.0.16) (2026-08-17)
 
 ### Bug Fixes
