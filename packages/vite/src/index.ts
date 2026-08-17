@@ -29,6 +29,7 @@ import {
   asyncOptimizeChunkPlugin,
   manifestPlugin,
   rollupOutputOptions,
+  fixVueScopedCssPlugin,
 } from "./build-plugins";
 
 const framework = judgeFramework();
@@ -148,7 +149,11 @@ if (isVue3) {
   ];
 }
 
-const clientPlugins: PluginOption[] = [...frameworkClientPlugins, ...commonClientPlugins];
+const clientPlugins: PluginOption[] = [
+  ...frameworkClientPlugins,
+  ...commonClientPlugins,
+  ...(isVue3 ? [fixVueScopedCssPlugin()] : []),
+];
 const analyzePlugin = process.env.GENERATE_ANALYSIS
   ? visualizer({ filename: resolve(getCwd(), "./build/stat.html"), open: true })
   : null;

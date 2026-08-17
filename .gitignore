@@ -118,3 +118,10 @@ e2e/videos
 playwright-report
 
 test-results
+
+# AI agent artifacts
+.agents/
+.claude/
+
+# Lighthouse reports
+*.report.html
