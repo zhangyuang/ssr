@@ -63,7 +63,9 @@ export const handleEnv = async (argv: Argv) => {
     process.env.VITEMODE = argv.viteMode;
   }
 
-  process.env.SERVER_PORT = argv.port ? String(argv.port) : "3000";
+  if (!process.env.SERVER_PORT) {
+    process.env.SERVER_PORT = argv.port ? String(argv.port) : "3000";
+  }
   if (!!https && isDev) {
     process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
   }
